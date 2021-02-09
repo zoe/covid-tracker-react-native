@@ -1065,8 +1065,8 @@
         "correct-info": "Informationen är korrekt",
         "no-vaccine": "Jag har inte vaccinerats",
         "no-2nd": "Jag har inte fått en andra dos",
-        "delete-vaccine-title": "",
-        "delete-vaccine-text": ""
+        "delete-vaccine-title": "Ta bort vaccin",
+        "delete-vaccine-text": "All information om vaccindoser kommer att tas bort."
       },
       "your-vaccine": {
         "title": "Berätta om din vaccination",
@@ -1084,10 +1084,10 @@
         "placeholder-type": "Välj ett",
         "placeholder-batch": "T.ex. EL0141",
         "label-batch": "Batch-/satsnummer (valfritt)",
-        "date-change-confirm": "",
-        "date-change-text": "",
-        "confirm": "",
-        "delete": ""
+        "date-change-confirm": "Bekräfta datumändring?",
+        "date-change-text": "Detta ändras när vi frågar dig vissa frågor.",
+        "confirm": "Bekräfta",
+        "delete": "Ta bort"
       },
 
       "vaccine-card": {
