@@ -13,6 +13,7 @@ import {
 } from '@covid/components';
 import { VaccinePlanRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import i18n from '@covid/locale/i18n';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
 
 type VaccineHesitancyCheckBoxData = {
   reason_vaccine_trial: boolean;
@@ -48,9 +49,13 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
     { label: i18n.t('picker-do-not-know'), value: 'unsure' },
   ];
 
-  const checkboxes: BooleanCheckBoxData[] = [
+  const checkboxesNotSE: BooleanCheckBoxData[] = isSECountry() ? [] : [
     { label: i18n.t('vaccines.hesitancy.vaccine-trial'), formKey: 'reason_vaccine_trial' },
     { label: i18n.t('vaccines.hesitancy.religious'), formKey: 'reason_religion' },
+  ];
+
+  const checkboxes: BooleanCheckBoxData[] = [
+    ...checkboxesNotSE,
     { label: i18n.t('vaccines.hesitancy.philosophical'), formKey: 'reason_personal_belief' },
     { label: i18n.t('vaccines.hesitancy.pregnancy'), formKey: 'reason_pregnancy_breastfeeding' },
     { label: i18n.t('vaccines.hesitancy.illness'), formKey: 'reason_illness' },
