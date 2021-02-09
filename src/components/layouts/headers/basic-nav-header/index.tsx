@@ -8,11 +8,11 @@ import { RoundIconButton } from '../../../Buttons';
 
 function BasicNavHeader() {
   const { goBack } = useNavigation();
-  const theme = useTheme();
+  const { colors, grid } = useTheme();
   return (
-    <View style={{ marginTop: theme.grid.l, paddingHorizontal: theme.grid.gutter }}>
+    <View style={{ marginTop: grid.l, marginBottom: grid.xxl, paddingHorizontal: grid.gutter }}>
       <RoundIconButton
-        backgroundColor={theme.colors.ui.dark.bgColor}
+        backgroundColor={colors.ui.dark.bgColor}
         iconColor="black"
         iconName="arrow_back_ios"
         iconStyle={{ transform: [{ translateX: 4 }] }} // center arrow
