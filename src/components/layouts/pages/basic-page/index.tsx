@@ -6,18 +6,19 @@ import { BasicNavHeader } from '../../headers';
 import SafeLayout from '../../safe-layout';
 
 interface IProps {
+  active?: boolean;
   children: ReactNode;
   footerTitle: string;
   onPress: () => void;
 }
 
-function BasicPage({ children, footerTitle, onPress }: IProps) {
+function BasicPage({ active = true, children, footerTitle, onPress }: IProps) {
   return (
     <SafeLayout withGutter={false}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
         <BasicNavHeader />
         {children}
-        <BasicPageFooter onPress={onPress} title={footerTitle} />
+        <BasicPageFooter active={active} onPress={onPress} title={footerTitle} />
       </ScrollView>
     </SafeLayout>
   );
