@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { BasicPage, Text } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
@@ -28,6 +28,7 @@ import { Question } from '../partials';
 
 function MentalHealthChanges() {
   const mentalHealthChanges = useSelector(selectMentalHealthChanges); // this is the state
+  const dispatch = useDispatch();
   const { grid } = useTheme();
   const questions = [
     {
@@ -55,7 +56,9 @@ function MentalHealthChanges() {
               key={key}
               onPress={(changeType) => {
                 console.log(changeType);
+                dispatch(item.action(changeType));
               }}
+              state={item.state}
             />
           );
         })}

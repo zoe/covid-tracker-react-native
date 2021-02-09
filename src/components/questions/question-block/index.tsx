@@ -23,9 +23,9 @@ function QuestionBlock({ active = false, iconName = undefined, keyValue, onPress
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.container, { backgroundColor: active ? colors.burgundy.main.bgColor : colors.ui.main.bgColor }]}>
-      {iconName && <Icon iconName={iconName} />}
-      <Text textClass="label" textAlign="center">
+      style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : colors.ui.main.bgColor }]}>
+      {iconName && <Icon iconName={iconName} iconStyle={{ color: active ? 'white' : 'black' }} />}
+      <Text textClass="label" textAlign="center" style={{ color: active ? 'white' : 'black' }}>
         {keyValue.key}
       </Text>
     </TouchableOpacity>
