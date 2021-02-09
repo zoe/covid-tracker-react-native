@@ -49,10 +49,12 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
     { label: i18n.t('picker-do-not-know'), value: 'unsure' },
   ];
 
-  const checkboxesNotSE: BooleanCheckBoxData[] = isSECountry() ? [] : [
-    { label: i18n.t('vaccines.hesitancy.vaccine-trial'), formKey: 'reason_vaccine_trial' },
-    { label: i18n.t('vaccines.hesitancy.religious'), formKey: 'reason_religion' },
-  ];
+  const checkboxesNotSE: BooleanCheckBoxData[] = isSECountry()
+    ? []
+    : [
+        { label: i18n.t('vaccines.hesitancy.vaccine-trial'), formKey: 'reason_vaccine_trial' },
+        { label: i18n.t('vaccines.hesitancy.religious'), formKey: 'reason_religion' },
+      ];
 
   const checkboxes: BooleanCheckBoxData[] = [
     ...checkboxesNotSE,
