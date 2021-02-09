@@ -17,11 +17,11 @@ type TKeyValue = {
 };
 
 type TAnswer = {
-  iconName: TIconName;
+  iconName?: TIconName;
   keyValue: TKeyValue;
 };
 
-function Question({ onPress, question, state }: IProps) {
+function ChangesQuestion({ onPress, question, state }: IProps) {
   const { grid } = useTheme();
 
   const handleOnPress = (value: TMentalHealthChange) => {
@@ -42,7 +42,6 @@ function Question({ onPress, question, state }: IProps) {
       keyValue: { key: 'More', value: 'MORE' },
     },
     {
-      iconName: 'remove1',
       keyValue: { key: 'Not Applicable', value: 'NOT_APPLICABLE' },
     },
   ];
@@ -71,4 +70,4 @@ function Question({ onPress, question, state }: IProps) {
   );
 }
 
-export default Question;
+export default ChangesQuestion;

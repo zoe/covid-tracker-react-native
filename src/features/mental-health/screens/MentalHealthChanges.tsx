@@ -22,10 +22,9 @@ import {
   setSnacks,
   setTimeWithPets,
   setWorking,
-  TMentalHealthChange,
 } from '@covid/core/state/mental-health';
 
-import { Question } from '../partials';
+import { ChangesQuestion } from '../partials';
 
 function MentalHealthChanges() {
   const [canSubmit, setCanSubmit] = useState(false);
@@ -128,7 +127,7 @@ function MentalHealthChanges() {
         {questions.map((item, index) => {
           const key = `changes-${index}`;
           return (
-            <Question
+            <ChangesQuestion
               question={item.question}
               key={key}
               onPress={(changeType) => {
