@@ -29,7 +29,7 @@ export const ShareVaccineCard: React.FC<Props> = ({ screenName, isSharing = fals
         <ExternalCallout
           calloutID="shareVaccine"
           imageSource={shareVaccine}
-          aspectRatio={600 / 500}
+          aspectRatio={1125 / 877}
           screenName={screenName}
           postClicked={() => navigate('Share', { sharable: 'VACCINES', hideLabel: true })}
         />
