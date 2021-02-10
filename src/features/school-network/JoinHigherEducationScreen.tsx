@@ -30,8 +30,8 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
 
   useEffect(() => {
     (async () => {
-      const schools = await service.getSchools();
-      setSchools(schools.filter((s) => s.higher_education === true));
+      const schools = await service.getUniversities();
+      setSchools(schools);
     })();
   }, []);
 

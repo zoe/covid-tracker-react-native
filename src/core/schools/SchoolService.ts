@@ -13,7 +13,7 @@ import { naturalCompare } from '@covid/utils/array';
 
 export interface ISchoolService {
   getSubscribedSchoolGroups(): Promise<SubscribedSchoolGroupStats[]>;
-  getSchools(): Promise<SchoolModel[]>;
+  getUniversities(): Promise<SchoolModel[]>;
   getSchoolById(id: string, higherEducation?: boolean): Promise<SchoolModel[]>;
   searchSchoolGroups(schoolId: string): Promise<SchoolGroupModel[]>;
   joinGroup(groupId: string, patientId: string): Promise<SchoolGroupJoinedResponse>;
@@ -25,8 +25,8 @@ export class SchoolService implements ISchoolService {
   @inject(Services.Api)
   private readonly apiClient: IApiClient;
 
-  getSchools(): Promise<SchoolModel[]> {
-    return this.apiClient.get<SchoolModel[]>('/schools/');
+  getUniversities(): Promise<SchoolModel[]> {
+    return this.apiClient.get<SchoolModel[]>('/schools/', { higher_education: true });
   }
 
   getSchoolById(id: string, higherEducation: boolean = false): Promise<SchoolModel[]> {
