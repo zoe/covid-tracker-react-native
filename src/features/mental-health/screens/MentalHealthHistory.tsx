@@ -11,6 +11,7 @@ import {
   selectMentalHealthHistory,
   setHasHistoryDiagnosis,
   TMentalHealthCondition,
+  THasDiagnosis,
 } from '@covid/core/state/mental-health';
 
 type TQuestion = {
@@ -18,17 +19,21 @@ type TQuestion = {
   value: TMentalHealthCondition;
 };
 
+type TOptions = {
+  label: string;
+  value: THasDiagnosis;
+};
+
 function MentalHealthHistory() {
-  const [canSubmit, setCanSubmit] = useState(false);
-  const [option, setOption] = useState<string>('');
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
+  const [canSubmit, setCanSubmit] = useState(false);
 
   const dispatch = useDispatch();
   const { grid } = useTheme();
-  const initialOptions = [
-    { label: 'Yes', value: 'yes' },
-    { label: 'No', value: 'no' },
-    { label: 'Prefer not to say', value: 'no' },
+  const initialOptions: TOptions[] = [
+    { label: 'Yes', value: 'YES' },
+    { label: 'No', value: 'NO' },
+    { label: 'Prefer not to say', value: 'DECLINE_TO_SAY' },
   ];
 
   const questions: TQuestion[] = [
@@ -106,15 +111,8 @@ function MentalHealthHistory() {
     },
   ];
 
-  const handleSetHasHistoryDiagnosis = (value: string) => {
-    setOption(value);
-    switch (value) {
-      case 'yes':
-        dispatch(setHasHistoryDiagnosis(true));
-        return;
-      default:
-        dispatch(setHasHistoryDiagnosis(false));
-    }
+  const handleSetHasHistoryDiagnosis = (value: THasDiagnosis) => {
+    dispatch(setHasHistoryDiagnosis(value));
   };
 
   const getHasExistingCondition = (condition: TMentalHealthCondition) =>
@@ -156,13 +154,12 @@ function MentalHealthHistory() {
         <View>
           <DropdownField
             label="Have you ever been diagnosed with a mental health condition?"
-            selectedValue={option}
+            selectedValue={MentalHealthHistory.hasDiagnosis}
             onValueChange={handleSetHasHistoryDiagnosis}
             items={initialOptions}
           />
         </View>
-        {MentalHealthHistory.hasDiagnosis && (
-          // <CheckList listData={questions} onPress={(answer) => console.log('answer: ', answer)} />
+        {MentalHealthHistory.hasDiagnosis === 'YES' && (
           <GenericSelectableList
             collection={questions}
             onPress={(data) => handleAddRemoveCondition(data.value)}
