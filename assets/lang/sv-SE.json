@@ -1013,7 +1013,7 @@
       "dose-symptoms": {
         "label": "Om din vaccination",
         "title-1": "",
-        "title-2": "",
+        "title-2": "Upplever du några symtom i närheten av injektionsplatsen?",
         "title-3": "",
         "check-all-that-apply": "Markera alla tillämpliga alternativ:",
         "pain": "Smärta",
@@ -1060,7 +1060,7 @@
       },
       "vaccine-list": {
         "title": "Dina covid-19-vacciner",
-        "description": "",
+        "description": "Berätta om du har fått minst en dos av covid-19-vaccin under pågående vaccinationsprogram. Fråga gärna hälsopersonalen vilket vaccin du får så att du kan fylla i uppgifterna korrekt.",
         "add-button": "Lägg till vaccin",
         "correct-info": "Informationen är korrekt",
         "no-vaccine": "Jag har inte vaccinerats",
@@ -1095,8 +1095,8 @@
         "dose-2": "Dos 2",
         "add-date": "",
         "add-info": "",
-        "date-missing": "",
-        "name-missing": "",
+        "date-missing": "Rapporterad, men redigera för att lägga till datum",
+        "name-missing": "Redigera för att lägga till typ",
         "not-logged": "Inte rapporterad än",
         "edit-vaccine": "Redigera vaccin"
       }
@@ -1268,7 +1268,7 @@
 
       "cta": "",
       "modal-body": "",
-      "button-1": "",
+      "button-1": "Avbryt",
       "button-2": "",
 
       "university-network-header": "",
