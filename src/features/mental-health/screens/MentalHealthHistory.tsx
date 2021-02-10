@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { BasicPage, DropdownField, Text } from '@covid/components';
+import { BasicPage, DropdownField, Text, CheckBoxButton } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import { useTheme } from '@covid/themes';
 import { selectMentalHealthHistory, setHasHistoryDiagnosis } from '@covid/core/state/mental-health';
@@ -47,6 +47,7 @@ function MentalHealthHistory() {
             items={initialOptions}
           />
         </View>
+        <CheckBoxButton active={canSubmit} onPress={() => setCanSubmit(!canSubmit)} backgroundColor="pink" />
         {MentalHealthHistory.hasDiagnosis && <Text>Show the questions</Text>}
       </View>
     </BasicPage>
