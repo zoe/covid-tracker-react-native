@@ -9,7 +9,7 @@ function Profile() {
   const { colors, grid } = useTheme();
   return (
     <View>
-      <View style={{ marginTop: grid.xxl, marginBottom: grid.xs, paddingHorizontal: grid.gutter }}>
+      <View style={{ marginBottom: grid.xs, paddingHorizontal: grid.gutter }}>
         <Avatar imgsrc={avatarTemp} />
         <Text rhythm={8}>Dr. Karsten C. Koenen</Text>
         <Text textClass="pSmallLight" style={{ color: colors.uiDark.dark.bgColor }}>
