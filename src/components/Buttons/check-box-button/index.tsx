@@ -14,7 +14,7 @@ interface IProps {
   iconName?: TIconName;
   iconSize?: TTypeSizes;
   iconStyle?: TStyleObject;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 function CheckBoxButton({

@@ -1,6 +1,6 @@
 export type TMentalHealthCondition =
   | 'ADD_ADHD'
-  | 'AGROPHOBIA'
+  | 'AGORAPHOBIA'
   | 'AUTISTIC_SPECTRUM_DISORDER'
   | 'DECLINE_TO_SAY'
   | 'DEPRESSION'
