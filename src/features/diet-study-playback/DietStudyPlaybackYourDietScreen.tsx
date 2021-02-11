@@ -2,6 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import i18n from 'i18n-js';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -31,7 +32,7 @@ export const DietStudyPlaybackYourDietScreen: React.FC<Props> = ({ route, naviga
           </SecondaryText>
           <View style={{ zIndex: 5, elevation: 5 }}>
             <QualityScore
-              beforeScore={coordinator.dietScore.pre_diet_score}
+              beforeScore={coordinator.dietScore?.pre_diet_score}
               duringScore={coordinator.dietScore.post_diet_score}
             />
           </View>
@@ -41,7 +42,8 @@ export const DietStudyPlaybackYourDietScreen: React.FC<Props> = ({ route, naviga
             </View>
             <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>
             <RegularText>
-              {'A score of 12 and above indicates a healthier diet that includes plenty of fruits, vegetables, fiber-rich foods and oily fish.\n\n' +
+              {i18n.t('diet-scores.diet-quality.text-1') +
+                '\n\n' +
                 'A lower score indicates a less healthy diet that includes more processed meats, high-sugar foods and fried snacks.\n\n' +
                 'This score is a simple way to calculate diet quality for the ‘average’ person. While it provides useful insights on a population level, it assumes everyone responds the same way to food. However, we now know this is not true.'}
             </RegularText>

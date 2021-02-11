@@ -285,8 +285,8 @@
     "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
     "current-location": "Du rapporterar just nu från:",
     "update-location": "Uppdatera plats",
-    "vaccine-reporting-message": "",
-    "vaccine-reporting-link": ""
+    "vaccine-reporting-message": "Fortsätt gärna att rapportera hur du mår dagligen efter att du vaccinerats mot covid-19 och ange eventuella allmänna symtom som du upplever.",
+    "vaccine-reporting-link": "Varför är detta viktigt?"
   },
 
   "describe-symptoms": {
@@ -483,7 +483,7 @@
   "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
   "push-notifications": "Slå på påminnelser",
   "cancel": "Avbryt",
-  "confirm": "",
+  "confirm": "Bekräfta",
   "delete": "Ta bort",
   "estimated-cases": "Uppskattade fall",
   "logout": "Logga ut",
@@ -754,7 +754,7 @@
       "title": false,
       "subtitle": false,
       "info": false,
-      "yes": false,
+      "yes": "Läs mer",
       "no": false,
       "app-name": false
     },
@@ -993,96 +993,19 @@
       "callout-link-text": false,
       "menu-item": false
     },
-    "vaccines": {
-      "dose-symptoms": {
-        "label": "",
-        "title-1": "",
-        "title-2": "",
-        "title-3": "",
-        "check-all-that-apply": "",
-        "pain": "",
-        "redness": "",
-        "swelling": "",
-        "glands": "",
-        "warmth": "",
-        "itch": "",
-        "tenderness": "",
-        "bruising": "",
-        "other": "",
-        "other-info": "",
-        "other-placeholder": "",
+
+    "diet-scores": {
+      "intro": {
         "next": ""
       },
-      "hesitancy": {
-        "title": "",
-        "check-all-that-apply": "",
-        "vaccine-trial": "",
-        "religious": "",
-        "philosophical": "",
-        "pregnancy": "",
-        "illness": "",
-        "safety-concern": "",
-        "bad-reaction": "",
-        "do-not-know": "",
-        "unsure-is-working": "",
-        "availability": "",
-        "unnecessary": "",
-        "Other": "",
-        "not-to-say": "",
-        "specify": ""
+      "diet-quality-intro": {
+        "text-1": ""
       },
-      "log-symptoms": {
-        "title": "",
-        "body-1": "",
-        "body-2": "",
-        "body-3": ""
+      "diet-quality": {
+        "text-1": ""
       },
-      "find-info": {
-        "title": "Find your vaccine info",
-        "body-1": "You should have received a vaccination card at the time of your vaccination. It contains all the information needed to log your vaccine with us.",
-        "link": "Where can I find this information?"
-      },
-      "vaccine-list": {
-        "title": "",
-        "description": "",
-        "add-button": "",
-        "correct-info": "",
-        "no-vaccine": "",
-        "no-2nd": "",
-        "delete-vaccine-title": "",
-        "delete-vaccine-text": ""
-      },
-      "your-vaccine": {
-        "title": "",
-        "first-dose": "",
-        "second-dose": "",
-        "when-injection": "",
-        "have-had-second": "",
-        "select-date": "",
-        "placeholder-name": "",
-        "label-name": "",
-        "name-i-dont-know": "",
-        "label-name-other": "",
-        "label-name-other-2": "",
-        "placeholder-name-other-2": "",
-        "placeholder-type": "",
-        "placeholder-batch": "",
-        "label-batch": "",
-        "date-change-confirm": "",
-        "date-change-text": "",
-        "confirm": "",
-        "delete": ""
-      },
-
-      "vaccine-card": {
-        "dose-1": "",
-        "dose-2": "",
-        "add-date": "",
-        "add-info": "",
-        "date-missing": "",
-        "name-missing": "",
-        "not-logged": "",
-        "edit-vaccine": ""
+      "gut-quality": {
+        "text-5": ""
       }
     },
 
@@ -1127,6 +1050,99 @@
     }
   },
 
+  "vaccines": {
+    "dose-symptoms": {
+      "label": "Om din vaccination",
+      "title-1": "",
+      "title-2": "Upplever du några symtom i närheten av injektionsplatsen?",
+      "title-3": "",
+      "check-all-that-apply": "Markera alla tillämpliga alternativ:",
+      "pain": "Smärta",
+      "redness": "Rodnad",
+      "swelling": "Svullnad",
+      "glands": "Svullna körtlar i armhålan",
+      "warmth": "Värmeökning",
+      "itch": "Klåda",
+      "tenderness": "Ömhet",
+      "bruising": "Blåmärke",
+      "other": "Annat",
+      "other-info": "Ange endast symtom i närheten av injektionsplatsen (förmodligen din arm). Vi frågar om allmäna symtom i nästa avsnitt.",
+      "other-placeholder": "Beskriv dina symtom här...",
+      "next": "Nästa"
+    },
+    "hesitancy": {
+      "title": "Skulle du vaccinera dig mot covid-19 om/när du erbjuds vaccination?",
+      "check-all-that-apply": "Berätta gärna varför (markera alla som stämmer):",
+      "vaccine-trial": "",
+      "religious": "Personliga övertygelser",
+      "philosophical": "Personliga övertygelser/filosofiska skäl",
+      "pregnancy": "Gravid/ammar",
+      "illness": "Sjukdom/medicinering",
+      "safety-concern": "Orolig för långsiktiga biverkningar",
+      "bad-reaction": "Orolig för kortsiktiga biverkningar",
+      "do-not-know": "Vet inte tillräckligt om det",
+      "unsure-is-working": "Tror inte att det kommer att fungera",
+      "availability": "Tror inte att jag kommer att erbjudas vaccination",
+      "unnecessary": "Tycker inte att det är nödvändigt",
+      "Other": "Annat",
+      "not-to-say": "Föredrar att inte berätta",
+      "specify": ""
+    },
+    "log-symptoms": {
+      "title": "Varför är det så viktigt att fortsätta att rapportera symtom även efter vaccination?",
+      "body-1": "När antalet covid-19-fall snabbt ökade under våren 2020 så lanserade vi snabbt COVID Symptom Study för att öka kunskaperna om sjukdomen.",
+      "body-2": "Nu när pandemin gått in i en ny fas kommer vi att monitorera hur vaccinerna påverkar pandemiförloppet.",
+      "body-3": "Genom att logga din vaccination och berätta hur du mår efteråt bidrar du till att forskarna har så korrekta data som möjligt att tillgå."
+    },
+    "find-info": {
+      "title": "Hitta din vaccininformation",
+      "body-1": "Du kanske fick ett vaccinationskort eller annan dokumentation när du vaccinerade dig. Där bör du kunna hitta alla uppgifter du behöver för att logga ditt vaccin här.",
+      "link": "Var hittar jag dessa uppgifter?"
+    },
+    "vaccine-list": {
+      "title": "Dina covid-19-vacciner",
+      "description": "Berätta om du har fått minst en dos av covid-19-vaccin under pågående vaccinationsprogram. Fråga gärna hälsopersonalen vilket vaccin du får så att du kan fylla i uppgifterna korrekt.",
+      "add-button": "Lägg till vaccin",
+      "correct-info": "Informationen är korrekt",
+      "no-vaccine": "Jag har inte vaccinerats",
+      "no-2nd": "Jag har inte fått en andra dos",
+      "delete-vaccine-title": "Ta bort vaccin",
+      "delete-vaccine-text": "All information om vaccindoser kommer att tas bort."
+    },
+    "your-vaccine": {
+      "title": "Berätta om din vaccination",
+      "first-dose": "Om din första dos",
+      "second-dose": "Om din andra dos",
+      "when-injection": "När blev du vaccinerad?",
+      "have-had-second": "Har du redan fått din andra dos?",
+      "select-date": "Välj datum",
+      "placeholder-name": "Välj ett",
+      "label-name": "Vilket vaccin fick du?",
+      "name-i-dont-know": "Annat/Jag vet inte",
+      "label-name-other": "Vilken typ av vaccin var det?",
+      "label-name-other-2": "",
+      "placeholder-name-other-2": "",
+      "placeholder-type": "Välj ett",
+      "placeholder-batch": "T.ex. EL0141",
+      "label-batch": "Batch-/satsnummer (valfritt)",
+      "date-change-confirm": "Bekräfta datumändring?",
+      "date-change-text": "Detta ändras när vi frågar dig vissa frågor.",
+      "confirm": "Bekräfta",
+      "delete": "Ta bort"
+    },
+
+    "vaccine-card": {
+      "dose-1": "Dos 1",
+      "dose-2": "Dos 2",
+      "add-date": "",
+      "add-info": "",
+      "date-missing": "Rapporterad, men redigera för att lägga till datum",
+      "name-missing": "Redigera för att lägga till typ",
+      "not-logged": "Inte rapporterad än",
+      "edit-vaccine": "Redigera vaccin"
+    }
+  },
+
   "dashboard": {
     "report-today": "Rapportera idag, även om du har det bra",
     "report-now": "Rapportera nu",
@@ -1141,7 +1157,8 @@
         "from-last-week": ""
       },
       "share-cta": ""
-    }
+    },
+    "share-cta": "Share"
   },
 
   "explore-trend-line": {
@@ -1252,7 +1269,7 @@
 
       "cta": "",
       "modal-body": "",
-      "button-1": "",
+      "button-1": "Avbryt",
       "button-2": "",
 
       "university-network-header": "",

@@ -951,7 +951,8 @@
         "from-last-week": ""
       },
       "share-cta": ""
-    }
+    },
+    "share-cta": "Share"
   },
 
   "explore-trend-line": {
@@ -1053,6 +1054,21 @@
       "callout-text": false,
       "callout-link-text": false,
       "menu-item": false
+    },
+
+    "diet-scores": {
+      "intro": {
+        "next": ""
+      },
+      "diet-quality-intro": {
+        "text-1": ""
+      },
+      "diet-quality": {
+        "text-1": ""
+      },
+      "gut-quality": {
+        "text-5": ""
+      }
     },
 
     "vaccines": {

@@ -153,7 +153,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose={false} />
     ) : null;
 
-  const renderFindInfoLink = isSECountry() ? null : (
+  const renderFindInfoLink = (
     <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineFindInfo()}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 0.1 }}>
@@ -170,13 +170,15 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       return false;
     }
 
-    // Always has doses here due to check above
     const doses: Partial<Dose>[] = assessmentData.vaccineData.doses;
     const dose1Date = doses[0]?.date_taken_specific;
     const dose2Date = doses[1]?.date_taken_specific;
     const formDate1 = formatDateToPost(formData.firstDoseDate);
     const formDate2 = formatDateToPost(formData.secondDoseDate);
-    return formDate1 !== dose1Date || formDate2 !== dose2Date;
+    const date1Changed = dose1Date !== formDate1;
+    const date2Changed = dose2Date !== undefined && dose2Date !== formDate2;
+
+    return date1Changed || date2Changed;
   };
 
   const buildInitialValues = (vaccine?: VaccineRequest): VaccineDoseData => {

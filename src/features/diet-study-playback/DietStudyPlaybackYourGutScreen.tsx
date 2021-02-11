@@ -2,6 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import i18n from 'i18n-js';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -31,8 +32,8 @@ export const DietStudyPlaybackYourGutScreen: React.FC<Props> = ({ route, navigat
           </SecondaryText>
 
           <GutScore
-            beforeScore={coordinator.dietScore.pre_gut_friendly_score}
-            duringScore={coordinator.dietScore.post_gut_friendly_score}
+            beforeScore={coordinator.dietScore?.pre_gut_friendly_score}
+            duringScore={coordinator.dietScore?.post_gut_friendly_score}
           />
 
           <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>
@@ -49,7 +50,8 @@ export const DietStudyPlaybackYourGutScreen: React.FC<Props> = ({ route, navigat
             </Header3Text>
             <RegularText>
               {'Seek variety - try to add 30 or more different types of plants to your diet each week.\n\n' +
-                'Fiber is fundamental - choose fiber-rich foods like wholegrains, beans, pulses, fruit, vegetables, nuts and seeds.\n\n' +
+                i18n.t('diet-scores.gut-quality.text-5') +
+                '\n\n' +
                 'Include fermented foods such as kefir, kimchi and sauerkraut that contain beneficial probiotic bacteria.'}
             </RegularText>
           </DoctorSpeechCard>

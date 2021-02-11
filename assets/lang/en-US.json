@@ -60,6 +60,21 @@
 
   "adult-or-child-text": "Right now, you can only create additional profiles for US residents.",
 
+  "diet-scores": {
+    "intro": {
+      "next": "View your personalized insights"
+    },
+    "diet-quality-intro": {
+      "text-1": "We have analyzed your diet in two ways to help you understand how your diet can help you maintain long-term health."
+    },
+    "diet-quality": {
+      "text-1": "A score of 12 and above indicates a healthier diet that includes plenty of fruits, vegetables, fiber-rich foods and oily fish."
+    },
+    "gut-quality": {
+      "text-5": "Fiber is fundamental - choose fiber-rich foods like wholegrains, beans, pulses, fruit, vegetables, nuts and seeds."
+    }
+  },
+
   "vaccines": {
     "vaccine-list": {
       "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now. "

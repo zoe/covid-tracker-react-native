@@ -81,7 +81,6 @@ import {
 } from '@covid/features';
 
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
-import MentalHealthNavigator from '../main-navigator';
 import { MetalHealthNavigator } from '..';
 
 function MainNavigator() {

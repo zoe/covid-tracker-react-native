@@ -1,5 +1,3 @@
-import * as Sharing from 'expo-sharing';
-import * as FileSystem from 'expo-file-system';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View, Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -15,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { dietStudyPlaybackReady, shareAppV3, shareVaccine, shareVaccineBanner } from '@assets';
+import { dietStudyPlaybackReadyUK, shareAppV3, shareVaccine, shareVaccineBanner } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -23,13 +21,14 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks, RegularText } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { experiments, startExperiment } from '@covid/core/Experiments';
 import { events, identify, track } from '@covid/core/Analytics';
+import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -73,25 +72,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     await share(shareMessage);
   };
 
-  const onShareImage = async (
-    fileName: string,
-    image: any,
-    dialogTitle: string,
-    eventKey: string,
-    screenName: string
-  ) => {
-    try {
-      const uri = Image.resolveAssetSource(image).uri;
-      const downloadPath = FileSystem.cacheDirectory + fileName;
-      const { uri: localUrl } = await FileSystem.downloadAsync(uri, downloadPath);
-      await Sharing.shareAsync(localUrl, {
-        mimeType: 'image/png',
-        dialogTitle,
-      });
-      track(eventKey, { screenName });
-    } catch (_) {}
-  };
-
   useEffect(() => {
     (async () => {
       identify();
@@ -128,22 +108,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <Button title="Mental Health Study" onPress={() => appCoordinator.goToMentalHealthStudy()} />
-        <ExternalCallout
-          calloutID="shareVaccine"
-          imageSource={shareVaccineBanner}
-          aspectRatio={311 / 135}
-          screenName={route.name}
-          postClicked={() =>
-            onShareImage(
-              'ShareVaccine.png',
-              shareVaccine,
-              i18n.t('share-log-vaccine'),
-              events.LOG_YOUR_VACCINE_SHARED,
-              'Dashboard'
-            )
-          }
-        />
+        <ShareVaccineCard screenName="Dashboard" />
 
         {showDietStudyPlayback && (
           <TouchableWithoutFeedback
@@ -151,7 +116,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
               track(events.DIET_STUDY_PLAYBACK_CLICKED);
               appCoordinator.goToDietStudyPlayback();
             }}>
-            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
+            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUK} />
           </TouchableWithoutFeedback>
         )}
 

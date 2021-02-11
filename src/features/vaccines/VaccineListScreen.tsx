@@ -87,7 +87,28 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const enableNextButton = () => {
     const firstDose: Partial<Dose> | undefined = vaccines[0]?.doses[0];
-    return !(firstDose && firstDose.date_taken_specific == null); // Disable button if user has first dose with no date.
+    const secondDose: Partial<Dose> | undefined = vaccines[0]?.doses[1];
+
+    // Disable button if user has dose(s) with missing date, brand & description
+    if (
+      firstDose &&
+      (firstDose.date_taken_specific == null ||
+        firstDose.brand === null ||
+        (firstDose.brand === 'not_sure' && firstDose.description === null))
+    ) {
+      return false;
+    }
+
+    if (
+      secondDose &&
+      (secondDose.date_taken_specific == null ||
+        secondDose.brand === null ||
+        (secondDose.brand === 'not_sure' && secondDose.description === null))
+    ) {
+      return false;
+    }
+
+    return true;
   };
 
   const ListContent = () => {
