@@ -13,17 +13,25 @@ type TKeyValue = {
 
 interface IProps {
   active?: boolean;
+  backgroundColor?: string | undefined;
   iconName?: TIconName;
   keyValue: TKeyValue;
   onPress: <T>(answer: T) => void;
 }
 
-function QuestionBlock({ active = false, iconName = undefined, keyValue, onPress }: IProps) {
+function QuestionBlock({
+  active = false,
+  backgroundColor = undefined,
+  iconName = undefined,
+  keyValue,
+  onPress,
+}: IProps) {
   const { colors } = useTheme();
+  const bgColor = backgroundColor ? backgroundColor : colors.ui.dark.bgColor;
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : colors.ui.main.bgColor }]}>
+      style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : bgColor }]}>
       {iconName && <Icon iconName={iconName} iconStyle={{ color: active ? 'white' : 'black' }} />}
       <Text textClass="label" textAlign="center" style={{ color: active ? 'white' : 'black' }}>
         {keyValue.key}
@@ -35,8 +43,6 @@ function QuestionBlock({ active = false, iconName = undefined, keyValue, onPress
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: 'green',
     alignItems: 'center',
     borderRadius: 8,
     justifyContent: 'center',

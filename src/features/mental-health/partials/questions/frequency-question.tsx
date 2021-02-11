@@ -42,12 +42,16 @@ function FrequencyQuestion({ onPress, question, state }: IProps) {
     },
   ];
 
+  const decline: TAnswer = {
+    keyValue: { key: 'Prefer not to say', value: 'DECLINE_TO_SAY' },
+  };
+
   return (
     <View style={{ marginBottom: grid.xxl }}>
       <Text textClass="pSmall" rhythm={grid.s}>
         {question}
       </Text>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', marginBottom: grid.s }}>
         {answers.map((answer, index) => {
           const key = `answer-${index}`;
           return (
@@ -60,6 +64,14 @@ function FrequencyQuestion({ onPress, question, state }: IProps) {
             </View>
           );
         })}
+      </View>
+      <View>
+        <QuestionBlock
+          active={state === decline.keyValue.value}
+          backgroundColor="transparent"
+          keyValue={decline.keyValue}
+          onPress={() => handleOnPress(decline.keyValue.value)}
+        />
       </View>
     </View>
   );
