@@ -80,8 +80,9 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
-import { VaccineListMissingModal } from '@covid/features/vaccines/VaccineListMissingModal';
 
+import MentalHealthNavigator from '../main-navigator';
+import { MetalHealthNavigator } from '..';
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
 
 function MainNavigator() {
@@ -180,6 +181,7 @@ function MainNavigator() {
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
       {DietStudyPlaybackNavigator({ Stack })}
+      {MetalHealthNavigator({ Stack })}
     </Stack.Navigator>
   );
 }
