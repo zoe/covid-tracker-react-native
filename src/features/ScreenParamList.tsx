@@ -121,6 +121,7 @@ export type ScreenParamList = {
   MentalHealthHistory: undefined;
   MentalHealthLearning: undefined;
   MentalHealthEnd: undefined;
+  MentalHealthModal: undefined;
 
   //
   Modal: undefined;

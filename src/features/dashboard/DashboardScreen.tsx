@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View, Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
@@ -101,6 +101,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const hasNetworkData = networks && networks.length > 0;
 
+  const { navigate } = useNavigation();
+
   return (
     <CollapsibleHeaderScrollView
       config={headerConfig}
@@ -108,6 +110,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        <Button title="show MH modal" onPress={() => navigate('MentalHealthModal')} />
         <ShareVaccineCard screenName="Dashboard" />
 
         {showDietStudyPlayback && (
