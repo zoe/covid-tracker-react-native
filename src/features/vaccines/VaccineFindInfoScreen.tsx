@@ -7,7 +7,7 @@ import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import VaccineDemoUK from '@assets/vaccines/VaccineDemoUK';
 import VaccineDemoUS from '@assets/vaccines/VaccineDemoUS';
 
@@ -19,8 +19,14 @@ type Props = {
 export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) => {
   const { assessmentData } = route.params;
 
-  // No case for SE, just GB and US atm (Jan 2021)
-  const exampleSVG = isGBCountry() ? <VaccineDemoUK /> : <VaccineDemoUS />;
+  // No case for SE, just GB and US atm (Feb 2021)
+  let exampleSVG = undefined;
+  if (isGBCountry()) {
+    exampleSVG = <VaccineDemoUK />;
+  }
+  if (isUSCountry()) {
+    exampleSVG = <VaccineDemoUS />;
+  }
 
   return (
     <Screen extendEdges profile={assessmentData.patientData.profile} navigation={navigation} showCloseButton>
