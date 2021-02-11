@@ -163,7 +163,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
         <View style={{ flex: 1 }} />
 
         <BrandedButton style={styles.continueButton} onPress={navigateToNextPageOrShowPopup}>
-          <RegularText>
+          <RegularText style={{ color: colors.white }}>
             {vaccines.length === 0
               ? i18n.t('vaccines.vaccine-list.no-vaccine')
               : vaccines[0]?.doses[1]?.date_taken_specific === undefined // 2nd dose not logged
@@ -192,5 +192,6 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     marginHorizontal: 16,
+    color: colors.white,
   },
 });
