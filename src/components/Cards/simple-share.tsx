@@ -2,21 +2,30 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 import { social } from '@assets';
+import i18n from '@covid/locale/i18n';
 
 import { BrandedButton } from '../BrandedButton';
 
+import { share } from './BaseShareApp';
+
 interface IProps {
+  shareMessage?: string | undefined;
   title: string;
-  onPress: () => void;
 }
 
-function SimpleShare({ title, onPress }: IProps) {
+function SimpleShare({ shareMessage = undefined, title }: IProps) {
+  const message = shareMessage ? shareMessage : i18n.t('share-this-app.message');
+
+  const handleOnShare = async () => {
+    await share(message);
+  };
+
   return (
     <View style={styles.card}>
       <View style={styles.imgContainer}>
         <Image source={social} style={styles.img} />
       </View>
-      <BrandedButton onPress={onPress} style={styles.button}>
+      <BrandedButton onPress={handleOnShare} style={styles.button}>
         {title}
       </BrandedButton>
       <View />
