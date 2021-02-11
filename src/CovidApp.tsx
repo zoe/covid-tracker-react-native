@@ -3,16 +3,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Root } from 'native-base';
 import React, { useEffect } from 'react';
-import { Dimensions, StatusBar } from 'react-native';
+import { Dimensions } from 'react-native';
 import * as Notifications from 'expo-notifications';
 
-import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { ShareScreen } from '@covid/components';
 import { MainNavigator } from '@covid/routes';
+
+import { VaccineListMissingModal } from './features/vaccines/VaccineListMissingModal';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -50,6 +51,11 @@ function CovidApp() {
             name="Share"
             component={ShareScreen}
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.8)' } }}
+          />
+          <Stack.Screen
+            name="VaccineListMissing"
+            component={VaccineListMissingModal}
+            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.4)' } }}
           />
         </Stack.Navigator>
       </NavigationContainer>

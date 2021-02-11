@@ -1128,7 +1128,10 @@
       "date-change-confirm": "Bekräfta datumändring?",
       "date-change-text": "Detta ändras när vi frågar dig vissa frågor.",
       "confirm": "Bekräfta",
-      "delete": "Ta bort"
+      "delete": "Ta bort",
+      "details-missing-title": "Vaccinuppgifter saknas",
+      "details-missing-body": "Lägg till datum och namn för de vaccindoser du fått för att gå vidare",
+      "details-missing-button": "Lägg till vaccinuppgifter"
     },
 
     "vaccine-card": {

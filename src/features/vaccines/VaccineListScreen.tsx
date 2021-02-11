@@ -3,13 +3,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { State } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -21,6 +20,7 @@ import { Services } from '@covid/provider/services.types';
 import { useAppDispatch } from '@covid/core/state/store';
 import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
 import { RootState } from '@covid/core/state/root';
+import NavigatorService from '@covid/NavigatorService';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -34,7 +34,6 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = assessmentCoordinator;
   const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState<string>('');
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
 
@@ -72,7 +71,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     return null;
   }
 
-  const handleNextButton = async () => {
+  const navigateToNextPage = async () => {
     if (vaccines.length > 0) {
       const dose = getFirstActiveDose(vaccines);
       const shouldAskDoseSymptoms = !!dose;
@@ -85,7 +84,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
 
-  const enableNextButton = () => {
+  const enableNext = () => {
     const firstDose: Partial<Dose> | undefined = vaccines[0]?.doses[0];
     const secondDose: Partial<Dose> | undefined = vaccines[0]?.doses[1];
 
@@ -139,6 +138,20 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       );
     }
   };
+  const showPopup = () => {
+    NavigatorService.navigate('VaccineListMissing', {
+      assessmentData: route.params.assessmentData,
+      test: 'hello',
+    });
+  };
+
+  const navigateToNextPageOrShowPopup = () => {
+    if (enableNext()) {
+      navigateToNextPage();
+    } else {
+      showPopup();
+    }
+  };
 
   return (
     <View style={styles.rootContainer}>
@@ -153,7 +166,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
         <View style={{ flex: 1 }} />
 
-        <BrandedButton style={styles.continueButton} onPress={handleNextButton} enable={enableNextButton()}>
+        <BrandedButton style={styles.continueButton} onPress={navigateToNextPageOrShowPopup}>
           <Text>
             {vaccines.length === 0
               ? i18n.t('vaccines.vaccine-list.no-vaccine')

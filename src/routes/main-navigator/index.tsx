@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { TypedNavigator } from '@react-navigation/native';
 
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -79,13 +80,12 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
+import { VaccineListMissingModal } from '@covid/features/vaccines/VaccineListMissingModal';
 
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
-import MentalHealthNavigator from '../main-navigator';
-import { MetalHealthNavigator } from '..';
 
 function MainNavigator() {
-  const Stack = createStackNavigator<ScreenParamList>();
+  const Stack: TypedNavigator<NavigationStackProp> = createStackNavigator<ScreenParamList>();
   const noHeader = {
     headerShown: false,
   };
@@ -180,7 +180,6 @@ function MainNavigator() {
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
       {DietStudyPlaybackNavigator({ Stack })}
-      {MetalHealthNavigator({ Stack })}
     </Stack.Navigator>
   );
 }
