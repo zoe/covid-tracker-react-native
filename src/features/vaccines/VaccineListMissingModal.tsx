@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { HeaderText, BrandedButton, RegularText } from '@covid/components';
+import { HeaderText, BrandedButton, Text } from '@covid/components';
 import assessmentCoordinator, { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 
 type Props = {
@@ -25,7 +25,7 @@ export const VaccineListMissingModal: React.FC<Props> = ({ navigation, route, as
   return (
     <View style={styles.modal}>
       <HeaderText style={styles.text}>{i18n.t('vaccines.your-vaccine.details-missing-title')}</HeaderText>
-      <RegularText style={styles.text}>{i18n.t('vaccines.your-vaccine.details-missing-body')}</RegularText>
+      <Text style={styles.text}>{i18n.t('vaccines.your-vaccine.details-missing-body')}</Text>
       <BrandedButton onPress={close} style={styles.button}>
         {i18n.t('vaccines.your-vaccine.details-missing-button')}
       </BrandedButton>

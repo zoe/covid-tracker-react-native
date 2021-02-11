@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, Text } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -117,7 +117,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
         <>
           {vaccines.length === 0 && (
             <BrandedButton style={styles.newButton} onPress={() => coordinator.goToAddEditVaccine()}>
-              <RegularText style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</RegularText>
+              <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
             </BrandedButton>
           )}
 
@@ -154,22 +154,20 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       <Screen profile={patientData.patientState.profile} navigation={navigation}>
         <HeaderText style={{ margin: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
 
-        <RegularText style={{ marginVertical: 8, marginHorizontal: 16 }}>
-          {i18n.t('vaccines.vaccine-list.description')}
-        </RegularText>
+        <Text style={{ marginVertical: 8, marginHorizontal: 16 }}>{i18n.t('vaccines.vaccine-list.description')}</Text>
 
         <ListContent />
 
         <View style={{ flex: 1 }} />
 
         <BrandedButton style={styles.continueButton} onPress={navigateToNextPageOrShowPopup}>
-          <RegularText style={{ color: colors.white }}>
+          <Text style={{ color: colors.white }}>
             {vaccines.length === 0
               ? i18n.t('vaccines.vaccine-list.no-vaccine')
               : vaccines[0]?.doses[1]?.date_taken_specific === undefined // 2nd dose not logged
               ? i18n.t('vaccines.vaccine-list.no-2nd')
               : i18n.t('vaccines.vaccine-list.correct-info')}
-          </RegularText>
+          </Text>
         </BrandedButton>
       </Screen>
     </View>
