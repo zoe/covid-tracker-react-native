@@ -20,6 +20,7 @@ function ShareScreen() {
   const viewRef = useRef<View>(null);
   const route = useRoute();
   const sharable = route.params.sharable;
+  const hideLabel = route.params.hideLabel;
 
   const share = async () => {
     try {
@@ -36,7 +37,7 @@ function ShareScreen() {
       <SContentView>
         <SInnerContentView ref={viewRef} collapsable={false}>
           <ShareContainer sharable={sharable} />
-          <ShareLabel />
+          {!hideLabel && <ShareLabel />}
         </SInnerContentView>
       </SContentView>
       <SButtonView>
