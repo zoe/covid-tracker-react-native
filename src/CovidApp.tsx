@@ -50,12 +50,12 @@ function CovidApp() {
           <Stack.Screen
             name="Share"
             component={ShareScreen}
-            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.8)' } }}
+            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
           />
           <Stack.Screen
             name="VaccineListMissing"
             component={VaccineListMissingModal}
-            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.4)' } }}
+            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
           />
         </Stack.Navigator>
       </NavigationContainer>

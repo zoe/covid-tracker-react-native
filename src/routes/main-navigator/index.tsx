@@ -85,7 +85,7 @@ import { VaccineListMissingModal } from '@covid/features/vaccines/VaccineListMis
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
 
 function MainNavigator() {
-  const Stack: TypedNavigator<NavigationStackProp> = createStackNavigator<ScreenParamList>();
+  const Stack = createStackNavigator<ScreenParamList>();
   const noHeader = {
     headerShown: false,
   };
