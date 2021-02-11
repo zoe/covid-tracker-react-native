@@ -6,7 +6,7 @@ import { View } from 'native-base';
 import i18n from '@covid/locale/i18n';
 import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import DropdownField from '@covid/components/DropdownField';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
 import { VaccineDoseData } from './VaccineDoseQuestion';
 
@@ -30,8 +30,8 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = 
     { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: VaccineBrands.NOT_SURE },
   ];
 
-  // Add in extra item specific to GB users
-  if (isGBCountry()) {
+  // Add in extra item specific to GB/Swedish users
+  if (isGBCountry() || isSECountry()) {
     nameOptions.splice(2, 0, { label: 'Oxford/Astrazeneca', value: VaccineBrands.ASTRAZENECA });
   }
 
