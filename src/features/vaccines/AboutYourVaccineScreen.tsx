@@ -153,7 +153,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose={false} />
     ) : null;
 
-  const renderFindInfoLink = isSECountry() ? null : (
+  const renderFindInfoLink = (
     <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineFindInfo()}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 0.1 }}>
