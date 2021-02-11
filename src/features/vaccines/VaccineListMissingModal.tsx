@@ -1,21 +1,21 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Text } from 'native-base';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { HeaderText, BrandedButton } from '@covid/components';
+import { HeaderText, BrandedButton, RegularText } from '@covid/components';
 import assessmentCoordinator, { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;
   route: RouteProp<ScreenParamList, 'VaccineList'>;
+  assessmentData: AssessmentData;
 };
 
-export const VaccineListMissingModal: React.FC<Props> = ({ navigation, route }) => {
+export const VaccineListMissingModal: React.FC<Props> = ({ navigation, route, assessmentData }) => {
   const coordinator = assessmentCoordinator;
 
   const close = () => {
@@ -25,7 +25,7 @@ export const VaccineListMissingModal: React.FC<Props> = ({ navigation, route }) 
   return (
     <View style={styles.modal}>
       <HeaderText style={styles.text}>{i18n.t('vaccines.your-vaccine.details-missing-title')}</HeaderText>
-      <Text style={styles.text}>{i18n.t('vaccines.your-vaccine.details-missing-body')}</Text>
+      <RegularText style={styles.text}>{i18n.t('vaccines.your-vaccine.details-missing-body')}</RegularText>
       <BrandedButton onPress={close} style={styles.button}>
         {i18n.t('vaccines.your-vaccine.details-missing-button')}
       </BrandedButton>

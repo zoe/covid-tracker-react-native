@@ -1,6 +1,5 @@
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Text } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
@@ -118,7 +117,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
         <>
           {vaccines.length === 0 && (
             <BrandedButton style={styles.newButton} onPress={() => coordinator.goToAddEditVaccine()}>
-              <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
+              <RegularText style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</RegularText>
             </BrandedButton>
           )}
 
@@ -164,13 +163,13 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
         <View style={{ flex: 1 }} />
 
         <BrandedButton style={styles.continueButton} onPress={navigateToNextPageOrShowPopup}>
-          <Text>
+          <RegularText>
             {vaccines.length === 0
               ? i18n.t('vaccines.vaccine-list.no-vaccine')
               : vaccines[0]?.doses[1]?.date_taken_specific === undefined // 2nd dose not logged
               ? i18n.t('vaccines.vaccine-list.no-2nd')
               : i18n.t('vaccines.vaccine-list.correct-info')}
-          </Text>
+          </RegularText>
         </BrandedButton>
       </Screen>
     </View>
