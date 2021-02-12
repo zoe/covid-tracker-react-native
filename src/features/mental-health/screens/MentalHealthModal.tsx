@@ -4,6 +4,8 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Avatar, SafeLayout, Text } from '@covid/components';
 import { avatarTemp } from '@assets';
 
+import appCoordinator from '../../AppCoordinator';
+
 function MentalHealthModal() {
   return (
     <SafeLayout>
@@ -36,7 +38,9 @@ function MentalHealthModal() {
           </Text>
         </View>
         <View>
-          <TouchableOpacity style={[styles.button, { backgroundColor: '#0165B5' }]}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: '#0165B5' }]}
+            onPress={() => appCoordinator.goToMentalHealthStudy()}>
             <Text textClass="pSmallLight" style={{ color: 'white' }}>
               Yes, let’s do it
             </Text>
