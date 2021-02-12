@@ -1,37 +1,32 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View } from 'react-native';
 
-import { BrandedButton, RoundIconButton, SafeLayout } from '@covid/components';
+import { BasicPage, Text, SpeechCard, Icon } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 
+import { Profile } from '../partials';
+
 function MentalHealthStart() {
-  const { goBack } = useNavigation();
   return (
-    <SafeLayout>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={{ marginTop: 24 }}>
-          <RoundIconButton backgroundColor="transparent" iconName="close-large" onPress={() => goBack()} />
-        </View>
-        <View style={styles.footer}>
-          <BrandedButton onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
-            Start
-          </BrandedButton>
-        </View>
-      </ScrollView>
-    </SafeLayout>
+    <BasicPage footerTitle="Start" onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
+      <Profile />
+      <SpeechCard>
+        <Text rhythm={16} textClass="pLight">
+          We are currently investigating how the pandemic has had an impact on our mental health.
+        </Text>
+        <Text rhythm={16} textClass="pLight">
+          This short questionnaire is a starting point to allow us to understand better how it has affected us
+        </Text>
+        <Text textClass="pLight">Thank you for your ongoing support!</Text>
+      </SpeechCard>
+      <View style={{ flexDirection: 'row', paddingHorizontal: 16 }}>
+        <Icon iconName="error_outline" />
+        <Text textClass="pLight" style={{ marginLeft: 8 }}>
+          This study is currently only available for the “Me” primary profile.
+        </Text>
+      </View>
+    </BasicPage>
   );
 }
-
-const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 1,
-    justifyContent: 'space-between',
-  },
-  footer: {
-    paddingBottom: 8,
-    paddingTop: 32,
-  },
-});
 
 export default MentalHealthStart;

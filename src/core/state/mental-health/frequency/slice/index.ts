@@ -3,7 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../root';
 import { IMentalHealthFrequency, TMentalHealthFrequency } from '../types';
 
-const initialState: IMentalHealthFrequency = {};
+const initialState: IMentalHealthFrequency = {
+  pleasureInDoingThings: undefined,
+  feelingDown: undefined,
+  feelingNervous: undefined,
+  stopWorrying: undefined,
+};
 
 const mentalHealthFrequencySlice = createSlice({
   name: 'MentalHealthFrequency',

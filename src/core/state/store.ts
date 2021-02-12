@@ -9,14 +9,14 @@ import rootReducer from '@covid/core/state/root';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['dashboardVisited'],
+  blacklist: ['app'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  devTools: env.name === 'Staging',
+  devTools: env.NAME === 'Staging',
   middleware: getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

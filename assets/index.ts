@@ -108,3 +108,6 @@ export { default as ShareIcon } from './icons/Share';
 export * from './icons/stats';
 export * from './icons/svgIcons';
 export { default as C19 } from './logos/C19';
+
+// avatars
+export const avatarTemp = require('./avatars/avatar-temp.jpg');

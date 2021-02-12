@@ -3,18 +3,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../root';
 import { IApp } from '../types';
 
+// NOTE
+// THIS REDUCER IS BLACK LISTED AND RESET ON EVERY SESSION
+// SET SESSION VALUES HERE
+
 const initialState: IApp = {
-  dashboardVisited: false,
+  dashboardHasBeenViewed: false,
 };
 
 const appSlice = createSlice({
   name: 'App',
   initialState,
   reducers: {
-    setDasboardVisited: (state, action: PayloadAction<boolean>) => {
+    setDashboardHasBeenViewed: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,
-        dashboardVisited: action.payload,
+        dashboardHasBeenViewed: action.payload,
       };
     },
     reset: (state) => {
@@ -25,6 +29,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { setDasboardVisited, reset } = appSlice.actions;
+export const { setDashboardHasBeenViewed, reset } = appSlice.actions;
 export const selectApp = (state: RootState) => state.app;
 export default appSlice.reducer;

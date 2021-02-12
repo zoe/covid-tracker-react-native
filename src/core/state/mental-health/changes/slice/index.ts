@@ -3,7 +3,23 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../root';
 import { IMentalHealthChanges, TMentalHealthChange } from '../types';
 
-const initialState: IMentalHealthChanges = {};
+const initialState: IMentalHealthChanges = {
+  devicesWithScreen: undefined,
+  drinkingAlcohol: undefined,
+  engagingWithOrganisations: undefined,
+  feelingAlone: undefined,
+  greenSpaces: undefined,
+  interactingFaceToFace: undefined,
+  interactingViaPhoneOrTechnology: undefined,
+  readingWatchingListeningNews: undefined,
+  physical: undefined,
+  relaxation: undefined,
+  sleep: undefined,
+  smokingOrVaping: undefined,
+  snacks: undefined,
+  timeWithPets: undefined,
+  working: undefined,
+};
 
 const mentalHealthChangesSlice = createSlice({
   name: 'MentalHealthChanges',

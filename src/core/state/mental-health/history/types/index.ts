@@ -1,6 +1,6 @@
 export type TMentalHealthCondition =
   | 'ADD_ADHD'
-  | 'AGROPHOBIA'
+  | 'AGORAPHOBIA'
   | 'AUTISTIC_SPECTRUM_DISORDER'
   | 'DECLINE_TO_SAY'
   | 'DEPRESSION'
@@ -18,7 +18,9 @@ export type TMentalHealthCondition =
   | 'SUBSTANCE_USE_DISORDER'
   | 'TYPE_OF_PSYCHOSIS';
 
+export type THasDiagnosis = 'YES' | 'NO' | 'DECLINE_TO_SAY' | undefined;
+
 export interface IMentalHealthHistory {
-  hasDiagnosis: boolean;
+  hasDiagnosis: THasDiagnosis;
   conditions: TMentalHealthCondition[];
 }

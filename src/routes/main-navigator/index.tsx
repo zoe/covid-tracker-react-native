@@ -81,9 +81,8 @@ import {
   YourWorkScreen,
 } from '@covid/features';
 
-import MentalHealthNavigator from '../main-navigator';
-import { MetalHealthNavigator } from '..';
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
+import { MetalHealthNavigator } from '..';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();

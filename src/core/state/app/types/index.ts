@@ -1,3 +1,3 @@
 export interface IApp {
-  dashboardVisited: boolean;
+  dashboardHasBeenViewed: boolean;
 }

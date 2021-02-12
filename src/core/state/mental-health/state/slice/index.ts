@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../../../root';
-import { IMentalHealthState, TMentalHealthSection } from '../types';
+import { IMentalHealthState, TMentalHealthConsent, TMentalHealthSection } from '../types';
 
 const initialState: IMentalHealthState = {
-  currentSection: 'CHANGES',
-  hasSumitted: false,
+  consent: undefined,
+  currentSection: undefined,
 };
 
 const mentalHealthStateSlice = createSlice({
@@ -18,15 +18,15 @@ const mentalHealthStateSlice = createSlice({
         currentSection: action.payload,
       };
     },
-    setHasSubmitted: (state, action: PayloadAction<boolean>) => {
+    setConsent: (state, action: PayloadAction<TMentalHealthConsent>) => {
       return {
         ...state,
-        hasSubmitted: action.payload,
+        consent: action.payload,
       };
     },
   },
 });
 
-export const { setCurrentSection, setHasSubmitted } = mentalHealthStateSlice.actions;
+export const { setCurrentSection, setConsent } = mentalHealthStateSlice.actions;
 export const selectMentalHealthState = (state: RootState) => state.mentalHealthState;
 export default mentalHealthStateSlice.reducer;
