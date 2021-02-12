@@ -8,7 +8,9 @@ export type TMentalHealthLearning =
   | 'OTHER'
   | 'DECLINE_TO_SAY';
 
+export type THasDisability = 'YES' | 'NO' | 'DECLINE_TO_SAY' | undefined;
+
 export interface IMentalHealthLearning {
-  hasDisability: boolean;
+  hasDisability: THasDisability;
   conditions: TMentalHealthLearning[];
 }

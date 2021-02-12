@@ -59,4 +59,5 @@ export const text: ITextClass = {
     textAlign: 'center',
     textDecorationLine: 'none',
   },
+  label: getTextProperties(10, 12),
 };
