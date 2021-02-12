@@ -1,11 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Animated, View } from 'react-native';
 
-import { QuestionBlock, Text, TIconName } from '@covid/components';
+import { QuestionBlock, Text, TIconName, useFade } from '@covid/components';
 import { useTheme } from '@covid/themes';
 import { TMentalHealthChange } from '@covid/core/state/mental-health';
 
 interface IProps {
+  disabled?: boolean;
   onPress: (changeType: TMentalHealthChange) => void;
   question: string;
   state?: TMentalHealthChange;
@@ -21,9 +22,9 @@ type TAnswer = {
   keyValue: TKeyValue;
 };
 
-function ChangesQuestion({ onPress, question, state }: IProps) {
+function ChangesQuestion({ disabled = false, onPress, question, state }: IProps) {
   const { grid } = useTheme();
-
+  const fadeAnim = useFade(0.2, disabled ? 0.2 : 1, 500);
   const handleOnPress = (value: TMentalHealthChange) => {
     onPress(value);
   };
@@ -47,7 +48,7 @@ function ChangesQuestion({ onPress, question, state }: IProps) {
   ];
 
   return (
-    <View style={{ marginBottom: grid.xxl }}>
+    <Animated.View style={{ marginBottom: grid.xxl, opacity: fadeAnim }}>
       <Text textClass="pSmall" rhythm={grid.s}>
         {question}
       </Text>
@@ -58,6 +59,7 @@ function ChangesQuestion({ onPress, question, state }: IProps) {
             <View key={key} style={{ flex: 1, marginRight: index < answers.length - 1 ? 8 : 0 }}>
               <QuestionBlock
                 active={state === answer.keyValue.value}
+                disabled={disabled}
                 iconName={answer.iconName}
                 keyValue={answer.keyValue}
                 onPress={() => handleOnPress(answer.keyValue.value)}
@@ -66,7 +68,7 @@ function ChangesQuestion({ onPress, question, state }: IProps) {
           );
         })}
       </View>
-    </View>
+    </Animated.View>
   );
 }
 

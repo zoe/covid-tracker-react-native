@@ -28,6 +28,7 @@ import { ChangesQuestion } from '../partials';
 
 function MentalHealthChanges() {
   const [canSubmit, setCanSubmit] = useState(false);
+  const [curQuestion, setCurQuestion] = useState(0);
   const mentalHealthChanges = useSelector(selectMentalHealthChanges);
   const dispatch = useDispatch();
   const { grid } = useTheme();
@@ -113,6 +114,9 @@ function MentalHealthChanges() {
   useEffect(() => {
     const canSubmit = !Object.values(mentalHealthChanges).includes(undefined);
     setCanSubmit(canSubmit);
+    const answered = Object.values(mentalHealthChanges).filter((item) => item !== undefined);
+    console.log('ANSWERED: ', answered.length);
+    setCurQuestion(answered.length);
   }, [mentalHealthChanges]);
 
   return (
@@ -126,8 +130,10 @@ function MentalHealthChanges() {
         </Text>
         {questions.map((item, index) => {
           const key = `changes-${index}`;
+          const disabled = index > curQuestion;
           return (
             <ChangesQuestion
+              disabled={disabled}
               question={item.question}
               key={key}
               onPress={(changeType) => {

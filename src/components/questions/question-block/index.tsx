@@ -14,6 +14,7 @@ type TKeyValue = {
 interface IProps {
   active?: boolean;
   backgroundColor?: string | undefined;
+  disabled?: boolean;
   iconName?: TIconName;
   keyValue: TKeyValue;
   onPress: <T>(answer: T) => void;
@@ -22,6 +23,7 @@ interface IProps {
 function QuestionBlock({
   active = false,
   backgroundColor = undefined,
+  disabled = false,
   iconName = undefined,
   keyValue,
   onPress,
@@ -30,6 +32,7 @@ function QuestionBlock({
   const bgColor = backgroundColor ? backgroundColor : colors.ui.dark.bgColor;
   return (
     <TouchableOpacity
+      disabled={disabled}
       onPress={onPress}
       style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : bgColor }]}>
       {iconName && <Icon iconName={iconName} iconStyle={{ color: active ? 'white' : 'black' }} />}
