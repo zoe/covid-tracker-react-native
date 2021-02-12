@@ -8,6 +8,7 @@ import * as Notifications from 'expo-notifications';
 
 import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
+import { MentalHealthModal } from '@covid/features';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
@@ -49,6 +50,11 @@ function CovidApp() {
           <Stack.Screen
             name="Share"
             component={ShareScreen}
+            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.8)' } }}
+          />
+          <Stack.Screen
+            name="MentalHealthModal"
+            component={MentalHealthModal}
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.8)' } }}
           />
         </Stack.Navigator>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableWithoutFeedback, View, Button } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { dietStudyPlaybackReadyUK, shareAppV3, shareVaccine, shareVaccineBanner } from '@assets';
+import { dietStudyPlaybackReadyUK, shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -21,14 +21,14 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks, RegularText } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
-import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { experiments, startExperiment } from '@covid/core/Experiments';
 import { events, identify, track } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
+import { selectMentalHealthState, setDashboardHasBeenViewed, selectApp } from '@covid/core/state';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -40,6 +40,7 @@ interface Props {
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const app = useSelector(selectApp);
+  const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolGroups
@@ -72,6 +73,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     await share(shareMessage);
   };
 
+  const showMentalHealthModal = () => {
+    appCoordinator.goToMentalHealthModal();
+  };
+
   useEffect(() => {
     (async () => {
       identify();
@@ -91,11 +96,14 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   }, [navigation]);
 
   useEffect(() => {
-    if (!app.dashboardVisited) {
+    if (!app.dashboardHasBeenViewed) {
       if (showDietStudyPlayback) {
         track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
       }
-      dispatch(setDasboardVisited(true));
+      dispatch(setDashboardHasBeenViewed(true));
+      if (!MentalHealthState.consent) {
+        showMentalHealthModal();
+      }
     }
   }, []);
 
