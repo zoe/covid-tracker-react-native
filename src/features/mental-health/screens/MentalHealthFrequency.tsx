@@ -45,8 +45,6 @@ function MentalHealthFrequency() {
   ];
 
   useEffect(() => {
-    // const canSubmit = !Object.values(MentalHealthFrequency).includes(undefined);
-    // setCanSubmit(canSubmit);
     const answered = Object.values(MentalHealthFrequency).filter((item) => item !== undefined);
     setCurQuestion(answered.length);
     const enableSubmit = answered.length >= questions.length;

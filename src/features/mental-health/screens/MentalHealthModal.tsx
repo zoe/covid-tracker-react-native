@@ -1,17 +1,26 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
 import { Avatar, SafeLayout, Text } from '@covid/components';
 import { avatarTemp } from '@assets';
+import { useTheme } from '@covid/themes';
+import { TMentalHealthConsent, setConsent } from '@covid/core/state';
 
 import appCoordinator from '../../AppCoordinator';
 
 function MentalHealthModal() {
+  const dispatch = useDispatch();
   const { goBack } = useNavigation();
 
   // TODO implement redux state
-  const handleSetConsent = () => {
+  const handleSetConsent = (consent: TMentalHealthConsent) => {
+    dispatch(setConsent(consent));
+    if (consent !== 'YES') {
+      goBack();
+      return;
+    }
     appCoordinator.goToMentalHealthStudy();
   };
 
@@ -46,17 +55,21 @@ function MentalHealthModal() {
           </Text>
         </View>
         <View>
-          <TouchableOpacity style={[styles.button, { backgroundColor: '#0165B5' }]} onPress={handleSetConsent}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: '#0165B5' }]}
+            onPress={() => handleSetConsent('YES')}>
             <Text textClass="pSmallLight" style={{ color: 'white' }}>
               Yes, let’s do it
             </Text>
           </TouchableOpacity>
           {/* TODO implement redux state*/}
-          <TouchableOpacity style={[styles.button, { backgroundColor: '#EEEEEF' }]} onPress={() => goBack()}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: '#EEEEEF' }]}
+            onPress={() => handleSetConsent('LATER')}>
             <Text textClass="pSmallLight">No, but ask me again later</Text>
           </TouchableOpacity>
           {/* TODO implement redux state*/}
-          <TouchableOpacity style={[styles.button]} onPress={() => goBack()}>
+          <TouchableOpacity style={[styles.button]} onPress={() => handleSetConsent('NO')}>
             <Text textClass="pSmallLight">Skip, and don’t ask me again</Text>
           </TouchableOpacity>
         </View>
