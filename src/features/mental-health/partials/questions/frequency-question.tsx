@@ -1,11 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Animated, View } from 'react-native';
 
-import { QuestionBlock, Text, TIconName } from '@covid/components';
+import { QuestionBlock, Text, useFade } from '@covid/components';
 import { useTheme } from '@covid/themes';
 import { TMentalHealthFrequency } from '@covid/core/state/mental-health';
 
 interface IProps {
+  disabled?: boolean;
   onPress: (changeType: TMentalHealthFrequency) => void;
   question: string;
   state?: TMentalHealthFrequency;
@@ -20,8 +21,9 @@ type TAnswer = {
   keyValue: TKeyValue;
 };
 
-function FrequencyQuestion({ onPress, question, state }: IProps) {
+function FrequencyQuestion({ disabled = false, onPress, question, state }: IProps) {
   const { grid } = useTheme();
+  const fadeAnim = useFade(0.2, disabled ? 0.2 : 1, 500);
 
   const handleOnPress = (value: TMentalHealthFrequency) => {
     onPress(value);
@@ -47,7 +49,7 @@ function FrequencyQuestion({ onPress, question, state }: IProps) {
   };
 
   return (
-    <View style={{ marginBottom: grid.xxl }}>
+    <Animated.View style={{ marginBottom: grid.xxl, opacity: fadeAnim }}>
       <Text textClass="pSmall" rhythm={grid.s}>
         {question}
       </Text>
@@ -73,7 +75,7 @@ function FrequencyQuestion({ onPress, question, state }: IProps) {
           onPress={() => handleOnPress(decline.keyValue.value)}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 }
 

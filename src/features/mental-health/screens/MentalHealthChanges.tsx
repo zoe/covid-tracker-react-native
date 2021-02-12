@@ -112,11 +112,10 @@ function MentalHealthChanges() {
   ];
 
   useEffect(() => {
-    const canSubmit = !Object.values(mentalHealthChanges).includes(undefined);
-    setCanSubmit(canSubmit);
     const answered = Object.values(mentalHealthChanges).filter((item) => item !== undefined);
-    console.log('ANSWERED: ', answered.length);
     setCurQuestion(answered.length);
+    const enableSubmit = answered.length >= questions.length;
+    setCanSubmit(enableSubmit);
   }, [mentalHealthChanges]);
 
   return (
