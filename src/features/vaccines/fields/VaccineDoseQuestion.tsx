@@ -66,7 +66,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
       : formikProps.values.secondDoseDate;
     let countrySpecificMinDate: Date | undefined;
     let maxDate: Date | undefined;
-    let minDate: Date | undefined = today;
+    let minDate: Date | undefined;
 
     if (isGBCountry()) {
       minDate = new Date('2020-12-08');
