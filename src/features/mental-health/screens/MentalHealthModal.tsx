@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Avatar, SafeLayout, Text } from '@covid/components';
 import { avatarTemp } from '@assets';
@@ -7,6 +8,13 @@ import { avatarTemp } from '@assets';
 import appCoordinator from '../../AppCoordinator';
 
 function MentalHealthModal() {
+  const { goBack } = useNavigation();
+
+  // TODO implement redux state
+  const handleSetConsent = () => {
+    appCoordinator.goToMentalHealthStudy();
+  };
+
   return (
     <SafeLayout>
       <View style={styles.card}>
@@ -38,17 +46,17 @@ function MentalHealthModal() {
           </Text>
         </View>
         <View>
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: '#0165B5' }]}
-            onPress={() => appCoordinator.goToMentalHealthStudy()}>
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#0165B5' }]} onPress={handleSetConsent}>
             <Text textClass="pSmallLight" style={{ color: 'white' }}>
               Yes, let’s do it
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, { backgroundColor: '#EEEEEF' }]}>
+          {/* TODO implement redux state*/}
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#EEEEEF' }]} onPress={() => goBack()}>
             <Text textClass="pSmallLight">No, but ask me again later</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button]}>
+          {/* TODO implement redux state*/}
+          <TouchableOpacity style={[styles.button]} onPress={() => goBack()}>
             <Text textClass="pSmallLight">Skip, and don’t ask me again</Text>
           </TouchableOpacity>
         </View>
