@@ -74,7 +74,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const showMentalHealthModal = () => {
-    appCoordinator.goToMentalHealthModal();
+    if (MentalHealthState.consent !== 'NO') {
+      appCoordinator.goToMentalHealthModal();
+    }
   };
 
   useEffect(() => {
@@ -101,9 +103,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
       }
       dispatch(setDashboardHasBeenViewed(true));
-      if (!MentalHealthState.consent) {
-        showMentalHealthModal();
-      }
+      showMentalHealthModal();
     }
   }, []);
 
