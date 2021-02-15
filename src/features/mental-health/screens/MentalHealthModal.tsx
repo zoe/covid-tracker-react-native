@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 
 import { Avatar, SafeLayout, Text } from '@covid/components';
 import { avatarTemp } from '@assets';
-import { useTheme } from '@covid/themes';
 import { TMentalHealthConsent, setConsent } from '@covid/core/state';
 
 import appCoordinator from '../../AppCoordinator';
