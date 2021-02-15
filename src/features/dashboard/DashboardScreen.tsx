@@ -21,7 +21,7 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks, ProgressCircle } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -116,9 +116,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <View style={{ width: 100, height: 100, alignItems: 'center', justifyContent: 'center' }}>
-          <ProgressCircle size={80} progress={1} delay={1000} bgColor="white" />
-        </View>
         <ShareVaccineCard screenName="Dashboard" />
 
         {showDietStudyPlayback && (

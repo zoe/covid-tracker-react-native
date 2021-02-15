@@ -1,16 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { BasicPage, Icon, Text, SimpleShare, Spacer } from '@covid/components';
+import { BasicPage, Done, Text, SimpleShare, Spacer } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 
 function MentalHealthSupport() {
   return (
     <BasicPage footerTitle="Back to home" onPress={() => NavigatorService.navigate('Dashboard', undefined)} withGutter>
       <View style={styles.tickContainer}>
-        <View style={styles.tick}>
-          <Icon iconName="tick" iconStyle={{ color: '#C0D904' }} iconSize={32} />
-        </View>
+        <Done />
       </View>
       <Text textClass="h3" rhythm={32} textAlign="center">
         Thank you for your time!
