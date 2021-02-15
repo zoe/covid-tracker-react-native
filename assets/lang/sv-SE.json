@@ -104,7 +104,7 @@
 
   "picker-yes": "Ja",
   "picker-no": "Nej",
-  "picker-do-not-know": "",
+  "picker-do-not-know": "Vet ej/osäker",
   "picker-unsure": "Osäker",
   "please-select-option": "Välj ett alternativ",
   "placeholder-optional-question": "*Valfritt",
