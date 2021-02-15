@@ -1055,7 +1055,10 @@
       "date-change-confirm": "Confirm date change?",
       "date-change-text": "This will change when we ask you certain questions.",
       "confirm": "Confirm",
-      "delete": "Delete vaccine"
+      "delete": "Delete vaccine",
+      "details-missing-title": "Vaccine details missing",
+      "details-missing-body": "Please add the date and name of any vaccine doses that you've received in order to continue",
+      "details-missing-button": "Add vaccine info"
     },
 
     "vaccine-card": {

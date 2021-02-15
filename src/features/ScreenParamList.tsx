@@ -127,6 +127,7 @@ export type ScreenParamList = {
   Modal: undefined;
   Main: undefined;
   Share: undefined;
+  VaccineListMissing: { assessmentData: AssessmentData };
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };
