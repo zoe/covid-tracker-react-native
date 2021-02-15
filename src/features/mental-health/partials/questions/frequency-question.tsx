@@ -4,6 +4,7 @@ import { Animated, View } from 'react-native';
 import { QuestionBlock, Text, useFade } from '@covid/components';
 import { useTheme } from '@covid/themes';
 import { TMentalHealthFrequency } from '@covid/core/state/mental-health';
+import i18n from '@covid/locale/i18n';
 
 interface IProps {
   disabled?: boolean;
@@ -31,21 +32,21 @@ function FrequencyQuestion({ disabled = false, onPress, question, state }: IProp
 
   const answers: TAnswer[] = [
     {
-      keyValue: { key: 'Not at all', value: 'NOT_AT_ALL' },
+      keyValue: { key: i18n.t('mental-health.answer-not-at-all'), value: 'NOT_AT_ALL' },
     },
     {
-      keyValue: { key: 'Several days', value: 'SEVERAL_DAYS' },
+      keyValue: { key: i18n.t('mental-health.answer-several-days'), value: 'SEVERAL_DAYS' },
     },
     {
-      keyValue: { key: 'More than half the days', value: 'MORE_THAN_HALF_THE_DAYS' },
+      keyValue: { key: i18n.t('mental-health.answer-more-than-half'), value: 'MORE_THAN_HALF_THE_DAYS' },
     },
     {
-      keyValue: { key: 'Nearly every day', value: 'NEARLY_EVERY_DAY' },
+      keyValue: { key: i18n.t('mental-health.answer-nearly-every-day'), value: 'NEARLY_EVERY_DAY' },
     },
   ];
 
   const decline: TAnswer = {
-    keyValue: { key: 'Prefer not to say', value: 'DECLINE_TO_SAY' },
+    keyValue: { key: i18n.t('mental-health.answer-prefer-not-to-say'), value: 'DECLINE_TO_SAY' },
   };
 
   return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
+import i18n from '@covid/locale/i18n';
 import { BasicPage, Text, SpeechCard, Icon } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 
@@ -12,17 +13,17 @@ function MentalHealthStart() {
       <Profile />
       <SpeechCard>
         <Text rhythm={16} textClass="pLight">
-          We are currently investigating how the pandemic has had an impact on our mental health.
+          {i18n.t('mental-health.introduction-0')}
         </Text>
         <Text rhythm={16} textClass="pLight">
-          This short questionnaire is a starting point to allow us to understand better how it has affected us
+          {i18n.t('mental-health.introduction-1')}
         </Text>
-        <Text textClass="pLight">Thank you for your ongoing support!</Text>
+        <Text textClass="pLight">{i18n.t('mental-health.introduction-1')}</Text>
       </SpeechCard>
       <View style={{ flexDirection: 'row', paddingHorizontal: 16 }}>
         <Icon iconName="error_outline" />
         <Text textClass="pLight" style={{ marginLeft: 8 }}>
-          This study is currently only available for the “Me” primary profile.
+          {i18n.t('mental-health.introduction-condition')}
         </Text>
       </View>
     </BasicPage>

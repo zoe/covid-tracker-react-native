@@ -23,6 +23,7 @@ import {
   setTimeWithPets,
   setWorking,
 } from '@covid/core/state/mental-health';
+import i18n from '@covid/locale/i18n';
 
 import { ChangesQuestion } from '../partials';
 
@@ -35,78 +36,77 @@ function MentalHealthChanges() {
   const questions = [
     {
       action: setDevicesWithScreen,
-      question: 'Using devices with a screen',
+      question: i18n.t('mental-health.question-devices-with-screen'),
       state: mentalHealthChanges.devicesWithScreen,
     },
     {
       action: setDrinkingAlcohol,
-      question: 'Drinking alcohol',
+      question: i18n.t('mental-health.question-drinking-alcohol'),
       state: mentalHealthChanges.drinkingAlcohol,
     },
     {
       action: setEngagingWithOrganisations,
-      question:
-        'Engaging in organisations, clubs or societies (e.g. political, religious, charitable, social, sport. or other groups organisations, clubs or societies).',
+      question: i18n.t('mental-health.question-engaging-with-organisations'),
       state: mentalHealthChanges.engagingWithOrganisations,
     },
     {
       action: setFeelingAlone,
-      question: 'Feeling more alone',
+      question: i18n.t('mental-health.question-feeling-alone'),
       state: mentalHealthChanges.feelingAlone,
     },
     {
       action: setGreenSpaces,
-      question: 'Spending time in green spaces such as parks, gardens, countryside',
+      question: i18n.t('mental-health.question-green-spaces'),
       state: mentalHealthChanges.greenSpaces,
     },
     {
       action: setInteractingFaceToFace,
-      question: 'Interacting face-to-face with family/friends',
+      question: i18n.t('mental-health.question-interacting-face-to-face'),
       state: mentalHealthChanges.interactingFaceToFace,
     },
     {
       action: setInteractingViaPhoneOrTechnology,
-      question: 'Talking to family/friends via phone / technology',
+      question: i18n.t('mental-health.question-interacting-via-phone-or-technology'),
       state: mentalHealthChanges.interactingViaPhoneOrTechnology,
     },
     {
       action: setPhysical,
-      question: 'Being physically active / doing exercise',
+      question: i18n.t('mental-health.question-physical'),
       state: mentalHealthChanges.physical,
     },
     {
       action: setReadingWatchingListeningNews,
-      question: 'Reading/watching/listening to the news',
+      question: i18n.t('mental-health.question-reading-watching-listening-News'),
       state: mentalHealthChanges.readingWatchingListeningNews,
     },
     {
       action: setRelaxation,
-      question: 'Relaxation / mindfulness/ meditation',
+      question: i18n.t('mental-health.question-relaxation'),
       state: mentalHealthChanges.relaxation,
     },
     {
       action: setSleep,
-      question: 'Sleeping well',
+      question: i18n.t('mental-health.question-sleep'),
       state: mentalHealthChanges.sleep,
     },
     {
       action: setSmokingOrVaping,
-      question: 'Smoking or vaping',
+      question: i18n.t('mental-health.question-smoking-or-vaping'),
       state: mentalHealthChanges.smokingOrVaping,
     },
     {
       action: setSnacks,
-      question: 'Eating savoury snacks / confectionery  ',
+      question: i18n.t('mental-health.question-snacks'),
       state: mentalHealthChanges.snacks,
     },
     {
       action: setTimeWithPets,
-      question: 'Spending time with pets',
+      question: i18n.t('mental-health.question-time-with-pets'),
       state: mentalHealthChanges.timeWithPets,
     },
     {
       action: setWorking,
-      question: 'Working',
+      question: i18n.t('mental-health.question-working'),
       state: mentalHealthChanges.working,
     },
   ];
@@ -125,7 +125,7 @@ function MentalHealthChanges() {
       onPress={() => NavigatorService.navigate('MentalHealthFrequency', undefined)}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
-          During this pandemic, have you changed the way you have spent time doing the following:
+          {i18n.t('mental-health.question-changes')}
         </Text>
         {questions.map((item, index) => {
           const key = `changes-${index}`;

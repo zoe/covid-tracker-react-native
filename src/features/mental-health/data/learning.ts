@@ -1,4 +1,5 @@
 import { THasDisability, TMentalHealthLearning } from '@covid/core/state/mental-health';
+import i18n from '@covid/locale/i18n';
 
 export type TLearningQuestion = {
   key: string;
@@ -11,42 +12,42 @@ export type TLearningOptions = {
 };
 
 export const learningInitialOptions: TLearningOptions[] = [
-  { label: 'Yes', value: 'YES' },
-  { label: 'No', value: 'NO' },
-  { label: 'Prefer not to say', value: 'DECLINE_TO_SAY' },
+  { label: i18n.t('mental-health.answer-yes'), value: 'YES' },
+  { label: i18n.t('mental-health.answer-no'), value: 'NO' },
+  { label: i18n.t('mental-health.answer-prefer-not-to-say'), value: 'DECLINE_TO_SAY' },
 ];
 
 export const learningQuestions: TLearningQuestion[] = [
   {
-    key: 'Dyslexia',
+    key: i18n.t('mental-health.answer-dyslexia'),
     value: 'DYSLEXIA',
   },
   {
-    key: 'Dyscalculia',
+    key: i18n.t('mental-health.answer-dyscalculia'),
     value: 'DYSCALCULIA',
   },
   {
-    key: 'Dysgraphia',
+    key: i18n.t('mental-health.answer-dysgraphia'),
     value: 'DYSGRAPHIA',
   },
   {
-    key: 'Non-verbal learning disabilities',
+    key: i18n.t('mental-health.answer-non-verbal'),
     value: 'NON-VERBAL',
   },
   {
-    key: 'Oral / written language disorder and specific reading comprehension deficit',
+    key: i18n.t('mental-health.answer-oral-written'),
     value: 'ORAL_WRITTEN',
   },
   {
-    key: 'Sensory impairment',
+    key: i18n.t('mental-health.answer-sensory-impairment'),
     value: 'SENSORY',
   },
   {
-    key: 'Other',
+    key: i18n.t('mental-health.answer-other'),
     value: 'OTHER',
   },
   {
-    key: 'Prefer not to say',
+    key: i18n.t('mental-health.answer-prefer-not-to-say'),
     value: 'DECLINE_TO_SAY',
   },
 ];

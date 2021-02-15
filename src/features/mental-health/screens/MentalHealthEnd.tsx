@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 
 import { BasicPage, Icon, Text, SimpleShare, Spacer } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
+import i18n from '@covid/locale/i18n';
 
 function MentalHealthSupport() {
   return (
@@ -13,16 +14,15 @@ function MentalHealthSupport() {
         </View>
       </View>
       <Text textClass="h3" rhythm={32} textAlign="center">
-        Thank you for your time!
+        {i18n.t('mental-health.end-title')}
       </Text>
       <Text textAlign="center" textClass="pLight" rhythm={24}>
-        Your input is what makes our research possible. We will share any insights we learn from responses on our blog
-        and in the app.
+        {i18n.t('mental-health.end-0')}
       </Text>
       <Text textAlign="center" textClass="pLight" rhythm={24}>
-        If you know people that would be interested in taking part in this research, share the app with them below:
+        {i18n.t('mental-health.end-1')}
       </Text>
-      <SimpleShare title="Share this app" onPress={() => null} />
+      <SimpleShare title={i18n.t('mental-health.share')} shareMessage={i18n.t('mental-health.share-message')} />
       <Spacer space={24} />
     </BasicPage>
   );
