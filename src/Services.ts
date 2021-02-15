@@ -12,7 +12,6 @@ import AssessmentService from './core/assessment/AssessmentService';
 import ReduxAssessmentState from './core/assessment/AssessmentState';
 import ExpoPushTokenEnvironment from './core/push-notifications/expo';
 import { MentalHealthApiClient } from './features/mental-health/MentalHealthApiClient';
-import MentalHealthService from './features/mental-health/MentalHealthService';
 
 const apiClient = new ApiClient();
 const localStorageService = new LocalStorageService();
