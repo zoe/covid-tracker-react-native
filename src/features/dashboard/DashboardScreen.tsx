@@ -74,7 +74,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const showMentalHealthModal = () => {
-    console.log('consent: ', MentalHealthState.consent);
     if (MentalHealthState.consent !== 'NO') {
       appCoordinator.goToMentalHealthModal();
     }
