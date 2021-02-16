@@ -23,8 +23,11 @@ import {
   setTimeWithPets,
   setWorking,
 } from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
+import UserService from '@covid/core/user/UserService';
 
 import { ChangesQuestion } from '../partials';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthChanges() {
   const [canSubmit, setCanSubmit] = useState(false);
@@ -118,11 +121,37 @@ function MentalHealthChanges() {
     setCanSubmit(enableSubmit);
   }, [mentalHealthChanges]);
 
+  const saveStateAndNavigate = async () => {
+    // TODO: get patient id from route
+    // TODO: get existing mental health data, specifically ID, from state (Should be preloaded by here)
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = {
+      ...existingMentalHealth,
+      using_devices_with_a_screen: mentalHealthChanges.devicesWithScreen,
+      drinking_alcohol: mentalHealthChanges.drinkingAlcohol,
+      engaging_in_orgs_clubs_socs: mentalHealthChanges.engagingWithOrganisations,
+      feeling_more_alone: mentalHealthChanges.feelingAlone,
+      spending_time_green_in_spaces: mentalHealthChanges.greenSpaces,
+      interacting_face_to_face_With_family_friends: mentalHealthChanges.interactingFaceToFace,
+      talking_to_family_friends_via_phone_or_technology: mentalHealthChanges.interactingViaPhoneOrTechnology,
+      being_physically_active_or_doing_exercise: mentalHealthChanges.physical,
+      reading_watching_listening_to_the_news: mentalHealthChanges.readingWatchingListeningNews,
+      relaxation_mindfulness_meditation: mentalHealthChanges.relaxation,
+      sleeping_well: mentalHealthChanges.sleep,
+      smoking_or_vaping: mentalHealthChanges.smokingOrVaping,
+      eating_savoury_snacks_or_confectionary: mentalHealthChanges.snacks,
+      working: mentalHealthChanges.working,
+      spending_time_with_pets: mentalHealthChanges.timeWithPets,
+    };
+
+    await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
+
+    NavigatorService.navigate('MentalHealthFrequency', undefined);
+  };
+
   return (
-    <BasicPage
-      active={canSubmit}
-      footerTitle="Next"
-      onPress={() => NavigatorService.navigate('MentalHealthFrequency', undefined)}>
+    <BasicPage active={canSubmit} footerTitle="Next" onPress={() => saveStateAndNavigate()}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           During this pandemic, have you changed the way you have spent time doing the following:
