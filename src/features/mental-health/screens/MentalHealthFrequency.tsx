@@ -55,7 +55,7 @@ function MentalHealthFrequency() {
   return (
     <BasicPage
       active={canSubmit}
-      footerTitle="Next"
+      footerTitle={i18n.t('navigation.next')}
       onPress={() => NavigatorService.navigate('MentalHealthHistory', undefined)}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>

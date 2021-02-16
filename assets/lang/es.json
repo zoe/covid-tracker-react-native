@@ -1457,5 +1457,9 @@
     "answer-other": "Other",
     "share": "Share this app",
     "share-message": "Mental health share message"
+  },
+  "navigation": {
+    "next": "Siguiente",
+    "start": "Comienzo"
   }
 }
