@@ -1,0 +1,76 @@
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+
+import NavigatorService from '@covid/NavigatorService';
+import { BasicPage, DropdownField, Text } from '@covid/components';
+import { useTheme } from '@covid/themes';
+import {
+  selectMentalHealthSupport,
+  setHasNeededSupport,
+  setHasReceivedSupport,
+  TGeneralAnswer,
+} from '@covid/core/state/mental-health';
+import i18n from '@covid/locale/i18n';
+
+import { initialOptions } from '../data';
+
+function MentalHealthSupport() {
+  const [canSubmit, setCanSubmit] = useState(false);
+  const { grid } = useTheme();
+  const MentalHealthSupport = useSelector(selectMentalHealthSupport);
+  const dispatch = useDispatch();
+
+  const handleSetHasNeededSupport = (value: TGeneralAnswer) => {
+    dispatch(setHasNeededSupport(value));
+  };
+
+  const handleSetHasReceivedSupport = (value: TGeneralAnswer) => {
+    dispatch(setHasReceivedSupport(value));
+  };
+
+  useEffect(() => {
+    if (MentalHealthSupport.hasNeededSupport === 'NO' || MentalHealthSupport.hasNeededSupport === 'DECLINE_TO_SAY') {
+      setCanSubmit(true);
+      return;
+    }
+    if (MentalHealthSupport.hasReceivedSupport) {
+      setCanSubmit(true);
+      return;
+    }
+    setCanSubmit(false);
+  }, [MentalHealthSupport]);
+
+  return (
+    <BasicPage
+      active={canSubmit}
+      footerTitle="Next"
+      onPress={() => NavigatorService.navigate('MentalHealthLearning', undefined)}>
+      <View style={{ paddingHorizontal: grid.gutter }}>
+        <Text textClass="h3" rhythm={32}>
+          {i18n.t('mental-health.question-support-title')}
+        </Text>
+        <View>
+          <DropdownField
+            label={i18n.t('mental-health.question-support-needed')}
+            selectedValue={MentalHealthSupport.hasNeededSupport}
+            onValueChange={handleSetHasNeededSupport}
+            items={initialOptions}
+          />
+        </View>
+        {MentalHealthSupport.hasNeededSupport === 'YES' && (
+          <View>
+            <DropdownField
+              label={i18n.t('mental-health.question-support-received')}
+              selectedValue={MentalHealthSupport.hasReceivedSupport}
+              onValueChange={handleSetHasReceivedSupport}
+              items={initialOptions}
+            />
+          </View>
+        )}
+      </View>
+    </BasicPage>
+  );
+}
+
+export default MentalHealthSupport;
