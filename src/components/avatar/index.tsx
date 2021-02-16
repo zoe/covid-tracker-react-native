@@ -1,15 +1,16 @@
 import React from 'react';
-import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
+import { Image, ImageSourcePropType, View } from 'react-native';
 
+import { avatarBlank } from '@assets';
 import { TStyleObject } from '@covid/utils/types';
 
 interface IProps {
-  imgsrc: ImageSourcePropType;
+  imgsrc?: ImageSourcePropType;
   imgStyle?: TStyleObject;
   size?: number;
 }
 
-function Avatar({ imgsrc, imgStyle = {}, size = 60 }: IProps) {
+function Avatar({ imgsrc = avatarBlank, imgStyle = {}, size = 60 }: IProps) {
   return (
     <View
       style={{
@@ -36,7 +37,5 @@ function Avatar({ imgsrc, imgStyle = {}, size = 60 }: IProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default Avatar;

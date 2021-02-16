@@ -12,6 +12,7 @@ import {
   setPleasureInDoingThings,
   setStopWorrying,
 } from '@covid/core/state/mental-health';
+import i18n from '@covid/locale/i18n';
 
 import { FrequencyQuestion } from '../partials';
 
@@ -24,22 +25,22 @@ function MentalHealthFrequency() {
   const questions = [
     {
       action: setPleasureInDoingThings,
-      question: 'Little interest or pleasure in doing things',
+      question: i18n.t('mental-health.question-pleasure-in-doing-things'),
       state: MentalHealthFrequency.pleasureInDoingThings,
     },
     {
       action: setFeelingDown,
-      question: 'Feeling down, depressed or hopeless',
+      question: i18n.t('mental-health.question-feeling-down'),
       state: MentalHealthFrequency.feelingDown,
     },
     {
       action: setFeelingNervous,
-      question: 'Feeling nervous, anxious or on edge',
+      question: i18n.t('mental-health.question-feeling-nervous'),
       state: MentalHealthFrequency.feelingNervous,
     },
     {
       action: setStopWorrying,
-      question: 'Not being able to stop or control worrying',
+      question: i18n.t('mental-health.question-stop-worrying'),
       state: MentalHealthFrequency.stopWorrying,
     },
   ];
@@ -58,7 +59,7 @@ function MentalHealthFrequency() {
       onPress={() => NavigatorService.navigate('MentalHealthHistory', undefined)}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
-          Over the last 2 weeks, how often have you been bothered by the following for:
+          {i18n.t('mental-health.question-frequency')}
         </Text>
         {questions.map((item, index) => {
           const key = `changes-${index}`;

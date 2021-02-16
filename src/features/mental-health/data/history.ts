@@ -1,4 +1,5 @@
 import { TMentalHealthCondition, THasDiagnosis } from '@covid/core/state/mental-health';
+import i18n from '@covid/locale/i18n';
 
 export type TQuestion = {
   key: string;
@@ -11,82 +12,82 @@ export type TOptions = {
 };
 
 export const initialOptions: TOptions[] = [
-  { label: 'Yes', value: 'YES' },
-  { label: 'No', value: 'NO' },
-  { label: 'Prefer not to say', value: 'DECLINE_TO_SAY' },
+  { label: i18n.t('mental-health.answer-yes'), value: 'YES' },
+  { label: i18n.t('mental-health.answer-no'), value: 'NO' },
+  { label: i18n.t('mental-health.answer-prefer-not-to-say'), value: 'DECLINE_TO_SAY' },
 ];
 
 export const questions: TQuestion[] = [
   {
-    key: 'Generalised anxiety disorder (GAD)',
+    key: i18n.t('mental-health.answer-gad'),
     value: 'GAD',
   },
   {
-    key: 'Panic disorder',
+    key: i18n.t('mental-health.answer-panic-disorder'),
     value: 'PANIC_DISORDER',
   },
   {
-    key: 'Specific phobias',
+    key: i18n.t('mental-health.answer-specific-phobias'),
     value: 'SPECIFIC_PHOBIAS',
   },
   {
-    key: 'Obsessive compulsive disorder (OCD)',
+    key: i18n.t('mental-health.answer-ocd'),
     value: 'OCD',
   },
   {
-    key: 'Post-traumatic stress disorder (PTSD) ',
+    key: i18n.t('mental-health.answer-ptsd'),
     value: 'PTSD',
   },
   {
-    key: 'Social anxiety disorder',
+    key: i18n.t('mental-health.answer-social-anxiety-disorder'),
     value: 'SOCIAL_ANXIETY_DISORDER',
   },
   {
-    key: 'Agoraphobia',
+    key: i18n.t('mental-health.answer-agoraphobia'),
     value: 'AGORAPHOBIA',
   },
   {
-    key: 'Depression',
+    key: i18n.t('mental-health.answer-depression'),
     value: 'DEPRESSION',
   },
   {
-    key: 'Attention deficit or attention deficit and hyperactivity disorder (ADD/ADHD) ',
+    key: i18n.t('mental-health.answer-add-adhd'),
     value: 'ADD_ADHD',
   },
   {
-    key: "Autism, Asperger's or autistic spectrum disorder ",
+    key: i18n.t('mental-health.answer-autistic-spectrum-disorder'),
     value: 'AUTISTIC_SPECTRUM_DISORDER',
   },
   {
-    key: 'Eating disorder (e.g. bulimia nervosa; anorexia nervosa; psychological over-eating or binge-eating',
+    key: i18n.t('mental-health.answer-eating-disorder'),
     value: 'EATING_DISORDER',
   },
   {
-    key: 'A personality disorder ',
+    key: i18n.t('mental-health.answer-personality-disorder'),
     value: 'PERSONALITY_DISORDER',
   },
   {
-    key: 'Mania, hypomania, bipolar or manic depression',
+    key: i18n.t('mental-health.answer-mania'),
     value: 'MANIA',
   },
   {
-    key: 'Schizophrenia',
+    key: i18n.t('mental-health.answer-schizophrenia'),
     value: 'SCHIZOPHRENIA',
   },
   {
-    key: 'Substance use disorder',
+    key: i18n.t('mental-health.answer-substance-use-disorder'),
     value: 'SUBSTANCE_USE_DISORDER',
   },
   {
-    key: 'Any other type of psychosis or psychotic illness',
+    key: i18n.t('mental-health.answer-types-of-psychosis'),
     value: 'TYPE_OF_PSYCHOSIS',
   },
   {
-    key: 'Other',
+    key: i18n.t('mental-health.answer-other'),
     value: 'OTHER',
   },
   {
-    key: 'Prefer not to say',
+    key: i18n.t('mental-health.answer-prefer-not-to-say'),
     value: 'DECLINE_TO_SAY',
   },
 ];

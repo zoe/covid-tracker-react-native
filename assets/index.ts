@@ -110,4 +110,6 @@ export * from './icons/svgIcons';
 export { default as C19 } from './logos/C19';
 
 // avatars
-export const avatarTemp = require('./avatars/avatar-temp.jpg');
+export const avatarBlank = require('./avatars/avatar-blank.png');
+export const drEllenThompsonUK = require('./avatars/dr_ellen_thompson_uk.jpg');
+export const drKarstenKoenenUS = require('./avatars/dr_karsten_koenen_us.jpg');

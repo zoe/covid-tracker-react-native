@@ -1,19 +1,36 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ImageSourcePropType, View } from 'react-native';
 
 import { Avatar, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
-import { avatarTemp } from '@assets';
+import i18n from '@covid/locale/i18n';
+import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
+
+interface IProps {
+  imgsrc?: ImageSourcePropType;
+}
 
 function Profile() {
   const { colors, grid } = useTheme();
+
+  const getImgSrc = () => {
+    // en, es, en-US, sv-SE
+    const locale = i18n.currentLocale();
+    switch (locale) {
+      case 'en-US':
+        return drKarstenKoenenUS;
+      default:
+        return drEllenThompsonUK;
+    }
+  };
+
   return (
     <View>
       <View style={{ marginBottom: grid.xs, paddingHorizontal: grid.gutter }}>
-        <Avatar imgsrc={avatarTemp} />
-        <Text rhythm={8}>Dr. Karsten C. Koenen</Text>
+        <Avatar imgsrc={getImgSrc()} />
+        <Text rhythm={8}>{i18n.t('mental-health.doctor-name')}</Text>
         <Text textClass="pSmallLight" style={{ color: colors.uiDark.dark.bgColor }}>
-          Professor of Psychiatric Epidemiology, Harvard TH Chan School of Public Health
+          {i18n.t('mental-health.doctor-title')}, {i18n.t('mental-health.doctor-college')}
         </Text>
       </View>
     </View>

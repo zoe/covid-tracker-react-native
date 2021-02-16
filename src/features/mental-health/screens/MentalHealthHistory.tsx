@@ -13,6 +13,7 @@ import {
   TMentalHealthCondition,
   THasDiagnosis,
 } from '@covid/core/state/mental-health';
+import i18n from '@covid/locale/i18n';
 
 import { TQuestion, questions, initialOptions } from '../data';
 
@@ -72,11 +73,11 @@ function MentalHealthHistory() {
       onPress={() => NavigatorService.navigate('MentalHealthLearning', undefined)}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
-          About your history of mental health
+          {i18n.t('mental-health.question-history-title')}
         </Text>
         <View>
           <DropdownField
-            label="Have you ever been diagnosed with a mental health condition?"
+            label={i18n.t('mental-health.question-history')}
             selectedValue={MentalHealthHistory.hasDiagnosis}
             onValueChange={handleSetHasHistoryDiagnosis}
             items={initialOptions}
