@@ -1376,6 +1376,9 @@
   },
 
   "mental-health": {
+    "doctor-name": "Dr Ellen Jo Thompson",
+    "doctor-title": "Mental Health Researcher",
+    "doctor-college": "King’s College London",
     "introduction-0": "We are currently investigating how the pandemic has had an impact on our mental health.",
     "introduction-1": "This short questionnaire is a starting point to allow us to understand better how it has affected us",
     "introduction-2": "Thank you for your ongoing support!",

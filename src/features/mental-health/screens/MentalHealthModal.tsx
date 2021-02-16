@@ -4,9 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
 import { Avatar, SafeLayout, Text } from '@covid/components';
-import { avatarTemp } from '@assets';
 import { TMentalHealthConsent, setConsent } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
+import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -24,6 +24,17 @@ function MentalHealthModal() {
     appCoordinator.goToMentalHealthStudy();
   };
 
+  const getImgSrc = () => {
+    // en, es, en-US, sv-SE
+    const locale = i18n.currentLocale();
+    switch (locale) {
+      case 'en-US':
+        return drKarstenKoenenUS;
+      default:
+        return drEllenThompsonUK;
+    }
+  };
+
   return (
     <SafeLayout>
       <View style={styles.card}>
@@ -31,14 +42,14 @@ function MentalHealthModal() {
           {i18n.t('mental-health.modal-title')}
         </Text>
         <View style={styles.profile}>
-          <Avatar imgsrc={avatarTemp} />
+          <Avatar imgsrc={getImgSrc()} />
           <View style={{ marginLeft: 16 }}>
-            <Text>Dr Ellen Jo Thompson</Text>
+            <Text>{i18n.t('mental-health.doctor-name')}</Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-              Mental Health Researcher
+              {i18n.t('mental-health.doctor-title')}
             </Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-              King’s College London
+              {i18n.t('mental-health.doctor-college')}
             </Text>
           </View>
         </View>
