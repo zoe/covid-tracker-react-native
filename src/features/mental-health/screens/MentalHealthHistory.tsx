@@ -54,6 +54,14 @@ function MentalHealthHistory() {
     );
   };
 
+  const next = () => {
+    if (MentalHealthHistory.hasDiagnosis === 'NO' || MentalHealthHistory.hasDiagnosis === 'DECLINE_TO_SAY') {
+      NavigatorService.navigate('MentalHealthLearning', undefined);
+      return;
+    }
+    NavigatorService.navigate('MentalHealthSupport', undefined);
+  };
+
   useEffect(() => {
     if (MentalHealthHistory.hasDiagnosis === 'NO' || MentalHealthHistory.hasDiagnosis === 'DECLINE_TO_SAY') {
       setCanSubmit(true);
@@ -67,10 +75,7 @@ function MentalHealthHistory() {
   }, [MentalHealthHistory]);
 
   return (
-    <BasicPage
-      active={canSubmit}
-      footerTitle="Next"
-      onPress={() => NavigatorService.navigate('MentalHealthLearning', undefined)}>
+    <BasicPage active={canSubmit} footerTitle="Next" onPress={next}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           {i18n.t('mental-health.question-history-title')}

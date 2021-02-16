@@ -10,6 +10,10 @@ export * from './history/types';
 export * from './history/slice';
 export { default as mentalHealthHistorySlice } from './history/slice';
 //
+export * from './support/types';
+export * from './support/slice';
+export { default as mentalHealthSupportSlice } from './support/slice';
+//
 export * from './learning/types';
 export * from './learning/slice';
 export { default as mentalHealthLearningSlice } from './learning/slice';
