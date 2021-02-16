@@ -13,8 +13,11 @@ import {
   TMentalHealthCondition,
   THasDiagnosis,
 } from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
+import UserService from '@covid/core/user/UserService';
 
 import { TQuestion, questions, initialOptions } from '../data';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthHistory() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
@@ -65,11 +68,44 @@ function MentalHealthHistory() {
     setCanSubmit(false);
   }, [MentalHealthHistory]);
 
+  const saveStateAndNavigate = async () => {
+    // TODO: get patient id from route
+    // TODO: get existing mental health data, specifically ID, from state (Should be preloaded by here)
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = {
+      id: existingMentalHealth.id,
+      patient: existingMentalHealth.patient,
+      ever_diagnosed_with_mental_health_condition: MentalHealthHistory.hasDiagnosis,
+
+      // Map the list of additions to the BE counterpart booleans
+      mental_health_history_data: {
+        generalised_anxiety_disorder: MentalHealthHistory.conditions.includes('GAD'),
+        panic: MentalHealthHistory.conditions.includes('PANIC_DISORDER'),
+        specific_phobias: MentalHealthHistory.conditions.includes('SPECIFIC_PHOBIAS'),
+        ocd: MentalHealthHistory.conditions.includes('OCD'),
+        ptsd: MentalHealthHistory.conditions.includes('PTSD'),
+        social_anxiety: MentalHealthHistory.conditions.includes('SOCIAL_ANXIETY_DISORDER'),
+        agoraphobia: MentalHealthHistory.conditions.includes('AGORAPHOBIA'),
+        depression: MentalHealthHistory.conditions.includes('DEPRESSION'),
+        add_adhd: MentalHealthHistory.conditions.includes('ADD_ADHD'),
+        autism: MentalHealthHistory.conditions.includes('AUTISTIC_SPECTRUM_DISORDER'),
+        eating: MentalHealthHistory.conditions.includes('EATING_DISORDER'),
+        personality: MentalHealthHistory.conditions.includes('PERSONALITY_DISORDER'),
+        mania_hyopmania_bipolar_manic_depression: MentalHealthHistory.conditions.includes('MANIA'),
+        schizophrenia: MentalHealthHistory.conditions.includes('SCHIZOPHRENIA'),
+        substance_use: MentalHealthHistory.conditions.includes('SUBSTANCE_USE_DISORDER'),
+        psychosis_or_psychotic_ilness: MentalHealthHistory.conditions.includes('TYPE_OF_PSYCHOSIS'),
+        other: MentalHealthHistory.conditions.includes('OTHER'),
+        prefer_not_to_say: MentalHealthHistory.conditions.includes('DECLINE_TO_SAY'),
+      },
+    };
+    await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
+    NavigatorService.navigate('MentalHealthLearning', undefined);
+  };
+
   return (
-    <BasicPage
-      active={canSubmit}
-      footerTitle="Next"
-      onPress={() => NavigatorService.navigate('MentalHealthLearning', undefined)}>
+    <BasicPage active={canSubmit} footerTitle="Next" onPress={() => saveStateAndNavigate()}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           About your history of mental health

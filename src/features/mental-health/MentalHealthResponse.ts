@@ -30,7 +30,6 @@ export type TMentalHealthResponse = {
   // Section 3
   ever_diagnosed_with_mental_health_condition?: THasDiagnosis;
   mental_health_history_data?: {
-    generalised_anxiety?: boolean;
     panic?: boolean;
     specific_phobias?: boolean;
     ocd?: boolean;
@@ -57,13 +56,13 @@ export type TMentalHealthResponse = {
 
   // # Section 5
   about_your_learning_needs?: THasDiagnosis;
-  learning_needs_data?: {
+  mental_health_learning_needs_data?: {
     dyslexia?: boolean;
     dyscalculia?: boolean;
     dysgraphia?: boolean;
     non_verbal?: boolean;
     oral?: boolean;
-    sensory_imapirment?: boolean;
+    sensory_impairment?: boolean;
     other?: boolean;
     prefer_not_to_say?: boolean;
   };

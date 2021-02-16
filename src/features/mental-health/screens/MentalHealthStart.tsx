@@ -21,21 +21,6 @@ function MentalHealthStart() {
       eating_savoury_snacks_or_confectionary: 'LESS',
     };
     await mentalHealthApiClient.add(currentPatientId, newMentalHealth);
-
-    // Retrieve a record (for current user)
-    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
-    const existingMentalHealth = existingMentalHealthListForUser[0];
-    console.log(' > existingMentalHealth is... ', existingMentalHealth);
-
-    const updatedMentalHealth: MentalHealthInfosRequest = {
-      ...existingMentalHealth,
-      drinking_alcohol: 'MORE',
-      eating_savoury_snacks_or_confectionary: 'MORE',
-    };
-    await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
-
-    const existingMentalHealthUpdated = await mentalHealthApiClient.get();
-    console.log(' > existingMentalHealthUpdated is... ', existingMentalHealthUpdated);
   };
 
   apiDemoFunctions();

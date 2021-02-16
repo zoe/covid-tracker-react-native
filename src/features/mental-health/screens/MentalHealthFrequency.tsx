@@ -61,7 +61,8 @@ function MentalHealthFrequency() {
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = {
-      ...existingMentalHealth,
+      id: existingMentalHealth.id,
+      patient: existingMentalHealth.patient,
       little_interest_or_pleasure_in_doing_things: MentalHealthFrequency.pleasureInDoingThings,
       feeling_down: MentalHealthFrequency.feelingDown,
       feeling_nervous: MentalHealthFrequency.feelingNervous,

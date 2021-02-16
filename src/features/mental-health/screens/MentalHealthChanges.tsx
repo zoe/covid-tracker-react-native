@@ -127,7 +127,8 @@ function MentalHealthChanges() {
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = {
-      ...existingMentalHealth,
+      id: existingMentalHealth.id,
+      patient: existingMentalHealth.patient,
       using_devices_with_a_screen: mentalHealthChanges.devicesWithScreen,
       drinking_alcohol: mentalHealthChanges.drinkingAlcohol,
       engaging_in_orgs_clubs_socs: mentalHealthChanges.engagingWithOrganisations,
@@ -144,9 +145,7 @@ function MentalHealthChanges() {
       working: mentalHealthChanges.working,
       spending_time_with_pets: mentalHealthChanges.timeWithPets,
     };
-
     await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
-
     NavigatorService.navigate('MentalHealthFrequency', undefined);
   };
 

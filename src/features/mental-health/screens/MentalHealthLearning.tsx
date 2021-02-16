@@ -13,8 +13,11 @@ import {
   THasDisability,
   TMentalHealthLearning,
 } from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
+import UserService from '@covid/core/user/UserService';
 
 import { TLearningQuestion, learningQuestions, learningInitialOptions } from '../data';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthLearning() {
   const MentalHealthLearning = useSelector(selectMentalHealthLearning);
@@ -65,11 +68,38 @@ function MentalHealthLearning() {
     setCanSubmit(false);
   }, [MentalHealthLearning]);
 
+  const saveStateAndNavigate = async () => {
+    console.log('learning saveStateAndNavigate');
+    // // TODO: get patient id from route
+    // // TODO: get existing mental health data, specifically ID, from state (Should be preloaded by here)
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = {
+      id: existingMentalHealth.id,
+      patient: existingMentalHealth.patient,
+      about_your_learning_needs: MentalHealthLearning.hasDisability,
+
+      // Map the list of additions to the BE counterpart booleans
+      mental_health_learning_needs_data: {
+        dyslexia: MentalHealthLearning.conditions.includes('DYSLEXIA'),
+        dyscalculia: MentalHealthLearning.conditions.includes('DYSCALCULIA'),
+        dysgraphia: MentalHealthLearning.conditions.includes('DYSGRAPHIA'),
+        non_verbal: MentalHealthLearning.conditions.includes('NON-VERBAL'),
+        oral: MentalHealthLearning.conditions.includes('ORAL_WRITTEN'),
+        sensory_impairment: MentalHealthLearning.conditions.includes('SENSORY'),
+        other: MentalHealthLearning.conditions.includes('OTHER'),
+        prefer_not_to_say: MentalHealthLearning.conditions.includes('DECLINE_TO_SAY'),
+      },
+    };
+
+    console.log('update');
+
+    await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
+    NavigatorService.navigate('MentalHealthEnd', undefined);
+  };
+
   return (
-    <BasicPage
-      active={canSubmit}
-      footerTitle="Next"
-      onPress={() => NavigatorService.navigate('MentalHealthEnd', undefined)}>
+    <BasicPage active={canSubmit} footerTitle="Next" onPress={() => saveStateAndNavigate()}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           About your learning needs
