@@ -14,7 +14,7 @@ import {
   THasDiagnosis,
 } from '@covid/core/state/mental-health';
 import { mentalHealthApiClient } from '@covid/Services';
-import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 
 import { TQuestion, questions, initialOptions } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
@@ -54,6 +54,14 @@ function MentalHealthHistory() {
         <Text>{data.key}</Text>
       </View>
     );
+  };
+
+  const next = () => {
+    if (MentalHealthHistory.hasDiagnosis === 'NO' || MentalHealthHistory.hasDiagnosis === 'DECLINE_TO_SAY') {
+      NavigatorService.navigate('MentalHealthLearning', undefined);
+      return;
+    }
+    NavigatorService.navigate('MentalHealthSupport', undefined);
   };
 
   useEffect(() => {
@@ -105,11 +113,11 @@ function MentalHealthHistory() {
     <BasicPage active={canSubmit} footerTitle="Next" onPress={() => saveStateAndNavigate()}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
-          About your history of mental health
+          {i18n.t('mental-health.question-history-title')}
         </Text>
         <View>
           <DropdownField
-            label="Have you ever been diagnosed with a mental health condition?"
+            label={i18n.t('mental-health.question-history')}
             selectedValue={MentalHealthHistory.hasDiagnosis}
             onValueChange={handleSetHasHistoryDiagnosis}
             items={initialOptions}

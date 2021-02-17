@@ -119,6 +119,7 @@ export type ScreenParamList = {
   MentalHealthChanges: undefined;
   MentalHealthFrequency: undefined;
   MentalHealthHistory: undefined;
+  MentalHealthSupport: undefined;
   MentalHealthLearning: undefined;
   MentalHealthEnd: undefined;
   MentalHealthModal: undefined;

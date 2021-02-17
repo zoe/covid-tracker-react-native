@@ -4,9 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
 import { Avatar, SafeLayout, Text } from '@covid/components';
-import { avatarTemp } from '@assets';
-import { useTheme } from '@covid/themes';
 import { TMentalHealthConsent, setConsent } from '@covid/core/state';
+import i18n from '@covid/locale/i18n';
+import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -24,34 +24,44 @@ function MentalHealthModal() {
     appCoordinator.goToMentalHealthStudy();
   };
 
+  const getImgSrc = () => {
+    // en, es, en-US, sv-SE
+    const locale = i18n.currentLocale();
+    switch (locale) {
+      case 'en-US':
+        return drKarstenKoenenUS;
+      default:
+        return drEllenThompsonUK;
+    }
+  };
+
   return (
     <SafeLayout>
       <View style={styles.card}>
         <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>
-          COVID & Mental Health
+          {i18n.t('mental-health.modal-title')}
         </Text>
         <View style={styles.profile}>
-          <Avatar imgsrc={avatarTemp} />
+          <Avatar imgsrc={getImgSrc()} />
           <View style={{ marginLeft: 16 }}>
-            <Text>Dr Ellen Jo Thompson</Text>
+            <Text>{i18n.t('mental-health.doctor-name')}</Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-              Mental Health Researcher
+              {i18n.t('mental-health.doctor-title')}
             </Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-              King’s College London
+              {i18n.t('mental-health.doctor-college')}
             </Text>
           </View>
         </View>
         <View>
           <Text rhythm={24} textClass="pLight">
-            We are currently investigating how the pandemic has had an impact on our mental health.
+            {i18n.t('mental-health.modal-intro-0')}
           </Text>
           <Text rhythm={24} textClass="pLight">
-            We would like to ask you some one-off questions to help researchers understand better how COVID has affected
-            our mental health. It takes 2-3 minutes to answer.
+            {i18n.t('mental-health.modal-intro-1')}
           </Text>
           <Text rhythm={12} textClass="pLight">
-            Thank you for your ongoing support!
+            {i18n.t('mental-health.modal-intro-2')}
           </Text>
         </View>
         <View>
@@ -59,18 +69,16 @@ function MentalHealthModal() {
             style={[styles.button, { backgroundColor: '#0165B5' }]}
             onPress={() => handleSetConsent('YES')}>
             <Text textClass="pSmallLight" style={{ color: 'white' }}>
-              Yes, let’s do it
+              {i18n.t('mental-health.modal-answer-yes')}
             </Text>
           </TouchableOpacity>
-          {/* TODO implement redux state*/}
           <TouchableOpacity
             style={[styles.button, { backgroundColor: '#EEEEEF' }]}
             onPress={() => handleSetConsent('LATER')}>
-            <Text textClass="pSmallLight">No, but ask me again later</Text>
+            <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-later')}</Text>
           </TouchableOpacity>
-          {/* TODO implement redux state*/}
           <TouchableOpacity style={[styles.button]} onPress={() => handleSetConsent('NO')}>
-            <Text textClass="pSmallLight">Skip, and don’t ask me again</Text>
+            <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-no')}</Text>
           </TouchableOpacity>
         </View>
       </View>

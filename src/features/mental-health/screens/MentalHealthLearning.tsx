@@ -14,7 +14,7 @@ import {
   TMentalHealthLearning,
 } from '@covid/core/state/mental-health';
 import { mentalHealthApiClient } from '@covid/Services';
-import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 
 import { TLearningQuestion, learningQuestions, learningInitialOptions } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
@@ -96,11 +96,11 @@ function MentalHealthLearning() {
     <BasicPage active={canSubmit} footerTitle="Next" onPress={() => saveStateAndNavigate()}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
-          About your learning needs
+          {i18n.t('mental-health.question-learning-title')}
         </Text>
         <View>
           <DropdownField
-            label="Have you ever been diagnosed with a mental health condition?"
+            label={i18n.t('mental-health.question-learning')}
             selectedValue={MentalHealthLearning.hasDisability}
             onValueChange={handleSetHasLearningDisability}
             items={learningInitialOptions}

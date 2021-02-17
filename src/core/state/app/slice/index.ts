@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { action } from '@storybook/addon-actions';
 
 import { RootState } from '../../root';
 import { IApp } from '../types';
@@ -9,6 +10,7 @@ import { IApp } from '../types';
 
 const initialState: IApp = {
   dashboardHasBeenViewed: false,
+  mentalHealthStudyActive: true,
 };
 
 const appSlice = createSlice({
@@ -21,6 +23,12 @@ const appSlice = createSlice({
         dashboardHasBeenViewed: action.payload,
       };
     },
+    setMentalHealthStudyActive: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        mentalHealthStudyActive: action.payload,
+      };
+    },
     reset: (state) => {
       return {
         ...initialState,
@@ -29,6 +37,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { setDashboardHasBeenViewed, reset } = appSlice.actions;
+export const { setDashboardHasBeenViewed, setMentalHealthStudyActive, reset } = appSlice.actions;
 export const selectApp = (state: RootState) => state.app;
 export default appSlice.reducer;

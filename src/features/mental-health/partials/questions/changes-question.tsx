@@ -4,6 +4,7 @@ import { Animated, View } from 'react-native';
 import { QuestionBlock, Text, TIconName, useFade } from '@covid/components';
 import { useTheme } from '@covid/themes';
 import { TMentalHealthChange } from '@covid/core/state/mental-health';
+import i18n from '@covid/locale/i18n';
 
 interface IProps {
   disabled?: boolean;
@@ -32,18 +33,18 @@ function ChangesQuestion({ disabled = false, onPress, question, state }: IProps)
   const answers: TAnswer[] = [
     {
       iconName: 'remove1',
-      keyValue: { key: 'Less', value: 'LESS' },
+      keyValue: { key: i18n.t('mental-health.answer-less'), value: 'LESS' },
     },
     {
       iconName: 'equal-2',
-      keyValue: { key: 'No Change', value: 'NO_CHANGE' },
+      keyValue: { key: i18n.t('mental-health.answer-no-change'), value: 'NO_CHANGE' },
     },
     {
       iconName: 'plus',
-      keyValue: { key: 'More', value: 'MORE' },
+      keyValue: { key: i18n.t('mental-health.answer-more'), value: 'MORE' },
     },
     {
-      keyValue: { key: 'Not Applicable', value: 'NOT_APPLICABLE' },
+      keyValue: { key: i18n.t('mental-health.answer-not-applicable'), value: 'NOT_APPLICABLE' },
     },
   ];
 

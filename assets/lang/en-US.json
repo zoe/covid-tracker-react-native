@@ -82,5 +82,11 @@
     "your-vaccine": {
       "label-batch": "Lot number (optional)"
     }
+  },
+
+  "mental-health": {
+    "doctor-name": "Dr. Karsten C. Koenen",
+    "doctor-title": "Professor of Psychiatric Epidemiology",
+    "doctor-college": "Harvard TH Chan School of Public Health"
   }
 }
