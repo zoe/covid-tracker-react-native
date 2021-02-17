@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
@@ -11,20 +11,26 @@ import { Profile } from '../partials';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthStart() {
+  const [canStart, setCanStart] = useState(false);
   const createNewMentalHealthRecord = async () => {
     // TODO - use patient id of current user
     const currentPatientId: string = (await new UserService().getFirstPatientId()) ?? '';
     // Create a record
     const newMentalHealth: MentalHealthInfosRequest = {};
     await mentalHealthApiClient.add(currentPatientId, newMentalHealth);
+    setCanStart(true);
   };
 
-  createNewMentalHealthRecord();
+  useEffect(() => {
+    createNewMentalHealthRecord();
+  }, []);
 
   return (
-    <BasicPage footerTitle="Start" onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
+    <BasicPage
+      active={canStart}
+      footerTitle="Start"
+      onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
       <Profile />
-
       <SpeechCard>
         <Text rhythm={16} textClass="pLight">
           {i18n.t('mental-health.introduction-0')}
