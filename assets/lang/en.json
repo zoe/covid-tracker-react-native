@@ -1475,6 +1475,12 @@
     "card-2-action": "View Global Diet Changes",
     "global-title": "Global diet changes",
     "gut-title": "Your gut friendly diet score",
-    "traditional-title": "Your traditional diet score"
+    "gut-body-0": "Your gut contains trillions of microbes - known as the gut microbiome. The latest scientific research shows that these microbes play a big role in our health, affecting our immune system and even weight gain.",
+    "gut-body-1": "In fact, research now shows that your gut health, diet and long-term health are all interlinked:",
+    "traditional-title": "Your traditional diet score",
+    "traditional-body-title": "What does this mean?",
+    "traditional-body-0": "A score of 12 and above indicates a healthier diet that includes plenty of fruits, vegetables, fiber-rich foods and oily fish.",
+    "traditional-body-1": "A lower score indicates a less healthy diet that includes more processed meats, high-sugar foods and fried snacks.",
+    "traditional-body-2": "This score is a simple way to calculate diet quality for the ‘average’ person. While it provides useful insights on a population level, it assumes everyone responds the same way to food. However, we now know this is not true."
   }
 }

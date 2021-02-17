@@ -6,8 +6,11 @@ import NavigatorService from '@covid/NavigatorService';
 import { drSarahBerry } from '@assets';
 import i18n from '@covid/locale/i18n';
 
+import { ScreenParamList } from '../../ScreenParamList';
+
 function DietStudy() {
-  const routes = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
+  type route = keyof ScreenParamList;
+  const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
 
   return (
     <SafeLayout withGutter={false}>
