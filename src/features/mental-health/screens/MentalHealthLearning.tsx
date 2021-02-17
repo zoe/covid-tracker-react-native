@@ -69,8 +69,6 @@ function MentalHealthLearning() {
   }, [MentalHealthLearning]);
 
   const saveStateAndNavigate = async () => {
-    console.log('learning saveStateAndNavigate');
-    // // TODO: get patient id from route
     // // TODO: get existing mental health data, specifically ID, from state (Should be preloaded by here)
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
@@ -80,19 +78,15 @@ function MentalHealthLearning() {
       about_your_learning_needs: MentalHealthLearning.hasDisability,
 
       // Map the list of additions to the BE counterpart booleans
-      mental_health_learning_needs_data: {
-        dyslexia: MentalHealthLearning.conditions.includes('DYSLEXIA'),
-        dyscalculia: MentalHealthLearning.conditions.includes('DYSCALCULIA'),
-        dysgraphia: MentalHealthLearning.conditions.includes('DYSGRAPHIA'),
-        non_verbal: MentalHealthLearning.conditions.includes('NON-VERBAL'),
-        oral: MentalHealthLearning.conditions.includes('ORAL_WRITTEN'),
-        sensory_impairment: MentalHealthLearning.conditions.includes('SENSORY'),
-        other: MentalHealthLearning.conditions.includes('OTHER'),
-        prefer_not_to_say: MentalHealthLearning.conditions.includes('DECLINE_TO_SAY'),
-      },
+      dyslexia: MentalHealthLearning.conditions.includes('DYSLEXIA'),
+      dyscalculia: MentalHealthLearning.conditions.includes('DYSCALCULIA'),
+      dysgraphia: MentalHealthLearning.conditions.includes('DYSGRAPHIA'),
+      non_verbal: MentalHealthLearning.conditions.includes('NON-VERBAL'),
+      oral: MentalHealthLearning.conditions.includes('ORAL_WRITTEN'),
+      sensory_impairment: MentalHealthLearning.conditions.includes('SENSORY'),
+      learning_other: MentalHealthLearning.conditions.includes('OTHER'),
+      learning_prefer_not_to_say: MentalHealthLearning.conditions.includes('DECLINE_TO_SAY'),
     };
-
-    console.log('update');
 
     await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
     NavigatorService.navigate('MentalHealthEnd', undefined);

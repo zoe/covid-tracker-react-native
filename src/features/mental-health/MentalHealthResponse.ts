@@ -7,18 +7,18 @@ export type TMentalHealthResponse = {
   // Section 1 - Changes questions
   sleeping_well?: TMentalHealthChange;
   being_physically_active_or_doing_exercise?: TMentalHealthChange;
-  spending_time_green_in_spaces?: TMentalHealthChange;
+  spending_time_in_green_spaces?: TMentalHealthChange;
   spending_time_with_pets?: TMentalHealthChange;
   smoking_or_vaping?: TMentalHealthChange;
   drinking_alcohol?: TMentalHealthChange;
-  interacting_face_to_face_With_family_friends?: TMentalHealthChange;
+  interacting_face_to_face_with_family_friends?: TMentalHealthChange;
   talking_to_family_friends_via_phone_or_technology?: TMentalHealthChange;
   feeling_more_alone?: TMentalHealthChange;
   working?: TMentalHealthChange;
   relaxation_mindfulness_meditation?: TMentalHealthChange;
   reading_watching_listening_to_the_news?: TMentalHealthChange;
   using_devices_with_a_screen?: TMentalHealthChange;
-  eating_savoury_snacks_or_confectionary?: TMentalHealthChange;
+  eating_savoury_snacks_or_confectionery?: TMentalHealthChange;
   engaging_in_orgs_clubs_socs?: TMentalHealthChange;
 
   // Section 2 - Frequency questions
@@ -42,10 +42,10 @@ export type TMentalHealthResponse = {
     autism?: boolean;
     eating?: boolean;
     personality?: boolean;
-    mania_hyopmania_bipolar_manic_depression?: boolean;
+    mania_hypomania_bipolar_manic_depression?: boolean;
     schizophrenia?: boolean;
     substance_use?: boolean;
-    psychosis_or_psychotic_ilness?: boolean;
+    psychosis_or_psychotic_illness?: boolean;
     other?: boolean;
     prefer_not_to_say?: boolean;
   };

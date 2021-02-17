@@ -10,20 +10,15 @@ import { Profile } from '../partials';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthStart() {
-  const apiDemoFunctions = async () => {
-    console.log('MentalHealthStart apiDemoFunctions');
+  const createNewMentalHealthRecord = async () => {
+    // TODO - use patient id of current user
     const currentPatientId: string = (await new UserService().getFirstPatientId()) ?? '';
-    console.log(` > Create mental health record for ${currentPatientId}`);
-
     // Create a record
-    const newMentalHealth: MentalHealthInfosRequest = {
-      drinking_alcohol: 'LESS',
-      eating_savoury_snacks_or_confectionary: 'LESS',
-    };
+    const newMentalHealth: MentalHealthInfosRequest = {};
     await mentalHealthApiClient.add(currentPatientId, newMentalHealth);
   };
 
-  apiDemoFunctions();
+  createNewMentalHealthRecord();
 
   return (
     <BasicPage footerTitle="Start" onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>

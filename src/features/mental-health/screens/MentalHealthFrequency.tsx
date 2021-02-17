@@ -55,9 +55,7 @@ function MentalHealthFrequency() {
   }, [MentalHealthFrequency]);
 
   const saveStateAndNavigate = async () => {
-    // TODO: get patient id from route
     // TODO: get existing mental health data, specifically ID, from state (Should be preloaded by here)
-    const currentPatientId: string = (await new UserService().getFirstPatientId()) ?? '';
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = {

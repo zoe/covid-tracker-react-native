@@ -122,7 +122,6 @@ function MentalHealthChanges() {
   }, [mentalHealthChanges]);
 
   const saveStateAndNavigate = async () => {
-    // TODO: get patient id from route
     // TODO: get existing mental health data, specifically ID, from state (Should be preloaded by here)
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
@@ -133,15 +132,15 @@ function MentalHealthChanges() {
       drinking_alcohol: mentalHealthChanges.drinkingAlcohol,
       engaging_in_orgs_clubs_socs: mentalHealthChanges.engagingWithOrganisations,
       feeling_more_alone: mentalHealthChanges.feelingAlone,
-      spending_time_green_in_spaces: mentalHealthChanges.greenSpaces,
-      interacting_face_to_face_With_family_friends: mentalHealthChanges.interactingFaceToFace,
+      spending_time_in_green_spaces: mentalHealthChanges.greenSpaces,
+      interacting_face_to_face_with_family_friends: mentalHealthChanges.interactingFaceToFace,
       talking_to_family_friends_via_phone_or_technology: mentalHealthChanges.interactingViaPhoneOrTechnology,
       being_physically_active_or_doing_exercise: mentalHealthChanges.physical,
       reading_watching_listening_to_the_news: mentalHealthChanges.readingWatchingListeningNews,
       relaxation_mindfulness_meditation: mentalHealthChanges.relaxation,
       sleeping_well: mentalHealthChanges.sleep,
       smoking_or_vaping: mentalHealthChanges.smokingOrVaping,
-      eating_savoury_snacks_or_confectionary: mentalHealthChanges.snacks,
+      eating_savoury_snacks_or_confectionery: mentalHealthChanges.snacks,
       working: mentalHealthChanges.working,
       spending_time_with_pets: mentalHealthChanges.timeWithPets,
     };
