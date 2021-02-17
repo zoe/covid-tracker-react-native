@@ -121,7 +121,6 @@ function MentalHealthChanges() {
   }, [mentalHealthChanges]);
 
   const saveStateAndNavigate = async () => {
-    // TODO: get existing mental health data, specifically ID, from state (Should be preloaded by here)
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = {
@@ -148,7 +147,7 @@ function MentalHealthChanges() {
   };
 
   return (
-    <BasicPage active={canSubmit} footerTitle="Next" onPress={() => saveStateAndNavigate()}>
+    <BasicPage active={canSubmit} footerTitle="Next" onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           {i18n.t('mental-health.question-changes')}
