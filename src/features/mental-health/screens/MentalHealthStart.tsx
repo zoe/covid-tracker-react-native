@@ -29,7 +29,7 @@ function MentalHealthStart() {
   return (
     <BasicPage
       active={canStart}
-      footerTitle="Start"
+      footerTitle={i18n.t('navigation.start')}
       onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
       <Profile />
       <SpeechCard>
