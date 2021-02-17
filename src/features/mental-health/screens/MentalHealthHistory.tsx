@@ -105,7 +105,7 @@ function MentalHealthHistory() {
       history_prefer_not_to_say: MentalHealthHistory.conditions.includes('DECLINE_TO_SAY'),
     };
     await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
-    NavigatorService.navigate('MentalHealthLearning', undefined);
+    next();
   };
 
   return (
