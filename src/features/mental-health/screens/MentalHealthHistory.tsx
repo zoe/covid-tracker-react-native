@@ -75,7 +75,7 @@ function MentalHealthHistory() {
   }, [MentalHealthHistory]);
 
   return (
-    <BasicPage active={canSubmit} footerTitle="Next" onPress={next}>
+    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={next}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           {i18n.t('mental-health.question-history-title')}

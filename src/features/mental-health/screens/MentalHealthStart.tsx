@@ -9,7 +9,9 @@ import { Profile } from '../partials';
 
 function MentalHealthStart() {
   return (
-    <BasicPage footerTitle="Start" onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
+    <BasicPage
+      footerTitle={i18n.t('navigation.start')}
+      onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
       <Profile />
       <SpeechCard>
         <Text rhythm={16} textClass="pLight">
