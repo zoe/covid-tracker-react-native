@@ -1452,5 +1452,29 @@
     "answer-other": "Other",
     "share": "Share this app",
     "share-message": "Mental health share message"
+  },
+  "diet-study": {
+    "doctor-name": "Dr Sarah Berry",
+    "doctor-title": "Nutritional Scientist",
+    "doctor-location": "King’s College London",
+    "modal-title": "Diet Study results available",
+    "modal-intro-0": "Your personal results on COVID & Diet are ready! Thank you for participating in the study!",
+    "modal-answer-yes": "View insights",
+    "modal-answer-no": "No, thanks",
+    "introduction-title": "Your diet study scores",
+    "introduction-0": "We are excited to share our insights on how diets have changed during the pandemic.",
+    "introduction-1": "Thank you for taking part in what has become the world's largest survey linking diet and COVID.",
+    "card-0-title": "Traditional Diet Score",
+    "card-0-body": "This diet quality score is a measure of how healthy and balanced your diet is.",
+    "card-0-action": "View Traditional Diet Score",
+    "card-1-title": "Gut friendly diet score",
+    "card-1-body": "This score is a measure of how gut friendly your diet is.",
+    "card-1-action": "View Gut Friendly Diet Score",
+    "card-2-title": "Global diet changes",
+    "card-2-body": "How the pandemic affected our diets.",
+    "card-2-action": "View Global Diet Changes",
+    "global-title": "Global diet changes",
+    "gut-title": "Your gut friendly diet score",
+    "traditional-title": "Your traditional diet score"
   }
 }

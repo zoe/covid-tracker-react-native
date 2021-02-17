@@ -242,11 +242,19 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     }
   }
 
+  goToDietStudyModal() {
+    NavigatorService.navigate('DietStudyModal');
+  }
+
   async goToDietStudyPlayback() {
     if (this.patientData.patientState.isReportedByAnother) {
       await this.setPatientToPrimary();
     }
     this.startDietStudyPlaybackFlow(this.patientData);
+  }
+
+  goToDietStudy() {
+    NavigatorService.navigate('DietStudy');
   }
 
   goToUKValidationStudy() {

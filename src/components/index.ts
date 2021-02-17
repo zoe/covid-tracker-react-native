@@ -11,6 +11,7 @@ export * from './Inputs';
 export * from './layouts';
 export * from './lists';
 export * from './messaging';
+export * from './profiles';
 export * from './questions';
 export * from './Screens';
 export { default as Spacer } from './spacer';

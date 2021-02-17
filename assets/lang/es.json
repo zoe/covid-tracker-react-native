@@ -1457,5 +1457,8 @@
     "answer-other": "Other",
     "share": "Share this app",
     "share-message": "Mental health share message"
+  },
+  "diet-study": {
+    "modal-title": "Diet Study results available"
   }
 }
