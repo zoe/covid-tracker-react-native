@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import i18n from '@covid/locale/i18n';
 import { BasicPage, Text, SpeechCard, Icon } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
-import UserService from '@covid/core/user/UserService';
+import { selectUser, IUser } from '@covid/core/state/user';
 
 import { Profile } from '../partials';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthStart() {
   const [canStart, setCanStart] = useState(false);
+  const user: IUser = useSelector(selectUser);
+
   const createNewMentalHealthRecord = async () => {
-    // TODO - use patient id of current user
-    const currentPatientId: string = (await new UserService().getFirstPatientId()) ?? '';
-    // Create a record
+    const currentPatientId: string = user.patients[0];
     const newMentalHealth: MentalHealthInfosRequest = {};
     await mentalHealthApiClient.add(currentPatientId, newMentalHealth);
     setCanStart(true);
