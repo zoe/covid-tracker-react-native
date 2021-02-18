@@ -22,7 +22,7 @@ import Analytics from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { setUsername } from '@covid/core/state/user';
+import { setUsername, setPatients } from '@covid/core/state/user';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -61,6 +61,7 @@ function LoginScreen({ route }: IProps) {
         const patientId = response.user.patients[0];
 
         dispatch(setUsername(response.user.username));
+        dispatch(setPatients(response.user.patients));
 
         appCoordinator
           .setPatientById(patientId)

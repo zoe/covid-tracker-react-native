@@ -12,13 +12,16 @@ import {
   TGeneralAnswer,
 } from '@covid/core/state/mental-health';
 import i18n from '@covid/locale/i18n';
+import { mentalHealthApiClient } from '@covid/Services';
+import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
 
 import { initialOptions } from '../data';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthSupport() {
   const [canSubmit, setCanSubmit] = useState(false);
   const { grid } = useTheme();
-  const MentalHealthSupport = useSelector(selectMentalHealthSupport);
+  const MentalHealthSupport: IMentalHealthSupport = useSelector(selectMentalHealthSupport);
   const dispatch = useDispatch();
 
   const handleSetHasNeededSupport = (value: TGeneralAnswer) => {
@@ -41,11 +44,19 @@ function MentalHealthSupport() {
     setCanSubmit(false);
   }, [MentalHealthSupport]);
 
+  const saveStateAndNavigate = async () => {
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthSupport: MentalHealthSupport }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
+    NavigatorService.navigate('MentalHealthLearning', undefined);
+  };
+
   return (
-    <BasicPage
-      active={canSubmit}
-      footerTitle={i18n.t('navigation.next')}
-      onPress={() => NavigatorService.navigate('MentalHealthLearning', undefined)}>
+    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           {i18n.t('mental-health.question-support-title')}

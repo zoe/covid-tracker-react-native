@@ -13,9 +13,11 @@ import {
   TMentalHealthCondition,
   THasDiagnosis,
 } from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
 
 import { TQuestion, questions, initialOptions } from '../data';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthHistory() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
@@ -74,8 +76,19 @@ function MentalHealthHistory() {
     setCanSubmit(false);
   }, [MentalHealthHistory]);
 
+  const saveStateAndNavigate = async () => {
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthHistory: MentalHealthHistory }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
+    next();
+  };
+
   return (
-    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={next}>
+    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           {i18n.t('mental-health.question-history-title')}

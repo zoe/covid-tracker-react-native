@@ -13,9 +13,11 @@ import {
   THasDisability,
   TMentalHealthLearning,
 } from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
 
 import { TLearningQuestion, learningQuestions, learningInitialOptions } from '../data';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthLearning() {
   const MentalHealthLearning = useSelector(selectMentalHealthLearning);
@@ -66,11 +68,19 @@ function MentalHealthLearning() {
     setCanSubmit(false);
   }, [MentalHealthLearning]);
 
+  const saveStateAndNavigate = async () => {
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthLearning: MentalHealthLearning }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
+    NavigatorService.navigate('MentalHealthEnd', undefined);
+  };
+
   return (
-    <BasicPage
-      active={canSubmit}
-      footerTitle={i18n.t('navigation.next')}
-      onPress={() => NavigatorService.navigate('MentalHealthEnd', undefined)}>
+    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           {i18n.t('mental-health.question-learning-title')}
