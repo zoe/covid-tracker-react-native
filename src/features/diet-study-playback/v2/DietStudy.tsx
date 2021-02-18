@@ -47,6 +47,20 @@ function DietStudy() {
             </ActionCard>
           );
         })}
+        <View style={{ paddingHorizontal: 16 }}>
+          <Text rhythm={16} textClass="h4">
+            {i18n.t('diet-study.introduction-ongoing-title')}
+          </Text>
+          <Text rhythm={16} textClass="pLight">
+            {i18n.t('diet-study.introduction-ongoing-body')}
+          </Text>
+          <Text rhythm={16} textClass="h4">
+            {i18n.t('diet-study.introduction-more-title')}
+          </Text>
+          <Text rhythm={16} textClass="pLight">
+            {i18n.t('diet-study.introduction-more-body')}
+          </Text>
+        </View>
       </ScrollView>
     </SafeLayout>
   );
