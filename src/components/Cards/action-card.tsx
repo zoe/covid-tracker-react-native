@@ -7,12 +7,17 @@ import { Text } from '../typography';
 
 interface IProps {
   actionTitle: string;
+  buttonColor?: string;
   children: ReactNode;
   onPress: () => void;
+  outline?: boolean;
+  textColor?: string;
 }
 
-function ActionCard({ actionTitle, children, onPress }: IProps) {
+function ActionCard({ actionTitle, buttonColor, children, onPress, outline, textColor }: IProps) {
   const { colors, grid } = useTheme();
+  const bColor = buttonColor ? buttonColor : colors.blue.dark.bgColor;
+  const tColor = textColor ? textColor : 'white';
   return (
     <View style={[styles.wrapper, { padding: grid.gutter }]}>
       <TouchableOpacity
@@ -24,15 +29,14 @@ function ActionCard({ actionTitle, children, onPress }: IProps) {
         <View
           style={{
             alignItems: 'center',
+            backgroundColor: outline ? 'transparent' : bColor,
             borderWidth: 1,
-            borderColor: colors.burgundy.dark.bgColor,
+            borderColor: bColor,
             borderRadius: grid.xxl,
             height: grid.xxxxl,
             justifyContent: 'center',
           }}>
-          <Text colorPalette="burgundy" colorShade="main" inverted>
-            {actionTitle}
-          </Text>
+          <Text style={{ color: outline ? bColor : tColor }}>{actionTitle}</Text>
         </View>
         <View />
       </TouchableOpacity>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Image, ScrollView, View, StyleSheet } from 'react-native';
 
-import { ActionCard, BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
+import { BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGlobal3 } from '@assets';
+
+import { DietStudyActionCard } from '../components';
 
 function DietStudyGlobal() {
   return (
@@ -34,12 +36,7 @@ function DietStudyGlobal() {
         </View>
         <Image source={dietStudyPlaybackGlobal3} style={styles.img} />
         <Spacer space={24} />
-        <ActionCard actionTitle={i18n.t(`diet-study.email-action-cta`)} onPress={() => null}>
-          <Text textClass="pMedium" rhythm={16}>
-            {i18n.t(`diet-study.email-action-title`)}
-          </Text>
-          <Text textClass="pLight">{i18n.t(`diet-study.email-action-body`)}</Text>
-        </ActionCard>
+        <DietStudyActionCard />
       </ScrollView>
     </SafeLayout>
   );

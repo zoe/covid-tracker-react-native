@@ -1,12 +1,12 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
-import { ActionCard, Avatar, BasicNavHeader, Text, SafeLayout, Spacer, SpeechCard } from '@covid/components';
+import { Avatar, BasicNavHeader, Text, SafeLayout, Spacer, SpeechCard } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGutDiagram, drSarahBerry } from '@assets';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
-import { GutScore } from '../components';
+import { GutScore, DietStudyActionCard } from '../components';
 
 function DietStudyGut() {
   const coordinator = dietStudyPlaybackCoordinator;
@@ -68,12 +68,7 @@ function DietStudyGut() {
             {i18n.t('diet-study.gut-tips-body-2')}
           </Text>
         </SpeechCard>
-        <ActionCard actionTitle={i18n.t(`diet-study.email-action-cta`)} onPress={() => null}>
-          <Text textClass="pMedium" rhythm={16}>
-            {i18n.t(`diet-study.email-action-title`)}
-          </Text>
-          <Text textClass="pLight">{i18n.t(`diet-study.email-action-body`)}</Text>
-        </ActionCard>
+        <DietStudyActionCard />
       </ScrollView>
     </SafeLayout>
   );

@@ -1,10 +1,10 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { ActionCard, BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
+import { BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 
-import { QualityScore } from '../components';
+import { QualityScore, DietStudyActionCard } from '../components';
 
 function DietStudyTraditional() {
   return (
@@ -30,12 +30,7 @@ function DietStudyTraditional() {
             {i18n.t('diet-study.traditional-body-2')}
           </Text>
         </View>
-        <ActionCard actionTitle={i18n.t(`diet-study.email-action-cta`)} onPress={() => null}>
-          <Text textClass="pMedium" rhythm={16}>
-            {i18n.t(`diet-study.email-action-title`)}
-          </Text>
-          <Text textClass="pLight">{i18n.t(`diet-study.email-action-body`)}</Text>
-        </ActionCard>
+        <DietStudyActionCard />
       </ScrollView>
     </SafeLayout>
   );

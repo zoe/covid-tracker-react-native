@@ -1,16 +1,18 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { ActionCard, BasicProfile, BasicNavHeader, Text, SpeechCard, SafeLayout } from '@covid/components';
+import { ActionCard, BasicProfile, BasicNavHeader, Link, Text, SpeechCard, SafeLayout } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import { drSarahBerry } from '@assets';
 import i18n from '@covid/locale/i18n';
+import { useTheme } from '@covid/themes';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
 function DietStudy() {
   type route = keyof ScreenParamList;
   const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
+  const { colors } = useTheme();
 
   return (
     <SafeLayout withGutter={false}>
@@ -40,7 +42,9 @@ function DietStudy() {
           return (
             <ActionCard
               actionTitle={i18n.t(`diet-study.card-${index}-title`)}
+              buttonColor={colors.burgundy.main.bgColor}
               onPress={() => NavigatorService.navigate(route)}
+              outline
               key={key}>
               <Text textClass="pMedium">{i18n.t(`diet-study.card-${index}-title`)}</Text>
               <Text>{i18n.t(`diet-study.card-${index}-body`)}</Text>
@@ -60,6 +64,18 @@ function DietStudy() {
           <Text rhythm={16} textClass="pLight">
             {i18n.t('diet-study.introduction-more-body')}
           </Text>
+          <View style={{ paddingRight: 32 }}>
+            <Link
+              linkText={i18n.t('diet-study.introduction-more-link-0')}
+              onPress={() => null}
+              style={{ marginBottom: 16 }}
+            />
+            <Link
+              linkText={i18n.t('diet-study.introduction-more-link-1')}
+              onPress={() => null}
+              style={{ marginBottom: 32 }}
+            />
+          </View>
         </View>
       </ScrollView>
     </SafeLayout>
