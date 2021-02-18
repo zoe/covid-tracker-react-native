@@ -37,29 +37,34 @@ function MentalHealthChanges() {
   const { grid } = useTheme();
   const questions = [
     {
-      action: setDevicesWithScreen,
-      question: i18n.t('mental-health.question-devices-with-screen'),
-      state: mentalHealthChanges.devicesWithScreen,
+      action: setSleep,
+      question: i18n.t('mental-health.question-sleep'),
+      state: mentalHealthChanges.sleep,
     },
     {
-      action: setDrinkingAlcohol,
-      question: i18n.t('mental-health.question-drinking-alcohol'),
-      state: mentalHealthChanges.drinkingAlcohol,
-    },
-    {
-      action: setEngagingWithOrganisations,
-      question: i18n.t('mental-health.question-engaging-with-organisations'),
-      state: mentalHealthChanges.engagingWithOrganisations,
-    },
-    {
-      action: setFeelingAlone,
-      question: i18n.t('mental-health.question-feeling-alone'),
-      state: mentalHealthChanges.feelingAlone,
+      action: setPhysical,
+      question: i18n.t('mental-health.question-physical'),
+      state: mentalHealthChanges.physical,
     },
     {
       action: setGreenSpaces,
       question: i18n.t('mental-health.question-green-spaces'),
       state: mentalHealthChanges.greenSpaces,
+    },
+    {
+      action: setTimeWithPets,
+      question: i18n.t('mental-health.question-time-with-pets'),
+      state: mentalHealthChanges.timeWithPets,
+    },
+    {
+      action: setSmokingOrVaping,
+      question: i18n.t('mental-health.question-smoking-or-vaping'),
+      state: mentalHealthChanges.smokingOrVaping,
+    },
+    {
+      action: setDrinkingAlcohol,
+      question: i18n.t('mental-health.question-drinking-alcohol'),
+      state: mentalHealthChanges.drinkingAlcohol,
     },
     {
       action: setInteractingFaceToFace,
@@ -72,14 +77,14 @@ function MentalHealthChanges() {
       state: mentalHealthChanges.interactingViaPhoneOrTechnology,
     },
     {
-      action: setPhysical,
-      question: i18n.t('mental-health.question-physical'),
-      state: mentalHealthChanges.physical,
+      action: setFeelingAlone,
+      question: i18n.t('mental-health.question-feeling-alone'),
+      state: mentalHealthChanges.feelingAlone,
     },
     {
-      action: setReadingWatchingListeningNews,
-      question: i18n.t('mental-health.question-reading-watching-listening-News'),
-      state: mentalHealthChanges.readingWatchingListeningNews,
+      action: setWorking,
+      question: i18n.t('mental-health.question-working'),
+      state: mentalHealthChanges.working,
     },
     {
       action: setRelaxation,
@@ -87,14 +92,14 @@ function MentalHealthChanges() {
       state: mentalHealthChanges.relaxation,
     },
     {
-      action: setSleep,
-      question: i18n.t('mental-health.question-sleep'),
-      state: mentalHealthChanges.sleep,
+      action: setReadingWatchingListeningNews,
+      question: i18n.t('mental-health.question-reading-watching-listening-News'),
+      state: mentalHealthChanges.readingWatchingListeningNews,
     },
     {
-      action: setSmokingOrVaping,
-      question: i18n.t('mental-health.question-smoking-or-vaping'),
-      state: mentalHealthChanges.smokingOrVaping,
+      action: setDevicesWithScreen,
+      question: i18n.t('mental-health.question-devices-with-screen'),
+      state: mentalHealthChanges.devicesWithScreen,
     },
     {
       action: setSnacks,
@@ -102,14 +107,9 @@ function MentalHealthChanges() {
       state: mentalHealthChanges.snacks,
     },
     {
-      action: setTimeWithPets,
-      question: i18n.t('mental-health.question-time-with-pets'),
-      state: mentalHealthChanges.timeWithPets,
-    },
-    {
-      action: setWorking,
-      question: i18n.t('mental-health.question-working'),
-      state: mentalHealthChanges.working,
+      action: setEngagingWithOrganisations,
+      question: i18n.t('mental-health.question-engaging-with-organisations'),
+      state: mentalHealthChanges.engagingWithOrganisations,
     },
   ];
 
