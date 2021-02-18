@@ -79,32 +79,11 @@ function MentalHealthHistory() {
   const saveStateAndNavigate = async () => {
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
-    const updatedMentalHealth: MentalHealthInfosRequest = {
-      id: existingMentalHealth.id ?? undefined,
-      patient: existingMentalHealth.patient,
-      ever_diagnosed_with_mental_health_condition: MentalHealthHistory.hasDiagnosis,
-
-      // Map the list of additions to the BE counterpart booleans
-      generalised_anxiety_disorder: MentalHealthHistory.conditions.includes('GAD'),
-      panic: MentalHealthHistory.conditions.includes('PANIC_DISORDER'),
-      specific_phobias: MentalHealthHistory.conditions.includes('SPECIFIC_PHOBIAS'),
-      ocd: MentalHealthHistory.conditions.includes('OCD'),
-      ptsd: MentalHealthHistory.conditions.includes('PTSD'),
-      social_anxiety: MentalHealthHistory.conditions.includes('SOCIAL_ANXIETY_DISORDER'),
-      agoraphobia: MentalHealthHistory.conditions.includes('AGORAPHOBIA'),
-      depression: MentalHealthHistory.conditions.includes('DEPRESSION'),
-      add_adhd: MentalHealthHistory.conditions.includes('ADD_ADHD'),
-      autism: MentalHealthHistory.conditions.includes('AUTISTIC_SPECTRUM_DISORDER'),
-      eating: MentalHealthHistory.conditions.includes('EATING_DISORDER'),
-      personality: MentalHealthHistory.conditions.includes('PERSONALITY_DISORDER'),
-      mania_hypomania_bipolar_manic_depression: MentalHealthHistory.conditions.includes('MANIA'),
-      schizophrenia: MentalHealthHistory.conditions.includes('SCHIZOPHRENIA'),
-      substance_use: MentalHealthHistory.conditions.includes('SUBSTANCE_USE_DISORDER'),
-      psychosis_or_psychotic_illness: MentalHealthHistory.conditions.includes('TYPE_OF_PSYCHOSIS'),
-      history_other: MentalHealthHistory.conditions.includes('OTHER'),
-      history_prefer_not_to_say: MentalHealthHistory.conditions.includes('DECLINE_TO_SAY'),
-    };
-    await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthHistory: MentalHealthHistory }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
     next();
   };
 

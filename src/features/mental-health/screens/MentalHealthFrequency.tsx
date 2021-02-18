@@ -57,16 +57,11 @@ function MentalHealthFrequency() {
   const saveStateAndNavigate = async () => {
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
-    const updatedMentalHealth: MentalHealthInfosRequest = {
-      id: existingMentalHealth.id,
-      patient: existingMentalHealth.patient,
-      little_interest_or_pleasure_in_doing_things: MentalHealthFrequency.pleasureInDoingThings,
-      feeling_down: MentalHealthFrequency.feelingDown,
-      feeling_nervous: MentalHealthFrequency.feelingNervous,
-      not_being_able_to_control_worrying: MentalHealthFrequency.stopWorrying,
-    };
-
-    await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthFrequency: MentalHealthFrequency }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
     NavigatorService.navigate('MentalHealthHistory', undefined);
   };
 

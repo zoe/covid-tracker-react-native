@@ -123,26 +123,11 @@ function MentalHealthChanges() {
   const saveStateAndNavigate = async () => {
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
-    const updatedMentalHealth: MentalHealthInfosRequest = {
-      id: existingMentalHealth.id,
-      patient: existingMentalHealth.patient,
-      using_devices_with_a_screen: mentalHealthChanges.devicesWithScreen,
-      drinking_alcohol: mentalHealthChanges.drinkingAlcohol,
-      engaging_in_orgs_clubs_socs: mentalHealthChanges.engagingWithOrganisations,
-      feeling_more_alone: mentalHealthChanges.feelingAlone,
-      spending_time_in_green_spaces: mentalHealthChanges.greenSpaces,
-      interacting_face_to_face_with_family_friends: mentalHealthChanges.interactingFaceToFace,
-      talking_to_family_friends_via_phone_or_technology: mentalHealthChanges.interactingViaPhoneOrTechnology,
-      being_physically_active_or_doing_exercise: mentalHealthChanges.physical,
-      reading_watching_listening_to_the_news: mentalHealthChanges.readingWatchingListeningNews,
-      relaxation_mindfulness_meditation: mentalHealthChanges.relaxation,
-      sleeping_well: mentalHealthChanges.sleep,
-      smoking_or_vaping: mentalHealthChanges.smokingOrVaping,
-      eating_savoury_snacks_or_confectionery: mentalHealthChanges.snacks,
-      working: mentalHealthChanges.working,
-      spending_time_with_pets: mentalHealthChanges.timeWithPets,
-    };
-    await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthChanges }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
     NavigatorService.navigate('MentalHealthFrequency', undefined);
   };
 

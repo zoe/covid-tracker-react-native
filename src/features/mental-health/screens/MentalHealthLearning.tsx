@@ -71,23 +71,11 @@ function MentalHealthLearning() {
   const saveStateAndNavigate = async () => {
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
-    const updatedMentalHealth: MentalHealthInfosRequest = {
-      id: existingMentalHealth.id,
-      patient: existingMentalHealth.patient,
-      about_your_learning_needs: MentalHealthLearning.hasDisability,
-
-      // Map the list of additions to the BE counterpart booleans
-      dyslexia: MentalHealthLearning.conditions.includes('DYSLEXIA'),
-      dyscalculia: MentalHealthLearning.conditions.includes('DYSCALCULIA'),
-      dysgraphia: MentalHealthLearning.conditions.includes('DYSGRAPHIA'),
-      non_verbal: MentalHealthLearning.conditions.includes('NON-VERBAL'),
-      oral: MentalHealthLearning.conditions.includes('ORAL_WRITTEN'),
-      sensory_impairment: MentalHealthLearning.conditions.includes('SENSORY'),
-      learning_other: MentalHealthLearning.conditions.includes('OTHER'),
-      learning_prefer_not_to_say: MentalHealthLearning.conditions.includes('DECLINE_TO_SAY'),
-    };
-
-    await mentalHealthApiClient.update(existingMentalHealth.id, updatedMentalHealth);
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthLearning: MentalHealthLearning }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
     NavigatorService.navigate('MentalHealthEnd', undefined);
   };
 
