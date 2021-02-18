@@ -58,7 +58,7 @@ function MentalHealthSupport() {
   return (
     <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
-        <Text textClass="h3" rhythm={32}>
+        <Text textClass="h3" rhythm={16}>
           {i18n.t('mental-health.question-support-title')}
         </Text>
         <View>
