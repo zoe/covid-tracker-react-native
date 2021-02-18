@@ -47,7 +47,6 @@ function MentalHealthLearning() {
         <View style={{ marginRight: grid.l }}>
           <CheckBoxButton
             active={getHasExistingCondition(data.value)}
-            backgroundColor="#ccc"
             onPress={() => handleAddRemoveCondition(data.value)}
           />
         </View>
