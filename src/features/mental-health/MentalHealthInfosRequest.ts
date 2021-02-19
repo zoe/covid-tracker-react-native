@@ -47,6 +47,7 @@ export type MentalHealthInfosRequest = {
   substance_use?: boolean;
   psychosis_or_psychotic_illness?: boolean;
   history_other?: boolean;
+  history_other_text?: string;
   history_prefer_not_to_say?: boolean;
 
   // Section 4
@@ -62,5 +63,6 @@ export type MentalHealthInfosRequest = {
   oral?: boolean;
   sensory_impairment?: boolean;
   learning_other?: boolean;
+  learning_other_text?: string;
   learning_prefer_not_to_say?: boolean;
 };

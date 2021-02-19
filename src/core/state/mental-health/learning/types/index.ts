@@ -13,4 +13,5 @@ export type THasDisability = 'YES' | 'NO' | 'DECLINE_TO_SAY' | undefined;
 export interface IMentalHealthLearning {
   hasDisability: THasDisability;
   conditions: TMentalHealthLearning[];
+  otherText?: string;
 }

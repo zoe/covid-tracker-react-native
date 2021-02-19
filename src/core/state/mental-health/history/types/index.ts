@@ -23,4 +23,5 @@ export type THasDiagnosis = 'YES' | 'NO' | 'DECLINE_TO_SAY' | undefined;
 export interface IMentalHealthHistory {
   hasDiagnosis: THasDiagnosis;
   conditions: TMentalHealthCondition[];
+  otherText?: string;
 }

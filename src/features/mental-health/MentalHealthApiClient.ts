@@ -110,6 +110,7 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
         substance_use: data.mentalHealthHistory.conditions.includes('SUBSTANCE_USE_DISORDER'),
         psychosis_or_psychotic_illness: data.mentalHealthHistory.conditions.includes('TYPE_OF_PSYCHOSIS'),
         history_other: data.mentalHealthHistory.conditions.includes('OTHER'),
+        history_other_text: data.mentalHealthHistory.otherText,
         history_prefer_not_to_say: data.mentalHealthHistory.conditions.includes('DECLINE_TO_SAY'),
       };
     }
@@ -125,6 +126,7 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
         oral: data.mentalHealthLearning.conditions.includes('ORAL_WRITTEN'),
         sensory_impairment: data.mentalHealthLearning.conditions.includes('SENSORY'),
         learning_other: data.mentalHealthLearning.conditions.includes('OTHER'),
+        learning_other_text: data.mentalHealthLearning.otherText,
         learning_prefer_not_to_say: data.mentalHealthLearning.conditions.includes('DECLINE_TO_SAY'),
       };
     }
