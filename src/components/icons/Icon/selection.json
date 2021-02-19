@@ -49,6 +49,28 @@
     },
     {
       "icon": {
+        "paths": ["M170 640v-86h684v86h-684zM854 384v86h-684v-86h684z"],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": ["drag_handle"],
+        "grid": 24
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "drag_handle",
+        "id": 302,
+        "order": 526,
+        "prevSize": 24,
+        "code": 59912,
+        "name": "drag_handle"
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 302
+    },
+    {
+      "icon": {
         "paths": ["M498 166l-346 346 346 346-76 76-422-422 422-422z"],
         "attrs": [],
         "isMulticolor": false,

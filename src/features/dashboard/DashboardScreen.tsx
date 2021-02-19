@@ -98,13 +98,21 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   }, [navigation]);
 
   useEffect(() => {
+    let isMounted = true;
     if (!app.dashboardHasBeenViewed) {
       if (showDietStudyPlayback) {
         track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
       }
       dispatch(setDashboardHasBeenViewed(true));
-      showMentalHealthModal();
+      setTimeout(() => {
+        if (isMounted) {
+          showMentalHealthModal();
+        }
+      }, 800);
     }
+    return function () {
+      isMounted = false;
+    };
   }, []);
 
   const hasNetworkData = networks && networks.length > 0;
