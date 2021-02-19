@@ -36,7 +36,7 @@ function ChangesQuestion({ disabled = false, onPress, question, state }: IProps)
       keyValue: { key: i18n.t('mental-health.answer-less'), value: 'LESS' },
     },
     {
-      iconName: 'equal-2',
+      iconName: 'drag_handle',
       keyValue: { key: i18n.t('mental-health.answer-no-change'), value: 'NO_CHANGE' },
     },
     {
