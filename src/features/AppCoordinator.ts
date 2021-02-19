@@ -328,7 +328,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   goToMentalHealthStudy() {
-    NavigatorService.navigate('MentalHealthStart');
+    NavigatorService.navigate('MentalHealthChanges');
   }
   goToMentalHealthModal() {
     NavigatorService.navigate('MentalHealthModal');
