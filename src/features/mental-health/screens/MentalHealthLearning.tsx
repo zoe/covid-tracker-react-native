@@ -9,12 +9,14 @@ import {
   addLearningCondition,
   removeLearningCondition,
   setHasLearningDisability,
+  setLearningOtherText,
   selectMentalHealthLearning,
   THasDisability,
   TMentalHealthLearning,
 } from '@covid/core/state/mental-health';
 import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 
 import { TLearningQuestion, learningQuestions, learningInitialOptions } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
@@ -78,6 +80,16 @@ function MentalHealthLearning() {
     NavigatorService.navigate('MentalHealthEnd', undefined);
   };
 
+  const renderOtherTextInput = MentalHealthLearning.conditions.includes('OTHER') ? (
+    <ValidatedTextInput
+      placeholder={i18n.t('mental-health.specify-other')}
+      value={MentalHealthLearning.otherText}
+      onChangeText={(text: string) => {
+        dispatch(setLearningOtherText(text));
+      }}
+    />
+  ) : null;
+
   return (
     <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
@@ -93,12 +105,15 @@ function MentalHealthLearning() {
           />
         </View>
         {MentalHealthLearning.hasDisability === 'YES' && (
-          <GenericSelectableList
-            collection={learningQuestions}
-            onPress={(data) => handleAddRemoveCondition(data.value)}
-            renderRow={(data) => renderRow(data)}
-            style={{ paddingBottom: grid.s, paddingTop: grid.s }}
-          />
+          <>
+            <GenericSelectableList
+              collection={learningQuestions}
+              onPress={(data) => handleAddRemoveCondition(data.value)}
+              renderRow={(data) => renderRow(data)}
+              style={{ paddingBottom: grid.s, paddingTop: grid.s }}
+            />
+            {renderOtherTextInput}
+          </>
         )}
       </View>
     </BasicPage>

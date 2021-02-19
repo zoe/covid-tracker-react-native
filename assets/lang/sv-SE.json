@@ -1368,7 +1368,7 @@
     "notified": "Utvecklingsteamet har meddelats och förhoppningsvis bör problemet åtgärdas så fort! Försök att starta om appen för att fortsätta."
   },
 
- "mental-health": {
+  "mental-health": {
     "doctor-name": "Dr Ellen Jo Thompson",
     "doctor-title": "Mental Health Researcher",
     "doctor-college": "King’s College London",
@@ -1449,7 +1449,8 @@
     "answer-no": "No",
     "answer-other": "Other",
     "share": "Share this app",
-    "share-message": "Mental health share message"
+    "share-message": "Mental health share message",
+    "specify-other": "Please specify"
   },
   "navigation": {
     "next": "Nästa",
