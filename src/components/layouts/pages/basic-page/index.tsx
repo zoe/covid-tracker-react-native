@@ -16,7 +16,7 @@ interface IProps {
 function BasicPage({ active = true, children, footerTitle, onPress, withGutter = false }: IProps) {
   return (
     <SafeLayout withGutter={withGutter}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <BasicNavHeader />
         {children}
         <BasicPageFooter active={active} onPress={onPress} title={footerTitle} />

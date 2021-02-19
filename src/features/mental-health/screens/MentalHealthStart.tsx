@@ -36,9 +36,6 @@ function MentalHealthStart() {
         <Text rhythm={16} textClass="pLight">
           {i18n.t('mental-health.introduction-0')}
         </Text>
-        <Text rhythm={16} textClass="pLight">
-          {i18n.t('mental-health.introduction-1')}
-        </Text>
         <Text textClass="pLight">{i18n.t('mental-health.introduction-1')}</Text>
       </SpeechCard>
       <View style={{ flexDirection: 'row', paddingHorizontal: 16 }}>
