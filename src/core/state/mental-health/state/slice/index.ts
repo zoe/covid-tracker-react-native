@@ -6,6 +6,7 @@ import { IMentalHealthState, TMentalHealthConsent, TMentalHealthSection } from '
 const initialState: IMentalHealthState = {
   consent: undefined,
   currentSection: undefined,
+  lastPresentedDate: undefined,
 };
 
 const mentalHealthStateSlice = createSlice({
@@ -24,9 +25,15 @@ const mentalHealthStateSlice = createSlice({
         consent: action.payload,
       };
     },
+    setLastPresentedDate: (state, action: PayloadAction<Date>) => {
+      return {
+        ...state,
+        lastPresentedDate: action.payload,
+      };
+    },
   },
 });
 
-export const { setCurrentSection, setConsent } = mentalHealthStateSlice.actions;
+export const { setCurrentSection, setConsent, setLastPresentedDate } = mentalHealthStateSlice.actions;
 export const selectMentalHealthState = (state: RootState) => state.mentalHealthState;
 export default mentalHealthStateSlice.reducer;
