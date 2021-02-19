@@ -79,7 +79,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       // check time since
       const previous = moment(MentalHealthState.lastPresentedDate);
       const now = moment(new Date());
-      const diff = previous.diff(now, 'days');
+      const diff = now.diff(previous, 'days');
       if (diff >= 7) {
         appCoordinator.goToMentalHealthModal();
       }
