@@ -22,6 +22,7 @@ import {
   mentalHealthStateSlice,
   mentalHealthSupportSlice,
 } from './mental-health';
+import { ISettings, settingsSlice } from './settings';
 import { IVaccineState, vaccinesSlice } from './vaccines';
 
 export type RootState = {
@@ -35,6 +36,7 @@ export type RootState = {
   mentalHealthState: IMentalHealthState;
   mentalHealthSupport: IMentalHealthSupport;
   school: SchoolState;
+  settings: ISettings;
   uiMessages: IUIMessageCollection;
   user: IUser;
   vaccines: IVaccineState;
@@ -51,6 +53,7 @@ export default combineReducers({
   mentalHealthState: mentalHealthStateSlice,
   mentalHealthSupport: mentalHealthSupportSlice,
   school: schoolSlice.reducer,
+  settings: settingsSlice,
   uiMessages: uiMessagesSlice,
   user: userSlice,
   vaccines: vaccinesSlice.reducer,

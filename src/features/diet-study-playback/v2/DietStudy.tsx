@@ -6,13 +6,16 @@ import NavigatorService from '@covid/NavigatorService';
 import { drSarahBerry } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useTheme } from '@covid/themes';
+import { openWebLink } from '@covid/utils/links';
 
+import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
 
 function DietStudy() {
   type route = keyof ScreenParamList;
   const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
+  const coordinator = dietStudyPlaybackCoordinator;
 
   return (
     <SafeLayout withGutter={false}>
@@ -67,7 +70,7 @@ function DietStudy() {
           <View style={{ paddingRight: 32 }}>
             <Link
               linkText={i18n.t('diet-study.introduction-more-link-0')}
-              onPress={() => null}
+              onPress={() => openWebLink(coordinator.getDietStudyInfoUrl())}
               style={{ marginBottom: 16 }}
             />
             <Link
