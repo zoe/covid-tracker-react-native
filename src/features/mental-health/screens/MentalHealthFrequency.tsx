@@ -12,9 +12,11 @@ import {
   setPleasureInDoingThings,
   setStopWorrying,
 } from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
 
 import { FrequencyQuestion } from '../partials';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthFrequency() {
   const [canSubmit, setCanSubmit] = useState(false);
@@ -52,11 +54,19 @@ function MentalHealthFrequency() {
     setCanSubmit(enableSubmit);
   }, [MentalHealthFrequency]);
 
+  const saveStateAndNavigate = async () => {
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthFrequency: MentalHealthFrequency }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
+    NavigatorService.navigate('MentalHealthHistory', undefined);
+  };
+
   return (
-    <BasicPage
-      active={canSubmit}
-      footerTitle="Next"
-      onPress={() => NavigatorService.navigate('MentalHealthHistory', undefined)}>
+    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           {i18n.t('mental-health.question-frequency')}

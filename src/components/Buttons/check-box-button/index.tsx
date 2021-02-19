@@ -32,6 +32,7 @@ function CheckBoxButton({
       onPress={onPress}
       style={{
         alignItems: 'center',
+        borderRadius: 8,
         backgroundColor,
         height: backgroundSize,
         justifyContent: 'center',

@@ -12,10 +12,14 @@ import {
   setHasHistoryDiagnosis,
   TMentalHealthCondition,
   THasDiagnosis,
+  setHistoryOtherText,
 } from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 
 import { TQuestion, questions, initialOptions } from '../data';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthHistory() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
@@ -45,7 +49,6 @@ function MentalHealthHistory() {
         <View style={{ marginRight: grid.l }}>
           <CheckBoxButton
             active={getHasExistingCondition(data.value)}
-            backgroundColor="#ccc"
             onPress={() => handleAddRemoveCondition(data.value)}
           />
         </View>
@@ -74,10 +77,31 @@ function MentalHealthHistory() {
     setCanSubmit(false);
   }, [MentalHealthHistory]);
 
+  const saveStateAndNavigate = async () => {
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthHistory: MentalHealthHistory }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
+    next();
+  };
+
+  const renderOtherTextInput = MentalHealthHistory.conditions.includes('OTHER') ? (
+    <ValidatedTextInput
+      placeholder={i18n.t('mental-health.specify-other')}
+      value={MentalHealthHistory.otherText}
+      onChangeText={(text: string) => {
+        dispatch(setHistoryOtherText(text));
+      }}
+    />
+  ) : null;
+
   return (
-    <BasicPage active={canSubmit} footerTitle="Next" onPress={next}>
+    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
-        <Text textClass="h3" rhythm={32}>
+        <Text textClass="h3" rhythm={16}>
           {i18n.t('mental-health.question-history-title')}
         </Text>
         <View>
@@ -89,12 +113,15 @@ function MentalHealthHistory() {
           />
         </View>
         {MentalHealthHistory.hasDiagnosis === 'YES' && (
-          <GenericSelectableList
-            collection={questions}
-            onPress={(data) => handleAddRemoveCondition(data.value)}
-            renderRow={(data) => renderRow(data)}
-            style={{ paddingBottom: grid.s, paddingTop: grid.s }}
-          />
+          <>
+            <GenericSelectableList
+              collection={questions}
+              onPress={(data) => handleAddRemoveCondition(data.value)}
+              renderRow={(data) => renderRow(data)}
+              style={{ paddingBottom: grid.s, paddingTop: grid.s }}
+            />
+            {renderOtherTextInput}
+          </>
         )}
       </View>
     </BasicPage>

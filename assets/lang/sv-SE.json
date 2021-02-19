@@ -1373,20 +1373,20 @@
     "doctor-title": "Mental Health Researcher",
     "doctor-college": "King’s College London",
     "introduction-0": "We are currently investigating how the pandemic has had an impact on our mental health.",
-    "introduction-1": "This short questionnaire is a starting point to allow us to understand better how it has affected us",
+    "introduction-1": "This short questionnaire is a starting point to allow us to understand better how it has affected us.",
     "introduction-2": "Thank you for your ongoing support!",
-    "introduction-condition": "This study is currently only available for the “Me” primary profile.",
+    "introduction-condition": "This study is only available for the “Me” primary profile.",
     "question-changes": "During this pandemic, have you changed the way you have spent time doing the following:",
     "question-devices-with-screen": "Using devices with a screen",
     "question-drinking-alcohol": "Drinking alcohol",
-    "question-engaging-with-organisations": "Engaging in organisations, clubs or societies (e.g. political, religious, charitable, social, sport. or other groups organisations, clubs or societies).",
+    "question-engaging-with-organisations": "Engaging in organisations, clubs or societies (e.g. political, religious, charitable, social, sport or other groups organisations, clubs or societies).",
     "question-feeling-alone": "Feeling more alone",
     "question-green-spaces": "Spending time in green spaces such as parks, gardens, countryside",
-    "question-interacting-face-to-face": "Interacting face-to-face with family/friends",
-    "question-interacting-via-phone-or-technology": "Talking to family/friends via phone / technology",
+    "question-interacting-face-to-face": "Interacting face-to-face with family / friends",
+    "question-interacting-via-phone-or-technology": "Talking to family / friends via phone / technology",
     "question-physical": "Being physically active / doing exercise",
-    "question-reading-watching-listening-News": "Reading/watching/listening to the news",
-    "question-relaxation": "Relaxation / mindfulness/ meditation",
+    "question-reading-watching-listening-News": "Reading / watching / listening to the news",
+    "question-relaxation": "Relaxation / mindfulness / meditation",
     "question-sleep": "Sleeping well",
     "question-smoking-or-vaping": "Smoking or vaping",
     "question-snacks": "Eating savoury snacks / confectionery",
@@ -1403,9 +1403,9 @@
     "question-stop-worrying": "Not being able to stop or control worrying",
     "answer-not-at-all": "Not at all",
     "answer-several-days": "Several days",
-    "answer-more-than-half": "More that half the days",
+    "answer-more-than-half": "More than half the days",
     "answer-nearly-every-day": "Nearly every day",
-    "question-history-title": "About you history of mental health",
+    "question-history-title": "About your history of mental health",
     "question-history": "Have you ever been diagnosed with a mental health condition?",
     "question-support-title": "About your mental health support",
     "question-support-needed": "Have you needed any support for your mental health in the last 6 months?",
@@ -1420,7 +1420,7 @@
     "answer-depression": "Depression",
     "answer-add-adhd": "Attention deficit or attention deficit and hyperactivity disorder (ADD/ADHD)",
     "answer-autistic-spectrum-disorder": "Autism, Asperger's or autistic spectrum disorder",
-    "answer-eating-disorder": "Eating disorder (e.g. bulimia nervosa; anorexia nervosa; psychological over-eating or binge-eating",
+    "answer-eating-disorder": "Eating disorder (e.g. bulimia nervosa; anorexia nervosa; psychological over-eating or binge-eating)",
     "answer-personality-disorder": "A personality disorder",
     "answer-mania": "Mania, hypomania, bipolar or manic depression",
     "answer-schizophrenia": "Schizophrenia",
@@ -1449,7 +1449,8 @@
     "answer-no": "No",
     "answer-other": "Other",
     "share": "Share this app",
-    "share-message": "Mental health share message"
+    "share-message": "I'm helping scientists to investigate the impact of the pandemic on people's mental health - you can too! Download the app",
+    "specify-other": "Please specify"
   },
   "diet-study": {
     "doctor-name": "Dr Sarah Berry",
@@ -1503,5 +1504,9 @@
     "email-action-title": "Would you like to learn about the latest nutrition research?",
     "email-action-body": "We will keep you up-to-date by email with the latest nutritional science, including ZOE’s own discoveries. You can opt-out at any time, and will only receive science updates.",
     "email-action-cta": "Yes, I’d love to know more"
+  },
+  "navigation": {
+    "next": "Next",
+    "start": "Start"
   }
 }

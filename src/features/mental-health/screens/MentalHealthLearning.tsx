@@ -9,13 +9,17 @@ import {
   addLearningCondition,
   removeLearningCondition,
   setHasLearningDisability,
+  setLearningOtherText,
   selectMentalHealthLearning,
   THasDisability,
   TMentalHealthLearning,
 } from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 
 import { TLearningQuestion, learningQuestions, learningInitialOptions } from '../data';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthLearning() {
   const MentalHealthLearning = useSelector(selectMentalHealthLearning);
@@ -45,7 +49,6 @@ function MentalHealthLearning() {
         <View style={{ marginRight: grid.l }}>
           <CheckBoxButton
             active={getHasExistingCondition(data.value)}
-            backgroundColor="#ccc"
             onPress={() => handleAddRemoveCondition(data.value)}
           />
         </View>
@@ -66,13 +69,31 @@ function MentalHealthLearning() {
     setCanSubmit(false);
   }, [MentalHealthLearning]);
 
+  const saveStateAndNavigate = async () => {
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthLearning: MentalHealthLearning }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
+    NavigatorService.navigate('MentalHealthEnd', undefined);
+  };
+
+  const renderOtherTextInput = MentalHealthLearning.conditions.includes('OTHER') ? (
+    <ValidatedTextInput
+      placeholder={i18n.t('mental-health.specify-other')}
+      value={MentalHealthLearning.otherText}
+      onChangeText={(text: string) => {
+        dispatch(setLearningOtherText(text));
+      }}
+    />
+  ) : null;
+
   return (
-    <BasicPage
-      active={canSubmit}
-      footerTitle="Next"
-      onPress={() => NavigatorService.navigate('MentalHealthEnd', undefined)}>
+    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
-        <Text textClass="h3" rhythm={32}>
+        <Text textClass="h3" rhythm={16}>
           {i18n.t('mental-health.question-learning-title')}
         </Text>
         <View>
@@ -84,12 +105,15 @@ function MentalHealthLearning() {
           />
         </View>
         {MentalHealthLearning.hasDisability === 'YES' && (
-          <GenericSelectableList
-            collection={learningQuestions}
-            onPress={(data) => handleAddRemoveCondition(data.value)}
-            renderRow={(data) => renderRow(data)}
-            style={{ paddingBottom: grid.s, paddingTop: grid.s }}
-          />
+          <>
+            <GenericSelectableList
+              collection={learningQuestions}
+              onPress={(data) => handleAddRemoveCondition(data.value)}
+              renderRow={(data) => renderRow(data)}
+              style={{ paddingBottom: grid.s, paddingTop: grid.s }}
+            />
+            {renderOtherTextInput}
+          </>
         )}
       </View>
     </BasicPage>
