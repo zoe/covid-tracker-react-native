@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
 import { Avatar, SafeLayout, Text } from '@covid/components';
-import { TMentalHealthConsent, setConsent } from '@covid/core/state';
+import { TMentalHealthConsent, setConsent, setLastPresentedDate } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
 
@@ -17,6 +17,9 @@ function MentalHealthModal() {
   // TODO implement redux state
   const handleSetConsent = (consent: TMentalHealthConsent) => {
     dispatch(setConsent(consent));
+    if (consent === 'LATER') {
+      dispatch(setLastPresentedDate(new Date()));
+    }
     if (consent !== 'YES') {
       goBack();
       return;

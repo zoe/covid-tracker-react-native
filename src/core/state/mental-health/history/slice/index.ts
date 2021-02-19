@@ -29,9 +29,20 @@ const mentalHealthHistorySlice = createSlice({
         hasDiagnosis: action.payload,
       };
     },
+    setHistoryOtherText: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        otherText: action.payload,
+      };
+    },
   },
 });
 
-export const { addHistoryCondition, removeHistoryCondition, setHasHistoryDiagnosis } = mentalHealthHistorySlice.actions;
+export const {
+  addHistoryCondition,
+  removeHistoryCondition,
+  setHasHistoryDiagnosis,
+  setHistoryOtherText,
+} = mentalHealthHistorySlice.actions;
 export const selectMentalHealthHistory = (state: RootState) => state.mentalHealthHistory;
 export default mentalHealthHistorySlice.reducer;

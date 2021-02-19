@@ -29,6 +29,12 @@ const mentalHealthLearningSlice = createSlice({
         hasDisability: action.payload,
       };
     },
+    setLearningOtherText: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        otherText: action.payload,
+      };
+    },
   },
 });
 
@@ -36,6 +42,7 @@ export const {
   addLearningCondition,
   removeLearningCondition,
   setHasLearningDisability,
+  setLearningOtherText,
 } = mentalHealthLearningSlice.actions;
 export const selectMentalHealthLearning = (state: RootState) => state.mentalHealthLearning;
 export default mentalHealthLearningSlice.reducer;
