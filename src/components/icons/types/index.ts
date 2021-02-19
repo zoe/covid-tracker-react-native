@@ -83,6 +83,7 @@ export type TIconName =
   | 'dinner-low'
   | 'dna'
   | 'docs'
+  | 'drag_handle'
   | 'edit-left-sharp'
   | 'edit-left'
   | 'edit-right-sharp'
