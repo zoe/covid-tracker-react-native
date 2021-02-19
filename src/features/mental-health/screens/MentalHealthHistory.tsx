@@ -12,9 +12,11 @@ import {
   setHasHistoryDiagnosis,
   TMentalHealthCondition,
   THasDiagnosis,
+  setHistoryOtherText,
 } from '@covid/core/state/mental-health';
 import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 
 import { TQuestion, questions, initialOptions } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
@@ -86,6 +88,16 @@ function MentalHealthHistory() {
     next();
   };
 
+  const renderOtherTextInput = MentalHealthHistory.conditions.includes('OTHER') ? (
+    <ValidatedTextInput
+      placeholder={i18n.t('mental-health.specify-other')}
+      value={MentalHealthHistory.otherText}
+      onChangeText={(text: string) => {
+        dispatch(setHistoryOtherText(text));
+      }}
+    />
+  ) : null;
+
   return (
     <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
@@ -101,12 +113,15 @@ function MentalHealthHistory() {
           />
         </View>
         {MentalHealthHistory.hasDiagnosis === 'YES' && (
-          <GenericSelectableList
-            collection={questions}
-            onPress={(data) => handleAddRemoveCondition(data.value)}
-            renderRow={(data) => renderRow(data)}
-            style={{ paddingBottom: grid.s, paddingTop: grid.s }}
-          />
+          <>
+            <GenericSelectableList
+              collection={questions}
+              onPress={(data) => handleAddRemoveCondition(data.value)}
+              renderRow={(data) => renderRow(data)}
+              style={{ paddingBottom: grid.s, paddingTop: grid.s }}
+            />
+            {renderOtherTextInput}
+          </>
         )}
       </View>
     </BasicPage>

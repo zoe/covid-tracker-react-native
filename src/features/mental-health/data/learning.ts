@@ -43,11 +43,11 @@ export const learningQuestions: TLearningQuestion[] = [
     value: 'SENSORY',
   },
   {
-    key: i18n.t('mental-health.answer-other'),
-    value: 'OTHER',
-  },
-  {
     key: i18n.t('mental-health.answer-prefer-not-to-say'),
     value: 'DECLINE_TO_SAY',
+  },
+  {
+    key: i18n.t('mental-health.answer-other'),
+    value: 'OTHER',
   },
 ];

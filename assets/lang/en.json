@@ -1451,7 +1451,8 @@
     "answer-no": "No",
     "answer-other": "Other",
     "share": "Share this app",
-    "share-message": "Mental health share message"
+    "share-message": "Mental health share message",
+    "specify-other": "Please specify"
   },
   "navigation": {
     "next": "Next",
