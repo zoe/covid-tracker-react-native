@@ -40,7 +40,7 @@ function MentalHealthModal() {
         </Text>
         <View style={styles.profile}>
           <Avatar imgsrc={getImgSrc()} />
-          <View style={{ marginLeft: 16 }}>
+          <View style={{ marginLeft: 16, marginRight: 32 }}>
             <Text>{i18n.t('mental-health.doctor-name')}</Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>
               {i18n.t('mental-health.doctor-title')}
