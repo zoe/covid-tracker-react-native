@@ -17,12 +17,14 @@ import {
 import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { events, track } from '@covid/core/Analytics';
 
 import { TQuestion, questions, initialOptions } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthHistory() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
+  const [tracked, setTracked] = useState(false);
   const [canSubmit, setCanSubmit] = useState(false);
   const dispatch = useDispatch();
   const { grid } = useTheme();
@@ -67,6 +69,13 @@ function MentalHealthHistory() {
     }
     NavigatorService.navigate('MentalHealthSupport', undefined);
   };
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_SCREEN_HISTORY);
+      setTracked(true);
+    }
+  });
 
   useEffect(() => {
     if (MentalHealthHistory.hasDiagnosis === 'NO' || MentalHealthHistory.hasDiagnosis === 'DECLINE_TO_SAY') {

@@ -14,11 +14,13 @@ import {
 } from '@covid/core/state/mental-health';
 import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
+import { events, track } from '@covid/core/Analytics';
 
 import { FrequencyQuestion } from '../partials';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthFrequency() {
+  const [tracked, setTracked] = useState(false);
   const [canSubmit, setCanSubmit] = useState(false);
   const [curQuestion, setCurQuestion] = useState(0);
   const MentalHealthFrequency = useSelector(selectMentalHealthFrequency);
@@ -46,6 +48,13 @@ function MentalHealthFrequency() {
       state: MentalHealthFrequency.stopWorrying,
     },
   ];
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_SCREEN_FREQUENCY);
+      setTracked(true);
+    }
+  });
 
   useEffect(() => {
     const answered = Object.values(MentalHealthFrequency).filter((item) => item !== undefined);
