@@ -12,14 +12,13 @@ import assessmentCoordinator, { AssessmentData } from '@covid/core/assessment/As
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;
   route: RouteProp<ScreenParamList, 'VaccineList'>;
-  assessmentData: AssessmentData;
 };
 
-export const VaccineListMissingModal: React.FC<Props> = ({ navigation, route, assessmentData }) => {
+export const VaccineListMissingModal: React.FC<Props> = ({ route }) => {
   const coordinator = assessmentCoordinator;
 
   const close = () => {
-    coordinator.goToAddEditVaccine(route.params.assessmentData.vaccineData);
+    coordinator.goToAddEditVaccine(route.params.vaccine);
   };
 
   return (

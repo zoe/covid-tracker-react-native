@@ -17,12 +17,14 @@ import {
 import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { events, track } from '@covid/core/Analytics';
 
 import { TLearningQuestion, learningQuestions, learningInitialOptions } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthLearning() {
   const MentalHealthLearning = useSelector(selectMentalHealthLearning);
+  const [tracked, setTracked] = useState(false);
   const [canSubmit, setCanSubmit] = useState(false);
   const dispatch = useDispatch();
   const { grid } = useTheme();
@@ -52,10 +54,19 @@ function MentalHealthLearning() {
             onPress={() => handleAddRemoveCondition(data.value)}
           />
         </View>
-        <Text>{data.key}</Text>
+        <View style={{ flex: 1, paddingRight: grid.s }}>
+          <Text>{data.key}</Text>
+        </View>
       </View>
     );
   };
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_SCREEN_LEARNING);
+      setTracked(true);
+    }
+  });
 
   useEffect(() => {
     if (MentalHealthLearning.hasDisability === 'NO' || MentalHealthLearning.hasDisability === 'DECLINE_TO_SAY') {

@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { BasicPage, Done, Text, SimpleShare, Spacer } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import i18n from '@covid/locale/i18n';
+import { selectMentalHealthState, setCompleted } from '@covid/core/state';
+import { events, track } from '@covid/core/Analytics';
 
 function MentalHealthSupport() {
+  const [tracked, setTracked] = useState(false);
+  const MentalHealthState = useSelector(selectMentalHealthState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_SCREEN_END);
+      setTracked(true);
+    }
+  });
+
+  useEffect(() => {
+    if (!MentalHealthState.completed) {
+      dispatch(setCompleted(true));
+    }
+  });
+
   return (
     <BasicPage footerTitle="Back to home" onPress={() => NavigatorService.navigate('Dashboard', undefined)} withGutter>
       <View style={styles.tickContainer}>
@@ -20,7 +40,11 @@ function MentalHealthSupport() {
       <Text textAlign="center" textClass="pLight" rhythm={24}>
         {i18n.t('mental-health.end-1')}
       </Text>
-      <SimpleShare title={i18n.t('mental-health.share')} shareMessage={i18n.t('mental-health.share-message')} />
+      <SimpleShare
+        title={i18n.t('mental-health.share')}
+        shareMessage={i18n.t('mental-health.share-message')}
+        trackEvent={events.MENTAL_HEALTH_SHARED}
+      />
       <Spacer space={24} />
     </BasicPage>
   );

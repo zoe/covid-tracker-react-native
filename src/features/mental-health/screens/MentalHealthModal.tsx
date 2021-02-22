@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -7,10 +7,13 @@ import { Avatar, SafeLayout, Text } from '@covid/components';
 import { TMentalHealthConsent, setConsent, setLastPresentedDate } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { events, track } from '@covid/core/Analytics';
 
 import appCoordinator from '../../AppCoordinator';
 
 function MentalHealthModal() {
+  const [tracked, setTracked] = useState(false);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
 
@@ -28,15 +31,15 @@ function MentalHealthModal() {
   };
 
   const getImgSrc = () => {
-    // en, es, en-US, sv-SE
-    const locale = i18n.currentLocale();
-    switch (locale) {
-      case 'en-US':
-        return drKarstenKoenenUS;
-      default:
-        return drEllenThompsonUK;
-    }
+    return isUSCountry() ? drKarstenKoenenUS : drEllenThompsonUK;
   };
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_DISPLAY_MODAL);
+      setTracked(true);
+    }
+  });
 
   return (
     <SafeLayout>
@@ -46,7 +49,7 @@ function MentalHealthModal() {
         </Text>
         <View style={styles.profile}>
           <Avatar imgsrc={getImgSrc()} />
-          <View style={{ marginLeft: 16 }}>
+          <View style={{ marginLeft: 16, marginRight: 32 }}>
             <Text>{i18n.t('mental-health.doctor-name')}</Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>
               {i18n.t('mental-health.doctor-title')}
@@ -93,7 +96,6 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     borderRadius: 16,
-    flex: 1,
     marginBottom: 24,
     padding: 24,
   },

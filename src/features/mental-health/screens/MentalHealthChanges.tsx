@@ -25,6 +25,7 @@ import {
 } from '@covid/core/state/mental-health';
 import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
+import { events, track } from '@covid/core/Analytics';
 
 import { ChangesQuestion } from '../partials';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
@@ -32,6 +33,7 @@ import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 function MentalHealthChanges() {
   const [canSubmit, setCanSubmit] = useState(false);
   const [curQuestion, setCurQuestion] = useState(0);
+  const [tracked, setTracked] = useState(false);
   const mentalHealthChanges = useSelector(selectMentalHealthChanges);
   const dispatch = useDispatch();
   const { grid } = useTheme();
@@ -112,6 +114,13 @@ function MentalHealthChanges() {
       state: mentalHealthChanges.engagingWithOrganisations,
     },
   ];
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_SCREEN_CHANGES);
+      setTracked(true);
+    }
+  });
 
   useEffect(() => {
     const answered = Object.values(mentalHealthChanges).filter((item) => item !== undefined);
