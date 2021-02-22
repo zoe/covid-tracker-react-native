@@ -52,7 +52,9 @@ function MentalHealthHistory() {
             onPress={() => handleAddRemoveCondition(data.value)}
           />
         </View>
-        <Text>{data.key}</Text>
+        <View style={{ flex: 1, paddingRight: grid.s }}>
+          <Text>{data.key}</Text>
+        </View>
       </View>
     );
   };

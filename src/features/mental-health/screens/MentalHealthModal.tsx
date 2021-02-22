@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     borderRadius: 16,
-    flex: 1,
     marginBottom: 24,
     padding: 24,
   },
