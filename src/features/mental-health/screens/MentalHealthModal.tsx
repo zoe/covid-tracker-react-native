@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -8,10 +8,12 @@ import { TMentalHealthConsent, setConsent, setLastPresentedDate } from '@covid/c
 import i18n from '@covid/locale/i18n';
 import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { events, track } from '@covid/core/Analytics';
 
 import appCoordinator from '../../AppCoordinator';
 
 function MentalHealthModal() {
+  const [tracked, setTracked] = useState(false);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
 
@@ -31,6 +33,13 @@ function MentalHealthModal() {
   const getImgSrc = () => {
     return isUSCountry() ? drKarstenKoenenUS : drEllenThompsonUK;
   };
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_DISPLAY_MODAL);
+      setTracked(true);
+    }
+  });
 
   return (
     <SafeLayout>
