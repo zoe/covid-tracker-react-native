@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { BasicPage, Done, Text, SimpleShare, Spacer } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import i18n from '@covid/locale/i18n';
+import { selectMentalHealthState, setCompleted } from '@covid/core/state';
 
 function MentalHealthSupport() {
+  const MentalHealthState = useSelector(selectMentalHealthState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!MentalHealthState.completed) {
+      dispatch(setCompleted(true));
+    }
+  });
+
   return (
     <BasicPage footerTitle="Back to home" onPress={() => NavigatorService.navigate('Dashboard', undefined)} withGutter>
       <View style={styles.tickContainer}>

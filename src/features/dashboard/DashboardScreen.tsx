@@ -75,6 +75,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const showMentalHealthModal = () => {
+    if (MentalHealthState.completed) {
+      return;
+    }
     if (MentalHealthState.consent === 'LATER') {
       // check time since
       const previous = moment(MentalHealthState.lastPresentedDate);
