@@ -52,7 +52,7 @@ function MentalHealthLearning() {
             onPress={() => handleAddRemoveCondition(data.value)}
           />
         </View>
-        <Text>{data.key}</Text>
+        <Text style={{ marginRight: grid.xl }}>{data.key}</Text>
       </View>
     );
   };
