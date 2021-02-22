@@ -7,6 +7,7 @@ import { Avatar, SafeLayout, Text } from '@covid/components';
 import { TMentalHealthConsent, setConsent, setLastPresentedDate } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -28,14 +29,7 @@ function MentalHealthModal() {
   };
 
   const getImgSrc = () => {
-    // en, es, en-US, sv-SE
-    const locale = i18n.currentLocale();
-    switch (locale) {
-      case 'en-US':
-        return drKarstenKoenenUS;
-      default:
-        return drEllenThompsonUK;
-    }
+    return isUSCountry() ? drKarstenKoenenUS : drEllenThompsonUK;
   };
 
   return (
@@ -46,7 +40,7 @@ function MentalHealthModal() {
         </Text>
         <View style={styles.profile}>
           <Avatar imgsrc={getImgSrc()} />
-          <View style={{ marginLeft: 16 }}>
+          <View style={{ marginLeft: 16, marginRight: 32 }}>
             <Text>{i18n.t('mental-health.doctor-name')}</Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>
               {i18n.t('mental-health.doctor-title')}
