@@ -63,10 +63,6 @@ function MentalHealthHistory() {
   };
 
   const next = () => {
-    if (MentalHealthHistory.hasDiagnosis === 'NO' || MentalHealthHistory.hasDiagnosis === 'DECLINE_TO_SAY') {
-      NavigatorService.navigate('MentalHealthLearning', undefined);
-      return;
-    }
     NavigatorService.navigate('MentalHealthSupport', undefined);
   };
 
