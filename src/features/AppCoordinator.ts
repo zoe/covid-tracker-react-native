@@ -140,7 +140,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     },
   };
 
-  async init(setUsername: (username: string) => void) {
+  async init(setUsername: (username: string) => void, setPatients: (patients: string[]) => void) {
     let user: UserResponse | null = null;
     let patientId: string | null = null;
 
@@ -151,6 +151,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
       this.thisUser = user;
       patientId = user?.patients[0] ?? null;
       setUsername(user?.username ?? '');
+      setPatients(user?.patients ?? []);
     }
 
     if (patientId && user) {
@@ -327,7 +328,10 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   goToMentalHealthStudy() {
-    NavigatorService.navigate('MentalHealthStart');
+    NavigatorService.navigate('MentalHealthChanges');
+  }
+  goToMentalHealthModal() {
+    NavigatorService.navigate('MentalHealthModal');
   }
 }
 

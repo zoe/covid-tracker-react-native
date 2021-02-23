@@ -151,7 +151,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.consentService.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
-
     const hasAtopyAnswers = patient.has_hayfever != null;
     const hasDiabetes = patient.has_diabetes;
     const hasDiabetesAnswers = patient.diabetes_type != null;

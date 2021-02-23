@@ -1,17 +1,180 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { BrandedButton } from '@covid/components';
+import { BasicPage, Text } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
+import { useTheme } from '@covid/themes';
+import {
+  selectMentalHealthChanges,
+  setDevicesWithScreen,
+  setDrinkingAlcohol,
+  setEngagingWithOrganisations,
+  setFeelingAlone,
+  setGreenSpaces,
+  setInteractingFaceToFace,
+  setInteractingViaPhoneOrTechnology,
+  setPhysical,
+  setReadingWatchingListeningNews,
+  setRelaxation,
+  setSleep,
+  setSmokingOrVaping,
+  setSnacks,
+  setTimeWithPets,
+  setWorking,
+} from '@covid/core/state/mental-health';
+import { mentalHealthApiClient } from '@covid/Services';
+import i18n from '@covid/locale/i18n';
+import { events, track } from '@covid/core/Analytics';
+import { IUser, selectUser } from '@covid/core/state/user';
+
+import { ChangesQuestion } from '../partials';
+import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthChanges() {
+  const user: IUser = useSelector(selectUser);
+  const [canSubmit, setCanSubmit] = useState(false);
+  const [curQuestion, setCurQuestion] = useState(0);
+  const [tracked, setTracked] = useState(false);
+  const mentalHealthChanges = useSelector(selectMentalHealthChanges);
+  const dispatch = useDispatch();
+  const { grid } = useTheme();
+  const questions = [
+    {
+      action: setSleep,
+      question: i18n.t('mental-health.question-sleep'),
+      state: mentalHealthChanges.sleep,
+    },
+    {
+      action: setPhysical,
+      question: i18n.t('mental-health.question-physical'),
+      state: mentalHealthChanges.physical,
+    },
+    {
+      action: setGreenSpaces,
+      question: i18n.t('mental-health.question-green-spaces'),
+      state: mentalHealthChanges.greenSpaces,
+    },
+    {
+      action: setTimeWithPets,
+      question: i18n.t('mental-health.question-time-with-pets'),
+      state: mentalHealthChanges.timeWithPets,
+    },
+    {
+      action: setSmokingOrVaping,
+      question: i18n.t('mental-health.question-smoking-or-vaping'),
+      state: mentalHealthChanges.smokingOrVaping,
+    },
+    {
+      action: setDrinkingAlcohol,
+      question: i18n.t('mental-health.question-drinking-alcohol'),
+      state: mentalHealthChanges.drinkingAlcohol,
+    },
+    {
+      action: setInteractingFaceToFace,
+      question: i18n.t('mental-health.question-interacting-face-to-face'),
+      state: mentalHealthChanges.interactingFaceToFace,
+    },
+    {
+      action: setInteractingViaPhoneOrTechnology,
+      question: i18n.t('mental-health.question-interacting-via-phone-or-technology'),
+      state: mentalHealthChanges.interactingViaPhoneOrTechnology,
+    },
+    {
+      action: setFeelingAlone,
+      question: i18n.t('mental-health.question-feeling-alone'),
+      state: mentalHealthChanges.feelingAlone,
+    },
+    {
+      action: setWorking,
+      question: i18n.t('mental-health.question-working'),
+      state: mentalHealthChanges.working,
+    },
+    {
+      action: setRelaxation,
+      question: i18n.t('mental-health.question-relaxation'),
+      state: mentalHealthChanges.relaxation,
+    },
+    {
+      action: setReadingWatchingListeningNews,
+      question: i18n.t('mental-health.question-reading-watching-listening-News'),
+      state: mentalHealthChanges.readingWatchingListeningNews,
+    },
+    {
+      action: setDevicesWithScreen,
+      question: i18n.t('mental-health.question-devices-with-screen'),
+      state: mentalHealthChanges.devicesWithScreen,
+    },
+    {
+      action: setSnacks,
+      question: i18n.t('mental-health.question-snacks'),
+      state: mentalHealthChanges.snacks,
+    },
+    {
+      action: setEngagingWithOrganisations,
+      question: i18n.t('mental-health.question-engaging-with-organisations'),
+      state: mentalHealthChanges.engagingWithOrganisations,
+    },
+  ];
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_SCREEN_CHANGES);
+      setTracked(true);
+    }
+  });
+
+  const createNewMentalHealthRecord = async () => {
+    const currentPatientId: string = user.patients[0];
+    const newMentalHealth: MentalHealthInfosRequest = {};
+    await mentalHealthApiClient.add(currentPatientId, newMentalHealth);
+  };
+
+  useEffect(() => {
+    createNewMentalHealthRecord();
+  }, []);
+
+  useEffect(() => {
+    const answered = Object.values(mentalHealthChanges).filter((item) => item !== undefined);
+    setCurQuestion(answered.length);
+    const enableSubmit = answered.length >= questions.length;
+    setCanSubmit(enableSubmit);
+  }, [mentalHealthChanges]);
+
+  const saveStateAndNavigate = async () => {
+    const existingMentalHealthListForUser = await mentalHealthApiClient.get();
+    const existingMentalHealth = existingMentalHealthListForUser[0];
+    const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
+      existingMentalHealth,
+      { mentalHealthChanges }
+    );
+    await mentalHealthApiClient.update(updatedMentalHealth);
+    NavigatorService.navigate('MentalHealthFrequency', undefined);
+  };
+
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <Text>The start</Text>
+    <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
+      <View style={{ paddingHorizontal: grid.gutter }}>
+        <Text textClass="h3" rhythm={32}>
+          {i18n.t('mental-health.question-changes')}
+        </Text>
+        {questions.map((item, index) => {
+          const key = `changes-${index}`;
+          const disabled = index > curQuestion;
+          return (
+            <ChangesQuestion
+              disabled={disabled}
+              question={item.question}
+              key={key}
+              onPress={(changeType) => {
+                dispatch(item.action(changeType));
+              }}
+              state={item.state}
+            />
+          );
+        })}
       </View>
-      <BrandedButton onPress={() => NavigatorService.navigate('MentalHealthFrequency', undefined)}>Start</BrandedButton>
-    </View>
+    </BasicPage>
   );
 }
 

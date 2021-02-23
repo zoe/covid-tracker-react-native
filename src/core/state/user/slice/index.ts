@@ -31,9 +31,13 @@ const userSlice = createSlice({
     setUsername: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
     },
+    setPatients: (state, action: PayloadAction<string[]>) => {
+      state.patients = action.payload;
+    },
   },
 });
 
-export const { reset, setProfile, setUsername } = userSlice.actions;
+export const { reset, setProfile, setUsername, setPatients } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
+
 export default userSlice.reducer;

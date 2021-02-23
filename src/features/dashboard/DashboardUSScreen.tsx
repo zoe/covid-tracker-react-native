@@ -19,8 +19,8 @@ import { pushNotificationService } from '@covid/Services';
 import { PartnerLogoUSDash } from '@covid/components/Logos/PartnerLogo';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { selectApp, setDasboardVisited } from '@covid/core/state/app';
-import AnalyticsService, { events } from '@covid/core/Analytics';
+import { selectMentalHealthState, setDashboardHasBeenViewed, selectApp } from '@covid/core/state';
+import AnalyticsService, { events, track } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 
 const HEADER_EXPANDED_HEIGHT = 328;
@@ -33,6 +33,7 @@ interface Props {
 
 export const DashboardUSScreen: React.FC<Props> = (params) => {
   const app = useSelector(selectApp);
+  const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
   const { route, navigation } = params;
 
@@ -53,6 +54,12 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
     await share(shareMessage);
   };
 
+  const showMentalHealthModal = () => {
+    if (app.mentalHealthStudyActive && MentalHealthState.consent !== 'NO') {
+      appCoordinator.goToMentalHealthModal();
+    }
+  };
+
   useEffect(() => {
     (async () => {
       AnalyticsService.identify();
@@ -67,11 +74,12 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
   }, [navigation]);
 
   useEffect(() => {
-    if (!app.dashboardVisited) {
+    if (!app.dashboardHasBeenViewed) {
       if (showDietStudyPlayback) {
-        AnalyticsService.track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
+        track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
       }
-      dispatch(setDasboardVisited(true));
+      dispatch(setDashboardHasBeenViewed(true));
+      showMentalHealthModal();
     }
   }, []);
 

@@ -3,6 +3,7 @@ import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { SchoolModel, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
+import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -115,18 +116,19 @@ export type ScreenParamList = {
   DietStudyPlaybackYourGut: undefined;
   DietStudyPlaybackResearch: undefined;
 
-  MentalHealthStart: undefined;
   MentalHealthChanges: undefined;
   MentalHealthFrequency: undefined;
   MentalHealthHistory: undefined;
   MentalHealthSupport: undefined;
   MentalHealthLearning: undefined;
   MentalHealthEnd: undefined;
+  MentalHealthModal: undefined;
 
   //
   Modal: undefined;
   Main: undefined;
   Share: undefined;
+  VaccineListMissing: { vaccine: VaccineRequest };
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };

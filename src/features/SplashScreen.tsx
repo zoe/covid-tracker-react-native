@@ -13,7 +13,7 @@ import { offlineService } from '@covid/Services';
 import { IUserService } from '@covid/core/user/UserService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
-import { setUsername } from '@covid/core/state/user';
+import { setUsername, setPatients } from '@covid/core/state/user';
 
 import appCoordinator from './AppCoordinator';
 import { ScreenParamList } from './ScreenParamList';
@@ -22,6 +22,7 @@ type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Splash'>;
   route: RouteProp<ScreenParamList, 'Splash'>;
   setUsername: (username: string) => void;
+  setPatients: (patients: string[]) => void;
 };
 
 type SplashState = {
@@ -64,7 +65,7 @@ class SplashScreen extends Component<Props, SplashState> {
   }
 
   async initAppState() {
-    await appCoordinator.init(this.props.setUsername);
+    await appCoordinator.init(this.props.setUsername, this.props.setPatients);
     RNSplashScreen.hide();
     appCoordinator.gotoNextScreen(this.props.route.name);
   }
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = {
   setUsername,
+  setPatients,
 };
 
 export default connect(null, mapDispatchToProps)(SplashScreen);
