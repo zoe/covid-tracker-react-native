@@ -4,5 +4,4 @@ export { default as MentalHealthFrequency } from './MentalHealthFrequency';
 export { default as MentalHealthHistory } from './MentalHealthHistory';
 export { default as MentalHealthLearning } from './MentalHealthLearning';
 export { default as MentalHealthModal } from './MentalHealthModal';
-export { default as MentalHealthStart } from './MentalHealthStart';
 export { default as MentalHealthSupport } from './MentalHealthSupport';
