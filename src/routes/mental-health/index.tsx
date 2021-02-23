@@ -7,7 +7,6 @@ import {
   MentalHealthFrequency,
   MentalHealthHistory,
   MentalHealthLearning,
-  MentalHealthStart,
   MentalHealthSupport,
   ScreenParamList,
 } from '@covid/features';
@@ -24,7 +23,6 @@ function MentalHealthNavigator({ Stack }: IProps) {
   };
   return (
     <>
-      <Stack.Screen name="MentalHealthStart" component={MentalHealthStart} options={noHeader} />
       <Stack.Screen name="MentalHealthChanges" component={MentalHealthChanges} options={noHeader} />
       <Stack.Screen name="MentalHealthFrequency" component={MentalHealthFrequency} options={noHeader} />
       <Stack.Screen name="MentalHealthHistory" component={MentalHealthHistory} options={noHeader} />
