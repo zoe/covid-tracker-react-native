@@ -26,11 +26,13 @@ import {
 import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
+import { IUser, selectUser } from '@covid/core/state/user';
 
 import { ChangesQuestion } from '../partials';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthChanges() {
+  const user: IUser = useSelector(selectUser);
   const [canSubmit, setCanSubmit] = useState(false);
   const [curQuestion, setCurQuestion] = useState(0);
   const [tracked, setTracked] = useState(false);
@@ -121,6 +123,16 @@ function MentalHealthChanges() {
       setTracked(true);
     }
   });
+
+  const createNewMentalHealthRecord = async () => {
+    const currentPatientId: string = user.patients[0];
+    const newMentalHealth: MentalHealthInfosRequest = {};
+    await mentalHealthApiClient.add(currentPatientId, newMentalHealth);
+  };
+
+  useEffect(() => {
+    createNewMentalHealthRecord();
+  }, []);
 
   useEffect(() => {
     const answered = Object.values(mentalHealthChanges).filter((item) => item !== undefined);
