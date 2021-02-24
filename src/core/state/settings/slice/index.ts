@@ -35,5 +35,5 @@ const settingsSlice = createSlice({
 });
 
 export const { setCurrentFeature, setFeatureRunDate, setHasEmailSubscription } = settingsSlice.actions;
-export const selectSettingsState = (state: RootState) => state.settings;
+export const selectSettings = (state: RootState) => state.settings;
 export default settingsSlice.reducer;

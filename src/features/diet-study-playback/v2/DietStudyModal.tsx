@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
 import { Avatar, SafeLayout, Text } from '@covid/components';
-import { TMentalHealthConsent, setConsent } from '@covid/core/state';
+import { setDietStudyConsent, TDietStudyConsent, setCurrentFeature, setFeatureRunDate } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { drSarahBerry } from '@assets';
 import { events, track } from '@covid/core/Analytics';
@@ -18,9 +18,13 @@ function DietStudyModal() {
   const { goBack } = useNavigation();
   const dietStudyVariant = startExperiment(experiments.UK_DIET_SCORE, 2);
 
-  const handleSetConsent = (consent: TMentalHealthConsent) => {
-    dispatch(setConsent(consent));
+  const handleSetConsent = (consent: TDietStudyConsent) => {
+    dispatch(setDietStudyConsent(consent));
     if (consent !== 'YES') {
+      const date = new Date();
+      date.setDate(date.getDate() + 1);
+      dispatch(setCurrentFeature('MENTAL_HEALTH_STUDY'));
+      dispatch(setFeatureRunDate(date));
       goBack();
       return;
     }

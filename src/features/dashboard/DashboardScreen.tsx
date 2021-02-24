@@ -29,7 +29,14 @@ import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { experiments, startExperiment } from '@covid/core/Experiments';
 import { events, identify, track } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
-import { selectMentalHealthState, setDashboardHasBeenViewed, selectApp, selectSettingsState } from '@covid/core/state';
+import {
+  selectMentalHealthState,
+  setDashboardHasBeenViewed,
+  selectApp,
+  selectSettings,
+  selectDietStudy,
+} from '@covid/core/state';
+import { DietStudyCard } from '@covid/features';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -40,7 +47,8 @@ interface Props {
 }
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
-  const settings = useSelector(selectSettingsState);
+  const settings = useSelector(selectSettings);
+  const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
@@ -76,7 +84,19 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const runCurrentFeature = () => {
-    console.log('CURRENT FEATURE: ', settings.currentFeature);
+    console.log('settings', settings);
+    const now = new Date().getTime();
+    if (settings.featureRunDate && settings.featureRunDate.getTime() > now) {
+      console.log('feature in the future');
+      return;
+    }
+    switch (settings.currentFeature) {
+      case 'MENTAL_HEALTH_STUDY':
+        showMentalHealthModal();
+        return;
+      case 'UK_DIET_STUDY':
+        showDietStudy();
+    }
   };
 
   const showMentalHealthModal = () => {
@@ -100,7 +120,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const showDietStudy = () => {
-    if (!startupInfo?.show_diet_score) {
+    if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
       return;
     }
     appCoordinator.goToDietStudyModal();
@@ -133,7 +153,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       dispatch(setDashboardHasBeenViewed(true));
       setTimeout(() => {
         if (isMounted) {
-          showMentalHealthModal();
           runCurrentFeature();
         }
       }, 800);
@@ -152,6 +171,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        <DietStudyCard />
         <ShareVaccineCard screenName="Dashboard" />
 
         {showDietStudyPlayback && (

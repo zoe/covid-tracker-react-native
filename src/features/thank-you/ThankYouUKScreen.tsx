@@ -2,6 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { dietStudyPlaybackReadyUK, notificationReminders } from '@assets';
 import { colors } from '@theme';
@@ -25,6 +26,7 @@ import { experiments, startExperiment } from '@covid/core/Experiments';
 import Analytics, { events } from '@covid/core/Analytics';
 import appCoordinator from '@covid/features/AppCoordinator';
 import store from '@covid/core/state/store';
+import { DietStudyCard } from '@covid/features';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
