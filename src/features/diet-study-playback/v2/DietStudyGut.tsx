@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
 import { Avatar, BasicNavHeader, Text, SafeLayout, Spacer, SpeechCard } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGutDiagram, drSarahBerry } from '@assets';
+import { events, track } from '@covid/core/Analytics';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 import { GutScore, DietStudyActionCard } from '../components';
 
 function DietStudyGut() {
-  const coordinator = dietStudyPlaybackCoordinator;
+  const [tracked, setTracked] = useState(false);
+  const { dietScore } = dietStudyPlaybackCoordinator;
+  const beforeScore = dietScore ? dietScore?.pre_diet_score : 0;
+  const duringScore = dietScore ? dietScore.post_diet_score : 0;
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.DIET_STUDY_SCREEN_GUT);
+      setTracked(true);
+    }
+  });
+
   return (
     <SafeLayout withGutter={false}>
       <ScrollView>
@@ -18,11 +30,7 @@ function DietStudyGut() {
           <Text rhythm={24} textClass="h2">
             {i18n.t('diet-study.gut-title')}
           </Text>
-          {/* <GutScore
-            beforeScore={coordinator.dietScore?.pre_gut_friendly_score}
-            duringScore={coordinator.dietScore?.post_gut_friendly_score}
-          /> */}
-          <GutScore beforeScore={5} duringScore={5} />
+          <GutScore beforeScore={beforeScore} duringScore={duringScore} />
           <Spacer space={24} />
           <Text textClass="pLight" rhythm={24}>
             {i18n.t('diet-study.gut-body-0')}

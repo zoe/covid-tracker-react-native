@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -7,19 +7,28 @@ import { Avatar, SafeLayout, Text } from '@covid/components';
 import { TMentalHealthConsent, setConsent } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { drSarahBerry } from '@assets';
+import { events, track } from '@covid/core/Analytics';
+import { experiments, startExperiment } from '@covid/core/Experiments';
 
 import appCoordinator from '../../AppCoordinator';
 
 function DietStudyModal() {
+  const [tracked, setTracked] = useState(false);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
+  const dietStudyVariant = startExperiment(experiments.UK_DIET_SCORE, 2);
 
   const handleSetConsent = (consent: TMentalHealthConsent) => {
-    // dispatch(setConsent(consent));
+    dispatch(setConsent(consent));
     if (consent !== 'YES') {
       goBack();
+      return;
     }
-    appCoordinator.goToDietStudy();
+    if (dietStudyVariant === 'variant_1') {
+      appCoordinator.goToDietStudy();
+      return;
+    }
+    appCoordinator.goToDietStudyPlayback();
   };
 
   const getImgSrc = () => {
@@ -30,6 +39,13 @@ function DietStudyModal() {
         return drSarahBerry;
     }
   };
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.DIET_STUDY_SCREEN_MODAL);
+      setTracked(true);
+    }
+  });
 
   return (
     <SafeLayout>
@@ -45,7 +61,7 @@ function DietStudyModal() {
               {i18n.t('diet-study.doctor-title')}
             </Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-              {i18n.t('diet-study.doctor-college')}
+              {i18n.t('diet-study.doctor-location')}
             </Text>
           </View>
         </View>

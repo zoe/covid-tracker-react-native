@@ -120,6 +120,7 @@ export type ScreenParamList = {
   DietStudyGlobal: undefined;
   DietStudyGut: undefined;
   DietStudyTraditional: undefined;
+  DietStudyEmailModal: undefined;
 
   MentalHealthStart: undefined;
   MentalHealthChanges: undefined;

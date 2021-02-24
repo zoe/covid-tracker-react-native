@@ -51,7 +51,8 @@ class DietStudyPlaybackCoordinator extends Coordinator {
   };
 
   signUpToNewsletter(signup: boolean) {
-    return this.contentService.signUpForDietNewsletter(signup);
+    console.log('this.contentservice: ', this.contentService);
+    // return this.contentService.signUpForDietNewsletter(signup);
   }
 
   getDietStudyInfoUrl = () => {

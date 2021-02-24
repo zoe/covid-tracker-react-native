@@ -29,7 +29,7 @@ import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { experiments, startExperiment } from '@covid/core/Experiments';
 import { events, identify, track } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
-import { selectMentalHealthState, setDashboardHasBeenViewed, selectApp } from '@covid/core/state';
+import { selectMentalHealthState, setDashboardHasBeenViewed, selectApp, selectSettingsState } from '@covid/core/state';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -40,6 +40,7 @@ interface Props {
 }
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const settings = useSelector(selectSettingsState);
   const app = useSelector(selectApp);
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
@@ -74,6 +75,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     await share(shareMessage);
   };
 
+  const runCurrentFeature = () => {
+    console.log('CURRENT FEATURE: ', settings.currentFeature);
+  };
+
   const showMentalHealthModal = () => {
     if (MentalHealthState.completed) {
       return;
@@ -90,8 +95,15 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     }
     if (app.mentalHealthStudyActive && MentalHealthState.consent !== 'NO') {
       // appCoordinator.goToMentalHealthModal();
-      appCoordinator.goToDietStudyModal();
+      showDietStudy();
     }
+  };
+
+  const showDietStudy = () => {
+    if (!startupInfo?.show_diet_score) {
+      return;
+    }
+    appCoordinator.goToDietStudyModal();
   };
 
   useEffect(() => {
@@ -122,6 +134,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       setTimeout(() => {
         if (isMounted) {
           showMentalHealthModal();
+          runCurrentFeature();
         }
       }, 800);
     }

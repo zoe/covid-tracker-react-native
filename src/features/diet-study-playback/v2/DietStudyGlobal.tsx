@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, ScrollView, View, StyleSheet } from 'react-native';
 
 import { BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGlobal3 } from '@assets';
+import { events, track } from '@covid/core/Analytics';
 
 import { DietStudyActionCard } from '../components';
 
 function DietStudyGlobal() {
+  const [tracked, setTracked] = useState(false);
+
+  useEffect(() => {
+    if (!tracked) {
+      track(events.DIET_STUDY_SCREEN_GLOBAL);
+      setTracked(true);
+    }
+  });
+
   return (
     <SafeLayout withGutter={false}>
       <ScrollView>
