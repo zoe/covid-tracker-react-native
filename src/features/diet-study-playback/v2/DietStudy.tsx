@@ -54,7 +54,7 @@ function DietStudy() {
           const key = `action-card-${index}`;
           return (
             <ActionCard
-              actionTitle={i18n.t(`diet-study.card-${index}-title`)}
+              actionTitle={i18n.t(`diet-study.card-${index}-action`)}
               buttonColor={colors.burgundy.main.bgColor}
               onPress={() => NavigatorService.navigate(route)}
               outline
