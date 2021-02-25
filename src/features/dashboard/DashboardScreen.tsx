@@ -36,7 +36,6 @@ import {
   selectSettings,
   selectDietStudy,
 } from '@covid/core/state';
-import { DietStudyCard } from '@covid/features';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -84,10 +83,13 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const runCurrentFeature = () => {
+    console.log(settings.currentFeature);
     const now = new Date().getTime();
-    if (settings.featureRunDate && settings.featureRunDate.getTime() > now) {
-      console.log('feature in the future');
-      return;
+    if (settings.featureRunDate) {
+      const featureRunDate = new Date(settings.featureRunDate).getTime();
+      if (featureRunDate > now) {
+        return;
+      }
     }
     switch (settings.currentFeature) {
       case 'MENTAL_HEALTH_STUDY':
@@ -118,6 +120,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const showDietStudy = () => {
+    const d = new Date();
+    const e = new Date().toString();
+    const f = new Date(e);
+    console.log(d);
+    console.log(e);
+    console.log(f);
     // if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
     //   return;
     // }
@@ -169,7 +177,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <DietStudyCard />
         <ShareVaccineCard screenName="Dashboard" />
 
         {showDietStudyPlayback && (
