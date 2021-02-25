@@ -18,7 +18,6 @@ type TSubscriptionResponse = {
 };
 
 export const setEmailSubscription = createAsyncThunk('/users/email_preference/', async (preference: boolean) => {
-  console.log('set email subscription: ', preference);
   const response = await apiClient.patch('/users/email_preference/', { nutrition_newsletter: preference });
   return response;
 });

@@ -29,13 +29,12 @@ function DietStudyActionCard() {
   };
 
   const handleOnPress = () => {
-    // signUpToNewsletter(!settings.hasEmailSubscription).then(() => {
-    //   track(
-    //     settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_UNSUBSCRIBED
-    //   );
-    //   dispatch(setHasEmailSubscription(!settings.hasEmailSubscription));
-    // });
-    dispatch(setEmailSubscription(!settings.hasEmailSubscription));
+    signUpToNewsletter(!settings.hasEmailSubscription).then(() => {
+      track(
+        settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_UNSUBSCRIBED
+      );
+      dispatch(setEmailSubscription(!settings.hasEmailSubscription));
+    });
   };
 
   return (
