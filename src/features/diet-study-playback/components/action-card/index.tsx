@@ -8,8 +8,6 @@ import { useTheme } from '@covid/themes';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
 
-import dietStudyPlaybackCoordinator from '../../DietStudyPlaybackCoordinator';
-
 function DietStudyActionCard() {
   const settings = useSelector(selectSettings);
   const dispatch = useDispatch();
