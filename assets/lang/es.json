@@ -1467,6 +1467,7 @@
     "modal-intro-0": "Your personal results on COVID & Diet are ready! Thank you for participating in the study!",
     "modal-answer-yes": "View insights",
     "modal-answer-no": "No, thanks",
+    "results-ready": "Your personal results on COVID & Diet are ready",
     "introduction-title": "Your diet study scores",
     "introduction-0": "We are excited to share our insights on how diets have changed during the pandemic.",
     "introduction-1": "Thank you for taking part in what has become the world's largest survey linking diet and COVID.",
@@ -1510,10 +1511,15 @@
     "traditional-body-2": "This score is a simple way to calculate diet quality for the ‘average’ person. While it provides useful insights on a population level, it assumes everyone responds the same way to food. However, we now know this is not true.",
     "email-action-title": "Would you like to learn about the latest nutrition research?",
     "email-action-body": "We will keep you up-to-date by email with the latest nutritional science, including ZOE’s own discoveries. You can opt-out at any time, and will only receive science updates.",
-    "email-action-cta": "Yes, I’d love to know more"
+    "email-action-cta": "Yes, I’d love to know more",
+    "email-action-cta-success": "Great, keep an eye on your inbox!",
+    "email-action-cta-unsubscribe": "Opt-out of email updates"
   },
   "navigation": {
+    "cta-email-success": "Great, keep an eye on your inbox!",
+    "cta-unsubscribe": "Opt-out of email updates",
     "next": "Next",
+    "insights": "Insights",
     "start": "Start"
   }
 }
