@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
 import { Avatar, SafeLayout, Text } from '@covid/components';
-import { setDietStudyConsent, TDietStudyConsent, setCurrentFeature, setFeatureRunDate } from '@covid/core/state';
+import { setCurrentFeature, setDietStudyConsent, setFeatureRunDate, TDietStudyConsent } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { drSarahBerry } from '@assets';
-import { events, track } from '@covid/core/Analytics';
 import { experiments, startExperiment } from '@covid/core/Experiments';
 
 import appCoordinator from '../../AppCoordinator';
 
 function DietStudyModal() {
-  const [tracked, setTracked] = useState(false);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
   const dietStudyVariant = startExperiment(experiments.UK_DIET_SCORE, 2);
@@ -38,13 +36,6 @@ function DietStudyModal() {
   const getImgSrc = () => {
     return drSarahBerry;
   };
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_MODAL);
-      setTracked(true);
-    }
-  });
 
   return (
     <SafeLayout>

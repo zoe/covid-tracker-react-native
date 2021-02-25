@@ -18,14 +18,6 @@ function DietStudy() {
   const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
   const coordinator = dietStudyPlaybackCoordinator;
-  const [tracked, setTracked] = useState(false);
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_START);
-      setTracked(true);
-    }
-  });
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>

@@ -27,13 +27,6 @@ function DietStudyEmailModal() {
     goBack();
   };
 
-  useEffect(() => {
-    if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_MODAL);
-      setTracked(true);
-    }
-  });
-
   return (
     <SafeLayout>
       <View style={styles.card}>
