@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { useTheme } from '@covid/themes';
+import { colors } from '@theme';
 
 interface IProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ function SafeLayout({ children, withGutter = true }: IProps) {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   container: {
     flex: 1,
