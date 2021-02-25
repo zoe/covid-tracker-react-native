@@ -55,9 +55,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     (state) => state.school.joinedSchoolGroups
   );
 
-  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
-  const variant = startExperiment(experiments.UK_DietScore_Invite, 2);
-  const showDietStudyPlayback = variant === 'variant_1' && startupInfo?.show_diet_score;
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
 
   const headerConfig = {
@@ -146,9 +143,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   useEffect(() => {
     let isMounted = true;
     if (!app.dashboardHasBeenViewed) {
-      if (showDietStudyPlayback) {
-        track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
-      }
       dispatch(setDashboardHasBeenViewed(true));
       setTimeout(() => {
         if (isMounted) {
@@ -171,16 +165,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ShareVaccineCard screenName="Dashboard" />
-
-        {showDietStudyPlayback && (
-          <TouchableWithoutFeedback
-            onPress={() => {
-              track(events.DIET_STUDY_PLAYBACK_CLICKED);
-              appCoordinator.goToDietStudyPlayback();
-            }}>
-            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUK} />
-          </TouchableWithoutFeedback>
-        )}
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 

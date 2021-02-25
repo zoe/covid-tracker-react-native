@@ -36,12 +36,7 @@ function DietStudyModal() {
   };
 
   const getImgSrc = () => {
-    // en, es, en-US, sv-SE
-    const locale = i18n.currentLocale();
-    switch (locale) {
-      default:
-        return drSarahBerry;
-    }
+    return drSarahBerry;
   };
 
   useEffect(() => {
