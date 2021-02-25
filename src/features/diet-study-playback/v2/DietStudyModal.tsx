@@ -20,11 +20,11 @@ function DietStudyModal() {
 
   const handleSetConsent = (consent: TDietStudyConsent) => {
     dispatch(setDietStudyConsent(consent));
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    dispatch(setCurrentFeature('MENTAL_HEALTH_STUDY'));
+    dispatch(setFeatureRunDate(date.toString()));
     if (consent !== 'YES') {
-      const date = new Date();
-      date.setDate(date.getDate() + 1);
-      dispatch(setCurrentFeature('MENTAL_HEALTH_STUDY'));
-      dispatch(setFeatureRunDate(date.toString()));
       goBack();
       return;
     }

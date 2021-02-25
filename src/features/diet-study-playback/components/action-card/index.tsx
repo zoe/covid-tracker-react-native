@@ -14,7 +14,6 @@ function DietStudyActionCard() {
   const settings = useSelector(selectSettings);
   const dispatch = useDispatch();
   const { colors } = useTheme();
-  const { signUpToNewsletter } = dietStudyPlaybackCoordinator;
 
   const getCtaTitle = () => {
     const title = settings.hasEmailSubscription
@@ -29,12 +28,8 @@ function DietStudyActionCard() {
   };
 
   const handleOnPress = () => {
-    signUpToNewsletter(!settings.hasEmailSubscription).then(() => {
-      track(
-        settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_UNSUBSCRIBED
-      );
-      dispatch(setEmailSubscription(!settings.hasEmailSubscription));
-    });
+    track(settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_UNSUBSCRIBED);
+    dispatch(setEmailSubscription(!settings.hasEmailSubscription));
   };
 
   return (
