@@ -122,7 +122,6 @@ export type ScreenParamList = {
   DietStudyTraditional: undefined;
   DietStudyEmailModal: undefined;
 
-  MentalHealthStart: undefined;
   MentalHealthChanges: undefined;
   MentalHealthFrequency: undefined;
   MentalHealthHistory: undefined;
