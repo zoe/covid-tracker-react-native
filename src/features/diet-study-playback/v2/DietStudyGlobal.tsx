@@ -19,7 +19,7 @@ function DietStudyGlobal() {
   });
 
   return (
-    <SafeLayout withGutter={false}>
+    <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>
