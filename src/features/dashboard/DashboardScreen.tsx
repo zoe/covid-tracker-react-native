@@ -84,7 +84,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const runCurrentFeature = () => {
-    console.log('settings', settings);
     const now = new Date().getTime();
     if (settings.featureRunDate && settings.featureRunDate.getTime() > now) {
       console.log('feature in the future');
@@ -114,8 +113,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       return;
     }
     if (app.mentalHealthStudyActive && MentalHealthState.consent !== 'NO') {
-      // appCoordinator.goToMentalHealthModal();
-      showDietStudy();
+      appCoordinator.goToMentalHealthModal();
     }
   };
 
