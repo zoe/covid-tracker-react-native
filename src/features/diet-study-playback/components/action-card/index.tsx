@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ActionCard, Icon, Text } from '@covid/components';
-import { selectSettingsState, setHasEmailSubscription } from '@covid/core/state';
+import { selectSettings, setHasEmailSubscription } from '@covid/core/state';
 import { useTheme } from '@covid/themes';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
@@ -11,7 +11,7 @@ import { events, track } from '@covid/core/Analytics';
 import dietStudyPlaybackCoordinator from '../../DietStudyPlaybackCoordinator';
 
 function DietStudyActionCard() {
-  const settings = useSelector(selectSettingsState);
+  const settings = useSelector(selectSettings);
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const { signUpToNewsletter } = dietStudyPlaybackCoordinator;
@@ -29,7 +29,6 @@ function DietStudyActionCard() {
   };
 
   const handleOnPress = () => {
-    console.log('Signup : ', signUpToNewsletter(!settings.hasEmailSubscription));
     // signUpToNewsletter(!settings.hasEmailSubscription).then(() => {
     //   track(
     //     settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_UNSUBSCRIBED

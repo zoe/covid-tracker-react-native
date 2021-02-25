@@ -4,8 +4,13 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import { Avatar, Spacer, Text, RoundIconButton } from '@covid/components';
 import { drSarahBerry, QuoteMarks } from '@assets';
+import { experiments, startExperiment } from '@covid/core/Experiments';
+
+import appCoordinator from '../../AppCoordinator';
 
 function DietStudyCard() {
+  const dietStudyVariant = startExperiment(experiments.UK_DIET_SCORE, 2);
+
   const getImgSrc = () => {
     // en, es, en-US, sv-SE
     const locale = i18n.currentLocale();
@@ -15,9 +20,17 @@ function DietStudyCard() {
     }
   };
 
+  const handleOnPress = () => {
+    if (dietStudyVariant === 'variant_1') {
+      appCoordinator.goToDietStudy();
+      return;
+    }
+    appCoordinator.goToDietStudyPlayback();
+  };
+
   return (
-    <TouchableOpacity style={[styles.container]}>
-      <View style={styles.row}>
+    <View style={[styles.container]}>
+      <View style={[styles.row, { marginBottom: 12 }]}>
         <View style={styles.column}>
           <QuoteMarks />
           <Spacer />
@@ -34,15 +47,30 @@ function DietStudyCard() {
           </Text>
         </View>
       </View>
-      <View style={styles.row}>
+      <View style={[styles.row, { alignItems: 'center' }]}>
         <View style={{ flex: 1 }}>
-          <Text>bottom row</Text>
+          <TouchableOpacity style={styles.button} onPress={handleOnPress}>
+            <Text style={{ color: 'white' }} textClass="label">
+              {i18n.t('navigation.insights').toUpperCase()}
+            </Text>
+          </TouchableOpacity>
         </View>
         <View>
-          <RoundIconButton iconName="arrow_forward_ios" onPress={() => null} />
+          <RoundIconButton
+            iconName="arrow_forward_ios"
+            onPress={handleOnPress}
+            style={{
+              backgroundColor: 'white',
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 0 },
+              shadowOpacity: 0.1,
+              shadowRadius: 4,
+              elevation: 5,
+            }}
+          />
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -58,6 +86,13 @@ const styles = StyleSheet.create({
   },
   column: {
     flex: 1,
+  },
+  button: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'blue',
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
 });
 

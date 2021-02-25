@@ -120,9 +120,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const showDietStudy = () => {
-    if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
-      return;
-    }
+    // if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
+    //   return;
+    // }
     appCoordinator.goToDietStudyModal();
   };
 

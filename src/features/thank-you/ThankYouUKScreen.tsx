@@ -92,6 +92,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
+              <DietStudyCard />
+
               {this.state.showDietStudyPlayback && (
                 <TouchableWithoutFeedback
                   onPress={() => {
