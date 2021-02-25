@@ -16,7 +16,7 @@ interface IProps {
 
 function ActionCard({ actionTitle, buttonColor, children, onPress, outline, textColor }: IProps) {
   const { colors, grid } = useTheme();
-  const bColor = buttonColor ? buttonColor : colors.blue.dark.bgColor;
+  const bColor = buttonColor ? buttonColor : colors.blue.main.bgColor;
   const tColor = textColor ? textColor : 'white';
   return (
     <View style={[styles.wrapper, { padding: grid.gutter }]}>
