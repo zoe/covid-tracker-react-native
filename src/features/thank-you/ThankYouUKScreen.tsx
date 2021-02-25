@@ -55,27 +55,15 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   state = initialState;
 
   async componentDidMount() {
-    const { startupInfo } = store.getState().content;
-    const variant = startExperiment(experiments.UK_DietScore_Invite, 2);
-    const showDietStudyPlayback =
-      (variant === 'variant_2' &&
-        startupInfo?.show_diet_score &&
-        !appCoordinator.patientData.patientState.isReportedByAnother) ||
-      false;
-
-    if (showDietStudyPlayback) {
-      Analytics.track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
-    }
-
     this.setState({
       askForRating: await shouldAskForRating(),
       inviteToStudy: await this.consentService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
-      showDietStudyPlayback,
     });
   }
 
   render() {
+    const { startupInfo } = store.getState().content;
     return (
       <>
         {this.state.askForRating && <AppRating />}
@@ -92,17 +80,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-              <DietStudyCard />
-
-              {this.state.showDietStudyPlayback && (
-                <TouchableWithoutFeedback
-                  onPress={() => {
-                    Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
-                    appCoordinator.goToDietStudyPlayback();
-                  }}>
-                  <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUK} />
-                </TouchableWithoutFeedback>
-              )}
+              {startupInfo?.show_diet_score && <DietStudyCard />}
 
               <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
 

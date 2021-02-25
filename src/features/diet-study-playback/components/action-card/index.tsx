@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ActionCard, Icon, Text } from '@covid/components';
-import { selectSettings, setHasEmailSubscription } from '@covid/core/state';
+import { selectSettings, setHasEmailSubscription, setEmailSubscription } from '@covid/core/state';
 import { useTheme } from '@covid/themes';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
@@ -35,6 +35,7 @@ function DietStudyActionCard() {
     //   );
     //   dispatch(setHasEmailSubscription(!settings.hasEmailSubscription));
     // });
+    dispatch(setEmailSubscription(!settings.hasEmailSubscription));
   };
 
   return (

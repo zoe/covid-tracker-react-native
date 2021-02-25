@@ -1,4 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+
+import { container } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import ApiClient from '@covid/core/api/ApiClient';
 
 import { RootState } from '../../root';
 import { ISettings, TFeature } from '../types';
@@ -8,6 +12,15 @@ const initialState: ISettings = {
   featureRunDate: undefined,
   hasEmailSubscription: false,
 };
+
+const apiClient = new ApiClient();
+
+export const setEmailSubscription = createAsyncThunk('/users/email_preference/', async (preference) => {
+  console.log('set email subscription');
+  const response = await apiClient.patch('/users/email_preference/', { nutrition_newsletter: preference });
+  console.log('res: ', response);
+  return response.data;
+});
 
 const settingsSlice = createSlice({
   name: 'Settings',
@@ -30,6 +43,11 @@ const settingsSlice = createSlice({
         ...state,
         hasEmailSubscription: action.payload,
       };
+    },
+  },
+  extraReducers: {
+    [setEmailSubscription.fulfilled]: (state, action) => {
+      state.hasEmailSubscription = action.payload;
     },
   },
 });
