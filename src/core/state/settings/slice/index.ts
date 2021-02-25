@@ -47,7 +47,6 @@ const settingsSlice = createSlice({
   },
   extraReducers: {
     [setEmailSubscription.fulfilled]: (state, action: PayloadAction<TSubscriptionResponse>) => {
-      console.log('action payload: ', action.payload);
       state.hasEmailSubscription = action.payload.nutrition_newsletter;
     },
   },

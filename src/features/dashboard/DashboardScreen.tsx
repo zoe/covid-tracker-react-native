@@ -83,7 +83,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const runCurrentFeature = () => {
-    console.log(settings.currentFeature);
     const now = new Date().getTime();
     if (settings.featureRunDate) {
       const featureRunDate = new Date(settings.featureRunDate).getTime();
