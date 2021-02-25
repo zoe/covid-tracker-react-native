@@ -32,7 +32,7 @@ const settingsSlice = createSlice({
         currentFeature: action.payload,
       };
     },
-    setFeatureRunDate: (state, action: PayloadAction<Date>) => {
+    setFeatureRunDate: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         featureRunDate: action.payload,

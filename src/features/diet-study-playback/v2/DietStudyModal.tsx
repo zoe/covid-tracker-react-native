@@ -24,7 +24,7 @@ function DietStudyModal() {
       const date = new Date();
       date.setDate(date.getDate() + 1);
       dispatch(setCurrentFeature('MENTAL_HEALTH_STUDY'));
-      dispatch(setFeatureRunDate(date));
+      dispatch(setFeatureRunDate(date.toString()));
       goBack();
       return;
     }

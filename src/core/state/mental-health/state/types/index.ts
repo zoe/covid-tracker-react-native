@@ -5,5 +5,5 @@ export interface IMentalHealthState {
   completed: boolean;
   consent: TMentalHealthConsent;
   currentSection: TMentalHealthSection;
-  lastPresentedDate: Date | undefined;
+  lastPresentedDate: string | undefined;
 }
