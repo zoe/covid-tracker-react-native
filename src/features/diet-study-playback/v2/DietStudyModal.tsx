@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 16,
     marginBottom: 24,
+    marginTop: 24,
     padding: 24,
   },
   profile: {
