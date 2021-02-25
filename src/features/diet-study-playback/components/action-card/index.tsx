@@ -32,10 +32,12 @@ function DietStudyActionCard() {
 
   return (
     <ActionCard actionTitle={getCtaTitle()} onPress={handleOnPress} {...buttonProps}>
-      <Text textClass="pMedium" rhythm={16}>
+      <Text textClass="h4" rhythm={16}>
         {i18n.t(`diet-study.email-action-title`)}
       </Text>
-      <Text textClass="pLight">{i18n.t(`diet-study.email-action-body`)}</Text>
+      <Text textClass="pLight" rhythm={8}>
+        {i18n.t(`diet-study.email-action-body`)}
+      </Text>
       {settings.hasEmailSubscription && (
         <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', marginTop: 24 }}>
           <Icon iconName="tick" style={{ marginRight: 8 }} />

@@ -27,7 +27,7 @@ function DietStudyGut() {
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>
-          <Text rhythm={24} textClass="h2">
+          <Text rhythm={16} textClass="h2">
             {i18n.t('diet-study.gut-title')}
           </Text>
           <GutScore beforeScore={beforeScore} duringScore={duringScore} />
@@ -39,16 +39,16 @@ function DietStudyGut() {
             {i18n.t('diet-study.gut-body-1')}
           </Text>
           <Image style={styles.diagram} source={dietStudyPlaybackGutDiagram} />
-          <Text rhythm={24} textClass="h4">
+          <Text rhythm={16} textClass="h4">
             {i18n.t('diet-study.gut-microbiome-title')}
           </Text>
           <Text textClass="pLight" rhythm={24}>
             {i18n.t('diet-study.gut-microbiome-body-0')}
           </Text>
-          <Text textClass="pLight" rhythm={24}>
+          <Text textClass="pLight" rhythm={48}>
             {i18n.t('diet-study.gut-microbiome-body-1')}
           </Text>
-          <Text rhythm={24} textClass="h4">
+          <Text rhythm={16} textClass="h4">
             {i18n.t('diet-study.gut-score-title')}
           </Text>
           <Text textClass="pLight" rhythm={24}>

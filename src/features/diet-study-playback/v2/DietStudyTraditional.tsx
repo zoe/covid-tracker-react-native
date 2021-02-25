@@ -26,7 +26,7 @@ function DietStudyTraditional() {
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>
-          <Text rhythm={24} textClass="h2">
+          <Text rhythm={16} textClass="h2">
             {i18n.t('diet-study.traditional-title')}
           </Text>
           <QualityScore beforeScore={beforeScore} duringScore={duringScore} />

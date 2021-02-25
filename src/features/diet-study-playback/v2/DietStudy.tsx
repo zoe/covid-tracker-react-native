@@ -59,19 +59,21 @@ function DietStudy() {
               onPress={() => NavigatorService.navigate(route)}
               outline
               key={key}>
-              <Text textClass="pMedium">{i18n.t(`diet-study.card-${index}-title`)}</Text>
-              <Text>{i18n.t(`diet-study.card-${index}-body`)}</Text>
+              <Text textClass="pMedium" rhythm={16}>
+                {i18n.t(`diet-study.card-${index}-title`)}
+              </Text>
+              <Text textClass="pLight">{i18n.t(`diet-study.card-${index}-body`)}</Text>
             </ActionCard>
           );
         })}
-        <View style={{ paddingHorizontal: 16 }}>
-          <Text rhythm={16} textClass="h4">
+        <View style={{ paddingHorizontal: 16, marginTop: 32 }}>
+          <Text rhythm={8} textClass="h3">
             {i18n.t('diet-study.introduction-ongoing-title')}
           </Text>
-          <Text rhythm={16} textClass="pLight">
+          <Text rhythm={48} textClass="pLight">
             {i18n.t('diet-study.introduction-ongoing-body')}
           </Text>
-          <Text rhythm={16} textClass="h4">
+          <Text rhythm={8} textClass="h4">
             {i18n.t('diet-study.introduction-more-title')}
           </Text>
           <Text rhythm={16} textClass="pLight">
