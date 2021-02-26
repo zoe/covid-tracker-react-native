@@ -54,6 +54,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolGroups
   );
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
 

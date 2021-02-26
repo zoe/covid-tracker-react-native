@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Icon, SafeLayout, Text } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
-import { selectSettingsState, setHasEmailSubscription } from '@covid/core/state';
+import { selectSettings, setHasEmailSubscription } from '@covid/core/state';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 
 function DietStudyEmailModal() {
   const [tracked, setTracked] = useState(false);
-  const settings = useSelector(selectSettingsState);
+  const settings = useSelector(selectSettings);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
   const { signUpToNewsletter } = dietStudyPlaybackCoordinator;
