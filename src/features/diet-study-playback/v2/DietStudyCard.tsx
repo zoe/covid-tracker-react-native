@@ -5,10 +5,15 @@ import i18n from '@covid/locale/i18n';
 import { Avatar, Spacer, Text, RoundIconButton } from '@covid/components';
 import { drSarahBerry, QuoteMarks } from '@assets';
 import { experiments, startExperiment } from '@covid/core/Experiments';
+import { TStyleObject } from '@covid/utils/types';
 
 import appCoordinator from '../../AppCoordinator';
 
-function DietStudyCard() {
+interface IProps {
+  style?: TStyleObject;
+}
+
+function DietStudyCard({ style }: IProps) {
   const dietStudyVariant = startExperiment(experiments.UK_DIET_SCORE, 2);
 
   const getImgSrc = () => {
@@ -29,7 +34,7 @@ function DietStudyCard() {
   };
 
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, styles.shadow, style]}>
       <View style={[styles.row, { marginBottom: 12 }]}>
         <View style={styles.column}>
           <QuoteMarks />
@@ -76,6 +81,8 @@ function DietStudyCard() {
 
 const styles = StyleSheet.create({
   container: {
+    borderWidth: 1,
+    borderColor: '#e5e5e5',
     backgroundColor: 'white',
     borderRadius: 16,
     paddingHorizontal: 16,
@@ -93,6 +100,13 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 8,
     paddingVertical: 4,
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
   },
 });
 

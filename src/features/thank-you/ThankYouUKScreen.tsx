@@ -80,7 +80,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-              {startupInfo?.show_diet_score && <DietStudyCard />}
+              {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
               <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
 
