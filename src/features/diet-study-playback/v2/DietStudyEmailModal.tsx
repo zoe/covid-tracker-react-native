@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Icon, SafeLayout, Text } from '@covid/components';
+import { Icon, SafeLayout, Text, RoundIconButton } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
 import { selectSettings, setEmailSubscription } from '@covid/core/state';
@@ -33,6 +33,21 @@ function DietStudyEmailModal() {
         <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>
           {i18n.t('diet-study.email-action-title')}
         </Text>
+        <RoundIconButton
+          iconName="close-large"
+          onPress={() => goBack()}
+          style={{
+            backgroundColor: 'white',
+            position: 'absolute',
+            right: 8,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
+            top: 8,
+            elevation: 5,
+          }}
+        />
         <View>
           <Text rhythm={24} textClass="pLight">
             {i18n.t('diet-study.email-action-body')}
