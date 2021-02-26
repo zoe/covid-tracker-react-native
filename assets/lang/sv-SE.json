@@ -1506,6 +1506,7 @@
     "email-action-cta-unsubscribe": "Opt-out of email updates"
   },
   "navigation": {
+    "back": "Back",
     "cta-email-success": "Great, keep an eye on your inbox!",
     "cta-unsubscribe": "Opt-out of email updates",
     "next": "Next",

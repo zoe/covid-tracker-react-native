@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
+import { BackButton, BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
@@ -36,6 +36,7 @@ function DietStudyTraditional() {
           </Text>
         </View>
         <DietStudyActionCard />
+        <BackButton style={{ marginVertical: 16 }} />
       </ScrollView>
     </SafeLayout>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
-import { Avatar, BasicNavHeader, Text, SafeLayout, Spacer, SpeechCard } from '@covid/components';
+import { Avatar, BackButton, BasicNavHeader, Text, SafeLayout, Spacer, SpeechCard } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGutDiagram, drSarahBerry } from '@assets';
 
@@ -68,6 +68,7 @@ function DietStudyGut() {
           </Text>
         </SpeechCard>
         <DietStudyActionCard />
+        <BackButton style={{ marginVertical: 16 }} />
       </ScrollView>
     </SafeLayout>
   );
