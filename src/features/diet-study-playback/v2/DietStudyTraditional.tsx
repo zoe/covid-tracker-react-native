@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { BackButton, BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
-import { QualityScore, DietStudyActionCard } from '../components';
+import { QualityScore } from '../components';
 
 function DietStudyTraditional() {
   const { dietScore } = dietStudyPlaybackCoordinator;
@@ -35,7 +35,6 @@ function DietStudyTraditional() {
             {i18n.t('diet-study.traditional-body-2')}
           </Text>
         </View>
-        <DietStudyActionCard />
         <BackButton style={{ marginVertical: 16 }} />
       </ScrollView>
     </SafeLayout>

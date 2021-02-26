@@ -6,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGutDiagram, drSarahBerry } from '@assets';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
-import { GutScore, DietStudyActionCard } from '../components';
+import { GutScore } from '../components';
 
 function DietStudyGut() {
   const { dietScore } = dietStudyPlaybackCoordinator;
@@ -67,7 +67,6 @@ function DietStudyGut() {
             {i18n.t('diet-study.gut-tips-body-2')}
           </Text>
         </SpeechCard>
-        <DietStudyActionCard />
         <BackButton style={{ marginVertical: 16 }} />
       </ScrollView>
     </SafeLayout>
