@@ -6,12 +6,13 @@ import { useTheme } from '@covid/themes';
 interface IProps {
   children: ReactNode;
   withGutter?: boolean;
+  style?: object;
 }
 
-function SafeLayout({ children, withGutter = true }: IProps) {
+function SafeLayout({ children, withGutter = true, style }: IProps) {
   const theme = useTheme();
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={[styles.safeArea, style]}>
       <View style={[styles.container, { paddingHorizontal: withGutter ? theme.grid.gutter : 0 }]}>{children}</View>
     </SafeAreaView>
   );

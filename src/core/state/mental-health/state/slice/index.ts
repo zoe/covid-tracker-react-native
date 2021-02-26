@@ -32,7 +32,7 @@ const mentalHealthStateSlice = createSlice({
         consent: action.payload,
       };
     },
-    setLastPresentedDate: (state, action: PayloadAction<Date>) => {
+    setLastPresentedDate: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         lastPresentedDate: action.payload,

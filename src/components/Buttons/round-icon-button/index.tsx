@@ -14,6 +14,7 @@ interface IProps {
   iconSize?: TTypeSizes;
   iconStyle?: TStyleObject;
   onPress: () => void;
+  style?: TStyleObject;
 }
 
 function RoundIconButton({
@@ -24,6 +25,7 @@ function RoundIconButton({
   iconSize = 16,
   iconStyle = {},
   onPress,
+  style = {},
 }: IProps) {
   return (
     <TouchableOpacity
@@ -35,6 +37,7 @@ function RoundIconButton({
         height: backgroundSize,
         justifyContent: 'center',
         width: backgroundSize,
+        ...style,
       }}>
       <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} />
     </TouchableOpacity>
