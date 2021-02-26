@@ -5,8 +5,6 @@ import { BasicNavHeader, Text, SafeLayout, Spacer, BackButton } from '@covid/com
 import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGlobal3 } from '@assets';
 
-import { DietStudyActionCard } from '../components';
-
 function DietStudyGlobal() {
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
@@ -36,7 +34,6 @@ function DietStudyGlobal() {
         </View>
         <Image source={dietStudyPlaybackGlobal3} style={styles.img} />
         <Spacer space={24} />
-        <DietStudyActionCard />
         <BackButton style={{ marginVertical: 16 }} />
       </ScrollView>
     </SafeLayout>
