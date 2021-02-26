@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, ScrollView, View, StyleSheet } from 'react-native';
 
-import { BasicNavHeader, Text, SafeLayout, Spacer, Icon, BackButton } from '@covid/components';
+import { BasicNavHeader, Text, SafeLayout, Spacer, BackButton } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGlobal3 } from '@assets';
 
