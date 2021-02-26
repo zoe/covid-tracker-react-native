@@ -8,7 +8,7 @@ const initialState: IDietStudy = {
 };
 
 const dietStudySlice = createSlice({
-  name: 'MentalHealthState',
+  name: 'DietStudyState',
   initialState,
   reducers: {
     setDietStudyConsent: (state, action: PayloadAction<TDietStudyConsent>) => {
