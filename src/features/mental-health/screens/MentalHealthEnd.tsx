@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,19 +6,11 @@ import { BasicPage, Done, Text, SimpleShare, Spacer } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import i18n from '@covid/locale/i18n';
 import { selectMentalHealthState, setCompleted } from '@covid/core/state';
-import { events, track } from '@covid/core/Analytics';
+import { events } from '@covid/core/Analytics';
 
 function MentalHealthSupport() {
-  const [tracked, setTracked] = useState(false);
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.MENTAL_HEALTH_SCREEN_END);
-      setTracked(true);
-    }
-  });
 
   useEffect(() => {
     if (!MentalHealthState.completed) {

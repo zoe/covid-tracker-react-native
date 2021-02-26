@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { ActionCard, BasicProfile, BasicNavHeader, Link, Text, SpeechCard, SafeLayout } from '@covid/components';
@@ -7,7 +7,6 @@ import { drSarahBerry } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useTheme } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
-import { events, track } from '@covid/core/Analytics';
 import appCoordinator from '@covid/features/AppCoordinator';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
@@ -18,14 +17,6 @@ function DietStudy() {
   const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
   const coordinator = dietStudyPlaybackCoordinator;
-  const [tracked, setTracked] = useState(false);
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_START);
-      setTracked(true);
-    }
-  });
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
