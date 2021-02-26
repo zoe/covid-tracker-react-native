@@ -6,24 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Icon, SafeLayout, Text } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
-import { selectSettings, setHasEmailSubscription } from '@covid/core/state';
-
-import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
+import { selectSettings, setEmailSubscription } from '@covid/core/state';
 
 function DietStudyEmailModal() {
   const [tracked, setTracked] = useState(false);
   const settings = useSelector(selectSettings);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
-  const { signUpToNewsletter } = dietStudyPlaybackCoordinator;
 
   const handleOnPress = () => {
-    signUpToNewsletter(!settings.hasEmailSubscription).then(() => {
-      track(
-        settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_UNSUBSCRIBED
-      );
-      dispatch(setHasEmailSubscription(!settings.hasEmailSubscription));
-    });
+    track(settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_UNSUBSCRIBED);
+    dispatch(setEmailSubscription(!settings.hasEmailSubscription));
     goBack();
   };
 
