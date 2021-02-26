@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -14,7 +14,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { dietStudyPlaybackReadyUK, shareAppV3 } from '@assets';
+import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -26,10 +26,15 @@ import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { experiments, startExperiment } from '@covid/core/Experiments';
-import { events, identify, track } from '@covid/core/Analytics';
+import { identify } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
-import { selectMentalHealthState, setDashboardHasBeenViewed, selectApp } from '@covid/core/state';
+import {
+  selectMentalHealthState,
+  setDashboardHasBeenViewed,
+  selectApp,
+  selectSettings,
+  selectDietStudy,
+} from '@covid/core/state';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -40,16 +45,16 @@ interface Props {
 }
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const settings = useSelector(selectSettings);
+  const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolGroups
   );
-
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
-  const variant = startExperiment(experiments.UK_DietScore_Invite, 2);
-  const showDietStudyPlayback = variant === 'variant_1' && startupInfo?.show_diet_score;
+
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
 
   const headerConfig = {
@@ -74,6 +79,23 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     await share(shareMessage);
   };
 
+  const runCurrentFeature = () => {
+    const now = new Date().getTime();
+    if (settings.featureRunDate) {
+      const featureRunDate = new Date(settings.featureRunDate).getTime();
+      if (featureRunDate > now) {
+        return;
+      }
+    }
+    switch (settings.currentFeature) {
+      case 'MENTAL_HEALTH_STUDY':
+        showMentalHealthModal();
+        return;
+      case 'UK_DIET_STUDY':
+        showDietStudy();
+    }
+  };
+
   const showMentalHealthModal = () => {
     if (MentalHealthState.completed) {
       return;
@@ -91,6 +113,13 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     if (app.mentalHealthStudyActive && MentalHealthState.consent !== 'NO') {
       appCoordinator.goToMentalHealthModal();
     }
+  };
+
+  const showDietStudy = () => {
+    if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
+      return;
+    }
+    appCoordinator.goToDietStudyModal();
   };
 
   useEffect(() => {
@@ -114,13 +143,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   useEffect(() => {
     let isMounted = true;
     if (!app.dashboardHasBeenViewed) {
-      if (showDietStudyPlayback) {
-        track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
-      }
       dispatch(setDashboardHasBeenViewed(true));
       setTimeout(() => {
         if (isMounted) {
-          showMentalHealthModal();
+          runCurrentFeature();
         }
       }, 800);
     }
@@ -139,16 +165,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ShareVaccineCard screenName="Dashboard" />
-
-        {showDietStudyPlayback && (
-          <TouchableWithoutFeedback
-            onPress={() => {
-              track(events.DIET_STUDY_PLAYBACK_CLICKED);
-              appCoordinator.goToDietStudyPlayback();
-            }}>
-            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUK} />
-          </TouchableWithoutFeedback>
-        )}
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 

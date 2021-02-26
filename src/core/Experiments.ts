@@ -5,6 +5,7 @@ export const experiments = {
   Experiment_001: 'Experiment_001', // Test alternative external callouts on UK Thank You Pags
   Trend_Line_Launch: 'Trend_Line_Launch',
   UK_DietScore_Invite: 'UK_DietScore_Invite',
+  UK_DIET_SCORE: 'UK_DIET_SCORE',
 };
 
 function hashToInt(s: string): number {

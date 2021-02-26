@@ -21,7 +21,7 @@ function MentalHealthModal() {
   const handleSetConsent = (consent: TMentalHealthConsent) => {
     dispatch(setConsent(consent));
     if (consent === 'LATER') {
-      dispatch(setLastPresentedDate(new Date()));
+      dispatch(setLastPresentedDate(new Date().toString()));
     }
     if (consent !== 'YES') {
       goBack();

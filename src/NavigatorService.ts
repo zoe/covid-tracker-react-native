@@ -33,6 +33,7 @@ function goBack() {
 }
 
 function handleStateChange() {
+  console.log('handle state change');
   const state = navigation!.getRootState();
   if (!state) return;
 
