@@ -161,6 +161,12 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
     await this.fetchInitialData();
 
+    const { startupInfo } = store.getState().content;
+
+    if (startupInfo?.app_requires_update) {
+      this.goToVersionUpdateModal();
+    }
+
     // Track insights
     if (this.shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
@@ -245,6 +251,10 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     if (patientId) {
       await this.setPatientById(patientId);
     }
+  }
+
+  goToVersionUpdateModal() {
+    NavigatorService.navigate('VersionUpdateModal');
   }
 
   goToDietStudyModal() {

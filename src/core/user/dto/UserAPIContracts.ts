@@ -298,6 +298,8 @@ export type AreaStatsResponse = {
 };
 
 export type StartupInfo = {
+  api_version?: string;
+  app_requires_update?: boolean;
   users_count: number;
   ip_country: string;
   show_new_dashboard: boolean;

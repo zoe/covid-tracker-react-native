@@ -15,6 +15,7 @@ import { ShareScreen } from '@covid/components';
 import { MainNavigator } from '@covid/routes';
 
 import { VaccineListMissingModal } from './features/vaccines/VaccineListMissingModal';
+import { VersionUpdateModal } from './core/VersionUpdateModal';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -48,6 +49,11 @@ function CovidApp() {
         onStateChange={NavigatorService.handleStateChange}>
         <Stack.Navigator headerMode="none" mode="modal" initialRouteName="Main">
           <Stack.Screen name="Main" component={DrawNavigator} />
+          <Stack.Screen
+            name="VersionUpdateModal"
+            component={VersionUpdateModal}
+            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
+          />
           <Stack.Screen
             name="Share"
             component={ShareScreen}
