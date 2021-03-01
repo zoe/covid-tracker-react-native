@@ -84,14 +84,26 @@ export default class ContentService implements IContentService {
       as our Best Practices at versioning means an increment of the "middle number" 
       means "breaking changes" from the API:
 
-      BE      FE       Show modal?
+      API      APP       Show modal?
       2.4.0   2.5.0    No
       2.4.0   2.4.3    No
       2.4.0   2.4.0    No
       2.4.0   1.3.0    Yes
     */
-    const middleNumberAPI: number = parseInt(apiVersion.split('.')[1]);
-    const middleNumberAPP: number = parseInt(appVersion.split('.')[1]);
+    const apiVersionParts: string[] = apiVersion.split('.');
+    const appVersionParts: string[] = appVersion.split('.');
+
+    // First check on the major (1st) digits
+    const startNumberAPI: number = parseInt(apiVersionParts[0]);
+    const startNumberAPP: number = parseInt(appVersionParts[0]);
+
+    if (startNumberAPP < startNumberAPI) {
+      return true;
+    }
+
+    // Now check the middle digits. We don't do diffs for minor (3rd) digits
+    const middleNumberAPI: number = parseInt(apiVersionParts[1]);
+    const middleNumberAPP: number = parseInt(appVersionParts[1]);
     return middleNumberAPP < middleNumberAPI;
   }
 
