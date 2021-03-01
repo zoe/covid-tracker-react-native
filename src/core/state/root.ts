@@ -8,6 +8,7 @@ import { uiMessagesSlice, IUIMessageCollection } from '@covid/core/ui-messaging'
 
 import { userSlice, IUser } from './user';
 import { IApp, appSlice } from './app';
+import { dietStudySlice, IDietStudy } from './diet-study';
 import {
   IMentalHealthChanges,
   IMentalHealthFrequency,
@@ -22,12 +23,14 @@ import {
   mentalHealthStateSlice,
   mentalHealthSupportSlice,
 } from './mental-health';
+import { ISettings, settingsSlice } from './settings';
 import { IVaccineState, vaccinesSlice } from './vaccines';
 
 export type RootState = {
   app: IApp;
   assessment: IAssessmentState;
   content: ContentState;
+  dietStudy: IDietStudy;
   mentalHealthChanges: IMentalHealthChanges;
   mentalHealthFrequency: IMentalHealthFrequency;
   mentalHealthHistory: IMentalHealthHistory;
@@ -35,6 +38,7 @@ export type RootState = {
   mentalHealthState: IMentalHealthState;
   mentalHealthSupport: IMentalHealthSupport;
   school: SchoolState;
+  settings: ISettings;
   uiMessages: IUIMessageCollection;
   user: IUser;
   vaccines: IVaccineState;
@@ -44,6 +48,7 @@ export default combineReducers({
   app: appSlice,
   assessment,
   content: contentSlice.reducer,
+  dietStudy: dietStudySlice,
   mentalHealthChanges: mentalHealthChangesSlice,
   mentalHealthFrequency: mentalHealthFrequencySlice,
   mentalHealthHistory: mentalHealthHistorySlice,
@@ -51,6 +56,7 @@ export default combineReducers({
   mentalHealthState: mentalHealthStateSlice,
   mentalHealthSupport: mentalHealthSupportSlice,
   school: schoolSlice.reducer,
+  settings: settingsSlice,
   uiMessages: uiMessagesSlice,
   user: userSlice,
   vaccines: vaccinesSlice.reducer,

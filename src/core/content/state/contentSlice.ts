@@ -13,6 +13,8 @@ import {
   ITrendLineTimeSeriesData,
 } from '@covid/core/content/dto/ContentAPIContracts';
 
+import { RootState } from '../../state/root';
+
 // State interface
 
 type ApiState = 'ready' | 'loading' | 'finished' | 'error';
@@ -231,3 +233,5 @@ export const contentSlice = createSlice({
     },
   },
 });
+
+export const selectContent = (state: RootState) => state.content;

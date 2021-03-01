@@ -8,6 +8,10 @@ import {
   DietStudyPlaybackGutHealthScreen,
   DietStudyPlaybackYourGutScreen,
   DietStudyPlaybackResearchScreen,
+  DietStudy,
+  DietStudyGlobal,
+  DietStudyGut,
+  DietStudyTraditional,
   ScreenParamList,
 } from '@covid/features';
 
@@ -33,6 +37,10 @@ function DietStudyPlaybackNavigator({ Stack }: IProps) {
       <Stack.Screen name="DietStudyPlaybackGutHealth" component={DietStudyPlaybackGutHealthScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackYourGut" component={DietStudyPlaybackYourGutScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackResearch" component={DietStudyPlaybackResearchScreen} options={noHeader} />
+      <Stack.Screen name="DietStudy" component={DietStudy} options={noHeader} />
+      <Stack.Screen name="DietStudyGlobal" component={DietStudyGlobal} options={noHeader} />
+      <Stack.Screen name="DietStudyGut" component={DietStudyGut} options={noHeader} />
+      <Stack.Screen name="DietStudyTraditional" component={DietStudyTraditional} options={noHeader} />
     </>
   );
 }

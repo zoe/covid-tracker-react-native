@@ -115,6 +115,12 @@ export type ScreenParamList = {
   DietStudyPlaybackGutHealth: undefined;
   DietStudyPlaybackYourGut: undefined;
   DietStudyPlaybackResearch: undefined;
+  DietStudyModal: undefined;
+  DietStudy: undefined;
+  DietStudyGlobal: undefined;
+  DietStudyGut: undefined;
+  DietStudyTraditional: undefined;
+  DietStudyEmailModal: undefined;
 
   MentalHealthChanges: undefined;
   MentalHealthFrequency: undefined;
