@@ -3,6 +3,7 @@ import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { CompactHeader, Header } from '@covid/features/dashboard/Header';
@@ -55,6 +56,19 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
   };
 
   const showMentalHealthModal = () => {
+    if (MentalHealthState.completed) {
+      return;
+    }
+    if (MentalHealthState.consent === 'LATER') {
+      // check time since
+      const previous = moment(MentalHealthState.lastPresentedDate);
+      const now = moment(new Date());
+      const diff = now.diff(previous, 'days');
+      if (diff >= 7) {
+        appCoordinator.goToMentalHealthModal();
+      }
+      return;
+    }
     if (app.mentalHealthStudyActive && MentalHealthState.consent !== 'NO') {
       appCoordinator.goToMentalHealthModal();
     }
@@ -74,13 +88,18 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
   }, [navigation]);
 
   useEffect(() => {
+    let isMounted = true;
     if (!app.dashboardHasBeenViewed) {
-      if (showDietStudyPlayback) {
-        track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
-      }
       dispatch(setDashboardHasBeenViewed(true));
-      showMentalHealthModal();
+      setTimeout(() => {
+        if (isMounted) {
+          showMentalHealthModal();
+        }
+      }, 800);
     }
+    return function () {
+      isMounted = false;
+    };
   }, []);
 
   return (
