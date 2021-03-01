@@ -25,7 +25,6 @@ import {
 } from '@covid/core/state/mental-health';
 import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
-import { events, track } from '@covid/core/Analytics';
 import { IUser, selectUser } from '@covid/core/state/user';
 
 import { ChangesQuestion } from '../partials';
@@ -35,7 +34,6 @@ function MentalHealthChanges() {
   const user: IUser = useSelector(selectUser);
   const [canSubmit, setCanSubmit] = useState(false);
   const [curQuestion, setCurQuestion] = useState(0);
-  const [tracked, setTracked] = useState(false);
   const mentalHealthChanges = useSelector(selectMentalHealthChanges);
   const dispatch = useDispatch();
   const { grid } = useTheme();
@@ -116,13 +114,6 @@ function MentalHealthChanges() {
       state: mentalHealthChanges.engagingWithOrganisations,
     },
   ];
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.MENTAL_HEALTH_SCREEN_CHANGES);
-      setTracked(true);
-    }
-  });
 
   const createNewMentalHealthRecord = async () => {
     const currentPatientId: string = user.patients[0];

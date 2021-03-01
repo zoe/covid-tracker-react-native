@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Image, ScrollView, View, StyleSheet } from 'react-native';
 
-import { BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
+import { BasicNavHeader, Text, SafeLayout, Spacer, BackButton } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGlobal3 } from '@assets';
-import { events, track } from '@covid/core/Analytics';
-
-import { DietStudyActionCard } from '../components';
 
 function DietStudyGlobal() {
-  const [tracked, setTracked] = useState(false);
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_GLOBAL);
-      setTracked(true);
-    }
-  });
-
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
       <ScrollView>
@@ -46,7 +34,7 @@ function DietStudyGlobal() {
         </View>
         <Image source={dietStudyPlaybackGlobal3} style={styles.img} />
         <Spacer space={24} />
-        <DietStudyActionCard />
+        <BackButton style={{ marginVertical: 16 }} />
       </ScrollView>
     </SafeLayout>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { ActionCard, BasicProfile, BasicNavHeader, Link, Text, SpeechCard, SafeLayout } from '@covid/components';
@@ -7,25 +7,16 @@ import { drSarahBerry } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useTheme } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
-import { events, track } from '@covid/core/Analytics';
-import appCoordinator from '@covid/features/AppCoordinator';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
+import { DietStudyActionCard } from '../components';
 
 function DietStudy() {
   type route = keyof ScreenParamList;
   const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
   const coordinator = dietStudyPlaybackCoordinator;
-  const [tracked, setTracked] = useState(false);
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_START);
-      setTracked(true);
-    }
-  });
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
@@ -79,19 +70,16 @@ function DietStudy() {
           <Text rhythm={16} textClass="pLight">
             {i18n.t('diet-study.introduction-more-body')}
           </Text>
-          <View style={{ paddingRight: 32 }}>
-            <Link
-              linkText={i18n.t('diet-study.introduction-more-link-0')}
-              onPress={() => openWebLink(coordinator.getDietStudyInfoUrl())}
-              style={{ marginBottom: 16 }}
-            />
-            <Link
-              linkText={i18n.t('diet-study.introduction-more-link-1')}
-              onPress={() => appCoordinator.gotoDietStudyEmailModal()}
-              style={{ marginBottom: 32 }}
-            />
-          </View>
         </View>
+
+        <View style={{ marginHorizontal: 16, paddingRight: 32 }}>
+          <Link
+            linkText={i18n.t('diet-study.introduction-more-link-0')}
+            onPress={() => openWebLink(coordinator.getDietStudyInfoUrl())}
+            style={{ marginBottom: 8 }}
+          />
+        </View>
+        <DietStudyActionCard />
       </ScrollView>
     </SafeLayout>
   );

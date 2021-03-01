@@ -14,13 +14,11 @@ import {
 import i18n from '@covid/locale/i18n';
 import { mentalHealthApiClient } from '@covid/Services';
 import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
-import { events, track } from '@covid/core/Analytics';
 
 import { initialOptions } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthSupport() {
-  const [tracked, setTracked] = useState(false);
   const [canSubmit, setCanSubmit] = useState(false);
   const { grid } = useTheme();
   const MentalHealthSupport: IMentalHealthSupport = useSelector(selectMentalHealthSupport);
@@ -33,13 +31,6 @@ function MentalHealthSupport() {
   const handleSetHasReceivedSupport = (value: TGeneralAnswer) => {
     dispatch(setHasReceivedSupport(value));
   };
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.MENTAL_HEALTH_SCREEN_LEARNING);
-      setTracked(true);
-    }
-  });
 
   useEffect(() => {
     if (MentalHealthSupport.hasNeededSupport === 'NO' || MentalHealthSupport.hasNeededSupport === 'DECLINE_TO_SAY') {

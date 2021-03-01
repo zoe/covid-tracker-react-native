@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
+import { BackButton, BasicNavHeader, Text, SafeLayout, Spacer } from '@covid/components';
 import i18n from '@covid/locale/i18n';
-import { events, track } from '@covid/core/Analytics';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
-import { QualityScore, DietStudyActionCard } from '../components';
+import { QualityScore } from '../components';
 
 function DietStudyTraditional() {
-  const [tracked, setTracked] = useState(false);
   const { dietScore } = dietStudyPlaybackCoordinator;
   const beforeScore = dietScore ? dietScore?.pre_diet_score : 5;
   const duringScore = dietScore ? dietScore.post_diet_score : 5;
-
-  useEffect(() => {
-    if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_TRADITIONAL);
-      setTracked(true);
-    }
-  });
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
@@ -44,7 +35,7 @@ function DietStudyTraditional() {
             {i18n.t('diet-study.traditional-body-2')}
           </Text>
         </View>
-        <DietStudyActionCard />
+        <BackButton style={{ marginVertical: 16 }} />
       </ScrollView>
     </SafeLayout>
   );
