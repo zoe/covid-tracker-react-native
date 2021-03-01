@@ -1,6 +1,6 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
+import { RouteProp, useIsFocused } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native';
 import { View } from 'native-base';
 import { useSelector } from 'react-redux';
@@ -28,8 +28,10 @@ type Props = {
 
 export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [location, setLocation] = useState('');
   const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
@@ -44,6 +46,10 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   }, [navigation]);
 
   const handlePress = async (healthy: boolean) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     const status = healthy ? 'healthy' : 'not_healthy';
     await updateAssessment(status, healthy);
     assessmentCoordinator.gotoNextScreen(route.name, healthy);
@@ -92,6 +98,10 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   }
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+
+  useEffect(() => {
+    setIsSubmitting(false);
+  }, [isFocused]);
 
   return (
     <>
