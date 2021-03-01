@@ -9,8 +9,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { HeaderText, Text } from '@covid/components';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;
-  route: RouteProp<ScreenParamList, 'VaccineList'>;
+  navigation: StackNavigationProp<ScreenParamList, 'VersionUpdateModal'>;
+  route: RouteProp<ScreenParamList, 'VersionUpdateModal'>;
 };
 
 export const VersionUpdateModal: React.FC<Props> = ({ route }) => {
