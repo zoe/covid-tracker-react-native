@@ -70,6 +70,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       }
     } catch (error) {
       setErrorMessage(i18n.t('something-went-wrong'));
+      setIsSubmitting(false);
     }
   }
 
