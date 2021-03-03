@@ -31,6 +31,7 @@ describe('BrandedButton tests', () => {
     fireEvent.press(getByTestId('buttonTestID'));
     expect(onPress).toHaveBeenCalledTimes(0);
   });
+
   it('Handles style props being passed', () => {
     const onPress = jest.fn();
     const style = { background: 'red' };
@@ -41,25 +42,4 @@ describe('BrandedButton tests', () => {
     );
     expect(getByTestId('buttonTestID').props.style.background).toBe('red');
   });
-  // it('Shows loading if disabled', () => {
-  //   const onPress = jest.fn();
-  //   const { queryByTestId } = render(
-  //     <BrandedButton onPress={onPress} enable={false}>
-  //       This is a branded button
-  //     </BrandedButton>
-  //   );
-  //   const activityIndicator = queryByTestId('activityIndicator')
-  //   console.log('activityIndicator ',activityIndicator)
-  //   expect(activityIndicator).toBeTruthy();
-  // });
-  // it('Can hide loading when disabled', () => {
-  //   const onPress = jest.fn();
-  //   const { queryByTestId } = render(
-
-  //     <BrandedButton onPress={onPress} enable={false} hideLoading>
-  //       This is a branded button
-  //     </BrandedButton>
-  //   );
-  //   expect(queryByTestId('activityIndicator')).toBeNull();
-  // });
 });
