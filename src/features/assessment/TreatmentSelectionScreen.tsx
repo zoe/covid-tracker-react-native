@@ -1,7 +1,7 @@
-import { RouteProp } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
-import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { BigButton } from '@covid/components/BigButton';
@@ -14,85 +14,92 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 
 import { ScreenParamList } from '../ScreenParamList';
 
-type TreatmentSelectionProps = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'TreatmentSelection'>;
   route: RouteProp<ScreenParamList, 'TreatmentSelection'>;
-};
+}
 
-export default class TreatmentSelectionScreen extends Component<TreatmentSelectionProps> {
-  handleTreatment = async (treatment: string) => {
-    const { location } = this.props.route.params;
+function TreatmentSelectionScreen({ navigation, route }: IProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+  const title =
+    route.params.location === 'back_from_hospital'
+      ? i18n.t('treatment-selection-title-after')
+      : i18n.t('treatment-selection-title-during');
+  const isFocused = useIsFocused();
 
+  const handleTreatment = async (treatment: string) => {
+    const { location } = route.params;
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     if (treatment === 'other') {
-      assessmentCoordinator.gotoNextScreen(this.props.route.name, { other: true, location });
+      assessmentCoordinator.gotoNextScreen(route.name, { other: true, location });
     } else {
       const assessment = { treatment };
       await assessmentService.completeAssessment(
         assessment,
         assessmentCoordinator.assessmentData.patientData.patientInfo!
       );
-      assessmentCoordinator.gotoNextScreen(this.props.route.name, { other: false, location });
+      assessmentCoordinator.gotoNextScreen(route.name, { other: false, location });
     }
   };
 
-  render() {
-    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
-    const title =
-      this.props.route.params.location === 'back_from_hospital'
-        ? i18n.t('treatment-selection-title-after')
-        : i18n.t('treatment-selection-title-during');
+  useEffect(() => {
+    setIsSubmitting(false);
+  }, [isFocused]);
 
-    return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{title}</HeaderText>
-        </Header>
+  return (
+    <Screen profile={currentPatient.profile} navigation={navigation}>
+      <Header>
+        <HeaderText>{title}</HeaderText>
+      </Header>
 
-        <ProgressBlock>
-          <ProgressStatus step={4} maxSteps={5} />
-        </ProgressBlock>
+      <ProgressBlock>
+        <ProgressStatus step={4} maxSteps={5} />
+      </ProgressBlock>
 
-        <View style={styles.content}>
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={() => this.handleTreatment('none')}>
-              <Text>{i18n.t('treatment-selection-picker-none')}</Text>
-            </BigButton>
-          </FieldWrapper>
+      <View style={styles.content}>
+        <FieldWrapper style={styles.fieldWrapper}>
+          <BigButton onPress={() => handleTreatment('none')}>
+            <Text>{i18n.t('treatment-selection-picker-none')}</Text>
+          </BigButton>
+        </FieldWrapper>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={() => this.handleTreatment('oxygen')}>
-              <Text>{i18n.t('treatment-selection-picker-oxygen')}</Text>
-            </BigButton>
-            <CaptionText style={styles.indentedText}>{i18n.t('treatment-selection-picker-subtext-oxygen')}</CaptionText>
-          </FieldWrapper>
+        <FieldWrapper style={styles.fieldWrapper}>
+          <BigButton onPress={() => handleTreatment('oxygen')}>
+            <Text>{i18n.t('treatment-selection-picker-oxygen')}</Text>
+          </BigButton>
+          <CaptionText style={styles.indentedText}>{i18n.t('treatment-selection-picker-subtext-oxygen')}</CaptionText>
+        </FieldWrapper>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={() => this.handleTreatment('nonInvasiveVentilation')}>
-              <Text>{i18n.t('treatment-selection-picker-non-invasive-ventilation')}</Text>
-            </BigButton>
-            <CaptionText style={styles.indentedText}>
-              {i18n.t('treatment-selection-picker-subtext-non-invasive-ventilation')}
-            </CaptionText>
-          </FieldWrapper>
+        <FieldWrapper style={styles.fieldWrapper}>
+          <BigButton onPress={() => handleTreatment('nonInvasiveVentilation')}>
+            <Text>{i18n.t('treatment-selection-picker-non-invasive-ventilation')}</Text>
+          </BigButton>
+          <CaptionText style={styles.indentedText}>
+            {i18n.t('treatment-selection-picker-subtext-non-invasive-ventilation')}
+          </CaptionText>
+        </FieldWrapper>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={() => this.handleTreatment('invasiveVentilation')}>
-              <Text>{i18n.t('treatment-selection-picker-invasive-ventilation')}</Text>
-            </BigButton>
-            <CaptionText style={styles.indentedText}>
-              {i18n.t('treatment-selection-picker-subtext-invasive-ventilation')}
-            </CaptionText>
-          </FieldWrapper>
+        <FieldWrapper style={styles.fieldWrapper}>
+          <BigButton onPress={() => handleTreatment('invasiveVentilation')}>
+            <Text>{i18n.t('treatment-selection-picker-invasive-ventilation')}</Text>
+          </BigButton>
+          <CaptionText style={styles.indentedText}>
+            {i18n.t('treatment-selection-picker-subtext-invasive-ventilation')}
+          </CaptionText>
+        </FieldWrapper>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={() => this.handleTreatment('other')}>
-              <Text>{i18n.t('treatment-selection-picker-other')}</Text>
-            </BigButton>
-          </FieldWrapper>
-        </View>
-      </Screen>
-    );
-  }
+        <FieldWrapper style={styles.fieldWrapper}>
+          <BigButton onPress={() => handleTreatment('other')}>
+            <Text>{i18n.t('treatment-selection-picker-other')}</Text>
+          </BigButton>
+        </FieldWrapper>
+      </View>
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -110,3 +117,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default TreatmentSelectionScreen;

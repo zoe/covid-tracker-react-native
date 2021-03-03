@@ -1,6 +1,6 @@
-import { RouteProp } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -13,13 +13,17 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 
 import { ScreenParamList } from '../ScreenParamList';
 
-type LocationProps = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
   route: RouteProp<ScreenParamList, 'WhereAreYou'>;
-};
+}
 
-export default class WhereAreYouScreen extends Component<LocationProps> {
-  private async updateAssessment(status: string, isComplete = false) {
+function WhereAreYouScreen({ navigation, route }: IProps) {
+  const isFocused = useIsFocused();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+
+  const updateAssessment = async (status: string, isComplete = false) => {
     const assessment = {
       location: status,
     };
@@ -32,51 +36,56 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
     } else {
       assessmentService.saveAssessment(assessment);
     }
-  }
+  };
 
-  handleLocationSelection = async (location: string, endAssessment: boolean) => {
+  const handleLocationSelection = async (location: string, endAssessment: boolean) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     try {
-      await this.updateAssessment(location, endAssessment);
-      assessmentCoordinator.gotoNextScreen(this.props.route.name, { location, endAssessment });
+      await updateAssessment(location, endAssessment);
+      assessmentCoordinator.gotoNextScreen(route.name, { location, endAssessment });
     } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      // TODO - activate messaging for error handling;
+      setIsSubmitting(false);
     }
   };
 
-  render() {
-    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+  useEffect(() => {
+    setIsSubmitting(false);
+  }, [isFocused]);
 
-    return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
-        </Header>
+  return (
+    <Screen profile={currentPatient.profile} navigation={navigation}>
+      <Header>
+        <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
+      </Header>
 
-        <ProgressBlock>
-          <ProgressStatus step={6} maxSteps={6} />
-        </ProgressBlock>
+      <ProgressBlock>
+        <ProgressStatus step={6} maxSteps={6} />
+      </ProgressBlock>
 
-        <View style={styles.content}>
-          <SelectorButton
-            onPress={() => this.handleLocationSelection('home', true)}
-            text={i18n.t('where-are-you.picker-location-home')}
-          />
-          <SelectorButton
-            onPress={() => this.handleLocationSelection('hospital', false)}
-            text={i18n.t('where-are-you.picker-location-hospital')}
-          />
-          <SelectorButton
-            onPress={() => this.handleLocationSelection('back_from_hospital', false)}
-            text={i18n.t('where-are-you.picker-location-back-from-hospital')}
-          />
-          <SelectorButton
-            onPress={() => this.handleLocationSelection('back_from_hospital', true)}
-            text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
-          />
-        </View>
-      </Screen>
-    );
-  }
+      <View style={styles.content}>
+        <SelectorButton
+          onPress={() => handleLocationSelection('home', true)}
+          text={i18n.t('where-are-you.picker-location-home')}
+        />
+        <SelectorButton
+          onPress={() => handleLocationSelection('hospital', false)}
+          text={i18n.t('where-are-you.picker-location-hospital')}
+        />
+        <SelectorButton
+          onPress={() => handleLocationSelection('back_from_hospital', false)}
+          text={i18n.t('where-are-you.picker-location-back-from-hospital')}
+        />
+        <SelectorButton
+          onPress={() => handleLocationSelection('back_from_hospital', true)}
+          text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
+        />
+      </View>
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -84,3 +93,5 @@ const styles = StyleSheet.create({
     marginVertical: 32,
   },
 });
+
+export default WhereAreYouScreen;
