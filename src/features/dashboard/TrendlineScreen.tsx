@@ -19,7 +19,6 @@ import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
 import i18n from '@covid/locale/i18n';
 import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
-import { isIos } from '@covid/utils/platform';
 
 type Props = {
   navigation?: StackNavigationProp<ScreenParamList, 'Trendline'>;

@@ -1518,6 +1518,7 @@
 
   "version-update": {
     "title": "Your app version needs updating!",
-    "body": "You need to update your app to continue using it. This will give you all the latest features."
+    "body": "You need to update your app to continue using it. This will give you all the latest features.",
+    "cta": "Update now"
   }
 }

@@ -1,23 +1,39 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { HeaderText, Text } from '@covid/components';
+import { HeaderText, Text, BrandedButton } from '@covid/components';
+import { getPlatformStoreLink } from '@covid/utils/platform';
+import { openWebLink } from '@covid/utils/links';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VersionUpdateModal'>;
   route: RouteProp<ScreenParamList, 'VersionUpdateModal'>;
 };
 
-export const VersionUpdateModal: React.FC<Props> = ({ route }) => {
+export const VersionUpdateModal: React.FC<Props> = ({ navigation, route }) => {
+  const goToAppStore = () => {
+    openWebLink(getPlatformStoreLink);
+  };
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      return false;
+    });
+  }, []);
+
   return (
     <View style={styles.modal}>
       <HeaderText style={styles.text}>{i18n.t('version-update.title')}</HeaderText>
       <Text style={styles.text}>{i18n.t('version-update.body')}</Text>
+      <BrandedButton style={styles.button} onPress={goToAppStore}>
+        {i18n.t('version-update.cta')}
+      </BrandedButton>
     </View>
   );
 };
@@ -37,5 +53,8 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     marginBottom: 24,
+  },
+  button: {
+    paddingHorizontal: 16,
   },
 });
