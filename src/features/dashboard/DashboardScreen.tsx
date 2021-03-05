@@ -34,8 +34,6 @@ import {
   selectApp,
   selectSettings,
   selectDietStudy,
-  addMessage,
-  resetUiMessages,
 } from '@covid/core/state';
 import { useMessage } from '@covid/common';
 
@@ -172,15 +170,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           title="trigger toast"
           onPress={() =>
             addMessage({
-              actions: [
-                {
-                  label: 'log and close',
-                  action: () => {
-                    console.log('it works');
-                    removeMessage();
-                  },
-                },
-              ],
+              actions: [],
               messageType: 'SNACKBAR',
               message: {
                 title: 'the title',
@@ -193,7 +183,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           title="trigger dialog"
           onPress={() =>
             addMessage({
-              actions: [{ label: 'log', action: () => console.log('it works') }],
+              actions: [
+                { label: 'first action', action: () => console.log('first action') },
+                { label: 'second action', action: () => console.log('second action') },
+              ],
               messageType: 'DIALOG',
               message: {
                 title: 'the title',
@@ -208,9 +201,16 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             addMessage({
               actions: [
                 {
-                  label: 'log and close',
+                  label: 'first action',
                   action: () => {
-                    console.log('it works');
+                    console.log('first action');
+                    removeMessage();
+                  },
+                },
+                {
+                  label: 'second action',
+                  action: () => {
+                    console.log('second action');
                     removeMessage();
                   },
                 },
