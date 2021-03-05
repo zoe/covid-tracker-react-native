@@ -26,7 +26,7 @@ function DietStudyActionCard() {
   };
 
   const handleOnPress = () => {
-    track(settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_UNSUBSCRIBED);
+    track(settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_SUBSCRIBED);
     dispatch(setEmailSubscription(!settings.hasEmailSubscription));
   };
 

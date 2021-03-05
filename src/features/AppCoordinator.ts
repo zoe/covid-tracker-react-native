@@ -262,7 +262,12 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     this.startDietStudyPlaybackFlow(this.patientData);
   }
 
-  goToDietStudy() {
+  async goToDietStudy() {
+    // Reset the current PatientData to the primary user.
+    // We can get here if by viewing DietScores after reporting from a secondary profile
+    if (this.patientData.patientState.isReportedByAnother) {
+      await this.setPatientToPrimary();
+    }
     dietStudyPlaybackCoordinator.init(this, this.patientData, this.contentService, this.dietScoreService);
     NavigatorService.navigate('DietStudy');
   }
