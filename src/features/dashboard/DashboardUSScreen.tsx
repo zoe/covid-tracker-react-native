@@ -115,7 +115,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
           <TouchableWithoutFeedback
             onPress={() => {
               AnalyticsService.track(events.DIET_STUDY_PLAYBACK_CLICKED);
-              appCoordinator.goToDietStudyPlayback();
+              appCoordinator.goToDietStudy();
             }}>
             <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUS} />
           </TouchableWithoutFeedback>

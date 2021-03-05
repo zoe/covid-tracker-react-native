@@ -195,15 +195,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     assessmentCoordinator.startAssessment();
   }
 
-  startDietStudyPlaybackFlow(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
-    dietStudyPlaybackCoordinator.startDietStudyPlayback();
-  }
-
-  startDietStudy(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
-  }
-
   async startEditProfile(profile: Profile) {
     await this.setPatientByProfile(profile);
 
@@ -245,21 +236,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     if (patientId) {
       await this.setPatientById(patientId);
     }
-  }
-
-  goToDietStudyModal() {
-    NavigatorService.navigate('DietStudyModal');
-  }
-
-  gotoDietStudyEmailModal() {
-    NavigatorService.navigate('DietStudyEmailModal');
-  }
-
-  async goToDietStudyPlayback() {
-    if (this.patientData.patientState.isReportedByAnother) {
-      await this.setPatientToPrimary();
-    }
-    this.startDietStudyPlaybackFlow(this.patientData);
   }
 
   async goToDietStudy() {

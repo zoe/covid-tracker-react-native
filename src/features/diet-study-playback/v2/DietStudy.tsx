@@ -1,14 +1,14 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { ActionCard, BasicProfile, BasicNavHeader, Link, Text, SpeechCard, SafeLayout } from '@covid/components';
+import { ActionCard, BasicNavHeader, BasicProfile, Link, SafeLayout, SpeechCard, Text } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import { drSarahBerry } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useTheme } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
-import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
 import { DietStudyActionCard } from '../components';
 
@@ -16,7 +16,12 @@ function DietStudy() {
   type route = keyof ScreenParamList;
   const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
-  const coordinator = dietStudyPlaybackCoordinator;
+
+  function getDietStudyInfoUrl() {
+    return isUSCountry()
+      ? 'https://covid.joinzoe.com/us-post/covid-diet-feedback'
+      : 'https://covid.joinzoe.com/post/covid-lockdown-diet';
+  }
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
@@ -75,7 +80,7 @@ function DietStudy() {
         <View style={{ marginHorizontal: 16, paddingRight: 32 }}>
           <Link
             linkText={i18n.t('diet-study.introduction-more-link-0')}
-            onPress={() => openWebLink(coordinator.getDietStudyInfoUrl())}
+            onPress={() => openWebLink(getDietStudyInfoUrl())}
             style={{ marginBottom: 8 }}
           />
         </View>
