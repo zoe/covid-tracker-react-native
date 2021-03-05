@@ -11,7 +11,7 @@ import { SContainerView } from './styles';
 
 function MessagingContainer() {
   const { height, width } = Dimensions.get('window');
-  const { message, removeMessage } = useMessage();
+  const { message } = useMessage();
 
   const getMessage = (message: IUIMessage) => {
     switch (message.messageType) {
