@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -35,7 +35,6 @@ import {
   selectSettings,
   selectDietStudy,
 } from '@covid/core/state';
-import { useMessage } from '@covid/common';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -157,7 +156,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   }, []);
 
   const hasNetworkData = networks && networks.length > 0;
-  const { addMessage, removeMessage } = useMessage();
 
   return (
     <CollapsibleHeaderScrollView
@@ -166,63 +164,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <Button
-          title="trigger toast"
-          onPress={() =>
-            addMessage({
-              actions: [],
-              messageType: 'SNACKBAR',
-              message: {
-                title: 'the title',
-                body: 'the body of the message',
-              },
-            })
-          }
-        />
-        <Button
-          title="trigger dialog"
-          onPress={() =>
-            addMessage({
-              actions: [
-                { label: 'first action', action: () => console.log('first action') },
-                { label: 'second action', action: () => console.log('second action') },
-              ],
-              messageType: 'DIALOG',
-              message: {
-                title: 'the title',
-                body: 'the body of the message',
-              },
-            })
-          }
-        />
-        <Button
-          title="trigger banner"
-          onPress={() =>
-            addMessage({
-              actions: [
-                {
-                  label: 'first action',
-                  action: () => {
-                    console.log('first action');
-                    removeMessage();
-                  },
-                },
-                {
-                  label: 'second action',
-                  action: () => {
-                    console.log('second action');
-                    removeMessage();
-                  },
-                },
-              ],
-              messageType: 'BANNER',
-              message: {
-                title: 'the title',
-                body: 'the body of the message',
-              },
-            })
-          }
-        />
         <ShareVaccineCard screenName="Dashboard" />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
