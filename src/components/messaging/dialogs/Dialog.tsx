@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Animated, Dimensions, Easing, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { IUIMessage, reset } from '@covid/core/ui-messaging';
+import { IUIMessage, resetUiMessages } from '@covid/core/state/';
 import { useTheme } from '@covid/themes';
 
 import { ThemeButton } from '../../Buttons';
@@ -26,7 +26,7 @@ function Dialog({ active, message }: IProps) {
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(reset());
+    dispatch(resetUiMessages());
   };
 
   const animate = (active: boolean) => {

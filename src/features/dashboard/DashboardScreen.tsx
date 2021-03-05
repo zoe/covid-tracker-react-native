@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -34,7 +34,10 @@ import {
   selectApp,
   selectSettings,
   selectDietStudy,
+  addMessage,
+  resetUiMessages,
 } from '@covid/core/state';
+import { useMessage } from '@covid/common';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -156,6 +159,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   }, []);
 
   const hasNetworkData = networks && networks.length > 0;
+  const { addMessage } = useMessage();
 
   return (
     <CollapsibleHeaderScrollView
@@ -164,6 +168,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        <Button title="trigger toast" onPress={() => addMessage('the message')} />
         <ShareVaccineCard screenName="Dashboard" />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />

@@ -17,6 +17,7 @@ import store, { persistor } from '@covid/core/state/store';
 import { Theme } from '@covid/themes';
 import { MessagingContainer } from '@covid/components';
 import { ErrorBoundary } from '@covid/core/ErrorBoundary';
+import { MessageProvider } from '@covid/common';
 
 const ENABLE_STORYBOOK = false;
 
@@ -36,16 +37,18 @@ const App: React.FC = () => {
   });
   return (
     <ErrorBoundary>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ThemeProvider theme={Theme}>
-            <SafeAreaProvider>
-              <MessagingContainer />
-              <ServiceProvider container={container}>{loaded ? <Root /> : null}</ServiceProvider>
-            </SafeAreaProvider>
-          </ThemeProvider>
-        </PersistGate>
-      </Provider>
+      <MessageProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <ThemeProvider theme={Theme}>
+              <SafeAreaProvider>
+                <MessagingContainer />
+                <ServiceProvider container={container}>{loaded ? <Root /> : null}</ServiceProvider>
+              </SafeAreaProvider>
+            </ThemeProvider>
+          </PersistGate>
+        </Provider>
+      </MessageProvider>
     </ErrorBoundary>
   );
 };

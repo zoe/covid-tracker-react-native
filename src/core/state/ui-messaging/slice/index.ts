@@ -19,7 +19,7 @@ const uiMessagesSlice = createSlice({
         messages,
       };
     },
-    reset: (state) => {
+    resetUiMessages: (state) => {
       return {
         ...state,
         messages: [],
@@ -28,6 +28,6 @@ const uiMessagesSlice = createSlice({
   },
 });
 
-export const { addMessage, reset } = uiMessagesSlice.actions;
+export const { addMessage, resetUiMessages } = uiMessagesSlice.actions;
 export const selectUIMessages = (state: RootState) => state.uiMessages;
 export default uiMessagesSlice.reducer;

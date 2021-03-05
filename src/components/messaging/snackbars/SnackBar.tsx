@@ -3,7 +3,7 @@ import { Animated, Dimensions, Easing, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { TColorPalette, TColorShade } from '@covid/themes';
-import { IUIAction, IUIMessage, reset } from '@covid/core/ui-messaging';
+import { IUIAction, IUIMessage, resetUiMessages } from '@covid/core/state/';
 
 import { Text } from '../../typography';
 
@@ -40,7 +40,7 @@ function Snackbar({
   };
 
   const handleClose = () => {
-    dispatch(reset());
+    dispatch(resetUiMessages());
   };
 
   const animate = (active: boolean, cb?: () => void) => {

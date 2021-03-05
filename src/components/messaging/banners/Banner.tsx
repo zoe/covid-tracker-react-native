@@ -3,7 +3,7 @@ import { Animated, Button, Dimensions, Easing } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { IUIMessage, reset } from '@covid/core/ui-messaging';
+import { IUIMessage, resetUiMessages } from '@covid/core/state';
 
 import { ThemeButton } from '../../Buttons';
 import { Text } from '../../typography';
@@ -26,7 +26,7 @@ function Banner({ active = true, message }: IProps) {
   const { top } = useSafeAreaInsets();
 
   const handleClose = () => {
-    dispatch(reset());
+    dispatch(resetUiMessages());
   };
 
   const animate = (active: boolean) => {
