@@ -10,8 +10,8 @@ import { GutScore } from '../components';
 
 function DietStudyGut() {
   const { dietScore } = dietStudyPlaybackCoordinator;
-  const beforeScore = dietScore ? dietScore?.pre_diet_score : 0;
-  const duringScore = dietScore ? dietScore.post_diet_score : 0;
+  const beforeScore = dietScore ? dietScore?.pre_gut_friendly_score : 0;
+  const duringScore = dietScore ? dietScore.post_gut_friendly_score : 0;
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
