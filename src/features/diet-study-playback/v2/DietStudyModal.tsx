@@ -8,7 +8,6 @@ import { setDietStudyConsent, TDietStudyConsent, setCurrentFeature, setFeatureRu
 import i18n from '@covid/locale/i18n';
 import { drSarahBerry } from '@assets';
 import { events, track } from '@covid/core/Analytics';
-import { experiments, startExperiment } from '@covid/core/Experiments';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -16,7 +15,6 @@ function DietStudyModal() {
   const [tracked, setTracked] = useState(false);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
-  const dietStudyVariant = startExperiment(experiments.UK_DIET_SCORE, 2);
 
   const handleSetConsent = (consent: TDietStudyConsent) => {
     dispatch(setDietStudyConsent(consent));
@@ -28,11 +26,8 @@ function DietStudyModal() {
       goBack();
       return;
     }
-    if (dietStudyVariant === 'variant_1') {
-      appCoordinator.goToDietStudy();
-      return;
-    }
-    appCoordinator.goToDietStudyPlayback();
+
+    appCoordinator.goToDietStudy();
   };
 
   const getImgSrc = () => {

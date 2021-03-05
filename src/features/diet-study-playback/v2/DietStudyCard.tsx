@@ -4,7 +4,6 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import { Avatar, Spacer, Text, RoundIconButton } from '@covid/components';
 import { drSarahBerry, QuoteMarks } from '@assets';
-import { experiments, startExperiment } from '@covid/core/Experiments';
 import { TStyleObject } from '@covid/utils/types';
 
 import appCoordinator from '../../AppCoordinator';
@@ -14,8 +13,6 @@ interface IProps {
 }
 
 function DietStudyCard({ style }: IProps) {
-  const dietStudyVariant = startExperiment(experiments.UK_DIET_SCORE, 2);
-
   const getImgSrc = () => {
     // en, es, en-US, sv-SE
     const locale = i18n.currentLocale();
@@ -26,11 +23,7 @@ function DietStudyCard({ style }: IProps) {
   };
 
   const handleOnPress = () => {
-    if (dietStudyVariant === 'variant_1') {
-      appCoordinator.goToDietStudy();
-      return;
-    }
-    appCoordinator.goToDietStudyPlayback();
+    appCoordinator.goToDietStudy();
   };
 
   return (

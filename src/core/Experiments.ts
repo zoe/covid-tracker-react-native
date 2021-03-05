@@ -2,10 +2,10 @@ import Analytics from '@covid/core/Analytics';
 import store from '@covid/core/state/store';
 
 export const experiments = {
-  Experiment_001: 'Experiment_001', // Test alternative external callouts on UK Thank You Pags
-  Trend_Line_Launch: 'Trend_Line_Launch',
-  UK_DietScore_Invite: 'UK_DietScore_Invite',
-  UK_DIET_SCORE: 'UK_DIET_SCORE',
+  Experiment_001: 'Experiment_001', // Test 4 alternative external callouts on UK ThankYou screem
+  Trend_Line_Launch: 'Trend_Line_Launch', // Rollout Trendlines to only 50% of users to see effect on dashboard
+  UK_DietScore_Invite: 'UK_DietScore_Invite', // Test invites on Dashboard vs ThankYou screen
+  UK_DIET_SCORE: 'UK_DIET_SCORE', // Test two different DietScore play flows between 2021-03-01 & 2021-03-05
 };
 
 function hashToInt(s: string): number {
