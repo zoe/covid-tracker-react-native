@@ -159,7 +159,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   }, []);
 
   const hasNetworkData = networks && networks.length > 0;
-  const { addMessage } = useMessage();
+  const { addMessage, removeMessage } = useMessage();
 
   return (
     <CollapsibleHeaderScrollView
@@ -168,7 +168,61 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <Button title="trigger toast" onPress={() => addMessage('the message')} />
+        <Button
+          title="trigger toast"
+          onPress={() =>
+            addMessage({
+              actions: [
+                {
+                  label: 'log and close',
+                  action: () => {
+                    console.log('it works');
+                    removeMessage();
+                  },
+                },
+              ],
+              messageType: 'SNACKBAR',
+              message: {
+                title: 'the title',
+                body: 'the body of the message',
+              },
+            })
+          }
+        />
+        <Button
+          title="trigger dialog"
+          onPress={() =>
+            addMessage({
+              actions: [{ label: 'log', action: () => console.log('it works') }],
+              messageType: 'DIALOG',
+              message: {
+                title: 'the title',
+                body: 'the body of the message',
+              },
+            })
+          }
+        />
+        <Button
+          title="trigger banner"
+          onPress={() =>
+            addMessage({
+              actions: [
+                {
+                  label: 'log and close',
+                  action: () => {
+                    console.log('it works');
+                    removeMessage();
+                  },
+                },
+              ],
+              messageType: 'BANNER',
+              message: {
+                title: 'the title',
+                body: 'the body of the message',
+              },
+            })
+          }
+        />
         <ShareVaccineCard screenName="Dashboard" />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />

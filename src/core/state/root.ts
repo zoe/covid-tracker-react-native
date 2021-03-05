@@ -5,7 +5,6 @@ import { IAssessmentState } from '@covid/core/assessment/AssessmentState';
 import { contentSlice, ContentState } from '@covid/core/content/state/contentSlice';
 import { schoolSlice, SchoolState } from '@covid/core/schools/Schools.slice';
 
-import { uiMessagesSlice, IUIMessageCollection } from './ui-messaging';
 import { userSlice, IUser } from './user';
 import { IApp, appSlice } from './app';
 import { dietStudySlice, IDietStudy } from './diet-study';
@@ -39,7 +38,6 @@ export type RootState = {
   mentalHealthSupport: IMentalHealthSupport;
   school: SchoolState;
   settings: ISettings;
-  uiMessages: IUIMessageCollection;
   user: IUser;
   vaccines: IVaccineState;
 };
@@ -57,7 +55,6 @@ export default combineReducers({
   mentalHealthSupport: mentalHealthSupportSlice,
   school: schoolSlice.reducer,
   settings: settingsSlice,
-  uiMessages: uiMessagesSlice,
   user: userSlice,
   vaccines: vaccinesSlice.reducer,
 });

@@ -1,13 +1,15 @@
 import React, { ReactNode, useState, useCallback } from 'react';
 
+import { IUIMessage } from './types';
+
 interface IMessageContext {
-  message: string;
-  addMessage: (msg: string) => void;
+  message: IUIMessage | null;
+  addMessage: (msg: IUIMessage) => void;
   removeMessage: () => void;
 }
 
 export const MessageContext = React.createContext<IMessageContext>({
-  message: '',
+  message: null,
   addMessage: () => {},
   removeMessage: () => {},
 });
@@ -17,9 +19,9 @@ interface IProps {
 }
 
 function MessageProvider({ children }: IProps) {
-  const [message, setMessage] = useState('');
-  const removeMessage = () => setMessage('');
-  const addMessage = (message: string) => setMessage(message);
+  const [message, setMessage] = useState<IUIMessage | null>(null);
+  const removeMessage = () => setMessage(null);
+  const addMessage = (message: IUIMessage) => setMessage(message);
 
   const contextValue: IMessageContext = {
     message,
