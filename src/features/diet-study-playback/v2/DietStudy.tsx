@@ -3,25 +3,18 @@ import { ScrollView, View } from 'react-native';
 
 import { ActionCard, BasicNavHeader, BasicProfile, Link, SafeLayout, SpeechCard, Text } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
-import { drSarahBerry } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useTheme } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { getDietStudyInfoUrl } from '@covid/features/diet-study-playback/v2/utils';
+import { ScreenParamList } from '@covid/features';
 
-import { ScreenParamList } from '../../ScreenParamList';
 import { DietStudyActionCard } from '../components';
 
 function DietStudy() {
   type route = keyof ScreenParamList;
   const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
-
-  function getDietStudyInfoUrl() {
-    return isUSCountry()
-      ? 'https://covid.joinzoe.com/us-post/covid-diet-feedback'
-      : 'https://covid.joinzoe.com/post/covid-lockdown-diet';
-  }
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
@@ -33,7 +26,6 @@ function DietStudy() {
           </Text>
         </View>
         <BasicProfile
-          imgsrc={drSarahBerry}
           location={i18n.t('diet-study.doctor-location')}
           name={i18n.t('diet-study.doctor-name')}
           title={i18n.t('diet-study.doctor-title')}
