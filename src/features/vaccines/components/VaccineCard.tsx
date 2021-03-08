@@ -34,17 +34,11 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
   };
 
   const renderTick = (hasDate: boolean, hasName: boolean) => {
-    if (hasDate && hasName) {
-      return <Image source={tick} style={styles.tick} />;
-    }
+    return hasDate && hasName ? <Image source={tick} style={styles.tick} /> : <></>;
   };
 
   const formatVaccineDate = (dose: Dose) => {
-    if (dose.date_taken_specific) {
-      return formatDateString(dose.date_taken_specific);
-    } else {
-      return `${formatDateString(dose.date_taken_between_start)} - ${formatDateString(dose.date_taken_between_end)}`;
-    }
+    return dose.date_taken_specific ? formatDateString(dose.date_taken_specific) : '';
   };
 
   const warningIconAndText = (textKey: string) => (
