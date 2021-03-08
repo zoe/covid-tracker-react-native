@@ -42,8 +42,8 @@ export interface VaccineDoseQuestion<P, Data> extends React.FC<P> {
 export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = (props: Props) => {
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
-  const [showPicker, setshowPicker] = useState(false);
   const [errorMessage] = useState<string>('');
+  const [showPicker, setShowPicker] = useState(false);
 
   function convertToDate(selectedDate: Moment) {
     const offset = selectedDate.utcOffset();
@@ -57,7 +57,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     } else {
       formikProps.values.secondDoseDate = convertToDate(selectedDate);
     }
-    setshowPicker(false);
+    setShowPicker(false);
   }
 
   const renderPicker = () => {
@@ -109,7 +109,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
 
     return (
       <>
-        <TouchableOpacity onPress={() => setshowPicker(true)} style={styles.dateBox}>
+        <TouchableOpacity onPress={() => setShowPicker(true)} style={styles.dateBox}>
           <CalendarIcon />
           {dateField ? (
             <RegularText style={{ marginStart: 8 }}>{moment(dateField).format('MMMM D, YYYY')}</RegularText>
