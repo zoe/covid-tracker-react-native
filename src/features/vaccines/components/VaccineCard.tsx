@@ -10,11 +10,12 @@ import i18n from '@covid/locale/i18n';
 import { Dose, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import QuestionCircle from '@assets/icons/QuestionCircle';
 
-export const displayBrandNameMap = {};
-displayBrandNameMap[VaccineBrands.PFIZER] = 'Pfizer/BioNTech';
-displayBrandNameMap[VaccineBrands.MODERNA] = 'Moderna';
-displayBrandNameMap[VaccineBrands.ASTRAZENECA] = 'Oxford/Astrazeneca';
-displayBrandNameMap[VaccineBrands.NOT_SURE] = i18n.t('vaccines.your-vaccine.name-i-dont-know');
+export const displayBrandNameMap = {
+  [VaccineBrands.PFIZER]: 'Pfizer/BioNTech',
+  [VaccineBrands.MODERNA]: 'Moderna',
+  [VaccineBrands.ASTRAZENECA]: 'Oxford/Astrazeneca',
+  [VaccineBrands.NOT_SURE]: i18n.t('vaccines.your-vaccine.name-i-dont-know'),
+};
 
 export const displayDescriptionNameMap = {
   mrna: 'mRNA',
