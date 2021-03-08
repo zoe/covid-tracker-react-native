@@ -1120,7 +1120,8 @@
     "cta": "Share",
     "active-covid-cases": "Active COVID cases",
     "evolution-of": "Evolution of estimated cases in the last 3 months",
-    "active-cases-in-your-area": "Active cases in your area"
+    "active-cases-in-your-area": "Active cases in your area",
+    "trendline-change": "We've updated our trendlines"
   },
 
   "search-lad": {
