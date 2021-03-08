@@ -3,8 +3,8 @@ import { Image, StyleSheet, TouchableWithoutFeedback, View, ViewStyle } from 're
 import moment from 'moment';
 import { Text } from 'native-base';
 
-import { ClickableText, RegularText, Header3Text } from '@covid/components/Text';
-import { pending, tick } from '@assets';
+import { Header3Text, RegularText } from '@covid/components/Text';
+import { tick } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { Dose, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';

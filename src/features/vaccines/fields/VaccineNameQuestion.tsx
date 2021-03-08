@@ -1,10 +1,9 @@
 import { FormikProps } from 'formik';
 import React from 'react';
-import * as Yup from 'yup';
 import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
-import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import DropdownField from '@covid/components/DropdownField';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
