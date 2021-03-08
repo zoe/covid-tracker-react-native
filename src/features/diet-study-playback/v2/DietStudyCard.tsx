@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { Avatar, Spacer, Text, RoundIconButton } from '@covid/components';
-import { drSarahBerry, QuoteMarks } from '@assets';
+import { RoundIconButton, Spacer, Text } from '@covid/components';
+import { QuoteMarks } from '@assets';
 import { TStyleObject } from '@covid/utils/types';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -13,15 +14,6 @@ interface IProps {
 }
 
 function DietStudyCard({ style }: IProps) {
-  const getImgSrc = () => {
-    // en, es, en-US, sv-SE
-    const locale = i18n.currentLocale();
-    switch (locale) {
-      default:
-        return drSarahBerry;
-    }
-  };
-
   const handleOnPress = () => {
     appCoordinator.goToDietStudy();
   };
@@ -35,7 +27,7 @@ function DietStudyCard({ style }: IProps) {
           <Text textClass="h5Regular">{i18n.t('diet-study.results-ready')}</Text>
         </View>
         <View>
-          <Avatar imgsrc={getImgSrc()} />
+          {getDietStudyDoctorImage()}
           <Text>{i18n.t('diet-study.doctor-name')}</Text>
           <Text textClass="pSmall" style={{ color: '#888B8C' }}>
             {i18n.t('diet-study.doctor-title')}

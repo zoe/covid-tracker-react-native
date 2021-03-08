@@ -994,21 +994,6 @@
       "menu-item": false
     },
 
-    "diet-scores": {
-      "intro": {
-        "next": ""
-      },
-      "diet-quality-intro": {
-        "text-1": ""
-      },
-      "diet-quality": {
-        "text-1": ""
-      },
-      "gut-quality": {
-        "text-5": ""
-      }
-    },
-
     "nhs-study-intro": {
       "title": false,
       "text-1": false,
