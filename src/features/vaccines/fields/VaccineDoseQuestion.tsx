@@ -35,14 +35,11 @@ interface Props {
 }
 
 export interface VaccineDoseQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (vaccine?: VaccineRequest) => Data;
   schema: () => Yup.ObjectSchema;
 }
 
 export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = (props: Props) => {
   const { formikProps } = props;
-  const today = moment().add(moment().utcOffset(), 'minutes').toDate();
-  const [errorMessage] = useState<string>('');
   const [showPicker, setShowPicker] = useState(false);
 
   function convertToDate(selectedDate: Moment) {
@@ -64,7 +61,6 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     const dateField: Date | undefined = props.firstDose
       ? formikProps.values.firstDoseDate
       : formikProps.values.secondDoseDate;
-    let countrySpecificMinDate: Date | undefined;
     let maxDate: Date | undefined;
     let minDate: Date | undefined;
 
