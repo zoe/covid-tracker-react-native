@@ -19,8 +19,6 @@ export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
 }
 
 export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = (props: Props) => {
-  const { formikProps } = props;
-
   const nameOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },
     // These are "Brand names" so don't need translations
