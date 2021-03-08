@@ -146,7 +146,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     );
 
   const renderNameError = () => {
-    if (formikProps.submitCount == 0 || !!Object.keys(formikProps.errors).length) {
+    if (formikProps.submitCount === 0 || !!Object.keys(formikProps.errors).length) {
       return null;
     }
     if (props.firstDose && (formikProps.errors.firstBrand || formikProps.errors.firstDescription)) {
