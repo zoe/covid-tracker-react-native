@@ -1,17 +1,16 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
-import { AreaStatsResponse, PatientInfosRequest, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { Services } from '@covid/provider/services.types';
 import { IApiClient } from '@covid/core/api/ApiClient';
 
-import { FeaturedContentResponse, LADSearchResponse, TrendLineResponse } from './dto/ContentAPIContracts';
+import { FeaturedContentResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
 export interface IContentApiClient {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getStartupInfo(): Promise<StartupInfo>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   getFeaturedContent(): Promise<FeaturedContentResponse>;
-  searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
 
@@ -35,10 +34,6 @@ export class ContentApiClient implements IContentApiClient {
 
   getFeaturedContent(): Promise<FeaturedContentResponse> {
     return this.apiClient.get<FeaturedContentResponse>('/content/');
-  }
-
-  searchLAD(query: string, page: number = 0, size: number = 20): Promise<LADSearchResponse> {
-    return this.apiClient.get<LADSearchResponse>(`/search_lads?query=${query}&size=${size}&page=${page}`);
   }
 
   signUpForDietNewsletter(signup: boolean): Promise<void> {
