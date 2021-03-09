@@ -110,7 +110,7 @@ export default class ContentService implements IContentService {
   async getStartupInfo() {
     try {
       const info = await this.apiClient.getStartupInfo();
-      const appNeedsUpdating: boolean = await this.checkVersionOfAPIAndApp(info.api_version);
+      const appNeedsUpdating: boolean = await this.checkVersionOfAPIAndApp(info.min_supported_app_version);
       info.app_requires_update = appNeedsUpdating;
 
       LocalisationService.ipCountry = info.ip_country;
