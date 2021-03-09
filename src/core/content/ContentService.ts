@@ -1,6 +1,6 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
-import { AsyncStorageService, PersonalisedLocalData, PERSONALISED_LOCAL_DATA } from '@covid/core/AsyncStorageService';
+import { AsyncStorageService, PERSONALISED_LOCAL_DATA, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
@@ -10,7 +10,7 @@ import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
 import { IContentApiClient } from '@covid/core/content/ContentApiClient';
 
-import { FeaturedContentResponse, LADSearchResponse, TrendLineResponse } from './dto/ContentAPIContracts';
+import { FeaturedContentResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
 export interface IContentService {
   localData?: PersonalisedLocalData;
@@ -23,7 +23,6 @@ export interface IContentService {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   getFeaturedContent(): Promise<FeaturedContentResponse>;
-  searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
 
@@ -106,10 +105,6 @@ export default class ContentService implements IContentService {
 
   public async getFeaturedContent(): Promise<FeaturedContentResponse> {
     return this.apiClient.getFeaturedContent();
-  }
-
-  public searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse> {
-    return this.apiClient.searchLAD(query, page, size);
   }
 
   public signUpForDietNewsletter(signup: boolean): Promise<void> {

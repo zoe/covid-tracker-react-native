@@ -16,8 +16,7 @@ import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccine
 import { useInjection } from '@covid/provider/services.hooks';
 import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineDoseSymptoms'>;

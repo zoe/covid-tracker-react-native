@@ -35,15 +35,12 @@ interface Props {
 }
 
 export interface VaccineDoseQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (vaccine?: VaccineRequest) => Data;
   schema: () => Yup.ObjectSchema;
 }
 
 export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = (props: Props) => {
   const { formikProps } = props;
-  const today = moment().add(moment().utcOffset(), 'minutes').toDate();
-  const [showPicker, setshowPicker] = useState(false);
-  const [errorMessage] = useState<string>('');
+  const [showPicker, setShowPicker] = useState(false);
 
   function convertToDate(selectedDate: Moment) {
     const offset = selectedDate.utcOffset();
@@ -57,14 +54,13 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     } else {
       formikProps.values.secondDoseDate = convertToDate(selectedDate);
     }
-    setshowPicker(false);
+    setShowPicker(false);
   }
 
   const renderPicker = () => {
     const dateField: Date | undefined = props.firstDose
       ? formikProps.values.firstDoseDate
       : formikProps.values.secondDoseDate;
-    let countrySpecificMinDate: Date | undefined;
     let maxDate: Date | undefined;
     let minDate: Date | undefined;
 
@@ -109,7 +105,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
 
     return (
       <>
-        <TouchableOpacity onPress={() => setshowPicker(true)} style={styles.dateBox}>
+        <TouchableOpacity onPress={() => setShowPicker(true)} style={styles.dateBox}>
           <CalendarIcon />
           {dateField ? (
             <RegularText style={{ marginStart: 8 }}>{moment(dateField).format('MMMM D, YYYY')}</RegularText>
@@ -146,7 +142,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     );
 
   const renderNameError = () => {
-    if (formikProps.submitCount == 0 || !!Object.keys(formikProps.errors).length) {
+    if (formikProps.submitCount === 0 || !!Object.keys(formikProps.errors).length) {
       return null;
     }
     if (props.firstDose && (formikProps.errors.firstBrand || formikProps.errors.firstDescription)) {
