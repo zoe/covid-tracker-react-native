@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Linking, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,7 @@ import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import ChevronRight from '@assets/icons/ChevronRight';
 import { Link } from '@covid/components';
+import { openWebLink } from '@covid/utils/links';
 
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../Stats/TrendLineChart';
 import { Text } from '../../typography';
@@ -51,7 +52,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             color={colors.linkBlue}
             iconName="info"
             linkText={i18n.t('explore-trend-line.trendline-change')}
-            onPress={() => Linking.openURL('https://covid.joinzoe.com/post/covid-rates-trends-changing-near-you')}
+            onPress={() => openWebLink('https://covid.joinzoe.com/post/covid-rates-trends-changing-near-you')}
           />
         </View>
 
