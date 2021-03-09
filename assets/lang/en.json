@@ -1124,12 +1124,6 @@
     "trendline-change": "We've updated our trendlines"
   },
 
-  "search-lad": {
-    "input-label": "Search for a district",
-    "input-placeholder": "e.g Camdem",
-    "no-result": "No result"
-  },
-
   "estimated-cases-card": {
     "covid-in-the-uk": "COVID in the UK",
     "estimated-cases": "Estimated cases",
