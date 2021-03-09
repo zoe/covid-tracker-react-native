@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
@@ -30,5 +30,3 @@ export const VaccineLogSymptomsInfoScreen: React.FC<Props> = ({ route, navigatio
     </Screen>
   );
 };
-
-const styles = StyleSheet.create({});
