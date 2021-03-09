@@ -3,18 +3,19 @@ import { Image, StyleSheet, TouchableWithoutFeedback, View, ViewStyle } from 're
 import moment from 'moment';
 import { Text } from 'native-base';
 
-import { ClickableText, RegularText, Header3Text } from '@covid/components/Text';
-import { pending, tick } from '@assets';
+import { Header3Text, RegularText } from '@covid/components/Text';
+import { tick } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { Dose, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import QuestionCircle from '@assets/icons/QuestionCircle';
 
-export const displayBrandNameMap = {};
-displayBrandNameMap[VaccineBrands.PFIZER] = 'Pfizer/BioNTech';
-displayBrandNameMap[VaccineBrands.MODERNA] = 'Moderna';
-displayBrandNameMap[VaccineBrands.ASTRAZENECA] = 'Oxford/Astrazeneca';
-displayBrandNameMap[VaccineBrands.NOT_SURE] = i18n.t('vaccines.your-vaccine.name-i-dont-know');
+export const displayBrandNameMap = {
+  [VaccineBrands.PFIZER]: 'Pfizer/BioNTech',
+  [VaccineBrands.MODERNA]: 'Moderna',
+  [VaccineBrands.ASTRAZENECA]: 'Oxford/Astrazeneca',
+  [VaccineBrands.NOT_SURE]: i18n.t('vaccines.your-vaccine.name-i-dont-know'),
+};
 
 export const displayDescriptionNameMap = {
   mrna: 'mRNA',
@@ -33,17 +34,11 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
   };
 
   const renderTick = (hasDate: boolean, hasName: boolean) => {
-    if (hasDate && hasName) {
-      return <Image source={tick} style={styles.tick} />;
-    }
+    return hasDate && hasName ? <Image source={tick} style={styles.tick} /> : <></>;
   };
 
   const formatVaccineDate = (dose: Dose) => {
-    if (dose.date_taken_specific) {
-      return formatDateString(dose.date_taken_specific);
-    } else {
-      return `${formatDateString(dose.date_taken_between_start)} - ${formatDateString(dose.date_taken_between_end)}`;
-    }
+    return dose.date_taken_specific ? formatDateString(dose.date_taken_specific) : '';
   };
 
   const warningIconAndText = (textKey: string) => (

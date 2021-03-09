@@ -18,8 +18,7 @@ import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineHesitancy'>;
