@@ -201,15 +201,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     assessmentCoordinator.startAssessment();
   }
 
-  startDietStudyPlaybackFlow(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
-    dietStudyPlaybackCoordinator.startDietStudyPlayback();
-  }
-
-  startDietStudy(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
-  }
-
   async startEditProfile(profile: Profile) {
     await this.setPatientByProfile(profile);
 
@@ -257,22 +248,12 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     NavigatorService.navigate('VersionUpdateModal');
   }
 
-  goToDietStudyModal() {
-    NavigatorService.navigate('DietStudyModal');
-  }
-
-  gotoDietStudyEmailModal() {
-    NavigatorService.navigate('DietStudyEmailModal');
-  }
-
-  async goToDietStudyPlayback() {
+  async goToDietStudy() {
+    // Reset the current PatientData to the primary user.
+    // We can get here if by viewing DietScores after reporting from a secondary profile
     if (this.patientData.patientState.isReportedByAnother) {
       await this.setPatientToPrimary();
     }
-    this.startDietStudyPlaybackFlow(this.patientData);
-  }
-
-  goToDietStudy() {
     dietStudyPlaybackCoordinator.init(this, this.patientData, this.contentService, this.dietScoreService);
     NavigatorService.navigate('DietStudy');
   }

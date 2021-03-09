@@ -2,24 +2,23 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Text } from 'native-base';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, ErrorText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { VaccineRequest, VaccineTypes, Dose } from '@covid/core/vaccine/dto/VaccineRequest';
+import { Dose, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
 import { VaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
 import QuestionCircle from '@assets/icons/QuestionCircle';
-import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import YesNoField from '@covid/components/YesNoField';
 import { formatDateToPost } from '@covid/utils/datetime';
 

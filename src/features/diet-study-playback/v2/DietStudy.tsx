@@ -1,22 +1,20 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { ActionCard, BasicProfile, BasicNavHeader, Link, Text, SpeechCard, SafeLayout } from '@covid/components';
+import { ActionCard, BasicNavHeader, BasicProfile, Link, SafeLayout, SpeechCard, Text } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
-import { drSarahBerry } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useTheme } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
+import { getDietStudyInfoUrl } from '@covid/features/diet-study-playback/v2/utils';
+import { ScreenParamList } from '@covid/features';
 
-import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
-import { ScreenParamList } from '../../ScreenParamList';
 import { DietStudyActionCard } from '../components';
 
 function DietStudy() {
   type route = keyof ScreenParamList;
   const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
-  const coordinator = dietStudyPlaybackCoordinator;
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
@@ -28,7 +26,6 @@ function DietStudy() {
           </Text>
         </View>
         <BasicProfile
-          imgsrc={drSarahBerry}
           location={i18n.t('diet-study.doctor-location')}
           name={i18n.t('diet-study.doctor-name')}
           title={i18n.t('diet-study.doctor-title')}
@@ -75,7 +72,7 @@ function DietStudy() {
         <View style={{ marginHorizontal: 16, paddingRight: 32 }}>
           <Link
             linkText={i18n.t('diet-study.introduction-more-link-0')}
-            onPress={() => openWebLink(coordinator.getDietStudyInfoUrl())}
+            onPress={() => openWebLink(getDietStudyInfoUrl())}
             style={{ marginBottom: 8 }}
           />
         </View>

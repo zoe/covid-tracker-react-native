@@ -1,22 +1,22 @@
 import React from 'react';
-import { ImageSourcePropType, View } from 'react-native';
+import { View } from 'react-native';
 
-import { Avatar, Text } from '@covid/components';
+import { Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 
 interface IProps {
-  imgsrc: ImageSourcePropType;
   location: string;
   name: string;
   title: string;
 }
 
-function BasicProfile({ imgsrc, location, name, title }: IProps) {
+function BasicProfile({ location, name, title }: IProps) {
   const { colors, grid } = useTheme();
   return (
     <View>
       <View style={{ marginBottom: grid.xs, paddingHorizontal: grid.gutter }}>
-        <Avatar imgsrc={imgsrc} />
+        {getDietStudyDoctorImage()}
         <Text rhythm={8}>{name}</Text>
         <Text textClass="pSmallLight" style={{ color: colors.uiDark.dark.bgColor }}>
           {title}, {location}

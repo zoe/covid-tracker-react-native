@@ -1,17 +1,18 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
-import { Avatar, BackButton, BasicNavHeader, Text, SafeLayout, Spacer, SpeechCard } from '@covid/components';
+import { BackButton, BasicNavHeader, SafeLayout, Spacer, SpeechCard, Text } from '@covid/components';
 import i18n from '@covid/locale/i18n';
-import { dietStudyPlaybackGutDiagram, drSarahBerry } from '@assets';
+import { dietStudyPlaybackGutDiagram } from '@assets';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 
 import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 import { GutScore } from '../components';
 
 function DietStudyGut() {
   const { dietScore } = dietStudyPlaybackCoordinator;
-  const beforeScore = dietScore ? dietScore?.pre_diet_score : 0;
-  const duringScore = dietScore ? dietScore.post_diet_score : 0;
+  const beforeScore = dietScore ? dietScore?.pre_gut_friendly_score : 0;
+  const duringScore = dietScore ? dietScore.post_gut_friendly_score : 0;
 
   return (
     <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
@@ -51,7 +52,7 @@ function DietStudyGut() {
           <Text textClass="pLight" rhythm={24}>
             {i18n.t('diet-study.gut-score-body-2')}
           </Text>
-          <Avatar imgsrc={drSarahBerry} />
+          {getDietStudyDoctorImage()}
         </View>
         <SpeechCard>
           <Text rhythm={16} textClass="h4">

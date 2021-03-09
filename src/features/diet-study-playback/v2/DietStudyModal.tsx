@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
-import { Avatar, SafeLayout, Text } from '@covid/components';
-import { setDietStudyConsent, TDietStudyConsent, setCurrentFeature, setFeatureRunDate } from '@covid/core/state';
+import { SafeLayout, Text } from '@covid/components';
+import { setCurrentFeature, setDietStudyConsent, setFeatureRunDate, TDietStudyConsent } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
-import { drSarahBerry } from '@assets';
 import { events, track } from '@covid/core/Analytics';
-import { experiments, startExperiment } from '@covid/core/Experiments';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -16,7 +15,6 @@ function DietStudyModal() {
   const [tracked, setTracked] = useState(false);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
-  const dietStudyVariant = startExperiment(experiments.UK_DIET_SCORE, 2);
 
   const handleSetConsent = (consent: TDietStudyConsent) => {
     dispatch(setDietStudyConsent(consent));
@@ -28,15 +26,8 @@ function DietStudyModal() {
       goBack();
       return;
     }
-    if (dietStudyVariant === 'variant_1') {
-      appCoordinator.goToDietStudy();
-      return;
-    }
-    appCoordinator.goToDietStudyPlayback();
-  };
 
-  const getImgSrc = () => {
-    return drSarahBerry;
+    appCoordinator.goToDietStudy();
   };
 
   useEffect(() => {
@@ -53,7 +44,7 @@ function DietStudyModal() {
           {i18n.t('diet-study.modal-title')}
         </Text>
         <View style={styles.profile}>
-          <Avatar imgsrc={getImgSrc()} />
+          {getDietStudyDoctorImage()}
           <View style={{ marginLeft: 16 }}>
             <Text>{i18n.t('diet-study.doctor-name')}</Text>
             <Text textClass="pSmall" style={{ color: '#888B8C' }}>

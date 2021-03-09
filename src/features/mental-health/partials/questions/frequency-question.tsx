@@ -22,7 +22,7 @@ type TAnswer = {
   keyValue: TKeyValue;
 };
 
-function FrequencyQuestion({ disabled = false, onPress, question, state }: IProps) {
+function FrequencyQuestion({ disabled = true, onPress, question, state }: IProps) {
   const { grid } = useTheme();
   const fadeAnim = useFade(0.2, disabled ? 0.2 : 1, 500);
 
@@ -61,6 +61,7 @@ function FrequencyQuestion({ disabled = false, onPress, question, state }: IProp
             <View key={key} style={{ flex: 1, marginRight: index < answers.length - 1 ? 8 : 0 }}>
               <QuestionBlock
                 active={state === answer.keyValue.value}
+                disabled={disabled}
                 keyValue={answer.keyValue}
                 onPress={() => handleOnPress(answer.keyValue.value)}
               />
@@ -72,6 +73,7 @@ function FrequencyQuestion({ disabled = false, onPress, question, state }: IProp
         <QuestionBlock
           active={state === decline.keyValue.value}
           backgroundColor="transparent"
+          disabled={disabled}
           keyValue={decline.keyValue}
           onPress={() => handleOnPress(decline.keyValue.value)}
         />
