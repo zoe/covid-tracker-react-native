@@ -5,17 +5,6 @@ export type TrendLineResponse = {
   timeseries: ITrendLineTimeSeriesData[];
 };
 
-export type LADSearchResult = {
-  name: string;
-  lad: string;
-};
-
-export type LADSearchResponse = {
-  page: number;
-  size: number;
-  results: LADSearchResult[];
-};
-
 export interface ITrendLineData {
   lad?: string;
   name?: string;

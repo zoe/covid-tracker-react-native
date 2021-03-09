@@ -67,6 +67,7 @@ export enum VaccineBrands {
   PFIZER = 'pfizer',
   ASTRAZENECA = 'astrazeneca',
   MODERNA = 'moderna',
+  JOHNSON = 'johnson',
   NOT_SURE = 'not_sure',
 }
 
