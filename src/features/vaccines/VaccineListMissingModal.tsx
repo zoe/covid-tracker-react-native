@@ -6,8 +6,8 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { HeaderText, BrandedButton, Text } from '@covid/components';
-import assessmentCoordinator, { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
+import { BrandedButton, HeaderText, Text } from '@covid/components';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;

@@ -32,7 +32,7 @@ function Link({
     <TouchableOpacity style={{ flexDirection: 'row', ...style }} onPress={onPress}>
       <Icon
         color={linkColor}
-        iconName="big-arrow-right"
+        iconName={iconName}
         iconSize={iSize}
         iconStyle={iconStyle}
         style={{ marginRight: 8, marginTop: 2 }}

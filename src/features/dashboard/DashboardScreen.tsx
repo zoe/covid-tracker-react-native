@@ -35,6 +35,7 @@ import {
   selectSettings,
   selectDietStudy,
 } from '@covid/core/state';
+import NavigatorService from '@covid/NavigatorService';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -119,7 +120,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
       return;
     }
-    appCoordinator.goToDietStudyModal();
+    NavigatorService.navigate('DietStudyModal');
   };
 
   useEffect(() => {

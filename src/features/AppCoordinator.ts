@@ -195,15 +195,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     assessmentCoordinator.startAssessment();
   }
 
-  startDietStudyPlaybackFlow(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
-    dietStudyPlaybackCoordinator.startDietStudyPlayback();
-  }
-
-  startDietStudy(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
-  }
-
   async startEditProfile(profile: Profile) {
     await this.setPatientByProfile(profile);
 
@@ -247,21 +238,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     }
   }
 
-  goToDietStudyModal() {
-    NavigatorService.navigate('DietStudyModal');
-  }
-
-  gotoDietStudyEmailModal() {
-    NavigatorService.navigate('DietStudyEmailModal');
-  }
-
-  async goToDietStudyPlayback() {
-    if (this.patientData.patientState.isReportedByAnother) {
-      await this.setPatientToPrimary();
-    }
-    this.startDietStudyPlaybackFlow(this.patientData);
-  }
-
   async goToDietStudy() {
     // Reset the current PatientData to the primary user.
     // We can get here if by viewing DietScores after reporting from a secondary profile
@@ -298,10 +274,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
   goToTrendline(lad?: string) {
     NavigatorService.navigate('Trendline', { lad });
-  }
-
-  goToSearchLAD() {
-    NavigatorService.navigate('SearchLAD');
   }
 
   async shouldShowTrendLine(): Promise<boolean> {
