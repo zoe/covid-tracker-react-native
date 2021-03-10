@@ -1,7 +1,7 @@
 export type TMessageTypes = 'BANNER' | 'DIALOG' | 'SNACKBAR';
 
 export interface IUIAction {
-  action: string;
+  action: () => void;
   label: string;
 }
 
@@ -14,8 +14,4 @@ export interface IUIMessage {
   actions?: IUIAction[];
   messageType: TMessageTypes;
   message: IUIMessageContent;
-}
-
-export interface IUIMessageCollection {
-  messages: IUIMessage[];
 }

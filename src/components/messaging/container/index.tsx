@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Dimensions } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import NetInfo from '@react-native-community/netinfo';
 
-import { selectUIMessages, addMessage, IUIMessage } from '@covid/core/ui-messaging';
+import { useMessage, IUIMessage } from '@covid/common';
 
 import { Banner } from '../banners';
 import { Dialog } from '../dialogs';
@@ -13,29 +11,7 @@ import { SContainerView } from './styles';
 
 function MessagingContainer() {
   const { height, width } = Dimensions.get('window');
-  const uiMessageCollection = useSelector(selectUIMessages);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      if (!state.isConnected) {
-        // dispatch(
-        //   addMessage({
-        //     messageType: 'SNACKBAR',
-        //     message: { title: '', body: 'No internet connection' },
-        //   })
-        // );
-      }
-    });
-
-    const cleanUp = () => {
-      unsubscribe();
-    };
-
-    return cleanUp;
-  }, []);
-
-  const message = uiMessageCollection.messages[0];
+  const { message } = useMessage();
 
   const getMessage = (message: IUIMessage) => {
     switch (message.messageType) {

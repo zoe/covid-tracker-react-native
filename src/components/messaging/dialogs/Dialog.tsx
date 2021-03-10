@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Animated, Dimensions, Easing, View } from 'react-native';
-import { useDispatch } from 'react-redux';
 
-import { IUIMessage, reset } from '@covid/core/ui-messaging';
+import { IUIMessage, useMessage } from '@covid/common';
 import { useTheme } from '@covid/themes';
 
-import { ThemeButton } from '../../Buttons';
+import { RoundIconButton, ThemeButton } from '../../Buttons';
 import { Text } from '../../typography';
 
 import { SContainerView, SMessageWindowView, STitleView } from './styles';
@@ -23,10 +22,30 @@ function Dialog({ active, message }: IProps) {
   const [animValue] = useState(new Animated.Value(0));
   const { height, width } = Dimensions.get('window');
   const theme = useTheme();
-  const dispatch = useDispatch();
+  const { removeMessage } = useMessage();
 
-  const handleClose = () => {
-    dispatch(reset());
+  const getActions = () => {
+    if (message.actions) {
+      return message.actions.map((action, index) => {
+        const key = `dialog-action-${index}`;
+        if (index % 2) {
+          return (
+            <ThemeButton
+              key={key}
+              onPress={action.action}
+              title={action.label}
+              colorPalette="burgundy"
+              colorShade="main"
+              simple
+            />
+          );
+        }
+        return (
+          <ThemeButton key={key} onPress={action.action} title={action.label} colorPalette="teal" colorShade="main" />
+        );
+      });
+    }
+    return null;
   };
 
   const animate = (active: boolean) => {
@@ -62,10 +81,16 @@ function Dialog({ active, message }: IProps) {
           </Text>
           <Text rhythm={theme.grid.xxxl}>{message.message.body}</Text>
         </STitleView>
-        <View>
-          <ThemeButton onPress={handleClose} title="Action 1" colorPalette="teal" colorShade="main" />
-          <ThemeButton onPress={handleClose} title="Action 1" colorPalette="burgundy" colorShade="main" simple />
-        </View>
+        <View>{getActions()}</View>
+        <RoundIconButton
+          iconName="close-large"
+          onPress={removeMessage}
+          style={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+          }}
+        />
       </SMessageWindowView>
     </SContainerView>
   );
