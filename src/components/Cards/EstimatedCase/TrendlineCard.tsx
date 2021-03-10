@@ -10,6 +10,8 @@ import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import ChevronRight from '@assets/icons/ChevronRight';
+import { Link } from '@covid/components';
+import { openWebLink } from '@covid/utils/links';
 
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../Stats/TrendLineChart';
 import { Text } from '../../typography';
@@ -44,9 +46,16 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
         <Text textClass="h4" rhythm={8}>
           {i18n.t('explore-trend-line.active-covid-cases')} {localTrendline?.name}
         </Text>
-        <Text textClass="pSmallLight" rhythm={32} colorPalette="uiDark" colorShade="dark" inverted>
-          {i18n.t('explore-trend-line.evolution-of')}
-        </Text>
+
+        <View style={{ paddingBottom: 8 }}>
+          <Link
+            color={colors.linkBlue}
+            iconName="info"
+            linkText={i18n.t('explore-trend-line.trendline-change')}
+            onPress={() => openWebLink('https://covid.joinzoe.com/post/covid-rates-trends-changing-near-you')}
+          />
+        </View>
+
         <View style={styles.chartContainer}>
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
           {/* use absolute overlay to prevent displaying blank chart */}
@@ -156,12 +165,14 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     color: colors.textDark,
   },
+
   hit: {
     height: '100%',
     left: 16,
     position: 'absolute',
     width: '100%',
   },
+
   box: {
     backgroundColor: 'red',
     height: '100%',

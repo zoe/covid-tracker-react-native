@@ -1,15 +1,15 @@
-import { FastField, FormikProps } from 'formik';
+import { FormikProps } from 'formik';
 import React from 'react';
 import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';
 
 import {
-  RegularText,
-  CheckboxList,
-  BooleanCheckboxes,
   BooleanCheckBoxData,
+  BooleanCheckboxes,
+  CheckboxList,
   DropdownField,
   FormQuestion,
+  RegularText,
 } from '@covid/components';
 import { VaccinePlanRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import i18n from '@covid/locale/i18n';
