@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -20,6 +20,8 @@ import { useAppDispatch } from '@covid/core/state/store';
 import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
 import { RootState } from '@covid/core/state/root';
 import NavigatorService from '@covid/NavigatorService';
+import { useMessage } from '@covid/common';
+import { selectApp, setLoggedVaccine } from '@covid/core/state';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -35,6 +37,8 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
+  const { addMessage, removeMessage } = useMessage();
+  const app = useSelector(selectApp);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -148,6 +152,26 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       showPopup();
     }
   };
+
+  useEffect(() => {
+    if (app.loggedVaccine) {
+      addMessage({
+        actions: [
+          {
+            label: i18n.t('navigation.dismiss'),
+            action: () => {
+              removeMessage();
+              dispatch(setLoggedVaccine(false));
+            },
+          },
+        ],
+        messageType: 'BANNER',
+        message: {
+          body: i18n.t('vaccines.banner.body'),
+        },
+      });
+    }
+  }, [app.loggedVaccine]);
 
   return (
     <View style={styles.rootContainer}>

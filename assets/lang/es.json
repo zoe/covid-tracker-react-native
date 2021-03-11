@@ -1052,6 +1052,9 @@
     },
 
     "vaccines": {
+      "banner": {
+        "body": "In the first 2 weeks following your vaccination, your risk of catching and spreading COVID-19 is similar to those who have not yet been vaccinated.\n\nYou should continue to take precautions against infection and follow official guidance."
+      },
       "dose-symptoms": {
         "label": "About your recent vaccine",
         "title-1": "Are you experiencing any symptoms",
@@ -1496,6 +1499,8 @@
     "back": "Back",
     "cta-email-success": "Great, keep an eye on your inbox!",
     "cta-unsubscribe": "Opt-out of email updates",
+    "dismiss": "Dismiss",
+    "learn-more": "Learn more",
     "next": "Next",
     "insights": "Insights",
     "start": "Start"
