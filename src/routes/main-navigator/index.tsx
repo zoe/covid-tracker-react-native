@@ -81,6 +81,7 @@ import {
 
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
 import { MetalHealthNavigator } from '..';
+import AnniversaryNavigator from '../anniversary';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -179,6 +180,7 @@ function MainNavigator() {
 
       {DietStudyPlaybackNavigator({ Stack })}
       {MetalHealthNavigator({ Stack })}
+      {AnniversaryNavigator({ Stack })}
     </Stack.Navigator>
   );
 }
