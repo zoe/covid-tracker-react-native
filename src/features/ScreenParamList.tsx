@@ -123,15 +123,11 @@ export type ScreenParamList = {
   MentalHealthEnd: undefined;
   MentalHealthModal: undefined;
 
-  //
   Modal: undefined;
   Main: undefined;
   Share: undefined;
   VaccineListMissing: { vaccine: VaccineRequest };
   VersionUpdateModal: undefined;
 
-  // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };
-  SearchLAD: object;
-  // __HYGEN_INJECT_SCREEN_PARAMS_ABOVE__
 };

@@ -286,10 +286,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     NavigatorService.navigate('Trendline', { lad });
   }
 
-  goToSearchLAD() {
-    NavigatorService.navigate('SearchLAD');
-  }
-
   async shouldShowTrendLine(): Promise<boolean> {
     const { startupInfo } = store.getState().content;
 

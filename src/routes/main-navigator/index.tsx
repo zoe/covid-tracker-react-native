@@ -49,7 +49,6 @@ import {
   SchoolGroupListScreen,
   SchoolHowToScreen,
   SchoolIntroScreen,
-  SearchLADScreen,
   SelectProfileScreen,
   SplashScreen,
   TermsOfUseUSScreen,
@@ -173,11 +172,11 @@ function MainNavigator() {
       <Stack.Screen name="AboutYourVaccine" component={AboutYourVaccineScreen} options={noHeader} />
       <Stack.Screen name="VaccineLogSymptomsInfo" component={VaccineLogSymptomsInfoScreen} options={noHeader} />
       <Stack.Screen name="VaccineFindInfo" component={VaccineFindInfoScreen} options={noHeader} />
+      <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
 
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
-      <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
-      <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
+
       {DietStudyPlaybackNavigator({ Stack })}
       {MetalHealthNavigator({ Stack })}
     </Stack.Navigator>

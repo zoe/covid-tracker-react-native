@@ -961,13 +961,8 @@
     "cta": "",
     "active-covid-cases": "",
     "evolution-of": "",
-    "active-cases-in-your-area": ""
-  },
-
-  "search-lad": {
-    "input-label": "",
-    "input-placeholder": "",
-    "no-result": ""
+    "active-cases-in-your-area": "",
+    "trendline-change": ""
   },
 
   "estimated-cases-card": {

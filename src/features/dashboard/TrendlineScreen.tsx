@@ -52,12 +52,9 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
       <View ref={viewRef} style={styles.container} collapsable={false}>
         <Header>
           <RegularText style={{ textAlign: 'center' }}>{i18n.t('explore-trend-line.title')}</RegularText>
-          {/* <TouchableOpacity onPress={() => appCoordinator.goToSearchLAD()}> */}
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <RegularText style={styles.district}>{trendline?.name}</RegularText>
-            {/* <DropdownIcon style={styles.arrow} /> */}
           </View>
-          {/* </TouchableOpacity> */}
         </Header>
 
         <Header3Text style={styles.metric}>{trendline?.today}</Header3Text>

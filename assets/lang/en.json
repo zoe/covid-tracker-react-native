@@ -1120,13 +1120,8 @@
     "cta": "Share",
     "active-covid-cases": "Active COVID cases",
     "evolution-of": "Evolution of estimated cases in the last 3 months",
-    "active-cases-in-your-area": "Active cases in your area"
-  },
-
-  "search-lad": {
-    "input-label": "Search for a district",
-    "input-placeholder": "e.g Camdem",
-    "no-result": "No result"
+    "active-cases-in-your-area": "Active cases in your area",
+    "trendline-change": "We've updated our trendlines. Learn more"
   },
 
   "estimated-cases-card": {
