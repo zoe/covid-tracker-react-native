@@ -31,6 +31,7 @@ export const text: ITextClass = {
   h4Medium: getTextProperties(20, 24, 'SofiaPro-Medium'),
   //
   h5: getTextProperties(18, 24, 'SofiaPro-SemiBold'),
+  h5Light: getTextProperties(18, 24, 'SofiaPro-Light'),
   h5Medium: getTextProperties(18, 24, 'SofiaPro-Medium'),
   h5Regular: getTextProperties(18, 24),
   //

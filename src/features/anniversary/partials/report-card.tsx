@@ -48,8 +48,8 @@ function ReportCard() {
           const key = `reported-event-${index}`;
           const active = Math.round(Math.random() * 2);
           return (
-            <View style={{ paddingBottom: 16, width: '50%' }}>
-              <ReportedEvent key={key} reportedEvent={reportedEvent} active={!!(active % 2)} />
+            <View key={key} style={{ paddingBottom: 16, width: '50%' }}>
+              <ReportedEvent reportedEvent={reportedEvent} active={!!(active % 2)} />
             </View>
           );
         })}

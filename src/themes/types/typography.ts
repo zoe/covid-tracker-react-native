@@ -41,6 +41,7 @@ export type ITextClass = {
   h4Medium: TText;
   //
   h5: TText;
+  h5Light: TText;
   h5Medium: TText;
   h5Regular: TText;
   //

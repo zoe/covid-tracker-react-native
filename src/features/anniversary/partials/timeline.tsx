@@ -1,16 +1,15 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Text } from '@covid/components';
-
 import TimelineNode from './timeline-node';
+import TimelineCard from './timeline-card';
 
 function Timeline() {
   return (
     <View style={styles.container}>
       <View style={styles.line} />
       <TimelineNode />
-      <TimelineNode />
+      <TimelineCard />
       <TimelineNode />
       <TimelineNode />
       <TimelineNode />
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
     height: '100%',
     left: 16,
     position: 'absolute',
-    width: 4,
+    width: 2,
   },
 });
 

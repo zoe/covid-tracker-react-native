@@ -10,7 +10,7 @@ function TimelineNode() {
         <View style={styles.node} />
         <Text textClass="pSmallBold">Timeline node title</Text>
       </View>
-      <Text textClass="h5Regular" style={styles.body}>
+      <Text textClass="h5Light" style={styles.body}>
         You signed up for the COVID Symptom App
       </Text>
     </View>
@@ -19,7 +19,7 @@ function TimelineNode() {
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 12,
+    marginLeft: 11,
   },
   row: {
     alignItems: 'center',
