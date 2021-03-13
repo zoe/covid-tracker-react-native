@@ -40,12 +40,16 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const [hasSecondDose, setHasSecondDose] = useState<string | undefined>(undefined);
   const { assessmentData } = route.params;
 
-  function vaccineOrFormHasSecondDose() {
-    if (
+  function isJohnsonVaccine() {
+    return (
       assessmentData.vaccineData &&
       assessmentData.vaccineData.doses[0] &&
       assessmentData.vaccineData.brand === VaccineBrands.JOHNSON
-    ) {
+    );
+  }
+
+  function vaccineOrFormHasSecondDose() {
+    if (isJohnsonVaccine()) {
       return false;
     }
 
