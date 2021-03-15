@@ -1037,7 +1037,7 @@
 
   "vaccines": {
     "banner": {
-      "body": "It takes at least two weeks for vaccines to start reducing your risk of catching and spreading COVID. Stay safe and follow the guidance.\n\nHelp our research by taking a COVID test if we invite you, and keep logging!"
+      "body": "Även efter att du vaccinerats är det viktigt att du fortsätter att följa de allmäna råd som utfärdas av Folkhälsomyndigheten."
     },
     "dose-symptoms": {
       "label": "Om din vaccination",
@@ -1489,13 +1489,13 @@
     "email-action-cta-unsubscribe": "Opt-out of email updates"
   },
   "navigation": {
-    "back": "Back",
-    "cta-email-success": "Great, keep an eye on your inbox!",
-    "cta-unsubscribe": "Opt-out of email updates",
-    "dismiss": "Dismiss",
-    "learn-more": "Learn more",
-    "next": "Next",
-    "insights": "Insights",
-    "start": "Start"
+    "back": "Tillbaka",
+    "cta-email-success": "Toppen! Håll utkik i din inkorg",
+    "cta-unsubscribe": "Avregistrera dig från uppdateringar per e-post",
+    "dismiss": "Ignorera",
+    "learn-more": "Läs mer",
+    "next": "Nästa",
+    "insights": "Insikter",
+    "start": "Starta"
   }
 }
