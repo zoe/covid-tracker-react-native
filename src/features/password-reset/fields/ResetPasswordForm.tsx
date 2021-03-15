@@ -6,7 +6,7 @@ import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import i18n from '@covid/locale/i18n';
 
-export interface Props {
+export interface IResetPasswordForm {
   values: {
     email: string;
   };
@@ -22,7 +22,7 @@ export interface Props {
   handleSubmit: () => void;
 }
 
-const ResetPasswordForm: FC<Props> = ({
+const ResetPasswordForm: FC<IResetPasswordForm> = ({
   values,
   touched,
   errors,
