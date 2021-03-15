@@ -4,7 +4,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
 
-import { ClickableProps } from '../Text';
+import { IClickableProps } from '../Text';
 import { ITest } from '../types';
 
 interface BrandedButtonProps extends ITest {
@@ -20,7 +20,7 @@ export const BrandedButton = ({
   buttonProps,
   textProps,
   hideLoading,
-}: ClickableProps & BrandedButtonProps) => {
+}: IClickableProps & BrandedButtonProps) => {
   const isDisabled = enable === false;
 
   return (

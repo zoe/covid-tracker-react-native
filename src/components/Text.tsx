@@ -55,7 +55,7 @@ export const RegularBoldText = ({ style, children }: Props) => (
   <Text style={[styles.regularBoldText, style]}>{children}</Text>
 );
 
-export interface ClickableProps extends ITest {
+export interface IClickableProps extends ITest {
   children: React.ReactNode;
   style?: any;
   onPress: () => void;
@@ -63,7 +63,7 @@ export interface ClickableProps extends ITest {
   hideLoading?: boolean;
 }
 
-export const ClickableText = ({ style, children, onPress }: ClickableProps) => (
+export const ClickableText = ({ style, children, onPress }: IClickableProps) => (
   <Text style={[styles.clickableText, style]} onPress={onPress}>
     {children}
   </Text>
