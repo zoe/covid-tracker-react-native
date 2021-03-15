@@ -5,9 +5,9 @@ import { CalloutBox } from '@covid/components/CalloutBox';
 import { colors } from '@theme';
 import appCoordinator from '@covid/features/AppCoordinator';
 
-import { CommonShareProps } from './BaseShareApp';
+import { ICommonShareProps } from './BaseShareApp';
 
-export const VaccineRegistryCallout: React.FC<CommonShareProps> = () => {
+export const VaccineRegistryCallout: React.FC<ICommonShareProps> = () => {
   return (
     <CalloutBox
       content={{

@@ -8,11 +8,11 @@ import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { isAndroid } from '@covid/utils/platform';
 
-export interface CommonShareProps {
+export interface ICommonShareProps {
   onSharePress?: VoidFunction;
 }
 
-interface BaseShareAppCardProps {
+interface IProps {
   primaryText?: string;
   secondaryText: string;
   ctaTitle: string;
@@ -50,12 +50,7 @@ export const share = async (prefix: string) => {
   shareApp(message);
 };
 
-export const BaseShareAppCard: React.FC<BaseShareAppCardProps> = ({
-  primaryText,
-  secondaryText,
-  ctaTitle,
-  onSharePress,
-}) => {
+export const BaseShareAppCard: React.FC<IProps> = ({ primaryText, secondaryText, ctaTitle, onSharePress }) => {
   return (
     <View style={styles.container}>
       <View style={styles.socialIconContainer}>

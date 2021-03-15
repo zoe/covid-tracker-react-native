@@ -2,9 +2,9 @@ import React from 'react';
 
 import i18n from '@covid/locale/i18n';
 
-import { CommonShareProps, BaseShareAppCard, share } from './BaseShareApp';
+import { ICommonShareProps, BaseShareAppCard, share } from './BaseShareApp';
 
-export const ShareAppCard: React.FC<CommonShareProps> = (props) => {
+export const ShareAppCard: React.FC<ICommonShareProps> = (props) => {
   const shareMessage = i18n.t('share-this-app.message');
   const { onSharePress = () => share(shareMessage) } = props;
 

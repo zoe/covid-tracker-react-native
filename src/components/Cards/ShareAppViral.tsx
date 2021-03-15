@@ -4,9 +4,9 @@ import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { isAndroid } from '@covid/utils/platform';
 
-import { CommonShareProps, BaseShareAppCard, shareUrl, shareApp } from './BaseShareApp';
+import { ICommonShareProps, BaseShareAppCard, shareUrl, shareApp } from './BaseShareApp';
 
-interface Props extends CommonShareProps {
+interface Props extends ICommonShareProps {
   area: AreaStatsResponse | null;
 }
 
