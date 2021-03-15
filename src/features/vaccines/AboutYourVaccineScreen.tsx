@@ -15,7 +15,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
-import { VaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
+import { IVaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
@@ -33,7 +33,7 @@ type Props = {
 
 const registerSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema());
 
-interface AboutYourVaccineData extends VaccineDoseData {}
+interface AboutYourVaccineData extends IVaccineDoseData {}
 
 export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
@@ -156,16 +156,16 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     );
   };
 
-  const renderFirstDoseUI = (props: FormikProps<VaccineDoseData>) => (
+  const renderFirstDoseUI = (props: FormikProps<IVaccineDoseData>) => (
     <>
       <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-      <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose />
+      <VaccineDoseQuestion formikProps={props as FormikProps<IVaccineDoseData>} firstDose />
     </>
   );
 
-  const renderSecondDoseUI = (props: FormikProps<VaccineDoseData>) =>
+  const renderSecondDoseUI = (props: FormikProps<IVaccineDoseData>) =>
     vaccineOrFormHasSecondDose() ? (
-      <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose={false} />
+      <VaccineDoseQuestion formikProps={props as FormikProps<IVaccineDoseData>} firstDose={false} />
     ) : null;
 
   const renderFindInfoLink = (
@@ -196,7 +196,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     return date1Changed || date2Changed;
   };
 
-  const buildInitialValues = (vaccine?: VaccineRequest): VaccineDoseData => {
+  const buildInitialValues = (vaccine?: VaccineRequest): IVaccineDoseData => {
     return {
       firstDoseDate: vaccine?.doses[0]?.date_taken_specific
         ? moment(vaccine.doses[0].date_taken_specific).toDate()
