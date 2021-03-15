@@ -16,7 +16,7 @@ export enum TrendlineTimeFilters {
   all = 'ALL',
 }
 
-export interface TrendLineChartProps {
+interface ITrendLineChartProps {
   filter: TrendlineTimeFilters;
   viewMode: TrendLineViewMode;
 }
@@ -34,7 +34,7 @@ export const TrendLineEmptyView: React.FC = () => {
   );
 };
 
-export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode }) => {
+export const TrendLineChart: React.FC<ITrendLineChartProps> = ({ filter, viewMode }) => {
   const [html, setHtml] = useState<string>('');
   const [monthRangeLabel, setMonthRangeLabel] = useState<string>('');
   const webview = useRef<WebView>(null);
