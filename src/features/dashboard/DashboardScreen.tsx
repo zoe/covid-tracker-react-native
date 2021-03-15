@@ -23,7 +23,7 @@ import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
-import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { identify } from '@covid/core/Analytics';
@@ -51,7 +51,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const app = useSelector(selectApp);
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
+  const networks = useSelector<RootState, Optional<ISubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolGroups
   );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
