@@ -7,7 +7,7 @@ import { TIconName } from '../types';
 
 import { SIconSet, SIconView } from './icon.styles';
 
-export interface IProps {
+interface IProps {
   color?: string;
   disabled?: boolean;
   iconName: TIconName;
