@@ -23,6 +23,7 @@ function TimelineCard() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    borderRadius: 16,
     marginBottom: 48,
     padding: 16,
   },

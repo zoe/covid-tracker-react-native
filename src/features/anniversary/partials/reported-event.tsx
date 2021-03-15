@@ -15,9 +15,16 @@ interface IProps {
 
 function ReportedEvent({ active = true, reportedEvent }: IProps) {
   return (
-    <View style={{ opacity: active ? 1 : 0.2 }}>
+    <View
+      style={{
+        alignItems: 'center',
+        opacity: active ? 1 : 0.2,
+        padding: 4,
+      }}>
       <Icon iconName={reportedEvent.iconName} iconSize={24} style={{ marginBottom: 8 }} />
-      <Text textClass="pSmall">{reportedEvent.eventName}</Text>
+      <Text textClass="pXSmallMedium" textAlign="center">
+        {reportedEvent.eventName}
+      </Text>
     </View>
   );
 }

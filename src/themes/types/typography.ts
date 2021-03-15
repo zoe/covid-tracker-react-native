@@ -38,6 +38,7 @@ export type ITextClass = {
   h3Bold: TText;
   //
   h4: TText;
+  h4Light: TText;
   h4Medium: TText;
   //
   h5: TText;
@@ -56,6 +57,7 @@ export type ITextClass = {
   pMedium: TText;
   pSmall: TText;
   pXSmall: TText;
+  pXSmallMedium: TText;
   pSmallBold: TText;
   pSmallLight: TText;
   default: TText;

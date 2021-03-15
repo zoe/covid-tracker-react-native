@@ -42,13 +42,15 @@ function ReportCard() {
   ];
   return (
     <View style={[styles.container]}>
-      <Text rhythm={20}>Thanks for reporting</Text>
+      <Text rhythm={20} textClass="h4">
+        Thanks for reporting
+      </Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {reportedEvents.map((reportedEvent, index) => {
           const key = `reported-event-${index}`;
           const active = Math.round(Math.random() * 2);
           return (
-            <View key={key} style={{ paddingBottom: 16, width: '50%' }}>
+            <View key={key} style={{ paddingBottom: 16, width: '33%' }}>
               <ReportedEvent reportedEvent={reportedEvent} active={!!(active % 2)} />
             </View>
           );
@@ -60,9 +62,10 @@ function ReportCard() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'pink',
-    borderRadius: 16,
-    padding: 24,
+    borderBottomWidth: 2,
+    borderBottomColor: '#E2E2E2',
+    marginBottom: 48,
+    paddingVertical: 24,
   },
 });
 
