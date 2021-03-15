@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
-import { VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { vaccineBrandDisplayName, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import DropdownField from '@covid/components/DropdownField';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
@@ -19,18 +19,31 @@ export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
 }
 
 export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = (props: Props) => {
-  const nameOptions = [
+  const gbVaccineOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },
-    // These are "Brand names" so don't need translations
-    { label: 'Pfizer/BioNTech', value: VaccineBrands.PFIZER },
-    { label: 'Moderna', value: VaccineBrands.MODERNA },
+    { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
+    { label: vaccineBrandDisplayName[VaccineBrands.ASTRAZENECA], value: VaccineBrands.ASTRAZENECA },
+    { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
     { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: VaccineBrands.NOT_SURE },
   ];
 
-  // Add in extra item specific to GB/Swedish users
-  if (isGBCountry() || isSECountry()) {
-    nameOptions.splice(2, 0, { label: 'Oxford/Astrazeneca', value: VaccineBrands.ASTRAZENECA });
-  }
+  const seVaccineOptions = [
+    { label: i18n.t('choose-one-of-these-options'), value: '' },
+    { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
+    { label: vaccineBrandDisplayName[VaccineBrands.ASTRAZENECA], value: VaccineBrands.ASTRAZENECA },
+    { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
+    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: VaccineBrands.NOT_SURE },
+  ];
+
+  const usVaccineOptions = [
+    { label: i18n.t('choose-one-of-these-options'), value: '' },
+    { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
+    { label: vaccineBrandDisplayName[VaccineBrands.JOHNSON], value: VaccineBrands.JOHNSON },
+    { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
+    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: VaccineBrands.NOT_SURE },
+  ];
+
+  const nameOptions = isGBCountry() ? gbVaccineOptions : isSECountry() ? seVaccineOptions : usVaccineOptions;
 
   const descriptionOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },
