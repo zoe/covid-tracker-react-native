@@ -10,14 +10,14 @@ import YesNoField from '@covid/components/YesNoField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { cleanIntegerVal } from '@covid/utils/number';
 
-export interface NHSTestMechanismData {
+export interface INHSTestMechanismData {
   mechanism: string;
   storedInFridge: string;
   daysInFridge: string;
 }
 
 interface Props {
-  formikProps: FormikProps<NHSTestMechanismData>;
+  formikProps: FormikProps<INHSTestMechanismData>;
   test?: CovidTest;
 }
 
@@ -27,7 +27,7 @@ export interface NHSTestMechanismQuestion<P, Data> extends React.FC<P> {
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const NHSTestMechanismQuestion: NHSTestMechanismQuestion<Props, NHSTestMechanismData> = (props: Props) => {
+export const NHSTestMechanismQuestion: NHSTestMechanismQuestion<Props, INHSTestMechanismData> = (props: Props) => {
   const { formikProps } = props;
 
   const mechanismItems = [
@@ -76,7 +76,7 @@ export const NHSTestMechanismQuestion: NHSTestMechanismQuestion<Props, NHSTestMe
   );
 };
 
-NHSTestMechanismQuestion.initialFormValues = (test?: CovidTest): NHSTestMechanismData => {
+NHSTestMechanismQuestion.initialFormValues = (test?: CovidTest): INHSTestMechanismData => {
   let mechanism = '';
 
   if (test?.id) {
@@ -125,7 +125,7 @@ NHSTestMechanismQuestion.schema = () => {
   });
 };
 
-NHSTestMechanismQuestion.createDTO = (formData: NHSTestMechanismData): Partial<CovidTest> => {
+NHSTestMechanismQuestion.createDTO = (formData: INHSTestMechanismData): Partial<CovidTest> => {
   return {
     mechanism: formData.mechanism,
     ...(formData.storedInFridge === 'yes' && { days_in_fridge: cleanIntegerVal(formData.daysInFridge) }),

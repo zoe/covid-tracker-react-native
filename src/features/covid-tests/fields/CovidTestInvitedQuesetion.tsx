@@ -7,12 +7,12 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
-export interface CovidTestInvitedData {
+export interface ICovidTestInvitedData {
   invitedToTest: string;
 }
 
 interface Props {
-  formikProps: FormikProps<CovidTestInvitedData>;
+  formikProps: FormikProps<ICovidTestInvitedData>;
   test?: CovidTest;
 }
 
@@ -22,7 +22,7 @@ export interface CovidTestInvitedQuestion<P, Data> extends React.FC<P> {
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestInvitedQuestion: CovidTestInvitedQuestion<Props, CovidTestInvitedData> = (props: Props) => {
+export const CovidTestInvitedQuestion: CovidTestInvitedQuestion<Props, ICovidTestInvitedData> = (props: Props) => {
   const { formikProps } = props;
   return isGBCountry() ? (
     <YesNoField
@@ -36,7 +36,7 @@ export const CovidTestInvitedQuestion: CovidTestInvitedQuestion<Props, CovidTest
   );
 };
 
-CovidTestInvitedQuestion.initialFormValues = (test?: CovidTest): CovidTestInvitedData => {
+CovidTestInvitedQuestion.initialFormValues = (test?: CovidTest): ICovidTestInvitedData => {
   function getInvitedToTest(test?: CovidTest) {
     if (test?.id) {
       if (test.invited_to_test === null) {
@@ -62,7 +62,7 @@ CovidTestInvitedQuestion.schema = () => {
     : Yup.object().shape({});
 };
 
-CovidTestInvitedQuestion.createDTO = (formData: CovidTestInvitedData): Partial<CovidTest> => {
+CovidTestInvitedQuestion.createDTO = (formData: ICovidTestInvitedData): Partial<CovidTest> => {
   return {
     ...(isGBCountry() && formData.invitedToTest && { invited_to_test: formData.invitedToTest === 'yes' }),
   } as Partial<CovidTest>;

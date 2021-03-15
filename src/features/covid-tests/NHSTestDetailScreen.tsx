@@ -19,17 +19,17 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ClearButton } from '@covid/components/Buttons/ClearButton';
-import { NHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
+import { INHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
 import {
   CovidTestTimeQuestion,
   ICovidTestTimeData,
-  CovidTestResultData,
+  ICovidTestResultData,
   CovidTestResultQuestion,
-  NHSTestMechanismData,
+  INHSTestMechanismData,
   NHSTestMechanismQuestion,
 } from '@covid/features/covid-tests/fields/';
 
-interface INHSTestData extends NHSTestDateData, NHSTestMechanismData, CovidTestResultData, ICovidTestTimeData {}
+interface INHSTestData extends INHSTestDateData, INHSTestMechanismData, ICovidTestResultData, ICovidTestTimeData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSTestDetail'>;
@@ -175,10 +175,10 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
-                  <NHSTestDateQuestion formikProps={props as FormikProps<NHSTestDateData>} test={test} />
+                  <NHSTestDateQuestion formikProps={props as FormikProps<INHSTestDateData>} test={test} />
                   <CovidTestTimeQuestion formikProps={props as FormikProps<ICovidTestTimeData>} test={test} />
-                  <NHSTestMechanismQuestion formikProps={props as FormikProps<NHSTestMechanismData>} test={test} />
-                  <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
+                  <NHSTestMechanismQuestion formikProps={props as FormikProps<INHSTestMechanismData>} test={test} />
+                  <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
                 </View>
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>

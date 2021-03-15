@@ -1,23 +1,22 @@
 import { FormikProps } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { Item, Label, Text } from 'native-base';
+import { Text } from 'native-base';
 import moment, { Moment } from 'moment';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { FieldWrapper } from '@covid/components/Screen';
 import CalendarPicker from '@covid/components/CalendarPicker';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 
-export interface NHSTestDateData {
+export interface INHSTestDateData {
   dateTakenSpecific: Date | undefined;
 }
 
 interface Props {
-  formikProps: FormikProps<NHSTestDateData>;
+  formikProps: FormikProps<INHSTestDateData>;
   test?: CovidTest;
 }
 
@@ -27,7 +26,7 @@ export interface NHSTestDateQuestion<P, Data> extends React.FC<P> {
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const NHSTestDateQuestion: NHSTestDateQuestion<Props, NHSTestDateData> = (props: Props) => {
+export const NHSTestDateQuestion: NHSTestDateQuestion<Props, INHSTestDateData> = (props: Props) => {
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
   const isCreatingTest = !props.test;
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
   },
 });
 
-NHSTestDateQuestion.initialFormValues = (test?: CovidTest): NHSTestDateData => {
+NHSTestDateQuestion.initialFormValues = (test?: CovidTest): INHSTestDateData => {
   return {
     dateTakenSpecific: test?.date_taken_specific ? moment(test.date_taken_specific).toDate() : undefined,
   };
@@ -98,7 +97,7 @@ function formatDateToPost(date: Date | undefined) {
   return date ? moment(date).format('YYYY-MM-DD') : null;
 }
 
-NHSTestDateQuestion.createDTO = (formData: NHSTestDateData): Partial<CovidTest> => {
+NHSTestDateQuestion.createDTO = (formData: INHSTestDateData): Partial<CovidTest> => {
   return {
     date_taken_specific: formatDateToPost(formData.dateTakenSpecific),
   } as Partial<CovidTest>;
