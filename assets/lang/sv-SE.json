@@ -239,7 +239,7 @@
 
     "location": {
       "question": "Var utfördes testet?",
-      "specify": "Por favor especifique",
+      "specify": "Ange var testet utfördes",
       "answers": {
         "at-home": "Hemma",
         "drive-through-rtc": "",
@@ -476,7 +476,7 @@
   "research-updates": "Aktuella forskningsnyheter",
   "faqs": "Vanliga frågor",
   "privacy-policy": "Integritetsmeddelande",
-  "nav-edit-profile": "Redigera profil",
+  "nav-edit-profile": "Min profil",
   "nav-share-this-app": "Dela appen",
   "delete-my-data": "Ta bort mina uppgifter",
   "delete-data-alert-title": "Är du säker?",
