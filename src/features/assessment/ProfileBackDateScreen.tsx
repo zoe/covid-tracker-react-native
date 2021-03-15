@@ -13,22 +13,22 @@ import { IUserService } from '@covid/core/user/UserService';
 import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
+import { IAtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import i18n from '@covid/locale/i18n';
 import { ConfigType } from '@covid/core/Config';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { BloodGroupData, BloodGroupQuestion } from '@covid/features/patient/fields/BloodGroupQuestion';
+import { IBloodGroupData, BloodGroupQuestion } from '@covid/features/patient/fields/BloodGroupQuestion';
 import {
-  BloodPressureData,
+  IBloodPressureData,
   BloodPressureMedicationQuestion,
 } from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
-import { RaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
-import { DiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
+import { IRaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
+import { IDiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
-interface BackfillData extends BloodPressureData, RaceEthnicityData, AtopyData, DiabetesData, BloodGroupData {}
+interface BackfillData extends IBloodPressureData, IRaceEthnicityData, IAtopyData, IDiabetesData, IBloodGroupData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -246,25 +246,25 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             return (
               <Form>
                 {this.state.needBloodPressureAnswer && (
-                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
+                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<IBloodPressureData>} />
                 )}
 
                 {this.state.needRaceEthnicityAnswer && (
                   <RaceEthnicityQuestion
                     showRaceQuestion={this.features.showRaceQuestion}
                     showEthnicityQuestion={this.features.showEthnicityQuestion}
-                    formikProps={props as FormikProps<RaceEthnicityData>}
+                    formikProps={props as FormikProps<IRaceEthnicityData>}
                   />
                 )}
 
-                {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />}
+                {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} />}
 
                 {this.state.needDiabetesAnswers && (
-                  <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+                  <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />
                 )}
 
                 {this.state.needBloodGroupAnswer && (
-                  <BloodGroupQuestion formikProps={props as FormikProps<BloodGroupData>} />
+                  <BloodGroupQuestion formikProps={props as FormikProps<IBloodGroupData>} />
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>

@@ -6,12 +6,12 @@ import DropdownField from '@covid/components/DropdownField';
 import i18n from '@covid/locale/i18n';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
-export interface BloodGroupData {
+export interface IBloodGroupData {
   bloodGroup: string;
 }
 
 interface Props {
-  formikProps: FormikProps<BloodGroupData>;
+  formikProps: FormikProps<IBloodGroupData>;
 }
 
 enum BloodGroupQuestionFields {
@@ -43,7 +43,7 @@ export const BloodGroupQuestion = ({ formikProps }: Props) => {
   );
 };
 
-BloodGroupQuestion.initialFormValues = (): BloodGroupData => {
+BloodGroupQuestion.initialFormValues = (): IBloodGroupData => {
   return {
     bloodGroup: '',
   };
@@ -55,7 +55,7 @@ BloodGroupQuestion.schema = () => {
   });
 };
 
-BloodGroupQuestion.createDTO = (data: BloodGroupData): Partial<PatientInfosRequest> => {
+BloodGroupQuestion.createDTO = (data: IBloodGroupData): Partial<PatientInfosRequest> => {
   return {
     blood_group: data.bloodGroup,
   };

@@ -12,7 +12,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 
-import { FormikDiabetesInputFC } from './DiabetesQuestions';
+import { IFormikDiabetesInputFC } from './DiabetesQuestions';
 
 enum DiabetesOralMedsFieldnames {
   BIGUANIDE = 'diabetes_oral_biguanide',
@@ -24,14 +24,14 @@ enum DiabetesOralMedsFieldnames {
   OTHER_MED_NOT_LISTED = 'diabetes_oral_other_medication_not_listed',
 }
 
-export interface DiabetesOralMedsData {
+export interface IDiabetesOralMedsData {
   diabetesOralMeds: DiabetesOralMedsFieldnames[];
   diabetesOralOtherMedicationNotListed: boolean;
   diabetesOralOtherMedication?: string;
 }
 
 interface Props {
-  formikProps: FormikProps<DiabetesOralMedsData>;
+  formikProps: FormikProps<IDiabetesOralMedsData>;
 }
 
 type CheckboxType = {
@@ -41,7 +41,7 @@ type CheckboxType = {
 
 interface DiabetesOralMedsCheckboxProps {
   data: CheckboxType;
-  formikProps: FormikProps<DiabetesOralMedsData>;
+  formikProps: FormikProps<IDiabetesOralMedsData>;
   value: boolean;
 }
 
@@ -79,7 +79,7 @@ const DiabetesOralMedsCheckbox: React.FC<DiabetesOralMedsCheckboxProps> = ({ dat
   );
 };
 
-export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOralMedsData> = ({ formikProps }) => {
+export const DiabetesOralMedsQuestion: IFormikDiabetesInputFC<Props, IDiabetesOralMedsData> = ({ formikProps }) => {
   const diabetesOralMedsOptions = [
     { fieldName: DiabetesOralMedsFieldnames.BIGUANIDE, label: i18n.t('diabetes.answer-oral-biguanide'), value: false },
     { fieldName: DiabetesOralMedsFieldnames.SULFONYLUREA, label: i18n.t('diabetes.answer-sulfonylurea'), value: false },
@@ -98,7 +98,7 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
     },
   ];
 
-  const createDiabetesCheckboxes = (data: CheckboxType[], props: FormikProps<DiabetesOralMedsData>) => {
+  const createDiabetesCheckboxes = (data: CheckboxType[], props: FormikProps<IDiabetesOralMedsData>) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesOralMeds.includes(item.fieldName);
       return <DiabetesOralMedsCheckbox key={item.fieldName} data={item} formikProps={formikProps} value={isChecked} />;
@@ -132,7 +132,7 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
   );
 };
 
-DiabetesOralMedsQuestion.initialFormValues = (): DiabetesOralMedsData => {
+DiabetesOralMedsQuestion.initialFormValues = (): IDiabetesOralMedsData => {
   return {
     diabetesOralMeds: [],
     diabetesOralOtherMedicationNotListed: false,

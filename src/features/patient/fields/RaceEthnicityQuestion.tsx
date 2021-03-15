@@ -11,7 +11,7 @@ import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { colors } from '@theme';
 import { RegularText } from '@covid/components/Text';
 
-export interface RaceEthnicityData {
+export interface IRaceEthnicityData {
   race: string[];
   raceOther: string;
   ethnicity: string;
@@ -20,7 +20,7 @@ export interface RaceEthnicityData {
 interface RaceEthnicityQuestionProps {
   showRaceQuestion: boolean;
   showEthnicityQuestion: boolean;
-  formikProps: FormikProps<RaceEthnicityData>;
+  formikProps: FormikProps<IRaceEthnicityData>;
 }
 
 type RaceCheckBoxData = {
@@ -28,7 +28,7 @@ type RaceCheckBoxData = {
   value: string;
 };
 
-const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<RaceEthnicityData>) => {
+const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<IRaceEthnicityData>) => {
   return data.map((checkBoxData) => {
     return (
       <CheckboxItem
