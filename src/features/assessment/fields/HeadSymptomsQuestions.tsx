@@ -11,7 +11,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import {
   createSymptomCheckboxes,
   SymptomCheckBoxData,
-  SymptomQuestions,
+  ISymptomQuestions,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 
 export type HeadSymptomsData = HeadSymptomsCheckBoxData & HeadSymptomsFollowUpData;
@@ -38,7 +38,7 @@ type Props = {
   formikProps: FormikProps<HeadSymptomsData>;
 };
 
-export const HeadSymptomsQuestions: SymptomQuestions<Props, HeadSymptomsData> = (props: Props) => {
+export const HeadSymptomsQuestions: ISymptomQuestions<Props, HeadSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
   const checkboxes: SymptomCheckBoxData<HeadSymptomsCheckBoxData, HeadSymptomsFollowUpData>[] = [
