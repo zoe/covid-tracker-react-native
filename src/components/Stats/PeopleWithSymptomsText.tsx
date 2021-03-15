@@ -6,11 +6,11 @@ import i18n from '@covid/locale/i18n';
 
 import { RegularBoldText } from '../Text';
 
-export interface Props {
+interface IProps {
   area: string;
 }
 
-export const PeopleWithSymptomsText: React.FC<Props> = ({ area }) => (
+export const PeopleWithSymptomsText: React.FC<IProps> = ({ area }) => (
   <Text style={styles.estimatedCases}>
     {i18n.t('thank-you.people-with-covid-in')}
     <RegularBoldText>{area}</RegularBoldText> + {i18n.t('thank-you.today')}
