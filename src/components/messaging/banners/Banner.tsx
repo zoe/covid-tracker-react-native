@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, Button, Dimensions, Easing } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { Animated, Dimensions, Easing } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IUIMessage, useMessage } from '@covid/common';
@@ -8,7 +7,7 @@ import { IUIMessage, useMessage } from '@covid/common';
 import { ThemeButton } from '../../Buttons';
 import { Text } from '../../typography';
 
-import { SContainerView, SButtonRowView } from './styles';
+import { SButtonRowView, SContainerView } from './styles';
 
 interface IProps {
   active?: boolean;
