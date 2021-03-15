@@ -16,7 +16,7 @@ export enum DrawerMenuItem {
   LOGOUT = 'LOGOUT',
 }
 
-export interface MenuItemProps {
+interface IMenuItemProps {
   label: string;
   image?: React.ReactNode;
   smallLabel?: string;
@@ -24,13 +24,13 @@ export interface MenuItemProps {
   onPress: () => void;
 }
 
-export interface LinkMenuItemProps {
+interface ILinkMenuItemProps {
   link?: string;
   type: DrawerMenuItem;
   onPress?: () => void;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, smallLabel, indicator }) => {
+export const MenuItem: React.FC<IMenuItemProps> = ({ image, onPress, label, smallLabel, indicator }) => {
   return (
     <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
       <View style={{ flexDirection: 'row' }}>
@@ -45,7 +45,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, small
   );
 };
 
-export const LinkItem: React.FC<LinkMenuItemProps> = ({
+export const LinkItem: React.FC<ILinkMenuItemProps> = ({
   link,
   type,
   onPress = () => {
