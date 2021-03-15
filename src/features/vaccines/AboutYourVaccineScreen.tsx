@@ -6,6 +6,7 @@ import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 
 import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
@@ -21,6 +22,7 @@ import { colors } from '@theme';
 import QuestionCircle from '@assets/icons/QuestionCircle';
 import YesNoField from '@covid/components/YesNoField';
 import { formatDateToPost } from '@covid/utils/datetime';
+import { setLoggedVaccine } from '@covid/core/state';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -39,6 +41,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [hasSecondDose, setHasSecondDose] = useState<string | undefined>(undefined);
   const { assessmentData } = route.params;
+  const dispatch = useDispatch();
 
   function isJohnsonVaccine() {
     return (
@@ -105,6 +108,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
 
   const submitVaccine = async (vaccine: Partial<VaccineRequest>) => {
     await vaccineService.saveVaccineResponse(assessmentData.patientData.patientId, vaccine);
+    dispatch(setLoggedVaccine(true));
     coordinator.gotoNextScreen(route.name);
   };
 

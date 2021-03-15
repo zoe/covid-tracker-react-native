@@ -11,6 +11,7 @@ import { IApp } from '../types';
 const initialState: IApp = {
   dashboardHasBeenViewed: false,
   mentalHealthStudyActive: true,
+  loggedVaccine: false,
 };
 
 const appSlice = createSlice({
@@ -29,6 +30,12 @@ const appSlice = createSlice({
         mentalHealthStudyActive: action.payload,
       };
     },
+    setLoggedVaccine: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        loggedVaccine: action.payload,
+      };
+    },
     reset: (state) => {
       return {
         ...initialState,
@@ -37,6 +44,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { setDashboardHasBeenViewed, setMentalHealthStudyActive, reset } = appSlice.actions;
+export const { setDashboardHasBeenViewed, setMentalHealthStudyActive, reset, setLoggedVaccine } = appSlice.actions;
 export const selectApp = (state: RootState) => state.app;
 export default appSlice.reducer;
