@@ -8,24 +8,32 @@ import ReportedEvent, { TReportedEvent } from './reported-event';
 function ReportCard() {
   const reportedEvents: TReportedEvent[] = [
     {
+      iconName: 'location',
+      eventName: 'Demographics & general health',
+    },
+    {
       iconName: 'profile-info',
       eventName: 'Symptoms',
     },
     {
+      iconName: 'people',
+      eventName: 'For two people',
+    },
+    {
+      iconName: 'life-insurance',
+      eventName: 'Covid severity',
+    },
+    {
       iconName: 'plan',
-      eventName: 'Test results Test results',
+      eventName: 'Test results',
     },
     {
       iconName: 'syringe',
-      eventName: 'Disease Outcome',
-    },
-    {
-      iconName: 'sort-cards',
-      eventName: 'Vaccine Doses',
+      eventName: 'Vaccine status',
     },
     {
       iconName: 'dietary-inflammation-2',
-      eventName: 'Vaccine Effects',
+      eventName: 'Vaccine side effects',
     },
     {
       iconName: 'chat-feedback',
@@ -37,7 +45,7 @@ function ReportCard() {
     },
     {
       iconName: 'chat-medical',
-      eventName: 'Mental Health Factors',
+      eventName: 'Mental Health',
     },
   ];
   return (
@@ -48,10 +56,9 @@ function ReportCard() {
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {reportedEvents.map((reportedEvent, index) => {
           const key = `reported-event-${index}`;
-          const active = Math.round(Math.random() * 2);
           return (
             <View key={key} style={{ paddingBottom: 16, width: '33%' }}>
-              <ReportedEvent reportedEvent={reportedEvent} active={!!(active % 2)} />
+              <ReportedEvent reportedEvent={reportedEvent} active />
             </View>
           );
         })}
