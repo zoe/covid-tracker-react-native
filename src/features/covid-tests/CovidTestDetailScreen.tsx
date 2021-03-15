@@ -36,7 +36,7 @@ import { ClearButton } from '@covid/components/Buttons/ClearButton';
 import NavigatorService from '@covid/NavigatorService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
-export interface CovidTestData
+interface ICovidTestData
   extends CovidTestDateData,
     CovidTestMechanismData,
     CovidTestResultData,
@@ -116,7 +116,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   }
 
-  handleAction(formData: CovidTestData) {
+  handleAction(formData: ICovidTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
       if (formData.knowsDateOfTest === 'yes' && !formData.dateTakenSpecific) {
@@ -211,7 +211,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             ...CovidTestIsRapidQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: CovidTestData) => {
+          onSubmit={(values: ICovidTestData) => {
             return this.handleAction(values);
           }}>
           {(props) => {

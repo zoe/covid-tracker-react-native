@@ -29,7 +29,7 @@ import {
   NHSTestMechanismQuestion,
 } from '@covid/features/covid-tests/fields/';
 
-export interface NHSTestData extends NHSTestDateData, NHSTestMechanismData, CovidTestResultData, ICovidTestTimeData {}
+interface INHSTestData extends NHSTestDateData, NHSTestMechanismData, CovidTestResultData, ICovidTestTimeData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSTestDetail'>;
@@ -86,7 +86,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
     }
   }
 
-  handleAction(formData: NHSTestData) {
+  handleAction(formData: INHSTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
 
@@ -168,7 +168,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
             ...CovidTestResultQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: NHSTestData) => {
+          onSubmit={(values: INHSTestData) => {
             return this.handleAction(values);
           }}>
           {(props) => {
