@@ -9,7 +9,7 @@ import Highlight from './highlight';
 
 function Timeline() {
   const progress: TProgress[] = ['COMPLETE', 'IN_PROGRESS', 'NOT_STARTED', 'NOT_STARTED'];
-  const futureProgress: TProgress[] = ['FUTURE', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+  const futureProgress: TProgress[] = ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
   return (
     <View style={styles.container}>
       <View style={styles.line} />
