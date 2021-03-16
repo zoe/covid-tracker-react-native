@@ -6,13 +6,14 @@ import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 
 import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { Dose, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
 import { VaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -21,6 +22,7 @@ import { colors } from '@theme';
 import QuestionCircle from '@assets/icons/QuestionCircle';
 import YesNoField from '@covid/components/YesNoField';
 import { formatDateToPost } from '@covid/utils/datetime';
+import { setLoggedVaccine } from '@covid/core/state';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -39,8 +41,21 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [hasSecondDose, setHasSecondDose] = useState<string | undefined>(undefined);
   const { assessmentData } = route.params;
+  const dispatch = useDispatch();
+
+  function isJohnsonVaccine() {
+    return (
+      assessmentData.vaccineData &&
+      assessmentData.vaccineData.doses[0] &&
+      assessmentData.vaccineData.brand === VaccineBrands.JOHNSON
+    );
+  }
 
   function vaccineOrFormHasSecondDose() {
+    if (isJohnsonVaccine()) {
+      return false;
+    }
+
     if (hasSecondDose !== undefined) {
       return hasSecondDose === 'yes';
     }
@@ -93,6 +108,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
 
   const submitVaccine = async (vaccine: Partial<VaccineRequest>) => {
     await vaccineService.saveVaccineResponse(assessmentData.patientData.patientId, vaccine);
+    dispatch(setLoggedVaccine(true));
     coordinator.gotoNextScreen(route.name);
   };
 
@@ -222,21 +238,26 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
             <Form style={{ flex: 1 }}>
               <View style={{ marginHorizontal: 16, marginBottom: 32 }}>
                 {renderFirstDoseUI(props)}
-                <Header3Text style={{ marginTop: 16, marginBottom: 8 }}>
-                  {i18n.t('vaccines.your-vaccine.second-dose')}
-                </Header3Text>
-                <YesNoField
-                  selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
-                  onValueChange={(value: string) => {
-                    props.values.hasSecondDose = value === 'yes';
-                    if (value === 'no') {
-                      props.values.secondDoseDate = undefined;
-                    }
-                    setHasSecondDose(value);
-                  }}
-                  label={i18n.t('vaccines.your-vaccine.have-had-second')}
-                />
-                {renderSecondDoseUI(props)}
+                {props.values.firstBrand && props.values.firstBrand !== VaccineBrands.JOHNSON && (
+                  <>
+                    <Header3Text style={{ marginTop: 48, marginBottom: 8 }}>
+                      {i18n.t('vaccines.your-vaccine.second-dose')}
+                    </Header3Text>
+
+                    <YesNoField
+                      selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
+                      onValueChange={(value: string) => {
+                        props.values.hasSecondDose = value === 'yes';
+                        if (value === 'no') {
+                          props.values.secondDoseDate = undefined;
+                        }
+                        setHasSecondDose(value);
+                      }}
+                      label={i18n.t('vaccines.your-vaccine.have-had-second')}
+                    />
+                    {renderSecondDoseUI(props)}
+                  </>
+                )}
               </View>
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                 <ValidationError style={{ marginBottom: 32 }} error={i18n.t('validation-error-text')} />
