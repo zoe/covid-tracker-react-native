@@ -19,7 +19,11 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ClearButton } from '@covid/components/Buttons/ClearButton';
-import { INHSTestDateData, INHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
+import {
+  INHSTestDateData,
+  INHSTestDateQuestion,
+  NHSTestDateQuestion,
+} from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
 import {
   CovidTestTimeQuestion,
   ICovidTestTimeData,
@@ -27,6 +31,8 @@ import {
   ICovidTestResultQuestion,
   INHSTestMechanismData,
   INHSTestMechanismQuestion,
+  NHSTestMechanismQuestion,
+  CovidTestResultQuestion,
 } from '@covid/features/covid-tests/fields/';
 
 interface INHSTestData extends INHSTestDateData, INHSTestMechanismData, ICovidTestResultData, ICovidTestTimeData {}
@@ -175,10 +181,10 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
-                  <INHSTestDateQuestion formikProps={props as FormikProps<INHSTestDateData>} test={test} />
+                  <NHSTestDateQuestion formikProps={props as FormikProps<INHSTestDateData>} test={test} />
                   <CovidTestTimeQuestion formikProps={props as FormikProps<ICovidTestTimeData>} test={test} />
-                  <INHSTestMechanismQuestion formikProps={props as FormikProps<INHSTestMechanismData>} test={test} />
-                  <ICovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
+                  <NHSTestMechanismQuestion formikProps={props as FormikProps<INHSTestMechanismData>} test={test} />
+                  <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
                 </View>
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
