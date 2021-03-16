@@ -51,15 +51,15 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
               }}>
               <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>
             </TouchableOpacity>
-
-            <BrandedButton
-              style={styles.mainButton}
-              onPress={() => {
-                appCoordinator.gotoNextScreen(this.props.route.name);
-              }}>
-              <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
-            </BrandedButton>
           </View>
+
+          <BrandedButton
+            style={styles.mainButton}
+            onPress={() => {
+              appCoordinator.gotoNextScreen(this.props.route.name);
+            }}>
+            <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
+          </BrandedButton>
         </ImageBackground>
       </View>
     );
@@ -110,10 +110,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   mainButton: {
-    marginTop: 32,
+    width: '60%',
+    marginTop: 16,
     marginBottom: 32,
-    marginHorizontal: 16,
     backgroundColor: colors.purple,
+    alignSelf: 'center',
   },
   buttonText: {
     color: colors.white,
