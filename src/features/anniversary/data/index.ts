@@ -1,65 +1,53 @@
-export type TEvent =
-  | 'SIGNED_UP'
-  | 'COMPLETED_SCIENTIFIC_STUDY'
-  | 'SCIENTIFIC_FINDING'
-  | 'SCIENTIFIC_DISCOVERY'
-  | 'PUBLISHED_SCIENTIFIC_DISCOVERY';
+import { ITimeline } from '../types';
 
-export type TStudy = 'ONGOING' | 'FUTURE';
-
-interface ITimelineEvent {
-  date: string;
-  eventType: TEvent;
-  title: string;
-  subTitle: string;
-  summary: string;
-  externalLink: string;
-  externalLinkText: string;
-  onging: TStudy;
-  //       // Not relevant to MVP but in design so worth planning for?
-  //       progress: number, // Seems to be a progress bar? Data on mvp won't support this
-  //       yourContribution: string
-}
-
-// data types/shape:
-// array of items that look like:
-//   {
-//       date: string,  // for MVP string as 'Month Year' from BE is fine, saves faff? It'll be ordered by date in json
-//       eventType: TimelineEventType,
-//       title: string,
-//       subTitle: string,
-//       summary: string,
-//       externalLink: string,
-//       externalLinkText: string,
-//       onging: boolean
-//       // Not relevant to MVP but in design so worth planning for?
-//       progress: number, // Seems to be a progress bar? Data on mvp won't support this
-//       yourContribution: string
-//   }
-
-export const dummyData = {
-  timeline_data: [
+export const timelineData: ITimeline = {
+  reportedEvents: [
     {
-      date: 'March 2020',
-      eventType: 'SIGNED_UP',
-      title: 'You Began Reporting',
-      ongoing: false,
+      eventBadge: 'GENERAL',
+      eventName: 'Demographics & general health',
     },
     {
-      date: 'April 2020',
+      eventBadge: 'SYMPTOMS',
+      eventName: 'Symptoms',
+    },
+    {
+      eventBadge: 'TWO_PEOPLE',
+      eventName: 'For two people',
+    },
+    {
+      eventBadge: 'SEVERITY',
+      eventName: 'Covid severity',
+    },
+    {
+      eventBadge: 'TEST_RESULTS',
+      eventName: 'Test results',
+    },
+    {
+      eventBadge: 'VACCINATION_STATUS',
+      eventName: 'Vaccine status',
+    },
+    {
+      eventBadge: 'VACCINE_SIDE_EFFECTS',
+      eventName: 'Vaccine side effects',
+    },
+    {
+      eventBadge: 'HESITANCY',
+      eventName: 'Vaccine hesitancy',
+    },
+    {
+      eventBadge: 'DIET_AND_LIFESTYLE',
+      eventName: 'Diet & Lifestyle',
+    },
+    {
+      eventBadge: 'MENTAL_HEALTH',
+      eventName: 'Mental Health',
+    },
+  ],
+  timelineEvents: [
+    {
+      date: 'some date string',
       eventType: 'COMPLETED_SCIENTIFIC_STUDY',
-      title: 'Skin Rash as a key symptom of COVID',
-      subTitle: 'Findings Published',
-      ongoing: false,
-    },
-    {
-      date: 'May 2020',
-      eventType: 'SCIENTIFIC_FINDING',
-      title: 'Risk of COVID-19 in front-line health-care workers vs the general community',
-      summary: 'Front-line healthcare workers with adequate PPE still have 3x higher risk of catching COVID',
-      externalLink: 'More details',
-      externalLinkText: 'https://zoe.com/blog/123/',
-      ongoing: false,
+      title: 'some title',
     },
   ],
 };
