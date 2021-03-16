@@ -5,12 +5,12 @@ import { shareVaccineBanner, shareVaccine } from '@assets';
 
 import { ExternalCallout } from '../ExternalCallout';
 
-interface Props {
+interface IProps {
   screenName: string;
   isSharing?: boolean;
 }
 
-export const ShareVaccineCard: React.FC<Props> = ({ screenName, isSharing = false }) => {
+export function ShareVaccineCard({ screenName, isSharing = false }: IProps) {
   const { navigate } = useNavigation();
 
   return (
@@ -36,4 +36,4 @@ export const ShareVaccineCard: React.FC<Props> = ({ screenName, isSharing = fals
       )}
     </>
   );
-};
+}

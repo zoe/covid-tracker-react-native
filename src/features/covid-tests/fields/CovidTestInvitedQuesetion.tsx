@@ -11,18 +11,18 @@ export interface ICovidTestInvitedData {
   invitedToTest: string;
 }
 
-interface Props {
+interface IProps {
   formikProps: FormikProps<ICovidTestInvitedData>;
   test?: CovidTest;
 }
 
-export interface CovidTestInvitedQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestInvitedQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestInvitedQuestion: CovidTestInvitedQuestion<Props, ICovidTestInvitedData> = (props: Props) => {
+export const CovidTestInvitedQuestion: ICovidTestInvitedQuestion<IProps, ICovidTestInvitedData> = (props: IProps) => {
   const { formikProps } = props;
   return isGBCountry() ? (
     <YesNoField

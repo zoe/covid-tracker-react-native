@@ -6,7 +6,7 @@ import { isAndroid } from '@covid/utils/platform';
 
 import { ICommonShareProps, BaseShareAppCard, shareUrl, shareApp } from './BaseShareApp';
 
-interface Props extends ICommonShareProps {
+interface IProps extends ICommonShareProps {
   area: AreaStatsResponse | null;
 }
 
@@ -26,7 +26,7 @@ const getViralShareMessage = (area: AreaStatsResponse | null) => {
 
 export const shareAppWithAreaStats = (area: AreaStatsResponse | null) => shareApp(getViralShareMessage(area));
 
-export const ShareAppCardViral: React.FC<Props> = (props) => {
+export function ShareAppCardViral(props: IProps) {
   const {
     area,
     onSharePress = () => {
@@ -41,4 +41,4 @@ export const ShareAppCardViral: React.FC<Props> = (props) => {
       onSharePress={onSharePress}
     />
   );
-};
+}

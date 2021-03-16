@@ -15,7 +15,7 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
 import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 
-import { VaccineNameQuestion } from './VaccineNameQuestion';
+import { IVaccineNameQuestion } from './VaccineNameQuestion';
 
 export interface IVaccineDoseData {
   firstDoseDate: Date | undefined;
@@ -158,7 +158,10 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
     <>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
-          <VaccineNameQuestion formikProps={formikProps as FormikProps<IVaccineDoseData>} firstDose={props.firstDose} />
+          <IVaccineNameQuestion
+            formikProps={formikProps as FormikProps<IVaccineDoseData>}
+            firstDose={props.firstDose}
+          />
           {renderNameError}
         </View>
         <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>

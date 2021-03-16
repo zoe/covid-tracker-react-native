@@ -10,7 +10,7 @@ export interface IBloodGroupData {
   bloodGroup: string;
 }
 
-interface Props {
+interface IProps {
   formikProps: FormikProps<IBloodGroupData>;
 }
 
@@ -23,7 +23,7 @@ enum BloodGroupQuestionFields {
   PFNTS = 'pfnts',
 }
 
-export const BloodGroupQuestion = ({ formikProps }: Props) => {
+export function BloodGroupQuestion({ formikProps }: IProps) {
   const bloodTypeItems = [
     { label: i18n.t('blood-group.answers.type-a'), value: BloodGroupQuestionFields.TYPE_A },
     { label: i18n.t('blood-group.answers.type-b'), value: BloodGroupQuestionFields.TYPE_B },
@@ -41,7 +41,7 @@ export const BloodGroupQuestion = ({ formikProps }: Props) => {
       items={bloodTypeItems}
     />
   );
-};
+}
 
 BloodGroupQuestion.initialFormValues = (): IBloodGroupData => {
   return {

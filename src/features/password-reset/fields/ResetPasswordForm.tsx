@@ -1,5 +1,5 @@
 import { Form } from 'native-base';
-import React, { FC } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
@@ -22,7 +22,7 @@ export interface IResetPasswordForm {
   handleSubmit: () => void;
 }
 
-const ResetPasswordForm: FC<IResetPasswordForm> = ({
+function ResetPasswordForm({
   values,
   touched,
   errors,
@@ -30,35 +30,37 @@ const ResetPasswordForm: FC<IResetPasswordForm> = ({
   handleBlur,
   handleSubmit,
   errorMessage,
-}) => (
-  <View>
-    <View style={styles.formItem}>
-      <HeaderText>{i18n.t('reset-password.title')}</HeaderText>
-      <Form>
-        <ValidatedTextInput
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCompleteType="email"
-          placeholder={i18n.t('reset-password.email-label')}
-          value={values.email}
-          onChangeText={handleChange('email')}
-          onBlur={handleBlur('email')}
-          error={touched.email && errors.email}
-          returnKeyType="go"
-        />
-
-        {touched.email && errors.email && <ErrorText> {i18n.t('reset-password.email-error')}</ErrorText>}
-      </Form>
-    </View>
+}: IResetPasswordForm) {
+  return (
     <View>
-      <ErrorText>{errorMessage}</ErrorText>
-    </View>
+      <View style={styles.formItem}>
+        <HeaderText>{i18n.t('reset-password.title')}</HeaderText>
+        <Form>
+          <ValidatedTextInput
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCompleteType="email"
+            placeholder={i18n.t('reset-password.email-label')}
+            value={values.email}
+            onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
+            error={touched.email && errors.email}
+            returnKeyType="go"
+          />
 
-    <View>
-      <BrandedButton onPress={handleSubmit}>{i18n.t('reset-password.button')}</BrandedButton>
+          {touched.email && errors.email && <ErrorText> {i18n.t('reset-password.email-error')}</ErrorText>}
+        </Form>
+      </View>
+      <View>
+        <ErrorText>{errorMessage}</ErrorText>
+      </View>
+
+      <View>
+        <BrandedButton onPress={handleSubmit}>{i18n.t('reset-password.button')}</BrandedButton>
+      </View>
     </View>
-  </View>
-);
+  );
+}
 
 const styles = StyleSheet.create({
   formItem: {

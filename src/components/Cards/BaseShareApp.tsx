@@ -50,7 +50,7 @@ export const share = async (prefix: string) => {
   shareApp(message);
 };
 
-export const BaseShareAppCard: React.FC<IProps> = ({ primaryText, secondaryText, ctaTitle, onSharePress }) => {
+export function BaseShareAppCard({ primaryText, secondaryText, ctaTitle, onSharePress }: IProps) {
   return (
     <View style={styles.container}>
       <View style={styles.socialIconContainer}>
@@ -63,7 +63,7 @@ export const BaseShareAppCard: React.FC<IProps> = ({ primaryText, secondaryText,
       </BrandedButton>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

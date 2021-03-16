@@ -8,13 +8,13 @@ interface ISelectableItem {
   value: string;
 }
 
-interface Props {
+interface IProps {
   items: ISelectableItem[];
   resetAnimation?: boolean;
   onSelected?: (item: ISelectableItem) => void;
 }
 
-export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected }) => {
+export function Selectable({ items, resetAnimation, onSelected }: IProps) {
   const [selected, setSelected] = useState<ISelectableItem | null>();
   const isSelected = (item: ISelectableItem): boolean => selected?.title === item.title;
 
@@ -41,7 +41,7 @@ export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected 
       ))}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   grid: {

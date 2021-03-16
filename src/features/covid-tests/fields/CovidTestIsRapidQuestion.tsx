@@ -11,18 +11,18 @@ export interface ICovidTestIsRapidData {
   isRapidTest: string;
 }
 
-interface Props {
+interface IProps {
   formikProps: FormikProps<ICovidTestIsRapidData>;
   test?: CovidTest;
 }
 
-export interface CovidTestIsRapidQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestIsRapidQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestIsRapidQuestion: CovidTestIsRapidQuestion<Props, ICovidTestIsRapidData> = (props: Props) => {
+export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion<IProps, ICovidTestIsRapidData> = (props: IProps) => {
   const { formikProps } = props;
   return (
     <YesNoField

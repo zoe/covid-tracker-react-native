@@ -16,16 +16,16 @@ import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts
 import i18n from '@covid/locale/i18n';
 import {
   ICovidTestDateData,
-  CovidTestDateQuestion,
+  ICovidTestDateQuestion,
   ICovidTestInvitedData,
-  CovidTestInvitedQuestion,
+  ICovidTestInvitedQuestion,
   ICovidTestLocationData,
-  CovidTestLocationQuestion,
+  ICovidTestLocationQuestion,
   ICovidTestMechanismData,
-  CovidTestMechanismQuestion,
+  ICovidTestMechanismQuestion,
   ICovidTestResultData,
-  CovidTestResultQuestion,
-  CovidTestIsRapidQuestion,
+  ICovidTestResultQuestion,
+  ICovidTestIsRapidQuestion,
   ICovidTestIsRapidData,
 } from '@covid/features/covid-tests/fields/';
 import Analytics, { events } from '@covid/core/Analytics';
@@ -222,14 +222,17 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
-                  <CovidTestDateQuestion formikProps={props as FormikProps<ICovidTestDateData>} test={test} />
-                  <CovidTestMechanismQuestion formikProps={props as FormikProps<ICovidTestMechanismData>} test={test} />
-                  <CovidTestLocationQuestion formikProps={props as FormikProps<ICovidTestLocationData>} test={test} />
-                  <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
+                  <ICovidTestDateQuestion formikProps={props as FormikProps<ICovidTestDateData>} test={test} />
+                  <ICovidTestMechanismQuestion
+                    formikProps={props as FormikProps<ICovidTestMechanismData>}
+                    test={test}
+                  />
+                  <ICovidTestLocationQuestion formikProps={props as FormikProps<ICovidTestLocationData>} test={test} />
+                  <ICovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
                   {hasMechanism && hasResult && (
-                    <CovidTestIsRapidQuestion formikProps={props as FormikProps<ICovidTestIsRapidData>} test={test} />
+                    <ICovidTestIsRapidQuestion formikProps={props as FormikProps<ICovidTestIsRapidData>} test={test} />
                   )}
-                  <CovidTestInvitedQuestion formikProps={props as FormikProps<ICovidTestInvitedData>} test={test} />
+                  <ICovidTestInvitedQuestion formikProps={props as FormikProps<ICovidTestInvitedData>} test={test} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && props.submitCount > 0 && (

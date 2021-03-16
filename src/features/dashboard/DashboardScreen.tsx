@@ -40,12 +40,12 @@ import NavigatorService from '@covid/NavigatorService';
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
 
-interface Props {
+interface IProps {
   navigation: DrawerNavigationProp<ScreenParamList>;
   route: RouteProp<ScreenParamList, 'Dashboard'>;
 }
 
-export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+export function DashboardScreen({ navigation, route }: IProps) {
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
@@ -198,7 +198,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       </View>
     </CollapsibleHeaderScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   calloutContainer: {

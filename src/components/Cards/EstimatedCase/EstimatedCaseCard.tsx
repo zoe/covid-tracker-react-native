@@ -7,7 +7,7 @@ import { RightArrow } from '@assets';
 
 import { Text } from '../../typography';
 
-interface Props {
+interface IProps {
   primaryLabel: string;
   secondaryLabel: string;
   leftMetric: string;
@@ -18,7 +18,7 @@ interface Props {
   ctaOnPress: VoidFunction;
 }
 
-export const EstimatedCaseCard: React.FC<Props> = ({
+export function EstimatedCaseCard({
   primaryLabel,
   secondaryLabel,
   leftMetric,
@@ -27,7 +27,7 @@ export const EstimatedCaseCard: React.FC<Props> = ({
   rightMetricLabel,
   ctaLabel,
   ctaOnPress,
-}) => {
+}: IProps) {
   const onPress = () => {
     Analytics.track(events.ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED);
     ctaOnPress();
@@ -71,7 +71,7 @@ export const EstimatedCaseCard: React.FC<Props> = ({
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {

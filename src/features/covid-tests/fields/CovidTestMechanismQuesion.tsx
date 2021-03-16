@@ -15,19 +15,19 @@ export interface ICovidTestMechanismData {
   trainedWorker: string;
 }
 
-interface Props {
+interface IProps {
   formikProps: FormikProps<ICovidTestMechanismData>;
   test?: CovidTest;
 }
 
-export interface CovidTestMechanismQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestMechanismQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, ICovidTestMechanismData> = (
-  props: Props
+export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICovidTestMechanismData> = (
+  props: IProps
 ) => {
   const { formikProps, test } = props;
 

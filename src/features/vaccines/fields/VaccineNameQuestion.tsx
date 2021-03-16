@@ -9,16 +9,16 @@ import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationS
 
 import { IVaccineDoseData } from './VaccineDoseQuestion';
 
-interface Props {
+interface IProps {
   formikProps: FormikProps<IVaccineDoseData>;
   firstDose?: boolean;
 }
 
-export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
+export interface IVaccineNameQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (vaccine?: VaccineRequest) => Data;
 }
 
-export const VaccineNameQuestion: VaccineNameQuestion<Props, IVaccineDoseData> = (props: Props) => {
+export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData> = (props: IProps) => {
   const gbVaccineOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },
     { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },

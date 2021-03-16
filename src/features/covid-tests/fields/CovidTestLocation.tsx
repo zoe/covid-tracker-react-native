@@ -13,18 +13,20 @@ export interface ICovidTestLocationData {
   locationOther: string;
 }
 
-interface Props {
+interface IProps {
   formikProps: FormikProps<ICovidTestLocationData>;
   test?: CovidTest;
 }
 
-export interface CovidTestLocationQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestLocationQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestLocationQuestion: CovidTestLocationQuestion<Props, ICovidTestLocationData> = (props: Props) => {
+export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovidTestLocationData> = (
+  props: IProps
+) => {
   const { formikProps } = props;
 
   const ukLocationItems = [

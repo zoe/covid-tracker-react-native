@@ -10,18 +10,18 @@ export interface ICovidTestResultData {
   result: string;
 }
 
-interface Props {
+interface IProps {
   formikProps: FormikProps<ICovidTestResultData>;
   test?: CovidTest;
 }
 
-export interface CovidTestResultQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestResultQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestResultQuestion: CovidTestResultQuestion<Props, ICovidTestResultData> = (props: Props) => {
+export const CovidTestResultQuestion: ICovidTestResultQuestion<IProps, ICovidTestResultData> = (props: IProps) => {
   const { formikProps } = props;
 
   const resultItems = [

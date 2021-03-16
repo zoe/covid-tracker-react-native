@@ -30,7 +30,7 @@ interface ILinkMenuItemProps {
   onPress?: () => void;
 }
 
-export const MenuItem: React.FC<IMenuItemProps> = ({ image, onPress, label, smallLabel, indicator }) => {
+export function MenuItem({ image, onPress, label, smallLabel, indicator }: IMenuItemProps) {
   return (
     <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
       <View style={{ flexDirection: 'row' }}>
@@ -43,16 +43,16 @@ export const MenuItem: React.FC<IMenuItemProps> = ({ image, onPress, label, smal
       {smallLabel != null && <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText>}
     </TouchableOpacity>
   );
-};
+}
 
-export const LinkItem: React.FC<ILinkMenuItemProps> = ({
+export function LinkItem({
   link,
   type,
   onPress = () => {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, { name: type });
     if (link) openWebLink(link);
   },
-}) => {
+}: ILinkMenuItemProps) {
   const getLabel = (): string => {
     switch (type) {
       case DrawerMenuItem.FAQ:
@@ -77,7 +77,7 @@ export const LinkItem: React.FC<ILinkMenuItemProps> = ({
       </View>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   icon: {

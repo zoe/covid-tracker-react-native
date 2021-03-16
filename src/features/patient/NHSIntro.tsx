@@ -28,12 +28,12 @@ export interface IData {
   nhsID: string;
 }
 
-type Props = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'NHSIntro'>;
   route: RouteProp<ScreenParamList, 'NHSIntro'>;
-};
+}
 
-export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
+export function NHSIntroScreen(props: IProps) {
   const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
   const patientService = useInjection<IPatientService>(Services.Patient);
@@ -155,4 +155,4 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
       </View>
     </Screen>
   );
-};
+}

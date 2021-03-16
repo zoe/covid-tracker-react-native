@@ -11,12 +11,12 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 
-interface ContributionCounterProps extends ITest {
+interface IProps extends ITest {
   variant: number;
   count: number | null;
 }
 
-export const ContributionCounter = (props: ContributionCounterProps) => {
+export function ContributionCounter(props: IProps) {
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   if (props.count) {
@@ -47,7 +47,7 @@ export const ContributionCounter = (props: ContributionCounterProps) => {
     ) : null;
   }
   return null;
-};
+}
 
 const styles = StyleSheet.create({
   contributingText: {

@@ -28,7 +28,7 @@ import { IRaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patie
 import { IDiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
-interface BackfillData extends IBloodPressureData, IRaceEthnicityData, IAtopyData, IDiabetesData, IBloodGroupData {}
+interface IBackfillData extends IBloodPressureData, IRaceEthnicityData, IAtopyData, IDiabetesData, IBloodGroupData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -113,7 +113,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     });
   }
 
-  handleProfileUpdate(formData: BackfillData) {
+  handleProfileUpdate(formData: IBackfillData) {
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
@@ -138,7 +138,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       });
   }
 
-  createPatientInfos(formData: BackfillData) {
+  createPatientInfos(formData: IBackfillData) {
     let infos: Partial<PatientInfosRequest> = {};
 
     if (this.state.needBloodPressureAnswer) {
@@ -239,7 +239,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             }
             return schema;
           }}
-          onSubmit={(values: BackfillData) => {
+          onSubmit={(values: IBackfillData) => {
             return this.handleProfileUpdate(values);
           }}>
           {(props) => {

@@ -42,7 +42,7 @@ const initialFormValues = {
   clinicalStudyNctIds: '',
 };
 
-interface YourStudyData {
+interface IYourStudyData {
   clinicalStudyNames: string;
   clinicalStudyContacts: string;
   clinicalStudyInstitutions: string;
@@ -306,7 +306,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     };
   }
 
-  handleSubmit(formData: YourStudyData) {
+  handleSubmit(formData: IYourStudyData) {
     const currentPatient = this.coordinator.patientData.patientState;
     const infos = this.createPatientInfos(formData);
 
@@ -336,7 +336,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         <Formik
           initialValues={this.getInitialFormValues()}
           validationSchema={this.registerSchema}
-          onSubmit={(values: YourStudyData) => this.handleSubmit(values)}>
+          onSubmit={(values: IYourStudyData) => this.handleSubmit(values)}>
           {(props) => {
             return (
               <Form>
@@ -425,7 +425,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     );
   }
 
-  private createPatientInfos(formData: YourStudyData) {
+  private createPatientInfos(formData: IYourStudyData) {
     // This is to split up the US specific fields, from the cohorts. This is a neat way to do it without repeating the country filtering logic above
     const {
       clinicalStudyNames,

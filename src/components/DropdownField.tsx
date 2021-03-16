@@ -1,14 +1,6 @@
 import { Label, View } from 'native-base';
 import React, { useState, useEffect } from 'react';
-import {
-  PickerItemProps,
-  StyleSheet,
-  PickerProps,
-  TouchableOpacity,
-  Text,
-  Image,
-  ImageSourcePropType,
-} from 'react-native';
+import { PickerItemProps, StyleSheet, PickerProps, Text, Image, ImageSourcePropType } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { colors } from '@theme';
@@ -18,7 +10,7 @@ import DropdownIcon from '@assets/icons/DropdownIcon';
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
 
-interface DropdownFieldProps {
+interface IProps {
   placeholder?: string | undefined;
   selectedValue?: any;
   onValueChange: any;
@@ -31,14 +23,14 @@ interface DropdownFieldProps {
   itemIcons?: ImageSourcePropType[];
 }
 
-interface SelectedItemI {
+interface ISelectedItem {
   index: number;
   label?: string;
 }
 
 const DROPDOWN_ROW_HEIGHT = 48.6;
 
-export const DropdownField: React.FC<DropdownFieldProps> = ({
+export function DropdownField({
   label,
   error,
   onlyPicker,
@@ -46,7 +38,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
   selectedValue,
   onValueChange,
   itemIcons,
-}) => {
+}: IProps) {
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
     return (
@@ -58,7 +50,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
   };
 
   // Returns selected index & label
-  const getSelectedLabel = (items: PickerItemProps[], selected: string): SelectedItemI => {
+  const getSelectedLabel = (items: PickerItemProps[], selected: string): ISelectedItem => {
     let defaultIndex = -1;
     const label = items.find((item, index) => {
       const isSelected = item.value === selected;
@@ -165,7 +157,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
       )}
     </FieldWrapper>
   );
-};
+}
 
 const styles = StyleSheet.create({
   fieldWrapper: {

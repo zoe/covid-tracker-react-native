@@ -26,16 +26,16 @@ import { setLoggedVaccine } from '@covid/core/state';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
-type Props = {
+type IProps = {
   navigation: StackNavigationProp<ScreenParamList, 'AboutYourVaccine'>;
   route: RouteProp<ScreenParamList, 'AboutYourVaccine'>;
 };
 
 const registerSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema());
 
-interface AboutYourVaccineData extends IVaccineDoseData {}
+interface IAboutYourVaccineData extends IVaccineDoseData {}
 
-export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) => {
+export function AboutYourVaccineScreen({ route, navigation }: IProps) {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -62,7 +62,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     return assessmentData.vaccineData && assessmentData.vaccineData.doses[1] !== undefined;
   }
 
-  const processFormDataForSubmit = (formData: AboutYourVaccineData) => {
+  const processFormDataForSubmit = (formData: IAboutYourVaccineData) => {
     if (!submitting) {
       setSubmitting(true);
       const vaccine: Partial<VaccineRequest> = {
@@ -112,7 +112,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     coordinator.gotoNextScreen(route.name);
   };
 
-  const checkDateChangePrompt = (formData: AboutYourVaccineData) => {
+  const checkDateChangePrompt = (formData: IAboutYourVaccineData) => {
     Alert.alert(
       i18n.t('vaccines.your-vaccine.date-change-confirm'),
       i18n.t('vaccines.your-vaccine.date-change-text'),
@@ -179,7 +179,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     </TouchableOpacity>
   );
 
-  const dateHasBeenEdited = (formData: AboutYourVaccineData) => {
+  const dateHasBeenEdited = (formData: IAboutYourVaccineData) => {
     // This is quite verbose vs a one-line return for easier reading
     if (assessmentData.vaccineData === undefined || assessmentData.vaccineData.doses === undefined) {
       return false;
@@ -229,11 +229,11 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       <Formik
         initialValues={{ ...buildInitialValues(assessmentData.vaccineData) }}
         validationSchema={registerSchema}
-        onSubmit={(formData: AboutYourVaccineData) =>
+        onSubmit={(formData: IAboutYourVaccineData) =>
           // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
           dateHasBeenEdited(formData) ? checkDateChangePrompt(formData) : processFormDataForSubmit(formData)
         }>
-        {(props: FormikProps<AboutYourVaccineData>) => {
+        {(props: FormikProps<IAboutYourVaccineData>) => {
           return (
             <Form style={{ flex: 1 }}>
               <View style={{ marginHorizontal: 16, marginBottom: 32 }}>
@@ -273,7 +273,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       </Formik>
     </Screen>
   );
-};
+}
 
 const styles = StyleSheet.create({
   labelStyle: {

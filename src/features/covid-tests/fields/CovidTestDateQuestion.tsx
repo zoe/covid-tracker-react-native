@@ -20,18 +20,18 @@ export interface ICovidTestDateData {
   dateTakenSpecific: Date | undefined;
 }
 
-interface Props {
+interface IProps {
   formikProps: FormikProps<ICovidTestDateData>;
   test?: CovidTest;
 }
 
-export interface CovidTestDateQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestDateQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestDateQuestion: CovidTestDateQuestion<Props, ICovidTestDateData> = (props: Props) => {
+export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDateData> = (props: IProps) => {
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 

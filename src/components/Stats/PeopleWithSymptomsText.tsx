@@ -10,12 +10,14 @@ interface IProps {
   area: string;
 }
 
-export const PeopleWithSymptomsText: React.FC<IProps> = ({ area }) => (
-  <Text style={styles.estimatedCases}>
-    {i18n.t('thank-you.people-with-covid-in')}
-    <RegularBoldText>{area}</RegularBoldText> + {i18n.t('thank-you.today')}
-  </Text>
-);
+export function PeopleWithSymptomsText({ area }: IProps) {
+  return (
+    <Text style={styles.estimatedCases}>
+      {i18n.t('thank-you.people-with-covid-in')}
+      <RegularBoldText>{area}</RegularBoldText> + {i18n.t('thank-you.today')}
+    </Text>
+  );
+}
 
 const styles = StyleSheet.create({
   estimatedCases: {
