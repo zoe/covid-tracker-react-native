@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 
@@ -23,6 +23,7 @@ import NavigatorService from '@covid/NavigatorService';
 import { useMessage } from '@covid/common';
 import { selectApp, setLoggedVaccine } from '@covid/core/state';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { openWebLink } from '@covid/utils/links';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -165,7 +166,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
                   action: () => {
                     removeMessage();
                     dispatch(setLoggedVaccine(false));
-                    Linking.openURL(
+                    openWebLink(
                       'https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/information-for-dig-om-vaccinationen/efter-vaccinationen--fortsatt-folja-de-allmanna-raden/'
                     );
                   },
