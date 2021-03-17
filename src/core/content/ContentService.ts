@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 
 import { AsyncStorageService, PERSONALISED_LOCAL_DATA, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
-import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
@@ -20,7 +20,6 @@ export interface IContentService {
   setAskedToRateStatus(status: string): void;
   getUserCount(): Promise<string | null>;
   getStartupInfo(): Promise<StartupInfo | null>;
-  getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   getFeaturedContent(): Promise<FeaturedContentResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
@@ -60,15 +59,6 @@ export default class ContentService implements IContentService {
     return await AsyncStorageService.getUserCount();
   }
 
-  async getLocalData(): Promise<PersonalisedLocalData> {
-    const item = await AsyncStorageService.getItem<string>(PERSONALISED_LOCAL_DATA);
-    if (!item) {
-      throw new Error('Local data not found');
-    }
-    const model = JSON.parse(item);
-    return model as PersonalisedLocalData;
-  }
-
   async getStartupInfo() {
     try {
       const info = await this.apiClient.getStartupInfo();
@@ -93,10 +83,6 @@ export default class ContentService implements IContentService {
 
   public setAskedToRateStatus(status: string) {
     AsyncStorageService.setAskedToRateStatus(status);
-  }
-
-  public async getAreaStats(patientId: string) {
-    return this.apiClient.getAreaStats(patientId);
   }
 
   public async getTrendLines(lad?: string): Promise<TrendLineResponse> {
