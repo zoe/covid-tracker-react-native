@@ -12,6 +12,7 @@ import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { openWebLink } from '@covid/utils/links';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features';
+import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUS'>;
@@ -47,6 +48,8 @@ export default class ThankYouUSScreen extends Component<Props, State> {
               <AntDesign name="checkcircle" style={styles.checkIcon} size={32} />
               <Text style={styles.thankYou}>{i18n.t('thank-you.report-tomorrow')}</Text>
 
+              <ShareAppCardViral />
+
               <RegularText style={styles.partnerContainer}>
                 {i18n.t('thank-you.thank-you-for-joining')}{' '}
                 <Text style={styles.partner}>Massachusetts General Hospital</Text>,{' '}
@@ -80,7 +83,6 @@ export default class ThankYouUSScreen extends Component<Props, State> {
 const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
-    backgroundColor: colors.backgroundFive,
     justifyContent: 'space-between',
   },
 
