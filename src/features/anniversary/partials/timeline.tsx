@@ -1,18 +1,46 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
+
+import { Text } from '@covid/components';
+
+import { TProgress, TTimelineEvent } from '../types';
 
 import StudyCard from './study-card';
 import TimelineNode from './timeline-node';
 import TimelineCard from './timeline-card';
-import { TProgress } from './progress-bar';
 import Highlight from './highlight';
 
-function Timeline() {
+interface IProps {
+  timelineEvents: TTimelineEvent[];
+}
+
+function Timeline({ timelineEvents }: IProps) {
   const progress: TProgress[] = ['COMPLETE', 'IN_PROGRESS', 'NOT_STARTED', 'NOT_STARTED'];
   const futureProgress: TProgress[] = ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+
+  const getMappedTimelineEvent = (timelineEvent: TTimelineEvent): ReactNode => {
+    switch (timelineEvent.eventType) {
+      case 'COMPLETED_SCIENTIFIC_STUDY':
+        return <Text>COMPLETED_SCIENTIFIC_STUDY</Text>;
+      case 'PUBLISHED_SCIENTIFIC_DISCOVERY':
+        return <Text>PUBLISHED_SCIENTIFIC_DISCOVERY</Text>;
+      case 'SCIENTIFIC_DISCOVERY':
+        return <Text>SCIENTIFIC_DISCOVERY</Text>;
+      case 'SCIENTIFIC_FINDING':
+        return <Text>SCIENTIFIC_FINDING</Text>;
+      case 'SIGNED_UP':
+        return <Text>SIGNED_UP</Text>;
+    }
+    return null;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.line} />
+      {timelineEvents.map((timelineEvent, index) => {
+        const key = `timeline-event-${index}`;
+        return <View key={key}>{getMappedTimelineEvent(timelineEvent)}</View>;
+      })}
       <TimelineNode />
       <TimelineCard />
       <StudyCard

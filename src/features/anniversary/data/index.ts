@@ -46,6 +46,26 @@ export const timelineData: ITimeline = {
   timelineEvents: [
     {
       date: 'some date string',
+      eventType: 'SIGNED_UP',
+      title: 'some title',
+    },
+    {
+      date: 'some date string',
+      eventType: 'SCIENTIFIC_FINDING',
+      title: 'some title',
+    },
+    {
+      date: 'some date string',
+      eventType: 'SCIENTIFIC_DISCOVERY',
+      title: 'some title',
+    },
+    {
+      date: 'some date string',
+      eventType: 'PUBLISHED_SCIENTIFIC_DISCOVERY',
+      title: 'some title',
+    },
+    {
+      date: 'some date string',
       eventType: 'COMPLETED_SCIENTIFIC_STUDY',
       title: 'some title',
     },

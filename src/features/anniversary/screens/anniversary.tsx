@@ -13,7 +13,7 @@ function Anniversary() {
   const [timeline, setTimeline] = useState<ITimeline>();
 
   useEffect(() => {
-    // load data here
+    // TODO: load data here
     setTimeout(() => {
       setTimeline(timelineData);
     }, 3000);
@@ -32,7 +32,7 @@ function Anniversary() {
         {timeline ? (
           <>
             <ReportCard reportedEvents={timeline.reportedEvents} />
-            <Timeline />
+            <Timeline timelineEvents={timeline.timelineEvents} />
           </>
         ) : (
           <LoadingIndicator />

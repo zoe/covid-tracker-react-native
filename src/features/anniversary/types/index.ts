@@ -26,7 +26,7 @@ export type TEvent =
 
 export type TStudy = 'ONGOING' | 'FUTURE';
 
-export interface ITimelineEvent {
+export type TTimelineEvent = {
   date: string;
   eventType: TEvent;
   externalLink?: string;
@@ -37,9 +37,9 @@ export interface ITimelineEvent {
   summary?: string;
   title: string;
   yourContribution?: string;
-}
+};
 
 export interface ITimeline {
   reportedEvents: TReportedEvent[];
-  timelineEvents: ITimelineEvent[];
+  timelineEvents: TTimelineEvent[];
 }
