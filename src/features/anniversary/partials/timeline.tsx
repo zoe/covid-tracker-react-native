@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Text } from '@covid/components';
-
 import { TProgress, TTimelineEvent } from '../types';
 
 import StudyCard from './study-card';
@@ -27,7 +25,7 @@ function Timeline({ timelineEvents }: IProps) {
       case 'NODE':
         return <TimelineNode timelineEvent={timelineEvent} />;
       case 'STUDY':
-        return <StudyCard timelineEvent={timelineEvent} />
+        return <StudyCard timelineEvent={timelineEvent} />;
     }
     return null;
   };

@@ -53,7 +53,7 @@ export const timelineData: ITimeline = {
       date: 'some date string',
       eventType: 'NODE',
       title: 'Your reports led to',
-      subTitle: '3 key scientific findings'
+      subTitle: '3 key scientific findings',
     },
     {
       date: 'some date string',
@@ -74,10 +74,16 @@ export const timelineData: ITimeline = {
     },
     {
       date: 'some date string',
+      eventType: 'HIGHLIGHT',
+      title: 'Keep reporting to unlock more discoveries',
+      ongoing: 'ONGOING',
+    },
+    {
+      date: 'some date string',
       eventType: 'STUDY',
       ongoing: 'FUTURE',
       progress: ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'],
-      subTitle: 'What is the impact of the pandemic on the nation\'s sleep habits and quality?',
+      subTitle: "What is the impact of the pandemic on the nation's sleep habits and quality?",
       summary: 'Stay with us to contribute!',
       title: 'Coming soon',
     },
@@ -87,11 +93,5 @@ export const timelineData: ITimeline = {
       title: 'Help us with future discoveries',
       ongoing: 'FUTURE',
     },
-    {
-      date: 'some date string',
-      eventType: 'HIGHLIGHT',
-      title: 'Keep reporting to unlock more discoveries',
-      ongoing: 'ONGOING',
-    }
   ],
 };
