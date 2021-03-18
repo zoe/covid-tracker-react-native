@@ -54,15 +54,13 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
           </RegularBoldText>
           <SecondaryText style={styles.interestedTest}>{i18n.t('validation-study-info.visit-next')}</SecondaryText>
 
-          <View style={styles.buttonContainer}>
-            <BrandedButton
-              style={styles.mainButton}
-              onPress={() => {
-                appCoordinator.gotoNextScreen(this.props.route.name);
-              }}>
-              <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
-            </BrandedButton>
-          </View>
+          <BrandedButton
+            style={styles.mainButton}
+            onPress={() => {
+              appCoordinator.gotoNextScreen(this.props.route.name);
+            }}>
+            <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
+          </BrandedButton>
         </ScrollView>
       </SafeAreaView>
     );
@@ -73,8 +71,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 32,
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   buttonContainer: {
     width: '100%',
@@ -98,11 +94,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.purple,
   },
   buttonText: {
+    textAlign: 'center',
     color: colors.white,
   },
   interestedTitle: {
     marginTop: 20,
     fontSize: 20,
+    textAlign: 'center',
   },
   interestedTest: {
     textAlign: 'center',
