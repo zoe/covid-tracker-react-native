@@ -30,14 +30,13 @@ export class PatientService extends ApiClientBase implements IPatientService {
   public consentService: IConsentService;
 
   protected client = ApiClientBase.client;
-  protected userId = ApiClientBase.userId;
 
   public async myPatientProfile(): Promise<Profile | null> {
     try {
       // Append the userId to the endpoint for increased logging observability only.
       // (The backend ignores the appended value in favour of the authenticated userId
       // if there's any inconsistency.)
-      const data = (await this.client.get(`/patient_list/?u=${this.userId}`)).data as Profile[];
+      const data = (await this.client.get(`/patient_list/?u=${ApiClientBase.userId}`)).data as Profile[];
       return !!data && data.length > 0 ? data[0] : null;
     } catch (error) {
       handleServiceError(error);
@@ -47,7 +46,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
   public async listProfiles() {
     try {
-      const response = await this.client.get<Profile[] | null>(`/patient_list/?u=${this.userId}`);
+      const response = await this.client.get<Profile[] | null>(`/patient_list/?u=${ApiClientBase.userId}`);
       return response.data;
     } catch (error) {
       handleServiceError(error);
