@@ -151,7 +151,7 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   public async getUser(): Promise<UserResponse | null> {
     try {
-      const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
+      const { data: profile } = await this.client.get<UserResponse>(`/profile/?u=${ApiClientBase.userId}`);
       return profile;
     } catch (error) {
       handleServiceError(error);
