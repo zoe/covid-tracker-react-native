@@ -15,7 +15,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
-import { VaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
+import { IVaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
@@ -26,16 +26,16 @@ import { setLoggedVaccine } from '@covid/core/state';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
-type Props = {
+type IProps = {
   navigation: StackNavigationProp<ScreenParamList, 'AboutYourVaccine'>;
   route: RouteProp<ScreenParamList, 'AboutYourVaccine'>;
 };
 
 const registerSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema());
 
-interface AboutYourVaccineData extends VaccineDoseData {}
+interface IAboutYourVaccineData extends IVaccineDoseData {}
 
-export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) => {
+export function AboutYourVaccineScreen({ route, navigation }: IProps) {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -62,7 +62,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     return assessmentData.vaccineData && assessmentData.vaccineData.doses[1] !== undefined;
   }
 
-  const processFormDataForSubmit = (formData: AboutYourVaccineData) => {
+  const processFormDataForSubmit = (formData: IAboutYourVaccineData) => {
     if (!submitting) {
       setSubmitting(true);
       const vaccine: Partial<VaccineRequest> = {
@@ -112,7 +112,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     coordinator.gotoNextScreen(route.name);
   };
 
-  const checkDateChangePrompt = (formData: AboutYourVaccineData) => {
+  const checkDateChangePrompt = (formData: IAboutYourVaccineData) => {
     Alert.alert(
       i18n.t('vaccines.your-vaccine.date-change-confirm'),
       i18n.t('vaccines.your-vaccine.date-change-text'),
@@ -156,16 +156,16 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     );
   };
 
-  const renderFirstDoseUI = (props: FormikProps<VaccineDoseData>) => (
+  const renderFirstDoseUI = (props: FormikProps<IVaccineDoseData>) => (
     <>
       <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-      <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose />
+      <VaccineDoseQuestion formikProps={props as FormikProps<IVaccineDoseData>} firstDose />
     </>
   );
 
-  const renderSecondDoseUI = (props: FormikProps<VaccineDoseData>) =>
+  const renderSecondDoseUI = (props: FormikProps<IVaccineDoseData>) =>
     vaccineOrFormHasSecondDose() ? (
-      <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose={false} />
+      <VaccineDoseQuestion formikProps={props as FormikProps<IVaccineDoseData>} firstDose={false} />
     ) : null;
 
   const renderFindInfoLink = (
@@ -179,7 +179,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     </TouchableOpacity>
   );
 
-  const dateHasBeenEdited = (formData: AboutYourVaccineData) => {
+  const dateHasBeenEdited = (formData: IAboutYourVaccineData) => {
     // This is quite verbose vs a one-line return for easier reading
     if (assessmentData.vaccineData === undefined || assessmentData.vaccineData.doses === undefined) {
       return false;
@@ -196,7 +196,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     return date1Changed || date2Changed;
   };
 
-  const buildInitialValues = (vaccine?: VaccineRequest): VaccineDoseData => {
+  const buildInitialValues = (vaccine?: VaccineRequest): IVaccineDoseData => {
     return {
       firstDoseDate: vaccine?.doses[0]?.date_taken_specific
         ? moment(vaccine.doses[0].date_taken_specific).toDate()
@@ -229,11 +229,11 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       <Formik
         initialValues={{ ...buildInitialValues(assessmentData.vaccineData) }}
         validationSchema={registerSchema}
-        onSubmit={(formData: AboutYourVaccineData) =>
+        onSubmit={(formData: IAboutYourVaccineData) =>
           // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
           dateHasBeenEdited(formData) ? checkDateChangePrompt(formData) : processFormDataForSubmit(formData)
         }>
-        {(props: FormikProps<AboutYourVaccineData>) => {
+        {(props: FormikProps<IAboutYourVaccineData>) => {
           return (
             <Form style={{ flex: 1 }}>
               <View style={{ marginHorizontal: 16, marginBottom: 32 }}>
@@ -273,7 +273,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       </Formik>
     </Screen>
   );
-};
+}
 
 const styles = StyleSheet.create({
   labelStyle: {

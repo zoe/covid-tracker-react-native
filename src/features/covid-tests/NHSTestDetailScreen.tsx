@@ -19,17 +19,23 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ClearButton } from '@covid/components/Buttons/ClearButton';
-import { NHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
+import {
+  INHSTestDateData,
+  INHSTestDateQuestion,
+  NHSTestDateQuestion,
+} from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
 import {
   CovidTestTimeQuestion,
   ICovidTestTimeData,
-  CovidTestResultData,
-  CovidTestResultQuestion,
-  NHSTestMechanismData,
+  ICovidTestResultData,
+  ICovidTestResultQuestion,
+  INHSTestMechanismData,
+  INHSTestMechanismQuestion,
   NHSTestMechanismQuestion,
+  CovidTestResultQuestion,
 } from '@covid/features/covid-tests/fields/';
 
-export interface NHSTestData extends NHSTestDateData, NHSTestMechanismData, CovidTestResultData, ICovidTestTimeData {}
+interface INHSTestData extends INHSTestDateData, INHSTestMechanismData, ICovidTestResultData, ICovidTestTimeData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSTestDetail'>;
@@ -86,7 +92,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
     }
   }
 
-  handleAction(formData: NHSTestData) {
+  handleAction(formData: INHSTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
 
@@ -168,17 +174,17 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
             ...CovidTestResultQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: NHSTestData) => {
+          onSubmit={(values: INHSTestData) => {
             return this.handleAction(values);
           }}>
           {(props) => {
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
-                  <NHSTestDateQuestion formikProps={props as FormikProps<NHSTestDateData>} test={test} />
+                  <NHSTestDateQuestion formikProps={props as FormikProps<INHSTestDateData>} test={test} />
                   <CovidTestTimeQuestion formikProps={props as FormikProps<ICovidTestTimeData>} test={test} />
-                  <NHSTestMechanismQuestion formikProps={props as FormikProps<NHSTestMechanismData>} test={test} />
-                  <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
+                  <NHSTestMechanismQuestion formikProps={props as FormikProps<INHSTestMechanismData>} test={test} />
+                  <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
                 </View>
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>

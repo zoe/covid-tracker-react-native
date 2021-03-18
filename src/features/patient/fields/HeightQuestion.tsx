@@ -12,7 +12,7 @@ import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 
-export interface HeightData {
+export interface IHeightData {
   height: string;
   feet: string;
   inches: string;
@@ -20,11 +20,11 @@ export interface HeightData {
 }
 
 interface FCWithStatic<P> extends React.FC<P> {
-  initialFormValues: () => HeightData;
+  initialFormValues: () => IHeightData;
 }
 
 interface Props {
-  formikProps: FormikProps<HeightData>;
+  formikProps: FormikProps<IHeightData>;
 }
 
 const HeightInInches: React.FC<Props> = ({ formikProps }) => {

@@ -5,7 +5,7 @@ import i18n from '@covid/locale/i18n';
 
 import ButtonsGroup, { ISingleButton } from './Inputs/ButtonsGroup';
 
-interface YesNoFieldProps {
+interface IProps {
   selectedValue: string;
   onValueChange: any;
   label?: string;
@@ -25,8 +25,8 @@ const Items = (): ISingleButton[] => [
   },
 ];
 
-export const YesNoField: React.FC<YesNoFieldProps> = ({ label, onValueChange, ...props }) => {
+export function YesNoField({ label, onValueChange, ...props }: IProps) {
   return <ButtonsGroup label={label} items={Items()} onValueChange={onValueChange} {...props} />;
-};
+}
 
 export default YesNoField;

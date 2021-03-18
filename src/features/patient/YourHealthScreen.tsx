@@ -14,22 +14,22 @@ import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
+import { IAtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { BloodGroupData, BloodGroupQuestion } from '@covid/features/patient/fields/BloodGroupQuestion';
+import { IBloodGroupData, BloodGroupQuestion } from '@covid/features/patient/fields/BloodGroupQuestion';
 import { stripAndRound } from '@covid/utils/number';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
-import { DiabetesQuestions, DiabetesData } from './fields/DiabetesQuestions';
+import { IBloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
+import { DiabetesQuestions, IDiabetesData } from './fields/DiabetesQuestions';
 
-export interface YourHealthData extends BloodPressureData, AtopyData, DiabetesData, BloodGroupData {
+export interface IYourHealthData extends IBloodPressureData, IAtopyData, IDiabetesData, IBloodGroupData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -135,7 +135,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     takesBloodPressureMedicationsSartan: Yup.string().required(),
   });
 
-  handleUpdateHealth(formData: YourHealthData) {
+  handleUpdateHealth(formData: IYourHealthData) {
     const currentPatient = patientCoordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     var infos = this.createPatientInfos(formData);
@@ -160,7 +160,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       });
   }
 
-  private createPatientInfos(formData: YourHealthData) {
+  private createPatientInfos(formData: IYourHealthData) {
     const smokerStatus = formData.smokerStatus === 'no' ? 'never' : formData.smokerStatus;
     let infos = {
       has_heart_disease: formData.hasHeartDisease === 'yes',
@@ -265,7 +265,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             }
             return schema;
           }}
-          onSubmit={(values: YourHealthData) => {
+          onSubmit={(values: IYourHealthData) => {
             return this.handleUpdateHealth(values);
           }}>
           {(props) => {
@@ -304,10 +304,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   />
 
                   {this.state.showDiabetesQuestion && (
-                    <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+                    <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />
                   )}
 
-                  <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />
+                  <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} />
 
                   <DropdownField
                     selectedValue={props.values.smokerStatus}
@@ -375,9 +375,9 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.takes-nsaids')}
                   />
 
-                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
+                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<IBloodPressureData>} />
 
-                  <BloodGroupQuestion formikProps={props as FormikProps<BloodGroupData>} />
+                  <BloodGroupQuestion formikProps={props as FormikProps<IBloodGroupData>} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && props.submitCount > 0 && (

@@ -15,18 +15,18 @@ import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContract
 import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import {
-  CovidTestDateData,
   CovidTestDateQuestion,
-  CovidTestInvitedData,
   CovidTestInvitedQuestion,
-  CovidTestLocationData,
-  CovidTestLocationQuestion,
-  CovidTestMechanismData,
-  CovidTestMechanismQuestion,
-  CovidTestResultData,
-  CovidTestResultQuestion,
   CovidTestIsRapidQuestion,
-  CovidTestIsRapidData,
+  CovidTestLocationQuestion,
+  CovidTestMechanismQuestion,
+  CovidTestResultQuestion,
+  ICovidTestDateData,
+  ICovidTestInvitedData,
+  ICovidTestIsRapidData,
+  ICovidTestLocationData,
+  ICovidTestMechanismData,
+  ICovidTestResultData,
 } from '@covid/features/covid-tests/fields/';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -36,13 +36,13 @@ import { ClearButton } from '@covid/components/Buttons/ClearButton';
 import NavigatorService from '@covid/NavigatorService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
-export interface CovidTestData
-  extends CovidTestDateData,
-    CovidTestMechanismData,
-    CovidTestResultData,
-    CovidTestLocationData,
-    CovidTestInvitedData,
-    CovidTestIsRapidData {}
+interface ICovidTestData
+  extends ICovidTestDateData,
+    ICovidTestMechanismData,
+    ICovidTestResultData,
+    ICovidTestLocationData,
+    ICovidTestInvitedData,
+    ICovidTestIsRapidData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestDetail'>;
@@ -116,7 +116,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   }
 
-  handleAction(formData: CovidTestData) {
+  handleAction(formData: ICovidTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
       if (formData.knowsDateOfTest === 'yes' && !formData.dateTakenSpecific) {
@@ -211,7 +211,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             ...CovidTestIsRapidQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: CovidTestData) => {
+          onSubmit={(values: ICovidTestData) => {
             return this.handleAction(values);
           }}>
           {(props) => {
@@ -222,14 +222,14 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
-                  <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
-                  <CovidTestMechanismQuestion formikProps={props as FormikProps<CovidTestMechanismData>} test={test} />
-                  <CovidTestLocationQuestion formikProps={props as FormikProps<CovidTestLocationData>} test={test} />
-                  <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
+                  <CovidTestDateQuestion formikProps={props as FormikProps<ICovidTestDateData>} test={test} />
+                  <CovidTestMechanismQuestion formikProps={props as FormikProps<ICovidTestMechanismData>} test={test} />
+                  <CovidTestLocationQuestion formikProps={props as FormikProps<ICovidTestLocationData>} test={test} />
+                  <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
                   {hasMechanism && hasResult && (
-                    <CovidTestIsRapidQuestion formikProps={props as FormikProps<CovidTestIsRapidData>} test={test} />
+                    <CovidTestIsRapidQuestion formikProps={props as FormikProps<ICovidTestIsRapidData>} test={test} />
                   )}
-                  <CovidTestInvitedQuestion formikProps={props as FormikProps<CovidTestInvitedData>} test={test} />
+                  <CovidTestInvitedQuestion formikProps={props as FormikProps<ICovidTestInvitedData>} test={test} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && props.submitCount > 0 && (

@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import Screen from '@covid/components/Screen';
-import { SchoolModel } from '@covid/core/schools/Schools.dto';
+import { ISchoolModel } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 function JoinHigherEducationScreen({ navigation, route }: IProps) {
-  const [schools, setSchools] = useState<SchoolModel[]>([]);
+  const [schools, setSchools] = useState<ISchoolModel[]>([]);
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const { patientData } = route.params;
   const currentJoinedGroup = useSelector((state: RootState) =>

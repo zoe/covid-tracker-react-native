@@ -10,12 +10,12 @@ import { colors } from '@theme';
 
 import { PeopleWithSymptomsText } from './PeopleWithSymptomsText';
 
-interface Props {
+interface IProps {
   areaStats: AreaStatsResponse | null;
   onPress: VoidFunction;
 }
 
-export const SymtomsCountStats: React.FC<Props> = ({ areaStats: area, onPress }) => {
+export function SymtomsCountStats({ areaStats: area, onPress }: IProps) {
   const date = moment();
   const formatNumber = (x: number | undefined) => I18n.toNumber(x ?? 0, { precision: 0 });
   const casePercentage = area?.population ? ((area.predicted_cases / area?.population) * 100).toFixed(1) : 0;
@@ -45,7 +45,7 @@ export const SymtomsCountStats: React.FC<Props> = ({ areaStats: area, onPress })
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   estimatedCaseContainer: {

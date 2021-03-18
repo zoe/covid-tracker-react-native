@@ -14,7 +14,7 @@ import { Profile, ProfileList } from '@covid/components/Collections/ProfileList'
 import { ProfileCard } from '@covid/components/ProfileCard';
 import { offlineService } from '@covid/Services';
 import { BackButton } from '@covid/components/PatientHeader';
-import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
+import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
@@ -29,7 +29,9 @@ type RenderProps = {
   route: RouteProp<ScreenParamList, 'SelectProfile'>;
 };
 
-export type SelectProfileCoordinator = (Coordinator & SelectProfile) | (Coordinator & SelectProfile & EditableProfile);
+export type SelectProfileCoordinator =
+  | (Coordinator & ISelectProfile)
+  | (Coordinator & ISelectProfile & IEditableProfile);
 
 const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
   const {
@@ -64,7 +66,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
   };
 
   const gotoCreateProfile = async () => {
-    (coordinator as EditableProfile).goToCreateProfile(await getNextAvatarName());
+    (coordinator as IEditableProfile).goToCreateProfile(await getNextAvatarName());
   };
 
   const getPatientThen = async (profile: Profile, callback: (patient: Profile) => void) => {
@@ -107,7 +109,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
                   assessmentFlow
                     ? () => {
                         getPatientThen(profile, (profile) => {
-                          (coordinator as EditableProfile).startEditProfile(profile);
+                          (coordinator as IEditableProfile).startEditProfile(profile);
                         });
                       }
                     : undefined
@@ -126,7 +128,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
                 if (assessmentFlow) {
                   coordinator.profileSelected(profile);
                 } else {
-                  (coordinator as EditableProfile).startEditProfile(profile);
+                  (coordinator as IEditableProfile).startEditProfile(profile);
                 }
               });
             }}
