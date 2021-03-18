@@ -6,12 +6,12 @@ import DropdownField from '@covid/components/DropdownField';
 import i18n from '@covid/locale/i18n';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
-export interface BloodGroupData {
+export interface IBloodGroupData {
   bloodGroup: string;
 }
 
-interface Props {
-  formikProps: FormikProps<BloodGroupData>;
+interface IProps {
+  formikProps: FormikProps<IBloodGroupData>;
 }
 
 enum BloodGroupQuestionFields {
@@ -23,7 +23,7 @@ enum BloodGroupQuestionFields {
   PFNTS = 'pfnts',
 }
 
-export const BloodGroupQuestion = ({ formikProps }: Props) => {
+export function BloodGroupQuestion({ formikProps }: IProps) {
   const bloodTypeItems = [
     { label: i18n.t('blood-group.answers.type-a'), value: BloodGroupQuestionFields.TYPE_A },
     { label: i18n.t('blood-group.answers.type-b'), value: BloodGroupQuestionFields.TYPE_B },
@@ -41,9 +41,9 @@ export const BloodGroupQuestion = ({ formikProps }: Props) => {
       items={bloodTypeItems}
     />
   );
-};
+}
 
-BloodGroupQuestion.initialFormValues = (): BloodGroupData => {
+BloodGroupQuestion.initialFormValues = (): IBloodGroupData => {
   return {
     bloodGroup: '',
   };
@@ -55,7 +55,7 @@ BloodGroupQuestion.schema = () => {
   });
 };
 
-BloodGroupQuestion.createDTO = (data: BloodGroupData): Partial<PatientInfosRequest> => {
+BloodGroupQuestion.createDTO = (data: IBloodGroupData): Partial<PatientInfosRequest> => {
   return {
     blood_group: data.bloodGroup,
   };

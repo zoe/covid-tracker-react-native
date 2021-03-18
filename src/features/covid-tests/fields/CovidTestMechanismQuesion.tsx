@@ -9,24 +9,26 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { fingerPrickX3, otherTestX3, spitX3, syringeX3, noseSwabX3 } from '@assets';
 import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
 
-export interface CovidTestMechanismData {
+export interface ICovidTestMechanismData {
   mechanism: string;
   mechanismSpecify: string;
   trainedWorker: string;
 }
 
-interface Props {
-  formikProps: FormikProps<CovidTestMechanismData>;
+interface IProps {
+  formikProps: FormikProps<ICovidTestMechanismData>;
   test?: CovidTest;
 }
 
-export interface CovidTestMechanismQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestMechanismQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, CovidTestMechanismData> = (props: Props) => {
+export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICovidTestMechanismData> = (
+  props: IProps
+) => {
   const { formikProps, test } = props;
 
   const mechanismItems = [
@@ -94,7 +96,7 @@ export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, Covid
   );
 };
 
-CovidTestMechanismQuestion.initialFormValues = (test?: CovidTest): CovidTestMechanismData => {
+CovidTestMechanismQuestion.initialFormValues = (test?: CovidTest): ICovidTestMechanismData => {
   let mechanism = '';
   let mechanismSpecify = '';
 
@@ -132,7 +134,7 @@ CovidTestMechanismQuestion.schema = () => {
   });
 };
 
-CovidTestMechanismQuestion.createDTO = (formData: CovidTestMechanismData): Partial<CovidTest> => {
+CovidTestMechanismQuestion.createDTO = (formData: ICovidTestMechanismData): Partial<CovidTest> => {
   return {
     ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
     ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),

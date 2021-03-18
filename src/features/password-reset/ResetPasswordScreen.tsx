@@ -10,10 +10,8 @@ import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
-
-import { ScreenParamList } from '../ScreenParamList';
-
-import ResetPasswordForm, { Props as FormProps } from './fields/ResetPasswordForm';
+import ResetPasswordForm, { IResetPasswordForm } from '@covid/features/password-reset/fields/ResetPasswordForm';
+import { ScreenParamList } from '@covid/features';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ResetPassword'>;
@@ -66,7 +64,7 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <Formik initialValues={{ email: '' }} validationSchema={this.registerSchema} onSubmit={this.handleClick}>
-            {(props: FormProps) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
+            {(props: IResetPasswordForm) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
           </Formik>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>

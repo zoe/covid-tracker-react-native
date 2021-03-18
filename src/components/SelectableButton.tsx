@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import { colors, fontStyles } from '@theme';
 import { RegularText } from '@covid/components/Text';
 
-interface SelectableButtonButtonProps {
+interface IProps {
   buttonProps?: any;
   textProps?: any;
   selected: boolean;
@@ -14,14 +14,7 @@ interface SelectableButtonButtonProps {
   onPress: () => void;
 }
 
-export const SelectableButton = ({
-  style,
-  children,
-  onPress,
-  buttonProps,
-  textProps,
-  selected,
-}: SelectableButtonButtonProps) => {
+export function SelectableButton({ style, children, onPress, buttonProps, textProps, selected }: IProps) {
   const backgroundColor = selected ? colors.brand : colors.backgroundTertiary;
   const textColor = selected ? colors.white : colors.primary;
   const btnStyle = [styles.button, style, { backgroundColor }];
@@ -33,7 +26,7 @@ export const SelectableButton = ({
       </RegularText>
     </Button>
   );
-};
+}
 
 const styles = StyleSheet.create({
   button: {

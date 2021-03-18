@@ -7,18 +7,18 @@ import { vaccineBrandDisplayName, VaccineBrands, VaccineRequest } from '@covid/c
 import DropdownField from '@covid/components/DropdownField';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
-import { VaccineDoseData } from './VaccineDoseQuestion';
+import { IVaccineDoseData } from './VaccineDoseQuestion';
 
-interface Props {
-  formikProps: FormikProps<VaccineDoseData>;
+interface IProps {
+  formikProps: FormikProps<IVaccineDoseData>;
   firstDose?: boolean;
 }
 
-export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
+export interface IVaccineNameQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (vaccine?: VaccineRequest) => Data;
 }
 
-export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = (props: Props) => {
+export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData> = (props: IProps) => {
   const gbVaccineOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },
     { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
@@ -108,7 +108,7 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = 
   );
 };
 
-VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDoseData => {
+VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): IVaccineDoseData => {
   return {
     firstBrand: vaccine?.doses[0]?.brand,
     firstDescription: vaccine?.doses[0]?.description,

@@ -2,11 +2,10 @@ import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { Textarea } from 'native-base';
-import { StyleSheet } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import { SymptomQuestions } from '@covid/features/assessment/fields/SymptomsTypes';
+import { ISymptomQuestions } from '@covid/features/assessment/fields/SymptomsTypes';
 import { FieldWrapper } from '@covid/components/Screen';
 
 export type OtherSymptomsData = {
@@ -17,7 +16,7 @@ type Props = {
   formikProps: FormikProps<OtherSymptomsData>;
 };
 
-export const OtherSymptomsQuestions: SymptomQuestions<Props, OtherSymptomsData> = (props: Props) => {
+export const OtherSymptomsQuestions: ISymptomQuestions<Props, OtherSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
   return (

@@ -30,12 +30,7 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-export interface IOption {
-  label: string;
-  value: string | number;
-}
-
-export interface YourWorkData {
+export interface IYourWorkData {
   isHealthcareStaff: HealthCareStaffOptions;
   isCarer: 'yes' | 'no';
   hasPatientInteraction: PatientInteractions;
@@ -85,13 +80,13 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     this.state = initialState;
   }
 
-  checkFormFilled = (props: FormikProps<YourWorkData>) => {
+  checkFormFilled = (props: FormikProps<IYourWorkData>) => {
     if (Object.keys(props.errors).length) return false;
     if (Object.keys(props.values).length === 0) return false;
     return true;
   };
 
-  handleUpdateWork(formData: YourWorkData) {
+  handleUpdateWork(formData: IYourWorkData) {
     const currentPatient = patientCoordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
@@ -110,7 +105,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
       );
   }
 
-  private createPatientInfos(formData: YourWorkData) {
+  private createPatientInfos(formData: IYourWorkData) {
     let infos = {
       ...(formData.isHealthcareStaff && {
         healthcare_professional: formData.isHealthcareStaff,
@@ -277,9 +272,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={{} as YourWorkData}
+          initialValues={{} as IYourWorkData}
           validationSchema={this.registerSchema}
-          onSubmit={(values: YourWorkData) => this.handleUpdateWork(values)}>
+          onSubmit={(values: IYourWorkData) => this.handleUpdateWork(values)}>
           {(props) => {
             const {
               isHealthcareStaff,

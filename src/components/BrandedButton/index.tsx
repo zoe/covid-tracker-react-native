@@ -1,18 +1,18 @@
 import { Button } from 'native-base';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
 
-import { ClickableProps } from '../Text';
+import { IClickableProps } from '../Text';
 import { ITest } from '../types';
 
-interface BrandedButtonProps extends ITest {
+interface IProps extends ITest {
   buttonProps?: any;
   textProps?: any;
 }
 
-export const BrandedButton = ({
+export function BrandedButton({
   style,
   children,
   onPress,
@@ -20,7 +20,7 @@ export const BrandedButton = ({
   buttonProps,
   textProps,
   hideLoading,
-}: ClickableProps & BrandedButtonProps) => {
+}: IClickableProps & IProps) {
   const isDisabled = enable === false;
 
   return (
@@ -39,7 +39,7 @@ export const BrandedButton = ({
       </Button>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   button: {

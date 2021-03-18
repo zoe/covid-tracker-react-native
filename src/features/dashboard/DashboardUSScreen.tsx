@@ -27,16 +27,15 @@ import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
 
-interface Props {
+interface IProps {
   navigation: DrawerNavigationProp<ScreenParamList>;
   route: RouteProp<ScreenParamList, 'DashboardUS'>;
 }
 
-export const DashboardUSScreen: React.FC<Props> = (params) => {
+export function DashboardUSScreen({ route, navigation }: IProps) {
   const app = useSelector(selectApp);
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
-  const { route, navigation } = params;
 
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const [showDietStudyPlayback] = useState<boolean | undefined>(startupInfo?.show_diet_score);
@@ -135,7 +134,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       </View>
     </CollapsibleHeaderScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   schoolModuleContainer: {

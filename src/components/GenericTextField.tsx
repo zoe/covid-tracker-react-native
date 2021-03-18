@@ -7,7 +7,7 @@ import { ValidatedTextInput } from './ValidatedTextInput';
 import { ValidationError } from './ValidationError';
 import { RegularText } from './Text';
 
-interface GenericTextFieldProps extends TextInputProps {
+interface IProps extends TextInputProps {
   formikProps: FormikProps<any>;
   name: string;
   label?: string;
@@ -18,7 +18,7 @@ interface GenericTextFieldProps extends TextInputProps {
   wrapperStyle?: StyleProp<ViewStyle>;
 }
 
-export const GenericTextField = (props: GenericTextFieldProps) => {
+export function GenericTextField(props: IProps) {
   const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
   return (
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
@@ -44,7 +44,7 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
       )}
     </FieldWrapper>
   );
-};
+}
 
 const styles = StyleSheet.create({
   fieldWrapper: {

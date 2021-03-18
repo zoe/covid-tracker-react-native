@@ -28,7 +28,7 @@ const initialFormValues = {
   ppeAvailabilityNever: '',
 };
 
-interface HealthWorkerExposureData {
+interface IHealthWorkerExposureData {
   interactedAnyPatients: string;
   treatedPatientsWithCovid: string;
   hasUsedPPEEquipment: string;
@@ -56,7 +56,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     this.state = initialState;
   }
 
-  handleUpdate = (formData: HealthWorkerExposureData) => {
+  handleUpdate = (formData: IHealthWorkerExposureData) => {
     try {
       const assessment = this.createAssessment(formData);
       assessmentService.saveAssessment(assessment);
@@ -66,7 +66,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     }
   };
 
-  private createAssessment(formData: HealthWorkerExposureData) {
+  private createAssessment(formData: IHealthWorkerExposureData) {
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientId = currentPatient.patientId;
 
@@ -163,7 +163,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
-          onSubmit={(values: HealthWorkerExposureData) => this.handleUpdate(values)}>
+          onSubmit={(values: IHealthWorkerExposureData) => this.handleUpdate(values)}>
           {(props) => {
             return (
               <Form>

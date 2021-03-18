@@ -17,7 +17,7 @@ export type Profile = {
   created_at?: Date;
 };
 
-interface Props extends ApiErrorState {
+interface IProps extends ApiErrorState {
   profiles: Profile[];
   isLoaded: boolean;
   addProfile?: VoidFunction;
@@ -26,7 +26,7 @@ interface Props extends ApiErrorState {
   renderCreateItem?: () => React.ReactNode;
 }
 
-export const ProfileList: React.FC<Props> = ({
+export function ProfileList({
   isApiError,
   status,
   error,
@@ -37,7 +37,7 @@ export const ProfileList: React.FC<Props> = ({
   onRetry,
   renderItem,
   renderCreateItem = () => <NewProfileCard />,
-}) => {
+}: IProps) {
   if (!isLoaded) {
     return <Loading status={status} error={error} onRetry={onRetry} />;
   }
@@ -64,7 +64,7 @@ export const ProfileList: React.FC<Props> = ({
       </View>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   profileList: {

@@ -1,12 +1,12 @@
 //
 // DTO / Responses
 //
-export interface SchoolGroupModel {
+export interface ISchoolGroupModel {
   id: string;
   name: string;
 }
 
-export interface SchoolModel {
+export interface ISchoolModel {
   id: string;
   name: string;
   size: number;
@@ -15,11 +15,11 @@ export interface SchoolModel {
 
 // Subscribed school stats
 
-export interface SubscribedSchoolGroupStats extends SchoolGroupModel {
+export interface ISubscribedSchoolGroupStats extends ISchoolGroupModel {
   status: string;
   cases: number;
   size: number;
-  school: SchoolModel;
+  school: ISchoolModel;
   patient_id: string;
   max_size: number;
   daily_assessments: number;
@@ -30,17 +30,17 @@ export interface SubscribedSchoolGroupStats extends SchoolGroupModel {
   report_updated_at: Date;
 }
 
-export interface SubscribedSchoolStats extends SchoolModel {
+export interface ISubscribedSchoolStats extends ISchoolModel {
   cases: number;
-  groups: SubscribedSchoolGroupStats[];
+  groups: ISubscribedSchoolGroupStats[];
 }
 
 // School Join / Leave request
 
-export interface SchoolGroupSubscriptionDTO {
+export interface ISchoolGroupSubscriptionDTO {
   patient_id: string;
 }
 
-export interface SchoolGroupJoinedResponse {
-  group: SubscribedSchoolGroupStats;
+export interface ISchoolGroupJoinedResponse {
+  group: ISubscribedSchoolGroupStats;
 }
