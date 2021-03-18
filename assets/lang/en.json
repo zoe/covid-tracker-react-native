@@ -297,6 +297,7 @@
         "store-pharmacy": "Store or pharmacy clinic",
         "work": "Work (excluding hospital or GP)",
         "local-health-department": "Local health department",
+        "school": "School",
         "other": "Other, please specify"
       }
     },

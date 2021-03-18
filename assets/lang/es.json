@@ -300,6 +300,7 @@
         "store-pharmacy": "Tienda o farmacia clínica",
         "work": "Trabajo (excluyendo hospital)",
         "local-health-department": "",
+        "school": "Escuela",
         "other": "Otro sitio, por favor especifique"
       }
     },

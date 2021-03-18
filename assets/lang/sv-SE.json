@@ -250,6 +250,7 @@
         "store-pharmacy": "Tienda o farmacia clínica",
         "work": "På arbetsplatsen (undantaget sjukhus och vårdcentral)",
         "local-health-department": "",
+        "school": "",
         "other": "Annat, ange"
       }
     },
