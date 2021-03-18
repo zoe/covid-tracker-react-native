@@ -1052,6 +1052,9 @@
     },
 
     "vaccines": {
+      "banner": {
+        "body": "It takes at least two weeks for vaccines to start reducing your risk of catching and spreading COVID. Stay safe and follow the guidance.\n\nHelp our research by taking a COVID test if we invite you, and keep logging!"
+      },
       "dose-symptoms": {
         "label": "About your recent vaccine",
         "title-1": "Are you experiencing any symptoms",
@@ -1496,6 +1499,8 @@
     "back": "Back",
     "cta-email-success": "Great, keep an eye on your inbox!",
     "cta-unsubscribe": "Opt-out of email updates",
+    "dismiss": "Dismiss",
+    "learn-more": "Learn more",
     "next": "Next",
     "insights": "Insights",
     "start": "Start"

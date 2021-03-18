@@ -2,8 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { useTheme } from '@covid/themes';
-
-import { BrandedButton } from '../../../BrandedButton';
+import { BrandedButton } from '@covid/components';
 
 interface IProps {
   active?: boolean;

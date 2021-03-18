@@ -16,7 +16,7 @@ export enum TrendlineTimeFilters {
   all = 'ALL',
 }
 
-export interface TrendLineChartProps {
+interface IProps {
   filter: TrendlineTimeFilters;
   viewMode: TrendLineViewMode;
 }
@@ -34,7 +34,7 @@ export const TrendLineEmptyView: React.FC = () => {
   );
 };
 
-export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode }) => {
+export function TrendLineChart({ filter, viewMode }: IProps) {
   const [html, setHtml] = useState<string>('');
   const [monthRangeLabel, setMonthRangeLabel] = useState<string>('');
   const webview = useRef<WebView>(null);
@@ -154,7 +154,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
       {!!monthRangeLabel && <RegularText style={{ textAlign: 'center', fontSize: 12 }}>{monthRangeLabel}</RegularText>}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   emptyView: {

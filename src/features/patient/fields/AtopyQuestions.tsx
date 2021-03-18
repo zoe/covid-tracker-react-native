@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import YesNoField from '@covid/components/YesNoField';
 
-export interface AtopyData {
+export interface IAtopyData {
   hasHayfever: string;
   hasEczema: string;
   hasAsthma: string;
@@ -13,7 +13,7 @@ export interface AtopyData {
 }
 
 interface Props {
-  formikProps: FormikProps<AtopyData>;
+  formikProps: FormikProps<IAtopyData>;
 }
 
 export class AtopyQuestions extends Component<Props, object> {

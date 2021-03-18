@@ -20,7 +20,7 @@ const initialFormValues = {
   description: '',
 };
 
-interface TreatmentData {
+interface ITreatmentData {
   description: string;
 }
 
@@ -34,7 +34,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     description: Yup.string(),
   });
 
-  handleUpdateTreatment = async (formData: TreatmentData) => {
+  handleUpdateTreatment = async (formData: ITreatmentData) => {
     let assessment: Partial<AssessmentInfosRequest> = {};
 
     if (formData.description) {
@@ -74,7 +74,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
-          onSubmit={(values: TreatmentData) => {
+          onSubmit={(values: ITreatmentData) => {
             return this.handleUpdateTreatment(values);
           }}>
           {(props) => {

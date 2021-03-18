@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { Label } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
@@ -16,10 +15,10 @@ import YesNoField from '@covid/components/YesNoField';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { colors } from '@theme';
 
-import { DiabetesTreamentsQuestion, DiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
-import { DiabetesOralMedsQuestion, DiabetesOralMedsData } from './DiabetesOralMedsQuestion';
+import { DiabetesTreamentsQuestion, IDiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
+import { DiabetesOralMedsQuestion, IDiabetesOralMedsData } from './DiabetesOralMedsQuestion';
 
-export interface DiabetesData extends DiabetesTreatmentsData, DiabetesOralMedsData {
+export interface IDiabetesData extends IDiabetesTreatmentsData, IDiabetesOralMedsData {
   diabetesType: string;
   diabetesTypeOther?: string;
   hemoglobinMeasureUnit: string;
@@ -44,16 +43,16 @@ export enum HemoglobinMeasureUnits {
 }
 
 interface Props {
-  formikProps: FormikProps<DiabetesData>;
+  formikProps: FormikProps<IDiabetesData>;
 }
 
-export interface FormikDiabetesInputFC<P, Data> extends React.FC<P> {
+export interface IFormikDiabetesInputFC<P, Data> extends React.FC<P> {
   initialFormValues: () => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<PatientInfosRequest>;
 }
 
-export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ formikProps }) => {
+export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = ({ formikProps }) => {
   const diabetesTypeOptions = [
     { label: i18n.t('diabetes.answer-type-1'), value: DiabetesTypeValues.TYPE_1 },
     { label: i18n.t('diabetes.answer-type-2'), value: DiabetesTypeValues.TYPE_2 },
@@ -131,10 +130,10 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
         showError
       />
 
-      <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<DiabetesTreatmentsData>} />
+      <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<IDiabetesTreatmentsData>} />
 
       {formikProps.values.diabetesTreatmentOtherOral && (
-        <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<DiabetesOralMedsData>} />
+        <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<IDiabetesOralMedsData>} />
       )}
 
       <YesNoField

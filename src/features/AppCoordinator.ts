@@ -33,7 +33,7 @@ import {
 } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
-import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
+import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
 
@@ -44,7 +44,7 @@ type ScreenFlow = {
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
-export class AppCoordinator extends Coordinator implements SelectProfile, EditableProfile {
+export class AppCoordinator extends Coordinator implements ISelectProfile, IEditableProfile {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
@@ -336,6 +336,10 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
   goToMentalHealthModal() {
     NavigatorService.navigate('MentalHealthModal');
+  }
+
+  goToAnniversary() {
+    NavigatorService.navigate('Anniversary');
   }
 }
 

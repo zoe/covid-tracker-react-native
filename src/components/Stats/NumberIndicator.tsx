@@ -4,14 +4,14 @@ import { View } from 'native-base';
 
 import { colors } from '@theme';
 
-interface Props {
+interface IProps {
   number?: number;
   style?: StyleProp<ViewStyle>;
 }
 
-export const NumberIndicator: React.FC<Props> = ({ number, style }) => (
-  <View style={[styles.dot, style]}>{number != null && <Text style={styles.label}>{number}</Text>}</View>
-);
+export function NumberIndicator({ number, style }: IProps) {
+  return <View style={[styles.dot, style]}>{number != null && <Text style={styles.label}>{number}</Text>}</View>;
+}
 
 const styles = StyleSheet.create({
   dot: {

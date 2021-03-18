@@ -7,11 +7,11 @@ import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { RegularText, RegularBoldText } from '@covid/components/Text';
 import { colors } from '@theme';
 
-interface Props {
+interface IProps {
   areaStats: AreaStatsResponse | null;
 }
 
-export const ContributionRank: React.FC<Props> = ({ areaStats: area }) => {
+export function ContributionRank({ areaStats: area }: IProps) {
   const formatNumber = (x: number | undefined) => I18n.toNumber(x ?? 0, { precision: 0 });
 
   // todo: different text if no change?
@@ -34,7 +34,7 @@ export const ContributionRank: React.FC<Props> = ({ areaStats: area }) => {
       </Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   countyRank: {

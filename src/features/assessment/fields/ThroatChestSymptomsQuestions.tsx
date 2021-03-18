@@ -1,17 +1,16 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { Item } from 'native-base';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { FieldLabel, RegularText } from '@covid/components/Text';
+import { RegularText } from '@covid/components/Text';
 import { CheckboxList } from '@covid/components/Checkbox';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import {
   createSymptomCheckboxes,
+  ISymptomQuestions,
   SymptomCheckBoxData,
-  SymptomQuestions,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 
 export type ThroatChestSymptomsData = ThroatChestSymptomsCheckBoxData & ThroatChestSymptomsFollowUpData;
@@ -34,7 +33,7 @@ type Props = {
   formikProps: FormikProps<ThroatChestSymptomsData>;
 };
 
-export const ThroatChestSymptomsQuestions: SymptomQuestions<Props, ThroatChestSymptomsData> = (props: Props) => {
+export const ThroatChestSymptomsQuestions: ISymptomQuestions<Props, ThroatChestSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
   const checkboxes: SymptomCheckBoxData<ThroatChestSymptomsCheckBoxData, ThroatChestSymptomsFollowUpData>[] = [

@@ -10,7 +10,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import {
   createSymptomCheckboxes,
   SymptomCheckBoxData,
-  SymptomQuestions,
+  ISymptomQuestions,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import DropdownField from '@covid/components/DropdownField';
@@ -46,7 +46,7 @@ type Props = {
   hasHayfever: boolean;
 };
 
-export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsData> = (props: Props) => {
+export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
   const fever_checkbox: SymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [

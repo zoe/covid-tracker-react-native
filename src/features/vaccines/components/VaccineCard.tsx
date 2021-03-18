@@ -7,15 +7,8 @@ import { Header3Text, RegularText } from '@covid/components/Text';
 import { tick } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { Dose, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { vaccineBrandDisplayName, Dose, VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import QuestionCircle from '@assets/icons/QuestionCircle';
-
-export const displayBrandNameMap = {
-  [VaccineBrands.PFIZER]: 'Pfizer/BioNTech',
-  [VaccineBrands.MODERNA]: 'Moderna',
-  [VaccineBrands.ASTRAZENECA]: 'Oxford/Astrazeneca',
-  [VaccineBrands.NOT_SURE]: i18n.t('vaccines.your-vaccine.name-i-dont-know'),
-};
 
 export const displayDescriptionNameMap = {
   mrna: 'mRNA',
@@ -65,6 +58,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
   return (
     <TouchableWithoutFeedback onPress={() => onPressEdit(1)}>
       <View style={styles.container}>
+        {/* Dose 1 */}
         <View style={styles.dose}>
           <View style={styles.row}>
             {renderTick(hasFirstDoseDate, hasFirstDoseName)}
@@ -73,7 +67,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
           <RegularText style={[!hasFirstDoseName && styles.pendingText]}>
             {hasFirstDoseName
               ? hasFirstDoseBrand
-                ? displayBrandNameMap[dose1.brand]
+                ? vaccineBrandDisplayName[dose1.brand]
                 : displayDescriptionNameMap[dose1.description]
               : warningIconAndText('vaccines.vaccine-card.name-missing')}
           </RegularText>
@@ -89,29 +83,35 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
           )}
         </View>
 
-        <View style={styles.dose}>
-          <View style={styles.row}>
-            {renderTick(hasSecondDoseDate, hasSecondDoseName)}
-            <Header3Text>{i18n.t('vaccines.vaccine-card.dose-2')}</Header3Text>
-          </View>
-
-          {hasSecondDoseDate && (
-            <View style={{ marginTop: 0, marginBottom: 8 }}>
-              <RegularText style={[!hasSecondDoseName && styles.pendingText]}>
-                {hasSecondDoseName
-                  ? hasSecondDoseBrand
-                    ? displayBrandNameMap[dose2.brand]
-                    : displayDescriptionNameMap[dose2.description]
-                  : warningIconAndText('vaccines.vaccine-card.name-missing')}
-              </RegularText>
+        {/* Dose 2 */}
+        {dose1.brand && dose1.brand === VaccineBrands.JOHNSON ? (
+          <></>
+        ) : (
+          <View style={styles.dose}>
+            <View style={styles.row}>
+              {renderTick(hasSecondDoseDate, hasSecondDoseName)}
+              <Header3Text>{i18n.t('vaccines.vaccine-card.dose-2')}</Header3Text>
             </View>
-          )}
 
-          <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
-            {hasSecondDoseDate ? formatVaccineDate(dose2 as Dose) : notYetLogged}
-          </RegularText>
-        </View>
+            {hasSecondDoseDate && (
+              <View style={{ marginTop: 0, marginBottom: 8 }}>
+                <RegularText style={[!hasSecondDoseName && styles.pendingText]}>
+                  {hasSecondDoseName
+                    ? hasSecondDoseBrand
+                      ? vaccineBrandDisplayName[dose2.brand]
+                      : displayDescriptionNameMap[dose2.description]
+                    : warningIconAndText('vaccines.vaccine-card.name-missing')}
+                </RegularText>
+              </View>
+            )}
 
+            <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
+              {hasSecondDoseDate ? formatVaccineDate(dose2 as Dose) : notYetLogged}
+            </RegularText>
+          </View>
+        )}
+
+        {/* CTA */}
         <Text style={{ marginTop: 8, marginBottom: 8, textAlign: 'center' }}>
           <Text style={styles.clickableText}>{i18n.t('vaccines.vaccine-card.edit-vaccine')}</Text>
         </Text>

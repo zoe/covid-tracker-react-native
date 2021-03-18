@@ -5,19 +5,21 @@ import { colors } from '@theme';
 
 import { ClickableText } from '../Text';
 
-interface Props {
+interface IProps {
   text: string;
   onPress: VoidFunction;
   styles?: any;
 }
 
-export const ClearButton: React.FC<Props> = ({ text, onPress, styles: containerStyles }) => (
-  <View style={[styles.container, containerStyles]}>
-    <ClickableText onPress={onPress} style={styles.text}>
-      {text}
-    </ClickableText>
-  </View>
-);
+export function ClearButton({ text, onPress, styles: containerStyles }: IProps) {
+  return (
+    <View style={[styles.container, containerStyles]}>
+      <ClickableText onPress={onPress} style={styles.text}>
+        {text}
+      </ClickableText>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

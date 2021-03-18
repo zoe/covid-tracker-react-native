@@ -24,7 +24,7 @@ import { stripAndRound } from '@covid/utils/number';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-interface YourHealthData {
+interface IYourHealthData {
   unwellMonthBefore: string;
   stillHavePastSymptoms: string;
   pastSymptomsDaysAgo: string;
@@ -100,7 +100,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     }),
   });
 
-  handleUpdateHealth(formData: YourHealthData) {
+  handleUpdateHealth(formData: IYourHealthData) {
     const currentPatient = patientCoordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
@@ -118,7 +118,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
       });
   }
 
-  private createPatientInfos(formData: YourHealthData) {
+  private createPatientInfos(formData: IYourHealthData) {
     let infos = {
       unwell_month_before: formData.unwellMonthBefore === 'yes',
     } as Partial<PatientInfosRequest>;
@@ -174,7 +174,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
-          onSubmit={(values: YourHealthData) => {
+          onSubmit={(values: IYourHealthData) => {
             return this.handleUpdateHealth(values);
           }}>
           {(props) => {

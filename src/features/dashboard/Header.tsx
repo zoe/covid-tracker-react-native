@@ -11,7 +11,7 @@ import { colors } from '@theme';
 import { RootState } from '@covid/core/state/root';
 import { ContentState } from '@covid/core/content/state/contentSlice';
 
-interface Props {
+interface IProps {
   reportedCount?: string;
   reportOnPress: VoidFunction;
 }
@@ -21,7 +21,7 @@ enum HeaderType {
   Expanded = 'expanded',
 }
 
-export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
+export function Header({ reportedCount, reportOnPress }: IProps) {
   const content = useSelector<RootState, ContentState>((state) => state.content);
   const [contributors, setContributors] = useState<string | null>(null);
 
@@ -63,9 +63,9 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
       )}
     </View>
   );
-};
+}
 
-export const CompactHeader: React.FC<Props> = ({ reportOnPress }) => {
+export function CompactHeader({ reportOnPress }: IProps) {
   const onReport = () => {
     Analytics.track(events.REPORT_NOW_CLICKED, { headerType: HeaderType.Compact });
     reportOnPress();
@@ -79,7 +79,7 @@ export const CompactHeader: React.FC<Props> = ({ reportOnPress }) => {
       </BrandedButton>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {

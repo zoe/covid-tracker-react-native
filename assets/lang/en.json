@@ -669,7 +669,7 @@
   },
 
   "validation-study-intro": {
-    "title": "We have a vital new COVID study and we need your help",
+    "title": "We have a vital COVID study and we need your help",
     "subtitle": "590,761 people like you have already joined the study. Please help us get to 700,000.",
     "info": "You just need to keep logging on this app",
     "yes": "Learn more",
@@ -977,6 +977,9 @@
   },
 
   "vaccines": {
+    "banner": {
+      "body": "It takes at least two weeks for vaccines to start reducing your risk of catching and spreading COVID. Stay safe and follow the guidance.\n\nHelp our research by taking a COVID test if we invite you, and keep logging!"
+    },
     "dose-symptoms": {
       "label": "About your recent vaccine",
       "title-1": "Are you experiencing any symptoms",
@@ -1491,6 +1494,8 @@
     "back": "Back",
     "cta-email-success": "Great, keep an eye on your inbox!",
     "cta-unsubscribe": "Opt-out of email updates",
+    "dismiss": "Dismiss",
+    "learn-more": "Learn more",
     "next": "Next",
     "insights": "Insights",
     "start": "Start"
