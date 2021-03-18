@@ -111,3 +111,6 @@ export { default as C19 } from './logos/C19';
 
 // avatars
 export * from './avatars';
+
+// cards
+export * from './cards';

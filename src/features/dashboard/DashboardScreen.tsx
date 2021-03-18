@@ -81,20 +81,21 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const runCurrentFeature = () => {
-    const now = new Date().getTime();
-    if (settings.featureRunDate) {
-      const featureRunDate = new Date(settings.featureRunDate).getTime();
-      if (featureRunDate > now) {
-        return;
-      }
-    }
-    switch (settings.currentFeature) {
-      case 'MENTAL_HEALTH_STUDY':
-        showMentalHealthModal();
-        return;
-      case 'UK_DIET_STUDY':
-        showDietStudy();
-    }
+    navigation.navigate('AnniversaryModal');
+    // const now = new Date().getTime();
+    // if (settings.featureRunDate) {
+    //   const featureRunDate = new Date(settings.featureRunDate).getTime();
+    //   if (featureRunDate > now) {
+    //     return;
+    //   }
+    // }
+    // switch (settings.currentFeature) {
+    //   case 'MENTAL_HEALTH_STUDY':
+    //     showMentalHealthModal();
+    //     return;
+    //   case 'UK_DIET_STUDY':
+    //     showDietStudy();
+    // }
   };
 
   const showMentalHealthModal = () => {

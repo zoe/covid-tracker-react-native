@@ -131,4 +131,5 @@ export type ScreenParamList = {
   Trendline: { lad?: string };
 
   Anniversary: undefined;
+  AnniversaryModal: undefined;
 };

@@ -11,7 +11,7 @@ interface IProps {
 
 function Highlight({ timelineEvent }: IProps) {
   const { ongoing, title } = timelineEvent;
-  const iconName: TIconName = ongoing === 'ONGOING' ? 'plan' : 'question-mark';
+  const iconName: TIconName = ongoing === 'ONGOING' ? 'blog' : 'question-mark';
   return (
     <View style={styles.container}>
       <View style={styles.row}>
