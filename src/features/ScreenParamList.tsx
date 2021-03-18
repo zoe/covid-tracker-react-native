@@ -129,4 +129,6 @@ export type ScreenParamList = {
   VaccineListMissing: { vaccine: VaccineRequest };
 
   Trendline: { lad?: string };
+
+  Anniversary: undefined;
 };
