@@ -10,6 +10,7 @@ interface IProps {
   children: ReactNode;
   footerTitle?: string;
   onPress?: () => void;
+  style?: object;
   withGutter?: boolean;
   withFooter?: boolean;
 }
@@ -21,9 +22,10 @@ function BasicPage({
   onPress = () => null,
   withGutter = false,
   withFooter = true,
+  style = {},
 }: IProps) {
   return (
-    <SafeLayout withGutter={withGutter}>
+    <SafeLayout withGutter={withGutter} style={style}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <BasicNavHeader />
         {children}

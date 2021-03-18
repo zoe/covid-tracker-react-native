@@ -82,13 +82,14 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     }
 
     return (
-      <CalendarPicker
-        onDateChange={setDoseDate}
-        initialDate={dateField}
-        selectedStartDate={dateField}
-        maxDate={maxDate}
-        minDate={minDate}
-      />
+      <View />
+      // <CalendarPicker
+      //   onDateChange={setDoseDate}
+      //   initialDate={dateField}
+      //   selectedStartDate={dateField}
+      //   maxDate={maxDate}
+      //   minDate={minDate}
+      // />
     );
   };
 

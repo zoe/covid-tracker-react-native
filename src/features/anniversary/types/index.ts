@@ -18,11 +18,10 @@ export type TReportedEvent = {
 export type TProgress = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'FUTURE';
 
 export type TEvent =
-  | 'SIGNED_UP'
-  | 'COMPLETED_SCIENTIFIC_STUDY'
-  | 'SCIENTIFIC_FINDING'
-  | 'SCIENTIFIC_DISCOVERY'
-  | 'PUBLISHED_SCIENTIFIC_DISCOVERY';
+  | 'HIGHLIGHT'
+  | 'FINDING'
+  | 'NODE'
+  | 'STUDY'
 
 export type TStudy = 'ONGOING' | 'FUTURE';
 
@@ -31,12 +30,11 @@ export type TTimelineEvent = {
   eventType: TEvent;
   externalLink?: string;
   externalLinkText?: string;
-  onging?: TStudy;
-  progress?: TProgress;
+  ongoing?: TStudy;
+  progress?: TProgress[];
   subTitle?: string;
   summary?: string;
   title: string;
-  yourContribution?: string;
 };
 
 export interface ITimeline {

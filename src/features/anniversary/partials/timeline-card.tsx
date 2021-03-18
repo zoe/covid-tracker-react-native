@@ -3,19 +3,26 @@ import { View, StyleSheet } from 'react-native';
 
 import { Icon, Link, Text } from '@covid/components';
 
-function TimelineCard() {
+import { TTimelineEvent } from '../types';
+
+interface IProps {
+  timelineEvent: TTimelineEvent;
+}
+
+function TimelineCard({ timelineEvent }: IProps) {
+  const { title, subTitle, externalLinkText } = timelineEvent;
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <Icon iconName="star" iconSize={18} />
         <Text textClass="pBold" style={{ marginLeft: 12 }}>
-          Timeline card
+          {title}
         </Text>
       </View>
       <Text textClass="h5Light" style={styles.body}>
-        First to identify loss of smell & taste as a key symptom of COVID
+        {subTitle}
       </Text>
-      <Link linkText="More details" onPress={() => null} style={{ marginBottom: 8 }} />
+      {externalLinkText && <Link linkText={externalLinkText} onPress={() => null} style={{ marginBottom: 8 }} />}
     </View>
   );
 }

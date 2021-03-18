@@ -46,28 +46,52 @@ export const timelineData: ITimeline = {
   timelineEvents: [
     {
       date: 'some date string',
-      eventType: 'SIGNED_UP',
-      title: 'some title',
+      eventType: 'NODE',
+      title: 'You started reporting',
     },
     {
       date: 'some date string',
-      eventType: 'SCIENTIFIC_FINDING',
-      title: 'some title',
+      eventType: 'NODE',
+      title: 'Your reports led to',
+      subTitle: '3 key scientific findings'
     },
     {
       date: 'some date string',
-      eventType: 'SCIENTIFIC_DISCOVERY',
-      title: 'some title',
+      eventType: 'FINDING',
+      title: 'Scientific finding',
+      subTitle: 'First to identify loss of smell & taste as a key symptom of COVID',
+      externalLink: 'http:...',
+      externalLinkText: 'Read more',
     },
     {
       date: 'some date string',
-      eventType: 'PUBLISHED_SCIENTIFIC_DISCOVERY',
-      title: 'some title',
+      eventType: 'STUDY',
+      ongoing: 'ONGOING',
+      progress: ['COMPLETE', 'COMPLETE', 'IN_PROGRESS', 'NOT_STARTED'],
+      subTitle: 'What protective factors helped people stay mentally resilient during the pandemic?',
+      summary: 'We’re collecting data. Keep contributing!',
+      title: 'Ongoing study',
     },
     {
       date: 'some date string',
-      eventType: 'COMPLETED_SCIENTIFIC_STUDY',
-      title: 'some title',
+      eventType: 'STUDY',
+      ongoing: 'FUTURE',
+      progress: ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'],
+      subTitle: 'What is the impact of the pandemic on the nation\'s sleep habits and quality?',
+      summary: 'Stay with us to contribute!',
+      title: 'Coming soon',
     },
+    {
+      date: 'some date string',
+      eventType: 'HIGHLIGHT',
+      title: 'Help us with future discoveries',
+      ongoing: 'FUTURE',
+    },
+    {
+      date: 'some date string',
+      eventType: 'HIGHLIGHT',
+      title: 'Keep reporting to unlock more discoveries',
+      ongoing: 'ONGOING',
+    }
   ],
 };

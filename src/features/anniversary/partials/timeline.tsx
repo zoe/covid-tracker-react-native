@@ -20,16 +20,14 @@ function Timeline({ timelineEvents }: IProps) {
 
   const getMappedTimelineEvent = (timelineEvent: TTimelineEvent): ReactNode => {
     switch (timelineEvent.eventType) {
-      case 'COMPLETED_SCIENTIFIC_STUDY':
-        return <Text>COMPLETED_SCIENTIFIC_STUDY</Text>;
-      case 'PUBLISHED_SCIENTIFIC_DISCOVERY':
-        return <Text>PUBLISHED_SCIENTIFIC_DISCOVERY</Text>;
-      case 'SCIENTIFIC_DISCOVERY':
-        return <Text>SCIENTIFIC_DISCOVERY</Text>;
-      case 'SCIENTIFIC_FINDING':
-        return <Text>SCIENTIFIC_FINDING</Text>;
-      case 'SIGNED_UP':
-        return <Text>SIGNED_UP</Text>;
+      case 'FINDING':
+        return <TimelineCard timelineEvent={timelineEvent} />;
+      case 'HIGHLIGHT':
+        return <Highlight timelineEvent={timelineEvent} />;
+      case 'NODE':
+        return <TimelineNode timelineEvent={timelineEvent} />;
+      case 'STUDY':
+        return <StudyCard timelineEvent={timelineEvent} />
     }
     return null;
   };
@@ -41,27 +39,6 @@ function Timeline({ timelineEvents }: IProps) {
         const key = `timeline-event-${index}`;
         return <View key={key}>{getMappedTimelineEvent(timelineEvent)}</View>;
       })}
-      <TimelineNode />
-      <TimelineCard />
-      <StudyCard
-        footerTitle="Footer title"
-        progress={progress}
-        studyType="ONGOING"
-        subTitle="Sub title"
-        title="Card title"
-      />
-      <TimelineNode />
-      <Highlight iconName="plan" title="Highlight title" />
-      <TimelineNode />
-      <StudyCard
-        footerTitle="Footer title"
-        progress={futureProgress}
-        studyType="FUTURE"
-        subTitle="Sub title"
-        title="Card title"
-      />
-      <TimelineNode />
-      <TimelineNode />
     </View>
   );
 }

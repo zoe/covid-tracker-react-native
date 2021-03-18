@@ -20,7 +20,7 @@ function Anniversary() {
   }, []);
 
   return (
-    <BasicPage withFooter={false}>
+    <BasicPage withFooter={false} style={{ backgroundColor: '#EEEEEF'}}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           You played a key role{' '}
