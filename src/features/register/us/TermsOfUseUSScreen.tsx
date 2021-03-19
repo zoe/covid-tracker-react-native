@@ -7,6 +7,7 @@ import { colors } from '@theme';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
+import { BrandedButton } from '@covid/components';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'TermsOfUseUS'>;
