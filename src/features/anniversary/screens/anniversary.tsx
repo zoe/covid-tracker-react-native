@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 
 import { BasicPage, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
+import { covidByZoeIcon } from '@assets';
 
 import { LoadingIndicator, ReportCard, Timeline } from '../partials';
 import { timelineData } from '../data';
@@ -12,6 +13,18 @@ function Anniversary() {
   const { grid } = useTheme();
   const [timeline, setTimeline] = useState<ITimeline>();
 
+  const getLogo = () => (
+    <Image
+      source={covidByZoeIcon}
+      style={{
+        aspectRatio: 2.25,
+        resizeMode: 'contain',
+        height: undefined,
+        width: 100,
+      }}
+    />
+  );
+
   useEffect(() => {
     // TODO: load data here
     setTimeout(() => {
@@ -20,8 +33,13 @@ function Anniversary() {
   }, []);
 
   return (
-    <BasicPage withFooter={false} style={{ backgroundColor: '#EEEEEF' }}>
-      <View style={{ paddingHorizontal: grid.gutter }}>
+    <BasicPage
+      withFooter={false}
+      navChildren={getLogo()}
+      hasStickyHeader
+      headerBackgroundColor="white"
+      style={{ backgroundColor: 'white' }}>
+      <View style={{ backgroundColor: '#EEEEEF', paddingHorizontal: grid.gutter, paddingVertical: grid.gutter }}>
         <Text textClass="h3" rhythm={32}>
           You played a key role{' '}
         </Text>
@@ -41,5 +59,7 @@ function Anniversary() {
     </BasicPage>
   );
 }
+
+// #EEEEEF
 
 export default Anniversary;
