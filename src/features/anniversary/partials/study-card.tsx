@@ -20,7 +20,7 @@ function StudyCard({ timelineEvent }: IProps) {
     <View style={styles.container}>
       <View style={styles.row}>
         <Icon
-          iconName={ongoing === 'ONGOING' ? 'search' : 'processed'}
+          iconName={ongoing === 'ONGOING' ? 'search' : 'placeholder-2'}
           iconSize={18}
           style={{ marginTop: 4, opacity }}
         />
