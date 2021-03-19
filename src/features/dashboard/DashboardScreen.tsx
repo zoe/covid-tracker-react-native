@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -36,6 +36,8 @@ import {
   selectDietStudy,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
+
+import { ImpactTimelineCard } from '../anniversary';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -166,7 +168,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <Button title="View Anniversary" onPress={() => navigation.navigate('Anniversary')} />
+        <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />
         <ShareVaccineCard screenName="Dashboard" />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />

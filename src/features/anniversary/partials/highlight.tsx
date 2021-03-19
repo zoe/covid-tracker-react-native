@@ -11,12 +11,13 @@ interface IProps {
 
 function Highlight({ timelineEvent }: IProps) {
   const { ongoing, title } = timelineEvent;
-  const iconName: TIconName = ongoing === 'ONGOING' ? 'blog' : 'question-mark';
+  const iconName: TIconName = ongoing === 'ONGOING' ? 'blog' : 'noun_Crystal-Ball_3517088-1';
+  const iconSize = ongoing === 'ONGOING' ? 18 : 24; // compensate for smaller icon
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.circle}>
-          <Icon iconName={iconName} iconSize={18} iconStyle={{ color: '#0165B5' }} />
+          <Icon iconName={iconName} iconSize={iconSize} iconStyle={{ color: '#0165B5' }} />
         </View>
         <Text textClass="h4Light" style={{ color: '#0165B5', marginLeft: 12 }}>
           {title}

@@ -5,7 +5,7 @@ import { TProgress, TTimelineEvent } from '../types';
 
 import StudyCard from './study-card';
 import TimelineNode from './timeline-node';
-import TimelineCard from './timeline-card';
+import FindingCard from './finding-card';
 import Highlight from './highlight';
 
 interface IProps {
@@ -19,7 +19,7 @@ function Timeline({ timelineEvents }: IProps) {
   const getMappedTimelineEvent = (timelineEvent: TTimelineEvent): ReactNode => {
     switch (timelineEvent.eventType) {
       case 'FINDING':
-        return <TimelineCard timelineEvent={timelineEvent} />;
+        return <FindingCard timelineEvent={timelineEvent} />;
       case 'HIGHLIGHT':
         return <Highlight timelineEvent={timelineEvent} />;
       case 'NODE':

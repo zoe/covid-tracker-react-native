@@ -9,12 +9,12 @@ interface IProps {
   timelineEvent: TTimelineEvent;
 }
 
-function TimelineCard({ timelineEvent }: IProps) {
+function FindingCard({ timelineEvent }: IProps) {
   const { title, subTitle, externalLinkText } = timelineEvent;
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Icon iconName="star" iconSize={18} />
+        <Icon iconName="Lightbulb" iconSize={18} />
         <Text textClass="pBold" style={{ marginLeft: 12 }}>
           {title}
         </Text>
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TimelineCard;
+export default FindingCard;
