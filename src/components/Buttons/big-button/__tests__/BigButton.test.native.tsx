@@ -1,8 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { fireEvent, queryByTestId, render } from '@testing-library/react-native';
 
-import { BigButton } from '@covid/components/BigButton';
+import { BigButton } from '@covid/components/Buttons/big-button';
 
 describe('Button', () => {
   it('should match snapshot', () => {
