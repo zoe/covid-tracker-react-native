@@ -28,6 +28,7 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 export interface IYourWorkData {
   isHealthcareStaff: HealthCareStaffOptions;
