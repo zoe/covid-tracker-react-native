@@ -29,11 +29,12 @@ import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { identify } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 import {
-  selectMentalHealthState,
-  setDashboardHasBeenViewed,
+  selectAnniversary,
   selectApp,
-  selectSettings,
+  setDashboardHasBeenViewed,
   selectDietStudy,
+  selectMentalHealthState,
+  selectSettings,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
 
@@ -48,6 +49,7 @@ interface Props {
 }
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const anniversary = useSelector(selectAnniversary);
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
@@ -83,21 +85,24 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const runCurrentFeature = () => {
-    navigation.navigate('AnniversaryModal');
-    // const now = new Date().getTime();
-    // if (settings.featureRunDate) {
-    //   const featureRunDate = new Date(settings.featureRunDate).getTime();
-    //   if (featureRunDate > now) {
-    //     return;
-    //   }
-    // }
-    // switch (settings.currentFeature) {
-    //   case 'MENTAL_HEALTH_STUDY':
-    //     showMentalHealthModal();
-    //     return;
-    //   case 'UK_DIET_STUDY':
-    //     showDietStudy();
-    // }
+    if (!anniversary.hasViewedModal) {
+      navigation.navigate('AnniversaryModal');
+      return;
+    }
+    const now = new Date().getTime();
+    if (settings.featureRunDate) {
+      const featureRunDate = new Date(settings.featureRunDate).getTime();
+      if (featureRunDate > now) {
+        return;
+      }
+    }
+    switch (settings.currentFeature) {
+      case 'MENTAL_HEALTH_STUDY':
+        showMentalHealthModal();
+        return;
+      case 'UK_DIET_STUDY':
+        showDietStudy();
+    }
   };
 
   const showMentalHealthModal = () => {

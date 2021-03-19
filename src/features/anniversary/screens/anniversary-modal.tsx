@@ -1,14 +1,27 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
 import { SafeLayout, Text } from '@covid/components';
 import { timelineModalCard } from '@assets';
+import { setHasViewedAnniversaryModal } from '@covid/core/state';
 
 import appCoordinator from '../../AppCoordinator';
 
 function AnniversaryModal() {
   const { goBack } = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleViewTimeline = (view: boolean) => {
+    dispatch(setHasViewedAnniversaryModal(true));
+    if (view) {
+      appCoordinator.goToAnniversary();
+      return;
+    }
+    goBack();
+  };
+
   return (
     <SafeLayout>
       <ScrollView>
@@ -41,12 +54,14 @@ function AnniversaryModal() {
           <View>
             <TouchableOpacity
               style={[styles.button, { backgroundColor: '#0165B5' }]}
-              onPress={() => appCoordinator.goToAnniversary()}>
+              onPress={() => handleViewTimeline(true)}>
               <Text textClass="pSmallLight" style={{ color: 'white' }}>
                 Discover your timeline
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, { backgroundColor: 'white' }]} onPress={() => goBack()}>
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: 'white' }]}
+              onPress={() => handleViewTimeline(false)}>
               <Text textClass="pSmallLight">Skip</Text>
             </TouchableOpacity>
           </View>
