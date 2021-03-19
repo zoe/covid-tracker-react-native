@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { BrandedButton } from '../index';
+import { BrandedButton } from '@covid/components';
 
 describe('branded-button tests', () => {
   it('renders correctly', () => {
