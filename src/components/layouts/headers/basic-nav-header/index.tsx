@@ -11,7 +11,7 @@ interface IProps {
   children?: ReactNode;
 }
 
-function BasicNavHeader({ backgroundColor, children, style = {} }: IProps) {
+function BasicNavHeader({ backgroundColor, children }: IProps) {
   const { goBack } = useNavigation();
   const { colors, grid } = useTheme();
   return (
@@ -19,9 +19,8 @@ function BasicNavHeader({ backgroundColor, children, style = {} }: IProps) {
       style={{
         backgroundColor: backgroundColor ? backgroundColor : 'transparent',
         paddingTop: grid.l,
-        marginBottom: grid.xxl,
         paddingHorizontal: grid.gutter,
-        paddingBottom: grid.s,
+        paddingBottom: grid.m,
       }}>
       <View style={styles.row}>
         <View style={{ flex: 1 }}>

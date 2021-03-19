@@ -39,7 +39,13 @@ function Anniversary() {
       hasStickyHeader
       headerBackgroundColor="white"
       style={{ backgroundColor: 'white' }}>
-      <View style={{ backgroundColor: '#EEEEEF', paddingHorizontal: grid.gutter, paddingVertical: grid.gutter }}>
+      <View
+        style={{
+          backgroundColor: '#EEEEEF',
+          flex: 1,
+          paddingHorizontal: grid.gutter,
+          paddingVertical: grid.gutter,
+        }}>
         <Text textClass="h3" rhythm={32}>
           You played a key role{' '}
         </Text>
