@@ -155,39 +155,41 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
 
-  useEffect(() => {
-    if (app.loggedVaccine) {
-      addMessage({
-        actions: [
-          ...(isSECountry()
-            ? [
-                {
-                  label: i18n.t('navigation.learn-more'),
-                  action: () => {
-                    removeMessage();
-                    dispatch(setLoggedVaccine(false));
-                    openWebLink(
-                      'https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/information-for-dig-om-vaccinationen/efter-vaccinationen--fortsatt-folja-de-allmanna-raden/'
-                    );
-                  },
-                },
-              ]
-            : []),
-          {
-            label: i18n.t('navigation.dismiss'),
-            action: () => {
-              removeMessage();
-              dispatch(setLoggedVaccine(false));
-            },
-          },
-        ],
-        messageType: 'BANNER',
-        message: {
-          body: i18n.t('vaccines.banner.body'),
-        },
-      });
-    }
-  }, [app.loggedVaccine]);
+  // Disable the banner popup until we can solve the "cannot call hook" problem
+  //
+  // useEffect(() => {
+  //   if (app.loggedVaccine) {
+  //     addMessage({
+  //       actions: [
+  //         ...(isSECountry()
+  //           ? [
+  //               {
+  //                 label: i18n.t('navigation.learn-more'),
+  //                 action: () => {
+  //                   removeMessage();
+  //                   dispatch(setLoggedVaccine(false));
+  //                   openWebLink(
+  //                     'https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/information-for-dig-om-vaccinationen/efter-vaccinationen--fortsatt-folja-de-allmanna-raden/'
+  //                   );
+  //                 },
+  //               },
+  //             ]
+  //           : []),
+  //         {
+  //           label: i18n.t('navigation.dismiss'),
+  //           action: () => {
+  //             removeMessage();
+  //             dispatch(setLoggedVaccine(false));
+  //           },
+  //         },
+  //       ],
+  //       messageType: 'BANNER',
+  //       message: {
+  //         body: i18n.t('vaccines.banner.body'),
+  //       },
+  //     });
+  //   }
+  // }, [app.loggedVaccine]);
 
   return (
     <View style={styles.rootContainer}>

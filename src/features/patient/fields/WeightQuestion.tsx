@@ -12,7 +12,7 @@ import { RegularText } from '@covid/components/Text';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
-export interface WeightData {
+export interface IWeightData {
   weight: string;
   stones: string;
   pounds: string;
@@ -20,12 +20,12 @@ export interface WeightData {
 }
 
 interface FCWithStatic<P> extends React.FC<P> {
-  initialFormValues: () => WeightData;
+  initialFormValues: () => IWeightData;
   schema: () => Yup.ObjectSchema;
 }
 
 interface Props {
-  formikProps: FormikProps<WeightData>;
+  formikProps: FormikProps<IWeightData>;
   label: string;
 }
 

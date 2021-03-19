@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 
 import { RootState } from '../state/root';
 
 export type SchoolState = {
-  joinedSchoolGroups: SubscribedSchoolGroupStats[]; //TODO Rename
+  joinedSchoolGroups: ISubscribedSchoolGroupStats[]; //TODO Rename
 };
 
 const initialState: SchoolState = {
@@ -19,7 +19,7 @@ const initialState: SchoolState = {
 
 export const fetchSubscribedSchoolGroups = createAsyncThunk(
   'school/fetch_subscribed_school_groups',
-  async (): Promise<SubscribedSchoolGroupStats[]> => {
+  async (): Promise<ISubscribedSchoolGroupStats[]> => {
     const service = container.get<ISchoolService>(Services.SchoolService);
     return await service.getSubscribedSchoolGroups();
   }

@@ -7,11 +7,11 @@ import { ContentState } from '@covid/core/content/state/contentSlice';
 
 import { EstimatedCaseCard } from './EstimatedCaseCard';
 
-interface Props {
+interface IProps {
   onPress: VoidFunction;
 }
 
-export const UKEstimatedCaseCard: React.FC<Props> = ({ onPress }) => {
+export function UKEstimatedCaseCard({ onPress }: IProps) {
   const metrics = useSelector<RootState, Partial<ContentState>>((state) => ({
     ukActive: state.content.ukActive,
     ukDaily: state.content.ukDaily,
@@ -37,4 +37,4 @@ export const UKEstimatedCaseCard: React.FC<Props> = ({ onPress }) => {
       ctaOnPress={onPress}
     />
   );
-};
+}

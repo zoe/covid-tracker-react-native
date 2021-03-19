@@ -5,14 +5,14 @@ import { View } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import YesNoField from '@covid/components/YesNoField';
 
-export interface BloodPressureData {
+export interface IBloodPressureData {
   takesBloodPressureMedications: string; // pril
   takesAnyBloodPressureMedications: string;
   takesBloodPressureMedicationsSartan: string;
 }
 
 interface Props {
-  formikProps: FormikProps<BloodPressureData>;
+  formikProps: FormikProps<IBloodPressureData>;
 }
 
 export class BloodPressureMedicationQuestion extends Component<Props, object> {

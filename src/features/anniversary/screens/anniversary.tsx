@@ -66,6 +66,4 @@ function Anniversary() {
   );
 }
 
-// #EEEEEF
-
 export default Anniversary;

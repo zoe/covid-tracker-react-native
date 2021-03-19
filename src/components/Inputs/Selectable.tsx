@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { Animated, View, StyleSheet } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 
 import { SelectableButton } from '@covid/components/SelectableButton';
-import i18n from '@covid/locale/i18n';
 
-export interface SelectableItem {
+interface ISelectableItem {
   title: string;
   value: string;
 }
 
-interface Props {
-  items: SelectableItem[];
+interface IProps {
+  items: ISelectableItem[];
   resetAnimation?: boolean;
-  onSelected?: (item: SelectableItem) => void;
+  onSelected?: (item: ISelectableItem) => void;
 }
 
-export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected }) => {
-  const [selected, setSelected] = useState<SelectableItem | null>();
-  const isSelected = (item: SelectableItem): boolean => selected?.title === item.title;
+export function Selectable({ items, resetAnimation, onSelected }: IProps) {
+  const [selected, setSelected] = useState<ISelectableItem | null>();
+  const isSelected = (item: ISelectableItem): boolean => selected?.title === item.title;
 
   return (
     <View
@@ -42,7 +41,7 @@ export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected 
       ))}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   grid: {

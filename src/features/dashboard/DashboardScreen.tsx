@@ -23,7 +23,7 @@ import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
-import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { identify } from '@covid/core/Analytics';
@@ -43,19 +43,19 @@ import { ImpactTimelineCard } from '../anniversary';
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
 
-interface Props {
+interface IProps {
   navigation: DrawerNavigationProp<ScreenParamList>;
   route: RouteProp<ScreenParamList, 'Dashboard'>;
 }
 
-export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+export function DashboardScreen({ navigation, route }: IProps) {
   const anniversary = useSelector(selectAnniversary);
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
+  const networks = useSelector<RootState, Optional<ISubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolGroups
   );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
@@ -207,7 +207,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       </View>
     </CollapsibleHeaderScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   calloutContainer: {

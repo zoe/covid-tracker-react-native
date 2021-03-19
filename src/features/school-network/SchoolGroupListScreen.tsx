@@ -17,7 +17,7 @@ import { Optional } from '@covid/utils/types';
 import { SchoolGroupRow } from '@covid/features/school-network/SchoolGroupRow';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 
-import { SchoolGroupModel, SubscribedSchoolGroupStats } from '../../core/schools/Schools.dto';
+import { ISchoolGroupModel, ISubscribedSchoolGroupStats } from '../../core/schools/Schools.dto';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolGroupList'>;
@@ -25,11 +25,11 @@ type Props = {
 };
 
 export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [joinedGroups, setJoinedGroups] = useState<SchoolGroupModel[]>([]);
+  const [joinedGroups, setJoinedGroups] = useState<ISchoolGroupModel[]>([]);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
-  const [pressedGroup, setPressedGroup] = useState<SchoolGroupModel>();
+  const [pressedGroup, setPressedGroup] = useState<ISchoolGroupModel>();
 
-  const allGroups = useSelector<RootState, SubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
+  const allGroups = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
 
   useEffect(() => {
     const { patientId } = route.params.patientData;
@@ -87,7 +87,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
         <RegularText style={styles.content}>{i18n.t('school-networks.groups-list.text')}</RegularText>
 
         <View style={styles.content}>
-          {joinedGroups.map((group: SchoolGroupModel) => {
+          {joinedGroups.map((group: ISchoolGroupModel) => {
             return (
               <SchoolGroupRow
                 onPress={() => {

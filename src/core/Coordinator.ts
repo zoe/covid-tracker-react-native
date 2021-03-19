@@ -8,15 +8,15 @@ export type ScreenFlow = {
   [key in ScreenName]: (param?: any) => void;
 };
 
-export interface UpdatePatient {
+export interface IUpdatePatient {
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
 }
 
-export interface SelectProfile {
+export interface ISelectProfile {
   profileSelected(profile: Profile): Promise<void>;
 }
 
-export interface EditableProfile {
+export interface IEditableProfile {
   startEditProfile(profile: Profile): Promise<void>;
   goToCreateProfile(avatarName: string): void;
 }

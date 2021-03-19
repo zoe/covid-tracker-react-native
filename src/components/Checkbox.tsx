@@ -39,17 +39,17 @@ const checkboxStyles = StyleSheet.create({
   },
 });
 
-interface CheckboxProps extends ITest {
+interface ICheckboxProps extends ITest {
   value: boolean;
   onChange: (value: boolean) => void;
   children: React.ReactNode;
 }
 
-type CheckboxListProps = {
+interface ICheckboxListProps {
   children: React.ReactNode;
-};
+}
 
-export const CheckboxItem: React.FC<CheckboxProps> = (props) => {
+export function CheckboxItem(props: ICheckboxProps) {
   return (
     <Item style={checkboxStyles.checkboxRow}>
       <TouchableOpacity style={checkboxStyles.checkBox} onPress={() => props.onChange(!props.value)}>
@@ -60,8 +60,8 @@ export const CheckboxItem: React.FC<CheckboxProps> = (props) => {
       </Item>
     </Item>
   );
-};
+}
 
-export const CheckboxList: React.FC<CheckboxListProps> = ({ children }) => (
-  <View style={checkboxStyles.checkboxList}>{children}</View>
-);
+export function CheckboxList({ children }: ICheckboxListProps) {
+  return <View style={checkboxStyles.checkboxList}>{children}</View>;
+}

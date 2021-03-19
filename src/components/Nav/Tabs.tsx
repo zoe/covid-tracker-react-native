@@ -5,14 +5,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { colors } from '@theme';
 import { RegularText } from '@covid/components/Text';
 
-interface Props {
+interface IProps {
   labels: string[];
   onSelected: (label: string, index: number) => void;
 
   styles?: StyleProp<ViewStyle>;
 }
 
-export const Tabs: React.FC<Props> = ({ labels, onSelected, ...props }) => {
+export function Tabs({ labels, onSelected, ...props }: IProps) {
   const [translateValue] = useState(new Animated.Value(0));
   const [selectedIndex, setSelectedIndex] = useState(0);
   const tabWidth = 96;
@@ -67,7 +67,7 @@ export const Tabs: React.FC<Props> = ({ labels, onSelected, ...props }) => {
       })}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
   },
 
   tab: {
-    // marginHorizontal: 24
     alignItems: 'center',
   },
 

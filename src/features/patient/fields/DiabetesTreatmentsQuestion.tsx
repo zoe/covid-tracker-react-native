@@ -11,7 +11,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 
-import { FormikDiabetesInputFC } from './DiabetesQuestions';
+import { IFormikDiabetesInputFC } from './DiabetesQuestions';
 
 enum DiabetesTreatmentsFieldnames {
   NONE = 'diabetes_treatment_none',
@@ -24,13 +24,13 @@ enum DiabetesTreatmentsFieldnames {
   PREFER_NOT_TO_SAY = 'diabetes_treatment_pfnts',
 }
 
-export interface DiabetesTreatmentsData {
+export interface IDiabetesTreatmentsData {
   diabetesTreatments: DiabetesTreatmentsFieldnames[];
   diabetesTreatmentOtherOral: boolean;
 }
 
 interface Props {
-  formikProps: FormikProps<DiabetesTreatmentsData>;
+  formikProps: FormikProps<IDiabetesTreatmentsData>;
 }
 
 type DiabetesTreatmentCheckBoxData = {
@@ -40,7 +40,7 @@ type DiabetesTreatmentCheckBoxData = {
 
 interface DiabetesTreamentsCheckboxProps {
   data: DiabetesTreatmentCheckBoxData;
-  formikProps: FormikProps<DiabetesTreatmentsData>;
+  formikProps: FormikProps<IDiabetesTreatmentsData>;
   value: boolean;
 }
 
@@ -77,7 +77,7 @@ const DiabetesTreamentsCheckbox: React.FC<DiabetesTreamentsCheckboxProps> = ({ d
   );
 };
 
-export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTreatmentsData> = ({ formikProps }) => {
+export const DiabetesTreamentsQuestion: IFormikDiabetesInputFC<Props, IDiabetesTreatmentsData> = ({ formikProps }) => {
   const diabetesTreatmentCheckboxes = [
     { fieldName: DiabetesTreatmentsFieldnames.NONE, label: i18n.t('diabetes.answer-none'), value: false },
     { fieldName: DiabetesTreatmentsFieldnames.LIFESTYLE, label: i18n.t('diabetes.answer-lifestyle-mod'), value: false },
@@ -115,7 +115,7 @@ export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTre
 
   const createDiabetesCheckboxes = (
     data: DiabetesTreatmentCheckBoxData[],
-    props: FormikProps<DiabetesTreatmentsData>
+    props: FormikProps<IDiabetesTreatmentsData>
   ) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesTreatments.includes(item.fieldName);
@@ -141,7 +141,7 @@ export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTre
   );
 };
 
-DiabetesTreamentsQuestion.initialFormValues = (): DiabetesTreatmentsData => {
+DiabetesTreamentsQuestion.initialFormValues = (): IDiabetesTreatmentsData => {
   return {
     diabetesTreatments: [],
     diabetesTreatmentOtherOral: false,
