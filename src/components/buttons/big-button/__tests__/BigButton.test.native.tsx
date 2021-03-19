@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { BigButton } from '@covid/components/Buttons/big-button';
+import { BigButton } from '@covid/components/buttons/big-button';
 
 describe('Button', () => {
   it('should match snapshot', () => {

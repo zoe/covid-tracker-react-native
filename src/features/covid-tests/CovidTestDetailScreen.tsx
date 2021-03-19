@@ -32,7 +32,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
-import { ClearButton } from '@covid/components/Buttons/ClearButton';
+import { ClearButton } from '@covid/components/buttons/ClearButton';
 import NavigatorService from '@covid/NavigatorService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BrandedButton } from '@covid/components';

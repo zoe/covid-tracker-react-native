@@ -19,7 +19,7 @@ import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
-import { ShareButton } from '../Buttons';
+import { ShareButton } from '../buttons';
 import { Text } from '../typography';
 
 const MAP_HEIGHT = 246;

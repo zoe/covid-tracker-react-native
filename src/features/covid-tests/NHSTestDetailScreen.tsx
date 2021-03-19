@@ -18,7 +18,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
-import { ClearButton } from '@covid/components/Buttons/ClearButton';
+import { ClearButton } from '@covid/components/buttons/ClearButton';
 import { INHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
 import {
   CovidTestResultQuestion,
