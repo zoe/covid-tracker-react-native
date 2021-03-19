@@ -7,14 +7,14 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText } from '@covid/components/Text';
+import { HeaderText } from '@covid/components/Text';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { assessmentService } from '@covid/Services';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 const initialFormValues = {
   description: '',

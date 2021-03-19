@@ -13,14 +13,15 @@ import i18n from '@covid/locale/i18n';
 import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
+import { ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
 import { Field, FieldError } from '@covid/components/Forms';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { setUsername } from '@covid/core/state/user';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 import appCoordinator from '../AppCoordinator';
-import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Register'>;

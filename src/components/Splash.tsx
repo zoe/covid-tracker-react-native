@@ -4,9 +4,10 @@ import { View, Image, StyleSheet } from 'react-native';
 import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
+import { BrandedButton } from '@covid/components/buttons';
 
 import { FlexView } from './FlexView';
-import { RegularBoldText, BrandedButton } from './Text';
+import { RegularBoldText } from './Text';
 
 type SplashProps = {
   status: string;

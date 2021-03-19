@@ -6,14 +6,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText, RegularText, CaptionText } from '@covid/components/Text';
+import { HeaderText, RegularText, CaptionText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 import PatientHeader from '@covid/components/PatientHeader';
 import { BaseShareAppCard, shareApp, shareUrl } from '@covid/components/Cards/BaseShareApp';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { isAndroid } from '@covid/utils/platform';
-
-import { ScreenParamList } from '../../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineRegistryInfo'>;

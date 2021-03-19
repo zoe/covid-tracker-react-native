@@ -8,14 +8,14 @@ import { useSelector } from 'react-redux';
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { RootState } from '@covid/core/state/root';
-import { Optional } from '@covid/utils/types';
 import { SchoolGroupRow } from '@covid/features/school-network/SchoolGroupRow';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
+import { BrandedButton } from '@covid/components';
 
 import { ISchoolGroupModel, ISubscribedSchoolGroupStats } from '../../core/schools/Schools.dto';
 

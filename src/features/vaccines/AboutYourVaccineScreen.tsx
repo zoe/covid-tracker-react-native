@@ -9,7 +9,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
@@ -23,6 +23,7 @@ import QuestionCircle from '@assets/icons/QuestionCircle';
 import YesNoField from '@covid/components/YesNoField';
 import { formatDateToPost } from '@covid/utils/datetime';
 import { setLoggedVaccine } from '@covid/core/state';
+import { BrandedButton } from '@covid/components';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 

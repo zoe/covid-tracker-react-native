@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react-native';
 import { HandlerFunction, action } from '@storybook/addon-actions';
 
 import { ClearButton } from '@covid/components/buttons/ClearButton';
-import { BrandedButton } from '@covid/components/Text';
+import { BrandedButton } from '@covid/components';
 
 const Handler = (): HandlerFunction => action('on-pressed');
 

@@ -2,13 +2,13 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import i18n from 'i18n-js';
 
 import { colors } from '@theme';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { openWebLink } from '@covid/utils/links';
-
-import i18n from '../../../locale/i18n';
-import { ScreenParamList } from '../../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUS'>;

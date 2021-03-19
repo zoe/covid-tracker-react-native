@@ -10,7 +10,7 @@ import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { IUserService } from '@covid/core/user/UserService';
 import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
@@ -25,8 +25,8 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { isMinorAge } from '@covid/core/patient/PatientState';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 import { IHeightData, HeightQuestion } from './fields/HeightQuestion';
 import { IRaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
