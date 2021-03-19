@@ -3,7 +3,7 @@ import { Image, View } from 'react-native';
 
 import { BasicPage, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
-import { covidByZoeIcon } from '@assets';
+import { covidByZoeIconDark } from '@assets';
 
 import { LoadingIndicator, ReportCard, Timeline } from '../partials';
 import { timelineData } from '../data';
@@ -15,7 +15,7 @@ function Anniversary() {
 
   const getLogo = () => (
     <Image
-      source={covidByZoeIcon}
+      source={covidByZoeIconDark}
       style={{
         aspectRatio: 2.25,
         resizeMode: 'contain',
