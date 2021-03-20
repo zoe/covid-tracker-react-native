@@ -10,12 +10,12 @@ import { HeaderText, Text, BrandedButton } from '@covid/components';
 import { getPlatformStoreLink } from '@covid/utils/platform';
 import { openWebLink } from '@covid/utils/links';
 
-type Props = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'VersionUpdateModal'>;
   route: RouteProp<ScreenParamList, 'VersionUpdateModal'>;
-};
+}
 
-export const VersionUpdateModal: React.FC<Props> = ({ navigation, route }) => {
+export function VersionUpdateModal({ navigation, route }: IProps) {
   const goToAppStore = () => {
     openWebLink(getPlatformStoreLink);
   };
@@ -36,7 +36,7 @@ export const VersionUpdateModal: React.FC<Props> = ({ navigation, route }) => {
       </BrandedButton>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   modal: {
