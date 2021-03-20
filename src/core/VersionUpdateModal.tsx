@@ -21,11 +21,11 @@ export const VersionUpdateModal: React.FC<Props> = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    navigation.addListener('beforeRemove', (e) => {
+    return navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
       return false;
     });
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={styles.modal}>
