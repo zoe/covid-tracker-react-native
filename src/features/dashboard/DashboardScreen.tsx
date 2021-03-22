@@ -85,10 +85,10 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
-    // if (!anniversary.hasViewedModal) {
-    //   navigation.navigate('AnniversaryModal');
-    //   return;
-    // }
+    if (!anniversary.hasViewedModal) {
+      navigation.navigate('AnniversaryModal');
+      return;
+    }
     const now = new Date().getTime();
     if (settings.featureRunDate) {
       const featureRunDate = new Date(settings.featureRunDate).getTime();
@@ -173,7 +173,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        {/* <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} /> */}
+        <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />
         <ShareVaccineCard screenName="Dashboard" />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />

@@ -11,8 +11,8 @@ export type TBadge =
   | 'MENTAL_HEALTH';
 
 export type TReportedEvent = {
-  eventBadge: TBadge;
-  eventName: string;
+  name: TBadge;
+  text: string;
 };
 
 export type TProgress = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'FUTURE';
@@ -23,17 +23,21 @@ export type TStudy = 'ONGOING' | 'FUTURE';
 
 export type TTimelineEvent = {
   date: string;
-  eventType: TEvent;
-  externalLink?: string;
-  externalLinkText?: string;
-  ongoing?: TStudy;
-  progress?: TProgress[];
-  subTitle?: string;
-  summary?: string;
-  title: string;
+  event_type: TEvent;
+  external_link?: string | null;
+  external_link_text?: string | null;
+  ongoing?: TStudy | null;
+  progress?: TProgress[] | null;
+  sub_title?: string | null;
+  summary?: string | null;
+  title: string | null;
+};
+
+export type TTimelineNode = {
+  node: TTimelineEvent;
 };
 
 export interface ITimeline {
-  reportedEvents: TReportedEvent[];
-  timelineEvents: TTimelineEvent[];
+  badges: TReportedEvent[];
+  items: TTimelineNode[];
 }

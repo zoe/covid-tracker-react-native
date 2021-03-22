@@ -55,8 +55,8 @@ function Anniversary() {
         </Text>
         {timeline ? (
           <>
-            <ReportCard reportedEvents={timeline.reportedEvents} />
-            <Timeline timelineEvents={timeline.timelineEvents} />
+            <ReportCard reportedEvents={timeline.badges} />
+            <Timeline timelineEvents={timeline.items} />
           </>
         ) : (
           <LoadingIndicator />

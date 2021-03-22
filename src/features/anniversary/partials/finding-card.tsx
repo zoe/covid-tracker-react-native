@@ -10,19 +10,19 @@ interface IProps {
 }
 
 function FindingCard({ timelineEvent }: IProps) {
-  const { title, subTitle, externalLinkText } = timelineEvent;
+  const { title, sub_title, external_link_text } = timelineEvent;
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <Icon iconName="Lightbulb" iconSize={18} />
-        <Text textClass="pBold" style={{ marginLeft: 12 }}>
+        <Text textClass="pBold" style={{ marginHorizontal: 12 }}>
           {title}
         </Text>
       </View>
       <Text textClass="h5Light" style={styles.body}>
-        {subTitle}
+        {sub_title}
       </Text>
-      {externalLinkText && <Link linkText={externalLinkText} onPress={() => null} style={{ marginBottom: 8 }} />}
+      {external_link_text && <Link linkText={external_link_text} onPress={() => null} style={{ marginBottom: 8 }} />}
     </View>
   );
 }

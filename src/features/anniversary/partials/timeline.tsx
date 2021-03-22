@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { TProgress, TTimelineEvent } from '../types';
+import { TProgress, TTimelineNode, TTimelineEvent } from '../types';
 
 import StudyCard from './study-card';
 import TimelineNode from './timeline-node';
@@ -9,7 +9,7 @@ import FindingCard from './finding-card';
 import Highlight from './highlight';
 
 interface IProps {
-  timelineEvents: TTimelineEvent[];
+  timelineEvents: TTimelineNode[];
 }
 
 function Timeline({ timelineEvents }: IProps) {
@@ -17,7 +17,7 @@ function Timeline({ timelineEvents }: IProps) {
   const futureProgress: TProgress[] = ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
 
   const getMappedTimelineEvent = (timelineEvent: TTimelineEvent): ReactNode => {
-    switch (timelineEvent.eventType) {
+    switch (timelineEvent.event_type) {
       case 'FINDING':
         return <FindingCard timelineEvent={timelineEvent} />;
       case 'HIGHLIGHT':
@@ -29,13 +29,12 @@ function Timeline({ timelineEvents }: IProps) {
     }
     return null;
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.line} />
       {timelineEvents.map((timelineEvent, index) => {
         const key = `timeline-event-${index}`;
-        return <View key={key}>{getMappedTimelineEvent(timelineEvent)}</View>;
+        return <View key={key}>{getMappedTimelineEvent(timelineEvent.node)}</View>;
       })}
     </View>
   );

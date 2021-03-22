@@ -11,7 +11,7 @@ interface IProps {
 
 function ReportedEvent({ reportedEvent }: IProps) {
   const getMappedIconName = (): TIconName => {
-    switch (reportedEvent.eventBadge) {
+    switch (reportedEvent.name) {
       case 'DIET_AND_LIFESTYLE':
         return 'loose-weight-1';
       case 'GENERAL':
@@ -44,7 +44,7 @@ function ReportedEvent({ reportedEvent }: IProps) {
       }}>
       <Icon iconName={getMappedIconName()} iconSize={24} style={{ marginBottom: 8 }} />
       <Text textClass="pXSmallMedium" textAlign="center">
-        {reportedEvent.eventName}
+        {reportedEvent.text}
       </Text>
     </View>
   );

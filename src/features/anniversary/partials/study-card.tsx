@@ -12,7 +12,7 @@ interface IProps {
 }
 
 function StudyCard({ timelineEvent }: IProps) {
-  const { ongoing, progress, subTitle, summary, title } = timelineEvent;
+  const { ongoing, progress, sub_title, summary, title } = timelineEvent;
   const p: TProgress[] = progress ? progress : ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
   const opacity = ongoing === 'ONGOING' ? 1 : 0.4;
 
@@ -28,9 +28,9 @@ function StudyCard({ timelineEvent }: IProps) {
           {title}
         </Text>
       </View>
-      {subTitle && (
+      {sub_title && (
         <Text textClass="h5Light" style={[styles.body, { opacity }]}>
-          {subTitle}
+          {sub_title}
         </Text>
       )}
       <ProgressBars progress={p} />

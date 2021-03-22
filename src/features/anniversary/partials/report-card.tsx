@@ -22,7 +22,7 @@ function ReportCard({ reportedEvents }: IProps) {
           const key = `reported-event-${index}`;
           return (
             <View key={key} style={{ paddingBottom: 16, width: '33%' }}>
-              <ReportedEvent reportedEvent={reportedEvent} active />
+              <ReportedEvent reportedEvent={reportedEvent} />
             </View>
           );
         })}

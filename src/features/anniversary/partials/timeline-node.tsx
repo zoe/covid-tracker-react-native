@@ -20,7 +20,7 @@ function TimelineNode({ timelineEvent }: IProps) {
       </View>
       <View style={styles.body}>
         <Text textClass="h5Light">{timelineEvent.title}</Text>
-        {timelineEvent.subTitle && <Text textClass="h5Medium">{timelineEvent.subTitle}</Text>}
+        {timelineEvent.sub_title && <Text textClass="h5Medium">{timelineEvent.sub_title}</Text>}
       </View>
     </View>
   );

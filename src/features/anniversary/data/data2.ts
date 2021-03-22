@@ -1,48 +1,4 @@
-import { ITimeline } from '../types';
-
-export const timelineData: ITimeline = {
-  badges: [
-    {
-      name: 'GENERAL',
-      text: 'Demographics & general health',
-    },
-    {
-      name: 'SYMPTOMS',
-      text: 'Symptoms',
-    },
-    {
-      name: 'TWO_PEOPLE',
-      text: 'For two people',
-    },
-    {
-      name: 'SEVERITY',
-      text: 'Covid severity',
-    },
-    {
-      name: 'TEST_RESULTS',
-      text: 'Test results',
-    },
-    {
-      name: 'VACCINATION_STATUS',
-      text: 'Vaccine status',
-    },
-    {
-      name: 'VACCINE_SIDE_EFFECTS',
-      text: 'Vaccine side effects',
-    },
-    {
-      name: 'HESITANCY',
-      text: 'Vaccine hesitancy',
-    },
-    {
-      name: 'DIET_AND_LIFESTYLE',
-      text: 'Diet & Lifestyle',
-    },
-    {
-      name: 'MENTAL_HEALTH',
-      text: 'Mental Health',
-    },
-  ],
+export const data2 = {
   items: [
     {
       node: {
@@ -55,6 +11,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -68,6 +25,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: 'ONGOING',
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -81,6 +39,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -95,6 +54,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -108,6 +68,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -122,6 +83,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -136,6 +98,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -150,6 +113,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -163,6 +127,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -176,6 +141,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -190,6 +156,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -204,6 +171,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -218,6 +186,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -232,6 +201,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -245,19 +215,21 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
       node: {
         title: 'Your reports led to 3 Key Scientific Findings',
         date: '2021-03-16',
-        event_type: 'FINDING',
+        event_type: 'SCIENTIFIC_FINDING',
         sub_title: null,
         summary: null,
         external_link: null,
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -271,6 +243,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -284,6 +257,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: 'ONGOING',
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -297,6 +271,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -311,6 +286,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -324,6 +300,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -337,6 +314,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -351,6 +329,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -365,6 +344,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -378,6 +358,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -392,6 +373,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -405,6 +387,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -419,6 +402,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -433,6 +417,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -447,6 +432,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -461,6 +447,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -474,19 +461,21 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
       node: {
         title: 'Your reports led to 3 Key Scientific Findings',
         date: '2021-03-16',
-        event_type: 'FINDING',
+        event_type: 'SCIENTIFIC_FINDING',
         sub_title: null,
         summary: null,
         external_link: null,
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -500,6 +489,35 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: '2021-03-18',
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: null,
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -513,6 +531,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -526,6 +545,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: 'ONGOING',
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -539,6 +559,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -553,6 +574,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -566,6 +588,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -579,6 +602,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -593,6 +617,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -607,6 +632,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -620,6 +646,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -634,6 +661,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -647,6 +675,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -661,6 +690,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -675,6 +705,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -689,6 +720,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -703,6 +735,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -716,19 +749,21 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
       node: {
         title: 'Your reports led to 3 Key Scientific Findings',
         date: '2021-03-16',
-        event_type: 'FINDING',
+        event_type: 'SCIENTIFIC_FINDING',
         sub_title: null,
         summary: null,
         external_link: null,
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -742,6 +777,35 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: '2021-03-18',
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: null,
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -755,6 +819,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -768,6 +833,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: 'ONGOING',
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -781,6 +847,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -795,6 +862,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -808,6 +876,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -821,6 +890,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -835,6 +905,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -849,6 +920,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -862,6 +934,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -876,6 +949,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -889,6 +963,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -903,6 +978,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -917,6 +993,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -931,6 +1008,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -945,6 +1023,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -958,19 +1037,21 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
       node: {
         title: 'Your reports led to 3 Key Scientific Findings',
         date: '2021-03-16',
-        event_type: 'FINDING',
+        event_type: 'SCIENTIFIC_FINDING',
         sub_title: null,
         summary: null,
         external_link: null,
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -984,6 +1065,35 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: '2021-03-18',
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: null,
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -997,6 +1107,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1010,6 +1121,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: 'ONGOING',
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1023,6 +1135,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1037,6 +1150,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1050,6 +1164,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1063,6 +1178,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1077,6 +1193,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1091,6 +1208,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1104,6 +1222,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1118,6 +1237,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1131,6 +1251,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1145,6 +1266,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1159,6 +1281,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1173,6 +1296,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1187,6 +1311,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1200,19 +1325,21 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
       node: {
         title: 'Your reports led to 3 Key Scientific Findings',
         date: '2021-03-16',
-        event_type: 'FINDING',
+        event_type: 'SCIENTIFIC_FINDING',
         sub_title: null,
         summary: null,
         external_link: null,
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1226,6 +1353,35 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: '2021-03-18',
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: null,
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1239,6 +1395,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1252,6 +1409,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: 'ONGOING',
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1265,6 +1423,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1279,6 +1438,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1292,6 +1452,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1305,6 +1466,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1319,6 +1481,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1333,6 +1496,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1346,6 +1510,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1360,6 +1525,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1373,6 +1539,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1387,6 +1554,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1401,6 +1569,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1415,6 +1584,7 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1429,6 +1599,7 @@ export const timelineData: ITimeline = {
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1442,19 +1613,21 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
       node: {
         title: 'Your reports led to 3 Key Scientific Findings',
         date: '2021-03-16',
-        event_type: 'FINDING',
+        event_type: 'SCIENTIFIC_FINDING',
         sub_title: null,
         summary: null,
         external_link: null,
         external_link_text: null,
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
     },
     {
@@ -1468,7 +1641,70 @@ export const timelineData: ITimeline = {
         external_link_text: 'Click here',
         ongoing: null,
         progress: null,
+        your_contribution: null,
       },
+    },
+    {
+      node: {
+        title: null,
+        date: '2021-03-18',
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
+      },
+    },
+    {
+      node: {
+        title: null,
+        date: null,
+        event_type: null,
+        sub_title: null,
+        summary: null,
+        external_link: null,
+        external_link_text: null,
+        ongoing: null,
+        progress: null,
+        your_contribution: null,
+      },
+    },
+  ],
+  badges: [
+    {
+      name: 'SYMPTOMS',
+      text: 'Symptoms',
+    },
+    {
+      name: 'TWO_PEOPLE',
+      text: 'Data for 2 people',
+    },
+    {
+      name: 'TEST_RESULTS',
+      text: 'Test results',
+    },
+    {
+      name: 'VACCINATION_STATUS',
+      text: 'Vaccination status',
+    },
+    {
+      name: 'HESITANCY',
+      text: 'Vaccine Hesistancy',
+    },
+    {
+      name: 'DIET_AND_LIFESTYLE',
+      text: 'Diet & lifestyle',
+    },
+    {
+      name: 'MENTAL_HEALTH',
+      text: 'Mental Health',
+    },
+    {
+      name: 'GENERAL',
+      text: 'Demographics & general health',
     },
   ],
 };
