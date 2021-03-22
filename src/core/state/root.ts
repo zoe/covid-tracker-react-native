@@ -6,6 +6,7 @@ import { contentSlice, ContentState } from '@covid/core/content/state/contentSli
 import { schoolSlice, SchoolState } from '@covid/core/schools/Schools.slice';
 
 import { userSlice, IUser } from './user';
+import { IAnniversary, anniversarySlice } from './anniversary';
 import { IApp, appSlice } from './app';
 import { dietStudySlice, IDietStudy } from './diet-study';
 import {
@@ -26,6 +27,7 @@ import { ISettings, settingsSlice } from './settings';
 import { IVaccineState, vaccinesSlice } from './vaccines';
 
 export type RootState = {
+  anniversary: IAnniversary;
   app: IApp;
   assessment: IAssessmentState;
   content: ContentState;
@@ -43,6 +45,7 @@ export type RootState = {
 };
 
 export default combineReducers({
+  anniversary: anniversarySlice,
   app: appSlice,
   assessment,
   content: contentSlice.reducer,

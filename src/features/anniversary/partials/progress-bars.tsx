@@ -1,7 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import ProgressBar, { TProgress } from './progress-bar';
+import { TProgress } from '../types';
+
+import ProgressBar from './progress-bar';
 
 interface IProps {
   progress: TProgress[];

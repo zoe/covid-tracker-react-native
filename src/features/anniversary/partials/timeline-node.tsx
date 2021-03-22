@@ -3,16 +3,25 @@ import { View, StyleSheet } from 'react-native';
 
 import { Text } from '@covid/components';
 
-function TimelineNode() {
+import { TTimelineEvent } from '../types';
+
+interface IProps {
+  timelineEvent: TTimelineEvent;
+}
+
+function TimelineNode({ timelineEvent }: IProps) {
   return (
     <View style={[styles.container]}>
       <View style={styles.row}>
         <View style={styles.node} />
-        <Text textClass="pSmallBold">Timeline node title</Text>
+        <Text textClass="pSmallLight" style={styles.date}>
+          {timelineEvent.date}
+        </Text>
       </View>
-      <Text textClass="h5Light" style={styles.body}>
-        You signed up for the COVID Symptom App
-      </Text>
+      <View style={styles.body}>
+        <Text textClass="h5Light">{timelineEvent.title}</Text>
+        {timelineEvent.subTitle && <Text textClass="h5Medium">{timelineEvent.subTitle}</Text>}
+      </View>
     </View>
   );
 }
@@ -32,10 +41,13 @@ const styles = StyleSheet.create({
     marginRight: 12,
     width: 12,
   },
+  date: {
+    color: '#0165B5',
+  },
   body: {
-    marginBottom: 48,
     marginLeft: 24,
     marginTop: 8,
+    marginBottom: 48,
   },
 });
 

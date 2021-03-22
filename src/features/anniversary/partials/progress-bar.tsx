@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { SolidColorBar } from '@covid/components';
 
-export type TProgress = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'FUTURE';
+import { TProgress } from '../types';
 
 interface IProps {
   current: number;
