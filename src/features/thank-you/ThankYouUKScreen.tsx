@@ -24,6 +24,9 @@ import { FeaturedContentList, FeaturedContentType } from '@covid/components';
 import store from '@covid/core/state/store';
 import { DietStudyCard } from '@covid/features';
 
+import { ImpactTimelineCard } from '../anniversary';
+import appCoordinator from '../AppCoordinator';
+
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
   route: RouteProp<ScreenParamList, 'ThankYouUK'>;
@@ -75,6 +78,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </Header>
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
+
+              <ImpactTimelineCard onPress={() => appCoordinator.goToAnniversary()} size="LARGE" />
 
               {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
