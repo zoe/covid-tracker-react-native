@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, ListRenderItem } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 
 import ApiClient from '@covid/core/api/ApiClient';
 
@@ -79,7 +79,7 @@ function Anniversary() {
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={(Item) => Item.id}
+        keyExtractor={(item: TRowItem) => item.id}
         style={{ backgroundColor: '#EEEEEF' }}
       />
     </SafeAreaView>
