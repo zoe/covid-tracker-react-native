@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 
 import { Text } from '@covid/components';
+import ApiClient from '@covid/core/api/ApiClient';
 
 import { LoadingIndicator, ReportCard, Timeline, TimelineIntroduction, TimelineHeader } from '../partials';
 import { timelineData } from '../data';
@@ -17,11 +18,18 @@ type TRowItem = {
 function Anniversary() {
   const [timeline, setTimeline] = useState<ITimeline>();
 
+  const getTimeline = async (): Promise<ITimeline[]> => {
+    const client = new ApiClient();
+    const response = await client.get<ITimeline[]>('timeline/');
+    return response;
+  };
+
   useEffect(() => {
-    // TODO: load data here
-    setTimeout(() => {
-      setTimeline(timelineData);
-    }, 3000);
+    try {
+      getTimeline().then((res) => {
+        setTimeline(res[0]);
+      });
+    } catch (error) {}
   }, []);
 
   const renderItem = (item: any) => {
