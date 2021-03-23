@@ -22,16 +22,16 @@ type TRowItem = {
 function Anniversary() {
   const [timeline, setTimeline] = useState<ITimeline>();
 
-  const getTimeline = async (): Promise<ITimeline[]> => {
+  const getTimeline = async (): Promise<ITimeline> => {
     const client = new ApiClient();
-    const response = await client.get<ITimeline[]>('timeline/');
+    const response = await client.get<ITimeline>('timeline/');
     return response;
   };
 
   useEffect(() => {
     try {
       getTimeline().then((res) => {
-        setTimeline(res[0]);
+        setTimeline(res);
       });
     } catch (error) {
       // TODO - HAND ERROR NICELY
