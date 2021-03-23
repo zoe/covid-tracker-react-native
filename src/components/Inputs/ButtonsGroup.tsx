@@ -13,7 +13,7 @@ export interface ISingleButton {
   value: string;
 }
 
-interface Props {
+interface IProps {
   label?: string;
   selectedValue: string;
   items: ISingleButton[];
@@ -23,7 +23,7 @@ interface Props {
   error?: any;
 }
 
-export const ButtonsGroup: React.FC<Props> = ({ label, selectedValue, items, error, onValueChange, onlyPicker }) => {
+export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, onlyPicker }: IProps) {
   const [selected, setSelected] = useState<string>(selectedValue);
 
   const onSelect = (value: string) => {
@@ -57,7 +57,7 @@ export const ButtonsGroup: React.FC<Props> = ({ label, selectedValue, items, err
       )}
     </FieldWrapper>
   );
-};
+}
 
 const styles = StyleSheet.create({
   fieldWrapper: {

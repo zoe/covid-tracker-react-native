@@ -19,12 +19,12 @@ import { ShareButton } from '../../Buttons';
 
 import { DeltaTag } from './DeltaTag';
 
-interface Props {
+interface IProps {
   ctaOnPress?: VoidFunction;
   isSharing?: boolean;
 }
 
-export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isSharing = false }) => {
+export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IProps) {
   const { navigate } = useNavigation();
   const viewRef = useRef<View>(null);
 
@@ -114,7 +114,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {

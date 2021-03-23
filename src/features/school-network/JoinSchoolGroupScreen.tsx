@@ -16,7 +16,7 @@ import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetwo
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import i18n from '@covid/locale/i18n';
-import { SchoolGroupModel } from '@covid/core/schools/Schools.dto';
+import { ISchoolGroupModel } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
 import NavigatorService from '@covid/NavigatorService';
 
@@ -49,7 +49,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
 
   useEffect(() => {
     (async () => {
-      const groups: SchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
+      const groups: ISchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
         route.params.selectedSchool.id
       );
       const pickerItems = groups.map<PickerItemProps>((g) => ({

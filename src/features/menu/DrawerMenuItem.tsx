@@ -16,7 +16,7 @@ export enum DrawerMenuItem {
   LOGOUT = 'LOGOUT',
 }
 
-export interface MenuItemProps {
+interface IMenuItemProps {
   label: string;
   image?: React.ReactNode;
   smallLabel?: string;
@@ -24,13 +24,13 @@ export interface MenuItemProps {
   onPress: () => void;
 }
 
-export interface LinkMenuItemProps {
+interface ILinkMenuItemProps {
   link?: string;
   type: DrawerMenuItem;
   onPress?: () => void;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, smallLabel, indicator }) => {
+export function MenuItem({ image, onPress, label, smallLabel, indicator }: IMenuItemProps) {
   return (
     <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
       <View style={{ flexDirection: 'row' }}>
@@ -43,16 +43,16 @@ export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, small
       {smallLabel != null && <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText>}
     </TouchableOpacity>
   );
-};
+}
 
-export const LinkItem: React.FC<LinkMenuItemProps> = ({
+export function LinkItem({
   link,
   type,
   onPress = () => {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, { name: type });
     if (link) openWebLink(link);
   },
-}) => {
+}: ILinkMenuItemProps) {
   const getLabel = (): string => {
     switch (type) {
       case DrawerMenuItem.FAQ:
@@ -77,7 +77,7 @@ export const LinkItem: React.FC<LinkMenuItemProps> = ({
       </View>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   icon: {

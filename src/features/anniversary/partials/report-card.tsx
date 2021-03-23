@@ -3,51 +3,15 @@ import { StyleSheet, View } from 'react-native';
 
 import { Text } from '@covid/components';
 
-import ReportedEvent, { TReportedEvent } from './reported-event';
+import { TReportedEvent } from '../types';
 
-function ReportCard() {
-  const reportedEvents: TReportedEvent[] = [
-    {
-      iconName: 'location',
-      eventName: 'Demographics & general health',
-    },
-    {
-      iconName: 'profile-info',
-      eventName: 'Symptoms',
-    },
-    {
-      iconName: 'people',
-      eventName: 'For two people',
-    },
-    {
-      iconName: 'life-insurance',
-      eventName: 'Covid severity',
-    },
-    {
-      iconName: 'plan',
-      eventName: 'Test results',
-    },
-    {
-      iconName: 'syringe',
-      eventName: 'Vaccine status',
-    },
-    {
-      iconName: 'dietary-inflammation-2',
-      eventName: 'Vaccine side effects',
-    },
-    {
-      iconName: 'chat-feedback',
-      eventName: 'Vaccine hesitancy',
-    },
-    {
-      iconName: 'loose-weight-1',
-      eventName: 'Diet & Lifestyle',
-    },
-    {
-      iconName: 'chat-medical',
-      eventName: 'Mental Health',
-    },
-  ];
+import ReportedEvent from './reported-event';
+
+interface IProps {
+  reportedEvents: TReportedEvent[];
+}
+
+function ReportCard({ reportedEvents }: IProps) {
   return (
     <View style={[styles.container]}>
       <Text rhythm={20} textClass="h4">

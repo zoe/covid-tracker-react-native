@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { SubscribedSchoolStats, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { ISubscribedSchoolStats, ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 
 import Card from './Card';
 import { SContainerView } from './styles';
 
 type Props = {
-  schoolGroups: SubscribedSchoolGroupStats[];
+  schoolGroups: ISubscribedSchoolGroupStats[];
 };
 
-const TransformResponseToUIData = (data: SubscribedSchoolGroupStats[]): SubscribedSchoolStats[] => {
-  return data.reduce((initial: SubscribedSchoolStats[], group): SubscribedSchoolStats[] => {
+const TransformResponseToUIData = (data: ISubscribedSchoolGroupStats[]): ISubscribedSchoolStats[] => {
+  return data.reduce((initial: ISubscribedSchoolStats[], group): ISubscribedSchoolStats[] => {
     const school = initial.find((school) => school.id === group.school.id);
 
     if (school) {
@@ -36,7 +36,7 @@ const TransformResponseToUIData = (data: SubscribedSchoolGroupStats[]): Subscrib
 };
 
 function SchoolNetworks(props: Props) {
-  const data: SubscribedSchoolStats[] = TransformResponseToUIData(props.schoolGroups);
+  const data: ISubscribedSchoolStats[] = TransformResponseToUIData(props.schoolGroups);
   return (
     <SContainerView>
       {data.map((school, index) => {

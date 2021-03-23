@@ -23,14 +23,14 @@ type PropsType = {
   route: RouteProp<ScreenParamList, 'ValidationStudyConsent'>;
 };
 
-interface TermsState {
+interface ITermsState {
   agreeToAbove: boolean;
   anonymizedData: boolean;
   reContacted: boolean;
   submitting: boolean;
 }
 
-export default class ValidationStudyConsentScreen extends Component<PropsType, TermsState> {
+export default class ValidationStudyConsentScreen extends Component<PropsType, ITermsState> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 

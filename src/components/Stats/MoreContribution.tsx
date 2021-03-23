@@ -11,33 +11,35 @@ import { shareAppWithAreaStats } from '../Cards/ShareAppViral';
 
 import { PeopleWithSymptomsText } from './PeopleWithSymptomsText';
 
-interface Props {
+interface IProps {
   areaStats: AreaStatsResponse | null;
 }
 
-export const MoreContribution: React.FC<Props> = ({ areaStats: area }) => (
-  <View style={styles.estimatedCaseContainer}>
-    <View style={styles.estimatedCaseFirstRow}>
-      <PeopleWithSymptomsText area={area?.area_name ?? ''} />
-    </View>
-    <View style={styles.blurred}>
-      <MaterialIcons name="lock-outline" size={32} style={styles.lockIcon} />
-    </View>
-    <View>
-      <Text style={styles.almostThere}>
-        {i18n.t('thank-you.almost-there')}{' '}
-        <Text style={styles.almostThereCount}>
-          {i18n.t('thank-you.more-people', { number: area?.number_of_missing_contributors })}
-        </Text>{' '}
-        {i18n.t('thank-you.from-your-country')}
-      </Text>
+export function MoreContribution({ areaStats: area }: IProps) {
+  return (
+    <View style={styles.estimatedCaseContainer}>
+      <View style={styles.estimatedCaseFirstRow}>
+        <PeopleWithSymptomsText area={area?.area_name ?? ''} />
+      </View>
+      <View style={styles.blurred}>
+        <MaterialIcons name="lock-outline" size={32} style={styles.lockIcon} />
+      </View>
+      <View>
+        <Text style={styles.almostThere}>
+          {i18n.t('thank-you.almost-there')}{' '}
+          <Text style={styles.almostThereCount}>
+            {i18n.t('thank-you.more-people', { number: area?.number_of_missing_contributors })}
+          </Text>{' '}
+          {i18n.t('thank-you.from-your-country')}
+        </Text>
 
-      <ClickableText onPress={() => shareAppWithAreaStats(area)} style={styles.pleaseShare}>
-        {i18n.t('thank-you.please-share')}
-      </ClickableText>
+        <ClickableText onPress={() => shareAppWithAreaStats(area)} style={styles.pleaseShare}>
+          {i18n.t('thank-you.please-share')}
+        </ClickableText>
+      </View>
     </View>
-  </View>
-);
+  );
+}
 
 const styles = StyleSheet.create({
   estimatedCaseContainer: {

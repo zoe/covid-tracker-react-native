@@ -7,9 +7,9 @@ import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { RegularText, SecondaryText, ErrorText } from '@covid/components/Text';
+import { ErrorText, RegularText, SecondaryText } from '@covid/components/Text';
 import { colors } from '@theme';
-import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import { CalendarIcon } from '@assets';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -17,7 +17,7 @@ import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationS
 
 import { VaccineNameQuestion } from './VaccineNameQuestion';
 
-export interface VaccineDoseData {
+export interface IVaccineDoseData {
   firstDoseDate: Date | undefined;
   firstBatchNumber: string | undefined;
   firstBrand: VaccineBrands | undefined;
@@ -29,16 +29,16 @@ export interface VaccineDoseData {
   hasSecondDose: boolean;
 }
 
-interface Props {
-  formikProps: FormikProps<VaccineDoseData>;
+interface IProps {
+  formikProps: FormikProps<IVaccineDoseData>;
   firstDose: boolean;
 }
 
-export interface VaccineDoseQuestion<P, Data> extends React.FC<P> {
+interface IVaccineDoseQuestion<P, Data> extends React.FC<P> {
   schema: () => Yup.ObjectSchema;
 }
 
-export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = (props: Props) => {
+export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData> = (props: IProps) => {
   const { formikProps } = props;
   const [showPicker, setShowPicker] = useState(false);
 
@@ -158,7 +158,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     <>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
-          <VaccineNameQuestion formikProps={formikProps as FormikProps<VaccineDoseData>} firstDose={props.firstDose} />
+          <VaccineNameQuestion formikProps={formikProps as FormikProps<IVaccineDoseData>} firstDose={props.firstDose} />
           {renderNameError}
         </View>
         <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>

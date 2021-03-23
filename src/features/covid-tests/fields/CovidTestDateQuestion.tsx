@@ -13,25 +13,25 @@ import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
 
-export interface CovidTestDateData {
+export interface ICovidTestDateData {
   knowsDateOfTest: string; // only for ux logic
   dateTakenBetweenStart: Date | undefined;
   dateTakenBetweenEnd: Date | undefined;
   dateTakenSpecific: Date | undefined;
 }
 
-interface Props {
-  formikProps: FormikProps<CovidTestDateData>;
+interface IProps {
+  formikProps: FormikProps<ICovidTestDateData>;
   test?: CovidTest;
 }
 
-export interface CovidTestDateQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestDateQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateData> = (props: Props) => {
+export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDateData> = (props: IProps) => {
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
 });
 
-CovidTestDateQuestion.initialFormValues = (test?: CovidTest): CovidTestDateData => {
+CovidTestDateQuestion.initialFormValues = (test?: CovidTest): ICovidTestDateData => {
   function getInitialKnowsDateOfTest(test: CovidTest | undefined): string {
     if (test === undefined) {
       return '';
@@ -188,7 +188,7 @@ function formatDateToPost(date: Date | undefined) {
   return date ? moment(date).format('YYYY-MM-DD') : null;
 }
 
-CovidTestDateQuestion.createDTO = (formData: CovidTestDateData): Partial<CovidTest> => {
+CovidTestDateQuestion.createDTO = (formData: ICovidTestDateData): Partial<CovidTest> => {
   return {
     date_taken_specific: formatDateToPost(formData.dateTakenSpecific),
     date_taken_between_start: formatDateToPost(formData.dateTakenBetweenStart),

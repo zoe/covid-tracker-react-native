@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { View } from 'native-base';
 import { Text } from 'react-native';
 
-import { DiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
+import { IDiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
 import { BrandedButton } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 
@@ -22,7 +22,7 @@ storiesOf('DiabetesQuestions', module).add('default view', () => {
         }}>
         {(props) => (
           <View style={{ marginHorizontal: 16 }}>
-            <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+            <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />
             <BrandedButton onPress={props.handleSubmit}>
               <Text>{i18n.t('update-profile')}</Text>
             </BrandedButton>

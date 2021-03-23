@@ -3,35 +3,42 @@ import { StyleSheet, View } from 'react-native';
 
 import { Icon, Text } from '@covid/components';
 
-import ProgressBars from './progress-bars';
-import { TProgress } from './progress-bar';
+import { TTimelineEvent, TProgress } from '../types';
 
-export type TStudy = 'ONGOING' | 'FUTURE';
+import ProgressBars from './progress-bars';
 
 interface IProps {
-  footerTitle: string;
-  progress: TProgress[];
-  studyType: TStudy;
-  subTitle: string;
-  title: string;
+  timelineEvent: TTimelineEvent;
 }
 
-function StudyCard({ footerTitle, progress, studyType, subTitle, title }: IProps) {
+function StudyCard({ timelineEvent }: IProps) {
+  const { ongoing, progress, subTitle, summary, title } = timelineEvent;
+  const p: TProgress[] = progress ? progress : ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+  const opacity = ongoing === 'ONGOING' ? 1 : 0.4;
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Icon iconName={studyType === 'ONGOING' ? 'search' : 'processed'} iconSize={18} style={{ marginTop: 4 }} />
-        <Text textClass="pBold" style={{ color: '#24262B', marginLeft: 12 }}>
+        <Icon
+          iconName={ongoing === 'ONGOING' ? 'search' : 'placeholder-2'}
+          iconSize={18}
+          style={{ marginTop: 4, opacity }}
+        />
+        <Text textClass="pBold" style={{ color: '#24262B', marginLeft: 12, opacity }}>
           {title}
         </Text>
       </View>
-      <Text textClass="h5Light" style={styles.body}>
-        {subTitle}
-      </Text>
-      <ProgressBars progress={progress} />
-      <Text style={{ color: '#024364', marginTop: 12 }} textClass="pMedium">
-        {footerTitle}
-      </Text>
+      {subTitle && (
+        <Text textClass="h5Light" style={[styles.body, { opacity }]}>
+          {subTitle}
+        </Text>
+      )}
+      <ProgressBars progress={p} />
+      {summary && (
+        <Text style={{ color: '#024364', marginTop: 12 }} textClass="pMedium">
+          {summary}
+        </Text>
+      )}
     </View>
   );
 }

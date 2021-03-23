@@ -22,15 +22,15 @@ import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { Coordinator, UpdatePatient } from '@covid/core/Coordinator';
+import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { isMinorAge } from '@covid/core/patient/PatientState';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-import { HeightData, HeightQuestion } from './fields/HeightQuestion';
-import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
-import { WeightData, WeightQuestion } from './fields/WeightQuestion';
+import { IHeightData, HeightQuestion } from './fields/HeightQuestion';
+import { IRaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
+import { IWeightData, WeightQuestion } from './fields/WeightQuestion';
 
 const initialFormValues = {
   yearOfBirth: '',
@@ -46,7 +46,7 @@ const initialFormValues = {
   mobilityAid: 'no',
 };
 
-export interface AboutYouData extends RaceEthnicityData, HeightData, WeightData {
+export interface IAboutYouData extends IRaceEthnicityData, IHeightData, IWeightData {
   yearOfBirth: string;
   sex: string;
   genderIdentity: string;
@@ -74,7 +74,7 @@ type State = {
   showEthnicityQuestion: boolean;
 };
 
-const checkFormFilled = (props: FormikProps<AboutYouData>) => {
+const checkFormFilled = (props: FormikProps<IAboutYouData>) => {
   if (Object.keys(props.errors).length) return false;
   if (Object.keys(props.values).length === 0) return false;
   return true;
@@ -96,7 +96,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
-  private coordinator: Coordinator & UpdatePatient = this.props.route.params.editing
+  private coordinator: Coordinator & IUpdatePatient = this.props.route.params.editing
     ? editProfileCoordinator
     : patientCoordinator;
 
@@ -114,7 +114,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     });
   }
 
-  handleUpdateHealth(formData: AboutYouData) {
+  handleUpdateHealth(formData: IAboutYouData) {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
@@ -140,7 +140,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     }
   }
 
-  private createPatientInfos(formData: AboutYouData) {
+  private createPatientInfos(formData: IAboutYouData) {
     let infos = {
       year_of_birth: cleanIntegerVal(formData.yearOfBirth),
       gender: formData.sex === 'male' ? 1 : formData.sex === 'female' ? 0 : formData.sex === 'pfnts' ? 2 : 3,
@@ -217,10 +217,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     return infos;
   }
 
-  private getPatientFormValues(): AboutYouData {
+  private getPatientFormValues(): IAboutYouData {
     const patientInfo = this.props.route.params.patientData.patientInfo!;
 
-    const patientFormData: AboutYouData = {
+    const patientFormData: IAboutYouData = {
       yearOfBirth: patientInfo.year_of_birth?.toString(),
       sex:
         patientInfo.gender === 1
@@ -343,7 +343,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       { label: i18n.t('exposed-no'), value: 'no' },
     ];
 
-    const getInitialFormValues = (): AboutYouData => {
+    const getInitialFormValues = (): IAboutYouData => {
       return {
         ...initialFormValues,
         ...RaceEthnicityQuestion.initialFormValues(),
@@ -365,7 +365,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         <Formik
           initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
           validationSchema={this.registerSchema}
-          onSubmit={(values: AboutYouData) => {
+          onSubmit={(values: IAboutYouData) => {
             return this.handleUpdateHealth(values);
           }}>
           {(props) => {
@@ -412,12 +412,12 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   <RaceEthnicityQuestion
                     showRaceQuestion={this.state.showRaceQuestion}
                     showEthnicityQuestion={this.state.showEthnicityQuestion}
-                    formikProps={props as FormikProps<RaceEthnicityData>}
+                    formikProps={props as FormikProps<IRaceEthnicityData>}
                   />
 
-                  <HeightQuestion formikProps={props as FormikProps<HeightData>} />
+                  <HeightQuestion formikProps={props as FormikProps<IHeightData>} />
 
-                  <WeightQuestion formikProps={props as FormikProps<WeightData>} label={i18n.t('your-weight')} />
+                  <WeightQuestion formikProps={props as FormikProps<IWeightData>} label={i18n.t('your-weight')} />
 
                   {!this.props.route.params.editing && (
                     <GenericTextField

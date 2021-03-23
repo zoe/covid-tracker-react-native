@@ -19,7 +19,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { Coordinator, UpdatePatient } from '@covid/core/Coordinator';
+import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -42,7 +42,7 @@ const initialFormValues = {
   clinicalStudyNctIds: '',
 };
 
-interface YourStudyData {
+interface IYourStudyData {
   clinicalStudyNames: string;
   clinicalStudyContacts: string;
   clinicalStudyInstitutions: string;
@@ -246,7 +246,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
-  private coordinator: Coordinator & UpdatePatient = this.props.route.params.editing
+  private coordinator: Coordinator & IUpdatePatient = this.props.route.params.editing
     ? editProfileCoordinator
     : patientCoordinator;
 
@@ -306,7 +306,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     };
   }
 
-  handleSubmit(formData: YourStudyData) {
+  handleSubmit(formData: IYourStudyData) {
     const currentPatient = this.coordinator.patientData.patientState;
     const infos = this.createPatientInfos(formData);
 
@@ -336,7 +336,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         <Formik
           initialValues={this.getInitialFormValues()}
           validationSchema={this.registerSchema}
-          onSubmit={(values: YourStudyData) => this.handleSubmit(values)}>
+          onSubmit={(values: IYourStudyData) => this.handleSubmit(values)}>
           {(props) => {
             return (
               <Form>
@@ -425,7 +425,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     );
   }
 
-  private createPatientInfos(formData: YourStudyData) {
+  private createPatientInfos(formData: IYourStudyData) {
     // This is to split up the US specific fields, from the cohorts. This is a neat way to do it without repeating the country filtering logic above
     const {
       clinicalStudyNames,

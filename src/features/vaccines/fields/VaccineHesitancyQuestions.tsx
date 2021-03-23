@@ -8,7 +8,7 @@ import {
   BooleanCheckboxes,
   CheckboxList,
   DropdownField,
-  FormQuestion,
+  IFormQuestion,
   RegularText,
 } from '@covid/components';
 import { VaccinePlanRequest } from '@covid/core/vaccine/dto/VaccineRequest';
@@ -40,7 +40,7 @@ type Props = {
   formikProps: FormikProps<VaccineHesitancyData>;
 };
 
-export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData, any> = (props: Props) => {
+export const VaccineHesitancyQuestions: IFormQuestion<Props, VaccineHesitancyData, any> = (props: Props) => {
   const { formikProps } = props;
 
   const dropdowns: PickerItemProps[] = [

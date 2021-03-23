@@ -1,5 +1,5 @@
 import NavigatorService from '@covid/NavigatorService';
-import { ScreenFlow, Coordinator, SelectProfile } from '@covid/core/Coordinator';
+import { ScreenFlow, Coordinator, ISelectProfile } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
@@ -8,21 +8,21 @@ import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import {
-  SchoolGroupModel,
-  SchoolModel,
-  SubscribedSchoolGroupStats,
-  SubscribedSchoolStats,
+  ISchoolGroupModel,
+  ISchoolModel,
+  ISubscribedSchoolGroupStats,
+  ISubscribedSchoolStats,
 } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { fetchSubscribedSchoolGroups, schoolSlice } from '@covid/core/schools/Schools.slice';
 import store from '@covid/core/state/store';
 
-export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
+export class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
   patientData: PatientData;
   higherEducation: boolean;
 
   // Form state
-  private selectedSchool?: SchoolModel;
+  private selectedSchool?: ISchoolModel;
 
   @lazyInject(Services.User)
   private readonly userService: IUserService;
@@ -86,10 +86,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     });
   }
 
-  async setSelectedSchool(selectedSchool: SchoolModel) {
+  async setSelectedSchool(selectedSchool: ISchoolModel) {
     this.selectedSchool = selectedSchool;
     if (selectedSchool.higher_education) {
-      const groups: SchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(selectedSchool.id);
+      const groups: ISchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(selectedSchool.id);
       await schoolNetworkCoordinator.addPatientToGroup(groups[0].id, this.patientData.patientId);
     }
   }
@@ -130,7 +130,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     });
   }
 
-  goToSchoolDashboard(school: SubscribedSchoolStats) {
+  goToSchoolDashboard(school: ISubscribedSchoolStats) {
     NavigatorService.navigate('SchoolDashboard', { school });
   }
 }

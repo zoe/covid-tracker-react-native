@@ -49,6 +49,7 @@ export const zoe = require('./logos/zoe.png');
 export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
 export const covidByZoeIcon = require('./logos/covid_app_by_zoe.png');
+export const covidByZoeIconDark = require('./logos/covid_app_by_zoe_dark.png');
 export const createdByZoe = require('./logos/created-by-zoe.png');
 
 // Profiles
@@ -111,3 +112,6 @@ export { default as C19 } from './logos/C19';
 
 // avatars
 export * from './avatars';
+
+// cards
+export * from './cards';
