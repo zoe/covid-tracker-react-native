@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Text } from '@covid/components';
+import { useTheme } from '@covid/themes';
 
 import { TReportedEvent } from '../types';
 
@@ -12,8 +13,9 @@ interface IProps {
 }
 
 function ReportCard({ reportedEvents }: IProps) {
+  const { grid } = useTheme();
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
       <Text rhythm={20} textClass="h4">
         Thanks for reporting
       </Text>

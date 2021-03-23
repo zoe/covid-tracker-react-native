@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 
 import { Text } from '@covid/components';
-import { useTheme } from '@covid/themes';
 
 import { LoadingIndicator, ReportCard, Timeline, TimelineIntroduction, TimelineHeader } from '../partials';
 import { timelineData } from '../data';
@@ -16,7 +15,6 @@ type TRowItem = {
 };
 
 function Anniversary() {
-  const { grid } = useTheme();
   const [timeline, setTimeline] = useState<ITimeline>();
 
   useEffect(() => {

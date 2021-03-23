@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { useTheme } from '@covid/themes';
+
 import { TProgress, TTimelineNode, TTimelineEvent } from '../types';
 
 import StudyCard from './study-card';
@@ -13,9 +15,7 @@ interface IProps {
 }
 
 function Timeline({ timelineEvents }: IProps) {
-  const progress: TProgress[] = ['COMPLETE', 'IN_PROGRESS', 'NOT_STARTED', 'NOT_STARTED'];
-  const futureProgress: TProgress[] = ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
-
+  const { grid } = useTheme();
   const getMappedTimelineEvent = (timelineEvent: TTimelineEvent): ReactNode => {
     switch (timelineEvent.event_type) {
       case 'FINDING':
@@ -30,7 +30,7 @@ function Timeline({ timelineEvents }: IProps) {
     return null;
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
       <View style={styles.line} />
       {timelineEvents.map((timelineEvent, index) => {
         const key = `timeline-event-${index}`;

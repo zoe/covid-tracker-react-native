@@ -2,10 +2,12 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { Text } from '@covid/components';
+import { useTheme } from '@covid/themes';
 
 function TimelineIntroduction() {
+  const { grid } = useTheme();
   return (
-    <View style={{ padding: 16 }}>
+    <View style={{ padding: grid.gutter }}>
       <Text textClass="h3" rhythm={32}>
         You played a key role
       </Text>
