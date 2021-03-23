@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, View } from 'react-native';
+import { FlatList, SafeAreaView, ListRenderItem } from 'react-native';
 
-import { Text } from '@covid/components';
 import ApiClient from '@covid/core/api/ApiClient';
 
-import { LoadingIndicator, ReportCard, Timeline, TimelineIntroduction, TimelineHeader } from '../partials';
+import {
+  LoadingIndicator,
+  ReportCard,
+  Timeline,
+  TimelineIntroduction,
+  TimelineHeader,
+  TimelineFooter,
+} from '../partials';
 import { ITimeline } from '../types';
 
-type TRowType = 'INTRODUCTION' | 'REPORT_CARD' | 'TIMELINE';
+type TRowType = 'FOOTER' | 'INTRODUCTION' | 'LOADER' | 'REPORT_CARD' | 'TIMELINE';
 
 type TRowItem = {
   id: TRowType;
-  data: any;
 };
 
 function Anniversary() {
@@ -33,8 +38,8 @@ function Anniversary() {
     }
   }, []);
 
-  const renderItem = (item: any) => {
-    switch (item.item.id) {
+  const renderItem = ({ item }: { item: TRowItem }) => {
+    switch (item.id) {
       case 'INTRODUCTION':
         return <TimelineIntroduction />;
       case 'LOADER':
@@ -43,15 +48,14 @@ function Anniversary() {
         return <>{timeline ? <ReportCard reportedEvents={timeline.badges} /> : null}</>;
       case 'TIMELINE':
         return <>{timeline ? <Timeline timelineEvents={timeline.items} /> : null}</>;
+      case 'FOOTER':
+        return <>{timeline ? <TimelineFooter /> : null}</>;
+      default:
+        return null;
     }
-    return (
-      <View>
-        <Text>hello world</Text>
-      </View>
-    );
   };
 
-  const data = [
+  const data: TRowItem[] = [
     {
       id: 'INTRODUCTION',
     },
@@ -63,6 +67,9 @@ function Anniversary() {
     },
     {
       id: 'TIMELINE',
+    },
+    {
+      id: 'FOOTER',
     },
   ];
 

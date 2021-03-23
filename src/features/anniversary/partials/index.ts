@@ -4,3 +4,4 @@ export { default as Timeline } from './timeline';
 export { default as TimelineHeader } from './timeline-header';
 export { default as TimelineIntroduction } from './timeline-introduction';
 export { default as ImpactTimelineCard } from './impact-timeline-card';
+export { default as TimelineFooter } from './timeline-footer';
