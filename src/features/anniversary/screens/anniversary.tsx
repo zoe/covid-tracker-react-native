@@ -5,7 +5,6 @@ import { Text } from '@covid/components';
 import ApiClient from '@covid/core/api/ApiClient';
 
 import { LoadingIndicator, ReportCard, Timeline, TimelineIntroduction, TimelineHeader } from '../partials';
-import { timelineData } from '../data';
 import { ITimeline } from '../types';
 
 type TRowType = 'INTRODUCTION' | 'REPORT_CARD' | 'TIMELINE';
@@ -29,7 +28,9 @@ function Anniversary() {
       getTimeline().then((res) => {
         setTimeline(res[0]);
       });
-    } catch (error) {}
+    } catch (error) {
+      // TODO - HAND ERROR NICELY
+    }
   }, []);
 
   const renderItem = (item: any) => {

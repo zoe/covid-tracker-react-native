@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { Icon, Link, Text } from '@covid/components';
+import { openWebLink } from '@covid/utils/links';
 
 import { TTimelineEvent } from '../types';
 
@@ -10,7 +11,7 @@ interface IProps {
 }
 
 function FindingCard({ timelineEvent }: IProps) {
-  const { title, sub_title, external_link_text } = timelineEvent;
+  const { title, sub_title, external_link_text, external_link } = timelineEvent;
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -22,7 +23,9 @@ function FindingCard({ timelineEvent }: IProps) {
       <Text textClass="h5Light" style={styles.body}>
         {sub_title}
       </Text>
-      {external_link_text && <Link linkText={external_link_text} onPress={() => null} style={{ marginBottom: 8 }} />}
+      {external_link_text && external_link && (
+        <Link linkText={external_link_text} onPress={() => openWebLink(external_link)} style={{ marginBottom: 8 }} />
+      )}
     </View>
   );
 }
