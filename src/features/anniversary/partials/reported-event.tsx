@@ -20,9 +20,9 @@ function ReportedEvent({ reportedEvent }: IProps) {
         return 'chat-feedback';
       case 'MENTAL_HEALTH':
         return 'chat-medical';
-      case 'SEVERITY':
-        return 'life-insurance';
       case 'SYMPTOMS':
+        return 'life-insurance';
+      case 'DAILY_HEALTH':
         return 'profile-info';
       case 'TEST_RESULTS':
         return 'plan';
