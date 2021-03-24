@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { useTheme } from '@covid/themes';
 
-import { TProgress, TTimelineNode, TTimelineEvent } from '../types';
+import { TTimelineEvent, TTimelineNode } from '../types';
 
 import StudyCard from './study-card';
 import TimelineNode from './timeline-node';

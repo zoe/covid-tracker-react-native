@@ -11,9 +11,26 @@ interface IProps {
   timelineEvent: TTimelineEvent;
 }
 
+function getProgressArray(progress: TProgress): TProgress[] {
+  switch (progress) {
+    case 'DISCOVERY':
+      return ['DISCOVERY', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+    case 'DATA_COLLECTION':
+      return ['COMPLETED', 'DATA_COLLECTION', 'NOT_STARTED', 'NOT_STARTED'];
+    case 'ANALYSIS':
+      return ['COMPLETED', 'COMPLETED', 'ANALYSIS', 'NOT_STARTED'];
+    case 'COMPLETED':
+      return ['COMPLETED', 'COMPLETED', 'COMPLETED', 'COMPLETED'];
+    case 'NOT_STARTED':
+    default:
+      return ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+  }
+}
+
 function StudyCard({ timelineEvent }: IProps) {
   const { ongoing, progress, sub_title, summary, title } = timelineEvent;
-  const p: TProgress[] = progress ? progress : ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+  const p: TProgress[] = getProgressArray(progress);
+  console.log(p);
   const opacity = ongoing === 'ONGOING' ? 1 : 0.4;
 
   return (

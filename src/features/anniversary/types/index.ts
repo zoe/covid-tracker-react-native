@@ -15,7 +15,7 @@ export type TReportedEvent = {
   text: string;
 };
 
-export type TProgress = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'FUTURE';
+export type TProgress = 'NOT_STARTED' | 'DISCOVERY' | 'DATA_COLLECTION' | 'ANALYSIS' | 'COMPLETED';
 
 export type TEvent = 'HIGHLIGHT' | 'FINDING' | 'NODE' | 'STUDY';
 
