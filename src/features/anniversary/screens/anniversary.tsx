@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList, SafeAreaView, Alert } from 'react-native';
 
 import ApiClient from '@covid/core/api/ApiClient';
 
@@ -21,6 +21,7 @@ type TRowItem = {
 
 function Anniversary() {
   const [timeline, setTimeline] = useState<ITimeline>();
+  const [hasError, setHasError] = useState(false);
 
   const getTimeline = async (): Promise<ITimeline> => {
     const client = new ApiClient();
@@ -30,11 +31,17 @@ function Anniversary() {
 
   useEffect(() => {
     try {
-      getTimeline().then((res) => {
-        setTimeline(res);
-      });
+      getTimeline()
+        .then((res) => {
+          setTimeline(res);
+        })
+        .catch(() => {
+          Alert.alert('Error loading timeline');
+          setHasError(true);
+        });
     } catch (error) {
       // TODO - HAND ERROR NICELY
+      Alert.alert(error);
     }
   }, []);
 
@@ -43,7 +50,7 @@ function Anniversary() {
       case 'INTRODUCTION':
         return <TimelineIntroduction />;
       case 'LOADER':
-        return <>{timeline ? null : <LoadingIndicator />}</>;
+        return <>{timeline && !hasError ? null : <LoadingIndicator />}</>;
       case 'REPORT_CARD':
         return <>{timeline ? <ReportCard reportedEvents={timeline.badges} /> : null}</>;
       case 'TIMELINE':
