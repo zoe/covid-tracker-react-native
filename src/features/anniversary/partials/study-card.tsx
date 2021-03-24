@@ -11,7 +11,7 @@ interface IProps {
   timelineEvent: TTimelineEvent;
 }
 
-function getProgressArray(progress: TProgress): TProgress[] {
+function getProgressArray(progress: TProgress | null | undefined): TProgress[] {
   switch (progress) {
     case 'DISCOVERY':
       return ['DISCOVERY', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];

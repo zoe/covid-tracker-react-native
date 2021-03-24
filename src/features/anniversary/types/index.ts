@@ -27,7 +27,7 @@ export type TTimelineEvent = {
   external_link?: string | null;
   external_link_text?: string | null;
   ongoing?: TStudy | null;
-  progress?: TProgress[] | null;
+  progress?: TProgress | null;
   sub_title?: string | null;
   summary?: string | null;
   title: string | null;
