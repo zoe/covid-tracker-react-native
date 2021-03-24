@@ -10,10 +10,11 @@ import {
   TimelineIntroduction,
   TimelineHeader,
   TimelineFooter,
+  TimelineError,
 } from '../partials';
 import { ITimeline } from '../types';
 
-type TRowType = 'FOOTER' | 'INTRODUCTION' | 'LOADER' | 'REPORT_CARD' | 'TIMELINE';
+type TRowType = 'ERROR' | 'FOOTER' | 'INTRODUCTION' | 'LOADER' | 'REPORT_CARD' | 'TIMELINE';
 
 type TRowItem = {
   id: TRowType;
@@ -40,17 +41,18 @@ function Anniversary() {
           setHasError(true);
         });
     } catch (error) {
-      // TODO - HAND ERROR NICELY
-      Alert.alert(error);
+      setHasError(true);
     }
   }, []);
 
   const renderItem = ({ item }: { item: TRowItem }) => {
     switch (item.id) {
+      case 'ERROR':
+        return <>{hasError ? <TimelineError /> : null}</>;
       case 'INTRODUCTION':
         return <TimelineIntroduction />;
       case 'LOADER':
-        return <>{timeline && !hasError ? null : <LoadingIndicator />}</>;
+        return <>{timeline || hasError ? null : <LoadingIndicator />}</>;
       case 'REPORT_CARD':
         return <>{timeline ? <ReportCard reportedEvents={timeline.badges} /> : null}</>;
       case 'TIMELINE':
@@ -68,6 +70,9 @@ function Anniversary() {
     },
     {
       id: 'LOADER',
+    },
+    {
+      id: 'ERROR',
     },
     {
       id: 'REPORT_CARD',
