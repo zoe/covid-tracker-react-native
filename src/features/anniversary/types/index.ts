@@ -1,8 +1,8 @@
 export type TBadge =
   | 'GENERAL'
-  | 'SYMPTOMS'
+  | 'DAILY_HEALTH'
   | 'TWO_PEOPLE'
-  | 'SEVERITY'
+  | 'SYMPTOMS'
   | 'TEST_RESULTS'
   | 'VACCINATION_STATUS'
   | 'VACCINE_SIDE_EFFECTS'
