@@ -11,7 +11,7 @@ interface IProps {
 
 function ReportedEvent({ reportedEvent }: IProps) {
   const getMappedIconName = (): TIconName => {
-    switch (reportedEvent.name) {
+    switch (reportedEvent.id) {
       case 'DIET_AND_LIFESTYLE':
         return 'loose-weight-1';
       case 'GENERAL':

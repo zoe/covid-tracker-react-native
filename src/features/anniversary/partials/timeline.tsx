@@ -43,7 +43,6 @@ function Timeline({ timelineEvents }: IProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 24,
   },
   line: {
     backgroundColor: '#0165B5',

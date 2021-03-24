@@ -11,7 +11,7 @@ export type TBadge =
   | 'MENTAL_HEALTH';
 
 export type TReportedEvent = {
-  name: TBadge;
+  id: TBadge;
   text: string;
 };
 
