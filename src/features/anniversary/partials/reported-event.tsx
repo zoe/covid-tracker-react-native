@@ -32,8 +32,9 @@ function ReportedEvent({ reportedEvent }: IProps) {
         return 'syringe';
       case 'VACCINE_SIDE_EFFECTS':
         return 'dietary-inflammation-2';
+      default:
+        return 'combine';
     }
-    return 'question-mark';
   };
 
   return (

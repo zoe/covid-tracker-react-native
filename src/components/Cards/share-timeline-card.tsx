@@ -1,13 +1,13 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-import { impactTimeline2 } from '@assets';
+import { timelineShare } from '@assets';
 
 function ShareTimelineCard() {
   return (
     <>
       <Image
-        source={impactTimeline2}
+        source={timelineShare}
         style={{
           aspectRatio: 0.99,
           resizeMode: 'contain',
