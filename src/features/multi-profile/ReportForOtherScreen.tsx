@@ -1,4 +1,4 @@
-import { RouteProp, CommonActions } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import React, { Component } from 'react';
@@ -7,21 +7,14 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import { profilesIcon } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import assessmentCoordinator, { AssessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import {
-  BrandedButton,
-  ClickableText,
-  HeaderText,
-  RegularBoldText,
-  RegularText,
-  SecondaryText,
-} from '@covid/components/Text';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ClickableText, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IProfileService } from '@covid/core/profile/ProfileService';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ReportForOther'>;

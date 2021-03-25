@@ -6,8 +6,8 @@ import { action, HandlerFunction } from '@storybook/addon-actions';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { GenericTextField } from '@covid/components/GenericTextField';
-import { BrandedButton } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { BrandedButton } from '@covid/components';
 
 const ValueChangeHandler = (): HandlerFunction => action('submit');
 

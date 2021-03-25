@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { IUserService } from '@covid/core/user/UserService';
 import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
@@ -27,6 +27,7 @@ import {
 import { IRaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
 import { IDiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { BrandedButton } from '@covid/components';
 
 interface IBackfillData extends IBloodPressureData, IRaceEthnicityData, IAtopyData, IDiabetesData, IBloodGroupData {}
 

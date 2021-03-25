@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { WebView } from '@covid/components/WebView';
-import { BrandedButton } from '@covid/components/Text';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -18,8 +17,9 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { BrandedButton } from '@covid/components';
 
-import { ShareButton } from '../Buttons';
+import { ShareButton } from '../buttons';
 import { Text } from '../typography';
 
 const MAP_HEIGHT = 246;

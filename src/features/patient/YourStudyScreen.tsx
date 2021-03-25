@@ -10,7 +10,7 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -21,8 +21,8 @@ import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 type YourStudyProps = {
   navigation: StackNavigationProp<ScreenParamList, 'YourStudy'>;

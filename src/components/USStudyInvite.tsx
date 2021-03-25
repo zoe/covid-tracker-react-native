@@ -12,7 +12,7 @@ import { Services } from '@covid/provider/services.types';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { IPatientService } from '@covid/core/patient/PatientService';
 
-import { BrandedButton } from './BrandedButton';
+import { BrandedButton } from './buttons/';
 
 type StudyInviteProps = {
   assessmentData: AssessmentData;

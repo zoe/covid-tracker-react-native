@@ -8,7 +8,7 @@ import { PickerItemProps, View } from 'react-native';
 
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
+import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -17,6 +17,7 @@ import { fetchStartUpInfo } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import YesNoField from '@covid/components/YesNoField';
 import DropdownField from '@covid/components/DropdownField';
+import { BrandedButton } from '@covid/components';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'EditLocation'>;

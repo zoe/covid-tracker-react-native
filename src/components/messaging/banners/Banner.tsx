@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IUIMessage, useMessage } from '@covid/common';
 
-import { ThemeButton } from '../../Buttons';
+import { ThemeButton } from '../../buttons';
 import { Text } from '../../typography';
 
 import { SButtonRowView, SContainerView } from './styles';

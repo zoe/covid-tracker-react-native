@@ -6,7 +6,7 @@ import { colors } from '@theme';
 
 export type IButtonPress = ((event: GestureResponderEvent) => void) | undefined;
 
-type ButtonProps = {
+type IProps = {
   onPress: IButtonPress;
   children: React.ReactNode;
 };
@@ -28,10 +28,14 @@ const buttonStyles = StyleSheet.create({
   },
 });
 
-export const BigButton: React.FC<ButtonProps> = (props) => (
-  <TouchableOpacity onPress={props.onPress} testID="buttonTestID">
-    <View style={buttonStyles.bigButton}>
-      <Text style={buttonStyles.buttonText}>{props.children}</Text>
-    </View>
-  </TouchableOpacity>
-);
+function BigButton(props: IProps) {
+  return (
+    <TouchableOpacity onPress={props.onPress} testID="buttonTestID">
+      <View style={buttonStyles.bigButton}>
+        <Text style={buttonStyles.buttonText}>{props.children}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+export default BigButton;

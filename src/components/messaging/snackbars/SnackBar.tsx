@@ -4,7 +4,7 @@ import { Animated, Easing, View } from 'react-native';
 import { TColorPalette, TColorShade } from '@covid/themes';
 import { IUIAction, IUIMessage, useMessage } from '@covid/common';
 
-import { RoundIconButton, ThemeButton } from '../../Buttons';
+import { RoundIconButton, ThemeButton } from '../../buttons';
 import { Text } from '../../typography';
 
 import { SCardView, SContainerView, SMessageText, TVariant } from './styles';
