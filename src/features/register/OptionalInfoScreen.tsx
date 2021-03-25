@@ -12,16 +12,17 @@ import i18n from '@covid/locale/i18n';
 import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { LoadingModal } from '@covid/components/Loading';
 import { offlineService, pushNotificationService } from '@covid/Services';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IUserService } from '@covid/core/user/UserService';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 import appCoordinator from '../AppCoordinator';
-import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>;

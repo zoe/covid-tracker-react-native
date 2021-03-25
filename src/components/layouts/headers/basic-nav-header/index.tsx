@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useTheme } from '@covid/themes';
 
-import { RoundIconButton } from '../../../Buttons';
+import { RoundIconButton } from '../../../buttons';
 
 interface IProps {
   backgroundColor?: string;

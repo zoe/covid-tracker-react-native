@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { Button } from '@covid/components/Buttons/Button';
+import { Button } from '@covid/components/buttons/Button';
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText, Header3Text } from '@covid/components/Text';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';

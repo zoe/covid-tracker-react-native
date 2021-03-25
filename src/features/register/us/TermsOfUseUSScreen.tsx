@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-
-import i18n from '../../../locale/i18n';
-import { ScreenParamList } from '../../ScreenParamList';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
+import { BrandedButton } from '@covid/components';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'TermsOfUseUS'>;

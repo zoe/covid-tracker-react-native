@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { ListItem } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { HeaderText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import Screen, { Header } from '@covid/components/Screen';
@@ -14,6 +14,7 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { Services } from '@covid/provider/services.types';
 import { useInjection } from '@covid/provider/services.hooks';
+import { BrandedButton } from '@covid/components';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestConfirm'>;

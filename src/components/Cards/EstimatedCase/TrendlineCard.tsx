@@ -15,7 +15,7 @@ import { openWebLink } from '@covid/utils/links';
 
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../Stats/TrendLineChart';
 import { Text } from '../../typography';
-import { ShareButton } from '../../Buttons';
+import { ShareButton } from '../../buttons';
 
 import { DeltaTag } from './DeltaTag';
 

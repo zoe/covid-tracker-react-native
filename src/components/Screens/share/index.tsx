@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { closeIcon } from '@assets';
 
-import { ThemeButton, IconButton } from '../../Buttons';
+import { ThemeButton, IconButton } from '../../buttons';
 
 import ShareContainer from './container';
 import ShareLabel from './label';
