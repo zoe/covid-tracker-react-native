@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Icon, Link, Text } from '@covid/components';
 import { openWebLink } from '@covid/utils/links';
@@ -11,7 +12,20 @@ interface IProps {
 }
 
 function FindingCard({ timelineEvent }: IProps) {
-  const { title, sub_title, external_link_text, external_link } = timelineEvent;
+  const { title, sub_title, external_link_text, external_link, route_name, route_text } = timelineEvent;
+  const { navigate } = useNavigation();
+
+  const getLink = () => {
+    if (external_link_text && external_link) {
+      return <Link linkText={external_link_text} onPress={() => openWebLink(external_link)} />;
+    }
+    if (route_name && route_text) {
+      <Link linkText={route_text} onPress={() => navigate(route_name)} />;
+    }
+
+    return null;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -23,9 +37,7 @@ function FindingCard({ timelineEvent }: IProps) {
       <Text textClass="h5Light" style={styles.body}>
         {sub_title}
       </Text>
-      {external_link_text && external_link && (
-        <Link linkText={external_link_text} onPress={() => openWebLink(external_link)} style={{ marginBottom: 8 }} />
-      )}
+      <View style={{ marginBottom: 8 }}>{getLink()}</View>
     </View>
   );
 }

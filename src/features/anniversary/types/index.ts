@@ -28,6 +28,8 @@ export type TTimelineEvent = {
   external_link_text?: string | null;
   ongoing?: TStudy | null;
   progress?: TProgress | null;
+  route_name?: string | null;
+  route_text?: string | null;
   sub_title?: string | null;
   summary?: string | null;
   title: string | null;
