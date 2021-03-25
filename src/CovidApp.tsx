@@ -51,7 +51,7 @@ function CovidApp() {
           <Stack.Screen
             name="Share"
             component={ShareScreen}
-            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
+            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.9)' } }}
           />
           <Stack.Screen
             name="VaccineListMissing"

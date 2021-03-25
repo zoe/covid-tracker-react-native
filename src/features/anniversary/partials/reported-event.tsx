@@ -11,7 +11,7 @@ interface IProps {
 
 function ReportedEvent({ reportedEvent }: IProps) {
   const getMappedIconName = (): TIconName => {
-    switch (reportedEvent.eventBadge) {
+    switch (reportedEvent.id) {
       case 'DIET_AND_LIFESTYLE':
         return 'loose-weight-1';
       case 'GENERAL':
@@ -20,9 +20,9 @@ function ReportedEvent({ reportedEvent }: IProps) {
         return 'chat-feedback';
       case 'MENTAL_HEALTH':
         return 'chat-medical';
-      case 'SEVERITY':
-        return 'life-insurance';
       case 'SYMPTOMS':
+        return 'life-insurance';
+      case 'DAILY_HEALTH':
         return 'profile-info';
       case 'TEST_RESULTS':
         return 'plan';
@@ -32,8 +32,9 @@ function ReportedEvent({ reportedEvent }: IProps) {
         return 'syringe';
       case 'VACCINE_SIDE_EFFECTS':
         return 'dietary-inflammation-2';
+      default:
+        return 'combine';
     }
-    return 'question-mark';
   };
 
   return (
@@ -44,7 +45,7 @@ function ReportedEvent({ reportedEvent }: IProps) {
       }}>
       <Icon iconName={getMappedIconName()} iconSize={24} style={{ marginBottom: 8 }} />
       <Text textClass="pXSmallMedium" textAlign="center">
-        {reportedEvent.eventName}
+        {reportedEvent.text}
       </Text>
     </View>
   );

@@ -14,14 +14,12 @@ interface IProps {
 function ProgressBar({ current, progress, total }: IProps) {
   const getProgress = () => {
     switch (progress) {
-      case 'FUTURE':
-        return '15%';
       case 'NOT_STARTED':
         return '0%';
-      case 'IN_PROGRESS':
-        return '62%';
-      default:
+      case 'COMPLETED':
         return '100%';
+      default:
+        return '62%';
     }
   };
 

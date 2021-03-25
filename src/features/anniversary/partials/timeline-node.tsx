@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import moment from 'moment';
 
 import { Text } from '@covid/components';
 
@@ -15,12 +16,12 @@ function TimelineNode({ timelineEvent }: IProps) {
       <View style={styles.row}>
         <View style={styles.node} />
         <Text textClass="pSmallLight" style={styles.date}>
-          {timelineEvent.date}
+          {moment(timelineEvent.date).format('MMMM Do YYYY')}
         </Text>
       </View>
       <View style={styles.body}>
         <Text textClass="h5Light">{timelineEvent.title}</Text>
-        {timelineEvent.subTitle && <Text textClass="h5Medium">{timelineEvent.subTitle}</Text>}
+        {timelineEvent.sub_title && <Text textClass="h5Medium">{timelineEvent.sub_title}</Text>}
       </View>
     </View>
   );

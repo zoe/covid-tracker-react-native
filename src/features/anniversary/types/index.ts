@@ -1,8 +1,8 @@
 export type TBadge =
   | 'GENERAL'
-  | 'SYMPTOMS'
+  | 'DAILY_HEALTH'
   | 'TWO_PEOPLE'
-  | 'SEVERITY'
+  | 'SYMPTOMS'
   | 'TEST_RESULTS'
   | 'VACCINATION_STATUS'
   | 'VACCINE_SIDE_EFFECTS'
@@ -11,11 +11,11 @@ export type TBadge =
   | 'MENTAL_HEALTH';
 
 export type TReportedEvent = {
-  eventBadge: TBadge;
-  eventName: string;
+  id: TBadge;
+  text: string;
 };
 
-export type TProgress = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'FUTURE';
+export type TProgress = 'NOT_STARTED' | 'DISCOVERY' | 'DATA_COLLECTION' | 'ANALYSIS' | 'COMPLETED';
 
 export type TEvent = 'HIGHLIGHT' | 'FINDING' | 'NODE' | 'STUDY';
 
@@ -23,17 +23,23 @@ export type TStudy = 'ONGOING' | 'FUTURE';
 
 export type TTimelineEvent = {
   date: string;
-  eventType: TEvent;
-  externalLink?: string;
-  externalLinkText?: string;
-  ongoing?: TStudy;
-  progress?: TProgress[];
-  subTitle?: string;
-  summary?: string;
-  title: string;
+  event_type: TEvent;
+  external_link?: string | null;
+  external_link_text?: string | null;
+  ongoing?: TStudy | null;
+  progress?: TProgress | null;
+  route_name?: string | null;
+  route_text?: string | null;
+  sub_title?: string | null;
+  summary?: string | null;
+  title: string | null;
+};
+
+export type TTimelineNode = {
+  node: TTimelineEvent;
 };
 
 export interface ITimeline {
-  reportedEvents: TReportedEvent[];
-  timelineEvents: TTimelineEvent[];
+  badges: TReportedEvent[];
+  items: TTimelineNode[];
 }
