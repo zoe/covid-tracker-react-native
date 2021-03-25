@@ -29,13 +29,16 @@ import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { identify } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 import {
-  selectMentalHealthState,
-  setDashboardHasBeenViewed,
+  selectAnniversary,
   selectApp,
-  selectSettings,
+  setDashboardHasBeenViewed,
   selectDietStudy,
+  selectMentalHealthState,
+  selectSettings,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
+
+import { ImpactTimelineCard } from '../anniversary';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -46,6 +49,7 @@ interface IProps {
 }
 
 export function DashboardScreen({ navigation, route }: IProps) {
+  const anniversary = useSelector(selectAnniversary);
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
@@ -81,6 +85,10 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
+    // if (!anniversary.hasViewedModal) {
+    //   navigation.navigate('AnniversaryModal');
+    //   return;
+    // }
     const now = new Date().getTime();
     if (settings.featureRunDate) {
       const featureRunDate = new Date(settings.featureRunDate).getTime();
@@ -165,6 +173,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        {/* <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} /> */}
         <ShareVaccineCard screenName="Dashboard" />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
