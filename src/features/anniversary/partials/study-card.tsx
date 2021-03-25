@@ -30,7 +30,6 @@ function getProgressArray(progress: TProgress | null | undefined): TProgress[] {
 function StudyCard({ timelineEvent }: IProps) {
   const { ongoing, progress, sub_title, summary, title } = timelineEvent;
   const p: TProgress[] = getProgressArray(progress);
-  console.log(p);
   const opacity = ongoing === 'ONGOING' ? 1 : 0.4;
 
   return (
