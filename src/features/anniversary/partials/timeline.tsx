@@ -26,8 +26,9 @@ function Timeline({ timelineEvents }: IProps) {
         return <TimelineNode timelineEvent={timelineEvent} />;
       case 'STUDY':
         return <StudyCard timelineEvent={timelineEvent} />;
+      default:
+        return null;
     }
-    return null;
   };
   return (
     <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
