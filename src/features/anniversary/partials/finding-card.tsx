@@ -11,6 +11,9 @@ interface IProps {
   timelineEvent: TTimelineEvent;
 }
 
+// route_name: "DietStudy"
+// route_text: "CLICK FOR ROUTE!"
+
 function FindingCard({ timelineEvent }: IProps) {
   const { title, sub_title, external_link_text, external_link, route_name, route_text } = timelineEvent;
   const { navigate } = useNavigation();
@@ -20,7 +23,7 @@ function FindingCard({ timelineEvent }: IProps) {
       return <Link linkText={external_link_text} onPress={() => openWebLink(external_link)} />;
     }
     if (route_name && route_text) {
-      <Link linkText={route_text} onPress={() => navigate(route_name)} />;
+      return <Link linkText={route_text} onPress={() => navigate(route_name)} />;
     }
 
     return null;
