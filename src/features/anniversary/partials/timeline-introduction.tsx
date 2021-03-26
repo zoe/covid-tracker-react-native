@@ -9,11 +9,10 @@ function TimelineIntroduction() {
   return (
     <View style={{ padding: grid.gutter }}>
       <Text textClass="h3" rhythm={32}>
-        You played a key role
+        Your unique contribution to science
       </Text>
       <Text rhythm={24}>
-        Based on your profile and reporting, we have created a timeline showing how your individual contributions helped
-        unlock key scientific findings throughout the past year.
+        Your personal timeline shows all you've helped achieve so far and future discoveries you can still be part of.
       </Text>
     </View>
   );
