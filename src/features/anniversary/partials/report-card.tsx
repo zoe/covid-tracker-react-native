@@ -17,7 +17,7 @@ function ReportCard({ reportedEvents }: IProps) {
   return (
     <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
       <Text rhythm={20} textClass="h4">
-        Thanks for reporting
+        You are making major impact!
       </Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {reportedEvents.map((reportedEvent, index) => {
