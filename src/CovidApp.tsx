@@ -7,7 +7,7 @@ import { Dimensions } from 'react-native';
 import * as Notifications from 'expo-notifications';
 
 import Analytics, { events } from '@covid/core/Analytics';
-import { MentalHealthModal, DietStudyModal } from '@covid/features';
+import { MentalHealthModal, DietStudyModal, AnniversaryModal } from '@covid/features';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
@@ -57,7 +57,7 @@ function CovidApp() {
           <Stack.Screen
             name="Share"
             component={ShareScreen}
-            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
+            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.9)' } }}
           />
           <Stack.Screen
             name="VaccineListMissing"
@@ -72,6 +72,11 @@ function CovidApp() {
           <Stack.Screen
             name="DietStudyModal"
             component={DietStudyModal}
+            options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
+          />
+          <Stack.Screen
+            name="AnniversaryModal"
+            component={AnniversaryModal}
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
           />
         </Stack.Navigator>

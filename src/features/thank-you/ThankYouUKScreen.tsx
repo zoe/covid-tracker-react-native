@@ -10,7 +10,7 @@ import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import i18n from '@covid/locale/i18n';
@@ -20,9 +20,12 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
-import { FeaturedContentList, FeaturedContentType } from '@covid/components';
+import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
 import store from '@covid/core/state/store';
 import { DietStudyCard } from '@covid/features';
+
+import { ImpactTimelineCard } from '../anniversary';
+import appCoordinator from '../AppCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -75,6 +78,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </Header>
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
+
+              <ImpactTimelineCard onPress={() => appCoordinator.goToAnniversary()} size="LARGE" />
 
               {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 

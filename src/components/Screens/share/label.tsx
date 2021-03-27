@@ -10,15 +10,20 @@ import { SShareLabelView, SRowView, SImageContainer, STextContainer, SLogoContai
 interface IProps {
   colorPalette?: TColorPalette;
   colorShade?: TColorShade;
+  label?: string;
 }
 
-function ShareLabel({ colorPalette = 'teal', colorShade = 'main' }: IProps) {
+function ShareLabel({
+  colorPalette = 'teal',
+  colorShade = 'main',
+  label = 'Explore the state of the pandemic in your area via the COVID Symptom Study App',
+}: IProps) {
   return (
     <SShareLabelView colorPalette={colorPalette} colorShade={colorShade}>
       <SRowView>
         <STextContainer>
           <Text colorPalette={colorPalette} colorShade={colorShade} textClass="h6Regular">
-            Explore the state of the pandemic in your area via the COVID Symptom Study App
+            {label}
           </Text>
           <Text colorPalette={colorPalette} colorShade={colorShade} textClass="h6Regular">
             covid.joinzoe.com
