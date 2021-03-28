@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Text } from '@covid/components';
+import { SolidColorBar, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
+import { colors } from '@theme';
 
 import { TReportedEvent } from '../types';
 
@@ -16,10 +17,10 @@ function ReportCard({ reportedEvents }: IProps) {
   const { grid } = useTheme();
   return (
     <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
-      <Text rhythm={20} textClass="h4">
-        You are making major impact!
+      <Text rhythm={24} textClass="h4">
+        Thanks for reporting
       </Text>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 24 }}>
         {reportedEvents.map((reportedEvent, index) => {
           const key = `reported-event-${index}`;
           return (
@@ -29,15 +30,14 @@ function ReportCard({ reportedEvents }: IProps) {
           );
         })}
       </View>
+      <SolidColorBar backgroundColor={colors.tertiary} height={1} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#E2E2E2',
-    marginBottom: 48,
+    marginBottom: 16,
     paddingVertical: 24,
   },
 });

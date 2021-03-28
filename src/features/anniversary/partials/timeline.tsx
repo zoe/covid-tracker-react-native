@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useTheme } from '@covid/themes';
+import { Text } from '@covid/components';
 
 import { TTimelineEvent, TTimelineNode } from '../types';
 
@@ -31,13 +32,21 @@ function Timeline({ timelineEvents }: IProps) {
     }
   };
   return (
-    <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
-      <View style={styles.line} />
-      {timelineEvents.map((timelineEvent, index) => {
-        const key = `timeline-event-${index}`;
-        return <View key={key}>{getMappedTimelineEvent(timelineEvent.node)}</View>;
-      })}
-    </View>
+    <>
+      <View style={{ paddingHorizontal: grid.gutter }}>
+        <Text rhythm={24} textClass="h4">
+          You are making major impact!
+        </Text>
+      </View>
+
+      <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
+        <View style={styles.line} />
+        {timelineEvents.map((timelineEvent, index) => {
+          const key = `timeline-event-${index}`;
+          return <View key={key}>{getMappedTimelineEvent(timelineEvent.node)}</View>;
+        })}
+      </View>
+    </>
   );
 }
 
