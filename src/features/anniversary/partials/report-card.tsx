@@ -2,63 +2,29 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Text } from '@covid/components';
+import { useTheme } from '@covid/themes';
 
-import ReportedEvent, { TReportedEvent } from './reported-event';
+import { TReportedEvent } from '../types';
 
-function ReportCard() {
-  const reportedEvents: TReportedEvent[] = [
-    {
-      iconName: 'location',
-      eventName: 'Demographics & general health',
-    },
-    {
-      iconName: 'profile-info',
-      eventName: 'Symptoms',
-    },
-    {
-      iconName: 'people',
-      eventName: 'For two people',
-    },
-    {
-      iconName: 'life-insurance',
-      eventName: 'Covid severity',
-    },
-    {
-      iconName: 'plan',
-      eventName: 'Test results',
-    },
-    {
-      iconName: 'syringe',
-      eventName: 'Vaccine status',
-    },
-    {
-      iconName: 'dietary-inflammation-2',
-      eventName: 'Vaccine side effects',
-    },
-    {
-      iconName: 'chat-feedback',
-      eventName: 'Vaccine hesitancy',
-    },
-    {
-      iconName: 'loose-weight-1',
-      eventName: 'Diet & Lifestyle',
-    },
-    {
-      iconName: 'chat-medical',
-      eventName: 'Mental Health',
-    },
-  ];
+import ReportedEvent from './reported-event';
+
+interface IProps {
+  reportedEvents: TReportedEvent[];
+}
+
+function ReportCard({ reportedEvents }: IProps) {
+  const { grid } = useTheme();
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
       <Text rhythm={20} textClass="h4">
-        Thanks for reporting
+        You are making major impact!
       </Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {reportedEvents.map((reportedEvent, index) => {
           const key = `reported-event-${index}`;
           return (
             <View key={key} style={{ paddingBottom: 16, width: '33%' }}>
-              <ReportedEvent reportedEvent={reportedEvent} active />
+              <ReportedEvent reportedEvent={reportedEvent} />
             </View>
           );
         })}

@@ -2,9 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { BrandedButton } from '..';
+import { BrandedButton } from '@covid/components';
 
-describe('BrandedButton tests', () => {
+describe('branded-button tests', () => {
   it('renders correctly', () => {
     const onPress = jest.fn();
     const tree = renderer.create(<BrandedButton onPress={onPress}>This is a branded button</BrandedButton>).toJSON();

@@ -5,14 +5,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { View } from 'native-base';
 
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Coordinator } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import ProgressStatus from '@covid/components/ProgressStatus';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSDetails'>;

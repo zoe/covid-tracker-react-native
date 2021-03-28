@@ -1499,5 +1499,10 @@
     "next": "Nästa",
     "insights": "Insikter",
     "start": "Starta"
+  },
+  "version-update": {
+    "title": "Din appversion behöver uppdateras!",
+    "body": "Uppdatera din app för att fortsätta använda den. Vid uppdateringen får du tillgång till de senaste funktionerna.",
+    "cta": "Uppdatera nu"
   }
 }

@@ -6,8 +6,8 @@ import { View } from 'native-base';
 import { Text } from 'react-native';
 
 import { IDiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
-import { BrandedButton } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { BrandedButton } from '@covid/components';
 
 storiesOf('DiabetesQuestions', module).add('default view', () => {
   return (

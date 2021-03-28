@@ -5,8 +5,6 @@ import { colors, fontStyles } from '@theme';
 
 import { ITest } from './types';
 
-export * from './BrandedButton';
-
 interface Props {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;

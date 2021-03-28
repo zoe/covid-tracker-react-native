@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
+import { Header3Text, RegularText, CaptionText } from '@covid/components/Text';
 import { covidIcon, covidByZoeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
@@ -10,6 +10,7 @@ import { cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
 import { RootState } from '@covid/core/state/root';
 import { ContentState } from '@covid/core/content/state/contentSlice';
+import { BrandedButton } from '@covid/components';
 
 interface IProps {
   reportedCount?: string;

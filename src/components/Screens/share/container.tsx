@@ -5,9 +5,11 @@ import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMap
 import { TrendlineCard } from '@covid/components/Cards/EstimatedCase';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 
+import { ShareTimelineCard } from '../../Cards';
+
 import { SShareContainerView } from './styles';
 
-type Sharable = 'MAP' | 'TRENDLINE' | 'VACCINES';
+type Sharable = 'MAP' | 'TRENDLINE' | 'VACCINES' | 'TIMELINE';
 
 interface IProps {
   sharable?: Sharable;
@@ -20,6 +22,12 @@ function ShareContainer({ sharable = 'MAP' }: IProps) {
         return (
           <SShareContainerView>
             <EstimatedCasesMapCard isSharing />
+          </SShareContainerView>
+        );
+      case 'TIMELINE':
+        return (
+          <SShareContainerView>
+            <ShareTimelineCard />
           </SShareContainerView>
         );
       case 'TRENDLINE':

@@ -3,9 +3,10 @@ import { Image, StyleSheet, View } from 'react-native';
 
 import { facebook } from '@assets';
 import { colors } from '@theme';
-import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/Text';
+import { RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { openWebLink } from '@covid/utils/links';
+import { BrandedButton } from '@covid/components';
 
 export const FacebookSECard: React.FC = () => {
   const onButtonPress = () => {

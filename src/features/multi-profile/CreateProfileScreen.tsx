@@ -7,11 +7,11 @@ import * as Yup from 'yup';
 import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText, SecondaryText } from '@covid/components/Text';
+import { HeaderText, SecondaryText } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
 import { GenericTextField } from '@covid/components/GenericTextField';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 const initialFormValues = {
   name: '',

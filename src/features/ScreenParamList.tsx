@@ -127,8 +127,10 @@ export type ScreenParamList = {
   Main: undefined;
   Share: undefined;
   VaccineListMissing: { vaccine: VaccineRequest };
+  VersionUpdateModal: undefined;
 
   Trendline: { lad?: string };
 
   Anniversary: undefined;
+  AnniversaryModal: undefined;
 };

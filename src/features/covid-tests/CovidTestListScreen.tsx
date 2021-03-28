@@ -8,7 +8,7 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
@@ -19,6 +19,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
+import { BrandedButton } from '@covid/components';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestList'>;

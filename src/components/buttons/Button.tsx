@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, TextStyle } from 'react-native';
 
 import { colors } from '@theme';
-import { BrandedButton } from '@covid/components/BrandedButton';
 import { RegularText } from '@covid/components/Text';
+import { BrandedButton } from '@covid/components';
 
 interface Props {
   onPress: VoidFunction;

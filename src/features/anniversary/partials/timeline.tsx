@@ -1,39 +1,42 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
+
+import { useTheme } from '@covid/themes';
+
+import { TTimelineEvent, TTimelineNode } from '../types';
 
 import StudyCard from './study-card';
 import TimelineNode from './timeline-node';
-import TimelineCard from './timeline-card';
-import { TProgress } from './progress-bar';
+import FindingCard from './finding-card';
 import Highlight from './highlight';
 
-function Timeline() {
-  const progress: TProgress[] = ['COMPLETE', 'IN_PROGRESS', 'NOT_STARTED', 'NOT_STARTED'];
-  const futureProgress: TProgress[] = ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+interface IProps {
+  timelineEvents: TTimelineNode[];
+}
+
+function Timeline({ timelineEvents }: IProps) {
+  const { grid } = useTheme();
+  const getMappedTimelineEvent = (timelineEvent: TTimelineEvent): ReactNode => {
+    switch (timelineEvent.event_type) {
+      case 'FINDING':
+        return <FindingCard timelineEvent={timelineEvent} />;
+      case 'HIGHLIGHT':
+        return <Highlight timelineEvent={timelineEvent} />;
+      case 'NODE':
+        return <TimelineNode timelineEvent={timelineEvent} />;
+      case 'STUDY':
+        return <StudyCard timelineEvent={timelineEvent} />;
+      default:
+        return null;
+    }
+  };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingHorizontal: grid.gutter }]}>
       <View style={styles.line} />
-      <TimelineNode />
-      <TimelineCard />
-      <StudyCard
-        footerTitle="Footer title"
-        progress={progress}
-        studyType="ONGOING"
-        subTitle="Sub title"
-        title="Card title"
-      />
-      <TimelineNode />
-      <Highlight iconName="plan" title="Highlight title" />
-      <TimelineNode />
-      <StudyCard
-        footerTitle="Footer title"
-        progress={futureProgress}
-        studyType="FUTURE"
-        subTitle="Sub title"
-        title="Card title"
-      />
-      <TimelineNode />
-      <TimelineNode />
+      {timelineEvents.map((timelineEvent, index) => {
+        const key = `timeline-event-${index}`;
+        return <View key={key}>{getMappedTimelineEvent(timelineEvent.node)}</View>;
+      })}
     </View>
   );
 }
@@ -41,13 +44,13 @@ function Timeline() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 24,
   },
   line: {
     backgroundColor: '#0165B5',
     height: '100%',
-    left: 16,
+    left: 32,
     position: 'absolute',
+    top: 4,
     width: 2,
   },
 });
