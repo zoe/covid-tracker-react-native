@@ -3,7 +3,6 @@ import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { CompactHeader, Header } from '@covid/features/dashboard/Header';
@@ -20,8 +19,7 @@ import { pushNotificationService } from '@covid/Services';
 import { PartnerLogoUSDash } from '@covid/components/Logos/PartnerLogo';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { selectMentalHealthState, setDashboardHasBeenViewed, selectApp } from '@covid/core/state';
-import AnalyticsService, { events, track } from '@covid/core/Analytics';
+import AnalyticsService, { events } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 
 const HEADER_EXPANDED_HEIGHT = 328;
@@ -33,8 +31,6 @@ interface IProps {
 }
 
 export function DashboardUSScreen({ route, navigation }: IProps) {
-  const app = useSelector(selectApp);
-  const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
 
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
@@ -54,25 +50,6 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
     await share(shareMessage);
   };
 
-  const showMentalHealthModal = () => {
-    if (MentalHealthState.completed) {
-      return;
-    }
-    if (MentalHealthState.consent === 'LATER') {
-      // check time since
-      const previous = moment(MentalHealthState.lastPresentedDate);
-      const now = moment(new Date());
-      const diff = now.diff(previous, 'days');
-      if (diff >= 7) {
-        appCoordinator.goToMentalHealthModal();
-      }
-      return;
-    }
-    if (app.mentalHealthStudyActive && MentalHealthState.consent !== 'NO') {
-      appCoordinator.goToMentalHealthModal();
-    }
-  };
-
   useEffect(() => {
     (async () => {
       AnalyticsService.identify();
@@ -85,21 +62,6 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
       dispatch(updateTodayDate());
     });
   }, [navigation]);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (!app.dashboardHasBeenViewed) {
-      dispatch(setDashboardHasBeenViewed(true));
-      setTimeout(() => {
-        if (isMounted) {
-          showMentalHealthModal();
-        }
-      }, 800);
-    }
-    return function () {
-      isMounted = false;
-    };
-  }, []);
 
   return (
     <CollapsibleHeaderScrollView

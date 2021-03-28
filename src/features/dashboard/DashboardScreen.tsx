@@ -97,30 +97,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
       }
     }
     switch (settings.currentFeature) {
-      case 'MENTAL_HEALTH_STUDY':
-        showMentalHealthModal();
-        return;
       case 'UK_DIET_STUDY':
         showDietStudy();
-    }
-  };
-
-  const showMentalHealthModal = () => {
-    if (MentalHealthState.completed) {
-      return;
-    }
-    if (MentalHealthState.consent === 'LATER') {
-      // check time since
-      const previous = moment(MentalHealthState.lastPresentedDate);
-      const now = moment(new Date());
-      const diff = now.diff(previous, 'days');
-      if (diff >= 7) {
-        appCoordinator.goToMentalHealthModal();
-      }
-      return;
-    }
-    if (app.mentalHealthStudyActive && MentalHealthState.consent !== 'NO') {
-      appCoordinator.goToMentalHealthModal();
     }
   };
 
