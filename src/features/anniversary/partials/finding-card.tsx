@@ -30,11 +30,11 @@ function FindingCard({ timelineEvent }: IProps) {
     <View style={styles.container}>
       <View style={styles.row}>
         <Icon iconName="Lightbulb" iconSize={18} />
-        <Text textClass="pBold" style={{ marginHorizontal: 12 }}>
+        <Text textClass="pLight" style={{ marginHorizontal: 12 }}>
           {title}
         </Text>
       </View>
-      <Text textClass="h5Light" style={styles.body}>
+      <Text textClass="h5Medium" style={styles.body}>
         {sub_title}
       </Text>
       <View style={{ marginBottom: 8 }}>{getLink()}</View>
