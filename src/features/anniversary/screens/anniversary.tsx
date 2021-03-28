@@ -86,7 +86,7 @@ function Anniversary() {
   ];
 
   return (
-    <SafeAreaView style={{ backgroundColor: 'white' }}>
+    <SafeAreaView style={{ backgroundColor: '#EEEEEF' }}>
       <TimelineHeader />
       <FlatList
         data={data}
