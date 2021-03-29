@@ -19,7 +19,7 @@ function TimelineHeader() {
 
   return (
     <>
-      <BasicNavHeader backgroundColor="white">{getLogo()}</BasicNavHeader>
+      <BasicNavHeader backgroundColor="#EEEEEF">{getLogo()}</BasicNavHeader>
     </>
   );
 }

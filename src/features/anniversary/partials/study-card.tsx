@@ -40,18 +40,18 @@ function StudyCard({ timelineEvent }: IProps) {
           iconSize={18}
           style={{ marginTop: 4, opacity }}
         />
-        <Text textClass="pBold" style={{ color: '#24262B', marginLeft: 12, opacity }}>
+        <Text textClass="pLight" style={{ color: '#24262B', marginLeft: 12, opacity }}>
           {title}
         </Text>
       </View>
       {sub_title && (
-        <Text textClass="h5Light" style={[styles.body, { opacity }]}>
+        <Text textClass="h5Medium" style={[styles.body, { opacity }]}>
           {sub_title}
         </Text>
       )}
       <ProgressBars progress={p} />
       {summary && (
-        <Text style={{ color: '#024364', marginTop: 12 }} textClass="pMedium">
+        <Text style={{ color: '#024364', marginTop: 12 }} textClass="pLight">
           {summary}
         </Text>
       )}

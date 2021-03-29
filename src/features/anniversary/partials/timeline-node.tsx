@@ -16,7 +16,7 @@ function TimelineNode({ timelineEvent }: IProps) {
       <View style={styles.row}>
         <View style={styles.node} />
         <Text textClass="pSmallLight" style={styles.date}>
-          {moment(timelineEvent.date).format('MMMM Do YYYY')}
+          {moment(timelineEvent.date).format('Do MMMM YYYY')}
         </Text>
       </View>
       <View style={styles.body}>
