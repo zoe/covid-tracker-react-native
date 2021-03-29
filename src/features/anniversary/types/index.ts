@@ -35,10 +35,6 @@ export type TTimelineEvent = {
   title: string | null;
 };
 
-export type TTimelineNode = {
-  node: TTimelineEvent;
-};
-
 export interface ITimeline {
   badges: TReportedEvent[];
   items: TTimelineEvent[];
