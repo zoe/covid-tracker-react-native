@@ -10,13 +10,14 @@ interface IProps {
   size?: TCardSize;
 }
 
-function ImpactTimlineCard({ onPress, size = 'SMALL' }: IProps) {
+function ImpactTimelineCard({ onPress, size = 'SMALL' }: IProps) {
   return (
     <TouchableOpacity onPress={onPress}>
       <Image
         source={size === 'SMALL' ? impactTimeline : impactTimeline2}
         style={{
           aspectRatio: size === 'SMALL' ? 1.55 : 0.99,
+          marginVertical: size === 'SMALL' ? 0 : 32,
           resizeMode: 'contain',
           height: undefined,
           width: '100%',
@@ -26,4 +27,4 @@ function ImpactTimlineCard({ onPress, size = 'SMALL' }: IProps) {
   );
 }
 
-export default ImpactTimlineCard;
+export default ImpactTimelineCard;
