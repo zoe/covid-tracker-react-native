@@ -35,7 +35,7 @@ function Timeline({ timelineEvents }: IProps) {
     <>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text rhythm={24} textClass="h4">
-          You are making major impact!
+          You are making a major impact!
         </Text>
       </View>
 
