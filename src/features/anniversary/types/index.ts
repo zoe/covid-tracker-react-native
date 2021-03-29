@@ -17,7 +17,7 @@ export type TReportedEvent = {
 
 export type TProgress = 'NOT_STARTED' | 'DISCOVERY' | 'DATA_COLLECTION' | 'ANALYSIS' | 'COMPLETED';
 
-export type TEvent = 'HIGHLIGHT' | 'FINDING' | 'NODE' | 'STUDY';
+export type TEvent = 'HIGHLIGHT' | 'FINDING' | 'NODE' | 'SUMMARY_NODE' | 'STUDY';
 
 export type TStudy = 'ONGOING' | 'FUTURE';
 

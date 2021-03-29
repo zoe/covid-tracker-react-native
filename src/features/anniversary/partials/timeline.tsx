@@ -25,6 +25,8 @@ function Timeline({ timelineEvents }: IProps) {
         return <Highlight timelineEvent={timelineEvent} />;
       case 'NODE':
         return <TimelineNode timelineEvent={timelineEvent} />;
+      case 'SUMMARY_NODE':
+        return <TimelineNode timelineEvent={timelineEvent} dateFormat="MMMM YYYY" />;
       case 'STUDY':
         return <StudyCard timelineEvent={timelineEvent} />;
       default:
