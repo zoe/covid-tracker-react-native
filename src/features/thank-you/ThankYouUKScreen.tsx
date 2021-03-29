@@ -19,12 +19,13 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
 import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
 import store from '@covid/core/state/store';
 
 import { ImpactTimelineCard } from '../anniversary';
 import appCoordinator from '../AppCoordinator';
+
+import { BigGreenTickFilled } from './components/BigGreenTick';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
