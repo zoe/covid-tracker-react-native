@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { CompactHeader, Header } from '@covid/features/dashboard/Header';
@@ -31,10 +30,9 @@ import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 import {
   selectAnniversary,
   selectApp,
-  setDashboardHasBeenViewed,
   selectDietStudy,
-  selectMentalHealthState,
   selectSettings,
+  setDashboardHasBeenViewed,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
 
@@ -53,7 +51,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
-  const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<ISubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolGroups
