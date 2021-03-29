@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { CompactHeader, Header } from '@covid/features/dashboard/Header';
@@ -31,12 +30,12 @@ import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 import {
   selectAnniversary,
   selectApp,
-  setDashboardHasBeenViewed,
   selectDietStudy,
-  selectMentalHealthState,
   selectSettings,
+  setDashboardHasBeenViewed,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
+import { DietStudyCard } from '@covid/features';
 
 import { ImpactTimelineCard } from '../anniversary';
 
@@ -53,7 +52,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
-  const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<ISubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolGroups
@@ -85,21 +83,29 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
-    if (!anniversary.hasViewedModal) {
-      navigation.navigate('AnniversaryModal');
-      return;
-    }
-    const now = new Date().getTime();
     if (settings.featureRunDate) {
+      const now = new Date().getTime();
       const featureRunDate = new Date(settings.featureRunDate).getTime();
       if (featureRunDate > now) {
         return;
       }
     }
+
     switch (settings.currentFeature) {
       case 'UK_DIET_STUDY':
         showDietStudy();
+        return;
+      case 'TIMELINE':
+        showTiminelinePopup();
     }
+  };
+
+  const showTiminelinePopup = () => {
+    if (!startupInfo?.show_timeline || anniversary.hasViewedModal) {
+      return;
+    }
+
+    NavigatorService.navigate('AnniversaryModal');
   };
 
   const showDietStudy = () => {
@@ -151,7 +157,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />
+        {startupInfo?.show_timeline && <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />}
+        {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
+
         <ShareVaccineCard screenName="Dashboard" />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />

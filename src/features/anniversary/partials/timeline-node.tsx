@@ -21,8 +21,8 @@ function TimelineNode({ timelineEvent, dateFormat = 'Do MMMM YYYY' }: IProps) {
         </Text>
       </View>
       <View style={styles.body}>
-        <Text textClass="h5Light">{timelineEvent.title}</Text>
-        {timelineEvent.sub_title && <Text textClass="h5Medium">{timelineEvent.sub_title}</Text>}
+        {!!timelineEvent.title && <Text textClass="h5Light">{timelineEvent.title}</Text>}
+        {!!timelineEvent.sub_title && <Text textClass="h5Medium">{timelineEvent.sub_title}</Text>}
       </View>
     </View>
   );

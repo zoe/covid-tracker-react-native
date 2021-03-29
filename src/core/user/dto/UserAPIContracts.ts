@@ -306,6 +306,7 @@ export type StartupInfo = {
   show_new_dashboard: boolean;
   show_edit_location: boolean;
   show_trendline: boolean;
+  show_timeline: boolean;
   show_diet_score: boolean;
   local_data: {
     map_url: string;
