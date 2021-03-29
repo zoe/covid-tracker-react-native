@@ -9,7 +9,6 @@ configure(() => {
   require('./stories/Buttons.stories');
   require('./stories/PoweredByZoe.stories');
   require('./stories/Spinner.stories');
-  require('./stories/VisitWebsite.stories');
   require('./stories/DropdownField.stories');
   require('./stories/DiabetesQuestions.stories');
   require('./stories/YesNoField.stories');
