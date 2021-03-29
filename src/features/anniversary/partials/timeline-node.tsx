@@ -8,15 +8,16 @@ import { TTimelineEvent } from '../types';
 
 interface IProps {
   timelineEvent: TTimelineEvent;
+  dateFormat?: string;
 }
 
-function TimelineNode({ timelineEvent }: IProps) {
+function TimelineNode({ timelineEvent, dateFormat = 'Do MMMM YYYY' }: IProps) {
   return (
     <View style={[styles.container]}>
       <View style={styles.row}>
         <View style={styles.node} />
         <Text textClass="pSmall" style={styles.date}>
-          {moment(timelineEvent.date).format('Do MMMM YYYY')}
+          {moment(timelineEvent.date).format(dateFormat)}
         </Text>
       </View>
       <View style={styles.body}>
