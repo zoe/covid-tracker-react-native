@@ -216,10 +216,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             return this.handleAction(values);
           }}>
           {(props) => {
-            const { result, mechanism } = props.values;
-            const { NOSE_OR_THROAT_SWAB, SPIT_TUBE } = CovidTestMechanismOptions;
-            const hasMechanism = mechanism === NOSE_OR_THROAT_SWAB || mechanism === SPIT_TUBE;
-            const hasResult = result !== 'waiting';
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
@@ -227,9 +223,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                   <CovidTestMechanismQuestion formikProps={props as FormikProps<ICovidTestMechanismData>} test={test} />
                   <CovidTestLocationQuestion formikProps={props as FormikProps<ICovidTestLocationData>} test={test} />
                   <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
-                  {hasMechanism && hasResult && (
-                    <CovidTestIsRapidQuestion formikProps={props as FormikProps<ICovidTestIsRapidData>} test={test} />
-                  )}
+                  <CovidTestIsRapidQuestion formikProps={props as FormikProps<ICovidTestIsRapidData>} test={test} />
                   <CovidTestInvitedQuestion formikProps={props as FormikProps<ICovidTestInvitedData>} test={test} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>

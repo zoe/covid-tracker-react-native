@@ -39,6 +39,7 @@ export enum CovidTestMechanismOptions {
   NOSE_SWAB = 'nose_swab', // Deprecated
   THROAT_SWAB = 'throat_swab', // Deprecated
   NOSE_OR_THROAT_SWAB = 'nose_throat_swab',
+  NOSE_OR_THROAT_SWAB_AND_SALIVA = 'nose_throat_swab_and_saliva', // SE Only
   SPIT_TUBE = 'spit_tube',
   BLOOD_SAMPLE = 'blood_sample', // Deprecated
   BLOOD_FINGER_PRICK = 'blood_sample_finger_prick',

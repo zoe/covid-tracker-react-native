@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
 export interface ICovidTestIsRapidData {
   isRapidTest: string;
@@ -58,6 +57,6 @@ CovidTestIsRapidQuestion.schema = () => {
 
 CovidTestIsRapidQuestion.createDTO = (formData: ICovidTestIsRapidData): Partial<CovidTest> => {
   return {
-    ...(isGBCountry() && formData.isRapidTest && { is_rapid_test: formData.isRapidTest === 'yes' }),
+    ...(formData.isRapidTest && { is_rapid_test: formData.isRapidTest === 'yes' }),
   } as Partial<CovidTest>;
 };

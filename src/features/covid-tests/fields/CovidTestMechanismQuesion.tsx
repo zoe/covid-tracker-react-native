@@ -8,6 +8,7 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { fingerPrickX3, otherTestX3, spitX3, syringeX3, noseSwabX3 } from '@assets';
 import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
 
 export interface ICovidTestMechanismData {
   mechanism: string;
@@ -38,6 +39,14 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
       : []),
     ...(test?.mechanism === CovidTestMechanismOptions.THROAT_SWAB
       ? [{ label: i18n.t('covid-test.picker-throat-swab'), value: CovidTestMechanismOptions.THROAT_SWAB }]
+      : []),
+    ...(isSECountry()
+      ? [
+          {
+            label: i18n.t('picker-nose-throat-swab-and-saliva'),
+            value: CovidTestMechanismOptions.NOSE_OR_THROAT_SWAB_AND_SALIVA,
+          },
+        ]
       : []),
     { label: i18n.t('covid-test.picker-saliva-sample'), value: CovidTestMechanismOptions.SPIT_TUBE },
     ...(test?.mechanism === 'blood_sample'
