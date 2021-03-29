@@ -5,11 +5,11 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { notificationReminders } from '@assets';
 import { colors } from '@theme';
-import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
-import { ShareAppCard } from '@covid/components/Cards/ShareApp';
+import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';

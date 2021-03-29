@@ -11,7 +11,7 @@ import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import BrandedSpinner from '@covid/components/Spinner';
-import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { SymtomsCountStats } from '@covid/components/Stats/SymtomsCountStats';
