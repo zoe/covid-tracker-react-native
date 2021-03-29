@@ -278,6 +278,7 @@
     "picker-nose-swab": "Usaron un hisopo en mi nariz",
     "picker-throat-swab": "Usaron un hisopo en mi garganta",
     "picker-nose-throat-swab": "Con un hisopo en mi nariz o garganta",
+    "picker-nose-throat-swab-and-saliva": "Con un hisopo en mi nariz o garganta y escupí",
     "picker-saliva-sample": "Escupí en un vaso/tubo",
     "picker-blood-sample": "Di una muestra de sangre",
     "picker-finger-prick": "Un examen de sangre con un pinchazo en el dedo",
@@ -300,6 +301,7 @@
         "store-pharmacy": "Tienda o farmacia clínica",
         "work": "Trabajo (excluyendo hospital)",
         "local-health-department": "",
+        "school": "Escuela",
         "other": "Otro sitio, por favor especifique"
       }
     },

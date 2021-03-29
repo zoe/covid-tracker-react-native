@@ -224,11 +224,12 @@
     "question-time-test-taken-error": "Ange tidpunkten för ditt möte",
     "question-pick-a-time": "Välj en tid",
 
-    "question-mechanism": "Vilken typ av test gjorde du?",
+    "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
     "picker-throat-swab": "En testpinne i svalget",
-    "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
-    "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
+    "picker-nose-throat-swab": "Testpinne näsa/svalg",
+    "picker-nose-throat-swab-and-saliva": "Testpinne näsa/svalg och saliv",
+    "picker-saliva-sample": "Endast salivprov",
     "picker-blood-sample": "Jag lämnade ett blodprov",
     "picker-finger-prick": "Blodprov, stick i fingret (antikroppstest)",
     "picker-blood-draw": "Blodprov i armvecket (antikroppstest)",
@@ -250,6 +251,7 @@
         "store-pharmacy": "Tienda o farmacia clínica",
         "work": "På arbetsplatsen (undantaget sjukhus och vårdcentral)",
         "local-health-department": "",
+        "school": "",
         "other": "Annat, ange"
       }
     },
@@ -269,7 +271,7 @@
     "required-mechanism": "Ange hur testet utfördes",
     "required-result": "Ange testresultatet",
 
-    "question-is-rapid-test": "Väntade du mindre än 2 timmar för att få resultaten (dvs. var det ett snabbtest som sidoflöde)?",
+    "question-is-rapid-test": "Var det ett snabbtest för pågående infektion (s.k. lateral flow test)? Dessa test tas vanligtvis med en testpinne i näsa/svalg och svaret kommer inom minuter/timmar.",
     "question-invite-to-test": "Har vi bjudit in dig att utföra detta test?",
 
     "confirm-test": {
@@ -552,7 +554,7 @@
 
   "covid-test-list": {
     "title": "Dina covid-19-tester",
-    "text": "Lägg till eventuellt covid-19-test nedan. Detta innefattar tester för pågående infektion, dvs. PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
+    "text": "Lägg till dina eventuella covid-19-tester nedan. Detta innefattar tester för pågående infektion såsom PCR-tester och antigentester (näsa/svalg/saliv), samt tester för tidigare covid-19-infektion, såsom antikroppstester (blodprov). Du kan redigera listan när som helst i framtiden.",
     "add-new-test": "Lägg till nytt test",
     "positive": "Positivt",
     "negative": "Negativt",
