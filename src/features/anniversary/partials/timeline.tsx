@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { useTheme } from '@covid/themes';
 import { Text } from '@covid/components';
 
-import { TTimelineEvent, TTimelineNode } from '../types';
+import { TTimelineEvent } from '../types';
 
 import StudyCard from './study-card';
 import TimelineNode from './timeline-node';
@@ -12,7 +12,7 @@ import FindingCard from './finding-card';
 import Highlight from './highlight';
 
 interface IProps {
-  timelineEvents: TTimelineNode[];
+  timelineEvents: TTimelineEvent[];
 }
 
 function Timeline({ timelineEvents }: IProps) {
@@ -43,7 +43,7 @@ function Timeline({ timelineEvents }: IProps) {
         <View style={styles.line} />
         {timelineEvents.map((timelineEvent, index) => {
           const key = `timeline-event-${index}`;
-          return <View key={key}>{getMappedTimelineEvent(timelineEvent.node)}</View>;
+          return <View key={key}>{getMappedTimelineEvent(timelineEvent)}</View>;
         })}
       </View>
     </>

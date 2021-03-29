@@ -41,5 +41,5 @@ export type TTimelineNode = {
 
 export interface ITimeline {
   badges: TReportedEvent[];
-  items: TTimelineNode[];
+  items: TTimelineEvent[];
 }
