@@ -43,7 +43,7 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
     ...(isSECountry()
       ? [
           {
-            label: i18n.t('picker-nose-throat-swab-and-saliva'),
+            label: i18n.t('covid-test.picker-nose-throat-swab-and-saliva'),
             value: CovidTestMechanismOptions.NOSE_OR_THROAT_SWAB_AND_SALIVA,
           },
         ]
@@ -70,7 +70,9 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
   ];
   let mechanismItemIcons = undefined;
   if (!test || (test && !noIcons.includes(test.mechanism))) {
-    mechanismItemIcons = [noseSwabX3, spitX3, fingerPrickX3, syringeX3, otherTestX3];
+    if (!isSECountry()) {
+      mechanismItemIcons = [noseSwabX3, spitX3, fingerPrickX3, syringeX3, otherTestX3];
+    }
   }
 
   return (
