@@ -83,21 +83,29 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
-    if (!anniversary.hasViewedModal) {
-      navigation.navigate('AnniversaryModal');
-      return;
-    }
-    const now = new Date().getTime();
     if (settings.featureRunDate) {
+      const now = new Date().getTime();
       const featureRunDate = new Date(settings.featureRunDate).getTime();
       if (featureRunDate > now) {
         return;
       }
     }
+
     switch (settings.currentFeature) {
       case 'UK_DIET_STUDY':
         showDietStudy();
+        return;
+      case 'TIMELINE':
+        showTiminelinePopup();
     }
+  };
+
+  const showTiminelinePopup = () => {
+    if (!startupInfo?.show_timeline || anniversary.hasViewedModal) {
+      return;
+    }
+
+    NavigatorService.navigate('AnniversaryModal');
   };
 
   const showDietStudy = () => {
@@ -149,7 +157,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />
+        {startupInfo?.show_timeline && <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />}
         {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
         <ShareVaccineCard screenName="Dashboard" />
