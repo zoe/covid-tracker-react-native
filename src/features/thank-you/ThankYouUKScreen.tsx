@@ -21,8 +21,6 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
 import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
-import store from '@covid/core/state/store';
-import { DietStudyCard } from '@covid/features';
 
 import { ImpactTimelineCard } from '../anniversary';
 import appCoordinator from '../AppCoordinator';
@@ -36,14 +34,12 @@ type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
   shouldShowReminders: boolean;
-  showDietStudyPlayback: boolean;
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
   shouldShowReminders: false,
-  showDietStudyPlayback: false,
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
@@ -62,7 +58,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   }
 
   render() {
-    const { startupInfo } = store.getState().content;
     return (
       <>
         {this.state.askForRating && <AppRating />}
@@ -80,8 +75,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
               <ImpactTimelineCard onPress={() => appCoordinator.goToAnniversary()} size="LARGE" />
-
-              {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
               <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
 

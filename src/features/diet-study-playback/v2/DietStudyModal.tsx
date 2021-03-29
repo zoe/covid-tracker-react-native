@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
 import { SafeLayout, Text } from '@covid/components';
-import { setCurrentFeature, setDietStudyConsent, setFeatureRunDate, TDietStudyConsent } from '@covid/core/state';
+import { setDietStudyConsent, TDietStudyConsent } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
 import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
@@ -18,10 +18,6 @@ function DietStudyModal() {
 
   const handleSetConsent = (consent: TDietStudyConsent) => {
     dispatch(setDietStudyConsent(consent));
-    const date = new Date();
-    date.setDate(date.getDate() + 1);
-    dispatch(setCurrentFeature('MENTAL_HEALTH_STUDY'));
-    dispatch(setFeatureRunDate(date.toString()));
     if (consent !== 'YES') {
       goBack();
       return;
