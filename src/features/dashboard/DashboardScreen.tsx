@@ -97,7 +97,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
         return;
       case 'TIMELINE':
         showTiminelinePopup();
-        return;
     }
   };
 
@@ -158,7 +157,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        {startupInfo?.show_timeline && <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />}}
+        {startupInfo?.show_timeline && <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />}
         {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
         <ShareVaccineCard screenName="Dashboard" />
