@@ -35,6 +35,7 @@ import {
   setDashboardHasBeenViewed,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
+import { DietStudyCard } from '@covid/features';
 
 import { ImpactTimelineCard } from '../anniversary';
 
@@ -158,6 +159,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />
+        {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
+
         <ShareVaccineCard screenName="Dashboard" />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />

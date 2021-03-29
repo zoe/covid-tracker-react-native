@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Icon, Link, Text } from '@covid/components';
 import { openWebLink } from '@covid/utils/links';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import { TTimelineEvent } from '../types';
 
@@ -19,10 +20,14 @@ function FindingCard({ timelineEvent }: IProps) {
     if (external_link_text && external_link) {
       return <Link linkText={external_link_text} onPress={() => openWebLink(external_link)} />;
     }
-    if (route_name && route_text) {
-      return <Link linkText={route_text} onPress={() => navigate(route_name)} />;
-    }
 
+    if (route_name && route_text) {
+      if (route_name === 'DietStudy') {
+        return <Link linkText={route_text} onPress={() => appCoordinator.goToDietStudy()} />;
+      } else {
+        return <Link linkText={route_text} onPress={() => navigate(route_name)} />;
+      }
+    }
     return null;
   };
 
