@@ -19,48 +19,50 @@ function DietStudyCard({ style }: IProps) {
   };
 
   return (
-    <View style={[styles.container, styles.shadow, style]}>
-      <View style={[styles.row, { marginBottom: 12 }]}>
-        <View style={styles.column}>
-          <QuoteMarks />
-          <Spacer />
-          <Text textClass="h5Regular">{i18n.t('diet-study.results-ready')}</Text>
-        </View>
-        <View>
-          {getDietStudyDoctorImage()}
-          <Text>{i18n.t('diet-study.doctor-name')}</Text>
-          <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-            {i18n.t('diet-study.doctor-title')}
-          </Text>
-          <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-            {i18n.t('diet-study.doctor-location')}
-          </Text>
-        </View>
-      </View>
-      <View style={[styles.row, { alignItems: 'center' }]}>
-        <View style={{ flex: 1 }}>
-          <TouchableOpacity style={styles.button} onPress={handleOnPress}>
-            <Text style={{ color: 'white' }} textClass="label">
-              {i18n.t('navigation.insights').toUpperCase()}
+    <TouchableOpacity onPress={handleOnPress}>
+      <View style={[styles.container, styles.shadow, style]}>
+        <View style={[styles.row, { marginBottom: 12 }]}>
+          <View style={styles.column}>
+            <QuoteMarks />
+            <Spacer />
+            <Text textClass="h5Regular">{i18n.t('diet-study.results-ready')}</Text>
+          </View>
+          <View>
+            {getDietStudyDoctorImage()}
+            <Text>{i18n.t('diet-study.doctor-name')}</Text>
+            <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+              {i18n.t('diet-study.doctor-title')}
             </Text>
-          </TouchableOpacity>
+            <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+              {i18n.t('diet-study.doctor-location')}
+            </Text>
+          </View>
         </View>
-        <View>
-          <RoundIconButton
-            iconName="arrow_forward_ios"
-            onPress={handleOnPress}
-            style={{
-              backgroundColor: 'white',
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 0 },
-              shadowOpacity: 0.1,
-              shadowRadius: 4,
-              elevation: 5,
-            }}
-          />
+        <View style={[styles.row, { alignItems: 'center' }]}>
+          <View style={{ flex: 1 }}>
+            <View style={styles.button}>
+              <Text style={{ color: 'white' }} textClass="label">
+                {i18n.t('navigation.insights').toUpperCase()}
+              </Text>
+            </View>
+          </View>
+          <View>
+            <RoundIconButton
+              iconName="arrow_forward_ios"
+              onPress={handleOnPress}
+              style={{
+                backgroundColor: 'white',
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 0 },
+                shadowOpacity: 0.1,
+                shadowRadius: 4,
+                elevation: 5,
+              }}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
