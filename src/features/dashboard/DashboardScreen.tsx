@@ -82,21 +82,30 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
-    if (!anniversary.hasViewedModal) {
-      navigation.navigate('AnniversaryModal');
-      return;
-    }
-    const now = new Date().getTime();
     if (settings.featureRunDate) {
+      const now = new Date().getTime();
       const featureRunDate = new Date(settings.featureRunDate).getTime();
       if (featureRunDate > now) {
         return;
       }
     }
+
     switch (settings.currentFeature) {
       case 'UK_DIET_STUDY':
         showDietStudy();
+        return;
+      case 'TIMELINE':
+        showTiminelinePopup();
+        return;
     }
+  };
+
+  const showTiminelinePopup = () => {
+    if (!startupInfo?.show_timeline || anniversary.hasViewedModal) {
+      return;
+    }
+
+    NavigatorService.navigate('AnniversaryModal');
   };
 
   const showDietStudy = () => {
