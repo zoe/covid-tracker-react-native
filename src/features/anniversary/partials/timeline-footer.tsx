@@ -9,7 +9,7 @@ function TimelineFooter() {
   const label = 'Join the ZOE COVID Symptom Study App today to help science';
   return (
     <View style={styles.container}>
-      <Text style={styles.header} textAlign="center" textClass="pLight" rhythm={32}>
+      <Text style={styles.header} textAlign="center" textClass="p" rhythm={32}>
         Check in soon to see how your personal timeline evolves!
       </Text>
       <TouchableOpacity style={styles.button} onPress={() => navigate('Share', { sharable: 'TIMELINE', label })}>
