@@ -11,7 +11,7 @@ export * from './patient';
 export * from './register';
 export * from './school-network';
 export { ScreenParamList } from './ScreenParamList';
-export { default as SplashScreen } from './SplashScreen';
+export * from './splash';
 export * from './thank-you';
 export * from './validation-study';
 export * from './vaccines';
