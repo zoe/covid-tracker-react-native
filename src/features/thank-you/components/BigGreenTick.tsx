@@ -1,13 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
-import { bigTick, tick } from '@assets';
-
-export const BigGreenTick: React.FC = (props) => (
-  <View style={styles.circle}>
-    <Image source={bigTick} style={styles.tick} />
-  </View>
-);
+import { tick } from '@assets';
 
 export const BigGreenTickFilled: React.FC = (props) => (
   <View style={styles.circle}>

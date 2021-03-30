@@ -5,11 +5,11 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { notificationReminders } from '@assets';
 import { colors } from '@theme';
-import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
-import { ShareAppCard } from '@covid/components/Cards/ShareApp';
+import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
@@ -19,12 +19,13 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
 import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
 import store from '@covid/core/state/store';
 
 import { ImpactTimelineCard } from '../anniversary';
 import appCoordinator from '../AppCoordinator';
+
+import { BigGreenTickFilled } from './components/BigGreenTick';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;

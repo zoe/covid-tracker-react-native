@@ -5,19 +5,20 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { notificationRemindersSE } from '@assets';
 import { colors, fontStyles } from '@theme';
-import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { Header } from '@covid/components/Screen';
-import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import VisitWebsite from '@covid/components/VisitWebsite';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
-import { FacebookSECard } from '@covid/components/Cards/FacebookSE';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BrandedButton } from '@covid/components';
 import { ScreenParamList } from '@covid/features';
+import { FacebookSECard } from '@covid/features/thank-you/components/FacebookSE';
+import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
+
+import VisitWebsite from './components/VisitWebsite';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouSE'>;
