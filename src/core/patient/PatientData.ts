@@ -1,6 +1,6 @@
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { Profile } from '@covid/components/Collections/ProfileList';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 export type PatientData = {
   patientId: string;

@@ -1,21 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
 import { colors } from '@theme';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 import { Loading, LoadingModal } from '../Loading';
 import { NewProfileCard } from '../NewProfileCard';
-
-export type Profile = {
-  id: string;
-  name?: string;
-  avatar_name?: string;
-  reported_by_another?: boolean;
-  report_count?: number;
-  last_reported_at?: Date;
-  created_at?: Date;
-};
 
 interface IProps extends ApiErrorState {
   profiles: Profile[];

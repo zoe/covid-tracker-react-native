@@ -10,7 +10,7 @@ import { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
-import { Profile, ProfileList } from '@covid/components/Collections/ProfileList';
+import { ProfileList } from '@covid/components/Collections/ProfileList';
 import { ProfileCard } from '@covid/components/ProfileCard';
 import { offlineService } from '@covid/Services';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -18,6 +18,7 @@ import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coord
 import { useInjection } from '@covid/provider/services.hooks';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 import { ScreenParamList } from '../ScreenParamList';
 import appCoordinator from '../AppCoordinator';

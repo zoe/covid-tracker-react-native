@@ -10,7 +10,7 @@ import { setHasViewedAnniversaryModal } from '@covid/core/state';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Services } from '@covid/provider/services.types';
-import { Profile } from '@covid/components/Collections/ProfileList';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 import appCoordinator from '../../AppCoordinator';
 

@@ -6,10 +6,10 @@ import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import { GreenTick } from '@covid/components/GreenTick';
 import { colors } from '@theme';
-import { Profile } from '@covid/components/Collections/ProfileList';
 import i18n from '@covid/locale/i18n';
 import { ClippedText, SecondaryText } from '@covid/components/Text';
 import LastReported from '@covid/components/LastReported';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 type Props = {
   profile: Profile;
