@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { WebView } from '@covid/components/WebView';
-import { BrandedButton } from '@covid/components/Text';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -18,13 +17,14 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { BrandedButton } from '@covid/components';
 
-import { ShareButton } from '../Buttons';
+import { ShareButton } from '../buttons';
 import { Text } from '../typography';
 
 const MAP_HEIGHT = 246;
 
-interface EmptyViewProps {
+interface IEmptyViewProps {
   primaryLabel?: string;
   secondaryLabel?: string;
   ctaLabel?: string;
@@ -41,7 +41,7 @@ enum MapType {
   ImageAsset = 'image_asset',
 }
 
-const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
+function EmptyView({ onPress, ...props }: IEmptyViewProps) {
   const [html, setHtml] = useState<string>('');
 
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
@@ -56,11 +56,6 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
 
   const showMap = () => {
     Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Map });
-    NavigatorService.navigate('EstimatedCases');
-  };
-
-  const onArrowTapped = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Arrow });
     NavigatorService.navigate('EstimatedCases');
   };
 
@@ -121,9 +116,9 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
       )}
     </View>
   );
-};
+}
 
-interface Props {
+interface IProps {
   isSharing?: boolean;
 }
 
@@ -136,7 +131,7 @@ const DEFAULT_MAP_CENTER: Coordinates = { lat: 53.963843, lng: -3.823242 };
 const ZOOM_LEVEL_CLOSER = 10.5;
 const ZOOM_LEVEL_FURTHER = 6;
 
-export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
+export function EstimatedCasesMapCard({ isSharing }: IProps) {
   const { navigate } = useNavigation();
   const patientService = useInjection<IPatientService>(Services.Patient);
 
@@ -304,7 +299,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {

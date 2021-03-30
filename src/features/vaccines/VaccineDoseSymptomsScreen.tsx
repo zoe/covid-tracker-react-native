@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
@@ -16,8 +16,8 @@ import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccine
 import { useInjection } from '@covid/provider/services.hooks';
 import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineDoseSymptoms'>;

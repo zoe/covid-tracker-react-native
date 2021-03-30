@@ -7,13 +7,14 @@ import { icon, studyIntro } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { HeaderText, RegularText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { BrandedButton } from '@covid/components';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyIntro'>;
@@ -51,15 +52,15 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
               }}>
               <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>
             </TouchableOpacity>
-
-            <BrandedButton
-              style={styles.mainButton}
-              onPress={() => {
-                appCoordinator.gotoNextScreen(this.props.route.name);
-              }}>
-              <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
-            </BrandedButton>
           </View>
+
+          <BrandedButton
+            style={styles.mainButton}
+            onPress={() => {
+              appCoordinator.gotoNextScreen(this.props.route.name);
+            }}>
+            <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
+          </BrandedButton>
         </ImageBackground>
       </View>
     );
@@ -110,10 +111,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   mainButton: {
-    marginTop: 32,
+    width: '60%',
+    marginTop: 16,
     marginBottom: 32,
-    marginHorizontal: 16,
     backgroundColor: colors.purple,
+    alignSelf: 'center',
   },
   buttonText: {
     color: colors.white,

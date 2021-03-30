@@ -8,23 +8,25 @@ import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 
-export interface CovidTestLocationData {
+export interface ICovidTestLocationData {
   location: string;
   locationOther: string;
 }
 
-interface Props {
-  formikProps: FormikProps<CovidTestLocationData>;
+interface IProps {
+  formikProps: FormikProps<ICovidTestLocationData>;
   test?: CovidTest;
 }
 
-export interface CovidTestLocationQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestLocationQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestLocationQuestion: CovidTestLocationQuestion<Props, CovidTestLocationData> = (props: Props) => {
+export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovidTestLocationData> = (
+  props: IProps
+) => {
   const { formikProps } = props;
 
   const ukLocationItems = [
@@ -34,6 +36,7 @@ export const CovidTestLocationQuestion: CovidTestLocationQuestion<Props, CovidTe
     { label: i18n.t('covid-test.location.answers.gp'), value: 'gp' },
     { label: i18n.t('covid-test.location.answers.chemist-pharmacy'), value: 'chemist' },
     { label: i18n.t('covid-test.location.answers.work'), value: 'work' },
+    { label: i18n.t('covid-test.location.answers.school'), value: 'school' },
     { label: i18n.t('covid-test.location.answers.other'), value: 'other' },
   ];
 
@@ -43,6 +46,7 @@ export const CovidTestLocationQuestion: CovidTestLocationQuestion<Props, CovidTe
     { label: i18n.t('covid-test.location.answers.work'), value: 'work' },
     { label: i18n.t('covid-test.location.answers.local-health-department'), value: 'local_health_dept' },
     { label: i18n.t('covid-test.location.answers.store-pharmacy'), value: 'chemist' },
+    { label: i18n.t('covid-test.location.answers.school'), value: 'school' },
     { label: i18n.t('covid-test.location.answers.other'), value: 'other' },
   ];
 
@@ -79,7 +83,7 @@ export const CovidTestLocationQuestion: CovidTestLocationQuestion<Props, CovidTe
   );
 };
 
-CovidTestLocationQuestion.initialFormValues = (test?: CovidTest): CovidTestLocationData => {
+CovidTestLocationQuestion.initialFormValues = (test?: CovidTest): ICovidTestLocationData => {
   return {
     location: test?.location ? test.location : '',
     locationOther: test?.location_other ? test.location_other : '',
@@ -92,7 +96,7 @@ CovidTestLocationQuestion.schema = () => {
   });
 };
 
-CovidTestLocationQuestion.createDTO = (formData: CovidTestLocationData): Partial<CovidTest> => {
+CovidTestLocationQuestion.createDTO = (formData: ICovidTestLocationData): Partial<CovidTest> => {
   const locationOther = formData.location && formData.location === 'other' ? formData.locationOther : '';
   return {
     ...(formData.location && { location: formData.location }),

@@ -7,9 +7,9 @@ import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { RegularText, SecondaryText, ErrorText } from '@covid/components/Text';
+import { ErrorText, RegularText, SecondaryText } from '@covid/components/Text';
 import { colors } from '@theme';
-import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import { CalendarIcon } from '@assets';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -17,7 +17,7 @@ import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationS
 
 import { VaccineNameQuestion } from './VaccineNameQuestion';
 
-export interface VaccineDoseData {
+export interface IVaccineDoseData {
   firstDoseDate: Date | undefined;
   firstBatchNumber: string | undefined;
   firstBrand: VaccineBrands | undefined;
@@ -29,21 +29,18 @@ export interface VaccineDoseData {
   hasSecondDose: boolean;
 }
 
-interface Props {
-  formikProps: FormikProps<VaccineDoseData>;
+interface IProps {
+  formikProps: FormikProps<IVaccineDoseData>;
   firstDose: boolean;
 }
 
-export interface VaccineDoseQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (vaccine?: VaccineRequest) => Data;
+interface IVaccineDoseQuestion<P, Data> extends React.FC<P> {
   schema: () => Yup.ObjectSchema;
 }
 
-export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = (props: Props) => {
+export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData> = (props: IProps) => {
   const { formikProps } = props;
-  const today = moment().add(moment().utcOffset(), 'minutes').toDate();
-  const [showPicker, setshowPicker] = useState(false);
-  const [errorMessage] = useState<string>('');
+  const [showPicker, setShowPicker] = useState(false);
 
   function convertToDate(selectedDate: Moment) {
     const offset = selectedDate.utcOffset();
@@ -57,16 +54,15 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     } else {
       formikProps.values.secondDoseDate = convertToDate(selectedDate);
     }
-    setshowPicker(false);
+    setShowPicker(false);
   }
 
   const renderPicker = () => {
     const dateField: Date | undefined = props.firstDose
       ? formikProps.values.firstDoseDate
       : formikProps.values.secondDoseDate;
-    let countrySpecificMinDate: Date | undefined;
     let maxDate: Date | undefined;
-    let minDate: Date | undefined = today;
+    let minDate: Date | undefined;
 
     if (isGBCountry()) {
       minDate = new Date('2020-12-08');
@@ -109,7 +105,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
 
     return (
       <>
-        <TouchableOpacity onPress={() => setshowPicker(true)} style={styles.dateBox}>
+        <TouchableOpacity onPress={() => setShowPicker(true)} style={styles.dateBox}>
           <CalendarIcon />
           {dateField ? (
             <RegularText style={{ marginStart: 8 }}>{moment(dateField).format('MMMM D, YYYY')}</RegularText>
@@ -146,7 +142,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     );
 
   const renderNameError = () => {
-    if (formikProps.submitCount == 0 || !!Object.keys(formikProps.errors).length) {
+    if (formikProps.submitCount === 0 || !!Object.keys(formikProps.errors).length) {
       return null;
     }
     if (props.firstDose && (formikProps.errors.firstBrand || formikProps.errors.firstDescription)) {
@@ -162,7 +158,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     <>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
-          <VaccineNameQuestion formikProps={formikProps as FormikProps<VaccineDoseData>} firstDose={props.firstDose} />
+          <VaccineNameQuestion formikProps={formikProps as FormikProps<IVaccineDoseData>} firstDose={props.firstDose} />
           {renderNameError}
         </View>
         <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>

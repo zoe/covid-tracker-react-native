@@ -1,3 +1,5 @@
+import i18n from '@covid/locale/i18n';
+
 export type VaccineRequest = {
   id: string;
   version: string; // document/schema version
@@ -67,8 +69,17 @@ export enum VaccineBrands {
   PFIZER = 'pfizer',
   ASTRAZENECA = 'astrazeneca',
   MODERNA = 'moderna',
+  JOHNSON = 'johnson',
   NOT_SURE = 'not_sure',
 }
+
+export const vaccineBrandDisplayName = {
+  [VaccineBrands.PFIZER]: 'Pfizer/BioNTech',
+  [VaccineBrands.ASTRAZENECA]: 'Oxford/Astrazeneca',
+  [VaccineBrands.MODERNA]: 'Moderna',
+  [VaccineBrands.JOHNSON]: 'Johnson and Johnson',
+  [VaccineBrands.NOT_SURE]: i18n.t('vaccines.your-vaccine.name-i-dont-know'),
+};
 
 export enum PlaceboStatus {
   YES = 'yes',

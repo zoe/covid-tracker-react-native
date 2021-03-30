@@ -7,7 +7,7 @@ import { ArrowDown, ArrowUp } from '@assets';
 
 import { Text } from '../../typography';
 
-interface Props {
+interface IProps {
   change: number;
 }
 
@@ -16,7 +16,7 @@ enum DeltaChange {
   down,
   none,
 }
-export const DeltaTag: React.FC<Props> = ({ change }) => {
+export function DeltaTag({ change }: IProps) {
   const changeType = change >= 0 ? DeltaChange.up : DeltaChange.down;
   const from = i18n.t('dashboard.trendline-card.delta.from-last-week');
 
@@ -52,7 +52,7 @@ export const DeltaTag: React.FC<Props> = ({ change }) => {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   tag: {

@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
-import { Button } from '@covid/components/Buttons/Button';
+import { Button } from '@covid/components/buttons/Button';
 import Screen from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';

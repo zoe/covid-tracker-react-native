@@ -49,7 +49,6 @@ import {
   SchoolGroupListScreen,
   SchoolHowToScreen,
   SchoolIntroScreen,
-  SearchLADScreen,
   SelectProfileScreen,
   SplashScreen,
   TermsOfUseUSScreen,
@@ -81,8 +80,8 @@ import {
 } from '@covid/features';
 
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
-import MentalHealthNavigator from '../main-navigator';
 import { MetalHealthNavigator } from '..';
+import AnniversaryNavigator from '../anniversary';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -174,13 +173,14 @@ function MainNavigator() {
       <Stack.Screen name="AboutYourVaccine" component={AboutYourVaccineScreen} options={noHeader} />
       <Stack.Screen name="VaccineLogSymptomsInfo" component={VaccineLogSymptomsInfoScreen} options={noHeader} />
       <Stack.Screen name="VaccineFindInfo" component={VaccineFindInfoScreen} options={noHeader} />
+      <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
 
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
-      <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
-      <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
+
       {DietStudyPlaybackNavigator({ Stack })}
       {MetalHealthNavigator({ Stack })}
+      {AnniversaryNavigator({ Stack })}
     </Stack.Navigator>
   );
 }

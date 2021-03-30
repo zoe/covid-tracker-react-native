@@ -1,3 +1,5 @@
 export interface IApp {
-  dashboardVisited: boolean;
+  dashboardHasBeenViewed: boolean;
+  mentalHealthStudyActive: boolean;
+  loggedVaccine: boolean;
 }

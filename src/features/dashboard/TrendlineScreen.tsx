@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { colors, fontStyles } from '@theme';
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header } from '@covid/components/Screen';
-import { BrandedButton, Header3Text, RegularText } from '@covid/components/Text';
+import { Header3Text, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DeltaTag } from '@covid/components/Cards/EstimatedCase/DeltaTag';
 import { Tabs } from '@covid/components/Nav/Tabs';
@@ -19,7 +19,7 @@ import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
 import i18n from '@covid/locale/i18n';
 import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
-import { isIos } from '@covid/utils/platform';
+import { BrandedButton } from '@covid/components';
 
 type Props = {
   navigation?: StackNavigationProp<ScreenParamList, 'Trendline'>;
@@ -53,12 +53,9 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
       <View ref={viewRef} style={styles.container} collapsable={false}>
         <Header>
           <RegularText style={{ textAlign: 'center' }}>{i18n.t('explore-trend-line.title')}</RegularText>
-          {/* <TouchableOpacity onPress={() => appCoordinator.goToSearchLAD()}> */}
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <RegularText style={styles.district}>{trendline?.name}</RegularText>
-            {/* <DropdownIcon style={styles.arrow} /> */}
           </View>
-          {/* </TouchableOpacity> */}
         </Header>
 
         <Header3Text style={styles.metric}>{trendline?.today}</Header3Text>

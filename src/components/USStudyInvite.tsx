@@ -12,7 +12,7 @@ import { Services } from '@covid/provider/services.types';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { IPatientService } from '@covid/core/patient/PatientService';
 
-import { BrandedButton } from './BrandedButton';
+import { BrandedButton } from './buttons/';
 
 type StudyInviteProps = {
   assessmentData: AssessmentData;
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   backgroundImage: {
-    height: '50%',
+    height: '30%',
     resizeMode: 'stretch',
   },
   outsideView: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   modalView: {
-    maxHeight: '40%',
+    maxHeight: '60%',
     margin: 24,
     backgroundColor: colors.white,
     borderRadius: 16,

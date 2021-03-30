@@ -1,4 +1,4 @@
-export type TTypeSizes = 2 | 4 | 8 | 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 40 | 48 | 56 | 64 | 72 | 80;
+export type TTypeSizes = 2 | 4 | 8 | 10 | 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 40 | 48 | 56 | 64 | 72 | 80;
 
 export type TFontStyle = 'normal' | 'italic';
 
@@ -38,9 +38,11 @@ export type ITextClass = {
   h3Bold: TText;
   //
   h4: TText;
+  h4Light: TText;
   h4Medium: TText;
   //
   h5: TText;
+  h5Light: TText;
   h5Medium: TText;
   h5Regular: TText;
   //
@@ -55,10 +57,12 @@ export type ITextClass = {
   pMedium: TText;
   pSmall: TText;
   pXSmall: TText;
+  pXSmallMedium: TText;
   pSmallBold: TText;
   pSmallLight: TText;
   default: TText;
   button: TText;
+  label: TText;
 };
 
 export type TTextClass = keyof ITextClass;

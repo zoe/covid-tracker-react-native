@@ -5,7 +5,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
@@ -13,6 +13,7 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appConfig from '@covid/appConfig';
 import { openWebLink } from '@covid/utils/links';
+import { BrandedButton } from '@covid/components';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'NursesConsentUS'>;

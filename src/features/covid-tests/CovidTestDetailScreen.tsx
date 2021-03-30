@@ -8,41 +8,42 @@ import * as Yup from 'yup';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import {
-  CovidTestDateData,
   CovidTestDateQuestion,
-  CovidTestInvitedData,
   CovidTestInvitedQuestion,
-  CovidTestLocationData,
-  CovidTestLocationQuestion,
-  CovidTestMechanismData,
-  CovidTestMechanismQuestion,
-  CovidTestResultData,
-  CovidTestResultQuestion,
   CovidTestIsRapidQuestion,
-  CovidTestIsRapidData,
+  CovidTestLocationQuestion,
+  CovidTestMechanismQuestion,
+  CovidTestResultQuestion,
+  ICovidTestDateData,
+  ICovidTestInvitedData,
+  ICovidTestIsRapidData,
+  ICovidTestLocationData,
+  ICovidTestMechanismData,
+  ICovidTestResultData,
 } from '@covid/features/covid-tests/fields/';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
-import { ClearButton } from '@covid/components/Buttons/ClearButton';
+import { ClearButton } from '@covid/components/buttons/ClearButton';
 import NavigatorService from '@covid/NavigatorService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { BrandedButton } from '@covid/components';
 
-export interface CovidTestData
-  extends CovidTestDateData,
-    CovidTestMechanismData,
-    CovidTestResultData,
-    CovidTestLocationData,
-    CovidTestInvitedData,
-    CovidTestIsRapidData {}
+interface ICovidTestData
+  extends ICovidTestDateData,
+    ICovidTestMechanismData,
+    ICovidTestResultData,
+    ICovidTestLocationData,
+    ICovidTestInvitedData,
+    ICovidTestIsRapidData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestDetail'>;
@@ -116,7 +117,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   }
 
-  handleAction(formData: CovidTestData) {
+  handleAction(formData: ICovidTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
       if (formData.knowsDateOfTest === 'yes' && !formData.dateTakenSpecific) {
@@ -211,25 +212,19 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             ...CovidTestIsRapidQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: CovidTestData) => {
+          onSubmit={(values: ICovidTestData) => {
             return this.handleAction(values);
           }}>
           {(props) => {
-            const { result, mechanism } = props.values;
-            const { NOSE_OR_THROAT_SWAB, SPIT_TUBE } = CovidTestMechanismOptions;
-            const hasMechanism = mechanism === NOSE_OR_THROAT_SWAB || mechanism === SPIT_TUBE;
-            const hasResult = result !== 'waiting';
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
-                  <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
-                  <CovidTestMechanismQuestion formikProps={props as FormikProps<CovidTestMechanismData>} test={test} />
-                  <CovidTestLocationQuestion formikProps={props as FormikProps<CovidTestLocationData>} test={test} />
-                  <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
-                  {hasMechanism && hasResult && (
-                    <CovidTestIsRapidQuestion formikProps={props as FormikProps<CovidTestIsRapidData>} test={test} />
-                  )}
-                  <CovidTestInvitedQuestion formikProps={props as FormikProps<CovidTestInvitedData>} test={test} />
+                  <CovidTestDateQuestion formikProps={props as FormikProps<ICovidTestDateData>} test={test} />
+                  <CovidTestMechanismQuestion formikProps={props as FormikProps<ICovidTestMechanismData>} test={test} />
+                  <CovidTestLocationQuestion formikProps={props as FormikProps<ICovidTestLocationData>} test={test} />
+                  <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
+                  <CovidTestIsRapidQuestion formikProps={props as FormikProps<ICovidTestIsRapidData>} test={test} />
+                  <CovidTestInvitedQuestion formikProps={props as FormikProps<ICovidTestInvitedData>} test={test} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && props.submitCount > 0 && (

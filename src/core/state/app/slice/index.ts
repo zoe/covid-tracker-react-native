@@ -1,20 +1,39 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { action } from '@storybook/addon-actions';
 
 import { RootState } from '../../root';
 import { IApp } from '../types';
 
+// NOTE
+// THIS REDUCER IS BLACK LISTED AND RESET ON EVERY SESSION
+// SET SESSION VALUES HERE
+
 const initialState: IApp = {
-  dashboardVisited: false,
+  dashboardHasBeenViewed: false,
+  mentalHealthStudyActive: true,
+  loggedVaccine: false,
 };
 
 const appSlice = createSlice({
   name: 'App',
   initialState,
   reducers: {
-    setDasboardVisited: (state, action: PayloadAction<boolean>) => {
+    setDashboardHasBeenViewed: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,
-        dashboardVisited: action.payload,
+        dashboardHasBeenViewed: action.payload,
+      };
+    },
+    setMentalHealthStudyActive: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        mentalHealthStudyActive: action.payload,
+      };
+    },
+    setLoggedVaccine: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        loggedVaccine: action.payload,
       };
     },
     reset: (state) => {
@@ -25,6 +44,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { setDasboardVisited, reset } = appSlice.actions;
+export const { setDashboardHasBeenViewed, setMentalHealthStudyActive, reset, setLoggedVaccine } = appSlice.actions;
 export const selectApp = (state: RootState) => state.app;
 export default appSlice.reducer;

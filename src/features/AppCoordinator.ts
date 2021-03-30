@@ -33,7 +33,7 @@ import {
 } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
-import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
+import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
 
@@ -44,7 +44,7 @@ type ScreenFlow = {
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
-export class AppCoordinator extends Coordinator implements SelectProfile, EditableProfile {
+export class AppCoordinator extends Coordinator implements ISelectProfile, IEditableProfile {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
@@ -140,7 +140,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     },
   };
 
-  async init(setUsername: (username: string) => void) {
+  async init(setUsername: (username: string) => void, setPatients: (patients: string[]) => void) {
     let user: UserResponse | null = null;
     let patientId: string | null = null;
 
@@ -151,6 +151,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
       this.thisUser = user;
       patientId = user?.patients[0] ?? null;
       setUsername(user?.username ?? '');
+      setPatients(user?.patients ?? []);
     }
 
     if (patientId && user) {
@@ -159,6 +160,12 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     }
 
     await this.fetchInitialData();
+
+    const { startupInfo } = store.getState().content;
+
+    if (startupInfo?.app_requires_update) {
+      this.goToVersionUpdateModal();
+    }
 
     // Track insights
     if (this.shouldShowCountryPicker) {
@@ -192,11 +199,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   async startAssessmentFlow(patientData: PatientData) {
     assessmentCoordinator.init(this, { patientData }, assessmentService);
     assessmentCoordinator.startAssessment();
-  }
-
-  startDietStudyPlaybackFlow(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
-    dietStudyPlaybackCoordinator.startDietStudyPlayback();
   }
 
   async startEditProfile(profile: Profile) {
@@ -233,8 +235,27 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     this.patientData = await this.patientService.getPatientDataByProfile(profile);
   }
 
-  goToDietStudyPlayback() {
-    this.startDietStudyPlaybackFlow(this.patientData);
+  async setPatientToPrimary() {
+    const user = await this.userService.getUser();
+    const patientId = user?.patients[0] ?? null;
+
+    if (patientId) {
+      await this.setPatientById(patientId);
+    }
+  }
+
+  goToVersionUpdateModal() {
+    NavigatorService.navigate('VersionUpdateModal');
+  }
+
+  async goToDietStudy() {
+    // Reset the current PatientData to the primary user.
+    // We can get here if by viewing DietScores after reporting from a secondary profile
+    if (this.patientData.patientState.isReportedByAnother) {
+      await this.setPatientToPrimary();
+    }
+    dietStudyPlaybackCoordinator.init(this, this.patientData, this.contentService, this.dietScoreService);
+    NavigatorService.navigate('DietStudy');
   }
 
   goToUKValidationStudy() {
@@ -263,10 +284,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
   goToTrendline(lad?: string) {
     NavigatorService.navigate('Trendline', { lad });
-  }
-
-  goToSearchLAD() {
-    NavigatorService.navigate('SearchLAD');
   }
 
   async shouldShowTrendLine(): Promise<boolean> {
@@ -315,7 +332,14 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   goToMentalHealthStudy() {
-    NavigatorService.navigate('MentalHealthStart');
+    NavigatorService.navigate('MentalHealthChanges');
+  }
+  goToMentalHealthModal() {
+    NavigatorService.navigate('MentalHealthModal');
+  }
+
+  goToAnniversary() {
+    NavigatorService.navigate('Anniversary');
   }
 }
 

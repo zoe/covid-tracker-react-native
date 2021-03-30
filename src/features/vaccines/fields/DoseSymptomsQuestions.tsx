@@ -9,7 +9,7 @@ import { RegularText } from '@covid/components/Text';
 import { CheckboxList } from '@covid/components/Checkbox';
 import {
   createSymptomCheckboxes,
-  DoseSymptomQuestions,
+  IDoseSymptomQuestions,
   SymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
@@ -38,7 +38,7 @@ type Props = {
   formikProps: FormikProps<DoesSymptomsData>;
 };
 
-export const DoesSymptomsQuestions: DoseSymptomQuestions<Props, DoesSymptomsData> = (props: Props) => {
+export const DoesSymptomsQuestions: IDoseSymptomQuestions<Props, DoesSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
   const checkboxes: SymptomCheckBoxData<DoesSymptomsCheckBoxData, DoesSymptomsFollowUpData>[] = [

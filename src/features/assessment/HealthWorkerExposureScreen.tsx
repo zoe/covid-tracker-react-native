@@ -9,15 +9,15 @@ import * as Yup from 'yup';
 import DropdownField from '@covid/components/DropdownField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ErrorText, HeaderText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import YesNoField from '@covid/components/YesNoField';
 import { isAndroid } from '@covid/utils/platform';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 const initialFormValues = {
   interactedAnyPatients: 'no',
@@ -28,7 +28,7 @@ const initialFormValues = {
   ppeAvailabilityNever: '',
 };
 
-interface HealthWorkerExposureData {
+interface IHealthWorkerExposureData {
   interactedAnyPatients: string;
   treatedPatientsWithCovid: string;
   hasUsedPPEEquipment: string;
@@ -56,7 +56,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     this.state = initialState;
   }
 
-  handleUpdate = (formData: HealthWorkerExposureData) => {
+  handleUpdate = (formData: IHealthWorkerExposureData) => {
     try {
       const assessment = this.createAssessment(formData);
       assessmentService.saveAssessment(assessment);
@@ -66,7 +66,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     }
   };
 
-  private createAssessment(formData: HealthWorkerExposureData) {
+  private createAssessment(formData: IHealthWorkerExposureData) {
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientId = currentPatient.patientId;
 
@@ -163,7 +163,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
-          onSubmit={(values: HealthWorkerExposureData) => this.handleUpdate(values)}>
+          onSubmit={(values: IHealthWorkerExposureData) => this.handleUpdate(values)}>
           {(props) => {
             return (
               <Form>

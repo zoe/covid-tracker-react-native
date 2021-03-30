@@ -1,16 +1,16 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { dietStudyPlaybackReady, notificationReminders } from '@assets';
+import { notificationReminders } from '@assets';
 import { colors } from '@theme';
-import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
-import { ShareAppCard } from '@covid/components/Cards/ShareApp';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import i18n from '@covid/locale/i18n';
@@ -19,12 +19,13 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
-import { FeaturedContentList, FeaturedContentType } from '@covid/components';
-import { experiments, startExperiment } from '@covid/core/Experiments';
-import Analytics, { events } from '@covid/core/Analytics';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
 import store from '@covid/core/state/store';
+
+import { ImpactTimelineCard } from '../anniversary';
+import appCoordinator from '../AppCoordinator';
+
+import { BigGreenTickFilled } from './components/BigGreenTick';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -35,14 +36,14 @@ type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
   shouldShowReminders: boolean;
-  showDietStudyPlayback: boolean;
+  showTimelineCard: boolean;
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
   shouldShowReminders: false,
-  showDietStudyPlayback: false,
+  showTimelineCard: false,
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
@@ -53,23 +54,16 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   state = initialState;
 
   async componentDidMount() {
-    const { startupInfo } = store.getState().content;
-    const variant = startExperiment(experiments.UK_DietScore_Invite, 2);
-    const showDietStudyPlayback = (variant === 'variant_2' && startupInfo?.show_diet_score) || false;
-
-    if (showDietStudyPlayback) {
-      Analytics.track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
-    }
-
     this.setState({
       askForRating: await shouldAskForRating(),
       inviteToStudy: await this.consentService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
-      showDietStudyPlayback,
     });
   }
 
   render() {
+    const { startupInfo } = store.getState().content;
+
     return (
       <>
         {this.state.askForRating && <AppRating />}
@@ -86,14 +80,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-              {this.state.showDietStudyPlayback && (
-                <TouchableWithoutFeedback
-                  onPress={() => {
-                    Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
-                    appCoordinator.goToDietStudyPlayback();
-                  }}>
-                  <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
-                </TouchableWithoutFeedback>
+              {startupInfo?.show_timeline && (
+                <ImpactTimelineCard onPress={() => appCoordinator.goToAnniversary()} size="LARGE" />
               )}
 
               <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />

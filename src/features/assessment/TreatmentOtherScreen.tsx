@@ -7,20 +7,20 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText } from '@covid/components/Text';
+import { HeaderText } from '@covid/components/Text';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { assessmentService } from '@covid/Services';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 const initialFormValues = {
   description: '',
 };
 
-interface TreatmentData {
+interface ITreatmentData {
   description: string;
 }
 
@@ -34,7 +34,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     description: Yup.string(),
   });
 
-  handleUpdateTreatment = async (formData: TreatmentData) => {
+  handleUpdateTreatment = async (formData: ITreatmentData) => {
     let assessment: Partial<AssessmentInfosRequest> = {};
 
     if (formData.description) {
@@ -74,7 +74,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
-          onSubmit={(values: TreatmentData) => {
+          onSubmit={(values: ITreatmentData) => {
             return this.handleUpdateTreatment(values);
           }}>
           {(props) => {

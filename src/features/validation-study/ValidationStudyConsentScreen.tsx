@@ -8,7 +8,7 @@ import { chevronLeft } from '@assets';
 import { colors } from '@theme';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { Header } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
@@ -17,20 +17,21 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { openWebLink } from '@covid/utils/links';
+import { BrandedButton } from '@covid/components';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
   route: RouteProp<ScreenParamList, 'ValidationStudyConsent'>;
 };
 
-interface TermsState {
+interface ITermsState {
   agreeToAbove: boolean;
   anonymizedData: boolean;
   reContacted: boolean;
   submitting: boolean;
 }
 
-export default class ValidationStudyConsentScreen extends Component<PropsType, TermsState> {
+export default class ValidationStudyConsentScreen extends Component<PropsType, ITermsState> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 

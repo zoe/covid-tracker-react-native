@@ -15,9 +15,7 @@ export const SContainerView = styled(View)<IContainerViewProps>`
     align-items: center;
     height: ${props.height}px;
     left: 0;
-    padding: ${props.top ? props.top : props.theme.grid.l}px ${props.theme.grid.xxxl}px ${
-    props.bottom ? props.bottom : props.theme.grid.s
-  }px;
+    padding: ${props.top ? props.top : props.theme.grid.l}px 16px ${props.bottom ? props.bottom : props.theme.grid.s}px;
     position: absolute;
     top: 0;
     width: ${props.width}px;

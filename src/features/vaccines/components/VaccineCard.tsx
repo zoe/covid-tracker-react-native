@@ -1,20 +1,14 @@
 import React from 'react';
-import { Image, StyleSheet, View, ViewStyle } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import moment from 'moment';
 import { Text } from 'native-base';
 
-import { ClickableText, RegularText, Header3Text } from '@covid/components/Text';
-import { pending, tick } from '@assets';
+import { Header3Text, RegularText } from '@covid/components/Text';
+import { tick } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { Dose, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { vaccineBrandDisplayName, Dose, VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import QuestionCircle from '@assets/icons/QuestionCircle';
-
-export const displayBrandNameMap = {};
-displayBrandNameMap[VaccineBrands.PFIZER] = 'Pfizer/BioNTech';
-displayBrandNameMap[VaccineBrands.MODERNA] = 'Moderna';
-displayBrandNameMap[VaccineBrands.ASTRAZENECA] = 'Oxford/Astrazeneca';
-displayBrandNameMap[VaccineBrands.NOT_SURE] = i18n.t('vaccines.your-vaccine.name-i-dont-know');
 
 export const displayDescriptionNameMap = {
   mrna: 'mRNA',
@@ -33,25 +27,12 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
   };
 
   const renderTick = (hasDate: boolean, hasName: boolean) => {
-    if (hasDate && hasName) {
-      return <Image source={tick} style={styles.tick} />;
-    }
+    return hasDate && hasName ? <Image source={tick} style={styles.tick} /> : <></>;
   };
 
   const formatVaccineDate = (dose: Dose) => {
-    if (dose.date_taken_specific) {
-      return formatDateString(dose.date_taken_specific);
-    } else {
-      return `${formatDateString(dose.date_taken_between_start)} - ${formatDateString(dose.date_taken_between_end)}`;
-    }
+    return dose.date_taken_specific ? formatDateString(dose.date_taken_specific) : '';
   };
-
-  const pendingIconAndText = (textKey: string) => (
-    <View style={{ ...styles.row, ...styles.pendingIconAndText }}>
-      <Image source={pending} style={styles.tick} />
-      <RegularText style={styles.pendingText}>{i18n.t(textKey)}</RegularText>
-    </View>
-  );
 
   const warningIconAndText = (textKey: string) => (
     <View style={styles.row}>
@@ -61,7 +42,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
   );
 
   const dateRequired = warningIconAndText('vaccines.vaccine-card.date-missing');
-  const notYetLogged = pendingIconAndText('vaccines.vaccine-card.not-logged');
+  const notYetLogged = warningIconAndText('vaccines.vaccine-card.not-logged');
 
   const dose1: Partial<Dose> | undefined = vaccine.doses[0];
   const dose2: Partial<Dose> | undefined = vaccine.doses[1];
@@ -75,58 +56,67 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
   const hasSecondDoseName = hasSecondDoseBrand || hasSecondDoseDescription;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.dose}>
-        <View style={styles.row}>
-          {renderTick(hasFirstDoseDate, hasFirstDoseName)}
-          <Header3Text>{i18n.t('vaccines.vaccine-card.dose-1')}</Header3Text>
+    <TouchableWithoutFeedback onPress={() => onPressEdit(1)}>
+      <View style={styles.container}>
+        {/* Dose 1 */}
+        <View style={styles.dose}>
+          <View style={styles.row}>
+            {renderTick(hasFirstDoseDate, hasFirstDoseName)}
+            <Header3Text>{i18n.t('vaccines.vaccine-card.dose-1')}</Header3Text>
+          </View>
+          <RegularText style={[!hasFirstDoseName && styles.pendingText]}>
+            {hasFirstDoseName
+              ? hasFirstDoseBrand
+                ? vaccineBrandDisplayName[dose1.brand]
+                : displayDescriptionNameMap[dose1.description]
+              : warningIconAndText('vaccines.vaccine-card.name-missing')}
+          </RegularText>
+
+          {!hasFirstDoseDate && dateRequired}
+
+          {hasFirstDoseDate && (
+            <View style={{ marginTop: 8, marginBottom: 0 }}>
+              <RegularText style={[!hasFirstDoseDate && styles.pendingText]}>
+                {hasFirstDoseDate ? formatVaccineDate(dose1 as Dose) : null}
+              </RegularText>
+            </View>
+          )}
         </View>
-        <RegularText style={[!hasFirstDoseName && styles.pendingText]}>
-          {hasFirstDoseName
-            ? hasFirstDoseBrand
-              ? displayBrandNameMap[dose1.brand]
-              : displayDescriptionNameMap[dose1.description]
-            : pendingIconAndText('vaccines.vaccine-card.name-missing')}
-        </RegularText>
 
-        {!hasFirstDoseDate && dateRequired}
+        {/* Dose 2 */}
+        {dose1.brand && dose1.brand === VaccineBrands.JOHNSON ? (
+          <></>
+        ) : (
+          <View style={styles.dose}>
+            <View style={styles.row}>
+              {renderTick(hasSecondDoseDate, hasSecondDoseName)}
+              <Header3Text>{i18n.t('vaccines.vaccine-card.dose-2')}</Header3Text>
+            </View>
 
-        {hasFirstDoseDate && (
-          <View style={{ marginTop: 8, marginBottom: 0 }}>
-            <RegularText style={[!hasFirstDoseDate && styles.pendingText]}>
-              {hasFirstDoseDate ? formatVaccineDate(dose1 as Dose) : null}
+            {hasSecondDoseDate && (
+              <View style={{ marginTop: 0, marginBottom: 8 }}>
+                <RegularText style={[!hasSecondDoseName && styles.pendingText]}>
+                  {hasSecondDoseName
+                    ? hasSecondDoseBrand
+                      ? vaccineBrandDisplayName[dose2.brand]
+                      : displayDescriptionNameMap[dose2.description]
+                    : warningIconAndText('vaccines.vaccine-card.name-missing')}
+                </RegularText>
+              </View>
+            )}
+
+            <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
+              {hasSecondDoseDate ? formatVaccineDate(dose2 as Dose) : notYetLogged}
             </RegularText>
           </View>
         )}
+
+        {/* CTA */}
+        <Text style={{ marginTop: 8, marginBottom: 8, textAlign: 'center' }}>
+          <Text style={styles.clickableText}>{i18n.t('vaccines.vaccine-card.edit-vaccine')}</Text>
+        </Text>
       </View>
-
-      <View style={styles.dose}>
-        <View style={styles.row}>
-          {renderTick(hasSecondDoseDate, hasSecondDoseName)}
-          <Header3Text>{i18n.t('vaccines.vaccine-card.dose-2')}</Header3Text>
-        </View>
-
-        {hasSecondDoseDate && (
-          <View style={{ marginTop: 0, marginBottom: 8 }}>
-            <RegularText style={[!hasSecondDoseName && styles.pendingText]}>
-              {hasSecondDoseName
-                ? hasSecondDoseBrand
-                  ? displayBrandNameMap[dose2.brand]
-                  : displayDescriptionNameMap[dose2.description]
-                : pendingIconAndText('vaccines.vaccine-card.name-missing')}
-            </RegularText>
-          </View>
-        )}
-
-        <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
-          {hasSecondDoseDate ? formatVaccineDate(dose2 as Dose) : notYetLogged}
-        </RegularText>
-      </View>
-
-      <ClickableText style={{ marginTop: 8, marginBottom: 8, textAlign: 'center' }} onPress={() => onPressEdit(1)}>
-        <Text style={styles.clickableText}>{i18n.t('vaccines.vaccine-card.edit-vaccine')}</Text>
-      </ClickableText>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

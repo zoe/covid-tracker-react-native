@@ -8,11 +8,11 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { colors } from '@theme';
 
-interface Props {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList>;
 }
 
-export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
+export function EstimatedCasesScreen({ navigation }: IProps) {
   const [html, setHtml] = useState<string>('');
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
       <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

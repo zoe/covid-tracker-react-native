@@ -1,18 +1,18 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { chevronLeft } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
+import { HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 import { InfoCard } from '@covid/components/InfoCard';
 import appCoordinator from '@covid/features/AppCoordinator';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyInfo'>;
@@ -54,15 +54,13 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
           </RegularBoldText>
           <SecondaryText style={styles.interestedTest}>{i18n.t('validation-study-info.visit-next')}</SecondaryText>
 
-          <View style={styles.buttonContainer}>
-            <BrandedButton
-              style={styles.mainButton}
-              onPress={() => {
-                appCoordinator.gotoNextScreen(this.props.route.name);
-              }}>
-              <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
-            </BrandedButton>
-          </View>
+          <BrandedButton
+            style={styles.mainButton}
+            onPress={() => {
+              appCoordinator.gotoNextScreen(this.props.route.name);
+            }}>
+            <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
+          </BrandedButton>
         </ScrollView>
       </SafeAreaView>
     );
@@ -73,8 +71,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 32,
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   buttonContainer: {
     width: '100%',
@@ -98,11 +94,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.purple,
   },
   buttonText: {
+    textAlign: 'center',
     color: colors.white,
   },
   interestedTitle: {
     marginTop: 20,
     fontSize: 20,
+    textAlign: 'center',
   },
   interestedTest: {
     textAlign: 'center',

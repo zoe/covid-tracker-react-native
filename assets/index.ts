@@ -49,6 +49,7 @@ export const zoe = require('./logos/zoe.png');
 export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
 export const covidByZoeIcon = require('./logos/covid_app_by_zoe.png');
+export const covidByZoeIconDark = require('./logos/covid_app_by_zoe_dark.png');
 export const createdByZoe = require('./logos/created-by-zoe.png');
 
 // Profiles
@@ -99,7 +100,8 @@ export const dietStudyPlaybackFoodHeader = require('./diet-playback-food-banner.
 export const dietStudyPlaybackGutHeader = require('./diet-playback-gut-banner.png');
 export const dietStudyPlaybackGutDiagram = require('./gut-diagram.png');
 export const fallingFoodBackground = require('./backgrounds/falling-food.png');
-export const dietStudyPlaybackReady = require('./diet-playback-ready.png');
+export const dietStudyPlaybackReadyUS = require('./diet-playback-ready-us.png');
+export const dietStudyPlaybackReadyUK = require('./diet-playback-ready-uk.png');
 
 // share svg
 export { default as ShareIcon } from './icons/Share';
@@ -107,3 +109,9 @@ export { default as ShareIcon } from './icons/Share';
 export * from './icons/stats';
 export * from './icons/svgIcons';
 export { default as C19 } from './logos/C19';
+
+// avatars
+export * from './avatars';
+
+// cards
+export * from './cards';

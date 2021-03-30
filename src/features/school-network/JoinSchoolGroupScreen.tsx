@@ -11,12 +11,12 @@ import { HeaderText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { Button } from '@covid/components/Buttons/Button';
+import { Button } from '@covid/components/buttons/Button';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import i18n from '@covid/locale/i18n';
-import { SchoolGroupModel } from '@covid/core/schools/Schools.dto';
+import { ISchoolGroupModel } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
 import NavigatorService from '@covid/NavigatorService';
 
@@ -49,7 +49,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
 
   useEffect(() => {
     (async () => {
-      const groups: SchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
+      const groups: ISchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
         route.params.selectedSchool.id
       );
       const pickerItems = groups.map<PickerItemProps>((g) => ({

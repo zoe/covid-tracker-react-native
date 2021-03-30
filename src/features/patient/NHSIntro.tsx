@@ -7,7 +7,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
@@ -21,26 +21,26 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Coordinator } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import NavigatorService from '@covid/NavigatorService';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
-import { ScreenParamList } from '../ScreenParamList';
-
-export interface Data {
+export interface IData {
   nhsID: string;
 }
 
-type Props = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'NHSIntro'>;
   route: RouteProp<ScreenParamList, 'NHSIntro'>;
-};
+}
 
-export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
+export function NHSIntroScreen(props: IProps) {
   const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
   const patientService = useInjection<IPatientService>(Services.Patient);
   const [consent, setConsent] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const checkFormFilled = (props: FormikProps<Data>) => {
+  const checkFormFilled = (props: FormikProps<IData>) => {
     if (Object.keys(props.errors).length) return false;
     if (Object.keys(props.values).length === 0) return false;
     return true;
@@ -72,7 +72,7 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
       .catch(() => setErrorMessage(i18n.t('something-went-wrong')));
   };
 
-  const handleSubmit = (formData: Data) => {
+  const handleSubmit = (formData: IData) => {
     const currentPatient = coordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = createPatientInfos(formData);
@@ -85,7 +85,7 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
       .catch(() => setErrorMessage(i18n.t('something-went-wrong')));
   };
 
-  const createPatientInfos = (formData: Data) => {
+  const createPatientInfos = (formData: IData) => {
     return {
       nhs_study_id: formData.nhsID,
     } as PatientInfosRequest;
@@ -108,9 +108,9 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
         <RegularText style={{ marginBottom: 24 }}>{i18n.t('nhs-study-intro.text-1')}</RegularText>
 
         <Formik
-          initialValues={{} as Data}
+          initialValues={{} as IData}
           validationSchema={registerSchema}
-          onSubmit={(values: Data) => handleSubmit(values)}>
+          onSubmit={(values: IData) => handleSubmit(values)}>
           {(props) => {
             const { handleSubmit, errors } = props;
 
@@ -155,4 +155,4 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
       </View>
     </Screen>
   );
-};
+}

@@ -4,16 +4,16 @@ import { Formik } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
 
-import { Button } from '@covid/components/Buttons/Button';
+import { Button } from '@covid/components/buttons/Button';
 import DropdownField from '@covid/components/DropdownField';
-import { SubscribedSchoolGroupStats, SchoolModel } from '@covid/core/schools/Schools.dto';
+import { ISubscribedSchoolGroupStats, ISchoolModel } from '@covid/core/schools/Schools.dto';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
 interface IProps {
-  currentJoinedGroup: SubscribedSchoolGroupStats | undefined;
-  schools: SchoolModel[];
+  currentJoinedGroup: ISubscribedSchoolGroupStats | undefined;
+  schools: ISchoolModel[];
 }
 
 function UniversityForm({ currentJoinedGroup, schools }: IProps) {

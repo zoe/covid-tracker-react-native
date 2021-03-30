@@ -67,5 +67,22 @@
     "your-vaccine": {
       "label-batch": "Lot number (optional)"
     }
+  },
+
+  "diet-study": {
+    "doctor-name": "Dr Sarah Berry &\nProf Christopher Gardner",
+    "doctor-title": "Nutritional Scientists",
+    "doctor-location": "King's College London &\nStanford University",
+    "gut-tips-body-1": "Fiber is fundamental - choose fiber-rich foods like wholegrains, beans, pulses, fruit, vegetables, nuts and seeds.",
+    "traditional-body-0": "A score of 12 and above indicates a healthier diet that includes plenty of fruits, vegetables, fiber-rich foods and oily fish."
+  },
+
+  "mental-health": {
+    "doctor-name": "Dr. Karestan C. Koenen",
+    "doctor-title": "Professor of Psychiatric Epidemiology",
+    "doctor-college": "Harvard TH Chan School of Public Health",
+    "question-snacks": "Eating savory snacks / confectionery",
+    "question-engaging-with-organisations": "Engaging in organizations, clubs or societies (e.g. political, religious, charitable, social, sport, etc.)",
+    "answer-gad": "Generalized anxiety disorder (GAD)"
   }
 }

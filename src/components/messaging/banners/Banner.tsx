@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, Button, Dimensions, Easing } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { Animated, Dimensions, Easing } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { IUIMessage, reset } from '@covid/core/ui-messaging';
+import { IUIMessage, useMessage } from '@covid/common';
 
-import { ThemeButton } from '../../Buttons';
+import { ThemeButton } from '../../buttons';
 import { Text } from '../../typography';
 
-import { SContainerView, SButtonRowView } from './styles';
+import { SButtonRowView, SContainerView } from './styles';
 
 interface IProps {
   active?: boolean;
@@ -21,12 +20,12 @@ const RANGE_TO = 1;
 
 function Banner({ active = true, message }: IProps) {
   const [animValue] = useState(new Animated.Value(0));
-  const dispatch = useDispatch();
   const { width } = Dimensions.get('window');
   const { top } = useSafeAreaInsets();
+  const { removeMessage } = useMessage();
 
   const handleClose = () => {
-    dispatch(reset());
+    removeMessage();
   };
 
   const animate = (active: boolean) => {
@@ -55,10 +54,24 @@ function Banner({ active = true, message }: IProps) {
 
   return (
     <SContainerView top={top} width={width} style={{ transform: [{ translateY: animateTo }] }}>
+      {message.message.title && <Text textClass="h5Medium">{message.message.title}</Text>}
       <Text>{message.message.body}</Text>
       <SButtonRowView>
-        <ThemeButton onPress={handleClose} title="Action 1" colorPalette="teal" colorShade="main" simple />
-        <ThemeButton onPress={handleClose} title="Action 1" colorPalette="teal" colorShade="main" simple />
+        {message.actions
+          ? message.actions.map((action, index) => {
+              const key = `banner-action-${index}`;
+              return (
+                <ThemeButton
+                  key={key}
+                  onPress={action.action}
+                  title={action.label}
+                  colorPalette="teal"
+                  colorShade="main"
+                  simple
+                />
+              );
+            })
+          : null}
       </SButtonRowView>
     </SContainerView>
   );

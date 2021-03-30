@@ -1,15 +1,13 @@
+import React, { useState } from 'react';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Text } from 'native-base';
-import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { State } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, Text } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -21,6 +19,9 @@ import { Services } from '@covid/provider/services.types';
 import { useAppDispatch } from '@covid/core/state/store';
 import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
 import { RootState } from '@covid/core/state/root';
+import NavigatorService from '@covid/NavigatorService';
+import { useMessage } from '@covid/common';
+import { selectApp } from '@covid/core/state';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -34,9 +35,10 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = assessmentCoordinator;
   const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState<string>('');
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
+  const { addMessage, removeMessage } = useMessage();
+  const app = useSelector(selectApp);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -72,7 +74,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     return null;
   }
 
-  const handleNextButton = async () => {
+  const navigateToNextPage = async () => {
     if (vaccines.length > 0) {
       const dose = getFirstActiveDose(vaccines);
       const shouldAskDoseSymptoms = !!dose;
@@ -85,9 +87,30 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
 
-  const enableNextButton = () => {
+  const enableNext = () => {
     const firstDose: Partial<Dose> | undefined = vaccines[0]?.doses[0];
-    return !(firstDose && firstDose.date_taken_specific == null); // Disable button if user has first dose with no date.
+    const secondDose: Partial<Dose> | undefined = vaccines[0]?.doses[1];
+
+    // Disable button if user has dose(s) with missing date, brand & description
+    if (
+      firstDose &&
+      (firstDose.date_taken_specific == null ||
+        firstDose.brand === null ||
+        (firstDose.brand === 'not_sure' && firstDose.description === null))
+    ) {
+      return false;
+    }
+
+    if (
+      secondDose &&
+      (secondDose.date_taken_specific == null ||
+        secondDose.brand === null ||
+        (secondDose.brand === 'not_sure' && secondDose.description === null))
+    ) {
+      return false;
+    }
+
+    return true;
   };
 
   const ListContent = () => {
@@ -118,22 +141,67 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       );
     }
   };
+  const showPopup = () => {
+    NavigatorService.navigate('VaccineListMissing', { vaccine: vaccines[0] });
+  };
+
+  const navigateToNextPageOrShowPopup = () => {
+    if (enableNext()) {
+      navigateToNextPage();
+    } else {
+      showPopup();
+    }
+  };
+
+  // Disable the banner popup until we can solve the "cannot call hook" problem
+  //
+  // useEffect(() => {
+  //   if (app.loggedVaccine) {
+  //     addMessage({
+  //       actions: [
+  //         ...(isSECountry()
+  //           ? [
+  //               {
+  //                 label: i18n.t('navigation.learn-more'),
+  //                 action: () => {
+  //                   removeMessage();
+  //                   dispatch(setLoggedVaccine(false));
+  //                   openWebLink(
+  //                     'https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/information-for-dig-om-vaccinationen/efter-vaccinationen--fortsatt-folja-de-allmanna-raden/'
+  //                   );
+  //                 },
+  //               },
+  //             ]
+  //           : []),
+  //         {
+  //           label: i18n.t('navigation.dismiss'),
+  //           action: () => {
+  //             removeMessage();
+  //             dispatch(setLoggedVaccine(false));
+  //           },
+  //         },
+  //       ],
+  //       messageType: 'BANNER',
+  //       message: {
+  //         body: i18n.t('vaccines.banner.body'),
+  //       },
+  //     });
+  //   }
+  // }, [app.loggedVaccine]);
 
   return (
     <View style={styles.rootContainer}>
       <Screen profile={patientData.patientState.profile} navigation={navigation}>
         <HeaderText style={{ margin: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
 
-        <RegularText style={{ marginVertical: 8, marginHorizontal: 16 }}>
-          {i18n.t('vaccines.vaccine-list.description')}
-        </RegularText>
+        <Text style={{ marginVertical: 8, marginHorizontal: 16 }}>{i18n.t('vaccines.vaccine-list.description')}</Text>
 
         <ListContent />
 
         <View style={{ flex: 1 }} />
 
-        <BrandedButton style={styles.continueButton} onPress={handleNextButton} enable={enableNextButton()}>
-          <Text>
+        <BrandedButton style={styles.continueButton} onPress={navigateToNextPageOrShowPopup}>
+          <Text style={{ color: colors.white }}>
             {vaccines.length === 0
               ? i18n.t('vaccines.vaccine-list.no-vaccine')
               : vaccines[0]?.doses[1]?.date_taken_specific === undefined // 2nd dose not logged
@@ -162,5 +230,6 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     marginHorizontal: 16,
+    color: colors.white,
   },
 });

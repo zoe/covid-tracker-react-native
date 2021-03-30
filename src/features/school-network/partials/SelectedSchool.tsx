@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { Button } from '@covid/components/Buttons/Button';
+import { Button } from '@covid/components/buttons/Button';
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText, Header3Text } from '@covid/components/Text';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 import i18n from '@covid/locale/i18n';
-import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { openWebLink } from '@covid/utils/links';
@@ -19,7 +19,7 @@ interface IProps {
   link?: string;
   linkLabel?: string;
   organisation?: string;
-  currentJoinedGroup: SubscribedSchoolGroupStats;
+  currentJoinedGroup: ISubscribedSchoolGroupStats;
   currentPatient: PatientStateType;
   removeText: string;
   hasBubbles?: boolean;

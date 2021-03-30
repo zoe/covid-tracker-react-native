@@ -2,7 +2,8 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { SchoolModel, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
+import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
+import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -101,35 +102,35 @@ export type ScreenParamList = {
   SchoolHowTo: { patientData: PatientData };
   SelectSchool: undefined;
   JoinSchool: { patientData: PatientData; higherEducation: boolean };
-  JoinSchoolGroup: { patientData: PatientData; selectedSchool: SchoolModel };
+  JoinSchoolGroup: { patientData: PatientData; selectedSchool: ISchoolModel };
   SchoolSuccess: undefined;
-  SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
-  SchoolDashboard: { school: SubscribedSchoolStats };
-  ConfirmSchool: { patientData: PatientData; school: SchoolModel };
+  SchoolGroupList: { patientData: PatientData; selectedSchool: ISchoolModel };
+  SchoolDashboard: { school: ISubscribedSchoolStats };
+  ConfirmSchool: { patientData: PatientData; school: ISchoolModel };
   JoinHigherEducation: { patientData: PatientData };
 
-  DietStudyPlaybackIntro: undefined;
-  DietStudyPlaybackDietQuality: undefined;
-  DietStudyPlaybackYourDiet: undefined;
-  DietStudyPlaybackGutHealth: undefined;
-  DietStudyPlaybackYourGut: undefined;
-  DietStudyPlaybackResearch: undefined;
+  DietStudyModal: undefined;
+  DietStudy: undefined;
+  DietStudyGlobal: undefined;
+  DietStudyGut: undefined;
+  DietStudyTraditional: undefined;
 
-  MentalHealthStart: undefined;
   MentalHealthChanges: undefined;
   MentalHealthFrequency: undefined;
   MentalHealthHistory: undefined;
   MentalHealthSupport: undefined;
   MentalHealthLearning: undefined;
   MentalHealthEnd: undefined;
+  MentalHealthModal: undefined;
 
-  //
   Modal: undefined;
   Main: undefined;
   Share: undefined;
+  VaccineListMissing: { vaccine: VaccineRequest };
+  VersionUpdateModal: undefined;
 
-  // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };
-  SearchLAD: object;
-  // __HYGEN_INJECT_SCREEN_PARAMS_ABOVE__
+
+  Anniversary: undefined;
+  AnniversaryModal: undefined;
 };

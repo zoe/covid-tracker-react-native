@@ -8,25 +8,28 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { fingerPrickX3, otherTestX3, spitX3, syringeX3, noseSwabX3 } from '@assets';
 import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
 
-export interface CovidTestMechanismData {
+export interface ICovidTestMechanismData {
   mechanism: string;
   mechanismSpecify: string;
   trainedWorker: string;
 }
 
-interface Props {
-  formikProps: FormikProps<CovidTestMechanismData>;
+interface IProps {
+  formikProps: FormikProps<ICovidTestMechanismData>;
   test?: CovidTest;
 }
 
-export interface CovidTestMechanismQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestMechanismQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, CovidTestMechanismData> = (props: Props) => {
+export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICovidTestMechanismData> = (
+  props: IProps
+) => {
   const { formikProps, test } = props;
 
   const mechanismItems = [
@@ -36,6 +39,14 @@ export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, Covid
       : []),
     ...(test?.mechanism === CovidTestMechanismOptions.THROAT_SWAB
       ? [{ label: i18n.t('covid-test.picker-throat-swab'), value: CovidTestMechanismOptions.THROAT_SWAB }]
+      : []),
+    ...(isSECountry()
+      ? [
+          {
+            label: i18n.t('covid-test.picker-nose-throat-swab-and-saliva'),
+            value: CovidTestMechanismOptions.NOSE_OR_THROAT_SWAB_AND_SALIVA,
+          },
+        ]
       : []),
     { label: i18n.t('covid-test.picker-saliva-sample'), value: CovidTestMechanismOptions.SPIT_TUBE },
     ...(test?.mechanism === 'blood_sample'
@@ -59,7 +70,9 @@ export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, Covid
   ];
   let mechanismItemIcons = undefined;
   if (!test || (test && !noIcons.includes(test.mechanism))) {
-    mechanismItemIcons = [noseSwabX3, spitX3, fingerPrickX3, syringeX3, otherTestX3];
+    if (!isSECountry()) {
+      mechanismItemIcons = [noseSwabX3, spitX3, fingerPrickX3, syringeX3, otherTestX3];
+    }
   }
 
   return (
@@ -94,7 +107,7 @@ export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, Covid
   );
 };
 
-CovidTestMechanismQuestion.initialFormValues = (test?: CovidTest): CovidTestMechanismData => {
+CovidTestMechanismQuestion.initialFormValues = (test?: CovidTest): ICovidTestMechanismData => {
   let mechanism = '';
   let mechanismSpecify = '';
 
@@ -132,7 +145,7 @@ CovidTestMechanismQuestion.schema = () => {
   });
 };
 
-CovidTestMechanismQuestion.createDTO = (formData: CovidTestMechanismData): Partial<CovidTest> => {
+CovidTestMechanismQuestion.createDTO = (formData: ICovidTestMechanismData): Partial<CovidTest> => {
   return {
     ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
     ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),

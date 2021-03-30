@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
+import { Header3Text, RegularText, CaptionText } from '@covid/components/Text';
 import { covidIcon, covidByZoeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
@@ -10,8 +10,9 @@ import { cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
 import { RootState } from '@covid/core/state/root';
 import { ContentState } from '@covid/core/content/state/contentSlice';
+import { BrandedButton } from '@covid/components';
 
-interface Props {
+interface IProps {
   reportedCount?: string;
   reportOnPress: VoidFunction;
 }
@@ -21,7 +22,7 @@ enum HeaderType {
   Expanded = 'expanded',
 }
 
-export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
+export function Header({ reportedCount, reportOnPress }: IProps) {
   const content = useSelector<RootState, ContentState>((state) => state.content);
   const [contributors, setContributors] = useState<string | null>(null);
 
@@ -63,9 +64,9 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
       )}
     </View>
   );
-};
+}
 
-export const CompactHeader: React.FC<Props> = ({ reportOnPress }) => {
+export function CompactHeader({ reportOnPress }: IProps) {
   const onReport = () => {
     Analytics.track(events.REPORT_NOW_CLICKED, { headerType: HeaderType.Compact });
     reportOnPress();
@@ -79,7 +80,7 @@ export const CompactHeader: React.FC<Props> = ({ reportOnPress }) => {
       </BrandedButton>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {

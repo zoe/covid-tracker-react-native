@@ -3,15 +3,15 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import I18n from 'i18n-js';
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
-import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ClickableText, RegularText } from '@covid/components/Text';
 import BrandedSpinner from '@covid/components/Spinner';
-import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { SymtomsCountStats } from '@covid/components/Stats/SymtomsCountStats';

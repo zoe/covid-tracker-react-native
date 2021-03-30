@@ -3,11 +3,11 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
-import { SchoolGroupModel } from '@covid/core/schools/Schools.dto';
+import { ISchoolGroupModel } from '@covid/core/schools/Schools.dto';
 
 type Props = {
   onPress: VoidFunction;
-  group: SchoolGroupModel;
+  group: ISchoolGroupModel;
 };
 
 export const SchoolGroupRow: React.FC<Props> = ({ onPress, group }) => {

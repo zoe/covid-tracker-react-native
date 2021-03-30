@@ -33,7 +33,10 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
   public async myPatientProfile(): Promise<Profile | null> {
     try {
-      const data = (await this.client.get(`/patient_list/`)).data as Profile[];
+      // Append the userId to the endpoint for increased logging observability only.
+      // (The backend ignores the appended value in favour of the authenticated userId
+      // if there's any inconsistency.)
+      const data = (await this.client.get(`/patient_list/?u=${ApiClientBase.userId}`)).data as Profile[];
       return !!data && data.length > 0 ? data[0] : null;
     } catch (error) {
       handleServiceError(error);
@@ -43,7 +46,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
   public async listProfiles() {
     try {
-      const response = await this.client.get<Profile[] | null>(`/patient_list/`);
+      const response = await this.client.get<Profile[] | null>(`/patient_list/?u=${ApiClientBase.userId}`);
       return response.data;
     } catch (error) {
       handleServiceError(error);
@@ -151,7 +154,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.consentService.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
-
     const hasAtopyAnswers = patient.has_hayfever != null;
     const hasDiabetes = patient.has_diabetes;
     const hasDiabetesAnswers = patient.diabetes_type != null;

@@ -5,24 +5,23 @@ import * as Yup from 'yup';
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
-export interface CovidTestIsRapidData {
+export interface ICovidTestIsRapidData {
   isRapidTest: string;
 }
 
-interface Props {
-  formikProps: FormikProps<CovidTestIsRapidData>;
+interface IProps {
+  formikProps: FormikProps<ICovidTestIsRapidData>;
   test?: CovidTest;
 }
 
-export interface CovidTestIsRapidQuestion<P, Data> extends React.FC<P> {
+export interface ICovidTestIsRapidQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<CovidTest>;
 }
 
-export const CovidTestIsRapidQuestion: CovidTestIsRapidQuestion<Props, CovidTestIsRapidData> = (props: Props) => {
+export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion<IProps, ICovidTestIsRapidData> = (props: IProps) => {
   const { formikProps } = props;
   return (
     <YesNoField
@@ -34,7 +33,7 @@ export const CovidTestIsRapidQuestion: CovidTestIsRapidQuestion<Props, CovidTest
   );
 };
 
-CovidTestIsRapidQuestion.initialFormValues = (test?: CovidTest): CovidTestIsRapidData => {
+CovidTestIsRapidQuestion.initialFormValues = (test?: CovidTest): ICovidTestIsRapidData => {
   function getIsRapidTest(test?: CovidTest) {
     if (test?.id) {
       if (test.is_rapid_test === null) {
@@ -56,8 +55,8 @@ CovidTestIsRapidQuestion.schema = () => {
   return Yup.object().shape({});
 };
 
-CovidTestIsRapidQuestion.createDTO = (formData: CovidTestIsRapidData): Partial<CovidTest> => {
+CovidTestIsRapidQuestion.createDTO = (formData: ICovidTestIsRapidData): Partial<CovidTest> => {
   return {
-    ...(isGBCountry() && formData.isRapidTest && { is_rapid_test: formData.isRapidTest === 'yes' }),
+    ...(formData.isRapidTest && { is_rapid_test: formData.isRapidTest === 'yes' }),
   } as Partial<CovidTest>;
 };

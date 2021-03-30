@@ -1,13 +1,12 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
 import { CheckboxItem } from '@covid/components/Checkbox';
 import { LoadingModal } from '@covid/components/Loading';
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
@@ -15,6 +14,7 @@ import { offlineService } from '@covid/Services';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { BrandedButton } from '@covid/components';
 
 import appCoordinator from '../AppCoordinator';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';

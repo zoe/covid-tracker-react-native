@@ -11,7 +11,7 @@ import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
@@ -21,10 +21,10 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { stripAndRound } from '@covid/utils/number';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
-import { ScreenParamList } from '../ScreenParamList';
-
-interface YourHealthData {
+interface IYourHealthData {
   unwellMonthBefore: string;
   stillHavePastSymptoms: string;
   pastSymptomsDaysAgo: string;
@@ -100,7 +100,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     }),
   });
 
-  handleUpdateHealth(formData: YourHealthData) {
+  handleUpdateHealth(formData: IYourHealthData) {
     const currentPatient = patientCoordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
@@ -118,7 +118,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
       });
   }
 
-  private createPatientInfos(formData: YourHealthData) {
+  private createPatientInfos(formData: IYourHealthData) {
     let infos = {
       unwell_month_before: formData.unwellMonthBefore === 'yes',
     } as Partial<PatientInfosRequest>;
@@ -174,7 +174,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
-          onSubmit={(values: YourHealthData) => {
+          onSubmit={(values: IYourHealthData) => {
             return this.handleUpdateHealth(values);
           }}>
           {(props) => {

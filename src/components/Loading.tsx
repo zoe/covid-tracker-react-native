@@ -4,8 +4,9 @@ import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AppException } from '@covid/core/api/ApiServiceErrors';
+import { BrandedButton } from '@covid/components/buttons';
 
-import { ErrorText, BrandedButton, RegularText } from './Text';
+import { ErrorText, RegularText } from './Text';
 
 type LoadingProps = {
   error: AppException | null;
