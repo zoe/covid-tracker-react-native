@@ -7,7 +7,7 @@ import { colors } from '@theme';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { openWebLink } from '@covid/utils/links';
 import { ScreenParamList } from '@covid/features';
-import { BulletedTextBlock } from '@covid/components/LegalComponents';
+import { BulletedTextBlock } from '@covid/features/register/components/LegalComponents';
 import { BrandedButton } from '@covid/components';
 
 type PropsType = {
