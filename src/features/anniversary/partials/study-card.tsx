@@ -11,9 +11,25 @@ interface IProps {
   timelineEvent: TTimelineEvent;
 }
 
+function getProgressArray(progress: TProgress | null | undefined): TProgress[] {
+  switch (progress) {
+    case 'DISCOVERY':
+      return ['DISCOVERY', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+    case 'DATA_COLLECTION':
+      return ['COMPLETED', 'DATA_COLLECTION', 'NOT_STARTED', 'NOT_STARTED'];
+    case 'ANALYSIS':
+      return ['COMPLETED', 'COMPLETED', 'ANALYSIS', 'NOT_STARTED'];
+    case 'COMPLETED':
+      return ['COMPLETED', 'COMPLETED', 'COMPLETED', 'COMPLETED'];
+    case 'NOT_STARTED':
+    default:
+      return ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+  }
+}
+
 function StudyCard({ timelineEvent }: IProps) {
-  const { ongoing, progress, subTitle, summary, title } = timelineEvent;
-  const p: TProgress[] = progress ? progress : ['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'];
+  const { ongoing, progress, sub_title, summary, title } = timelineEvent;
+  const p: TProgress[] = getProgressArray(progress);
   const opacity = ongoing === 'ONGOING' ? 1 : 0.4;
 
   return (
@@ -24,18 +40,18 @@ function StudyCard({ timelineEvent }: IProps) {
           iconSize={18}
           style={{ marginTop: 4, opacity }}
         />
-        <Text textClass="pBold" style={{ color: '#24262B', marginLeft: 12, opacity }}>
+        <Text textClass="pLight" style={{ color: '#24262B', marginLeft: 12, opacity }}>
           {title}
         </Text>
       </View>
-      {subTitle && (
-        <Text textClass="h5Light" style={[styles.body, { opacity }]}>
-          {subTitle}
+      {sub_title && (
+        <Text textClass="h5Medium" style={[styles.body, { opacity }]}>
+          {sub_title}
         </Text>
       )}
       <ProgressBars progress={p} />
       {summary && (
-        <Text style={{ color: '#024364', marginTop: 12 }} textClass="pMedium">
+        <Text style={{ color: '#024364', marginTop: 12 }} textClass="pLight">
           {summary}
         </Text>
       )}

@@ -8,7 +8,7 @@ import { View } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, HeaderText } from '@covid/components/Text';
+import { HeaderText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
@@ -19,8 +19,8 @@ import {
 import { useInjection } from '@covid/provider/services.hooks';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'GeneralSymptoms'>;

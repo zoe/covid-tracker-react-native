@@ -36,6 +36,7 @@ export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovi
     { label: i18n.t('covid-test.location.answers.gp'), value: 'gp' },
     { label: i18n.t('covid-test.location.answers.chemist-pharmacy'), value: 'chemist' },
     { label: i18n.t('covid-test.location.answers.work'), value: 'work' },
+    { label: i18n.t('covid-test.location.answers.school'), value: 'school' },
     { label: i18n.t('covid-test.location.answers.other'), value: 'other' },
   ];
 
@@ -45,6 +46,7 @@ export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovi
     { label: i18n.t('covid-test.location.answers.work'), value: 'work' },
     { label: i18n.t('covid-test.location.answers.local-health-department'), value: 'local_health_dept' },
     { label: i18n.t('covid-test.location.answers.store-pharmacy'), value: 'chemist' },
+    { label: i18n.t('covid-test.location.answers.school'), value: 'school' },
     { label: i18n.t('covid-test.location.answers.other'), value: 'other' },
   ];
 

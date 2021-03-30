@@ -6,7 +6,7 @@ import { RootState } from '../../root';
 import { ISettings, TFeature } from '../types';
 
 const initialState: ISettings = {
-  currentFeature: 'UK_DIET_STUDY',
+  currentFeature: 'TIMELINE',
   featureRunDate: undefined,
   hasEmailSubscription: false,
 };

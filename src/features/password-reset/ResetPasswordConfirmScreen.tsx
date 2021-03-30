@@ -4,9 +4,9 @@ import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-nati
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ResetPasswordConfirm'>;

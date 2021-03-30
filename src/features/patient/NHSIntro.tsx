@@ -7,7 +7,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
@@ -21,8 +21,8 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Coordinator } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 export interface IData {
   nhsID: string;

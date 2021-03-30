@@ -5,12 +5,12 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { notificationReminders } from '@assets';
 import { colors } from '@theme';
-import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
-import { ShareAppCard } from '@covid/components/Cards/ShareApp';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import i18n from '@covid/locale/i18n';
@@ -19,10 +19,13 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
-import { FeaturedContentList, FeaturedContentType } from '@covid/components';
+import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
 import store from '@covid/core/state/store';
-import { DietStudyCard } from '@covid/features';
+
+import { ImpactTimelineCard } from '../anniversary';
+import appCoordinator from '../AppCoordinator';
+
+import { BigGreenTickFilled } from './components/BigGreenTick';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -33,14 +36,14 @@ type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
   shouldShowReminders: boolean;
-  showDietStudyPlayback: boolean;
+  showTimelineCard: boolean;
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
   shouldShowReminders: false,
-  showDietStudyPlayback: false,
+  showTimelineCard: false,
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
@@ -60,6 +63,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
   render() {
     const { startupInfo } = store.getState().content;
+
     return (
       <>
         {this.state.askForRating && <AppRating />}
@@ -76,7 +80,9 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-              {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
+              {startupInfo?.show_timeline && (
+                <ImpactTimelineCard onPress={() => appCoordinator.goToAnniversary()} size="LARGE" />
+              )}
 
               <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
 

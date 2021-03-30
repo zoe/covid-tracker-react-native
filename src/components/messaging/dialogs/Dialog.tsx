@@ -4,7 +4,7 @@ import { Animated, Dimensions, Easing, View } from 'react-native';
 import { IUIMessage, useMessage } from '@covid/common';
 import { useTheme } from '@covid/themes';
 
-import { RoundIconButton, ThemeButton } from '../../Buttons';
+import { RoundIconButton, ThemeButton } from '../../buttons';
 import { Text } from '../../typography';
 
 import { SContainerView, SMessageWindowView, STitleView } from './styles';

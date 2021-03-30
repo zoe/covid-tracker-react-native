@@ -4,15 +4,15 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
 
-import { IClickableProps } from '../Text';
-import { ITest } from '../types';
+import { IClickableProps } from '../../Text';
+import { ITest } from '../../types';
 
 interface IProps extends ITest {
   buttonProps?: any;
   textProps?: any;
 }
 
-export function BrandedButton({
+function BrandedButton({
   style,
   children,
   onPress,
@@ -53,3 +53,5 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
 });
+
+export default BrandedButton;

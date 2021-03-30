@@ -3,10 +3,11 @@ import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
 
 import { social } from '@assets';
 import { colors } from '@theme';
-import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/Text';
+import { RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { isAndroid } from '@covid/utils/platform';
+import { BrandedButton } from '@covid/components';
 
 export interface ICommonShareProps {
   onSharePress?: VoidFunction;
