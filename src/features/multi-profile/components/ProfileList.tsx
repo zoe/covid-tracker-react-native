@@ -4,9 +4,9 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
 import { colors } from '@theme';
 import { Profile } from '@covid/core/profile/ProfileService';
+import { Loading, LoadingModal } from '@covid/components/Loading';
 
-import { Loading, LoadingModal } from '../Loading';
-import { NewProfileCard } from '../NewProfileCard';
+import { NewProfileCard } from './NewProfileCard';
 
 interface IProps extends ApiErrorState {
   profiles: Profile[];

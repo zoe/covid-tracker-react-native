@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import i18n from '@covid/locale/i18n';
 import { getDaysAgo } from '@covid/utils/datetime';
-
-import { SecondaryText } from './Text';
+import { SecondaryText } from '@covid/components';
 
 type ProgressProps = {
   timeAgo: Date | undefined;
