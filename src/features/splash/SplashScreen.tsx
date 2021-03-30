@@ -6,7 +6,7 @@ import RNSplashScreen from 'react-native-splash-screen';
 import { RouteProp } from '@react-navigation/native';
 
 import { colors } from '@theme';
-import Splash from '@covid/components/Splash';
+import Splash from '@covid/features/splash/components/Splash';
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { offlineService } from '@covid/Services';
@@ -14,9 +14,9 @@ import { IUserService } from '@covid/core/user/UserService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { setUsername, setPatients } from '@covid/core/state/user';
+import { ScreenParamList } from '@covid/features';
 
-import appCoordinator from './AppCoordinator';
-import { ScreenParamList } from './ScreenParamList';
+import appCoordinator from '../AppCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Splash'>;

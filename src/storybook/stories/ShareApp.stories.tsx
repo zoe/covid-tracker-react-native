@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action, HandlerFunction } from '@storybook/addon-actions';
 
-import { ShareAppCard } from '@covid/components/Cards/ShareApp';
+import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
 import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 
 const Handler = (): HandlerFunction => action('share-button-on-pressed');
