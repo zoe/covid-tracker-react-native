@@ -3,11 +3,11 @@
   "runnerConfig": "e2e/config.json",
   "configurations": {
     "ios.sim.release": {
-      "binaryPath": "ios/DerivedData/Covid/Build/Products/Stage-iphonesimulator/covid-zoe Stage.app",
+      "binaryPath": "/Users/benfox/Library/Developer/Xcode/DerivedData/Covid-bojtounpaxieefcnmhloioovtqqh/Build/Products/Debug-iphonesimulator/covid-zoe Debug.app",
       "build": "fastlane ios build env:stage",
       "type": "ios.simulator",
       "device": {
-        "type": "iPhone 11"
+        "type": "iPhone 8"
       }
     }
   }

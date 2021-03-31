@@ -58,7 +58,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Image testID="map" style={styles.mapImage} source={getMapImage()} />
         <View style={styles.loginContainer}>
-          <ClickableText testID="login" style={styles.login} onPress={onLoginPress}>
+          <ClickableText testID="loginLink" style={styles.login} onPress={onLoginPress}>
             {i18n.t('welcome.sign-in')}
           </ClickableText>
           <View style={styles.pipe} />
@@ -77,7 +77,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
         </View>
 
         <View style={styles.nextButtonContainer}>
-          <BrandedButton testID="more" style={styles.nextButton} onPress={onNextButtonPress}>
+          <BrandedButton testID="createAccount" style={styles.nextButton} onPress={onNextButtonPress}>
             {i18n.t('welcome.tell-me-more')}
           </BrandedButton>
         </View>

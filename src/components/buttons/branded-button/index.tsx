@@ -10,6 +10,7 @@ import { ITest } from '../../types';
 interface IProps extends ITest {
   buttonProps?: any;
   textProps?: any;
+  testID?: string;
 }
 
 function BrandedButton({
@@ -20,13 +21,14 @@ function BrandedButton({
   buttonProps,
   textProps,
   hideLoading,
+  testID,
 }: IClickableProps & IProps) {
   const isDisabled = enable === false;
 
   return (
     <View style={isDisabled ? { opacity: 0.2 } : { opacity: 1 }}>
       <Button
-        testID="buttonTestID"
+        testID={testID ?? 'buttonTestID'}
         block
         style={[styles.button, style]}
         onPress={() => {
