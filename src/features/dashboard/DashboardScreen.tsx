@@ -83,12 +83,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
-    // enforce timeline if not yet viewed and is availble
-    if (startupInfo?.show_timeline && !anniversary.hasViewedModal) {
-      NavigatorService.navigate('AnniversaryModal');
-      return;
-    }
-
     if (settings.featureRunDate) {
       const now = new Date().getTime();
       const featureRunDate = new Date(settings.featureRunDate).getTime();
@@ -100,7 +94,18 @@ export function DashboardScreen({ navigation, route }: IProps) {
     switch (settings.currentFeature) {
       case 'UK_DIET_STUDY':
         showDietStudy();
+        return;
+      case 'TIMELINE':
+        showTiminelinePopup();
     }
+  };
+
+  const showTiminelinePopup = () => {
+    if (!startupInfo?.show_timeline || anniversary.hasViewedModal) {
+      return;
+    }
+
+    NavigatorService.navigate('AnniversaryModal');
   };
 
   const showDietStudy = () => {
