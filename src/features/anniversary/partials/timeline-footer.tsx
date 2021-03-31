@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Text } from '@covid/components';
+import Analytics, { events } from '@covid/core/Analytics';
 
 function TimelineFooter() {
   const { navigate } = useNavigation();
@@ -12,7 +13,12 @@ function TimelineFooter() {
       <Text style={styles.header} textAlign="center" textClass="p" rhythm={32}>
         Check in soon to see how your personal timeline evolves!
       </Text>
-      <TouchableOpacity style={styles.button} onPress={() => navigate('Share', { sharable: 'TIMELINE', label })}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          Analytics.track(events.ANNIVERSARY_SHARE);
+          navigate('Share', { sharable: 'TIMELINE', label });
+        }}>
         <Text textClass="pLight" textAlign="center" style={{ color: 'white' }}>
           Share your contribution
         </Text>

@@ -40,7 +40,8 @@
     "bump:patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump",
     "bump:minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
     "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump",
-    "metro-empty-cache": "rm -rf $TMPDIR/metro-cache"
+    "metro-empty-cache": "rm -rf $TMPDIR/metro-cache",
+    "write-icon-names": "node writeIconNames.js"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.13.2",
