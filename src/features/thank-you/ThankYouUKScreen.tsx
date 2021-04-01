@@ -21,6 +21,7 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
 import store from '@covid/core/state/store';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { ImpactTimelineCard } from '../anniversary';
 import appCoordinator from '../AppCoordinator';
@@ -81,7 +82,13 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
               {startupInfo?.show_timeline && (
-                <ImpactTimelineCard onPress={() => appCoordinator.goToAnniversary()} size="LARGE" />
+                <ImpactTimelineCard
+                  onPress={() => {
+                    Analytics.track(events.ANNIVERSARY_FROM_THANKYOU);
+                    appCoordinator.goToAnniversary();
+                  }}
+                  size="LARGE"
+                />
               )}
 
               <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
