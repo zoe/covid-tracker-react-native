@@ -25,7 +25,7 @@ import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { identify } from '@covid/core/Analytics';
+import Analytics, { events, identify } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 import {
   selectAnniversary,
@@ -152,7 +152,14 @@ export function DashboardScreen({ navigation, route }: IProps) {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        {startupInfo?.show_timeline && <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />}
+        {startupInfo?.show_timeline && (
+          <ImpactTimelineCard
+            onPress={() => {
+              Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
+              navigation.navigate('Anniversary');
+            }}
+          />
+        )}
         {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
         <ShareVaccineCard screenName="Dashboard" />
