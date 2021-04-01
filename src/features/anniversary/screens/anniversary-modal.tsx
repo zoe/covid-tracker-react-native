@@ -11,6 +11,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Services } from '@covid/provider/services.types';
 import { Profile } from '@covid/components/Collections/ProfileList';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -34,9 +35,11 @@ function AnniversaryModal() {
   const handleViewTimeline = (view: boolean) => {
     dispatch(setHasViewedAnniversaryModal(true));
     if (view) {
+      Analytics.track(events.ANNIVERSARY_FROM_MODAL);
       appCoordinator.goToAnniversary();
       return;
     }
+    Analytics.track(events.ANNIVERSARY_SKIP);
     goBack();
   };
 
