@@ -13,14 +13,15 @@ import i18n from '@covid/locale/i18n';
 import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
+import { ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
 import { Field, FieldError } from '@covid/components/Forms';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { setUsername } from '@covid/core/state/user';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 import appCoordinator from '../AppCoordinator';
-import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Register'>;
@@ -82,7 +83,11 @@ class RegisterScreen extends Component<PropsType, State> {
         })
         .catch((err: AxiosError) => {
           // TODO - These error messages are misleading and we could display what the server sends back
-          if (err.response?.status === 500) {
+          //
+          // (In version 2 of the register endpoint we receive 403 FORBIDDEN if account has already
+          // been registered.  In version 1 it was a 500, which is not an error we should ever return
+          // deliberately!)
+          if (err.response?.status === 403) {
             this.setState({
               errorMessage: i18n.t('create-account.already-registered'),
               accountExists: true,

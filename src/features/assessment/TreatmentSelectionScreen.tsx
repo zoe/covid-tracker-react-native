@@ -4,15 +4,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 
-import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { CaptionText, HeaderText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BigButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'TreatmentSelection'>;

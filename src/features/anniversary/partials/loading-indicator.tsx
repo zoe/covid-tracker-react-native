@@ -10,7 +10,7 @@ function LoadingIndicator() {
         <ActivityIndicator size="small" color="#0165B5" />
       </View>
       <Text textClass="pXSmallMedium" textAlign="center" style={{ color: '#0165B5' }}>
-        {`Loading your\ntimeline`}
+        {`Loading your\nTimeline`}
       </Text>
     </View>
   );
@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 32,
+    paddingVertical: 32,
   },
   activityIcon: {
     marginBottom: 8,

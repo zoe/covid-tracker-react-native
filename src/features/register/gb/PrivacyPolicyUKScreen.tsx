@@ -4,11 +4,11 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { openWebLink } from '@covid/utils/links';
-
-import { ScreenParamList } from '../../ScreenParamList';
-import { BulletedTextBlock } from '../../../components/LegalComponents';
+import { ScreenParamList } from '@covid/features';
+import { BulletedTextBlock } from '@covid/features/register/components/LegalComponents';
+import { BrandedButton } from '@covid/components';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>;

@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
-// import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
+// import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
 import { TrendlineCard } from '@covid/components/Cards/EstimatedCase';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 
+import { EstimatedCasesMapCard, ShareTimelineCard } from '../../Cards';
+
 import { SShareContainerView } from './styles';
 
-type Sharable = 'MAP' | 'TRENDLINE' | 'VACCINES';
+type Sharable = 'MAP' | 'TRENDLINE' | 'VACCINES' | 'TIMELINE';
 
 interface IProps {
   sharable?: Sharable;
@@ -20,6 +21,12 @@ function ShareContainer({ sharable = 'MAP' }: IProps) {
         return (
           <SShareContainerView>
             <EstimatedCasesMapCard isSharing />
+          </SShareContainerView>
+        );
+      case 'TIMELINE':
+        return (
+          <SShareContainerView>
+            <ShareTimelineCard />
           </SShareContainerView>
         );
       case 'TRENDLINE':

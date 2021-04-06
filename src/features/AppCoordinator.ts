@@ -19,7 +19,6 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { IContentService } from '@covid/core/content/ContentService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
-import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import store from '@covid/core/state/store';
@@ -36,6 +35,7 @@ import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -158,6 +158,12 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
     await this.fetchInitialData();
 
+    const { startupInfo } = store.getState().content;
+
+    if (startupInfo?.app_requires_update) {
+      this.goToVersionUpdateModal();
+    }
+
     // Track insights
     if (this.shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
@@ -233,6 +239,10 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     if (patientId) {
       await this.setPatientById(patientId);
     }
+  }
+
+  goToVersionUpdateModal() {
+    NavigatorService.navigate('VersionUpdateModal');
   }
 
   async goToDietStudy() {

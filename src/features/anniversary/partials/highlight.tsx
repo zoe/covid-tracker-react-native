@@ -19,7 +19,7 @@ function Highlight({ timelineEvent }: IProps) {
         <View style={styles.circle}>
           <Icon iconName={iconName} iconSize={iconSize} iconStyle={{ color: '#0165B5' }} />
         </View>
-        <Text textClass="h4Light" style={{ color: '#0165B5', marginLeft: 12 }}>
+        <Text textClass="h4" style={{ color: '#0165B5', marginLeft: 12 }}>
           {title}
         </Text>
       </View>

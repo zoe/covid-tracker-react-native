@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { closeIcon } from '@assets';
 
-import { ThemeButton, IconButton } from '../../Buttons';
+import { ThemeButton, IconButton } from '../../buttons';
 
 import ShareContainer from './container';
 import ShareLabel from './label';
@@ -21,6 +21,7 @@ function ShareScreen() {
   const route = useRoute();
   const sharable = route.params.sharable;
   const hideLabel = route.params.hideLabel;
+  const label = route.params.label;
 
   const share = async () => {
     try {
@@ -37,7 +38,7 @@ function ShareScreen() {
       <SContentView>
         <SInnerContentView ref={viewRef} collapsable={false}>
           <ShareContainer sharable={sharable} />
-          {!hideLabel && <ShareLabel />}
+          {!hideLabel && <ShareLabel label={label} />}
         </SInnerContentView>
       </SContentView>
       <SButtonView>

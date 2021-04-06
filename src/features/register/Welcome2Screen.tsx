@@ -4,7 +4,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } f
 import { RouteProp } from '@react-navigation/native';
 
 import { gbPartners, svPartners, usPartners } from '@assets';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import {
   isGBCountry,
   isSECountry,
@@ -18,6 +18,7 @@ import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { colors } from '@theme';
 import { openWebLink } from '@covid/utils/links';
+import { BrandedButton } from '@covid/components';
 
 import CountryIpModal from './CountryIpModal';
 import { getLocaleFlagIcon } from './helpers';

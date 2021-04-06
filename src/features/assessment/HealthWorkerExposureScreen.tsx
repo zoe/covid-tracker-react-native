@@ -9,15 +9,15 @@ import * as Yup from 'yup';
 import DropdownField from '@covid/components/DropdownField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ErrorText, HeaderText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import YesNoField from '@covid/components/YesNoField';
 import { isAndroid } from '@covid/utils/platform';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 const initialFormValues = {
   interactedAnyPatients: 'no',

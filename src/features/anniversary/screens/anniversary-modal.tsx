@@ -1,24 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
 import { SafeLayout, Text } from '@covid/components';
 import { timelineModalCard } from '@assets';
 import { setHasViewedAnniversaryModal } from '@covid/core/state';
+import { useInjection } from '@covid/provider/services.hooks';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { Services } from '@covid/provider/services.types';
+import { Profile } from '@covid/core/profile/ProfileService';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import appCoordinator from '../../AppCoordinator';
 
 function AnniversaryModal() {
   const { goBack } = useNavigation();
   const dispatch = useDispatch();
+  const patientService = useInjection<IPatientService>(Services.Patient);
+  const [signupDate, setSignupDate] = useState<string>('');
+
+  const updateSignupDate = async () => {
+    const profile: Profile | null = await patientService.myPatientProfile();
+
+    if (profile) {
+      setSignupDate(moment(profile.created_at).format('MMMM Do YYYY'));
+    }
+  };
+  useEffect(() => {
+    updateSignupDate();
+  });
 
   const handleViewTimeline = (view: boolean) => {
     dispatch(setHasViewedAnniversaryModal(true));
     if (view) {
+      Analytics.track(events.ANNIVERSARY_FROM_MODAL);
       appCoordinator.goToAnniversary();
       return;
     }
+    Analytics.track(events.ANNIVERSARY_SKIP);
     goBack();
   };
 
@@ -39,7 +60,7 @@ function AnniversaryModal() {
           <Text textClass="pLight" textAlign="center">
             Thank you for reporting with us since
           </Text>
-          <Text textAlign="center">[Dynamic date here]</Text>
+          <Text textAlign="center">{signupDate}</Text>
           <View style={{ marginBottom: 12 }}>
             <Image
               source={timelineModalCard}

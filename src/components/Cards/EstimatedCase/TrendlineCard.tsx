@@ -10,12 +10,11 @@ import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import ChevronRight from '@assets/icons/ChevronRight';
-import { Link } from '@covid/components';
 import { openWebLink } from '@covid/utils/links';
 
+import { Link, ShareButton } from '../../buttons';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../Stats/TrendLineChart';
 import { Text } from '../../typography';
-import { ShareButton } from '../../Buttons';
 
 import { DeltaTag } from './DeltaTag';
 

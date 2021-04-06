@@ -1,9 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
-import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+
+import { getDietStudyDoctorImage } from '../../../features/diet-study-playback/v2/utils';
+import { Text } from '../../typography';
 
 interface IProps {
   location: string;

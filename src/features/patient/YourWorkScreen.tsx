@@ -10,7 +10,7 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
@@ -27,8 +27,8 @@ import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features';
+import { BrandedButton } from '@covid/components';
 
 export interface IYourWorkData {
   isHealthcareStaff: HealthCareStaffOptions;

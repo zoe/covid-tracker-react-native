@@ -273,7 +273,8 @@
     "question-mechanism": "How was this test performed?",
     "picker-nose-swab": "Someone swabbed my nose",
     "picker-throat-swab": "Someone swabbed my throat",
-    "picker-nose-throat-swab": "A swab of my nose or throat",
+    "picker-nose-throat-swab": "A swab of my nose or throat",
+    "picker-nose-throat-swab-and-saliva": "A swab of my nose or throat and saliva",
     "picker-saliva-sample": "I spat in a cup/tube",
     "picker-blood-sample": "I gave a blood sample",
     "picker-finger-prick": "A finger-prick blood test",
@@ -297,6 +298,7 @@
         "store-pharmacy": "Store or pharmacy clinic",
         "work": "Work (excluding hospital or GP)",
         "local-health-department": "Local health department",
+        "school": "School",
         "other": "Other, please specify"
       }
     },
@@ -1499,5 +1501,11 @@
     "next": "Next",
     "insights": "Insights",
     "start": "Start"
+  },
+
+  "version-update": {
+    "title": "Your app version needs updating!",
+    "body": "You need to update your app to continue using it. This will give you all the latest features.",
+    "cta": "Update now"
   }
 }

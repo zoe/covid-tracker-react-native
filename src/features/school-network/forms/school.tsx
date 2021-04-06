@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
 
-import { Button } from '@covid/components/Buttons/Button';
+import { Button } from '@covid/components/buttons/Button';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ValidationError } from '@covid/components/ValidationError';
 import { PatientData } from '@covid/core/patient/PatientData';

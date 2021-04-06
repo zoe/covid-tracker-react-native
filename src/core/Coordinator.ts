@@ -1,7 +1,7 @@
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { Profile } from '@covid/components/Collections/ProfileList';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 export type ScreenName = keyof ScreenParamList;
 export type ScreenFlow = {

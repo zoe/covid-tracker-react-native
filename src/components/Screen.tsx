@@ -17,7 +17,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { Profile } from '@covid/components/Collections/ProfileList';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 import PatientHeader, { CallOutType, NavHeader } from './PatientHeader';
 import { RegularText } from './Text';

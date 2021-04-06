@@ -8,7 +8,7 @@ import { View } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, HeaderText } from '@covid/components/Text';
+import { HeaderText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
@@ -16,8 +16,8 @@ import {
   GutStomachSymptomsData,
   GutStomachSymptomsQuestions,
 } from '@covid/features/assessment/fields/GutStomachSymptomsQuestions';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { BrandedButton } from '@covid/components';
+import { ScreenParamList } from '@covid/features';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'GutStomachSymptoms'>;

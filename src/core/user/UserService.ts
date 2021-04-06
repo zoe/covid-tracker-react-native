@@ -137,6 +137,7 @@ export default class UserService extends ApiClientBase implements IUserService {
       username: email,
       password1: password,
       password2: password,
+      version: 2,
       country_code: LocalisationService.userCountry,
       language_code: LocalisationService.getLanguageCode(),
       consent_document: ConsentService.consentSigned.document,
