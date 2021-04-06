@@ -5,12 +5,8 @@ import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
-import { CompactHeader, Header } from '@covid/features/dashboard/Header';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase';
 import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
-import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
 import { shareAppV3 } from '@assets';
@@ -35,9 +31,14 @@ import {
   setDashboardHasBeenViewed,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
-import { DietStudyCard } from '@covid/features';
 
+import appCoordinator from '../AppCoordinator';
+import { DietStudyCard } from '../diet-study-playback';
+import { ScreenParamList } from '../ScreenParamList';
 import { ImpactTimelineCard } from '../anniversary';
+
+import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
+import { CompactHeader, Header } from './Header';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
