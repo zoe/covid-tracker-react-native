@@ -5,12 +5,8 @@ import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
-import { CompactHeader, Header } from '@covid/features/dashboard/Header';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase';
 import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
-import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
 import { shareAppV3 } from '@assets';
@@ -25,7 +21,7 @@ import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { identify } from '@covid/core/Analytics';
+import Analytics, { events, identify } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 import {
   selectAnniversary,
@@ -35,9 +31,14 @@ import {
   setDashboardHasBeenViewed,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
-import { DietStudyCard } from '@covid/features';
 
+import appCoordinator from '../AppCoordinator';
+import { DietStudyCard } from '../diet-study-playback';
+import { ScreenParamList } from '../ScreenParamList';
 import { ImpactTimelineCard } from '../anniversary';
+
+import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
+import { CompactHeader, Header } from './Header';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -83,6 +84,12 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
+    // enforce timeline if not yet viewed and is availble
+    if (startupInfo?.show_timeline && !anniversary.hasViewedModal) {
+      NavigatorService.navigate('AnniversaryModal');
+      return;
+    }
+
     if (settings.featureRunDate) {
       const now = new Date().getTime();
       const featureRunDate = new Date(settings.featureRunDate).getTime();
@@ -94,18 +101,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
     switch (settings.currentFeature) {
       case 'UK_DIET_STUDY':
         showDietStudy();
-        return;
-      case 'TIMELINE':
-        showTiminelinePopup();
     }
-  };
-
-  const showTiminelinePopup = () => {
-    if (!startupInfo?.show_timeline || anniversary.hasViewedModal) {
-      return;
-    }
-
-    NavigatorService.navigate('AnniversaryModal');
   };
 
   const showDietStudy = () => {
@@ -157,7 +153,14 @@ export function DashboardScreen({ navigation, route }: IProps) {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        {startupInfo?.show_timeline && <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />}
+        {startupInfo?.show_timeline && (
+          <ImpactTimelineCard
+            onPress={() => {
+              Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
+              navigation.navigate('Anniversary');
+            }}
+          />
+        )}
         {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
         <ShareVaccineCard screenName="Dashboard" />

@@ -83,7 +83,11 @@ class RegisterScreen extends Component<PropsType, State> {
         })
         .catch((err: AxiosError) => {
           // TODO - These error messages are misleading and we could display what the server sends back
-          if (err.response?.status === 500) {
+          //
+          // (In version 2 of the register endpoint we receive 403 FORBIDDEN if account has already
+          // been registered.  In version 1 it was a 500, which is not an error we should ever return
+          // deliberately!)
+          if (err.response?.status === 403) {
             this.setState({
               errorMessage: i18n.t('create-account.already-registered'),
               accountExists: true,

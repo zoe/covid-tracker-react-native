@@ -63,6 +63,14 @@ const MentalHealthStudyEvents = {
   MENTAL_HEALTH_EMAIL: 'MENTAL_HEALTH_EMAIL',
 };
 
+const TimelineEvents = {
+  ANNIVERSARY_SHARE: 'ANNIVERSARY_SHARE',
+  ANNIVERSARY_FROM_DASHBOARD: 'ANNIVERSARY_FROM_DASHBOARD',
+  ANNIVERSARY_FROM_THANKYOU: 'ANNIVERSARY_FROM_THANKYOU',
+  ANNIVERSARY_FROM_MODAL: 'ANNIVERSARY_FROM_MODAL',
+  ANNIVERSARY_SKIP: 'ANNIVERSARY_SKIP',
+};
+
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',
   LINK_OPENED: 'LINK_OPENED',
@@ -89,6 +97,7 @@ export const events = {
   ...DashboardEvents,
   ...InsightEvents,
   ...MentalHealthStudyEvents,
+  ...TimelineEvents,
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
