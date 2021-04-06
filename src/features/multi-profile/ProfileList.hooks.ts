@@ -5,8 +5,8 @@ import i18n from '@covid/locale/i18n';
 import { offlineService } from '@covid/Services';
 import { Services } from '@covid/provider/services.types';
 import { useInjection } from '@covid/provider/services.hooks';
-import { Profile } from '@covid/components/Collections/ProfileList';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 export const useProfileList = () => {
   const patientService = useInjection<IPatientService>(Services.Patient);

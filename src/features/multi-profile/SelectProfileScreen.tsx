@@ -1,8 +1,6 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import { NUMBER_OF_PROFILE_AVATARS } from '@assets';
 import { colors } from '@theme';
@@ -10,18 +8,19 @@ import { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
-import { Profile, ProfileList } from '@covid/components/Collections/ProfileList';
-import { ProfileCard } from '@covid/components/ProfileCard';
 import { offlineService } from '@covid/Services';
 import { BackButton } from '@covid/components/PatientHeader';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
+import { Profile } from '@covid/core/profile/ProfileService';
+import { ScreenParamList } from '@covid/features';
 
-import { ScreenParamList } from '../ScreenParamList';
 import appCoordinator from '../AppCoordinator';
 
+import { ProfileCard } from './components/ProfileCard';
+import { ProfileList } from './components/ProfileList';
 import { useProfileList } from './ProfileList.hooks';
 
 type RenderProps = {

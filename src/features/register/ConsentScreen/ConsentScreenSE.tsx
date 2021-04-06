@@ -6,8 +6,9 @@ import { ScrollView } from 'react-native';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
-import { HeaderText, SimpleTextBlock } from '@covid/components/LegalComponents';
 import { openWebLink } from '@covid/utils/links';
+
+import { HeaderText, SimpleTextBlock } from '../components/LegalComponents';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;

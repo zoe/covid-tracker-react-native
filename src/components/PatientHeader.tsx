@@ -9,8 +9,8 @@ import { colors } from '@theme';
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { Profile } from '@covid/components/Collections/ProfileList';
 import { ScreenName } from '@covid/core/Coordinator';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 import { ClippedText, RegularText } from './Text';
 

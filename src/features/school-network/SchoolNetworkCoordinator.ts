@@ -6,7 +6,6 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { homeScreenName, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
-import { Profile } from '@covid/components/Collections/ProfileList';
 import {
   ISchoolGroupModel,
   ISchoolModel,
@@ -16,6 +15,7 @@ import {
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { fetchSubscribedSchoolGroups, schoolSlice } from '@covid/core/schools/Schools.slice';
 import store from '@covid/core/state/store';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 export class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
   patientData: PatientData;
