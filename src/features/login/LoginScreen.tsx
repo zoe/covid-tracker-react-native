@@ -93,11 +93,14 @@ function LoginScreen({ route }: IProps) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View>
-          <HeaderLightText style={styles.titleText}>{i18n.t('login.title')}</HeaderLightText>
+          <HeaderLightText testID="loginPageHeaderText" style={styles.titleText}>
+            {i18n.t('login.title')}
+          </HeaderLightText>
           <View style={styles.formItem}>
             <Item style={styles.labelPos} floatingLabel error={hasErrors}>
               <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
               <Input
+                testID="loginInputEmail"
                 keyboardType="email-address"
                 autoCapitalize="none"
                 returnKeyType="next"
@@ -114,6 +117,7 @@ function LoginScreen({ route }: IProps) {
             <Item style={styles.labelPos} floatingLabel error={hasErrors}>
               <Label style={styles.labelStyle}>{i18n.t('login.password-label')}</Label>
               <Input
+                testID="loginInputPassword"
                 secureTextEntry
                 returnKeyType="go"
                 onChangeText={(password) => {
@@ -127,7 +131,7 @@ function LoginScreen({ route }: IProps) {
           </View>
         </View>
         <View>
-          <BrandedButton onPress={handleLogin} hideLoading enable={isValid}>
+          <BrandedButton testID="loginButton" onPress={handleLogin} hideLoading enable={isValid}>
             <Text>{i18n.t('login.button')}</Text>
           </BrandedButton>
           <View style={styles.bottomTextView}>

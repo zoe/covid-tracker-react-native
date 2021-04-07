@@ -9,14 +9,17 @@ interface Props {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
   passProps?: any;
+  testID?: string;
 }
 
 export const Header0Text = ({ style, children }: Props) => <Text style={[styles.header0Text, style]}>{children}</Text>;
 
 export const HeaderText = ({ style, children }: Props) => <Text style={[styles.headerText, style]}>{children}</Text>;
 
-export const HeaderLightText = ({ style, children }: Props) => (
-  <Text style={[styles.headerLightText, style]}>{children}</Text>
+export const HeaderLightText = ({ style, children, testID }: Props) => (
+  <Text testID={testID ?? ''} style={[styles.headerLightText, style]}>
+    {children}
+  </Text>
 );
 
 export const Header3Text = ({ style, children }: Props) => <Text style={[styles.header3Text, style]}>{children}</Text>;
