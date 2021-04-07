@@ -68,17 +68,15 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
   shouldShowCountryPicker: boolean = false;
 
-  thisUser: UserResponse | null;
-
   screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
-      if (this.patientData && this.shouldShowCountryPicker) {
+      if (this.userService.hasUser && this.patientData && this.shouldShowCountryPicker) {
         NavigatorService.replace('CountrySelect', {
           onComplete: () => {
             NavigatorService.replace(homeScreenName());
           },
         });
-      } else if (this.patientData && this.thisUser) {
+      } else if (this.userService.hasUser && this.patientData) {
         NavigatorService.replace(homeScreenName());
       } else {
         NavigatorService.replace('Welcome');
@@ -148,7 +146,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
     if (this.userService.hasUser) {
       user = await this.userService.getUser();
-      this.thisUser = user;
       patientId = user?.patients[0] ?? null;
       setUsername(user?.username ?? '');
       setPatients(user?.patients ?? []);
