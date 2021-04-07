@@ -25,6 +25,7 @@ import appCoordinator from '@covid/features/AppCoordinator';
 import { setUsername, setPatients } from '@covid/core/state/user';
 import { BrandedButton } from '@covid/components';
 import { ScreenParamList } from '@covid/features';
+import NavigationService from '@covid/NavigatorService';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;
@@ -67,7 +68,8 @@ function LoginScreen({ route }: IProps) {
           .setPatientById(patientId)
           .then(() => appCoordinator.fetchInitialData())
           .then(() => {
-            appCoordinator.gotoNextScreen(route.name);
+            // appCoordinator.gotoNextScreen(route.name);
+            NavigationService.navigate('Tab');
           });
       })
       .catch((error) => {

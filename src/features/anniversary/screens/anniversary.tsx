@@ -25,6 +25,7 @@ function Anniversary() {
   const [hasError, setHasError] = useState(false);
 
   const getTimeline = async (): Promise<ITimeline> => {
+    console.log('get timeline');
     const client = new ApiClient();
     const response = await client.get<ITimeline>('timeline/');
     return response;

@@ -77,11 +77,13 @@ import {
   YourHealthScreen,
   YourStudyScreen,
   YourWorkScreen,
+  Landing,
 } from '@covid/features';
 
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
 import MetalHealthNavigator from '../mental-health';
 import AnniversaryNavigator from '../anniversary';
+import TabNavigator from '../tab-navigator';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -98,6 +100,8 @@ function MainNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Splash" component={SplashScreen} options={noHeader} />
+      <Stack.Screen name="Landing" component={Landing} options={noHeader} />
+      <Stack.Screen name="Tab" component={TabNavigator} options={noHeader} />
       <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={noHeader} />
       <Stack.Screen name="Welcome" component={Welcome1Screen} options={noHeader} />
       <Stack.Screen name="Welcome2" component={Welcome2Screen} options={noHeader} />

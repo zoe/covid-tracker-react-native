@@ -15,6 +15,7 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { setUsername, setPatients } from '@covid/core/state/user';
 import { ScreenParamList } from '@covid/features';
+import NavigatorService from '@covid/NavigatorService';
 
 import appCoordinator from '../AppCoordinator';
 
@@ -67,7 +68,8 @@ class SplashScreen extends Component<Props, SplashState> {
   async initAppState() {
     await appCoordinator.init(this.props.setUsername, this.props.setPatients);
     RNSplashScreen.hide();
-    appCoordinator.gotoNextScreen(this.props.route.name);
+    // appCoordinator.gotoNextScreen(this.props.route.name);
+    NavigatorService.navigate('Landing');
   }
 
   private reloadAppState = async () => {

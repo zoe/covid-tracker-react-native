@@ -17,3 +17,4 @@ export * from './validation-study';
 export * from './vaccines';
 export * from './diet-study-playback';
 export * from './anniversary';
+export { default as Landing } from './landing';

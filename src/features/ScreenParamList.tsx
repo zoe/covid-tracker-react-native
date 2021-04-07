@@ -133,4 +133,6 @@ export type ScreenParamList = {
 
   Anniversary: undefined;
   AnniversaryModal: undefined;
+
+  Landing: undefined;
 };
