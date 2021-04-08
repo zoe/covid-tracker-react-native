@@ -44,10 +44,8 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
     listProfiles,
     retryListProfiles,
   } = useProfileList();
-
   const { assessmentFlow } = route.params;
   const coordinator: SelectProfileCoordinator = appCoordinator;
-
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
   const showCreateProfile = localisationService.getConfig().enableMultiplePatients;
 
@@ -103,6 +101,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
             profiles={profiles}
             renderItem={(profile, i) => (
               <ProfileCard
+                index={i}
                 profile={profile}
                 onEditPressed={
                   assessmentFlow
