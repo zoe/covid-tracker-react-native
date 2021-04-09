@@ -36,7 +36,7 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
   };
 
   const formatDateString = (dateString: string): string => {
-    return moment(dateString).format('MMM D');
+    return moment(dateString).format('MMM D Y');
   };
 
   const formatTestDate = (test: CovidTest) => {
