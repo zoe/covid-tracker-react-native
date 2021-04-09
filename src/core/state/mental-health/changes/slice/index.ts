@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../root';
 import { IMentalHealthChanges, TMentalHealthChange } from '../types';
 
-const initialState: IMentalHealthChanges = {
+export const initialState: IMentalHealthChanges = {
   devicesWithScreen: undefined,
   drinkingAlcohol: undefined,
   engagingWithOrganisations: undefined,

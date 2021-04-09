@@ -3,7 +3,6 @@ import { initialState, reset, setDashboardHasBeenViewed, setLoggedVaccine, setMe
 
 describe('\n** redux app state **\n', () => {
   let state = store.getState().app;
-  // const unchangedBook = state.bookList.find((book) => book.id === '1');
   it('should initially set the dashboard has been viewed to false', () => {
     expect(state.dashboardHasBeenViewed).toBe(false);
   });
