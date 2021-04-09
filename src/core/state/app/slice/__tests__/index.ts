@@ -1,6 +1,5 @@
 import store from '../../../store';
 import { initialState, reset, setDashboardHasBeenViewed, setLoggedVaccine, setMentalHealthStudyActive } from '../index';
-// import { deleteBook, updateBook, addNewBook } from '../redux/bookSlice';
 
 describe('\n** redux app state **\n', () => {
   let state = store.getState().app;
