@@ -159,7 +159,7 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
           <VaccineNameQuestion formikProps={formikProps as FormikProps<IVaccineDoseData>} firstDose={props.firstDose} />
-          {renderNameError}
+          {renderNameError()}
         </View>
         <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
         {showPicker ? renderPicker() : renderCalenderButton()}

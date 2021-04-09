@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
-// import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
+// import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
 import { TrendlineCard } from '@covid/components/Cards/EstimatedCase';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 
-import { ShareTimelineCard } from '../../Cards';
+import { EstimatedCasesMapCard, ShareTimelineCard } from '../../Cards';
 
 import { SShareContainerView } from './styles';
 

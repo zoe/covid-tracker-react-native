@@ -4,14 +4,17 @@ import { Card } from 'native-base';
 
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
-import { GreenTick } from '@covid/components/GreenTick';
 import { colors } from '@theme';
-import { Profile } from '@covid/components/Collections/ProfileList';
 import i18n from '@covid/locale/i18n';
 import { ClippedText, SecondaryText } from '@covid/components/Text';
-import LastReported from '@covid/components/LastReported';
+import { Profile } from '@covid/core/profile/ProfileService';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
+
+import LastReported from './LastReported';
+import { GreenTick } from './GreenTick';
 
 type Props = {
+  index: number;
   profile: Profile;
   onEditPressed?: VoidFunction;
 };
@@ -21,13 +24,21 @@ export const ProfileCard: React.FC<Props> = (props) => {
   const avatarImage = getAvatarByName(profile.avatar_name as AvatarName);
   const hasReportedToday = profile.last_reported_at && getDaysAgo(profile.last_reported_at) === 0;
 
+  const getProfileName = () => {
+    const { index } = props;
+    if (isSECountry() && index === 0) {
+      return 'Jag';
+    }
+    return profile.name;
+  };
+
   return (
     <Card style={styles.card} transparent>
       <View style={styles.avatarContainer}>
         {hasReportedToday && <GreenTick />}
         <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
       </View>
-      <ClippedText>{profile.name}</ClippedText>
+      <ClippedText>{getProfileName()}</ClippedText>
       <LastReported timeAgo={profile.last_reported_at} />
       {props.onEditPressed && (
         <TouchableOpacity onPress={props.onEditPressed}>

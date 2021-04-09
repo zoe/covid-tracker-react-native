@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
@@ -6,6 +6,16 @@ import { cleanIntegerVal } from '@covid/utils/number';
 import { IPatientService } from '@covid/core/patient/PatientService';
 
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
+
+export type Profile = {
+  id: string;
+  name?: string;
+  avatar_name?: string;
+  reported_by_another?: boolean;
+  report_count?: number;
+  last_reported_at?: Date;
+  created_at?: Date;
+};
 
 export interface IProfileService {
   hasMultipleProfiles(): Promise<boolean>;

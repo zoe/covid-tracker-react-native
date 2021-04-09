@@ -11,15 +11,15 @@ import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-import { USStudyInvite } from '@covid/components/USStudyInvite';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 import InfoCircle from '@assets/icons/InfoCircle';
 import { RightArrow } from '@assets';
 import { RootState } from '@covid/core/state/root';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { ScreenParamList } from '@covid/features';
 
-import { ScreenParamList } from '../ScreenParamList';
+import { USStudyInvite } from './partials/USStudyInvite';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;

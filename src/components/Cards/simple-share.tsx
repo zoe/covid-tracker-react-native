@@ -4,7 +4,8 @@ import { Image, StyleSheet, View } from 'react-native';
 import { social } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { track } from '@covid/core/Analytics';
-import { BrandedButton } from '@covid/components';
+
+import { BrandedButton } from '../buttons';
 
 import { share } from './BaseShareApp';
 

@@ -3,7 +3,8 @@ import React from 'react';
 
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { doctorsAvatars, drSarahBerry } from '@assets';
-import { Avatar } from '@covid/components';
+
+import Avatar from '../../../components/avatar';
 
 export function getDietStudyInfoUrl() {
   return isUSCountry()

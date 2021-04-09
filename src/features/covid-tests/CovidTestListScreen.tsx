@@ -14,12 +14,13 @@ import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { CovidTestRow } from '@covid/components/CovidTestRow/CovidTestRow';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
 import { BrandedButton } from '@covid/components';
+
+import { CovidTestRow } from './components/CovidTestRow';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestList'>;

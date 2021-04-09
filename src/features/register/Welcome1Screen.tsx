@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { gbMap, svMap, usMap } from '@assets';
-import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { cleanIntegerVal } from '@covid/utils/number';
@@ -15,6 +14,7 @@ import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
 import { BrandedButton } from '@covid/components';
 
+import { ContributionCounter } from './components/ContributionCounter';
 import { getLocaleFlagIcon } from './helpers';
 
 type PropsType = {

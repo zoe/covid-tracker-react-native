@@ -9,9 +9,9 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import appConfig from '@covid/appConfig';
-import { Profile } from '@covid/components/Collections/ProfileList';
 import { getInitialPatientState, isMinorAge, PatientStateType } from '@covid/core/patient/PatientState';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;

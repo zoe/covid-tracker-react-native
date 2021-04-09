@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
-import { CompactHeader, Header } from '@covid/features/dashboard/Header';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase';
 import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
-import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
 import { shareAppV3 } from '@assets';
@@ -25,7 +21,7 @@ import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { identify } from '@covid/core/Analytics';
+import Analytics, { events, identify } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
 import {
   selectAnniversary,
@@ -35,9 +31,14 @@ import {
   setDashboardHasBeenViewed,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
-import { DietStudyCard } from '@covid/features';
 
+import appCoordinator from '../AppCoordinator';
+import { DietStudyCard } from '../diet-study-playback';
+import { ScreenParamList } from '../ScreenParamList';
 import { ImpactTimelineCard } from '../anniversary';
+
+import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
+import { CompactHeader, Header } from './Header';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -152,7 +153,14 @@ export function DashboardScreen({ navigation, route }: IProps) {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        {startupInfo?.show_timeline && <ImpactTimelineCard onPress={() => navigation.navigate('Anniversary')} />}
+        {startupInfo?.show_timeline && (
+          <ImpactTimelineCard
+            onPress={() => {
+              Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
+              navigation.navigate('Anniversary');
+            }}
+          />
+        )}
         {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
         <ShareVaccineCard screenName="Dashboard" />
@@ -183,9 +191,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
         />
       </View>
 
-      <View style={styles.zoe}>
+      <TouchableOpacity style={styles.zoe} onPress={() => openWebLink('https://joinzoe.com/about-zoe')}>
         <PoweredByZoeSmall />
-      </View>
+      </TouchableOpacity>
     </CollapsibleHeaderScrollView>
   );
 }
@@ -196,6 +204,7 @@ const styles = StyleSheet.create({
   },
   zoe: {
     marginVertical: 32,
+    paddingBottom: 64,
   },
   dietStudyImage: {
     width: '100%',
