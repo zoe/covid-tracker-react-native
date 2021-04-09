@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { action } from '@storybook/addon-actions';
 
 import { RootState } from '../../root';
 import { IApp } from '../types';
@@ -8,7 +7,7 @@ import { IApp } from '../types';
 // THIS REDUCER IS BLACK LISTED AND RESET ON EVERY SESSION
 // SET SESSION VALUES HERE
 
-const initialState: IApp = {
+export const initialState: IApp = {
   dashboardHasBeenViewed: false,
   mentalHealthStudyActive: true,
   loggedVaccine: false,
