@@ -62,12 +62,6 @@ references:
       only:
         - develop
 
-  release_filter: &release_filter
-    branches:
-      only:
-        - master
-        - develop
-
   feature_filter: &feature_filter
     branches:
       ignore:
@@ -171,8 +165,8 @@ commands:
   expo_ota_publish:
     steps:
       - set_expo_release_channel
-      - run: npx expo-cli@4.3.0 login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run: npx expo-cli@4.3.0 publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
+      - run: npx expo-cli@4.3.5 login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      - run: npx expo-cli@4.3.5 publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
 
 
 ###
@@ -301,24 +295,6 @@ jobs:
       - prepare_deploy_env
       - expo_ota_publish
 
-  # ota-rollback:
-  #   executor: mobile-build-box
-  #   working_directory: ~/covid-react
-  #   steps:
-  #     - prepare_code
-  #     - prepare_deploy_env
-  #     - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-  #     - run:
-  #         name: Set expo release channel to perform rollback on
-  #         command: |
-  #           echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
-  #     - run:
-  #         name: Set Expo version to rollback to
-  #         # This command will not work if the expo dependencies is not defined like this ^x.x.x
-  #         command: |
-  #           echo "export EXPO_ROLLBACK_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)" >> $BASH_ENV
-  #     - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform ios --non-interactive
-  #     - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android --non-interactive
 
   ### ------------------- ###
   ### Slack related jobs  ###
@@ -354,7 +330,7 @@ jobs:
 workflows:
 
   #
-  # Branch (Ingoring) [master, develop, stage, release-0.x-legacy]
+  # Branch (Ignoring) [master, develop, stage, release-0.x-legacy]
   # - Build app assets
   # |-- Lint project
   # |-- Check i18n string
@@ -372,16 +348,11 @@ workflows:
 
   ota:
     jobs:
-      - build:
-          filters: *release_filter
-
       # Staging OTA deploy
       - ota-release:
           name: 'Stage OTA'
           filters: *develop_filter
           context: react-covid-tracker-stage
-          requires:
-            - build
       - deployed-ota:
           name: 'Stage OTA Deployed'
           context: slack-ci-covid-mobile
@@ -393,8 +364,6 @@ workflows:
           name: 'Prod OTA approval'
           filters: *master_filter
           type: approval
-          requires:
-            - build
       - ota-release:
           name: 'Prod OTA'
           filters: *master_filter
@@ -409,9 +378,6 @@ workflows:
   
   release:
     jobs:
-      - build:
-          filters: *release_filter
-
       # Publish app for internal testing
       # - App Center distribution (with approval)
       # |-- iOS / Android Release to App Center
@@ -420,26 +386,26 @@ workflows:
           filters: *develop_filter
           message: "Awaiting manual approval to deploy native apps to staging"
           context: slack-ci-covid-mobile
-          requires:
-            - build
       - adhoc-release-approval:
           name: 'Adhoc approval'
           filters: *develop_filter
           type: approval
+      - build:
+          filters: *develop_filter
           requires:
-            - build
+            - Adhoc approval
       - deploy-ios:
           name: 'Adhoc iOS'
           filters: *develop_filter
           context: react-covid-tracker-stage
           requires:
-            - Adhoc approval
+            - build
       - deploy-android:
           name: 'Adhoc Android'
           filters: *develop_filter
           context: react-covid-tracker-stage
           requires:
-            - Adhoc approval
+            - build
       - deployed-stage:
           name: 'Stage apps published'
           context: slack-ci-covid-mobile
@@ -456,56 +422,29 @@ workflows:
           filters: *master_filter
           message: "Awaiting manual approval to deploy to production (Options: OTA, Store)"
           context: slack-ci-covid-mobile
-          requires:
-            - build
       - store-release-approval:
           name: 'Store approval'
           filters: *master_filter
           type: approval
+      - build:
+          filters: *master_filter
           requires:
-            - build
+            - Store approval
       - deploy-ios:
           name: 'Store iOS'
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-            - Store approval
+            - build
       - deploy-android:
           name: 'Store Android'
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-            - Store approval
+            - build
       - deployed-prod:
           name: 'Prod apps published'
           context: slack-ci-covid-mobile
           requires:
             - Store iOS
             - Store Android
-
-  # OTA Rollback (with approval) if OTA release is successful
-
-  # rollbacks:
-  #   jobs:
-  #     # Production OTA rollback
-  #     - ota-rollback-approval:
-  #         name: 'Prod rollback'
-  #         filters: *master_filter
-  #         type: approval
-  #     - ota-rollback:
-  #         filters: *master_filter
-  #         context: react-covid-tracker-prod
-  #         requires:
-  #           - Prod rollback
-
-  #     # Staging OTA rollback
-  #     - ota-rollback-approval:
-  #         name: 'Stage rollback'
-  #         filters: *develop_filter
-  #         type: approval
-  #     - ota-rollback:
-  #         filters: *develop_filter
-  #         context: react-covid-tracker-stage
-  #         requires:
-  #           - Stage rollback
-
