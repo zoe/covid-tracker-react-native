@@ -70,6 +70,7 @@
     "expo": "39.0.0",
     "expo-analytics-amplitude": "^10.0.0",
     "expo-asset": "8.2.0",
+    "expo-cli": "4.3.5",
     "expo-constants": "9.2.0",
     "expo-file-system": "9.2.0",
     "expo-font": "8.4.0",

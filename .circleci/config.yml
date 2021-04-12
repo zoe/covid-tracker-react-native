@@ -165,8 +165,8 @@ commands:
   expo_ota_publish:
     steps:
       - set_expo_release_channel
-      - run: npx expo-cli@4.3.5 login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run: npx expo-cli@4.3.5 publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
+      - run: expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      - run: expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target managed
 
 
 ###
