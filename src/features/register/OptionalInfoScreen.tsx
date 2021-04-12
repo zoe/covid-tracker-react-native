@@ -57,9 +57,9 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     this.state = initialState;
   }
 
-  private async setPushToken() {
+  private async subscribeForPushNotifications() {
     if (Constants.appOwnership !== 'expo') {
-      pushNotificationService.initPushToken();
+      await pushNotificationService.subscribeForPushNotifications();
     }
   }
 
@@ -77,7 +77,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
   private async handleSaveOptionalInfos(formData: OptionalInfoData) {
     try {
-      await this.setPushToken();
+      await this.subscribeForPushNotifications();
       await this.savePiiData(formData);
       this.setState({ isApiError: false });
       appCoordinator.gotoNextScreen(this.props.route.name);
