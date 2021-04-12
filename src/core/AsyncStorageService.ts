@@ -66,6 +66,7 @@ export class AsyncStorageService {
       await AsyncStorage.removeItem(AUTH_TOKEN);
       await AsyncStorage.removeItem(USER_ID);
       await AsyncStorage.removeItem(DIET_STUDY_CONSENT);
+      await AsyncStorage.removeItem(PUSH_TOKEN);
       await AsyncStorage.removeItem(DISMISSED_CALLOUTS);
     } catch (err) {
       // Swallow for now
