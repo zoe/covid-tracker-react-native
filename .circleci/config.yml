@@ -443,7 +443,7 @@ workflows:
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-            - build
+            - Store build
       - deployed-prod:
           name: 'Prod apps published'
           context: slack-ci-covid-mobile
