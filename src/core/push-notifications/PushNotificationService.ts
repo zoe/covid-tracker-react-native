@@ -101,7 +101,8 @@ export default class PushNotificationService {
         await this.savePushToken(pushToken);
       }
     } catch (error) {
-      // Fail silently
+      // Fail silently, safe in the knowledge that we will try this again as soon
+      // as the app is restarted.
     }
   }
 
