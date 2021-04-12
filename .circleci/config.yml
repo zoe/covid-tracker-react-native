@@ -116,7 +116,7 @@ commands:
       - run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - run:
           name: Install Dependencies
-          command: yarn install --immutable
+          command: yarn install
       - save_cache:
           key: *yarn_cache_key
           paths:
@@ -443,7 +443,7 @@ workflows:
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-            - Store build
+            - build
       - deployed-prod:
           name: 'Prod apps published'
           context: slack-ci-covid-mobile
