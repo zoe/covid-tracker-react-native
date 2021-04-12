@@ -109,10 +109,10 @@ export default class PushNotificationService {
   static async openSettings() {
     switch (Platform.OS) {
       case 'ios':
-        await Linking.openURL('app-settings:');
+        Linking.openURL('app-settings:');
         break;
       case 'android':
-        await IntentLauncher.startActivityAsync(IntentLauncher.ACTION_NOTIFICATION_SETTINGS);
+        IntentLauncher.startActivityAsync(IntentLauncher.ACTION_NOTIFICATION_SETTINGS);
         break;
       default:
         break;
