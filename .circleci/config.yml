@@ -116,7 +116,7 @@ commands:
       - run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - run:
           name: Install Dependencies
-          command: yarn install
+          command: yarn install --immutable
       - save_cache:
           key: *yarn_cache_key
           paths:
@@ -166,7 +166,7 @@ commands:
     steps:
       - set_expo_release_channel
       - run: expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run: expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target managed
+      - run: expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target bare
 
 
 ###
