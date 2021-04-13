@@ -71,7 +71,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     const cleanUserCount = userCount ? cleanIntegerVal(userCount as string) : 0;
 
     AnalyticsService.identify();
-    await pushNotificationService.refreshPushToken();
+    await pushNotificationService.subscribeForPushNotifications();
 
     this.setState({
       calloutBoxContent: this.contentService.getCalloutBoxDefault(),

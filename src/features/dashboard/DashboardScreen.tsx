@@ -114,7 +114,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
   useEffect(() => {
     (async () => {
       identify();
-      await pushNotificationService.refreshPushToken();
+      await pushNotificationService.subscribeForPushNotifications();
     })();
   }, []);
 
