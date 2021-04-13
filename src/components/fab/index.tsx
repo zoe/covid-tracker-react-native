@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
 import { Dimensions, StyleSheet, View, TouchableOpacity } from 'react-native';
 
+import { Profile } from '@covid/core/profile/ProfileService';
+
+import appCoordinator from '../../features/AppCoordinator';
 import { Icon } from '../icons';
 
 import Option from './option';
 
 const { height } = Dimensions.get('window');
 const size = 72;
-const options = ['profile one', 'profile two', 'profile three'];
 
-function Fab() {
+interface IProps {
+  profiles: Profile[];
+}
+
+function Fab({ profiles }: IProps) {
   const [active, setActive] = useState(false);
 
-  const handleOnPress = (option: any) => {};
+  const handleOnPress = (profile: Profile) => {
+    appCoordinator.profileSelected(profile);
+    setActive(false);
+  };
 
   return (
     <>
       {active ? <View style={styles.backdrop} /> : null}
       <View style={styles.container}>
-        {options.map((option, index) => {
+        {profiles.map((option, index) => {
           const key = `option-${index}`;
           const yValue = -((index + 1) * size);
           const toValue = active ? 1 : 0;
@@ -26,7 +35,7 @@ function Fab() {
             <Option
               key={key}
               handleOnPress={() => handleOnPress(option)}
-              label={option}
+              label={option.name ?? ''}
               toValue={toValue}
               yValue={yValue}
             />

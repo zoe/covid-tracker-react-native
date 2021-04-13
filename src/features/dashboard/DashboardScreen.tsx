@@ -36,6 +36,7 @@ import appCoordinator from '../AppCoordinator';
 import { DietStudyCard } from '../diet-study-playback';
 import { ScreenParamList } from '../ScreenParamList';
 import { ImpactTimelineCard } from '../anniversary';
+import { useProfileList } from '../multi-profile/ProfileList.hooks';
 
 import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
 import { CompactHeader, Header } from './Header';
@@ -49,6 +50,7 @@ interface IProps {
 }
 
 export function DashboardScreen({ navigation, route }: IProps) {
+  const { profiles, listProfiles } = useProfileList();
   const anniversary = useSelector(selectAnniversary);
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
@@ -144,6 +146,10 @@ export function DashboardScreen({ navigation, route }: IProps) {
     };
   }, []);
 
+  useEffect(() => {
+    listProfiles();
+  }, []);
+
   const hasNetworkData = networks && networks.length > 0;
 
   return (
@@ -196,7 +202,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
           <PoweredByZoeSmall />
         </TouchableOpacity>
       </CollapsibleHeaderScrollView>
-      <Fab />
+      <Fab profiles={profiles} />
     </>
   );
 }

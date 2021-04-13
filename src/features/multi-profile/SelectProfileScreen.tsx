@@ -80,6 +80,8 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
     }
   };
 
+  console.log('PROFILES: ', profiles);
+
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollView}>
