@@ -1,5 +1,11 @@
 import store from '../../../store';
-import { initialState, reset, setDashboardHasBeenViewed, setLoggedVaccine, setMentalHealthStudyActive } from '../index';
+import {
+  appInitialState,
+  reset,
+  setDashboardHasBeenViewed,
+  setLoggedVaccine,
+  setMentalHealthStudyActive,
+} from '../index';
 
 describe('\n** redux app state **\n', () => {
   let state = store.getState().app;
@@ -30,6 +36,6 @@ describe('\n** redux app state **\n', () => {
   it('should be able to reset all app values back to initial state', () => {
     store.dispatch(reset());
     state = store.getState().app;
-    expect(state).toEqual(initialState);
+    expect(state).toEqual(appInitialState);
   });
 });
