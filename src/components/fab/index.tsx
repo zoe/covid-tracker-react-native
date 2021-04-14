@@ -19,7 +19,7 @@ function Fab({ profiles }: IProps) {
   const [active, setActive] = useState(false);
 
   const handleOnPress = (profile: Profile) => {
-    appCoordinator.profileSelected(profile);
+    // TODO - navigate to...
     setActive(false);
   };
 
