@@ -25,7 +25,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.joinzoe.covid-zoe</string>
+				<string>covid_zoe</string>
 			</array>
 		</dict>
 	</array>
