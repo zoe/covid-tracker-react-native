@@ -704,6 +704,7 @@
       "check-for-updates": false,
       "news-feed": false,
       "report-tomorrow": false,
+      "numbers": false,
       "sharing-is-caring": false,
       "the-more-reports": false,
       "share-this-app": false,
