@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -191,9 +191,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
         />
       </View>
 
-      <TouchableOpacity style={styles.zoe} onPress={() => openWebLink('https://joinzoe.com/about-zoe')}>
+      <View style={styles.zoe}>
         <PoweredByZoeSmall />
-      </TouchableOpacity>
+      </View>
     </CollapsibleHeaderScrollView>
   );
 }
@@ -204,7 +204,6 @@ const styles = StyleSheet.create({
   },
   zoe: {
     marginVertical: 32,
-    paddingBottom: 64,
   },
   dietStudyImage: {
     width: '100%',
