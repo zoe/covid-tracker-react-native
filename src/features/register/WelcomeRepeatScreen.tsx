@@ -7,7 +7,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
-import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { LoadingModal } from '@covid/components/Loading';
 import { PartnerLogoSE, PartnerLogoUS } from '@covid/components/Logos/PartnerLogo';
 import { PoweredByZoe } from '@covid/components/Logos/PoweredByZoe';
@@ -29,6 +28,8 @@ import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { openWebLink } from '@covid/utils/links';
 import { BrandedButton } from '@covid/components';
+
+import { ContributionCounter } from './components/ContributionCounter';
 
 type PropsType = {
   navigation: CompositeNavigationProp<
@@ -70,7 +71,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     const cleanUserCount = userCount ? cleanIntegerVal(userCount as string) : 0;
 
     AnalyticsService.identify();
-    await pushNotificationService.refreshPushToken();
+    await pushNotificationService.subscribeForPushNotifications();
 
     this.setState({
       calloutBoxContent: this.contentService.getCalloutBoxDefault(),

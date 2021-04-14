@@ -80,7 +80,7 @@ import {
 } from '@covid/features';
 
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
-import { MetalHealthNavigator } from '..';
+import MetalHealthNavigator from '../mental-health';
 import AnniversaryNavigator from '../anniversary';
 
 function MainNavigator() {

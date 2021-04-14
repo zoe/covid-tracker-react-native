@@ -1,12 +1,11 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { Card } from 'native-base';
 
 import { addProfile } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-
-import { RegularText, SecondaryText } from './Text';
+import { RegularText } from '@covid/components';
 
 export const NewProfileCard: React.FC = () => {
   return (

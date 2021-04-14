@@ -1,4 +1,4 @@
-import { Profile } from '@covid/components/Collections/ProfileList';
+import { Profile } from '@covid/core/profile/ProfileService';
 
 export type PatientStateType = {
   patientId: string;

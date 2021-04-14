@@ -35,15 +35,20 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
     return result === 'waiting' ? pending : tick;
   };
 
-  const formatDateString = (dateString: string): string => {
-    return moment(dateString).format('MMM D');
+  const formatDateString = (dateString: string, format = 'MMM D, Y'): string => {
+    return moment(dateString).format(format);
   };
 
   const formatTestDate = (test: CovidTest) => {
     if (test.date_taken_specific) {
       return formatDateString(test.date_taken_specific);
     } else {
-      return `${formatDateString(test.date_taken_between_start)} - ${formatDateString(test.date_taken_between_end)}`;
+      const startYear = new Date(test.date_taken_between_start).getFullYear();
+      const endYear = new Date(test.date_taken_between_end).getFullYear();
+      return `${formatDateString(
+        test.date_taken_between_start,
+        endYear > startYear ? 'MMM D Y' : 'MMM D'
+      )} - ${formatDateString(test.date_taken_between_end)}`;
     }
   };
 
