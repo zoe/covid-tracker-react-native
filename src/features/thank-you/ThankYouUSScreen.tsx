@@ -7,7 +7,7 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ClickableText, RegularText } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 import { openWebLink } from '@covid/utils/links';
@@ -46,7 +46,9 @@ export default class ThankYouUSScreen extends Component<Props, State> {
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
               <AntDesign name="checkcircle" style={styles.checkIcon} size={32} />
-              <Text style={styles.thankYou}>{i18n.t('thank-you.report-tomorrow')}</Text>
+              <HeaderText style={{ textAlign: 'center', marginTop: 24 }}>
+                {i18n.t('thank-you.report-tomorrow')}
+              </HeaderText>
               <Text style={styles.thankYou}>{i18n.t('thank-you.numbers')}</Text>
 
               <ShareAppCardViral />
@@ -98,10 +100,9 @@ const styles = StyleSheet.create({
   },
 
   thankYou: {
-    marginTop: 16,
     padding: 16,
-    fontSize: 20,
-    lineHeight: 32,
+    fontSize: 16,
+    lineHeight: 24,
     fontFamily: 'SofiaPro-Light',
     color: colors.primary,
     textAlign: 'center',
