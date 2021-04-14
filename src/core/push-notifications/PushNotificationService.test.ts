@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { IStorageService } from '../LocalStorageService';
 
 import { IPushTokenRemoteClient, PushToken } from './types';
@@ -40,5 +42,40 @@ describe('PushNotificationService', () => {
       new MockPushTokenEnvironment()
     );
     expect(service).not.toBeNull();
+  });
+
+  it('can call tokenNeedsRefreshing', () => {
+    const service = new PushNotificationService(
+      new MockApiClient(),
+      new MockStorageClient(),
+      new MockPushTokenEnvironment()
+    );
+
+    const tokenFromThirtyDaysAgo = {
+      token: 'MOCK',
+      lastUpdated: moment().subtract(30, 'days').toISOString(),
+      platform: 'iOS',
+    } as PushToken;
+
+    const tokenFromFiveDaysAgo = {
+      token: 'MOCK',
+      lastUpdated: moment().subtract(5, 'days').toISOString(),
+      platform: 'iOS',
+    } as PushToken;
+
+    const tokenFromTheFuture = {
+      token: 'MOCK',
+      lastUpdated: moment().add(1, 'days').toISOString(),
+      platform: 'iOS',
+    } as PushToken;
+
+    // @ts-ignore
+    expect(service.tokenNeedsRefreshing(tokenFromThirtyDaysAgo)).toBeTruthy();
+
+    // @ts-ignore
+    expect(service.tokenNeedsRefreshing(tokenFromFiveDaysAgo)).toBeFalsy();
+
+    // @ts-ignore
+    expect(service.tokenNeedsRefreshing(tokenFromTheFuture)).toBeFalsy();
   });
 });

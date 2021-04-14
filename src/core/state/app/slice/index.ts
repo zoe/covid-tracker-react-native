@@ -7,7 +7,7 @@ import { IApp } from '../types';
 // THIS REDUCER IS BLACK LISTED AND RESET ON EVERY SESSION
 // SET SESSION VALUES HERE
 
-export const initialState: IApp = {
+export const appInitialState: IApp = {
   dashboardHasBeenViewed: false,
   mentalHealthStudyActive: true,
   loggedVaccine: false,
@@ -15,7 +15,7 @@ export const initialState: IApp = {
 
 const appSlice = createSlice({
   name: 'App',
-  initialState,
+  initialState: appInitialState,
   reducers: {
     setDashboardHasBeenViewed: (state, action: PayloadAction<boolean>) => {
       return {
@@ -37,7 +37,7 @@ const appSlice = createSlice({
     },
     reset: (state) => {
       return {
-        ...initialState,
+        ...appInitialState,
       };
     },
   },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -21,7 +21,6 @@ import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import AnalyticsService, { events } from '@covid/core/Analytics';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
-import { openWebLink } from '@covid/utils/links';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -54,7 +53,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
   useEffect(() => {
     (async () => {
       AnalyticsService.identify();
-      await pushNotificationService.refreshPushToken();
+      await pushNotificationService.subscribeForPushNotifications();
     })();
   }, []);
 
@@ -93,9 +92,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 
       <View style={styles.zoe}>
         <PartnerLogoUSDash />
-        <TouchableOpacity onPress={() => openWebLink('https://joinzoe.com/about-zoe')}>
-          <PoweredByZoeSmall />
-        </TouchableOpacity>
+        <PoweredByZoeSmall />
       </View>
     </CollapsibleHeaderScrollView>
   );
@@ -112,7 +109,6 @@ const styles = StyleSheet.create({
   },
   zoe: {
     marginBottom: 32,
-    paddingBottom: 64,
   },
   dietStudyImage: {
     width: '100%',

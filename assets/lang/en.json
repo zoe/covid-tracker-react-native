@@ -625,7 +625,7 @@
     "negative": "Negative",
     "failed": "Failed",
     "pending": "Waiting for result",
-    "update": "Update result",
+    "update": "Update",
     "never-had-test": "I have never had a COVID test",
     "above-list-correct": "This list is correct"
   },
