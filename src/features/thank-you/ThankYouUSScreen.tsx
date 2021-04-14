@@ -23,12 +23,12 @@ type State = {
   askForRating: boolean;
 };
 
-const initalState: State = {
+const initialState: State = {
   askForRating: false,
 };
 
 export default class ThankYouUSScreen extends Component<Props, State> {
-  state = { ...initalState };
+  state = { ...initialState };
 
   async componentDidMount() {
     if (await shouldAskForRating()) {
@@ -47,6 +47,7 @@ export default class ThankYouUSScreen extends Component<Props, State> {
             <View style={styles.rootContainer}>
               <AntDesign name="checkcircle" style={styles.checkIcon} size={32} />
               <Text style={styles.thankYou}>{i18n.t('thank-you.report-tomorrow')}</Text>
+              <Text style={styles.thankYou}>{i18n.t('thank-you.numbers')}</Text>
 
               <ShareAppCardViral />
 

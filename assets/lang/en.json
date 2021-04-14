@@ -478,9 +478,10 @@
   "thank-you": {
     "check-for-updates": "Please check our %{link} for updates.",
     "news-feed": "news feed",
-    "report-tomorrow": "Thank you, please report again tomorrow, even if you’re well.",
-    "sharing-is-caring": "Sharing is caring",
-    "the-more-reports": "The more people report, the better our estimates & the faster you can help your community fight COVID",
+    "report-tomorrow": "Thank you for reporting",
+    "numbers": "We’ve decided to remove local infection numbers as this feature is less reliable with positive case numbers dropping in most areas.\n\nYour data is still important for our continued research so please keep reporting!",
+    "sharing-is-caring": "Please share this app",
+    "the-more-reports": "Your contributions are vital in the fight against COVID-19. Help us end the pandemic by sharing with others.",
     "share-this-app": "Share this app",
     "thank-you-for-joining": "Thank you for joining millions of people supporting scientists at",
     "to-help-communities": "to help our communities.",
