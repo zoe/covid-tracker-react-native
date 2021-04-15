@@ -36,7 +36,7 @@ function ShareContainer({ sharable = 'MAP' }: IProps) {
           </SShareContainerView>
         );
       case 'VACCINES':
-        return <ShareVaccineCard isSharing />;
+        return <ShareVaccineCard screenName="Share" isSharing />;
       default:
         return null;
     }
