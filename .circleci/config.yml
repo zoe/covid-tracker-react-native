@@ -61,7 +61,6 @@ references:
     branches:
       only:
         - develop
-        - selvach/fix_sharing
 
   feature_filter: &feature_filter
     branches:
