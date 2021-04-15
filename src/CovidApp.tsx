@@ -46,7 +46,10 @@ function CovidApp() {
         ref={(navigatorRef) => {
           NavigatorService.setContainer(navigatorRef);
         }}
-        onStateChange={NavigatorService.handleStateChange}>
+        onStateChange={NavigatorService.handleStateChange}
+        linking={{
+          prefixes: ['covid_zoe://'],
+        }}>
         <Stack.Navigator headerMode="none" mode="modal" initialRouteName="Main">
           <Stack.Screen name="Main" component={DrawNavigator} />
           <Stack.Screen
