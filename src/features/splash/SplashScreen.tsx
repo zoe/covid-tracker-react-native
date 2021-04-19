@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import RNSplashScreen from 'react-native-splash-screen';
 import { RouteProp } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
 
 import { colors } from '@theme';
 import Splash from '@covid/features/splash/components/Splash';
@@ -15,6 +16,8 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { setUsername, setPatients } from '@covid/core/state/user';
 import { ScreenParamList } from '@covid/features';
+import NavigatorService from '@covid/NavigatorService';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 
 import appCoordinator from '../AppCoordinator';
 
@@ -57,17 +60,28 @@ class SplashScreen extends Component<Props, SplashState> {
   }
 
   async componentDidMount() {
-    try {
-      await this.initAppState();
-    } catch (error) {
-      this.handleBootstrapError(error);
-    }
+    Linking.getInitialURL().then(async (url) => {
+      let screenName: keyof ScreenParamList = this.props.route.name;
+      if (url) {
+        console.log('url: ', url);
+        screenName = 'Anniversary';
+      }
+      try {
+        await this.initAppState(screenName);
+      } catch (error) {
+        this.handleBootstrapError(error);
+      }
+    });
   }
 
-  async initAppState() {
+  async initAppState(screenName: keyof ScreenParamList) {
     await appCoordinator.init(this.props.setUsername, this.props.setPatients);
     RNSplashScreen.hide();
-    appCoordinator.gotoNextScreen(this.props.route.name);
+    // reset router if deeplinking this ensures the dashboard is loaded as the default route
+    if (screenName !== this.props.route.name) {
+      NavigatorService.reset([{ name: homeScreenName() }]);
+    }
+    appCoordinator.gotoNextScreen(screenName);
   }
 
   private reloadAppState = async () => {

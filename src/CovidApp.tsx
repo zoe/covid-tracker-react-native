@@ -48,7 +48,7 @@ function CovidApp() {
         }}
         onStateChange={NavigatorService.handleStateChange}
         linking={{
-          prefixes: ['covid_zoe://'],
+          prefixes: ['zoe_covid_study://', 'https://covid.joinzoe.com'],
         }}>
         <Stack.Navigator headerMode="none" mode="modal" initialRouteName="Main">
           <Stack.Screen name="Main" component={DrawNavigator} />
