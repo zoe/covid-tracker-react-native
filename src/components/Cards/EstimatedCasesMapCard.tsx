@@ -276,7 +276,7 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
 
         <View style={styles.mapContainer}>
           {isSharing ? (
-            map()
+            <>{map()}</>
           ) : (
             <TouchableOpacity activeOpacity={0.6} onPress={onMapTapped}>
               {map()}
