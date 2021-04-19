@@ -14,7 +14,7 @@ export const SContainerView = styled(Animated.View)<IContainerViewProps>`
     padding: ${props.top + props.theme.grid.xxl}px ${props.theme.grid.l}px ${props.theme.grid.l}px;
     position: absolute;
     top: 0;
-    width: ${props.width};
+    width: ${props.width}px;
   `}
 `;
 
