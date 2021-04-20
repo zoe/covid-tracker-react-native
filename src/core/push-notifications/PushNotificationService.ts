@@ -1,7 +1,7 @@
 import { Platform, Linking } from 'react-native';
 import * as IntentLauncher from 'expo-intent-launcher';
 
-import { aWeekAgo, isDateBefore, now } from '@covid/utils/datetime';
+import { isDateBefore, now, yesterday } from '@covid/utils/datetime';
 
 import { IStorageService } from '../LocalStorageService';
 import { IApiClient } from '../api/ApiClient';
@@ -74,7 +74,7 @@ export default class PushNotificationService {
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {
-    return isDateBefore(pushToken.lastUpdated, aWeekAgo());
+    return isDateBefore(pushToken.lastUpdated, yesterday());
   }
 
   async subscribeForPushNotifications() {
