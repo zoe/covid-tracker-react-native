@@ -3,7 +3,6 @@ import { Dimensions, StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import { Profile } from '@covid/core/profile/ProfileService';
 
-import appCoordinator from '../../features/AppCoordinator';
 import { Icon } from '../icons';
 
 import Option from './option';
