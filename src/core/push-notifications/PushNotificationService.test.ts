@@ -73,7 +73,7 @@ describe('PushNotificationService', () => {
     expect(service.tokenNeedsRefreshing(tokenFromThirtyDaysAgo)).toBeTruthy();
 
     // @ts-ignore
-    expect(service.tokenNeedsRefreshing(tokenFromFiveDaysAgo)).toBeFalsy();
+    expect(service.tokenNeedsRefreshing(tokenFromFiveDaysAgo)).toBeTruthy();
 
     // @ts-ignore
     expect(service.tokenNeedsRefreshing(tokenFromTheFuture)).toBeFalsy();
