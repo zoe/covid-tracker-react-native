@@ -21,6 +21,10 @@ export const aWeekAgo = () => {
   return moment().subtract(7, 'days');
 };
 
+export const yesterday = () => {
+  return moment().subtract(1, 'days');
+};
+
 export const isDateBefore = (date: DateTypes, compDate: DateTypes): boolean => {
   return moment(date).isBefore(compDate);
 };
