@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ import appCoordinator from '../AppCoordinator';
 import { DietStudyCard } from '../diet-study-playback';
 import { ScreenParamList } from '../ScreenParamList';
 import { ImpactTimelineCard } from '../anniversary';
-import { useProfileList } from '../multi-profile/ProfileList.hooks';
+// import { useProfileList } from '../multi-profile/ProfileList.hooks';
 
 import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
 import { CompactHeader, Header } from './Header';
@@ -50,7 +50,7 @@ interface IProps {
 }
 
 export function DashboardScreen({ navigation, route }: IProps) {
-  const { profiles, listProfiles } = useProfileList();
+  // const { profiles, listProfiles } = useProfileList();
   const anniversary = useSelector(selectAnniversary);
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
@@ -146,9 +146,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
     };
   }, []);
 
-  useEffect(() => {
-    listProfiles();
-  }, []);
+  // useEffect(() => {
+  //   listProfiles();
+  // }, []);
 
   const hasNetworkData = networks && networks.length > 0;
 
@@ -198,11 +198,11 @@ export function DashboardScreen({ navigation, route }: IProps) {
           />
         </View>
 
-        <TouchableOpacity style={styles.zoe} onPress={() => openWebLink('https://joinzoe.com/about-zoe')}>
+        <View style={styles.zoe}>
           <PoweredByZoeSmall />
-        </TouchableOpacity>
+        </View>
       </CollapsibleHeaderScrollView>
-      <Fab profiles={profiles} />
+      {/* <Fab profiles={profiles} /> */}
     </>
   );
 }
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   },
   zoe: {
     marginVertical: 32,
-    paddingBottom: 64,
+    paddingVertical: 32,
   },
   dietStudyImage: {
     width: '100%',
