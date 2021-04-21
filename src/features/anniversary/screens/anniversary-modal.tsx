@@ -74,6 +74,8 @@ function AnniversaryModal() {
           </View>
           <View>
             <TouchableOpacity
+              accessible
+              accessibilityRole="button"
               style={[styles.button, { backgroundColor: '#0165B5' }]}
               onPress={() => handleViewTimeline(true)}>
               <Text textClass="pSmallLight" style={{ color: 'white' }}>
@@ -81,6 +83,8 @@ function AnniversaryModal() {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible
+              accessibilityRole="button"
               style={[styles.button, { backgroundColor: 'white' }]}
               onPress={() => handleViewTimeline(false)}>
               <Text textClass="pSmallLight">Skip</Text>
