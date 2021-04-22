@@ -14,6 +14,8 @@ function TimelineFooter() {
         Check in soon to see how your personal timeline evolves!
       </Text>
       <TouchableOpacity
+        accessible
+        accessibilityRole="button"
         style={styles.button}
         onPress={() => {
           Analytics.track(events.ANNIVERSARY_SHARE);

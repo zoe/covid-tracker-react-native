@@ -41,7 +41,7 @@ function Link({
         iconStyle={iconStyle}
         style={{ marginRight: 8, marginTop: 2 }}
       />
-      <Text style={{ color: linkColor }}>{linkText}</Text>
+      <Text style={{ color: linkColor, flex: 1 }}>{linkText}</Text>
     </TouchableOpacity>
   );
 }
