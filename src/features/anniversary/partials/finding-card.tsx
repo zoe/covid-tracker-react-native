@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, AccessibilityRole } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Icon, Link, Text } from '@covid/components';
+import { Icon, Text } from '@covid/components';
 import { openWebLink } from '@covid/utils/links';
 import appCoordinator from '@covid/features/AppCoordinator';
 
@@ -11,21 +11,6 @@ import { TTimelineEvent } from '../types';
 interface IProps {
   timelineEvent: TTimelineEvent;
 }
-
-// const getLink = () => {
-//   if (external_link_text && external_link) {
-//     return <Link linkText={external_link_text} onPress={() => openWebLink(external_link)} />;
-//   }
-
-//   if (route_name && route_text) {
-//     if (route_name === 'DietStudy') {
-//       return <Link linkText={route_text} onPress={() => appCoordinator.goToDietStudy()} />;
-//     } else {
-//       return <Link linkText={route_text} onPress={() => navigate(route_name)} />;
-//     }
-//   }
-//   return null;
-// };
 
 function FindingCard({ timelineEvent }: IProps) {
   const { title, sub_title, external_link_text, external_link, route_name, route_text } = timelineEvent;
