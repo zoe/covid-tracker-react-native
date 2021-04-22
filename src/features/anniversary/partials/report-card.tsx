@@ -20,10 +20,7 @@ function ReportCard({ reportedEvents }: IProps) {
       <Text rhythm={24} textClass="h4">
         Thanks for reporting
       </Text>
-      <View
-        style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 24 }}
-        accessible
-        accessibilityLabel="Reported events">
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 24 }}>
         {reportedEvents.map((reportedEvent, index) => {
           const key = `reported-event-${index}`;
           return (
