@@ -276,7 +276,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 2B2W2896D7;
 						LastSwiftMigration = 1120;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -439,10 +439,10 @@
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Covid/covid-zoe.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2B2W2896D7;
 				ENABLE_BITCODE = NO;
 				EXPO_RELEASE_CHANNEL = "$(EXPO_RELEASE_CHANNEL)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -460,7 +460,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe.qa";
 				PRODUCT_NAME = "covid-zoe Debug";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe.qa";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -679,10 +679,10 @@
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Covid/covid-zoe.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2B2W2896D7;
 				EXPO_RELEASE_CHANNEL = "$(EXPO_RELEASE_CHANNEL)";
 				INFOPLIST_FILE = Covid/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -695,7 +695,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe.qa";
 				PRODUCT_NAME = "covid-zoe Stage";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe.qa";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
