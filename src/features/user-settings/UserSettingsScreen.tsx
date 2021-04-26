@@ -41,11 +41,11 @@ interface IProps {
 
 export function UserSettingsScreen({ navigation, route }: IProps) {
   const settings = useSelector(selectSettings);
-
   const [reminderDateTime, setReminderDateTime] = useState<Date | null>(null);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
-  const [reminderEnabled, setReminderEnabled] = useState<boolean>(true);
+  const [reminderEnabled, setReminderEnabled] = useState<boolean>(false);
   const [customMessage, setCustomMessage] = useState<ILocalNotificationMEssage>(DEFAULT_MESSAGE);
+  let notificationID: string;
 
   function handleSetTime(date: Date) {
     setReminderDateTime(date);
@@ -74,7 +74,6 @@ export function UserSettingsScreen({ navigation, route }: IProps) {
   };
 
   const scheduleNotification = async () => {
-
     if (!reminderDateTime) {
       alert('Reminder time is not set!');
       return;
@@ -92,12 +91,13 @@ export function UserSettingsScreen({ navigation, route }: IProps) {
     });
   };
 
-  const toggleSwitch = (value: boolean) => {
+  const toggleSwitch = async (value: boolean) => {
     setReminderEnabled(!reminderEnabled);
     if (!value) {
       setReminderDateTime(null);
+      await Notifications.cancelScheduledNotificationAsync(notificationID);
     }
-   };
+  };
 
   useEffect(() => {
     (async () => {
