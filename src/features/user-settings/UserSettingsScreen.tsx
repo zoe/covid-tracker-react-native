@@ -74,11 +74,18 @@ export function UserSettingsScreen({ navigation, route }: IProps) {
   };
 
   const scheduleNotification = async () => {
+
+    if (!reminderDateTime) {
+      alert('Reminder time is not set!');
+      return;
+    }
+
     const dailyTriggerInput: DailyTriggerInput = {
-      hour: 11, //reminderDateTime.getHours(),
-      minute: 19, //reminderDateTime.getMinutes(),
+      hour: reminderDateTime.getHours(),
+      minute: reminderDateTime.getMinutes(),
       repeats: true,
     };
+
     const notificationId = await Notifications.scheduleNotificationAsync({
       content: customMessage,
       trigger: dailyTriggerInput,
@@ -87,7 +94,10 @@ export function UserSettingsScreen({ navigation, route }: IProps) {
 
   const toggleSwitch = (value: boolean) => {
     setReminderEnabled(!reminderEnabled);
-  };
+    if (!value) {
+      setReminderDateTime(null);
+    }
+   };
 
   useEffect(() => {
     (async () => {
