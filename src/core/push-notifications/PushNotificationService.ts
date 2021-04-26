@@ -1,7 +1,7 @@
 import { Platform, Linking } from 'react-native';
 import * as IntentLauncher from 'expo-intent-launcher';
 
-import { aWeekAgo, isDateBefore, now } from '@covid/utils/datetime';
+import { isDateBefore, now, yesterday } from '@covid/utils/datetime';
 
 import { IStorageService } from '../LocalStorageService';
 import { IApiClient } from '../api/ApiClient';
@@ -59,7 +59,7 @@ export default class PushNotificationService {
     this.environment = environment;
   }
 
-  private async createPushToken(): Promise<PushToken | null> {
+  private async fetchProviderPushToken(): Promise<PushToken | null> {
     const token = await this.environment.getPushToken();
     return token ? createTokenDoc(token) : null;
   }
@@ -70,41 +70,39 @@ export default class PushNotificationService {
   }
 
   private async savePushToken(pushToken: PushToken) {
-    pushToken.lastUpdated = now();
     return await this.storage.setObject<PushToken>(KEY_PUSH_TOKEN, pushToken);
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {
-    return isDateBefore(pushToken.lastUpdated, aWeekAgo());
+    return isDateBefore(pushToken.lastUpdated, yesterday());
   }
 
-  private async sendPushToken(pushToken: PushToken) {
-    await this.apiClient.updatePushToken(pushToken);
-    await this.savePushToken(pushToken);
-  }
-
-  async refreshPushToken() {
+  async subscribeForPushNotifications() {
     try {
-      const pushToken = await this.getSavedPushToken();
+      // Always look to our local storage first.
+      let notify_backend = false;
+      let pushToken = await this.getSavedPushToken();
+
       if (!pushToken) {
-        await this.initPushToken();
+        // We don't even have a push token yet - fetch one!
+        pushToken = await this.fetchProviderPushToken();
+        notify_backend = true;
+        Analytics.track(events.NOTIFICATION_ENABLED);
       } else if (this.tokenNeedsRefreshing(pushToken)) {
-        await this.sendPushToken(pushToken);
+        // We need to re-fetch because it's been a while and might have changed.
+        pushToken = await this.fetchProviderPushToken();
+        notify_backend = true;
+        Analytics.track(events.NOTIFICATION_REFRESHED);
+      }
+
+      if (notify_backend && pushToken) {
+        // Send to our backend first and save locally only once successful.
+        await this.apiClient.updatePushToken(pushToken);
+        await this.savePushToken(pushToken);
       }
     } catch (error) {
-      // Do nothing.
-    }
-  }
-
-  async initPushToken() {
-    const pushToken = await this.createPushToken();
-    if (pushToken) {
-      try {
-        await this.sendPushToken(pushToken);
-        Analytics.track(events.NOTIFICATION_ENABLED);
-      } catch (error) {
-        // Fail silently
-      }
+      // Fail silently, safe in the knowledge that we will try this again as soon
+      // as the app is restarted.
     }
   }
 
