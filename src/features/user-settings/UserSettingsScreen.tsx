@@ -102,7 +102,7 @@ export function UserSettingsScreen({ navigation, route }: IProps) {
           <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
 
           <Header>
-            <HeaderText style={{ marginTop: 16, marginBottom: 32 }}>{i18n.t('user-settings-reminder')}</HeaderText>
+            <HeaderText style={{ marginTop: 16, marginBottom: 32 }}>Edit Daily Reminder</HeaderText>
 
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <RegularBoldText style={{ marginBottom: 32 }}>
