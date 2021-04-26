@@ -72,6 +72,14 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           }}
         />
 
+        <MenuItem
+          image={<EditProfilesIcon />}
+          label={i18n.t('nav-user-settings')}
+          onPress={() => {
+            NavigatorService.navigate('UserSettings', { assessmentFlow: false });
+          }}
+        />
+
         {showVaccineRegistry && (
           <MenuItem
             image={<VaccineRegistryIcon />}

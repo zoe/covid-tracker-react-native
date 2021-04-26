@@ -773,6 +773,8 @@
   "select-profile-last-report": "Último informe:",
   "default-profile-name": "Yo",
 
+  "user-settings-title": "Edit User Settings",
+
   "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
   "validation-error-please-select-option": "Please select an option",
 

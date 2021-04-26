@@ -604,6 +604,8 @@
   "select-profile-last-report": "Last report:",
   "default-profile-name": "Me",
 
+  "user-settings-title": "Edit User Settings",
+
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
   "validation-error-please-select-option": "Please select an option",
 

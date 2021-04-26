@@ -536,6 +536,8 @@
   "select-profile-last-report": "Sista rapport:",
   "default-profile-name": "Jag",
 
+  "user-settings-title": "Edit User Settings",
+
   "next-question": "Nästa fråga",
   "completed": "Klar",
   "something-went-wrong": "Någonting gick fel, var god försök igen senare",
