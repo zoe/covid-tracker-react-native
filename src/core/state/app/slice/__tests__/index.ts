@@ -1,9 +1,14 @@
 import store from '../../../store';
-import { initialState, reset, setDashboardHasBeenViewed, setLoggedVaccine, setMentalHealthStudyActive } from '../index';
+import {
+  appInitialState,
+  reset,
+  setDashboardHasBeenViewed,
+  setLoggedVaccine,
+  setMentalHealthStudyActive,
+} from '../index';
 
 describe('\n** redux app state **\n', () => {
   let state = store.getState().app;
-  // const unchangedBook = state.bookList.find((book) => book.id === '1');
   it('should initially set the dashboard has been viewed to false', () => {
     expect(state.dashboardHasBeenViewed).toBe(false);
   });
@@ -31,6 +36,6 @@ describe('\n** redux app state **\n', () => {
   it('should be able to reset all app values back to initial state', () => {
     store.dispatch(reset());
     state = store.getState().app;
-    expect(state).toEqual(initialState);
+    expect(state).toEqual(appInitialState);
   });
 });

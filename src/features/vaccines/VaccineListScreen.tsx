@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StyleSheet, View } from 'react-native';
@@ -20,8 +20,11 @@ import { useAppDispatch } from '@covid/core/state/store';
 import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
 import { RootState } from '@covid/core/state/root';
 import NavigatorService from '@covid/NavigatorService';
-import { useMessage } from '@covid/common';
-import { selectApp } from '@covid/core/state';
+import { selectApp, setLoggedVaccine } from '@covid/core/state';
+import { VaccineWarning } from '@covid/features/vaccines/components';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { openWebLink } from '@covid/utils/links';
+import { IUIAction } from '@covid/common';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -35,9 +38,9 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = assessmentCoordinator;
   const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [showVaccineWarning, setShowVaccineWarning] = useState<boolean>(false);
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
-  const { addMessage, removeMessage } = useMessage();
   const app = useSelector(selectApp);
 
   useFocusEffect(
@@ -141,6 +144,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       );
     }
   };
+
   const showPopup = () => {
     NavigatorService.navigate('VaccineListMissing', { vaccine: vaccines[0] });
   };
@@ -152,6 +156,36 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       showPopup();
     }
   };
+
+  useEffect(() => {
+    if (app.loggedVaccine) {
+      setShowVaccineWarning(true);
+    }
+  }, [app.loggedVaccine]);
+
+  const actions: IUIAction[] = [
+    ...(isSECountry()
+      ? [
+          {
+            label: i18n.t('navigation.learn-more'),
+            action: () => {
+              setShowVaccineWarning(false);
+              dispatch(setLoggedVaccine(false));
+              openWebLink(
+                'https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/information-for-dig-om-vaccinationen/efter-vaccinationen--fortsatt-folja-de-allmanna-raden/'
+              );
+            },
+          },
+        ]
+      : []),
+    {
+      label: i18n.t('navigation.dismiss'),
+      action: () => {
+        setShowVaccineWarning(false);
+        dispatch(setLoggedVaccine(false));
+      },
+    },
+  ];
 
   // Disable the banner popup until we can solve the "cannot call hook" problem
   //
@@ -191,6 +225,8 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={styles.rootContainer}>
+      {showVaccineWarning && <VaccineWarning actions={actions} />}
+
       <Screen profile={patientData.patientState.profile} navigation={navigation}>
         <HeaderText style={{ margin: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
 

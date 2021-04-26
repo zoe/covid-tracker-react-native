@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { shareVaccineBanner, shareVaccine } from '@assets';
+import { shareVaccine, shareVaccineBanner } from '@assets';
 
 import { ExternalCallout } from '../ExternalCallout';
 
