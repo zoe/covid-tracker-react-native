@@ -12,7 +12,7 @@ interface IProps {
 
 function ImpactTimelineCard({ onPress, size = 'SMALL' }: IProps) {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} accessible accessibilityLabel="Tap to view your Timeline">
       <Image
         source={size === 'SMALL' ? impactTimeline : impactTimeline2}
         style={{

@@ -29,7 +29,11 @@ function Link({
   const linkColor = color ? color : 'purple';
   const iSize = iconSize ? iconSize : 16;
   return (
-    <TouchableOpacity style={{ flexDirection: 'row', ...style }} onPress={onPress}>
+    <TouchableOpacity
+      style={{ flexDirection: 'row', ...style }}
+      onPress={onPress}
+      accessible
+      accessibilityRole="button">
       <Icon
         color={linkColor}
         iconName={iconName}
@@ -37,7 +41,7 @@ function Link({
         iconStyle={iconStyle}
         style={{ marginRight: 8, marginTop: 2 }}
       />
-      <Text style={{ color: linkColor }}>{linkText}</Text>
+      <Text style={{ color: linkColor, flex: 1 }}>{linkText}</Text>
     </TouchableOpacity>
   );
 }

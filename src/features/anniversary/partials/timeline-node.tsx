@@ -13,7 +13,7 @@ interface IProps {
 
 function TimelineNode({ timelineEvent, dateFormat = 'Do MMMM YYYY' }: IProps) {
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container]} accessible>
       <View style={styles.row}>
         <View style={styles.node} />
         <Text textClass="pSmall" style={styles.date}>

@@ -53,7 +53,7 @@ function Option({ label, handleOnPress, toValue, yValue }: IProps) {
   return (
     <Animated.View
       style={[{ borderWidth: 1, borderColor: 'green', position: 'absolute', opacity, transform: [{ translateY }] }]}>
-      <TouchableOpacity onPress={handleOnPress}>
+      <TouchableOpacity onPress={handleOnPress} accessible accessibilityRole="button">
         <View style={styles.row}>
           <View style={styles.textContainer}>
             <Text>{label}</Text>

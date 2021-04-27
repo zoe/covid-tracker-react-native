@@ -35,6 +35,8 @@ function ThemeButton({
   const inverted = !!(outline || simple);
   return (
     <STouchableOpacity
+      accessible
+      accessibilityRole="button"
       colorPalette={colorPalette}
       colorShade={colorShade}
       disabled={disabled}

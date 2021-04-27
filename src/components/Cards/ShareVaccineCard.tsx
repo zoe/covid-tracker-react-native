@@ -27,6 +27,7 @@ export function ShareVaccineCard({ screenName, isSharing = false }: IProps) {
 
       {isSharing && (
         <ExternalCallout
+          isSharing
           calloutID="shareVaccine"
           imageSource={shareVaccine}
           aspectRatio={1125 / 877}
