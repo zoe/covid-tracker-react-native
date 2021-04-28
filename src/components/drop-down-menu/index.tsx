@@ -20,10 +20,10 @@ function DropDownMenu() {
       </Pressable>
       {active && (
         <Modal transparent visible>
-          <TouchableWithoutFeedback onPress={() => setActive(false)}>
-            <View style={{ flexGrow: 1 }}>
-              <View style={styles.dropdown}>
-                <Pressable onPress={() => handleSelectItem('Menu item one')}>
+          <TouchableWithoutFeedback onPress={() => setActive(false)} accessible={false}>
+            <View style={{ flexGrow: 1 }} accessible={false}>
+              <View style={styles.dropdown} accessible={false}>
+                <Pressable onPress={() => handleSelectItem('Menu item one')} accessible>
                   <Text>Menu item one</Text>
                 </Pressable>
                 <Pressable onPress={() => handleSelectItem('Menu item two')}>
@@ -35,7 +35,7 @@ function DropDownMenu() {
                 <Pressable onPress={() => handleSelectItem('Menu item four')}>
                   <Text>Menu item four</Text>
                 </Pressable>
-                <Pressable onPress={() => handleSelectItem('Menu item five')}>
+                <Pressable onPress={() => handleSelectItem('Menu item five')} accessible>
                   <Text>Menu item five</Text>
                 </Pressable>
               </View>
