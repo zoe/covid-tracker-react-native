@@ -13,7 +13,7 @@ metadata:
     github.com/project-slug: zoe/covid-tracker-react-native
   tags:
     - typescript
-    - react native
+    - react-native
 spec:
   type: service
   owner: covid-team
