@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ZOE COVID Symptom Study
+  name: covid-symptom-study
   description: |
     React Native Mobile App for COVID Symptom tracking and insights.
   links:
