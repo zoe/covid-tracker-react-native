@@ -15,7 +15,7 @@ metadata:
     - typescript
     - react native
 spec:
-  type: mobile app
+  type: service
   owner: covid-team
   lifecycle: production
   slack: #prj-covid-dev
