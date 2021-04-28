@@ -6,6 +6,7 @@ export * from './Cards';
 export * from './Checkbox';
 export * from './Content';
 export * from './DropdownField';
+export { default as DropDownMenu } from './drop-down-menu';
 export { default as Fab } from './fab';
 export * from './icons';
 export * from './Inputs';

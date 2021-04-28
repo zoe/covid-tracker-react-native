@@ -17,7 +17,7 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks, Fab } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks, Fab, DropDownMenu } from '@covid/components';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -160,6 +160,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
         compactHeader={<CompactHeader reportOnPress={onReport} />}
         expandedHeader={<Header reportOnPress={onReport} />}>
         <View style={styles.calloutContainer}>
+          {/* delete me */}
+          <DropDownMenu />
+          {/* end delete me */}
           {startupInfo?.show_timeline && (
             <ImpactTimelineCard
               onPress={() => {
