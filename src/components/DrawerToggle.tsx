@@ -14,6 +14,9 @@ type Props = {
 
 export const DrawerToggle: React.FC<Props> = (props) => (
   <TouchableOpacity
+    accessible
+    accessibilityRole="button"
+    accessibilityLabel="Menu"
     onPress={() => {
       props.navigation.toggleDrawer();
     }}>

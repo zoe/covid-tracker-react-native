@@ -21,6 +21,8 @@ function ActionCard({ actionTitle, buttonColor, children, onPress, outline, text
   return (
     <View style={[styles.wrapper, { padding: grid.gutter }]}>
       <TouchableOpacity
+        accessible
+        accessibilityRole="button"
         onPress={onPress}
         style={[styles.container, styles.shadow, { paddingHorizontal: grid.gutter, paddingVertical: grid.xxl }]}>
         <View style={{ marginBottom: grid.l }}>

@@ -20,7 +20,7 @@ function DietStudyCard({ style }: IProps) {
 
   return (
     <TouchableOpacity onPress={handleOnPress}>
-      <View style={[styles.container, styles.shadow, style]}>
+      <View style={[styles.container, style]}>
         <View style={[styles.row, { marginBottom: 12 }]}>
           <View style={styles.column}>
             <QuoteMarks />

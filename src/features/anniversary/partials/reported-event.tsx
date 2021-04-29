@@ -39,11 +39,12 @@ function ReportedEvent({ reportedEvent }: IProps) {
 
   return (
     <View
+      accessible
       style={{
         alignItems: 'center',
         padding: 4,
       }}>
-      <Icon iconName={getMappedIconName()} iconSize={24} style={{ marginBottom: 8 }} />
+      <Icon iconName={getMappedIconName()} iconSize={24} style={{ marginBottom: 10 }} />
       <Text textClass="pXSmallMedium" textAlign="center">
         {reportedEvent.text}
       </Text>

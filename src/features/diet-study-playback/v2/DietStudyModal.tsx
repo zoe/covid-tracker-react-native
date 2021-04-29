@@ -59,6 +59,8 @@ function DietStudyModal() {
           </View>
           <View>
             <TouchableOpacity
+              accessible
+              accessibilityRole="button"
               style={[styles.button, { backgroundColor: '#0165B5' }]}
               onPress={() => handleSetConsent('YES')}>
               <Text textClass="pSmallLight" style={{ color: 'white' }}>
@@ -66,6 +68,8 @@ function DietStudyModal() {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible
+              accessibilityRole="button"
               style={[styles.button, { backgroundColor: '#EEEEEF' }]}
               onPress={() => handleSetConsent('NO')}>
               <Text textClass="pSmallLight">{i18n.t('diet-study.modal-answer-no')}</Text>
