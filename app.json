@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "zoe_covid_study",
+    "scheme": "zoe-covid-study",
     "name": "COVID Symptom Study",
     "slug": "covid-zoe",
     "owner": "julien.lavigne",
