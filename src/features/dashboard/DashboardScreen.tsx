@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import * as Linking from 'expo-linking';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase';
@@ -144,6 +145,12 @@ export function DashboardScreen({ navigation, route }: IProps) {
     return function () {
       isMounted = false;
     };
+  }, []);
+
+  useEffect(() => {
+    Linking.addEventListener('url', (url) => {
+      // TODO - get route from deeplink url
+    });
   }, []);
 
   // useEffect(() => {
