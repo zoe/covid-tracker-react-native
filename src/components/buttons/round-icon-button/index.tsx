@@ -29,6 +29,8 @@ function RoundIconButton({
 }: IProps) {
   return (
     <TouchableOpacity
+      accessible
+      accessibilityRole="button"
       onPress={onPress}
       style={{
         alignItems: 'center',

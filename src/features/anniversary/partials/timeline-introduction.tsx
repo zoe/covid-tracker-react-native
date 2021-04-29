@@ -8,7 +8,7 @@ import { colors } from '@theme';
 function TimelineIntroduction() {
   const { grid } = useTheme();
   return (
-    <View style={{ padding: grid.gutter }}>
+    <View style={{ padding: grid.gutter }} accessible>
       <Text textClass="h3" rhythm={32}>
         Your unique contribution to science
       </Text>
