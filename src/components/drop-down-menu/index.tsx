@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Pressable, StyleSheet, View, Modal, TouchableWithoutFeedback } from 'react-native';
 
 import { Text } from '../typography';
@@ -6,15 +6,24 @@ import { Text } from '../typography';
 function DropDownMenu() {
   const [active, setActive] = useState(false);
   const [label, setLabel] = useState('select from list');
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const holder = useRef();
 
   const handleSelectItem = (selectedLabel: string) => {
     setLabel(selectedLabel);
     setActive(false);
+    console.log(holder.current());
   };
 
   return (
-    <View>
-      {console.log('active: ', active)}
+    <View
+      ref={holder}
+      onLayout={(event) => {
+        console.log('layout: ', event.nativeEvent);
+        setX(event.nativeEvent.layout.x);
+        setY(event.nativeEvent.layout.y);
+      }}>
       <Pressable onPress={() => setActive(!active)}>
         <Text>{label}</Text>
       </Pressable>
@@ -22,7 +31,7 @@ function DropDownMenu() {
         <Modal transparent visible>
           <TouchableWithoutFeedback onPress={() => setActive(false)} accessible={false}>
             <View style={{ flexGrow: 1 }} accessible={false}>
-              <View style={styles.dropdown} accessible={false}>
+              <View style={[styles.dropdown, { left: x, top: y }]} accessible={false}>
                 <Pressable onPress={() => handleSelectItem('Menu item one')} accessible>
                   <Text>Menu item one</Text>
                 </Pressable>
@@ -35,7 +44,7 @@ function DropDownMenu() {
                 <Pressable onPress={() => handleSelectItem('Menu item four')}>
                   <Text>Menu item four</Text>
                 </Pressable>
-                <Pressable onPress={() => handleSelectItem('Menu item five')} accessible>
+                <Pressable onPress={() => handleSelectItem('Menu item five')}>
                   <Text>Menu item five</Text>
                 </Pressable>
               </View>
