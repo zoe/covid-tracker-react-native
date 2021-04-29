@@ -149,9 +149,10 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   useEffect(() => {
     Linking.addEventListener('url', (url) => {
-      // TODO
+      // TODO - get route from deeplink url
     });
   }, []);
+
   // useEffect(() => {
   //   listProfiles();
   // }, []);
