@@ -147,8 +147,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   useEffect(() => {
     Linking.addEventListener('url', (url) => {
-      console.log('Test link recieved', url);
-      // if (url) appCoordinator.goToDietStudy();
+      // TODO
     });
   }, []);
 

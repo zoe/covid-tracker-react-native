@@ -61,10 +61,9 @@ class SplashScreen extends Component<Props, SplashState> {
 
   async componentDidMount() {
     Linking.getInitialURL().then(async (url) => {
-      let screenName: keyof ScreenParamList = this.props.route.name;
+      const screenName: keyof ScreenParamList = this.props.route.name; // change to let when implemented
       if (url) {
-        console.log('url: ', url);
-        screenName = 'Anniversary';
+        // TODO - set screenName to url deeplink
       }
       try {
         await this.initAppState(screenName);
