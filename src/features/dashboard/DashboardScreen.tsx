@@ -159,7 +159,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
         navigation={navigation}
         compactHeader={<CompactHeader reportOnPress={onReport} />}
         expandedHeader={<Header reportOnPress={onReport} />}>
-        <View style={styles.calloutContainer} onLayout={(event) => console.log('EVEnt: ', event.nativeEvent.layout)}>
+        <View style={styles.calloutContainer}>
           {/* delete me */}
           <DropDownMenu />
           {/* end delete me */}

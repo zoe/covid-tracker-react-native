@@ -8,23 +8,24 @@ function DropDownMenu() {
   const [label, setLabel] = useState('select from list');
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const holder = useRef();
+  const holder = useRef<View>(null);
 
   const handleSelectItem = (selectedLabel: string) => {
     setLabel(selectedLabel);
     setActive(false);
-    console.log(holder.current());
+  };
+
+  const handleShowMenu = () => {
+    holder.current?.measure((x, y, width, height, px, py) => {
+      setY(py + height);
+      setX(x);
+      setActive(true);
+    });
   };
 
   return (
-    <View
-      ref={holder}
-      onLayout={(event) => {
-        console.log('layout: ', event.nativeEvent);
-        setX(event.nativeEvent.layout.x);
-        setY(event.nativeEvent.layout.y);
-      }}>
-      <Pressable onPress={() => setActive(!active)}>
+    <View ref={holder}>
+      <Pressable onPress={handleShowMenu}>
         <Text>{label}</Text>
       </Pressable>
       {active && (
