@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Dimensions, Pressable, StyleSheet, View, Modal, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, Pressable, ScrollView, StyleSheet, View, Modal, TouchableWithoutFeedback } from 'react-native';
 
 import { Text } from '../typography';
 
@@ -43,21 +43,23 @@ function DropDownMenu() {
           <TouchableWithoutFeedback onPress={() => setActive(false)} accessible={false}>
             <View style={{ flexGrow: 1 }} accessible={false}>
               <View style={[styles.dropdown, { left: x, top: y, width: w }]} accessible={false}>
-                <Pressable onPress={() => handleSelectItem('Menu item one')} accessible>
-                  <Text>Menu item one</Text>
-                </Pressable>
-                <Pressable onPress={() => handleSelectItem('Menu item two')}>
-                  <Text>Menu item two</Text>
-                </Pressable>
-                <Pressable onPress={() => handleSelectItem('Menu item three')}>
-                  <Text>Menu item three</Text>
-                </Pressable>
-                <Pressable onPress={() => handleSelectItem('Menu item four')}>
-                  <Text>Menu item four</Text>
-                </Pressable>
-                <Pressable onPress={() => handleSelectItem('Menu item five')}>
-                  <Text>Menu item five</Text>
-                </Pressable>
+                <ScrollView>
+                  <Pressable onPress={() => handleSelectItem('Menu item one')} accessible>
+                    <Text>Menu item one</Text>
+                  </Pressable>
+                  <Pressable onPress={() => handleSelectItem('Menu item two')}>
+                    <Text>Menu item two</Text>
+                  </Pressable>
+                  <Pressable onPress={() => handleSelectItem('Menu item three')}>
+                    <Text>Menu item three</Text>
+                  </Pressable>
+                  <Pressable onPress={() => handleSelectItem('Menu item four')}>
+                    <Text>Menu item four</Text>
+                  </Pressable>
+                  <Pressable onPress={() => handleSelectItem('Menu item five')}>
+                    <Text>Menu item five</Text>
+                  </Pressable>
+                </ScrollView>
               </View>
             </View>
           </TouchableWithoutFeedback>
