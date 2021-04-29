@@ -1,13 +1,16 @@
 import React, { useState, useRef } from 'react';
-import { Pressable, StyleSheet, View, Modal, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, Pressable, StyleSheet, View, Modal, TouchableWithoutFeedback } from 'react-native';
 
 import { Text } from '../typography';
+
+const MENU_HEIGHT = 100; // TEMP
 
 function DropDownMenu() {
   const [active, setActive] = useState(false);
   const [label, setLabel] = useState('select from list');
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
+  const [w, setWidth] = useState(0);
   const holder = useRef<View>(null);
 
   const handleSelectItem = (selectedLabel: string) => {
@@ -16,9 +19,16 @@ function DropDownMenu() {
   };
 
   const handleShowMenu = () => {
-    holder.current?.measure((x, y, width, height, px, py) => {
-      setY(py + height);
-      setX(x);
+    const { height } = Dimensions.get('window');
+    holder.current?.measure((x, y, w, h, px, py) => {
+      let menuY = py + h;
+      const areaY = menuY + MENU_HEIGHT;
+      if (areaY > height) {
+        menuY = py - MENU_HEIGHT;
+      }
+      setY(menuY);
+      setX(px);
+      setWidth(w);
       setActive(true);
     });
   };
@@ -26,13 +36,13 @@ function DropDownMenu() {
   return (
     <View ref={holder}>
       <Pressable onPress={handleShowMenu}>
-        <Text>{label}</Text>
+        <Text style={{ padding: 8, backgroundColor: 'white' }}>{label}</Text>
       </Pressable>
       {active && (
         <Modal transparent visible>
           <TouchableWithoutFeedback onPress={() => setActive(false)} accessible={false}>
             <View style={{ flexGrow: 1 }} accessible={false}>
-              <View style={[styles.dropdown, { left: x, top: y }]} accessible={false}>
+              <View style={[styles.dropdown, { left: x, top: y, width: w }]} accessible={false}>
                 <Pressable onPress={() => handleSelectItem('Menu item one')} accessible>
                   <Text>Menu item one</Text>
                 </Pressable>
@@ -64,14 +74,13 @@ const styles = StyleSheet.create({
     top: 16,
   },
   dropdown: {
-    position: 'absolute',
-    height: (33 + StyleSheet.hairlineWidth) * 5,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'lightgray',
-    borderRadius: 2,
     backgroundColor: 'white',
-    justifyContent: 'center',
+    borderColor: 'pink',
+    borderWidth: 1,
+    height: MENU_HEIGHT,
+    overflow: 'hidden',
     padding: 8,
+    position: 'absolute',
   },
 });
 

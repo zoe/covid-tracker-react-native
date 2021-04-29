@@ -160,9 +160,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
         compactHeader={<CompactHeader reportOnPress={onReport} />}
         expandedHeader={<Header reportOnPress={onReport} />}>
         <View style={styles.calloutContainer}>
-          {/* delete me */}
-          <DropDownMenu />
-          {/* end delete me */}
           {startupInfo?.show_timeline && (
             <ImpactTimelineCard
               onPress={() => {
@@ -174,6 +171,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
           {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
           <ShareVaccineCard screenName="Dashboard" />
+          {/* delete me */}
+          <DropDownMenu />
+          {/* end delete me */}
 
           <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
