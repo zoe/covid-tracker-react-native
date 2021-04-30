@@ -1,6 +1,6 @@
 {
   "name": "Covid",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "scripts": {
     "android": "ENVFILE=.env.staging react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe.qa",
     "android:devices": " ~/Library/Android/sdk/emulator/emulator -list-avds",
