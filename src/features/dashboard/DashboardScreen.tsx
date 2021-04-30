@@ -171,6 +171,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
           {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
 
           <ShareVaccineCard screenName="Dashboard" />
+
           {/* delete me */}
           <DropDownMenu />
           {/* end delete me */}

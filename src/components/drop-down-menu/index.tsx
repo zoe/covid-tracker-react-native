@@ -5,6 +5,8 @@ import { Text } from '../typography';
 
 const MENU_HEIGHT = 100; // TEMP
 
+// POC: This will work with a screen reader but needs completing.
+
 function DropDownMenu() {
   const [active, setActive] = useState(false);
   const [label, setLabel] = useState('select from list');
