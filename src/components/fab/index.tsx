@@ -40,7 +40,11 @@ function Fab({ profiles }: IProps) {
             />
           );
         })}
-        <TouchableOpacity style={styles.button} onPress={() => setActive(!active)}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setActive(!active)}
+          accessible
+          accessibilityRole="button">
           <Icon iconName="health-insurance" iconSize={32} />
         </TouchableOpacity>
       </View>

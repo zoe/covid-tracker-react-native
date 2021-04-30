@@ -75,6 +75,7 @@
     "expo-file-system": "9.2.0",
     "expo-font": "8.4.0",
     "expo-intent-launcher": "8.3.0",
+    "expo-linking": "2.1.1",
     "expo-localization": "9.0.0",
     "expo-notifications": "0.7.2",
     "expo-sharing": "8.4.1",

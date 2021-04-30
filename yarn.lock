@@ -8189,7 +8189,7 @@ expo-cli@4.3.5:
     wrap-ansi "^7.0.0"
     xdl "59.0.30"
 
-expo-constants@*:
+expo-constants@*, expo-constants@~10.0.0:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-10.0.1.tgz#a6cf6998c70ef6e1772a7c4096723482194c5828"
   integrity sha512-SnMIX1PnTz3AgGcFd+paCb8Ur0WfEiBjEZ7TxCdwpk7XVQO4etCzn6auNutCd4PBc4YVNvmKF9e0WFgLxy4NRQ==
@@ -8261,6 +8261,16 @@ expo-linear-gradient@~8.3.0:
   version "8.3.1"
   resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-8.3.1.tgz#5dd3878c0700035d55241a4a453c5e224acc60ff"
   integrity sha512-zlWGua8vm7+af4otaSpJlzu0SYIr0aWbL0qICySCDUEKkqig6MqfuI69NYHC0w9ocWZuh2xyj6Rbfy01UqcVSg==
+
+expo-linking@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/expo-linking/-/expo-linking-2.1.1.tgz#90cdf6740f2af4507c5d977a0900e13b03a1ae6a"
+  integrity sha512-pY3d2/eZH0VPtD2f1kPzTuU2cfAVz6s6S4bb8lSTgp1jOmqY1KA2xslMi+vxRQKjqDWvHGsGMsYyUxJIKJzAmw==
+  dependencies:
+    expo-constants "~10.0.0"
+    invariant "^2.2.4"
+    qs "^6.5.0"
+    url-parse "^1.4.4"
 
 expo-linking@~1.0.4:
   version "1.0.7"

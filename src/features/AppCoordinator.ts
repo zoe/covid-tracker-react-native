@@ -136,6 +136,10 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     VaccineRegistryInfo: () => {
       NavigatorService.navigate(homeScreenName());
     },
+    // added to make available to gotoNextscreen
+    Anniversary: () => {
+      NavigatorService.navigate('Anniversary');
+    },
   };
 
   async init(setUsername: (username: string) => void, setPatients: (patients: string[]) => void) {
