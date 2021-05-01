@@ -50,6 +50,7 @@ import {
   SchoolHowToScreen,
   SchoolIntroScreen,
   SelectProfileScreen,
+  UserSettingsScreen,
   SplashScreen,
   TermsOfUseUSScreen,
   ThankYouUKScreen,
@@ -147,6 +148,7 @@ function MainNavigator() {
       <Stack.Screen name="ConsentForOther" component={ConsentForOtherScreen} options={noHeader} />
       <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={noHeader} />
       <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={noHeader} />
+      <Stack.Screen name="UserSettings" component={UserSettingsScreen} options={noHeader} />
       <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={noHeader} />
       <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={noHeader} />
       <Stack.Screen name="ValidationStudyIntro" component={ValidationStudyIntroScreen} options={noHeader} />

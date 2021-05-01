@@ -523,6 +523,7 @@
   "faqs": "Frequently asked questions",
   "privacy-policy": "Privacy policy",
   "nav-edit-profile": "Edit profile",
+  "nav-user-settings": "User Settings",
   "nav-share-this-app": "Share this app",
   "delete-my-data": "Delete my data",
   "delete-data-alert-title": "Are you sure?",
@@ -580,6 +581,8 @@
   "select-profile-button": "New profile",
   "select-profile-last-report": "Last report:",
   "default-profile-name": "Me",
+
+  "user-settings-title": "Edit User Settings",
 
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
   "validation-error-please-select-option": "Please select an option",

@@ -479,6 +479,7 @@
   "faqs": "Vanliga frågor",
   "privacy-policy": "Integritetsmeddelande",
   "nav-edit-profile": "Min profil",
+  "nav-user-settings": "User Settings",
   "nav-share-this-app": "Dela appen",
   "delete-my-data": "Ta bort mina uppgifter",
   "delete-data-alert-title": "Är du säker?",
@@ -534,6 +535,8 @@
   "select-profile-button": "Ny profil",
   "select-profile-last-report": "Sista rapport:",
   "default-profile-name": "Jag",
+
+  "user-settings-title": "Edit User Settings",
 
   "next-question": "Nästa fråga",
   "completed": "Klar",
