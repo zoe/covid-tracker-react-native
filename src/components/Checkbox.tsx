@@ -52,7 +52,11 @@ interface ICheckboxListProps {
 export function CheckboxItem(props: ICheckboxProps) {
   return (
     <Item style={checkboxStyles.checkboxRow}>
-      <TouchableOpacity style={checkboxStyles.checkBox} onPress={() => props.onChange(!props.value)}>
+      <TouchableOpacity
+        style={checkboxStyles.checkBox}
+        onPress={() => props.onChange(!props.value)}
+        accessible
+        accessibilityRole="checkbox">
         {props.value && <Check />}
       </TouchableOpacity>
       <Item style={checkboxStyles.checkBoxText} onPress={() => props.onChange(!props.value)}>
