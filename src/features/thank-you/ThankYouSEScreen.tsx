@@ -63,16 +63,7 @@ export default class ThankYouSEScreen extends Component<RenderProps, State> {
                 <RegularText style={styles.subTitle}> {i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              {/*<FacebookSECard />*/}
-
-              <ExternalCallout
-                calloutID="se_blog_001"
-                imageSource={seBlog001}
-                aspectRatio={1.777}
-                screenName={this.props.route.name}
-                imageStyles={{ borderRadius: 8 }}
-                link="https://www.facebook.com/events/356299709120596/"
-              />
+              <FacebookSECard />
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
