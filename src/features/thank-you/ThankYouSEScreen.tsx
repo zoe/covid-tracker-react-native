@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { notificationRemindersSE, seBlog001 } from '@assets';
+import { notificationRemindersSE } from '@assets';
 import { colors, fontStyles } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { Header } from '@covid/components/Screen';
