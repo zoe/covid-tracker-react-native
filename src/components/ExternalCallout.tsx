@@ -22,20 +22,21 @@ import { ContentLoadingView } from '@covid/components/Content/ContentLoadingView
 import i18n from '@covid/locale/i18n';
 
 type ExternalCalloutProps = {
-  link?: string;
-  calloutID: string;
-  imageSource: ImageSourcePropType;
   aspectRatio: number;
-  postClicked?: VoidFunction;
-  screenName: string;
-  imageStyles?: StyleProp<ImageStyle>;
+  calloutID: string;
   canDismiss?: boolean;
   disableLoadingState?: boolean;
+  imageSource: ImageSourcePropType;
+  imageStyles?: StyleProp<ImageStyle>;
   isSharing?: boolean;
+  link?: string;
+  orderIndex?: number;
+  postClicked?: VoidFunction;
+  screenName: string;
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
-  const { calloutID, link, screenName, postClicked, canDismiss } = props;
+  const { calloutID, link, screenName, postClicked, canDismiss, orderIndex } = props;
   const dismissedCalloutIds = useSelector<RootState, string[]>((state) => state.content.dismissedCallouts);
   const [dismissed, setDismissed] = useState<boolean>(false);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
@@ -72,13 +73,13 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   }, []);
 
   function clickCallout() {
-    Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
+    Analytics.track(events.CLICK_CALLOUT, { calloutID, orderIndex, screenName });
     if (link) openWebLink(link);
     if (postClicked) postClicked();
   }
 
   function clickDismiss() {
-    Analytics.track(events.CLICK_CALLOUT_DISMISS, { calloutID, screenName });
+    Analytics.track(events.CLICK_CALLOUT_DISMISS, { calloutID, orderIndex, screenName });
     dispatch(addDismissCallout(calloutID));
   }
 
