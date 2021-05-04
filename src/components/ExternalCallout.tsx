@@ -36,7 +36,6 @@ type ExternalCalloutProps = {
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
-  const { calloutID, link, screenName, postClicked, canDismiss, orderIndex } = props;
   const dismissedCalloutIds = useSelector<RootState, string[]>((state) => state.content.dismissedCallouts);
   const [dismissed, setDismissed] = useState<boolean>(false);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
@@ -65,7 +64,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   };
 
   useEffect(() => {
-    setDismissed(dismissedCalloutIds.includes(calloutID));
+    setDismissed(dismissedCalloutIds.includes(props.calloutID));
   }, [dismissedCalloutIds]);
 
   useEffect(() => {
@@ -73,14 +72,22 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   }, []);
 
   function clickCallout() {
-    Analytics.track(events.CLICK_CALLOUT, { calloutID, orderIndex, screenName });
-    if (link) openWebLink(link);
-    if (postClicked) postClicked();
+    Analytics.track(events.CLICK_CALLOUT, {
+      calloutID: props.calloutID,
+      orderIndex: props.orderIndex,
+      screenName: props.screenName,
+    });
+    if (props.link) openWebLink(props.link);
+    if (props.postClicked) props.postClicked();
   }
 
   function clickDismiss() {
-    Analytics.track(events.CLICK_CALLOUT_DISMISS, { calloutID, orderIndex, screenName });
-    dispatch(addDismissCallout(calloutID));
+    Analytics.track(events.CLICK_CALLOUT_DISMISS, {
+      calloutID: props.calloutID,
+      orderIndex: props.orderIndex,
+      screenName: props.screenName,
+    });
+    dispatch(addDismissCallout(props.calloutID));
   }
 
   return (
@@ -99,7 +106,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
             ) : (
               <Image {...imageProps} source={props.imageSource} />
             )}
-            {canDismiss && !props.isSharing && (
+            {props.canDismiss && !props.isSharing && (
               <TouchableWithoutFeedback onPress={clickDismiss}>
                 <Image style={styles.closeCross} source={closeIcon} />
               </TouchableWithoutFeedback>
