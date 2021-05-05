@@ -2,7 +2,7 @@ import { Image } from 'react-native';
 import React from 'react';
 
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { doctorsAvatars, drSarahBerry } from '@assets';
+import { doctorsAvatars, drSarahBerry, drEllenThompsonUK } from '@assets';
 
 import Avatar from '../../../components/avatar';
 
@@ -25,5 +25,21 @@ export function getDietStudyDoctorImage() {
     />
   ) : (
     <Avatar imgsrc={drSarahBerry} />
+  );
+}
+
+export function getMentalHealthStudyDoctorImage() {
+  return isUSCountry() ? (
+    <Image
+      source={doctorsAvatars}
+      style={{
+        aspectRatio: 1.889,
+        resizeMode: 'contain',
+        width: 120,
+        height: undefined,
+      }}
+    />
+  ) : (
+    <Avatar imgsrc={drEllenThompsonUK} />
   );
 }

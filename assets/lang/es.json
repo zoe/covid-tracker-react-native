@@ -1341,7 +1341,7 @@
   "mental-health": {
     "doctor-name": "Dr Ellen Jo Thompson",
     "doctor-title": "Mental Health Researcher",
-    "doctor-college": "King’s College London",
+    "doctor-location": "King’s College London",
     "introduction-condition": "This study is currently only available for the “Me” primary profile.",
     "question-changes": "During this pandemic, have you changed the way you have spent time doing the following:",
     "question-devices-with-screen": "Using devices with a screen",

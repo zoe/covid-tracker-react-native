@@ -18,7 +18,7 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks, Fab } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks, StudyCard } from '@covid/components';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -32,12 +32,12 @@ import {
   setDashboardHasBeenViewed,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
+import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+import { COLORS } from '@covid/constants';
 
 import appCoordinator from '../AppCoordinator';
-import { DietStudyCard } from '../diet-study-playback';
 import { ScreenParamList } from '../ScreenParamList';
 import { ImpactTimelineCard } from '../anniversary';
-// import { useProfileList } from '../multi-profile/ProfileList.hooks';
 
 import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
 import { CompactHeader, Header } from './Header';
@@ -51,7 +51,6 @@ interface IProps {
 }
 
 export function DashboardScreen({ navigation, route }: IProps) {
-  // const { profiles, listProfiles } = useProfileList();
   const anniversary = useSelector(selectAnniversary);
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
@@ -153,10 +152,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   listProfiles();
-  // }, []);
-
   const hasNetworkData = networks && networks.length > 0;
 
   return (
@@ -175,7 +170,31 @@ export function DashboardScreen({ navigation, route }: IProps) {
               }}
             />
           )}
-          {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
+
+          <StudyCard
+            doctorLocation={i18n.t('mental-health.doctor-location')}
+            doctorName={i18n.t('mental-health.doctor-name')}
+            doctorTitle={i18n.t('mental-health.doctor-title')}
+            imageNode={getMentalHealthStudyDoctorImage()}
+            onPress={appCoordinator.goToMentalHealthStudy}
+            style={{ marginVertical: 12 }}
+            tagColor={COLORS.orange}
+            title={i18n.t('mental-health.results-ready')}
+          />
+
+          {startupInfo?.show_diet_score && (
+            <StudyCard
+              doctorLocation={i18n.t('diet-study.doctor-location')}
+              doctorName={i18n.t('diet-study.doctor-name')}
+              doctorTitle={i18n.t('diet-study.doctor-title')}
+              imageNode={getDietStudyDoctorImage()}
+              onPress={appCoordinator.goToDietStudy}
+              style={{ marginVertical: 12 }}
+              tagColor={COLORS.blue}
+              title={i18n.t('diet-study.results-ready')}
+              showQuotes
+            />
+          )}
 
           <ShareVaccineCard screenName="Dashboard" />
 
@@ -209,7 +228,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
           <PoweredByZoeSmall />
         </View>
       </CollapsibleHeaderScrollView>
-      {/* <Fab profiles={profiles} /> */}
     </>
   );
 }
@@ -223,10 +241,10 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
   },
   dietStudyImage: {
-    width: '100%',
     aspectRatio: 1200 / 1266,
     height: undefined,
-    resizeMode: 'contain',
     marginVertical: 8,
+    resizeMode: 'contain',
+    width: '100%',
   },
 });

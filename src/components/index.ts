@@ -17,5 +17,6 @@ export * from './questions';
 export * from './Screens';
 export { default as Spacer } from './spacer';
 export * from './status';
+export { default as Tag } from './Tag';
 export * from './Text';
 export * from './typography';
