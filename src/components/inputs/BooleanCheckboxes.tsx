@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInputProps, View } from 'react-native';
 import { useFormikContext } from 'formik';
 
-import { CheckboxItem } from '../Checkbox';
+import { CheckboxItem } from '../checkbox';
 import { GenericTextField } from '../GenericTextField';
 
 export type BooleanCheckBoxData = {

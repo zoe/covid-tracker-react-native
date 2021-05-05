@@ -13,7 +13,7 @@ import ChevronRight from '@assets/icons/ChevronRight';
 import { openWebLink } from '@covid/utils/links';
 
 import { Link, ShareButton } from '../../buttons';
-import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../Stats/TrendLineChart';
+import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../stats/TrendLineChart';
 import { Text } from '../../typography';
 
 import { DeltaTag } from './DeltaTag';

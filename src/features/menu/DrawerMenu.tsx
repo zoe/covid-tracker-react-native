@@ -16,7 +16,7 @@ import { MenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
 import { IConsentService } from '@covid/core/consent/ConsentService';
-import { share } from '@covid/components/Cards/BaseShareApp';
+import { share } from '@covid/components/cards/BaseShareApp';
 import EditProfilesIcon from '@assets/icons/navigation/EditProfilesIcon';
 import NavigatorService from '@covid/NavigatorService';
 import { useConstants } from '@covid/utils/hooks';

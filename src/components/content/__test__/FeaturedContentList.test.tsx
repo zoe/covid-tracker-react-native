@@ -9,8 +9,8 @@ import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import ApiClient from '@covid/core/api/ApiClient';
 import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
-import { FeaturedContentList, FeaturedContentType } from '@covid/components/Content/FeaturedContentList';
-import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
+import { FeaturedContentList, FeaturedContentType } from '@covid/components/content/FeaturedContentList';
+import FeaturedContentJson from '@covid/components/content/__mock__/featured-content.json';
 
 // Mock Redux store
 const mockReduxStore = (state: any) => {

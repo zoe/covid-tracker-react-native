@@ -5,11 +5,11 @@ import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import * as Linking from 'expo-linking';
 
-import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
-import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase';
-import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
+import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
+import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/estimated-case';
+import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
-import { share } from '@covid/components/Cards/BaseShareApp';
+import { share } from '@covid/components/cards/BaseShareApp';
 import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
@@ -18,12 +18,12 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks, Fab } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import Analytics, { events, identify } from '@covid/core/Analytics';
-import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
+import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import {
   selectAnniversary,
   selectApp,
@@ -37,7 +37,6 @@ import appCoordinator from '../AppCoordinator';
 import { DietStudyCard } from '../diet-study-playback';
 import { ScreenParamList } from '../ScreenParamList';
 import { ImpactTimelineCard } from '../anniversary';
-// import { useProfileList } from '../multi-profile/ProfileList.hooks';
 
 import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
 import { CompactHeader, Header } from './Header';
@@ -51,7 +50,6 @@ interface IProps {
 }
 
 export function DashboardScreen({ navigation, route }: IProps) {
-  // const { profiles, listProfiles } = useProfileList();
   const anniversary = useSelector(selectAnniversary);
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
@@ -153,10 +151,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   listProfiles();
-  // }, []);
-
   const hasNetworkData = networks && networks.length > 0;
 
   return (
@@ -209,7 +203,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
           <PoweredByZoeSmall />
         </View>
       </CollapsibleHeaderScrollView>
-      {/* <Fab profiles={profiles} /> */}
     </>
   );
 }

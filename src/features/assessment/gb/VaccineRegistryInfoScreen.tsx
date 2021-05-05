@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { HeaderText, RegularText, CaptionText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 import PatientHeader from '@covid/components/PatientHeader';
-import { BaseShareAppCard, shareApp, shareUrl } from '@covid/components/Cards/BaseShareApp';
+import { BaseShareAppCard, shareApp, shareUrl } from '@covid/components/cards/BaseShareApp';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { isAndroid } from '@covid/utils/platform';
 import { ScreenParamList } from '@covid/features';
