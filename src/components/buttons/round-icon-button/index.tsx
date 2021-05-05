@@ -1,8 +1,7 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 
 import { TTypeSizes } from '@covid/themes';
-import { TStyleObject } from '@covid/utils/types';
 
 import { Icon, TIconName } from '../../icons';
 
@@ -12,9 +11,9 @@ interface IProps {
   iconColor?: string;
   iconName: TIconName;
   iconSize?: TTypeSizes;
-  iconStyle?: TStyleObject;
+  iconStyle?: StyleProp<ViewStyle>;
   onPress: () => void;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
 }
 
 function RoundIconButton({

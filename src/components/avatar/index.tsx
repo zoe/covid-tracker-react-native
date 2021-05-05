@@ -1,12 +1,11 @@
 import React from 'react';
-import { Image, ImageSourcePropType, View } from 'react-native';
+import { Image, ImageSourcePropType, View, StyleProp, ImageStyle } from 'react-native';
 
 import { avatarBlank } from '@assets';
-import { TStyleObject } from '@covid/utils/types';
 
 interface IProps {
   imgsrc?: ImageSourcePropType;
-  imgStyle?: TStyleObject;
+  imgStyle?: StyleProp<ImageStyle>;
   size?: number;
 }
 
@@ -26,13 +25,15 @@ function Avatar({ imgsrc = avatarBlank, imgStyle = {}, size = 60 }: IProps) {
       }}>
       <Image
         source={imgsrc}
-        style={{
-          aspectRatio: 1.0,
-          resizeMode: 'contain',
-          height: undefined,
-          width: size,
-          ...imgStyle,
-        }}
+        style={[
+          {
+            aspectRatio: 1.0,
+            resizeMode: 'contain',
+            height: undefined,
+            width: size,
+          },
+          imgStyle,
+        ]}
       />
     </View>
   );

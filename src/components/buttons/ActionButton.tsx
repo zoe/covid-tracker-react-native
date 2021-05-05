@@ -1,11 +1,9 @@
 import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 import { Button } from 'native-base';
 
 import { RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
-
-type TStyleObject = { [key: string]: string | number };
 
 interface IProps {
   buttonProps?: any;
@@ -13,7 +11,7 @@ interface IProps {
   error?: boolean;
   icon: ReactNode;
   onPress: () => void;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
   textProps?: any;
 }
 

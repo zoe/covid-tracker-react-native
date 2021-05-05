@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, StyleProp, ViewStyle } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { RoundIconButton, Tag, Text } from '@covid/components';
 import { QuoteMarks } from '@assets';
-import { TStyleObject } from '@covid/utils/types';
 import { COLORS, SIZES, STYLING } from '@covid/constants';
 
 interface IProps {
@@ -14,7 +13,7 @@ interface IProps {
   imageNode?: React.ReactNode;
   onPress: () => void;
   showQuotes?: boolean;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
   tagColor: string;
   title: string;
 }

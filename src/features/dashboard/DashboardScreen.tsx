@@ -16,7 +16,6 @@ import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
-import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { FeaturedContentList, FeaturedContentType, SchoolNetworks, StudyCard } from '@covid/components';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
@@ -56,9 +55,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, Optional<ISubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolGroups
-  );
+  const networks = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);

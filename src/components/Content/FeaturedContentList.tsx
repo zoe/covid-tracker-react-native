@@ -5,7 +5,6 @@ import { View } from 'react-native';
 import { IFeaturedContent } from '@covid/core/content/dto/ContentAPIContracts';
 import { RootState } from '@covid/core/state/root';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
-import { Optional } from '@covid/utils/types';
 
 export enum FeaturedContentType {
   Home,
@@ -19,8 +18,8 @@ export type FeaturedContentProps = {
 };
 
 export const FeaturedContentList: React.FC<FeaturedContentProps> = ({ type, screenName, disableLoadingState }) => {
-  const home = useSelector<RootState, Optional<IFeaturedContent[]>>((state) => state.content.featuredHome);
-  const thankyou = useSelector<RootState, Optional<IFeaturedContent[]>>((state) => state.content.featuredThankyou);
+  const home = useSelector<RootState, IFeaturedContent[]>((state) => state.content.featuredHome);
+  const thankyou = useSelector<RootState, IFeaturedContent[]>((state) => state.content.featuredThankyou);
 
   const mapper = (item: IFeaturedContent) => (
     <View testID="featured-content-callout" key={item.slug}>

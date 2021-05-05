@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 
-import { TStyleObject } from '@covid/utils/types';
 import {
   useTheme,
   IThemeVars,
@@ -29,7 +29,7 @@ interface IProps {
   lineHeight?: number | undefined;
   onPress?: () => void | undefined;
   rhythm?: TGridSizes;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
   textAlign?: TTextAlign | undefined;
   textDecorationLine?: TTtextDecorationLine | undefined;
   textClass?: TTextClass;
