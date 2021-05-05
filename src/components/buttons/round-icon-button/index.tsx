@@ -32,14 +32,17 @@ function RoundIconButton({
       accessible
       accessibilityRole="button"
       onPress={onPress}
-      style={[{
-        alignItems: 'center',
-        backgroundColor,
-        borderRadius: backgroundSize * 0.5,
-        height: backgroundSize,
-        justifyContent: 'center',
-        width: backgroundSize,
-      }, style]}>
+      style={[
+        {
+          alignItems: 'center',
+          backgroundColor,
+          borderRadius: backgroundSize * 0.5,
+          height: backgroundSize,
+          justifyContent: 'center',
+          width: backgroundSize,
+        },
+        style,
+      ]}>
       <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} />
     </TouchableOpacity>
   );

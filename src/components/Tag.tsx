@@ -24,5 +24,5 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.borderRadius,
     paddingHorizontal: SIZES.spacingSmall,
     paddingVertical: SIZES.spacingTiny,
-  }
+  },
 });

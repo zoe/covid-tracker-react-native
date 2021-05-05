@@ -1,7 +1,8 @@
-import { COLORS } from '@covid/constants';
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import { G, Path, Svg } from 'react-native-svg';
+
+import { COLORS } from '@covid/constants';
 
 interface IProps {
   color?: string;
