@@ -24,6 +24,9 @@ export default StyleSheet.create({
   marginBottomSmall: {
     marginBottom: SIZES.spacingSmall,
   },
+  marginVerticalSmall: {
+    marginVertical: SIZES.spacingSmall,
+  },
   row: {
     flexDirection: 'row',
   },

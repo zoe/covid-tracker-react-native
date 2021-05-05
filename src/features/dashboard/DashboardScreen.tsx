@@ -33,7 +33,7 @@ import {
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
-import { COLORS } from '@covid/constants';
+import { COLORS, STYLING } from '@covid/constants';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -155,80 +155,69 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const hasNetworkData = networks && networks.length > 0;
 
   return (
-    <>
-      <CollapsibleHeaderScrollView
-        config={headerConfig}
-        navigation={navigation}
-        compactHeader={<CompactHeader reportOnPress={onReport} />}
-        expandedHeader={<Header reportOnPress={onReport} />}>
-        <View style={styles.calloutContainer}>
-          {startupInfo?.show_timeline && (
-            <ImpactTimelineCard
-              onPress={() => {
-                Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
-                navigation.navigate('Anniversary');
-              }}
-            />
-          )}
+    <CollapsibleHeaderScrollView
+      config={headerConfig}
+      navigation={navigation}
+      compactHeader={<CompactHeader reportOnPress={onReport} />}
+      expandedHeader={<Header reportOnPress={onReport} />}>
+      <View style={styles.calloutContainer}>
+        {startupInfo?.show_timeline && (
+          <ImpactTimelineCard
+            onPress={() => {
+              Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
+              navigation.navigate('Anniversary');
+            }}
+          />
+        )}
 
+        <StudyCard
+          doctorLocation={i18n.t('mental-health.doctor-location')}
+          doctorName={i18n.t('mental-health.doctor-name')}
+          doctorTitle={i18n.t('mental-health.doctor-title')}
+          imageNode={getMentalHealthStudyDoctorImage()}
+          onPress={() => appCoordinator.goToMentalHealthStudyPlayback()}
+          style={STYLING.marginVerticalSmall}
+          tagColor={COLORS.orange}
+          title={i18n.t('mental-health.results-ready')}
+        />
+
+        {startupInfo?.show_diet_score && (
           <StudyCard
-            doctorLocation={i18n.t('mental-health.doctor-location')}
-            doctorName={i18n.t('mental-health.doctor-name')}
-            doctorTitle={i18n.t('mental-health.doctor-title')}
-            imageNode={getMentalHealthStudyDoctorImage()}
-            onPress={appCoordinator.goToMentalHealthStudy}
-            style={{ marginVertical: 12 }}
-            tagColor={COLORS.orange}
-            title={i18n.t('mental-health.results-ready')}
+            doctorLocation={i18n.t('diet-study.doctor-location')}
+            doctorName={i18n.t('diet-study.doctor-name')}
+            doctorTitle={i18n.t('diet-study.doctor-title')}
+            imageNode={getDietStudyDoctorImage()}
+            onPress={() => appCoordinator.goToDietStudy()}
+            style={STYLING.marginVerticalSmall}
+            tagColor={COLORS.blue}
+            title={i18n.t('diet-study.results-ready')}
+            showQuotes
           />
+        )}
 
-          {startupInfo?.show_diet_score && (
-            <StudyCard
-              doctorLocation={i18n.t('diet-study.doctor-location')}
-              doctorName={i18n.t('diet-study.doctor-name')}
-              doctorTitle={i18n.t('diet-study.doctor-title')}
-              imageNode={getDietStudyDoctorImage()}
-              onPress={appCoordinator.goToDietStudy}
-              style={{ marginVertical: 12 }}
-              tagColor={COLORS.blue}
-              title={i18n.t('diet-study.results-ready')}
-              showQuotes
-            />
-          )}
+        <ShareVaccineCard screenName="Dashboard" />
 
-          <ShareVaccineCard screenName="Dashboard" />
+        <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
-          <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
+        {hasNetworkData && <SchoolNetworks schoolGroups={networks!} style={STYLING.marginVerticalSmall} />}
 
-          {hasNetworkData && (
-            <View
-              style={{
-                marginVertical: 8,
-              }}>
-              <SchoolNetworks schoolGroups={networks!} />
-            </View>
-          )}
+        {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
-          {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+        <EstimatedCasesMapCard />
 
-          <EstimatedCasesMapCard />
+        <UKEstimatedCaseCard onPress={onMoreDetails} />
 
-          <UKEstimatedCaseCard onPress={onMoreDetails} />
+        <ExternalCallout
+          aspectRatio={311 / 135}
+          calloutID="sharev3"
+          imageSource={shareAppV3}
+          postClicked={onShare}
+          screenName={route.name}
+        />
+      </View>
 
-          <ExternalCallout
-            calloutID="sharev3"
-            imageSource={shareAppV3}
-            aspectRatio={311 / 135}
-            screenName={route.name}
-            postClicked={onShare}
-          />
-        </View>
-
-        <View style={styles.zoe}>
-          <PoweredByZoeSmall />
-        </View>
-      </CollapsibleHeaderScrollView>
-    </>
+      <PoweredByZoeSmall style={styles.zoe} />
+    </CollapsibleHeaderScrollView>
   );
 }
 

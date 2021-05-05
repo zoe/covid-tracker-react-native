@@ -7,7 +7,7 @@ import SafeLayout from '../../safe-layout';
 
 interface IProps {
   active?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   footerTitle?: string;
   hasStickyHeader?: boolean;
   headerBackgroundColor?: string;

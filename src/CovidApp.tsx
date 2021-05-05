@@ -12,7 +12,7 @@ import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { ShareScreen } from '@covid/components';
-import { MainNavigator } from '@covid/routes';
+import MainNavigator from '@covid/routes';
 
 import { VaccineListMissingModal } from './features/vaccines/VaccineListMissingModal';
 import { VersionUpdateModal } from './core/VersionUpdateModal';

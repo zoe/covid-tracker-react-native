@@ -109,12 +109,17 @@ export type ScreenParamList = {
   ConfirmSchool: { patientData: PatientData; school: ISchoolModel };
   JoinHigherEducation: { patientData: PatientData };
 
+  // Diet study
   DietStudyModal: undefined;
   DietStudy: undefined;
   DietStudyGlobal: undefined;
   DietStudyGut: undefined;
   DietStudyTraditional: undefined;
 
+  // Mental health playback
+  MentalHealthPlayback: undefined;
+
+  // Mental health study
   MentalHealthChanges: undefined;
   MentalHealthFrequency: undefined;
   MentalHealthHistory: undefined;
@@ -123,6 +128,7 @@ export type ScreenParamList = {
   MentalHealthEnd: undefined;
   MentalHealthModal: undefined;
 
+  // Others
   Modal: undefined;
   Main: undefined;
   Share: undefined;

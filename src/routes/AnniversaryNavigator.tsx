@@ -9,15 +9,14 @@ interface IProps {
   Stack: typeof StackType;
 }
 
-function AnniversaryNavigator({ Stack }: IProps) {
-  const noHeader = {
-    headerShown: false,
-  };
+const noHeader = {
+  headerShown: false,
+};
+
+export default function AnniversaryNavigator({ Stack }: IProps) {
   return (
     <>
       <Stack.Screen name="Anniversary" component={Anniversary} options={noHeader} />
     </>
   );
 }
-
-export default AnniversaryNavigator;
