@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Dimensions, Easing, View } from 'react-native';
+import { Animated, Dimensions, Easing, View, StyleProp, ViewStyle } from 'react-native';
 
 import { Text } from '@covid/components';
-import { TStyleObject } from '@covid/utils/types';
 
 import DietScoreHeader from '../diet-score-header';
 import ScoreCard from '../score-card';
@@ -13,7 +12,7 @@ interface IProps {
   currentValue: number;
   minValue: number;
   maxValue: number;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
   subTitle: string;
   title: string;
 }

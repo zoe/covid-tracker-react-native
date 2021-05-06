@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Dimensions, Easing, View } from 'react-native';
+import { Animated, Dimensions, Easing, View, StyleProp, ViewStyle } from 'react-native';
 
 import { GradientColorBar, Text } from '@covid/components';
-import { TStyleObject } from '@covid/utils/types';
 
 import DietScoreHeader from '../diet-score-header';
 import ScoreCard from '../score-card';
@@ -16,7 +15,7 @@ interface IProps {
   minValueLabel: string;
   maxValue: number;
   maxValueLabel: string;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
   subTitle: string;
   title: string;
 }
