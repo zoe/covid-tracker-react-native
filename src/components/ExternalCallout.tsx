@@ -22,19 +22,20 @@ import { ContentLoadingView } from '@covid/components/Content/ContentLoadingView
 import i18n from '@covid/locale/i18n';
 
 type ExternalCalloutProps = {
-  link?: string;
-  calloutID: string;
-  imageSource: ImageSourcePropType;
   aspectRatio: number;
-  postClicked?: VoidFunction;
-  screenName: string;
-  imageStyles?: StyleProp<ImageStyle>;
+  calloutID: string;
   canDismiss?: boolean;
   disableLoadingState?: boolean;
+  imageSource: ImageSourcePropType;
+  imageStyles?: StyleProp<ImageStyle>;
+  isSharing?: boolean;
+  link?: string;
+  orderIndex?: number;
+  postClicked?: VoidFunction;
+  screenName: string;
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
-  const { calloutID, link, screenName, postClicked, canDismiss } = props;
   const dismissedCalloutIds = useSelector<RootState, string[]>((state) => state.content.dismissedCallouts);
   const [dismissed, setDismissed] = useState<boolean>(false);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
@@ -63,7 +64,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   };
 
   useEffect(() => {
-    setDismissed(dismissedCalloutIds.includes(calloutID));
+    setDismissed(dismissedCalloutIds.includes(props.calloutID));
   }, [dismissedCalloutIds]);
 
   useEffect(() => {
@@ -71,14 +72,22 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   }, []);
 
   function clickCallout() {
-    Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
-    if (link) openWebLink(link);
-    if (postClicked) postClicked();
+    Analytics.track(events.CLICK_CALLOUT, {
+      calloutID: props.calloutID,
+      orderIndex: props.orderIndex,
+      screenName: props.screenName,
+    });
+    if (props.link) openWebLink(props.link);
+    if (props.postClicked) props.postClicked();
   }
 
   function clickDismiss() {
-    Analytics.track(events.CLICK_CALLOUT_DISMISS, { calloutID, screenName });
-    dispatch(addDismissCallout(calloutID));
+    Analytics.track(events.CLICK_CALLOUT_DISMISS, {
+      calloutID: props.calloutID,
+      orderIndex: props.orderIndex,
+      screenName: props.screenName,
+    });
+    dispatch(addDismissCallout(props.calloutID));
   }
 
   return (
@@ -87,14 +96,17 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
       errorMessage={imageLoadError}
       disableShimmers={props.disableLoadingState}>
       {!dismissed && (
-        <TouchableWithoutFeedback onPress={clickCallout}>
+        <TouchableWithoutFeedback
+          onPress={clickCallout}
+          accessible={props.isSharing}
+          accessibilityRole={props.isSharing ? 'none' : 'button'}>
           <View style={styles.viewContainer}>
             {Object.keys(props.imageSource).includes('uri') ? (
               <FastImage {...imageProps} source={{ uri: (props.imageSource as ImageURISource).uri }} />
             ) : (
               <Image {...imageProps} source={props.imageSource} />
             )}
-            {canDismiss && (
+            {props.canDismiss && !props.isSharing && (
               <TouchableWithoutFeedback onPress={clickDismiss}>
                 <Image style={styles.closeCross} source={closeIcon} />
               </TouchableWithoutFeedback>

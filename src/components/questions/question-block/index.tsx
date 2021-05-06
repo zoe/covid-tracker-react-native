@@ -32,6 +32,8 @@ function QuestionBlock({
   const bgColor = backgroundColor ? backgroundColor : colors.ui.dark.bgColor;
   return (
     <TouchableOpacity
+      accessible
+      accessibilityRole="checkbox"
       disabled={disabled}
       onPress={onPress}
       style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : bgColor }]}>

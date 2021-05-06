@@ -26,6 +26,8 @@ function BrandedButton({
   return (
     <View style={isDisabled ? { opacity: 0.2 } : { opacity: 1 }}>
       <Button
+        accessible
+        accessibilityRole="button"
         testID="buttonTestID"
         block
         style={[styles.button, style]}
