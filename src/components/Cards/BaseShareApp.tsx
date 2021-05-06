@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
 
 import { social } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';

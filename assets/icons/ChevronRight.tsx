@@ -2,7 +2,7 @@ import React from 'react';
 import Svg, { Path, Circle } from 'react-native-svg';
 
 import { SvgProps } from '@assets/Svg';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 interface IProps extends SvgProps {
   backgroundColor?: string;

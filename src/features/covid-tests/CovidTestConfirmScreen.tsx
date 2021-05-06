@@ -6,7 +6,7 @@ import { ListItem } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import Screen, { Header } from '@covid/components/Screen';
 import { CheckboxItem } from '@covid/components/Checkbox';

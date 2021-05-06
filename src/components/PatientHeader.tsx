@@ -5,7 +5,7 @@ import { View, StyleSheet, Image, StyleProp, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NavigationProp } from '@react-navigation/native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';

@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Path, Rect } from 'react-native-svg';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { SvgProps } from '@assets/Svg';
 
 const color = colors.textDark;

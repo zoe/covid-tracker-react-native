@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';

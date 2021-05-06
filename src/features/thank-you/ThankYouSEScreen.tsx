@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { notificationRemindersSE, seBlog001 } from '@assets';
-import { colors, fontStyles } from '@theme';
+import { colors, fontStyles } from '@covid/theme';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';

@@ -7,7 +7,7 @@ import { covidIcon, covidByZoeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
 import { cleanIntegerVal } from '@covid/utils/number';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { RootState } from '@covid/core/state/root';
 import { ContentState } from '@covid/core/content/state/contentSlice';
 import { BrandedButton } from '@covid/components';

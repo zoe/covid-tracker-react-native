@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { BackButton } from '@covid/components/PatientHeader';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList>;

@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
 import CalendarPicker from '@covid/components/CalendarPicker';
 import { ClickableText, RegularText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
+import { colors, fontStyles } from '@covid/theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
 

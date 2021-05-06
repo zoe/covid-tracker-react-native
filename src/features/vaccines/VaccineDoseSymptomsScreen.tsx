@@ -10,7 +10,7 @@ import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
 import { useInjection } from '@covid/provider/services.hooks';

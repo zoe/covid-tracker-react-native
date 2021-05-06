@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import { BrandedButton } from '@covid/components';

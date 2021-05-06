@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { profilesIcon } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ClickableText, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';

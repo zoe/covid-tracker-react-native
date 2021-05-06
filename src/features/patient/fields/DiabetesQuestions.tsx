@@ -13,7 +13,7 @@ import { FieldWrapper } from '@covid/components/Screen';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import YesNoField from '@covid/components/YesNoField';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 import { DiabetesTreamentsQuestion, IDiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 import { DiabetesOralMedsQuestion, IDiabetesOralMedsData } from './DiabetesOralMedsQuestion';

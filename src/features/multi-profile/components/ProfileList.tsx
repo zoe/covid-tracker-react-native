@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { Loading, LoadingModal } from '@covid/components/Loading';
 

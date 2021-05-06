@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import ResetPasswordForm, { IResetPasswordForm } from '@covid/features/password-reset/fields/ResetPasswordForm';
 import { ScreenParamList } from '@covid/features';
 

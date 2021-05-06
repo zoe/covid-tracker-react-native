@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';

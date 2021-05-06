@@ -5,7 +5,7 @@ import { Text } from 'native-base';
 
 import { Header3Text, RegularText } from '@covid/components/Text';
 import { tick } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { vaccineBrandDisplayName, Dose, VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import QuestionCircle from '@assets/icons/QuestionCircle';

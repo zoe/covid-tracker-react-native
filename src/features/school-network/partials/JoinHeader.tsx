@@ -5,7 +5,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 interface IProps {
   headerText: string;

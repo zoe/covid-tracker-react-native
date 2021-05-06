@@ -4,7 +4,7 @@ import { Card } from 'native-base';
 
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { ClippedText, SecondaryText } from '@covid/components/Text';
 import { Profile } from '@covid/core/profile/ProfileService';

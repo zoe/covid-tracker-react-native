@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Button } from 'native-base';
 
 import { RegularText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
+import { colors, fontStyles } from '@covid/theme';
 
 type TStyleObject = { [key: string]: string | number };
 

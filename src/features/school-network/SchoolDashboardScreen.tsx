@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import { View } from 'native-base';
 import moment from 'moment';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import Screen, { Header } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { HeaderText, RegularText, Header3Text, SecondaryText, ClickableText } from '@covid/components/Text';

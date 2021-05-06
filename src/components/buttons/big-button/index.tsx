@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 export type IButtonPress = ((event: GestureResponderEvent) => void) | undefined;
 

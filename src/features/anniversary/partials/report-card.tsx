@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { SolidColorBar, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 import { TReportedEvent } from '../types';
 

@@ -7,7 +7,7 @@ import i18n from '@covid/locale/i18n';
 import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appConfig from '@covid/appConfig';
 import appCoordinator from '@covid/features/AppCoordinator';

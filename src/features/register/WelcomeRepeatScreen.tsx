@@ -5,7 +5,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-n
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { covidIcon } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { LoadingModal } from '@covid/components/Loading';
 import { PartnerLogoSE, PartnerLogoUS } from '@covid/components/Logos/PartnerLogo';

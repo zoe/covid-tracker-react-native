@@ -16,7 +16,7 @@ import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { openWebLink } from '@covid/utils/links';
 import { BrandedButton } from '@covid/components';
 

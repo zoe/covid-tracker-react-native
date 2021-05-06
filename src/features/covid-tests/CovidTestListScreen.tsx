@@ -5,7 +5,7 @@ import key from 'weak-key';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';

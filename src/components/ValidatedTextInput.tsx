@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
 import Error from '@assets/icons/Error';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 interface Props extends TextInputProps {
   error?: any;

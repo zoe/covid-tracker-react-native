@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 export const ModalContainer: React.FC = (props) => (
   <Modal transparent>

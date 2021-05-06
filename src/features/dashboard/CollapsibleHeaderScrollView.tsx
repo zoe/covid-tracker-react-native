@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, SafeAreaView, Animated, StyleSheet, Dimensions } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
