@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import ScoreCategory from './score-category';
+import ScoreCategory from './ScoreCategory';
 
 function ScoreRange() {
   return (

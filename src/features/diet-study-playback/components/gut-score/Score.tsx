@@ -7,7 +7,7 @@ import { TStyleObject } from '@covid/utils/types';
 import DietScoreHeader from '../diet-score-header';
 import ScoreCard from '../score-card';
 
-import ScoreRange from './score-range';
+import ScoreRange from './ScoreRange';
 
 interface IProps {
   currentValue: number;
