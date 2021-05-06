@@ -2,14 +2,14 @@ import React from 'react';
 import Svg, { Path, Circle } from 'react-native-svg';
 
 import { SvgProps } from '@assets/Svg';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
-interface ChevronProps extends SvgProps {
+interface IProps extends SvgProps {
   backgroundColor?: string;
   chveronColor?: string;
 }
 
-const ChevronRight: React.FC<ChevronProps> = ({
+const ChevronRight: React.FC<IProps> = ({
   width = 20,
   height = 20,
   backgroundColor = colors.purple,

@@ -5,7 +5,7 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-nat
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { chevronLeft } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';

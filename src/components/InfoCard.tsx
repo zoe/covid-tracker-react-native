@@ -2,7 +2,7 @@ import { View } from 'native-base';
 import React from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { cardBackground1, cardBackground2, cardBackground3 } from '@assets';
 
 import { RegularBoldText, RegularText } from './Text';

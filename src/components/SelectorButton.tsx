@@ -3,7 +3,7 @@ import React from 'react';
 import { GestureResponderEvent, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { colors, fontStyles } from '@theme';
+import { colors, fontStyles } from '@covid/theme';
 
 import { FieldWrapper } from './Screen';
 

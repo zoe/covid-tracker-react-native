@@ -17,10 +17,11 @@ interface IProps {
   Stack: typeof StackType;
 }
 
-function MentalHealthNavigator({ Stack }: IProps) {
-  const noHeader = {
-    headerShown: false,
-  };
+const noHeader = {
+  headerShown: false,
+};
+
+export default function MentalHealthNavigator({ Stack }: IProps) {
   return (
     <>
       <Stack.Screen name="MentalHealthChanges" component={MentalHealthChanges} options={noHeader} />
@@ -32,5 +33,3 @@ function MentalHealthNavigator({ Stack }: IProps) {
     </>
   );
 }
-
-export default MentalHealthNavigator;

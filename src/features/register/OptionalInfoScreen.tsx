@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';

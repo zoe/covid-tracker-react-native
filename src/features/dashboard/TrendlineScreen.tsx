@@ -6,7 +6,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { colors, fontStyles } from '@theme';
+import { colors, fontStyles } from '@covid/theme';
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header } from '@covid/components/Screen';
 import { Header3Text, RegularText } from '@covid/components/Text';

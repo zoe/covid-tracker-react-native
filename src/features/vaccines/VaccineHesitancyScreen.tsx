@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components';

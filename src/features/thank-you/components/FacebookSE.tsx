@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 import { facebook } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { openWebLink } from '@covid/utils/links';

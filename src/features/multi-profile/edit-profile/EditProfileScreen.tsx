@@ -8,7 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { HeaderText, SecondaryText, Header3Text } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
 import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { chevronRight } from '@assets';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 

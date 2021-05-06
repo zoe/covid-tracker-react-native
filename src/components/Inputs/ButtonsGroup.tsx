@@ -2,7 +2,7 @@ import { Label, View } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, PickerProps } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { SelectableButton } from '@covid/components/SelectableButton';
 
 import { FieldWrapper } from '../Screen';

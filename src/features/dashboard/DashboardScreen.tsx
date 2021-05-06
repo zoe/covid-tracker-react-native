@@ -16,9 +16,8 @@ import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
-import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks, Fab } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks, StudyCard } from '@covid/components';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -32,12 +31,12 @@ import {
   setDashboardHasBeenViewed,
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
+import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+import { colors, styling } from '@covid/themes';
 
 import appCoordinator from '../AppCoordinator';
-import { DietStudyCard } from '../diet-study-playback';
 import { ScreenParamList } from '../ScreenParamList';
 import { ImpactTimelineCard } from '../anniversary';
-// import { useProfileList } from '../multi-profile/ProfileList.hooks';
 
 import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
 import { CompactHeader, Header } from './Header';
@@ -51,15 +50,12 @@ interface IProps {
 }
 
 export function DashboardScreen({ navigation, route }: IProps) {
-  // const { profiles, listProfiles } = useProfileList();
   const anniversary = useSelector(selectAnniversary);
   const settings = useSelector(selectSettings);
   const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, Optional<ISubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolGroups
-  );
+  const networks = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
@@ -153,64 +149,72 @@ export function DashboardScreen({ navigation, route }: IProps) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   listProfiles();
-  // }, []);
-
   const hasNetworkData = networks && networks.length > 0;
 
   return (
-    <>
-      <CollapsibleHeaderScrollView
-        config={headerConfig}
-        navigation={navigation}
-        compactHeader={<CompactHeader reportOnPress={onReport} />}
-        expandedHeader={<Header reportOnPress={onReport} />}>
-        <View style={styles.calloutContainer}>
-          {startupInfo?.show_timeline && (
-            <ImpactTimelineCard
-              onPress={() => {
-                Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
-                navigation.navigate('Anniversary');
-              }}
-            />
-          )}
-          {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
-
-          <ShareVaccineCard screenName="Dashboard" />
-
-          <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
-
-          {hasNetworkData && (
-            <View
-              style={{
-                marginVertical: 8,
-              }}>
-              <SchoolNetworks schoolGroups={networks!} />
-            </View>
-          )}
-
-          {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
-
-          <EstimatedCasesMapCard />
-
-          <UKEstimatedCaseCard onPress={onMoreDetails} />
-
-          <ExternalCallout
-            calloutID="sharev3"
-            imageSource={shareAppV3}
-            aspectRatio={311 / 135}
-            screenName={route.name}
-            postClicked={onShare}
+    <CollapsibleHeaderScrollView
+      config={headerConfig}
+      navigation={navigation}
+      compactHeader={<CompactHeader reportOnPress={onReport} />}
+      expandedHeader={<Header reportOnPress={onReport} />}>
+      <View style={styles.calloutContainer}>
+        {startupInfo?.show_timeline && (
+          <ImpactTimelineCard
+            onPress={() => {
+              Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
+              navigation.navigate('Anniversary');
+            }}
           />
-        </View>
+        )}
 
-        <View style={styles.zoe}>
-          <PoweredByZoeSmall />
-        </View>
-      </CollapsibleHeaderScrollView>
-      {/* <Fab profiles={profiles} /> */}
-    </>
+        <StudyCard
+          doctorLocation={i18n.t('mental-health.doctor-location')}
+          doctorName={i18n.t('mental-health.doctor-name')}
+          doctorTitle={i18n.t('mental-health.doctor-title')}
+          imageNode={getMentalHealthStudyDoctorImage()}
+          onPress={() => appCoordinator.goToMentalHealthStudyPlayback()}
+          style={styling.marginVerticalSmall}
+          tagColor={colors.coral.main.bgColor}
+          title={i18n.t('mental-health.results-ready')}
+        />
+
+        {startupInfo?.show_diet_score && (
+          <StudyCard
+            doctorLocation={i18n.t('diet-study.doctor-location')}
+            doctorName={i18n.t('diet-study.doctor-name')}
+            doctorTitle={i18n.t('diet-study.doctor-title')}
+            imageNode={getDietStudyDoctorImage()}
+            onPress={() => appCoordinator.goToDietStudy()}
+            style={styling.marginVerticalSmall}
+            tagColor="blue"
+            title={i18n.t('diet-study.results-ready')}
+            showQuotes
+          />
+        )}
+
+        <ShareVaccineCard screenName="Dashboard" />
+
+        <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
+
+        {hasNetworkData && <SchoolNetworks schoolGroups={networks!} style={styling.marginVerticalSmall} />}
+
+        {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+
+        <EstimatedCasesMapCard />
+
+        <UKEstimatedCaseCard onPress={onMoreDetails} />
+
+        <ExternalCallout
+          aspectRatio={311 / 135}
+          calloutID="sharev3"
+          imageSource={shareAppV3}
+          postClicked={onShare}
+          screenName={route.name}
+        />
+      </View>
+
+      <PoweredByZoeSmall style={styles.zoe} />
+    </CollapsibleHeaderScrollView>
   );
 }
 
@@ -223,10 +227,10 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
   },
   dietStudyImage: {
-    width: '100%',
     aspectRatio: 1200 / 1266,
     height: undefined,
-    resizeMode: 'contain',
     marginVertical: 8,
+    resizeMode: 'contain',
+    width: '100%',
   },
 });

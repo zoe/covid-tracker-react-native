@@ -3,30 +3,30 @@
     "take-a-minute": "Take 1 minute each day and help fight the outbreak in your community."
   },
 
-  "your-postcode": "Your zipcode?",
   "placeholder-postcode": "zipcode",
-  "required-postcode": "Please enter your zipcode",
   "postcode-too-long": "Please correct your zipcode",
+  "required-postcode": "Please enter your zipcode",
+  "your-postcode": "Your zipcode?",
 
   "label-past-symptom-diarrhoea": "Diarrhea",
 
   "edit-profile": {
     "location": {
-      "title": "My location",
-      "label": "Your permanent home zipcode (e.g. 00123)",
       "disclaimer": "Your location is used to localise COVID-19 outbreaks and study symptoms. You can find out how we use your data in our Privacy policy",
+      "label": "Your permanent home zipcode (e.g. 00123)",
       "not-current-address": "Are you temporarily reporting from a different location than above?",
-      "still-in-country": "Are you still in the US?",
       "other-postcode": "Enter the zipcode you wish to report for:",
-      "select-country": "Please select which country you are now in:"
+      "select-country": "Please select which country you are now in:",
+      "still-in-country": "Are you still in the US?",
+      "title": "My location"
     }
   },
 
   "where-are-you": {
-    "picker-location-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
-    "picker-location-hospital": "I am at the clinic or hospital with suspected COVID-19 symptoms.",
     "picker-location-back-from-hospital": "I am back from the clinic or hospital, I'd like to tell you about my treatment.",
-    "picker-location-back-from-hospital-already-reported": "I am back from the clinic or hospital, I've already told you about my treatment."
+    "picker-location-back-from-hospital-already-reported": "I am back from the clinic or hospital, I've already told you about my treatment.",
+    "picker-location-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
+    "picker-location-hospital": "I am at the clinic or hospital with suspected COVID-19 symptoms."
   },
 
   "your-health": {
@@ -46,16 +46,16 @@
 
   "website-home": "https://covid.joinzoe.com/us",
 
-  "thank-you-body": "Thank you for joining millions of people supporting scientists at Massachusetts General Hospital, Stanford University School of Medicine & King's College London to help our health services.",
   "blog-link": "https://covid.joinzoe.com/us-blog",
   "faq-link": "https://covid.joinzoe.com/us-faq",
+  "thank-you-body": "Thank you for joining millions of people supporting scientists at Massachusetts General Hospital, Stanford University School of Medicine & King's College London to help our health services.",
 
-  "race-question": "What is your race? (check all that apply):",
   "race-other-question": "Please specify your race",
+  "race-question": "What is your race? (check all that apply):",
 
   "your-study": {
-    "title": "Your clinical study",
-    "label-cohort": "Is your study one of the following?"
+    "label-cohort": "Is your study one of the following?",
+    "title": "Your clinical study"
   },
 
   "adult-or-child-text": "Right now, you can only create additional profiles for US residents.",
@@ -70,19 +70,19 @@
   },
 
   "diet-study": {
+    "doctor-location": "King's College London &\nStanford University",
     "doctor-name": "Dr Sarah Berry &\nProf Christopher Gardner",
     "doctor-title": "Nutritional Scientists",
-    "doctor-location": "King's College London &\nStanford University",
     "gut-tips-body-1": "Fiber is fundamental - choose fiber-rich foods like wholegrains, beans, pulses, fruit, vegetables, nuts and seeds.",
     "traditional-body-0": "A score of 12 and above indicates a healthier diet that includes plenty of fruits, vegetables, fiber-rich foods and oily fish."
   },
 
   "mental-health": {
+    "answer-gad": "Generalized anxiety disorder (GAD)",
+    "doctor-location": "Harvard TH Chan School of Public Health",
     "doctor-name": "Dr. Karestan C. Koenen",
     "doctor-title": "Professor of Psychiatric Epidemiology",
-    "doctor-college": "Harvard TH Chan School of Public Health",
-    "question-snacks": "Eating savory snacks / confectionery",
     "question-engaging-with-organisations": "Engaging in organizations, clubs or societies (e.g. political, religious, charitable, social, sport, etc.)",
-    "answer-gad": "Generalized anxiety disorder (GAD)"
+    "question-snacks": "Eating savory snacks / confectionery"
   }
 }

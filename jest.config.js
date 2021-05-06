@@ -1,7 +1,6 @@
 module.exports = {
   moduleNameMapper: {
     '^@assets/(.*)$': '<rootDir>/assets/$1',
-    '^@theme/(.*)$': '<rootDir>/theme/$1',
     '^@covid/(.*)$': '<rootDir>/src/$1',
   },
   preset: 'jest-expo',

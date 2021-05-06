@@ -9,10 +9,11 @@ interface IProps {
   Stack: typeof StackType;
 }
 
-function DietStudyPlaybackNavigator({ Stack }: IProps) {
-  const noHeader = {
-    headerShown: false,
-  };
+const noHeader = {
+  headerShown: false,
+};
+
+export default function DietStudyPlaybackNavigator({ Stack }: IProps) {
   return (
     <>
       <Stack.Screen name="DietStudy" component={DietStudy} options={noHeader} />
@@ -22,5 +23,3 @@ function DietStudyPlaybackNavigator({ Stack }: IProps) {
     </>
   );
 }
-
-export default DietStudyPlaybackNavigator;

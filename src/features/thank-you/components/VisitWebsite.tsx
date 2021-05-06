@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { ClickableText, RegularText } from '@covid/components';

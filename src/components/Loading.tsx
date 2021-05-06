@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { AppException } from '@covid/core/api/ApiServiceErrors';
 import { BrandedButton } from '@covid/components/buttons';

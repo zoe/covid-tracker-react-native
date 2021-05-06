@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 import { screenWidth } from './Screen';
 

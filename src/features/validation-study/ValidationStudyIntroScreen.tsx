@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View, ImageBackground } from 'react-native';
 
 import { icon, studyIntro } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
 import { HeaderText, RegularText } from '@covid/components/Text';

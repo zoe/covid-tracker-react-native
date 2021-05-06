@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import ProgressStatus from '@covid/components/ProgressStatus';

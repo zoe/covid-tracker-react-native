@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { useInjection } from '@covid/provider/services.hooks';
 import i18n from '@covid/locale/i18n';
 import { IUserService } from '@covid/core/user/UserService';

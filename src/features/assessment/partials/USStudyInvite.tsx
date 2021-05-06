@@ -3,7 +3,7 @@ import { Image, Modal, TouchableOpacity, View, StyleSheet, ImageBackground, Scro
 
 import { closeIcon, blobs } from '@assets';
 import { RegularText, HeaderText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
+import { colors, fontStyles } from '@covid/theme';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';

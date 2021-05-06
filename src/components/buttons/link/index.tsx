@@ -1,8 +1,7 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 
 import { TTypeSizes } from '@covid/themes';
-import { TStyleObject } from '@covid/utils/types';
 
 import { Icon, TIconName } from '../../icons';
 import { Text } from '../../typography';
@@ -11,10 +10,10 @@ interface IProps {
   color?: string;
   iconName?: TIconName;
   iconSize?: TTypeSizes;
-  iconStyle?: TStyleObject;
+  iconStyle?: StyleProp<ViewStyle>;
   linkText: string;
   onPress: () => void;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
 }
 
 function Link({
@@ -29,11 +28,7 @@ function Link({
   const linkColor = color ? color : 'purple';
   const iSize = iconSize ? iconSize : 16;
   return (
-    <TouchableOpacity
-      style={{ flexDirection: 'row', ...style }}
-      onPress={onPress}
-      accessible
-      accessibilityRole="button">
+    <TouchableOpacity style={[{ flexDirection: 'row' }, style]} onPress={onPress} accessible accessibilityRole="button">
       <Icon
         color={linkColor}
         iconName={iconName}

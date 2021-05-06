@@ -56,7 +56,7 @@ function MentalHealthModal() {
                 {i18n.t('mental-health.doctor-title')}
               </Text>
               <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-                {i18n.t('mental-health.doctor-college')}
+                {i18n.t('mental-health.doctor-location')}
               </Text>
             </View>
           </View>

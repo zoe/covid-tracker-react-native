@@ -2,7 +2,7 @@ import { Toast, View } from 'native-base';
 import React, { Component } from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { ModalContainer } from '@covid/components/ModalContainer';
 import { container, lazyInject } from '@covid/provider/services';

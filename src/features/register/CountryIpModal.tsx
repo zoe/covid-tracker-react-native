@@ -5,7 +5,7 @@ import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
 import { closeIcon } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { isAndroid } from '@covid/utils/platform';
 import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';

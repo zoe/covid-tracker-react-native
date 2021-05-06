@@ -12,7 +12,7 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { SelectorButton } from '@covid/components/SelectorButton';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import InfoCircle from '@assets/icons/InfoCircle';
 import { RightArrow } from '@assets';
 import { RootState } from '@covid/core/state/root';

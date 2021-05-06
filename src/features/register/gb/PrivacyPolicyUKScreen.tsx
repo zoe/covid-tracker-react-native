@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { openWebLink } from '@covid/utils/links';
 import { ScreenParamList } from '@covid/features';

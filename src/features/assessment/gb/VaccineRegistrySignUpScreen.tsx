@@ -4,7 +4,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';

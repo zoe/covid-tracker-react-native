@@ -6,7 +6,7 @@ import RNSplashScreen from 'react-native-splash-screen';
 import { RouteProp } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import Splash from '@covid/features/splash/components/Splash';
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';

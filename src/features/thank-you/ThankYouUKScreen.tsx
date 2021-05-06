@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { notificationReminders } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';

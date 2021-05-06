@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet, StyleProp, ViewStyle, TextStyle, Image } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import AnnouncementIcon from '@assets/icons/AnnouncementIcon';
 import { vaccineBg } from '@assets';

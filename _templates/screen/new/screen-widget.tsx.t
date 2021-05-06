@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText, RegularBoldText } from '@covid/components/Text';
 import { Button } from '@covid/components/Buttons/Button';

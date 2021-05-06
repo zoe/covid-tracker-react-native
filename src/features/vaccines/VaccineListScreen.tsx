@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import Screen from '@covid/components/Screen';
 import { BrandedButton, HeaderText, Text } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
