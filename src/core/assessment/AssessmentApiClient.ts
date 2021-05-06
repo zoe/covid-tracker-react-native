@@ -1,7 +1,7 @@
 import appConfig from '@covid/appConfig';
 import { IApiClient } from '@covid/core/api/ApiClient';
-import { AssessmentInfosRequest } from '@covid/core/assessment//dto/AssessmentInfosRequest';
-import { AssessmentResponse } from '@covid/core/assessment//dto/AssessmentInfosResponse';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+import { AssessmentResponse } from '@covid/core/assessment/dto/AssessmentInfosResponse';
 
 const API_ASSESSMENTS = '/assessments/';
 
