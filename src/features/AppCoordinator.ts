@@ -336,8 +336,12 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     NavigatorService.navigate('MentalHealthChanges');
   }
 
-  goToMentalHealthStudyPlayback() {
-    NavigatorService.navigate('MentalHealthPlayback');
+  goToMentalHealthStudyPlayback(user: any = {}) {
+    if (user.C) {
+      NavigatorService.navigate('MentalHealthPlaybackBlogPost');
+    } else {
+      NavigatorService.navigate('MentalHealthPlaybackIntroduction');
+    }
   }
 
   goToMentalHealthModal() {

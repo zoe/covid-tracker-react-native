@@ -14,8 +14,9 @@ interface IProps {
   navChildren?: ReactNode;
   onPress?: () => void;
   style?: object;
-  withGutter?: boolean;
   withFooter?: boolean;
+  withGutter?: boolean;
+  withHeader?: boolean;
 }
 
 function BasicPage({
@@ -26,14 +27,15 @@ function BasicPage({
   headerBackgroundColor = 'transparent',
   navChildren = null,
   onPress = () => null,
-  withGutter = false,
-  withFooter = true,
   style = {},
+  withFooter = true,
+  withGutter = false,
+  withHeader = true,
 }: IProps) {
   return (
     <SafeLayout withGutter={withGutter} style={style}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} stickyHeaderIndices={hasStickyHeader ? [0] : undefined}>
-        <BasicNavHeader backgroundColor={headerBackgroundColor}>{navChildren}</BasicNavHeader>
+        {withHeader && <BasicNavHeader backgroundColor={headerBackgroundColor}>{navChildren}</BasicNavHeader>}
         {children}
         {withFooter && <BasicPageFooter active={active} onPress={onPress} title={footerTitle} />}
       </ScrollView>

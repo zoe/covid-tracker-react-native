@@ -117,7 +117,11 @@ export type ScreenParamList = {
   DietStudyTraditional: undefined;
 
   // Mental health playback
-  MentalHealthPlayback: undefined;
+  MentalHealthPlaybackBlogPost: undefined;
+  MentalHealthPlaybackGeneral: undefined;
+  MentalHealthPlaybackIntroduction: undefined;
+  MentalHealthPlaybackRating: undefined;
+  MentalHealthPlaybackThankYou: undefined;
 
   // Mental health study
   MentalHealthChanges: undefined;
