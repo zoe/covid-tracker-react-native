@@ -13,6 +13,7 @@ npm-debug.*
 web-build/
 web-report/
 google-services.json
+.private-assets/*
 
 # Xcode
 !**/*.xcodeproj
