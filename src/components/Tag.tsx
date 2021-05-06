@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Text } from '@covid/components';
-import { SIZES, STYLING } from '@covid/constants';
+import { sizes, styling } from '@covid/themes';
 
 interface IProps {
   color: string;
@@ -12,7 +12,7 @@ interface IProps {
 export default function Tag(props: IProps) {
   return (
     <View style={[styles.view, { backgroundColor: props.color }]}>
-      <Text style={STYLING.colorWhite} textClass="label">
+      <Text style={styling.colorWhite} textClass="label">
         {props.text}
       </Text>
     </View>
@@ -21,8 +21,8 @@ export default function Tag(props: IProps) {
 
 const styles = StyleSheet.create({
   view: {
-    borderRadius: SIZES.borderRadius,
-    paddingHorizontal: SIZES.spacingSmall,
-    paddingVertical: SIZES.spacingTiny,
+    borderRadius: sizes.borderRadius,
+    paddingHorizontal: sizes.spacingSmall,
+    paddingVertical: sizes.spacingTiny,
   },
 });

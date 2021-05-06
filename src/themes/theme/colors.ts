@@ -45,6 +45,50 @@ export const colors: IColorPalettes = {
       fgColor: '#fff',
     },
   },
+  coral: {
+    lighter: {
+      bgColor: '#fa7268',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#fa7268',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#fa7268',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#fa7268',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#fa7268',
+      fgColor: '#fff',
+    },
+  },
+  gray: {
+    lighter: {
+      bgColor: '#888B8C',
+      fgColor: '#000',
+    },
+    light: {
+      bgColor: '#e5e5e5',
+      fgColor: '#000',
+    },
+    main: {
+      bgColor: '#888B8C',
+      fgColor: '#000',
+    },
+    dark: {
+      bgColor: '#888B8C',
+      fgColor: '#000',
+    },
+    darker: {
+      bgColor: '#888B8C',
+      fgColor: '#000',
+    },
+  },
   green: {
     lighter: {
       bgColor: '#C0D904',
