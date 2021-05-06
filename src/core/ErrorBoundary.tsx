@@ -3,7 +3,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
 
 import { Header3Text, RegularBoldText, RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { errors } from '@assets';
 import i18n from '@covid/locale/i18n';
 

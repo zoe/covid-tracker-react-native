@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TextStyle } from 'react-native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { RegularText } from '@covid/components/Text';
 import { BrandedButton } from '@covid/components';
 

@@ -18,7 +18,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { IVaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import QuestionCircle from '@assets/icons/QuestionCircle';
 import YesNoField from '@covid/components/YesNoField';
 import { formatDateToPost } from '@covid/utils/datetime';

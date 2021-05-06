@@ -2,7 +2,7 @@ import { Button } from 'native-base';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { colors, fontStyles } from '@theme';
+import { colors, fontStyles } from '@covid/theme';
 
 import { IClickableProps } from '../../Text';
 import { ITest } from '../../types';

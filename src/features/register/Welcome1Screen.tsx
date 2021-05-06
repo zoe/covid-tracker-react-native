@@ -11,7 +11,7 @@ import i18n from '@covid/locale/i18n';
 import { IContentService } from '@covid/core/content/ContentService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { BrandedButton } from '@covid/components';
 
 import { ContributionCounter } from './components/ContributionCounter';

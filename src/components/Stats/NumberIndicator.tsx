@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 import { View } from 'native-base';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 interface IProps {
   number?: number;

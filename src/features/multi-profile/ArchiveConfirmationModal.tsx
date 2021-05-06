@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { View } from 'native-base';
 
 import { RegularBoldText, RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { ModalContainer } from '@covid/components/ModalContainer';
 import i18n from '@covid/locale/i18n';
 

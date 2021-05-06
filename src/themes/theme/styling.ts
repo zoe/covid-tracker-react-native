@@ -1,16 +1,17 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS, SIZES } from './';
+import { colors } from './colors';
+import sizes from './sizes';
 
 export default StyleSheet.create({
   backgroundWhite: {
-    backgroundColor: COLORS.white,
+    backgroundColor: 'white',
   },
   colorGray: {
-    color: COLORS.gray,
+    color: colors.gray.main.bgColor,
   },
   colorWhite: {
-    color: COLORS.white,
+    color: 'white',
   },
   flex: {
     flex: 1,
@@ -22,10 +23,10 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
   },
   marginBottomSmall: {
-    marginBottom: SIZES.spacingSmall,
+    marginBottom: sizes.spacingSmall,
   },
   marginVerticalSmall: {
-    marginVertical: SIZES.spacingSmall,
+    marginVertical: sizes.spacingSmall,
   },
   row: {
     flexDirection: 'row',
@@ -36,7 +37,7 @@ export default StyleSheet.create({
   },
   shadow: {
     elevation: 5,
-    shadowColor: COLORS.black,
+    shadowColor: 'black',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 4,

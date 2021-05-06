@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { PickerItemProps, StyleSheet, PickerProps, Text, Image, ImageSourcePropType } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import DropdownIcon from '@assets/icons/DropdownIcon';
 

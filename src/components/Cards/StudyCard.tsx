@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, View, StyleProp, ViewStyle } from 'react-
 import i18n from '@covid/locale/i18n';
 import { RoundIconButton, Tag, Text } from '@covid/components';
 import { QuoteMarks } from '@assets';
-import { COLORS, SIZES, STYLING } from '@covid/constants';
+import { colors, sizes, styling } from '@covid/themes';
 
 interface IProps {
   doctorLocation: string;
@@ -23,10 +23,10 @@ function DietStudyCard(props: IProps) {
     <TouchableOpacity onPress={props.onPress} style={[styles.touchable, props.style]}>
       <View style={styles.containerUpper}>
         <View style={styles.containerTitle}>
-          {props.showQuotes ? <QuoteMarks style={STYLING.marginBottomSmall} /> : null}
+          {props.showQuotes ? <QuoteMarks style={styling.marginBottomSmall} /> : null}
           <Text textClass="h5Regular">{props.title}</Text>
         </View>
-        <View style={STYLING.itemsEnd}>
+        <View style={styling.itemsEnd}>
           {props.imageNode}
           <Text>{props.doctorName}</Text>
           <Text textClass="pSmall" style={styles.grayText}>
@@ -42,7 +42,7 @@ function DietStudyCard(props: IProps) {
         <RoundIconButton
           iconName="arrow_forward_ios"
           onPress={props.onPress}
-          style={[STYLING.shadow, STYLING.backgroundWhite]}
+          style={[styling.shadow, styling.backgroundWhite]}
         />
       </View>
     </TouchableOpacity>
@@ -52,7 +52,7 @@ function DietStudyCard(props: IProps) {
 const styles = StyleSheet.create({
   containerUpper: {
     flexDirection: 'row',
-    marginBottom: SIZES.spacing,
+    marginBottom: sizes.spacing,
   },
   containerLower: {
     alignItems: 'center',
@@ -60,19 +60,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   containerTitle: {
-    paddingRight: SIZES.spacingSmall,
+    paddingRight: sizes.spacingSmall,
     flex: 1,
   },
   grayText: {
-    color: COLORS.gray,
+    color: colors.gray.main.bgColor,
   },
   touchable: {
-    borderWidth: SIZES.border,
-    borderColor: COLORS.border,
-    backgroundColor: COLORS.white,
-    borderRadius: SIZES.borderRadiusBig,
-    paddingHorizontal: SIZES.spacing,
-    paddingVertical: SIZES.spacingBig,
+    borderWidth: sizes.border,
+    borderColor: colors.gray.light.bgColor,
+    backgroundColor: 'white',
+    borderRadius: sizes.borderRadiusBig,
+    paddingHorizontal: sizes.spacing,
+    paddingVertical: sizes.spacingBig,
   },
 });
 

@@ -4,7 +4,7 @@ import { Card } from 'native-base';
 
 import { addProfile } from '@assets';
 import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { RegularText } from '@covid/components';
 
 export const NewProfileCard: React.FC = () => {

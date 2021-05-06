@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { SolidColorBar, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 function TimelineIntroduction() {
   const { grid } = useTheme();

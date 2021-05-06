@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { menuIcon } from '@assets';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 // import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';

@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 type CheckProps = {
   width?: number | string;

@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { HeaderText } from '@covid/components/Text';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
 import appCoordinator from '@covid/features/AppCoordinator';
 

@@ -12,7 +12,7 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { FieldWrapper } from '@covid/components/Screen';
 import { ActionButton } from '@covid/components';
 import { ValidationError } from '@covid/components/ValidationError';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 export interface ICovidTestTimeData {
   dateTestTime: Date | undefined;

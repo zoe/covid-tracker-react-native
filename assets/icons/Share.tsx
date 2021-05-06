@@ -2,7 +2,7 @@ import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 import { SvgProps } from '@assets/Svg';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 const Share: React.FC<SvgProps> = ({ width = 15, height = 17, style }) => {
   return (

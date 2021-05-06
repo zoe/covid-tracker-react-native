@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle, Animated } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { RegularText } from '@covid/components/Text';
 
 interface IProps {

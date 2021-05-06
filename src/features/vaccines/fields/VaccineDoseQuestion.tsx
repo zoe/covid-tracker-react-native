@@ -8,7 +8,7 @@ import { View } from 'native-base';
 import i18n from '@covid/locale/i18n';
 import CalendarPicker from '@covid/components/CalendarPicker';
 import { ErrorText, RegularText, SecondaryText } from '@covid/components/Text';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import { CalendarIcon } from '@assets';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';

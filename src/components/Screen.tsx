@@ -15,7 +15,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Profile } from '@covid/core/profile/ProfileService';
 

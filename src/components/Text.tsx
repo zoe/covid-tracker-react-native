@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native';
 
-import { colors, fontStyles } from '@theme';
+import { colors, fontStyles } from '@covid/theme';
 
 import { ITest } from './types';
 

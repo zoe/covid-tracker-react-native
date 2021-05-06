@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { ISchoolGroupModel } from '@covid/core/schools/Schools.dto';
 
 type Props = {

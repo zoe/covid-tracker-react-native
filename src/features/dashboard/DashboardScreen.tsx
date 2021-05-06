@@ -32,7 +32,7 @@ import {
 } from '@covid/core/state';
 import NavigatorService from '@covid/NavigatorService';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
-import { COLORS, STYLING } from '@covid/constants';
+import { colors, styling } from '@covid/themes';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -173,8 +173,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
           doctorTitle={i18n.t('mental-health.doctor-title')}
           imageNode={getMentalHealthStudyDoctorImage()}
           onPress={() => appCoordinator.goToMentalHealthStudyPlayback()}
-          style={STYLING.marginVerticalSmall}
-          tagColor={COLORS.orange}
+          style={styling.marginVerticalSmall}
+          tagColor={colors.coral.main.bgColor}
           title={i18n.t('mental-health.results-ready')}
         />
 
@@ -185,8 +185,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
             doctorTitle={i18n.t('diet-study.doctor-title')}
             imageNode={getDietStudyDoctorImage()}
             onPress={() => appCoordinator.goToDietStudy()}
-            style={STYLING.marginVerticalSmall}
-            tagColor={COLORS.blue}
+            style={styling.marginVerticalSmall}
+            tagColor="blue"
             title={i18n.t('diet-study.results-ready')}
             showQuotes
           />
@@ -196,7 +196,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
-        {hasNetworkData && <SchoolNetworks schoolGroups={networks!} style={STYLING.marginVerticalSmall} />}
+        {hasNetworkData && <SchoolNetworks schoolGroups={networks!} style={styling.marginVerticalSmall} />}
 
         {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 

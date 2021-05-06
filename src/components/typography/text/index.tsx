@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, TextStyle } from 'react-native';
 
 import {
   useTheme,
@@ -29,7 +29,7 @@ interface IProps {
   lineHeight?: number | undefined;
   onPress?: () => void | undefined;
   rhythm?: TGridSizes;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<TextStyle>;
   textAlign?: TTextAlign | undefined;
   textDecorationLine?: TTtextDecorationLine | undefined;
   textClass?: TTextClass;

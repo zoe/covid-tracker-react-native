@@ -8,7 +8,7 @@ import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutF
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';

@@ -9,7 +9,7 @@ import { RegularText } from '@covid/components/Text';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 import { JoinHeader } from './partials';
 

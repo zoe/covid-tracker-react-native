@@ -5,7 +5,7 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { chevronLeft } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';

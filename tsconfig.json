@@ -20,8 +20,7 @@
     "paths": {
       "@assets": ["./assets"],
       "@assets/*": ["./assets/*"],
-      "@theme": ["./theme"],
-      "@theme/*": ["./theme/*"],
+      "@covid": ["./src"],
       "@covid/*": ["./src/*"]
     }
   },

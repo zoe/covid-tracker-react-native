@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
 import { View } from 'native-base';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { HeaderText, RegularText, RegularBoldText } from '@covid/components/Text';

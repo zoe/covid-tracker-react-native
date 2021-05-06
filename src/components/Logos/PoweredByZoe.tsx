@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, ImageStyle, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { zoe, poweredByZoeSmall } from '@assets';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 
 import { InlineFormatting } from '../InlineFormatting';

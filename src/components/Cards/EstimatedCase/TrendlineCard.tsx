@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';

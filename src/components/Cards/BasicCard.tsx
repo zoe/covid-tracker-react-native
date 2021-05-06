@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Card } from 'native-base';
 
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 
 type CardProps = {
   children: React.ReactNode;

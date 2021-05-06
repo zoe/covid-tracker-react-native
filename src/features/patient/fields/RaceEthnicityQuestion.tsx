@@ -8,7 +8,7 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
 import i18n from '@covid/locale/i18n';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { colors } from '@theme';
+import { colors } from '@covid/theme';
 import { RegularText } from '@covid/components/Text';
 
 export interface IRaceEthnicityData {
