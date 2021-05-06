@@ -1,5 +1,5 @@
-export { default as ActionCard } from './action-card';
+export { default as ActionCard } from './ActionCard';
 export { default as SchoolNetworks } from './school-networks';
-export { default as SimpleShare } from './simple-share';
-export { default as SpeechCard } from './speech-card';
-export { default as ShareTimelineCard } from './share-timeline-card';
+export { default as ShareTimelineCard } from './ShareTimelineCard';
+export { default as SimpleShare } from './SimpleShare';
+export { default as SpeechCard } from './SpeechCard';

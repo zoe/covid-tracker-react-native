@@ -6,10 +6,10 @@ import { Text } from '@covid/components';
 
 import { TTimelineEvent } from '../types';
 
-import StudyCard from './study-card';
-import TimelineNode from './timeline-node';
-import FindingCard from './finding-card';
-import Highlight from './highlight';
+import StudyCard from './StudyCard';
+import TimelineNode from './TimelineNode';
+import FindingCard from './FindingCard';
+import Highlight from './Highlight';
 
 interface IProps {
   timelineEvents: TTimelineEvent[];
