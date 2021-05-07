@@ -41,7 +41,7 @@ interface IMessageTextProps {
 }
 
 export const SMessageText = styled(Text)<IMessageTextProps>`
-  ${(props) => `
+  ${() => `
     flex: 1;
   `}
 `;

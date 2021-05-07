@@ -165,7 +165,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     const { startupInfo } = store.getState().content;
 
     if (startupInfo?.app_requires_update) {
-      this.goToVersionUpdateModal();
+      // this.goToVersionUpdateModal();
     }
 
     // Track insights
