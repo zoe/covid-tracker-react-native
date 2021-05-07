@@ -7,7 +7,7 @@ import { colors } from '@covid/theme';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { HeaderText, Text, BrandedButton } from '@covid/components';
-import { getPlatformStoreLink } from '@covid/utils/platform';
+import { getPlatformStoreLinkDeep } from '@covid/utils/platform';
 import { openWebLink } from '@covid/utils/links';
 
 interface IProps {
@@ -17,7 +17,7 @@ interface IProps {
 
 export function VersionUpdateModal({ navigation, route }: IProps) {
   const goToAppStore = () => {
-    openWebLink(getPlatformStoreLink);
+    openWebLink(getPlatformStoreLinkDeep);
   };
 
   useEffect(() => {
