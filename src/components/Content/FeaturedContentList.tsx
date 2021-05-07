@@ -30,6 +30,7 @@ export const FeaturedContentList: React.FC<FeaturedContentProps> = ({ type, scre
         aspectRatio={item.thumbnail_aspect_ratio}
         screenName={screenName}
         disableLoadingState={disableLoadingState}
+        orderIndex={item.order_index}
       />
     </View>
   );
