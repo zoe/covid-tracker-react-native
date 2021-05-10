@@ -16,9 +16,9 @@ import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { colors } from '@covid/themes/theme/colors';
 import InfoCircle from '@assets/icons/InfoCircle';
 
-export type DoesSymptomsData = DoesSymptomsCheckBoxData & DoesSymptomsFollowUpData;
+export type DoseSymptomsData = DoseSymptomsCheckBoxData & DoseSymptomsFollowUpData;
 
-type DoesSymptomsCheckBoxData = {
+type DoseSymptomsCheckBoxData = {
   pain: boolean;
   redness: boolean;
   swelling: boolean;
@@ -30,18 +30,18 @@ type DoesSymptomsCheckBoxData = {
   other: boolean;
 };
 
-type DoesSymptomsFollowUpData = {
+type DoseSymptomsFollowUpData = {
   otherSymptoms: string;
 };
 
 type Props = {
-  formikProps: FormikProps<DoesSymptomsData>;
+  formikProps: FormikProps<DoseSymptomsData>;
 };
 
-export const DoesSymptomsQuestions: IDoseSymptomQuestions<Props, DoesSymptomsData> = (props: Props) => {
+export const DoseSymptomsQuestions: IDoseSymptomQuestions<Props, DoseSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
-  const checkboxes: SymptomCheckBoxData<DoesSymptomsCheckBoxData, DoesSymptomsFollowUpData>[] = [
+  const checkboxes: SymptomCheckBoxData<DoseSymptomsCheckBoxData, DoseSymptomsFollowUpData>[] = [
     { label: i18n.t('vaccines.dose-symptoms.pain'), value: 'pain' },
     { label: i18n.t('vaccines.dose-symptoms.redness'), value: 'redness' },
     { label: i18n.t('vaccines.dose-symptoms.swelling'), value: 'swelling' },
@@ -58,7 +58,7 @@ export const DoesSymptomsQuestions: IDoseSymptomQuestions<Props, DoesSymptomsDat
       <RegularText style={{ paddingBottom: 8 }}>{i18n.t('vaccines.dose-symptoms.check-all-that-apply')}</RegularText>
       <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
 
-      {formikProps.values.other && (
+      {formikProps.values.other ? (
         <>
           <View style={{ flexDirection: 'row', marginVertical: 16, paddingRight: 32 }}>
             <View style={{ paddingRight: 8 }}>
@@ -82,12 +82,12 @@ export const DoesSymptomsQuestions: IDoseSymptomQuestions<Props, DoesSymptomsDat
             style={{ borderRadius: 8 }}
           />
         </>
-      )}
+      ) : null}
     </View>
   );
 };
 
-DoesSymptomsQuestions.initialFormValues = (): DoesSymptomsData => {
+DoseSymptomsQuestions.initialFormValues = (): DoseSymptomsData => {
   return {
     pain: false,
     redness: false,
@@ -102,11 +102,11 @@ DoesSymptomsQuestions.initialFormValues = (): DoesSymptomsData => {
   };
 };
 
-DoesSymptomsQuestions.schema = () => {
+DoseSymptomsQuestions.schema = () => {
   return Yup.object();
 };
 
-DoesSymptomsQuestions.createDoseSymptoms = (formData: DoesSymptomsData): Partial<DoseSymptomsRequest> => {
+DoseSymptomsQuestions.createDoseSymptoms = (formData: DoseSymptomsData): Partial<DoseSymptomsRequest> => {
   return {
     pain: formData.pain,
     redness: formData.redness,

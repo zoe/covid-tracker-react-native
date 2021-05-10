@@ -38,12 +38,12 @@ function DietStudyActionCard() {
       <Text textClass="pLight" rhythm={8}>
         {i18n.t(`diet-study.email-action-body`)}
       </Text>
-      {settings.hasEmailSubscription && (
+      {settings.hasEmailSubscription ? (
         <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', marginTop: 24 }}>
           <Icon iconName="tick" style={{ marginRight: 8 }} />
           <Text>{i18n.t('navigation.cta-email-success')}</Text>
         </View>
-      )}
+      ) : null}
     </ActionCard>
   );
 }

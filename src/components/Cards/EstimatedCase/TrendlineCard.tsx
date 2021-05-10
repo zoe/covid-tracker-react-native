@@ -58,11 +58,11 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
         <View style={styles.chartContainer}>
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
           {/* use absolute overlay to prevent displaying blank chart */}
-          {!isSharing && (
+          {!isSharing ? (
             <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
               <View style={styles.box} />
             </TouchableWithoutFeedback>
-          )}
+          ) : null}
         </View>
         <TouchableOpacity
           onPress={onPress}
@@ -101,16 +101,14 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
         ) : null}
       </View>
 
-      {!isSharing && (
-        <>
-          <View>
-            <ShareButton
-              label={i18n.t('dashboard.trendline-card.share-cta')}
-              onPress={() => navigate('Share', { sharable: 'TRENDLINE' })}
-            />
-          </View>
-        </>
-      )}
+      {!isSharing ? (
+        <View>
+          <ShareButton
+            label={i18n.t('dashboard.trendline-card.share-cta')}
+            onPress={() => navigate('Share', { sharable: 'TRENDLINE' })}
+          />
+        </View>
+      ) : null}
     </View>
   );
 }

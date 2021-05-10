@@ -32,7 +32,7 @@ function BasicNavHeader({ backgroundColor, children }: IProps) {
             onPress={() => goBack()}
           />
         </View>
-        {children && <View>{children}</View>}
+        {children ? <View>{children}</View> : null}
       </View>
     </View>
   );

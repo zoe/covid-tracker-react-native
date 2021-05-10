@@ -367,7 +367,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                   </Item>
                 </FieldWrapper>
 
-                {isUSCountry() && (
+                {isUSCountry() ? (
                   <>
                     <RegularText style={styles.standaloneLabel}>{i18n.t('your-study.if-not')}</RegularText>
 
@@ -400,12 +400,12 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                       />
                     </View>
                   </>
-                )}
+                ) : null}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+                ) : null}
 
                 <BrandedButton onPress={props.handleSubmit}>
                   {

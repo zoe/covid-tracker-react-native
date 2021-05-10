@@ -91,14 +91,14 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
         </Text>
       </View>
 
-      {showCartoMap && (
+      {showCartoMap ? (
         <View style={styles.mapContainer}>
           <TouchableOpacity activeOpacity={0.6} onPress={showMap}>
             <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} pointerEvents="none" />
           </TouchableOpacity>
         </View>
-      )}
-      {showUpdatePostcode && (
+      ) : null}
+      {showUpdatePostcode ? (
         <>
           <View style={{ paddingHorizontal: 16, paddingVertical: 16 }}>
             <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
@@ -113,7 +113,7 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
             </BrandedButton>
           </View>
         </>
-      )}
+      ) : null}
     </View>
   );
 }
@@ -285,18 +285,11 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
         </View>
       </View>
 
-      {!isSharing && (
-        <>
-          {/* <View style={styles.divider} />
-          <TouchableOpacity style={styles.shareTouchable} onPress={share}>
-            <Share style={styles.shareIcon} />
-            <MutedText style={styles.shareLabel}>{i18n.t('covid-cases-map.share')}</MutedText>
-          </TouchableOpacity> */}
-          <View>
-            <ShareButton label={i18n.t('covid-cases-map.share')} onPress={share} />
-          </View>
-        </>
-      )}
+      {!isSharing ? (
+        <View>
+          <ShareButton label={i18n.t('covid-cases-map.share')} onPress={share} />
+        </View>
+      ) : null}
     </View>
   );
 }

@@ -69,7 +69,7 @@ export const ContentLoadingView: React.FC<ContentLoadingViewProps> = ({
 
   return (
     <View>
-      {loading && enableShimmers && (
+      {loading && enableShimmers ? (
         <View style={styles.container}>
           <View>
             <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base]} />
@@ -77,7 +77,7 @@ export const ContentLoadingView: React.FC<ContentLoadingViewProps> = ({
           </View>
           <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base, styles.three]} />
         </View>
-      )}
+      ) : null}
       <View style={[loading && { position: 'absolute', opacity: 0 }]}>{children}</View>
     </View>
   );

@@ -57,7 +57,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           <CaptionText>
             {`Version `}
             {Constants.manifest.revisionId ? Constants.manifest.revisionId : Constants.manifest.version}
-            {isDevChannel() && ` (DEV)`}
+            {isDevChannel() ? ` (DEV)` : false}
           </CaptionText>
           <TouchableOpacity onPress={() => props.navigation.goBack()}>
             <Image style={styles.closeIcon} source={closeIcon} />
@@ -72,7 +72,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           }}
         />
 
-        {showVaccineRegistry && (
+        {showVaccineRegistry ? (
           <MenuItem
             image={<VaccineRegistryIcon />}
             label={i18n.t('vaccine-registry.menu-item')}
@@ -80,7 +80,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
               appCoordinator.goToVaccineRegistry();
             }}
           />
-        )}
+        ) : null}
 
         <MenuItem
           image={<ShareIcon />}

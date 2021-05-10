@@ -37,7 +37,7 @@ export class BloodPressureMedicationQuestion extends Component<Props, object> {
           }
         />
 
-        {this.props.formikProps.values.takesAnyBloodPressureMedications === 'yes' && (
+        {this.props.formikProps.values.takesAnyBloodPressureMedications === 'yes' ? (
           <>
             <YesNoField
               selectedValue={this.props.formikProps.values.takesBloodPressureMedications}
@@ -51,7 +51,7 @@ export class BloodPressureMedicationQuestion extends Component<Props, object> {
               label={i18n.t('your-health.takes-sartan-blood-pressure-medication')}
             />
           </>
-        )}
+        ) : null}
       </View>
     );
   }

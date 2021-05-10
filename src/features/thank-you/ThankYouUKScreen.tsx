@@ -81,7 +81,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-              {startupInfo?.show_timeline && (
+              {startupInfo?.show_timeline ? (
                 <ImpactTimelineCard
                   onPress={() => {
                     Analytics.track(events.ANNIVERSARY_FROM_THANKYOU);
@@ -89,11 +89,11 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                   }}
                   size="LARGE"
                 />
-              )}
+              ) : null}
 
               <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
 
-              {this.state.shouldShowReminders && (
+              {this.state.shouldShowReminders ? (
                 <ExternalCallout
                   calloutID="notificationReminders"
                   imageSource={notificationReminders}
@@ -103,13 +103,13 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                     PushNotificationService.openSettings();
                   }}
                 />
-              )}
+              ) : null}
 
               <View style={{ margin: 10 }} />
 
               <ShareAppCard />
 
-              {this.state.inviteToStudy && <InviteToStudy placement="ThankYouUK" />}
+              {this.state.inviteToStudy ? <InviteToStudy placement="ThankYouUK" /> : null}
 
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}

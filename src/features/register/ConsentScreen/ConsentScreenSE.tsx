@@ -179,7 +179,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
         .
       </RegularText>
 
-      {!route.params.viewOnly && (
+      {!route.params.viewOnly ? (
         <CheckboxList>
           <CheckboxItem testID="partecipateCheck" value={participateChecked} onChange={toggleParticipateChecked}>
             Jag är 18 år eller äldre och jag samtycker till att delta i studien ”Nationellt initiativ för att via en app
@@ -198,7 +198,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
             .
           </CheckboxItem>
         </CheckboxList>
-      )}
+      ) : null}
     </ScrollView>
   );
 };

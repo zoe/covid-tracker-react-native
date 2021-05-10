@@ -310,7 +310,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                     />
 
                     {/* if is healthcare worker question is yes */}
-                    {showWorkerAndCarerQuestions && (
+                    {showWorkerAndCarerQuestions ? (
                       <View>
                         <FieldWrapper>
                           <Item stackedLabel style={styles.textItemStyle}>
@@ -400,7 +400,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                           error={touched.hasUsedPPEEquipment && errors.hasUsedPPEEquipment}
                         />
 
-                        {hasUsedPPEEquipment === 'always' && (
+                        {hasUsedPPEEquipment === 'always' ? (
                           <DropdownField
                             selectedValue={ppeAvailabilityAlways}
                             onValueChange={handleChange('ppeAvailabilityAlways')}
@@ -408,9 +408,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                             items={availabilityAlwaysOptions}
                             error={touched.ppeAvailabilityAlways && errors.ppeAvailabilityAlways}
                           />
-                        )}
+                        ) : null}
 
-                        {hasUsedPPEEquipment === 'sometimes' && (
+                        {hasUsedPPEEquipment === 'sometimes' ? (
                           <DropdownField
                             selectedValue={ppeAvailabilitySometimes}
                             onValueChange={handleChange('ppeAvailabilitySometimes')}
@@ -418,9 +418,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                             items={availabilitySometimesOptions}
                             error={touched.ppeAvailabilitySometimes && errors.ppeAvailabilitySometimes}
                           />
-                        )}
+                        ) : null}
 
-                        {hasUsedPPEEquipment === 'never' && (
+                        {hasUsedPPEEquipment === 'never' ? (
                           <DropdownField
                             selectedValue={ppeAvailabilityNever}
                             onValueChange={handleChange('ppeAvailabilityNever')}
@@ -428,15 +428,15 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                             items={availabilityNeverOptions}
                             error={touched.ppeAvailabilityNever && errors.ppeAvailabilityNever}
                           />
-                        )}
+                        ) : null}
                       </View>
-                    )}
+                    ) : null}
                   </View>
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(errors).length && props.submitCount > 0 && (
+                  {!!Object.keys(errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
-                  )}
+                  ) : null}
 
                   <BrandedButton
                     onPress={handleSubmit}

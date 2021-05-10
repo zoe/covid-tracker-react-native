@@ -106,7 +106,7 @@ function MentalHealthLearning() {
             items={learningInitialOptions}
           />
         </View>
-        {MentalHealthLearning.hasDisability === 'YES' && (
+        {MentalHealthLearning.hasDisability === 'YES' ? (
           <>
             <GenericSelectableList
               collection={learningQuestions}
@@ -116,7 +116,7 @@ function MentalHealthLearning() {
             />
             {renderOtherTextInput}
           </>
-        )}
+        ) : null}
       </View>
     </BasicPage>
   );

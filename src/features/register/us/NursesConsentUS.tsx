@@ -256,7 +256,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
             {'\n'}
           </RegularText>
 
-          {!this.viewOnly && (
+          {!this.viewOnly ? (
             <CheckboxList>
               <CheckboxItem value={this.state.processingChecked} onChange={this.handleProcessingChange}>
                 {i18n.t('consent-nurses-us.i-consent')}{' '}
@@ -280,10 +280,10 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
                 .
               </CheckboxItem>
             </CheckboxList>
-          )}
+          ) : null}
         </ScrollView>
 
-        {!this.viewOnly && (
+        {!this.viewOnly ? (
           <BrandedButton
             style={styles.button}
             hideLoading
@@ -291,7 +291,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
             onPress={this.handleAgreeClicked}>
             {i18n.t('consent-nurses-us.i-agree')}
           </BrandedButton>
-        )}
+        ) : null}
       </View>
     );
   }

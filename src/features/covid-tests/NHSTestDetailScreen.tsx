@@ -183,18 +183,18 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
                 </View>
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+                ) : null}
 
-                {this.testId && (
+                {this.testId ? (
                   <ClearButton
                     text={i18n.t('covid-test.delete-test')}
                     onPress={async () => {
                       await this.promptDeleteTest();
                     }}
                   />
-                )}
+                ) : null}
 
                 <BrandedButton onPress={props.handleSubmit}>
                   <Text>{i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>

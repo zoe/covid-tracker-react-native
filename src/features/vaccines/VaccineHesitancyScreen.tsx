@@ -74,11 +74,11 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
 
                   <View style={{ flex: 1 }} />
 
-                  {!!Object.keys(props.errors).length && (
+                  {!!Object.keys(props.errors).length ? (
                     <View style={{ marginHorizontal: 16, marginBottom: 24 }}>
                       <ErrorText>{i18n.t('validation-error-text')}</ErrorText>
                     </View>
-                  )}
+                  ) : null}
 
                   <BrandedButton
                     style={styles.continueButton}

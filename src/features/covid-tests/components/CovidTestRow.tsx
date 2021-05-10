@@ -67,12 +67,12 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
     <TouchableOpacity style={styles.itemTouchable} onPress={() => AssessmentCoordinator.goToAddEditTest(type, item)}>
       <Image source={getRowIcon(item.result)} style={styles.tick} />
       <RegularText style={[item.result === 'waiting' && styles.pendingText]}>{formatTestDate(item)}</RegularText>
-      {isNHSTest && (
+      {isNHSTest ? (
         <RegularText style={[item.result === 'waiting' && styles.pendingText]}>
           {' - '}
           {formatTestMechanism(item.mechanism)}
         </RegularText>
-      )}
+      ) : null}
       <View style={{ flex: 1 }} />
       <RegularText style={[item.result === 'waiting' && styles.pendingText]}>
         {formatTestResult(item.result)}

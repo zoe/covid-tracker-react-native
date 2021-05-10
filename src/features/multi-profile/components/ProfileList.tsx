@@ -47,11 +47,11 @@ export function ProfileList({
           );
         })}
 
-        {addProfile && (
+        {addProfile ? (
           <View style={styles.cardContainer} key="new">
             <TouchableOpacity onPress={addProfile}>{renderCreateItem()}</TouchableOpacity>
           </View>
-        )}
+        ) : null}
       </View>
     </>
   );

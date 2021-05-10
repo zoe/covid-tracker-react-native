@@ -58,7 +58,7 @@ export function BaseShareAppCard({ primaryText, secondaryText, ctaTitle, onShare
       <View style={styles.socialIconContainer}>
         <Image source={social} style={styles.socialIcon} />
       </View>
-      {primaryText != null && <RegularBoldText style={styles.primaryText}>{primaryText}</RegularBoldText>}
+      {primaryText != null ? <RegularBoldText style={styles.primaryText}>{primaryText}</RegularBoldText> : null}
       <RegularText style={styles.secondaryText}>{secondaryText}</RegularText>
       <BrandedButton onPress={onSharePress} style={styles.shareButton}>
         {ctaTitle}

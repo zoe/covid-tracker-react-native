@@ -18,7 +18,7 @@ function GutScore({ beforeScore, duringScore, minValue = 0, maxValue = 10 }: IPr
   const duringPandemicSubtitle = isUSCountry() ? 'September - October 2020' : 'August - September 2020';
   return (
     <SContainerView>
-      {beforeScore && (
+      {beforeScore ? (
         <Score
           currentValue={beforeScore}
           minValue={minValue}
@@ -27,8 +27,8 @@ function GutScore({ beforeScore, duringScore, minValue = 0, maxValue = 10 }: IPr
           subTitle="February 2020"
           style={{ marginBottom: 48 }}
         />
-      )}
-      {duringScore && (
+      ) : null}
+      {duringScore ? (
         <Score
           currentValue={duringScore}
           minValue={minValue}
@@ -36,8 +36,8 @@ function GutScore({ beforeScore, duringScore, minValue = 0, maxValue = 10 }: IPr
           title="During the pandemic"
           subTitle={duringPandemicSubtitle}
         />
-      )}
-      {!beforeScore && <MissingDataText />}
+      ) : null}
+      {!beforeScore ? <MissingDataText /> : null}
     </SContainerView>
   );
 }

@@ -111,7 +111,7 @@ function MentalHealthHistory() {
             items={initialOptions}
           />
         </View>
-        {MentalHealthHistory.hasDiagnosis === 'YES' && (
+        {MentalHealthHistory.hasDiagnosis === 'YES' ? (
           <>
             <GenericSelectableList
               collection={questions}
@@ -121,7 +121,7 @@ function MentalHealthHistory() {
             />
             {renderOtherTextInput}
           </>
-        )}
+        ) : null}
       </View>
     </BasicPage>
   );

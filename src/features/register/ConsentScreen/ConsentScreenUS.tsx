@@ -94,7 +94,7 @@ const ConsentScreenUS: FC<PropsType> = ({ navigation, route, setAgreed }) => {
         <RegularBoldText>covidtrackingquestions-us@joinzoe.com</RegularBoldText>
       </RegularText>
 
-      {!route.params.viewOnly && (
+      {!route.params.viewOnly ? (
         <CheckboxList>
           <CheckboxItem testID="processingCheck" value={processingChecked} onChange={toggleProcessingChecked}>
             {i18n.t('consent-normal-us.i-consent')}{' '}
@@ -115,7 +115,7 @@ const ConsentScreenUS: FC<PropsType> = ({ navigation, route, setAgreed }) => {
             .
           </CheckboxItem>
         </CheckboxList>
-      )}
+      ) : null}
     </ScrollView>
   );
 };

@@ -31,7 +31,7 @@ export class ValidatedTextInput extends Component<Props, object> {
           placeholderTextColor={colors.secondary}
           {...this.props}
         />
-        {error && <Error />}
+        {error ? <Error /> : null}
       </View>
     );
   }

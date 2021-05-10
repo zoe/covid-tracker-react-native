@@ -68,7 +68,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
           <ProgressStatus step={2} maxSteps={4} />
         </ProgressBlock>
 
-        {isModalVisible && (
+        {isModalVisible ? (
           <TwoButtonModal
             bodyText={i18n.t('school-networks.groups-list.modal-body') + ' ' + pressedGroup!.name + '?'}
             button1Text={i18n.t('school-networks.groups-list.button-1')}
@@ -82,7 +82,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
               setModalVisible(false);
             }}
           />
-        )}
+        ) : null}
 
         <RegularText style={styles.content}>{i18n.t('school-networks.groups-list.text')}</RegularText>
 

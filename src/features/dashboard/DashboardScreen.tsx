@@ -167,30 +167,30 @@ export function DashboardScreen({ navigation, route }: IProps) {
         compactHeader={<CompactHeader reportOnPress={onReport} />}
         expandedHeader={<Header reportOnPress={onReport} />}>
         <View style={styles.calloutContainer}>
-          {startupInfo?.show_timeline && (
+          {startupInfo?.show_timeline ? (
             <ImpactTimelineCard
               onPress={() => {
                 Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
                 navigation.navigate('Anniversary');
               }}
             />
-          )}
-          {startupInfo?.show_diet_score && <DietStudyCard style={{ marginVertical: 12 }} />}
+          ) : null}
+          {startupInfo?.show_diet_score ? <DietStudyCard style={{ marginVertical: 12 }} /> : null}
 
           <ShareVaccineCard screenName="Dashboard" />
 
           <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
-          {hasNetworkData && (
+          {hasNetworkData ? (
             <View
               style={{
                 marginVertical: 8,
               }}>
               <SchoolNetworks schoolGroups={networks!} />
             </View>
-          )}
+          ) : null}
 
-          {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+          {showTrendline ? <TrendlineCard ctaOnPress={onExploreTrendline} /> : null}
 
           <EstimatedCasesMapCard />
 

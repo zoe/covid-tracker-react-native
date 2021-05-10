@@ -52,14 +52,14 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
         </View>
       </Screen>
 
-      {enableCTAs && (
+      {enableCTAs ? (
         <View style={styles.buttonsContainer}>
           <Button onPress={goNext} branded>
             {i18n.t('school-networks.intro.cta')}
           </Button>
           <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.intro.skip')}</Button>
         </View>
-      )}
+      ) : null}
     </View>
   );
 };

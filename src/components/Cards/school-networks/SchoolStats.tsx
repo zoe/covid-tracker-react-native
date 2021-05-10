@@ -38,7 +38,7 @@ function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = fals
       <Text textClass="p" rhythm={active ? 8 : 12} colorPalette="uiDark" colorShade="darker" inverted>
         {size} / {total} {i18n.t('school-networks.dashboard.children-signed-up')}
       </Text>
-      {active && daily !== undefined && (
+      {active && daily !== undefined ? (
         <Text textClass="pLight" rhythm={8} colorPalette="uiDark" colorShade="darker" inverted>
           {`${daily} ${
             daily === 1
@@ -46,7 +46,7 @@ function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = fals
               : i18n.t('school-networks.dashboard.report-for-today')
           }`}
         </Text>
-      )}
+      ) : null}
 
       {active ? (
         <HealthStatus reported={reported} />

@@ -246,32 +246,32 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           {(props) => {
             return (
               <Form>
-                {this.state.needBloodPressureAnswer && (
+                {this.state.needBloodPressureAnswer ? (
                   <BloodPressureMedicationQuestion formikProps={props as FormikProps<IBloodPressureData>} />
-                )}
+                ) : null}
 
-                {this.state.needRaceEthnicityAnswer && (
+                {this.state.needRaceEthnicityAnswer ? (
                   <RaceEthnicityQuestion
                     showRaceQuestion={this.features.showRaceQuestion}
                     showEthnicityQuestion={this.features.showEthnicityQuestion}
                     formikProps={props as FormikProps<IRaceEthnicityData>}
                   />
-                )}
+                ) : null}
 
-                {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} />}
+                {this.state.needAtopyAnswers ? <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} /> : null}
 
-                {this.state.needDiabetesAnswers && (
+                {this.state.needDiabetesAnswers ? (
                   <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />
-                )}
+                ) : null}
 
-                {this.state.needBloodGroupAnswer && (
+                {this.state.needBloodGroupAnswer ? (
                   <BloodGroupQuestion formikProps={props as FormikProps<IBloodGroupData>} />
-                )}
+                ) : null}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+                ) : null}
 
                 <BrandedButton onPress={props.handleSubmit} enable={!props.isSubmitting}>
                   <Text>{i18n.t('update-profile')}</Text>

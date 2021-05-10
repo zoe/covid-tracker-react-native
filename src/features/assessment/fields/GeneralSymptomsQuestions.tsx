@@ -94,7 +94,7 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
 
       <CheckboxList>{createSymptomCheckboxes(fever_checkbox, formikProps)}</CheckboxList>
 
-      {formikProps.values.fever && (
+      {formikProps.values.fever ? (
         <View style={{ marginVertical: 16 }}>
           <RegularText>{i18n.t('describe-symptoms.question-your-temperature')}</RegularText>
           <View style={styles.fieldRow}>
@@ -121,7 +121,7 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
             </View>
           </View>
         </View>
-      )}
+      ) : null}
 
       <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
     </View>

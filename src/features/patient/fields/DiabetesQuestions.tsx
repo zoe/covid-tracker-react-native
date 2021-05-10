@@ -15,7 +15,7 @@ import YesNoField from '@covid/components/YesNoField';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { colors } from '@theme';
 
-import { DiabetesTreamentsQuestion, IDiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
+import { DiabetesTreatmentsQuestion, IDiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 import { DiabetesOralMedsQuestion, IDiabetesOralMedsData } from './DiabetesOralMedsQuestion';
 
 export interface IDiabetesData extends IDiabetesTreatmentsData, IDiabetesOralMedsData {
@@ -76,15 +76,15 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
         label={i18n.t('diabetes.which-type')}
         error={formikProps.touched.diabetesType && formikProps.errors.diabetesType}
       />
-      {formikProps.values.diabetesType === DiabetesTypeValues.OTHER && (
+      {formikProps.values.diabetesType === DiabetesTypeValues.OTHER ? (
         <GenericTextField formikProps={formikProps} name="diabetesTypeOther" />
-      )}
+      ) : null}
 
       <FieldWrapper style={styles.fieldWrapper}>
         <RegularText>{i18n.t('diabetes.most-recent-hemoglobin-measure')}</RegularText>
         <View style={styles.fieldRow}>
           <View style={styles.primaryField}>
-            {formikProps.values.hemoglobinMeasureUnit === '%' && (
+            {formikProps.values.hemoglobinMeasureUnit === '%' ? (
               <ValidatedTextInput
                 placeholder={i18n.t('placeholder-optional')}
                 value={formikProps.values.a1cMeasurementPercent}
@@ -95,8 +95,8 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
                 onSubmitEditing={() => {}}
                 keyboardType="numeric"
               />
-            )}
-            {formikProps.values.hemoglobinMeasureUnit === 'mmol/mol' && (
+            ) : null}
+            {formikProps.values.hemoglobinMeasureUnit === 'mmol/mol' ? (
               <ValidatedTextInput
                 placeholder={i18n.t('placeholder-optional')}
                 value={formikProps.values.a1cMeasurementMol}
@@ -107,7 +107,7 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
                 onSubmitEditing={() => {}}
                 keyboardType="numeric"
               />
-            )}
+            ) : null}
           </View>
           <View style={styles.secondaryField}>
             <DropdownField
@@ -130,11 +130,11 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
         showError
       />
 
-      <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<IDiabetesTreatmentsData>} />
+      <DiabetesTreatmentsQuestion formikProps={formikProps as FormikProps<IDiabetesTreatmentsData>} />
 
-      {formikProps.values.diabetesTreatmentOtherOral && (
+      {formikProps.values.diabetesTreatmentOtherOral ? (
         <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<IDiabetesOralMedsData>} />
-      )}
+      ) : null}
 
       <YesNoField
         selectedValue={formikProps.values.diabetesUsesCGM}
@@ -156,7 +156,7 @@ DiabetesQuestions.initialFormValues = () => {
     a1cMeasurementMol: undefined,
     diabetesDiagnosisYear: '',
     diabetesUsesCGM: '',
-    ...DiabetesTreamentsQuestion.initialFormValues(),
+    ...DiabetesTreatmentsQuestion.initialFormValues(),
     ...DiabetesOralMedsQuestion.initialFormValues(),
   };
 };
@@ -185,7 +185,7 @@ DiabetesQuestions.schema = () => {
 
       diabetesUsesCGM: Yup.string(),
     })
-    .concat(DiabetesTreamentsQuestion.schema())
+    .concat(DiabetesTreatmentsQuestion.schema())
     .concat(DiabetesOralMedsQuestion.schema());
 };
 
@@ -195,7 +195,7 @@ DiabetesQuestions.createDTO = (data) => {
     diabetes_type_other: data.diabetesTypeOther,
     ...(data.diabetesDiagnosisYear && { diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear) }),
     ...(data.diabetesUsesCGM && { diabetes_uses_cgm: data.diabetesUsesCGM === 'yes' }),
-    ...DiabetesTreamentsQuestion.createDTO(data),
+    ...DiabetesTreatmentsQuestion.createDTO(data),
     ...DiabetesOralMedsQuestion.createDTO(data),
   };
 
