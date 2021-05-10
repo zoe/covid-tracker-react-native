@@ -16,27 +16,29 @@ const items = [
   i18n.t('mental-health-playback.introduction.point-3'),
 ];
 
-export default () => (
-  <BasicPage
-    active
-    hasStickyHeader
-    footerTitle={i18n.t('mental-health-playback.introduction.button')}
-    onPress={() => NavigatorService.navigate('MentalHealthPlaybackGeneral')}
-    style={styling.backgroundWhite}>
-    <Introduction />
-    <View style={styling.padding}>
-      <Card style={styling.marginBottom}>
-        <Text style={styling.marginBottom} textClass="h4">
-          {i18n.t('mental-health-playback.introduction.title')}
-        </Text>
-        <UL items={items} />
-      </Card>
-      <View style={styling.row}>
-        <Info style={styling.marginRightSmall} />
-        <Text style={styling.flex} textClass="pLight">
-          {i18n.t('mental-health-playback.introduction.info')}
-        </Text>
+export default function MHPIntroductionScreen() {
+  return (
+    <BasicPage
+      active
+      hasStickyHeader
+      footerTitle={i18n.t('mental-health-playback.introduction.button')}
+      onPress={() => NavigatorService.navigate('MentalHealthPlaybackGeneral')}
+      style={styling.backgroundWhite}>
+      <Introduction />
+      <View style={styling.padding}>
+        <Card style={styling.marginBottom}>
+          <Text style={styling.marginBottom} textClass="h4">
+            {i18n.t('mental-health-playback.introduction.title')}
+          </Text>
+          <UL items={items} />
+        </Card>
+        <View style={styling.row}>
+          <Info style={styling.marginRightSmall} />
+          <Text style={styling.flex} textClass="pLight">
+            {i18n.t('mental-health-playback.introduction.info')}
+          </Text>
+        </View>
       </View>
-    </View>
-  </BasicPage>
-);
+    </BasicPage>
+  );
+}
