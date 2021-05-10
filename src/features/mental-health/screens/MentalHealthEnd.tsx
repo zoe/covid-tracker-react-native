@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { BasicPage, Done, Text, SimpleShare, Spacer } from '@covid/components';
-import NavigatorService from '@covid/NavigatorService';
-import i18n from '@covid/locale/i18n';
-import { selectMentalHealthState, setCompleted } from '@covid/core/state';
+import { BasicPage, Done, SimpleShare, Spacer, Text } from '@covid/components';
 import { events } from '@covid/core/Analytics';
+import { selectMentalHealthState, setCompleted } from '@covid/core/state';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 function MentalHealthSupport() {
   const MentalHealthState = useSelector(selectMentalHealthState);
@@ -19,22 +18,22 @@ function MentalHealthSupport() {
   });
 
   return (
-    <BasicPage footerTitle="Back to home" onPress={() => NavigatorService.navigate('Dashboard', undefined)} withGutter>
+    <BasicPage withGutter footerTitle="Back to home" onPress={() => NavigatorService.navigate('Dashboard', undefined)}>
       <View style={styles.tickContainer}>
         <Done />
       </View>
-      <Text textClass="h3" rhythm={32} textAlign="center">
+      <Text rhythm={32} textAlign="center" textClass="h3">
         {i18n.t('mental-health.end-title')}
       </Text>
-      <Text textAlign="center" textClass="pLight" rhythm={24}>
+      <Text rhythm={24} textAlign="center" textClass="pLight">
         {i18n.t('mental-health.end-0')}
       </Text>
-      <Text textAlign="center" textClass="pLight" rhythm={24}>
+      <Text rhythm={24} textAlign="center" textClass="pLight">
         {i18n.t('mental-health.end-1')}
       </Text>
       <SimpleShare
-        title={i18n.t('mental-health.share')}
         shareMessage={i18n.t('mental-health.share-message')}
+        title={i18n.t('mental-health.share')}
         trackEvent={events.MENTAL_HEALTH_SHARED}
       />
       <Spacer space={24} />
@@ -43,10 +42,6 @@ function MentalHealthSupport() {
 }
 
 const styles = StyleSheet.create({
-  tickContainer: {
-    alignItems: 'center',
-    marginBottom: 24,
-  },
   tick: {
     alignItems: 'center',
     borderColor: '#C0D904',
@@ -55,6 +50,10 @@ const styles = StyleSheet.create({
     height: 48,
     justifyContent: 'center',
     width: 48,
+  },
+  tickContainer: {
+    alignItems: 'center',
+    marginBottom: 24,
   },
 });
 

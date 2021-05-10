@@ -1,15 +1,13 @@
+import { Text } from '@covid/components';
+import { useTheme } from '@covid/themes';
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { useTheme } from '@covid/themes';
-import { Text } from '@covid/components';
-
 import { TTimelineEvent } from '../types';
-
-import StudyCard from './study-card';
-import TimelineNode from './timeline-node';
 import FindingCard from './finding-card';
 import Highlight from './highlight';
+import StudyCard from './study-card';
+import TimelineNode from './timeline-node';
 
 interface IProps {
   timelineEvents: TTimelineEvent[];
@@ -26,7 +24,7 @@ function Timeline({ timelineEvents }: IProps) {
       case 'NODE':
         return <TimelineNode timelineEvent={timelineEvent} />;
       case 'SUMMARY_NODE':
-        return <TimelineNode timelineEvent={timelineEvent} dateFormat="MMMM YYYY" />;
+        return <TimelineNode dateFormat="MMMM YYYY" timelineEvent={timelineEvent} />;
       case 'STUDY':
         return <StudyCard timelineEvent={timelineEvent} />;
       default:

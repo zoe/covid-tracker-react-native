@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { Dimensions, StyleSheet, View, TouchableOpacity } from 'react-native';
-
 import { Profile } from '@covid/core/profile/ProfileService';
+import React, { useState } from 'react';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from '../icons';
-
 import Option from './option';
 
 const { height } = Dimensions.get('window');
@@ -32,8 +30,8 @@ function Fab({ profiles }: IProps) {
           const toValue = active ? 1 : 0;
           return (
             <Option
-              key={key}
               handleOnPress={() => handleOnPress(option)}
+              key={key}
               label={option.name ?? ''}
               toValue={toValue}
               yValue={yValue}
@@ -41,10 +39,11 @@ function Fab({ profiles }: IProps) {
           );
         })}
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => setActive(!active)}
           accessible
-          accessibilityRole="button">
+          accessibilityRole="button"
+          onPress={() => setActive(!active)}
+          style={styles.button}
+        >
           <Icon iconName="health-insurance" iconSize={32} />
         </TouchableOpacity>
       </View>
@@ -53,10 +52,9 @@ function Fab({ profiles }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    top: height - (size + 24),
-    position: 'absolute',
-    right: 24,
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
   button: {
     alignItems: 'center',
@@ -66,6 +64,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: size,
   },
+  container: {
+    position: 'absolute',
+    right: 24,
+    top: height - (size + 24),
+  },
   smlButton: {
     alignItems: 'center',
     backgroundColor: 'purple',
@@ -73,10 +76,6 @@ const styles = StyleSheet.create({
     height: size * 0.8,
     justifyContent: 'center',
     width: size * 0.8,
-  },
-  backdrop: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
 });
 

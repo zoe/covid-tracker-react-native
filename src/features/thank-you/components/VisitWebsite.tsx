@@ -1,11 +1,10 @@
+import { ClickableText, RegularText } from '@covid/components';
+import i18n from '@covid/locale/i18n';
+import { openWebLink } from '@covid/utils/links';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { openWebLink } from '@covid/utils/links';
-import { ClickableText, RegularText } from '@covid/components';
 
 export default class VisitWebsite extends Component {
   render() {
@@ -23,10 +22,10 @@ export default class VisitWebsite extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 30,
-    paddingHorizontal: 40,
-    textAlign: 'center',
     color: colors.primary,
+    paddingHorizontal: 40,
+    paddingVertical: 30,
+    textAlign: 'center',
   },
   linkText: {
     color: colors.purple,

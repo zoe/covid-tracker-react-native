@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { ErrorText } from './Text';
 
@@ -19,7 +19,7 @@ export const ValidationError: React.FC<ErrorProps> = ({ error, style }) => {
 const styles = StyleSheet.create({
   validationError: {
     marginBottom: 0,
-    marginTop: 4,
     marginHorizontal: 6,
+    marginTop: 4,
   },
 });

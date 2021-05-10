@@ -1,18 +1,17 @@
+import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ScreenParamList } from '@covid/features';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
+import i18n from '@covid/locale/i18n';
+import { openWebLink } from '@covid/utils/links';
 import { AntDesign } from '@expo/vector-icons';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
-import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
-import { openWebLink } from '@covid/utils/links';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ScreenParamList } from '@covid/features';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUS'>;
@@ -45,8 +44,8 @@ export default class ThankYouUSScreen extends Component<Props, State> {
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
-              <AntDesign name="checkcircle" style={styles.checkIcon} size={32} />
-              <HeaderText style={{ textAlign: 'center', marginTop: 24 }}>
+              <AntDesign name="checkcircle" size={32} style={styles.checkIcon} />
+              <HeaderText style={{ marginTop: 24, textAlign: 'center' }}>
                 {i18n.t('thank-you.report-tomorrow')}
               </HeaderText>
               <Text style={styles.thankYou}>{i18n.t('thank-you.numbers')}</Text>
@@ -72,7 +71,8 @@ export default class ThankYouUSScreen extends Component<Props, State> {
                 onPress={() => {
                   assessmentCoordinator.gotoNextScreen(this.props.route.name);
                 }}
-                style={styles.done}>
+                style={styles.done}
+              >
                 {i18n.t('thank-you.done')}
               </ClickableText>
             </View>
@@ -84,35 +84,16 @@ export default class ThankYouUSScreen extends Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 1,
-    justifyContent: 'space-between',
-  },
-
-  rootContainer: {
-    padding: 16,
-    marginTop: 16,
-  },
-
   checkIcon: {
-    color: colors.feedbackExcellent,
     alignSelf: 'center',
+    color: colors.feedbackExcellent,
   },
 
-  thankYou: {
-    padding: 16,
-    fontSize: 16,
-    lineHeight: 24,
-    fontFamily: 'SofiaPro-Light',
-    color: colors.primary,
-    textAlign: 'center',
-  },
-
-  partnerContainer: {
-    marginTop: 40,
-    textAlign: 'center',
-    marginHorizontal: 16,
-    lineHeight: 24,
+  done: {
+    alignSelf: 'center',
+    color: colors.brand,
+    fontSize: 24,
+    margin: 40,
   },
 
   partner: {
@@ -120,15 +101,34 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
 
-  visitWebsite: {
-    marginTop: 24,
+  partnerContainer: {
+    lineHeight: 24,
+    marginHorizontal: 16,
+    marginTop: 40,
     textAlign: 'center',
   },
 
-  done: {
-    alignSelf: 'center',
-    margin: 40,
-    fontSize: 24,
-    color: colors.brand,
+  rootContainer: {
+    marginTop: 16,
+    padding: 16,
+  },
+
+  scrollView: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
+  },
+
+  thankYou: {
+    color: colors.primary,
+    fontFamily: 'SofiaPro-Light',
+    fontSize: 16,
+    lineHeight: 24,
+    padding: 16,
+    textAlign: 'center',
+  },
+
+  visitWebsite: {
+    marginTop: 24,
+    textAlign: 'center',
   },
 });

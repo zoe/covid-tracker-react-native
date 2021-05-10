@@ -1,12 +1,10 @@
+import { social } from '@assets';
+import { track } from '@covid/core/Analytics';
+import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
-import { social } from '@assets';
-import i18n from '@covid/locale/i18n';
-import { track } from '@covid/core/Analytics';
-
 import { BrandedButton } from '../buttons';
-
 import { share } from './BaseShareApp';
 
 interface IProps {
@@ -16,8 +14,8 @@ interface IProps {
 }
 
 function SimpleShare({ shareMessage = undefined, title, trackEvent }: IProps) {
-  const tEvent = trackEvent ? trackEvent : 'SHARE';
-  const message = shareMessage ? shareMessage : i18n.t('share-this-app.message');
+  const tEvent = trackEvent || 'SHARE';
+  const message = shareMessage || i18n.t('share-this-app.message');
 
   const handleOnShare = async () => {
     track(tEvent);
@@ -38,25 +36,25 @@ function SimpleShare({ shareMessage = undefined, title, trackEvent }: IProps) {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    width: '100%',
+  },
   card: {
     backgroundColor: 'white',
     borderRadius: 16,
     padding: 24,
+  },
+  img: {
+    aspectRatio: 1.0,
+    height: undefined,
+    resizeMode: 'contain',
+    width: '100%',
   },
   imgContainer: {
     height: 100,
     justifyContent: 'center',
     marginBottom: 24,
     overflow: 'hidden',
-  },
-  img: {
-    aspectRatio: 1.0,
-    resizeMode: 'contain',
-    height: undefined,
-    width: '100%',
-  },
-  button: {
-    width: '100%',
   },
 });
 

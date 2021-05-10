@@ -1,12 +1,11 @@
-import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-
 import { facebook } from '@assets';
-import { colors } from '@theme';
+import { BrandedButton } from '@covid/components';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { openWebLink } from '@covid/utils/links';
-import { BrandedButton } from '@covid/components';
+import { colors } from '@theme';
+import React from 'react';
+import { Image, StyleSheet, View } from 'react-native';
 
 export const FacebookSECard: React.FC = () => {
   const onButtonPress = () => {
@@ -40,38 +39,38 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   primaryText: {
-    paddingHorizontal: 30,
     fontSize: 20,
+    paddingHorizontal: 30,
     textAlign: 'center',
   },
   secondaryText: {
-    paddingVertical: 10,
-    marginHorizontal: 32,
-    textAlign: 'center',
     color: colors.secondary,
+    marginHorizontal: 32,
+    paddingVertical: 10,
+    textAlign: 'center',
   },
   shareButton: {
     backgroundColor: colors.facebook,
     height: 42,
-    marginVertical: 20,
     marginHorizontal: 72,
+    marginVertical: 20,
   },
   shareLink: {
-    marginTop: 5,
     marginBottom: 20,
     marginHorizontal: 30,
+    marginTop: 5,
     textAlign: 'center',
   },
-  socialIconContainer: {
-    borderRadius: 10,
-    marginTop: 24,
-    marginBottom: 24,
-    alignSelf: 'center',
-  },
   socialIcon: {
-    maxWidth: 48,
-    maxHeight: 48,
-    resizeMode: 'contain',
     aspectRatio: 1,
+    maxHeight: 48,
+    maxWidth: 48,
+    resizeMode: 'contain',
+  },
+  socialIconContainer: {
+    alignSelf: 'center',
+    borderRadius: 10,
+    marginBottom: 24,
+    marginTop: 24,
   },
 });

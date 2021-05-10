@@ -1,49 +1,48 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
-import { Form, Text } from 'native-base';
-import React, { Component } from 'react';
-import * as Yup from 'yup';
-import { View } from 'react-native';
-
+import { BrandedButton } from '@covid/components';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { IUserService } from '@covid/core/user/UserService';
-import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
-import i18n from '@covid/locale/i18n';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
+import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
+import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { isMinorAge } from '@covid/core/patient/PatientState';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { IUserService } from '@covid/core/user/UserService';
+import { ScreenParamList } from '@covid/features';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-import { isMinorAge } from '@covid/core/patient/PatientState';
-import { BrandedButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
+import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik, FormikProps } from 'formik';
+import { Form, Text } from 'native-base';
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import * as Yup from 'yup';
 
-import { IHeightData, HeightQuestion } from './fields/HeightQuestion';
+import { HeightQuestion, IHeightData } from './fields/HeightQuestion';
 import { IRaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
 import { IWeightData, WeightQuestion } from './fields/WeightQuestion';
 
 const initialFormValues = {
-  yearOfBirth: '',
-  sex: '',
+  everExposed: '',
   genderIdentity: '',
   genderIdentityDescription: '',
-  postcode: '',
-
-  everExposed: '',
-  houseboundProblems: 'no',
-  needsHelp: 'no',
   helpAvailable: 'no',
+  houseboundProblems: 'no',
+
   mobilityAid: 'no',
+  needsHelp: 'no',
+  postcode: '',
+  sex: '',
+  yearOfBirth: '',
 };
 
 export interface IAboutYouData extends IRaceEthnicityData, IHeightData, IWeightData {
@@ -81,18 +80,20 @@ const checkFormFilled = (props: FormikProps<IAboutYouData>) => {
 };
 
 const initialState: State = {
-  errorMessage: '',
   enableSubmit: true,
+  errorMessage: '',
 
-  showRaceQuestion: false,
   showEthnicityQuestion: false,
+  showRaceQuestion: false,
 };
 
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
+
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
+
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
@@ -109,8 +110,8 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     const features = this.localisationService.getConfig();
 
     this.setState({
-      showRaceQuestion: features.showRaceQuestion,
       showEthnicityQuestion: features.showEthnicityQuestion,
+      showRaceQuestion: features.showRaceQuestion,
     });
   }
 
@@ -119,7 +120,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
       const currentPatient = this.coordinator.patientData.patientState;
-      var infos = this.createPatientInfos(formData);
+      const infos = this.createPatientInfos(formData);
 
       this.coordinator
         .updatePatientInfo(infos)
@@ -142,19 +143,19 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
   private createPatientInfos(formData: IAboutYouData) {
     let infos = {
-      year_of_birth: cleanIntegerVal(formData.yearOfBirth),
       gender: formData.sex === 'male' ? 1 : formData.sex === 'female' ? 0 : formData.sex === 'pfnts' ? 2 : 3,
       gender_identity: formData.genderIdentity,
       interacted_with_covid: formData.everExposed,
+      year_of_birth: cleanIntegerVal(formData.yearOfBirth),
     } as Partial<PatientInfosRequest>;
 
     if (!isMinorAge(cleanIntegerVal(formData.yearOfBirth))) {
       infos = {
         ...infos,
-        housebound_problems: formData.houseboundProblems === 'yes',
-        needs_help: formData.needsHelp === 'yes',
         help_available: formData.helpAvailable === 'yes',
+        housebound_problems: formData.houseboundProblems === 'yes',
         mobility_aid: formData.mobilityAid === 'yes',
+        needs_help: formData.needsHelp === 'yes',
       };
     }
 
@@ -221,7 +222,24 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     const patientInfo = this.props.route.params.patientData.patientInfo!;
 
     const patientFormData: IAboutYouData = {
-      yearOfBirth: patientInfo.year_of_birth?.toString(),
+      ethnicity: patientInfo.ethnicity ?? '',
+      everExposed: patientInfo.interacted_with_covid,
+      feet: patientInfo.height_feet ? Math.floor(patientInfo.height_feet).toString() : '',
+      genderIdentity: patientInfo.gender_identity,
+      genderIdentityDescription: patientInfo.gender_identity,
+      height: patientInfo.height_cm?.toString(),
+      heightUnit: patientInfo.height_feet ? 'ft' : 'cm',
+      helpAvailable: patientInfo.help_available ? 'yes' : 'no',
+      houseboundProblems: patientInfo.housebound_problems ? 'yes' : 'no',
+      inches: patientInfo.height_feet
+        ? ((patientInfo.height_feet - Math.floor(patientInfo.height_feet)) * 12).toString()
+        : '',
+      mobilityAid: patientInfo.mobility_aid ? 'yes' : 'no',
+      needsHelp: patientInfo.needs_help ? 'yes' : 'no',
+      postcode: patientInfo.postcode,
+      pounds: patientInfo.weight_pounds ? Math.floor(patientInfo.weight_pounds).toString() : '',
+      race: patientInfo.race,
+      raceOther: patientInfo.race_other ?? '',
       sex:
         patientInfo.gender === 1
           ? 'male'
@@ -230,81 +248,52 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           : patientInfo.gender === 2
           ? 'pfnts'
           : 'intersex',
-      genderIdentity: patientInfo.gender_identity,
-      genderIdentityDescription: patientInfo.gender_identity,
-      postcode: patientInfo.postcode,
-      everExposed: patientInfo.interacted_with_covid,
-      houseboundProblems: patientInfo.housebound_problems ? 'yes' : 'no',
-      needsHelp: patientInfo.needs_help ? 'yes' : 'no',
-      helpAvailable: patientInfo.help_available ? 'yes' : 'no',
-      mobilityAid: patientInfo.mobility_aid ? 'yes' : 'no',
-      race: patientInfo.race,
-      ethnicity: patientInfo.ethnicity ?? '',
-      raceOther: patientInfo.race_other ?? '',
-      height: patientInfo.height_cm?.toString(),
-      heightUnit: patientInfo.height_feet ? 'ft' : 'cm',
-      feet: patientInfo.height_feet ? Math.floor(patientInfo.height_feet).toString() : '',
-      inches: patientInfo.height_feet
-        ? ((patientInfo.height_feet - Math.floor(patientInfo.height_feet)) * 12).toString()
-        : '',
-      weight: patientInfo.weight_kg?.toString(),
-      weightUnit: patientInfo.weight_pounds ? 'lbs' : 'kg',
-      pounds: patientInfo.weight_pounds ? Math.floor(patientInfo.weight_pounds).toString() : '',
       stones: patientInfo.weight_pounds
         ? ((patientInfo.weight_pounds - Math.floor(patientInfo.weight_pounds)) * 14).toString()
         : '',
+      weight: patientInfo.weight_kg?.toString(),
+      weightUnit: patientInfo.weight_pounds ? 'lbs' : 'kg',
+      yearOfBirth: patientInfo.year_of_birth?.toString(),
     };
 
     return patientFormData;
   }
 
   registerSchema = Yup.object().shape({
-    yearOfBirth: Yup.number()
-      .typeError(i18n.t('correct-year-of-birth'))
-      .required(i18n.t('required-year-of-birth'))
-      .integer(i18n.t('correct-year-of-birth'))
-      .min(1900, i18n.t('correct-year-of-birth'))
-      .max(2020, i18n.t('correct-year-of-birth')),
-    sex: Yup.string().required(i18n.t('required-sex-at-birth')),
-    genderIdentity: Yup.string()
-      .required(i18n.t('required-gender-identity'))
-      .test('len', i18n.t('error-gender-identity-length'), (val) => (val && val.length < 30) || !val),
-    heightUnit: Yup.string().required(),
-    height: Yup.number().when('heightUnit', {
-      is: 'cm',
-      then: Yup.number().required(i18n.t('required-height-in-cm')),
+    ethnicity: Yup.string().when([], {
+      is: () => isUSCountry(),
+      then: Yup.string().required(),
     }),
+    everExposed: Yup.string().required(i18n.t('required-ever-exposed')),
     feet: Yup.number().when('heightUnit', {
       is: 'ft',
       then: Yup.number(),
     }),
+    genderIdentity: Yup.string()
+      .required(i18n.t('required-gender-identity'))
+      .test('len', i18n.t('error-gender-identity-length'), (val) => (val && val.length < 30) || !val),
+    height: Yup.number().when('heightUnit', {
+      is: 'cm',
+      then: Yup.number().required(i18n.t('required-height-in-cm')),
+    }),
+    heightUnit: Yup.string().required(),
+    helpAvailable: Yup.string().required(),
+
+    houseboundProblems: Yup.string().required(),
     inches: Yup.number().when('heightUnit', {
       is: 'ft',
       then: Yup.number().required(i18n.t('required-height-in-ft-in')),
     }),
-
-    weightUnit: Yup.string().required(),
-    weight: Yup.number().when('weightUnit', {
-      is: 'kg',
-      then: Yup.number().required(i18n.t('required-weight-in-kg')),
-    }),
-    stones: Yup.number().when('weightUnit', {
-      is: 'lbs',
-      then: Yup.number(),
+    mobilityAid: Yup.string().required(),
+    needsHelp: Yup.string().required(),
+    postcode: Yup.string().when([], {
+      is: () => !this.props.route.params.editing,
+      then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
     }),
     pounds: Yup.number().when('weightUnit', {
       is: 'lbs',
       then: Yup.number().required(i18n.t('required-weight-in-lb')),
     }),
-    postcode: Yup.string().when([], {
-      is: () => !this.props.route.params.editing,
-      then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
-    }),
-    everExposed: Yup.string().required(i18n.t('required-ever-exposed')),
-    houseboundProblems: Yup.string().required(),
-    needsHelp: Yup.string().required(),
-    helpAvailable: Yup.string().required(),
-    mobilityAid: Yup.string().required(),
     race: Yup.array<string>().when([], {
       is: () => this.state.showRaceQuestion,
       then: Yup.array<string>().min(1, i18n.t('please-select-race')),
@@ -313,10 +302,22 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       is: (val: string[]) => val.includes('other'),
       then: Yup.string().required(),
     }),
-    ethnicity: Yup.string().when([], {
-      is: () => isUSCountry(),
-      then: Yup.string().required(),
+    sex: Yup.string().required(i18n.t('required-sex-at-birth')),
+    stones: Yup.number().when('weightUnit', {
+      is: 'lbs',
+      then: Yup.number(),
     }),
+    weight: Yup.number().when('weightUnit', {
+      is: 'kg',
+      then: Yup.number().required(i18n.t('required-weight-in-kg')),
+    }),
+    weightUnit: Yup.string().required(),
+    yearOfBirth: Yup.number()
+      .typeError(i18n.t('correct-year-of-birth'))
+      .required(i18n.t('required-year-of-birth'))
+      .integer(i18n.t('correct-year-of-birth'))
+      .min(1900, i18n.t('correct-year-of-birth'))
+      .max(2020, i18n.t('correct-year-of-birth')),
   });
 
   render() {
@@ -353,21 +354,22 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     };
 
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>{i18n.t('title-about-you')}</HeaderText>
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={2} maxSteps={6} />
+          <ProgressStatus maxSteps={6} step={2} />
         </ProgressBlock>
 
         <Formik
           initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
-          validationSchema={this.registerSchema}
           onSubmit={(values: IAboutYouData) => {
             return this.handleUpdateHealth(values);
-          }}>
+          }}
+          validationSchema={this.registerSchema}
+        >
           {(props) => {
             const isMinor = isMinorAge(cleanIntegerVal(props.values.yearOfBirth));
 
@@ -375,29 +377,29 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
                   <GenericTextField
-                    formikProps={props}
-                    label={i18n.t('what-year-were-you-born')}
-                    placeholder={i18n.t('placeholder-year-of-birth')}
-                    name="yearOfBirth"
-                    keyboardType="numeric"
                     showError
+                    formikProps={props}
+                    keyboardType="numeric"
+                    label={i18n.t('what-year-were-you-born')}
+                    name="yearOfBirth"
+                    placeholder={i18n.t('placeholder-year-of-birth')}
                   />
 
                   <DropdownField
+                    error={props.touched.sex && props.errors.sex}
+                    items={sexAtBirthItems}
+                    label={i18n.t('your-sex-at-birth')}
+                    onValueChange={props.handleChange('sex')}
                     placeholder={i18n.t('placeholder-sex')}
                     selectedValue={props.values.sex}
-                    onValueChange={props.handleChange('sex')}
-                    label={i18n.t('your-sex-at-birth')}
-                    items={sexAtBirthItems}
-                    error={props.touched.sex && props.errors.sex}
                   />
 
                   <DropdownField
-                    selectedValue={props.values.genderIdentity}
-                    onValueChange={props.handleChange('genderIdentity')}
-                    label={i18n.t('label-gender-identity')}
-                    items={genderIdentityItems}
                     error={props.touched.genderIdentity && props.errors.genderIdentity}
+                    items={genderIdentityItems}
+                    label={i18n.t('label-gender-identity')}
+                    onValueChange={props.handleChange('genderIdentity')}
+                    selectedValue={props.values.genderIdentity}
                   />
 
                   {props.values.genderIdentity === 'other' && (
@@ -410,9 +412,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   )}
 
                   <RaceEthnicityQuestion
-                    showRaceQuestion={this.state.showRaceQuestion}
-                    showEthnicityQuestion={this.state.showEthnicityQuestion}
                     formikProps={props as FormikProps<IRaceEthnicityData>}
+                    showEthnicityQuestion={this.state.showEthnicityQuestion}
+                    showRaceQuestion={this.state.showRaceQuestion}
                   />
 
                   <HeightQuestion formikProps={props as FormikProps<IHeightData>} />
@@ -421,47 +423,47 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                   {!this.props.route.params.editing && (
                     <GenericTextField
-                      formikProps={props}
-                      label={i18n.t('your-postcode')}
-                      placeholder={i18n.t('placeholder-postcode')}
-                      name="postcode"
-                      inputProps={{ autoCompleteType: 'postal-code' }}
                       showError
+                      formikProps={props}
+                      inputProps={{ autoCompleteType: 'postal-code' }}
+                      label={i18n.t('your-postcode')}
+                      name="postcode"
+                      placeholder={i18n.t('placeholder-postcode')}
                     />
                   )}
 
                   <DropdownField
-                    selectedValue={props.values.everExposed}
-                    onValueChange={props.handleChange('everExposed')}
-                    label={i18n.t('have-you-been-exposed')}
-                    items={everExposedItems}
                     error={props.touched.everExposed && props.errors.everExposed}
+                    items={everExposedItems}
+                    label={i18n.t('have-you-been-exposed')}
+                    onValueChange={props.handleChange('everExposed')}
+                    selectedValue={props.values.everExposed}
                   />
 
                   {!isMinor && (
                     <>
                       <YesNoField
                         label={i18n.t('housebound-problems')}
-                        selectedValue={props.values.houseboundProblems}
                         onValueChange={props.handleChange('houseboundProblems')}
+                        selectedValue={props.values.houseboundProblems}
                       />
 
                       <YesNoField
                         label={i18n.t('needs-help')}
-                        selectedValue={props.values.needsHelp}
                         onValueChange={props.handleChange('needsHelp')}
+                        selectedValue={props.values.needsHelp}
                       />
 
                       <YesNoField
                         label={i18n.t('help-available')}
-                        selectedValue={props.values.helpAvailable}
                         onValueChange={props.handleChange('helpAvailable')}
+                        selectedValue={props.values.helpAvailable}
                       />
 
                       <YesNoField
                         label={i18n.t('mobility-aid')}
-                        selectedValue={props.values.mobilityAid}
                         onValueChange={props.handleChange('mobilityAid')}
+                        selectedValue={props.values.mobilityAid}
                       />
                     </>
                   )}
@@ -473,9 +475,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </View>
 
                 <BrandedButton
-                  onPress={props.handleSubmit}
                   enable={checkFormFilled(props)}
-                  hideLoading={!props.isSubmitting}>
+                  hideLoading={!props.isSubmitting}
+                  onPress={props.handleSubmit}
+                >
                   <Text>{this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}</Text>
                 </BrandedButton>
               </Form>

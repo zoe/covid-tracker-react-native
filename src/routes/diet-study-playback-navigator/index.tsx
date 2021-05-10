@@ -1,7 +1,6 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-
 import { DietStudy, DietStudyGlobal, DietStudyGut, DietStudyTraditional, ScreenParamList } from '@covid/features';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 
 const StackType = createStackNavigator<ScreenParamList>();
 
@@ -15,10 +14,10 @@ function DietStudyPlaybackNavigator({ Stack }: IProps) {
   };
   return (
     <>
-      <Stack.Screen name="DietStudy" component={DietStudy} options={noHeader} />
-      <Stack.Screen name="DietStudyGlobal" component={DietStudyGlobal} options={noHeader} />
-      <Stack.Screen name="DietStudyGut" component={DietStudyGut} options={noHeader} />
-      <Stack.Screen name="DietStudyTraditional" component={DietStudyTraditional} options={noHeader} />
+      <Stack.Screen component={DietStudy} name="DietStudy" options={noHeader} />
+      <Stack.Screen component={DietStudyGlobal} name="DietStudyGlobal" options={noHeader} />
+      <Stack.Screen component={DietStudyGut} name="DietStudyGut" options={noHeader} />
+      <Stack.Screen component={DietStudyTraditional} name="DietStudyTraditional" options={noHeader} />
     </>
   );
 }

@@ -1,13 +1,12 @@
+import { dietStudyPlaybackGutDiagram } from '@assets';
+import { BackButton, BasicNavHeader, SafeLayout, Spacer, SpeechCard, Text } from '@covid/components';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
-import { BackButton, BasicNavHeader, SafeLayout, Spacer, SpeechCard, Text } from '@covid/components';
-import i18n from '@covid/locale/i18n';
-import { dietStudyPlaybackGutDiagram } from '@assets';
-import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
-
-import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 import { GutScore } from '../components';
+import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 
 function DietStudyGut() {
   const { dietScore } = dietStudyPlaybackCoordinator;
@@ -15,7 +14,7 @@ function DietStudyGut() {
   const duringScore = dietScore ? dietScore.post_gut_friendly_score : 0;
 
   return (
-    <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
+    <SafeLayout style={{ backgroundColor: '#FFF' }} withGutter={false}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>
@@ -24,32 +23,32 @@ function DietStudyGut() {
           </Text>
           <GutScore beforeScore={beforeScore} duringScore={duringScore} />
           <Spacer space={24} />
-          <Text textClass="pLight" rhythm={24}>
+          <Text rhythm={24} textClass="pLight">
             {i18n.t('diet-study.gut-body-0')}
           </Text>
-          <Text textClass="pLight" rhythm={24}>
+          <Text rhythm={24} textClass="pLight">
             {i18n.t('diet-study.gut-body-1')}
           </Text>
-          <Image style={styles.diagram} source={dietStudyPlaybackGutDiagram} />
+          <Image source={dietStudyPlaybackGutDiagram} style={styles.diagram} />
           <Text rhythm={16} textClass="h4">
             {i18n.t('diet-study.gut-microbiome-title')}
           </Text>
-          <Text textClass="pLight" rhythm={24}>
+          <Text rhythm={24} textClass="pLight">
             {i18n.t('diet-study.gut-microbiome-body-0')}
           </Text>
-          <Text textClass="pLight" rhythm={48}>
+          <Text rhythm={48} textClass="pLight">
             {i18n.t('diet-study.gut-microbiome-body-1')}
           </Text>
           <Text rhythm={16} textClass="h4">
             {i18n.t('diet-study.gut-score-title')}
           </Text>
-          <Text textClass="pLight" rhythm={24}>
+          <Text rhythm={24} textClass="pLight">
             {i18n.t('diet-study.gut-score-body-0')}
           </Text>
-          <Text textClass="pLight" rhythm={24}>
+          <Text rhythm={24} textClass="pLight">
             {i18n.t('diet-study.gut-score-body-1')}
           </Text>
-          <Text textClass="pLight" rhythm={24}>
+          <Text rhythm={24} textClass="pLight">
             {i18n.t('diet-study.gut-score-body-2')}
           </Text>
           {getDietStudyDoctorImage()}
@@ -76,11 +75,11 @@ function DietStudyGut() {
 
 const styles = StyleSheet.create({
   diagram: {
-    width: '100%',
     aspectRatio: 1200 / 1270,
     height: undefined,
-    resizeMode: 'contain',
     marginBottom: 48,
+    resizeMode: 'contain',
+    width: '100%',
   },
 });
 

@@ -1,8 +1,8 @@
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import { PatientStateType } from '@covid/core/patient/PatientState';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { PatientStateType } from '@covid/core/patient/PatientState';
 import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 export enum ConsentType {

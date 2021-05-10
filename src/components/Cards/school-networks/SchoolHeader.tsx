@@ -1,9 +1,8 @@
+import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { View } from 'react-native';
 
-import i18n from '@covid/locale/i18n';
-
-import { STitleText, SSchoolNameText } from './styles';
+import { SSchoolNameText, STitleText } from './styles';
 
 interface IProps {
   schoolName: string;
@@ -12,7 +11,7 @@ interface IProps {
 function SchoolHeader({ schoolName }: IProps) {
   return (
     <View>
-      <STitleText textClass="h4Medium" colorPalette="uiDark" colorShade="darker" textAlign="left" inverted>
+      <STitleText inverted colorPalette="uiDark" colorShade="darker" textAlign="left" textClass="h4Medium">
         {schoolName}
       </STitleText>
     </View>

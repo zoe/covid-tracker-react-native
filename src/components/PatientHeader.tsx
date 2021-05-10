@@ -1,16 +1,15 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Icon } from 'native-base';
-import React from 'react';
-import { View, StyleSheet, Image, StyleProp, ViewStyle } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { NavigationProp } from '@react-navigation/native';
-
-import { colors } from '@theme';
-import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
-import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { ScreenName } from '@covid/core/Coordinator';
 import { Profile } from '@covid/core/profile/ProfileService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
+import { NavigationProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import { Icon } from 'native-base';
+import React from 'react';
+import { Image, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { ClippedText, RegularText } from './Text';
 
@@ -29,13 +28,13 @@ export const BackButton: React.FC<BackButtonProps> = ({ navigation, style: conta
   return showCloseButton ? (
     <TouchableOpacity onPress={navigation.goBack} style={containerStyle}>
       <View style={styles.iconButton}>
-        <Icon name="cross" type="Entypo" style={styles.icon} />
+        <Icon name="cross" style={styles.icon} type="Entypo" />
       </View>
     </TouchableOpacity>
   ) : (
     <TouchableOpacity onPress={navigation.goBack} style={containerStyle}>
       <View style={styles.iconButton}>
-        <Icon name="chevron-thin-left" type="Entypo" style={styles.icon} />
+        <Icon name="chevron-thin-left" style={styles.icon} type="Entypo" />
       </View>
     </TouchableOpacity>
   );
@@ -99,73 +98,73 @@ const PatientHeader: React.FC<PatientHeaderProps> = ({
 };
 
 const styles = StyleSheet.create({
-  iconButton: {
-    height: 32,
-    width: 32,
-    marginVertical: 16,
-    marginHorizontal: 8,
-    backgroundColor: colors.backgroundFour,
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
+  altText: {
+    color: colors.white,
+    overflow: 'hidden',
+    paddingHorizontal: 10,
   },
-  icon: {
-    fontSize: 16,
-    color: colors.secondary,
+  altTextBox: {
+    backgroundColor: colors.coral,
+    borderRadius: 12,
+    height: 40,
+    justifyContent: 'center',
+    marginRight: 5,
+    marginTop: 10,
+    maxWidth: 200,
+  },
+  avatar: {
+    borderRadius: 16,
+    height: 32,
+    marginHorizontal: 8,
+    marginVertical: 16,
+    width: 32,
+  },
+  center: {
+    flex: 1,
   },
   headerBar: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    paddingHorizontal: 16,
     overflow: 'visible',
+    paddingHorizontal: 16,
   },
-  center: {
-    flex: 1,
+  icon: {
+    color: colors.secondary,
+    fontSize: 16,
+  },
+  iconButton: {
+    alignItems: 'center',
+    backgroundColor: colors.backgroundFour,
+    borderRadius: 16,
+    height: 32,
+    justifyContent: 'center',
+    marginHorizontal: 8,
+    marginVertical: 16,
+    width: 32,
   },
   left: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
+  regularText: {},
+  regularTextBox: {
+    justifyContent: 'center',
+  },
   right: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
-  altTextBox: {
-    backgroundColor: colors.coral,
-    justifyContent: 'center',
-    height: 40,
-    borderRadius: 12,
-    marginTop: 10,
-    marginRight: 5,
-    maxWidth: 200,
-  },
-  altText: {
-    paddingHorizontal: 10,
-    color: colors.white,
-    overflow: 'hidden',
-  },
   rightTriangle: {
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 8,
+    borderLeftColor: colors.coral,
+    borderLeftWidth: 8,
+    borderRightColor: 'transparent',
+    borderRightWidth: 0,
+    borderTopColor: 'transparent',
+    borderTopWidth: 8,
     position: 'absolute',
     right: -8,
-    borderTopWidth: 8,
-    borderRightWidth: 0,
-    borderBottomWidth: 8,
-    borderLeftWidth: 8,
-    borderTopColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'transparent',
-    borderLeftColor: colors.coral,
-  },
-  regularTextBox: {
-    justifyContent: 'center',
-  },
-  regularText: {},
-  avatar: {
-    marginVertical: 16,
-    marginHorizontal: 8,
-    height: 32,
-    width: 32,
-    borderRadius: 16,
   },
 });
 

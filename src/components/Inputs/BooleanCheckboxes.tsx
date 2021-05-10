@@ -1,6 +1,6 @@
+import { useFormikContext } from 'formik';
 import React from 'react';
 import { TextInputProps, View } from 'react-native';
-import { useFormikContext } from 'formik';
 
 import { CheckboxItem } from '../Checkbox';
 import { GenericTextField } from '../GenericTextField';
@@ -33,10 +33,11 @@ export const BooleanCheckboxes: React.FC<BooleanCheckBoxesProps> = ({ data, show
         return (
           <View key={checkBoxData.formKey}>
             <CheckboxItem
-              value={(values as any)[checkBoxData.formKey]}
               onChange={(checked: boolean) => {
                 setFieldValue(checkBoxData.formKey, checked);
-              }}>
+              }}
+              value={(values as any)[checkBoxData.formKey]}
+            >
               {checkBoxData.label}
             </CheckboxItem>
           </View>
@@ -48,12 +49,12 @@ export const BooleanCheckboxes: React.FC<BooleanCheckBoxesProps> = ({ data, show
           <GenericTextField
             formikProps={{
               ...formik,
-              values,
               setFieldValue,
+              values,
             }}
+            inputProps={showAdditionalInputProps.inputProps}
             label={showAdditionalInputProps.label}
             name={showAdditionalInputProps.key}
-            inputProps={showAdditionalInputProps.inputProps}
           />
         </View>
       )}

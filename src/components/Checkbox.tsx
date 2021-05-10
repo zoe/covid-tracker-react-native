@@ -1,20 +1,25 @@
+import Check from '@assets/icons/Check';
+import { colors } from '@theme/colors';
 import { Item, View } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-
-import { colors } from '@theme/colors';
-import Check from '@assets/icons/Check';
 
 import { RegularText } from './Text';
 import { ITest } from './types';
 
 const checkboxStyles = StyleSheet.create({
-  checkboxList: {
-    width: '100%',
+  checkBox: {
+    alignItems: 'center',
+    backgroundColor: colors.backgroundTertiary,
+    borderColor: 'transparent',
+    borderRadius: 8,
+    display: 'flex',
+    height: 32,
+    justifyContent: 'space-evenly',
+    width: 32,
   },
 
-  checkboxRow: {
-    paddingVertical: 6,
+  checkBoxText: {
     borderColor: 'transparent',
   },
 
@@ -23,19 +28,13 @@ const checkboxStyles = StyleSheet.create({
     marginRight: 32,
   },
 
-  checkBoxText: {
-    borderColor: 'transparent',
+  checkboxList: {
+    width: '100%',
   },
 
-  checkBox: {
-    borderRadius: 8,
-    backgroundColor: colors.backgroundTertiary,
+  checkboxRow: {
     borderColor: 'transparent',
-    width: 32,
-    height: 32,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+    paddingVertical: 6,
   },
 });
 
@@ -53,13 +52,14 @@ export function CheckboxItem(props: ICheckboxProps) {
   return (
     <Item style={checkboxStyles.checkboxRow}>
       <TouchableOpacity
-        style={checkboxStyles.checkBox}
-        onPress={() => props.onChange(!props.value)}
         accessible
-        accessibilityRole="checkbox">
+        accessibilityRole="checkbox"
+        onPress={() => props.onChange(!props.value)}
+        style={checkboxStyles.checkBox}
+      >
         {props.value && <Check />}
       </TouchableOpacity>
-      <Item style={checkboxStyles.checkBoxText} onPress={() => props.onChange(!props.value)}>
+      <Item onPress={() => props.onChange(!props.value)} style={checkboxStyles.checkBoxText}>
         <RegularText style={{ ...checkboxStyles.checkboxLabel }}>{props.children}</RegularText>
       </Item>
     </Item>

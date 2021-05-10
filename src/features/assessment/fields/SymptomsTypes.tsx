@@ -1,12 +1,11 @@
-import React from 'react';
-import * as Yup from 'yup';
-import { PickerItemProps, View } from 'react-native';
-import { FormikProps } from 'formik';
-
-import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { FormikProps } from 'formik';
+import React from 'react';
+import { PickerItemProps, View } from 'react-native';
+import * as Yup from 'yup';
 
 export interface ISymptomQuestions<P, Data> extends React.FC<P> {
   initialFormValues: (defaultTemperatureUnit?: string) => Data;
@@ -37,27 +36,28 @@ export type FollowUpQuestion<F> = {
 
 export function createSymptomCheckboxes<T extends BoolObject, F extends StringObject>(
   data: SymptomCheckBoxData<T, F>[],
-  props: FormikProps<T & F>
+  props: FormikProps<T & F>,
 ): JSX.Element[] {
   return data.map((checkBoxData) => {
     return (
       <View key={checkBoxData.value}>
         <CheckboxItem
-          value={props.values[checkBoxData.value]}
           onChange={(checked: boolean) => {
             props.setFieldValue(checkBoxData.value, checked);
-          }}>
+          }}
+          value={props.values[checkBoxData.value]}
+        >
           {checkBoxData.label}
         </CheckboxItem>
 
         {checkBoxData.followUp && props.values[checkBoxData.value] && (
           <View style={{ marginBottom: 16 }}>
             <DropdownField
-              selectedValue={props.values[checkBoxData.followUp.value]}
-              onValueChange={props.handleChange(checkBoxData.followUp.value)}
-              label={checkBoxData.followUp.label}
-              items={checkBoxData.followUp.options}
               error={props.touched[checkBoxData.followUp.value] && props.errors[checkBoxData.followUp.value]}
+              items={checkBoxData.followUp.options}
+              label={checkBoxData.followUp.label}
+              onValueChange={props.handleChange(checkBoxData.followUp.value)}
+              selectedValue={props.values[checkBoxData.followUp.value]}
             />
           </View>
         )}

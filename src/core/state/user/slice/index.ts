@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import { RootState } from '@covid/core/state/root';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IUser } from '../types';
 
@@ -17,22 +16,22 @@ const initialState: IUser = {
 };
 
 const userSlice = createSlice({
-  name: 'User',
   initialState,
+  name: 'User',
   reducers: {
     reset: () => {
       return {
         ...initialState,
       };
     },
+    setPatients: (state, action: PayloadAction<string[]>) => {
+      state.patients = action.payload;
+    },
     setProfile: (state, action: PayloadAction<IUser>) => {
       state = action.payload;
     },
     setUsername: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
-    },
-    setPatients: (state, action: PayloadAction<string[]>) => {
-      state.patients = action.payload;
     },
   },
 });

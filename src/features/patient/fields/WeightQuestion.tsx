@@ -1,16 +1,15 @@
+import DropdownField from '@covid/components/DropdownField';
+import { FieldWrapper } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import i18n from '@covid/locale/i18n';
+import { container } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
-
-import DropdownField from '@covid/components/DropdownField';
-import { FieldWrapper } from '@covid/components/Screen';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import i18n from '@covid/locale/i18n';
-import { RegularText } from '@covid/components/Text';
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 
 export interface IWeightData {
   weight: string;
@@ -35,54 +34,54 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
       <RegularText>{label}</RegularText>
       {isUSCountry() ? (
         <ValidatedTextInput
-          placeholder={i18n.t('placeholder-pounds')}
-          value={formikProps.values.pounds}
-          onChangeText={formikProps.handleChange('pounds')}
-          onBlur={formikProps.handleBlur('pounds')}
           error={formikProps.touched.pounds && formikProps.errors.pounds}
-          returnKeyType="next"
-          onSubmitEditing={() => {}}
           keyboardType="numeric"
+          onBlur={formikProps.handleBlur('pounds')}
+          onChangeText={formikProps.handleChange('pounds')}
+          onSubmitEditing={() => {}}
+          placeholder={i18n.t('placeholder-pounds')}
+          returnKeyType="next"
+          value={formikProps.values.pounds}
         />
       ) : (
         <View style={styles.fieldRow}>
           {formikProps.values.weightUnit === 'kg' ? (
             <View style={styles.primaryField}>
               <ValidatedTextInput
-                placeholder={i18n.t('placeholder-weight')}
-                value={formikProps.values.weight}
-                onChangeText={formikProps.handleChange('weight')}
-                onBlur={formikProps.handleBlur('weight')}
                 error={formikProps.touched.weight && formikProps.errors.weight}
-                returnKeyType="next"
-                onSubmitEditing={() => {}}
                 keyboardType="numeric"
+                onBlur={formikProps.handleBlur('weight')}
+                onChangeText={formikProps.handleChange('weight')}
+                onSubmitEditing={() => {}}
+                placeholder={i18n.t('placeholder-weight')}
+                returnKeyType="next"
+                value={formikProps.values.weight}
               />
             </View>
           ) : (
             <View style={styles.primaryFieldRow}>
               <View style={styles.stonesField}>
                 <ValidatedTextInput
-                  placeholder={i18n.t('placeholder-stones')}
-                  value={formikProps.values.stones}
-                  onChangeText={formikProps.handleChange('stones')}
-                  onBlur={formikProps.handleBlur('stones')}
                   error={formikProps.touched.stones && formikProps.errors.stones}
-                  returnKeyType="next"
-                  onSubmitEditing={() => {}}
                   keyboardType="numeric"
+                  onBlur={formikProps.handleBlur('stones')}
+                  onChangeText={formikProps.handleChange('stones')}
+                  onSubmitEditing={() => {}}
+                  placeholder={i18n.t('placeholder-stones')}
+                  returnKeyType="next"
+                  value={formikProps.values.stones}
                 />
               </View>
               <View style={styles.poundsField}>
                 <ValidatedTextInput
-                  placeholder={i18n.t('placeholder-pounds')}
-                  value={formikProps.values.pounds}
-                  onChangeText={formikProps.handleChange('pounds')}
-                  onBlur={formikProps.handleBlur('pounds')}
                   error={formikProps.touched.pounds && formikProps.errors.pounds}
-                  returnKeyType="next"
-                  onSubmitEditing={() => {}}
                   keyboardType="numeric"
+                  onBlur={formikProps.handleBlur('pounds')}
+                  onChangeText={formikProps.handleChange('pounds')}
+                  onSubmitEditing={() => {}}
+                  placeholder={i18n.t('placeholder-pounds')}
+                  returnKeyType="next"
+                  value={formikProps.values.pounds}
                 />
               </View>
             </View>
@@ -90,12 +89,12 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
           <View style={styles.secondaryField}>
             <DropdownField
               onlyPicker
-              selectedValue={formikProps.values.weightUnit}
-              onValueChange={formikProps.handleChange('weightUnit')}
               items={[
                 { label: 'lbs', value: 'lbs' },
                 { label: 'kg', value: 'kg' },
               ]}
+              onValueChange={formikProps.handleChange('weightUnit')}
+              selectedValue={formikProps.values.weightUnit}
             />
           </View>
         </View>
@@ -107,33 +106,34 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
 WeightQuestion.initialFormValues = () => {
   const features = container.get<ILocalisationService>(Services.Localisation).getConfig();
   return {
-    weight: '',
-    stones: '',
     pounds: '',
+    stones: '',
+    weight: '',
     weightUnit: features.defaultWeightUnit,
   };
 };
 
 WeightQuestion.schema = () => {
   return Yup.object().shape({
-    weight: Yup.number().min(0),
-    stones: Yup.number().min(0),
     pounds: Yup.number().min(0),
+    stones: Yup.number().min(0),
+    weight: Yup.number().min(0),
     weightUnit: Yup.string(),
   });
 };
 
 const styles = StyleSheet.create({
-  fieldWrapper: {
-    flex: 1,
-  },
-
   fieldRow: {
     flexDirection: 'row',
   },
 
-  textItemStyle: {
-    borderColor: 'transparent',
+  fieldWrapper: {
+    flex: 1,
+  },
+
+  poundsField: {
+    flex: 5,
+    marginHorizontal: 4,
   },
 
   primaryField: {
@@ -146,9 +146,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  tertiaryField: {
-    flex: 5,
-    marginRight: 8,
+  secondaryField: {
+    flex: 2,
+    marginLeft: 4,
+    marginTop: -8,
   },
 
   stonesField: {
@@ -156,14 +157,12 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
 
-  poundsField: {
+  tertiaryField: {
     flex: 5,
-    marginHorizontal: 4,
+    marginRight: 8,
   },
 
-  secondaryField: {
-    flex: 2,
-    marginTop: -8,
-    marginLeft: 4,
+  textItemStyle: {
+    borderColor: 'transparent',
   },
 });

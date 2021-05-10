@@ -1,12 +1,10 @@
+import { GradientColorBar, Text } from '@covid/components';
+import { TStyleObject } from '@covid/utils/types';
 import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, Easing, View } from 'react-native';
 
-import { GradientColorBar, Text } from '@covid/components';
-import { TStyleObject } from '@covid/utils/types';
-
 import DietScoreHeader from '../diet-score-header';
 import ScoreCard from '../score-card';
-
 import ScoreRange from './score-range';
 import { SScoreContainerView } from './styles';
 
@@ -42,10 +40,10 @@ function Score({
 
   const run = () => {
     Animated.timing(animatedValue, {
-      toValue: getToValue(),
       delay: 500,
       duration: 800,
       easing: Easing.inOut(Easing.ease),
+      toValue: getToValue(),
       useNativeDriver: false,
     }).start();
   };
@@ -68,7 +66,7 @@ function Score({
 
   return (
     <View style={style}>
-      <DietScoreHeader title={title} subTitle={subTitle} />
+      <DietScoreHeader subTitle={subTitle} title={title} />
       <SScoreContainerView>
         <Animated.View style={{ marginBottom: 8, transform: [{ translateX }] }}>
           <View style={{ transform: [{ translateX: -30 }] }}>
@@ -80,10 +78,10 @@ function Score({
         </Animated.View>
         <GradientColorBar />
         <ScoreRange
-          startScore={minValue}
-          startScoreLabel={minValueLabel}
           endScore={maxValue}
           endScoreLabel={maxValueLabel}
+          startScore={minValue}
+          startScoreLabel={minValueLabel}
         />
       </SScoreContainerView>
     </View>

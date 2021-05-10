@@ -1,10 +1,9 @@
-import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, AccessibilityRole } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
 import { Icon, Text } from '@covid/components';
-import { openWebLink } from '@covid/utils/links';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { openWebLink } from '@covid/utils/links';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { AccessibilityRole, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 import { TTimelineEvent } from '../types';
 
@@ -45,14 +44,13 @@ function FindingCard({ timelineEvent }: IProps) {
           role: 'button',
         };
         return link;
-      } else {
-        link = {
-          linkText: route_text,
-          onPress: () => navigate(route_name),
-          role: 'button',
-        };
-        return link;
       }
+      link = {
+        linkText: route_text,
+        onPress: () => navigate(route_name),
+        role: 'button',
+      };
+      return link;
     }
     return link;
   };
@@ -60,15 +58,15 @@ function FindingCard({ timelineEvent }: IProps) {
   const link = getLink();
 
   return (
-    <TouchableWithoutFeedback onPress={link.onPress} accessibilityRole={link.role} accessible>
+    <TouchableWithoutFeedback accessible accessibilityRole={link.role} onPress={link.onPress}>
       <View style={styles.container}>
         <View style={styles.row}>
           <Icon iconName="Lightbulb" iconSize={18} />
-          <Text textClass="pLight" style={{ marginHorizontal: 12 }}>
+          <Text style={{ marginHorizontal: 12 }} textClass="pLight">
             {title}
           </Text>
         </View>
-        <Text textClass="h5Medium" style={styles.body}>
+        <Text style={styles.body} textClass="h5Medium">
           {sub_title}
         </Text>
         {link.role !== 'none' ? (
@@ -82,6 +80,10 @@ function FindingCard({ timelineEvent }: IProps) {
 }
 
 const styles = StyleSheet.create({
+  body: {
+    marginBottom: 24,
+    marginTop: 12,
+  },
   container: {
     backgroundColor: 'white',
     borderRadius: 16,
@@ -91,10 +93,6 @@ const styles = StyleSheet.create({
   row: {
     alignItems: 'center',
     flexDirection: 'row',
-  },
-  body: {
-    marginBottom: 24,
-    marginTop: 12,
   },
 });
 

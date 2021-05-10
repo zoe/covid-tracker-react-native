@@ -1,7 +1,6 @@
-import { View } from 'react-native';
-
-import styled from '@covid/themes/styled-components';
 import { TColorPalette, TColorShade } from '@covid/themes';
+import styled from '@covid/themes/styled-components';
+import { View } from 'react-native';
 
 interface SProps {
   colorPalette: TColorPalette;

@@ -1,6 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { migrateIfNeeded } from '@covid/utils/async-storage-migrate';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AuthenticatedUser } from './user/UserService';
 
@@ -48,7 +47,7 @@ export class AsyncStorageService {
     if (!userToken || !userId) {
       return null;
     }
-    return { userToken, userId };
+    return { userId, userToken };
   }
 
   static async storeData(authToken: string, userId: string) {
@@ -93,9 +92,8 @@ export class AsyncStorageService {
     }
 
     if (askedCountry == null) return false;
-    else {
-      return JSON.parse(askedCountry) as boolean;
-    }
+
+    return JSON.parse(askedCountry) as boolean;
   }
 
   static async getAskedToReportForOthers() {

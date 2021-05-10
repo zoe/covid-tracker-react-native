@@ -1,11 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { View } from 'react-native';
-
+import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { IFeaturedContent } from '@covid/core/content/dto/ContentAPIContracts';
 import { RootState } from '@covid/core/state/root';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { Optional } from '@covid/utils/types';
+import React from 'react';
+import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 export enum FeaturedContentType {
   Home,
@@ -23,15 +22,15 @@ export const FeaturedContentList: React.FC<FeaturedContentProps> = ({ type, scre
   const thankyou = useSelector<RootState, Optional<IFeaturedContent[]>>((state) => state.content.featuredThankyou);
 
   const mapper = (item: IFeaturedContent) => (
-    <View testID="featured-content-callout" key={item.slug}>
+    <View key={item.slug} testID="featured-content-callout">
       <ExternalCallout
-        link={item.link}
-        calloutID={item.slug}
-        imageSource={{ uri: item.thumbnail_image_url }}
         aspectRatio={item.thumbnail_aspect_ratio}
-        screenName={screenName}
+        calloutID={item.slug}
         disableLoadingState={disableLoadingState}
+        imageSource={{ uri: item.thumbnail_image_url }}
+        link={item.link}
         orderIndex={item.order_index}
+        screenName={screenName}
       />
     </View>
   );

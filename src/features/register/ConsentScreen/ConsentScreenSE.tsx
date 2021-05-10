@@ -1,12 +1,11 @@
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useCallback, useState, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
-import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
-import { openWebLink } from '@covid/utils/links';
 
 import { HeaderText, SimpleTextBlock } from '../components/LegalComponents';
 
@@ -25,7 +24,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicySV', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly]
+    [navigation.navigate, route.params.viewOnly],
   );
 
   const toggleParticipateChecked = useCallback(() => {
@@ -103,7 +102,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
         analyseras på gruppnivå, och inga individuella karakteristika kommer att kunna identifieras. Resultaten från
         sammanställningarna och analyserna kommer att skickas löpande till Folkhälsomyndigheten och andra myndigheter
         samt ansvariga inom hälso- och sjukvård. Resultaten kommer också att publiceras löpande på studiens hemsida (
-        <ClickableText testID="infoLink1" onPress={onInfoLinkPress}>
+        <ClickableText onPress={onInfoLinkPress} testID="infoLink1">
           Covid19app.lu.se
         </ClickableText>
         ). Vi kommer också att publicera resultat på gruppnivå i medicinska tidskrifter.
@@ -127,10 +126,11 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
         du även rätt att lämna in klagomål till Datainspektionen i Stockholm som är den aktuella tillsynsmyndigheten (
         <RegularBoldText>datainspektionen@datainspektionen.se</RegularBoldText>). Mer information om detta hittar du via{' '}
         <ClickableText
-          testID="infoLink2"
           onPress={() =>
             openWebLink('https://www.datainspektionen.se/vagledningar/for-dig-som-privatperson/klagomal-och-tips/')
-          }>
+          }
+          testID="infoLink2"
+        >
           https://www.datainspektionen.se/vagledningar/for-dig-som-privatperson/klagomal-och-tips/
         </ClickableText>
       </RegularText>
@@ -158,6 +158,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
 
       <HeaderText text="Ansvarig för studien" />
       <SimpleTextBlock
+        separator={'\n'}
         text={[
           'Ansvarig för studien är professor Paul Franks. Om du har några ytterligare frågor gällande studien så får du gärna mejla honom på e-postadressen nedan:\n',
           'Professor Paul Franks',
@@ -166,14 +167,13 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
           'Tfn: 040-391149',
           'covid-symptom-study@med.lu.se',
         ]}
-        separator={'\n'}
       />
 
       <HeaderText text="Samtycke till att delta i studien" />
       <RegularText>
         Jag har härmed läst den skriftliga informationen om studien, och jag har haft möjlighet att ställa frågor via
         epost till den ansvariga forskaren. Om jag vill läsa den skriftliga informationen igen så finns den på{' '}
-        <ClickableText testID="infoLink3" onPress={onInfoLinkPress}>
+        <ClickableText onPress={onInfoLinkPress} testID="infoLink3">
           Covid19app.lu.se
         </ClickableText>
         .
@@ -181,18 +181,18 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
 
       {!route.params.viewOnly && (
         <CheckboxList>
-          <CheckboxItem testID="partecipateCheck" value={participateChecked} onChange={toggleParticipateChecked}>
+          <CheckboxItem onChange={toggleParticipateChecked} testID="partecipateCheck" value={participateChecked}>
             Jag är 18 år eller äldre och jag samtycker till att delta i studien ”Nationellt initiativ för att via en app
             i realtid kartlägga samhällspridningen av covid-19 i Sverige samt riskfaktorer för att drabbas av en
             allvarlig sjukdomsbild vid covid-19”.
           </CheckboxItem>
-          <CheckboxItem testID="processingCheck" value={processingChecked} onChange={toggleProcessingChecked}>
+          <CheckboxItem onChange={toggleProcessingChecked} testID="processingCheck" value={processingChecked}>
             Jag samtycker till att personuppgifter om mig behandlas på det sätt som beskrivs i Informationen till
             studiedeltagare ovan.
           </CheckboxItem>
-          <CheckboxItem testID="agreeCheck" value={agreeChecked} onChange={toggleAgreeChecked}>
+          <CheckboxItem onChange={toggleAgreeChecked} testID="agreeCheck" value={agreeChecked}>
             Jag har läst och accepterar Zoe Global Ltds{' '}
-            <ClickableText testID="privacyPolicy" onPress={onPrivacyPolicyPress}>
+            <ClickableText onPress={onPrivacyPolicyPress} testID="privacyPolicy">
               integritetsmeddelande
             </ClickableText>
             .

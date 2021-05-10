@@ -1,10 +1,9 @@
+import { Loading, LoadingModal } from '@covid/components/Loading';
+import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
+import { Profile } from '@covid/core/profile/ProfileService';
+import { colors } from '@theme';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
-import { colors } from '@theme';
-import { Profile } from '@covid/core/profile/ProfileService';
-import { Loading, LoadingModal } from '@covid/components/Loading';
 
 import { NewProfileCard } from './NewProfileCard';
 
@@ -30,16 +29,16 @@ export function ProfileList({
   renderCreateItem = () => <NewProfileCard />,
 }: IProps) {
   if (!isLoaded) {
-    return <Loading status={status} error={error} onRetry={onRetry} />;
+    return <Loading error={error} onRetry={onRetry} status={status} />;
   }
 
   return (
     <>
-      {isApiError && <LoadingModal status={status} error={error} onRetry={onRetry} />}
+      {isApiError && <LoadingModal error={error} onRetry={onRetry} status={status} />}
       <View style={styles.profileList}>
         {profiles.map((profile, i) => {
           return (
-            <View style={styles.cardContainer} key={profile.id}>
+            <View key={profile.id} style={styles.cardContainer}>
               <TouchableOpacity onPress={() => onProfileSelected(profile, i)}>
                 {renderItem(profile, i)}
               </TouchableOpacity>
@@ -48,7 +47,7 @@ export function ProfileList({
         })}
 
         {addProfile && (
-          <View style={styles.cardContainer} key="new">
+          <View key="new" style={styles.cardContainer}>
             <TouchableOpacity onPress={addProfile}>{renderCreateItem()}</TouchableOpacity>
           </View>
         )}
@@ -58,13 +57,10 @@ export function ProfileList({
 }
 
 const styles = StyleSheet.create({
-  profileList: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    width: '100%',
-    alignContent: 'stretch',
+  cardContainer: {
+    marginHorizontal: 8,
+    marginVertical: 4,
+    width: '45%',
   },
 
   inputStyle: {
@@ -75,9 +71,12 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
 
-  cardContainer: {
-    width: '45%',
-    marginHorizontal: 8,
-    marginVertical: 4,
+  profileList: {
+    alignContent: 'stretch',
+    alignItems: 'flex-start',
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '100%',
   },
 });

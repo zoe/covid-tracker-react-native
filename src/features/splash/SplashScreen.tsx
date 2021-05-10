@@ -1,23 +1,22 @@
+import { ApiException } from '@covid/core/api/ApiServiceErrors';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
+import { setPatients, setUsername } from '@covid/core/state/user';
+import { IUserService } from '@covid/core/user/UserService';
+import { ScreenParamList } from '@covid/features';
+import Splash from '@covid/features/splash/components/Splash';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { offlineService } from '@covid/Services';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import * as Linking from 'expo-linking';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { connect } from 'react-redux';
 import RNSplashScreen from 'react-native-splash-screen';
-import { RouteProp } from '@react-navigation/native';
-import * as Linking from 'expo-linking';
-
-import { colors } from '@theme';
-import Splash from '@covid/features/splash/components/Splash';
-import { ApiException } from '@covid/core/api/ApiServiceErrors';
-import i18n from '@covid/locale/i18n';
-import { offlineService } from '@covid/Services';
-import { IUserService } from '@covid/core/user/UserService';
-import { Services } from '@covid/provider/services.types';
-import { lazyInject } from '@covid/provider/services';
-import { setUsername, setPatients } from '@covid/core/state/user';
-import { ScreenParamList } from '@covid/features';
-import NavigatorService from '@covid/NavigatorService';
-import { homeScreenName } from '@covid/core/localisation/LocalisationService';
+import { connect } from 'react-redux';
 
 import appCoordinator from '../AppCoordinator';
 
@@ -38,12 +37,12 @@ type SplashState = {
 };
 
 const initialState = {
-  isOnline: false,
   isApiOnline: false,
   isLoaded: false,
-  status: i18n.t('errors.status-loading'),
-  isRetryable: false,
+  isOnline: false,
   isRetryEnabled: false,
+  isRetryable: false,
+  status: i18n.t('errors.status-loading'),
 };
 
 class SplashScreen extends Component<Props, SplashState> {
@@ -54,8 +53,8 @@ class SplashScreen extends Component<Props, SplashState> {
     super(props);
     this.state = {
       ...initialState,
-      isOnline: offlineService.isOnline,
       isApiOnline: offlineService.isApiOnline,
+      isOnline: offlineService.isOnline,
     };
   }
 
@@ -85,8 +84,8 @@ class SplashScreen extends Component<Props, SplashState> {
 
   private reloadAppState = async () => {
     this.setState({
-      status: i18n.t('errors.status-retrying'),
       isRetryEnabled: false,
+      status: i18n.t('errors.status-retrying'),
     });
 
     try {
@@ -101,9 +100,9 @@ class SplashScreen extends Component<Props, SplashState> {
     const message = messageKey ? i18n.t(messageKey) : error.message;
 
     this.setState({
-      status: message,
-      isRetryable: !!error.isRetryable,
       isRetryEnabled: true,
+      isRetryable: !!error.isRetryable,
+      status: message,
     });
   };
 
@@ -115,8 +114,8 @@ class SplashScreen extends Component<Props, SplashState> {
     const canRetry = this.state.isRetryable && this.state.isRetryEnabled;
     const splashProps = canRetry
       ? {
-          onRetry: this.reloadAppState,
           onLogout: this.logout,
+          onRetry: this.reloadAppState,
         }
       : {};
     return (
@@ -129,14 +128,14 @@ class SplashScreen extends Component<Props, SplashState> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.predict,
+    flex: 1,
   },
 });
 
 const mapDispatchToProps = {
-  setUsername,
   setPatients,
+  setUsername,
 };
 
 export default connect(null, mapDispatchToProps)(SplashScreen);

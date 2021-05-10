@@ -1,18 +1,17 @@
+import { chevronLeft } from '@assets';
+import { BrandedButton } from '@covid/components';
+import { InfoCard } from '@covid/components/InfoCard';
+import { Header } from '@covid/components/Screen';
+import { HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features';
+import appCoordinator from '@covid/features/AppCoordinator';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { chevronLeft } from '@assets';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
-import { Header } from '@covid/components/Screen';
-import { InfoCard } from '@covid/components/InfoCard';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { BrandedButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyInfo'>;
@@ -22,9 +21,9 @@ type Props = {
 export default class ValidationStudyInfoScreen extends Component<Props, object> {
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundSecondary }}>
+      <SafeAreaView style={{ backgroundColor: colors.backgroundSecondary, flex: 1 }}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          <TouchableOpacity style={styles.backIcon} onPress={this.props.navigation.goBack}>
+          <TouchableOpacity onPress={this.props.navigation.goBack} style={styles.backIcon}>
             <Image source={chevronLeft} />
           </TouchableOpacity>
 
@@ -34,18 +33,18 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
 
           <InfoCard
             backgroundVariant={1}
-            header={i18n.t('validation-study-info.header-1')}
             body={i18n.t('validation-study-info.para-1')}
+            header={i18n.t('validation-study-info.header-1')}
           />
           <InfoCard
             backgroundVariant={2}
-            header={i18n.t('validation-study-info.header-2')}
             body={i18n.t('validation-study-info.para-2')}
+            header={i18n.t('validation-study-info.header-2')}
           />
           <InfoCard
             backgroundVariant={3}
-            header={i18n.t('validation-study-info.header-3')}
             body={i18n.t('validation-study-info.para-3')}
+            header={i18n.t('validation-study-info.header-3')}
           />
 
           <RegularBoldText style={styles.interestedTitle}>
@@ -55,10 +54,11 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
           <SecondaryText style={styles.interestedTest}>{i18n.t('validation-study-info.visit-next')}</SecondaryText>
 
           <BrandedButton
-            style={styles.mainButton}
             onPress={() => {
               appCoordinator.gotoNextScreen(this.props.route.name);
-            }}>
+            }}
+            style={styles.mainButton}
+          >
             <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
           </BrandedButton>
         </ScrollView>
@@ -68,41 +68,41 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
 }
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    paddingHorizontal: 32,
-    flexGrow: 1,
-  },
-  buttonContainer: {
-    width: '100%',
-    alignItems: 'center',
-  },
   backIcon: {
     alignSelf: 'flex-start',
     marginTop: 32,
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  buttonText: {
+    color: colors.white,
+    textAlign: 'center',
+  },
+  contentContainer: {
+    flexGrow: 1,
+    paddingHorizontal: 32,
   },
   header: {
     marginTop: 24,
     textAlign: 'center',
   },
-  paragraph: {
-    marginVertical: 8,
-  },
-  mainButton: {
-    marginTop: 32,
-    marginBottom: 16,
-    marginHorizontal: 16,
-    backgroundColor: colors.purple,
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: colors.white,
-  },
-  interestedTitle: {
-    marginTop: 20,
-    fontSize: 20,
-    textAlign: 'center',
-  },
   interestedTest: {
     textAlign: 'center',
+  },
+  interestedTitle: {
+    fontSize: 20,
+    marginTop: 20,
+    textAlign: 'center',
+  },
+  mainButton: {
+    backgroundColor: colors.purple,
+    marginBottom: 16,
+    marginHorizontal: 16,
+    marginTop: 32,
+  },
+  paragraph: {
+    marginVertical: 8,
   },
 });

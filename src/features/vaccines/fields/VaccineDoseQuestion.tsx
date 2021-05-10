@@ -1,19 +1,18 @@
-import { FormikProps } from 'formik';
-import React, { useState } from 'react';
-import * as Yup from 'yup';
-import moment, { Moment } from 'moment';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { View } from 'native-base';
-
-import i18n from '@covid/locale/i18n';
+import { CalendarIcon } from '@assets';
 import CalendarPicker from '@covid/components/CalendarPicker';
 import { ErrorText, RegularText, SecondaryText } from '@covid/components/Text';
-import { colors } from '@theme';
-import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
-import { CalendarIcon } from '@assets';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
 import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import { FormikProps } from 'formik';
+import moment, { Moment } from 'moment';
+import { View } from 'native-base';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import * as Yup from 'yup';
 
 import { VaccineNameQuestion } from './VaccineNameQuestion';
 
@@ -83,11 +82,11 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
 
     return (
       <CalendarPicker
-        onDateChange={setDoseDate}
         initialDate={dateField}
-        selectedStartDate={dateField}
         maxDate={maxDate}
         minDate={minDate}
+        onDateChange={setDoseDate}
+        selectedStartDate={dateField}
       />
     );
   };
@@ -121,23 +120,23 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
   const renderBatchNumber = () =>
     props.firstDose ? (
       <ValidatedTextInput
-        placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
-        value={props.formikProps.values.firstBatchNumber}
-        onChangeText={props.formikProps.handleChange('firstBatchNumber')}
-        onBlur={props.formikProps.handleBlur('firstBatchNumber')}
-        returnKeyType="next"
         error={formikProps.touched.firstBatchNumber && formikProps.errors.firstBatchNumber}
+        onBlur={props.formikProps.handleBlur('firstBatchNumber')}
+        onChangeText={props.formikProps.handleChange('firstBatchNumber')}
         onSubmitEditing={() => {}}
+        placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
+        returnKeyType="next"
+        value={props.formikProps.values.firstBatchNumber}
       />
     ) : (
       <ValidatedTextInput
-        placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
-        value={props.formikProps.values.secondBatchNumber}
-        onChangeText={props.formikProps.handleChange('secondBatchNumber')}
-        onBlur={props.formikProps.handleBlur('secondBatchNumber')}
-        returnKeyType="next"
         error={formikProps.touched.secondBatchNumber && formikProps.errors.secondBatchNumber}
+        onBlur={props.formikProps.handleBlur('secondBatchNumber')}
+        onChangeText={props.formikProps.handleChange('secondBatchNumber')}
         onSubmitEditing={() => {}}
+        placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
+        returnKeyType="next"
+        value={props.formikProps.values.secondBatchNumber}
       />
     );
 
@@ -158,7 +157,7 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
     <>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
-          <VaccineNameQuestion formikProps={formikProps as FormikProps<IVaccineDoseData>} firstDose={props.firstDose} />
+          <VaccineNameQuestion firstDose={props.firstDose} formikProps={formikProps as FormikProps<IVaccineDoseData>} />
           {renderNameError()}
         </View>
         <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
@@ -172,10 +171,10 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
 
 const styles = StyleSheet.create({
   dateBox: {
-    marginVertical: 8,
     backgroundColor: colors.backgroundTertiary,
     borderRadius: 8,
     flexDirection: 'row',
+    marginVertical: 8,
     padding: 16,
   },
 });
@@ -183,44 +182,48 @@ const styles = StyleSheet.create({
 VaccineDoseQuestion.schema = () => {
   return Yup.object().shape(
     {
-      // Dose 1
-      firstDoseDate: Yup.date().required(),
+      firstBatchNumber: Yup.string().nullable(),
+
       firstBrand: Yup.string().when('firstDescription', {
         is: undefined,
         then: Yup.string().required(i18n.t('validation-error-please-select-option')),
       }),
+
       firstDescription: Yup.string()
         .when('firstBrand', {
           is: 'not_sure',
           then: Yup.string().required(i18n.t('validation-error-please-select-option')),
         })
         .nullable(),
-      firstBatchNumber: Yup.string().nullable(),
+      // Dose 1
+      firstDoseDate: Yup.date().required(),
 
       // Tracks if second dose yes/no
       hasSecondDose: Yup.bool(),
 
-      // Dose 2
-      secondDoseDate: Yup.date().when('hasSecondDose', {
-        is: true,
-        then: Yup.date().required(i18n.t('validation-error-daterequired')),
-      }),
+      secondBatchNumber: Yup.string().nullable(),
+
       secondBrand: Yup.string().when(['hasSecondDose', 'secondDescription'], {
         is: (hasSecondDose, secondDescription) => hasSecondDose && !secondDescription,
         then: Yup.string().required(i18n.t('validation-error-please-select-option')),
       }),
+
       secondDescription: Yup.string()
         .when(['hasSecondDose', 'secondBrand'], {
           is: (hasSecondDose, secondBrand) => hasSecondDose && secondBrand == 'not_sure',
           then: Yup.string().required(i18n.t('validation-error-please-select-option')),
         })
         .nullable(),
-      secondBatchNumber: Yup.string().nullable(),
+      // Dose 2
+      secondDoseDate: Yup.date().when('hasSecondDose', {
+        is: true,
+        then: Yup.date().required(i18n.t('validation-error-daterequired')),
+      }),
     },
     // These are to flag against circular dependency errors:
     [
       ['firstBrand', 'firstDescription'],
       ['secondBrand', 'secondDescription'],
-    ]
+    ],
   );
 };

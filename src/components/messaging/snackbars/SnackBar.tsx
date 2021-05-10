@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Animated, Easing, View } from 'react-native';
-
-import { TColorPalette, TColorShade } from '@covid/themes';
 import { IUIAction, IUIMessage, useMessage } from '@covid/common';
+import { TColorPalette, TColorShade } from '@covid/themes';
+import React, { useEffect, useState } from 'react';
+import { Animated, Easing, View } from 'react-native';
 
 import { RoundIconButton, ThemeButton } from '../../buttons';
 import { Text } from '../../typography';
-
 import { SCardView, SContainerView, SMessageText, TVariant } from './styles';
 
 interface IProps {
@@ -34,8 +32,8 @@ function Snackbar({
   const { removeMessage } = useMessage();
 
   const config = {
-    bottom: { start: 200, end: -16 },
-    top: { start: -200, end: 16 },
+    bottom: { end: -16, start: 200 },
+    top: { end: 16, start: -200 },
   };
 
   const handleClose = () => {
@@ -44,9 +42,9 @@ function Snackbar({
 
   const animate = (active: boolean, cb?: () => void) => {
     Animated.timing(animValue, {
-      toValue: active ? RANGE_TO : RANGE_FROM,
       duration: DURATION,
       easing: Easing.elastic(1),
+      toValue: active ? RANGE_TO : RANGE_FROM,
       useNativeDriver: true,
     }).start(cb);
   };
@@ -67,11 +65,11 @@ function Snackbar({
   });
 
   return (
-    <SContainerView variant={variant} style={{ transform: [{ translateY: animateTo }] }}>
+    <SContainerView style={{ transform: [{ translateY: animateTo }] }} variant={variant}>
       <SCardView colorPalette={colorPalette} colorShade={colorShade}>
         <View style={{ flex: 1 }}>
           {message.message.title && (
-            <Text textClass="h5Medium" style={{ color: 'white' }}>
+            <Text style={{ color: 'white' }} textClass="h5Medium">
               {message.message.title}
             </Text>
           )}
@@ -79,8 +77,8 @@ function Snackbar({
             {message.message.body}
           </SMessageText>
         </View>
-        {action && <ThemeButton onPress={action.action} title={action.label} colorPalette="teal" colorShade="main" />}
-        <RoundIconButton onPress={handleClose} iconName="close-large" iconColor="white" />
+        {action && <ThemeButton colorPalette="teal" colorShade="main" onPress={action.action} title={action.label} />}
+        <RoundIconButton iconColor="white" iconName="close-large" onPress={handleClose} />
       </SCardView>
     </SContainerView>
   );

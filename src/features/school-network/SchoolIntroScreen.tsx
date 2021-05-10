@@ -1,19 +1,18 @@
-import React from 'react';
+import SchoolConnectImage from '@assets/school-network-modules/connect.svg';
+import { Button } from '@covid/components/buttons/Button';
+import Screen, { Header } from '@covid/components/Screen';
+import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { Coordinator } from '@covid/core/Coordinator';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking, StyleSheet } from 'react-native';
-import { View } from 'native-base';
-
 import { colors } from '@theme';
-import Screen, { Header } from '@covid/components/Screen';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { HeaderText, RegularText, RegularBoldText } from '@covid/components/Text';
-import { Coordinator } from '@covid/core/Coordinator';
-import { Button } from '@covid/components/buttons/Button';
-import i18n from '@covid/locale/i18n';
-import SchoolConnectImage from '@assets/school-network-modules/connect.svg';
-import NavigatorService from '@covid/NavigatorService';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { View } from 'native-base';
+import React from 'react';
+import { Linking, StyleSheet } from 'react-native';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolIntro'>;
@@ -33,7 +32,7 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
     <View style={styles.container}>
       <Screen showBackButton navigation={navigation} style={styles.container}>
         <View style={styles.container}>
-          <SchoolConnectImage style={{ marginLeft: 16, marginBottom: 24, marginTop: 24 }} />
+          <SchoolConnectImage style={{ marginBottom: 24, marginLeft: 16, marginTop: 24 }} />
 
           <Header>
             <HeaderText style={styles.header}>{i18n.t('school-networks.intro.title')}</HeaderText>
@@ -54,7 +53,7 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
 
       {enableCTAs && (
         <View style={styles.buttonsContainer}>
-          <Button onPress={goNext} branded>
+          <Button branded onPress={goNext}>
             {i18n.t('school-networks.intro.cta')}
           </Button>
           <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.intro.skip')}</Button>
@@ -65,13 +64,20 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
+  button: {
+    marginBottom: 32,
+    marginHorizontal: 24,
+    marginVertical: 16,
   },
 
-  header: {
-    marginRight: 72,
+  buttonsContainer: {
+    marginBottom: 48,
+    paddingHorizontal: 8,
+  },
+
+  container: {
+    backgroundColor: colors.white,
+    flex: 1,
   },
 
   description: {
@@ -79,14 +85,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
 
-  button: {
-    marginVertical: 16,
-    marginHorizontal: 24,
-    marginBottom: 32,
-  },
-
-  buttonsContainer: {
-    paddingHorizontal: 8,
-    marginBottom: 48,
+  header: {
+    marginRight: 72,
   },
 });

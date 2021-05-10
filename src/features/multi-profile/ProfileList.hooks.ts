@@ -1,12 +1,11 @@
-import { useState } from 'react';
-
 import { AppException } from '@covid/core/api/ApiServiceErrors';
-import i18n from '@covid/locale/i18n';
-import { offlineService } from '@covid/Services';
-import { Services } from '@covid/provider/services.types';
-import { useInjection } from '@covid/provider/services.hooks';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
+import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { offlineService } from '@covid/Services';
+import { useState } from 'react';
 
 export const useProfileList = () => {
   const patientService = useInjection<IPatientService>(Services.Patient);
@@ -40,14 +39,14 @@ export const useProfileList = () => {
   };
 
   return {
-    status,
     error,
     isApiError,
     isLoaded,
-    profiles,
     listProfiles,
+    profiles,
     retryListProfiles,
-    setIsApiError,
     setError,
+    setIsApiError,
+    status,
   };
 };

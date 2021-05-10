@@ -2,7 +2,6 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { TProgress } from '../types';
-
 import ProgressBar from './progress-bar';
 
 interface IProps {
@@ -14,7 +13,7 @@ function ProgressBars({ progress }: IProps) {
     <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
       {progress.map((progressItem, index) => {
         const key = `progress-bar-${index}`;
-        return <ProgressBar current={index} progress={progressItem} key={key} total={progress.length} />;
+        return <ProgressBar current={index} key={key} progress={progressItem} total={progress.length} />;
       })}
     </View>
   );

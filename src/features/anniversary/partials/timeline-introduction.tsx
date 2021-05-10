@@ -1,15 +1,14 @@
-import React from 'react';
-import { View } from 'react-native';
-
 import { SolidColorBar, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
 import { colors } from '@theme';
+import React from 'react';
+import { View } from 'react-native';
 
 function TimelineIntroduction() {
   const { grid } = useTheme();
   return (
-    <View style={{ padding: grid.gutter }} accessible>
-      <Text textClass="h3" rhythm={32}>
+    <View accessible style={{ padding: grid.gutter }}>
+      <Text rhythm={32} textClass="h3">
         Your unique contribution to science
       </Text>
       <Text rhythm={32}>

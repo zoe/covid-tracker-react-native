@@ -1,10 +1,9 @@
-import React from 'react';
-import { Animated, View } from 'react-native';
-
 import { QuestionBlock, Text, TIconName, useFade } from '@covid/components';
-import { useTheme } from '@covid/themes';
 import { TMentalHealthChange } from '@covid/core/state/mental-health';
 import i18n from '@covid/locale/i18n';
+import { useTheme } from '@covid/themes';
+import React from 'react';
+import { Animated, View } from 'react-native';
 
 interface IProps {
   disabled?: boolean;
@@ -50,7 +49,7 @@ function ChangesQuestion({ disabled = false, onPress, question, state }: IProps)
 
   return (
     <Animated.View style={{ marginBottom: grid.xxl, opacity: fadeAnim }}>
-      <Text textClass="pSmall" rhythm={grid.s}>
+      <Text rhythm={grid.s} textClass="pSmall">
         {question}
       </Text>
       <View style={{ flexDirection: 'row' }}>

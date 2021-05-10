@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { RouteProp, useIsFocused } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Text } from 'native-base';
-import { StyleSheet, View } from 'react-native';
-
+import { BigButton } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { CaptionText, HeaderText } from '@covid/components/Text';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { BigButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
+import { RouteProp, useIsFocused } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Text } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'TreatmentSelection'>;
@@ -34,14 +33,14 @@ function TreatmentSelectionScreen({ navigation, route }: IProps) {
     }
     setIsSubmitting(true);
     if (treatment === 'other') {
-      assessmentCoordinator.gotoNextScreen(route.name, { other: true, location });
+      assessmentCoordinator.gotoNextScreen(route.name, { location, other: true });
     } else {
       const assessment = { treatment };
       await assessmentService.completeAssessment(
         assessment,
-        assessmentCoordinator.assessmentData.patientData.patientInfo!
+        assessmentCoordinator.assessmentData.patientData.patientInfo!,
       );
-      assessmentCoordinator.gotoNextScreen(route.name, { other: false, location });
+      assessmentCoordinator.gotoNextScreen(route.name, { location, other: false });
     }
   };
 
@@ -50,13 +49,13 @@ function TreatmentSelectionScreen({ navigation, route }: IProps) {
   }, [isFocused]);
 
   return (
-    <Screen profile={currentPatient.profile} navigation={navigation}>
+    <Screen navigation={navigation} profile={currentPatient.profile}>
       <Header>
         <HeaderText>{title}</HeaderText>
       </Header>
 
       <ProgressBlock>
-        <ProgressStatus step={4} maxSteps={5} />
+        <ProgressStatus maxSteps={5} step={4} />
       </ProgressBlock>
 
       <View style={styles.content}>

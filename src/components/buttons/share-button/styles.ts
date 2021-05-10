@@ -1,6 +1,5 @@
-import { TouchableOpacity, View } from 'react-native';
-
 import styled from '@covid/themes/styled-components';
+import { TouchableOpacity, View } from 'react-native';
 
 export const SContainerView = styled(TouchableOpacity)`
   align-items: center;

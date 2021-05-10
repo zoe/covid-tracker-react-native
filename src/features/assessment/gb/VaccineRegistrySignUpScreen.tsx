@@ -1,17 +1,16 @@
+import { BrandedButton } from '@covid/components';
+import PatientHeader from '@covid/components/PatientHeader';
+import { Header } from '@covid/components/Screen';
+import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features';
+import appCoordinator from '@covid/features/AppCoordinator';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
-import { Header } from '@covid/components/Screen';
-import PatientHeader from '@covid/components/PatientHeader';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineRegistrySignup'>;
@@ -20,8 +19,8 @@ type RenderProps = {
 
 export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundSecondary }}>
-      <PatientHeader profile={props.route.params.currentPatient.profile} navigation={props.navigation} />
+    <SafeAreaView style={{ backgroundColor: colors.backgroundSecondary, flex: 1 }}>
+      <PatientHeader navigation={props.navigation} profile={props.route.params.currentPatient.profile} />
 
       <ScrollView>
         <View style={styles.contentContainer}>
@@ -33,18 +32,20 @@ export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
 
           <View style={styles.buttonContainer}>
             <BrandedButton
-              style={styles.yesButton}
               onPress={() => {
                 appCoordinator.vaccineRegistryResponse(true);
-              }}>
+              }}
+              style={styles.yesButton}
+            >
               <RegularText style={styles.yesButtonText}>{i18n.t('vaccine-registry.yes')}</RegularText>
             </BrandedButton>
 
             <BrandedButton
-              style={styles.noButton}
               onPress={() => {
                 appCoordinator.vaccineRegistryResponse(false);
-              }}>
+              }}
+              style={styles.noButton}
+            >
               <RegularText style={styles.noButtonText}>{i18n.t('vaccine-registry.no')}</RegularText>
             </BrandedButton>
           </View>
@@ -55,47 +56,47 @@ export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    paddingHorizontal: 16,
-    flexGrow: 1,
-    alignItems: 'center',
-  },
-  buttonContainer: {
-    width: '100%',
-    marginTop: 32,
-  },
   backIcon: {
     alignSelf: 'flex-start',
     marginTop: 32,
   },
+  buttonContainer: {
+    marginTop: 32,
+    width: '100%',
+  },
+  contentContainer: {
+    alignItems: 'center',
+    flexGrow: 1,
+    paddingHorizontal: 16,
+  },
   header: {
     textAlign: 'center',
+  },
+  interestedTest: {
+    marginHorizontal: 16,
+    textAlign: 'center',
+  },
+  interestedTitle: {
+    fontSize: 20,
+    marginTop: 20,
+  },
+  noButton: {
+    backgroundColor: colors.backgroundTertiary,
+    marginHorizontal: 16,
+    marginTop: 16,
+  },
+  noButtonText: {
+    color: colors.primary,
   },
   paragraph: {
     marginVertical: 8,
   },
   yesButton: {
-    marginTop: 16,
-    marginHorizontal: 16,
     backgroundColor: colors.purple,
-  },
-  noButton: {
-    marginTop: 16,
     marginHorizontal: 16,
-    backgroundColor: colors.backgroundTertiary,
+    marginTop: 16,
   },
   yesButtonText: {
     color: colors.white,
-  },
-  noButtonText: {
-    color: colors.primary,
-  },
-  interestedTitle: {
-    marginTop: 20,
-    fontSize: 20,
-  },
-  interestedTest: {
-    marginHorizontal: 16,
-    textAlign: 'center',
   },
 });

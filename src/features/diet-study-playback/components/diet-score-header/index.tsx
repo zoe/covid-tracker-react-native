@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { Text } from '@covid/components';
 import { TGridSizes } from '@covid/themes';
+import React from 'react';
 
 interface IProps {
   subTitle: string;
@@ -12,10 +11,10 @@ interface IProps {
 function DietScoreHeader({ rhythm = 16, subTitle, title }: IProps) {
   return (
     <>
-      <Text textClass="h4" rhythm={8}>
+      <Text rhythm={8} textClass="h4">
         {title}
       </Text>
-      <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted rhythm={rhythm}>
+      <Text inverted colorPalette="uiDark" colorShade="dark" rhythm={rhythm} textClass="pSmallLight">
         {subTitle}
       </Text>
     </>

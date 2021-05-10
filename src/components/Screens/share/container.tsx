@@ -1,11 +1,9 @@
-import React from 'react';
-
 import { TrendlineCard } from '@covid/components/Cards/EstimatedCase';
 import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
 import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
+import React from 'react';
 
 import { ShareTimelineCard } from '../../Cards';
-
 import { SShareContainerView } from './styles';
 
 type Sharable = 'MAP' | 'TRENDLINE' | 'VACCINES' | 'TIMELINE';
@@ -36,7 +34,7 @@ function ShareContainer({ sharable = 'MAP' }: IProps) {
           </SShareContainerView>
         );
       case 'VACCINES':
-        return <ShareVaccineCard screenName="Share" isSharing />;
+        return <ShareVaccineCard isSharing screenName="Share" />;
       default:
         return null;
     }

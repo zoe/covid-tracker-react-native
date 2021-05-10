@@ -10,12 +10,13 @@ export interface IAssessmentService {
   saveAssessment(assessment: Partial<AssessmentInfosRequest>): void;
   completeAssessment(
     assessment: Partial<AssessmentInfosRequest> | null,
-    patientInfo: PatientInfosRequest
+    patientInfo: PatientInfosRequest,
   ): Promise<boolean>;
 }
 
 export default class AssessmentService implements IAssessmentService {
   apiClient: IAssessmentRemoteClient;
+
   state: IAssessmentState;
 
   constructor(apiClient: IAssessmentRemoteClient, state: IAssessmentState) {
@@ -64,17 +65,15 @@ export default class AssessmentService implements IAssessmentService {
 
   async completeAssessment(
     assessment: Partial<AssessmentInfosRequest>,
-    patientInfo: PatientInfosRequest
+    patientInfo: PatientInfosRequest,
   ): Promise<boolean> {
     if (assessment) {
       if (patientInfo.current_country_code) {
         assessment.current_country_code = patientInfo.current_country_code;
+      } else if (patientInfo.current_postcode) {
+        assessment.current_postcode = patientInfo.current_postcode;
       } else {
-        if (patientInfo.current_postcode) {
-          assessment.current_postcode = patientInfo.current_postcode;
-        } else {
-          assessment.current_postcode = patientInfo.postcode;
-        }
+        assessment.current_postcode = patientInfo.postcode;
       }
 
       this.saveAssessment(assessment);

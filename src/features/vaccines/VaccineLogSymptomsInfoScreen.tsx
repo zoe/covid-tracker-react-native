@@ -1,12 +1,11 @@
+import Screen, { Header } from '@covid/components/Screen';
+import { HeaderText, RegularText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { View } from 'react-native';
-
-import Screen, { Header } from '@covid/components/Screen';
-import { HeaderText, RegularText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineLogSymptomsInfo'>;
@@ -17,7 +16,7 @@ export const VaccineLogSymptomsInfoScreen: React.FC<Props> = ({ route, navigatio
   const { assessmentData } = route.params;
 
   return (
-    <Screen profile={assessmentData.patientData.profile} navigation={navigation} showCloseButton>
+    <Screen showCloseButton navigation={navigation} profile={assessmentData.patientData.profile}>
       <Header>
         <HeaderText>{i18n.t('vaccines.log-symptoms.title')}</HeaderText>
       </Header>

@@ -1,15 +1,13 @@
-import { Platform, Linking } from 'react-native';
-import * as IntentLauncher from 'expo-intent-launcher';
-
 import { isDateBefore, now, yesterday } from '@covid/utils/datetime';
+import * as IntentLauncher from 'expo-intent-launcher';
+import { Linking, Platform } from 'react-native';
 
-import { IStorageService } from '../LocalStorageService';
-import { IApiClient } from '../api/ApiClient';
-import { TokenInfoResponse, TokenInfoRequest } from '../user/dto/UserAPIContracts';
 import { isAndroid } from '../../utils/platform';
 import Analytics, { events } from '../Analytics';
-
-import { PushToken, IPushTokenRemoteClient } from './types';
+import { IApiClient } from '../api/ApiClient';
+import { IStorageService } from '../LocalStorageService';
+import { TokenInfoRequest, TokenInfoResponse } from '../user/dto/UserAPIContracts';
+import { IPushTokenRemoteClient, PushToken } from './types';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
@@ -26,9 +24,9 @@ const getPlatform = () => {
 
 const createTokenDoc = (token: string): PushToken => {
   return {
-    token,
     lastUpdated: now(),
     platform: getPlatform(),
+    token,
   };
 };
 
@@ -50,7 +48,9 @@ export class PushNotificationApiClient implements IPushTokenRemoteClient {
 
 export default class PushNotificationService {
   apiClient: IPushTokenRemoteClient;
+
   storage: IStorageService;
+
   environment: IPushTokenEnvironment;
 
   constructor(apiClient: IPushTokenRemoteClient, storage: IStorageService, environment: IPushTokenEnvironment) {
@@ -70,7 +70,7 @@ export default class PushNotificationService {
   }
 
   private async savePushToken(pushToken: PushToken) {
-    return await this.storage.setObject<PushToken>(KEY_PUSH_TOKEN, pushToken);
+    return this.storage.setObject<PushToken>(KEY_PUSH_TOKEN, pushToken);
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {

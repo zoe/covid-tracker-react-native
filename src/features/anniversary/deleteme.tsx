@@ -1,7 +1,6 @@
+import { Text } from '@covid/components';
 import React from 'react';
 import { View } from 'react-native';
-
-import { Text } from '@covid/components';
 
 interface IProps {
   //

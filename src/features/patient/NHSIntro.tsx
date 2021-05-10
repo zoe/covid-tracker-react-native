@@ -1,28 +1,27 @@
+import NHSLogo from '@assets/icons/NHSLogo';
+import { BrandedButton } from '@covid/components';
+import { CheckboxItem } from '@covid/components/Checkbox';
+import Screen, { Header } from '@covid/components/Screen';
+import { ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError } from '@covid/components/ValidationError';
+import { Coordinator } from '@covid/core/Coordinator';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { ScreenParamList } from '@covid/features';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form, View } from 'native-base';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import * as Yup from 'yup';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-
-import Screen, { Header } from '@covid/components/Screen';
-import { ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import { ValidationError } from '@covid/components/ValidationError';
-import i18n from '@covid/locale/i18n';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { Services } from '@covid/provider/services.types';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import NHSLogo from '@assets/icons/NHSLogo';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { CheckboxItem } from '@covid/components/Checkbox';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Coordinator } from '@covid/core/Coordinator';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-import NavigatorService from '@covid/NavigatorService';
-import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
 
 export interface IData {
   nhsID: string;
@@ -52,7 +51,7 @@ export function NHSIntroScreen(props: IProps) {
 
   const handleCancel = () => {
     const currentPatient = coordinator.patientData.patientState;
-    const patientId = currentPatient.patientId;
+    const { patientId } = currentPatient;
 
     const infos = {
       is_in_uk_nhs_asymptomatic_study: false,
@@ -74,7 +73,7 @@ export function NHSIntroScreen(props: IProps) {
 
   const handleSubmit = (formData: IData) => {
     const currentPatient = coordinator.patientData.patientState;
-    const patientId = currentPatient.patientId;
+    const { patientId } = currentPatient;
     const infos = createPatientInfos(formData);
 
     patientService
@@ -95,7 +94,7 @@ export function NHSIntroScreen(props: IProps) {
   const currentPatient = coordinator.patientData.patientState;
 
   return (
-    <Screen profile={currentPatient.profile} navigation={props.navigation}>
+    <Screen navigation={props.navigation} profile={currentPatient.profile}>
       <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
         <NHSLogo />
       </View>
@@ -109,8 +108,9 @@ export function NHSIntroScreen(props: IProps) {
 
         <Formik
           initialValues={{} as IData}
+          onSubmit={(values: IData) => handleSubmit(values)}
           validationSchema={registerSchema}
-          onSubmit={(values: IData) => handleSubmit(values)}>
+        >
           {(props) => {
             const { handleSubmit, errors } = props;
 
@@ -120,11 +120,11 @@ export function NHSIntroScreen(props: IProps) {
                   <RegularText style={{ marginBottom: 16 }}>{i18n.t('nhs-study-intro.text-2')}</RegularText>
 
                   <ValidatedTextInput
+                    error={props.touched.nhsID && props.errors.nhsID}
+                    onBlur={props.handleBlur('nhsID')}
+                    onChangeText={props.handleChange('nhsID')}
                     placeholder={i18n.t('nhs-study-intro.nhsID-placeholder')}
                     value={props.values.nhsID}
-                    onChangeText={props.handleChange('nhsID')}
-                    onBlur={props.handleBlur('nhsID')}
-                    error={props.touched.nhsID && props.errors.nhsID}
                   />
 
                   <RegularText style={{ marginVertical: 16 }}>
@@ -132,7 +132,7 @@ export function NHSIntroScreen(props: IProps) {
                     <ClickableText onPress={handleCancel}>{i18n.t('nhs-study-intro.text-cancel')}</ClickableText>
                   </RegularText>
 
-                  <CheckboxItem value={consent} onChange={toggleConsent}>
+                  <CheckboxItem onChange={toggleConsent} value={consent}>
                     {i18n.t('nhs-study-intro.consent')}
                   </CheckboxItem>
 
@@ -142,9 +142,10 @@ export function NHSIntroScreen(props: IProps) {
                   )}
 
                   <BrandedButton
-                    onPress={handleSubmit}
                     enable={checkFormFilled(props) && consent}
-                    hideLoading={!props.isSubmitting}>
+                    hideLoading={!props.isSubmitting}
+                    onPress={handleSubmit}
+                  >
                     {i18n.t('nhs-study-intro.next')}
                   </BrandedButton>
                 </Form>

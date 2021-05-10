@@ -1,11 +1,10 @@
+import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
+import { Avatar, Text } from '@covid/components';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import i18n from '@covid/locale/i18n';
+import { useTheme } from '@covid/themes';
 import React from 'react';
 import { View } from 'react-native';
-
-import { Avatar, Text } from '@covid/components';
-import { useTheme } from '@covid/themes';
-import i18n from '@covid/locale/i18n';
-import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 function Profile() {
   const { colors, grid } = useTheme();
@@ -19,7 +18,7 @@ function Profile() {
       <View style={{ marginBottom: grid.xs, paddingHorizontal: grid.gutter }}>
         <Avatar imgsrc={getImgSrc()} />
         <Text rhythm={8}>{i18n.t('mental-health.doctor-name')}</Text>
-        <Text textClass="pSmallLight" style={{ color: colors.uiDark.dark.bgColor }}>
+        <Text style={{ color: colors.uiDark.dark.bgColor }} textClass="pSmallLight">
           {i18n.t('mental-health.doctor-title')}, {i18n.t('mental-health.doctor-college')}
         </Text>
       </View>

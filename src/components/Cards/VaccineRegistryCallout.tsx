@@ -1,37 +1,36 @@
-import React from 'react';
-
-import i18n from '@covid/locale/i18n';
 import { CalloutBox } from '@covid/components/CalloutBox';
-import { colors } from '@theme';
 import appCoordinator from '@covid/features/AppCoordinator';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import React from 'react';
 
 export function VaccineRegistryCallout() {
   return (
     <CalloutBox
-      content={{
-        title_text: i18n.t('vaccine-registry.callout-title'),
-        body_text: i18n.t('vaccine-registry.callout-text'),
-        body_link: '',
-        link_text: i18n.t('vaccine-registry.callout-link-text'),
-        body_photo: null,
-        experiment_name: '',
-        cohort_id: 0,
-        analytics: '',
-      }}
-      onPress={() => appCoordinator.goToVaccineRegistry()}
+      image
       boxStyle={{
         backgroundColor: colors.darkblue,
         borderWidth: 0,
       }}
+      content={{
+        analytics: '',
+        body_link: '',
+        body_photo: null,
+        body_text: i18n.t('vaccine-registry.callout-text'),
+        cohort_id: 0,
+        experiment_name: '',
+        link_text: i18n.t('vaccine-registry.callout-link-text'),
+        title_text: i18n.t('vaccine-registry.callout-title'),
+      }}
       linkStyle={{
         backgroundColor: colors.white,
-        color: colors.darkblue,
         borderRadius: 20,
+        color: colors.darkblue,
         overflow: 'hidden',
-        paddingVertical: 8,
         paddingHorizontal: 32,
+        paddingVertical: 8,
       }}
-      image
+      onPress={() => appCoordinator.goToVaccineRegistry()}
     />
   );
 }

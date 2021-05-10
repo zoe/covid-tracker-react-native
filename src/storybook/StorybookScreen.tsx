@@ -1,8 +1,7 @@
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 import StorybookUIRoot from './index';
 

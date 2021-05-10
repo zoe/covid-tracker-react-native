@@ -1,9 +1,7 @@
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import React from 'react';
 
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-
 import MissingDataText from '../missing-data-text';
-
 import Score from './score';
 import { SContainerView } from './styles';
 
@@ -21,24 +19,24 @@ function QualityScore({ beforeScore, duringScore, minValue = 5, maxValue = 15 }:
       {beforeScore && (
         <Score
           currentValue={beforeScore}
-          minValue={minValue}
-          minValueLabel="Poor"
           maxValue={maxValue}
           maxValueLabel="Excellent"
-          title="Before the pandemic"
-          subTitle="February 2020"
+          minValue={minValue}
+          minValueLabel="Poor"
           style={{ marginBottom: 48 }}
+          subTitle="February 2020"
+          title="Before the pandemic"
         />
       )}
       {duringScore && (
         <Score
           currentValue={duringScore}
-          minValue={minValue}
-          minValueLabel="Poor"
           maxValue={maxValue}
           maxValueLabel="Excellent"
-          title="During the pandemic"
+          minValue={minValue}
+          minValueLabel="Poor"
           subTitle={duringPandemicSubtitle}
+          title="During the pandemic"
         />
       )}
       {!beforeScore && <MissingDataText />}

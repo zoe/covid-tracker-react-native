@@ -1,15 +1,14 @@
+import VaccineDemoUK from '@assets/vaccines/VaccineDemoUK';
+import VaccineDemoUS from '@assets/vaccines/VaccineDemoUS';
+import Screen, { Header } from '@covid/components/Screen';
+import { HeaderText, RegularText } from '@covid/components/Text';
+import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { View } from 'react-native';
-
-import Screen, { Header } from '@covid/components/Screen';
-import { HeaderText, RegularText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import VaccineDemoUK from '@assets/vaccines/VaccineDemoUK';
-import VaccineDemoUS from '@assets/vaccines/VaccineDemoUS';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineFindInfo'>;
@@ -20,7 +19,7 @@ export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) =>
   const { assessmentData } = route.params;
 
   // No case for SE, just GB and US atm (Feb 2021)
-  let exampleSVG = undefined;
+  let exampleSVG;
   if (isGBCountry()) {
     exampleSVG = <VaccineDemoUK />;
   }
@@ -29,7 +28,7 @@ export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) =>
   }
 
   return (
-    <Screen extendEdges profile={assessmentData.patientData.profile} navigation={navigation} showCloseButton>
+    <Screen extendEdges showCloseButton navigation={navigation} profile={assessmentData.patientData.profile}>
       <View style={{ padding: 16 }}>
         <Header>
           <HeaderText>{i18n.t('vaccines.find-info.title')}</HeaderText>

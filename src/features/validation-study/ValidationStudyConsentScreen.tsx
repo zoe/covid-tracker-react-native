@@ -1,23 +1,22 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
 import { chevronLeft } from '@assets';
-import { colors } from '@theme';
+import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import { IUserService } from '@covid/core/user/UserService';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { IConsentService } from '@covid/core/consent/ConsentService';
+import { IUserService } from '@covid/core/user/UserService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
-import { BrandedButton } from '@covid/components';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
@@ -53,9 +52,11 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
   handleAgreeToAboveChange = () => {
     this.setState((prevState) => ({ agreeToAbove: !prevState.agreeToAbove }));
   };
+
   handleAnonymizedChange = () => {
     this.setState((prevState) => ({ anonymizedData: !prevState.anonymizedData }));
   };
+
   handleReContactedChange = () => {
     this.setState((prevState) => ({ reContacted: !prevState.reContacted }));
   };
@@ -71,10 +72,10 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: colors.white }}>
+      <View style={{ backgroundColor: colors.white, flex: 1 }}>
         <SafeAreaView style={styles.mainContainer}>
           <ScrollView>
-            <TouchableOpacity style={styles.backIcon} onPress={this.props.navigation.goBack}>
+            <TouchableOpacity onPress={this.props.navigation.goBack} style={styles.backIcon}>
               <Image source={chevronLeft} />
             </TouchableOpacity>
 
@@ -82,7 +83,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
               <HeaderText style={styles.header}>Study Consent</HeaderText>
             </Header>
 
-            <View style={{ borderWidth: 0.5, borderColor: colors.primary, marginBottom: 64 }} />
+            <View style={{ borderColor: colors.primary, borderWidth: 0.5, marginBottom: 64 }} />
 
             <RegularBoldText>INFORMATION SHEET FOR PARTICIPANTS{'\n'}</RegularBoldText>
 
@@ -198,7 +199,8 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
               Your data will be processed in accordance with the General Data Protection Regulation 2016 (GDPR). As a
               user of the Covid-19 Symptom Study app, you have consented to Zoe’s terms including the{' '}
               <ClickableText
-                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: this.viewOnly })}>
+                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: this.viewOnly })}
+              >
                 UK Privacy Policy
               </ClickableText>{' '}
               which is available from the app menu at all times. All these terms continue to apply to the present study.
@@ -329,13 +331,13 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
 
             {!this.viewOnly && (
               <CheckboxList>
-                <CheckboxItem value={this.state.agreeToAbove} onChange={this.handleAgreeToAboveChange}>
+                <CheckboxItem onChange={this.handleAgreeToAboveChange} value={this.state.agreeToAbove}>
                   I agree to the above
                 </CheckboxItem>
-                <CheckboxItem value={this.state.anonymizedData} onChange={this.handleAnonymizedChange}>
+                <CheckboxItem onChange={this.handleAnonymizedChange} value={this.state.anonymizedData}>
                   I agree that the research team may use my anonymised data for future research (optional)
                 </CheckboxItem>
-                <CheckboxItem value={this.state.reContacted} onChange={this.handleReContactedChange}>
+                <CheckboxItem onChange={this.handleReContactedChange} value={this.state.reContacted}>
                   I agree to be re-contacted in the future by Zoe Global Ltd on behalf of King’s College London
                   researchers regarding this project (optional)
                 </CheckboxItem>
@@ -345,10 +347,11 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
 
           {!this.viewOnly && (
             <BrandedButton
-              style={styles.button}
               hideLoading
               enable={this.state.agreeToAbove}
-              onPress={this.handleAgreeClicked}>
+              onPress={this.handleAgreeClicked}
+              style={styles.button}
+            >
               {this.state.agreeToAbove ? 'Take part' : 'Scroll down to give consent'}
             </BrandedButton>
           )}
@@ -359,21 +362,21 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    marginHorizontal: 24,
-  },
   backIcon: {
     alignSelf: 'flex-start',
     marginTop: 32,
+  },
+  button: {
+    marginVertical: 20,
   },
   header: {
     marginVertical: 24,
     textAlign: 'center',
   },
-  button: {
-    marginVertical: 20,
+  mainContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    marginHorizontal: 24,
   },
 });

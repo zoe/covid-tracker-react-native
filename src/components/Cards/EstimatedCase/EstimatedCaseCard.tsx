@@ -1,9 +1,8 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-
-import { colors } from '@theme';
-import Analytics, { events } from '@covid/core/Analytics';
 import { RightArrow } from '@assets';
+import Analytics, { events } from '@covid/core/Analytics';
+import { colors } from '@theme';
+import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { Text } from '../../typography';
 
@@ -35,12 +34,12 @@ export function EstimatedCaseCard({
 
   return (
     <View style={styles.root}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+      <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
         <View>
-          <Text textClass="h4" colorPalette="uiDark" colorShade="darker" inverted rhythm={8}>
+          <Text inverted colorPalette="uiDark" colorShade="darker" rhythm={8} textClass="h4">
             {primaryLabel}
           </Text>
-          <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+          <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
             {secondaryLabel}
           </Text>
         </View>
@@ -48,14 +47,14 @@ export function EstimatedCaseCard({
       <View style={styles.metricRow}>
         <View style={styles.metricBox}>
           <Text textClass="h1Regular">{leftMetric}</Text>
-          <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+          <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
             {leftMetricLabel}
           </Text>
         </View>
         <View style={styles.divider} />
         <View style={[styles.metricBox, { paddingHorizontal: 16 }]}>
           <Text textClass="h1Regular">{rightMetric}</Text>
-          <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+          <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
             {rightMetricLabel}
           </Text>
         </View>
@@ -64,7 +63,7 @@ export function EstimatedCaseCard({
       <View>
         <TouchableOpacity onPress={onPress} style={{ alignItems: 'center', flexDirection: 'row' }}>
           <RightArrow />
-          <Text textClass="pMedium" colorPalette="burgundy" colorShade="main" inverted style={{ marginHorizontal: 8 }}>
+          <Text inverted colorPalette="burgundy" colorShade="main" style={{ marginHorizontal: 8 }} textClass="pMedium">
             {ctaLabel}
           </Text>
         </TouchableOpacity>
@@ -74,27 +73,28 @@ export function EstimatedCaseCard({
 }
 
 const styles = StyleSheet.create({
-  root: {
-    backgroundColor: colors.white,
-    borderRadius: 16,
-    marginVertical: 8,
-    paddingVertical: 24,
-    paddingHorizontal: 16,
-  },
-
   detailsButton: {
-    paddingHorizontal: 52,
     backgroundColor: 'transparent',
-    borderWidth: 1,
     borderColor: colors.purple,
+    borderWidth: 1,
+    paddingHorizontal: 52,
   },
 
-  metricRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 24,
-    marginBottom: 32,
-    width: '100%',
+  detailsButtonLabel: {
+    color: colors.purple,
+    fontSize: 14,
+  },
+
+  divider: {
+    backgroundColor: colors.backgroundFour,
+    width: 1,
+  },
+
+  metric: {
+    color: colors.textDark,
+    fontSize: 32,
+    lineHeight: 48,
+    paddingVertical: 4,
   },
 
   metricBox: {
@@ -105,24 +105,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  metric: {
-    fontSize: 32,
-    lineHeight: 48,
-    paddingVertical: 4,
-    color: colors.textDark,
-  },
-
   metricLabel: {
     color: colors.secondary,
   },
 
-  divider: {
-    width: 1,
-    backgroundColor: colors.backgroundFour,
+  metricRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 32,
+    marginVertical: 24,
+    width: '100%',
   },
 
-  detailsButtonLabel: {
-    color: colors.purple,
-    fontSize: 14,
+  root: {
+    backgroundColor: colors.white,
+    borderRadius: 16,
+    marginVertical: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 24,
   },
 });

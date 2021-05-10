@@ -1,8 +1,7 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-
 import { TTypeSizes } from '@covid/themes';
 import { TStyleObject } from '@covid/utils/types';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
 import { Icon, TIconName } from '../../icons';
 
@@ -32,12 +31,13 @@ function CheckBoxButton({
       onPress={onPress}
       style={{
         alignItems: 'center',
-        borderRadius: 8,
         backgroundColor,
+        borderRadius: 8,
         height: backgroundSize,
         justifyContent: 'center',
         width: backgroundSize,
-      }}>
+      }}
+    >
       {active && <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} />}
     </TouchableOpacity>
   );

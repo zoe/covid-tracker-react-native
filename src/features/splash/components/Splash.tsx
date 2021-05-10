@@ -1,11 +1,10 @@
-import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-
 import { covidIcon } from '@assets';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { BrandedButton } from '@covid/components/buttons';
 import { RegularBoldText } from '@covid/components';
+import { BrandedButton } from '@covid/components/buttons';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import React from 'react';
+import { Image, StyleSheet, View } from 'react-native';
 
 import { FlexView } from './FlexView';
 
@@ -45,19 +44,19 @@ const Splash = (props: SplashProps) => {
 };
 
 const styles = StyleSheet.create({
+  ctaBlock: {
+    alignSelf: 'center',
+    width: '80%',
+  },
   mainBlock: {
     alignItems: 'center',
-  },
-  textBox: {
-    marginVertical: 32,
-  },
-  ctaBlock: {
-    width: '80%',
-    alignSelf: 'center',
   },
   statusText: {
     color: colors.tertiary,
     textAlign: 'center',
+  },
+  textBox: {
+    marginVertical: 32,
   },
 });
 

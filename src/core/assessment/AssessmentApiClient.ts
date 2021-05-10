@@ -12,6 +12,7 @@ export interface IAssessmentRemoteClient {
 
 export class AssessmentApiClient implements IAssessmentRemoteClient {
   apiClient: IApiClient;
+
   constructor(apiClient: IApiClient) {
     this.apiClient = apiClient;
   }

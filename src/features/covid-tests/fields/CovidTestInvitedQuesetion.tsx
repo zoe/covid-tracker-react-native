@@ -1,11 +1,10 @@
+import YesNoField from '@covid/components/YesNoField';
+import { isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import YesNoField from '@covid/components/YesNoField';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
 export interface ICovidTestInvitedData {
   invitedToTest: string;
@@ -26,10 +25,10 @@ export const CovidTestInvitedQuestion: ICovidTestInvitedQuestion<IProps, ICovidT
   const { formikProps } = props;
   return isGBCountry() ? (
     <YesNoField
-      selectedValue={formikProps.values.invitedToTest}
-      onValueChange={formikProps.handleChange('invitedToTest')}
       error={formikProps.touched.invitedToTest && formikProps.errors.invitedToTest}
       label={i18n.t('covid-test.question-invite-to-test')}
+      onValueChange={formikProps.handleChange('invitedToTest')}
+      selectedValue={formikProps.values.invitedToTest}
     />
   ) : (
     <></>
@@ -41,12 +40,10 @@ CovidTestInvitedQuestion.initialFormValues = (test?: CovidTest): ICovidTestInvit
     if (test?.id) {
       if (test.invited_to_test === null) {
         return '';
-      } else {
-        return test.invited_to_test ? 'yes' : 'no';
       }
-    } else {
-      return '';
+      return test.invited_to_test ? 'yes' : 'no';
     }
+    return '';
   }
 
   return {

@@ -1,32 +1,32 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
 
 import { Text } from '../typography';
 
 const styles = StyleSheet.create({
-  container: {
-    height: 200,
-    backgroundColor: 'white',
-    borderRadius: 16,
-    marginVertical: 12,
-    padding: 20,
-    justifyContent: 'space-between',
-  },
   base: {
     borderRadius: 6,
     height: 20,
   },
-  one: {},
-  two: {
-    width: '30%',
-    marginTop: 12,
+  container: {
+    backgroundColor: 'white',
+    borderRadius: 16,
+    height: 200,
+    justifyContent: 'space-between',
+    marginVertical: 12,
+    padding: 20,
   },
+  one: {},
   three: {
     height: 12,
-    width: '35%',
     marginTop: 12,
+    width: '35%',
+  },
+  two: {
+    marginTop: 12,
+    width: '30%',
   },
 });
 
@@ -42,8 +42,9 @@ export const ContentErrorView: React.FC<ContentErrorViewProps> = ({ message }) =
         {
           justifyContent: 'center',
         },
-      ]}>
-      <Text textAlign="center" textClass="p" style={{ marginHorizontal: 12 }}>
+      ]}
+    >
+      <Text style={{ marginHorizontal: 12 }} textAlign="center" textClass="p">
         {message}
       </Text>
     </View>
@@ -78,7 +79,7 @@ export const ContentLoadingView: React.FC<ContentLoadingViewProps> = ({
           <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base, styles.three]} />
         </View>
       )}
-      <View style={[loading && { position: 'absolute', opacity: 0 }]}>{children}</View>
+      <View style={[loading && { opacity: 0, position: 'absolute' }]}>{children}</View>
     </View>
   );
 };

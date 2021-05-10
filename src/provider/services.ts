@@ -1,21 +1,20 @@
-import { Container } from 'inversify';
-import getDecorators from 'inversify-inject-decorators';
-
-import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
 import ApiClient, { IApiClient } from '@covid/core/api/ApiClient';
-import { IContentApiClient, ContentApiClient } from '@covid/core/content/ContentApiClient';
+import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
+import { ContentApiClient, IContentApiClient } from '@covid/core/content/ContentApiClient';
 import ContentService, { IContentService } from '@covid/core/content/ContentService';
-import UserService, { IUserService } from '@covid/core/user/UserService';
-import { LocalisationService, ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { IPredictiveMetricsClient, PredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
+import { DietScoreApiClient, IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
+import { ILocalisationService, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { IPatientService, PatientService } from '@covid/core/patient/PatientService';
 import { IProfileService, ProfileService } from '@covid/core/profile/ProfileService';
-import CovidTestService, { ICovidTestService } from '@covid/core/user/CovidTestService';
-import { IPredictiveMetricsClient, PredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
-import { Services } from '@covid/provider/services.types';
 import { ISchoolService, SchoolService } from '@covid/core/schools/SchoolService';
-import { IVaccineService, VaccineService } from '@covid/core/vaccine/VaccineService';
+import CovidTestService, { ICovidTestService } from '@covid/core/user/CovidTestService';
+import UserService, { IUserService } from '@covid/core/user/UserService';
 import { IVaccineRemoteClient, VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
-import { DietScoreApiClient, IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
+import { IVaccineService, VaccineService } from '@covid/core/vaccine/VaccineService';
+import { Services } from '@covid/provider/services.types';
+import { Container } from 'inversify';
+import getDecorators from 'inversify-inject-decorators';
 
 export const container = new Container();
 

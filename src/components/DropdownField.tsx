@@ -1,11 +1,10 @@
-import { Label, View } from 'native-base';
-import React, { useState, useEffect } from 'react';
-import { PickerItemProps, StyleSheet, PickerProps, Text, Image, ImageSourcePropType } from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
 import DropdownIcon from '@assets/icons/DropdownIcon';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import { Label, View } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text } from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
@@ -111,8 +110,9 @@ export function DropdownField({
           styles.dropdownTextStyle,
           borderRadiusStyle,
           isSelected && styles.dropdownTextHighlightStyle,
-        ]}>
-        {itemIcons?.length && <Image source={itemIcons[index]} style={{ marginRight: 5, width: 24, height: 24 }} />}
+        ]}
+      >
+        {itemIcons?.length && <Image source={itemIcons[index]} style={{ height: 24, marginRight: 5, width: 24 }} />}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
       </View>
     );
@@ -123,27 +123,29 @@ export function DropdownField({
       {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
       <ModalDropdown
         animated={false}
-        showsVerticalScrollIndicator={false}
-        style={styles.dropdownButton}
+        defaultIndex={defaultIndex}
         dropdownStyle={{
           ...styles.dropdownStyle,
-          width: dropdownWidth,
           height: Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220),
-        }}
-        options={options.map((item: PickerItemProps) => item.label)}
-        defaultIndex={defaultIndex}
-        onSelect={onSelect}
-        onDropdownWillShow={() => {
-          setDropdownFocus(true);
+          width: dropdownWidth,
         }}
         onDropdownWillHide={() => {
           setDropdownFocus(false);
         }}
+        onDropdownWillShow={() => {
+          setDropdownFocus(true);
+        }}
+        onSelect={onSelect}
+        options={options.map((item: PickerItemProps) => item.label)}
+        renderRow={renderDropdownRow}
         renderSeparator={renderDropdownSeparator}
-        renderRow={renderDropdownRow}>
+        showsVerticalScrollIndicator={false}
+        style={styles.dropdownButton}
+      >
         <View
           onLayout={updateDropdownWidth}
-          style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}>
+          style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}
+        >
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
             {selectedLabel ?? i18n.t('choose-one-of-these-options')}
           </Label>
@@ -151,7 +153,7 @@ export function DropdownField({
         </View>
       </ModalDropdown>
       {!!error && (
-        <View style={{ marginTop: 4, marginHorizontal: 4 }}>
+        <View style={{ marginHorizontal: 4, marginTop: 4 }}>
           <ValidationError error={error} />
         </View>
       )}
@@ -160,94 +162,94 @@ export function DropdownField({
 }
 
 const styles = StyleSheet.create({
-  fieldWrapper: {
-    flex: 1,
-  },
-  labelStyle: {
-    fontFamily: 'SofiaProRegular',
-    fontSize: 16,
-    lineHeight: 30,
-    marginBottom: 8,
-    color: colors.primary,
-  },
-  picker: {
-    width: '100%',
-    minHeight: 48,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-  },
-  errorHighlight: {
-    borderBottomWidth: 1,
-    borderColor: colors.feedbackBad,
-  },
-  dropdownButtonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 12,
+  bottomBorderRadiusStyle: {
+    borderBottomEndRadius: 8,
+    borderBottomStartRadius: 8,
   },
   dropdownButton: {
     backgroundColor: colors.backgroundTertiary,
+    borderRadius: 8,
     height: 'auto',
     minHeight: 48,
-    borderRadius: 8,
     minWidth: 70,
   },
-  dropdownLabel: { color: colors.secondary, flex: 1, lineHeight: 24 },
-  dropdownSelectedLabel: { color: colors.primary },
-  dropdownStyle: {
-    marginTop: 8,
+  dropdownButtonContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 12,
+  },
+  dropdownError: {
+    borderColor: colors.feedbackBad,
     borderRadius: 8,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  dropdownLabel: { color: colors.secondary, flex: 1, lineHeight: 24 },
+  dropdownNoBorder: {
+    borderColor: 'transparent',
+    borderRadius: 8,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  dropdownOnFocus: {
+    borderColor: colors.primary,
+    borderRadius: 8,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  dropdownSelectedLabel: { color: colors.primary },
+  dropdownSeparator: {
+    backgroundColor: colors.backgroundSecondary,
+    height: 1,
+    width: '100%',
+  },
+  dropdownStyle: {
+    borderRadius: 8,
+    borderWidth: 0,
     elevation: 20,
+    marginTop: 8,
     shadowColor: 'black',
     shadowOpacity: 0.15,
     shadowRadius: 20,
-    borderWidth: 0,
-  },
-  dropdownTextStyle: {
-    backgroundColor: 'transparent',
-    fontSize: 16,
-    fontFamily: 'SofiaProRegular',
-    lineHeight: 24,
-    color: colors.secondary,
-  },
-  dropdownNoBorder: {
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'transparent',
-    borderRadius: 8,
-  },
-  dropdownOnFocus: {
-    borderWidth: 1,
-    borderColor: colors.primary,
-    borderStyle: 'solid',
-    borderRadius: 8,
-  },
-  dropdownError: {
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderRadius: 8,
-    borderColor: colors.feedbackBad,
   },
   dropdownTextHighlightStyle: {
     backgroundColor: colors.backgroundTertiary,
     color: colors.primary,
   },
+  dropdownTextStyle: {
+    backgroundColor: 'transparent',
+    color: colors.secondary,
+    fontFamily: 'SofiaProRegular',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  errorHighlight: {
+    borderBottomWidth: 1,
+    borderColor: colors.feedbackBad,
+  },
+  fieldWrapper: {
+    flex: 1,
+  },
+  labelStyle: {
+    color: colors.primary,
+    fontFamily: 'SofiaProRegular',
+    fontSize: 16,
+    lineHeight: 30,
+    marginBottom: 8,
+  },
+  picker: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    minHeight: 48,
+    padding: 12,
+    width: '100%',
+  },
   topBorderRadiusStyle: {
     borderTopEndRadius: 8,
     borderTopStartRadius: 8,
-  },
-  bottomBorderRadiusStyle: {
-    borderBottomEndRadius: 8,
-    borderBottomStartRadius: 8,
-  },
-  dropdownSeparator: {
-    height: 1,
-    width: '100%',
-    backgroundColor: colors.backgroundSecondary,
   },
 });
 

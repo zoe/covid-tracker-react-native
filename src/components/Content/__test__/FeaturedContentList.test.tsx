@@ -1,16 +1,15 @@
+import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
+import { FeaturedContentList, FeaturedContentType } from '@covid/components/Content/FeaturedContentList';
+import ApiClient from '@covid/core/api/ApiClient';
+import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
+import { container } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import MockAdapter from 'axios-mock-adapter';
 import React from 'react';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
-import MockAdapter from 'axios-mock-adapter';
-
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import ApiClient from '@covid/core/api/ApiClient';
-import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
-import { FeaturedContentList, FeaturedContentType } from '@covid/components/Content/FeaturedContentList';
-import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
+import thunk from 'redux-thunk';
 
 // Mock Redux store
 const mockReduxStore = (state: any) => {
@@ -52,14 +51,14 @@ describe('FeaturedContentList tests', () => {
       // Test rendering
       const instance = renderer.create(
         <Provider store={testContentStore}>
-          <FeaturedContentList type={FeaturedContentType.Home} screenName="Screen name" disableLoadingState />
-        </Provider>
+          <FeaturedContentList disableLoadingState screenName="Screen name" type={FeaturedContentType.Home} />
+        </Provider>,
       );
 
       expect(
         instance.root.findAll((el) => {
           return el.props?.testID === 'featured-content-callout' && (el.type as any) === 'View';
-        }).length
+        }).length,
       ).toBe(content.length);
     });
 
@@ -83,14 +82,14 @@ describe('FeaturedContentList tests', () => {
     // Test rendering
     const instance = renderer.create(
       <Provider store={testContentStore}>
-        <FeaturedContentList type={FeaturedContentType.ThankYou} screenName="Screen name" disableLoadingState />
-      </Provider>
+        <FeaturedContentList disableLoadingState screenName="Screen name" type={FeaturedContentType.ThankYou} />
+      </Provider>,
     );
 
     expect(
       instance.root.findAll((el) => {
         return el.props?.testID === 'featured-content-callout' && (el.type as any) === 'View';
-      }).length
+      }).length,
     ).toBe(content.length);
   });
 });

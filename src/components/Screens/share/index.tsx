@@ -1,17 +1,15 @@
+import { closeIcon } from '@assets';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import * as Sharing from 'expo-sharing';
 import React, { useRef } from 'react';
 import { Dimensions, View } from 'react-native';
-import { captureRef } from 'react-native-view-shot';
-import * as Sharing from 'expo-sharing';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { captureRef } from 'react-native-view-shot';
 
-import { closeIcon } from '@assets';
-
-import { ThemeButton, IconButton } from '../../buttons';
-
+import { IconButton, ThemeButton } from '../../buttons';
 import ShareContainer from './container';
 import ShareLabel from './label';
-import { SContainerView, SContentView, SInnerContentView, SButtonView, SCloseContainerView } from './styles';
+import { SButtonView, SCloseContainerView, SContainerView, SContentView, SInnerContentView } from './styles';
 
 function ShareScreen() {
   const Navigation = useNavigation();
@@ -19,14 +17,14 @@ function ShareScreen() {
   const { bottom, top } = useSafeAreaInsets();
   const viewRef = useRef<View>(null);
   const route = useRoute();
-  const sharable = route.params.sharable;
-  const hideLabel = route.params.hideLabel;
-  const label = route.params.label;
+  const { sharable } = route.params;
+  const { hideLabel } = route.params;
+  const { label } = route.params;
 
   const share = async () => {
     try {
       const uri = await captureRef(viewRef, { format: 'jpg' });
-      Sharing.shareAsync('file://' + uri);
+      Sharing.shareAsync(`file://${uri}`);
     } catch (_) {}
   };
 
@@ -36,13 +34,13 @@ function ShareScreen() {
         <IconButton imgSrc={closeIcon} onPress={() => Navigation.goBack()} />
       </SCloseContainerView>
       <SContentView>
-        <SInnerContentView ref={viewRef} collapsable={false}>
+        <SInnerContentView collapsable={false} ref={viewRef}>
           <ShareContainer sharable={sharable} />
           {!hideLabel && <ShareLabel label={label} />}
         </SInnerContentView>
       </SContentView>
       <SButtonView>
-        <ThemeButton colorPalette="blue" colorShade="main" title="Share" onPress={share} />
+        <ThemeButton colorPalette="blue" colorShade="main" onPress={share} title="Share" />
       </SButtonView>
     </SContainerView>
   );

@@ -1,22 +1,21 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-
 import { notificationRemindersSE, seBlog001 } from '@assets';
-import { colors, fontStyles } from '@theme';
-import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
+import { BrandedButton } from '@covid/components';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
-import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
-import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { BrandedButton } from '@covid/components';
+import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
+import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { ScreenParamList } from '@covid/features';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { FacebookSECard } from '@covid/features/thank-you/components/FacebookSE';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
+import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors, fontStyles } from '@theme';
+import React, { Component } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import VisitWebsite from './components/VisitWebsite';
 
@@ -63,26 +62,26 @@ export default class ThankYouSEScreen extends Component<RenderProps, State> {
                 <RegularText style={styles.subTitle}> {i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              {/*<FacebookSECard />*/}
+              {/* <FacebookSECard /> */}
 
               <ExternalCallout
+                aspectRatio={1.777}
                 calloutID="se_blog_001"
                 imageSource={seBlog001}
-                aspectRatio={1.777}
-                screenName={this.props.route.name}
                 imageStyles={{ borderRadius: 8 }}
                 link="https://www.facebook.com/events/356299709120596/"
+                screenName={this.props.route.name}
               />
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
+                  aspectRatio={311.0 / 104.0}
                   calloutID="notificationRemindersSE"
                   imageSource={notificationRemindersSE}
-                  aspectRatio={311.0 / 104.0}
-                  screenName={this.props.route.name}
                   postClicked={() => {
                     PushNotificationService.openSettings();
                   }}
+                  screenName={this.props.route.name}
                 />
               )}
 
@@ -93,7 +92,8 @@ export default class ThankYouSEScreen extends Component<RenderProps, State> {
 
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
-                style={styles.done}>
+                style={styles.done}
+              >
                 <RegularText>{i18n.t('thank-you-completed')}</RegularText>
               </BrandedButton>
             </View>
@@ -105,45 +105,49 @@ export default class ThankYouSEScreen extends Component<RenderProps, State> {
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 1,
+  content: {
+    marginHorizontal: 18,
+    marginVertical: 32,
+  },
+  done: {
     backgroundColor: colors.backgroundSecondary,
-    justifyContent: 'space-between',
+    borderColor: colors.tertiary,
+    borderWidth: 1,
+    marginBottom: 20,
+    marginHorizontal: 8,
+    marginTop: 24,
+  },
+  headerText: {
+    marginTop: 15,
+    textAlign: 'center',
+  },
+  newsFeed: {
+    color: colors.primary,
+    fontSize: 20,
+    paddingHorizontal: 40,
+    paddingVertical: 20,
+    textAlign: 'center',
+  },
+  newsFeedClickable: {
+    color: colors.purple,
+    fontSize: 20,
+    textDecorationLine: 'underline',
   },
   rootContainer: {
     padding: 10,
   },
-  headerText: {
-    textAlign: 'center',
-    marginTop: 15,
-  },
-  content: {
-    marginVertical: 32,
-    marginHorizontal: 18,
-  },
-  subTitle: {
-    textAlign: 'center',
-    marginBottom: 15,
-    marginHorizontal: 22,
-  },
-  newsFeed: {
-    paddingVertical: 20,
-    paddingHorizontal: 40,
-    fontSize: 20,
-    textAlign: 'center',
-    color: colors.primary,
-  },
-  newsFeedClickable: {
-    fontSize: 20,
-    color: colors.purple,
-    textDecorationLine: 'underline',
+  scrollView: {
+    backgroundColor: colors.backgroundSecondary,
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   shareSubtitle: {
     ...fontStyles.bodySmallLight,
+
+    color: colors.secondary,
     // paddingVertical: 10,
     paddingHorizontal: 16,
     textAlign: 'center',
-    color: colors.secondary,
   },
   socialIcon: {
     height: 60,
@@ -151,12 +155,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     resizeMode: 'contain',
   },
-  done: {
-    marginTop: 24,
-    marginBottom: 20,
-    marginHorizontal: 8,
-    backgroundColor: colors.backgroundSecondary,
-    borderColor: colors.tertiary,
-    borderWidth: 1,
+  subTitle: {
+    marginBottom: 15,
+    marginHorizontal: 22,
+    textAlign: 'center',
   },
 });

@@ -1,5 +1,5 @@
-import { readdirSync, existsSync, readFileSync } from 'fs';
-import { parse, join } from 'path';
+import { existsSync, readdirSync, readFileSync } from 'fs';
+import { join, parse } from 'path';
 
 type DirectoryName = string;
 type FilePath = string;
@@ -20,10 +20,11 @@ const listLocales = (dir: string) => {
 const flattenKeys = (obj: object, prefix: string = EMPTY_STRING): any => {
   const keys = Object.entries(obj).map((pair: [string, string | object]) => {
     const [key, value] = pair;
-    if (typeof value == 'string') {
+    if (typeof value === 'string') {
       return prefix + key;
-    } else if (value instanceof Object) {
-      return flattenKeys(value, key + '.');
+    }
+    if (value instanceof Object) {
+      return flattenKeys(value, `${key}.`);
     }
     return prefix + key;
   });
@@ -32,6 +33,7 @@ const flattenKeys = (obj: object, prefix: string = EMPTY_STRING): any => {
 
 export default class Locales {
   localeDir: string;
+
   locales: object;
 
   constructor(localeDir: DirectoryName) {

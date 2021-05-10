@@ -1,20 +1,19 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View, ImageBackground } from 'react-native';
-
 import { icon, studyIntro } from '@assets';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import Analytics, { events } from '@covid/core/Analytics';
-import { HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton } from '@covid/components';
 import { Header } from '@covid/components/Screen';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
+import { HeaderText, RegularText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { BrandedButton } from '@covid/components';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyIntro'>;
@@ -31,7 +30,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
         <ImageBackground source={studyIntro} style={styles.backgroundImage}>
           <ScrollView contentContainerStyle={styles.contentContainer}>
             <View style={styles.logoContainer}>
-              <Image source={icon} style={styles.covidIcon} resizeMode="contain" />
+              <Image resizeMode="contain" source={icon} style={styles.covidIcon} />
               <RegularText style={styles.appName}>{i18n.t('validation-study-intro.app-name')}</RegularText>
             </View>
 
@@ -49,16 +48,18 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
                 Analytics.track(events.DECLINE_STUDY);
                 this.consentService.setValidationStudyResponse(false);
                 appCoordinator.resetToProfileStartAssessment();
-              }}>
+              }}
+            >
               <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>
             </TouchableOpacity>
           </View>
 
           <BrandedButton
-            style={styles.mainButton}
             onPress={() => {
               appCoordinator.gotoNextScreen(this.props.route.name);
-            }}>
+            }}
+            style={styles.mainButton}
+          >
             <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
           </BrandedButton>
         </ImageBackground>
@@ -68,6 +69,10 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
 }
 
 const styles = StyleSheet.create({
+  appName: {
+    color: colors.brand,
+    marginVertical: 16,
+  },
   backgroundContainer: {
     backgroundColor: colors.white,
     flex: 1,
@@ -75,49 +80,45 @@ const styles = StyleSheet.create({
   backgroundImage: {
     height: '100%',
   },
-  covidIcon: {
-    height: 64,
-    width: 64,
-    borderRadius: 12,
-  },
-  appName: {
-    marginVertical: 16,
-    color: colors.brand,
-  },
-  contentContainer: {
-    marginHorizontal: 32,
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   buttonContainer: {
     alignItems: 'center',
+  },
+  buttonText: {
+    color: colors.white,
+  },
+  contentContainer: {
+    alignItems: 'center',
+    flexGrow: 1,
+    justifyContent: 'center',
+    marginHorizontal: 32,
+  },
+  covidIcon: {
+    borderRadius: 12,
+    height: 64,
+    width: 64,
+  },
+  header: {
+    textAlign: 'center',
+  },
+  info: {
+    color: colors.secondary,
+    fontSize: 14,
+    marginVertical: 8,
+    textAlign: 'center',
   },
   logoContainer: {
     alignItems: 'center',
     margin: 24,
   },
-  header: {
-    textAlign: 'center',
+  mainButton: {
+    alignSelf: 'center',
+    backgroundColor: colors.purple,
+    marginBottom: 32,
+    marginTop: 16,
+    width: '60%',
   },
   subtitle: {
-    textAlign: 'center',
     marginVertical: 8,
-  },
-  info: {
     textAlign: 'center',
-    marginVertical: 8,
-    color: colors.secondary,
-    fontSize: 14,
-  },
-  mainButton: {
-    width: '60%',
-    marginTop: 16,
-    marginBottom: 32,
-    backgroundColor: colors.purple,
-    alignSelf: 'center',
-  },
-  buttonText: {
-    color: colors.white,
   },
 });

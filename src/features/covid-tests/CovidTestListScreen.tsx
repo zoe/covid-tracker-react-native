@@ -1,24 +1,23 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Text } from 'native-base';
-import key from 'weak-key';
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
+import { BrandedButton } from '@covid/components';
+import { Loading } from '@covid/components/Loading';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import { Loading } from '@covid/components/Loading';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
-import { BrandedButton } from '@covid/components';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import { Text } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import key from 'weak-key';
 
 import { CovidTestRow } from './components/CovidTestRow';
 
@@ -38,8 +37,8 @@ export default class CovidTestListScreen extends Component<Props, State> {
   private readonly covidTestService: ICovidTestService;
 
   state: State = {
-    errorMessage: '',
     covidTests: [],
+    errorMessage: '',
     isLoading: false,
   };
 
@@ -50,7 +49,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
       this.setState({ isLoading: true });
       try {
         const tests = (await this.covidTestService.listTests()).data;
-        const patientId = AssessmentCoordinator.assessmentData.patientData.patientId;
+        const { patientId } = AssessmentCoordinator.assessmentData.patientData;
         const patientTests = tests.filter((t) => t.patient === patientId);
         this.setState({ covidTests: patientTests, isLoading: false });
       } finally {
@@ -81,17 +80,17 @@ export default class CovidTestListScreen extends Component<Props, State> {
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const { isLoading } = this.state;
-    const isNHSStudy = currentPatient.isNHSStudy;
+    const { isNHSStudy } = currentPatient;
 
     return (
       <View style={styles.rootContainer}>
-        <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+        <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
           <Header>
             <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
 
           <ProgressBlock>
-            <ProgressStatus step={0} maxSteps={1} />
+            <ProgressStatus maxSteps={1} step={0} />
           </ProgressBlock>
 
           {isNHSStudy ? (
@@ -107,23 +106,23 @@ export default class CovidTestListScreen extends Component<Props, State> {
             </View>
           )}
 
-          <BrandedButton style={styles.newButton} onPress={this.gotoAddTest}>
+          <BrandedButton onPress={this.gotoAddTest} style={styles.newButton}>
             <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
           </BrandedButton>
 
           {isLoading ? (
-            <Loading status="" error={null} />
+            <Loading error={null} status="" />
           ) : (
             <View style={styles.content}>
               {this.state.covidTests.map((item: CovidTest) => {
-                return <CovidTestRow type={item.type} item={item} key={key(item)} />;
+                return <CovidTestRow item={item} key={key(item)} type={item.type} />;
               })}
             </View>
           )}
 
           <View style={{ flex: 1 }} />
 
-          <BrandedButton style={styles.continueButton} onPress={this.handleNextButton}>
+          <BrandedButton onPress={this.handleNextButton} style={styles.continueButton}>
             <Text>
               {this.state.covidTests.length === 0
                 ? i18n.t('covid-test-list.never-had-test')
@@ -137,22 +136,22 @@ export default class CovidTestListScreen extends Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: colors.backgroundPrimary,
-  },
   content: {
     margin: 16,
   },
+  continueButton: {
+    marginHorizontal: 16,
+  },
   newButton: {
+    backgroundColor: colors.backgroundTertiary,
     marginHorizontal: 16,
     marginVertical: 16,
-    backgroundColor: colors.backgroundTertiary,
   },
   newText: {
     color: colors.primary,
   },
-  continueButton: {
-    marginHorizontal: 16,
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
   },
 });

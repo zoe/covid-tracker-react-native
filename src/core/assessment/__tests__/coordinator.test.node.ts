@@ -1,6 +1,6 @@
+import { AssessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { getConfig, setConfigCountry } from '@covid/core/Config';
 import { getInitialPatientState } from '@covid/core/patient/PatientState';
-import { AssessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 
 describe('Checks if user needs to back fill any profile questions', () => {
   it('should be always be false for SE hasRaceEthnicityAnswer config', () => {

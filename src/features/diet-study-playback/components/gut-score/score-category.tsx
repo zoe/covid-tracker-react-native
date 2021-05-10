@@ -1,7 +1,6 @@
+import { SolidColorBar, Text } from '@covid/components';
 import React from 'react';
 import { View } from 'react-native';
-
-import { SolidColorBar, Text } from '@covid/components';
 
 interface IProps {
   statusColor: string;
@@ -11,7 +10,7 @@ interface IProps {
 function ScoreCategory({ statusColor, title }: IProps) {
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
-      <Text textClass="pXSmall" colorPalette="uiDark" colorShade="dark" inverted rhythm={20}>
+      <Text inverted colorPalette="uiDark" colorShade="dark" rhythm={20} textClass="pXSmall">
         {title}
       </Text>
       <View style={{ width: '100%' }}>

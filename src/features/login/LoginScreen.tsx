@@ -1,7 +1,19 @@
-import React, { useRef, useState } from 'react';
+import { BrandedButton } from '@covid/components';
+import { ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
+import Analytics from '@covid/core/Analytics';
+import { UserNotFoundException } from '@covid/core/Exception';
+import { setPatients, setUsername } from '@covid/core/state/user';
+import { IUserService } from '@covid/core/user/UserService';
+import { ScreenParamList } from '@covid/features';
+import appCoordinator from '@covid/features/AppCoordinator';
+import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Input, Item, Label, Toast } from 'native-base';
+import React, { useRef, useState } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -12,19 +24,6 @@ import {
   View,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-
-import { colors } from '@theme';
-import { useInjection } from '@covid/provider/services.hooks';
-import i18n from '@covid/locale/i18n';
-import { IUserService } from '@covid/core/user/UserService';
-import { UserNotFoundException } from '@covid/core/Exception';
-import Analytics from '@covid/core/Analytics';
-import { ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
-import { Services } from '@covid/provider/services.types';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { setUsername, setPatients } from '@covid/core/state/user';
-import { BrandedButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;
@@ -79,7 +78,7 @@ function LoginScreen({ route }: IProps) {
         }
         // setErrorMessage(errorMessage);
         setHasErrors(true);
-        Toast.show({ text: errorMessage, duration: 2500 });
+        Toast.show({ duration: 2500, text: errorMessage });
       });
   };
 
@@ -91,43 +90,43 @@ function LoginScreen({ route }: IProps) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
         <View>
           <HeaderLightText style={styles.titleText}>{i18n.t('login.title')}</HeaderLightText>
           <View style={styles.formItem}>
-            <Item style={styles.labelPos} floatingLabel error={hasErrors}>
+            <Item floatingLabel error={hasErrors} style={styles.labelPos}>
               <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
               <Input
-                keyboardType="email-address"
                 autoCapitalize="none"
-                returnKeyType="next"
                 autoCompleteType="email"
+                blurOnSubmit={false}
+                keyboardType="email-address"
                 onChangeText={(username) => {
                   setUser(username);
                   setIsValid(username, pass);
                 }}
-                blurOnSubmit={false}
+                returnKeyType="next"
               />
             </Item>
           </View>
           <View style={styles.formItem}>
-            <Item style={styles.labelPos} floatingLabel error={hasErrors}>
+            <Item floatingLabel error={hasErrors} style={styles.labelPos}>
               <Label style={styles.labelStyle}>{i18n.t('login.password-label')}</Label>
               <Input
                 secureTextEntry
-                returnKeyType="go"
                 onChangeText={(password) => {
                   setPass(password);
                   setIsValid(user, password);
                 }}
                 onSubmitEditing={handleLogin}
                 ref={passwordInput}
+                returnKeyType="go"
               />
             </Item>
           </View>
         </View>
         <View>
-          <BrandedButton onPress={handleLogin} hideLoading enable={isValid}>
+          <BrandedButton hideLoading enable={isValid} onPress={handleLogin}>
             <Text>{i18n.t('login.button')}</Text>
           </BrandedButton>
           <View style={styles.bottomTextView}>
@@ -150,46 +149,46 @@ function LoginScreen({ route }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
+  bottomTextView: {
     backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingTop: 56,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: 6,
+    paddingHorizontal: 23,
+    paddingTop: 24,
   },
-  titleText: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
+  bottomTextView2: {
+    backgroundColor: colors.backgroundPrimary,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: 24,
   },
   forgotPasswordText: {
-    color: colors.brand,
     alignSelf: 'center',
+    color: colors.brand,
     padding: 40,
   },
   formItem: {
     paddingHorizontal: 16,
     paddingVertical: 4,
   },
+  labelPos: {
+    paddingBottom: 8,
+  },
   labelStyle: {
     color: colors.tertiary,
     fontSize: 16,
   },
-  labelPos: {
-    paddingBottom: 8,
-  },
-  bottomTextView: {
-    paddingTop: 24,
-    paddingBottom: 6,
-    paddingHorizontal: 23,
-    justifyContent: 'center',
-    flexDirection: 'row',
+  rootContainer: {
     backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingTop: 56,
   },
-  bottomTextView2: {
-    paddingBottom: 24,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: colors.backgroundPrimary,
+  titleText: {
+    paddingBottom: 16,
+    paddingHorizontal: 16,
   },
 });
 

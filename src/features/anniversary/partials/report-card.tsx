@@ -1,12 +1,10 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-
 import { SolidColorBar, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
 import { colors } from '@theme';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { TReportedEvent } from '../types';
-
 import ReportedEvent from './reported-event';
 
 interface IProps {

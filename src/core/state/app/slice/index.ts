@@ -9,24 +9,23 @@ import { IApp } from '../types';
 
 export const appInitialState: IApp = {
   dashboardHasBeenViewed: false,
-  mentalHealthStudyActive: true,
   loggedVaccine: false,
+  mentalHealthStudyActive: true,
 };
 
 const appSlice = createSlice({
-  name: 'App',
   initialState: appInitialState,
+  name: 'App',
   reducers: {
+    reset: (state) => {
+      return {
+        ...appInitialState,
+      };
+    },
     setDashboardHasBeenViewed: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,
         dashboardHasBeenViewed: action.payload,
-      };
-    },
-    setMentalHealthStudyActive: (state, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        mentalHealthStudyActive: action.payload,
       };
     },
     setLoggedVaccine: (state, action: PayloadAction<boolean>) => {
@@ -35,9 +34,10 @@ const appSlice = createSlice({
         loggedVaccine: action.payload,
       };
     },
-    reset: (state) => {
+    setMentalHealthStudyActive: (state, action: PayloadAction<boolean>) => {
       return {
-        ...appInitialState,
+        ...state,
+        mentalHealthStudyActive: action.payload,
       };
     },
   },

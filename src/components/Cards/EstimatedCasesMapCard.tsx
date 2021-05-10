@@ -1,23 +1,22 @@
+import { BrandedButton } from '@covid/components';
+import { WebView } from '@covid/components/WebView';
+import Analytics, { events } from '@covid/core/Analytics';
+import { Coordinates, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import appCoordinator from '@covid/features/AppCoordinator';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
+import { useNavigation } from '@react-navigation/native';
+import { colors } from '@theme';
 import React, { useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-
-import { WebView } from '@covid/components/WebView';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import NavigatorService from '@covid/NavigatorService';
-import { Services } from '@covid/provider/services.types';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { useInjection } from '@covid/provider/services.hooks';
-import Analytics, { events } from '@covid/core/Analytics';
-import { Coordinates, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
-import { RootState } from '@covid/core/state/root';
-import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { BrandedButton } from '@covid/components';
 
 import { ShareButton } from '../buttons';
 import { Text } from '../typography';
@@ -83,10 +82,10 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
   return (
     <View style={[styles.root, root]}>
       <View style={{ marginVertical: 24, paddingHorizontal: 16 }}>
-        <Text textClass="h4" rhythm={8}>
+        <Text rhythm={8} textClass="h4">
           {primaryLabel}
         </Text>
-        <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+        <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
           {i18n.t('covid-cases-map.current-estimates')}
         </Text>
       </View>
@@ -94,20 +93,20 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
       {showCartoMap && (
         <View style={styles.mapContainer}>
           <TouchableOpacity activeOpacity={0.6} onPress={showMap}>
-            <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} pointerEvents="none" />
+            <WebView originWhitelist={['*']} pointerEvents="none" source={{ html }} style={styles.webview} />
           </TouchableOpacity>
         </View>
       )}
       {showUpdatePostcode && (
         <>
           <View style={{ paddingHorizontal: 16, paddingVertical: 16 }}>
-            <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+            <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
               {secondaryLabel}
             </Text>
           </View>
           <View style={{ paddingHorizontal: 16 }}>
-            <BrandedButton style={styles.detailsButton} onPress={onPress}>
-              <Text textClass="pLight" colorPalette="burgundy">
+            <BrandedButton onPress={onPress} style={styles.detailsButton}>
+              <Text colorPalette="burgundy" textClass="pLight">
                 {ctaLabel}
               </Text>
             </BrandedButton>
@@ -136,7 +135,7 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
   const patientService = useInjection<IPatientService>(Services.Patient);
 
   const localData = useSelector<RootState, PersonalisedLocalData | undefined>(
-    (state) => state.content.personalizedLocalData
+    (state) => state.content.personalizedLocalData,
   );
 
   const viewRef = useRef(null);
@@ -224,12 +223,12 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
     if (useCartoMap) {
       return (
         <WebView
-          ref={webViewRef}
+          onEvent={onMapEvent}
           originWhitelist={['*']}
+          pointerEvents="none"
+          ref={webViewRef}
           source={{ html }}
           style={styles.webview}
-          onEvent={onMapEvent}
-          pointerEvents="none"
         />
       );
     }
@@ -264,12 +263,12 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
 
   return (
     <View style={styles.root}>
-      <View style={styles.snapshotContainer} ref={viewRef} collapsable={false}>
+      <View collapsable={false} ref={viewRef} style={styles.snapshotContainer}>
         <View style={{ marginVertical: isSharing ? 4 : 24, paddingHorizontal: 16 }}>
-          <Text textClass="h4" rhythm={8}>
+          <Text rhythm={8} textClass="h4">
             {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
           </Text>
-          <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+          <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
             {i18n.t('covid-cases-map.current-estimates')}
           </Text>
         </View>
@@ -302,6 +301,53 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
 }
 
 const styles = StyleSheet.create({
+  backIcon: {},
+
+  detailsButton: {
+    backgroundColor: 'transparent',
+    borderColor: colors.purple,
+    borderWidth: 1,
+    marginBottom: 24,
+    paddingHorizontal: 52,
+  },
+
+  detailsButtonLabel: {
+    color: colors.purple,
+    fontSize: 14,
+  },
+
+  divider: {
+    alignSelf: 'center',
+    backgroundColor: colors.backgroundFour,
+    height: 1,
+    width: '92%',
+  },
+
+  emptyStateArrow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    position: 'absolute',
+    right: 0,
+  },
+
+  mapContainer: {
+    width: '100%',
+  },
+
+  mapImage: {
+    height: MAP_HEIGHT,
+    resizeMode: 'cover',
+  },
+
+  postcodeButton: {
+    marginBottom: 20,
+  },
+
+  primaryLabel: {
+    color: colors.textDark,
+    textAlign: 'center',
+  },
+
   root: {
     backgroundColor: colors.white,
     borderRadius: 16,
@@ -309,39 +355,39 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  primaryLabel: {
+  shareIcon: {
+    marginRight: 8,
+    marginTop: 4,
+  },
+
+  shareLabel: {
+    color: colors.purple,
+    fontSize: 14,
     textAlign: 'center',
-    color: colors.textDark,
   },
 
-  mapContainer: {
-    width: '100%',
-  },
-
-  webview: {
-    height: MAP_HEIGHT,
-  },
-
-  mapImage: {
-    resizeMode: 'cover',
-    height: MAP_HEIGHT,
-  },
-
-  statsContainer: {
-    width: '100%',
+  shareTouchable: {
     flexDirection: 'row',
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    marginVertical: 16,
+    paddingTop: 4,
   },
 
-  statsRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+  snapshotContainer: {
+    backgroundColor: colors.white,
+    width: '100%',
   },
 
   stats: {
     marginRight: 8,
+  },
+
+  statsContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    width: '100%',
   },
 
   statsLabel: {
@@ -350,59 +396,12 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
 
-  backIcon: {},
-
-  divider: {
-    height: 1,
-    width: '92%',
-    alignSelf: 'center',
-    backgroundColor: colors.backgroundFour,
-  },
-
-  shareTouchable: {
-    marginVertical: 16,
+  statsRow: {
+    alignItems: 'flex-end',
     flexDirection: 'row',
-    justifyContent: 'center',
-    paddingTop: 4,
   },
 
-  shareIcon: {
-    marginTop: 4,
-    marginRight: 8,
-  },
-
-  shareLabel: {
-    textAlign: 'center',
-    color: colors.purple,
-    fontSize: 14,
-  },
-
-  detailsButton: {
-    paddingHorizontal: 52,
-    marginBottom: 24,
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: colors.purple,
-  },
-
-  detailsButtonLabel: {
-    color: colors.purple,
-    fontSize: 14,
-  },
-
-  postcodeButton: {
-    marginBottom: 20,
-  },
-
-  emptyStateArrow: {
-    position: 'absolute',
-    flexDirection: 'row',
-    alignItems: 'center',
-    right: 0,
-  },
-
-  snapshotContainer: {
-    backgroundColor: colors.white,
-    width: '100%',
+  webview: {
+    height: MAP_HEIGHT,
   },
 });

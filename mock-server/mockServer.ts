@@ -2,8 +2,7 @@ import bodyParser = require('body-parser');
 import express = require('express');
 import moment = require('moment');
 import uuid = require('uuid');
-
-import { Patient, Assessment, DietStudy } from './types';
+import { Assessment, DietStudy,Patient } from './types';
 import mockDb from './mockDb';
 
 const db = mockDb();
@@ -26,16 +25,16 @@ function consoleLogBody(req: express.Request) {
     const prettyJson = JSON.stringify(req.body, null, 2);
     if (prettyJson !== '{}') console.log(prettyJson);
   } catch (e) {
-    console.log('Badly formed JSON:' + req.body);
+    console.log(`Badly formed JSON:${req.body}`);
   }
 }
 
 function consoleLogAuthorization(req: express.Request) {
-  console.log('Auth: ' + req.get('Authorization'));
+  console.log(`Auth: ${req.get('Authorization')}`);
 }
 
 function consoleLogRequests(req: express.Request) {
-  console.log(req.method + ' ' + req.originalUrl);
+  console.log(`${req.method} ${req.originalUrl}`);
 }
 
 function loggingMiddleware(req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -56,12 +55,12 @@ app.post('/auth/login/', (_, res) => {
   return res.status(200).send({
     key: 'abc',
     user: {
-      username: 'testuser@example.com',
       authorizations: [],
+      country_code: countryCode,
       patients: ['00000000-0000-0000-0000-000000000000'],
       pii: '00000000-0000-0000-0000-000000000000',
       push_tokens: [],
-      country_code: countryCode,
+      username: 'testuser@example.com',
     },
   });
 });
@@ -74,12 +73,12 @@ app.post('/auth/signup/', (_, res) => {
   return res.status(201).send({
     key: 'abc',
     user: {
-      username: 'testuser@example.com',
       authorizations: [],
+      country_code: countryCode,
       patients: ['00000000-0000-0000-0000-000000000000'],
       pii: '00000000-0000-0000-0000-000000000000',
       push_tokens: [],
-      country_code: countryCode,
+      username: 'testuser@example.com',
     },
   });
 });
@@ -93,9 +92,9 @@ app.delete('/users/delete/', (_, res) => {
  */
 app.post('/tokens/', (_, res) => {
   return res.send({
-    token: 'abcd',
     active: true,
     platform: 'ANDROID',
+    token: 'abcd',
   });
 });
 
@@ -124,12 +123,12 @@ app.get('/study_consent/status/', (_, res) => {
  */
 app.get('/profile/', (_, res) => {
   return res.status(200).send({
-    username: 'testuser@example.com',
+    ask_for_rating: askForRating,
     authorizations: [],
     patients: (db.patients.get() as Patient[]).map((patient) => patient.id),
     pii: '00000000-0000-0000-0000-000000000000',
     push_tokens: [],
-    ask_for_rating: askForRating,
+    username: 'testuser@example.com',
   });
 });
 
@@ -138,21 +137,21 @@ app.get('/profile/', (_, res) => {
  */
 app.get('/users/startup_info/', (_, res) => {
   return res.status(200).send({
-    users_count: '3000000',
     ip_country: countryCode,
+    users_count: '3000000',
   });
 });
 
 app.get('/area_stats/', (_, res) => {
   return res.status(200).send({
-    locked: false,
-    rank: 768,
-    number_of_areas: 1000,
-    rank_delta: 24,
     area_name: 'Suffolk County',
+    locked: false,
+    number_of_areas: 1000,
     number_of_missing_contributors: 100,
-    predicted_cases: 698,
     population: 42000,
+    predicted_cases: 698,
+    rank: 768,
+    rank_delta: 24,
   });
 });
 
@@ -161,14 +160,14 @@ app.get('/text/list/', (_, res) => {
     ThankYou: null,
     Welcome: null,
     WelcomeRepeat: {
-      title_text: 'RESEARCH',
-      body_text: 'Follow the discoveries \\nyou made possible"',
-      body_link: 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
-      link_text: 'Visit the website',
-      body_photo: null,
-      experiment_name: null,
-      cohort_id: null,
       analytics: null,
+      body_link: 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
+      body_photo: null,
+      body_text: 'Follow the discoveries \\nyou made possible"',
+      cohort_id: null,
+      experiment_name: null,
+      link_text: 'Visit the website',
+      title_text: 'RESEARCH',
     },
   });
 });
@@ -197,7 +196,7 @@ app.patch('/patients/:patientId', (req, res) => {
       ...db.patients.get(patientId),
       ...req.body,
       profile_attributes_updated_at: moment().format(),
-    })
+    }),
   );
 });
 
@@ -233,7 +232,7 @@ app.patch('/diet_study/:studyId', (req, res) => {
     db.dietStudies.save(studyId, {
       ...db.dietStudies.get(studyId),
       ...req.body,
-    })
+    }),
   );
 });
 
@@ -265,7 +264,7 @@ app.patch('/assessments/:assessmentId', (req, res) => {
       ...db.assessments.get(assessmentId),
       ...updatedAssessment,
       profile_attributes_updated_at: moment().format(),
-    })
+    }),
   );
 });
 
@@ -293,7 +292,7 @@ app.patch('/covid_tests/:testId', (req, res) => {
     db.covidTests.save(testId, {
       ...db.covidTests.get(testId),
       ...req.body,
-    })
+    }),
   );
 });
 

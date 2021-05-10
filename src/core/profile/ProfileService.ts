@@ -1,9 +1,8 @@
-import { inject, injectable } from 'inversify';
-
-import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { cleanIntegerVal } from '@covid/utils/number';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { Services } from '@covid/provider/services.types';
+import { cleanIntegerVal } from '@covid/utils/number';
+import { inject, injectable } from 'inversify';
 
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
@@ -42,10 +41,9 @@ export class ProfileService implements IProfileService {
       const response = await AsyncStorageService.getAskedToReportForOthers();
       if (response) {
         return cleanIntegerVal(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
-      } else {
-        await AsyncStorageService.setAskedToReportForOthers('0');
-        return true;
       }
+      await AsyncStorageService.setAskedToReportForOthers('0');
+      return true;
     } catch (e) {
       return false;
     }

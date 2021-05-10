@@ -1,24 +1,25 @@
-import NavigatorService from '@covid/NavigatorService';
-import { ScreenFlow, Coordinator, ISelectProfile } from '@covid/core/Coordinator';
-import { PatientData } from '@covid/core/patient/PatientData';
-import { Services } from '@covid/provider/services.types';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { Coordinator, ISelectProfile, ScreenFlow } from '@covid/core/Coordinator';
 import { homeScreenName, ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import { IUserService } from '@covid/core/user/UserService';
-import { lazyInject } from '@covid/provider/services';
+import { PatientData } from '@covid/core/patient/PatientData';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { Profile } from '@covid/core/profile/ProfileService';
 import {
   ISchoolGroupModel,
   ISchoolModel,
   ISubscribedSchoolGroupStats,
   ISubscribedSchoolStats,
 } from '@covid/core/schools/Schools.dto';
-import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { fetchSubscribedSchoolGroups, schoolSlice } from '@covid/core/schools/Schools.slice';
+import { ISchoolService } from '@covid/core/schools/SchoolService';
 import store from '@covid/core/state/store';
-import { Profile } from '@covid/core/profile/ProfileService';
+import { IUserService } from '@covid/core/user/UserService';
+import NavigatorService from '@covid/NavigatorService';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 export class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
   patientData: PatientData;
+
   higherEducation: boolean;
 
   // Form state
@@ -37,20 +38,20 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   private readonly schoolService: ISchoolService;
 
   public screenFlow: Partial<ScreenFlow> = {
-    SchoolIntro: () => {
-      NavigatorService.navigate('SchoolHowTo', { patientData: this.patientData });
-    },
-    SchoolHowTo: () => {
-      NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
-    },
     JoinSchoolGroup: () => {
       this.goToGroupList();
+    },
+    SchoolDashboard: () => {
+      NavigatorService.goBack();
     },
     SchoolGroupList: () => {
       this.closeFlow();
     },
-    SchoolDashboard: () => {
-      NavigatorService.goBack();
+    SchoolHowTo: () => {
+      NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
+    },
+    SchoolIntro: () => {
+      NavigatorService.navigate('SchoolHowTo', { patientData: this.patientData });
     },
   };
 
@@ -61,7 +62,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   };
 
   startFlow() {
-    NavigatorService.navigate('JoinSchool', { patientData: this.patientData, higherEducation: this.higherEducation });
+    NavigatorService.navigate('JoinSchool', { higherEducation: this.higherEducation, patientData: this.patientData });
   }
 
   closeFlow() {
@@ -100,7 +101,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   }
 
   async removePatientFromGroup(groupId: string, patientId: string) {
-    return await this.schoolService.leaveGroup(groupId, patientId).then(async (r) => {
+    return this.schoolService.leaveGroup(groupId, patientId).then(async (r) => {
       await store.dispatch(fetchSubscribedSchoolGroups()).then(() => {
         store.dispatch(schoolSlice.actions.removeGroup(groupId));
       });
@@ -118,7 +119,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   }
 
   async addPatientToGroup(groupId: string, patientId: string) {
-    return await this.schoolService.joinGroup(groupId, patientId).then(async (r) => {
+    return this.schoolService.joinGroup(groupId, patientId).then(async (r) => {
       await store.dispatch(fetchSubscribedSchoolGroups());
       return r;
     });

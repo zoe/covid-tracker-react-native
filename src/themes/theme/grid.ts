@@ -2,16 +2,16 @@ import { IGrid } from '../types';
 
 // layout
 export const grid: IGrid = {
-  xxxs: 1,
-  xxs: 2,
-  xs: 4,
-  s: 8,
-  m: 12,
-  l: 16,
-  xl: 20,
-  xxl: 24,
-  xxxl: 32,
-  xxxxl: 48,
   gutter: 16,
+  l: 16,
+  m: 12,
   rhythm: 24,
+  s: 8,
+  xl: 20,
+  xs: 4,
+  xxl: 24,
+  xxs: 2,
+  xxxl: 32,
+  xxxs: 1,
+  xxxxl: 48,
 };

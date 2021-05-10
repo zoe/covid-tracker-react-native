@@ -1,24 +1,22 @@
+import { NUMBER_OF_PROFILE_AVATARS } from '@assets';
+import { BackButton } from '@covid/components/PatientHeader';
+import { Header } from '@covid/components/Screen';
+import { HeaderText, SecondaryText } from '@covid/components/Text';
+import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { Profile } from '@covid/core/profile/ProfileService';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { offlineService } from '@covid/Services';
+import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
+import { colors } from '@theme';
 import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { NUMBER_OF_PROFILE_AVATARS } from '@assets';
-import { colors } from '@theme';
-import { Header } from '@covid/components/Screen';
-import { HeaderText, SecondaryText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
-import { DEFAULT_PROFILE } from '@covid/utils/avatar';
-import { offlineService } from '@covid/Services';
-import { BackButton } from '@covid/components/PatientHeader';
-import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
-import { useInjection } from '@covid/provider/services.hooks';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import { Services } from '@covid/provider/services.types';
-import { Profile } from '@covid/core/profile/ProfileService';
-import { ScreenParamList } from '@covid/features';
-
 import appCoordinator from '../AppCoordinator';
-
 import { ProfileCard } from './components/ProfileCard';
 import { ProfileList } from './components/ProfileList';
 import { useProfileList } from './ProfileList.hooks';
@@ -33,17 +31,8 @@ export type SelectProfileCoordinator =
   | (Coordinator & ISelectProfile & IEditableProfile);
 
 const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
-  const {
-    status,
-    error,
-    isLoaded,
-    isApiError,
-    setIsApiError,
-    setError,
-    profiles,
-    listProfiles,
-    retryListProfiles,
-  } = useProfileList();
+  const { status, error, isLoaded, isApiError, setIsApiError, setError, profiles, listProfiles, retryListProfiles } =
+    useProfileList();
   const { assessmentFlow } = route.params;
   const coordinator: SelectProfileCoordinator = appCoordinator;
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
@@ -56,10 +45,9 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
   const getNextAvatarName = async (): Promise<string> => {
     if (profiles) {
       const n = (profiles.length + 1) % NUMBER_OF_PROFILE_AVATARS;
-      return 'profile' + n.toString();
-    } else {
-      return DEFAULT_PROFILE;
+      return `profile${n.toString()}`;
     }
+    return DEFAULT_PROFILE;
   };
 
   const gotoCreateProfile = async () => {
@@ -73,7 +61,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
       setIsApiError(true);
       setError(error);
 
-      //TODO Dont think this works properly
+      // TODO Dont think this works properly
       setTimeout(() => {
         callback(profile);
       }, offlineService.getRetryDelay());
@@ -94,26 +82,6 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
           </Header>
 
           <ProfileList
-            isApiError={isApiError}
-            error={error}
-            status={status}
-            isLoaded={isLoaded}
-            profiles={profiles}
-            renderItem={(profile, i) => (
-              <ProfileCard
-                index={i}
-                profile={profile}
-                onEditPressed={
-                  assessmentFlow
-                    ? () => {
-                        getPatientThen(profile, (profile) => {
-                          (coordinator as IEditableProfile).startEditProfile(profile);
-                        });
-                      }
-                    : undefined
-                }
-              />
-            )}
             addProfile={
               showCreateProfile
                 ? () => {
@@ -121,6 +89,9 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
                   }
                 : undefined
             }
+            error={error}
+            isApiError={isApiError}
+            isLoaded={isLoaded}
             onProfileSelected={(profile: Profile, i: number) => {
               getPatientThen(profile, (profile) => {
                 if (assessmentFlow) {
@@ -131,6 +102,23 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
               });
             }}
             onRetry={() => retryListProfiles()}
+            profiles={profiles}
+            renderItem={(profile, i) => (
+              <ProfileCard
+                index={i}
+                onEditPressed={
+                  assessmentFlow
+                    ? () => {
+                        getPatientThen(profile, (profile) => {
+                          (coordinator as IEditableProfile).startEditProfile(profile);
+                        });
+                      }
+                    : undefined
+                }
+                profile={profile}
+              />
+            )}
+            status={status}
           />
         </View>
       </ScrollView>
@@ -141,13 +129,9 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
 export default SelectProfileScreen;
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 1,
-    justifyContent: 'space-between',
-  },
-
-  rootContainer: {
-    padding: 10,
+  menuToggle: {
+    marginTop: 22,
+    tintColor: colors.primary,
   },
 
   navContainer: {
@@ -157,8 +141,12 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
 
-  menuToggle: {
-    tintColor: colors.primary,
-    marginTop: 22,
+  rootContainer: {
+    padding: 10,
+  },
+
+  scrollView: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
 });

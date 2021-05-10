@@ -1,23 +1,22 @@
+import { Profile } from '@covid/core/profile/ProfileService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import {
   Dimensions,
+  ImageStyle,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StyleSheet,
-  View,
   StyleProp,
-  ViewStyle,
+  StyleSheet,
   TextStyle,
-  ImageStyle,
+  View,
+  ViewStyle,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-import { colors } from '@theme';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { Profile } from '@covid/core/profile/ProfileService';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import PatientHeader, { CallOutType, NavHeader } from './PatientHeader';
 import { RegularText } from './Text';
@@ -71,55 +70,60 @@ export type ScreenProps = {
 
 export default class Screen extends Component<ScreenProps> {
   screenWidth: number = screenWidth;
+
   screenHeight: number = screenHeight;
 
   render() {
-    const profile = this.props.profile;
+    const { profile } = this.props;
     const scrollEnabled = this.props.scrollEnabled === undefined ? true : this.props.scrollEnabled;
     const header = () => {
       if (profile && this.props.navigation) {
         return (
           <PatientHeader
-            profile={profile}
+            calloutTitle={this.props.calloutTitle}
             navigation={this.props.navigation}
+            profile={profile}
+            showCloseButton={this.props.showCloseButton}
             simpleCallout={this.props.simpleCallout}
             type={this.props.calloutType}
-            calloutTitle={this.props.calloutTitle}
-            showCloseButton={this.props.showCloseButton}
           />
         );
-      } else if (profile && !this.props.navigation) {
+      }
+      if (profile && !this.props.navigation) {
         return (
           <PatientHeader
+            calloutTitle={this.props.calloutTitle}
             profile={profile}
+            showCloseButton={this.props.showCloseButton}
             simpleCallout={this.props.simpleCallout}
             type={this.props.calloutType}
-            calloutTitle={this.props.calloutTitle}
-            showCloseButton={this.props.showCloseButton}
           />
         );
-      } else if (this.props.navigation && this.props.showBackButton) {
-        return <NavHeader navigation={this.props.navigation} showCloseButton={this.props.showCloseButton} />;
-      } else if (this.props.navigation && this.props.showCloseButton) {
-        return <NavHeader navigation={this.props.navigation} showCloseButton={this.props.showCloseButton} />;
-      } else if (this.props.extendEdges) {
-        return <View />;
-      } else {
-        return <View style={styles.statusBarBlock} />;
       }
+      if (this.props.navigation && this.props.showBackButton) {
+        return <NavHeader navigation={this.props.navigation} showCloseButton={this.props.showCloseButton} />;
+      }
+      if (this.props.navigation && this.props.showCloseButton) {
+        return <NavHeader navigation={this.props.navigation} showCloseButton={this.props.showCloseButton} />;
+      }
+      if (this.props.extendEdges) {
+        return <View />;
+      }
+      return <View style={styles.statusBarBlock} />;
     };
 
     return (
       <SafeAreaView style={[styles.screen, this.props.style]}>
         {header()}
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
           {!scrollEnabled && <View style={styles.pageBlock}>{this.props.children}</View>}
           {scrollEnabled && (
             <ScrollView
               contentContainerStyle={{
                 flexGrow: 1,
                 justifyContent: 'space-between',
-              }}>
+              }}
+            >
               {this.props.extendEdges ? (
                 <View style={styles.pageBlockExtendedEdges}>{this.props.children}</View>
               ) : (
@@ -137,41 +141,41 @@ export const StickyBottomButton: React.FC<{
   label: string;
   onPress: VoidFunction;
 }> = ({ label, onPress }) => (
-  <TouchableOpacity style={{ marginBottom: 64 }} onPress={onPress}>
+  <TouchableOpacity onPress={onPress} style={{ marginBottom: 64 }}>
     <RegularText style={[{ textAlign: 'center' }]}>{label}</RegularText>
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.backgroundPrimary,
+  fieldWrapper: {
+    marginVertical: 16,
   },
 
-  statusBarBlock: {
-    marginVertical: 32,
+  headerBlock: {
+    marginHorizontal: 16,
+    marginVertical: 16,
   },
 
   pageBlock: {
     flexGrow: 1,
-    marginHorizontal: 16,
     marginBottom: 16,
+    marginHorizontal: 16,
   },
 
   pageBlockExtendedEdges: {
     marginHorizontal: 0,
   },
 
-  headerBlock: {
-    marginVertical: 16,
-    marginHorizontal: 16,
-  },
-
   progressBlock: {
     marginHorizontal: 16,
   },
 
-  fieldWrapper: {
-    marginVertical: 16,
+  screen: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+  },
+
+  statusBarBlock: {
+    marginVertical: 32,
   },
 });

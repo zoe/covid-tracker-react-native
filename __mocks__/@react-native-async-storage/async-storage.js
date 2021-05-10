@@ -3,13 +3,11 @@
 const asMock = {
   __INTERNAL_MOCK_STORAGE__: {},
 
-  setItem: async (key, value, callback) => {
-    const setResult = await asMock.multiSet([[key, value]], undefined);
+  clear: _clear,
 
-    callback && callback(setResult);
-    return setResult;
-  },
+  flushGetRequests: () => {},
 
+  getAllKeys: _getAllKeys,
   getItem: async (key, callback) => {
     const getResult = await asMock.multiGet([key], undefined);
 
@@ -19,17 +17,19 @@ const asMock = {
     return result;
   },
 
-  removeItem: (key, callback) => asMock.multiRemove([key], callback),
   mergeItem: (key, value, callback) => asMock.multiMerge([[key, value]], callback),
-
-  clear: _clear,
-  getAllKeys: _getAllKeys,
-  flushGetRequests: () => {},
-
   multiGet: _multiGet,
-  multiSet: _multiSet,
-  multiRemove: _multiRemove,
   multiMerge: _multiMerge,
+
+  multiRemove: _multiRemove,
+  multiSet: _multiSet,
+  removeItem: (key, callback) => asMock.multiRemove([key], callback),
+  setItem: async (key, value, callback) => {
+    const setResult = await asMock.multiSet([[key, value]], undefined);
+
+    callback && callback(setResult);
+    return setResult;
+  },
 };
 
 async function _multiSet(keyValuePairs, callback) {
