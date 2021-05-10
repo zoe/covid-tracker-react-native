@@ -1420,6 +1420,18 @@
     "share-message": "I'm helping scientists to investigate the impact of the pandemic on people's mental health - you can too! Download the app",
     "specify-other": "Please specify"
   },
+
+  "mental-health-playback": {
+    "introduction": {
+      "button": "Let's go!",
+      "info": "Mental health, in these insights, is measured based on self-reported scores for anxiety and depression",
+      "point-1": "How you spent your time differently during the pandemic compared to before",
+      "point-2": "How your changes in habits compared with your peers",
+      "point-3": "How these habits were associated with mental health in different ways",
+      "title": "We will show you insights into your habits during the pandemic"
+    }
+  },
+
   "diet-study": {
     "doctor-name": "Dr Sarah Berry",
     "doctor-title": "Nutritional Scientist",

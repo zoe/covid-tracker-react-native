@@ -22,11 +22,20 @@ export default StyleSheet.create({
   itemsEnd: {
     alignItems: 'flex-end',
   },
+  marginBottom: {
+    marginBottom: sizes.spacing,
+  },
   marginBottomSmall: {
     marginBottom: sizes.spacingSmall,
   },
+  marginRightSmall: {
+    marginRight: sizes.spacingSmall,
+  },
   marginVerticalSmall: {
     marginVertical: sizes.spacingSmall,
+  },
+  padding: {
+    padding: sizes.spacing,
   },
   row: {
     flexDirection: 'row',
