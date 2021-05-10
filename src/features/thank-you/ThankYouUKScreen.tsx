@@ -113,7 +113,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
-                style={styles.ctaSingleProfile}>
+                style={styles.ctaSingleProfile}
+              >
                 <RegularText style={styles.ctaSingleProfileText}>
                   {i18n.t('thank-you-uk.cta-single-profile')}
                 </RegularText>
@@ -122,7 +123,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
                   onPress={() => assessmentCoordinator.gotoSelectProfile()}
-                  style={styles.ctaMultipleProfileText}>
+                  style={styles.ctaMultipleProfileText}
+                >
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>
               </View>

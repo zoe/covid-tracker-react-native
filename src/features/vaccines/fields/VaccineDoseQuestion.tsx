@@ -221,6 +221,6 @@ VaccineDoseQuestion.schema = () => {
     [
       ['firstBrand', 'firstDescription'],
       ['secondBrand', 'secondDescription'],
-    ]
+    ],
   );
 };

@@ -25,7 +25,7 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const { patientData } = route.params;
   const currentJoinedGroup = useSelector((state: RootState) =>
-    selectPatientsJoinedGroups(state, patientData.patientId, true)
+    selectPatientsJoinedGroups(state, patientData.patientId, true),
   );
 
   useEffect(() => {

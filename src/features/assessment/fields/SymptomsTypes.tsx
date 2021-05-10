@@ -37,7 +37,7 @@ export type FollowUpQuestion<F> = {
 
 export function createSymptomCheckboxes<T extends BoolObject, F extends StringObject>(
   data: SymptomCheckBoxData<T, F>[],
-  props: FormikProps<T & F>
+  props: FormikProps<T & F>,
 ): JSX.Element[] {
   return data.map((checkBoxData) => {
     return (
@@ -46,7 +46,8 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
           value={props.values[checkBoxData.value]}
           onChange={(checked: boolean) => {
             props.setFieldValue(checkBoxData.value, checked);
-          }}>
+          }}
+        >
           {checkBoxData.label}
         </CheckboxItem>
 

@@ -34,7 +34,8 @@ function BrandedButton({
         onPress={() => {
           !isDisabled && onPress();
         }}
-        {...buttonProps}>
+        {...buttonProps}
+      >
         <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
           {children}
         </Text>

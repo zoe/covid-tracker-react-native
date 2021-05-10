@@ -118,7 +118,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
   public async updatePatientState(
     patientState: PatientStateType,
-    patient: PatientInfosRequest
+    patient: PatientInfosRequest,
   ): Promise<PatientStateType> {
     // Calculate the flags based on patient info
     const hasRaceEthnicityAnswer = Array.isArray(patient.race) && patient.race.length > 0;

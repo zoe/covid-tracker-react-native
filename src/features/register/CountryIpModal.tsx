@@ -61,7 +61,7 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
         routes: screenStack(),
       });
     },
-    [navigation.reset]
+    [navigation.reset],
   );
 
   const onValueChange = useCallback(
@@ -71,14 +71,14 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
       await AsyncStorageService.setAskedCountryConfirmation(true);
       await selectCountry(value);
     },
-    [closeModal, setCountrySelected, selectCountry]
+    [closeModal, setCountrySelected, selectCountry],
   );
 
   const renderItem = useCallback(
     (i: Item) => (
       <Picker.Item color={i.value ? undefined : colors.tertiary} key={key(i)} label={i.label} value={i.value} />
     ),
-    [colors.tertiary]
+    [colors.tertiary],
   );
 
   const items: Item[] = [
@@ -108,7 +108,8 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
               selectedValue={countrySelected}
               onValueChange={onValueChange}
               iosIcon={<Icon name="arrow-down" />}
-              placeholder={i18n.t('choose-one-of-these-options')}>
+              placeholder={i18n.t('choose-one-of-these-options')}
+            >
               {items.map(renderItem)}
             </Picker>
           </Form>

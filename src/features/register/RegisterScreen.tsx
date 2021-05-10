@@ -137,13 +137,15 @@ class RegisterScreen extends Component<PropsType, State> {
       <Formik
         initialValues={initialRegistrationValues}
         validationSchema={this.registerSchema}
-        onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}>
+        onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}
+      >
         {(props) => {
           return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <KeyboardAvoidingView
                 style={styles.rootContainer}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              >
                 <View>
                   <View style={styles.loginHeader}>
                     <HeaderLightText>{i18n.t('create-account.title')}</HeaderLightText>
@@ -229,7 +231,8 @@ class RegisterScreen extends Component<PropsType, State> {
                     <BrandedButton
                       onPress={props.handleSubmit}
                       hideLoading={!props.isSubmitting}
-                      enable={this.state.enableSubmit}>
+                      enable={this.state.enableSubmit}
+                    >
                       {i18n.t('create-account.btn')}
                     </BrandedButton>
                   </View>

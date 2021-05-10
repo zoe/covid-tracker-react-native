@@ -27,7 +27,8 @@ function DrawNavigator() {
       screenOptions={{ swipeEnabled: false }}
       drawerStyle={{
         width: Dimensions.get('screen').width,
-      }}>
+      }}
+    >
       <Drawer.Screen name="Main" component={MainNavigator} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
@@ -49,7 +50,8 @@ function CovidApp() {
         onStateChange={NavigatorService.handleStateChange}
         linking={{
           prefixes: ['zoe-covid-study://', 'https://covid.joinzoe.com'],
-        }}>
+        }}
+      >
         <Stack.Navigator headerMode="none" mode="modal" initialRouteName="Main">
           <Stack.Screen name="Main" component={DrawNavigator} />
           <Stack.Screen

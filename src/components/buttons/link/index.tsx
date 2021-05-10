@@ -33,7 +33,8 @@ function Link({
       style={{ flexDirection: 'row', ...style }}
       onPress={onPress}
       accessible
-      accessibilityRole="button">
+      accessibilityRole="button"
+    >
       <Icon
         color={linkColor}
         iconName={iconName}

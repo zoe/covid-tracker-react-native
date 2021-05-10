@@ -18,7 +18,7 @@ const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicyUK', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly]
+    [navigation.navigate, route.params.viewOnly],
   );
 
   useEffect(() => {

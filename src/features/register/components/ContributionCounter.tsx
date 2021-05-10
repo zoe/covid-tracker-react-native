@@ -33,7 +33,7 @@ export function ContributionCounter(props: IProps) {
             <RegularBoldText key={i} style={styles.contributingTextValue}>
               {countValue}
             </RegularBoldText>
-          )
+          ),
         )}
       </RegularText>
     ) : props.variant === 2 ? (

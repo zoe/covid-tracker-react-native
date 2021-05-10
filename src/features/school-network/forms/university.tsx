@@ -37,7 +37,8 @@ function UniversityForm({ currentJoinedGroup, schools }: IProps) {
         } catch (error) {
           FormikProps.setFieldError('schoolId', 'Update error');
         }
-      }}>
+      }}
+    >
       {(formikProps) => (
         <Form style={styles.formContainer}>
           <DropdownField

@@ -3,7 +3,7 @@ import { ITextClass, TText, TFontFamily, TTypeSizes } from '../types/typography'
 const getTextProperties = (
   fontSize: TTypeSizes,
   lineHeight: TTypeSizes,
-  fontFamily: TFontFamily = 'SofiaProRegular'
+  fontFamily: TFontFamily = 'SofiaProRegular',
 ): TText => {
   return {
     fontFamily,

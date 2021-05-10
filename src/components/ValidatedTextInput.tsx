@@ -24,7 +24,8 @@ export class ValidatedTextInput extends Component<Props, object> {
           {
             borderColor: error ? colors.feedbackBad : 'transparent',
           },
-        ]}>
+        ]}
+      >
         <TextInput
           ref={(input) => (this.textInput = input)}
           style={[styles.inputStyle, this.props.multiline ? styles.multipleLines : styles.singleLine]}

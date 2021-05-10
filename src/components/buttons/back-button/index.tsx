@@ -17,7 +17,8 @@ function BackButton({ style }: IProps) {
   return (
     <TouchableOpacity
       style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', ...style }}
-      onPress={() => goBack()}>
+      onPress={() => goBack()}
+    >
       <Icon iconName="big-arrow-left" style={{ marginRight: 8 }} />
       <Text>{i18n.t('navigation.back')}</Text>
     </TouchableOpacity>

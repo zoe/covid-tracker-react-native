@@ -57,7 +57,8 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
               style={styles.button}
               onPress={() => {
                 appCoordinator.gotoNextScreen(props.route.name);
-              }}>
+              }}
+            >
               <RegularText style={styles.buttonText}>{i18n.t('vaccine-registry.next')}</RegularText>
             </BrandedButton>
           </View>

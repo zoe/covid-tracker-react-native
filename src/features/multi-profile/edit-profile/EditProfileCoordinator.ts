@@ -49,7 +49,7 @@ export class EditProfileCoordinator extends Coordinator implements IUpdatePatien
           },
           { name: 'EditProfile', params: { patientData: this.patientData } },
         ],
-        2
+        2,
       );
     },
   };

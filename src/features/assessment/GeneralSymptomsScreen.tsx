@@ -63,7 +63,8 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
             ...GeneralSymptomsQuestions.initialFormValues(features.defaultTemperatureUnit),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: GeneralSymptomsData) => handleSubmit(values)}>
+          onSubmit={(values: GeneralSymptomsData) => handleSubmit(values)}
+        >
           {(props) => {
             return (
               <Form style={{ flexGrow: 1 }}>

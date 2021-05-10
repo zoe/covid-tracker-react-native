@@ -137,7 +137,7 @@ function MentalHealthChanges() {
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
       existingMentalHealth,
-      { mentalHealthChanges }
+      { mentalHealthChanges },
     );
     await mentalHealthApiClient.update(updatedMentalHealth);
     NavigatorService.navigate('MentalHealthFrequency', undefined);

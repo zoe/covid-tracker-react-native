@@ -129,7 +129,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
           },
         },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   };
 
@@ -153,7 +153,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
           },
         },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   };
 
@@ -233,7 +233,8 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
         onSubmit={(formData: IAboutYourVaccineData) =>
           // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
           dateHasBeenEdited(formData) ? checkDateChangePrompt(formData) : processFormDataForSubmit(formData)
-        }>
+        }
+      >
         {(props: FormikProps<IAboutYourVaccineData>) => {
           return (
             <Form style={{ flex: 1 }}>

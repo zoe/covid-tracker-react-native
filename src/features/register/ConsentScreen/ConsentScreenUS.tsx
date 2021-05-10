@@ -21,19 +21,19 @@ const ConsentScreenUS: FC<PropsType> = ({ navigation, route, setAgreed }) => {
 
   const onNurseConsentPress = useCallback(
     () => navigation.replace('NursesConsentUS', { viewOnly: route.params.viewOnly }),
-    [navigation.replace, route.params.viewOnly]
+    [navigation.replace, route.params.viewOnly],
   );
 
   const onInfoLinkPress = useCallback(() => openWebLink('https://www.cdc.gov/coronavirus/2019-ncov/index.html'), []);
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicyUS', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly]
+    [navigation.navigate, route.params.viewOnly],
   );
 
   const onTermsOfUsePress = useCallback(
     () => navigation.navigate('TermsOfUseUS', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly]
+    [navigation.navigate, route.params.viewOnly],
   );
 
   const toggleProcessingChecked = useCallback(() => {

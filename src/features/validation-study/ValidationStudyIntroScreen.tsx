@@ -49,7 +49,8 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
                 Analytics.track(events.DECLINE_STUDY);
                 this.consentService.setValidationStudyResponse(false);
                 appCoordinator.resetToProfileStartAssessment();
-              }}>
+              }}
+            >
               <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>
             </TouchableOpacity>
           </View>
@@ -58,7 +59,8 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
             style={styles.mainButton}
             onPress={() => {
               appCoordinator.gotoNextScreen(this.props.route.name);
-            }}>
+            }}
+          >
             <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
           </BrandedButton>
         </ImageBackground>

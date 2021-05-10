@@ -89,7 +89,7 @@ ThroatChestSymptomsQuestions.schema = () => {
 };
 
 ThroatChestSymptomsQuestions.createAssessment = (
-  formData: ThroatChestSymptomsData
+  formData: ThroatChestSymptomsData,
 ): Partial<AssessmentInfosRequest> => {
   return {
     sore_throat: formData.soreThroat,

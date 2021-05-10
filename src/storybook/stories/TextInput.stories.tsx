@@ -17,7 +17,8 @@ storiesOf('Text input', module).add('default', () => (
       initialValues={{
         input: '',
       }}
-      onSubmit={(values: any) => {}}>
+      onSubmit={(values: any) => {}}
+    >
       {(props) => (
         <View style={{ marginHorizontal: 16 }}>
           <View style={{ marginVertical: 16 }}>
@@ -44,7 +45,8 @@ storiesOf('Text input', module).add('multi-line', () => (
       initialValues={{
         input: '',
       }}
-      onSubmit={(values: any) => {}}>
+      onSubmit={(values: any) => {}}
+    >
       {(props) => (
         <View style={{ marginHorizontal: 16 }}>
           <View style={{ marginVertical: 16 }}>

@@ -33,17 +33,8 @@ export type SelectProfileCoordinator =
   | (Coordinator & ISelectProfile & IEditableProfile);
 
 const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
-  const {
-    status,
-    error,
-    isLoaded,
-    isApiError,
-    setIsApiError,
-    setError,
-    profiles,
-    listProfiles,
-    retryListProfiles,
-  } = useProfileList();
+  const { status, error, isLoaded, isApiError, setIsApiError, setError, profiles, listProfiles, retryListProfiles } =
+    useProfileList();
   const { assessmentFlow } = route.params;
   const coordinator: SelectProfileCoordinator = appCoordinator;
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);

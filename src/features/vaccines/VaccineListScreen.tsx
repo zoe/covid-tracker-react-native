@@ -47,7 +47,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     React.useCallback(() => {
       dispatch(vaccinesSlice.actions.reset());
       refreshVaccineList();
-    }, [])
+    }, []),
   );
 
   const refreshVaccineList = () => {
@@ -172,7 +172,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
               setShowVaccineWarning(false);
               dispatch(setLoggedVaccine(false));
               openWebLink(
-                'https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/information-for-dig-om-vaccinationen/efter-vaccinationen--fortsatt-folja-de-allmanna-raden/'
+                'https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/information-for-dig-om-vaccinationen/efter-vaccinationen--fortsatt-folja-de-allmanna-raden/',
               );
             },
           },

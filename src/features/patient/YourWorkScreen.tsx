@@ -101,7 +101,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
       .catch(() =>
         this.setState({
           errorMessage: i18n.t('something-went-wrong'),
-        })
+        }),
       );
   }
 
@@ -274,7 +274,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         <Formik
           initialValues={{} as IYourWorkData}
           validationSchema={this.registerSchema}
-          onSubmit={(values: IYourWorkData) => this.handleUpdateWork(values)}>
+          onSubmit={(values: IYourWorkData) => this.handleUpdateWork(values)}
+        >
           {(props) => {
             const {
               isHealthcareStaff,
@@ -323,7 +324,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                   this.setState({
                                     atHospitalInpatient: value,
                                   })
-                                }>
+                                }
+                              >
                                 {i18n.t('your-work.worked-hospital-inpatient')}
                               </CheckboxItem>
                               <CheckboxItem
@@ -332,7 +334,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                   this.setState({
                                     atHospitalOutpatient: value,
                                   })
-                                }>
+                                }
+                              >
                                 {i18n.t('your-work.worked-hospital-outpatient')}
                               </CheckboxItem>
                               <CheckboxItem
@@ -341,7 +344,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                   this.setState({
                                     atClinicOutsideHospital: value,
                                   })
-                                }>
+                                }
+                              >
                                 {i18n.t('your-work.worked-clinic-outside-hospital')}
                               </CheckboxItem>
                               <CheckboxItem
@@ -350,7 +354,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                   this.setState({
                                     atCareFacility: value,
                                   })
-                                }>
+                                }
+                              >
                                 {i18n.t('your-work.worked-nursing-home')}
                               </CheckboxItem>
                               <CheckboxItem
@@ -359,7 +364,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                   this.setState({
                                     atHomeHealth: value,
                                   })
-                                }>
+                                }
+                              >
                                 {i18n.t('your-work.worked-home-health')}
                               </CheckboxItem>
                               <CheckboxItem
@@ -368,7 +374,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                   this.setState({
                                     atSchoolClinic: value,
                                   })
-                                }>
+                                }
+                              >
                                 {i18n.t('your-work.worked-school-clinic')}
                               </CheckboxItem>
                               <CheckboxItem
@@ -377,7 +384,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                   this.setState({
                                     atOtherFacility: value,
                                   })
-                                }>
+                                }
+                              >
                                 {i18n.t('your-work.worked-other-facility')}
                               </CheckboxItem>
                             </CheckboxList>
@@ -441,7 +449,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   <BrandedButton
                     onPress={handleSubmit}
                     enable={this.checkFormFilled(props)}
-                    hideLoading={!props.isSubmitting}>
+                    hideLoading={!props.isSubmitting}
+                  >
                     {i18n.t('next-question')}
                   </BrandedButton>
                 </Form>

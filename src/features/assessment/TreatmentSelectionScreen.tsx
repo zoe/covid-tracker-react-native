@@ -39,7 +39,7 @@ function TreatmentSelectionScreen({ navigation, route }: IProps) {
       const assessment = { treatment };
       await assessmentService.completeAssessment(
         assessment,
-        assessmentCoordinator.assessmentData.patientData.patientInfo!
+        assessmentCoordinator.assessmentData.patientData.patientInfo!,
       );
       assessmentCoordinator.gotoNextScreen(route.name, { other: false, location });
     }

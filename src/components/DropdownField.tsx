@@ -111,7 +111,8 @@ export function DropdownField({
           styles.dropdownTextStyle,
           borderRadiusStyle,
           isSelected && styles.dropdownTextHighlightStyle,
-        ]}>
+        ]}
+      >
         {itemIcons?.length && <Image source={itemIcons[index]} style={{ marginRight: 5, width: 24, height: 24 }} />}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
       </View>
@@ -140,10 +141,12 @@ export function DropdownField({
           setDropdownFocus(false);
         }}
         renderSeparator={renderDropdownSeparator}
-        renderRow={renderDropdownRow}>
+        renderRow={renderDropdownRow}
+      >
         <View
           onLayout={updateDropdownWidth}
-          style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}>
+          style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}
+        >
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
             {selectedLabel ?? i18n.t('choose-one-of-these-options')}
           </Label>

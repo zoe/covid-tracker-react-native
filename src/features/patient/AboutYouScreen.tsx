@@ -367,7 +367,8 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           validationSchema={this.registerSchema}
           onSubmit={(values: IAboutYouData) => {
             return this.handleUpdateHealth(values);
-          }}>
+          }}
+        >
           {(props) => {
             const isMinor = isMinorAge(cleanIntegerVal(props.values.yearOfBirth));
 
@@ -475,7 +476,8 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 <BrandedButton
                   onPress={props.handleSubmit}
                   enable={checkFormFilled(props)}
-                  hideLoading={!props.isSubmitting}>
+                  hideLoading={!props.isSubmitting}
+                >
                   <Text>{this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}</Text>
                 </BrandedButton>
               </Form>

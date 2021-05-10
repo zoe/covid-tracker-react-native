@@ -128,7 +128,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
           },
         },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   }
 
@@ -171,7 +171,8 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
           validationSchema={registerSchema}
           onSubmit={(values: INHSTestData) => {
             return this.handleAction(values);
-          }}>
+          }}
+        >
           {(props) => {
             return (
               <Form>

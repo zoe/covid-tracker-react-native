@@ -68,7 +68,8 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
       config={headerConfig}
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
-      expandedHeader={<Header reportOnPress={onReport} />}>
+      expandedHeader={<Header reportOnPress={onReport} />}
+    >
       <View style={styles.calloutContainer}>
         <ShareVaccineCard screenName="DashboardUS" />
 
@@ -77,7 +78,8 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
             onPress={() => {
               AnalyticsService.track(events.DIET_STUDY_PLAYBACK_CLICKED);
               appCoordinator.goToDietStudy();
-            }}>
+            }}
+          >
             <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUS} />
           </TouchableWithoutFeedback>
         )}

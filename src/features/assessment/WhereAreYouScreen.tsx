@@ -31,7 +31,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     if (isComplete) {
       await assessmentService.completeAssessment(
         assessment,
-        assessmentCoordinator.assessmentData.patientData.patientInfo!
+        assessmentCoordinator.assessmentData.patientData.patientInfo!,
       );
     } else {
       assessmentService.saveAssessment(assessment);

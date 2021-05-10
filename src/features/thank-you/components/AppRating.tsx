@@ -104,7 +104,7 @@ export class AppRating extends Component<PropsType, State> {
                 i18n.t('rating.cta-rate'),
                 this.takeToStore,
                 i18n.t('rating.cta-later'),
-                this.decline
+                this.decline,
               )}
             </>
           ) : (
@@ -114,7 +114,7 @@ export class AppRating extends Component<PropsType, State> {
                 i18n.t('rating.cta-yes'),
                 this.askToRate,
                 i18n.t('rating.cta-no'),
-                this.declineFeedback
+                this.declineFeedback,
               )}
             </>
           )}

@@ -43,7 +43,8 @@ function ReportedEvent({ reportedEvent }: IProps) {
       style={{
         alignItems: 'center',
         padding: 4,
-      }}>
+      }}
+    >
       <Icon iconName={getMappedIconName()} iconSize={24} style={{ marginBottom: 10 }} />
       <Text textClass="pXSmallMedium" textAlign="center">
         {reportedEvent.text}

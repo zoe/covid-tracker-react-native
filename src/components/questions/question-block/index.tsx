@@ -36,7 +36,8 @@ function QuestionBlock({
       accessibilityRole="checkbox"
       disabled={disabled}
       onPress={onPress}
-      style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : bgColor }]}>
+      style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : bgColor }]}
+    >
       {iconName && <Icon iconName={iconName} iconStyle={{ color: active ? 'white' : 'black' }} />}
       <Text textClass="label" textAlign="center" style={{ color: active ? 'white' : 'black' }}>
         {keyValue.key}

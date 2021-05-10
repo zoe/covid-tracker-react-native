@@ -39,7 +39,8 @@ export function Tabs({ labels, onSelected, ...props }: IProps) {
                 width: tabWidth,
                 transform: [{ translateX: translateValue }],
               },
-            ]}>
+            ]}
+          >
             <View style={styles.indicatorBar} />
           </Animated.View>
         </View>
@@ -52,14 +53,16 @@ export function Tabs({ labels, onSelected, ...props }: IProps) {
             key={label}
             onPress={() => {
               onTabBarPress(index);
-            }}>
+            }}
+          >
             <View
               style={[
                 styles.tab,
                 {
                   width: tabWidth,
                 },
-              ]}>
+              ]}
+            >
               <RegularText style={[styles.label, labelStyle]}>{label}</RegularText>
             </View>
           </TouchableOpacity>

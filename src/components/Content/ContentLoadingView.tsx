@@ -42,7 +42,8 @@ export const ContentErrorView: React.FC<ContentErrorViewProps> = ({ message }) =
         {
           justifyContent: 'center',
         },
-      ]}>
+      ]}
+    >
       <Text textAlign="center" textClass="p" style={{ marginHorizontal: 12 }}>
         {message}
       </Text>

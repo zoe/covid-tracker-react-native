@@ -159,7 +159,8 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             <ClickableText
               onPress={() =>
                 openWebLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
-              }>
+              }
+            >
               GDPR
             </ClickableText>{' '}
             you have a number of important rights free of charge. In summary, those include rights to:
@@ -176,9 +177,10 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             <ClickableText
               onPress={() =>
                 openWebLink(
-                  'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/'
+                  'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/',
                 )
-              }>
+              }
+            >
               Guidance from the United Kingdom Information Commissioner’s Office (ICO) on individuals rights under the
               General Data Protection Regulation.
             </ClickableText>
@@ -190,7 +192,8 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             <ClickableText
               onPress={() =>
                 openWebLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
-              }>
+              }
+            >
               General Data Protection Regulation
             </ClickableText>{' '}
             also gives you the right to lodge a complaint with a supervisory authority, in particular in the European

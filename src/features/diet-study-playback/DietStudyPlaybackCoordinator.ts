@@ -15,7 +15,7 @@ class DietStudyPlaybackCoordinator extends Coordinator {
     appCoordinator: AppCoordinator,
     patientData: PatientData,
     contentService: IContentService,
-    dietStudyService: IDietScoreRemoteClient
+    dietStudyService: IDietScoreRemoteClient,
   ) => {
     this.appCoordinator = appCoordinator;
     this.contentService = contentService;

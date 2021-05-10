@@ -52,7 +52,8 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
       <ActionButton
         error={getHasError()}
         icon={<DropdownIcon />}
-        onPress={() => setState({ ...state, showTimePicker: true })}>
+        onPress={() => setState({ ...state, showTimePicker: true })}
+      >
         {props.formikProps.values.dateTestTime
           ? moment(new Date(props.formikProps.values.dateTestTime)).format('h:mm a')
           : 'Select time'}

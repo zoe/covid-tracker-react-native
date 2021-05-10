@@ -59,7 +59,8 @@ function ProgressCircle({
           height: size,
           transform: [{ translateX: 0 }, { translateY: 0 }, { rotateZ: '-90deg' }],
         },
-      ]}>
+      ]}
+    >
       <Circle cx={cx} cy={cy} fill="transparent" stroke={bgColor} r={radius} strokeWidth={strokeWidth} />
       <AnimatedCircle
         cx={cx}

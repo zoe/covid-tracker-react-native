@@ -74,7 +74,8 @@ const Text = ({
       rhythm={rhythm}
       style={style}
       textAlign={tAlign}
-      textDecorationLine={tDecorationLine}>
+      textDecorationLine={tDecorationLine}
+    >
       {children}
     </SText>
   );

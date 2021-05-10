@@ -58,7 +58,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<ISubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolGroups
+    (state) => state.school.joinedSchoolGroups,
   );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
@@ -165,7 +165,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
         config={headerConfig}
         navigation={navigation}
         compactHeader={<CompactHeader reportOnPress={onReport} />}
-        expandedHeader={<Header reportOnPress={onReport} />}>
+        expandedHeader={<Header reportOnPress={onReport} />}
+      >
         <View style={styles.calloutContainer}>
           {startupInfo?.show_timeline && (
             <ImpactTimelineCard
@@ -185,7 +186,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
             <View
               style={{
                 marginVertical: 8,
-              }}>
+              }}
+            >
               <SchoolNetworks schoolGroups={networks!} />
             </View>
           )}

@@ -23,7 +23,7 @@ const pushNotificationApiClient = new PushNotificationApiClient(apiClient);
 export const pushNotificationService = new PushNotificationService(
   pushNotificationApiClient,
   localStorageService,
-  pushTokenEnvironment
+  pushTokenEnvironment,
 );
 
 const assessmentState = new ReduxAssessmentState();

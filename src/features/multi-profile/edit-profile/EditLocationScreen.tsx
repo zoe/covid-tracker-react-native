@@ -126,7 +126,8 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
         validationSchema={validation}
         onSubmit={(formData: EditLocationData) => {
           return handleLocationUpdate(formData);
-        }}>
+        }}
+      >
         {(props) => {
           return (
             <Form style={{ marginHorizontal: 16 }}>

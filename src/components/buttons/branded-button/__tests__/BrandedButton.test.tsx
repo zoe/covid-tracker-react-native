@@ -25,7 +25,7 @@ describe('branded-button tests', () => {
     const { getByTestId } = render(
       <BrandedButton onPress={onPress} enable={false}>
         This is a branded button
-      </BrandedButton>
+      </BrandedButton>,
     );
     expect(onPress).toHaveBeenCalledTimes(0);
     fireEvent.press(getByTestId('buttonTestID'));
@@ -38,7 +38,7 @@ describe('branded-button tests', () => {
     const { getByTestId } = render(
       <BrandedButton style={style} onPress={onPress} enable={false}>
         This is a branded button
-      </BrandedButton>
+      </BrandedButton>,
     );
     expect(getByTestId('buttonTestID').props.style.background).toBe('red');
   });

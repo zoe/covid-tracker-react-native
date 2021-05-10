@@ -41,11 +41,7 @@ const mentalHealthFrequencySlice = createSlice({
   },
 });
 
-export const {
-  setFeelingDown,
-  setFeelingNervous,
-  setPleasureInDoingThings,
-  setStopWorrying,
-} = mentalHealthFrequencySlice.actions;
+export const { setFeelingDown, setFeelingNervous, setPleasureInDoingThings, setStopWorrying } =
+  mentalHealthFrequencySlice.actions;
 export const selectMentalHealthFrequency = (state: RootState) => state.mentalHealthFrequency;
 export default mentalHealthFrequencySlice.reducer;

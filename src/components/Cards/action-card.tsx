@@ -24,7 +24,8 @@ function ActionCard({ actionTitle, buttonColor, children, onPress, outline, text
         accessible
         accessibilityRole="button"
         onPress={onPress}
-        style={[styles.container, styles.shadow, { paddingHorizontal: grid.gutter, paddingVertical: grid.xxl }]}>
+        style={[styles.container, styles.shadow, { paddingHorizontal: grid.gutter, paddingVertical: grid.xxl }]}
+      >
         <View style={{ marginBottom: grid.l }}>
           <View>{children}</View>
         </View>
@@ -37,7 +38,8 @@ function ActionCard({ actionTitle, buttonColor, children, onPress, outline, text
             borderRadius: grid.xxl,
             height: grid.xxxxl,
             justifyContent: 'center',
-          }}>
+          }}
+        >
           <Text style={{ color: outline ? bColor : tColor }}>{actionTitle}</Text>
         </View>
         <View />

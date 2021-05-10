@@ -72,7 +72,8 @@ export default class ThankYouUSScreen extends Component<Props, State> {
                 onPress={() => {
                   assessmentCoordinator.gotoNextScreen(this.props.route.name);
                 }}
-                style={styles.done}>
+                style={styles.done}
+              >
                 {i18n.t('thank-you.done')}
               </ClickableText>
             </View>

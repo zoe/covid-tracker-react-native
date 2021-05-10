@@ -50,7 +50,7 @@ export const LinksSection: React.FC<{ navigation: DrawerNavigationHelpers }> = (
           },
         },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   }
 

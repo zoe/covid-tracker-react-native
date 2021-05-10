@@ -52,7 +52,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
       await this.consentService.setConsentSigned(
         'US Nurses',
         appConfig.nursesConsentVersionUS,
-        appConfig.privacyPolicyVersionUS
+        appConfig.privacyPolicyVersionUS,
       );
       this.props.navigation.navigate('Register');
     }
@@ -207,7 +207,8 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           <RegularText>
             {i18n.t('consent-nurses-us.para-15')}{' '}
             <ClickableText
-              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+            >
               {i18n.t('consent-nurses-us.privacy-policy')}
             </ClickableText>
             . {i18n.t('consent-nurses-us.para-15-2')}
@@ -227,7 +228,8 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
             {'\n'}
             {i18n.t('consent-nurses-us.para-16-2')}{' '}
             <ClickableText
-              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+            >
               {i18n.t('consent-nurses-us.privacy-policy')}
             </ClickableText>
             .{'\n'}
@@ -261,7 +263,8 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
               <CheckboxItem value={this.state.processingChecked} onChange={this.handleProcessingChange}>
                 {i18n.t('consent-nurses-us.i-consent')}{' '}
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+                >
                   {i18n.t('consent-nurses-us.privacy-policy')}
                 </ClickableText>
                 .
@@ -269,12 +272,14 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
               <CheckboxItem value={this.state.termsOfUseChecked} onChange={this.handleTermsOfUseChange}>
                 {i18n.t('consent-nurses-us.i-read-accept')}{' '}
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}>
+                  onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}
+                >
                   {i18n.t('consent-nurses-us.terms-of-use')}
                 </ClickableText>{' '}
                 and{' '}
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+                >
                   {i18n.t('consent-nurses-us.privacy-policy')}
                 </ClickableText>
                 .
@@ -288,7 +293,8 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
             style={styles.button}
             hideLoading
             enable={this.state.processingChecked && this.state.termsOfUseChecked}
-            onPress={this.handleAgreeClicked}>
+            onPress={this.handleAgreeClicked}
+          >
             {i18n.t('consent-nurses-us.i-agree')}
           </BrandedButton>
         )}

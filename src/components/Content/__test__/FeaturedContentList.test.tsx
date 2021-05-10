@@ -53,13 +53,13 @@ describe('FeaturedContentList tests', () => {
       const instance = renderer.create(
         <Provider store={testContentStore}>
           <FeaturedContentList type={FeaturedContentType.Home} screenName="Screen name" disableLoadingState />
-        </Provider>
+        </Provider>,
       );
 
       expect(
         instance.root.findAll((el) => {
           return el.props?.testID === 'featured-content-callout' && (el.type as any) === 'View';
-        }).length
+        }).length,
       ).toBe(content.length);
     });
 
@@ -84,13 +84,13 @@ describe('FeaturedContentList tests', () => {
     const instance = renderer.create(
       <Provider store={testContentStore}>
         <FeaturedContentList type={FeaturedContentType.ThankYou} screenName="Screen name" disableLoadingState />
-      </Provider>
+      </Provider>,
     );
 
     expect(
       instance.root.findAll((el) => {
         return el.props?.testID === 'featured-content-callout' && (el.type as any) === 'View';
-      }).length
+      }).length,
     ).toBe(content.length);
   });
 });

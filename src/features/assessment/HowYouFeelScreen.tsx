@@ -63,7 +63,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       if (isComplete) {
         await assessmentService.completeAssessment(
           assessment,
-          assessmentCoordinator.assessmentData.patientData.patientInfo!
+          assessmentCoordinator.assessmentData.patientData.patientInfo!,
         );
       } else {
         assessmentService.saveAssessment(assessment);

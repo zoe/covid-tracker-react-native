@@ -110,7 +110,8 @@ export function NHSIntroScreen(props: IProps) {
         <Formik
           initialValues={{} as IData}
           validationSchema={registerSchema}
-          onSubmit={(values: IData) => handleSubmit(values)}>
+          onSubmit={(values: IData) => handleSubmit(values)}
+        >
           {(props) => {
             const { handleSubmit, errors } = props;
 
@@ -144,7 +145,8 @@ export function NHSIntroScreen(props: IProps) {
                   <BrandedButton
                     onPress={handleSubmit}
                     enable={checkFormFilled(props) && consent}
-                    hideLoading={!props.isSubmitting}>
+                    hideLoading={!props.isSubmitting}
+                  >
                     {i18n.t('nhs-study-intro.next')}
                   </BrandedButton>
                 </Form>

@@ -49,7 +49,7 @@ export class SchoolService implements ISchoolService {
       `/groups/${groupId}/join/`,
       {
         patient_id: patientId,
-      }
+      },
     );
   }
 

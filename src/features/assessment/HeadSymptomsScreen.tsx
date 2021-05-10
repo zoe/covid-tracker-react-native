@@ -48,7 +48,8 @@ export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
             ...HeadSymptomsQuestions.initialFormValues(),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: HeadSymptomsData) => handleSubmit(values)}>
+          onSubmit={(values: HeadSymptomsData) => handleSubmit(values)}
+        >
           {(props) => {
             return (
               <Form style={{ flexGrow: 1 }}>
@@ -59,7 +60,8 @@ export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
                 <BrandedButton
                   onPress={props.handleSubmit}
                   hideLoading={!props.isSubmitting}
-                  enable={!props.isSubmitting}>
+                  enable={!props.isSubmitting}
+                >
                   {i18n.t('describe-symptoms.next')}
                 </BrandedButton>
               </Form>

@@ -101,7 +101,7 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
         const monthLabels = (filtered ?? []).map((data) => moment(data.date).format('MMM'));
         const monthLabelSet = monthLabels.reduce(
           (unique: string[], item: string) => (unique.includes(item) ? unique : [...unique, item]),
-          []
+          [],
         );
         if (monthLabelSet.length >= 2) {
           setMonthRangeLabel(`${monthLabelSet[monthLabelSet.length - 1]} - ${monthLabelSet[0]}`);

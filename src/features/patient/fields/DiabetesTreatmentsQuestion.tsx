@@ -71,7 +71,8 @@ const DiabetesTreamentsCheckbox: React.FC<DiabetesTreamentsCheckboxProps> = ({ d
         if (data.fieldName === DiabetesTreatmentsFieldnames.OTHER_ORAL && !checked) {
           reset();
         }
-      }}>
+      }}
+    >
       {data.label}
     </CheckboxItem>
   );
@@ -115,7 +116,7 @@ export const DiabetesTreamentsQuestion: IFormikDiabetesInputFC<Props, IDiabetesT
 
   const createDiabetesCheckboxes = (
     data: DiabetesTreatmentCheckBoxData[],
-    props: FormikProps<IDiabetesTreatmentsData>
+    props: FormikProps<IDiabetesTreatmentsData>,
   ) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesTreatments.includes(item.fieldName);

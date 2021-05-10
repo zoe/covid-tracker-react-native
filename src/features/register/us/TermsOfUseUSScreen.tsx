@@ -45,7 +45,8 @@ export default class TermsOfUseUSScreen extends Component<PropsType> {
             {'\n\n'}
             {i18n.t('terms-of-use-us.para-3')}{' '}
             <ClickableText
-              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+            >
               {i18n.t('terms-of-use-us.privacy-policy')}
             </ClickableText>
             {'\n'}

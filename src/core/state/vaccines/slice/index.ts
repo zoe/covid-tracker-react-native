@@ -11,15 +11,14 @@ const initialState: IVaccineState = {
   vaccines: [],
 };
 
-export const fetchVaccines = createAsyncThunk(
-  'vaccines/fetchVaccines',
-  async (patientId: string): Promise<VaccineRequest[]> => {
-    const service = container.get<IVaccineService>(Services.Vaccine);
-    const response = await service.listVaccines();
-    const patientVaccines = response.filter((vaccine) => vaccine.patient === patientId);
-    return patientVaccines;
-  }
-);
+export const fetchVaccines = createAsyncThunk('vaccines/fetchVaccines', async (patientId: string): Promise<
+  VaccineRequest[]
+> => {
+  const service = container.get<IVaccineService>(Services.Vaccine);
+  const response = await service.listVaccines();
+  const patientVaccines = response.filter((vaccine) => vaccine.patient === patientId);
+  return patientVaccines;
+});
 
 const vaccinesSlice = createSlice({
   name: 'Vaccine',

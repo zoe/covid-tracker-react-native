@@ -36,7 +36,8 @@ export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
               style={styles.yesButton}
               onPress={() => {
                 appCoordinator.vaccineRegistryResponse(true);
-              }}>
+              }}
+            >
               <RegularText style={styles.yesButtonText}>{i18n.t('vaccine-registry.yes')}</RegularText>
             </BrandedButton>
 
@@ -44,7 +45,8 @@ export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
               style={styles.noButton}
               onPress={() => {
                 appCoordinator.vaccineRegistryResponse(false);
-              }}>
+              }}
+            >
               <RegularText style={styles.noButtonText}>{i18n.t('vaccine-registry.no')}</RegularText>
             </BrandedButton>
           </View>

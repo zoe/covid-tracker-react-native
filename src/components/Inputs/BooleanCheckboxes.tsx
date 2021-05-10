@@ -36,7 +36,8 @@ export const BooleanCheckboxes: React.FC<BooleanCheckBoxesProps> = ({ data, show
               value={(values as any)[checkBoxData.formKey]}
               onChange={(checked: boolean) => {
                 setFieldValue(checkBoxData.formKey, checked);
-              }}>
+              }}
+            >
               {checkBoxData.label}
             </CheckboxItem>
           </View>

@@ -336,7 +336,8 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         <Formik
           initialValues={this.getInitialFormValues()}
           validationSchema={this.registerSchema}
-          onSubmit={(values: IYourStudyData) => this.handleSubmit(values)}>
+          onSubmit={(values: IYourStudyData) => this.handleSubmit(values)}
+        >
           {(props) => {
             return (
               <Form>
@@ -359,7 +360,8 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                               }
                             }
                             props.setFieldValue(cohort.key, value);
-                          }}>
+                          }}
+                        >
                           {cohort.label}
                         </CheckboxItem>
                       ))}
@@ -427,13 +429,8 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
   private createPatientInfos(formData: IYourStudyData) {
     // This is to split up the US specific fields, from the cohorts. This is a neat way to do it without repeating the country filtering logic above
-    const {
-      clinicalStudyNames,
-      clinicalStudyContacts,
-      clinicalStudyInstitutions,
-      clinicalStudyNctIds,
-      ...cohorts
-    } = formData;
+    const { clinicalStudyNames, clinicalStudyContacts, clinicalStudyInstitutions, clinicalStudyNctIds, ...cohorts } =
+      formData;
 
     let infos = { ...cohorts } as Partial<PatientInfosRequest>;
 

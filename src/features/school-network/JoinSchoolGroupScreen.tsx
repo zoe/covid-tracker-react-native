@@ -50,7 +50,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   useEffect(() => {
     (async () => {
       const groups: ISchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
-        route.params.selectedSchool.id
+        route.params.selectedSchool.id,
       );
       const pickerItems = groups.map<PickerItemProps>((g) => ({
         label: g.name,
@@ -84,7 +84,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
               NavigatorService.goBack();
             },
           },
-        ]
+        ],
       );
     }
   };
@@ -111,7 +111,8 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
           } as JoinGroupData
         }
         validationSchema={ValidationSchema()}
-        onSubmit={onSubmit}>
+        onSubmit={onSubmit}
+      >
         {(formikProps) => {
           return (
             <Form style={styles.formContainer}>

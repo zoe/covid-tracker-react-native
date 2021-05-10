@@ -76,7 +76,8 @@ function SelectedSchool({
               await schoolNetworkCoordinator.setSelectedSchool(currentJoinedGroup.school);
               schoolNetworkCoordinator.goToGroupList();
             }}
-            branded>
+            branded
+          >
             {i18n.t('school-networks.join-school.cta')}
           </Button>
         ) : null}

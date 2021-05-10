@@ -163,7 +163,8 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
-          onSubmit={(values: IHealthWorkerExposureData) => this.handleUpdate(values)}>
+          onSubmit={(values: IHealthWorkerExposureData) => this.handleUpdate(values)}
+        >
           {(props) => {
             return (
               <Form>

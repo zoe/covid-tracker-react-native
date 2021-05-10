@@ -47,7 +47,7 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
       const endYear = new Date(test.date_taken_between_end).getFullYear();
       return `${formatDateString(
         test.date_taken_between_start,
-        endYear > startYear ? 'MMM D Y' : 'MMM D'
+        endYear > startYear ? 'MMM D Y' : 'MMM D',
       )} - ${formatDateString(test.date_taken_between_end)}`;
     }
   };

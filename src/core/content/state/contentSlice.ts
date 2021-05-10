@@ -68,37 +68,30 @@ const getTrendLineDelta = (timeseries: ITrendLineTimeSeriesData[], from: number)
 
 // Async Actions
 
-export const fetchDismissedCallouts = createAsyncThunk(
-  'content/dismissed_callouts',
-  async (): Promise<Partial<ContentState>> => {
-    const arrayString = await AsyncStorageService.getItem<string>(DISMISSED_CALLOUTS);
-    return {
-      dismissedCallouts: arrayString ? (JSON.parse(arrayString) as string[]) : [],
-    };
-  }
-);
+export const fetchDismissedCallouts = createAsyncThunk('content/dismissed_callouts', async (): Promise<
+  Partial<ContentState>
+> => {
+  const arrayString = await AsyncStorageService.getItem<string>(DISMISSED_CALLOUTS);
+  return {
+    dismissedCallouts: arrayString ? (JSON.parse(arrayString) as string[]) : [],
+  };
+});
 
-export const fetchStartUpInfo = createAsyncThunk(
-  'content/startup_info',
-  async (): Promise<Partial<ContentState>> => {
-    const service = container.get<IContentService>(Services.Content);
-    return {
-      startupInfo: (await service.getStartupInfo()) ?? undefined,
-      personalizedLocalData: service.localData,
-    };
-  }
-);
+export const fetchStartUpInfo = createAsyncThunk('content/startup_info', async (): Promise<Partial<ContentState>> => {
+  const service = container.get<IContentService>(Services.Content);
+  return {
+    startupInfo: (await service.getStartupInfo()) ?? undefined,
+    personalizedLocalData: service.localData,
+  };
+});
 
-export const fetchUKMetrics = createAsyncThunk(
-  'content/uk_metrics',
-  async (): Promise<Partial<ContentState>> => {
-    const service = container.get<IPredictiveMetricsClient>(Services.PredictiveMetricsClient);
-    return {
-      ukActive: (await service.getActiveCases()) ?? undefined,
-      ukDaily: (await service.getDailyCases()) ?? undefined,
-    };
-  }
-);
+export const fetchUKMetrics = createAsyncThunk('content/uk_metrics', async (): Promise<Partial<ContentState>> => {
+  const service = container.get<IPredictiveMetricsClient>(Services.PredictiveMetricsClient);
+  return {
+    ukActive: (await service.getActiveCases()) ?? undefined,
+    ukDaily: (await service.getDailyCases()) ?? undefined,
+  };
+});
 
 export type FetchLocalTrendlinePayload = {
   localTrendline: ITrendLineData;
@@ -116,46 +109,44 @@ export const fetchLocalTrendLine = createAsyncThunk<Promise<Partial<ContentState
         ...trendline,
       },
     } as Partial<ContentState>;
-  }
+  },
 );
 
-export const fetchFeaturedContent = createAsyncThunk(
-  'content/featured_content',
-  async (): Promise<Partial<ContentState>> => {
-    const service = container.get<IContentService>(Services.Content);
-    try {
-      const content = await service.getFeaturedContent();
-      const sort = <T extends IFeaturedContent>(left: T, right: T): number =>
-        left.order_index > right.order_index ? 1 : -1;
-      const home = content.filter((item) => item.featured_uk_home === true).sort(sort);
-      const thankyou = content.filter((item) => item.featured_uk_thankyou === true).sort(sort);
-      return {
-        featuredHome: home,
-        featuredThankyou: thankyou,
-      };
-    } catch (_) {
-      return {
-        featuredHome: [],
-        featuredThankyou: [],
-      };
-    }
-  }
-);
-
-export const searchTrendLine = createAsyncThunk(
-  'content/search_trend_line',
-  async (query?: string): Promise<Partial<ContentState>> => {
-    const service = container.get<IContentService>(Services.Content);
-    const { timeseries, ...trendline } = await service.getTrendLines(query);
+export const fetchFeaturedContent = createAsyncThunk('content/featured_content', async (): Promise<
+  Partial<ContentState>
+> => {
+  const service = container.get<IContentService>(Services.Content);
+  try {
+    const content = await service.getFeaturedContent();
+    const sort = <T extends IFeaturedContent>(left: T, right: T): number =>
+      left.order_index > right.order_index ? 1 : -1;
+    const home = content.filter((item) => item.featured_uk_home === true).sort(sort);
+    const thankyou = content.filter((item) => item.featured_uk_thankyou === true).sort(sort);
     return {
-      exploreTrendline: {
-        delta: getTrendLineDelta(timeseries, 7),
-        timeseries,
-        ...trendline,
-      },
+      featuredHome: home,
+      featuredThankyou: thankyou,
+    };
+  } catch (_) {
+    return {
+      featuredHome: [],
+      featuredThankyou: [],
     };
   }
-);
+});
+
+export const searchTrendLine = createAsyncThunk('content/search_trend_line', async (query?: string): Promise<
+  Partial<ContentState>
+> => {
+  const service = container.get<IContentService>(Services.Content);
+  const { timeseries, ...trendline } = await service.getTrendLines(query);
+  return {
+    exploreTrendline: {
+      delta: getTrendLineDelta(timeseries, 7),
+      timeseries,
+      ...trendline,
+    },
+  };
+});
 
 export const updateTodayDate = createAction('context/update_today_date');
 export const addDismissCallout = createAction<string>('content/dismissed_callout');

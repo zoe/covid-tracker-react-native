@@ -21,7 +21,8 @@ function BasicNavHeader({ backgroundColor, children }: IProps) {
         paddingTop: grid.l,
         paddingHorizontal: grid.gutter,
         paddingBottom: grid.m,
-      }}>
+      }}
+    >
       <View style={styles.row}>
         <View style={{ flex: 1 }}>
           <RoundIconButton

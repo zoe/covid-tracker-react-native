@@ -140,7 +140,8 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             <ClickableText
               onPress={() =>
                 openWebLink('https://eur-lex.europa.eu/legal-content/SV/TXT/PDF/?uri=CELEX:32016R0679&rid=1')
-              }>
+              }
+            >
               GDPR
             </ClickableText>{' '}
             har du ett antal viktiga rättigheter utan kostnad. Sammanfattningsvis innefattar dessa rätten att:
@@ -161,9 +162,10 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             <ClickableText
               onPress={() =>
                 openWebLink(
-                  'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/'
+                  'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/',
                 )
-              }>
+              }
+            >
               Guidance from the United Kingdom Information Commissioner’s Office (ICO)
             </ClickableText>{' '}
             gällande enskilda personers rättigheter under Dataskyddsförodningen.
@@ -175,7 +177,8 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             <ClickableText
               onPress={() =>
                 openWebLink('https://eur-lex.europa.eu/legal-content/SV/TXT/PDF/?uri=CELEX:32016R0679&rid=1')
-              }>
+              }
+            >
               GDPR
             </ClickableText>{' '}
             har du även rätt att lämna in ett klagomål till en tillsynsmyndighet, särskilt i den medlemsstat inom den
@@ -183,7 +186,8 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien är
             Information Commissioner som kan kontaktas på{' '}
             <ClickableText
-              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}>
+              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}
+            >
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             eller per telefon: <RegularBoldText>+44 0303 123 1113</RegularBoldText>.{'\n'}

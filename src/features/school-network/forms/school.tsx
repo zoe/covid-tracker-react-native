@@ -42,7 +42,8 @@ function SchoolForm({ patientData }: IProps) {
         } catch (error) {
           FormikProps.setFieldError('schoolId', 'Incorrect code');
         }
-      }}>
+      }}
+    >
       {(formikProps) => (
         <Form style={styles.formContainer}>
           <View style={{ margin: 16 }}>

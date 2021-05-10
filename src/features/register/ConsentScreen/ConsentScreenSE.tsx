@@ -25,7 +25,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicySV', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly]
+    [navigation.navigate, route.params.viewOnly],
   );
 
   const toggleParticipateChecked = useCallback(() => {
@@ -130,7 +130,8 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
           testID="infoLink2"
           onPress={() =>
             openWebLink('https://www.datainspektionen.se/vagledningar/for-dig-som-privatperson/klagomal-och-tips/')
-          }>
+          }
+        >
           https://www.datainspektionen.se/vagledningar/for-dig-som-privatperson/klagomal-och-tips/
         </ClickableText>
       </RegularText>

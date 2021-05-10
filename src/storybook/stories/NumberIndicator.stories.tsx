@@ -8,7 +8,8 @@ storiesOf('Number indicator', module).add('default view', () => (
   <View
     style={{
       alignSelf: 'center',
-    }}>
+    }}
+  >
     <NumberIndicator number={2} />
   </View>
 ));

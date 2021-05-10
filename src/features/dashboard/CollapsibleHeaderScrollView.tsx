@@ -77,14 +77,16 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
                 top: expandedHeaderY,
               },
               styles.expandedHeaderContainer,
-            ]}>
+            ]}
+          >
             {expandedHeader}
           </Animated.View>
           <Animated.View
             style={{
               paddingTop: compactHeaderY,
               opacity: compactHeaderOpacity,
-            }}>
+            }}
+          >
             {compactHeader}
           </Animated.View>
         </Animated.View>
@@ -104,9 +106,10 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
                 },
               },
             ],
-            { useNativeDriver: false }
+            { useNativeDriver: false },
           )}
-          scrollEventThrottle={16}>
+          scrollEventThrottle={16}
+        >
           {children}
         </Animated.ScrollView>
       </View>

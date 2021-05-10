@@ -20,7 +20,7 @@ function JoinSchoolScreen({ route, navigation }: IProps) {
   const currentPatient = route.params.patientData.patientState;
 
   const currentJoinedGroup = useSelector((state: RootState) =>
-    selectPatientsJoinedGroups(state, currentPatient.patientId, false)
+    selectPatientsJoinedGroups(state, currentPatient.patientId, false),
   );
 
   return (

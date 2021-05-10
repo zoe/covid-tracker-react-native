@@ -72,7 +72,8 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
             justifyContent: 'flex-start',
             width: '100%',
             marginBottom: 12,
-          }}>
+          }}
+        >
           <View style={{ marginRight: 12 }}>
             <Text textClass="h0">{localTrendline?.today}</Text>
           </View>
@@ -89,7 +90,8 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
                 height: 48,
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-              }}>
+              }}
+            >
               <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={32} width={32} />
             </View>
           </View>

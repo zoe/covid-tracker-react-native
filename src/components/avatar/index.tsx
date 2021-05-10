@@ -23,7 +23,8 @@ function Avatar({ imgsrc = avatarBlank, imgStyle = {}, size = 60 }: IProps) {
         justifyContent: 'center',
         overflow: 'hidden',
         width: size,
-      }}>
+      }}
+    >
       <Image
         source={imgsrc}
         style={{

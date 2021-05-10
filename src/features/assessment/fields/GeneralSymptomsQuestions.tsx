@@ -161,7 +161,7 @@ GeneralSymptomsQuestions.schema = () => {
 
 GeneralSymptomsQuestions.createAssessment = (
   formData: GeneralSymptomsData,
-  hasHayfever: boolean
+  hasHayfever: boolean,
 ): Partial<AssessmentInfosRequest> => {
   let assessment: Partial<AssessmentInfosRequest> = {
     fever: formData.fever,

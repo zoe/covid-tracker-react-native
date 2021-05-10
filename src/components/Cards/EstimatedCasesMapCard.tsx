@@ -136,7 +136,7 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
   const patientService = useInjection<IPatientService>(Services.Patient);
 
   const localData = useSelector<RootState, PersonalisedLocalData | undefined>(
-    (state) => state.content.personalizedLocalData
+    (state) => state.content.personalizedLocalData,
   );
 
   const viewRef = useRef(null);

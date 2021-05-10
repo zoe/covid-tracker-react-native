@@ -241,7 +241,7 @@ export class AssessmentCoordinator extends Coordinator {
           params: { assessmentFlow: true },
         },
       ],
-      1
+      1,
     );
   }
 
@@ -266,7 +266,7 @@ export class AssessmentCoordinator extends Coordinator {
         },
         { name: 'CreateProfile', params: { avatarName: 'profile2' } },
       ],
-      2
+      2,
     );
   }
 

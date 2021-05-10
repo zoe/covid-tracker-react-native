@@ -40,7 +40,8 @@ function RoundIconButton({
         justifyContent: 'center',
         width: backgroundSize,
         ...style,
-      }}>
+      }}
+    >
       <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} />
     </TouchableOpacity>
   );

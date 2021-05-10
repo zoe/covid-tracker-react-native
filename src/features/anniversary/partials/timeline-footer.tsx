@@ -20,7 +20,8 @@ function TimelineFooter() {
         onPress={() => {
           Analytics.track(events.ANNIVERSARY_SHARE);
           navigate('Share', { sharable: 'TIMELINE', label });
-        }}>
+        }}
+      >
         <Text textClass="pLight" textAlign="center" style={{ color: 'white' }}>
           Share your contribution
         </Text>

@@ -19,7 +19,8 @@ storiesOf('DiabetesQuestions', module).add('default view', () => {
         validationSchema={DiabetesQuestions.schema()}
         onSubmit={(values: any) => {
           console.log(values);
-        }}>
+        }}
+      >
         {(props) => (
           <View style={{ marginHorizontal: 16 }}>
             <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />

@@ -19,7 +19,8 @@ export const DrawerToggle: React.FC<Props> = (props) => (
     accessibilityLabel="Menu"
     onPress={() => {
       props.navigation.toggleDrawer();
-    }}>
+    }}
+  >
     <Image source={menuIcon} style={[styles.menuIcon, props.style]} />
     {/* <NumberIndicator number={2} style={styles.indicator} /> */}
   </TouchableOpacity>

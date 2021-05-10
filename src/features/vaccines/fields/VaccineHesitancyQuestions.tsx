@@ -85,7 +85,8 @@ export const VaccineHesitancyQuestions: IFormQuestion<Props, VaccineHesitancyDat
             style={{
               paddingTop: 16,
               paddingBottom: 8,
-            }}>
+            }}
+          >
             {i18n.t('vaccines.hesitancy.check-all-that-apply')}
           </RegularText>
 

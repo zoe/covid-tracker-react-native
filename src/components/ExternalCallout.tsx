@@ -94,12 +94,14 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
     <ContentLoadingView
       loading={imageLoading}
       errorMessage={imageLoadError}
-      disableShimmers={props.disableLoadingState}>
+      disableShimmers={props.disableLoadingState}
+    >
       {!dismissed && (
         <TouchableWithoutFeedback
           onPress={clickCallout}
           accessible={props.isSharing}
-          accessibilityRole={props.isSharing ? 'none' : 'button'}>
+          accessibilityRole={props.isSharing ? 'none' : 'button'}
+        >
           <View style={styles.viewContainer}>
             {Object.keys(props.imageSource).includes('uri') ? (
               <FastImage {...imageProps} source={{ uri: (props.imageSource as ImageURISource).uri }} />

@@ -45,7 +45,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
     await assessmentService.completeAssessment(
       assessment,
-      assessmentCoordinator.assessmentData.patientData.patientInfo!
+      assessmentCoordinator.assessmentData.patientData.patientInfo!,
     );
     assessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
@@ -76,7 +76,8 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
           validationSchema={this.registerSchema}
           onSubmit={(values: ITreatmentData) => {
             return this.handleUpdateTreatment(values);
-          }}>
+          }}
+        >
           {(props) => {
             return (
               <Form>

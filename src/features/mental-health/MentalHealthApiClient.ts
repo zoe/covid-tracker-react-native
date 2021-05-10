@@ -51,7 +51,7 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
 
   buildRequestObject(
     existingMentalHealth: MentalHealthInfosRequest,
-    data: IMentalHealthApiClientBuildRequest
+    data: IMentalHealthApiClientBuildRequest,
   ): MentalHealthInfosRequest {
     let updatedMentalHealth: MentalHealthInfosRequest = {
       id: existingMentalHealth.id,

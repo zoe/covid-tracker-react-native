@@ -29,7 +29,7 @@ function SchoolNetworksCard({ school }: IProps) {
       (acc, cur) => {
         return { bubbleSize: acc.bubbleSize + cur.size, reported: acc.reported + cur.daily_reported_symptoms };
       },
-      { bubbleSize: 0, reported: 0 }
+      { bubbleSize: 0, reported: 0 },
     );
     return t;
   };

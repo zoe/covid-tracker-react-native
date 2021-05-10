@@ -121,7 +121,8 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
             <Formik
               initialValues={{ name: '', phone: '' }}
               validationSchema={this.registerSchema}
-              onSubmit={(values: OptionalInfoData) => this.handleSaveOptionalInfos(values)}>
+              onSubmit={(values: OptionalInfoData) => this.handleSaveOptionalInfos(values)}
+            >
               {(props) => {
                 return (
                   <View>

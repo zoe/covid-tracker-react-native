@@ -74,14 +74,16 @@ function MentalHealthModal() {
           <View>
             <TouchableOpacity
               style={[styles.button, { backgroundColor: '#0165B5' }]}
-              onPress={() => handleSetConsent('YES')}>
+              onPress={() => handleSetConsent('YES')}
+            >
               <Text textClass="pSmallLight" style={{ color: 'white' }}>
                 {i18n.t('mental-health.modal-answer-yes')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.button, { backgroundColor: '#EEEEEF' }]}
-              onPress={() => handleSetConsent('LATER')}>
+              onPress={() => handleSetConsent('LATER')}
+            >
               <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-later')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button]} onPress={() => handleSetConsent('NO')}>

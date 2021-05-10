@@ -64,7 +64,8 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
               ...VaccineHesitancyQuestions.initialFormValues(),
             }}
             validationSchema={registerSchema}
-            onSubmit={(values: VaccineHesitancyData) => handleSubmit(values)}>
+            onSubmit={(values: VaccineHesitancyData) => handleSubmit(values)}
+          >
             {(props) => {
               return (
                 <Form style={{ flexGrow: 1 }}>
@@ -84,7 +85,8 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
                     style={styles.continueButton}
                     onPress={props.handleSubmit}
                     enable={!isSubmitting}
-                    hideLoading={!isSubmitting}>
+                    hideLoading={!isSubmitting}
+                  >
                     <Text>{i18n.t('vaccines.dose-symptoms.next')}</Text>
                   </BrandedButton>
                 </Form>

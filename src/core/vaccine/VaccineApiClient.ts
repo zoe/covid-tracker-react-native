@@ -55,7 +55,7 @@ export class VaccineApiClient implements IVaccineRemoteClient {
     };
     return this.apiClient.post<VaccinePlanRequest, VaccinePlanResponse>(
       '/vaccine_plans/',
-      payload as VaccinePlanRequest
+      payload as VaccinePlanRequest,
     );
   }
 
@@ -66,7 +66,7 @@ export class VaccineApiClient implements IVaccineRemoteClient {
     };
     return this.apiClient.post<DoseSymptomsRequest, DoseSymptomsResponse>(
       '/dose_symptoms/',
-      payload as DoseSymptomsRequest
+      payload as DoseSymptomsRequest,
     );
   }
 

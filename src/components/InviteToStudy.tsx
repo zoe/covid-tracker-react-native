@@ -12,7 +12,8 @@ export default class InviteToStudy extends Component<{ placement: string }> {
         onPress={() => {
           Analytics.track(events.CLICK_STUDY_AD_CALLOUT, { placement: this.props.placement });
           appCoordinator.goToUKValidationStudy();
-        }}>
+        }}
+      >
         <View style={styles.socialIconContainer}>
           <Image source={studyInvite} style={styles.socialIcon} />
         </View>

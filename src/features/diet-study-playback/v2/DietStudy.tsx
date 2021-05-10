@@ -46,7 +46,8 @@ function DietStudy() {
               buttonColor={colors.burgundy.main.bgColor}
               onPress={() => NavigatorService.navigate(route)}
               outline
-              key={key}>
+              key={key}
+            >
               <Text textClass="pMedium" rhythm={16}>
                 {i18n.t(`diet-study.card-${index}-title`)}
               </Text>

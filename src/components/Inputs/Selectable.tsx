@@ -25,7 +25,8 @@ export function Selectable({ items, resetAnimation, onSelected }: IProps) {
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
-      }}>
+      }}
+    >
       {items.map((item, index) => (
         <Animated.View style={[styles.itemContainer]}>
           <SelectableButton
@@ -34,7 +35,8 @@ export function Selectable({ items, resetAnimation, onSelected }: IProps) {
             onPress={() => {
               setSelected(item);
               if (onSelected) onSelected(item);
-            }}>
+            }}
+          >
             {item.title}
           </SelectableButton>
         </Animated.View>

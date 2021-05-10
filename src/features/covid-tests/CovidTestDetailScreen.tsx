@@ -167,7 +167,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           },
         },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   }
 
@@ -214,7 +214,8 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           validationSchema={registerSchema}
           onSubmit={(values: ICovidTestData) => {
             return this.handleAction(values);
-          }}>
+          }}
+        >
           {(props) => {
             return (
               <Form>

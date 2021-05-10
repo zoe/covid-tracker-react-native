@@ -44,7 +44,8 @@ function Fab({ profiles }: IProps) {
           style={styles.button}
           onPress={() => setActive(!active)}
           accessible
-          accessibilityRole="button">
+          accessibilityRole="button"
+        >
           <Icon iconName="health-insurance" iconSize={32} />
         </TouchableOpacity>
       </View>

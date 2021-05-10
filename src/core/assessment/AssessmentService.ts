@@ -10,7 +10,7 @@ export interface IAssessmentService {
   saveAssessment(assessment: Partial<AssessmentInfosRequest>): void;
   completeAssessment(
     assessment: Partial<AssessmentInfosRequest> | null,
-    patientInfo: PatientInfosRequest
+    patientInfo: PatientInfosRequest,
   ): Promise<boolean>;
 }
 
@@ -64,7 +64,7 @@ export default class AssessmentService implements IAssessmentService {
 
   async completeAssessment(
     assessment: Partial<AssessmentInfosRequest>,
-    patientInfo: PatientInfosRequest
+    patientInfo: PatientInfosRequest,
   ): Promise<boolean> {
     if (assessment) {
       if (patientInfo.current_country_code) {

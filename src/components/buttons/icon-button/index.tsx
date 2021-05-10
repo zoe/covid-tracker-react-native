@@ -30,7 +30,8 @@ function IconButton({
       colorShade={colorShade}
       outline={outline}
       simple={simple}
-      onPress={onPress}>
+      onPress={onPress}
+    >
       <Image source={imgSrc} />
     </STouchableOpacity>
   );

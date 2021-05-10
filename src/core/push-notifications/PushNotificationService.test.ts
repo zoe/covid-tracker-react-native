@@ -39,7 +39,7 @@ describe('PushNotificationService', () => {
     const service = new PushNotificationService(
       new MockApiClient(),
       new MockStorageClient(),
-      new MockPushTokenEnvironment()
+      new MockPushTokenEnvironment(),
     );
     expect(service).not.toBeNull();
   });
@@ -48,7 +48,7 @@ describe('PushNotificationService', () => {
     const service = new PushNotificationService(
       new MockApiClient(),
       new MockStorageClient(),
-      new MockPushTokenEnvironment()
+      new MockPushTokenEnvironment(),
     );
 
     const tokenFromThirtyDaysAgo = {

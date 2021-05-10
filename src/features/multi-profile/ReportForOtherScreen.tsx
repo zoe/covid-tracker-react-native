@@ -54,7 +54,8 @@ export default class ReportForOtherScreen extends Component<RenderProps, object>
                 <BrandedButton
                   onPress={() => {
                     assessmentCoordinator.resetToCreateProfile();
-                  }}>
+                  }}
+                >
                   <Text>{i18n.t('report-for-others-add-profiles')}</Text>
                 </BrandedButton>
               </View>

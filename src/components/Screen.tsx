@@ -119,7 +119,8 @@ export default class Screen extends Component<ScreenProps> {
               contentContainerStyle={{
                 flexGrow: 1,
                 justifyContent: 'space-between',
-              }}>
+              }}
+            >
               {this.props.extendEdges ? (
                 <View style={styles.pageBlockExtendedEdges}>{this.props.children}</View>
               ) : (

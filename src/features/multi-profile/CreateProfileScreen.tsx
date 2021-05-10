@@ -56,7 +56,8 @@ export default class CreateProfileScreen extends Component<RenderProps> {
           validationSchema={this.registerSchema}
           onSubmit={(values: FormData) => {
             return this.handleClick(values);
-          }}>
+          }}
+        >
           {(props) => {
             return (
               <Form>

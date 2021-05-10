@@ -9,7 +9,7 @@ export const camelizeKeys = (obj: any): any => {
         ...result,
         [camelCase(key)]: camelizeKeys(obj[key]),
       }),
-      {}
+      {},
     );
   }
   return obj;

@@ -25,7 +25,7 @@ export interface ICovidTestLocationQuestion<P, Data> extends React.FC<P> {
 }
 
 export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovidTestLocationData> = (
-  props: IProps
+  props: IProps,
 ) => {
   const { formikProps } = props;
 

@@ -17,13 +17,12 @@ const initialState: SchoolState = {
 
 // Actions: Async
 
-export const fetchSubscribedSchoolGroups = createAsyncThunk(
-  'school/fetch_subscribed_school_groups',
-  async (): Promise<ISubscribedSchoolGroupStats[]> => {
-    const service = container.get<ISchoolService>(Services.SchoolService);
-    return await service.getSubscribedSchoolGroups();
-  }
-);
+export const fetchSubscribedSchoolGroups = createAsyncThunk('school/fetch_subscribed_school_groups', async (): Promise<
+  ISubscribedSchoolGroupStats[]
+> => {
+  const service = container.get<ISchoolService>(Services.SchoolService);
+  return await service.getSubscribedSchoolGroups();
+});
 
 // Slice (Store, Reducer, Actions etc...)
 

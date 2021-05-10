@@ -106,7 +106,8 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
           <RegularText>
             {i18n.t('privacy-policy-us.para-13-1')}{' '}
             <ClickableText
-              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}>
+              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}
+            >
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             {i18n.t('privacy-policy-us.para-13-2')}

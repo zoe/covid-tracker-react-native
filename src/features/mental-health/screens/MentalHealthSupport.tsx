@@ -49,7 +49,7 @@ function MentalHealthSupport() {
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
       existingMentalHealth,
-      { mentalHealthSupport: MentalHealthSupport }
+      { mentalHealthSupport: MentalHealthSupport },
     );
     await mentalHealthApiClient.update(updatedMentalHealth);
     NavigatorService.navigate('MentalHealthLearning', undefined);

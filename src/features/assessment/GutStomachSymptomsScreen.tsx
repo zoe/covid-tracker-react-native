@@ -51,7 +51,8 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
             ...GutStomachSymptomsQuestions.initialFormValues(),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: GutStomachSymptomsData) => handleSubmit(values)}>
+          onSubmit={(values: GutStomachSymptomsData) => handleSubmit(values)}
+        >
           {(props) => {
             return (
               <Form style={{ flexGrow: 1 }}>
@@ -63,7 +64,8 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
                 <BrandedButton
                   onPress={props.handleSubmit}
                   hideLoading={!props.isSubmitting}
-                  enable={!props.isSubmitting}>
+                  enable={!props.isSubmitting}
+                >
                   {i18n.t('describe-symptoms.next')}
                 </BrandedButton>
               </Form>

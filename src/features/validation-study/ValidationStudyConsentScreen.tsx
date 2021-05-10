@@ -198,7 +198,8 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
               Your data will be processed in accordance with the General Data Protection Regulation 2016 (GDPR). As a
               user of the Covid-19 Symptom Study app, you have consented to Zoe’s terms including the{' '}
               <ClickableText
-                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: this.viewOnly })}>
+                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: this.viewOnly })}
+              >
                 UK Privacy Policy
               </ClickableText>{' '}
               which is available from the app menu at all times. All these terms continue to apply to the present study.
@@ -348,7 +349,8 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
               style={styles.button}
               hideLoading
               enable={this.state.agreeToAbove}
-              onPress={this.handleAgreeClicked}>
+              onPress={this.handleAgreeClicked}
+            >
               {this.state.agreeToAbove ? 'Take part' : 'Scroll down to give consent'}
             </BrandedButton>
           )}

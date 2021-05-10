@@ -28,7 +28,7 @@ export interface ICovidTestMechanismQuestion<P, Data> extends React.FC<P> {
 }
 
 export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICovidTestMechanismData> = (
-  props: IProps
+  props: IProps,
 ) => {
   const { formikProps, test } = props;
 

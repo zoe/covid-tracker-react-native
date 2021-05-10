@@ -37,7 +37,8 @@ function CheckBoxButton({
         height: backgroundSize,
         justifyContent: 'center',
         width: backgroundSize,
-      }}>
+      }}
+    >
       {active && <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} />}
     </TouchableOpacity>
   );

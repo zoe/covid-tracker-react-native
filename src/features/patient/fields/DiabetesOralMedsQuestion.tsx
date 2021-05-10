@@ -56,7 +56,7 @@ const DiabetesOralMedsCheckbox: React.FC<DiabetesOralMedsCheckboxProps> = ({ dat
     formikProps.setFieldValue('diabetesOralMeds', result);
     formikProps.setFieldValue(
       'diabetesOralOtherMedicationNotListed',
-      result.includes(DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED)
+      result.includes(DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED),
     );
   };
 
@@ -73,7 +73,8 @@ const DiabetesOralMedsCheckbox: React.FC<DiabetesOralMedsCheckboxProps> = ({ dat
         if (data.fieldName === DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED && !checked) {
           reset();
         }
-      }}>
+      }}
+    >
       {data.label}
     </CheckboxItem>
   );

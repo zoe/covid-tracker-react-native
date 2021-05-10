@@ -58,7 +58,8 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
             style={styles.mainButton}
             onPress={() => {
               appCoordinator.gotoNextScreen(this.props.route.name);
-            }}>
+            }}
+          >
             <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
           </BrandedButton>
         </ScrollView>

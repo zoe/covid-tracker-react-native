@@ -35,7 +35,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
     const { patientId } = route.params.patientData;
     const schoolId = route.params.selectedSchool.id;
     const currentJoinedGroups = allGroups.filter(
-      (group) => group.patient_id === patientId && group.school.id === schoolId
+      (group) => group.patient_id === patientId && group.school.id === schoolId,
     );
 
     if (currentJoinedGroups.length > 0) {
@@ -77,7 +77,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
             button2Callback={async () => {
               await schoolNetworkCoordinator.removePatientFromGroup(
                 pressedGroup!.id,
-                route.params.patientData.patientId
+                route.params.patientData.patientId,
               );
               setModalVisible(false);
             }}

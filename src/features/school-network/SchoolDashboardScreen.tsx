@@ -24,7 +24,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
     description: string,
     onPress?: VoidFunction,
     singleLine: boolean = false,
-    statColor: string = colors.primary
+    statColor: string = colors.primary,
   ) => {
     return (
       <View style={styles.infoBox}>
@@ -64,7 +64,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
       .map((group) => group.report_updated_at)
       .reduce((prev, curr) => {
         return prev > curr ? prev : curr;
-      })
+      }),
   );
 
   return (
@@ -89,14 +89,14 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                 i18n.t('school-networks.dashboard.confirmed'),
                 undefined,
                 false,
-                schoolConfirmedCases > 0 ? colors.feedbackBad : colors.primary
+                schoolConfirmedCases > 0 ? colors.feedbackBad : colors.primary,
               )}
               {infoBox(
                 schoolReportedSymptoms,
                 i18n.t('school-networks.dashboard.reported'),
                 undefined,
                 false,
-                schoolReportedSymptoms > 0 ? colors.feedbackBad : colors.primary
+                schoolReportedSymptoms > 0 ? colors.feedbackBad : colors.primary,
               )}
             </View>
             <View style={styles.gridRow}>
@@ -105,7 +105,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                 (isFinite(schoolTotalPercentage) ? schoolTotalPercentage.toFixed(0) : '0') + '%',
                 i18n.t('school-networks.dashboard.total'),
                 undefined,
-                true
+                true,
               )}
             </View>
           </View>
@@ -126,14 +126,14 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                     i18n.t('school-networks.dashboard.confirmed'),
                     undefined,
                     false,
-                    group.confirmed_cases > 0 ? colors.feedbackBad : colors.primary
+                    group.confirmed_cases > 0 ? colors.feedbackBad : colors.primary,
                   )}
                   {infoBox(
                     group.daily_reported_symptoms,
                     i18n.t('school-networks.dashboard.reported'),
                     undefined,
                     false,
-                    group.daily_reported_symptoms > 0 ? colors.feedbackBad : colors.primary
+                    group.daily_reported_symptoms > 0 ? colors.feedbackBad : colors.primary,
                   )}
                 </View>
                 <View style={styles.gridRow}>

@@ -16,7 +16,7 @@ function reset<RouteName extends keyof ScreenParamList>(routeList: Omit<Route<Ro
     CommonActions.reset({
       index: value,
       routes: routeList,
-    })
+    }),
   );
 }
 

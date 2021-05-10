@@ -81,7 +81,7 @@ function MentalHealthHistory() {
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
       existingMentalHealth,
-      { mentalHealthHistory: MentalHealthHistory }
+      { mentalHealthHistory: MentalHealthHistory },
     );
     await mentalHealthApiClient.update(updatedMentalHealth);
     next();

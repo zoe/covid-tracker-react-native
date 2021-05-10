@@ -267,7 +267,8 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           }}
           onSubmit={(values: IYourHealthData) => {
             return this.handleUpdateHealth(values);
-          }}>
+          }}
+        >
           {(props) => {
             return (
               <Form>

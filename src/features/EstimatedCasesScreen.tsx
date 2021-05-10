@@ -39,7 +39,8 @@ export function EstimatedCasesScreen({ navigation }: IProps) {
           display: 'flex',
           top: 48,
           left: 20,
-        }}>
+        }}
+      >
         <BackButton navigation={navigation} />
       </View>
       <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} />

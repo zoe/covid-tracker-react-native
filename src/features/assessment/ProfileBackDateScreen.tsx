@@ -242,7 +242,8 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           }}
           onSubmit={(values: IBackfillData) => {
             return this.handleProfileUpdate(values);
-          }}>
+          }}
+        >
           {(props) => {
             return (
               <Form>
