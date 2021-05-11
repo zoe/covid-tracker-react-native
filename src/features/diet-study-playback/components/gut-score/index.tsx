@@ -5,7 +5,7 @@ import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import MissingDataText from '../missing-data-text';
 
 import { SContainerView } from './styles';
-import Score from './score';
+import Score from './Score';
 
 interface IProps {
   beforeScore: number | null;

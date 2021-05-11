@@ -5,7 +5,7 @@ import { Profile } from '@covid/core/profile/ProfileService';
 
 import { Icon } from '../icons';
 
-import Option from './option';
+import Option from './Option';
 
 const { height } = Dimensions.get('window');
 const size = 72;

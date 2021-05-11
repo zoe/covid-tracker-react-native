@@ -9,7 +9,7 @@ import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
-import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
+import { ShareAppCardViral } from '@covid/components/cards/ShareAppViral';
 import { openWebLink } from '@covid/utils/links';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features';

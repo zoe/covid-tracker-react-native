@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { RegularText, HeaderText, CaptionText } from '@covid/components/Text';
-import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
+import { NumberIndicator } from '@covid/components/stats/NumberIndicator';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
