@@ -7,7 +7,7 @@ import { colors } from '@theme';
 
 import { TReportedEvent } from '../types';
 
-import ReportedEvent from './reported-event';
+import ReportedEvent from './ReportedEvent';
 
 interface IProps {
   reportedEvents: TReportedEvent[];

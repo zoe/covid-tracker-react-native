@@ -5,7 +5,6 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { colors } from '@theme';
 import { menuIcon } from '@assets';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-// import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 
 type Props = {
   navigation: DrawerNavigationProp<ScreenParamList, keyof ScreenParamList>;
@@ -21,7 +20,6 @@ export const DrawerToggle: React.FC<Props> = (props) => (
       props.navigation.toggleDrawer();
     }}>
     <Image source={menuIcon} style={[styles.menuIcon, props.style]} />
-    {/* <NumberIndicator number={2} style={styles.indicator} /> */}
   </TouchableOpacity>
 );
 

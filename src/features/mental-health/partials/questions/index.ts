@@ -1,2 +1,2 @@
-export { default as ChangesQuestion } from './changes-question';
-export { default as FrequencyQuestion } from './frequency-question';
+export { default as ChangesQuestion } from './ChangesQuestion';
+export { default as FrequencyQuestion } from './FrequencyQuestion';

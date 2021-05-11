@@ -5,7 +5,7 @@ import { Icon, Text } from '@covid/components';
 
 import { TTimelineEvent, TProgress } from '../types';
 
-import ProgressBars from './progress-bars';
+import ProgressBars from './ProgressBars';
 
 interface IProps {
   timelineEvent: TTimelineEvent;

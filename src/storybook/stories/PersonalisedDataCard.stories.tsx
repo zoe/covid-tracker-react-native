@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action, HandlerFunction } from '@storybook/addon-actions';
 
-import { UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/UKEstimatedCaseCard';
+import { UKEstimatedCaseCard } from '@covid/components/cards/estimated-case/UKEstimatedCaseCard';
 
 const ValueChangeHandler = (): HandlerFunction => action('cta on press');
 

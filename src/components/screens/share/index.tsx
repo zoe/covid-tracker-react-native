@@ -9,8 +9,8 @@ import { closeIcon } from '@assets';
 
 import { ThemeButton, IconButton } from '../../buttons';
 
-import ShareContainer from './container';
-import ShareLabel from './label';
+import ShareContainer from './Container';
+import ShareLabel from './Label';
 import { SContainerView, SContentView, SInnerContentView, SButtonView, SCloseContainerView } from './styles';
 
 function ShareScreen() {

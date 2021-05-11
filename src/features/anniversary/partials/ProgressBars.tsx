@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { TProgress } from '../types';
 
-import ProgressBar from './progress-bar';
+import ProgressBar from './ProgressBar';
 
 interface IProps {
   progress: TProgress[];
