@@ -3,7 +3,7 @@ import { Image, StyleSheet, View } from 'react-native';
 
 import { social } from '@assets';
 import i18n from '@covid/locale/i18n';
-import { track } from '@covid/core/Analytics';
+import Analytics from '@covid/core/Analytics';
 
 import { BrandedButton } from '../buttons';
 
@@ -20,7 +20,7 @@ function SimpleShare({ shareMessage = undefined, title, trackEvent }: IProps) {
   const message = shareMessage ? shareMessage : i18n.t('share-this-app.message');
 
   const handleOnShare = async () => {
-    track(tEvent);
+    Analytics.track(tEvent);
     await share(message);
   };
 

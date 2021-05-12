@@ -11,7 +11,7 @@ import { IUserService } from '@covid/core/user/UserService';
 import { IContentService } from '@covid/core/content/ContentService';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
-import { useConstants } from '@covid/utils/hooks';
+import Constants from '@covid/utils/Constants';
 
 type PropsType = object;
 
@@ -20,7 +20,6 @@ type State = {
   showTakeToStore: boolean;
 };
 
-const Constants = useConstants();
 const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id1503529611`;
 const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
 const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;
@@ -50,11 +49,10 @@ export class AppRating extends Component<PropsType, State> {
   declineFeedback = () => {
     this.decline();
     Toast.show({
-      text: i18n.t('rating.thank-you-for-rating'),
       duration: 3000,
       position: 'top',
-      textStyle: { textAlign: 'center', lineHeight: 25 },
-      // style: {paddingVertical: 40}
+      text: i18n.t('rating.thank-you-for-rating'),
+      textStyle: { lineHeight: 25, textAlign: 'center' },
     });
   };
 
@@ -91,7 +89,6 @@ export class AppRating extends Component<PropsType, State> {
       </TouchableOpacity>
     </View>
   );
-  //
 
   render() {
     return (

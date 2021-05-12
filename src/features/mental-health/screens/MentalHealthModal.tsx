@@ -1,14 +1,13 @@
+import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
+import { Avatar, SafeLayout, Text } from '@covid/components';
+import Analytics from '@covid/core/Analytics';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { setConsent, setLastPresentedDate, TMentalHealthConsent } from '@covid/core/state';
+import i18n from '@covid/locale/i18n';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-
-import { Avatar, SafeLayout, Text } from '@covid/components';
-import { TMentalHealthConsent, setConsent, setLastPresentedDate } from '@covid/core/state';
-import i18n from '@covid/locale/i18n';
-import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { events, track } from '@covid/core/Analytics';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -36,7 +35,7 @@ function MentalHealthModal() {
 
   useEffect(() => {
     if (!tracked) {
-      track(events.MENTAL_HEALTH_DISPLAY_MODAL);
+      Analytics.track(Analytics.events.MENTAL_HEALTH_DISPLAY_MODAL);
       setTracked(true);
     }
   });

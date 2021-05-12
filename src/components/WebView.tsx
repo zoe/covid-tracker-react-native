@@ -9,10 +9,10 @@ export class WebView extends Component<Props, object> {
   private webview: NativeWebView | null;
 
   render() {
-    return <NativeWebView {...this.props} onMessage={this.onMessage} ref={this._refWebView} />;
+    return <NativeWebView {...this.props} onMessage={this.onMessage} ref={this.refWebView} />;
   }
 
-  _refWebView = (webview: NativeWebView) => {
+  refWebView = (webview: NativeWebView) => {
     this.webview = webview;
   };
 

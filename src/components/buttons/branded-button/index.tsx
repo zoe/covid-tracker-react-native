@@ -12,19 +12,9 @@ interface IProps extends ITest {
   textProps?: any;
 }
 
-function BrandedButton({
-  style,
-  children,
-  onPress,
-  enable,
-  buttonProps,
-  textProps,
-  hideLoading,
-}: IClickableProps & IProps) {
-  const isDisabled = enable === false;
-
+function BrandedButton({ style, children, onPress, enable, buttonProps, textProps }: IClickableProps & IProps) {
   return (
-    <View style={isDisabled ? { opacity: 0.2 } : { opacity: 1 }}>
+    <View style={enable === false ? { opacity: 0.2 } : { opacity: 1 }}>
       <Button
         accessible
         accessibilityRole="button"
@@ -32,7 +22,9 @@ function BrandedButton({
         block
         style={[styles.button, style]}
         onPress={() => {
-          !isDisabled && onPress();
+          if (enable !== false) {
+            onPress();
+          }
         }}
         {...buttonProps}>
         <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>

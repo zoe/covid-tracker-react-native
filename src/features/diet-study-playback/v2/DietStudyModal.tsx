@@ -1,13 +1,13 @@
+import { SafeLayout, Text } from '@covid/components';
+import Analytics from '@covid/core/Analytics';
+import { setDietStudyConsent, TDietStudyConsent } from '@covid/core/state';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+import i18n from '@covid/locale/i18n';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-
-import { SafeLayout, Text } from '@covid/components';
-import { setDietStudyConsent, TDietStudyConsent } from '@covid/core/state';
-import i18n from '@covid/locale/i18n';
-import { events, track } from '@covid/core/Analytics';
-import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -28,7 +28,7 @@ function DietStudyModal() {
 
   useEffect(() => {
     if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_MODAL);
+      Analytics.track(Analytics.events.DIET_STUDY_SCREEN_MODAL);
       setTracked(true);
     }
   });

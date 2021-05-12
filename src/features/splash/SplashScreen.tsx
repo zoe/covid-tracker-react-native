@@ -29,21 +29,9 @@ type Props = {
 };
 
 type SplashState = {
-  isOnline: boolean;
-  isApiOnline: boolean;
-  isLoaded: boolean;
   status: string;
   isRetryable: boolean;
   isRetryEnabled: boolean;
-};
-
-const initialState = {
-  isOnline: false,
-  isApiOnline: false,
-  isLoaded: false,
-  status: i18n.t('errors.status-loading'),
-  isRetryable: false,
-  isRetryEnabled: false,
 };
 
 class SplashScreen extends Component<Props, SplashState> {
@@ -52,10 +40,11 @@ class SplashScreen extends Component<Props, SplashState> {
 
   constructor(props: Props) {
     super(props);
+
     this.state = {
-      ...initialState,
-      isOnline: offlineService.isOnline,
-      isApiOnline: offlineService.isApiOnline,
+      isRetryEnabled: false,
+      isRetryable: false,
+      status: i18n.t('errors.status-loading'),
     };
   }
 

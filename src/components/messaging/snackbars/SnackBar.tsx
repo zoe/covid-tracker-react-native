@@ -56,7 +56,7 @@ function Snackbar({
     if (isMouted) {
       animate(active);
     }
-    return function () {
+    return () => {
       isMouted = false;
     };
   }, [active, animValue]);

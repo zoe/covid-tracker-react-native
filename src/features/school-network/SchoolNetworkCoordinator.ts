@@ -108,8 +108,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   }
 
   async removePatientFromSchool(schoolId: string, patientId: string) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const group of store.getState().school.joinedSchoolGroups) {
       if (group.school.id === schoolId && group.patient_id === patientId) {
+        // eslint-disable-next-line no-await-in-loop
         await this.schoolService.leaveGroup(group.id, patientId).then(() => {
           store.dispatch(schoolSlice.actions.removeGroup(group.id));
         });

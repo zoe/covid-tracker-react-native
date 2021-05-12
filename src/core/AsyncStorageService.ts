@@ -195,6 +195,8 @@ export class AsyncStorageService {
   static async setItem(item: string, key: string): Promise<void> {
     try {
       return await AsyncStorage.setItem(key, item);
-    } catch (err) {}
+    } catch (err) {
+      return undefined;
+    }
   }
 }

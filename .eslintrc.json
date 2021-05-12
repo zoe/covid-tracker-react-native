@@ -21,12 +21,25 @@
     "__DEV__": false
   },
   "rules": {
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": "off",
     "class-methods-use-this": "off",
+    "default-case": "off",
+    "global-require": "off",
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-cycle": "off",
     "import/no-duplicates": "error",
+    "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-case-declarations": "off",
+    "no-empty": "off",
+    "no-nested-ternary": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-restricted-syntax": [
       "error",
       {
@@ -34,7 +47,10 @@
         "message": "Use a ternary operator instead"
       }
     ],
+    "no-return-assign": ["error", "except-parens"],
+    "react-hooks/exhaustive-deps": "off",
     "react/destructuring-assignment": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/jsx-sort-props": ["error", {
       "callbacksLast": false,
       "shorthandFirst": true,
@@ -42,7 +58,13 @@
       "reservedFirst": false,
       "ignoreCase": true
     }],
+    "react/no-unescaped-entities": "off",
+    "react/no-unused-prop-types": "off",
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": "off",
     "react/require-default-props": "off",
+    "react/sort-comp": "off",
+    "react/state-in-constructor": "off",
     "react/style-prop-object": "error",
     "simple-import-sort/imports": "error",
     "sort-imports": "off",

@@ -67,7 +67,8 @@ export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
 
       {reasons.map((reason, i) => {
         return (
-          <FieldWrapper key={i}>
+          // eslint-disable-next-line react/no-array-index-key
+          <FieldWrapper key={`field-wrapper-${i}`}>
             <BigButton onPress={() => submitReason(reason.value)}>
               <RegularText>{reason.text}</RegularText>
             </BigButton>

@@ -17,6 +17,7 @@ export const camelizeKeys = (obj: any): any => {
 
 export const objectToQueryString = (obj: any): string => {
   const keyValuePairs = [];
+  // eslint-disable-next-line guard-for-in, no-restricted-syntax
   for (const key in obj) {
     keyValuePairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
   }

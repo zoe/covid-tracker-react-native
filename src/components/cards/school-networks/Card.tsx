@@ -20,7 +20,8 @@ function SchoolNetworksCard({ school }: IProps) {
         message: 'https://covid.joinzoe.com/schools',
       });
     } catch (error) {
-      alert(error.message);
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   };
 
@@ -48,6 +49,7 @@ function SchoolNetworksCard({ school }: IProps) {
             bubbleName={group.name}
             daily={group.daily_assessments}
             isLast={isLast}
+            // eslint-disable-next-line react/no-array-index-key
             key={`${group.id}-${index}`}
             reported={group.daily_reported_symptoms}
             size={group.size}

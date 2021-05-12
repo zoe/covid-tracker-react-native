@@ -1,7 +1,7 @@
 import * as Amplitude from 'expo-analytics-amplitude';
 
 import appConfig from '@covid/appConfig';
-import { useConstants } from '@covid/utils/hooks';
+import Constants from '@covid/utils/Constants';
 
 import { LocalisationService } from './localisation/LocalisationService';
 
@@ -11,8 +11,6 @@ type AdditionalUserProperties = {
   isTester?: boolean;
   Experiment_001?: string;
 };
-
-const Constants = useConstants();
 
 const DietStudyEvents = {
   ACCEPT_DIET_STUDY: 'ACCEPT_DIET_STUDY',

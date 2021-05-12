@@ -19,10 +19,8 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import { share } from '@covid/components/cards/BaseShareApp';
 import EditProfilesIcon from '@assets/icons/navigation/EditProfilesIcon';
 import NavigatorService from '@covid/NavigatorService';
-import { useConstants } from '@covid/utils/hooks';
 import { selectUser } from '@covid/core/state/user';
-
-const Constants = useConstants();
+import Constants from '@covid/utils/Constants';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';

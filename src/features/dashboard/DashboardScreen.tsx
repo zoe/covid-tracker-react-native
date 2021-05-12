@@ -140,7 +140,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
         }
       }, 800);
     }
-    return function () {
+    return () => {
       isMounted = false;
     };
   }, []);

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { AxiosResponse } from 'axios';
 
 const NETWORK_ERROR = 'Network Error';
@@ -74,6 +75,6 @@ export const handleServiceError = (error: ReceivedError) => {
     throw new OfflineException(error.message);
   }
 
-  // Rethrow error if we get here
+  // eslint-disable-next-line @typescript-eslint/no-throw-literal
   throw error;
 };
