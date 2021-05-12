@@ -1,7 +1,6 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-
 import { Icon, Text } from '@covid/components';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 function TimelineError() {
   return (

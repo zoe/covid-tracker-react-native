@@ -1,5 +1,5 @@
-import React from 'react';
 import { Container } from 'inversify';
+import React from 'react';
 
 export const InversifyContext = React.createContext<{ container: Container | null }>({ container: null });
 

@@ -1,17 +1,16 @@
-import { inject, injectable } from 'inversify';
-
+import appConfig from '@covid/appConfig';
+import { ApiClientBase } from '@covid/core/api/ApiClientBase';
+import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { PatientData } from '@covid/core/patient/PatientData';
+import { getInitialPatientState, isMinorAge, PatientStateType } from '@covid/core/patient/PatientState';
+import { Profile } from '@covid/core/profile/ProfileService';
+import { PatientInfosRequest, VaccineStatus } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
-import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { PatientInfosRequest, VaccineStatus } from '@covid/core/user/dto/UserAPIContracts';
-import { IConsentService } from '@covid/core/consent/ConsentService';
-import { ApiClientBase } from '@covid/core/api/ApiClientBase';
-import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
-import appConfig from '@covid/appConfig';
-import { getInitialPatientState, isMinorAge, PatientStateType } from '@covid/core/patient/PatientState';
-import { PatientData } from '@covid/core/patient/PatientData';
-import { Profile } from '@covid/core/profile/ProfileService';
+import { inject, injectable } from 'inversify';
 
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
@@ -84,8 +83,8 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
     return {
       patientId,
-      patientState,
       patientInfo,
+      patientState,
       profile: patientState.profile,
     } as PatientData;
   }
@@ -100,8 +99,8 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
     return {
       patientId: profile.id,
-      patientState,
       patientInfo,
+      patientState,
       profile,
     } as PatientData;
   }
@@ -118,7 +117,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
   public async updatePatientState(
     patientState: PatientStateType,
-    patient: PatientInfosRequest
+    patient: PatientInfosRequest,
   ): Promise<PatientStateType> {
     // Calculate the flags based on patient info
     const hasRaceEthnicityAnswer = Array.isArray(patient.race) && patient.race.length > 0;
@@ -143,9 +142,9 @@ export class PatientService extends ApiClientBase implements IPatientService {
     }
 
     const profile: Profile = {
+      avatar_name: patient.avatar_name ?? DEFAULT_PROFILE,
       id: patientState.patientId,
       name: patientName,
-      avatar_name: patient.avatar_name ?? DEFAULT_PROFILE,
       reported_by_another: patient.reported_by_another,
     };
     const isReportedByAnother = patient.reported_by_another || false;
@@ -168,26 +167,26 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
     return {
       ...patientState,
-      profile,
-      isFemale,
-      isPeriodCapable,
-      isHealthWorker,
-      hasRaceEthnicityAnswer,
+      hasAtopyAnswers,
+      hasBloodGroupAnswer,
       hasBloodPressureAnswer,
       hasCompletedPatientDetails,
-      isReportedByAnother,
-      isSameHousehold,
-      shouldAskExtendedDiabetes,
-      shouldAskStudy,
-      hasAtopyAnswers,
       hasDiabetes,
       hasDiabetesAnswers,
       hasHayfever,
-      shouldShowUSStudyInvite,
-      hasBloodGroupAnswer,
-      isNHSStudy,
+      hasRaceEthnicityAnswer,
       hasSchoolGroup,
+      isFemale,
+      isHealthWorker,
       isMinor,
+      isNHSStudy,
+      isPeriodCapable,
+      isReportedByAnother,
+      isSameHousehold,
+      profile,
+      shouldAskExtendedDiabetes,
+      shouldAskStudy,
+      shouldShowUSStudyInvite,
       shouldShowVaccineList,
     };
   }

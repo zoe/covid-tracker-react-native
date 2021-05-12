@@ -1,9 +1,8 @@
-import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button } from 'native-base';
-
 import { RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
+import { Button } from 'native-base';
+import React, { ReactNode } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 type TStyleObject = { [key: string]: string | number };
 
@@ -25,7 +24,7 @@ function ActionButton({ buttonProps, children, error = false, icon, onPress, sty
     style,
   ];
   return (
-    <Button style={btnStyle} onPress={onPress} {...buttonProps}>
+    <Button onPress={onPress} style={btnStyle} {...buttonProps}>
       <View style={styles.row}>
         <View style={styles.textContainer}>
           <RegularText style={[fontStyles.bodyLight, styles.label, { color: colors.primary }]} {...textProps}>
@@ -41,14 +40,14 @@ function ActionButton({ buttonProps, children, error = false, icon, onPress, sty
 const styles = StyleSheet.create({
   button: {
     borderRadius: 8,
-    height: 48,
     elevation: 0,
+    height: 48,
     justifyContent: 'center',
     paddingHorizontal: 16,
   },
   label: {
-    textAlign: 'left',
     lineHeight: 20,
+    textAlign: 'left',
   },
   row: {
     flexDirection: 'row',

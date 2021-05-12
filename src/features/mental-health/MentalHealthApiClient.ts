@@ -1,7 +1,4 @@
-import { injectable, inject } from 'inversify';
-
 import { IApiClient } from '@covid/core/api/ApiClient';
-import { Services } from '@covid/provider/services.types';
 import {
   IMentalHealthChanges,
   IMentalHealthFrequency,
@@ -9,6 +6,8 @@ import {
   IMentalHealthLearning,
 } from '@covid/core/state';
 import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
+import { Services } from '@covid/provider/services.types';
+import { inject, injectable } from 'inversify';
 
 import { MentalHealthInfosRequest } from './MentalHealthInfosRequest';
 
@@ -51,7 +50,7 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
 
   buildRequestObject(
     existingMentalHealth: MentalHealthInfosRequest,
-    data: IMentalHealthApiClientBuildRequest
+    data: IMentalHealthApiClientBuildRequest,
   ): MentalHealthInfosRequest {
     let updatedMentalHealth: MentalHealthInfosRequest = {
       id: existingMentalHealth.id,
@@ -61,30 +60,30 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
     if (data.mentalHealthChanges) {
       updatedMentalHealth = {
         ...updatedMentalHealth,
-        using_devices_with_a_screen: data.mentalHealthChanges.devicesWithScreen,
+        being_physically_active_or_doing_exercise: data.mentalHealthChanges.physical,
         drinking_alcohol: data.mentalHealthChanges.drinkingAlcohol,
+        eating_savoury_snacks_or_confectionery: data.mentalHealthChanges.snacks,
         engaging_in_orgs_clubs_socs: data.mentalHealthChanges.engagingWithOrganisations,
         feeling_more_alone: data.mentalHealthChanges.feelingAlone,
-        spending_time_in_green_spaces: data.mentalHealthChanges.greenSpaces,
         interacting_face_to_face_with_family_friends: data.mentalHealthChanges.interactingFaceToFace,
-        talking_to_family_friends_via_phone_or_technology: data.mentalHealthChanges.interactingViaPhoneOrTechnology,
-        being_physically_active_or_doing_exercise: data.mentalHealthChanges.physical,
         reading_watching_listening_to_the_news: data.mentalHealthChanges.readingWatchingListeningNews,
         relaxation_mindfulness_meditation: data.mentalHealthChanges.relaxation,
         sleeping_well: data.mentalHealthChanges.sleep,
         smoking_or_vaping: data.mentalHealthChanges.smokingOrVaping,
-        eating_savoury_snacks_or_confectionery: data.mentalHealthChanges.snacks,
-        working: data.mentalHealthChanges.working,
+        spending_time_in_green_spaces: data.mentalHealthChanges.greenSpaces,
         spending_time_with_pets: data.mentalHealthChanges.timeWithPets,
+        talking_to_family_friends_via_phone_or_technology: data.mentalHealthChanges.interactingViaPhoneOrTechnology,
+        using_devices_with_a_screen: data.mentalHealthChanges.devicesWithScreen,
+        working: data.mentalHealthChanges.working,
       };
     }
 
     if (data.mentalHealthFrequency) {
       updatedMentalHealth = {
         ...updatedMentalHealth,
-        little_interest_or_pleasure_in_doing_things: data.mentalHealthFrequency.pleasureInDoingThings,
         feeling_down: data.mentalHealthFrequency.feelingDown,
         feeling_nervous: data.mentalHealthFrequency.feelingNervous,
+        little_interest_or_pleasure_in_doing_things: data.mentalHealthFrequency.pleasureInDoingThings,
         not_being_able_to_control_worrying: data.mentalHealthFrequency.stopWorrying,
       };
     }
@@ -92,26 +91,26 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
     if (data.mentalHealthHistory) {
       updatedMentalHealth = {
         ...updatedMentalHealth,
+        add_adhd: data.mentalHealthHistory.conditions.includes('ADD_ADHD'),
+        agoraphobia: data.mentalHealthHistory.conditions.includes('AGORAPHOBIA'),
+        autism: data.mentalHealthHistory.conditions.includes('AUTISTIC_SPECTRUM_DISORDER'),
+        depression: data.mentalHealthHistory.conditions.includes('DEPRESSION'),
+        eating: data.mentalHealthHistory.conditions.includes('EATING_DISORDER'),
         ever_diagnosed_with_mental_health_condition: data.mentalHealthHistory.hasDiagnosis,
         generalised_anxiety_disorder: data.mentalHealthHistory.conditions.includes('GAD'),
-        panic: data.mentalHealthHistory.conditions.includes('PANIC_DISORDER'),
-        specific_phobias: data.mentalHealthHistory.conditions.includes('SPECIFIC_PHOBIAS'),
-        ocd: data.mentalHealthHistory.conditions.includes('OCD'),
-        ptsd: data.mentalHealthHistory.conditions.includes('PTSD'),
-        social_anxiety: data.mentalHealthHistory.conditions.includes('SOCIAL_ANXIETY_DISORDER'),
-        agoraphobia: data.mentalHealthHistory.conditions.includes('AGORAPHOBIA'),
-        depression: data.mentalHealthHistory.conditions.includes('DEPRESSION'),
-        add_adhd: data.mentalHealthHistory.conditions.includes('ADD_ADHD'),
-        autism: data.mentalHealthHistory.conditions.includes('AUTISTIC_SPECTRUM_DISORDER'),
-        eating: data.mentalHealthHistory.conditions.includes('EATING_DISORDER'),
-        personality: data.mentalHealthHistory.conditions.includes('PERSONALITY_DISORDER'),
-        mania_hypomania_bipolar_manic_depression: data.mentalHealthHistory.conditions.includes('MANIA'),
-        schizophrenia: data.mentalHealthHistory.conditions.includes('SCHIZOPHRENIA'),
-        substance_use: data.mentalHealthHistory.conditions.includes('SUBSTANCE_USE_DISORDER'),
-        psychosis_or_psychotic_illness: data.mentalHealthHistory.conditions.includes('TYPE_OF_PSYCHOSIS'),
         history_other: data.mentalHealthHistory.conditions.includes('OTHER'),
         history_other_text: data.mentalHealthHistory.otherText,
         history_prefer_not_to_say: data.mentalHealthHistory.conditions.includes('DECLINE_TO_SAY'),
+        mania_hypomania_bipolar_manic_depression: data.mentalHealthHistory.conditions.includes('MANIA'),
+        ocd: data.mentalHealthHistory.conditions.includes('OCD'),
+        panic: data.mentalHealthHistory.conditions.includes('PANIC_DISORDER'),
+        personality: data.mentalHealthHistory.conditions.includes('PERSONALITY_DISORDER'),
+        psychosis_or_psychotic_illness: data.mentalHealthHistory.conditions.includes('TYPE_OF_PSYCHOSIS'),
+        ptsd: data.mentalHealthHistory.conditions.includes('PTSD'),
+        schizophrenia: data.mentalHealthHistory.conditions.includes('SCHIZOPHRENIA'),
+        social_anxiety: data.mentalHealthHistory.conditions.includes('SOCIAL_ANXIETY_DISORDER'),
+        specific_phobias: data.mentalHealthHistory.conditions.includes('SPECIFIC_PHOBIAS'),
+        substance_use: data.mentalHealthHistory.conditions.includes('SUBSTANCE_USE_DISORDER'),
       };
     }
 
@@ -119,23 +118,23 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
       updatedMentalHealth = {
         ...updatedMentalHealth,
         about_your_learning_needs: data.mentalHealthLearning.hasDisability,
-        dyslexia: data.mentalHealthLearning.conditions.includes('DYSLEXIA'),
         dyscalculia: data.mentalHealthLearning.conditions.includes('DYSCALCULIA'),
         dysgraphia: data.mentalHealthLearning.conditions.includes('DYSGRAPHIA'),
-        non_verbal: data.mentalHealthLearning.conditions.includes('NON-VERBAL'),
-        oral: data.mentalHealthLearning.conditions.includes('ORAL_WRITTEN'),
-        sensory_impairment: data.mentalHealthLearning.conditions.includes('SENSORY'),
+        dyslexia: data.mentalHealthLearning.conditions.includes('DYSLEXIA'),
         learning_other: data.mentalHealthLearning.conditions.includes('OTHER'),
         learning_other_text: data.mentalHealthLearning.otherText,
         learning_prefer_not_to_say: data.mentalHealthLearning.conditions.includes('DECLINE_TO_SAY'),
+        non_verbal: data.mentalHealthLearning.conditions.includes('NON-VERBAL'),
+        oral: data.mentalHealthLearning.conditions.includes('ORAL_WRITTEN'),
+        sensory_impairment: data.mentalHealthLearning.conditions.includes('SENSORY'),
       };
     }
 
     if (data.mentalHealthSupport) {
       updatedMentalHealth = {
         ...updatedMentalHealth,
-        needed_support_in_the_last_6_months: data.mentalHealthSupport.hasNeededSupport,
         able_to_get_support: data.mentalHealthSupport.hasReceivedSupport,
+        needed_support_in_the_last_6_months: data.mentalHealthSupport.hasNeededSupport,
       };
     }
 

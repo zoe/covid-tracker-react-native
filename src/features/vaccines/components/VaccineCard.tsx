@@ -1,14 +1,13 @@
-import React from 'react';
-import { Image, StyleSheet, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import { tick } from '@assets';
+import QuestionCircle from '@assets/icons/QuestionCircle';
+import { Header3Text, RegularText } from '@covid/components/Text';
+import { Dose, vaccineBrandDisplayName, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import moment from 'moment';
 import { Text } from 'native-base';
-
-import { Header3Text, RegularText } from '@covid/components/Text';
-import { tick } from '@assets';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { vaccineBrandDisplayName, Dose, VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
-import QuestionCircle from '@assets/icons/QuestionCircle';
+import React from 'react';
+import { Image, StyleSheet, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 
 export const displayDescriptionNameMap = {
   mrna: 'mRNA',
@@ -75,7 +74,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
           {!hasFirstDoseDate ? dateRequired : null}
 
           {hasFirstDoseDate ? (
-            <View style={{ marginTop: 8, marginBottom: 0 }}>
+            <View style={{ marginBottom: 0, marginTop: 8 }}>
               <RegularText style={[!hasFirstDoseDate && styles.pendingText]}>
                 {hasFirstDoseDate ? formatVaccineDate(dose1 as Dose) : null}
               </RegularText>
@@ -94,7 +93,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
             </View>
 
             {hasSecondDoseDate ? (
-              <View style={{ marginTop: 0, marginBottom: 8 }}>
+              <View style={{ marginBottom: 8, marginTop: 0 }}>
                 <RegularText style={[!hasSecondDoseName && styles.pendingText]}>
                   {hasSecondDoseName
                     ? hasSecondDoseBrand
@@ -112,7 +111,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
         )}
 
         {/* CTA */}
-        <Text style={{ marginTop: 8, marginBottom: 8, textAlign: 'center' }}>
+        <Text style={{ marginBottom: 8, marginTop: 8, textAlign: 'center' }}>
           <Text style={styles.clickableText}>{i18n.t('vaccines.vaccine-card.edit-vaccine')}</Text>
         </Text>
       </View>
@@ -121,40 +120,40 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
 };
 
 const styles = StyleSheet.create({
-  row: {
-    marginVertical: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
+  clickableText: {
+    color: colors.purple,
+    marginBottom: 8,
+    marginTop: 24,
+    textAlign: 'center',
+  },
+  container: {
+    borderColor: colors.tertiary,
+    borderRadius: 8,
+    borderWidth: 1,
+    margin: 16,
+    padding: 16,
   },
   dose: {
     marginBottom: 16,
   },
-  tick: {
-    marginEnd: 8,
-    height: 16,
-    width: 16,
-  },
   pendingIconAndText: {
-    marginVertical: 0,
     marginLeft: 1,
+    marginVertical: 0,
   },
   pendingText: {
     color: colors.secondary,
   },
+  row: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginVertical: 8,
+  },
+  tick: {
+    height: 16,
+    marginEnd: 8,
+    width: 16,
+  },
   warningText: {
     color: colors.feedbackBad,
-  },
-  clickableText: {
-    marginTop: 24,
-    marginBottom: 8,
-    textAlign: 'center',
-    color: colors.purple,
-  },
-  container: {
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 16,
-    borderColor: colors.tertiary,
-    margin: 16,
   },
 });

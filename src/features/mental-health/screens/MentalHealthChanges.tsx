@@ -1,10 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-
 import { BasicPage, Text } from '@covid/components';
-import NavigatorService from '@covid/NavigatorService';
-import { useTheme } from '@covid/themes';
 import {
   selectMentalHealthChanges,
   setDevicesWithScreen,
@@ -23,12 +17,17 @@ import {
   setTimeWithPets,
   setWorking,
 } from '@covid/core/state/mental-health';
-import { mentalHealthApiClient } from '@covid/Services';
-import i18n from '@covid/locale/i18n';
 import { IUser, selectUser } from '@covid/core/state/user';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import { mentalHealthApiClient } from '@covid/Services';
+import { useTheme } from '@covid/themes';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ChangesQuestion } from '../partials';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
+import { ChangesQuestion } from '../partials';
 
 function MentalHealthChanges() {
   const user: IUser = useSelector(selectUser);
@@ -137,7 +136,7 @@ function MentalHealthChanges() {
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
       existingMentalHealth,
-      { mentalHealthChanges }
+      { mentalHealthChanges },
     );
     await mentalHealthApiClient.update(updatedMentalHealth);
     NavigatorService.navigate('MentalHealthFrequency', undefined);
@@ -146,7 +145,7 @@ function MentalHealthChanges() {
   return (
     <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
-        <Text textClass="h3" rhythm={32}>
+        <Text rhythm={32} textClass="h3">
           {i18n.t('mental-health.question-changes')}
         </Text>
         {questions.map((item, index) => {
@@ -155,11 +154,11 @@ function MentalHealthChanges() {
           return (
             <ChangesQuestion
               disabled={disabled}
-              question={item.question}
               key={key}
               onPress={(changeType) => {
                 dispatch(item.action(changeType));
               }}
+              question={item.question}
               state={item.state}
             />
           );

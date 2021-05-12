@@ -1,27 +1,8 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-
-import { ConfigType } from '@covid/core/Config';
-import { IUserService } from '@covid/core/user/UserService';
-import {
-  homeScreenName,
-  ILocalisationService,
-  isGBCountry,
-  isUSCountry,
-  LocalisationService,
-} from '@covid/core/localisation/LocalisationService';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { assessmentService } from '@covid/Services';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { Services } from '@covid/provider/services.types';
-import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
-import { lazyInject } from '@covid/provider/services';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { IContentService } from '@covid/core/content/ContentService';
-import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
-import { PatientData } from '@covid/core/patient/PatientData';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-import store from '@covid/core/state/store';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ConfigType } from '@covid/core/Config';
+import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
+import { IContentService } from '@covid/core/content/ContentService';
 import {
   fetchDismissedCallouts,
   fetchFeaturedContent,
@@ -30,12 +11,30 @@ import {
   fetchStartUpInfo,
   fetchUKMetrics,
 } from '@covid/core/content/state/contentSlice';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
-import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
+import {
+  homeScreenName,
+  ILocalisationService,
+  isGBCountry,
+  isUSCountry,
+  LocalisationService,
+} from '@covid/core/localisation/LocalisationService';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { PatientData } from '@covid/core/patient/PatientData';
+import { IPatientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
+import store from '@covid/core/state/store';
+import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
+import { IUserService } from '@covid/core/user/UserService';
+import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import NavigatorService from '@covid/NavigatorService';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { assessmentService } from '@covid/Services';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -64,27 +63,42 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   dietScoreService: IDietScoreRemoteClient;
 
   navigation: NavigationType;
+
   patientData: PatientData;
 
   shouldShowCountryPicker: boolean = false;
 
   screenFlow: Partial<ScreenFlow> = {
-    Splash: () => {
-      if (this.userService.hasUser && this.patientData && this.shouldShowCountryPicker) {
-        NavigatorService.replace('CountrySelect', {
-          onComplete: () => {
-            NavigatorService.replace(homeScreenName());
-          },
-        });
-      } else if (this.userService.hasUser && this.patientData) {
-        NavigatorService.replace(homeScreenName());
-      } else {
-        NavigatorService.replace('Welcome');
-      }
+    // added to make available to gotoNextscreen
+    Anniversary: () => {
+      NavigatorService.navigate('Anniversary');
     },
+
+    ArchiveReason: () => {
+      NavigatorService.navigate('SelectProfile'); // Go back to SelectProfile with last used params
+    },
+
+    Consent: () => {
+      NavigatorService.navigate('Register');
+    },
+
+    Dashboard: () => {
+      // UK only so currently no need to check config.enableMultiplePatients
+      NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
+    },
+
+    DashboardUS: () => {
+      NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
+    },
+
     Login: () => {
       NavigatorService.reset([{ name: homeScreenName() }]);
     },
+
+    OptionalInfo: () => {
+      this.startPatientFlow(this.patientData);
+    },
+
     Register: () => {
       const config = appCoordinator.getConfig();
 
@@ -98,12 +112,39 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
       } else if (this.patientData) {
         this.startPatientFlow(this.patientData);
       } else {
+        // eslint-disable-next-line no-console
         console.error('[ROUTE] Missing patientId parameter for gotoNextPage(Register)');
       }
     },
-    OptionalInfo: () => {
-      this.startPatientFlow(this.patientData);
+
+    Splash: () => {
+      if (this.userService.hasUser && this.patientData && this.shouldShowCountryPicker) {
+        NavigatorService.replace('CountrySelect', {
+          onComplete: () => {
+            NavigatorService.replace(homeScreenName());
+          },
+        });
+      } else if (this.userService.hasUser && this.patientData) {
+        NavigatorService.replace(homeScreenName());
+      } else {
+        NavigatorService.replace('Welcome');
+      }
     },
+
+    VaccineRegistryInfo: () => {
+      NavigatorService.navigate(homeScreenName());
+    },
+
+    ValidationStudyInfo: () => {
+      NavigatorService.navigate('ValidationStudyConsent', {
+        viewOnly: false,
+      });
+    },
+
+    ValidationStudyIntro: () => {
+      NavigatorService.navigate('ValidationStudyInfo');
+    },
+
     WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
@@ -111,34 +152,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
       } else {
         this.startAssessmentFlow(this.patientData);
       }
-    },
-    Dashboard: () => {
-      // UK only so currently no need to check config.enableMultiplePatients
-      NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
-    },
-    DashboardUS: () => {
-      NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
-    },
-    ArchiveReason: () => {
-      NavigatorService.navigate('SelectProfile'); // Go back to SelectProfile with last used params
-    },
-    ValidationStudyIntro: () => {
-      NavigatorService.navigate('ValidationStudyInfo');
-    },
-    ValidationStudyInfo: () => {
-      NavigatorService.navigate('ValidationStudyConsent', {
-        viewOnly: false,
-      });
-    },
-    Consent: () => {
-      NavigatorService.navigate('Register');
-    },
-    VaccineRegistryInfo: () => {
-      NavigatorService.navigate(homeScreenName());
-    },
-    // added to make available to gotoNextscreen
-    Anniversary: () => {
-      NavigatorService.navigate('Anniversary');
     },
   };
 
@@ -335,6 +348,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   goToMentalHealthStudy() {
     NavigatorService.navigate('MentalHealthChanges');
   }
+
   goToMentalHealthModal() {
     NavigatorService.navigate('MentalHealthModal');
   }

@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { ShareIcon } from '@assets';
 import { TColorPalette, TColorShade } from '@covid/themes';
+import React from 'react';
 
 import { Text } from '../../typography';
-
 import { SContainerView, SIconContainerView } from './styles';
 
 interface IProps {
@@ -20,7 +18,7 @@ function ShareButton({ colorPalette = 'burgundy', colorShade = 'main', label, on
       <SIconContainerView>
         <ShareIcon />
       </SIconContainerView>
-      <Text colorPalette={colorPalette} colorShade={colorShade} fontSize={14} inverted>
+      <Text inverted colorPalette={colorPalette} colorShade={colorShade} fontSize={14}>
         {label}
       </Text>
     </SContainerView>

@@ -1,13 +1,12 @@
-import React from 'react';
-import { Formik } from 'formik';
-import { View, Text } from 'react-native';
-import { storiesOf } from '@storybook/react-native';
-import { action, HandlerFunction } from '@storybook/addon-actions';
-import { ScrollView } from 'react-native-gesture-handler';
-
+import { BrandedButton } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton } from '@covid/components';
+import { action, HandlerFunction } from '@storybook/addon-actions';
+import { storiesOf } from '@storybook/react-native';
+import { Formik } from 'formik';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const ValueChangeHandler = (): HandlerFunction => action('submit');
 
@@ -17,16 +16,17 @@ storiesOf('Text input', module).add('default', () => (
       initialValues={{
         input: '',
       }}
-      onSubmit={(values: any) => {}}>
+      onSubmit={(values: any) => {}}
+    >
       {(props) => (
         <View style={{ marginHorizontal: 16 }}>
           <View style={{ marginVertical: 16 }}>
             <GenericTextField
               formikProps={props}
-              placeholder="Some placeholder"
+              keyboardType="numeric"
               label="Some label"
               name="input"
-              keyboardType="numeric"
+              placeholder="Some placeholder"
             />
           </View>
           <BrandedButton onPress={props.handleSubmit}>
@@ -44,20 +44,21 @@ storiesOf('Text input', module).add('multi-line', () => (
       initialValues={{
         input: '',
       }}
-      onSubmit={(values: any) => {}}>
+      onSubmit={(values: any) => {}}
+    >
       {(props) => (
         <View style={{ marginHorizontal: 16 }}>
           <View style={{ marginVertical: 16 }}>
             <GenericTextField
               formikProps={props}
-              placeholder="Some placeholder"
-              label="Some label"
-              name="input"
-              keyboardType="numeric"
               inputProps={{
                 multiline: true,
                 numberOfLines: 3,
               }}
+              keyboardType="numeric"
+              label="Some label"
+              name="input"
+              placeholder="Some placeholder"
             />
           </View>
           <BrandedButton onPress={props.handleSubmit}>

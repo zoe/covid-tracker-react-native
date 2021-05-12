@@ -1,8 +1,7 @@
-import { getStorybookUI, configure, addDecorator } from '@storybook/react-native';
+import './rn-addons';
 
 import { CenterView } from '@covid/storybook/decorator';
-
-import './rn-addons';
+import { addDecorator, configure, getStorybookUI } from '@storybook/react-native';
 
 configure(() => {
   require('./stories/Buttons.stories');

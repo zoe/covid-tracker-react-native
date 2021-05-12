@@ -1,3 +1,12 @@
+import { BrandedButton } from '@covid/components';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { HeaderText } from '@covid/components/Text';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
+import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
@@ -5,16 +14,6 @@ import { Form, Item, Label, Text, Textarea } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import { HeaderText } from '@covid/components/Text';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import { assessmentService } from '@covid/Services';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import { BrandedButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
 
 const initialFormValues = {
   description: '',
@@ -45,7 +44,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
     await assessmentService.completeAssessment(
       assessment,
-      assessmentCoordinator.assessmentData.patientData.patientInfo!
+      assessmentCoordinator.assessmentData.patientData.patientInfo!,
     );
     assessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
@@ -62,21 +61,22 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
         : i18n.t('treatment-other-question-treatment-during');
 
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>{title}</HeaderText>
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={5} maxSteps={5} />
+          <ProgressStatus maxSteps={5} step={5} />
         </ProgressBlock>
 
         <Formik
           initialValues={initialFormValues}
-          validationSchema={this.registerSchema}
           onSubmit={(values: ITreatmentData) => {
             return this.handleUpdateTreatment(values);
-          }}>
+          }}
+          validationSchema={this.registerSchema}
+        >
           {(props) => {
             return (
               <Form>
@@ -84,13 +84,13 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
                   <Item stackedLabel>
                     <Label style={{ marginBottom: 16 }}>{question}</Label>
                     <Textarea
-                      style={styles.textarea}
-                      rowSpan={5}
                       bordered
-                      placeholder={i18n.t('placeholder-optional-question')}
-                      value={props.values.description}
                       onChangeText={props.handleChange('description')}
+                      placeholder={i18n.t('placeholder-optional-question')}
+                      rowSpan={5}
+                      style={styles.textarea}
                       underline={false}
+                      value={props.values.description}
                     />
                   </Item>
                 </FieldWrapper>

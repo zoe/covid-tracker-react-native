@@ -1,7 +1,6 @@
-import { NavigationContainerRef, CommonActions, StackActions, Route, NavigationState } from '@react-navigation/native';
-
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import Analytics from '@covid/core/Analytics';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { CommonActions, NavigationContainerRef, NavigationState, Route, StackActions } from '@react-navigation/native';
 
 let navigation: NavigationContainerRef;
 let currentRouteName = '';
@@ -16,7 +15,7 @@ function reset<RouteName extends keyof ScreenParamList>(routeList: Omit<Route<Ro
     CommonActions.reset({
       index: value,
       routes: routeList,
-    })
+    }),
   );
 }
 
@@ -60,10 +59,10 @@ const getCurrentRouteName = (navigationState: NavigationState): string | null =>
 };
 
 export default {
-  setContainer,
-  navigate,
-  reset,
-  replace,
   goBack,
   handleStateChange,
+  navigate,
+  replace,
+  reset,
+  setContainer,
 };

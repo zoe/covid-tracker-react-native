@@ -1,8 +1,7 @@
-import React, { ReactNode } from 'react';
-import { View, StyleSheet } from 'react-native';
-
 import { QuoteMarks } from '@assets';
 import { useTheme } from '@covid/themes';
+import React, { ReactNode } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 interface IProps {
   children: ReactNode;
@@ -28,30 +27,30 @@ function SpeechCard({ children }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    width: '100%',
+  arrow: {
+    backgroundColor: 'white',
+    height: 16,
+    left: 48,
+    position: 'absolute',
+    top: 8,
+    transform: [{ rotate: '45deg' }],
+    width: 16,
   },
   container: {
     backgroundColor: 'white',
     borderRadius: 16,
     width: '100%',
   },
-  arrow: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    height: 16,
-    top: 8,
-    left: 48,
-    transform: [{ rotate: '45deg' }],
-    width: 16,
-  },
   shadow: {
+    elevation: 5,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: { height: 0, width: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
-    elevation: 5,
+  },
+  wrapper: {
+    flex: 1,
+    width: '100%',
   },
 });
 

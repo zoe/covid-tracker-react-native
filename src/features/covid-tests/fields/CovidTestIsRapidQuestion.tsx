@@ -1,10 +1,9 @@
+import YesNoField from '@covid/components/YesNoField';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import YesNoField from '@covid/components/YesNoField';
 
 export interface ICovidTestIsRapidData {
   isRapidTest: string;
@@ -25,10 +24,10 @@ export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion<IProps, ICovidT
   const { formikProps } = props;
   return (
     <YesNoField
-      selectedValue={formikProps.values.isRapidTest}
-      onValueChange={formikProps.handleChange('isRapidTest')}
       error={formikProps.touched.isRapidTest && formikProps.errors.isRapidTest}
       label={i18n.t('covid-test.question-is-rapid-test')}
+      onValueChange={formikProps.handleChange('isRapidTest')}
+      selectedValue={formikProps.values.isRapidTest}
     />
   );
 };
@@ -38,12 +37,10 @@ CovidTestIsRapidQuestion.initialFormValues = (test?: CovidTest): ICovidTestIsRap
     if (test?.id) {
       if (test.is_rapid_test === null) {
         return '';
-      } else {
-        return test.is_rapid_test ? 'yes' : 'no';
       }
-    } else {
-      return '';
+      return test.is_rapid_test ? 'yes' : 'no';
     }
+    return '';
   }
 
   return {

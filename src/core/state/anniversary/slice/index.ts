@@ -8,8 +8,8 @@ const initialState: IAnniversary = {
 };
 
 const anniversarySlice = createSlice({
-  name: 'Anniversary',
   initialState,
+  name: 'Anniversary',
   reducers: {
     setHasViewedAnniversaryModal: (state, action: PayloadAction<boolean>) => {
       return {

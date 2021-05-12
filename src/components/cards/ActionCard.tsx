@@ -1,7 +1,6 @@
-import React, { ReactNode } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-
 import { useTheme } from '@covid/themes';
+import React, { ReactNode } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { Text } from '../typography';
 
@@ -16,15 +15,16 @@ interface IProps {
 
 function ActionCard({ actionTitle, buttonColor, children, onPress, outline, textColor }: IProps) {
   const { colors, grid } = useTheme();
-  const bColor = buttonColor ? buttonColor : colors.blue.main.bgColor;
-  const tColor = textColor ? textColor : 'white';
+  const bColor = buttonColor || colors.blue.main.bgColor;
+  const tColor = textColor || 'white';
   return (
     <View style={[styles.wrapper, { padding: grid.gutter }]}>
       <TouchableOpacity
         accessible
         accessibilityRole="button"
         onPress={onPress}
-        style={[styles.container, styles.shadow, { paddingHorizontal: grid.gutter, paddingVertical: grid.xxl }]}>
+        style={[styles.container, styles.shadow, { paddingHorizontal: grid.gutter, paddingVertical: grid.xxl }]}
+      >
         <View style={{ marginBottom: grid.l }}>
           <View>{children}</View>
         </View>
@@ -32,12 +32,13 @@ function ActionCard({ actionTitle, buttonColor, children, onPress, outline, text
           style={{
             alignItems: 'center',
             backgroundColor: outline ? 'transparent' : bColor,
-            borderWidth: 1,
             borderColor: bColor,
             borderRadius: grid.xxl,
+            borderWidth: 1,
             height: grid.xxxxl,
             justifyContent: 'center',
-          }}>
+          }}
+        >
           <Text style={{ color: outline ? bColor : tColor }}>{actionTitle}</Text>
         </View>
         <View />
@@ -47,25 +48,25 @@ function ActionCard({ actionTitle, buttonColor, children, onPress, outline, text
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    width: '100%',
+  button: {
+    height: 40,
   },
   container: {
-    height: '100%',
     backgroundColor: 'white',
     borderRadius: 16,
+    height: '100%',
     width: '100%',
   },
   shadow: {
+    elevation: 5,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: { height: 0, width: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
-    elevation: 5,
   },
-  button: {
-    height: 40,
+  wrapper: {
+    flex: 1,
+    width: '100%',
   },
 });
 

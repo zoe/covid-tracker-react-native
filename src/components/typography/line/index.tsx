@@ -1,6 +1,5 @@
-import React, { ReactNode } from 'react';
-
 import { TTtextDecorationLine } from '@covid/themes';
+import React, { ReactNode } from 'react';
 
 import Text from '../text';
 
@@ -10,7 +9,7 @@ interface IProps {
 }
 
 const U = ({ children, textDecorationLine = undefined }: IProps) => {
-  const tDecorationLine: TTtextDecorationLine = textDecorationLine ? textDecorationLine : 'underline';
+  const tDecorationLine: TTtextDecorationLine = textDecorationLine || 'underline';
   return <Text textDecorationLine={tDecorationLine}>{children}</Text>;
 };
 

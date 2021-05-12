@@ -1,21 +1,19 @@
+import ChevronRight from '@assets/icons/ChevronRight';
+import Analytics, { events } from '@covid/core/Analytics';
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { RootState } from '@covid/core/state/root';
+import i18n from '@covid/locale/i18n';
+import { openWebLink } from '@covid/utils/links';
+import { useNavigation } from '@react-navigation/native';
+import { colors } from '@theme';
 import React, { useRef } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
-
-import { colors } from '@theme';
-import Analytics, { events } from '@covid/core/Analytics';
-import i18n from '@covid/locale/i18n';
-import { RootState } from '@covid/core/state/root';
-import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
-import ChevronRight from '@assets/icons/ChevronRight';
-import { openWebLink } from '@covid/utils/links';
+import { useSelector } from 'react-redux';
 
 import { Link, ShareButton } from '../../buttons';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../stats/TrendLineChart';
 import { Text } from '../../typography';
-
 import { DeltaTag } from './DeltaTag';
 
 interface IProps {
@@ -28,10 +26,10 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
   const viewRef = useRef<View>(null);
 
   const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
-    name: state.content.personalizedLocalData?.name,
-    today: state.content.personalizedLocalData?.cases,
     delta: state.content.localTrendline?.delta,
+    name: state.content.personalizedLocalData?.name,
     timeseries: state.content.localTrendline?.timeseries,
+    today: state.content.personalizedLocalData?.cases,
   }));
 
   const onPress = () => {
@@ -41,8 +39,8 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
 
   return (
     <View style={styles.root}>
-      <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
-        <Text textClass="h4" rhythm={8}>
+      <View collapsable={false} ref={viewRef} style={styles.snapshotContainer}>
+        <Text rhythm={8} textClass="h4">
           {i18n.t('explore-trend-line.active-covid-cases')} {localTrendline?.name}
         </Text>
 
@@ -59,7 +57,7 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
           {/* use absolute overlay to prevent displaying blank chart */}
           {!isSharing ? (
-            <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
+            <TouchableWithoutFeedback onPress={onPress} style={styles.hit}>
               <View style={styles.box} />
             </TouchableWithoutFeedback>
           ) : null}
@@ -70,26 +68,28 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
             alignItems: 'center',
             flexDirection: 'row',
             justifyContent: 'flex-start',
-            width: '100%',
             marginBottom: 12,
-          }}>
+            width: '100%',
+          }}
+        >
           <View style={{ marginRight: 12 }}>
             <Text textClass="h0">{localTrendline?.today}</Text>
           </View>
           <View style={{ width: '30%' }}>
-            <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+            <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
               {i18n.t('explore-trend-line.active-cases-in-your-area')}
             </Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
             <View
               style={{
-                flexDirection: 'row',
-                width: 48,
-                height: 48,
                 alignItems: 'center',
+                flexDirection: 'row',
+                height: 48,
                 justifyContent: 'flex-end',
-              }}>
+                width: 48,
+              }}
+            >
               <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={32} width={32} />
             </View>
           </View>
@@ -114,62 +114,6 @@ export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IP
 }
 
 const styles = StyleSheet.create({
-  root: {
-    backgroundColor: colors.white,
-    borderRadius: 16,
-    marginVertical: 8,
-  },
-
-  snapshotContainer: {
-    paddingTop: 24,
-    paddingHorizontal: 16,
-    borderRadius: 16,
-    backgroundColor: colors.white,
-    width: '100%',
-    flexDirection: 'column',
-  },
-
-  chartContainer: {
-    width: '100%',
-    height: 190,
-    paddingBottom: 8,
-  },
-
-  month: {
-    fontSize: 14,
-    marginTop: 4,
-    marginBottom: 8,
-  },
-
-  primaryLabel: {
-    fontWeight: '300',
-    color: colors.textDark,
-    paddingHorizontal: 56,
-    textAlign: 'center',
-  },
-
-  deltaTag: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginTop: 8,
-    width: '100%',
-  },
-
-  metric: {
-    fontSize: 32,
-    fontWeight: '300',
-    lineHeight: 48,
-    paddingTop: 8,
-    color: colors.textDark,
-  },
-
-  hit: {
-    height: '100%',
-    left: 16,
-    position: 'absolute',
-    width: '100%',
-  },
-
   box: {
     backgroundColor: 'red',
     height: '100%',
@@ -179,29 +123,85 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 
-  shareTouchable: {
-    marginTop: 16,
-    marginBottom: 8,
+  chartContainer: {
+    height: 190,
+    paddingBottom: 8,
+    width: '100%',
+  },
+
+  deltaTag: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    paddingTop: 4,
+    justifyContent: 'flex-start',
+    marginTop: 8,
+    width: '100%',
   },
 
   divider: {
-    height: 1,
-    width: '92%',
     alignSelf: 'center',
     backgroundColor: colors.backgroundFour,
+    height: 1,
+    width: '92%',
+  },
+
+  hit: {
+    height: '100%',
+    left: 16,
+    position: 'absolute',
+    width: '100%',
+  },
+
+  metric: {
+    color: colors.textDark,
+    fontSize: 32,
+    fontWeight: '300',
+    lineHeight: 48,
+    paddingTop: 8,
+  },
+
+  month: {
+    fontSize: 14,
+    marginBottom: 8,
+    marginTop: 4,
+  },
+
+  primaryLabel: {
+    color: colors.textDark,
+    fontWeight: '300',
+    paddingHorizontal: 56,
+    textAlign: 'center',
+  },
+
+  root: {
+    backgroundColor: colors.white,
+    borderRadius: 16,
+    marginVertical: 8,
   },
 
   shareIcon: {
-    marginTop: 4,
     marginRight: 8,
+    marginTop: 4,
   },
 
   shareLabel: {
-    textAlign: 'center',
     color: colors.purple,
     fontSize: 14,
+    textAlign: 'center',
+  },
+
+  shareTouchable: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 8,
+    marginTop: 16,
+    paddingTop: 4,
+  },
+
+  snapshotContainer: {
+    backgroundColor: colors.white,
+    borderRadius: 16,
+    flexDirection: 'column',
+    paddingHorizontal: 16,
+    paddingTop: 24,
+    width: '100%',
   },
 });

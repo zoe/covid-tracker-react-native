@@ -1,14 +1,13 @@
+import DropdownField from '@covid/components/DropdownField';
+import { action, HandlerFunction } from '@storybook/addon-actions';
+import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { PickerItemProps } from 'react-native';
-import { storiesOf } from '@storybook/react-native';
-import { action, HandlerFunction } from '@storybook/addon-actions';
-
-import DropdownField from '@covid/components/DropdownField';
 
 const DropdownOptionsFactory = (labels: string[]): PickerItemProps[] => {
   return labels.map((label, index) => ({
-    testID: `test-id-${index}`,
     label,
+    testID: `test-id-${index}`,
     value: `value-${index}`,
   }));
 };
@@ -24,44 +23,44 @@ const ValueChangeHandler = (): HandlerFunction => action('dropdown-item-selected
 
 storiesOf('DropdownField', module).add('default view', () => (
   <DropdownField
-    selectedValue={null}
-    onValueChange={ValueChangeHandler()}
-    label="Test Label"
-    items={SingleLineItems}
     error={false}
+    items={SingleLineItems}
+    label="Test Label"
+    onValueChange={ValueChangeHandler()}
+    selectedValue={null}
   />
 ));
 
 storiesOf('DropdownField', module).add('multi lines items', () => (
   <DropdownField
-    selectedValue={null}
-    onValueChange={ValueChangeHandler()}
-    label="Test Label"
-    items={MultiLineItems}
     error={false}
+    items={MultiLineItems}
+    label="Test Label"
+    onValueChange={ValueChangeHandler()}
+    selectedValue={null}
   />
 ));
 
 storiesOf('DropdownField', module).add('no default items', () => (
-  <DropdownField selectedValue={null} onValueChange={ValueChangeHandler()} label="Test Label" error />
+  <DropdownField error label="Test Label" onValueChange={ValueChangeHandler()} selectedValue={null} />
 ));
 
 storiesOf('DropdownField', module).add('with default value', () => (
   <DropdownField
-    selectedValue={SingleLineItems[0].value}
-    onValueChange={ValueChangeHandler()}
-    label="Test Label"
-    items={SingleLineItems}
     error={false}
+    items={SingleLineItems}
+    label="Test Label"
+    onValueChange={ValueChangeHandler()}
+    selectedValue={SingleLineItems[0].value}
   />
 ));
 
 storiesOf('DropdownField', module).add('with error', () => (
   <DropdownField
-    selectedValue={null}
-    onValueChange={ValueChangeHandler()}
-    label="Test Label"
-    items={MultiLineItems}
     error
+    items={MultiLineItems}
+    label="Test Label"
+    onValueChange={ValueChangeHandler()}
+    selectedValue={null}
   />
 ));

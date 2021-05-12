@@ -1,18 +1,17 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-
 import { gbMap, svMap, usMap } from '@assets';
+import { BrandedButton } from '@covid/components';
 import { ClickableText, RegularText } from '@covid/components/Text';
+import { IContentService } from '@covid/core/content/ContentService';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
-import { cleanIntegerVal } from '@covid/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { IContentService } from '@covid/core/content/ContentService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { cleanIntegerVal } from '@covid/utils/number';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import { BrandedButton } from '@covid/components';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { ContributionCounter } from './components/ContributionCounter';
 import { getLocaleFlagIcon } from './helpers';
@@ -56,14 +55,14 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
   return (
     <View style={styles.safeView}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Image testID="map" style={styles.mapImage} source={getMapImage()} />
+        <Image source={getMapImage()} style={styles.mapImage} testID="map" />
         <View style={styles.loginContainer}>
-          <ClickableText testID="login" style={styles.login} onPress={onLoginPress}>
+          <ClickableText onPress={onLoginPress} style={styles.login} testID="login">
             {i18n.t('welcome.sign-in')}
           </ClickableText>
           <View style={styles.pipe} />
-          <TouchableOpacity testID="selectCountry" style={styles.countryFlag} onPress={onSelectCountryPress}>
-            <Image testID="flag" style={styles.flagIcon} source={getFlagIcon()} />
+          <TouchableOpacity onPress={onSelectCountryPress} style={styles.countryFlag} testID="selectCountry">
+            <Image source={getFlagIcon()} style={styles.flagIcon} testID="flag" />
           </TouchableOpacity>
         </View>
 
@@ -73,11 +72,11 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.contributors}>
-          <ContributionCounter testID="counter" variant={1} count={userCount} />
+          <ContributionCounter count={userCount} testID="counter" variant={1} />
         </View>
 
         <View style={styles.nextButtonContainer}>
-          <BrandedButton testID="more" style={styles.nextButton} onPress={onNextButtonPress}>
+          <BrandedButton onPress={onNextButtonPress} style={styles.nextButton} testID="more">
             {i18n.t('welcome.tell-me-more')}
           </BrandedButton>
         </View>
@@ -87,54 +86,21 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  safeView: {
-    flexGrow: 1,
-    backgroundColor: colors.brand,
+  contributors: {
+    marginBottom: 32,
+    paddingHorizontal: 32,
   },
-  scrollView: {
-    backgroundColor: colors.brand,
-    flexGrow: 1,
-    justifyContent: 'space-between',
-  },
-  rootContainer: {
-    marginTop: 32,
-    flex: 1,
-    backgroundColor: colors.brand,
-  },
-  nextButtonContainer: {
-    padding: 20,
-    paddingBottom: 30,
-  },
-  nextButton: {
-    backgroundColor: colors.purple,
-    fontSize: 16,
-  },
+  countryFlag: {},
   covidContainer: {
-    paddingHorizontal: 14,
     paddingBottom: 14,
-  },
-  mapImage: {
-    height: 300,
-    width: '100%',
-    resizeMode: 'contain',
-    alignSelf: 'center',
-  },
-  subtitle: {
-    color: colors.white,
-    fontSize: 32,
-    lineHeight: 48,
-    paddingVertical: 24,
-    paddingHorizontal: 24,
-    textAlign: 'center',
-    fontFamily: 'SofiaPro-Light',
+    paddingHorizontal: 14,
   },
   flagIcon: {
     height: 32,
     width: 32,
   },
-  contributors: {
-    paddingHorizontal: 32,
-    marginBottom: 32,
+  login: {
+    color: colors.white,
   },
   loginContainer: {
     alignItems: 'center',
@@ -143,15 +109,48 @@ const styles = StyleSheet.create({
     right: 32,
     top: 60,
   },
-  countryFlag: {},
-  login: {
-    color: colors.white,
+  mapImage: {
+    alignSelf: 'center',
+    height: 300,
+    resizeMode: 'contain',
+    width: '100%',
+  },
+  nextButton: {
+    backgroundColor: colors.purple,
+    fontSize: 16,
+  },
+  nextButtonContainer: {
+    padding: 20,
+    paddingBottom: 30,
   },
   pipe: {
     backgroundColor: colors.white,
     height: 32,
     marginHorizontal: 16,
     width: 1,
+  },
+  rootContainer: {
+    backgroundColor: colors.brand,
+    flex: 1,
+    marginTop: 32,
+  },
+  safeView: {
+    backgroundColor: colors.brand,
+    flexGrow: 1,
+  },
+  scrollView: {
+    backgroundColor: colors.brand,
+    flexGrow: 1,
+    justifyContent: 'space-between',
+  },
+  subtitle: {
+    color: colors.white,
+    fontFamily: 'SofiaPro-Light',
+    fontSize: 32,
+    lineHeight: 48,
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+    textAlign: 'center',
   },
 });
 

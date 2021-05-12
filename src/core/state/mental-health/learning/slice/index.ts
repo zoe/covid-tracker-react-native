@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../../../root';
-import { IMentalHealthLearning, TMentalHealthLearning, THasDisability } from '../types';
+import { IMentalHealthLearning, THasDisability, TMentalHealthLearning } from '../types';
 
 const initialState: IMentalHealthLearning = {
   conditions: [],
@@ -9,8 +9,8 @@ const initialState: IMentalHealthLearning = {
 };
 
 const mentalHealthLearningSlice = createSlice({
-  name: 'MentalHealthLearning',
   initialState,
+  name: 'MentalHealthLearning',
   reducers: {
     addLearningCondition: (state, action: PayloadAction<TMentalHealthLearning>) => {
       return {
@@ -38,11 +38,7 @@ const mentalHealthLearningSlice = createSlice({
   },
 });
 
-export const {
-  addLearningCondition,
-  removeLearningCondition,
-  setHasLearningDisability,
-  setLearningOtherText,
-} = mentalHealthLearningSlice.actions;
+export const { addLearningCondition, removeLearningCondition, setHasLearningDisability, setLearningOtherText } =
+  mentalHealthLearningSlice.actions;
 export const selectMentalHealthLearning = (state: RootState) => state.mentalHealthLearning;
 export default mentalHealthLearningSlice.reducer;

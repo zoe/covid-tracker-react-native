@@ -1,11 +1,11 @@
 import { FormikProps } from 'formik';
 import React from 'react';
-import { KeyboardTypeOptions, StyleSheet, StyleProp, TextInputProps, ViewStyle } from 'react-native';
+import { KeyboardTypeOptions, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
 
 import { FieldWrapper } from './Screen';
+import { RegularText } from './Text';
 import { ValidatedTextInput } from './ValidatedTextInput';
 import { ValidationError } from './ValidationError';
-import { RegularText } from './Text';
 
 interface IProps extends TextInputProps {
   formikProps: FormikProps<any>;
@@ -22,16 +22,16 @@ export function GenericTextField(props: IProps) {
   const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
   return (
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
-      {!!label ? <RegularText>{label}</RegularText> : null}
+      {label ? <RegularText>{label}</RegularText> : null}
       <ValidatedTextInput
-        placeholder={placeholder ?? ''}
-        value={formikProps.values[name]}
-        onChangeText={formikProps.handleChange(name)}
-        onBlur={formikProps.handleBlur(name)}
         error={formikProps.touched[name] && formikProps.errors[name]}
-        returnKeyType="next"
-        onSubmitEditing={() => {}}
         keyboardType={keyboardType}
+        onBlur={formikProps.handleBlur(name)}
+        onChangeText={formikProps.handleChange(name)}
+        onSubmitEditing={() => {}}
+        placeholder={placeholder ?? ''}
+        returnKeyType="next"
+        value={formikProps.values[name]}
         {...inputProps}
         {...otherProps}
       />

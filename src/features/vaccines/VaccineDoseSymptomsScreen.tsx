@@ -1,23 +1,22 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
-import { Form, Text } from 'native-base';
-import { StyleSheet, View } from 'react-native';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-
+import { BrandedButton } from '@covid/components';
+import { InlineNeedle } from '@covid/components/InlineNeedle';
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
-import { InlineNeedle } from '@covid/components/InlineNeedle';
-import { DoseSymptomsData, DoseSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
-import { useInjection } from '@covid/provider/services.hooks';
 import { IVaccineService } from '@covid/core/vaccine/VaccineService';
-import { Services } from '@covid/provider/services.types';
 import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
+import { DoseSymptomsData, DoseSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
+import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import { Formik } from 'formik';
+import { Form, Text } from 'native-base';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineDoseSymptoms'>;
@@ -33,7 +32,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
   const handleSubmit = async (formData: DoseSymptomsData) => {
     if (!isSubmitting) {
       setSubmitting(true);
-      const patientId = route.params.assessmentData.patientData.patientId;
+      const { patientId } = route.params.assessmentData.patientData;
       try {
         const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(formData);
         dosePayload.dose = route.params.dose;
@@ -52,9 +51,9 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
   const currentPatient = route.params.assessmentData.patientData.patientState;
   return (
     <View style={styles.rootContainer}>
-      <Screen profile={currentPatient.profile} navigation={navigation}>
+      <Screen navigation={navigation} profile={currentPatient.profile}>
         <Header>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ alignItems: 'center', flexDirection: 'row' }}>
             <InlineNeedle />
             <RegularText>{i18n.t('vaccines.dose-symptoms.label')}</RegularText>
           </View>
@@ -71,8 +70,9 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
             initialValues={{
               ...DoseSymptomsQuestions.initialFormValues(),
             }}
+            onSubmit={(values: DoseSymptomsData) => handleSubmit(values)}
             validationSchema={registerSchema}
-            onSubmit={(values: DoseSymptomsData) => handleSubmit(values)}>
+          >
             {(props) => {
               return (
                 <Form style={{ flexGrow: 1 }}>
@@ -82,10 +82,11 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
 
                   <View style={{ flex: 1 }} />
                   <BrandedButton
-                    style={styles.continueButton}
-                    onPress={props.handleSubmit}
                     enable={!isSubmitting}
-                    hideLoading={!isSubmitting}>
+                    hideLoading={!isSubmitting}
+                    onPress={props.handleSubmit}
+                    style={styles.continueButton}
+                  >
                     <Text>{i18n.t('vaccines.dose-symptoms.next')}</Text>
                   </BrandedButton>
                 </Form>
@@ -99,14 +100,14 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
 };
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: colors.backgroundPrimary,
+  continueButton: {
+    marginBottom: 32,
+    marginHorizontal: 16,
+    marginTop: 16,
   },
 
-  continueButton: {
-    marginTop: 16,
-    marginHorizontal: 16,
-    marginBottom: 32,
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
   },
 });

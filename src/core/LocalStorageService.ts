@@ -10,7 +10,7 @@ class LocalStorageService implements IStorageService {
     try {
       return await AsyncStorage.setItem(key, JSON.stringify(obj));
     } catch (error) {
-      // Silently fail
+      return undefined;
     }
   }
 

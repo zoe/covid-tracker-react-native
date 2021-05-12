@@ -1,11 +1,10 @@
 import { AssessmentInfosRequest } from '../dto/AssessmentInfosRequest';
-
-import { ActionTypes, PayloadActionType, ActionType } from './types';
+import { ActionType, ActionTypes, PayloadActionType } from './types';
 
 export const updateAssessment = (assessment: Partial<AssessmentInfosRequest>): PayloadActionType => {
   return {
-    type: ActionTypes.ASSESSMENT_UPDATED,
     payload: assessment,
+    type: ActionTypes.ASSESSMENT_UPDATED,
   };
 };
 

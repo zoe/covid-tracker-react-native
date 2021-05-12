@@ -1,7 +1,6 @@
+import { Icon, Text, TIconName } from '@covid/components';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { Icon, Text, TIconName } from '@covid/components';
 
 import { TTimelineEvent } from '../types';
 
@@ -19,7 +18,7 @@ function Highlight({ timelineEvent }: IProps) {
         <View style={styles.circle}>
           <Icon iconName={iconName} iconSize={iconSize} iconStyle={{ color: '#0165B5' }} />
         </View>
-        <Text textClass="h4" style={{ color: '#0165B5', marginLeft: 12 }}>
+        <Text style={{ color: '#0165B5', marginLeft: 12 }} textClass="h4">
           {title}
         </Text>
       </View>
@@ -28,20 +27,20 @@ function Highlight({ timelineEvent }: IProps) {
 }
 
 const styles = StyleSheet.create({
+  circle: {
+    alignItems: 'center',
+    backgroundColor: '#EEEEEF',
+    borderRadius: 16,
+    height: 32,
+    justifyContent: 'center',
+    width: 32,
+  },
   container: {
     marginBottom: 48,
   },
   row: {
     alignItems: 'center',
     flexDirection: 'row',
-  },
-  circle: {
-    alignItems: 'center',
-    backgroundColor: '#EEEEEF',
-    borderRadius: 16,
-    justifyContent: 'center',
-    height: 32,
-    width: 32,
   },
 });
 

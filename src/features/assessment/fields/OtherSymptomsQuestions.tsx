@@ -1,12 +1,11 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-import { Textarea } from 'native-base';
-
-import i18n from '@covid/locale/i18n';
+import { FieldWrapper } from '@covid/components/Screen';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ISymptomQuestions } from '@covid/features/assessment/fields/SymptomsTypes';
-import { FieldWrapper } from '@covid/components/Screen';
+import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import { Textarea } from 'native-base';
+import React from 'react';
+import * as Yup from 'yup';
 
 export type OtherSymptomsData = {
   otherSymptoms: string;
@@ -22,13 +21,13 @@ export const OtherSymptomsQuestions: ISymptomQuestions<Props, OtherSymptomsData>
   return (
     <FieldWrapper style={{ marginTop: 32 }}>
       <Textarea
-        rowSpan={5}
         bordered
-        placeholder={i18n.t('placeholder-optional-question')}
-        value={formikProps.values.otherSymptoms}
         onChangeText={formikProps.handleChange('otherSymptoms')}
-        underline={false}
+        placeholder={i18n.t('placeholder-optional-question')}
+        rowSpan={5}
         style={{ borderRadius: 8 }}
+        underline={false}
+        value={formikProps.values.otherSymptoms}
       />
     </FieldWrapper>
   );

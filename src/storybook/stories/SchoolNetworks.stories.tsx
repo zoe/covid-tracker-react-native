@@ -1,8 +1,7 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react-native';
-
-import { CenterView, DarkBackground } from '@covid/storybook/decorator';
 import { SchoolNetworks } from '@covid/components';
+import { CenterView, DarkBackground } from '@covid/storybook/decorator';
+import { storiesOf } from '@storybook/react-native';
+import React from 'react';
 
 storiesOf('SchoolNetworks', module)
   .addDecorator(CenterView)
@@ -11,38 +10,38 @@ storiesOf('SchoolNetworks', module)
     <SchoolNetworks
       schoolGroups={[
         {
-          id: '123',
-          name: 'Test school',
           cases: 5,
           groups: [
             {
+              cases: 1,
               id: '123',
               name: 'Class 2D',
-              cases: 1,
             },
             {
+              cases: 0,
               id: '1234',
               name: 'Class 3F',
-              cases: 0,
             },
             {
+              cases: null,
               id: '12345',
               name: 'Class 8E',
-              cases: null,
             },
           ],
+          id: '123',
+          name: 'Test school',
         },
         {
-          id: '1234',
-          name: 'Test school 2',
           cases: 5,
           groups: [
             {
+              cases: 1,
               id: '123',
               name: 'Group 1',
-              cases: 1,
             },
           ],
+          id: '1234',
+          name: 'Test school 2',
         },
       ]}
     />

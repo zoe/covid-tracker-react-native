@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { storiesOf } from '@storybook/react-native';
+import { FOOD_INTAKE_FREQUENCY, Selectable } from '@covid/components/inputs/Selectable';
 import { action, HandlerFunction } from '@storybook/addon-actions';
-import { View, Button } from 'react-native';
-
-import { Selectable, FOOD_INTAKE_FREQUENCY } from '@covid/components/inputs/Selectable';
+import { storiesOf } from '@storybook/react-native';
+import React, { useState } from 'react';
+import { Button, View } from 'react-native';
 
 import { PaddingView } from '../decorator';
 
@@ -15,10 +14,10 @@ const Toggleable: React.FC = () => {
   return (
     <View>
       <Button
-        title="Toggle"
         onPress={() => {
           setShow(!show);
         }}
+        title="Toggle"
       />
       <Selectable items={items} onSelected={ValueChangeHandler} />
     </View>

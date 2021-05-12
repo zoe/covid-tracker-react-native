@@ -1,27 +1,27 @@
-import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
 import { Text } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 function TimelineFooter() {
   const { navigate } = useNavigation();
   const label = 'Join the ZOE COVID Symptom Study App today to help science';
   return (
     <View style={styles.container}>
-      <Text style={styles.header} textAlign="center" textClass="p" rhythm={32}>
+      <Text rhythm={32} style={styles.header} textAlign="center" textClass="p">
         Check in soon to see how your personal timeline evolves!
       </Text>
       <TouchableOpacity
         accessible
         accessibilityRole="button"
-        style={styles.button}
         onPress={() => {
           Analytics.track(events.ANNIVERSARY_SHARE);
-          navigate('Share', { sharable: 'TIMELINE', label });
-        }}>
-        <Text textClass="pLight" textAlign="center" style={{ color: 'white' }}>
+          navigate('Share', { label, sharable: 'TIMELINE' });
+        }}
+        style={styles.button}
+      >
+        <Text style={{ color: 'white' }} textAlign="center" textClass="pLight">
           Share your contribution
         </Text>
       </TouchableOpacity>
@@ -30,19 +30,19 @@ function TimelineFooter() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    marginBottom: 96,
-  },
-  header: {
-    paddingHorizontal: 40,
-  },
   button: {
     alignItems: 'center',
     backgroundColor: '#0165B5',
     borderRadius: 28,
     height: 56,
     justifyContent: 'center',
+  },
+  container: {
+    marginBottom: 96,
+    padding: 16,
+  },
+  header: {
+    paddingHorizontal: 40,
   },
 });
 

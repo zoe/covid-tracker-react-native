@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-
 import { BasicPage, CheckBoxButton, DropdownField, GenericSelectableList, Text } from '@covid/components';
-import NavigatorService from '@covid/NavigatorService';
-import { useTheme } from '@covid/themes';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import {
   addLearningCondition,
   removeLearningCondition,
+  selectMentalHealthLearning,
   setHasLearningDisability,
   setLearningOtherText,
-  selectMentalHealthLearning,
   THasDisability,
   TMentalHealthLearning,
 } from '@covid/core/state/mental-health';
-import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import NavigatorService from '@covid/NavigatorService';
+import { mentalHealthApiClient } from '@covid/Services';
+import { useTheme } from '@covid/themes';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { TLearningQuestion, learningQuestions, learningInitialOptions } from '../data';
+import { learningInitialOptions, learningQuestions, TLearningQuestion } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthLearning() {
@@ -76,7 +75,7 @@ function MentalHealthLearning() {
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
       existingMentalHealth,
-      { mentalHealthLearning: MentalHealthLearning }
+      { mentalHealthLearning: MentalHealthLearning },
     );
     await mentalHealthApiClient.update(updatedMentalHealth);
     NavigatorService.navigate('MentalHealthEnd', undefined);
@@ -84,26 +83,26 @@ function MentalHealthLearning() {
 
   const renderOtherTextInput = MentalHealthLearning.conditions.includes('OTHER') ? (
     <ValidatedTextInput
-      placeholder={i18n.t('mental-health.specify-other')}
-      value={MentalHealthLearning.otherText}
       onChangeText={(text: string) => {
         dispatch(setLearningOtherText(text));
       }}
+      placeholder={i18n.t('mental-health.specify-other')}
+      value={MentalHealthLearning.otherText}
     />
   ) : null;
 
   return (
     <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
-        <Text textClass="h3" rhythm={16}>
+        <Text rhythm={16} textClass="h3">
           {i18n.t('mental-health.question-learning-title')}
         </Text>
         <View>
           <DropdownField
-            label={i18n.t('mental-health.question-learning')}
-            selectedValue={MentalHealthLearning.hasDisability}
-            onValueChange={handleSetHasLearningDisability}
             items={learningInitialOptions}
+            label={i18n.t('mental-health.question-learning')}
+            onValueChange={handleSetHasLearningDisability}
+            selectedValue={MentalHealthLearning.hasDisability}
           />
         </View>
         {MentalHealthLearning.hasDisability === 'YES' ? (

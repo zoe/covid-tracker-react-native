@@ -1,14 +1,13 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
+import { BrandedButton } from '@covid/components';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { openWebLink } from '@covid/utils/links';
 import { ScreenParamList } from '@covid/features';
 import { BulletedTextBlock } from '@covid/features/register/components/LegalComponents';
-import { BrandedButton } from '@covid/components';
+import { openWebLink } from '@covid/utils/links';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>;
@@ -159,7 +158,8 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             <ClickableText
               onPress={() =>
                 openWebLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
-              }>
+              }
+            >
               GDPR
             </ClickableText>{' '}
             you have a number of important rights free of charge. In summary, those include rights to:
@@ -176,9 +176,10 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             <ClickableText
               onPress={() =>
                 openWebLink(
-                  'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/'
+                  'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/',
                 )
-              }>
+              }
+            >
               Guidance from the United Kingdom Information Commissioner’s Office (ICO) on individuals rights under the
               General Data Protection Regulation.
             </ClickableText>
@@ -190,7 +191,8 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             <ClickableText
               onPress={() =>
                 openWebLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
-              }>
+              }
+            >
               General Data Protection Regulation
             </ClickableText>{' '}
             also gives you the right to lodge a complaint with a supervisory authority, in particular in the European
@@ -230,7 +232,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
         </ScrollView>
 
         {!this.viewOnly ? (
-          <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>
+          <BrandedButton onPress={() => this.props.navigation.goBack()} style={styles.button}>
             Back
           </BrandedButton>
         ) : null}
@@ -240,15 +242,15 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-  },
-
   button: {
     marginTop: 20,
+  },
+
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
   },
 });

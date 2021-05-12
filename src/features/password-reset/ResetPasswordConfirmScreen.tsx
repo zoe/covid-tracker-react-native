@@ -1,12 +1,11 @@
+import { BrandedButton } from '@covid/components';
+import { HeaderText, RegularText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { HeaderText, RegularText } from '@covid/components/Text';
-import { BrandedButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ResetPasswordConfirm'>;
@@ -27,7 +26,7 @@ export class ResetPasswordConfirmScreen extends Component<PropsType, State> {
 
             <RegularText style={{ paddingTop: 24 }}>{i18n.t('reset-password-confirm.text')}</RegularText>
 
-            <BrandedButton style={{ marginTop: 32 }} onPress={() => this.props.navigation.navigate('Login')}>
+            <BrandedButton onPress={() => this.props.navigation.navigate('Login')} style={{ marginTop: 32 }}>
               {i18n.t('reset-password-confirm.button')}
             </BrandedButton>
           </View>
@@ -38,15 +37,15 @@ export class ResetPasswordConfirmScreen extends Component<PropsType, State> {
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingTop: 56,
-  },
   formItem: {
     paddingHorizontal: 16,
     paddingVertical: 4,
+  },
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingTop: 56,
   },
 });

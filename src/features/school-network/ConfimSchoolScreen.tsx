@@ -1,15 +1,14 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-
 import { Button } from '@covid/components/buttons/Button';
 import Screen from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { JoinHeader } from './partials';
 
@@ -27,19 +26,19 @@ function ConfirmSchoolScreen({ route, navigation }: IProps) {
   };
 
   return (
-    <Screen profile={patientData.patientState.profile} navigation={navigation}>
+    <Screen navigation={navigation} profile={patientData.patientState.profile}>
       <View style={styles.container}>
         <JoinHeader
-          headerText="school-networks.join-school.school-code-confirm"
           bodyText="school-networks.join-school.school-code-confirm-instructions"
           currentStep={2}
+          headerText="school-networks.join-school.school-code-confirm"
           maxSteps={4}
         />
         <View style={styles.box}>
           <RegularText>{school.name}</RegularText>
         </View>
       </View>
-      <Button onPress={handleOnPress} branded>
+      <Button branded onPress={handleOnPress}>
         {i18n.t('legal.confirm')}
       </Button>
     </Screen>
@@ -47,17 +46,17 @@ function ConfirmSchoolScreen({ route, navigation }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   box: {
     alignContent: 'center',
     backgroundColor: colors.backgroundTertiary,
     borderRadius: 8,
     justifyContent: 'center',
-    marginTop: 16,
     marginHorizontal: 16,
+    marginTop: 16,
     padding: 16,
+  },
+  container: {
+    flex: 1,
   },
 });
 

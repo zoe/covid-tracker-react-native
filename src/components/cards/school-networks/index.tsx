@@ -1,6 +1,5 @@
+import { ISubscribedSchoolGroupStats, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import React from 'react';
-
-import { ISubscribedSchoolStats, ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 
 import Card from './Card';
 import { SContainerView } from './styles';
@@ -21,17 +20,16 @@ const TransformResponseToUIData = (data: ISubscribedSchoolGroupStats[]): ISubscr
         groups: [...school.groups, group],
       };
       return initial;
-    } else {
-      initial.push({
-        id: group.school.id,
-        name: group.school.name,
-        size: group.school.size,
-        cases: group.cases,
-        groups: [group],
-        higher_education: group.school.higher_education,
-      });
-      return initial;
     }
+    initial.push({
+      cases: group.cases,
+      groups: [group],
+      higher_education: group.school.higher_education,
+      id: group.school.id,
+      name: group.school.name,
+      size: group.school.size,
+    });
+    return initial;
   }, []);
 };
 
@@ -40,7 +38,7 @@ function SchoolNetworks(props: Props) {
   return (
     <SContainerView>
       {data.map((school, index) => {
-        return school.higher_education ? null : <Card school={school} key={school.id} />;
+        return school.higher_education ? null : <Card key={school.id} school={school} />;
       })}
     </SContainerView>
   );

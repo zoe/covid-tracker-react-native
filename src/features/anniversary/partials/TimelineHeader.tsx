@@ -1,8 +1,7 @@
+import { covidByZoeIconDark } from '@assets';
+import { BasicNavHeader } from '@covid/components';
 import React from 'react';
 import { Image } from 'react-native';
-
-import { BasicNavHeader } from '@covid/components';
-import { covidByZoeIconDark } from '@assets';
 
 function TimelineHeader() {
   const getLogo = () => (
@@ -10,8 +9,8 @@ function TimelineHeader() {
       source={covidByZoeIconDark}
       style={{
         aspectRatio: 2.25,
-        resizeMode: 'contain',
         height: undefined,
+        resizeMode: 'contain',
         width: 100,
       }}
     />

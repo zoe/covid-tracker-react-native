@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import moment from 'moment';
-
 import { Text } from '@covid/components';
+import moment from 'moment';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { TTimelineEvent } from '../types';
 
@@ -13,28 +12,32 @@ interface IProps {
 
 function TimelineNode({ timelineEvent, dateFormat = 'Do MMMM YYYY' }: IProps) {
   return (
-    <View style={[styles.container]} accessible>
+    <View accessible style={[styles.container]}>
       <View style={styles.row}>
         <View style={styles.node} />
-        <Text textClass="pSmall" style={styles.date}>
+        <Text style={styles.date} textClass="pSmall">
           {moment(timelineEvent.date).format(dateFormat)}
         </Text>
       </View>
       <View style={styles.body}>
-        {!!timelineEvent.title ? <Text textClass="h5Light">{timelineEvent.title}</Text> : null}
-        {!!timelineEvent.sub_title ? <Text textClass="h5Medium">{timelineEvent.sub_title}</Text> : null}
+        {timelineEvent.title ? <Text textClass="h5Light">{timelineEvent.title}</Text> : null}
+        {timelineEvent.sub_title ? <Text textClass="h5Medium">{timelineEvent.sub_title}</Text> : null}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  body: {
+    marginBottom: 48,
+    marginLeft: 24,
+    marginTop: 8,
+  },
   container: {
     marginLeft: 11,
   },
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
+  date: {
+    color: '#0165B5',
   },
   node: {
     backgroundColor: '#0165B5',
@@ -43,13 +46,9 @@ const styles = StyleSheet.create({
     marginRight: 12,
     width: 12,
   },
-  date: {
-    color: '#0165B5',
-  },
-  body: {
-    marginLeft: 24,
-    marginTop: 8,
-    marginBottom: 48,
+  row: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 

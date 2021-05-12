@@ -1,19 +1,18 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import appConfig from '@covid/appConfig';
+import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import { Services } from '@covid/provider/services.types';
-import { lazyInject } from '@covid/provider/services';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appConfig from '@covid/appConfig';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
-import { BrandedButton } from '@covid/components';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'NursesConsentUS'>;
@@ -52,7 +51,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
       await this.consentService.setConsentSigned(
         'US Nurses',
         appConfig.nursesConsentVersionUS,
-        appConfig.privacyPolicyVersionUS
+        appConfig.privacyPolicyVersionUS,
       );
       this.props.navigation.navigate('Register');
     }
@@ -207,7 +206,8 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           <RegularText>
             {i18n.t('consent-nurses-us.para-15')}{' '}
             <ClickableText
-              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+            >
               {i18n.t('consent-nurses-us.privacy-policy')}
             </ClickableText>
             . {i18n.t('consent-nurses-us.para-15-2')}
@@ -227,7 +227,8 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
             {'\n'}
             {i18n.t('consent-nurses-us.para-16-2')}{' '}
             <ClickableText
-              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+            >
               {i18n.t('consent-nurses-us.privacy-policy')}
             </ClickableText>
             .{'\n'}
@@ -258,23 +259,26 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
 
           {!this.viewOnly ? (
             <CheckboxList>
-              <CheckboxItem value={this.state.processingChecked} onChange={this.handleProcessingChange}>
+              <CheckboxItem onChange={this.handleProcessingChange} value={this.state.processingChecked}>
                 {i18n.t('consent-nurses-us.i-consent')}{' '}
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+                >
                   {i18n.t('consent-nurses-us.privacy-policy')}
                 </ClickableText>
                 .
               </CheckboxItem>
-              <CheckboxItem value={this.state.termsOfUseChecked} onChange={this.handleTermsOfUseChange}>
+              <CheckboxItem onChange={this.handleTermsOfUseChange} value={this.state.termsOfUseChecked}>
                 {i18n.t('consent-nurses-us.i-read-accept')}{' '}
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}>
+                  onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}
+                >
                   {i18n.t('consent-nurses-us.terms-of-use')}
                 </ClickableText>{' '}
                 and{' '}
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+                >
                   {i18n.t('consent-nurses-us.privacy-policy')}
                 </ClickableText>
                 .
@@ -285,10 +289,11 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
 
         {!this.viewOnly ? (
           <BrandedButton
-            style={styles.button}
             hideLoading
             enable={this.state.processingChecked && this.state.termsOfUseChecked}
-            onPress={this.handleAgreeClicked}>
+            onPress={this.handleAgreeClicked}
+            style={styles.button}
+          >
             {i18n.t('consent-nurses-us.i-agree')}
           </BrandedButton>
         ) : null}
@@ -298,14 +303,14 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-  },
   button: {
     marginTop: 20,
+  },
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
   },
 });

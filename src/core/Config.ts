@@ -1,7 +1,7 @@
+import DefaultConfig from './config/default.json';
 import GBConfig from './config/GB.json';
 import SEConfig from './config/SE.json';
 import USConfig from './config/US.json';
-import DefaultConfig from './config/default.json';
 
 export type ConfigType = {
   country: string;

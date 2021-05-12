@@ -1,18 +1,17 @@
+import DropdownIcon from '@assets/icons/DropdownIcon';
+import { ActionButton } from '@covid/components';
+import { FieldWrapper } from '@covid/components/Screen';
+import { ValidationError } from '@covid/components/ValidationError';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import { FormikProps } from 'formik';
+import moment from 'moment';
+import { Label } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Label } from 'native-base';
-import { FormikProps } from 'formik';
-import * as Yup from 'yup';
-import moment from 'moment';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-
-import i18n from '@covid/locale/i18n';
-import DropdownIcon from '@assets/icons/DropdownIcon';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { FieldWrapper } from '@covid/components/Screen';
-import { ActionButton } from '@covid/components';
-import { ValidationError } from '@covid/components/ValidationError';
-import { colors } from '@theme';
+import * as Yup from 'yup';
 
 export interface ICovidTestTimeData {
   dateTestTime: Date | undefined;
@@ -52,22 +51,23 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
       <ActionButton
         error={getHasError()}
         icon={<DropdownIcon />}
-        onPress={() => setState({ ...state, showTimePicker: true })}>
+        onPress={() => setState({ ...state, showTimePicker: true })}
+      >
         {props.formikProps.values.dateTestTime
           ? moment(new Date(props.formikProps.values.dateTestTime)).format('h:mm a')
           : 'Select time'}
       </ActionButton>
       {state.showTimePicker ? (
         <DateTimePickerModal
-          isVisible={state.showTimePicker}
           headerTextIOS={i18n.t('covid-test.question-pick-a-time')}
+          isVisible={state.showTimePicker}
           mode="time"
-          onConfirm={handleSetTime}
           onCancel={() => setState({ ...state, showTimePicker: false })}
+          onConfirm={handleSetTime}
         />
       ) : null}
-      {!!props.formikProps.errors.dateTestTime ? (
-        <View style={{ marginTop: 4, marginHorizontal: 4 }}>
+      {props.formikProps.errors.dateTestTime ? (
+        <View style={{ marginHorizontal: 4, marginTop: 4 }}>
           <ValidationError error={props.formikProps.touched.dateTestTime && props.formikProps.errors.dateTestTime} />
         </View>
       ) : null}

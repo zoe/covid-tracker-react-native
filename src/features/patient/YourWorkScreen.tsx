@@ -1,34 +1,33 @@
-import { Formik, FormikProps } from 'formik';
-import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
-import * as Yup from 'yup';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-
+import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import i18n from '@covid/locale/i18n';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import {
-  HealthCareStaffOptions,
-  EquipmentUsageOptions,
-  AvailabilityAlwaysOptions,
-  AvailabilitySometimesOptions,
-  AvailabilityNeverOptions,
-  PatientInteractions,
-  PatientInfosRequest,
-} from '@covid/core/user/dto/UserAPIContracts';
 import YesNoField from '@covid/components/YesNoField';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import {
+  AvailabilityAlwaysOptions,
+  AvailabilityNeverOptions,
+  AvailabilitySometimesOptions,
+  EquipmentUsageOptions,
+  HealthCareStaffOptions,
+  PatientInfosRequest,
+  PatientInteractions,
+} from '@covid/core/user/dto/UserAPIContracts';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik, FormikProps } from 'formik';
+import { Form, Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 export interface IYourWorkData {
   isHealthcareStaff: HealthCareStaffOptions;
@@ -59,16 +58,16 @@ export type State = {
 };
 
 const initialState: State = {
-  isDiabetesRegistry: false,
+  atCareFacility: false,
+  atClinicOutsideHospital: false,
+  atHomeHealth: false,
   atHospitalInpatient: false,
   atHospitalOutpatient: false,
-  atClinicOutsideHospital: false,
-  atCareFacility: false,
-  atHomeHealth: false,
-  atSchoolClinic: false,
   atOtherFacility: false,
-
+  atSchoolClinic: false,
   errorMessage: '',
+
+  isDiabetesRegistry: false,
 };
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
@@ -88,7 +87,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
   handleUpdateWork(formData: IYourWorkData) {
     const currentPatient = patientCoordinator.patientData.patientState;
-    const patientId = currentPatient.patientId;
+    const { patientId } = currentPatient;
     const infos = this.createPatientInfos(formData);
 
     this.patientService
@@ -101,7 +100,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
       .catch(() =>
         this.setState({
           errorMessage: i18n.t('something-went-wrong'),
-        })
+        }),
       );
   }
 
@@ -116,13 +115,13 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     if (formData.isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT || formData.isCarer === 'yes') {
       infos = {
         ...infos,
-        have_worked_in_hospital_inpatient: this.state.atHospitalInpatient,
-        have_worked_in_hospital_outpatient: this.state.atHospitalOutpatient,
-        have_worked_in_hospital_clinic: this.state.atClinicOutsideHospital,
         have_worked_in_hospital_care_facility: this.state.atCareFacility,
+        have_worked_in_hospital_clinic: this.state.atClinicOutsideHospital,
         have_worked_in_hospital_home_health: this.state.atHomeHealth,
-        have_worked_in_hospital_school_clinic: this.state.atSchoolClinic,
+        have_worked_in_hospital_inpatient: this.state.atHospitalInpatient,
         have_worked_in_hospital_other: this.state.atOtherFacility,
+        have_worked_in_hospital_outpatient: this.state.atHospitalOutpatient,
+        have_worked_in_hospital_school_clinic: this.state.atSchoolClinic,
 
         ...(formData.hasPatientInteraction && {
           interacted_patients_with_covid: formData.hasPatientInteraction,
@@ -149,8 +148,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   }
 
   registerSchema = Yup.object().shape({
-    isHealthcareStaff: Yup.string().required(i18n.t('required-is-healthcare-worker')),
-    isCarer: Yup.string().required(i18n.t('required-is-carer')),
     hasPatientInteraction: Yup.string().when(['isHealthcareStaff', 'isCarer'], {
       is: (isHealthcareStaff, isCarer) =>
         isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT || isCarer === 'yes',
@@ -161,16 +158,18 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT || isCarer === 'yes',
       then: Yup.string().required(i18n.t('required-has-used-ppe-equipment')),
     }),
+    isCarer: Yup.string().required(i18n.t('required-is-carer')),
+    isHealthcareStaff: Yup.string().required(i18n.t('required-is-healthcare-worker')),
     ppeAvailabilityAlways: Yup.string().when('hasUsedPPEEquipment', {
       is: 'always',
       then: Yup.string().required(i18n.t('required-ppe-availability')),
     }),
-    ppeAvailabilitySometimes: Yup.string().when('hasUsedPPEEquipment', {
-      is: 'sometimes',
-      then: Yup.string().required(i18n.t('required-ppe-availability')),
-    }),
     ppeAvailabilityNever: Yup.string().when('hasUsedPPEEquipment', {
       is: 'never',
+      then: Yup.string().required(i18n.t('required-ppe-availability')),
+    }),
+    ppeAvailabilitySometimes: Yup.string().when('hasUsedPPEEquipment', {
+      is: 'sometimes',
       then: Yup.string().required(i18n.t('required-ppe-availability')),
     }),
   });
@@ -262,19 +261,20 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     ];
 
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>{i18n.t('title-about-work')}</HeaderText>
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={2} maxSteps={6} />
+          <ProgressStatus maxSteps={6} step={2} />
         </ProgressBlock>
 
         <Formik
           initialValues={{} as IYourWorkData}
+          onSubmit={(values: IYourWorkData) => this.handleUpdateWork(values)}
           validationSchema={this.registerSchema}
-          onSubmit={(values: IYourWorkData) => this.handleUpdateWork(values)}>
+        >
           {(props) => {
             const {
               isHealthcareStaff,
@@ -295,18 +295,18 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 <Form>
                   <View style={{ marginHorizontal: 16 }}>
                     <DropdownField
-                      selectedValue={isHealthcareStaff}
-                      onValueChange={handleChange('isHealthcareStaff')}
-                      label={i18n.t('are-you-healthcare-staff')}
-                      items={healthcareStaffOptions}
                       error={touched.isHealthcareStaff && errors.isHealthcareStaff}
+                      items={healthcareStaffOptions}
+                      label={i18n.t('are-you-healthcare-staff')}
+                      onValueChange={handleChange('isHealthcareStaff')}
+                      selectedValue={isHealthcareStaff}
                     />
 
                     <YesNoField
-                      selectedValue={isCarer}
-                      onValueChange={handleChange('isCarer')}
-                      label={i18n.t('are-you-carer')}
                       error={touched.isCarer && errors.isCarer}
+                      label={i18n.t('are-you-carer')}
+                      onValueChange={handleChange('isCarer')}
+                      selectedValue={isCarer}
                     />
 
                     {/* if is healthcare worker question is yes */}
@@ -318,66 +318,73 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
                             <CheckboxList>
                               <CheckboxItem
-                                value={this.state.atHospitalInpatient}
                                 onChange={(value: boolean) =>
                                   this.setState({
                                     atHospitalInpatient: value,
                                   })
-                                }>
+                                }
+                                value={this.state.atHospitalInpatient}
+                              >
                                 {i18n.t('your-work.worked-hospital-inpatient')}
                               </CheckboxItem>
                               <CheckboxItem
-                                value={this.state.atHospitalOutpatient}
                                 onChange={(value: boolean) =>
                                   this.setState({
                                     atHospitalOutpatient: value,
                                   })
-                                }>
+                                }
+                                value={this.state.atHospitalOutpatient}
+                              >
                                 {i18n.t('your-work.worked-hospital-outpatient')}
                               </CheckboxItem>
                               <CheckboxItem
-                                value={this.state.atClinicOutsideHospital}
                                 onChange={(value: boolean) =>
                                   this.setState({
                                     atClinicOutsideHospital: value,
                                   })
-                                }>
+                                }
+                                value={this.state.atClinicOutsideHospital}
+                              >
                                 {i18n.t('your-work.worked-clinic-outside-hospital')}
                               </CheckboxItem>
                               <CheckboxItem
-                                value={this.state.atCareFacility}
                                 onChange={(value: boolean) =>
                                   this.setState({
                                     atCareFacility: value,
                                   })
-                                }>
+                                }
+                                value={this.state.atCareFacility}
+                              >
                                 {i18n.t('your-work.worked-nursing-home')}
                               </CheckboxItem>
                               <CheckboxItem
-                                value={this.state.atHomeHealth}
                                 onChange={(value: boolean) =>
                                   this.setState({
                                     atHomeHealth: value,
                                   })
-                                }>
+                                }
+                                value={this.state.atHomeHealth}
+                              >
                                 {i18n.t('your-work.worked-home-health')}
                               </CheckboxItem>
                               <CheckboxItem
-                                value={this.state.atSchoolClinic}
                                 onChange={(value: boolean) =>
                                   this.setState({
                                     atSchoolClinic: value,
                                   })
-                                }>
+                                }
+                                value={this.state.atSchoolClinic}
+                              >
                                 {i18n.t('your-work.worked-school-clinic')}
                               </CheckboxItem>
                               <CheckboxItem
-                                value={this.state.atOtherFacility}
                                 onChange={(value: boolean) =>
                                   this.setState({
                                     atOtherFacility: value,
                                   })
-                                }>
+                                }
+                                value={this.state.atOtherFacility}
+                              >
                                 {i18n.t('your-work.worked-other-facility')}
                               </CheckboxItem>
                             </CheckboxList>
@@ -385,48 +392,48 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         </FieldWrapper>
 
                         <DropdownField
-                          selectedValue={hasPatientInteraction}
-                          onValueChange={handleChange('hasPatientInteraction')}
-                          label={i18n.t('label-interacted-with-infected-patients')}
-                          items={patientInteractionOptions}
                           error={touched.hasPatientInteraction && errors.hasPatientInteraction}
+                          items={patientInteractionOptions}
+                          label={i18n.t('label-interacted-with-infected-patients')}
+                          onValueChange={handleChange('hasPatientInteraction')}
+                          selectedValue={hasPatientInteraction}
                         />
 
                         <DropdownField
-                          selectedValue={hasUsedPPEEquipment}
-                          onValueChange={handleChange('hasUsedPPEEquipment')}
-                          label={i18n.t('label-used-ppe-equipment')}
-                          items={equipmentUsageOptions}
                           error={touched.hasUsedPPEEquipment && errors.hasUsedPPEEquipment}
+                          items={equipmentUsageOptions}
+                          label={i18n.t('label-used-ppe-equipment')}
+                          onValueChange={handleChange('hasUsedPPEEquipment')}
+                          selectedValue={hasUsedPPEEquipment}
                         />
 
                         {hasUsedPPEEquipment === 'always' ? (
                           <DropdownField
-                            selectedValue={ppeAvailabilityAlways}
-                            onValueChange={handleChange('ppeAvailabilityAlways')}
-                            label={i18n.t('label-chose-an-option')}
-                            items={availabilityAlwaysOptions}
                             error={touched.ppeAvailabilityAlways && errors.ppeAvailabilityAlways}
+                            items={availabilityAlwaysOptions}
+                            label={i18n.t('label-chose-an-option')}
+                            onValueChange={handleChange('ppeAvailabilityAlways')}
+                            selectedValue={ppeAvailabilityAlways}
                           />
                         ) : null}
 
                         {hasUsedPPEEquipment === 'sometimes' ? (
                           <DropdownField
-                            selectedValue={ppeAvailabilitySometimes}
-                            onValueChange={handleChange('ppeAvailabilitySometimes')}
-                            label={i18n.t('label-chose-an-option')}
-                            items={availabilitySometimesOptions}
                             error={touched.ppeAvailabilitySometimes && errors.ppeAvailabilitySometimes}
+                            items={availabilitySometimesOptions}
+                            label={i18n.t('label-chose-an-option')}
+                            onValueChange={handleChange('ppeAvailabilitySometimes')}
+                            selectedValue={ppeAvailabilitySometimes}
                           />
                         ) : null}
 
                         {hasUsedPPEEquipment === 'never' ? (
                           <DropdownField
-                            selectedValue={ppeAvailabilityNever}
-                            onValueChange={handleChange('ppeAvailabilityNever')}
-                            label={i18n.t('label-chose-an-option')}
-                            items={availabilityNeverOptions}
                             error={touched.ppeAvailabilityNever && errors.ppeAvailabilityNever}
+                            items={availabilityNeverOptions}
+                            label={i18n.t('label-chose-an-option')}
+                            onValueChange={handleChange('ppeAvailabilityNever')}
+                            selectedValue={ppeAvailabilityNever}
                           />
                         ) : null}
                       </View>
@@ -439,9 +446,10 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   ) : null}
 
                   <BrandedButton
-                    onPress={handleSubmit}
                     enable={this.checkFormFilled(props)}
-                    hideLoading={!props.isSubmitting}>
+                    hideLoading={!props.isSubmitting}
+                    onPress={handleSubmit}
+                  >
                     {i18n.t('next-question')}
                   </BrandedButton>
                 </Form>

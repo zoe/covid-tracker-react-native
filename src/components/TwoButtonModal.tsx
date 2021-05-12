@@ -1,10 +1,9 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { View } from 'native-base';
-
+import { ModalContainer } from '@covid/components/ModalContainer';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
-import { ModalContainer } from '@covid/components/ModalContainer';
+import { View } from 'native-base';
+import React from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 type Props = {
   headerText?: string;
@@ -32,11 +31,11 @@ export const TwoButtonModal: React.FC<Props> = (props) => {
       <RegularText style={styles.text}>{props.bodyText}</RegularText>
 
       <View style={styles.actionContainer}>
-        <TouchableOpacity style={styles.button} onPress={props.button1Callback}>
+        <TouchableOpacity onPress={props.button1Callback} style={styles.button}>
           <RegularText style={[styles.button1Text, button1Color]}>{props.button1Text}</RegularText>
         </TouchableOpacity>
         <View style={styles.verticalDivider} />
-        <TouchableOpacity style={styles.button} onPress={props.button2Callback}>
+        <TouchableOpacity onPress={props.button2Callback} style={styles.button}>
           <RegularText style={[styles.button2Text, button2Color]}>{props.button2Text}</RegularText>
         </TouchableOpacity>
       </View>
@@ -45,27 +44,16 @@ export const TwoButtonModal: React.FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  verticalDivider: {
-    height: '100%',
-    width: 1,
-    backgroundColor: colors.actionButtonBorder,
-  },
-  text: {
-    paddingBottom: 20,
-    marginHorizontal: 20,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  header: {
-    paddingBottom: 10,
-    fontSize: 18,
-    textAlign: 'center',
-  },
   actionContainer: {
+    borderColor: colors.actionButtonBorder,
+    borderTopWidth: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    borderTopWidth: 1,
-    borderColor: colors.actionButtonBorder,
+  },
+  button: {
+    height: 50,
+    justifyContent: 'center',
+    width: '50%',
   },
   button1Text: {
     textAlign: 'center',
@@ -73,9 +61,20 @@ const styles = StyleSheet.create({
   button2Text: {
     textAlign: 'center',
   },
-  button: {
-    width: '50%',
-    height: 50,
-    justifyContent: 'center',
+  header: {
+    fontSize: 18,
+    paddingBottom: 10,
+    textAlign: 'center',
+  },
+  text: {
+    fontSize: 14,
+    marginHorizontal: 20,
+    paddingBottom: 20,
+    textAlign: 'center',
+  },
+  verticalDivider: {
+    backgroundColor: colors.actionButtonBorder,
+    height: '100%',
+    width: 1,
   },
 });

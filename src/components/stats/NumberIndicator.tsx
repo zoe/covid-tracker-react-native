@@ -1,8 +1,7 @@
+import { colors } from '@theme';
+import { View } from 'native-base';
 import React from 'react';
 import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
-import { View } from 'native-base';
-
-import { colors } from '@theme';
 
 interface IProps {
   number?: number;
@@ -16,16 +15,16 @@ export function NumberIndicator({ number, style }: IProps) {
 const styles = StyleSheet.create({
   dot: {
     backgroundColor: colors.coral,
-    width: 24,
-    height: 24,
     borderRadius: 12,
+    height: 24,
     justifyContent: 'center',
+    width: 24,
   },
   label: {
-    color: colors.white,
     alignSelf: 'center',
-    paddingLeft: 2,
+    color: colors.white,
     fontFamily: 'SofiaPro-Medium',
     fontSize: 14,
+    paddingLeft: 2,
   },
 });

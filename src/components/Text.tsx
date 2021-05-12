@@ -1,7 +1,6 @@
-import React from 'react';
-import { StyleSheet, Text, View, StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native';
-
 import { colors, fontStyles } from '@theme';
+import React from 'react';
+import { ImageStyle, StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 
 import { ITest } from './types';
 
@@ -32,7 +31,7 @@ export const FieldLabel = ({ style, children }: Props) => (
 );
 
 export const ClippedText = ({ style, children }: Props) => (
-  <Text style={[styles.regularText, style]} numberOfLines={1}>
+  <Text numberOfLines={1} style={[styles.regularText, style]}>
     {children}
   </Text>
 );
@@ -62,7 +61,7 @@ export interface IClickableProps extends ITest {
 }
 
 export const ClickableText = ({ style, children, onPress }: IClickableProps) => (
-  <Text style={[styles.clickableText, style]} onPress={onPress}>
+  <Text onPress={onPress} style={[styles.clickableText, style]}>
     {children}
   </Text>
 );
@@ -72,12 +71,31 @@ export const Divider: React.FC<{ styles?: StyleProp<ViewStyle> }> = ({ styles: p
 );
 
 const styles = StyleSheet.create({
-  header0Text: {
-    ...fontStyles.h0Reg,
+  captionText: {
+    ...fontStyles.bodySmallLight,
   },
 
-  headerText: {
-    ...fontStyles.h2Reg,
+  clickableText: {
+    ...fontStyles.bodyReg,
+    color: colors.purple,
+  },
+
+  divider: {
+    borderBottomWidth: 2,
+    borderColor: colors.backgroundFour,
+  },
+
+  errorText: {
+    ...fontStyles.bodyReg,
+    color: colors.feedbackBad,
+  },
+
+  fieldLabel: {
+    marginBottom: -16,
+  },
+
+  header0Text: {
+    ...fontStyles.h0Reg,
   },
 
   header3Text: {
@@ -88,25 +106,8 @@ const styles = StyleSheet.create({
     ...fontStyles.h1Light,
   },
 
-  regularText: {
-    ...fontStyles.bodyReg,
-  },
-
-  secondaryText: {
-    ...fontStyles.bodySecondary,
-  },
-
-  regularMutedText: {
-    ...fontStyles.bodyMutedReg,
-  },
-
-  captionText: {
-    ...fontStyles.bodySmallLight,
-  },
-
-  errorText: {
-    ...fontStyles.bodyReg,
-    color: colors.feedbackBad,
+  headerText: {
+    ...fontStyles.h2Reg,
   },
 
   regularBoldText: {
@@ -114,17 +115,15 @@ const styles = StyleSheet.create({
     fontFamily: 'SofiaPro-SemiBold',
   },
 
-  clickableText: {
+  regularMutedText: {
+    ...fontStyles.bodyMutedReg,
+  },
+
+  regularText: {
     ...fontStyles.bodyReg,
-    color: colors.purple,
   },
 
-  fieldLabel: {
-    marginBottom: -16,
-  },
-
-  divider: {
-    borderBottomWidth: 2,
-    borderColor: colors.backgroundFour,
+  secondaryText: {
+    ...fontStyles.bodySecondary,
   },
 });

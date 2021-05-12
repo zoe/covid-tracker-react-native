@@ -1,7 +1,6 @@
+import { TStyleObject } from '@covid/utils/types';
 import React, { ReactElement } from 'react';
 import { TouchableOpacity } from 'react-native';
-
-import { TStyleObject } from '@covid/utils/types';
 
 interface IProps<T> {
   collection: T[];

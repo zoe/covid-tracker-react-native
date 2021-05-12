@@ -1,18 +1,17 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-import { Item } from 'native-base';
-import { StyleSheet, View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { FieldLabel, RegularText } from '@covid/components/Text';
 import { CheckboxList } from '@covid/components/Checkbox';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import {
   createSymptomCheckboxes,
-  SymptomCheckBoxData,
   ISymptomQuestions,
+  SymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
+import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import { Item } from 'native-base';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 export type GutStomachSymptomsData = GutStomachSymptomsCheckBoxData & GutStomachSymptomsFollowUpData;
 
@@ -23,7 +22,7 @@ type GutStomachSymptomsCheckBoxData = {
   skippedMeals: boolean;
 };
 
-type GutStomachSymptomsFollowUpData = any; //No follow up questions so type is unused.
+type GutStomachSymptomsFollowUpData = any; // No follow up questions so type is unused.
 
 type Props = {
   formikProps: FormikProps<GutStomachSymptomsData>;
@@ -50,8 +49,8 @@ export const GutStomachSymptomsQuestions: ISymptomQuestions<Props, GutStomachSym
 GutStomachSymptomsQuestions.initialFormValues = (): GutStomachSymptomsData => {
   return {
     abdominalPain: false,
-    nausea: false,
     diarrhoea: false,
+    nausea: false,
     skippedMeals: false,
   };
 };
@@ -63,8 +62,8 @@ GutStomachSymptomsQuestions.schema = () => {
 GutStomachSymptomsQuestions.createAssessment = (formData: GutStomachSymptomsData): Partial<AssessmentInfosRequest> => {
   return {
     abdominal_pain: formData.abdominalPain,
-    nausea: formData.nausea,
     diarrhoea: formData.diarrhoea,
+    nausea: formData.nausea,
     skipped_meals: formData.skippedMeals,
   };
 };

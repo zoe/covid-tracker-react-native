@@ -1,14 +1,13 @@
+import { fingerPrickX3, noseSwabX3, otherTestX3, spitX3, syringeX3 } from '@assets';
+import DropdownField from '@covid/components/DropdownField';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import DropdownField from '@covid/components/DropdownField';
-import { GenericTextField } from '@covid/components/GenericTextField';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { fingerPrickX3, otherTestX3, spitX3, syringeX3, noseSwabX3 } from '@assets';
-import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
-import { isSECountry } from '@covid/core/localisation/LocalisationService';
 
 export interface ICovidTestMechanismData {
   mechanism: string;
@@ -28,7 +27,7 @@ export interface ICovidTestMechanismQuestion<P, Data> extends React.FC<P> {
 }
 
 export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICovidTestMechanismData> = (
-  props: IProps
+  props: IProps,
 ) => {
   const { formikProps, test } = props;
 
@@ -68,7 +67,7 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
     CovidTestMechanismOptions.THROAT_SWAB,
     CovidTestMechanismOptions.BLOOD_SAMPLE,
   ];
-  let mechanismItemIcons = undefined;
+  let mechanismItemIcons;
   if (!test || (test && !noIcons.includes(test.mechanism))) {
     if (!isSECountry()) {
       mechanismItemIcons = [noseSwabX3, spitX3, fingerPrickX3, syringeX3, otherTestX3];
@@ -78,12 +77,12 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
   return (
     <>
       <DropdownField
-        selectedValue={formikProps.values.mechanism}
-        onValueChange={formikProps.handleChange('mechanism')}
-        label={i18n.t('covid-test.question-mechanism')}
         error={formikProps.touched.mechanism && formikProps.errors.mechanism}
-        items={mechanismItems}
         itemIcons={mechanismItemIcons}
+        items={mechanismItems}
+        label={i18n.t('covid-test.question-mechanism')}
+        onValueChange={formikProps.handleChange('mechanism')}
+        selectedValue={formikProps.values.mechanism}
       />
 
       {formikProps.values.mechanism === 'other' && (
@@ -96,11 +95,11 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
 
       {formikProps.values.mechanism === 'nose_throat_swab' && (
         <DropdownField
-          selectedValue={formikProps.values.trainedWorker}
-          onValueChange={formikProps.handleChange('trainedWorker')}
-          label={i18n.t('covid-test.question-trained-worker')}
           error={formikProps.touched.trainedWorker && formikProps.errors.trainedWorker}
           items={trainedWorkerItems}
+          label={i18n.t('covid-test.question-trained-worker')}
+          onValueChange={formikProps.handleChange('trainedWorker')}
+          selectedValue={formikProps.values.trainedWorker}
         />
       )}
     </>

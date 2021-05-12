@@ -1,18 +1,18 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, View, StyleSheet } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 
-import ProgressCircle from '../progress-circle';
 import { Icon } from '../../icons';
+import ProgressCircle from '../progress-circle';
 
 function Done() {
   const springValue = useRef(new Animated.Value(0)).current;
 
   const spring = () => {
     Animated.spring(springValue, {
-      toValue: 1,
-      stiffness: 150,
       damping: 10,
       delay: 1200,
+      stiffness: 150,
+      toValue: 1,
       useNativeDriver: true,
     }).start();
   };
@@ -26,7 +26,7 @@ function Done() {
 
   return (
     <View style={styles.container}>
-      <ProgressCircle size={48} progress={1} delay={500} bgColor="white" />
+      <ProgressCircle bgColor="white" delay={500} progress={1} size={48} />
       <Animated.View style={[styles.tick, { transform: [{ scale }] }]}>
         <Icon iconName="tick" iconSize={32} iconStyle={{ color: '#C0D904' }} />
       </Animated.View>
