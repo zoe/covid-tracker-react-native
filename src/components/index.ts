@@ -3,7 +3,7 @@ export * from './animations';
 export * from './bars';
 export * from './buttons';
 export * from './cards';
-export * from './checkbox';
+export * from './Checkbox';
 export * from './content';
 export * from './DropdownField';
 export { default as Fab } from './fab';
