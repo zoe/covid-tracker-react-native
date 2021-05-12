@@ -17,9 +17,8 @@ interface Props {
 export class BloodPressureMedicationQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
-      // pril
       takesAnyBloodPressureMedications: 'no',
-      takesBloodPressureMedications: 'no',
+      takesBloodPressureMedications: 'no', // pril
       takesBloodPressureMedicationsSartan: 'no',
     };
   };

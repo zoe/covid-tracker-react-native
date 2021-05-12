@@ -126,12 +126,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     }),
 
     smokerStatus: Yup.string().required(),
-    // pril
     takesAnyBloodPressureMedications: Yup.string().required(),
 
     takesAspirin: Yup.string().required(),
 
-    takesBloodPressureMedications: Yup.string().required(),
+    takesBloodPressureMedications: Yup.string().required(), // pril
 
     takesBloodPressureMedicationsSartan: Yup.string().required(),
     takesCorticosteroids: Yup.string().required(),
