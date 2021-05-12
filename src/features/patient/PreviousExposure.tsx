@@ -187,7 +187,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                     label={i18n.t('label-unwell-month-before')}
                   />
 
-                  {props.values.unwellMonthBefore === 'yes' && (
+                  {props.values.unwellMonthBefore === 'yes' ? (
                     <>
                       <FieldWrapper>
                         <Item stackedLabel style={styles.textItemStyle}>
@@ -265,23 +265,21 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                         label={i18n.t('label-past-symptoms-still-have')}
                       />
                     </>
-                  )}
+                  ) : null}
 
-                  {props.values.stillHavePastSymptoms === 'yes' && (
-                    <>
-                      <DropdownField
-                        selectedValue={props.values.pastSymptomsChanged}
-                        onValueChange={props.handleChange('pastSymptomsChanged')}
-                        label={i18n.t('label-past-symptoms-changed')}
-                        items={symptomChangeChoices}
-                      />
-                    </>
-                  )}
+                  {props.values.stillHavePastSymptoms === 'yes' ? (
+                    <DropdownField
+                      selectedValue={props.values.pastSymptomsChanged}
+                      onValueChange={props.handleChange('pastSymptomsChanged')}
+                      label={i18n.t('label-past-symptoms-changed')}
+                      items={symptomChangeChoices}
+                    />
+                  ) : null}
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
-                  )}
+                  ) : null}
                 </View>
 
                 <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>

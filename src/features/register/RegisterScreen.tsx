@@ -179,10 +179,12 @@ class RegisterScreen extends Component<PropsType, State> {
                             this.passwordComponent.focus();
                           }}
                         />
-                        {!!props.touched.email && !!props.errors.email && <FieldError>{props.errors.email}</FieldError>}
-                        {this.state.accountExists && (
+                        {!!props.touched.email && !!props.errors.email ? (
+                          <FieldError>{props.errors.email}</FieldError>
+                        ) : null}
+                        {this.state.accountExists ? (
                           <FieldError>{i18n.t('create-account.already-registered')}</FieldError>
-                        )}
+                        ) : null}
                       </Field>
                     </View>
 
@@ -203,28 +205,28 @@ class RegisterScreen extends Component<PropsType, State> {
                           onSubmitEditing={(event) => props.handleSubmit()}
                           error={props.touched.password && props.errors.password}
                         />
-                        {!!props.touched.password && !!props.errors.password && (
+                        {!!props.touched.password && !!props.errors.password ? (
                           <FieldError>{props.errors.password}</FieldError>
-                        )}
+                        ) : null}
                       </Field>
                     </View>
                   </Form>
 
-                  {this.state.accountExists && (
+                  {this.state.accountExists ? (
                     <View style={styles.nextAction}>
                       <RegularText style={{ textAlign: 'center' }}>
                         <ClickableText onPress={this.gotoLogin}>{i18n.t('create-account.login')}</ClickableText>{' '}
                         {i18n.t('create-account.existing-account')}
                       </RegularText>
                     </View>
-                  )}
+                  ) : null}
                 </View>
                 <View style={styles.actionBlock}>
-                  {!!this.state.errorMessage && !this.state.accountExists && (
+                  {!!this.state.errorMessage && !this.state.accountExists ? (
                     <View>
                       <ErrorText>{this.state.errorMessage}</ErrorText>
                     </View>
-                  )}
+                  ) : null}
                   <View>
                     <BrandedButton
                       onPress={props.handleSubmit}

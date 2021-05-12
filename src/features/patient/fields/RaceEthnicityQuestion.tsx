@@ -86,33 +86,33 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
   render() {
     return (
       <View>
-        {this.props.showRaceQuestion && (
+        {this.props.showRaceQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
               <RegularText>{i18n.t('race-question')}</RegularText>
               <CheckboxList>{createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
             </View>
           </FieldWrapper>
-        )}
+        ) : null}
 
-        {this.props.showEthnicityQuestion && (
+        {this.props.showEthnicityQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
               <RegularText>{i18n.t('race-question')}</RegularText>
               <CheckboxList>{createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
             </View>
           </FieldWrapper>
-        )}
+        ) : null}
 
-        {this.props.formikProps.values.race.includes('other') && (
+        {this.props.formikProps.values.race.includes('other') ? (
           <GenericTextField
             formikProps={this.props.formikProps}
             label={i18n.t('race-other-question')}
             name="raceOther"
           />
-        )}
+        ) : null}
 
-        {isUSCountry() && (
+        {isUSCountry() ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
               <RegularText>{i18n.t('ethnicity-question')}</RegularText>
@@ -141,7 +141,7 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
               </CheckboxList>
             </View>
           </FieldWrapper>
-        )}
+        ) : null}
       </View>
     );
   }

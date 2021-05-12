@@ -28,7 +28,7 @@ export const TwoButtonModal: React.FC<Props> = (props) => {
 
   return (
     <ModalContainer>
-      {props.headerText && <RegularBoldText style={styles.header}>{props.headerText}</RegularBoldText>}
+      {props.headerText ? <RegularBoldText style={styles.header}>{props.headerText}</RegularBoldText> : null}
       <RegularText style={styles.text}>{props.bodyText}</RegularText>
 
       <View style={styles.actionContainer}>

@@ -70,16 +70,18 @@ function Snackbar({
     <SContainerView variant={variant} style={{ transform: [{ translateY: animateTo }] }}>
       <SCardView colorPalette={colorPalette} colorShade={colorShade}>
         <View style={{ flex: 1 }}>
-          {message.message.title && (
+          {message.message.title ? (
             <Text textClass="h5Medium" style={{ color: 'white' }}>
               {message.message.title}
             </Text>
-          )}
+          ) : null}
           <SMessageText colorPalette={colorPalette} colorShade={colorShade} textClass="pSmall">
             {message.message.body}
           </SMessageText>
         </View>
-        {action && <ThemeButton onPress={action.action} title={action.label} colorPalette="teal" colorShade="main" />}
+        {action ? (
+          <ThemeButton onPress={action.action} title={action.label} colorPalette="teal" colorShade="main" />
+        ) : null}
         <RoundIconButton onPress={handleClose} iconName="close-large" iconColor="white" />
       </SCardView>
     </SContainerView>

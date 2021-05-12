@@ -28,17 +28,17 @@ const Splash = (props: SplashProps) => {
         </View>
       </View>
       <FlexView>
-        {!!props.onRetry && (
+        {!!props.onRetry ? (
           <View style={styles.ctaBlock}>
             <BrandedButton onPress={props.onRetry}>{i18n.t('errors.button-retry')}</BrandedButton>
           </View>
-        )}
+        ) : null}
         <Spacer />
-        {!!props.onLogout && (
+        {!!props.onLogout ? (
           <View style={styles.ctaBlock}>
             <BrandedButton onPress={props.onLogout}>{i18n.t('logout')}</BrandedButton>
           </View>
-        )}
+        ) : null}
       </FlexView>
     </FlexView>
   );

@@ -44,30 +44,25 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
           action={() => editProfileCoordinator.goToEditLocation()}
         />
 
-        {false && (
-          // Disabled
-          <LinkItem title={i18n.t('title-about-you')} action={() => editProfileCoordinator.goToEditAboutYou()} />
-        )}
-
-        {editProfileCoordinator.shouldShowEditStudy() && (
+        {editProfileCoordinator.shouldShowEditStudy() ? (
           <LinkItem title={i18n.t('your-study.title')} action={() => editProfileCoordinator.goToEditYourStudy()} />
-        )}
+        ) : null}
 
-        {editProfileCoordinator.shouldShowSchoolNetwork() && (
+        {editProfileCoordinator.shouldShowSchoolNetwork() ? (
           <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork()} />
-        )}
+        ) : null}
 
-        {editProfileCoordinator.shouldShowUniNetwork() && (
+        {editProfileCoordinator.shouldShowUniNetwork() ? (
           <LinkItem title="University network" action={() => editProfileCoordinator.goToUniversityNetwork()} />
-        )}
+        ) : null}
       </Screen>
 
       <View>
-        {patientData.profile!.reported_by_another && (
+        {patientData.profile!.reported_by_another ? (
           <View style={styles.archiveProfileContainer}>
             <ArchiveProfile patientId={patientData.patientId} />
           </View>
-        )}
+        ) : null}
       </View>
     </>
   );

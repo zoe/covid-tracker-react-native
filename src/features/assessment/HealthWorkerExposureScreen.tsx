@@ -174,7 +174,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                     label={i18n.t('health-worker-exposure-question-interacted-any-patients')}
                   />
 
-                  {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' && (
+                  {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' ? (
                     <View style={{ marginHorizontal: 16 }}>
                       <DropdownField
                         selectedValue={props.values.treatedPatientsWithCovid}
@@ -190,37 +190,37 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                         items={equipmentUsageOptions}
                       />
 
-                      {props.values.hasUsedPPEEquipment === 'always' && (
+                      {props.values.hasUsedPPEEquipment === 'always' ? (
                         <DropdownField
                           selectedValue={props.values.ppeAvailabilityAlways}
                           onValueChange={props.handleChange('ppeAvailabilityAlways')}
                           label={i18n.t('label-chose-an-option')}
                           items={availabilityAlwaysOptions}
                         />
-                      )}
+                      ) : null}
 
-                      {props.values.hasUsedPPEEquipment === 'sometimes' && (
+                      {props.values.hasUsedPPEEquipment === 'sometimes' ? (
                         <DropdownField
                           selectedValue={props.values.ppeAvailabilitySometimes}
                           onValueChange={props.handleChange('ppeAvailabilitySometimes')}
                           label={i18n.t('label-chose-an-option')}
                           items={availabilitySometimesOptions}
                         />
-                      )}
+                      ) : null}
 
-                      {props.values.hasUsedPPEEquipment === 'never' && (
+                      {props.values.hasUsedPPEEquipment === 'never' ? (
                         <DropdownField
                           selectedValue={props.values.ppeAvailabilityNever}
                           onValueChange={props.handleChange('ppeAvailabilityNever')}
                           label={i18n.t('label-chose-an-option')}
                           items={availabilityNeverOptions}
                         />
-                      )}
+                      ) : null}
                     </View>
-                  )}
+                  ) : null}
                 </View>
 
-                {!!Object.keys(props.errors).length && <ErrorText>{i18n.t('validation-error-text')}</ErrorText>}
+                {!!Object.keys(props.errors).length ? <ErrorText>{i18n.t('validation-error-text')}</ErrorText> : null}
                 <ErrorText>{this.state.errorMessage}</ErrorText>
 
                 <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>

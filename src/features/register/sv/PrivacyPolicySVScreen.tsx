@@ -198,11 +198,11 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
           </RegularText>
         </ScrollView>
 
-        {!this.viewOnly && (
+        {!this.viewOnly ? (
           <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>
             {i18n.t('legal.back')}
           </BrandedButton>
-        )}
+        ) : null}
       </View>
     );
   }

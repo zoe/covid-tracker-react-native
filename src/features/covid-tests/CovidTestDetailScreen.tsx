@@ -227,18 +227,18 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                   <CovidTestInvitedQuestion formikProps={props as FormikProps<ICovidTestInvitedData>} test={test} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
-                  )}
+                  ) : null}
 
-                  {this.testId && (
+                  {this.testId ? (
                     <ClearButton
                       text={i18n.t('covid-test.delete-test')}
                       onPress={async () => {
                         await this.promptDeleteTest();
                       }}
                     />
-                  )}
+                  ) : null}
                 </View>
 
                 <BrandedButton onPress={props.handleSubmit} enable={!this.state.submitting}>

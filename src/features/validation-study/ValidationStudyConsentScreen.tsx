@@ -327,7 +327,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
               {'\n'}
             </RegularText>
 
-            {!this.viewOnly && (
+            {!this.viewOnly ? (
               <CheckboxList>
                 <CheckboxItem value={this.state.agreeToAbove} onChange={this.handleAgreeToAboveChange}>
                   I agree to the above
@@ -340,10 +340,10 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
                   researchers regarding this project (optional)
                 </CheckboxItem>
               </CheckboxList>
-            )}
+            ) : null}
           </ScrollView>
 
-          {!this.viewOnly && (
+          {!this.viewOnly ? (
             <BrandedButton
               style={styles.button}
               hideLoading
@@ -351,7 +351,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, I
               onPress={this.handleAgreeClicked}>
               {this.state.agreeToAbove ? 'Take part' : 'Scroll down to give consent'}
             </BrandedButton>
-          )}
+          ) : null}
         </SafeAreaView>
       </View>
     );

@@ -60,7 +60,7 @@ export const NavHeader: React.FC<NavbarProps> = ({ navigation, rightComponent, s
   return (
     <View style={styles.headerBar}>
       <View style={styles.left}>
-        {!!navigation && <BackButton navigation={navigation} showCloseButton={showCloseButton} />}
+        {!!navigation ? <BackButton navigation={navigation} showCloseButton={showCloseButton} /> : null}
       </View>
       <View style={styles.center} />
       <View style={styles.right}>{rightComponent}</View>

@@ -113,8 +113,8 @@ export default class Screen extends Component<ScreenProps> {
       <SafeAreaView style={[styles.screen, this.props.style]}>
         {header()}
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          {!scrollEnabled && <View style={styles.pageBlock}>{this.props.children}</View>}
-          {scrollEnabled && (
+          {!scrollEnabled ? <View style={styles.pageBlock}>{this.props.children}</View> : null}
+          {scrollEnabled ? (
             <ScrollView
               contentContainerStyle={{
                 flexGrow: 1,
@@ -126,7 +126,7 @@ export default class Screen extends Component<ScreenProps> {
                 <View style={styles.pageBlock}>{this.props.children}</View>
               )}
             </ScrollView>
-          )}
+          ) : null}
         </KeyboardAvoidingView>
       </SafeAreaView>
     );

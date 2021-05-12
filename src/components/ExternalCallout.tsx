@@ -95,7 +95,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
       loading={imageLoading}
       errorMessage={imageLoadError}
       disableShimmers={props.disableLoadingState}>
-      {!dismissed && (
+      {!dismissed ? (
         <TouchableWithoutFeedback
           onPress={clickCallout}
           accessible={props.isSharing}
@@ -106,14 +106,14 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
             ) : (
               <Image {...imageProps} source={props.imageSource} />
             )}
-            {props.canDismiss && !props.isSharing && (
+            {props.canDismiss && !props.isSharing ? (
               <TouchableWithoutFeedback onPress={clickDismiss}>
                 <Image style={styles.closeCross} source={closeIcon} />
               </TouchableWithoutFeedback>
-            )}
+            ) : null}
           </View>
         </TouchableWithoutFeedback>
-      )}
+      ) : null}
     </ContentLoadingView>
   );
 };

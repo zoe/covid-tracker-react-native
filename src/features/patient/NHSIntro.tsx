@@ -137,9 +137,9 @@ export function NHSIntroScreen(props: IProps) {
                   </CheckboxItem>
 
                   <ErrorText>{errorMessage}</ErrorText>
-                  {!!Object.keys(errors).length && props.submitCount > 0 && (
+                  {!!Object.keys(errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
-                  )}
+                  ) : null}
 
                   <BrandedButton
                     onPress={handleSubmit}

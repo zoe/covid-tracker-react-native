@@ -107,14 +107,14 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   render() {
     return (
       <SafeAreaView style={styles.safeView}>
-        {this.state.isApiError && (
+        {this.state.isApiError ? (
           <LoadingModal
             error={this.state.error}
             status={this.state.status}
             onRetry={this.state.onRetry}
             onPress={() => this.setState({ isApiError: false })}
           />
-        )}
+        ) : null}
         <ScrollView>
           <View style={styles.headerContainer}>
             <DrawerToggle

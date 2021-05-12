@@ -30,19 +30,19 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
       <View style={styles.infoBox}>
         <RegularText style={[styles.statText, { color: statColor }]}>{statistic}</RegularText>
         <RegularText style={{ textAlign: 'center', paddingBottom: 8 }}>
-          {!singleLine && (
+          {!singleLine ? (
             <RegularText>
               {i18n.t('school-networks.dashboard.students-with')}
               {'\n'}
             </RegularText>
-          )}
+          ) : null}
           <RegularText style={{ fontFamily: 'SofiaPro-SemiBold' }}>{description}</RegularText>
         </RegularText>
-        {onPress && (
+        {onPress ? (
           <ClickableText style={{ fontSize: 14 }} onPress={onPress}>
             {i18n.t('school-networks.dashboard.more-details')}
           </ClickableText>
-        )}
+        ) : null}
       </View>
     );
   };

@@ -400,14 +400,14 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     error={props.touched.genderIdentity && props.errors.genderIdentity}
                   />
 
-                  {props.values.genderIdentity === 'other' && (
+                  {props.values.genderIdentity === 'other' ? (
                     <GenericTextField
                       formikProps={props}
                       label={i18n.t('label-gender-identity-other')}
                       name="genderIdentityDescription"
                       placeholder={i18n.t('placeholder-optional')}
                     />
-                  )}
+                  ) : null}
 
                   <RaceEthnicityQuestion
                     showRaceQuestion={this.state.showRaceQuestion}
@@ -419,7 +419,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                   <WeightQuestion formikProps={props as FormikProps<IWeightData>} label={i18n.t('your-weight')} />
 
-                  {!this.props.route.params.editing && (
+                  {!this.props.route.params.editing ? (
                     <GenericTextField
                       formikProps={props}
                       label={i18n.t('your-postcode')}
@@ -428,7 +428,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                       inputProps={{ autoCompleteType: 'postal-code' }}
                       showError
                     />
-                  )}
+                  ) : null}
 
                   <DropdownField
                     selectedValue={props.values.everExposed}
@@ -438,7 +438,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     error={props.touched.everExposed && props.errors.everExposed}
                   />
 
-                  {!isMinor && (
+                  {!isMinor ? (
                     <>
                       <YesNoField
                         label={i18n.t('housebound-problems')}
@@ -464,12 +464,12 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                         onValueChange={props.handleChange('mobilityAid')}
                       />
                     </>
-                  )}
+                  ) : null}
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
-                  )}
+                  ) : null}
                 </View>
 
                 <BrandedButton

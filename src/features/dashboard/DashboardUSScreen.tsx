@@ -72,7 +72,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
       <View style={styles.calloutContainer}>
         <ShareVaccineCard screenName="DashboardUS" />
 
-        {showDietStudyPlayback && (
+        {showDietStudyPlayback ? (
           <TouchableWithoutFeedback
             onPress={() => {
               AnalyticsService.track(events.DIET_STUDY_PLAYBACK_CLICKED);
@@ -80,7 +80,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
             }}>
             <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUS} />
           </TouchableWithoutFeedback>
-        )}
+        ) : null}
         <ExternalCallout
           calloutID="sharev3"
           imageSource={shareAppV3}

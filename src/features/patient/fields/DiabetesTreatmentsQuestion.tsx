@@ -38,13 +38,13 @@ type DiabetesTreatmentCheckBoxData = {
   label: string;
 };
 
-interface DiabetesTreamentsCheckboxProps {
+interface DiabetesTreatmentsCheckboxProps {
   data: DiabetesTreatmentCheckBoxData;
   formikProps: FormikProps<IDiabetesTreatmentsData>;
   value: boolean;
 }
 
-const DiabetesTreamentsCheckbox: React.FC<DiabetesTreamentsCheckboxProps> = ({ data, formikProps, value }) => {
+const DiabetesTreatmentsCheckbox: React.FC<DiabetesTreatmentsCheckboxProps> = ({ data, formikProps, value }) => {
   const toggled = (checked: boolean) => {
     let result = formikProps.values.diabetesTreatments;
     if (checked) {
@@ -77,7 +77,7 @@ const DiabetesTreamentsCheckbox: React.FC<DiabetesTreamentsCheckboxProps> = ({ d
   );
 };
 
-export const DiabetesTreamentsQuestion: IFormikDiabetesInputFC<Props, IDiabetesTreatmentsData> = ({ formikProps }) => {
+export const DiabetesTreatmentsQuestion: IFormikDiabetesInputFC<Props, IDiabetesTreatmentsData> = ({ formikProps }) => {
   const diabetesTreatmentCheckboxes = [
     { fieldName: DiabetesTreatmentsFieldnames.NONE, label: i18n.t('diabetes.answer-none'), value: false },
     { fieldName: DiabetesTreatmentsFieldnames.LIFESTYLE, label: i18n.t('diabetes.answer-lifestyle-mod'), value: false },
@@ -119,7 +119,9 @@ export const DiabetesTreamentsQuestion: IFormikDiabetesInputFC<Props, IDiabetesT
   ) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesTreatments.includes(item.fieldName);
-      return <DiabetesTreamentsCheckbox key={item.fieldName} data={item} formikProps={formikProps} value={isChecked} />;
+      return (
+        <DiabetesTreatmentsCheckbox key={item.fieldName} data={item} formikProps={formikProps} value={isChecked} />
+      );
     });
   };
 
@@ -133,28 +135,28 @@ export const DiabetesTreamentsQuestion: IFormikDiabetesInputFC<Props, IDiabetesT
       </FieldWrapper>
 
       <View style={{ marginHorizontal: 16 }}>
-        {!!formikProps.errors.diabetesTreatments && formikProps.submitCount > 0 && (
+        {!!formikProps.errors.diabetesTreatments && formikProps.submitCount > 0 ? (
           <ValidationError error={formikProps.errors.diabetesTreatments as string} />
-        )}
+        ) : null}
       </View>
     </View>
   );
 };
 
-DiabetesTreamentsQuestion.initialFormValues = (): IDiabetesTreatmentsData => {
+DiabetesTreatmentsQuestion.initialFormValues = (): IDiabetesTreatmentsData => {
   return {
     diabetesTreatments: [],
     diabetesTreatmentOtherOral: false,
   };
 };
 
-DiabetesTreamentsQuestion.schema = () => {
+DiabetesTreatmentsQuestion.schema = () => {
   return Yup.object().shape({
     diabetesTreatments: Yup.array<string>().min(1, i18n.t('diabetes.please-select-diabetes-treatment')),
   });
 };
 
-DiabetesTreamentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
+DiabetesTreatmentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
   const dto: Partial<PatientInfosRequest> = {
     diabetes_treatment_none: false,
     diabetes_treatment_lifestyle: false,

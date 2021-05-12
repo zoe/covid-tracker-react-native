@@ -19,6 +19,13 @@
     "import/order": [
       "error",
       { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"], "newlines-between": "always" }
+    ],
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "JSXElement > JSXExpressionContainer > LogicalExpression[operator!='??']",
+        "message": "Please use ternary operator instead"
+      }
     ]
   }
 }

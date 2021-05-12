@@ -239,7 +239,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
             <Form style={{ flex: 1 }}>
               <View style={{ marginHorizontal: 16, marginBottom: 32 }}>
                 {renderFirstDoseUI(props)}
-                {props.values.firstBrand && props.values.firstBrand !== VaccineBrands.JOHNSON && (
+                {props.values.firstBrand && props.values.firstBrand !== VaccineBrands.JOHNSON ? (
                   <>
                     <Header3Text style={{ marginTop: 48, marginBottom: 8 }}>
                       {i18n.t('vaccines.your-vaccine.second-dose')}
@@ -258,11 +258,12 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                     />
                     {renderSecondDoseUI(props)}
                   </>
-                )}
+                ) : null}
               </View>
-              {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+
+              {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                 <ValidationError style={{ marginBottom: 32 }} error={i18n.t('validation-error-text')} />
-              )}
+              ) : null}
 
               <BrandedButton onPress={props.handleSubmit}>
                 <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>

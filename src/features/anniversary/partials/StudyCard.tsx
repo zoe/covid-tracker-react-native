@@ -44,17 +44,17 @@ function StudyCard({ timelineEvent }: IProps) {
           {title}
         </Text>
       </View>
-      {sub_title && (
+      {sub_title ? (
         <Text textClass="h5Medium" style={[styles.body, { opacity }]}>
           {sub_title}
         </Text>
-      )}
+      ) : null}
       <ProgressBars progress={p} />
-      {summary && (
+      {summary ? (
         <Text style={{ color: '#024364', marginTop: 12 }} textClass="pLight">
           {summary}
         </Text>
-      )}
+      ) : null}
     </View>
   );
 }

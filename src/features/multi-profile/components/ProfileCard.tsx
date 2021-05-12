@@ -35,18 +35,18 @@ export const ProfileCard: React.FC<Props> = (props) => {
   return (
     <Card style={styles.card} transparent>
       <View style={styles.avatarContainer}>
-        {hasReportedToday && <GreenTick />}
+        {hasReportedToday ? <GreenTick /> : null}
         <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
       </View>
       <ClippedText>{getProfileName()}</ClippedText>
       <LastReported timeAgo={profile.last_reported_at} />
-      {props.onEditPressed && (
+      {props.onEditPressed ? (
         <TouchableOpacity onPress={props.onEditPressed}>
           <SecondaryText style={{ textAlign: 'center', fontSize: 12, color: colors.accent }}>
             {i18n.t('nav-edit-profile')}
           </SecondaryText>
         </TouchableOpacity>
-      )}
+      ) : null}
     </Card>
   );
 };

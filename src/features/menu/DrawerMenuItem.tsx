@@ -34,13 +34,13 @@ export function MenuItem({ image, onPress, label, smallLabel, indicator }: IMenu
   return (
     <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
       <View style={{ flexDirection: 'row' }}>
-        {image && <View style={styles.icon}>{image}</View>}
+        {image ? <View style={styles.icon}>{image}</View> : null}
         <View style={styles.labelRow}>
           <HeaderText>{label}</HeaderText>
-          {indicator && <NumberIndicator number={indicator} />}
+          {indicator ? <NumberIndicator number={indicator} /> : null}
         </View>
       </View>
-      {smallLabel != null && <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText>}
+      {smallLabel != null ? <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText> : null}
     </TouchableOpacity>
   );
 }

@@ -12,7 +12,7 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
-import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
+import { DoseSymptomsData, DoseSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import { Services } from '@covid/provider/services.types';
@@ -30,12 +30,12 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
 
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
 
-  const handleSubmit = async (formData: DoesSymptomsData) => {
+  const handleSubmit = async (formData: DoseSymptomsData) => {
     if (!isSubmitting) {
       setSubmitting(true);
       const patientId = route.params.assessmentData.patientData.patientId;
       try {
-        const dosePayload = DoesSymptomsQuestions.createDoseSymptoms(formData);
+        const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(formData);
         dosePayload.dose = route.params.dose;
         await vaccineService.saveDoseSymptoms(patientId, dosePayload);
       } catch (e) {
@@ -48,7 +48,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
     }
   };
 
-  const registerSchema = Yup.object().shape({}).concat(DoesSymptomsQuestions.schema());
+  const registerSchema = Yup.object().shape({}).concat(DoseSymptomsQuestions.schema());
   const currentPatient = route.params.assessmentData.patientData.patientState;
   return (
     <View style={styles.rootContainer}>
@@ -69,15 +69,15 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
         <View>
           <Formik
             initialValues={{
-              ...DoesSymptomsQuestions.initialFormValues(),
+              ...DoseSymptomsQuestions.initialFormValues(),
             }}
             validationSchema={registerSchema}
-            onSubmit={(values: DoesSymptomsData) => handleSubmit(values)}>
+            onSubmit={(values: DoseSymptomsData) => handleSubmit(values)}>
             {(props) => {
               return (
                 <Form style={{ flexGrow: 1 }}>
                   <View style={{ marginHorizontal: 16 }}>
-                    <DoesSymptomsQuestions formikProps={props} />
+                    <DoseSymptomsQuestions formikProps={props} />
                   </View>
 
                   <View style={{ flex: 1 }} />

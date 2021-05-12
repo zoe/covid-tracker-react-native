@@ -37,7 +37,7 @@ function QuestionBlock({
       disabled={disabled}
       onPress={onPress}
       style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : bgColor }]}>
-      {iconName && <Icon iconName={iconName} iconStyle={{ color: active ? 'white' : 'black' }} />}
+      {iconName ? <Icon iconName={iconName} iconStyle={{ color: active ? 'white' : 'black' }} /> : null}
       <Text textClass="label" textAlign="center" style={{ color: active ? 'white' : 'black' }}>
         {keyValue.key}
       </Text>

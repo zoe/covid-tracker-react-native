@@ -57,7 +57,7 @@ export function CheckboxItem(props: ICheckboxProps) {
         onPress={() => props.onChange(!props.value)}
         accessible
         accessibilityRole="checkbox">
-        {props.value && <Check />}
+        {props.value ? <Check /> : null}
       </TouchableOpacity>
       <Item style={checkboxStyles.checkBoxText} onPress={() => props.onChange(!props.value)}>
         <RegularText style={{ ...checkboxStyles.checkboxLabel }}>{props.children}</RegularText>

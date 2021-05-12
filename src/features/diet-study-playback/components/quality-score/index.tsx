@@ -18,7 +18,7 @@ function QualityScore({ beforeScore, duringScore, minValue = 5, maxValue = 15 }:
   const duringPandemicSubtitle = isUSCountry() ? 'September - October 2020' : 'August - September 2020';
   return (
     <SContainerView>
-      {beforeScore && (
+      {beforeScore ? (
         <Score
           currentValue={beforeScore}
           minValue={minValue}
@@ -29,8 +29,8 @@ function QualityScore({ beforeScore, duringScore, minValue = 5, maxValue = 15 }:
           subTitle="February 2020"
           style={{ marginBottom: 48 }}
         />
-      )}
-      {duringScore && (
+      ) : null}
+      {duringScore ? (
         <Score
           currentValue={duringScore}
           minValue={minValue}
@@ -40,8 +40,8 @@ function QualityScore({ beforeScore, duringScore, minValue = 5, maxValue = 15 }:
           title="During the pandemic"
           subTitle={duringPandemicSubtitle}
         />
-      )}
-      {!beforeScore && <MissingDataText />}
+      ) : null}
+      {!beforeScore ? <MissingDataText /> : null}
     </SContainerView>
   );
 }

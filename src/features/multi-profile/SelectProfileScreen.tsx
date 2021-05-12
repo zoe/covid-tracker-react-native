@@ -84,13 +84,13 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.rootContainer}>
-          <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
+          <View style={styles.navContainer}>{!!navigation ? <BackButton navigation={navigation} /> : null}</View>
 
           <Header>
             <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>
               {assessmentFlow ? i18n.t('select-profile-title-assessment') : i18n.t('select-profile-title-edit')}
             </HeaderText>
-            {assessmentFlow && <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>}
+            {assessmentFlow ? <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText> : null}
           </Header>
 
           <ProfileList

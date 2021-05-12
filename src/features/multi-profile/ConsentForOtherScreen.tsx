@@ -114,14 +114,14 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   render() {
     return (
       <Screen navigation={this.props.navigation} showBackButton>
-        {this.state.isApiError && (
+        {this.state.isApiError ? (
           <LoadingModal
             error={this.state.error}
             status={this.state.status}
             onRetry={this.state.onRetry}
             onPress={() => this.setState({ isApiError: false })}
           />
-        )}
+        ) : null}
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{this.headerText}</HeaderText>
           {this.secondaryText}

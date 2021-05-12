@@ -22,7 +22,7 @@ export function GenericTextField(props: IProps) {
   const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
   return (
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
-      {!!label && <RegularText>{label}</RegularText>}
+      {!!label ? <RegularText>{label}</RegularText> : null}
       <ValidatedTextInput
         placeholder={placeholder ?? ''}
         value={formikProps.values[name]}
@@ -36,12 +36,12 @@ export function GenericTextField(props: IProps) {
         {...otherProps}
       />
 
-      {showError && !!formikProps.touched[name] && !!formikProps.errors[name] && (
+      {showError && !!formikProps.touched[name] && !!formikProps.errors[name] ? (
         <ValidationError
           // @ts-ignore - need to solve type for ValidationError error prop
           error={formikProps.errors[name]}
         />
-      )}
+      ) : null}
     </FieldWrapper>
   );
 }

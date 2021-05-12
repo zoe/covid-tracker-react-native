@@ -38,7 +38,7 @@ function ShareScreen() {
       <SContentView>
         <SInnerContentView ref={viewRef} collapsable={false}>
           <ShareContainer sharable={sharable} />
-          {!hideLabel && <ShareLabel label={label} />}
+          {!hideLabel ? <ShareLabel label={label} /> : null}
         </SInnerContentView>
       </SContentView>
       <SButtonView>

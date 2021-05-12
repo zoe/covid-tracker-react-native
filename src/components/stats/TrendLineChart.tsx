@@ -151,7 +151,9 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
           }
         }}
       />
-      {!!monthRangeLabel && <RegularText style={{ textAlign: 'center', fontSize: 12 }}>{monthRangeLabel}</RegularText>}
+      {!!monthRangeLabel ? (
+        <RegularText style={{ textAlign: 'center', fontSize: 12 }}>{monthRangeLabel}</RegularText>
+      ) : null}
     </View>
   );
 }
