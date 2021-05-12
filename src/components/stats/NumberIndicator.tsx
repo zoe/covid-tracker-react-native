@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export function NumberIndicator({ number, style }: IProps) {
-  return <View style={[styles.dot, style]}>{number != null && <Text style={styles.label}>{number}</Text>}</View>;
+  return <View style={[styles.dot, style]}>{number != null ? <Text style={styles.label}>{number}</Text> : null}</View>;
 }
 
 const styles = StyleSheet.create({

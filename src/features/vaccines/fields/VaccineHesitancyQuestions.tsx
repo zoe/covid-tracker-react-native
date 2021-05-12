@@ -79,7 +79,7 @@ export const VaccineHesitancyQuestions: IFormQuestion<Props, VaccineHesitancyDat
         items={dropdowns}
       />
 
-      {(formikProps.values.plan === 'no' || formikProps.values.plan === 'unsure') && (
+      {formikProps.values.plan === 'no' || formikProps.values.plan === 'unsure' ? (
         <>
           <RegularText
             style={{
@@ -104,7 +104,7 @@ export const VaccineHesitancyQuestions: IFormQuestion<Props, VaccineHesitancyDat
             />
           </CheckboxList>
         </>
-      )}
+      ) : null}
     </View>
   );
 };

@@ -54,7 +54,7 @@ function Banner({ active = true, message }: IProps) {
 
   return (
     <SContainerView top={top} width={width} style={{ transform: [{ translateY: animateTo }] }}>
-      {message.message.title && <Text textClass="h5Medium">{message.message.title}</Text>}
+      {message.message.title ? <Text textClass="h5Medium">{message.message.title}</Text> : null}
       <Text>{message.message.body}</Text>
       <SButtonRowView>
         {message.actions

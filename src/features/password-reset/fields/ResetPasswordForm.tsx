@@ -49,7 +49,7 @@ function ResetPasswordForm({
             returnKeyType="go"
           />
 
-          {touched.email && errors.email && <ErrorText> {i18n.t('reset-password.email-error')}</ErrorText>}
+          {touched.email && errors.email ? <ErrorText> {i18n.t('reset-password.email-error')}</ErrorText> : null}
         </Form>
       </View>
       <View>

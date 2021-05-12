@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { RegularText, HeaderText, CaptionText } from '@covid/components/Text';
-import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
+import { NumberIndicator } from '@covid/components/stats/NumberIndicator';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
@@ -34,13 +34,13 @@ export function MenuItem({ image, onPress, label, smallLabel, indicator }: IMenu
   return (
     <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
       <View style={{ flexDirection: 'row' }}>
-        {image && <View style={styles.icon}>{image}</View>}
+        {image ? <View style={styles.icon}>{image}</View> : null}
         <View style={styles.labelRow}>
           <HeaderText>{label}</HeaderText>
-          {indicator && <NumberIndicator number={indicator} />}
+          {indicator ? <NumberIndicator number={indicator} /> : null}
         </View>
       </View>
-      {smallLabel != null && <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText>}
+      {smallLabel != null ? <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText> : null}
     </TouchableOpacity>
   );
 }

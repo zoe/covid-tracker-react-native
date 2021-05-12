@@ -151,7 +151,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
                           onBlur={props.handleBlur('phone')}
                           error={props.touched.phone && props.errors.phone}
                         />
-                        {props.errors.phone && <ErrorText>{props.errors.phone}</ErrorText>}
+                        {props.errors.phone ? <ErrorText>{props.errors.phone}</ErrorText> : null}
                       </Form>
                     </View>
                     <View>

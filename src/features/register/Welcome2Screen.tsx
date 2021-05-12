@@ -84,11 +84,11 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
               <RegularText style={styles.subtitle}>{i18n.t('welcome.how-you-can-help.title')}</RegularText>
               <RegularText style={styles.subheader}>{i18n.t('welcome.how-you-can-help.text1')}</RegularText>
 
-              {isUSCountry() && (
+              {isUSCountry() ? (
                 <RegularText style={styles.subheader2}>{i18n.t('welcome.how-you-can-help.text2')}</RegularText>
-              )}
+              ) : null}
 
-              {(isSECountry() || isGBCountry()) && (
+              {isSECountry() || isGBCountry() ? (
                 <RegularText style={styles.subheader2}>
                   {'\n'}
                   {i18n.t('welcome.disclaimer')}{' '}
@@ -97,12 +97,12 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
                   </ClickableText>
                   .
                 </RegularText>
-              )}
+              ) : null}
 
               <Image style={styles.partnersLogo} source={partnersLogos()} />
             </View>
 
-            {isUSCountry() && (
+            {isUSCountry() ? (
               <View style={styles.partnerContainer}>
                 <RegularText style={styles.partnerHeader}>{i18n.t('welcome.from-researchers')}</RegularText>
 
@@ -120,7 +120,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
                   {i18n.t('names.zoe')}
                 </RegularText>
               </View>
-            )}
+            ) : null}
           </View>
         </ScrollView>
       </View>

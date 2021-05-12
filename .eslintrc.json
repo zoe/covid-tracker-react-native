@@ -27,6 +27,13 @@
     "import/no-cycle": "off",
     "import/no-duplicates": "error",
     "import/prefer-default-export": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "JSXElement > JSXExpressionContainer > LogicalExpression[operator!='??']",
+        "message": "Use a ternary operator instead"
+      }
+    ],
     "react/destructuring-assignment": "off",
     "react/jsx-sort-props": ["error", {
       "callbacksLast": false,

@@ -4,23 +4,23 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
-import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
+import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { CompactHeader, Header } from '@covid/features/dashboard/Header';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
-import { share } from '@covid/components/Cards/BaseShareApp';
+import { share } from '@covid/components/cards/BaseShareApp';
 import { dietStudyPlaybackReadyUS, shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { pushNotificationService } from '@covid/Services';
-import { PartnerLogoUSDash } from '@covid/components/Logos/PartnerLogo';
+import { PartnerLogoUSDash } from '@covid/components/logos/PartnerLogo';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import AnalyticsService, { events } from '@covid/core/Analytics';
-import { ShareVaccineCard } from '@covid/components/Cards/ShareVaccineCard';
+import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -72,7 +72,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
       <View style={styles.calloutContainer}>
         <ShareVaccineCard screenName="DashboardUS" />
 
-        {showDietStudyPlayback && (
+        {showDietStudyPlayback ? (
           <TouchableWithoutFeedback
             onPress={() => {
               AnalyticsService.track(events.DIET_STUDY_PLAYBACK_CLICKED);
@@ -80,7 +80,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
             }}>
             <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUS} />
           </TouchableWithoutFeedback>
-        )}
+        ) : null}
         <ExternalCallout
           calloutID="sharev3"
           imageSource={shareAppV3}

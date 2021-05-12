@@ -72,15 +72,15 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
               : warningIconAndText('vaccines.vaccine-card.name-missing')}
           </RegularText>
 
-          {!hasFirstDoseDate && dateRequired}
+          {!hasFirstDoseDate ? dateRequired : null}
 
-          {hasFirstDoseDate && (
+          {hasFirstDoseDate ? (
             <View style={{ marginTop: 8, marginBottom: 0 }}>
               <RegularText style={[!hasFirstDoseDate && styles.pendingText]}>
                 {hasFirstDoseDate ? formatVaccineDate(dose1 as Dose) : null}
               </RegularText>
             </View>
-          )}
+          ) : null}
         </View>
 
         {/* Dose 2 */}
@@ -93,7 +93,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
               <Header3Text>{i18n.t('vaccines.vaccine-card.dose-2')}</Header3Text>
             </View>
 
-            {hasSecondDoseDate && (
+            {hasSecondDoseDate ? (
               <View style={{ marginTop: 0, marginBottom: 8 }}>
                 <RegularText style={[!hasSecondDoseName && styles.pendingText]}>
                   {hasSecondDoseName
@@ -103,7 +103,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
                     : warningIconAndText('vaccines.vaccine-card.name-missing')}
                 </RegularText>
               </View>
-            )}
+            ) : null}
 
             <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
               {hasSecondDoseDate ? formatVaccineDate(dose2 as Dose) : notYetLogged}

@@ -49,19 +49,19 @@ export function Header({ reportedCount, reportOnPress }: IProps) {
         <BrandedButton style={[styles.reportButton, styles.reportButtonExpanded]} onPress={onReport}>
           {i18n.t('dashboard.report-today')}
         </BrandedButton>
-        {reportedCount && (
+        {reportedCount ? (
           <CaptionText style={styles.reportedCount}>
             {i18n.t('dashboard.you-have-reported-x-times', { count: reportedCount })}
           </CaptionText>
-        )}
+        ) : null}
       </View>
 
-      {contributors && (
+      {contributors ? (
         <>
           <RegularText style={styles.contributorsLabel}>{i18n.t('dashboard.contributors-so-far')}</RegularText>
           <Header3Text style={styles.contributorsCount}>{prettyContributorsValue}</Header3Text>
         </>
-      )}
+      ) : null}
     </View>
   );
 }

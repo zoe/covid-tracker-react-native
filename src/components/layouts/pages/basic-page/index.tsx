@@ -35,7 +35,7 @@ function BasicPage({
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} stickyHeaderIndices={hasStickyHeader ? [0] : undefined}>
         <BasicNavHeader backgroundColor={headerBackgroundColor}>{navChildren}</BasicNavHeader>
         {children}
-        {withFooter && <BasicPageFooter active={active} onPress={onPress} title={footerTitle} />}
+        {withFooter ? <BasicPageFooter active={active} onPress={onPress} title={footerTitle} /> : null}
       </ScrollView>
     </SafeLayout>
   );

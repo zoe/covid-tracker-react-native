@@ -18,7 +18,7 @@ import { closeIcon } from '@assets';
 import { RootState } from '@covid/core/state/root';
 import { addDismissCallout } from '@covid/core/content/state/contentSlice';
 import { useAppDispatch } from '@covid/core/state/store';
-import { ContentLoadingView } from '@covid/components/Content/ContentLoadingView';
+import { ContentLoadingView } from '@covid/components/content/ContentLoadingView';
 import i18n from '@covid/locale/i18n';
 
 type ExternalCalloutProps = {
@@ -95,7 +95,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
       loading={imageLoading}
       errorMessage={imageLoadError}
       disableShimmers={props.disableLoadingState}>
-      {!dismissed && (
+      {!dismissed ? (
         <TouchableWithoutFeedback
           onPress={clickCallout}
           accessible={props.isSharing}
@@ -106,14 +106,14 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
             ) : (
               <Image {...imageProps} source={props.imageSource} />
             )}
-            {props.canDismiss && !props.isSharing && (
+            {props.canDismiss && !props.isSharing ? (
               <TouchableWithoutFeedback onPress={clickDismiss}>
                 <Image style={styles.closeCross} source={closeIcon} />
               </TouchableWithoutFeedback>
-            )}
+            ) : null}
           </View>
         </TouchableWithoutFeedback>
-      )}
+      ) : null}
     </ContentLoadingView>
   );
 };

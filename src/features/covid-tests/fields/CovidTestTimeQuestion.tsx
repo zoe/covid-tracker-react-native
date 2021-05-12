@@ -66,11 +66,11 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
           onCancel={() => setState({ ...state, showTimePicker: false })}
         />
       ) : null}
-      {!!props.formikProps.errors.dateTestTime && (
+      {!!props.formikProps.errors.dateTestTime ? (
         <View style={{ marginTop: 4, marginHorizontal: 4 }}>
           <ValidationError error={props.formikProps.touched.dateTestTime && props.formikProps.errors.dateTestTime} />
         </View>
-      )}
+      ) : null}
     </FieldWrapper>
   );
 };

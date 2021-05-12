@@ -2,7 +2,7 @@ import React from 'react';
 
 import i18n from '@covid/locale/i18n';
 
-import { ICommonShareProps, BaseShareAppCard, share } from '../../../components/Cards/BaseShareApp';
+import { ICommonShareProps, BaseShareAppCard, share } from '../../../components/cards/BaseShareApp';
 
 export function ShareAppCard(props: ICommonShareProps) {
   const shareMessage = i18n.t('share-this-app.message');

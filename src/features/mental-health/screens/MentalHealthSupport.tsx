@@ -69,7 +69,7 @@ function MentalHealthSupport() {
             items={initialOptions}
           />
         </View>
-        {MentalHealthSupport.hasNeededSupport === 'YES' && (
+        {MentalHealthSupport.hasNeededSupport === 'YES' ? (
           <View>
             <DropdownField
               label={i18n.t('mental-health.question-support-received')}
@@ -78,7 +78,7 @@ function MentalHealthSupport() {
               items={initialOptions}
             />
           </View>
-        )}
+        ) : null}
       </View>
     </BasicPage>
   );

@@ -31,18 +31,18 @@ const ErrorMessaging = ({ error, status, onRetry, onPress }: LoadingProps) => {
 
   return (
     <View>
-      {!!message && <ErrorText style={{ color: colors.coral }}>{message}</ErrorText>}
-      {!message && !!status && <RegularText>{status}</RegularText>}
-      {shouldRetry && !!onRetry && (
+      {!!message ? <ErrorText style={{ color: colors.coral }}>{message}</ErrorText> : null}
+      {!message ? !!status && <RegularText>{status}</RegularText> : null}
+      {shouldRetry && !!onRetry ? (
         <View style={styles.ctaBlock}>
           <BrandedButton onPress={onRetry}>{i18n.t('errors.button-retry')}</BrandedButton>
         </View>
-      )}
-      {shouldCancel && !!error && !!onPress && (
+      ) : null}
+      {shouldCancel && !!error && !!onPress ? (
         <View style={styles.ctaBlock}>
           <BrandedButton onPress={onPress}>{i18n.t('errors.button-okay')}</BrandedButton>
         </View>
-      )}
+      ) : null}
     </View>
   );
 };

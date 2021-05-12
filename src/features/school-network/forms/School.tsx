@@ -53,9 +53,9 @@ function SchoolForm({ patientData }: IProps) {
               name="schoolCode"
               showError
             />
-            {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
+            {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
               <ValidationError error={i18n.t('validation-error-text')} />
-            )}
+            ) : null}
           </View>
 
           <Button onPress={formikProps.handleSubmit} branded>

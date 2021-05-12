@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react-native';
 import { action, HandlerFunction } from '@storybook/addon-actions';
 import { View, Button } from 'react-native';
 
-import { Selectable, FOOD_INTAKE_FREQUENCY } from '@covid/components/Inputs/Selectable';
+import { Selectable, FOOD_INTAKE_FREQUENCY } from '@covid/components/inputs/Selectable';
 
 import { PaddingView } from '../decorator';
 

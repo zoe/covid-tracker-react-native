@@ -74,7 +74,7 @@ export default class ThankYouSEScreen extends Component<RenderProps, State> {
                 link="https://www.facebook.com/events/356299709120596/"
               />
 
-              {this.state.shouldShowReminders && (
+              {this.state.shouldShowReminders ? (
                 <ExternalCallout
                   calloutID="notificationRemindersSE"
                   imageSource={notificationRemindersSE}
@@ -84,7 +84,7 @@ export default class ThankYouSEScreen extends Component<RenderProps, State> {
                     PushNotificationService.openSettings();
                   }}
                 />
-              )}
+              ) : null}
 
               <ShareAppCard />
               <VisitWebsite />

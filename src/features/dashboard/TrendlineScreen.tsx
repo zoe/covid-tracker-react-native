@@ -7,16 +7,16 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { colors, fontStyles } from '@theme';
-import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
+import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { Header } from '@covid/components/Screen';
 import { Header3Text, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { DeltaTag } from '@covid/components/Cards/EstimatedCase/DeltaTag';
-import { Tabs } from '@covid/components/Nav/Tabs';
+import { DeltaTag } from '@covid/components/cards/estimated-case/DeltaTag';
+import { Tabs } from '@covid/components/nav/Tabs';
 import { RootState } from '@covid/core/state/root';
 import { BackButton } from '@covid/components/PatientHeader';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
-import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
+import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/stats/TrendLineChart';
 import i18n from '@covid/locale/i18n';
 import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
 import { BrandedButton } from '@covid/components';
@@ -60,11 +60,11 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
 
         <Header3Text style={styles.metric}>{trendline?.today}</Header3Text>
 
-        {trendline?.delta && (
+        {trendline?.delta ? (
           <View style={styles.deltaTag}>
             <DeltaTag change={trendline.delta} />
           </View>
-        )}
+        ) : null}
 
         <View style={styles.chartContainer}>
           <TrendLineChart filter={timeFilter} viewMode={TrendLineViewMode.explore} />

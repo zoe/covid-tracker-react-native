@@ -3,7 +3,7 @@ import { PickerProps } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 
-import ButtonsGroup, { ISingleButton } from './Inputs/ButtonsGroup';
+import ButtonsGroup, { ISingleButton } from './inputs/ButtonsGroup';
 
 interface IProps {
   selectedValue: string;

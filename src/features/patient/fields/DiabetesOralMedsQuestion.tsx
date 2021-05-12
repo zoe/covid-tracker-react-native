@@ -114,19 +114,19 @@ export const DiabetesOralMedsQuestion: IFormikDiabetesInputFC<Props, IDiabetesOr
         </View>
       </FieldWrapper>
 
-      {formikProps.values.diabetesOralOtherMedicationNotListed && (
+      {formikProps.values.diabetesOralOtherMedicationNotListed ? (
         <GenericTextField
           formikProps={formikProps}
           name="diabetesOralOtherMedication"
           label={i18n.t('diabetes.please-specify-other-oral-meds')}
           showError={!!formikProps.errors.diabetesOralOtherMedication && formikProps.submitCount > 0}
         />
-      )}
+      ) : null}
 
       <View style={{ marginHorizontal: 16 }}>
-        {!!formikProps.errors.diabetesOralMeds && formikProps.submitCount > 0 && (
+        {!!formikProps.errors.diabetesOralMeds && formikProps.submitCount > 0 ? (
           <ValidationError error={formikProps.errors.diabetesOralMeds as string} />
-        )}
+        ) : null}
       </View>
     </View>
   );

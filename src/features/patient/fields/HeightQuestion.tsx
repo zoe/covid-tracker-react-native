@@ -101,12 +101,16 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
           </View>
         </View>
       )}
-      {formikProps.touched.height && formikProps.errors.height && <ValidationError error={formikProps.errors.height} />}
-      {formikProps.touched.feet && formikProps.errors.feet && <ValidationError error={formikProps.errors.feet} />}
-      {formikProps.touched.inches && formikProps.errors.inches && <ValidationError error={formikProps.errors.inches} />}
-      {formikProps.touched.heightUnit && formikProps.errors.heightUnit && (
+      {formikProps.touched.height && formikProps.errors.height ? (
+        <ValidationError error={formikProps.errors.height} />
+      ) : null}
+      {formikProps.touched.feet && formikProps.errors.feet ? <ValidationError error={formikProps.errors.feet} /> : null}
+      {formikProps.touched.inches && formikProps.errors.inches ? (
+        <ValidationError error={formikProps.errors.inches} />
+      ) : null}
+      {formikProps.touched.heightUnit && formikProps.errors.heightUnit ? (
         <ValidationError error={formikProps.errors.heightUnit} />
-      )}
+      ) : null}
     </FieldWrapper>
   );
 };

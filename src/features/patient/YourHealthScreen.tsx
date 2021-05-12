@@ -278,15 +278,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.health-problems-that-limit-activity')}
                   />
 
-                  {this.state.showPregnancyQuestion && (
-                    <>
-                      <YesNoField
-                        selectedValue={props.values.isPregnant}
-                        onValueChange={props.handleChange('isPregnant')}
-                        label={i18n.t('your-health.are-you-pregnant')}
-                      />
-                    </>
-                  )}
+                  {this.state.showPregnancyQuestion ? (
+                    <YesNoField
+                      selectedValue={props.values.isPregnant}
+                      onValueChange={props.handleChange('isPregnant')}
+                      label={i18n.t('your-health.are-you-pregnant')}
+                    />
+                  ) : null}
 
                   <YesNoField
                     selectedValue={props.values.hasHeartDisease}
@@ -303,9 +301,9 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.have-diabetes')}
                   />
 
-                  {this.state.showDiabetesQuestion && (
+                  {this.state.showDiabetesQuestion ? (
                     <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />
-                  )}
+                  ) : null}
 
                   <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} />
 
@@ -317,14 +315,14 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     error={props.touched.smokerStatus && props.errors.smokerStatus}
                   />
 
-                  {props.values.smokerStatus === 'not_currently' && (
+                  {props.values.smokerStatus === 'not_currently' ? (
                     <GenericTextField
                       formikProps={props}
                       label={i18n.t('your-health.years-since-last-smoked')}
                       name="smokedYearsAgo"
                       keyboardType="numeric"
                     />
-                  )}
+                  ) : null}
 
                   <YesNoField
                     selectedValue={props.values.hasKidneyDisease}
@@ -338,16 +336,14 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.has-cancer')}
                   />
 
-                  {props.values.hasCancer === 'yes' && (
+                  {props.values.hasCancer === 'yes' ? (
                     <>
                       {isUSCountry() && (
-                        <>
-                          <GenericTextField
-                            formikProps={props}
-                            label={i18n.t('your-health.what-cancer-type')}
-                            name="cancerType"
-                          />
-                        </>
+                        <GenericTextField
+                          formikProps={props}
+                          label={i18n.t('your-health.what-cancer-type')}
+                          name="cancerType"
+                        />
                       )}
                       <YesNoField
                         selectedValue={props.values.doesChemiotherapy}
@@ -355,7 +351,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                         label={i18n.t('your-health.is-on-chemotherapy')}
                       />
                     </>
-                  )}
+                  ) : null}
 
                   <YesNoField
                     selectedValue={props.values.takesImmunosuppressants}
@@ -380,9 +376,9 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   <BloodGroupQuestion formikProps={props as FormikProps<IBloodGroupData>} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
-                  )}
+                  ) : null}
                 </View>
                 <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
               </Form>

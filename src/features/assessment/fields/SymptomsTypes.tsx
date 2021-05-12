@@ -50,7 +50,7 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
           {checkBoxData.label}
         </CheckboxItem>
 
-        {checkBoxData.followUp && props.values[checkBoxData.value] && (
+        {checkBoxData.followUp && props.values[checkBoxData.value] ? (
           <View style={{ marginBottom: 16 }}>
             <DropdownField
               selectedValue={props.values[checkBoxData.followUp.value]}
@@ -60,7 +60,7 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
               error={props.touched[checkBoxData.followUp.value] && props.errors[checkBoxData.followUp.value]}
             />
           </View>
-        )}
+        ) : null}
       </View>
     );
   });

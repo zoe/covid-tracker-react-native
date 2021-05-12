@@ -8,8 +8,8 @@ import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { LoadingModal } from '@covid/components/Loading';
-import { PartnerLogoSE, PartnerLogoUS } from '@covid/components/Logos/PartnerLogo';
-import { PoweredByZoe } from '@covid/components/Logos/PoweredByZoe';
+import { PartnerLogoSE, PartnerLogoUS } from '@covid/components/logos/PartnerLogo';
+import { PoweredByZoe } from '@covid/components/logos/PoweredByZoe';
 import { RegularText } from '@covid/components/Text';
 import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
@@ -107,14 +107,14 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   render() {
     return (
       <SafeAreaView style={styles.safeView}>
-        {this.state.isApiError && (
+        {this.state.isApiError ? (
           <LoadingModal
             error={this.state.error}
             status={this.state.status}
             onRetry={this.state.onRetry}
             onPress={() => this.setState({ isApiError: false })}
           />
-        )}
+        ) : null}
         <ScrollView>
           <View style={styles.headerContainer}>
             <DrawerToggle

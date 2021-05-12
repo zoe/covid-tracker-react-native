@@ -112,7 +112,9 @@ export function DropdownField({
           borderRadiusStyle,
           isSelected && styles.dropdownTextHighlightStyle,
         ]}>
-        {itemIcons?.length && <Image source={itemIcons[index]} style={{ marginRight: 5, width: 24, height: 24 }} />}
+        {itemIcons?.length ? (
+          <Image source={itemIcons[index]} style={{ marginRight: 5, width: 24, height: 24 }} />
+        ) : null}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
       </View>
     );
@@ -150,11 +152,11 @@ export function DropdownField({
           <DropdownIcon />
         </View>
       </ModalDropdown>
-      {!!error && (
+      {!!error ? (
         <View style={{ marginTop: 4, marginHorizontal: 4 }}>
           <ValidationError error={error} />
         </View>
-      )}
+      ) : null}
     </FieldWrapper>
   );
 }

@@ -50,11 +50,11 @@ export function ButtonsGroup({ label, selectedValue, items, error, onValueChange
         ))}
       </View>
 
-      {!!error && (
+      {!!error ? (
         <View style={{ marginTop: 4, marginHorizontal: 4 }}>
           <ValidationError error={error} />
         </View>
-      )}
+      ) : null}
     </FieldWrapper>
   );
 }

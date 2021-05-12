@@ -143,14 +143,14 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                 selectedValue={props.values.differentAddress}
                 onValueChange={props.handleChange('differentAddress')}
               />
-              {props.values.differentAddress === 'yes' && (
+              {props.values.differentAddress === 'yes' ? (
                 <YesNoField
                   label={i18n.t('edit-profile.location.still-in-country')}
                   selectedValue={props.values.stillInUK}
                   onValueChange={props.handleChange('stillInUK')}
                 />
-              )}
-              {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' && (
+              ) : null}
+              {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' ? (
                 <GenericTextField
                   formikProps={props}
                   label={i18n.t('edit-profile.location.other-postcode')}
@@ -159,8 +159,8 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                   inputProps={{ autoCompleteType: 'postal-code' }}
                   showError
                 />
-              )}
-              {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' && (
+              ) : null}
+              {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' ? (
                 <DropdownField
                   selectedValue={props.values.currentCountry}
                   onValueChange={props.handleChange('currentCountry')}
@@ -168,7 +168,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                   items={countryList}
                   error={props.touched.currentCountry && props.errors.currentCountry}
                 />
-              )}
+              ) : null}
               <View style={{ height: 100 }} />
               <SecondaryText style={{ textAlign: 'center', paddingHorizontal: 8 }}>
                 {i18n.t('edit-profile.location.disclaimer')}

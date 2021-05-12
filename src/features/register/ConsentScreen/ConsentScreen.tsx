@@ -61,11 +61,11 @@ const ConsentScreen: FC<PropsType> = (props) => {
   return (
     <View style={styles.rootContainer}>
       {renderConsent()}
-      {!props.route.params.viewOnly && (
+      {!props.route.params.viewOnly ? (
         <BrandedButton testID="agree" style={styles.button} enable={agreed} hideLoading onPress={handleAgreeClicked}>
           {i18n.t('legal.i-agree')}
         </BrandedButton>
-      )}
+      ) : null}
     </View>
   );
 };
