@@ -3,6 +3,7 @@ export { CountrySelectScreen } from './CountrySelectScreen';
 export * from './covid-tests';
 export * from './dashboard';
 export { EstimatedCasesScreen } from './EstimatedCasesScreen';
+export * from './long-covid';
 export { default as LoginScreen } from './login/LoginScreen';
 export * from './mental-health';
 export * from './multi-profile';

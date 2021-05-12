@@ -30,6 +30,8 @@ import {
   JoinSchoolGroupScreen,
   JoinSchoolScreen,
   LoginScreen,
+  LongCovidStartScreen,
+  LongCovidQuestionPageOneScreen,
   NHSDetailsScreen,
   NHSIntroScreen,
   NHSTestDetailScreen,
@@ -139,6 +141,8 @@ function MainNavigator() {
       <Stack.Screen name="ThankYouSE" component={ThankYouSEScreen} options={noHeader} />
       <Stack.Screen name="ThankYouUS" component={ThankYouUSScreen} options={noHeader} />
       <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
+      <Stack.Screen name="LongCovidStart" component={LongCovidStartScreen} options={noHeader} />
+      <Stack.Screen name="LongCovidQuestionPageOne" component={LongCovidQuestionPageOneScreen} options={noHeader} />
       <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
       <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} options={noHeader} />
