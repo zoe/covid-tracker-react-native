@@ -7,12 +7,11 @@ import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/local
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
-import { useConstants } from '@covid/utils/hooks';
+import Constants from '@covid/utils/Constants';
 import { inject, injectable } from 'inversify';
 
 import { FeaturedContentResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
-const Constants = useConstants();
 export interface IContentService {
   localData?: PersonalisedLocalData;
   getUserCount(): Promise<string | null>;
@@ -82,16 +81,16 @@ export default class ContentService implements IContentService {
     const appVersionParts: string[] = appVersion.split('.');
 
     // First check on the major (1st) digits
-    const startNumberAPI: number = parseInt(apiVersionParts[0]);
-    const startNumberAPP: number = parseInt(appVersionParts[0]);
+    const startNumberAPI: number = parseInt(apiVersionParts[0], 10);
+    const startNumberAPP: number = parseInt(appVersionParts[0], 10);
 
     if (startNumberAPP < startNumberAPI) {
       return true;
     }
 
     // Now check the middle digits. We don't do diffs for minor (3rd) digits
-    const middleNumberAPI: number = parseInt(apiVersionParts[1]);
-    const middleNumberAPP: number = parseInt(appVersionParts[1]);
+    const middleNumberAPI: number = parseInt(apiVersionParts[1], 10);
+    const middleNumberAPP: number = parseInt(appVersionParts[1], 10);
     return middleNumberAPP < middleNumberAPI;
   }
 

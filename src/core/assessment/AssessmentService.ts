@@ -35,16 +35,12 @@ export default class AssessmentService implements IAssessmentService {
   }
 
   private async sendFullAssessmentToApi() {
-    try {
-      const assessment = this.state.getAssessment();
-      const response = await this.saveToApi(assessment);
-      if (response.id) {
-        this.state.updateAssessment({ id: response.id });
-      }
-      return response;
-    } catch (error) {
-      throw error;
+    const assessment = this.state.getAssessment();
+    const response = await this.saveToApi(assessment);
+    if (response.id) {
+      this.state.updateAssessment({ id: response.id });
     }
+    return response;
   }
 
   private saveToState(assessment: Partial<AssessmentInfosRequest>) {

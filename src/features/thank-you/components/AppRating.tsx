@@ -6,7 +6,7 @@ import { IUserService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { container, lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { useConstants } from '@covid/utils/hooks';
+import Constants from '@covid/utils/Constants';
 import { colors } from '@theme';
 import { Toast, View } from 'native-base';
 import React, { Component } from 'react';
@@ -19,7 +19,6 @@ type State = {
   showTakeToStore: boolean;
 };
 
-const Constants = useConstants();
 const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id1503529611`;
 const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
 const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;
@@ -53,7 +52,6 @@ export class AppRating extends Component<PropsType, State> {
       position: 'top',
       text: i18n.t('rating.thank-you-for-rating'),
       textStyle: { lineHeight: 25, textAlign: 'center' },
-      // style: {paddingVertical: 40}
     });
   };
 
@@ -90,7 +88,6 @@ export class AppRating extends Component<PropsType, State> {
       </TouchableOpacity>
     </View>
   );
-  //
 
   render() {
     return (

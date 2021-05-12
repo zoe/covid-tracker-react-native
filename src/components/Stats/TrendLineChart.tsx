@@ -65,7 +65,7 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
     if (isMounted) {
       webview.current?.call('updateTimeWindow', { payload: { type: filter } });
     }
-    return function () {
+    return () => {
       isMounted = false;
     };
   }, [filter]);

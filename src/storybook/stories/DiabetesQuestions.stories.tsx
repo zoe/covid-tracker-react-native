@@ -15,9 +15,7 @@ storiesOf('DiabetesQuestions', module).add('default view', () => {
         initialValues={{
           ...DiabetesQuestions.initialFormValues(),
         }}
-        onSubmit={(values: any) => {
-          console.log(values);
-        }}
+        onSubmit={() => {}}
         validationSchema={DiabetesQuestions.schema()}
       >
         {(props) => (

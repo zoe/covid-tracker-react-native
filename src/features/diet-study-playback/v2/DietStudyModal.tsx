@@ -1,5 +1,5 @@
 import { SafeLayout, Text } from '@covid/components';
-import { events, track } from '@covid/core/Analytics';
+import Analytics from '@covid/core/Analytics';
 import { setDietStudyConsent, TDietStudyConsent } from '@covid/core/state';
 import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
@@ -27,7 +27,7 @@ function DietStudyModal() {
 
   useEffect(() => {
     if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_MODAL);
+      Analytics.track(Analytics.events.DIET_STUDY_SCREEN_MODAL);
       setTracked(true);
     }
   });

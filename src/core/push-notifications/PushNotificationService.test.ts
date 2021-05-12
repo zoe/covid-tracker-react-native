@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import moment from 'moment';
 
 import { IStorageService } from '../LocalStorageService';

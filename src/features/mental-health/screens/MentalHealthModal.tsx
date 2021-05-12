@@ -1,6 +1,6 @@
 import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
 import { Avatar, SafeLayout, Text } from '@covid/components';
-import { events, track } from '@covid/core/Analytics';
+import Analytics from '@covid/core/Analytics';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { setConsent, setLastPresentedDate, TMentalHealthConsent } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
@@ -35,7 +35,7 @@ function MentalHealthModal() {
 
   useEffect(() => {
     if (!tracked) {
-      track(events.MENTAL_HEALTH_DISPLAY_MODAL);
+      Analytics.track(Analytics.events.MENTAL_HEALTH_DISPLAY_MODAL);
       setTracked(true);
     }
   });

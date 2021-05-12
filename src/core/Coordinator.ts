@@ -30,6 +30,7 @@ export abstract class Coordinator {
     if (this.screenFlow[screenName]) {
       this.screenFlow[screenName]!(params);
     } else {
+      // eslint-disable-next-line no-console
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };

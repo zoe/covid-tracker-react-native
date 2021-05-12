@@ -210,7 +210,7 @@ VaccineDoseQuestion.schema = () => {
 
       secondDescription: Yup.string()
         .when(['hasSecondDose', 'secondBrand'], {
-          is: (hasSecondDose, secondBrand) => hasSecondDose && secondBrand == 'not_sure',
+          is: (hasSecondDose, secondBrand) => hasSecondDose && secondBrand === 'not_sure',
           then: Yup.string().required(i18n.t('validation-error-please-select-option')),
         })
         .nullable(),

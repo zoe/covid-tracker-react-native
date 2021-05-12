@@ -20,11 +20,13 @@ export const LinksSection: React.FC<{ navigation: DrawerNavigationHelpers }> = (
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
       name: DrawerMenuItem.PRIVACY_POLICY,
     });
-    isGBCountry()
-      ? navigation.navigate('PrivacyPolicyUK', { viewOnly: true })
-      : isSECountry()
-      ? navigation.navigate('PrivacyPolicySV', { viewOnly: true })
-      : navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
+    if (isGBCountry()) {
+      navigation.navigate('PrivacyPolicyUK', { viewOnly: true });
+    } else if (isSECountry()) {
+      navigation.navigate('PrivacyPolicySV', { viewOnly: true });
+    } else {
+      navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
+    }
   }
 
   function showDeleteAlert() {

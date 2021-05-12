@@ -14,14 +14,12 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { useConstants } from '@covid/utils/hooks';
+import Constants from '@covid/utils/Constants';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { useEffect, useState } from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-
-const Constants = useConstants();
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';

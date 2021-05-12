@@ -24,7 +24,7 @@ export function EstimatedCasesScreen({ navigation }: IProps) {
     if (isMounted) {
       runAsync();
     }
-    return function () {
+    return () => {
       isMounted = false;
     };
   }, []);

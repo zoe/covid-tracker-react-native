@@ -101,7 +101,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
             <View style={styles.gridRow}>
               {infoBox(schoolRecoveredCases, i18n.t('school-networks.dashboard.recovered'))}
               {infoBox(
-                `${isFinite(schoolTotalPercentage) ? schoolTotalPercentage.toFixed(0) : '0'}%`,
+                `${Number.isFinite(schoolTotalPercentage) ? schoolTotalPercentage.toFixed(0) : '0'}%`,
                 i18n.t('school-networks.dashboard.total'),
                 undefined,
                 true,

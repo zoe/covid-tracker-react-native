@@ -1,9 +1,8 @@
 import ApiClient from '@covid/core/api/ApiClient';
 import LocalStorageService from '@covid/core/LocalStorageService';
 import OfflineService from '@covid/core/offline/OfflineService';
-import PushNotificationService, {
-  PushNotificationApiClient,
-} from '@covid/core/push-notifications/PushNotificationService';
+import PushNotificationApiClient from '@covid/core/push-notifications/PushNotificationApiClient';
+import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
 import { VaccineService } from '@covid/core/vaccine/VaccineService';
 

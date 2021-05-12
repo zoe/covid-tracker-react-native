@@ -25,12 +25,14 @@ const firstInList = async (fromList: string[]): Promise<ManifestSearchResult> =>
 
   while (i < fromList.length - 1) {
     try {
+      // eslint-disable-next-line no-await-in-loop
       const content = await FileSystem.readAsStringAsync(Manifest.from(fromList[i]));
       found = !!content;
       path = Manifest.from(fromList[i]);
     } catch (error) {
       //
     } finally {
+      // eslint-disable-next-line no-plusplus
       i++;
     }
     break;
@@ -54,25 +56,21 @@ const shouldMigrate = async (): Promise<boolean> => {
 };
 
 const migrateIOSAsyncStorage = async () => {
-  try {
-    const info = await FileSystem.getInfoAsync(AsyncLocalStorageFolderOptions.to);
+  const info = await FileSystem.getInfoAsync(AsyncLocalStorageFolderOptions.to);
 
-    if (!info.exists) {
-      await FileSystem.makeDirectoryAsync(AsyncLocalStorageFolderOptions.to);
-    }
-    const { path: fromPath } = await firstInList(AsyncLocalStorageFolderOptions.fromList);
-
-    if (!fromPath) {
-      // Missing file path
-      return;
-    }
-
-    const content = await FileSystem.readAsStringAsync(fromPath!);
-    await FileSystem.writeAsStringAsync(Manifest.from(AsyncLocalStorageFolderOptions.to), content);
-    await FileSystem.deleteAsync(fromPath);
-  } catch (error) {
-    throw error;
+  if (!info.exists) {
+    await FileSystem.makeDirectoryAsync(AsyncLocalStorageFolderOptions.to);
   }
+  const { path: fromPath } = await firstInList(AsyncLocalStorageFolderOptions.fromList);
+
+  if (!fromPath) {
+    // Missing file path
+    return;
+  }
+
+  const content = await FileSystem.readAsStringAsync(fromPath!);
+  await FileSystem.writeAsStringAsync(Manifest.from(AsyncLocalStorageFolderOptions.to), content);
+  await FileSystem.deleteAsync(fromPath);
 };
 
 export const migrateIfNeeded = async (): Promise<void> => {

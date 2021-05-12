@@ -1,5 +1,5 @@
 import { social } from '@assets';
-import { track } from '@covid/core/Analytics';
+import Analytics from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
@@ -18,7 +18,7 @@ function SimpleShare({ shareMessage = undefined, title, trackEvent }: IProps) {
   const message = shareMessage || i18n.t('share-this-app.message');
 
   const handleOnShare = async () => {
-    track(tEvent);
+    Analytics.track(tEvent);
     await share(message);
   };
 

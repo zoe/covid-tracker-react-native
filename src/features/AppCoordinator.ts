@@ -112,6 +112,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
       } else if (this.patientData) {
         this.startPatientFlow(this.patientData);
       } else {
+        // eslint-disable-next-line no-console
         console.error('[ROUTE] Missing patientId parameter for gotoNextPage(Register)');
       }
     },

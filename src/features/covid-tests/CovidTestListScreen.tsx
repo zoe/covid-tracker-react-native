@@ -27,7 +27,6 @@ type Props = {
 };
 
 type State = {
-  errorMessage: string;
   covidTests: CovidTest[];
   isLoading: boolean;
 };
@@ -38,14 +37,13 @@ export default class CovidTestListScreen extends Component<Props, State> {
 
   state: State = {
     covidTests: [],
-    errorMessage: '',
     isLoading: false,
   };
 
-  private _unsubscribe: any = null;
+  private unsubscribe: any = null;
 
   async componentDidMount() {
-    this._unsubscribe = this.props.navigation.addListener('focus', async () => {
+    this.unsubscribe = this.props.navigation.addListener('focus', async () => {
       this.setState({ isLoading: true });
       try {
         const tests = (await this.covidTestService.listTests()).data;
@@ -59,7 +57,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    this._unsubscribe();
+    this.unsubscribe();
   }
 
   getCovidTestType = (): CovidTestType => {
