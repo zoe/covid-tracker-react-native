@@ -2,12 +2,12 @@
 import moment from 'moment';
 
 import { IStorageService } from '../LocalStorageService';
-
-import { IPushTokenRemoteClient, PushToken } from './types';
 import PushNotificationService, { IPushTokenEnvironment } from './PushNotificationService';
+import { IPushTokenRemoteClient, PushToken } from './types';
 
 class MockApiClient implements IPushTokenRemoteClient {
   pushToken: PushToken;
+
   updatePushToken(pushToken: PushToken) {
     this.pushToken = pushToken;
     return Promise.resolve();
@@ -16,9 +16,11 @@ class MockApiClient implements IPushTokenRemoteClient {
 
 class MockStorageClient implements IStorageService {
   storage: { [key: string]: any } = {};
+
   getObject<T>(name: string) {
     return Promise.resolve(this.storage[name]);
   }
+
   setObject<T>(name: string, value: T) {
     this.storage[name] = value as T;
     return Promise.resolve();
@@ -40,7 +42,7 @@ describe('PushNotificationService', () => {
     const service = new PushNotificationService(
       new MockApiClient(),
       new MockStorageClient(),
-      new MockPushTokenEnvironment()
+      new MockPushTokenEnvironment(),
     );
     expect(service).not.toBeNull();
   });
@@ -49,25 +51,25 @@ describe('PushNotificationService', () => {
     const service = new PushNotificationService(
       new MockApiClient(),
       new MockStorageClient(),
-      new MockPushTokenEnvironment()
+      new MockPushTokenEnvironment(),
     );
 
     const tokenFromThirtyDaysAgo = {
-      token: 'MOCK',
       lastUpdated: moment().subtract(30, 'days').toISOString(),
       platform: 'iOS',
+      token: 'MOCK',
     } as PushToken;
 
     const tokenFromFiveDaysAgo = {
-      token: 'MOCK',
       lastUpdated: moment().subtract(5, 'days').toISOString(),
       platform: 'iOS',
+      token: 'MOCK',
     } as PushToken;
 
     const tokenFromTheFuture = {
-      token: 'MOCK',
       lastUpdated: moment().add(1, 'days').toISOString(),
       platform: 'iOS',
+      token: 'MOCK',
     } as PushToken;
 
     // @ts-ignore

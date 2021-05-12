@@ -1,7 +1,6 @@
+import { Text } from '@covid/components';
 import React from 'react';
 import { View } from 'react-native';
-
-import { Text } from '@covid/components';
 
 import { SScoreRangeContainerView } from './styles';
 
@@ -17,13 +16,13 @@ function ScoreRange({ startScore, startScoreLabel, endScore, endScoreLabel }: IP
     <SScoreRangeContainerView>
       <View>
         <Text textClass="h6">{startScore}</Text>
-        <Text textClass="h6Light" colorPalette="uiDark" colorShade="dark" inverted>
+        <Text inverted colorPalette="uiDark" colorShade="dark" textClass="h6Light">
           {startScoreLabel}
         </Text>
       </View>
       <View style={{ alignItems: 'flex-end' }}>
         <Text textClass="h6">{endScore}</Text>
-        <Text textClass="h6Light" colorPalette="uiDark" colorShade="dark" inverted>
+        <Text inverted colorPalette="uiDark" colorShade="dark" textClass="h6Light">
           {endScoreLabel}
         </Text>
       </View>

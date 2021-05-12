@@ -30,17 +30,17 @@ function ProgressCircle({
   const springValue = useRef(new Animated.Value(0)).current;
 
   const offset = springValue.interpolate({
+    extrapolate: 'clamp',
     inputRange: [0, 1],
     outputRange: [radius * Math.PI * 2, 0],
-    extrapolate: 'clamp',
   });
 
   const spring = () => {
     Animated.spring(springValue, {
-      toValue: progress,
-      stiffness: 60,
       damping: 15,
       delay,
+      stiffness: 60,
+      toValue: progress,
       useNativeDriver: true,
     }).start();
   };
@@ -55,22 +55,23 @@ function ProgressCircle({
     <Svg
       style={[
         {
-          width: size,
           height: size,
           transform: [{ translateX: 0 }, { translateY: 0 }, { rotateZ: '-90deg' }],
+          width: size,
         },
-      ]}>
-      <Circle cx={cx} cy={cy} fill="transparent" stroke={bgColor} r={radius} strokeWidth={strokeWidth} />
+      ]}
+    >
+      <Circle cx={cx} cy={cy} fill="transparent" r={radius} stroke={bgColor} strokeWidth={strokeWidth} />
       <AnimatedCircle
         cx={cx}
         cy={cy}
         fill="transparent"
-        stroke={fgColor}
         r={radius}
+        stroke={fgColor}
         strokeDasharray={`${circumference}, ${circumference}`}
+        strokeDashoffset={offset}
         strokeLinecap={rounded ? 'round' : 'butt'}
         strokeWidth={strokeWidth}
-        strokeDashoffset={offset}
       />
     </Svg>
   );

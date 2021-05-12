@@ -1,9 +1,8 @@
+import { SelectableButton } from '@covid/components/SelectableButton';
+import { colors } from '@theme';
 import { Label, View } from 'native-base';
 import React, { useState } from 'react';
-import { StyleSheet, PickerProps } from 'react-native';
-
-import { colors } from '@theme';
-import { SelectableButton } from '@covid/components/SelectableButton';
+import { PickerProps, StyleSheet } from 'react-native';
 
 import { FieldWrapper } from '../Screen';
 import { ValidationError } from '../ValidationError';
@@ -38,20 +37,22 @@ export function ButtonsGroup({ label, selectedValue, items, error, onValueChange
         style={{
           flexDirection: 'row',
           marginTop: 8,
-        }}>
+        }}
+      >
         {items.map((item) => (
           <SelectableButton
             key={item.value}
-            style={{ flex: 1, marginEnd: 8 }}
+            onPress={() => onSelect(item.value)}
             selected={selected === item.value}
-            onPress={() => onSelect(item.value)}>
+            style={{ flex: 1, marginEnd: 8 }}
+          >
             {item.label}
           </SelectableButton>
         ))}
       </View>
 
-      {!!error ? (
-        <View style={{ marginTop: 4, marginHorizontal: 4 }}>
+      {error ? (
+        <View style={{ marginHorizontal: 4, marginTop: 4 }}>
           <ValidationError error={error} />
         </View>
       ) : null}
@@ -64,11 +65,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   labelStyle: {
+    color: colors.primary,
     fontFamily: 'SofiaProRegular',
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 8,
-    color: colors.primary,
   },
 });
 

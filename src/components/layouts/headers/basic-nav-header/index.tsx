@@ -1,8 +1,7 @@
+import { useTheme } from '@covid/themes';
+import { useNavigation } from '@react-navigation/native';
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
-import { useTheme } from '@covid/themes';
 
 import { RoundIconButton } from '../../../buttons';
 
@@ -17,11 +16,12 @@ function BasicNavHeader({ backgroundColor, children }: IProps) {
   return (
     <View
       style={{
-        backgroundColor: backgroundColor ? backgroundColor : 'transparent',
-        paddingTop: grid.l,
-        paddingHorizontal: grid.gutter,
+        backgroundColor: backgroundColor || 'transparent',
         paddingBottom: grid.m,
-      }}>
+        paddingHorizontal: grid.gutter,
+        paddingTop: grid.l,
+      }}
+    >
       <View style={styles.row}>
         <View style={{ flex: 1 }}>
           <RoundIconButton

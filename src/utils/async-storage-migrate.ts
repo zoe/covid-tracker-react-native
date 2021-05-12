@@ -1,5 +1,5 @@
-import { Platform } from 'react-native';
 import * as FileSystem from 'expo-file-system';
+import { Platform } from 'react-native';
 
 const AsyncLocalStorageFolderOptions = {
   fromList: [
@@ -21,7 +21,7 @@ type ManifestSearchResult = {
 const firstInList = async (fromList: string[]): Promise<ManifestSearchResult> => {
   let i = 0;
   let found = false;
-  let path = undefined;
+  let path;
 
   while (i < fromList.length - 1) {
     try {
@@ -51,9 +51,8 @@ const shouldMigrate = async (): Promise<boolean> => {
   }
   if (Platform.OS === 'android') {
     return false;
-  } else {
-    return false;
   }
+  return false;
 };
 
 const migrateIOSAsyncStorage = async () => {

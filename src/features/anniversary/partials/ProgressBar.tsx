@@ -1,7 +1,6 @@
+import { SolidColorBar } from '@covid/components';
 import React from 'react';
 import { View } from 'react-native';
-
-import { SolidColorBar } from '@covid/components';
 
 import { TProgress } from '../types';
 
@@ -27,7 +26,7 @@ function ProgressBar({ current, progress, total }: IProps) {
   const width = current === 0 || current === total - 1 ? '20%' : '30%';
 
   return (
-    <View style={{ width, paddingRight }}>
+    <View style={{ paddingRight, width }}>
       <View>
         <SolidColorBar backgroundColor="#E2E2E2" height={8} />
       </View>

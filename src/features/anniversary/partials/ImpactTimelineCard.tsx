@@ -1,7 +1,6 @@
+import { impactTimeline, impactTimeline2 } from '@assets';
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-
-import { impactTimeline, impactTimeline2 } from '@assets';
 
 type TCardSize = 'SMALL' | 'LARGE';
 
@@ -12,14 +11,14 @@ interface IProps {
 
 function ImpactTimelineCard({ onPress, size = 'SMALL' }: IProps) {
   return (
-    <TouchableOpacity onPress={onPress} accessible accessibilityLabel="Tap to view your Timeline">
+    <TouchableOpacity accessible accessibilityLabel="Tap to view your Timeline" onPress={onPress}>
       <Image
         source={size === 'SMALL' ? impactTimeline : impactTimeline2}
         style={{
           aspectRatio: size === 'SMALL' ? 1.55 : 0.99,
+          height: undefined,
           marginVertical: size === 'SMALL' ? 0 : 32,
           resizeMode: 'contain',
-          height: undefined,
           width: '100%',
         }}
       />

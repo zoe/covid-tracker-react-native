@@ -1,13 +1,11 @@
-import { combineReducers } from 'redux';
-
-import assessment from '@covid/core/assessment/state/reducers';
 import { IAssessmentState } from '@covid/core/assessment/AssessmentState';
+import assessment from '@covid/core/assessment/state/reducers';
 import { contentSlice, ContentState } from '@covid/core/content/state/contentSlice';
 import { schoolSlice, SchoolState } from '@covid/core/schools/Schools.slice';
+import { combineReducers } from 'redux';
 
-import { userSlice, IUser } from './user';
-import { IAnniversary, anniversarySlice } from './anniversary';
-import { IApp, appSlice } from './app';
+import { anniversarySlice, IAnniversary } from './anniversary';
+import { appSlice, IApp } from './app';
 import { dietStudySlice, IDietStudy } from './diet-study';
 import {
   IMentalHealthChanges,
@@ -24,6 +22,7 @@ import {
   mentalHealthSupportSlice,
 } from './mental-health';
 import { ISettings, settingsSlice } from './settings';
+import { IUser, userSlice } from './user';
 import { IVaccineState, vaccinesSlice } from './vaccines';
 
 export type RootState = {

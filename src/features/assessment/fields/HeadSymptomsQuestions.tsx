@@ -1,18 +1,17 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-import { Item } from 'native-base';
-import { StyleSheet, View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { FieldLabel, RegularText } from '@covid/components/Text';
 import { CheckboxList } from '@covid/components/Checkbox';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import {
   createSymptomCheckboxes,
-  SymptomCheckBoxData,
   ISymptomQuestions,
+  SymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
+import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import { Item } from 'native-base';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 export type HeadSymptomsData = HeadSymptomsCheckBoxData & HeadSymptomsFollowUpData;
 
@@ -43,17 +42,17 @@ export const HeadSymptomsQuestions: ISymptomQuestions<Props, HeadSymptomsData> =
 
   const checkboxes: SymptomCheckBoxData<HeadSymptomsCheckBoxData, HeadSymptomsFollowUpData>[] = [
     {
-      label: i18n.t('describe-symptoms.head-headache'),
-      value: 'headache',
       followUp: {
         label: i18n.t('describe-symptoms.head-headache-follow-up'),
-        value: 'headacheFollowUp',
         options: [
           { label: i18n.t('describe-symptoms.picker-headache-frequency-allday'), value: 'all_of_the_day' },
           { label: i18n.t('describe-symptoms.picker-headache-frequency-mostday'), value: 'most_of_day' },
           { label: i18n.t('describe-symptoms.picker-headache-frequency-someday'), value: 'some_of_day' },
         ],
+        value: 'headacheFollowUp',
       },
+      label: i18n.t('describe-symptoms.head-headache'),
+      value: 'headache',
     },
     { label: i18n.t('describe-symptoms.head-dizzy'), value: 'dizzy' },
     { label: i18n.t('describe-symptoms.head-loss-smell'), value: 'lossTasteSmell' },
@@ -77,17 +76,17 @@ export const HeadSymptomsQuestions: ISymptomQuestions<Props, HeadSymptomsData> =
 
 HeadSymptomsQuestions.initialFormValues = (): HeadSymptomsData => {
   return {
+    alteredTasteSmell: false,
+    dizzy: false,
+    earache: false,
+    eyeSoreness: false,
     headache: false,
     headacheFollowUp: '',
-    dizzy: false,
     lossTasteSmell: false,
-    alteredTasteSmell: false,
+    mouthUlcers: false,
+    ringingEars: false,
     runnyNose: false,
     sneezing: false,
-    eyeSoreness: false,
-    earache: false,
-    ringingEars: false,
-    mouthUlcers: false,
     tongueSurface: false,
   };
 };
@@ -103,17 +102,17 @@ HeadSymptomsQuestions.schema = () => {
 
 HeadSymptomsQuestions.createAssessment = (formData: HeadSymptomsData): Partial<AssessmentInfosRequest> => {
   return {
+    altered_smell: formData.alteredTasteSmell,
+    dizzy_light_headed: formData.dizzy,
+    ear_ringing: formData.ringingEars,
+    earache: formData.earache,
+    eye_soreness: formData.eyeSoreness,
     headache: formData.headache,
     headache_frequency: formData.headache ? formData.headacheFollowUp : null,
-    dizzy_light_headed: formData.dizzy,
     loss_of_smell: formData.lossTasteSmell,
-    altered_smell: formData.alteredTasteSmell,
+    mouth_ulcers: formData.mouthUlcers,
     runny_nose: formData.runnyNose,
     sneezing: formData.sneezing,
-    eye_soreness: formData.eyeSoreness,
-    earache: formData.earache,
-    ear_ringing: formData.ringingEars,
-    mouth_ulcers: formData.mouthUlcers,
     tongue_surface: formData.tongueSurface,
   };
 };

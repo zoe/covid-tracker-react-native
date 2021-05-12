@@ -1,6 +1,5 @@
-import React from 'react';
-
 import { TColorPalette, TColorShade } from '@covid/themes';
+import React from 'react';
 
 import { SIndicatorView } from './styles';
 

@@ -1,12 +1,10 @@
+import { IUIMessage, useMessage } from '@covid/common';
 import React, { useEffect, useState } from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { IUIMessage, useMessage } from '@covid/common';
-
 import { ThemeButton } from '../../buttons';
 import { Text } from '../../typography';
-
 import { SButtonRowView, SContainerView } from './styles';
 
 interface IProps {
@@ -30,9 +28,9 @@ function Banner({ active = true, message }: IProps) {
 
   const animate = (active: boolean) => {
     Animated.timing(animValue, {
-      toValue: active ? RANGE_TO : RANGE_FROM,
       duration: DURATION,
       easing: Easing.linear,
+      toValue: active ? RANGE_TO : RANGE_FROM,
       useNativeDriver: true,
     }).start();
   };
@@ -53,7 +51,7 @@ function Banner({ active = true, message }: IProps) {
   });
 
   return (
-    <SContainerView top={top} width={width} style={{ transform: [{ translateY: animateTo }] }}>
+    <SContainerView style={{ transform: [{ translateY: animateTo }] }} top={top} width={width}>
       {message.message.title ? <Text textClass="h5Medium">{message.message.title}</Text> : null}
       <Text>{message.message.body}</Text>
       <SButtonRowView>
@@ -62,12 +60,12 @@ function Banner({ active = true, message }: IProps) {
               const key = `banner-action-${index}`;
               return (
                 <ThemeButton
+                  simple
+                  colorPalette="teal"
+                  colorShade="main"
                   key={key}
                   onPress={action.action}
                   title={action.label}
-                  colorPalette="teal"
-                  colorShade="main"
-                  simple
                 />
               );
             })

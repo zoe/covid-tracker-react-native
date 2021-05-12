@@ -9,8 +9,8 @@ const initialState: IMentalHealthHistory = {
 };
 
 const mentalHealthHistorySlice = createSlice({
-  name: 'MentalHealthHistory',
   initialState,
+  name: 'MentalHealthHistory',
   reducers: {
     addHistoryCondition: (state, action: PayloadAction<TMentalHealthCondition>) => {
       return {
@@ -38,11 +38,7 @@ const mentalHealthHistorySlice = createSlice({
   },
 });
 
-export const {
-  addHistoryCondition,
-  removeHistoryCondition,
-  setHasHistoryDiagnosis,
-  setHistoryOtherText,
-} = mentalHealthHistorySlice.actions;
+export const { addHistoryCondition, removeHistoryCondition, setHasHistoryDiagnosis, setHistoryOtherText } =
+  mentalHealthHistorySlice.actions;
 export const selectMentalHealthHistory = (state: RootState) => state.mentalHealthHistory;
 export default mentalHealthHistorySlice.reducer;

@@ -1,10 +1,9 @@
-import { injectable } from 'inversify';
-import { AxiosResponse } from 'axios';
-
 import appConfig from '@covid/appConfig';
+import { AxiosResponse } from 'axios';
+import { injectable } from 'inversify';
 
-import UserService, { IUserService } from './UserService';
 import { CovidTest, CovidTestResponse } from './dto/CovidTestContracts';
+import UserService, { IUserService } from './UserService';
 
 export interface ICovidTestService extends IUserService {
   listTests(): Promise<AxiosResponse<CovidTest[]>>;

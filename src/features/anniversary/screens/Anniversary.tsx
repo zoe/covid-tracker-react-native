@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, Alert } from 'react-native';
-
 import ApiClient from '@covid/core/api/ApiClient';
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, SafeAreaView } from 'react-native';
 
 import {
   LoadingIndicator,
   ReportCard,
   Timeline,
-  TimelineIntroduction,
-  TimelineHeader,
-  TimelineFooter,
   TimelineError,
+  TimelineFooter,
+  TimelineHeader,
+  TimelineIntroduction,
 } from '../partials';
 import { ITimeline } from '../types';
 
@@ -90,8 +89,8 @@ function Anniversary() {
       <TimelineHeader />
       <FlatList
         data={data}
-        renderItem={renderItem}
         keyExtractor={(item: TRowItem) => item.id}
+        renderItem={renderItem}
         style={{ backgroundColor: '#EEEEEF' }}
       />
     </SafeAreaView>

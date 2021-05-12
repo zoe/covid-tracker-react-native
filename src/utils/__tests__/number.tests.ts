@@ -1,4 +1,4 @@
-import { cleanIntegerVal, cleanFloatVal } from '../number';
+import { cleanFloatVal, cleanIntegerVal } from '../number';
 
 describe('cleanIntegerVal', () => {
   it("doesn't coerce octal", () => {

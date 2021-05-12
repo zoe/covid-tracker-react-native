@@ -1,9 +1,8 @@
+import YesNoField from '@covid/components/YesNoField';
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
 import { View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import YesNoField from '@covid/components/YesNoField';
 
 export interface IAtopyData {
   hasHayfever: string;
@@ -19,9 +18,9 @@ interface Props {
 export class AtopyQuestions extends Component<Props, object> {
   static initialFormValues = () => {
     return {
-      hasHayfever: 'no',
-      hasEczema: 'no',
       hasAsthma: 'no',
+      hasEczema: 'no',
+      hasHayfever: 'no',
       hasLungDisease: 'no',
     };
   };
@@ -30,27 +29,27 @@ export class AtopyQuestions extends Component<Props, object> {
     return (
       <View>
         <YesNoField
-          selectedValue={this.props.formikProps.values.hasHayfever}
-          onValueChange={this.props.formikProps.handleChange('hasHayfever')}
           label={i18n.t('your-health.have-hayfever')}
+          onValueChange={this.props.formikProps.handleChange('hasHayfever')}
+          selectedValue={this.props.formikProps.values.hasHayfever}
         />
 
         <YesNoField
-          selectedValue={this.props.formikProps.values.hasEczema}
-          onValueChange={this.props.formikProps.handleChange('hasEczema')}
           label={i18n.t('your-health.have-eczema')}
+          onValueChange={this.props.formikProps.handleChange('hasEczema')}
+          selectedValue={this.props.formikProps.values.hasEczema}
         />
 
         <YesNoField
-          selectedValue={this.props.formikProps.values.hasAsthma}
-          onValueChange={this.props.formikProps.handleChange('hasAsthma')}
           label={i18n.t('your-health.have-asthma')}
+          onValueChange={this.props.formikProps.handleChange('hasAsthma')}
+          selectedValue={this.props.formikProps.values.hasAsthma}
         />
 
         <YesNoField
-          selectedValue={this.props.formikProps.values.hasLungDisease}
-          onValueChange={this.props.formikProps.handleChange('hasLungDisease')}
           label={i18n.t('your-health.have-lung-disease')}
+          onValueChange={this.props.formikProps.handleChange('hasLungDisease')}
+          selectedValue={this.props.formikProps.values.hasLungDisease}
         />
       </View>
     );

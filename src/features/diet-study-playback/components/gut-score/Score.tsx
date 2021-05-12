@@ -1,12 +1,10 @@
+import { Text } from '@covid/components';
+import { TStyleObject } from '@covid/utils/types';
 import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, Easing, View } from 'react-native';
 
-import { Text } from '@covid/components';
-import { TStyleObject } from '@covid/utils/types';
-
 import DietScoreHeader from '../diet-score-header';
 import ScoreCard from '../score-card';
-
 import ScoreRange from './ScoreRange';
 
 interface IProps {
@@ -34,29 +32,30 @@ function Score({ currentValue, minValue, maxValue, style = {}, subTitle, title }
     const percent = getPercentValue();
     if (percent < 0.25) {
       return 0;
-    } else if (percent >= 0.25 && percent < 0.5) {
-      return 0.3;
-    } else if (percent >= 0.5 && percent < 0.75) {
-      return 0.6;
-    } else {
-      return 1;
     }
+    if (percent >= 0.25 && percent < 0.5) {
+      return 0.3;
+    }
+    if (percent >= 0.5 && percent < 0.75) {
+      return 0.6;
+    }
+    return 1;
   };
 
   const run = () => {
     Animated.timing(animatedValue, {
-      toValue: getToValue(),
       delay: 500,
       duration: 800,
       easing: Easing.inOut(Easing.ease),
+      toValue: getToValue(),
       useNativeDriver: false,
     }).start();
     //
     Animated.timing(translateXValue, {
-      toValue: getPercentValue(),
       delay: 500,
       duration: 800,
       easing: Easing.inOut(Easing.ease),
+      toValue: getPercentValue(),
       useNativeDriver: false,
     }).start();
   };
@@ -79,7 +78,7 @@ function Score({ currentValue, minValue, maxValue, style = {}, subTitle, title }
 
   return (
     <View style={style}>
-      <DietScoreHeader title={title} subTitle={subTitle} />
+      <DietScoreHeader subTitle={subTitle} title={title} />
       <View>
         <ScoreRange />
         <Animated.View style={{ marginBottom: 8, transform: [{ translateX }] }}>

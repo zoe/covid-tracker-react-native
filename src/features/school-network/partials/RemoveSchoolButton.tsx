@@ -1,9 +1,8 @@
+import { RegularText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-
-import { RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
 
 interface IProps {
   onPress: () => void;
@@ -12,8 +11,8 @@ interface IProps {
 
 function RemoveSchoolButton({ onPress, text }: IProps) {
   return (
-    <TouchableOpacity style={{ margin: 16 }} onPress={onPress}>
-      <RegularText style={{ textAlign: 'center', color: colors.coral }}>{i18n.t(text)}</RegularText>
+    <TouchableOpacity onPress={onPress} style={{ margin: 16 }}>
+      <RegularText style={{ color: colors.coral, textAlign: 'center' }}>{i18n.t(text)}</RegularText>
     </TouchableOpacity>
   );
 }

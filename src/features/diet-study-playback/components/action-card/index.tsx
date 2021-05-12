@@ -35,10 +35,10 @@ function DietStudyActionCard() {
 
   return (
     <ActionCard actionTitle={getCtaTitle()} onPress={handleOnPress} {...buttonProps}>
-      <Text textClass="h4" rhythm={16}>
+      <Text rhythm={16} textClass="h4">
         {i18n.t(`diet-study.email-action-title`)}
       </Text>
-      <Text textClass="pLight" rhythm={8}>
+      <Text rhythm={8} textClass="pLight">
         {i18n.t(`diet-study.email-action-body`)}
       </Text>
       {settings.hasEmailSubscription ? (

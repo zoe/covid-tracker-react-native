@@ -3,7 +3,6 @@ import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 
 import AppJson from '../../../app.json';
-
 import { IPushTokenEnvironment } from './PushNotificationService';
 
 export default class ExpoPushTokenEnvironment implements IPushTokenEnvironment {

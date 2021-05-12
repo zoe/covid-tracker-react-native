@@ -1,8 +1,7 @@
+import { colors, fontStyles } from '@theme';
 import { Button } from 'native-base';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
-import { colors, fontStyles } from '@theme';
 
 import { IClickableProps } from '../../Text';
 import { ITest } from '../../types';
@@ -17,16 +16,17 @@ function BrandedButton({ style, children, onPress, enable, buttonProps, textProp
     <View style={enable === false ? { opacity: 0.2 } : { opacity: 1 }}>
       <Button
         accessible
-        accessibilityRole="button"
-        testID="buttonTestID"
         block
-        style={[styles.button, style]}
+        accessibilityRole="button"
         onPress={() => {
           if (enable !== false) {
             onPress();
           }
         }}
-        {...buttonProps}>
+        style={[styles.button, style]}
+        testID="buttonTestID"
+        {...buttonProps}
+      >
         <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
           {children}
         </Text>
@@ -37,10 +37,10 @@ function BrandedButton({ style, children, onPress, enable, buttonProps, textProp
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 100,
-    height: 56,
     backgroundColor: colors.brand,
+    borderRadius: 100,
     elevation: 0,
+    height: 56,
   },
 
   buttonText: {

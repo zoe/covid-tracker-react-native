@@ -26,19 +26,22 @@ export type ApiErrorState = {
 };
 
 export const initialErrorState = {
-  isApiError: false,
   error: null,
+  isApiError: false,
   status: '',
 };
 
 export class AppException extends Error {
   friendlyI18n: string | null;
+
   isRetryable = false;
+
   status: number;
 }
 
 class OfflineException extends AppException {
   isRetryable = true;
+
   friendlyI18n = 'errors.user-is-offline';
 }
 

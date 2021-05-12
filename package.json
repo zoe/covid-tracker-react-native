@@ -21,7 +21,7 @@
     "ios:devices": "xcrun simctl list",
     "ios:local": "ENVFILE=.env.local npm run ios -- --simulator='iPhone 8'",
     "ios:staging": "ENVFILE=.env.staging npm run ios -- --simulator='iPhone 8'",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore",
+    "lint": "eslint assets/ src/ theme/ --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore",
     "lint:ci": "npm run lint:fix -- --format junit --output-file ~/reports/eslint.xml",
     "lint:fix": "npm run lint -- --fix",
     "metro-empty-cache": "rm -rf $TMPDIR/metro-cache",

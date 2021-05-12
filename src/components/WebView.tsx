@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NativeWebView, { WebViewProps, WebViewMessageEvent } from 'react-native-webview';
+import NativeWebView, { WebViewMessageEvent, WebViewProps } from 'react-native-webview';
 
 interface Props extends WebViewProps {
   onEvent?: (type: string, payload?: object) => void;
@@ -19,7 +19,7 @@ export class WebView extends Component<Props, object> {
   public onMessage = (event: WebViewMessageEvent) => {
     const { data: stringData } = event.nativeEvent;
     const data = JSON.parse(stringData);
-    if (this.props.onEvent && data['type'] && data['data']) {
+    if (this.props.onEvent && data.type && data.data) {
       this.props.onEvent(data.type, data.data);
     }
   };

@@ -1,17 +1,16 @@
-import { FormikProps } from 'formik';
-import React, { useState } from 'react';
-import * as Yup from 'yup';
-import { Item, Label, Text } from 'native-base';
-import moment, { Moment } from 'moment';
-import { StyleSheet, View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { FieldWrapper } from '@covid/components/Screen';
 import CalendarPicker from '@covid/components/CalendarPicker';
+import { FieldWrapper } from '@covid/components/Screen';
 import { ClickableText, RegularText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import i18n from '@covid/locale/i18n';
+import { colors, fontStyles } from '@theme';
+import { FormikProps } from 'formik';
+import moment, { Moment } from 'moment';
+import { Item, Label, Text } from 'native-base';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 export interface ICovidTestDateData {
   knowsDateOfTest: string; // only for ux logic
@@ -72,7 +71,7 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
   return (
     <>
       <YesNoField
-        selectedValue={formikProps.values.knowsDateOfTest}
+        label={i18n.t('covid-test.question-knows-date-of-test')}
         onValueChange={(value: string) => {
           if (value === 'yes') {
             formikProps.values.dateTakenBetweenStart = undefined;
@@ -91,7 +90,7 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
           }
           formikProps.setFieldValue('knowsDateOfTest', value);
         }}
-        label={i18n.t('covid-test.question-knows-date-of-test')}
+        selectedValue={formikProps.values.knowsDateOfTest}
       />
 
       {formikProps.values.knowsDateOfTest === 'yes' && (
@@ -99,8 +98,8 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
           <RegularText style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</RegularText>
           {state.showDatePicker ? (
             <CalendarPicker
-              onDateChange={setTestDate}
               maxDate={today}
+              onDateChange={setTestDate}
               {...(!!formikProps.values.dateTakenSpecific && {
                 selectedStartDate: formikProps.values.dateTakenSpecific,
               })}
@@ -125,10 +124,10 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
             <CalendarPicker
               allowRangeSelection
               // @ts-ignore Incorrect types on onDateChange, ignore it.
-              onDateChange={setRangeTestDates}
-              selectedStartDate={formikProps.values.dateTakenBetweenStart}
-              selectedEndDate={formikProps.values.dateTakenBetweenEnd}
               maxDate={today}
+              onDateChange={setRangeTestDates}
+              selectedEndDate={formikProps.values.dateTakenBetweenEnd}
+              selectedStartDate={formikProps.values.dateTakenBetweenStart}
             />
           ) : (
             <ClickableText onPress={() => setState({ ...state, showRangePicker: true })} style={styles.fieldText}>
@@ -150,14 +149,14 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
 };
 
 const styles = StyleSheet.create({
-  labelStyle: {
-    marginVertical: 16,
-  },
   fieldText: {
     ...fontStyles.bodyReg,
-    color: colors.black,
     alignSelf: 'center',
+    color: colors.black,
     paddingBottom: 10,
+  },
+  labelStyle: {
+    marginVertical: 16,
   },
 });
 
@@ -165,16 +164,15 @@ CovidTestDateQuestion.initialFormValues = (test?: CovidTest): ICovidTestDateData
   function getInitialKnowsDateOfTest(test: CovidTest | undefined): string {
     if (test === undefined) {
       return '';
-    } else {
-      return test.date_taken_specific ? 'yes' : 'no';
     }
+    return test.date_taken_specific ? 'yes' : 'no';
   }
 
   return {
-    knowsDateOfTest: getInitialKnowsDateOfTest(test),
-    dateTakenSpecific: test?.date_taken_specific ? moment(test.date_taken_specific).toDate() : undefined,
-    dateTakenBetweenStart: test?.date_taken_between_start ? moment(test.date_taken_between_start).toDate() : undefined,
     dateTakenBetweenEnd: test?.date_taken_between_end ? moment(test.date_taken_between_end).toDate() : undefined,
+    dateTakenBetweenStart: test?.date_taken_between_start ? moment(test.date_taken_between_start).toDate() : undefined,
+    dateTakenSpecific: test?.date_taken_specific ? moment(test.date_taken_specific).toDate() : undefined,
+    knowsDateOfTest: getInitialKnowsDateOfTest(test),
   };
 };
 
@@ -190,8 +188,8 @@ function formatDateToPost(date: Date | undefined) {
 
 CovidTestDateQuestion.createDTO = (formData: ICovidTestDateData): Partial<CovidTest> => {
   return {
-    date_taken_specific: formatDateToPost(formData.dateTakenSpecific),
-    date_taken_between_start: formatDateToPost(formData.dateTakenBetweenStart),
     date_taken_between_end: formatDateToPost(formData.dateTakenBetweenEnd),
+    date_taken_between_start: formatDateToPost(formData.dateTakenBetweenStart),
+    date_taken_specific: formatDateToPost(formData.dateTakenSpecific),
   } as Partial<CovidTest>;
 };

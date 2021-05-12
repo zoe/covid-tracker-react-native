@@ -1,12 +1,11 @@
+import Screen, { Header } from '@covid/components/Screen';
+import { SelectorButton } from '@covid/components/SelectorButton';
+import { HeaderText, SecondaryText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { HeaderText, SecondaryText } from '@covid/components/Text';
-import Screen, { Header } from '@covid/components/Screen';
-import { SelectorButton } from '@covid/components/SelectorButton';
 
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
 
@@ -18,9 +17,9 @@ type HowYouFeelProps = {
 export default class AdultOrChildScreen extends Component<HowYouFeelProps> {
   buildRouteParams = (consentType: ConsentType) => {
     return {
+      avatarName: this.props.route.params.avatarName,
       consentType,
       profileName: this.props.route.params.profileName,
-      avatarName: this.props.route.params.avatarName,
     };
   };
 

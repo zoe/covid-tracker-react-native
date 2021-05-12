@@ -11,7 +11,7 @@ export const loadHTMLAsString = async (asset: number | string): Promise<string> 
   if (!file.localUri) {
     throw new Error('Local file uri not found for given asset');
   }
-  return await FileSystem.readAsStringAsync(file.localUri);
+  return FileSystem.readAsStringAsync(file.localUri);
 };
 
 //

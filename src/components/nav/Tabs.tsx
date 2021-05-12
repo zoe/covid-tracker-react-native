@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle, Animated } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
-import { colors } from '@theme';
 import { RegularText } from '@covid/components/Text';
+import { colors } from '@theme';
+import React, { useState } from 'react';
+import { Animated, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface IProps {
   labels: string[];
@@ -19,10 +18,10 @@ export function Tabs({ labels, onSelected, ...props }: IProps) {
 
   const onTabBarPress = (index: number) => {
     Animated.spring(translateValue, {
-      toValue: index * tabWidth,
       damping: 14,
       mass: 0.6,
       stiffness: 100,
+      toValue: index * tabWidth,
       useNativeDriver: true,
     }).start();
     setSelectedIndex(index);
@@ -36,10 +35,11 @@ export function Tabs({ labels, onSelected, ...props }: IProps) {
           <Animated.View
             style={[
               {
-                width: tabWidth,
                 transform: [{ translateX: translateValue }],
+                width: tabWidth,
               },
-            ]}>
+            ]}
+          >
             <View style={styles.indicatorBar} />
           </Animated.View>
         </View>
@@ -52,14 +52,16 @@ export function Tabs({ labels, onSelected, ...props }: IProps) {
             key={label}
             onPress={() => {
               onTabBarPress(index);
-            }}>
+            }}
+          >
             <View
               style={[
                 styles.tab,
                 {
                   width: tabWidth,
                 },
-              ]}>
+              ]}
+            >
               <RegularText style={[styles.label, labelStyle]}>{label}</RegularText>
             </View>
           </TouchableOpacity>
@@ -74,25 +76,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  tab: {
-    alignItems: 'center',
+  idleLabel: {},
+
+  indicatorBar: {
+    backgroundColor: colors.brand,
+    display: 'flex',
+    height: 2,
+    marginHorizontal: 24,
+    top: 36,
   },
 
   label: {
     fontSize: 14,
   },
 
-  idleLabel: {},
-
   selectedLabel: {
     color: colors.brand,
   },
 
-  indicatorBar: {
-    display: 'flex',
-    marginHorizontal: 24,
-    height: 2,
-    backgroundColor: colors.brand,
-    top: 36,
+  tab: {
+    alignItems: 'center',
   },
 });

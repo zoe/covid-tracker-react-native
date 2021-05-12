@@ -1,16 +1,15 @@
-import React from 'react';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-
-import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
+import { BigButton } from '@covid/components';
 import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
+import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { ScreenParamList } from '@covid/features';
+import appCoordinator from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { ScreenParamList } from '@covid/features';
-import { BigButton } from '@covid/components';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React from 'react';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ArchiveReason'>;

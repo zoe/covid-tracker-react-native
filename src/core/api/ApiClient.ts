@@ -1,5 +1,5 @@
-import { injectable } from 'inversify';
 import { AxiosInstance } from 'axios';
+import { injectable } from 'inversify';
 
 import { ApiClientBase } from './ApiClientBase';
 import { handleServiceError } from './ApiServiceErrors';

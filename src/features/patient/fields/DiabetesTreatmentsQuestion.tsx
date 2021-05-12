@@ -1,15 +1,14 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Item, Label } from 'native-base';
-import { FormikProps } from 'formik';
-import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { FieldWrapper } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { RegularText } from '@covid/components/Text';
-import { FieldWrapper } from '@covid/components/Screen';
+import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import { Item, Label } from 'native-base';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 import { IFormikDiabetesInputFC } from './DiabetesQuestions';
 
@@ -64,14 +63,15 @@ const DiabetesTreatmentsCheckbox: React.FC<DiabetesTreatmentsCheckboxProps> = ({
 
   return (
     <CheckboxItem
-      value={value}
       onChange={(checked: boolean) => {
         toggled(checked);
         // Reset conditional fields on unchecked
         if (data.fieldName === DiabetesTreatmentsFieldnames.OTHER_ORAL && !checked) {
           reset();
         }
-      }}>
+      }}
+      value={value}
+    >
       {data.label}
     </CheckboxItem>
   );
@@ -115,12 +115,12 @@ export const DiabetesTreatmentsQuestion: IFormikDiabetesInputFC<Props, IDiabetes
 
   const createDiabetesCheckboxes = (
     data: DiabetesTreatmentCheckBoxData[],
-    props: FormikProps<IDiabetesTreatmentsData>
+    props: FormikProps<IDiabetesTreatmentsData>,
   ) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesTreatments.includes(item.fieldName);
       return (
-        <DiabetesTreatmentsCheckbox key={item.fieldName} data={item} formikProps={formikProps} value={isChecked} />
+        <DiabetesTreatmentsCheckbox data={item} formikProps={formikProps} key={item.fieldName} value={isChecked} />
       );
     });
   };
@@ -145,8 +145,8 @@ export const DiabetesTreatmentsQuestion: IFormikDiabetesInputFC<Props, IDiabetes
 
 DiabetesTreatmentsQuestion.initialFormValues = (): IDiabetesTreatmentsData => {
   return {
-    diabetesTreatments: [],
     diabetesTreatmentOtherOral: false,
+    diabetesTreatments: [],
   };
 };
 
@@ -158,14 +158,14 @@ DiabetesTreatmentsQuestion.schema = () => {
 
 DiabetesTreatmentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
   const dto: Partial<PatientInfosRequest> = {
-    diabetes_treatment_none: false,
-    diabetes_treatment_lifestyle: false,
     diabetes_treatment_basal_insulin: false,
-    diabetes_treatment_rapid_insulin: false,
     diabetes_treatment_insulin_pump: false,
+    diabetes_treatment_lifestyle: false,
+    diabetes_treatment_none: false,
     diabetes_treatment_other_injection: false,
     diabetes_treatment_other_oral: false,
     diabetes_treatment_pfnts: false,
+    diabetes_treatment_rapid_insulin: false,
   };
   data.diabetesTreatments.forEach((item) => {
     dto[item] = true;

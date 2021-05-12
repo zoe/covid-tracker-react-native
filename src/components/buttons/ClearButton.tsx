@@ -1,7 +1,6 @@
+import { colors } from '@theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
 
 import { ClickableText } from '../Text';
 
@@ -23,11 +22,11 @@ export function ClearButton({ text, onPress, styles: containerStyles }: IProps) 
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 15,
-    paddingBottom: 24,
-    marginBottom: 8,
-    justifyContent: 'center',
     flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 8,
+    paddingBottom: 24,
+    paddingTop: 15,
   },
   text: {
     color: colors.red,

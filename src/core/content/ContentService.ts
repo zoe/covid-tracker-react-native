@@ -1,15 +1,14 @@
-import { inject, injectable } from 'inversify';
-
-import { AsyncStorageService, PERSONALISED_LOCAL_DATA, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
-import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
-import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
-import i18n from '@covid/locale/i18n';
-import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
-import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
+import { AsyncStorageService, PERSONALISED_LOCAL_DATA, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IContentApiClient } from '@covid/core/content/ContentApiClient';
+import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
+import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
+import { Services } from '@covid/provider/services.types';
 import Constants from '@covid/utils/Constants';
+import { inject, injectable } from 'inversify';
 
 import { FeaturedContentResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
@@ -36,28 +35,28 @@ export default class ContentService implements IContentService {
   static getWebsiteUrl = () => {
     if (isUSCountry()) {
       return 'https://covid.joinzoe.com/us';
-    } else if (isSECountry()) {
-      return 'https://covid19app.lu.se/';
-    } else {
-      return 'https://covid.joinzoe.com/';
     }
+    if (isSECountry()) {
+      return 'https://covid19app.lu.se/';
+    }
+    return 'https://covid.joinzoe.com/';
   };
 
   getCalloutBoxDefault(): ScreenContent {
     return {
-      title_text: i18n.t('welcome.research'),
-      body_text: i18n.t('welcome.see-how-your-area-is-affected'),
-      body_link: ContentService.getWebsiteUrl(),
-      link_text: i18n.t('welcome.visit-the-website'),
-      body_photo: null,
-      experiment_name: '',
-      cohort_id: 0,
       analytics: '',
+      body_link: ContentService.getWebsiteUrl(),
+      body_photo: null,
+      body_text: i18n.t('welcome.see-how-your-area-is-affected'),
+      cohort_id: 0,
+      experiment_name: '',
+      link_text: i18n.t('welcome.visit-the-website'),
+      title_text: i18n.t('welcome.research'),
     };
   }
 
   async getUserCount() {
-    return await AsyncStorageService.getUserCount();
+    return AsyncStorageService.getUserCount();
   }
 
   async checkVersionOfAPIAndApp(apiVersion: string | undefined): Promise<boolean> {

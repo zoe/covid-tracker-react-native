@@ -1,25 +1,24 @@
+import { BrandedButton } from '@covid/components';
+import { Field, FieldError } from '@covid/components/Forms';
+import { ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import Analytics, { events } from '@covid/core/Analytics';
+import { setUsername } from '@covid/core/state/user';
+import { IUserService } from '@covid/core/user/UserService';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
 import { Form, Label } from 'native-base';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import * as Yup from 'yup';
 import { connect } from 'react-redux';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { IUserService } from '@covid/core/user/UserService';
-import Analytics, { events } from '@covid/core/Analytics';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
-import { Field, FieldError } from '@covid/components/Forms';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { setUsername } from '@covid/core/state/user';
-import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
+import * as Yup from 'yup';
 
 import appCoordinator from '../AppCoordinator';
 
@@ -36,9 +35,9 @@ type State = {
 };
 
 const initialState: State = {
-  errorMessage: '',
-  enableSubmit: false,
   accountExists: false,
+  enableSubmit: false,
+  errorMessage: '',
 };
 
 interface RegistrationData {
@@ -89,18 +88,18 @@ class RegisterScreen extends Component<PropsType, State> {
           // deliberately!)
           if (err.response?.status === 403) {
             this.setState({
-              errorMessage: i18n.t('create-account.already-registered'),
               accountExists: true,
+              errorMessage: i18n.t('create-account.already-registered'),
             });
           } else if (err.response?.status === 400) {
             this.setState({
-              errorMessage: i18n.t('create-account.password-too-simple'),
               accountExists: false,
+              errorMessage: i18n.t('create-account.password-too-simple'),
             });
           } else {
             this.setState({
-              errorMessage: i18n.t('create-account.something-went-wrong', { msg: err.response?.status }),
               accountExists: false,
+              errorMessage: i18n.t('create-account.something-went-wrong', { msg: err.response?.status }),
             });
           }
         })
@@ -136,14 +135,16 @@ class RegisterScreen extends Component<PropsType, State> {
     return (
       <Formik
         initialValues={initialRegistrationValues}
+        onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}
         validationSchema={this.registerSchema}
-        onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}>
+      >
         {(props) => {
           return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 style={styles.rootContainer}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+              >
                 <View>
                   <View style={styles.loginHeader}>
                     <HeaderLightText>{i18n.t('create-account.title')}</HeaderLightText>
@@ -162,22 +163,22 @@ class RegisterScreen extends Component<PropsType, State> {
                       <Field>
                         <Label style={styles.labelStyle}>{i18n.t('create-account.email')}</Label>
                         <ValidatedTextInput
-                          keyboardType="email-address"
                           autoCapitalize="none"
                           autoCompleteType="email"
-                          placeholder={i18n.t('create-account.email')}
-                          value={props.values.email}
+                          error={(props.touched.email && props.errors.email) || this.state.accountExists}
+                          keyboardType="email-address"
+                          onBlur={props.handleBlur('email')}
                           onChangeText={(text) => {
                             // this.setState({ enableSubmit: true });
                             props.handleChange('email')(text);
                             this.setIsEnabled(text, props.values.password);
                           }}
-                          onBlur={props.handleBlur('email')}
-                          error={(props.touched.email && props.errors.email) || this.state.accountExists}
-                          returnKeyType="next"
                           onSubmitEditing={() => {
                             this.passwordComponent.focus();
                           }}
+                          placeholder={i18n.t('create-account.email')}
+                          returnKeyType="next"
+                          value={props.values.email}
                         />
                         {!!props.touched.email && !!props.errors.email ? (
                           <FieldError>{props.errors.email}</FieldError>
@@ -192,18 +193,18 @@ class RegisterScreen extends Component<PropsType, State> {
                       <Field>
                         <Label style={styles.labelStyle}>{i18n.t('create-account.password')}</Label>
                         <ValidatedTextInput
-                          ref={(input) => (this.passwordComponent = input)}
                           secureTextEntry
-                          placeholder={i18n.t('create-account.password')}
-                          returnKeyType="go"
-                          value={props.values.password}
+                          error={props.touched.password && props.errors.password}
+                          onBlur={props.handleBlur('password')}
                           onChangeText={(text) => {
                             props.handleChange('password')(text);
                             this.setIsEnabled(props.values.email, text);
                           }}
-                          onBlur={props.handleBlur('password')}
                           onSubmitEditing={(event) => props.handleSubmit()}
-                          error={props.touched.password && props.errors.password}
+                          placeholder={i18n.t('create-account.password')}
+                          ref={(input) => (this.passwordComponent = input)}
+                          returnKeyType="go"
+                          value={props.values.password}
                         />
                         {!!props.touched.password && !!props.errors.password ? (
                           <FieldError>{props.errors.password}</FieldError>
@@ -229,9 +230,10 @@ class RegisterScreen extends Component<PropsType, State> {
                   ) : null}
                   <View>
                     <BrandedButton
-                      onPress={props.handleSubmit}
+                      enable={this.state.enableSubmit}
                       hideLoading={!props.isSubmitting}
-                      enable={this.state.enableSubmit}>
+                      onPress={props.handleSubmit}
+                    >
                       {i18n.t('create-account.btn')}
                     </BrandedButton>
                   </View>
@@ -246,23 +248,14 @@ class RegisterScreen extends Component<PropsType, State> {
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingTop: 56,
+  actionBlock: {
+    marginBottom: 16,
   },
-  loginHeader: {
-    marginTop: 30,
-    marginHorizontal: 16,
+  errorText: {
+    color: colors.feedbackBad,
   },
-  loginSubtitle: {
-    marginTop: 16,
-  },
-  titleText: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
+  fieldError: {
+    marginVertical: 4,
   },
   form: {
     marginVertical: 16,
@@ -273,20 +266,29 @@ const styles = StyleSheet.create({
   labelStyle: {
     color: colors.tertiary,
     fontSize: 16,
-    position: 'absolute',
     left: -16384,
+    position: 'absolute',
   },
-  fieldError: {
-    marginVertical: 4,
+  loginHeader: {
+    marginHorizontal: 16,
+    marginTop: 30,
   },
-  errorText: {
-    color: colors.feedbackBad,
-  },
-  actionBlock: {
-    marginBottom: 16,
+  loginSubtitle: {
+    marginTop: 16,
   },
   nextAction: {
     marginVertical: 8,
+  },
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingTop: 56,
+  },
+  titleText: {
+    paddingBottom: 16,
+    paddingHorizontal: 16,
   },
 });
 

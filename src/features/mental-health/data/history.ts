@@ -1,4 +1,4 @@
-import { TMentalHealthCondition, THasDiagnosis } from '@covid/core/state/mental-health';
+import { THasDiagnosis, TMentalHealthCondition } from '@covid/core/state/mental-health';
 import i18n from '@covid/locale/i18n';
 
 export type TQuestion = {

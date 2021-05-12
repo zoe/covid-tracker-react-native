@@ -1,20 +1,19 @@
+import { closeIcon } from '@assets';
+import { RegularText } from '@covid/components/Text';
+import { ITest } from '@covid/components/types';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { isAndroid } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Form, Icon, Label, Picker } from 'native-base';
 import React, { FC, useCallback, useState } from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
-
-import { closeIcon } from '@assets';
-import { colors } from '@theme';
-import { isAndroid } from '@covid/utils/platform';
-import { RegularText } from '@covid/components/Text';
-import { ITest } from '@covid/components/types';
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import { Services } from '@covid/provider/services.types';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 enum CountryCode {
   NONE = '',
@@ -61,7 +60,7 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
         routes: screenStack(),
       });
     },
-    [navigation.reset]
+    [navigation.reset],
   );
 
   const onValueChange = useCallback(
@@ -71,14 +70,14 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
       await AsyncStorageService.setAskedCountryConfirmation(true);
       await selectCountry(value);
     },
-    [closeModal, setCountrySelected, selectCountry]
+    [closeModal, setCountrySelected, selectCountry],
   );
 
   const renderItem = useCallback(
     (i: Item) => (
       <Picker.Item color={i.value ? undefined : colors.tertiary} key={key(i)} label={i.label} value={i.value} />
     ),
-    [colors.tertiary]
+    [colors.tertiary],
   );
 
   const items: Item[] = [
@@ -92,10 +91,10 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
   }
 
   return (
-    <Modal animationType="fade" transparent visible={isModalVisible}>
+    <Modal transparent animationType="fade" visible={isModalVisible}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <TouchableOpacity testID="closeModal" style={{ alignSelf: 'flex-end' }} onPress={closeModal}>
+          <TouchableOpacity onPress={closeModal} style={{ alignSelf: 'flex-end' }} testID="closeModal">
             <Image source={closeIcon} />
           </TouchableOpacity>
           <RegularText style={styles.titleText}>{i18n.t('your-country-title')}</RegularText>
@@ -104,11 +103,12 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
           <Form style={{ marginTop: 32, width: 300 }}>
             <Label style={styles.labelStyle}>{i18n.t('select-country')}</Label>
             <Picker
-              testID="countryPicker"
-              selectedValue={countrySelected}
-              onValueChange={onValueChange}
               iosIcon={<Icon name="arrow-down" />}
-              placeholder={i18n.t('choose-one-of-these-options')}>
+              onValueChange={onValueChange}
+              placeholder={i18n.t('choose-one-of-these-options')}
+              selectedValue={countrySelected}
+              testID="countryPicker"
+            >
               {items.map(renderItem)}
             </Picker>
           </Form>
@@ -119,40 +119,40 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 24,
-    backgroundColor: colors.white,
-    borderRadius: 8,
-    padding: 24,
-    alignItems: 'center',
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  titleText: {
-    marginVertical: 16,
-    fontSize: 20,
-    textAlign: 'center',
-  },
   bodyText: {
     textAlign: 'center',
   },
+  centeredView: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    flex: 1,
+    justifyContent: 'center',
+    marginTop: 22,
+  },
   labelStyle: {
+    color: colors.primary,
     fontSize: 15,
     lineHeight: 30,
-    color: colors.primary,
+  },
+  modalView: {
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    borderRadius: 8,
+    elevation: 5,
+    margin: 24,
+    padding: 24,
+    shadowColor: colors.black,
+    shadowOffset: {
+      height: 2,
+      width: 0,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+  titleText: {
+    fontSize: 20,
+    marginVertical: 16,
+    textAlign: 'center',
   },
 });
 

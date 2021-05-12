@@ -1,11 +1,10 @@
+import { HeaderText } from '@covid/components/Text';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { HeaderText } from '@covid/components/Text';
-import { colors } from '@theme';
-import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
-import appCoordinator from '@covid/features/AppCoordinator';
 
 type Props = {
   patientId: string;
@@ -42,7 +41,7 @@ export const ArchiveProfile: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
   archiveCta: {
-    textAlign: 'center',
     color: colors.coral,
+    textAlign: 'center',
   },
 });

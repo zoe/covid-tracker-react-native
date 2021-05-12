@@ -1,20 +1,19 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-import { View } from 'react-native';
-import { Textarea } from 'native-base';
-
-import i18n from '@covid/locale/i18n';
-import { RegularText } from '@covid/components/Text';
+import InfoCircle from '@assets/icons/InfoCircle';
 import { CheckboxList } from '@covid/components/Checkbox';
+import { RegularText } from '@covid/components/Text';
+import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import {
   createSymptomCheckboxes,
   IDoseSymptomQuestions,
   SymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
-import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import i18n from '@covid/locale/i18n';
 import { colors } from '@covid/themes/theme/colors';
-import InfoCircle from '@assets/icons/InfoCircle';
+import { FormikProps } from 'formik';
+import { Textarea } from 'native-base';
+import React from 'react';
+import { View } from 'react-native';
+import * as Yup from 'yup';
 
 export type DoseSymptomsData = DoseSymptomsCheckBoxData & DoseSymptomsFollowUpData;
 
@@ -72,14 +71,14 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<Props, DoseSymptomsDat
           </View>
 
           <Textarea
-            rowSpan={4}
             bordered
             maxLength={500}
-            placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
-            value={formikProps.values.otherSymptoms}
             onChangeText={formikProps.handleChange('otherSymptoms')}
-            underline={false}
+            placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
+            rowSpan={4}
             style={{ borderRadius: 8 }}
+            underline={false}
+            value={formikProps.values.otherSymptoms}
           />
         </>
       ) : null}
@@ -89,16 +88,16 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<Props, DoseSymptomsDat
 
 DoseSymptomsQuestions.initialFormValues = (): DoseSymptomsData => {
   return {
+    bruising: false,
+    glands: false,
+    itch: false,
+    other: false,
+    otherSymptoms: '',
     pain: false,
     redness: false,
     swelling: false,
-    glands: false,
-    warmth: false,
-    itch: false,
     tenderness: false,
-    bruising: false,
-    other: false,
-    otherSymptoms: '',
+    warmth: false,
   };
 };
 
@@ -108,14 +107,14 @@ DoseSymptomsQuestions.schema = () => {
 
 DoseSymptomsQuestions.createDoseSymptoms = (formData: DoseSymptomsData): Partial<DoseSymptomsRequest> => {
   return {
+    bruising: formData.bruising,
+    itch: formData.itch,
     pain: formData.pain,
     redness: formData.redness,
     swelling: formData.swelling,
     swollen_armpit_glands: formData.glands,
-    warmth: formData.warmth,
-    itch: formData.itch,
     tenderness: formData.tenderness,
-    bruising: formData.bruising,
+    warmth: formData.warmth,
     ...(formData.other && { other: formData.otherSymptoms }),
   };
 };

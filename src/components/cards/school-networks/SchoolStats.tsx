@@ -1,11 +1,9 @@
+import i18n from '@covid/locale/i18n';
 import React from 'react';
 
-import i18n from '@covid/locale/i18n';
-
 import { Text } from '../../typography';
-
-import { SStatsContainerView } from './styles';
 import HealthStatus from './HealthStatus';
+import { SStatsContainerView } from './styles';
 
 interface IProps {
   active: boolean;
@@ -32,14 +30,14 @@ function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = fals
 
   return (
     <SStatsContainerView isLast={isLast}>
-      <Text textClass="pSmallLight" rhythm={8} colorPalette="uiDark" colorShade="main" inverted>
+      <Text inverted colorPalette="uiDark" colorShade="main" rhythm={8} textClass="pSmallLight">
         {bubbleName.length ? bubbleName : i18n.t('school-networks.dashboard.entire-school')}
       </Text>
-      <Text textClass="p" rhythm={active ? 8 : 12} colorPalette="uiDark" colorShade="darker" inverted>
+      <Text inverted colorPalette="uiDark" colorShade="darker" rhythm={active ? 8 : 12} textClass="p">
         {size} / {total} {i18n.t('school-networks.dashboard.children-signed-up')}
       </Text>
       {active && daily !== undefined ? (
-        <Text textClass="pLight" rhythm={8} colorPalette="uiDark" colorShade="darker" inverted>
+        <Text inverted colorPalette="uiDark" colorShade="darker" rhythm={8} textClass="pLight">
           {`${daily} ${
             daily === 1
               ? i18n.t('school-networks.dashboard.report-for-today-singular')
@@ -51,7 +49,7 @@ function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = fals
       {active ? (
         <HealthStatus reported={reported} />
       ) : (
-        <Text textClass="pLight" colorPalette="uiDark" colorShade="main" inverted>
+        <Text inverted colorPalette="uiDark" colorShade="main" textClass="pLight">
           {getToSignUpMessage()}
         </Text>
       )}

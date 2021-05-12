@@ -1,10 +1,9 @@
-import { injectable } from 'inversify';
-
-import { AskForStudies, Consent } from '@covid/core/user/dto/UserAPIContracts';
+import appConfig from '@covid/appConfig';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import appConfig from '@covid/appConfig';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { AskForStudies, Consent } from '@covid/core/user/dto/UserAPIContracts';
+import { injectable } from 'inversify';
 
 export interface IConsentService {
   postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
@@ -23,15 +22,15 @@ export class ConsentService extends ApiClientBase implements IConsentService {
 
   public static consentSigned: Consent = {
     document: '',
-    version: '',
     privacy_policy_version: '',
+    version: '',
   };
 
   public async postConsent(document: string, version: string, privacy_policy_version: string) {
     const payload = {
       document,
-      version,
       privacy_policy_version,
+      version,
     };
     return this.client.patch(`/consent/`, payload);
   }
@@ -44,8 +43,8 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
     const consent = {
       document,
-      version,
       privacy_policy_version,
+      version,
     };
     ConsentService.consentSigned = consent;
     await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
@@ -53,21 +52,24 @@ export class ConsentService extends ApiClientBase implements IConsentService {
 
   setVaccineRegistryResponse(response: boolean) {
     return this.client.post('/study_consent/', {
-      study: 'Vaccine Register',
-      status: response ? 'signed' : 'declined',
-      version: appConfig.vaccineRegistryVersion, // Mandatory field but unused for vaccine registry
+      // Mandatory field but unused for vaccine registry
       ad_version: appConfig.vaccineRegistryAdVersion,
+
+      status: response ? 'signed' : 'declined',
+
+      study: 'Vaccine Register',
+      version: appConfig.vaccineRegistryVersion,
     });
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
     return this.client.post('/study_consent/', {
+      ad_version: appConfig.ukValidationStudyAdVersion,
+      allow_contact_by_zoe: reContacted,
+      allow_future_data_use: anonymizedData,
+      status: response ? 'signed' : 'declined',
       study: 'UK Validation Study',
       version: appConfig.ukValidationStudyConsentVersion,
-      ad_version: appConfig.ukValidationStudyAdVersion,
-      status: response ? 'signed' : 'declined',
-      allow_future_data_use: anonymizedData,
-      allow_contact_by_zoe: reContacted,
     });
   }
 
@@ -90,8 +92,8 @@ export class ConsentService extends ApiClientBase implements IConsentService {
 
   private getDefaultStudyResponse(): AskForStudies {
     return {
-      should_ask_uk_validation_study: false,
       should_ask_uk_vaccine_register: false,
+      should_ask_uk_validation_study: false,
     } as AskForStudies;
   }
 

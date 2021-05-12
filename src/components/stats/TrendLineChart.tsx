@@ -1,14 +1,13 @@
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { RootState } from '@covid/core/state/root';
+import { loadTrendLineExplore, loadTrendLineOverview } from '@covid/utils/files';
+import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 
-import { RootState } from '@covid/core/state/root';
-import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
-import { loadTrendLineExplore, loadTrendLineOverview } from '@covid/utils/files';
-
-import { WebView } from '../WebView';
 import { MutedText, RegularText } from '../Text';
+import { WebView } from '../WebView';
 
 export enum TrendlineTimeFilters {
   week = 'WEEK',
@@ -84,12 +83,12 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
       const date = moment(data.date);
       return {
         date,
-        time: {
-          year: date.format('YYYY'),
-          month: date.format('MM'),
-          day: date.format('DD'),
-        },
         label: moment(data.date).format('DD'),
+        time: {
+          day: date.format('DD'),
+          month: date.format('MM'),
+          year: date.format('YYYY'),
+        },
         value: Math.round(data.value),
       };
     });
@@ -101,7 +100,7 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
         const monthLabels = (filtered ?? []).map((data) => moment(data.date).format('MMM'));
         const monthLabelSet = monthLabels.reduce(
           (unique: string[], item: string) => (unique.includes(item) ? unique : [...unique, item]),
-          []
+          [],
         );
         if (monthLabelSet.length >= 2) {
           setMonthRangeLabel(`${monthLabelSet[monthLabelSet.length - 1]} - ${monthLabelSet[0]}`);
@@ -121,8 +120,8 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
         webview.current?.call('setData', {
           payload: {
             data: timeseriesSorted,
-            min: Math.min(...values),
             max: Math.max(...values),
+            min: Math.min(...values),
           },
         });
     }
@@ -133,14 +132,9 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
   }
 
   return (
-    <View style={{ flexDirection: 'column', flex: 1, alignContent: 'center' }}>
+    <View style={{ alignContent: 'center', flex: 1, flexDirection: 'column' }}>
       <WebView
         androidHardwareAccelerationDisabled
-        ref={webview}
-        originWhitelist={['*']}
-        source={{ html }}
-        style={styles.webview}
-        scrollEnabled={false}
         onEvent={(type, payload) => {
           switch (type) {
             case 'loaded':
@@ -150,9 +144,14 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
               break;
           }
         }}
+        originWhitelist={['*']}
+        ref={webview}
+        scrollEnabled={false}
+        source={{ html }}
+        style={styles.webview}
       />
-      {!!monthRangeLabel ? (
-        <RegularText style={{ textAlign: 'center', fontSize: 12 }}>{monthRangeLabel}</RegularText>
+      {monthRangeLabel ? (
+        <RegularText style={{ fontSize: 12, textAlign: 'center' }}>{monthRangeLabel}</RegularText>
       ) : null}
     </View>
   );
@@ -160,17 +159,17 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
 
 const styles = StyleSheet.create({
   emptyView: {
+    alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+  },
+  month: {
+    alignSelf: 'center',
+    fontSize: 14,
+    marginTop: 4,
   },
   webview: {
     height: '100%',
     width: '100%',
-  },
-  month: {
-    fontSize: 14,
-    alignSelf: 'center',
-    marginTop: 4,
   },
 });

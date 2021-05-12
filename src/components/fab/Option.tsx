@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from '../icons';
 import { Text } from '../typography';
@@ -17,9 +17,9 @@ function Option({ label, handleOnPress, toValue, yValue }: IProps) {
 
   const spring = () => {
     Animated.spring(springValue, {
-      toValue,
-      stiffness: 150,
       damping: 15,
+      stiffness: 150,
+      toValue,
       useNativeDriver: true,
     }).start();
   };
@@ -31,9 +31,9 @@ function Option({ label, handleOnPress, toValue, yValue }: IProps) {
 
   const fade = () => {
     Animated.timing(fadeValue, {
-      toValue,
-      duration: 200,
       delay: toValue ? 100 : 0,
+      duration: 200,
+      toValue,
       useNativeDriver: true,
     }).start();
   };
@@ -52,8 +52,9 @@ function Option({ label, handleOnPress, toValue, yValue }: IProps) {
 
   return (
     <Animated.View
-      style={[{ borderWidth: 1, borderColor: 'green', position: 'absolute', opacity, transform: [{ translateY }] }]}>
-      <TouchableOpacity onPress={handleOnPress} accessible accessibilityRole="button">
+      style={[{ borderColor: 'green', borderWidth: 1, opacity, position: 'absolute', transform: [{ translateY }] }]}
+    >
+      <TouchableOpacity accessible accessibilityRole="button" onPress={handleOnPress}>
         <View style={styles.row}>
           <View style={styles.textContainer}>
             <Text>{label}</Text>
@@ -68,13 +69,6 @@ function Option({ label, handleOnPress, toValue, yValue }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    position: 'absolute',
-    right: -60,
-  },
   button: {
     alignItems: 'center',
     backgroundColor: 'purple',
@@ -82,6 +76,13 @@ const styles = StyleSheet.create({
     height: 48,
     justifyContent: 'center',
     width: 48,
+  },
+  container: {},
+  row: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    position: 'absolute',
+    right: -60,
   },
   textContainer: {
     backgroundColor: 'white',

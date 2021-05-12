@@ -1,26 +1,26 @@
 import env from 'react-native-config';
 
 export default {
-  apiBase: env.API_URL,
   amplitudeKey: env.AMPLITUDE_KEY,
+  apiBase: env.API_URL,
 
   assessmentVersion: '2.1.0',
-  patientVersion: '1.6.0',
-  covidTestVersion: '1.2.0',
-  vaccineVersion: '1.0.0',
-
-  nursesConsentVersionUS: 'v2',
-  consentVersionUS: 'v1',
-  consentVersionUK: 'v2.1',
   consentVersionSE: 'v2',
+  consentVersionUK: 'v2.1',
+  consentVersionUS: 'v1',
 
-  privacyPolicyVersionUS: 'v1.3',
-  privacyPolicyVersionUK: 'v3.0',
+  covidTestVersion: '1.2.0',
+  nursesConsentVersionUS: 'v2',
+  patientVersion: '1.6.0',
   privacyPolicyVersionSE: 'v3.0',
 
-  ukValidationStudyConsentVersion: 'v3',
+  privacyPolicyVersionUK: 'v3.0',
+  privacyPolicyVersionUS: 'v1.3',
   ukValidationStudyAdVersion: 'v2',
 
-  vaccineRegistryVersion: 'v1',
+  ukValidationStudyConsentVersion: 'v3',
   vaccineRegistryAdVersion: 'v2',
+
+  vaccineRegistryVersion: 'v1',
+  vaccineVersion: '1.0.0',
 };

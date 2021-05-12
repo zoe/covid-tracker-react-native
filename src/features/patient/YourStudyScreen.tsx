@@ -1,3 +1,20 @@
+import { BrandedButton } from '@covid/components';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ValidationError } from '@covid/components/ValidationError';
+import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
+import { isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { ScreenParamList } from '@covid/features';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
@@ -5,24 +22,6 @@ import { Form, Item, Label, View } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
-
-import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import { GenericTextField } from '@covid/components/GenericTextField';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import { ValidationError } from '@covid/components/ValidationError';
-import { isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
 
 type YourStudyProps = {
   navigation: StackNavigationProp<ScreenParamList, 'YourStudy'>;
@@ -36,9 +35,9 @@ type CohortDefinition = {
 };
 
 const initialFormValues = {
-  clinicalStudyNames: '',
   clinicalStudyContacts: '',
   clinicalStudyInstitutions: '',
+  clinicalStudyNames: '',
   clinicalStudyNctIds: '',
 };
 
@@ -55,190 +54,190 @@ type State = {
 
 const AllCohorts: CohortDefinition[] = [
   {
+    country: 'GB',
     key: 'is_in_uk_guys_trust',
     label: "Guys & St. Thomas' Hospital Trust",
-    country: 'GB',
   },
   {
+    country: 'GB',
     key: 'is_in_uk_nhs_asymptomatic_study',
     label: 'NHS Asymptomatic Staff Testing Pilot',
-    country: 'GB',
   },
   {
+    country: 'GB',
     key: 'is_in_uk_twins',
     label: 'Twins UK',
-    country: 'GB',
   },
   {
+    country: 'GB',
     key: 'is_in_uk_biobank',
     label: 'UK Biobank',
-    country: 'GB',
   },
   {
+    country: 'US',
     key: 'is_in_us_covid_siren',
     label: 'COVID SIREN',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_nurses_study',
     label: "Harvard Nurses' Health Studies",
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_growing_up_today',
     label: 'Harvard Growing Up Today Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_harvard_health_professionals',
     label: 'Harvard Health Professionals Follow Up Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_mass_general_brigham',
     label: 'Mass General / Brigham',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_origins',
     label: 'ORIGINS-Columbia University',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_school_reopenings',
     label: 'Schools Reopenings Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_partners_biobank',
     label: 'Partners Biobank',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_mass_eye_ear_infirmary',
     label: 'Mass Eye and Ear Infirmary',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_bwhs',
     label: "Black Women's Health Study",
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_american_cancer_society_cancer_prevention_study_3',
     label: 'American Cancer Society Cancer Prevention Study-3',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_california_teachers',
     label: 'UCSD/COH California Teachers Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_aspree_xt',
     label: 'ASPREE-XT',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_multiethnic_cohort',
     label: 'Multiethnic Cohort Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_sister',
     label: 'The Sister Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_covid_flu_near_you',
     label: 'CovidNearYou / FluNearYou',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_chasing_covid',
     label: 'CHASING COVID - CUNY ISPH',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_environmental_polymorphisms',
     label: 'NIEHS Environmental Polymorphisms Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_agricultural_health',
     label: 'The Agricultural Health Study (AHS)',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_gulf',
     label: 'The GuLF Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_predetermine',
     label: 'PREDETERMINE Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_promise_pcrowd',
     label: 'PROMISE/PCROWD Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_colocare',
     label: 'ColoCare Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_predict2',
     label: 'PREDICT 2',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_stanford_nutrition',
     label: 'Stanford Nutrition Studies Group',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_md_anderson_d3code',
     label: 'MD Anderson D3CODE Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_hispanic_colorectal_cancer',
     label: 'Hispanic Colorectal Cancer Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_colon_cancer_family_registry',
     label: 'Colon Cancer Family Registry',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_louisiana_state_university',
     label: 'Louisiana State University',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_northshore_genomic_health_initiative',
     label: 'NorthShore Genomic Health Initiative',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_c19_human_genetics',
     label: 'C19 Human Genetics Study',
-    country: 'US',
   },
   {
+    country: 'US',
     key: 'is_in_us_mary_washington_healthcare',
     label: 'Mary Washington Healthcare',
-    country: 'US',
   },
-  //For now, the NOTA is being sent to the backend and failing silently since the field doesn't exist, not to the users knowledge
+  // For now, the NOTA is being sent to the backend and failing silently since the field doesn't exist, not to the users knowledge
   {
+    country: 'GB',
     key: 'is_in_none_of_the_above',
     label: 'None of the above',
-    country: 'GB',
   },
 ];
 
@@ -251,9 +250,9 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     : patientCoordinator;
 
   registerSchema = Yup.object().shape({
-    clinicalStudyNames: Yup.string(),
     clinicalStudyContact: Yup.string(),
     clinicalStudyInstitution: Yup.string(),
+    clinicalStudyNames: Yup.string(),
     clinicalStudyNctId: Yup.string(),
   });
 
@@ -272,22 +271,21 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     if (this.props.route.params.editing) {
       const patientInfo = this.props.route.params.patientData.patientInfo!;
       const patientFormData = {
-        clinicalStudyNames: patientInfo.clinical_study_names ?? '',
         clinicalStudyContacts: patientInfo.clinical_study_contacts ?? '',
         clinicalStudyInstitutions: patientInfo.clinical_study_institutions ?? '',
+        clinicalStudyNames: patientInfo.clinical_study_names ?? '',
         clinicalStudyNctIds: patientInfo.clinical_study_nct_ids ?? '',
       };
       countrySpecificCohorts.forEach((cohort) => {
-        //@ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
+        // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
         patientFormData[cohort.key] = !!patientInfo[cohort.key];
       });
       return patientFormData;
-    } else {
-      return {
-        ...initialFormValues,
-        ...this.buildInitCohortsValues(countrySpecificCohorts),
-      };
     }
+    return {
+      ...initialFormValues,
+      ...this.buildInitCohortsValues(countrySpecificCohorts),
+    };
   }
 
   buildInitCohortsValues(cohorts: CohortDefinition[]): { [index: string]: boolean } {
@@ -324,19 +322,20 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation} simpleCallout>
+      <Screen simpleCallout navigation={this.props.navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>{i18n.t('your-study.title')}</HeaderText>
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={1} maxSteps={6} />
+          <ProgressStatus maxSteps={6} step={1} />
         </ProgressBlock>
 
         <Formik
           initialValues={this.getInitialFormValues()}
+          onSubmit={(values: IYourStudyData) => this.handleSubmit(values)}
           validationSchema={this.registerSchema}
-          onSubmit={(values: IYourStudyData) => this.handleSubmit(values)}>
+        >
           {(props) => {
             return (
               <Form>
@@ -347,19 +346,18 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                       {countrySpecificCohorts.map((cohort) => (
                         <CheckboxItem
                           key={cohort.key}
-                          //@ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
-                          value={props.values[cohort.key]}
+                          // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
                           onChange={(value: boolean) => {
                             if (cohort.key === 'is_in_none_of_the_above') {
-                              //@ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
+                              // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
                               props.setValues(this.buildInitCohortsValues(countrySpecificCohorts));
-                            } else {
-                              if (Object.keys(props.values).includes('is_in_none_of_the_above')) {
-                                props.setFieldValue('is_in_none_of_the_above', false);
-                              }
+                            } else if (Object.keys(props.values).includes('is_in_none_of_the_above')) {
+                              props.setFieldValue('is_in_none_of_the_above', false);
                             }
                             props.setFieldValue(cohort.key, value);
-                          }}>
+                          }}
+                          value={props.values[cohort.key]}
+                        >
                           {cohort.label}
                         </CheckboxItem>
                       ))}
@@ -409,7 +407,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
                 <BrandedButton onPress={props.handleSubmit}>
                   {
-                    //@ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
+                    // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
                     props.values.is_in_uk_nhs_asymptomatic_study
                       ? i18n.t('edit-profile.next')
                       : this.props.route.params.editing
@@ -427,13 +425,8 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
   private createPatientInfos(formData: IYourStudyData) {
     // This is to split up the US specific fields, from the cohorts. This is a neat way to do it without repeating the country filtering logic above
-    const {
-      clinicalStudyNames,
-      clinicalStudyContacts,
-      clinicalStudyInstitutions,
-      clinicalStudyNctIds,
-      ...cohorts
-    } = formData;
+    const { clinicalStudyNames, clinicalStudyContacts, clinicalStudyInstitutions, clinicalStudyNctIds, ...cohorts } =
+      formData;
 
     let infos = { ...cohorts } as Partial<PatientInfosRequest>;
 
@@ -451,10 +444,10 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 }
 
 const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
   standaloneLabel: {
     marginHorizontal: 16,
+  },
+  textItemStyle: {
+    borderColor: 'transparent',
   },
 });

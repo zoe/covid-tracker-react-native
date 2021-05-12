@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { dietStudyPlaybackReadyUS, shareAppV3 } from '@assets';
+import { share } from '@covid/components/cards/BaseShareApp';
+import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
+import { PartnerLogoUSDash } from '@covid/components/logos/PartnerLogo';
+import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
+import AnalyticsService, { events } from '@covid/core/Analytics';
+import { updateTodayDate } from '@covid/core/content/state/contentSlice';
+import { RootState } from '@covid/core/state/root';
+import { useAppDispatch } from '@covid/core/state/store';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
+import { CompactHeader, Header } from '@covid/features/dashboard/Header';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { pushNotificationService } from '@covid/Services';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
-
-import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import { CompactHeader, Header } from '@covid/features/dashboard/Header';
-import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
-import { share } from '@covid/components/cards/BaseShareApp';
-import { dietStudyPlaybackReadyUS, shareAppV3 } from '@assets';
-import i18n from '@covid/locale/i18n';
-import { useAppDispatch } from '@covid/core/state/store';
-import { updateTodayDate } from '@covid/core/content/state/contentSlice';
-import { pushNotificationService } from '@covid/Services';
-import { PartnerLogoUSDash } from '@covid/components/logos/PartnerLogo';
-import { RootState } from '@covid/core/state/root';
-import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import AnalyticsService, { events } from '@covid/core/Analytics';
-import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -65,10 +64,11 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 
   return (
     <CollapsibleHeaderScrollView
-      config={headerConfig}
-      navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
-      expandedHeader={<Header reportOnPress={onReport} />}>
+      config={headerConfig}
+      expandedHeader={<Header reportOnPress={onReport} />}
+      navigation={navigation}
+    >
       <View style={styles.calloutContainer}>
         <ShareVaccineCard screenName="DashboardUS" />
 
@@ -77,16 +77,17 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
             onPress={() => {
               AnalyticsService.track(events.DIET_STUDY_PLAYBACK_CLICKED);
               appCoordinator.goToDietStudy();
-            }}>
-            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUS} />
+            }}
+          >
+            <Image source={dietStudyPlaybackReadyUS} style={styles.dietStudyImage} />
           </TouchableWithoutFeedback>
         ) : null}
         <ExternalCallout
+          aspectRatio={311 / 135}
           calloutID="sharev3"
           imageSource={shareAppV3}
-          aspectRatio={311 / 135}
-          screenName={route.name}
           postClicked={onShare}
+          screenName={route.name}
         />
       </View>
 
@@ -99,22 +100,22 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  schoolModuleContainer: {
-    marginHorizontal: 32,
-    marginBottom: 8,
-    height: 200,
-  },
   calloutContainer: {
     marginHorizontal: 16,
   },
-  zoe: {
-    marginBottom: 32,
-  },
   dietStudyImage: {
-    width: '100%',
     aspectRatio: 1200 / 1266,
     height: undefined,
-    resizeMode: 'contain',
     marginVertical: 8,
+    resizeMode: 'contain',
+    width: '100%',
+  },
+  schoolModuleContainer: {
+    height: 200,
+    marginBottom: 8,
+    marginHorizontal: 32,
+  },
+  zoe: {
+    marginBottom: 32,
   },
 });

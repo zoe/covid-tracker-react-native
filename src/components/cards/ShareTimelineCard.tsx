@@ -1,7 +1,6 @@
+import { timelineShare } from '@assets';
 import React from 'react';
 import { Image } from 'react-native';
-
-import { timelineShare } from '@assets';
 
 function ShareTimelineCard() {
   return (
@@ -10,8 +9,8 @@ function ShareTimelineCard() {
         source={timelineShare}
         style={{
           aspectRatio: 0.99,
-          resizeMode: 'contain',
           height: undefined,
+          resizeMode: 'contain',
           width: '100%',
         }}
       />

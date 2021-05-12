@@ -1,5 +1,5 @@
-import LocalStorageService from '@covid/core/LocalStorageService';
 import ApiClient from '@covid/core/api/ApiClient';
+import LocalStorageService from '@covid/core/LocalStorageService';
 import OfflineService from '@covid/core/offline/OfflineService';
 import PushNotificationApiClient from '@covid/core/push-notifications/PushNotificationApiClient';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
@@ -22,7 +22,7 @@ const pushNotificationApiClient = new PushNotificationApiClient(apiClient);
 export const pushNotificationService = new PushNotificationService(
   pushNotificationApiClient,
   localStorageService,
-  pushTokenEnvironment
+  pushTokenEnvironment,
 );
 
 const assessmentState = new ReduxAssessmentState();

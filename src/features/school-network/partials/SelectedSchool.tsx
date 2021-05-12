@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-
 import { Button } from '@covid/components/buttons/Button';
 import { Header } from '@covid/components/Screen';
-import { ClickableText, HeaderText, RegularText, Header3Text } from '@covid/components/Text';
+import { ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
-import i18n from '@covid/locale/i18n';
-import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { PatientStateType } from '@covid/core/patient/PatientState';
+import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import RemoveSchoolButton from './RemoveSchoolButton';
 
@@ -72,11 +71,12 @@ function SelectedSchool({
         <RemoveSchoolButton onPress={() => setModalVisible(true)} text={removeText} />
         {hasBubbles ? (
           <Button
+            branded
             onPress={async () => {
               await schoolNetworkCoordinator.setSelectedSchool(currentJoinedGroup.school);
               schoolNetworkCoordinator.goToGroupList();
             }}
-            branded>
+          >
             {i18n.t('school-networks.join-school.cta')}
           </Button>
         ) : null}
@@ -84,14 +84,14 @@ function SelectedSchool({
       {isModalVisible && (
         <TwoButtonModal
           bodyText={`${i18n.t('school-networks.join-school.modal-body')} ${currentJoinedGroup.school.name}?`}
-          button1Text={i18n.t('school-networks.join-school.button-1')}
-          button2Text={i18n.t('school-networks.join-school.button-2')}
           button1Callback={() => setModalVisible(false)}
+          button1Text={i18n.t('school-networks.join-school.button-1')}
           button2Callback={() => {
             if (currentJoinedGroup) {
               handleOnRemove(currentJoinedGroup.school.id);
             }
           }}
+          button2Text={i18n.t('school-networks.join-school.button-2')}
         />
       )}
     </>
@@ -99,16 +99,16 @@ function SelectedSchool({
 }
 
 const styles = StyleSheet.create({
+  body: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 16,
+  },
   formContainer: {
     flexGrow: 1,
     justifyContent: 'space-between',
   },
   spacer: {
-    marginTop: 16,
-  },
-  body: {
-    alignItems: 'center',
-    flexDirection: 'row',
     marginTop: 16,
   },
 });
