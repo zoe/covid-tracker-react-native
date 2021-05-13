@@ -1,17 +1,12 @@
-import appConfig from '@covid/appConfig';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
-import { AskForStudies, Consent } from '@covid/core/user/dto/UserAPIContracts';
+import { Consent } from '@covid/core/user/dto/UserAPIContracts';
 import { injectable } from 'inversify';
 
 export interface IConsentService {
   postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
   getConsentSigned(): Promise<Consent | null>;
   setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
-  setVaccineRegistryResponse(response: boolean): void;
-  shouldAskForVaccineRegistry(): Promise<boolean>;
-  getStudyStatus(): Promise<AskForStudies>;
 }
 
 @injectable()
@@ -46,36 +41,5 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     };
     ConsentService.consentSigned = consent;
     await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
-  }
-
-  setVaccineRegistryResponse(response: boolean) {
-    return this.client.post('/study_consent/', {
-      // Mandatory field but unused for vaccine registry
-      ad_version: appConfig.vaccineRegistryAdVersion,
-
-      status: response ? 'signed' : 'declined',
-
-      study: 'Vaccine Register',
-      version: appConfig.vaccineRegistryVersion,
-    });
-  }
-
-  async shouldAskForVaccineRegistry(): Promise<boolean> {
-    if (!isGBCountry()) return Promise.resolve(false);
-    const url = `/study_consent/status/?home_screen=true`;
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_uk_vaccine_register;
-  }
-
-  private getDefaultStudyResponse(): AskForStudies {
-    return {
-      should_ask_uk_vaccine_register: false,
-      should_ask_uk_validation_study: false,
-    } as AskForStudies;
-  }
-
-  async getStudyStatus(): Promise<AskForStudies> {
-    // All studies driven by this endpoint are closed - so short circuit and save a call to server.
-    return Promise.resolve(this.getDefaultStudyResponse());
   }
 }

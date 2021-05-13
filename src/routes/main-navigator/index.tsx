@@ -60,8 +60,6 @@ import {
   VaccineHesitancyScreen,
   VaccineListScreen,
   VaccineLogSymptomsInfoScreen,
-  VaccineRegistryInfoScreen,
-  VaccineRegistrySignUpScreen,
   Welcome1Screen,
   Welcome2Screen,
   WelcomeRepeatScreen,
@@ -145,8 +143,6 @@ function MainNavigator() {
       <Stack.Screen component={SelectProfileScreen} name="SelectProfile" options={noHeader} />
       <Stack.Screen component={AdultOrChildScreen} name="AdultOrChild" options={noHeader} />
       <Stack.Screen component={ProfileBackDateScreen} name="ProfileBackDate" options={noHeader} />
-      <Stack.Screen component={VaccineRegistrySignUpScreen} name="VaccineRegistrySignup" options={noHeader} />
-      <Stack.Screen component={VaccineRegistryInfoScreen} name="VaccineRegistryInfo" options={noHeader} />
       <Stack.Screen component={EstimatedCasesScreen} name="EstimatedCases" options={noHeader} />
       <Stack.Screen component={DashboardScreen} name="Dashboard" options={noHeader} />
       <Stack.Screen component={DashboardUSScreen} name="DashboardUS" options={noHeader} />

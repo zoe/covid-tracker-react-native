@@ -17,9 +17,5 @@ export default {
   privacyPolicyVersionUK: 'v3.0',
   privacyPolicyVersionUS: 'v1.3',
 
-  ukValidationStudyConsentVersion: 'v3',
-  vaccineRegistryAdVersion: 'v2',
-
-  vaccineRegistryVersion: 'v1',
   vaccineVersion: '1.0.0',
 };

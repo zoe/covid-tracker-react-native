@@ -320,8 +320,3 @@ export type StartupInfo = {
     };
   };
 };
-
-export type AskForStudies = {
-  should_ask_uk_validation_study: boolean;
-  should_ask_uk_vaccine_register: boolean;
-};
