@@ -135,16 +135,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
       NavigatorService.navigate(homeScreenName());
     },
 
-    ValidationStudyInfo: () => {
-      NavigatorService.navigate('ValidationStudyConsent', {
-        viewOnly: false,
-      });
-    },
-
-    ValidationStudyIntro: () => {
-      NavigatorService.navigate('ValidationStudyInfo');
-    },
-
     WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
@@ -211,6 +201,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   }
 
   async startAssessmentFlow(patientData: PatientData) {
+    // TODO: Does not need to be async
     assessmentCoordinator.init(this, { patientData }, assessmentService);
     assessmentCoordinator.startAssessment();
   }
@@ -230,15 +221,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
   async profileSelected(profile: Profile) {
     await this.setPatientByProfile(profile);
-    if (isGBCountry() && !this.patientData.patientState.isReportedByAnother) {
-      if (await this.consentService.shouldAskForValidationStudy(false)) {
-        this.goToUKValidationStudy();
-      } else {
-        this.startAssessmentFlow(this.patientData);
-      }
-    } else {
-      this.startAssessmentFlow(this.patientData);
-    }
+    this.startAssessmentFlow(this.patientData);
   }
 
   async setPatientById(patientId: string) {
@@ -270,10 +253,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     }
     dietStudyPlaybackCoordinator.init(this, this.patientData, this.contentService, this.dietScoreService);
     NavigatorService.navigate('DietStudy');
-  }
-
-  goToUKValidationStudy() {
-    NavigatorService.navigate('ValidationStudyIntro');
   }
 
   goToArchiveReason(patientId: string) {

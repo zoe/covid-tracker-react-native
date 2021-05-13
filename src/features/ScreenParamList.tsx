@@ -89,10 +89,6 @@ export type ScreenParamList = {
   ThankYouUK: undefined;
   ThankYouUS: undefined;
 
-  ValidationStudyIntro: undefined;
-  ValidationStudyInfo: undefined;
-  ValidationStudyConsent: { viewOnly: boolean };
-
   Dashboard: undefined;
   DashboardUS: undefined;
   EstimatedCases: undefined;

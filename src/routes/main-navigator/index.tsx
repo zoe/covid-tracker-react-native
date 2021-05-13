@@ -62,9 +62,6 @@ import {
   VaccineLogSymptomsInfoScreen,
   VaccineRegistryInfoScreen,
   VaccineRegistrySignUpScreen,
-  ValidationStudyConsentScreen,
-  ValidationStudyInfoScreen,
-  ValidationStudyIntroScreen,
   Welcome1Screen,
   Welcome2Screen,
   WelcomeRepeatScreen,
@@ -148,9 +145,6 @@ function MainNavigator() {
       <Stack.Screen component={SelectProfileScreen} name="SelectProfile" options={noHeader} />
       <Stack.Screen component={AdultOrChildScreen} name="AdultOrChild" options={noHeader} />
       <Stack.Screen component={ProfileBackDateScreen} name="ProfileBackDate" options={noHeader} />
-      <Stack.Screen component={ValidationStudyIntroScreen} name="ValidationStudyIntro" options={noHeader} />
-      <Stack.Screen component={ValidationStudyConsentScreen} name="ValidationStudyConsent" options={noHeader} />
-      <Stack.Screen component={ValidationStudyInfoScreen} name="ValidationStudyInfo" options={noHeader} />
       <Stack.Screen component={VaccineRegistrySignUpScreen} name="VaccineRegistrySignup" options={noHeader} />
       <Stack.Screen component={VaccineRegistryInfoScreen} name="VaccineRegistryInfo" options={noHeader} />
       <Stack.Screen component={EstimatedCasesScreen} name="EstimatedCases" options={noHeader} />

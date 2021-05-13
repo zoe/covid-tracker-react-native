@@ -1,7 +1,6 @@
 import { notificationReminders } from '@assets';
 import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
-import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
@@ -33,14 +32,12 @@ type RenderProps = {
 
 type State = {
   askForRating: boolean;
-  inviteToStudy: boolean;
   shouldShowReminders: boolean;
   showTimelineCard: boolean;
 };
 
 const initialState = {
   askForRating: false,
-  inviteToStudy: false,
   shouldShowReminders: false,
   showTimelineCard: false,
 };
@@ -56,7 +53,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   async componentDidMount() {
     this.setState({
       askForRating: await shouldAskForRating(),
-      inviteToStudy: await this.consentService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
     });
   }
@@ -107,8 +103,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <View style={{ margin: 10 }} />
 
               <ShareAppCard />
-
-              {this.state.inviteToStudy ? <InviteToStudy placement="ThankYouUK" /> : null}
 
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}

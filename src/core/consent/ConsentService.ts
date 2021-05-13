@@ -10,8 +10,6 @@ export interface IConsentService {
   getConsentSigned(): Promise<Consent | null>;
   setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
   setVaccineRegistryResponse(response: boolean): void;
-  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
-  shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
   getStudyStatus(): Promise<AskForStudies>;
 }
@@ -62,32 +60,11 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     });
   }
 
-  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
-    return this.client.post('/study_consent/', {
-      ad_version: appConfig.ukValidationStudyAdVersion,
-      allow_contact_by_zoe: reContacted,
-      allow_future_data_use: anonymizedData,
-      status: response ? 'signed' : 'declined',
-      study: 'UK Validation Study',
-      version: appConfig.ukValidationStudyConsentVersion,
-    });
-  }
-
   async shouldAskForVaccineRegistry(): Promise<boolean> {
     if (!isGBCountry()) return Promise.resolve(false);
     const url = `/study_consent/status/?home_screen=true`;
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_uk_vaccine_register;
-  }
-
-  async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
-    let url = `/study_consent/status/?consent_version=${appConfig.ukValidationStudyConsentVersion}`;
-    if (onThankYouScreen) {
-      url += '&thank_you_screen=true';
-    }
-
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_uk_validation_study;
   }
 
   private getDefaultStudyResponse(): AskForStudies {
@@ -98,11 +75,7 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   }
 
   async getStudyStatus(): Promise<AskForStudies> {
-    // Sweden has no studies - so short circuit and save a call to server.
-    if (isSECountry()) return Promise.resolve(this.getDefaultStudyResponse());
-
-    const url = `/study_consent/status/?home_screen=true`;
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data;
+    // All studies driven by this endpoint are closed - so short circuit and save a call to server.
+    return Promise.resolve(this.getDefaultStudyResponse());
   }
 }
