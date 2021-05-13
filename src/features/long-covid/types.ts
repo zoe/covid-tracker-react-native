@@ -4,23 +4,23 @@ export type LongCovidQuestionPageOneData = {
     restriction: string|null;
 
     // checkboxes
-    problems_thinking_and_communicating: boolean|null;
-    mood_changes: boolean|null;
-    poor_sleep: boolean|null;
-    body_aches: boolean|null;
-    muscle_aches: boolean|null;
-    skin_rashes: boolean|null;
-    bone_or_joint_pain: boolean|null;
-    headaches: boolean|null;
-    light_headed: boolean|null;
-    altered_taste_or_smell: boolean|null;
-    breathing_problems: boolean|null;
-    heart_problems: boolean|null;
-    abdominal_pain_diarrhoea: boolean|null;
+    problems_thinking_and_communicating: boolean;
+    mood_changes: boolean;
+    poor_sleep: boolean;
+    body_aches: boolean;
+    muscle_aches: boolean;
+    skin_rashes: boolean;
+    bone_or_joint_pain: boolean;
+    headaches: boolean;
+    light_headed: boolean;
+    altered_taste_or_smell: boolean;
+    breathing_problems: boolean;
+    heart_problems: boolean;
+    abdominal_pain_diarrhoea: boolean;
     other: string|null;
 
     // Q18
-    at_least_one_vaccine: boolean|null;
+    at_least_one_vaccine: boolean;
     ongoing_symptom_week_before_first_vaccine: string|null;
 
     // Q20

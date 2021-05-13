@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { BasicPage, Spacer, RegularText, HeaderText, DropdownField } from '@covid/components';
+import { BasicPage, Spacer, RegularText, HeaderText, DropdownField, CheckboxList, CheckboxItem } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
@@ -11,6 +11,7 @@ import { Form, Textarea } from 'native-base';
 import * as Yup from 'yup';
 import { LongCovidQuestionPageOneData } from '../types';
 import { defaultState, dropdownItemsQ1, dropdownItemsQ2, dropdownItemsQ3, checkBoxQuestions4To17, dropdownItemsQ18, dropdownItemsQ19, dropdownItemsSymptomsChange } from './consts.questions';
+import { GenericTextField } from '@covid/components/GenericTextField';
 
 LongCovidQuestionPageOneScreen.initialFormValues = (): LongCovidQuestionPageOneData => defaultState;
   
@@ -41,7 +42,95 @@ export default function LongCovidQuestionPageOneScreen() {
     // assessmentCoordinator.gotoNextScreen(route.name);
   };
 
-  const renderFormCheckboxes = (props: FormikProps<LongCovidQuestionPageOneData>) => {}
+  const renderFormCheckboxes = (props: FormikProps<LongCovidQuestionPageOneData>) => <View style={{ marginVertical: 16 }}>
+        <CheckboxList>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('problems_thinking_and_communicating', !props.values.problems_thinking_and_communicating)}
+            value={props.values.problems_thinking_and_communicating}>
+            {i18n.t('long-covid.q4')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('mood_changes', !props.values.mood_changes)}
+            value={props.values.mood_changes}>
+            {i18n.t('long-covid.q5')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('poor_sleep', !props.values.poor_sleep)}
+            value={props.values.poor_sleep}>
+            {i18n.t('long-covid.q6')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('body_aches', !props.values.body_aches)}
+            value={props.values.body_aches}>
+            {i18n.t('long-covid.q7')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('muscle_aches', !props.values.muscle_aches)}
+            value={props.values.muscle_aches}>
+            {i18n.t('long-covid.q8')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('skin_rashes', !props.values.skin_rashes)}
+            value={props.values.skin_rashes}>
+            {i18n.t('long-covid.q9')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('bone_or_joint_pain', !props.values.bone_or_joint_pain)}
+            value={props.values.bone_or_joint_pain}>
+            {i18n.t('long-covid.q10')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('headaches', !props.values.headaches)}
+            value={props.values.headaches}>
+            {i18n.t('long-covid.q11')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('light_headed', !props.values.light_headed)}
+            value={props.values.light_headed}>
+            {i18n.t('long-covid.q12')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('altered_taste_or_smell', !props.values.altered_taste_or_smell)}
+            value={props.values.altered_taste_or_smell}>
+            {i18n.t('long-covid.q13')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('breathing_problems', !props.values.breathing_problems)}
+            value={props.values.breathing_problems}>
+            {i18n.t('long-covid.q14')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('heart_problems', !props.values.heart_problems)}
+            value={props.values.heart_problems}>
+            {i18n.t('long-covid.q15')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('abdominal_pain_diarrhoea', !props.values.abdominal_pain_diarrhoea)}
+            value={props.values.abdominal_pain_diarrhoea}>
+            {i18n.t('long-covid.q16')}
+        </CheckboxItem>
+        <CheckboxItem onChange={(value: boolean) => 
+            props.setFieldValue('other', !props.values.other)}
+            value={props.values.other ? true : false}>
+            {i18n.t('long-covid.q17')}
+        </CheckboxItem>
+
+
+        {props.values.other ? (
+          <GenericTextField
+            formikProps={props}
+            //label={i18n.t('race-other-question')}
+            name="other"
+          />
+        ) : null}
+
+        </CheckboxList>
+    </View>;
+
+  const renderBulletLine = (text: string) => <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingRight: 16, }}>
+        <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
+        <RegularText>{text}</RegularText>
+  </View>;
 
   const renderExtendedForm = (props: FormikProps<LongCovidQuestionPageOneData>) => 
   props.values.had_covid && props.values.had_covid.startsWith('YES') ? (
@@ -51,10 +140,10 @@ export default function LongCovidQuestionPageOneScreen() {
         <HeaderText>Q2     {i18n.t('long-covid.q2')}</HeaderText>
         <View style={styles.infoBox}>
             <RegularText>{i18n.t('long-covid.q2-info-1')}</RegularText>
-            <RegularText style={styles.bullet}>{'\u2B24'} {i18n.t('long-covid.q2-info-2')}</RegularText>
-            <RegularText style={styles.bullet}>{'\u2B24'} {i18n.t('long-covid.q2-info-3')}</RegularText>
-            <RegularText style={styles.bullet}>{'\u2B24'} {i18n.t('long-covid.q2-info-4')}</RegularText>
-            <RegularText style={styles.bullet}>{'\u2B24'} {i18n.t('long-covid.q2-info-5')}</RegularText>
+            {renderBulletLine(i18n.t('long-covid.q2-info-2'))}
+            {renderBulletLine(i18n.t('long-covid.q2-info-3'))}
+            {renderBulletLine(i18n.t('long-covid.q2-info-4'))}
+            {renderBulletLine(i18n.t('long-covid.q2-info-4'))}
         </View>
 
         <DropdownField
@@ -77,9 +166,9 @@ export default function LongCovidQuestionPageOneScreen() {
         <HeaderText>{i18n.t('long-covid.q4-header')}</HeaderText>
         <View style={styles.infoBox}>
             <RegularText>{i18n.t('long-covid.q4-info-1')}</RegularText>
-            <RegularText style={styles.bullet}>{i18n.t('long-covid.q4-info-2')}</RegularText>
+            <RegularText>{i18n.t('long-covid.q4-info-2')}</RegularText>
         </View>
-        <RegularText style={styles.bullet}>{i18n.t('long-covid.q4-info-3')}</RegularText>
+        <RegularText>{i18n.t('long-covid.q4-info-3')}</RegularText>
 
         { renderFormCheckboxes(props) }
         <View style={styles.hr} />
@@ -113,7 +202,6 @@ export default function LongCovidQuestionPageOneScreen() {
             items={dropdownItemsSymptomsChange}
         />
         <View style={styles.hr} />
-        
 
         {/* Have your symptoms changed in the week after your vaccination (excluding the first 2 days)? */}
         <HeaderText>Q21    {i18n.t('long-covid.q21')}</HeaderText>
@@ -198,11 +286,14 @@ const styles = StyleSheet.create({
   },
   bullet: {
     padding: 16,
+    fontSize: 8,
+    flexDirection: 'column',
+    alignContent: 'flex-start'
   },
   hr: {
     borderBottomColor: '#D8D8D8',
     borderBottomWidth: 1,
     marginTop: 16,
-    marginBottom: 20,
+    marginBottom: 32,
   }
 });
