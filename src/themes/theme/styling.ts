@@ -16,6 +16,9 @@ export default StyleSheet.create({
   flex: {
     flex: 1,
   },
+  flexGrow: {
+    flexGrow: 1,
+  },
   itemsCenter: {
     alignItems: 'center',
   },
@@ -25,6 +28,15 @@ export default StyleSheet.create({
   marginBottom: {
     marginBottom: sizes.spacing,
   },
+  marginBottomAuto: {
+    marginBottom: 'auto',
+  },
+  marginBottomBig: {
+    marginBottom: sizes.spacingBig,
+  },
+  marginBottomHuge: {
+    marginBottom: sizes.spacingHuge,
+  },
   marginBottomSmall: {
     marginBottom: sizes.spacingSmall,
   },
@@ -33,6 +45,13 @@ export default StyleSheet.create({
   },
   marginVerticalSmall: {
     marginVertical: sizes.spacingSmall,
+  },
+  marginVerticalHuge: {
+    marginVertical: sizes.spacingHuge,
+  },
+  measureWidth: {
+    height: 0,
+    width: '100%',
   },
   padding: {
     padding: sizes.spacing,
@@ -44,11 +63,19 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  rowBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   shadow: {
     elevation: 5,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+  },
+  textarea: {
+    backgroundColor: '#EEEEEF',
+    borderRadius: 16,
   },
 });

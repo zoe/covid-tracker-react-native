@@ -42,7 +42,7 @@ function MentalHealthModal() {
   });
 
   return (
-    <SafeLayout>
+    <SafeLayout withGutter>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.card}>
           <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>

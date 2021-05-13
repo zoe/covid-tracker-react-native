@@ -34,7 +34,7 @@ function DietStudyModal() {
   });
 
   return (
-    <SafeLayout>
+    <SafeLayout withGutter>
       <ScrollView>
         <View style={styles.card}>
           <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>

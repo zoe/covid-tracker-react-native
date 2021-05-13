@@ -340,7 +340,9 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     if (user.C) {
       NavigatorService.navigate('MentalHealthPlaybackBlogPost');
     } else {
-      NavigatorService.navigate('MentalHealthPlaybackIntroduction');
+      // @todo
+      // NavigatorService.navigate('MentalHealthPlaybackIntroduction');
+      NavigatorService.navigate('MentalHealthPlaybackRating');
     }
   }
 

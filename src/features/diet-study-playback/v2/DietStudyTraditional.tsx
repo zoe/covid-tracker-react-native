@@ -13,7 +13,7 @@ function DietStudyTraditional() {
   const duringScore = dietScore ? dietScore.post_diet_score : 5;
 
   return (
-    <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
+    <SafeLayout style={{ backgroundColor: '#FFF' }}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>

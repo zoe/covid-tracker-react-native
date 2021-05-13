@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { Card } from 'native-base';
 
 import { colors } from '@covid/theme';
 
 type CardProps = {
   children: React.ReactNode;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const BasicCard: React.FC<CardProps> = (c) => {

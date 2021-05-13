@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, StyleProp, ViewStyle } from 'react-native';
 
-import { BasicPageFooter } from '../../footers';
-import { BasicNavHeader } from '../../headers';
-import SafeLayout from '../../safe-layout';
+import { BasicPageFooter } from '@covid/components/layouts/footers';
+import { BasicNavHeader } from '@covid/components/layouts/headers';
+import SafeLayout from '@covid/components/layouts/safe-layout';
+import { styling, useTheme } from '@covid/themes';
 
 interface IProps {
   active?: boolean;
@@ -13,7 +14,7 @@ interface IProps {
   headerBackgroundColor?: string;
   navChildren?: ReactNode;
   onPress?: () => void;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
   withFooter?: boolean;
   withGutter?: boolean;
   withHeader?: boolean;
@@ -32,12 +33,27 @@ function BasicPage({
   withGutter = false,
   withHeader = true,
 }: IProps) {
+  const theme = useTheme();
   return (
-    <SafeLayout withGutter={withGutter} style={style}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} stickyHeaderIndices={hasStickyHeader ? [0] : undefined}>
-        {withHeader && <BasicNavHeader backgroundColor={headerBackgroundColor}>{navChildren}</BasicNavHeader>}
+    <SafeLayout style={style}>
+      <ScrollView
+        contentContainerStyle={styling.flexGrow}
+        stickyHeaderIndices={hasStickyHeader ? [0] : undefined}
+        style={withGutter && { paddingHorizontal: theme.grid.gutter }}>
+        {withHeader && (
+          <BasicNavHeader backgroundColor={headerBackgroundColor} paddingHorizontal={withGutter ? 0 : undefined}>
+            {navChildren}
+          </BasicNavHeader>
+        )}
         {children}
-        {withFooter && <BasicPageFooter active={active} onPress={onPress} title={footerTitle} />}
+        {withFooter && (
+          <BasicPageFooter
+            active={active}
+            onPress={onPress}
+            paddingHorizontal={withGutter ? 0 : undefined}
+            title={footerTitle}
+          />
+        )}
       </ScrollView>
     </SafeLayout>
   );

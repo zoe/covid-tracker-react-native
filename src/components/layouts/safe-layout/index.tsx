@@ -1,30 +1,25 @@
-import React, { ReactNode } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { SafeAreaView, StyleProp, View, ViewStyle } from 'react-native';
 
-import { useTheme } from '@covid/themes';
+import { useTheme, styling } from '@covid/themes';
 
 interface IProps {
-  children: ReactNode;
+  children: React.ReactNode;
   withGutter?: boolean;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 }
 
-function SafeLayout({ children, withGutter = true, style }: IProps) {
+export default function SafeLayout(props: IProps) {
   const theme = useTheme();
   return (
-    <SafeAreaView style={[styles.safeArea, style]}>
-      <View style={[styles.container, { paddingHorizontal: withGutter ? theme.grid.gutter : 0 }]}>{children}</View>
+    <SafeAreaView style={styling.flex}>
+      {props.style || props.withGutter ? (
+        <View style={[styling.flex, props.style, props.withGutter && { paddingHorizontal: theme.grid.gutter }]}>
+          {props.children}
+        </View>
+      ) : (
+        props.children
+      )}
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-  },
-});
-
-export default SafeLayout;

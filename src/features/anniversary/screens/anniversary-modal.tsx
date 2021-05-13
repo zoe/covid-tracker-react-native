@@ -44,7 +44,7 @@ function AnniversaryModal() {
   };
 
   return (
-    <SafeLayout>
+    <SafeLayout withGutter>
       <ScrollView>
         <View style={styles.container}>
           <View style={{ alignItems: 'center' }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 import { colors } from '@covid/theme';
@@ -9,7 +9,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type Props = {
   navigation: DrawerNavigationProp<ScreenParamList, keyof ScreenParamList>;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const DrawerToggle: React.FC<Props> = (props) => (
