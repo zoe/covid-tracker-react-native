@@ -40,7 +40,7 @@ export default function MHPRatingScreen() {
       onPress={onPress}
       style={styling.backgroundWhite}
       withGutter>
-      <Card padding={grid.xxxl} style={styling.marginVerticalHuge} useShadow>
+      <Card padding={grid.xxxl} style={[styling.marginTop, styling.marginBottomHuge]} useShadow>
         <View style={styling.measureWidth} onLayout={onLayout} />
         <Text
           inverted

@@ -1427,7 +1427,12 @@
       "card": "How helpful were these insights to you?",
       "feedback": "Care to share some more feedback?",
       "not-helpful": "Not helpful",
-      "very-helpful": "Very helpful"
+      "very-helpful": "Very helpful" 
+    },
+    "thank-you": {
+      "button": "Close",
+      "description": "Thank you for taking the time  to give us feedback",
+      "title": "Thank you!"
     }
   },
 

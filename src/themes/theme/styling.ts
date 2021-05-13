@@ -43,6 +43,13 @@ export default StyleSheet.create({
   marginRightSmall: {
     marginRight: sizes.spacingSmall,
   },
+  marginTop: {
+    marginTop: sizes.spacing,
+  },
+  marginVerticalAuto: {
+    marginBottom: 'auto',
+    marginTop: 'auto',
+  },
   marginVerticalSmall: {
     marginVertical: sizes.spacingSmall,
   },
