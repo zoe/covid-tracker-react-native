@@ -1,22 +1,17 @@
 import { closeIcon } from '@assets';
-import { ShareIcon, VaccineRegistryIcon } from '@assets/icons/navigation';
+import { ShareIcon } from '@assets/icons/navigation';
 import EditProfilesIcon from '@assets/icons/navigation/EditProfilesIcon';
 import { share } from '@covid/components/cards/BaseShareApp';
 import { CaptionText } from '@covid/components/Text';
-import { IConsentService } from '@covid/core/consent/ConsentService';
 import { selectUser } from '@covid/core/state/user';
-import { IUserService } from '@covid/core/user/UserService';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { MenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { LinksSection } from '@covid/features/menu/LinksSection';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import Constants from '@covid/utils/Constants';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
@@ -27,25 +22,8 @@ const isDevChannel = () => {
 
 export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
   const user = useSelector(selectUser);
-  const userService = useInjection<IUserService>(Services.User);
-  const consentService = useInjection<IConsentService>(Services.Consent);
 
-  const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
   const { logout } = useLogout(props.navigation);
-
-  useEffect(() => {
-    if (user.username !== '') return;
-    fetchStudyStatus();
-  }, [userService.hasUser]);
-
-  const fetchStudyStatus = async () => {
-    try {
-      const data = await consentService.getStudyStatus();
-      setShowVaccineRegistry(data.should_ask_uk_vaccine_register);
-    } catch (_) {
-      setShowVaccineRegistry(false);
-    }
-  };
 
   return (
     <SafeAreaView style={styles.drawerRoot}>
@@ -68,16 +46,6 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
             NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
           }}
         />
-
-        {showVaccineRegistry ? (
-          <MenuItem
-            image={<VaccineRegistryIcon />}
-            label={i18n.t('vaccine-registry.menu-item')}
-            onPress={() => {
-              appCoordinator.goToVaccineRegistry();
-            }}
-          />
-        ) : null}
 
         <MenuItem
           image={<ShareIcon />}

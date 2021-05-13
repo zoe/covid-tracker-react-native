@@ -978,27 +978,6 @@
       "data-analysis": false
     },
 
-    "validation-study-intro": {
-      "title": false,
-      "subtitle": false,
-      "info": false,
-      "yes": false,
-      "no": false,
-      "app-name": false
-    },
-
-    "validation-study-info": {
-      "title": false,
-      "header-1": false,
-      "para-1": false,
-      "header-2": false,
-      "para-2": false,
-      "header-3": false,
-      "para-3": false,
-      "interested": false,
-      "visit-next": false
-    },
-
     "covid-test": {
       "question-is-rapid-test": "¿Esperó menos de 2 horas para obtener los resultados (es decir, fue una prueba rápida como la prueba de flujo lateral)?",
       "question-invite-to-test": "¿Te invitamos a realizar esta prueba?"
