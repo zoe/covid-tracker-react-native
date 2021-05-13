@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-
 import { BasicPage, Spacer, RegularText, HeaderText, DropdownField, CheckboxList, CheckboxItem } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import i18n from '@covid/locale/i18n';
@@ -10,7 +9,7 @@ import { Formik, FormikProps } from 'formik';
 import { Form, Textarea } from 'native-base';
 import * as Yup from 'yup';
 import { LongCovidQuestionPageOneData } from '../types';
-import { defaultState, dropdownItemsQ1, dropdownItemsQ2, dropdownItemsQ3, checkBoxQuestions4To17, dropdownItemsQ18, dropdownItemsQ19, dropdownItemsSymptomsChange } from './consts.questions';
+import { defaultState, dropdownItemsQ1, dropdownItemsQ2, dropdownItemsQ3, checkBoxQuestions4To17, dropdownItemsQ18, dropdownItemsQ19, dropdownItemsSymptomsChange, symtpomChangesKeyList } from './consts.questions';
 import { GenericTextField } from '@covid/components/GenericTextField';
 
 LongCovidQuestionPageOneScreen.initialFormValues = (): LongCovidQuestionPageOneData => defaultState;
@@ -44,7 +43,15 @@ export default function LongCovidQuestionPageOneScreen() {
 
   const renderFormCheckboxes = (props: FormikProps<LongCovidQuestionPageOneData>) => <View style={{ marginVertical: 16 }}>
         <CheckboxList>
-        <CheckboxItem onChange={(value: boolean) => 
+
+        { checkBoxQuestions4To17.map((key: string, index: number) =>  <CheckboxItem onChange={(value: boolean) => 
+                props.setFieldValue(key, !props.values[key])
+            }
+            value={props.values[key]}>
+            {i18n.t(`long-covid.q${index + 4}`)}
+        </CheckboxItem>) }
+
+        {/* <CheckboxItem onChange={(value: boolean) => 
             props.setFieldValue('problems_thinking_and_communicating', !props.values.problems_thinking_and_communicating)}
             value={props.values.problems_thinking_and_communicating}>
             {i18n.t('long-covid.q4')}
@@ -113,8 +120,7 @@ export default function LongCovidQuestionPageOneScreen() {
             props.setFieldValue('other', !props.values.other)}
             value={props.values.other ? true : false}>
             {i18n.t('long-covid.q17')}
-        </CheckboxItem>
-
+        </CheckboxItem> */}
 
         {props.values.other ? (
           <GenericTextField
@@ -127,9 +133,9 @@ export default function LongCovidQuestionPageOneScreen() {
         </CheckboxList>
     </View>;
 
-  const renderBulletLine = (text: string) => <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingRight: 16, }}>
+  const renderBulletLine = (text: string) => <View style={{ flexDirection: 'row', paddingTop: 16, paddingRight: 16, }}>
         <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
-        <RegularText>{text}</RegularText>
+        <RegularText style={{flex: 1, paddingLeft: 16}}>{text}</RegularText>
   </View>;
 
   const renderExtendedForm = (props: FormikProps<LongCovidQuestionPageOneData>) => 
@@ -137,7 +143,7 @@ export default function LongCovidQuestionPageOneScreen() {
     <View style={{ margin: 16 }}>
         <View style={styles.hr} />
 
-        <HeaderText>Q2     {i18n.t('long-covid.q2')}</HeaderText>
+        <HeaderText>{i18n.t('long-covid.q2')}</HeaderText>
         <View style={styles.infoBox}>
             <RegularText>{i18n.t('long-covid.q2-info-1')}</RegularText>
             {renderBulletLine(i18n.t('long-covid.q2-info-2'))}
@@ -145,7 +151,6 @@ export default function LongCovidQuestionPageOneScreen() {
             {renderBulletLine(i18n.t('long-covid.q2-info-4'))}
             {renderBulletLine(i18n.t('long-covid.q2-info-4'))}
         </View>
-
         <DropdownField
             selectedValue={props.values.duration}
             onValueChange={props.handleChange('duration')}
@@ -154,7 +159,7 @@ export default function LongCovidQuestionPageOneScreen() {
         />
         <View style={styles.hr} />
         
-        <HeaderText>Q3    {i18n.t('long-covid.q3')}</HeaderText>
+        <HeaderText>{i18n.t('long-covid.q3')}</HeaderText>
         <DropdownField
             selectedValue={props.values.restriction}
             onValueChange={props.handleChange('restriction')}
@@ -164,9 +169,11 @@ export default function LongCovidQuestionPageOneScreen() {
         <View style={styles.hr} />
 
         <HeaderText>{i18n.t('long-covid.q4-header')}</HeaderText>
-        <View style={styles.infoBox}>
+        <View style={{ ...styles.infoBox, marginBottom: 24}}>
             <RegularText>{i18n.t('long-covid.q4-info-1')}</RegularText>
-            <RegularText>{i18n.t('long-covid.q4-info-2')}</RegularText>
+            <View style={{ marginTop: 18 }}>
+                <RegularText>{i18n.t('long-covid.q4-info-2')}</RegularText>
+            </View>
         </View>
         <RegularText>{i18n.t('long-covid.q4-info-3')}</RegularText>
 
@@ -174,7 +181,7 @@ export default function LongCovidQuestionPageOneScreen() {
         <View style={styles.hr} />
 
         {/* Have you had at least one COVID-19 vaccine done? */}
-        <HeaderText>Q18    {i18n.t('long-covid.q18')}</HeaderText>
+        <HeaderText>{i18n.t('long-covid.q18')}</HeaderText>
         <DropdownField
             selectedValue={props.values.at_least_one_vaccine}
             onValueChange={props.handleChange('at_least_one_vaccine')}
@@ -184,7 +191,7 @@ export default function LongCovidQuestionPageOneScreen() {
         <View style={styles.hr} />
 
         {/* Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection?  */}
-        <HeaderText>Q19    {i18n.t('long-covid.q19')}</HeaderText>
+        <HeaderText>{i18n.t('long-covid.q19')}</HeaderText>
         <DropdownField
             selectedValue={props.values.ongoing_symptom_week_before_first_vaccine}
             onValueChange={props.handleChange('ongoing_symptom_week_before_first_vaccine')}
@@ -194,7 +201,7 @@ export default function LongCovidQuestionPageOneScreen() {
         <View style={styles.hr} />
 
         {/* Did your symptoms change 2 weeks (or more) after your first COVID-19 vaccine injection? */}
-        <HeaderText>Q20    {i18n.t('long-covid.q20')}</HeaderText>
+        <HeaderText>{i18n.t('long-covid.q20')}</HeaderText>
         <DropdownField
             selectedValue={props.values.ongoing_symptom_week_before_first_vaccine}
             onValueChange={props.handleChange('ongoing_symptom_week_before_first_vaccine')}
@@ -204,14 +211,14 @@ export default function LongCovidQuestionPageOneScreen() {
         <View style={styles.hr} />
 
         {/* Have your symptoms changed in the week after your vaccination (excluding the first 2 days)? */}
-        <HeaderText>Q21    {i18n.t('long-covid.q21')}</HeaderText>
-        <DropdownField
-            label={i18n.t('long-covid.q21-a')}
-            selectedValue={props.values.symptom_change_headache}
-            onValueChange={props.handleChange('symptom_change_headache')}
-            error={props.touched.symptom_change_headache && props.errors.symptom_change_headache}
+        <HeaderText>{i18n.t('long-covid.q21')}</HeaderText>        
+        { symtpomChangesKeyList.map((key: string) => <DropdownField
+            label={i18n.t(`long-covid.q21-${key}`)}
+            selectedValue={props.values[key]}
+            onValueChange={props.handleChange(key)}
+            error={props.touched[key] && props.errors[key]}
             items={dropdownItemsSymptomsChange}
-        />
+        />) }
         <View style={styles.hr} />
 
         {/* Do you have anything else to share regarding the evolution of your COVID-19 symptoms? */}
@@ -282,18 +289,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: colors.white,
     padding: 16,
-    marginVertical: 16,
+    marginTop: 16,
   },
   bullet: {
-    padding: 16,
-    fontSize: 8,
-    flexDirection: 'column',
-    alignContent: 'flex-start'
+    fontSize: 4,
   },
   hr: {
     borderBottomColor: '#D8D8D8',
     borderBottomWidth: 1,
     marginTop: 16,
-    marginBottom: 32,
+    marginBottom: 40,
   }
 });
