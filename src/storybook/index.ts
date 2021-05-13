@@ -14,7 +14,6 @@ configure(() => {
   require('./stories/Buttons.stories');
   require('./stories/Selectable.stories');
   require('./stories/NumberIndicator.stories');
-  require('./stories/VaccineRegistryCallout.stories');
   require('./stories/TextInput.stories');
   require('./stories/EstimatedCasesMapCard.stories');
   require('./stories/PersonalisedDataCard.stories');
