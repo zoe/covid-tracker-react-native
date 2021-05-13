@@ -1,16 +1,15 @@
+import { chevronRight } from '@assets';
+import Screen, { Header } from '@covid/components/Screen';
+import { Header3Text, HeaderText, SecondaryText } from '@covid/components/Text';
+import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import NavigatorService from '@covid/NavigatorService';
-import i18n from '@covid/locale/i18n';
-import { HeaderText, SecondaryText, Header3Text } from '@covid/components/Text';
-import Screen, { Header } from '@covid/components/Screen';
-import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
-import { colors } from '@theme';
-import { chevronRight } from '@assets';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -20,54 +19,49 @@ type RenderProps = {
 };
 
 export const EditProfileScreen: React.FC<RenderProps> = (props) => {
-  const patientData = props.route.params.patientData;
+  const { patientData } = props.route.params;
 
   const LinkItem: React.FC<{ title: string; action: VoidFunction }> = ({ title, action }) => {
     return (
-      <TouchableOpacity style={styles.profileLabel} onPress={action}>
+      <TouchableOpacity onPress={action} style={styles.profileLabel}>
         <Header3Text>{title}</Header3Text>
-        <Image style={styles.chevron} source={chevronRight} />
+        <Image source={chevronRight} style={styles.chevron} />
       </TouchableOpacity>
     );
   };
 
   return (
     <>
-      <Screen profile={patientData.profile} navigation={props.navigation} simpleCallout>
+      <Screen simpleCallout navigation={props.navigation} profile={patientData.profile}>
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.title')}</HeaderText>
           <SecondaryText>{i18n.t('edit-profile.text')}</SecondaryText>
         </Header>
 
         <LinkItem
-          title={i18n.t('edit-profile.your-location')}
           action={() => editProfileCoordinator.goToEditLocation()}
+          title={i18n.t('edit-profile.your-location')}
         />
 
-        {false && (
-          // Disabled
-          <LinkItem title={i18n.t('title-about-you')} action={() => editProfileCoordinator.goToEditAboutYou()} />
-        )}
+        {editProfileCoordinator.shouldShowEditStudy() ? (
+          <LinkItem action={() => editProfileCoordinator.goToEditYourStudy()} title={i18n.t('your-study.title')} />
+        ) : null}
 
-        {editProfileCoordinator.shouldShowEditStudy() && (
-          <LinkItem title={i18n.t('your-study.title')} action={() => editProfileCoordinator.goToEditYourStudy()} />
-        )}
+        {editProfileCoordinator.shouldShowSchoolNetwork() ? (
+          <LinkItem action={() => editProfileCoordinator.goToSchoolNetwork()} title="School network" />
+        ) : null}
 
-        {editProfileCoordinator.shouldShowSchoolNetwork() && (
-          <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork()} />
-        )}
-
-        {editProfileCoordinator.shouldShowUniNetwork() && (
-          <LinkItem title="University network" action={() => editProfileCoordinator.goToUniversityNetwork()} />
-        )}
+        {editProfileCoordinator.shouldShowUniNetwork() ? (
+          <LinkItem action={() => editProfileCoordinator.goToUniversityNetwork()} title="University network" />
+        ) : null}
       </Screen>
 
       <View>
-        {patientData.profile!.reported_by_another && (
+        {patientData.profile!.reported_by_another ? (
           <View style={styles.archiveProfileContainer}>
             <ArchiveProfile patientId={patientData.patientId} />
           </View>
-        )}
+        ) : null}
       </View>
     </>
   );
@@ -75,19 +69,19 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
 
 const styles = StyleSheet.create({
   archiveProfileContainer: {
+    backgroundColor: colors.white,
     justifyContent: 'flex-end',
     paddingBottom: 60,
-    backgroundColor: colors.white,
-  },
-  profileLabel: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: colors.white,
   },
   chevron: {
     height: 16,
     width: 16,
+  },
+  profileLabel: {
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16,
   },
 });

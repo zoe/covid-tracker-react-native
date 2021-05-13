@@ -1,18 +1,16 @@
-import { AxiosResponse } from 'axios';
-import { injectable, unmanaged, inject } from 'inversify';
-
 import NavigatorService from '@covid/NavigatorService';
 import { Services } from '@covid/provider/services.types';
+import { AxiosResponse } from 'axios';
+import { inject, injectable, unmanaged } from 'inversify';
 
-import { AsyncStorageService } from '../AsyncStorageService';
-import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
-import { objectToQueryString, camelizeKeys } from '../api/utils';
+import { camelizeKeys, objectToQueryString } from '../api/utils';
+import { AsyncStorageService } from '../AsyncStorageService';
 import { ConsentService, IConsentService } from '../consent/ConsentService';
+import { UserNotFoundException } from '../Exception';
 import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
-
-import { LoginOrRegisterResponse, PiiRequest, UserResponse, UpdateCountryCodeRequest } from './dto/UserAPIContracts';
+import { LoginOrRegisterResponse, PiiRequest, UpdateCountryCodeRequest, UserResponse } from './dto/UserAPIContracts';
 
 export type AuthenticatedUser = {
   userToken: string;
@@ -57,8 +55,8 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   public async login(email: string, password: string) {
     const requestBody = objectToQueryString({
-      username: email,
       password,
+      username: email,
     });
 
     let response: AxiosResponse<LoginOrRegisterResponse>;
@@ -69,7 +67,7 @@ export default class UserService extends ApiClientBase implements IUserService {
       throw new UserNotFoundException('Invalid login');
     }
 
-    return await this.handleLoginOrRegisterResponse(response);
+    return this.handleLoginOrRegisterResponse(response);
   }
 
   public async logout() {
@@ -94,7 +92,7 @@ export default class UserService extends ApiClientBase implements IUserService {
     const data = this.getData<LoginOrRegisterResponse>(response);
     const authToken = data.key;
     await this.storeTokenInAsyncStorage(authToken, data.user.pii);
-    this.client.defaults.headers['Authorization'] = 'Token ' + authToken;
+    this.client.defaults.headers.Authorization = `Token ${authToken}`;
     this.hasUser = true;
     return data;
   };
@@ -120,9 +118,8 @@ export default class UserService extends ApiClientBase implements IUserService {
   getData = <T>(response: AxiosResponse<T>) => {
     if (typeof response.data === 'string') {
       return camelizeKeys(JSON.parse(response.data)) as T;
-    } else {
-      return response.data;
     }
+    return response.data;
   };
 
   private storeTokenInAsyncStorage = async (authToken: any, userId: string) => {
@@ -134,15 +131,15 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   public async register(email: string, password: string) {
     const payload = {
-      username: email,
-      password1: password,
-      password2: password,
-      version: 2,
-      country_code: LocalisationService.userCountry,
-      language_code: LocalisationService.getLanguageCode(),
       consent_document: ConsentService.consentSigned.document,
       consent_version: ConsentService.consentSigned.version,
+      country_code: LocalisationService.userCountry,
+      language_code: LocalisationService.getLanguageCode(),
+      password1: password,
+      password2: password,
       privacy_policy_version: ConsentService.consentSigned.privacy_policy_version,
+      username: email,
+      version: 2,
     };
     const requestBody = objectToQueryString(payload);
 
@@ -171,7 +168,7 @@ export default class UserService extends ApiClientBase implements IUserService {
   }
 
   public async updatePii(pii: Partial<PiiRequest>) {
-    const userId = ApiClientBase.userId;
+    const { userId } = ApiClientBase;
     return this.client.patch(`/information/${userId}/`, pii);
   }
 

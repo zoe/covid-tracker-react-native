@@ -1,8 +1,7 @@
-import React from 'react';
-import Svg, { Path, Circle } from 'react-native-svg';
-
 import { SvgProps } from '@assets/Svg';
 import { colors } from '@theme';
+import React from 'react';
+import Svg, { Circle, Path } from 'react-native-svg';
 
 interface ChevronProps extends SvgProps {
   backgroundColor?: string;
@@ -16,14 +15,14 @@ const ChevronRight: React.FC<ChevronProps> = ({
   chveronColor = colors.white,
 }) => {
   return (
-    <Svg width={width} height={height} viewBox="0 0 32 32" fill="none">
-      <Circle cx="16" cy="16" r="16" fill={backgroundColor} />
+    <Svg fill="none" height={height} viewBox="0 0 32 32" width={width}>
+      <Circle cx="16" cy="16" fill={backgroundColor} r="16" />
       <Path
         d="M14.0566 10.3359L19.7135 15.9928L14.0566 21.6496"
         stroke={chveronColor}
-        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="1.5"
       />
     </Svg>
   );

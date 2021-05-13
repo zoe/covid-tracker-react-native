@@ -1,5 +1,3 @@
-import { inject, injectable } from 'inversify';
-
 import appConfig from '@covid/appConfig';
 import { IApiClient } from '@covid/core/api/ApiClient';
 import { DoseSymptomsRequest, VaccinePlanRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
@@ -10,6 +8,7 @@ import {
   VaccineResponse,
 } from '@covid/core/vaccine/dto/VaccineResponse';
 import { Services } from '@covid/provider/services.types';
+import { inject, injectable } from 'inversify';
 
 export interface IVaccineRemoteClient {
   getVaccinePlans(patientId: string): Promise<VaccinePlansResponse>;
@@ -55,7 +54,7 @@ export class VaccineApiClient implements IVaccineRemoteClient {
     };
     return this.apiClient.post<VaccinePlanRequest, VaccinePlanResponse>(
       '/vaccine_plans/',
-      payload as VaccinePlanRequest
+      payload as VaccinePlanRequest,
     );
   }
 
@@ -66,7 +65,7 @@ export class VaccineApiClient implements IVaccineRemoteClient {
     };
     return this.apiClient.post<DoseSymptomsRequest, DoseSymptomsResponse>(
       '/dose_symptoms/',
-      payload as DoseSymptomsRequest
+      payload as DoseSymptomsRequest,
     );
   }
 
@@ -75,7 +74,7 @@ export class VaccineApiClient implements IVaccineRemoteClient {
   }
 
   deleteVaccine(vaccineId: string): Promise<void> {
-    //return this.apiClient.patch(`/vaccines/${vaccineId}/`, { deleted: true });
-    return this.apiClient.delete<object, void>(`/vaccines/${vaccineId}/`, {}); //TODO CHECK THIS
+    // return this.apiClient.patch(`/vaccines/${vaccineId}/`, { deleted: true });
+    return this.apiClient.delete<object, void>(`/vaccines/${vaccineId}/`, {}); // TODO CHECK THIS
   }
 }

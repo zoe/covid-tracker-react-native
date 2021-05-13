@@ -1,12 +1,11 @@
-import React from 'react';
-import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
-
 import { social } from '@assets';
-import { colors } from '@theme';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { isAndroid } from '@covid/utils/platform';
+import { colors } from '@theme';
+import React from 'react';
+import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
 
 import { BrandedButton } from '../buttons';
 
@@ -48,7 +47,7 @@ export const shareApp = async (message: string) => {
 };
 
 export const share = async (prefix: string) => {
-  const message = prefix + (isAndroid ? ' ' + shareUrl() : ''); // On Android add link to end of message
+  const message = prefix + (isAndroid ? ` ${shareUrl()}` : ''); // On Android add link to end of message
   shareApp(message);
 };
 
@@ -58,7 +57,7 @@ export function BaseShareAppCard({ primaryText, secondaryText, ctaTitle, onShare
       <View style={styles.socialIconContainer}>
         <Image source={social} style={styles.socialIcon} />
       </View>
-      {primaryText != null && <RegularBoldText style={styles.primaryText}>{primaryText}</RegularBoldText>}
+      {primaryText != null ? <RegularBoldText style={styles.primaryText}>{primaryText}</RegularBoldText> : null}
       <RegularText style={styles.secondaryText}>{secondaryText}</RegularText>
       <BrandedButton onPress={onSharePress} style={styles.shareButton}>
         {ctaTitle}
@@ -78,29 +77,29 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   secondaryText: {
-    paddingVertical: 10,
-    paddingHorizontal: 40,
-    textAlign: 'center',
     color: colors.secondary,
+    paddingHorizontal: 40,
+    paddingVertical: 10,
+    textAlign: 'center',
   },
   shareButton: {
-    marginVertical: 20,
     marginHorizontal: 30,
+    marginVertical: 20,
   },
   shareLink: {
-    marginTop: 5,
     marginBottom: 20,
     marginHorizontal: 30,
+    marginTop: 5,
     textAlign: 'center',
   },
+  socialIcon: {
+    aspectRatio: 3.438,
+    height: 'auto',
+    width: '100%',
+  },
   socialIconContainer: {
+    alignSelf: 'center',
     borderRadius: 10,
     margin: 30,
-    alignSelf: 'center',
-  },
-  socialIcon: {
-    width: '100%',
-    height: 'auto',
-    aspectRatio: 3.438,
   },
 });

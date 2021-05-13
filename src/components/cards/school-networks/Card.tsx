@@ -1,11 +1,9 @@
+import { ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
+import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { Share, View } from 'react-native';
 
-import i18n from '@covid/locale/i18n';
-import { ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
-
 import { ShareButton } from '../../buttons';
-
 import SchoolHeader from './SchoolHeader';
 import SchoolStats from './SchoolStats';
 
@@ -20,7 +18,8 @@ function SchoolNetworksCard({ school }: IProps) {
         message: 'https://covid.joinzoe.com/schools',
       });
     } catch (error) {
-      alert(error.message);
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   };
 
@@ -29,7 +28,7 @@ function SchoolNetworksCard({ school }: IProps) {
       (acc, cur) => {
         return { bubbleSize: acc.bubbleSize + cur.size, reported: acc.reported + cur.daily_reported_symptoms };
       },
-      { bubbleSize: 0, reported: 0 }
+      { bubbleSize: 0, reported: 0 },
     );
     return t;
   };
@@ -39,7 +38,7 @@ function SchoolNetworksCard({ school }: IProps) {
   return (
     <View>
       <SchoolHeader schoolName={school.name} />
-      <SchoolStats active size={schoolTotals.bubbleSize} reported={schoolTotals.reported} total={school.size} />
+      <SchoolStats active reported={schoolTotals.reported} size={schoolTotals.bubbleSize} total={school.size} />
       {school.groups.map((group, index) => {
         const isLast = index === school.groups.length - 1;
         return (
@@ -48,6 +47,7 @@ function SchoolNetworksCard({ school }: IProps) {
             bubbleName={group.name}
             daily={group.daily_assessments}
             isLast={isLast}
+            // eslint-disable-next-line react/no-array-index-key
             key={`${group.id}-${index}`}
             reported={group.daily_reported_symptoms}
             size={group.size}

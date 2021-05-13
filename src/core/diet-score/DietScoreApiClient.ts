@@ -1,7 +1,6 @@
-import { injectable, inject } from 'inversify';
-
 import { IApiClient } from '@covid/core/api/ApiClient';
 import { Services } from '@covid/provider/services.types';
+import { inject, injectable } from 'inversify';
 
 import { TDietScoreResponse } from './dto/DietScoreResponse';
 

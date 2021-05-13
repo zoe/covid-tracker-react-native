@@ -1,20 +1,19 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ListItem } from 'native-base';
-
-import i18n from '@covid/locale/i18n';
-import { HeaderText, RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import Screen, { Header } from '@covid/components/Screen';
+import { BrandedButton } from '@covid/components';
 import { CheckboxItem } from '@covid/components/Checkbox';
+import Screen, { Header } from '@covid/components/Screen';
+import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
-import { Services } from '@covid/provider/services.types';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
-import { BrandedButton } from '@covid/components';
+import { Services } from '@covid/provider/services.types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import { ListItem } from 'native-base';
+import React, { FC, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestConfirm'>;
@@ -59,12 +58,12 @@ export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
       <View style={{ flex: 1 }} />
 
       <ListItem>
-        <CheckboxItem value={agreed} onChange={handleConsentClick}>
+        <CheckboxItem onChange={handleConsentClick} value={agreed}>
           {i18n.t('covid-test.confirm-test.consent')}
         </CheckboxItem>
       </ListItem>
 
-      <BrandedButton testID="confirm" style={styles.button} enable={agreed} hideLoading onPress={handleAgreeClicked}>
+      <BrandedButton hideLoading enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="confirm">
         {i18n.t('legal.confirm')}
       </BrandedButton>
     </Screen>
@@ -72,16 +71,16 @@ export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.backgroundSecondary,
-  },
-  button: {
-    marginTop: 20,
-  },
   body: {
     fontSize: 17,
     marginHorizontal: 16,
     marginVertical: 32,
+  },
+  button: {
+    marginTop: 20,
+  },
+  container: {
+    backgroundColor: colors.backgroundSecondary,
+    flex: 1,
   },
 });

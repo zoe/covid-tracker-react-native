@@ -1,8 +1,7 @@
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import { PatientStateType } from '@covid/core/patient/PatientState';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 export enum ConsentType {
@@ -80,18 +79,10 @@ export type ScreenParamList = {
   VaccineLogSymptomsInfo: { assessmentData: AssessmentData };
   VaccineFindInfo: { assessmentData: AssessmentData };
 
-  // Vaccine Registry
-  VaccineRegistrySignup: { currentPatient: PatientStateType };
-  VaccineRegistryInfo: { currentPatient: PatientStateType };
-
   // Completion screens
   ThankYouSE: undefined;
   ThankYouUK: undefined;
   ThankYouUS: undefined;
-
-  ValidationStudyIntro: undefined;
-  ValidationStudyInfo: undefined;
-  ValidationStudyConsent: { viewOnly: boolean };
 
   Dashboard: undefined;
   DashboardUS: undefined;

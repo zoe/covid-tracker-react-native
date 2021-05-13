@@ -1,18 +1,17 @@
-import React from 'react';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet } from 'react-native';
-import { View } from 'native-base';
-
-import { colors } from '@theme';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { HeaderText, RegularText, RegularBoldText } from '@covid/components/Text';
-import { Coordinator } from '@covid/core/Coordinator';
-import ProgressStatus from '@covid/components/ProgressStatus';
 import { Button } from '@covid/components/buttons/Button';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { Coordinator } from '@covid/core/Coordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import { View } from 'native-base';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
 
@@ -32,14 +31,14 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Screen profile={currentPatient?.profile} navigation={navigation} style={styles.container} simpleCallout>
+      <Screen simpleCallout navigation={navigation} profile={currentPatient?.profile} style={styles.container}>
         <View style={styles.container}>
           <Header>
             <HeaderText style={styles.header}>{i18n.t('school-networks.how-to.title')}</HeaderText>
           </Header>
 
           <ProgressBlock>
-            <ProgressStatus step={1} maxSteps={6} />
+            <ProgressStatus maxSteps={6} step={1} />
           </ProgressBlock>
 
           <View style={styles.description}>
@@ -53,7 +52,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
       </Screen>
 
       <View style={styles.buttonsContainer}>
-        <Button onPress={goNext} branded>
+        <Button branded onPress={goNext}>
           {i18n.t('school-networks.how-to.cta')}
         </Button>
         <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.how-to.skip')}</Button>
@@ -63,13 +62,14 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.backgroundPrimary,
+  buttonsContainer: {
+    marginBottom: 48,
+    paddingHorizontal: 8,
   },
 
-  header: {
-    marginRight: 72,
+  container: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
   },
 
   description: {
@@ -77,12 +77,11 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
 
-  label: {
-    marginTop: 4,
+  header: {
+    marginRight: 72,
   },
 
-  buttonsContainer: {
-    paddingHorizontal: 8,
-    marginBottom: 48,
+  label: {
+    marginTop: 4,
   },
 });

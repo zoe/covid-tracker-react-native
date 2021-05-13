@@ -10,8 +10,8 @@ function GradientColorBar({ colors = ['#FF9600', '#FFD519', '#C0D904', '#A0B406'
   return (
     <LinearGradient
       colors={colors}
-      start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
+      start={{ x: 0, y: 0 }}
       style={{
         borderRadius: height * 0.5,
         flex: 1,

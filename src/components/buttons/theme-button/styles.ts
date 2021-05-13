@@ -1,7 +1,6 @@
-import { TouchableOpacity } from 'react-native';
-
-import styled from '@covid/themes/styled-components';
 import { TColorPalette, TColorShade, TGridSizes } from '@covid/themes';
+import styled from '@covid/themes/styled-components';
+import { TouchableOpacity } from 'react-native';
 
 interface SProps {
   colorPalette: TColorPalette;

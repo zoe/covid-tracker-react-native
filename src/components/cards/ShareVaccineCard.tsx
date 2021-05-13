@@ -1,7 +1,6 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-
 import { shareVaccine, shareVaccineBanner } from '@assets';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 
 import { ExternalCallout } from '../ExternalCallout';
 
@@ -17,22 +16,22 @@ export function ShareVaccineCard({ screenName, isSharing = false }: IProps) {
     <>
       {!isSharing && (
         <ExternalCallout
+          aspectRatio={311 / 135}
           calloutID="shareVaccineBanner"
           imageSource={shareVaccineBanner}
-          aspectRatio={311 / 135}
+          postClicked={() => navigate('Share', { hideLabel: true, sharable: 'VACCINES' })}
           screenName={screenName}
-          postClicked={() => navigate('Share', { sharable: 'VACCINES', hideLabel: true })}
         />
       )}
 
       {isSharing && (
         <ExternalCallout
           isSharing
+          aspectRatio={1125 / 877}
           calloutID="shareVaccine"
           imageSource={shareVaccine}
-          aspectRatio={1125 / 877}
+          postClicked={() => navigate('Share', { hideLabel: true, sharable: 'VACCINES' })}
           screenName={screenName}
-          postClicked={() => navigate('Share', { sharable: 'VACCINES', hideLabel: true })}
         />
       )}
     </>

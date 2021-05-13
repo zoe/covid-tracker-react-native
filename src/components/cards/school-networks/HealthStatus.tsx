@@ -1,9 +1,7 @@
+import i18n from '@covid/locale/i18n';
 import React from 'react';
 
-import i18n from '@covid/locale/i18n';
-
 import { StatusIndicator } from '../../status';
-
 import { SHealthStatus, SHealthStatusText } from './styles';
 
 interface IProps {
@@ -14,7 +12,7 @@ function HealthStatus({ reported }: IProps) {
   return (
     <SHealthStatus>
       <StatusIndicator colorPalette={reported ? 'orange' : 'green'} />
-      <SHealthStatusText textClass="pLight" colorPalette="uiDark" colorShade="main" inverted>
+      <SHealthStatusText inverted colorPalette="uiDark" colorShade="main" textClass="pLight">
         {reported} {i18n.t('school-networks.dashboard.reported-unwell')}
       </SHealthStatusText>
     </SHealthStatus>

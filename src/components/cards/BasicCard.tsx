@@ -1,8 +1,7 @@
+import { colors } from '@theme';
+import { Card } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Card } from 'native-base';
-
-import { colors } from '@theme';
 
 type CardProps = {
   children: React.ReactNode;
@@ -16,9 +15,9 @@ export const BasicCard: React.FC<CardProps> = (c) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.white,
-    width: '100%',
+    borderColor: colors.white,
     borderRadius: 16,
     padding: 12,
-    borderColor: colors.white,
+    width: '100%',
   },
 });

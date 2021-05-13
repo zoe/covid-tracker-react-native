@@ -1,16 +1,15 @@
+import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
+import { FeaturedContentList, FeaturedContentType } from '@covid/components/Content/FeaturedContentList';
+import ApiClient from '@covid/core/api/ApiClient';
+import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
+import { container } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import MockAdapter from 'axios-mock-adapter';
 import React from 'react';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
-import MockAdapter from 'axios-mock-adapter';
-
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import ApiClient from '@covid/core/api/ApiClient';
-import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
-import { FeaturedContentList, FeaturedContentType } from '@covid/components/content/FeaturedContentList';
-import FeaturedContentJson from '@covid/components/content/__mock__/featured-content.json';
+import thunk from 'redux-thunk';
 
 // Mock Redux store
 const mockReduxStore = (state: any) => {
@@ -31,37 +30,38 @@ const mockNetworkResponse = () => {
 describe('FeaturedContentList tests', () => {
   beforeAll(() => {
     mockNetworkResponse();
-  }),
-    it('renders home screen featured content correctly', async () => {
-      // Test Redux action
-      // Unable to type but should be AsyncThunk<Partial<ContentState>, any, any>;
-      const testActionStore = mockReduxStore({});
-      const result = await testActionStore.dispatch<any>(fetchFeaturedContent());
-      const content = result.payload.featuredHome;
+  });
 
-      expect(result.type).toBe('content/featured_content/fulfilled');
-      expect(content.length).toBe(2);
+  it('renders home screen featured content correctly', async () => {
+    // Test Redux action
+    // Unable to type but should be AsyncThunk<Partial<ContentState>, any, any>;
+    const testActionStore = mockReduxStore({});
+    const result = await testActionStore.dispatch<any>(fetchFeaturedContent());
+    const content = result.payload.featuredHome;
 
-      const testContentStore = mockReduxStore({
-        content: {
-          dismissedCallouts: [],
-          featuredHome: content,
-        },
-      });
+    expect(result.type).toBe('content/featured_content/fulfilled');
+    expect(content.length).toBe(2);
 
-      // Test rendering
-      const instance = renderer.create(
-        <Provider store={testContentStore}>
-          <FeaturedContentList type={FeaturedContentType.Home} screenName="Screen name" disableLoadingState />
-        </Provider>
-      );
-
-      expect(
-        instance.root.findAll((el) => {
-          return el.props?.testID === 'featured-content-callout' && (el.type as any) === 'View';
-        }).length
-      ).toBe(content.length);
+    const testContentStore = mockReduxStore({
+      content: {
+        dismissedCallouts: [],
+        featuredHome: content,
+      },
     });
+
+    // Test rendering
+    const instance = renderer.create(
+      <Provider store={testContentStore}>
+        <FeaturedContentList disableLoadingState screenName="Screen name" type={FeaturedContentType.Home} />
+      </Provider>,
+    );
+
+    expect(
+      instance.root.findAll((el) => {
+        return el.props?.testID === 'featured-content-callout' && (el.type as any) === 'View';
+      }).length,
+    ).toBe(content.length);
+  });
 
   it('renders home screen featured content correctly', async () => {
     // Test Redux action
@@ -83,14 +83,14 @@ describe('FeaturedContentList tests', () => {
     // Test rendering
     const instance = renderer.create(
       <Provider store={testContentStore}>
-        <FeaturedContentList type={FeaturedContentType.ThankYou} screenName="Screen name" disableLoadingState />
-      </Provider>
+        <FeaturedContentList disableLoadingState screenName="Screen name" type={FeaturedContentType.ThankYou} />
+      </Provider>,
     );
 
     expect(
       instance.root.findAll((el) => {
         return el.props?.testID === 'featured-content-callout' && (el.type as any) === 'View';
-      }).length
+      }).length,
     ).toBe(content.length);
   });
 });

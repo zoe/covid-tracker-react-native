@@ -1,21 +1,20 @@
+import { BrandedButton } from '@covid/components';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { HeaderText, RegularText } from '@covid/components/Text';
+import { TwoButtonModal } from '@covid/components/TwoButtonModal';
+import { RootState } from '@covid/core/state/root';
+import { SchoolGroupRow } from '@covid/features/school-network/SchoolGroupRow';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-
-import { colors } from '@theme';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText, RegularText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
-import { RootState } from '@covid/core/state/root';
-import { SchoolGroupRow } from '@covid/features/school-network/SchoolGroupRow';
-import { TwoButtonModal } from '@covid/components/TwoButtonModal';
-import { BrandedButton } from '@covid/components';
 
 import { ISchoolGroupModel, ISubscribedSchoolGroupStats } from '../../core/schools/Schools.dto';
 
@@ -35,7 +34,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
     const { patientId } = route.params.patientData;
     const schoolId = route.params.selectedSchool.id;
     const currentJoinedGroups = allGroups.filter(
-      (group) => group.patient_id === patientId && group.school.id === schoolId
+      (group) => group.patient_id === patientId && group.school.id === schoolId,
     );
 
     if (currentJoinedGroups.length > 0) {
@@ -55,34 +54,34 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
 
   return (
     <View style={styles.rootContainer}>
-      <Screen profile={route.params.patientData.profile} navigation={navigation}>
+      <Screen navigation={navigation} profile={route.params.patientData.profile}>
         <Header>
           <HeaderText>{i18n.t('school-networks.groups-list.title')}</HeaderText>
         </Header>
 
         <RegularText style={styles.content}>
-          {i18n.t('school-networks.groups-list.subtitle') + ' ' + route.params.selectedSchool.name}
+          {`${i18n.t('school-networks.groups-list.subtitle')} ${route.params.selectedSchool.name}`}
         </RegularText>
 
         <ProgressBlock>
-          <ProgressStatus step={2} maxSteps={4} />
+          <ProgressStatus maxSteps={4} step={2} />
         </ProgressBlock>
 
-        {isModalVisible && (
+        {isModalVisible ? (
           <TwoButtonModal
-            bodyText={i18n.t('school-networks.groups-list.modal-body') + ' ' + pressedGroup!.name + '?'}
-            button1Text={i18n.t('school-networks.groups-list.button-1')}
-            button2Text={i18n.t('school-networks.groups-list.button-2')}
+            bodyText={`${i18n.t('school-networks.groups-list.modal-body')} ${pressedGroup!.name}?`}
             button1Callback={() => setModalVisible(false)}
+            button1Text={i18n.t('school-networks.groups-list.button-1')}
             button2Callback={async () => {
               await schoolNetworkCoordinator.removePatientFromGroup(
                 pressedGroup!.id,
-                route.params.patientData.patientId
+                route.params.patientData.patientId,
               );
               setModalVisible(false);
             }}
+            button2Text={i18n.t('school-networks.groups-list.button-2')}
           />
-        )}
+        ) : null}
 
         <RegularText style={styles.content}>{i18n.t('school-networks.groups-list.text')}</RegularText>
 
@@ -90,12 +89,12 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
           {joinedGroups.map((group: ISchoolGroupModel) => {
             return (
               <SchoolGroupRow
+                group={group}
+                key={group.id}
                 onPress={() => {
                   setPressedGroup(group);
                   setModalVisible(true);
                 }}
-                group={group}
-                key={group.id}
               />
             );
           })}
@@ -103,11 +102,11 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
       </Screen>
 
       <View>
-        <BrandedButton style={styles.newButton} onPress={joinNewGroup}>
+        <BrandedButton onPress={joinNewGroup} style={styles.newButton}>
           <Text style={styles.newText}>{i18n.t('school-networks.groups-list.add-new-bubble')}</Text>
         </BrandedButton>
 
-        <BrandedButton style={styles.continueButton} onPress={done}>
+        <BrandedButton onPress={done} style={styles.continueButton}>
           <Text>Done</Text>
         </BrandedButton>
       </View>
@@ -116,25 +115,25 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
 };
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: colors.backgroundPrimary,
-  },
   content: {
     margin: 16,
   },
-  newButton: {
+  continueButton: {
+    marginBottom: 32,
     marginHorizontal: 16,
-    marginBottom: 16,
+  },
+  newButton: {
     backgroundColor: colors.white,
-    borderWidth: 1,
     borderColor: colors.purple,
+    borderWidth: 1,
+    marginBottom: 16,
+    marginHorizontal: 16,
   },
   newText: {
     color: colors.purple,
   },
-  continueButton: {
-    marginHorizontal: 16,
-    marginBottom: 32,
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
   },
 });

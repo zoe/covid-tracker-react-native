@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, GestureResponderEvent } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
 import { colors } from '@theme';
+import React from 'react';
+import { GestureResponderEvent, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export type IButtonPress = ((event: GestureResponderEvent) => void) | undefined;
 
@@ -13,13 +12,13 @@ type IProps = {
 
 const buttonStyles = StyleSheet.create({
   bigButton: {
+    backgroundColor: colors.white,
+    borderColor: colors.secondary,
     borderRadius: 28,
     borderWidth: 1,
-    borderColor: colors.secondary,
-    backgroundColor: colors.white,
     fontSize: 16,
-    paddingVertical: 16,
     paddingHorizontal: 24,
+    paddingVertical: 16,
   },
 
   buttonText: {

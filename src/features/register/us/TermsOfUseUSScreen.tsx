@@ -1,13 +1,12 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
+import { BrandedButton } from '@covid/components';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton } from '@covid/components';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'TermsOfUseUS'>;
@@ -15,15 +14,15 @@ type PropsType = {
 };
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-  },
   button: {
     marginTop: 20,
+  },
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
   },
 });
 
@@ -45,7 +44,8 @@ export default class TermsOfUseUSScreen extends Component<PropsType> {
             {'\n\n'}
             {i18n.t('terms-of-use-us.para-3')}{' '}
             <ClickableText
-              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+              onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}
+            >
               {i18n.t('terms-of-use-us.privacy-policy')}
             </ClickableText>
             {'\n'}
@@ -226,7 +226,7 @@ export default class TermsOfUseUSScreen extends Component<PropsType> {
           </RegularText>
         </ScrollView>
 
-        <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>
+        <BrandedButton onPress={() => this.props.navigation.goBack()} style={styles.button}>
           {i18n.t('terms-of-use-us.back')}
         </BrandedButton>
       </View>

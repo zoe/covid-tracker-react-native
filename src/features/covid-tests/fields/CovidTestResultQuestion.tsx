@@ -1,10 +1,9 @@
+import DropdownField from '@covid/components/DropdownField';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import DropdownField from '@covid/components/DropdownField';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 
 export interface ICovidTestResultData {
   result: string;
@@ -33,11 +32,11 @@ export const CovidTestResultQuestion: ICovidTestResultQuestion<IProps, ICovidTes
 
   return (
     <DropdownField
-      selectedValue={formikProps.values.result}
-      onValueChange={formikProps.handleChange('result')}
       error={formikProps.touched.result && formikProps.errors.result}
-      label={i18n.t('covid-test.question-result')}
       items={resultItems}
+      label={i18n.t('covid-test.question-result')}
+      onValueChange={formikProps.handleChange('result')}
+      selectedValue={formikProps.values.result}
     />
   );
 };

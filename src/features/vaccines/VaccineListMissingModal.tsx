@@ -1,13 +1,12 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BrandedButton, HeaderText, Text } from '@covid/components';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;
@@ -33,27 +32,27 @@ export const VaccineListMissingModal: React.FC<Props> = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  modal: {
-    backgroundColor: colors.white,
-    shadowRadius: 0,
-    borderRadius: 16,
-    minHeight: 224,
-    alignItems: 'center',
-    textAlign: 'center',
-    padding: 32,
-    marginTop: 160,
-    marginHorizontal: 16,
-  },
-  text: {
-    textAlign: 'center',
-    marginBottom: 24,
-  },
   button: {
-    padding: 16,
-    textAlign: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 64,
     backgroundColor: colors.darkblue,
+    padding: 16,
+    paddingHorizontal: 64,
+    textAlign: 'center',
+  },
+  modal: {
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    borderRadius: 16,
+    marginHorizontal: 16,
+    marginTop: 160,
+    minHeight: 224,
+    padding: 32,
+    shadowRadius: 0,
+    textAlign: 'center',
+  },
+  text: {
+    marginBottom: 24,
+    textAlign: 'center',
   },
 });

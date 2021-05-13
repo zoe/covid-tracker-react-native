@@ -1,7 +1,6 @@
+import { SelectableButton } from '@covid/components/SelectableButton';
 import React, { useState } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-
-import { SelectableButton } from '@covid/components/SelectableButton';
 
 interface ISelectableItem {
   title: string;
@@ -21,20 +20,22 @@ export function Selectable({ items, resetAnimation, onSelected }: IProps) {
   return (
     <View
       style={{
+        alignItems: 'flex-start',
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        alignItems: 'flex-start',
-      }}>
+      }}
+    >
       {items.map((item, index) => (
         <Animated.View style={[styles.itemContainer]}>
           <SelectableButton
-            style={[styles.item, index % 2 === 0 ? styles.itemMarginRight : styles.itemMarginLeft]}
-            selected={isSelected(item)}
             onPress={() => {
               setSelected(item);
               if (onSelected) onSelected(item);
-            }}>
+            }}
+            selected={isSelected(item)}
+            style={[styles.item, index % 2 === 0 ? styles.itemMarginRight : styles.itemMarginLeft]}
+          >
             {item.title}
           </SelectableButton>
         </Animated.View>
@@ -45,24 +46,24 @@ export function Selectable({ items, resetAnimation, onSelected }: IProps) {
 
 const styles = StyleSheet.create({
   grid: {
+    alignItems: 'flex-start',
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'flex-start',
+  },
+  item: {
+    height: 60,
+    justifyContent: 'space-around',
+    marginVertical: 8,
+    paddingVertical: 24,
   },
   itemContainer: {
     width: '50%',
   },
-  item: {
-    height: 60,
-    marginVertical: 8,
-    paddingVertical: 24,
-    justifyContent: 'space-around',
+  itemMarginLeft: {
+    marginLeft: 8,
   },
   itemMarginRight: {
     marginRight: 8,
-  },
-  itemMarginLeft: {
-    marginLeft: 8,
   },
 });

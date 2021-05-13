@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-
-import { Header3Text, RegularText, CaptionText } from '@covid/components/Text';
-import { covidIcon, covidByZoeIcon } from '@assets';
-import i18n from '@covid/locale/i18n';
+import { covidByZoeIcon, covidIcon } from '@assets';
+import { BrandedButton } from '@covid/components';
+import { CaptionText, Header3Text, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
+import { ContentState } from '@covid/core/content/state/contentSlice';
+import { RootState } from '@covid/core/state/root';
+import i18n from '@covid/locale/i18n';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
-import { RootState } from '@covid/core/state/root';
-import { ContentState } from '@covid/core/content/state/contentSlice';
-import { BrandedButton } from '@covid/components';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 interface IProps {
   reportedCount?: string;
@@ -27,8 +26,8 @@ export function Header({ reportedCount, reportOnPress }: IProps) {
   const [contributors, setContributors] = useState<string | null>(null);
 
   const prettyContributorsValue = i18n.toNumber(contributors ? cleanIntegerVal(contributors) : 0, {
-    precision: 0,
     delimiter: ',',
+    precision: 0,
   });
 
   useEffect(() => {
@@ -46,22 +45,22 @@ export function Header({ reportedCount, reportOnPress }: IProps) {
 
       <View style={styles.reportCard}>
         <Header3Text style={styles.dateLabel}>{content.todayDate}</Header3Text>
-        <BrandedButton style={[styles.reportButton, styles.reportButtonExpanded]} onPress={onReport}>
+        <BrandedButton onPress={onReport} style={[styles.reportButton, styles.reportButtonExpanded]}>
           {i18n.t('dashboard.report-today')}
         </BrandedButton>
-        {reportedCount && (
+        {reportedCount ? (
           <CaptionText style={styles.reportedCount}>
             {i18n.t('dashboard.you-have-reported-x-times', { count: reportedCount })}
           </CaptionText>
-        )}
+        ) : null}
       </View>
 
-      {contributors && (
+      {contributors ? (
         <>
           <RegularText style={styles.contributorsLabel}>{i18n.t('dashboard.contributors-so-far')}</RegularText>
           <Header3Text style={styles.contributorsCount}>{prettyContributorsValue}</Header3Text>
         </>
-      )}
+      ) : null}
     </View>
   );
 }
@@ -75,7 +74,7 @@ export function CompactHeader({ reportOnPress }: IProps) {
   return (
     <View style={styles.root}>
       <Image source={covidIcon} style={[styles.logo, styles.compactHeaderLogo]} />
-      <BrandedButton style={[styles.reportButton, styles.reportButtonCompact]} onPress={onReport}>
+      <BrandedButton onPress={onReport} style={[styles.reportButton, styles.reportButtonCompact]}>
         {i18n.t('dashboard.report-now')}
       </BrandedButton>
     </View>
@@ -83,44 +82,29 @@ export function CompactHeader({ reportOnPress }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  root: {
-    backgroundColor: colors.predict,
-    alignItems: 'center',
-    width: '100%',
-    paddingTop: 16,
-    paddingBottom: 24,
+  compactHeaderLogo: {
+    bottom: 22,
+    left: 16,
+    position: 'absolute',
   },
 
-  logo: {
-    width: 54,
-    height: 54,
-    resizeMode: 'contain',
-    margin: 8,
+  contributorsCount: {
+    color: colors.white,
+    textAlign: 'center',
+    width: '100%',
+  },
+
+  contributorsLabel: {
+    color: colors.white,
   },
 
   covidByZoe: {
-    width: 136,
-    height: 56,
-    resizeMode: 'contain',
-    margin: 8,
     alignSelf: 'flex-start',
+    height: 56,
+    margin: 8,
     marginLeft: 16,
-  },
-
-  compactHeaderLogo: {
-    position: 'absolute',
-    left: 16,
-    bottom: 22,
-  },
-
-  reportCard: {
-    alignSelf: 'stretch',
-    marginHorizontal: 16,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    borderRadius: 16,
-    alignItems: 'center',
-    paddingVertical: 20,
-    marginVertical: 16,
+    resizeMode: 'contain',
+    width: 136,
   },
 
   dateLabel: {
@@ -129,37 +113,52 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 
-  reportButton: {
-    textAlign: 'center',
-    backgroundColor: colors.purple,
-    alignSelf: 'center',
-    elevation: 0,
-    height: 48,
-    marginTop: 16,
-    marginBottom: 8,
+  logo: {
+    height: 54,
+    margin: 8,
+    resizeMode: 'contain',
+    width: 54,
   },
 
-  reportButtonExpanded: {
-    paddingHorizontal: 32,
+  reportButton: {
+    alignSelf: 'center',
+    backgroundColor: colors.purple,
+    elevation: 0,
+    height: 48,
+    marginBottom: 8,
+    marginTop: 16,
+    textAlign: 'center',
   },
 
   reportButtonCompact: {
     paddingHorizontal: 52,
   },
 
+  reportButtonExpanded: {
+    paddingHorizontal: 32,
+  },
+
+  reportCard: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 16,
+    marginHorizontal: 16,
+    marginVertical: 16,
+    paddingVertical: 20,
+  },
+
   reportedCount: {
+    color: colors.backgroundFour,
     margin: 4,
     textAlign: 'center',
-    color: colors.backgroundFour,
   },
 
-  contributorsLabel: {
-    color: colors.white,
-  },
-
-  contributorsCount: {
-    color: colors.white,
-    textAlign: 'center',
+  root: {
+    alignItems: 'center',
+    backgroundColor: colors.predict,
+    paddingBottom: 24,
+    paddingTop: 16,
     width: '100%',
   },
   test: {

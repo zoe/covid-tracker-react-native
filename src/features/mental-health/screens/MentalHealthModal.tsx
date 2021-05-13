@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-
-import { Avatar, SafeLayout, Text } from '@covid/components';
-import { TMentalHealthConsent, setConsent, setLastPresentedDate } from '@covid/core/state';
-import i18n from '@covid/locale/i18n';
 import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
+import { Avatar, SafeLayout, Text } from '@covid/components';
+import Analytics from '@covid/core/Analytics';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { events, track } from '@covid/core/Analytics';
+import { setConsent, setLastPresentedDate, TMentalHealthConsent } from '@covid/core/state';
+import i18n from '@covid/locale/i18n';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -36,7 +35,7 @@ function MentalHealthModal() {
 
   useEffect(() => {
     if (!tracked) {
-      track(events.MENTAL_HEALTH_DISPLAY_MODAL);
+      Analytics.track(Analytics.events.MENTAL_HEALTH_DISPLAY_MODAL);
       setTracked(true);
     }
   });
@@ -45,17 +44,17 @@ function MentalHealthModal() {
     <SafeLayout>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.card}>
-          <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>
+          <Text fontFamily="SofiaProRegular" rhythm={20} textClass="h3">
             {i18n.t('mental-health.modal-title')}
           </Text>
           <View style={styles.profile}>
             <Avatar imgsrc={getImgSrc()} />
             <View style={{ marginLeft: 16, marginRight: 32 }}>
               <Text>{i18n.t('mental-health.doctor-name')}</Text>
-              <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+              <Text style={{ color: '#888B8C' }} textClass="pSmall">
                 {i18n.t('mental-health.doctor-title')}
               </Text>
-              <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+              <Text style={{ color: '#888B8C' }} textClass="pSmall">
                 {i18n.t('mental-health.doctor-college')}
               </Text>
             </View>
@@ -73,18 +72,20 @@ function MentalHealthModal() {
           </View>
           <View>
             <TouchableOpacity
+              onPress={() => handleSetConsent('YES')}
               style={[styles.button, { backgroundColor: '#0165B5' }]}
-              onPress={() => handleSetConsent('YES')}>
-              <Text textClass="pSmallLight" style={{ color: 'white' }}>
+            >
+              <Text style={{ color: 'white' }} textClass="pSmallLight">
                 {i18n.t('mental-health.modal-answer-yes')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={() => handleSetConsent('LATER')}
               style={[styles.button, { backgroundColor: '#EEEEEF' }]}
-              onPress={() => handleSetConsent('LATER')}>
+            >
               <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-later')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button]} onPress={() => handleSetConsent('NO')}>
+            <TouchableOpacity onPress={() => handleSetConsent('NO')} style={[styles.button]}>
               <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-no')}</Text>
             </TouchableOpacity>
           </View>
@@ -95,6 +96,14 @@ function MentalHealthModal() {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    borderRadius: 24,
+    height: 48,
+    justifyContent: 'center',
+    marginBottom: 8,
+    width: '100%',
+  },
   card: {
     backgroundColor: 'white',
     borderRadius: 16,
@@ -105,14 +114,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginBottom: 24,
-  },
-  button: {
-    alignItems: 'center',
-    borderRadius: 24,
-    height: 48,
-    justifyContent: 'center',
-    marginBottom: 8,
-    width: '100%',
   },
 });
 

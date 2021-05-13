@@ -1,15 +1,11 @@
-import { Platform, Linking } from 'react-native';
-import * as IntentLauncher from 'expo-intent-launcher';
-
+import Analytics from '@covid/core/Analytics';
 import { isDateBefore, now, yesterday } from '@covid/utils/datetime';
+import * as IntentLauncher from 'expo-intent-launcher';
+import { Linking, Platform } from 'react-native';
 
-import { IStorageService } from '../LocalStorageService';
-import { IApiClient } from '../api/ApiClient';
-import { TokenInfoResponse, TokenInfoRequest } from '../user/dto/UserAPIContracts';
 import { isAndroid } from '../../utils/platform';
-import Analytics, { events } from '../Analytics';
-
-import { PushToken, IPushTokenRemoteClient } from './types';
+import { IStorageService } from '../LocalStorageService';
+import { IPushTokenRemoteClient, PushToken } from './types';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
@@ -26,31 +22,17 @@ const getPlatform = () => {
 
 const createTokenDoc = (token: string): PushToken => {
   return {
-    token,
     lastUpdated: now(),
     platform: getPlatform(),
+    token,
   };
 };
 
-export class PushNotificationApiClient implements IPushTokenRemoteClient {
-  apiClient: IApiClient;
-
-  constructor(apiClient: IApiClient) {
-    this.apiClient = apiClient;
-  }
-
-  updatePushToken(pushToken: PushToken): Promise<TokenInfoResponse> {
-    const tokenDoc = {
-      ...pushToken,
-      active: true,
-    } as TokenInfoRequest;
-    return this.apiClient.post<TokenInfoRequest, TokenInfoResponse>(`/tokens/`, tokenDoc);
-  }
-}
-
 export default class PushNotificationService {
   apiClient: IPushTokenRemoteClient;
+
   storage: IStorageService;
+
   environment: IPushTokenEnvironment;
 
   constructor(apiClient: IPushTokenRemoteClient, storage: IStorageService, environment: IPushTokenEnvironment) {
@@ -70,7 +52,7 @@ export default class PushNotificationService {
   }
 
   private async savePushToken(pushToken: PushToken) {
-    return await this.storage.setObject<PushToken>(KEY_PUSH_TOKEN, pushToken);
+    return this.storage.setObject<PushToken>(KEY_PUSH_TOKEN, pushToken);
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {
@@ -87,12 +69,12 @@ export default class PushNotificationService {
         // We don't even have a push token yet - fetch one!
         pushToken = await this.fetchProviderPushToken();
         notify_backend = true;
-        Analytics.track(events.NOTIFICATION_ENABLED);
+        Analytics.track(Analytics.events.NOTIFICATION_ENABLED);
       } else if (this.tokenNeedsRefreshing(pushToken)) {
         // We need to re-fetch because it's been a while and might have changed.
         pushToken = await this.fetchProviderPushToken();
         notify_backend = true;
-        Analytics.track(events.NOTIFICATION_REFRESHED);
+        Analytics.track(Analytics.events.NOTIFICATION_REFRESHED);
       }
 
       if (notify_backend && pushToken) {

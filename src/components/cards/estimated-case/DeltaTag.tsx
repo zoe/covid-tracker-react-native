@@ -1,9 +1,8 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
 import { ArrowDown, ArrowUp } from '@assets';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { Text } from '../../typography';
 
@@ -11,76 +10,59 @@ interface IProps {
   change: number;
 }
 
-enum DeltaChange {
-  up,
-  down,
-  none,
-}
 export function DeltaTag({ change }: IProps) {
-  const changeType = change >= 0 ? DeltaChange.up : DeltaChange.down;
   const from = i18n.t('dashboard.trendline-card.delta.from-last-week');
 
-  const config = () => {
-    switch (changeType) {
-      case DeltaChange.up:
-        return {
-          text: `${i18n.t('dashboard.trendline-card.delta.up')} ${change}`,
-          icon: <ArrowUp color={colors.red} />,
+  const { color, icon, text } =
+    change >= 0
+      ? {
           color: styles.up,
-        };
-      case DeltaChange.down:
-        return {
-          text: `${i18n.t('dashboard.trendline-card.delta.down')} ${Math.abs(change)}`,
-          icon: <ArrowDown color={colors.green} />,
+          icon: <ArrowUp color={colors.red} />,
+          text: `${i18n.t('dashboard.trendline-card.delta.up')} ${change}`,
+        }
+      : {
           color: styles.down,
+          icon: <ArrowDown color={colors.green} />,
+          text: `${i18n.t('dashboard.trendline-card.delta.down')} ${Math.abs(change)}`,
         };
-      case DeltaChange.none:
-        return {
-          text: i18n.t('dashboard.trendline-card.delta.none'),
-          icon: null,
-          color: styles.none,
-        };
-    }
-  };
 
-  const { color, icon, text } = config();
   return (
     <View style={{ flexDirection: 'row' }}>
       <View style={[styles.tag, color]}>
         <View style={styles.icon}>{icon}</View>
-        <Text textClass="pSmall" style={{ color: color.color }}>{`${text} ${from}`}</Text>
+        <Text style={{ color: color.color }} textClass="pSmall">{`${text} ${from}`}</Text>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  tag: {
-    borderWidth: 1,
-    flexDirection: 'row',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
-    marginRight: 8,
-  },
-  up: {
-    borderColor: colors.red,
-    color: colors.red,
-  },
   down: {
     borderColor: colors.green,
     color: colors.green,
+  },
+  icon: {
+    marginRight: 6,
+    marginTop: 4,
+  },
+  muted: {
+    fontSize: 14,
+    paddingTop: 2,
   },
   none: {
     borderColor: colors.tertiary,
     color: colors.tertiary,
   },
-  icon: {
-    marginTop: 4,
-    marginRight: 6,
+  tag: {
+    borderRadius: 6,
+    borderWidth: 1,
+    flexDirection: 'row',
+    marginRight: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
-  muted: {
-    fontSize: 14,
-    paddingTop: 2,
+  up: {
+    borderColor: colors.red,
+    color: colors.red,
   },
 });

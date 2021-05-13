@@ -1,25 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import * as Sharing from 'expo-sharing';
-import { captureRef } from 'react-native-view-shot';
+import { BrandedButton } from '@covid/components';
+import { DeltaTag } from '@covid/components/cards/estimated-case/DeltaTag';
+import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
+import { Tabs } from '@covid/components/nav/Tabs';
+import { BackButton } from '@covid/components/PatientHeader';
+import { Header } from '@covid/components/Screen';
+import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/stats/TrendLineChart';
+import { Header3Text, RegularText } from '@covid/components/Text';
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
+import { RootState } from '@covid/core/state/root';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useDispatch, useSelector } from 'react-redux';
-
 import { colors, fontStyles } from '@theme';
-import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import { Header } from '@covid/components/Screen';
-import { Header3Text, RegularText } from '@covid/components/Text';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { DeltaTag } from '@covid/components/cards/estimated-case/DeltaTag';
-import { Tabs } from '@covid/components/nav/Tabs';
-import { RootState } from '@covid/core/state/root';
-import { BackButton } from '@covid/components/PatientHeader';
-import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
-import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/stats/TrendLineChart';
-import i18n from '@covid/locale/i18n';
-import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
-import { BrandedButton } from '@covid/components';
+import * as Sharing from 'expo-sharing';
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { captureRef } from 'react-native-view-shot';
+import { useDispatch, useSelector } from 'react-redux';
 
 type Props = {
   navigation?: StackNavigationProp<ScreenParamList, 'Trendline'>;
@@ -37,7 +36,7 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
   const share = async () => {
     try {
       const uri = await captureRef(viewRef, { format: 'jpg' });
-      Sharing.shareAsync('file://' + uri);
+      Sharing.shareAsync(`file://${uri}`);
     } catch (_) {}
   };
 
@@ -50,7 +49,7 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
       <View style={styles.nav}>
         <BackButton navigation={navigation} />
       </View>
-      <View ref={viewRef} style={styles.container} collapsable={false}>
+      <View collapsable={false} ref={viewRef} style={styles.container}>
         <Header>
           <RegularText style={{ textAlign: 'center' }}>{i18n.t('explore-trend-line.title')}</RegularText>
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
@@ -60,11 +59,11 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
 
         <Header3Text style={styles.metric}>{trendline?.today}</Header3Text>
 
-        {trendline?.delta && (
+        {trendline?.delta ? (
           <View style={styles.deltaTag}>
             <DeltaTag change={trendline.delta} />
           </View>
-        )}
+        ) : null}
 
         <View style={styles.chartContainer}>
           <TrendLineChart filter={timeFilter} viewMode={TrendLineViewMode.explore} />
@@ -78,7 +77,7 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
           styles={{ justifyContent: 'center', marginVertical: 32 }}
         />
         <View style={styles.buttonsContainer}>
-          <BrandedButton style={styles.detailsButton} onPress={share}>
+          <BrandedButton onPress={share} style={styles.detailsButton}>
             <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
           </BrandedButton>
         </View>
@@ -91,16 +90,30 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.white,
+  arrow: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    marginLeft: 6,
+    marginTop: 9,
+    transform: [{ rotate: '-90deg' }],
   },
 
-  nav: {
-    position: 'absolute',
-    zIndex: 100,
-    top: 48,
-    left: 16,
+  button: {
+    marginBottom: 32,
+    marginHorizontal: 24,
+    marginVertical: 16,
+  },
+
+  buttonsContainer: {
+    alignSelf: 'center',
+    marginTop: 12,
+    maxWidth: '80%',
+  },
+
+  chartContainer: {
+    flex: 1,
+    marginLeft: 12,
+    marginRight: 20,
   },
 
   container: {
@@ -109,69 +122,55 @@ const styles = StyleSheet.create({
     paddingTop: 64,
   },
 
-  district: {
-    textAlign: 'center',
-    fontWeight: '500',
-    fontSize: 20,
-    marginTop: 8,
-  },
-
-  arrow: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-    transform: [{ rotate: '-90deg' }],
-    marginTop: 9,
-    marginLeft: 6,
-  },
-
-  metric: {
-    fontSize: 32,
-    lineHeight: 48,
-    paddingTop: 8,
-    textAlign: 'center',
-    color: colors.textDark,
-  },
-
   deltaTag: {
+    alignSelf: 'center',
     marginTop: 16,
     marginVertical: 32,
-    alignSelf: 'center',
-  },
-
-  chartContainer: {
-    marginLeft: 12,
-    marginRight: 20,
-    flex: 1,
-  },
-
-  button: {
-    marginVertical: 16,
-    marginHorizontal: 24,
-    marginBottom: 32,
-  },
-
-  buttonsContainer: {
-    maxWidth: '80%',
-    alignSelf: 'center',
-    marginTop: 12,
   },
 
   detailsButton: {
-    paddingHorizontal: 52,
-    marginBottom: 24,
     backgroundColor: 'transparent',
-    borderWidth: 1,
     borderColor: colors.purple,
+    borderWidth: 1,
+    marginBottom: 24,
+    paddingHorizontal: 52,
   },
 
   detailsButtonLabel: {
     color: colors.purple,
-    fontWeight: '300',
     fontSize: 14,
+    fontWeight: '300',
+  },
+
+  district: {
+    fontSize: 20,
+    fontWeight: '500',
+    marginTop: 8,
+    textAlign: 'center',
+  },
+
+  metric: {
+    color: colors.textDark,
+    fontSize: 32,
+    lineHeight: 48,
+    paddingTop: 8,
+    textAlign: 'center',
+  },
+
+  nav: {
+    left: 16,
+    position: 'absolute',
+    top: 48,
+    zIndex: 100,
+  },
+
+  root: {
+    backgroundColor: colors.white,
+    flex: 1,
   },
 
   zoe: {
-    marginTop: 16,
     marginBottom: 32,
+    marginTop: 16,
   },
 });

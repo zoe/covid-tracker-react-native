@@ -1,8 +1,7 @@
-import { injectable } from 'inversify';
-import * as Localization from 'expo-localization';
-
-import i18n from '@covid/locale/i18n';
 import { ScreenName } from '@covid/core/Coordinator';
+import i18n from '@covid/locale/i18n';
+import * as Localization from 'expo-localization';
+import { injectable } from 'inversify';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
@@ -20,7 +19,9 @@ export interface ILocalisationService {
 @injectable()
 export class LocalisationService implements ILocalisationService {
   public static userCountry = 'US';
+
   public static countryConfig: ConfigType;
+
   public static ipCountry = '';
 
   initCountryConfig(countryCode: string) {
@@ -54,12 +55,12 @@ export class LocalisationService implements ILocalisationService {
     }
 
     const localeMap: { [key: string]: string } = {
-      US: USLocale,
       GB: 'en',
       SE: 'sv',
+      US: USLocale,
     };
 
-    i18n.locale = localeMap[countryCode] + '-' + LocalisationService.userCountry;
+    i18n.locale = `${localeMap[countryCode]}-${LocalisationService.userCountry}`;
   }
 
   async updateUserCountry(isLoggedIn: boolean) {
@@ -80,11 +81,11 @@ export class LocalisationService implements ILocalisationService {
     const country = () => {
       if (Localization.locale === 'en-GB') {
         return 'GB';
-      } else if (Localization.locale === 'sv-SE') {
-        return 'SE';
-      } else {
-        return 'US';
       }
+      if (Localization.locale === 'sv-SE') {
+        return 'SE';
+      }
+      return 'US';
     };
 
     await this.setUserCountry(country());
@@ -93,9 +94,8 @@ export class LocalisationService implements ILocalisationService {
   async shouldAskCountryConfirmation() {
     if (await AsyncStorageService.getAskedCountryConfirmation()) {
       return false;
-    } else {
-      return LocalisationService.userCountry !== LocalisationService.ipCountry;
     }
+    return LocalisationService.userCountry !== LocalisationService.ipCountry;
   }
 
   static getLanguageCode() {

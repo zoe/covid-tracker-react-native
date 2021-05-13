@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useCallback } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 
 import { IUIMessage } from './types';
 
@@ -9,8 +9,8 @@ interface IMessageContext {
 }
 
 export const MessageContext = React.createContext<IMessageContext>({
-  message: null,
   addMessage: () => {},
+  message: null,
   removeMessage: () => {},
 });
 
@@ -24,8 +24,8 @@ function MessageProvider({ children }: IProps) {
   const addMessage = (message: IUIMessage) => setMessage(message);
 
   const contextValue: IMessageContext = {
-    message,
     addMessage: useCallback((message) => addMessage(message), []),
+    message,
     removeMessage: useCallback(() => removeMessage(), []),
   };
 

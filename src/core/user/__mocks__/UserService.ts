@@ -13,11 +13,11 @@ export const isSECountry = jest.fn();
 
 // to add other mocked implementations when needed
 export default jest.fn().mockImplementation(() => ({
+  getConfig: mockedGetConfig,
+  getUserCount: mockedGetUserCount,
   login: mockedLogin,
   resetPassword: mockedResetPassword,
   setConsentSigned: mockedSetConsentSigned,
-  getUserCount: mockedGetUserCount,
-  getConfig: mockedGetConfig,
-  shouldAskCountryConfirmation: mockedShouldAskCountryConfirmation,
   setUserCountry: mockedSetUserCountry,
+  shouldAskCountryConfirmation: mockedShouldAskCountryConfirmation,
 }));

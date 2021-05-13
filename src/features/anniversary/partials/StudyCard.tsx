@@ -1,10 +1,8 @@
+import { Icon, Text } from '@covid/components';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Icon, Text } from '@covid/components';
-
-import { TTimelineEvent, TProgress } from '../types';
-
+import { TProgress, TTimelineEvent } from '../types';
 import ProgressBars from './ProgressBars';
 
 interface IProps {
@@ -40,26 +38,30 @@ function StudyCard({ timelineEvent }: IProps) {
           iconSize={18}
           style={{ marginTop: 4, opacity }}
         />
-        <Text textClass="pLight" style={{ color: '#24262B', marginLeft: 12, opacity }}>
+        <Text style={{ color: '#24262B', marginLeft: 12, opacity }} textClass="pLight">
           {title}
         </Text>
       </View>
-      {sub_title && (
-        <Text textClass="h5Medium" style={[styles.body, { opacity }]}>
+      {sub_title ? (
+        <Text style={[styles.body, { opacity }]} textClass="h5Medium">
           {sub_title}
         </Text>
-      )}
+      ) : null}
       <ProgressBars progress={p} />
-      {summary && (
+      {summary ? (
         <Text style={{ color: '#024364', marginTop: 12 }} textClass="pLight">
           {summary}
         </Text>
-      )}
+      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  body: {
+    marginBottom: 24,
+    marginTop: 12,
+  },
   container: {
     backgroundColor: 'white',
     borderRadius: 16,
@@ -69,10 +71,6 @@ const styles = StyleSheet.create({
   row: {
     alignItems: 'center',
     flexDirection: 'row',
-  },
-  body: {
-    marginBottom: 24,
-    marginTop: 12,
   },
 });
 

@@ -1,9 +1,8 @@
+import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { PickerProps } from 'react-native';
 
-import i18n from '@covid/locale/i18n';
-
-import ButtonsGroup, { ISingleButton } from './inputs/ButtonsGroup';
+import { ButtonsGroup, ISingleButton } from './inputs/ButtonsGroup';
 
 interface IProps {
   selectedValue: string;
@@ -26,7 +25,7 @@ const Items = (): ISingleButton[] => [
 ];
 
 export function YesNoField({ label, onValueChange, ...props }: IProps) {
-  return <ButtonsGroup label={label} items={Items()} onValueChange={onValueChange} {...props} />;
+  return <ButtonsGroup items={Items()} label={label} onValueChange={onValueChange} {...props} />;
 }
 
 export default YesNoField;

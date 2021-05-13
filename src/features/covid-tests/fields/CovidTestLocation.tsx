@@ -1,12 +1,11 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
 
 export interface ICovidTestLocationData {
   location: string;
@@ -25,7 +24,7 @@ export interface ICovidTestLocationQuestion<P, Data> extends React.FC<P> {
 }
 
 export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovidTestLocationData> = (
-  props: IProps
+  props: IProps,
 ) => {
   const { formikProps } = props;
 
@@ -65,11 +64,11 @@ export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovi
   return (
     <>
       <DropdownField
-        selectedValue={formikProps.values.location}
-        onValueChange={formikProps.handleChange('location')}
         error={formikProps.touched.location && formikProps.errors.location}
-        label={i18n.t('covid-test.location.question')}
         items={locationItems}
+        label={i18n.t('covid-test.location.question')}
+        onValueChange={formikProps.handleChange('location')}
+        selectedValue={formikProps.values.location}
       />
 
       {formikProps.values.location === 'other' && (

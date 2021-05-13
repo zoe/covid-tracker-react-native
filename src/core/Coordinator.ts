@@ -1,7 +1,7 @@
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { Profile } from '@covid/core/profile/ProfileService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 export type ScreenName = keyof ScreenParamList;
 export type ScreenFlow = {
@@ -23,12 +23,14 @@ export interface IEditableProfile {
 
 export abstract class Coordinator {
   patientData: PatientData;
+
   screenFlow: Partial<ScreenFlow>;
 
   gotoNextScreen = (screenName: ScreenName, params?: any) => {
     if (this.screenFlow[screenName]) {
       this.screenFlow[screenName]!(params);
     } else {
+      // eslint-disable-next-line no-console
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };

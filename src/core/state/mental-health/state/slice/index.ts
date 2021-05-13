@@ -11,8 +11,8 @@ const initialState: IMentalHealthState = {
 };
 
 const mentalHealthStateSlice = createSlice({
-  name: 'MentalHealthState',
   initialState,
+  name: 'MentalHealthState',
   reducers: {
     setCompleted: (state, action: PayloadAction<boolean>) => {
       return {
@@ -20,16 +20,16 @@ const mentalHealthStateSlice = createSlice({
         completed: action.payload,
       };
     },
-    setCurrentSection: (state, action: PayloadAction<TMentalHealthSection>) => {
-      return {
-        ...state,
-        currentSection: action.payload,
-      };
-    },
     setConsent: (state, action: PayloadAction<TMentalHealthConsent>) => {
       return {
         ...state,
         consent: action.payload,
+      };
+    },
+    setCurrentSection: (state, action: PayloadAction<TMentalHealthSection>) => {
+      return {
+        ...state,
+        currentSection: action.payload,
       };
     },
     setLastPresentedDate: (state, action: PayloadAction<string>) => {

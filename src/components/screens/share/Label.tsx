@@ -1,11 +1,9 @@
+import { C19, CreatedByZoe } from '@assets';
+import { TColorPalette, TColorShade } from '@covid/themes';
 import React from 'react';
 
-import { CreatedByZoe, C19 } from '@assets';
-import { TColorPalette, TColorShade } from '@covid/themes';
-
 import { Text } from '../../typography';
-
-import { SShareLabelView, SRowView, SImageContainer, STextContainer, SLogoContainer } from './styles';
+import { SImageContainer, SLogoContainer, SRowView, SShareLabelView, STextContainer } from './styles';
 
 interface IProps {
   colorPalette?: TColorPalette;

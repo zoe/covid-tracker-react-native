@@ -1,15 +1,14 @@
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import { FieldWrapper } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import { FormikProps } from 'formik';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import { GenericTextField } from '@covid/components/GenericTextField';
-import { FieldWrapper } from '@covid/components/Screen';
-import i18n from '@covid/locale/i18n';
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { colors } from '@theme';
-import { RegularText } from '@covid/components/Text';
 
 export interface IRaceEthnicityData {
   race: string[];
@@ -33,7 +32,6 @@ const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<IRace
     return (
       <CheckboxItem
         key={checkBoxData.value}
-        value={props.values.race.includes(checkBoxData.value)}
         onChange={(checked: boolean) => {
           let raceArray = props.values.race;
           if (checkBoxData.value === 'prefer_not_to_say') {
@@ -45,7 +43,9 @@ const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<IRace
             raceArray = raceArray.filter((val) => val !== checkBoxData.value);
           }
           props.setFieldValue('race', raceArray);
-        }}>
+        }}
+        value={props.values.race.includes(checkBoxData.value)}
+      >
         {checkBoxData.label}
       </CheckboxItem>
     );
@@ -77,83 +77,86 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
 
   static initialFormValues = () => {
     return {
+      ethnicity: '',
       race: [] as string[],
       raceOther: '',
-      ethnicity: '',
     };
   };
 
   render() {
     return (
       <View>
-        {this.props.showRaceQuestion && (
+        {this.props.showRaceQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
               <RegularText>{i18n.t('race-question')}</RegularText>
               <CheckboxList>{createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
             </View>
           </FieldWrapper>
-        )}
+        ) : null}
 
-        {this.props.showEthnicityQuestion && (
+        {this.props.showEthnicityQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
               <RegularText>{i18n.t('race-question')}</RegularText>
               <CheckboxList>{createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
             </View>
           </FieldWrapper>
-        )}
+        ) : null}
 
-        {this.props.formikProps.values.race.includes('other') && (
+        {this.props.formikProps.values.race.includes('other') ? (
           <GenericTextField
             formikProps={this.props.formikProps}
             label={i18n.t('race-other-question')}
             name="raceOther"
           />
-        )}
+        ) : null}
 
-        {isUSCountry() && (
+        {isUSCountry() ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
               <RegularText>{i18n.t('ethnicity-question')}</RegularText>
               <CheckboxList>
                 <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity === 'hispanic'}
                   onChange={(value: boolean) => {
                     this.props.formikProps.setFieldValue('ethnicity', value ? 'hispanic' : '');
-                  }}>
+                  }}
+                  value={this.props.formikProps.values.ethnicity === 'hispanic'}
+                >
                   {i18n.t('hispanic')}
                 </CheckboxItem>
                 <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity === 'not_hispanic'}
                   onChange={(value: boolean) => {
                     this.props.formikProps.setFieldValue('ethnicity', value ? 'not_hispanic' : '');
-                  }}>
+                  }}
+                  value={this.props.formikProps.values.ethnicity === 'not_hispanic'}
+                >
                   {i18n.t('not-hispanic')}
                 </CheckboxItem>
                 <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity === 'prefer_not_to_say'}
                   onChange={(value: boolean) => {
                     this.props.formikProps.setFieldValue('ethnicity', value ? 'prefer_not_to_say' : '');
-                  }}>
+                  }}
+                  value={this.props.formikProps.values.ethnicity === 'prefer_not_to_say'}
+                >
                   {i18n.t('prefer-not-to-say')}
                 </CheckboxItem>
               </CheckboxList>
             </View>
           </FieldWrapper>
-        )}
+        ) : null}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
   label: {
     color: colors.primary,
     fontFamily: 'SofiaProRegular',
     fontSize: 16,
+  },
+  textItemStyle: {
+    borderColor: 'transparent',
   },
 });

@@ -1,9 +1,5 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-
-import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import {
+  AboutYourVaccineScreen,
   AboutYouScreen,
   AdultOrChildScreen,
   ArchiveReasonScreen,
@@ -45,8 +41,8 @@ import {
   ProfileBackDateScreen,
   RegisterScreen,
   ReportForOtherScreen,
-  ResetPasswordScreen,
   ResetPasswordConfirmScreen,
+  ResetPasswordScreen,
   SchoolDashboardScreen,
   SchoolGroupListScreen,
   SchoolHowToScreen,
@@ -54,24 +50,18 @@ import {
   SelectProfileScreen,
   SplashScreen,
   TermsOfUseUSScreen,
-  ThankYouUKScreen,
   ThankYouSEScreen,
+  ThankYouUKScreen,
   ThankYouUSScreen,
   ThroatChestSymptomsScreen,
   TreatmentOtherScreen,
   TreatmentSelectionScreen,
   TrendlineScreen,
   VaccineDoseSymptomsScreen,
-  VaccineListScreen,
-  VaccineRegistryInfoScreen,
-  AboutYourVaccineScreen,
-  VaccineLogSymptomsInfoScreen,
   VaccineFindInfoScreen,
-  VaccineRegistrySignUpScreen,
-  ValidationStudyConsentScreen,
-  ValidationStudyInfoScreen,
-  ValidationStudyIntroScreen,
   VaccineHesitancyScreen,
+  VaccineListScreen,
+  VaccineLogSymptomsInfoScreen,
   Welcome1Screen,
   Welcome2Screen,
   WelcomeRepeatScreen,
@@ -80,10 +70,14 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 
+import AnniversaryNavigator from '../anniversary';
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
 import MetalHealthNavigator from '../mental-health';
-import AnniversaryNavigator from '../anniversary';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -92,92 +86,87 @@ function MainNavigator() {
   };
 
   const simpleHeader = {
-    headerShown: true,
     headerBackTitle: i18n.t('back'),
+    headerShown: true,
     title: '',
   };
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Splash" component={SplashScreen} options={noHeader} />
-      <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={noHeader} />
-      <Stack.Screen name="Welcome" component={Welcome1Screen} options={noHeader} />
-      <Stack.Screen name="Welcome2" component={Welcome2Screen} options={noHeader} />
-      <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={noHeader} />
-      <Stack.Screen name="Consent" component={ConsentScreen} options={simpleHeader} />
-      <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={simpleHeader} />
-      <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={simpleHeader} />
-      <Stack.Screen name="PrivacyPolicyUS" component={PrivacyPolicyUSScreen} options={simpleHeader} />
+      <Stack.Screen component={SplashScreen} name="Splash" options={noHeader} />
+      <Stack.Screen component={CountrySelectScreen} name="CountrySelect" options={noHeader} />
+      <Stack.Screen component={Welcome1Screen} name="Welcome" options={noHeader} />
+      <Stack.Screen component={Welcome2Screen} name="Welcome2" options={noHeader} />
+      <Stack.Screen component={WelcomeRepeatScreen} name="WelcomeRepeat" options={noHeader} />
+      <Stack.Screen component={ConsentScreen} name="Consent" options={simpleHeader} />
+      <Stack.Screen component={TermsOfUseUSScreen} name="TermsOfUseUS" options={simpleHeader} />
+      <Stack.Screen component={PrivacyPolicyUKScreen} name="PrivacyPolicyUK" options={simpleHeader} />
+      <Stack.Screen component={PrivacyPolicyUSScreen} name="PrivacyPolicyUS" options={simpleHeader} />
       <Stack.Screen
-        name="PrivacyPolicySV"
         component={PrivacyPolicySVScreen}
+        name="PrivacyPolicySV"
         options={{ headerShown: true, title: 'Integritetsmeddelande' }}
       />
-      <Stack.Screen name="NursesConsentUS" component={NursesConsentUSScreen} options={simpleHeader} />
-      <Stack.Screen name="BeforeWeStartUS" component={BeforeWeStartUS} options={noHeader} />
-      <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={noHeader} />
-      <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={noHeader} />
-      <Stack.Screen name="Register" component={RegisterScreen} options={noHeader} />
-      <Stack.Screen name="OptionalInfo" component={OptionalInfoScreen} options={noHeader} />
-      <Stack.Screen name="YourStudy" component={YourStudyScreen} options={noHeader} />
-      <Stack.Screen name="YourWork" component={YourWorkScreen} options={noHeader} />
-      <Stack.Screen name="YourHealth" component={YourHealthScreen} options={noHeader} />
-      <Stack.Screen name="AboutYou" component={AboutYouScreen} options={noHeader} />
-      <Stack.Screen name="PreviousExposure" component={PreviousExposureScreen} options={noHeader} />
-      <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={noHeader} />
-      <Stack.Screen name="CovidTestList" component={CovidTestListScreen} options={noHeader} />
-      <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={noHeader} />
-      <Stack.Screen name="NHSTestDetail" component={NHSTestDetailScreen} options={noHeader} />
-      <Stack.Screen name="CovidTestConfirm" component={CovidTestConfirmScreen} options={noHeader} />
-      <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
-      <Stack.Screen name="GeneralSymptoms" component={GeneralSymptomsScreen} options={noHeader} />
-      <Stack.Screen name="HeadSymptoms" component={HeadSymptomsScreen} options={noHeader} />
-      <Stack.Screen name="ThroatChestSymptoms" component={ThroatChestSymptomsScreen} options={noHeader} />
-      <Stack.Screen name="GutStomachSymptoms" component={GutStomachSymptomsScreen} options={noHeader} />
-      <Stack.Screen name="OtherSymptoms" component={OtherSymptomsScreen} options={noHeader} />
-      <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
-      <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={noHeader} />
-      <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
-      <Stack.Screen name="ThankYouSE" component={ThankYouSEScreen} options={noHeader} />
-      <Stack.Screen name="ThankYouUS" component={ThankYouUSScreen} options={noHeader} />
-      <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
-      <Stack.Screen name="LongCovidStart" component={LongCovidStartScreen} options={noHeader} />
-      <Stack.Screen name="LongCovidQuestionPageOne" component={LongCovidQuestionPageOneScreen} options={noHeader} />
-      <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
-      <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} options={noHeader} />
-      <Stack.Screen name="EditLocation" component={EditLocationScreen} options={noHeader} />
-      <Stack.Screen name="ArchiveReason" component={ArchiveReasonScreen} options={noHeader} />
-      <Stack.Screen name="ConsentForOther" component={ConsentForOtherScreen} options={noHeader} />
-      <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={noHeader} />
-      <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={noHeader} />
-      <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={noHeader} />
-      <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={noHeader} />
-      <Stack.Screen name="ValidationStudyIntro" component={ValidationStudyIntroScreen} options={noHeader} />
-      <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={noHeader} />
-      <Stack.Screen name="ValidationStudyInfo" component={ValidationStudyInfoScreen} options={noHeader} />
-      <Stack.Screen name="VaccineRegistrySignup" component={VaccineRegistrySignUpScreen} options={noHeader} />
-      <Stack.Screen name="VaccineRegistryInfo" component={VaccineRegistryInfoScreen} options={noHeader} />
-      <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
-      <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
-      <Stack.Screen name="DashboardUS" component={DashboardUSScreen} options={noHeader} />
-      <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
-      <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
-      <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
-      <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
-      <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
-      <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
-      <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
-      <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
-      <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
-      <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
-      <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
-      <Stack.Screen name="VaccineHesitancy" component={VaccineHesitancyScreen} options={noHeader} />
-      <Stack.Screen name="VaccineList" component={VaccineListScreen} options={noHeader} />
-      <Stack.Screen name="AboutYourVaccine" component={AboutYourVaccineScreen} options={noHeader} />
-      <Stack.Screen name="VaccineLogSymptomsInfo" component={VaccineLogSymptomsInfoScreen} options={noHeader} />
-      <Stack.Screen name="VaccineFindInfo" component={VaccineFindInfoScreen} options={noHeader} />
-      <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
+      <Stack.Screen component={NursesConsentUSScreen} name="NursesConsentUS" options={simpleHeader} />
+      <Stack.Screen component={BeforeWeStartUS} name="BeforeWeStartUS" options={noHeader} />
+      <Stack.Screen component={ResetPasswordScreen} name="ResetPassword" options={noHeader} />
+      <Stack.Screen component={ResetPasswordConfirmScreen} name="ResetPasswordConfirm" options={noHeader} />
+      <Stack.Screen component={RegisterScreen} name="Register" options={noHeader} />
+      <Stack.Screen component={OptionalInfoScreen} name="OptionalInfo" options={noHeader} />
+      <Stack.Screen component={YourStudyScreen} name="YourStudy" options={noHeader} />
+      <Stack.Screen component={YourWorkScreen} name="YourWork" options={noHeader} />
+      <Stack.Screen component={YourHealthScreen} name="YourHealth" options={noHeader} />
+      <Stack.Screen component={AboutYouScreen} name="AboutYou" options={noHeader} />
+      <Stack.Screen component={PreviousExposureScreen} name="PreviousExposure" options={noHeader} />
+      <Stack.Screen component={HealthWorkerExposureScreen} name="HealthWorkerExposure" options={noHeader} />
+      <Stack.Screen component={CovidTestListScreen} name="CovidTestList" options={noHeader} />
+      <Stack.Screen component={CovidTestDetailScreen} name="CovidTestDetail" options={noHeader} />
+      <Stack.Screen component={NHSTestDetailScreen} name="NHSTestDetail" options={noHeader} />
+      <Stack.Screen component={CovidTestConfirmScreen} name="CovidTestConfirm" options={noHeader} />
+      <Stack.Screen component={HowYouFeelScreen} name="HowYouFeel" options={noHeader} />
+      <Stack.Screen component={GeneralSymptomsScreen} name="GeneralSymptoms" options={noHeader} />
+      <Stack.Screen component={HeadSymptomsScreen} name="HeadSymptoms" options={noHeader} />
+      <Stack.Screen component={ThroatChestSymptomsScreen} name="ThroatChestSymptoms" options={noHeader} />
+      <Stack.Screen component={GutStomachSymptomsScreen} name="GutStomachSymptoms" options={noHeader} />
+      <Stack.Screen component={OtherSymptomsScreen} name="OtherSymptoms" options={noHeader} />
+      <Stack.Screen component={WhereAreYouScreen} name="WhereAreYou" options={noHeader} />
+      <Stack.Screen component={TreatmentSelectionScreen} name="TreatmentSelection" options={noHeader} />
+      <Stack.Screen component={TreatmentOtherScreen} name="TreatmentOther" options={noHeader} />
+      <Stack.Screen component={ThankYouSEScreen} name="ThankYouSE" options={noHeader} />
+      <Stack.Screen component={ThankYouUSScreen} name="ThankYouUS" options={noHeader} />
+      <Stack.Screen component={ThankYouUKScreen} name="ThankYouUK" options={noHeader} />
+      <Stack.Screen component={LoginScreen} name="Login" options={noHeader} />
+      <Stack.Screen component={LongCovidStartScreen} name="LongCovidStart" options={noHeader} />
+      <Stack.Screen component={LongCovidQuestionPageOneScreen} name="LongCovidQuestionPageOne" options={noHeader} />
+      <Stack.Screen component={CreateProfileScreen} name="CreateProfile" options={noHeader} />
+      <Stack.Screen component={EditProfileScreen} name="EditProfile" options={noHeader} />
+      <Stack.Screen component={EditLocationScreen} name="EditLocation" options={noHeader} />
+      <Stack.Screen component={ArchiveReasonScreen} name="ArchiveReason" options={noHeader} />
+      <Stack.Screen component={ConsentForOtherScreen} name="ConsentForOther" options={noHeader} />
+      <Stack.Screen component={ReportForOtherScreen} name="ReportForOther" options={noHeader} />
+      <Stack.Screen component={SelectProfileScreen} name="SelectProfile" options={noHeader} />
+      <Stack.Screen component={AdultOrChildScreen} name="AdultOrChild" options={noHeader} />
+      <Stack.Screen component={ProfileBackDateScreen} name="ProfileBackDate" options={noHeader} />
+      <Stack.Screen component={EstimatedCasesScreen} name="EstimatedCases" options={noHeader} />
+      <Stack.Screen component={DashboardScreen} name="Dashboard" options={noHeader} />
+      <Stack.Screen component={DashboardUSScreen} name="DashboardUS" options={noHeader} />
+      <Stack.Screen component={NHSIntroScreen} name="NHSIntro" options={noHeader} />
+      <Stack.Screen component={NHSDetailsScreen} name="NHSDetails" options={noHeader} />
+      <Stack.Screen component={JoinSchoolScreen} name="JoinSchool" options={noHeader} />
+      <Stack.Screen component={JoinSchoolGroupScreen} name="JoinSchoolGroup" options={noHeader} />
+      <Stack.Screen component={SchoolIntroScreen} name="SchoolIntro" options={noHeader} />
+      <Stack.Screen component={SchoolHowToScreen} name="SchoolHowTo" options={noHeader} />
+      <Stack.Screen component={SchoolGroupListScreen} name="SchoolGroupList" options={noHeader} />
+      <Stack.Screen component={SchoolDashboardScreen} name="SchoolDashboard" options={noHeader} />
+      <Stack.Screen component={ConfirmSchoolScreen} name="ConfirmSchool" options={noHeader} />
+      <Stack.Screen component={JoinHigherEducationScreen} name="JoinHigherEducation" options={noHeader} />
+      <Stack.Screen component={VaccineDoseSymptomsScreen} name="VaccineDoseSymptoms" options={noHeader} />
+      <Stack.Screen component={VaccineHesitancyScreen} name="VaccineHesitancy" options={noHeader} />
+      <Stack.Screen component={VaccineListScreen} name="VaccineList" options={noHeader} />
+      <Stack.Screen component={AboutYourVaccineScreen} name="AboutYourVaccine" options={noHeader} />
+      <Stack.Screen component={VaccineLogSymptomsInfoScreen} name="VaccineLogSymptomsInfo" options={noHeader} />
+      <Stack.Screen component={VaccineFindInfoScreen} name="VaccineFindInfo" options={noHeader} />
+      <Stack.Screen component={TrendlineScreen} name="Trendline" options={noHeader} />
 
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}

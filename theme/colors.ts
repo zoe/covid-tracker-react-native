@@ -1,3 +1,5 @@
+/* eslint-disable sort-keys-fix/sort-keys-fix */
+
 export const colors = {
   brand: '#024364',
   lightBrand: '#5D879C',

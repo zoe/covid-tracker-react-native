@@ -1,10 +1,9 @@
+import DropdownField from '@covid/components/DropdownField';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-
-import DropdownField from '@covid/components/DropdownField';
-import i18n from '@covid/locale/i18n';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 export interface IBloodGroupData {
   bloodGroup: string;
@@ -35,10 +34,10 @@ export function BloodGroupQuestion({ formikProps }: IProps) {
 
   return (
     <DropdownField
-      selectedValue={formikProps.values.bloodGroup}
-      onValueChange={formikProps.handleChange('bloodGroup')}
-      label={i18n.t('blood-group.question')}
       items={bloodTypeItems}
+      label={i18n.t('blood-group.question')}
+      onValueChange={formikProps.handleChange('bloodGroup')}
+      selectedValue={formikProps.values.bloodGroup}
     />
   );
 }

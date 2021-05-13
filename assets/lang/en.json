@@ -725,27 +725,6 @@
     "data-analysis": "All data analysed daily with *King’s College London* and shared with the *NHS*"
   },
 
-  "validation-study-intro": {
-    "title": "We have a vital COVID study and we need your help",
-    "subtitle": "590,761 people like you have already joined the study. Please help us get to 700,000.",
-    "info": "You just need to keep logging on this app",
-    "yes": "Learn more",
-    "no": "No, thank you",
-    "app-name": "COVID Symptom Study"
-  },
-
-  "validation-study-info": {
-    "title": "How does the study work?",
-    "header-1": "Help develop a new \ndigital test for Covid-19",
-    "para-1": "Physical tests like swabs and antibody testing for Covid-19 infection are not accessible to everyone and take time to produce results. This study, by researchers at King’s College London, aims to test the accuracy of computer software that could be used as a quicker, simpler ‘digital test’, based on symptoms reported in the Covid Symptom Study app.",
-    "header-2": "What will I have to do?",
-    "para-2": "Very little - just keep logging in the app as you have done already. You may be asked to get a swab test, and report your results in the app, to improve the prediction of the digital test. This test can be done at home (with a test kit posted to you) or at a testing centre.",
-    "header-3": "How does this digital test work?",
-    "para-3": "This test aims to predict the likelihood of individuals being infected with Covid-19 based on their symptoms reported in the app – and how these symptoms compare to those from people tested using traditional physical tests.\n\nYou will be helping in the fight against Covid-19 by contributing to this study and the development of the digital test.",
-    "interested": "Interested?",
-    "visit-next": "Visit the next page to see the detailed information sheet and join using the consent form at the bottom."
-  },
-
   "consent-normal-us": {
     "existing-study": "If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study,",
     "click-here": "click here",

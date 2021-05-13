@@ -1,11 +1,10 @@
+import { ModalContainer } from '@covid/components/ModalContainer';
+import { RegularBoldText, RegularText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import { View } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { View } from 'native-base';
-
-import { RegularBoldText, RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
-import { ModalContainer } from '@covid/components/ModalContainer';
-import i18n from '@covid/locale/i18n';
 
 type Props = {
   cancelArchive: () => void;
@@ -19,11 +18,11 @@ export const ArchiveConfirmationModal: React.FC<Props> = (props) => {
       <RegularText style={styles.text}>{i18n.t('archive-confirmation.text')}</RegularText>
 
       <View style={styles.actionContainer}>
-        <TouchableOpacity style={styles.button} onPress={props.cancelArchive}>
+        <TouchableOpacity onPress={props.cancelArchive} style={styles.button}>
           <RegularText style={styles.buttonText}>{i18n.t('archive-confirmation.cancel')}</RegularText>
         </TouchableOpacity>
         <View style={styles.verticalDivider} />
-        <TouchableOpacity style={styles.button} onPress={props.confirmArchive}>
+        <TouchableOpacity onPress={props.confirmArchive} style={styles.button}>
           <RegularText style={styles.buttonText2}>{i18n.t('archive-confirmation.confirm')}</RegularText>
         </TouchableOpacity>
       </View>
@@ -32,39 +31,39 @@ export const ArchiveConfirmationModal: React.FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  verticalDivider: {
-    height: '100%',
-    width: 1,
-    backgroundColor: colors.actionButtonBorder,
+  actionContainer: {
+    borderColor: colors.actionButtonBorder,
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-  text: {
-    paddingBottom: 20,
-    marginHorizontal: 20,
-    fontSize: 14,
+  button: {
+    height: 50,
+    justifyContent: 'center',
+    width: '50%',
+  },
+  buttonText: {
+    color: colors.linkBlue,
+    textAlign: 'center',
+  },
+  buttonText2: {
+    color: colors.coral,
     textAlign: 'center',
   },
   header: {
-    paddingBottom: 10,
     fontSize: 18,
+    paddingBottom: 10,
     textAlign: 'center',
   },
-  actionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    borderTopWidth: 1,
-    borderColor: colors.actionButtonBorder,
-  },
-  buttonText: {
+  text: {
+    fontSize: 14,
+    marginHorizontal: 20,
+    paddingBottom: 20,
     textAlign: 'center',
-    color: colors.linkBlue,
   },
-  buttonText2: {
-    textAlign: 'center',
-    color: colors.coral,
-  },
-  button: {
-    width: '50%',
-    height: 50,
-    justifyContent: 'center',
+  verticalDivider: {
+    backgroundColor: colors.actionButtonBorder,
+    height: '100%',
+    width: 1,
   },
 });

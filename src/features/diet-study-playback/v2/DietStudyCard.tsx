@@ -1,11 +1,10 @@
+import { QuoteMarks } from '@assets';
+import { RoundIconButton, Spacer, Text } from '@covid/components';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+import i18n from '@covid/locale/i18n';
+import { TStyleObject } from '@covid/utils/types';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { RoundIconButton, Spacer, Text } from '@covid/components';
-import { QuoteMarks } from '@assets';
-import { TStyleObject } from '@covid/utils/types';
-import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -30,10 +29,10 @@ function DietStudyCard({ style }: IProps) {
           <View>
             {getDietStudyDoctorImage()}
             <Text>{i18n.t('diet-study.doctor-name')}</Text>
-            <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+            <Text style={{ color: '#888B8C' }} textClass="pSmall">
               {i18n.t('diet-study.doctor-title')}
             </Text>
-            <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+            <Text style={{ color: '#888B8C' }} textClass="pSmall">
               {i18n.t('diet-study.doctor-location')}
             </Text>
           </View>
@@ -52,11 +51,11 @@ function DietStudyCard({ style }: IProps) {
               onPress={handleOnPress}
               style={{
                 backgroundColor: 'white',
+                elevation: 5,
                 shadowColor: '#000',
-                shadowOffset: { width: 0, height: 0 },
+                shadowOffset: { height: 0, width: 0 },
                 shadowOpacity: 0.1,
                 shadowRadius: 4,
-                elevation: 5,
               }}
             />
           </View>
@@ -67,20 +66,6 @@ function DietStudyCard({ style }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    borderColor: '#e5e5e5',
-    backgroundColor: 'white',
-    borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 24,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  column: {
-    flex: 1,
-  },
   button: {
     alignSelf: 'flex-start',
     backgroundColor: 'blue',
@@ -88,12 +73,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
   },
+  column: {
+    flex: 1,
+  },
+  container: {
+    backgroundColor: 'white',
+    borderColor: '#e5e5e5',
+    borderRadius: 16,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 24,
+  },
+  row: {
+    flexDirection: 'row',
+  },
   shadow: {
+    elevation: 5,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: { height: 0, width: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
-    elevation: 5,
   },
 });
 

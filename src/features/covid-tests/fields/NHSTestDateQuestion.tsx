@@ -1,15 +1,14 @@
-import { FormikProps } from 'formik';
-import React, { useState } from 'react';
-import * as Yup from 'yup';
-import { Text } from 'native-base';
-import moment, { Moment } from 'moment';
-import { StyleSheet } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
 import CalendarPicker from '@covid/components/CalendarPicker';
 import { ClickableText, RegularText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import i18n from '@covid/locale/i18n';
+import { colors, fontStyles } from '@theme';
+import { FormikProps } from 'formik';
+import moment, { Moment } from 'moment';
+import { Text } from 'native-base';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import * as Yup from 'yup';
 
 export interface INHSTestDateData {
   dateTakenSpecific: Date | undefined;
@@ -50,8 +49,8 @@ export const NHSTestDateQuestion: INHSTestDateQuestion<IProps, INHSTestDateData>
       <RegularText style={styles.labelStyle}>{i18n.t('nhs-test-detail.date-label')}</RegularText>
       {showDatePicker ? (
         <CalendarPicker
-          onDateChange={setTestDate}
           maxDate={today}
+          onDateChange={setTestDate}
           {...(!!formikProps.values.dateTakenSpecific && {
             selectedStartDate: formikProps.values.dateTakenSpecific,
           })}
@@ -70,15 +69,15 @@ export const NHSTestDateQuestion: INHSTestDateQuestion<IProps, INHSTestDateData>
 };
 
 const styles = StyleSheet.create({
-  labelStyle: {
-    marginVertical: 16,
-  },
-
   fieldText: {
     ...fontStyles.bodyReg,
-    color: colors.black,
     alignSelf: 'center',
+    color: colors.black,
     paddingBottom: 10,
+  },
+
+  labelStyle: {
+    marginVertical: 16,
   },
 });
 

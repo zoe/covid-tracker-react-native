@@ -1,7 +1,6 @@
+import { useTheme } from '@covid/themes';
 import React, { ReactNode } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-
-import { useTheme } from '@covid/themes';
 
 interface IProps {
   children: ReactNode;
@@ -19,10 +18,10 @@ function SafeLayout({ children, withGutter = true, style }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
   },
-  container: {
+  safeArea: {
     flex: 1,
   },
 });
