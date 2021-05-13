@@ -28,6 +28,17 @@ export type LongCovidQuestionPageOneData = {
 
     //Q21 - list of rapid fire symptom changes
     symptom_change_headache: string|null;
+    symptom_change_smell: string|null;
+    symptom_change_voice: string|null;
+    symptom_change_cough: string|null;
+    symptom_change_appetite: string|null;
+    symptom_change_sore_throat: string|null;
+    symptom_change_chest_pain: string|null;
+    symptom_change_fatigue: string|null;
+    symptom_change_muscle_joint_pain: string|null;
+    symptom_change_abdominal_pain: string|null;
+    symptom_change_diarrhoea: string|null;
+    symptom_change_fever: string|null;
 
     symptom_change_comments: string|null;
 };

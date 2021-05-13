@@ -28,6 +28,17 @@ export const defaultState = {
 
     // Rapid fire symtpom changes
     symptom_change_headache: null,
+    symptom_change_smell: null,
+    symptom_change_voice: null,
+    symptom_change_cough: null,
+    symptom_change_appetite: null,
+    symptom_change_sore_throat: null,
+    symptom_change_chest_pain: null,
+    symptom_change_fatigue: null,
+    symptom_change_muscle_joint_pain: null,
+    symptom_change_abdominal_pain: null,
+    symptom_change_diarrhoea: null,
+    symptom_change_fever: null,
 
     // comments at end
     symptom_change_comments: null,
@@ -60,7 +71,22 @@ export const dropdownItemsQ3 = [
     { value: 'MORE_THAN_12_WEEKS', label: i18n.t('long-covid.q3-a7') },
 ];
 
-export const checkBoxQuestions4To17 = [];
+export const checkBoxQuestions4To17 = [
+    'problems_thinking_and_communicating',
+    'mood_changes',
+    'poor_sleep',
+    'body_aches',
+    'muscle_aches',
+    'skin_rashes',
+    'bone_or_joint_pain',
+    'headaches',
+    'light_headed',
+    'altered_taste_or_smell',
+    'breathing_problems',
+    'heart_problems',
+    'abdominal_pain_diarrhoea',
+    'other',
+];
 
 export const dropdownItemsQ18 = [
     { value: true, label: i18n.t('long-covid.q18-a1') },
@@ -84,5 +110,17 @@ export const dropdownItemsSymptomsChange = [
     { value: 'OTHER', label: i18n.t('long-covid.symptoms-change-a8') },
 ];
 
-
-
+export const symtpomChangesKeyList: string[] = [
+    'symptom_change_headache',
+    'symptom_change_smell',
+    'symptom_change_voice',
+    'symptom_change_cough',
+    'symptom_change_appetite',
+    'symptom_change_sore_throat',
+    'symptom_change_chest_pain',
+    'symptom_change_fatigue',
+    'symptom_change_muscle_joint_pain',
+    'symptom_change_abdominal_pain',
+    'symptom_change_diarrhoea',
+    'symptom_change_fever',
+];

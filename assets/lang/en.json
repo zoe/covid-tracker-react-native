@@ -497,7 +497,20 @@
     "q20": "Did your symptoms change 2 weeks (or more) after your first COVID-19 vaccine injection?",
 
     "q21": "Have your symptoms changed in the week after your vaccination (excluding the first 2 days)?",
-    "q21-a": "Headache",
+    "q21-symptom_change_headache": "Headache",
+
+    "q21-symptom_change_smell": "Headache",
+    "q21-mood_changes": "Loss of smell",
+    "q21-symptom_change_voice": "Hoarse voice",
+    "q21-symptom_change_cough": "Hoarse voice",
+    "q21-symptom_change_appetite": "Skipped meals / loss of appetite",
+    "q21-symptom_change_sore_throat": "Sore throat",
+    "q21-symptom_change_chest_pain": "Chest pain",
+    "q21-symptom_change_fatigue": "Fatigue",
+    "q21-symptom_change_muscle_joint_pain": "Muscle joint pain",
+    "q21-symptom_change_abdominal_pain": "Abdominal pain",
+    "q21-symptom_change_diarrhoea": "Diarrhoea",
+    "q21-symptom_change_fever": "Fever",
 
     "symptoms-change-a1": "Yes – all symptoms got better",
     "symptoms-change-a2": "Yes – some symptoms got better",
@@ -506,7 +519,9 @@
     "symptoms-change-a5": "Yes - all symptoms got worse",
     "symptoms-change-a6": "Some symptoms improved, others got worse",
     "symptoms-change-a7": "It’s not yet been 2 weeks since my first COVID 19 vaccine",
-    "symptoms-change-a8": "Other"
+    "symptoms-change-a8": "Other",
+
+    "comments": "Do you have anything else to share regarding the evolution of your COVID-19 symptoms?"
   },
 
   "where-are-you": {
