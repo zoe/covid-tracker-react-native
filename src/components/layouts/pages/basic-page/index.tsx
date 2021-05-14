@@ -12,6 +12,7 @@ interface IProps {
   footerTitle?: string;
   hasStickyHeader?: boolean;
   headerBackgroundColor?: string;
+  loading?: boolean;
   navChildren?: ReactNode;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -26,6 +27,7 @@ function BasicPage({
   footerTitle = '',
   hasStickyHeader = false,
   headerBackgroundColor = 'transparent',
+  loading = false,
   navChildren = null,
   onPress = () => null,
   style = {},
@@ -49,6 +51,7 @@ function BasicPage({
         {withFooter && (
           <BasicPageFooter
             active={active}
+            loading={loading}
             onPress={onPress}
             paddingHorizontal={withGutter ? 0 : undefined}
             title={footerTitle}

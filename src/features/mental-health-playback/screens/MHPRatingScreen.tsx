@@ -9,23 +9,32 @@ import Card from '@covid/components/Cards/Card';
 import i18n from '@covid/locale/i18n';
 import { grid, styling } from '@covid/themes';
 import Star from '@assets/mental-health-playback/Star';
+import { mentalHealthApiClient } from '@covid/Services';
 
 const AMOUNT_STARS = 5;
 
-const stars = Array(AMOUNT_STARS)
+const ratings = Array(AMOUNT_STARS)
   .fill(null)
   .map((_, i) => i);
 
 export default function MHPRatingScreen() {
-  const [feedback, setFeedback] = useState<string>();
-  const [cardWidth, setCardWidth] = useState<number>(0);
-  const [rating, setRating] = useState<number>(0);
+  const [cardWidth, setCardWidth] = useState(0);
+  const [comments, setComments] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
 
   const starSize = cardWidth / (AMOUNT_STARS * 2);
   const spacingSize = starSize / 2;
 
-  function onPress() {
-    NavigatorService.reset([{ name: homeScreenName() }, { name: 'MentalHealthPlaybackThankYou' }]);
+  async function onPress() {
+    if (!loading) {
+      setLoading(true);
+      const result = await mentalHealthApiClient.feedback(selectedRating, comments);
+      setLoading(false);
+      if (result) {
+        NavigatorService.reset([{ name: homeScreenName() }, { name: 'MentalHealthPlaybackThankYou' }]);
+      }
+    }
   }
 
   function onLayout(event: LayoutChangeEvent) {
@@ -35,8 +44,9 @@ export default function MHPRatingScreen() {
   return (
     <BasicPage
       hasStickyHeader
-      active={rating > 0}
+      active={selectedRating > 0}
       footerTitle={i18n.t('mental-health-playback.rating.button')}
+      loading={loading}
       onPress={onPress}
       style={styling.backgroundWhite}
       withGutter>
@@ -52,14 +62,15 @@ export default function MHPRatingScreen() {
           {i18n.t('mental-health-playback.rating.card')}
         </Text>
         <View style={styling.row}>
-          {stars.map((index) => (
+          {ratings.map((rating) => (
             <TouchableOpacity
-              onPress={() => setRating(index + 1)}
+              key={`touchable-star-${rating}`}
+              onPress={() => setSelectedRating(rating + 1)}
               style={{
                 paddingHorizontal: spacingSize,
                 paddingVertical: grid.xl,
               }}>
-              <Star color={rating - 1 >= index ? '#0165B5' : '#E2E2E2'} height={starSize} width={starSize} />
+              <Star color={selectedRating - 1 >= rating ? '#0165B5' : '#E2E2E2'} height={starSize} width={starSize} />
             </TouchableOpacity>
           ))}
         </View>
@@ -85,8 +96,8 @@ export default function MHPRatingScreen() {
         bordered={false}
         style={[styling.textarea, styling.marginBottomAuto]}
         rowSpan={5}
-        value={feedback}
-        onChangeText={setFeedback}
+        value={comments}
+        onChangeText={setComments}
         underline={false}
       />
     </BasicPage>

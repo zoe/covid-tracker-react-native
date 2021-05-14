@@ -7,6 +7,7 @@ import { BrandedButton } from '../../../buttons';
 
 interface IProps {
   active?: boolean;
+  loading?: boolean;
   onPress: () => void;
   paddingHorizontal?: number;
   title: string;
@@ -21,7 +22,7 @@ function BasicPageFooter(props: IProps) {
         marginTop: theme.grid.m,
         paddingHorizontal: props.paddingHorizontal ?? theme.grid.gutter,
       }}>
-      <BrandedButton enable={props.active} onPress={props.onPress}>
+      <BrandedButton enable={props.active} loading={props.loading} onPress={props.onPress}>
         {props.title}
       </BrandedButton>
     </View>
