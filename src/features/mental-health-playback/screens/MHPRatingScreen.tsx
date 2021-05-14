@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import React, { useState } from 'react';
 import { LayoutChangeEvent, TouchableOpacity, View } from 'react-native';
 import { Textarea } from 'native-base';
@@ -12,10 +13,13 @@ import Star from '@assets/mental-health-playback/Star';
 import { mentalHealthApiClient } from '@covid/Services';
 
 const AMOUNT_STARS = 5;
+const THROTTLE_TIME = 250 // Milliseconds
 
 const ratings = Array(AMOUNT_STARS)
   .fill(null)
   .map((_, i) => i);
+
+const throttledFunction = lodash.throttle((func) => func(), THROTTLE_TIME);
 
 export default function MHPRatingScreen() {
   const [cardWidth, setCardWidth] = useState(0);
@@ -47,7 +51,7 @@ export default function MHPRatingScreen() {
       active={selectedRating > 0}
       footerTitle={i18n.t('mental-health-playback.rating.button')}
       loading={loading}
-      onPress={onPress}
+      onPress={() => throttledFunction(onPress)}
       style={styling.backgroundWhite}
       withGutter>
       <Card padding={grid.xxxl} style={[styling.marginTop, styling.marginBottomHuge]} useShadow>
