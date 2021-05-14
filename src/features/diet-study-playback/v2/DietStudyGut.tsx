@@ -15,7 +15,7 @@ function DietStudyGut() {
   const duringScore = dietScore ? dietScore.post_gut_friendly_score : 0;
 
   return (
-    <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
+    <SafeLayout style={{ backgroundColor: '#FFF' }}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>

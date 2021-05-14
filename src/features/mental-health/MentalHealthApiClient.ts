@@ -12,7 +12,7 @@ import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/ty
 
 import { MentalHealthInfosRequest } from './MentalHealthInfosRequest';
 
-const API_URL = '/mental_health/';
+const PATH = '/mental_health/';
 
 export interface IMentalHealthApiClient {
   get(id: any): Promise<MentalHealthInfosRequest[]>;
@@ -33,7 +33,15 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
   constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
   get(): Promise<MentalHealthInfosRequest[]> {
-    return this.apiClient.get<MentalHealthInfosRequest[]>(API_URL);
+    return this.apiClient.get<MentalHealthInfosRequest[]>(PATH);
+  }
+
+  feedback(rating: number, comments: string) {
+    return this.apiClient.post('/feedback/', {
+      comments,
+      feature: 'mental_health_insights',
+      rating,
+    });
   }
 
   add(patientId: string, mentalHealth: MentalHealthInfosRequest): Promise<MentalHealthInfosRequest> {
@@ -41,11 +49,11 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
       patient: patientId,
       ...mentalHealth,
     };
-    return this.apiClient.post<MentalHealthInfosRequest, MentalHealthInfosRequest>(API_URL, mentalHealth);
+    return this.apiClient.post<MentalHealthInfosRequest, MentalHealthInfosRequest>(PATH, mentalHealth);
   }
 
   update(mentalHealth: MentalHealthInfosRequest): Promise<MentalHealthInfosRequest> {
-    const url = `${API_URL}${mentalHealth.id}/`;
+    const url = `${PATH}${mentalHealth.id}/`;
     return this.apiClient.patch<MentalHealthInfosRequest, MentalHealthInfosRequest>(url, mentalHealth);
   }
 

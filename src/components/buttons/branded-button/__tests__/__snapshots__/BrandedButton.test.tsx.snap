@@ -28,7 +28,7 @@ exports[`branded-button tests renders correctly 1`] = `
         "borderBottomWidth": null,
         "borderColor": "#007aff",
         "borderLeftWidth": null,
-        "borderRadius": 100,
+        "borderRadius": 28,
         "borderRightWidth": null,
         "borderTopWidth": null,
         "borderWidth": undefined,

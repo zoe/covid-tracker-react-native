@@ -17,7 +17,7 @@ function DietStudy() {
   const { colors } = useTheme();
 
   return (
-    <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
+    <SafeLayout style={{ backgroundColor: '#FFF' }}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>

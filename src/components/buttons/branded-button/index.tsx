@@ -1,25 +1,27 @@
 import { Button } from 'native-base';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import { colors, fontStyles } from '@covid/theme';
+import { sizes } from '@covid/themes';
 
 import { IClickableProps } from '../../Text';
 import { ITest } from '../../types';
 
 interface IProps extends ITest {
   buttonProps?: any;
+  loading?: boolean;
   textProps?: any;
 }
 
 function BrandedButton({
-  style,
-  children,
-  onPress,
-  enable,
   buttonProps,
+  children,
+  enable,
+  loading,
+  onPress,
+  style,
   textProps,
-  hideLoading,
 }: IClickableProps & IProps) {
   const isDisabled = enable === false;
 
@@ -35,6 +37,7 @@ function BrandedButton({
           !isDisabled && onPress();
         }}
         {...buttonProps}>
+        {loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}
         <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
           {children}
         </Text>
@@ -44,13 +47,16 @@ function BrandedButton({
 }
 
 const styles = StyleSheet.create({
+  activityIndicator: {
+    position: 'absolute',
+    left: sizes.buttonHeight / 2,
+  },
   button: {
-    borderRadius: 100,
-    height: 56,
+    borderRadius: sizes.buttonHeight / 2,
+    height: sizes.buttonHeight,
     backgroundColor: colors.brand,
     elevation: 0,
   },
-
   buttonText: {
     color: colors.white,
   },

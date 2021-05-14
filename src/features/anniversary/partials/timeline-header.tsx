@@ -1,27 +1,22 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 
 import { BasicNavHeader } from '@covid/components';
 import { covidByZoeIconDark } from '@assets';
 
-function TimelineHeader() {
-  const getLogo = () => (
-    <Image
-      source={covidByZoeIconDark}
-      style={{
-        aspectRatio: 2.25,
-        resizeMode: 'contain',
-        height: undefined,
-        width: 100,
-      }}
-    />
-  );
-
+export default function TimelineHeader() {
   return (
-    <>
-      <BasicNavHeader backgroundColor="#EEEEEF">{getLogo()}</BasicNavHeader>
-    </>
+    <BasicNavHeader backgroundColor="#EEEEEF">
+      <Image source={covidByZoeIconDark} style={styles.image} />
+    </BasicNavHeader>
   );
 }
 
-export default TimelineHeader;
+const styles = StyleSheet.create({
+  image: {
+    aspectRatio: 2.25,
+    resizeMode: 'contain',
+    height: undefined,
+    width: 100,
+  },
+});

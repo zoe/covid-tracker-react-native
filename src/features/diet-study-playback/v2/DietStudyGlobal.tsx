@@ -7,7 +7,7 @@ import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGl
 
 function DietStudyGlobal() {
   return (
-    <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
+    <SafeLayout style={{ backgroundColor: '#FFF' }}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>

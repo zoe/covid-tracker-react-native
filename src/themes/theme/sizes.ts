@@ -2,6 +2,7 @@ export default {
   border: 1,
   borderRadius: 4,
   borderRadiusBig: 16,
+  buttonHeight: 56,
   spacing: 16,
   spacingBig: 24,
   spacingHuge: 32,

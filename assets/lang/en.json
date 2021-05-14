@@ -1421,6 +1421,18 @@
       "point-2": "How your changes in habits compared with your peers",
       "point-3": "How these habits were associated with mental health in different ways",
       "title": "We will show you insights into your habits during the pandemic"
+    },
+    "rating": {
+      "button": "Continue",
+      "card": "How helpful were these insights to you?",
+      "feedback": "Care to share some more feedback?",
+      "not-helpful": "Not helpful",
+      "very-helpful": "Very helpful" 
+    },
+    "thank-you": {
+      "button": "Close",
+      "description": "Thank you for taking the time to give us feedback",
+      "title": "Thank you!"
     }
   },
 
