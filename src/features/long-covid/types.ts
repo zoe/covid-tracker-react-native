@@ -1,4 +1,6 @@
 export type LongCovidQuestionPageOneData = {
+    id?: string|null;
+    patientId?: string|null;
     had_covid: string|null;
     duration: string|null;
     restriction: string|null;

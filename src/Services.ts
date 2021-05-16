@@ -10,6 +10,7 @@ import { AssessmentApiClient } from './core/assessment/AssessmentApiClient';
 import AssessmentService from './core/assessment/AssessmentService';
 import ReduxAssessmentState from './core/assessment/AssessmentState';
 import ExpoPushTokenEnvironment from './core/push-notifications/expo';
+import { LongCovidApiClient } from './features/long-covid/LongCovidApiClient';
 import { MentalHealthApiClient } from './features/mental-health/MentalHealthApiClient';
 
 const apiClient = new ApiClient();
@@ -33,3 +34,5 @@ const vaccineApiClient = new VaccineApiClient(apiClient);
 export const vaccineService = new VaccineService(vaccineApiClient);
 
 export const mentalHealthApiClient = new MentalHealthApiClient(apiClient);
+
+export const longCovidApiClient = new LongCovidApiClient(apiClient);

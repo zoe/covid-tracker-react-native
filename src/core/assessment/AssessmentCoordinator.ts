@@ -176,6 +176,18 @@ export class AssessmentCoordinator extends Coordinator {
   };
 
   gotoEndAssessment = async () => {
+
+
+    // Redirect to the long covid flow
+    NavigatorService.navigate('LongCovidStart', { patientData: this.patientData });
+    return;
+
+
+
+
+
+
+
     const config = this.localisationService.getConfig();
 
     if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {

@@ -1,6 +1,9 @@
 import i18n from '@covid/locale/i18n';
+import * as Yup from 'yup';
 
 export const defaultState = {
+    id: '',
+    patientId: '',
     had_covid: null,
     duration: null,
     restriction: null,
@@ -22,7 +25,7 @@ export const defaultState = {
     other: null,
 
     // back to dropdowns
-    at_least_one_vaccine: false,
+    at_least_one_vaccine: null,
     ongoing_symptom_week_before_first_vaccine: null,
     symptom_change_2_weeks_after_first_vaccine: null,
 
@@ -45,12 +48,36 @@ export const defaultState = {
 
 };
 
+export const validations = Yup.object().shape({
+    had_covid: Yup.string().required(i18n.t('validation-error-text-required')),
+    duration: Yup.string().nullable().when('had_covid', {
+        is: (had_covid) => (had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY'),
+        then: Yup.string().required(i18n.t('validation-error-text-required')),
+    }),
+    restriction: Yup.string().nullable().when('had_covid', {
+        is: (had_covid) => (had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY'),
+        then: Yup.string().required(i18n.t('validation-error-text-required')),
+    }),
+    at_least_one_vaccine: Yup.string().nullable().when('had_covid', {
+        is: (had_covid) => (had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY'),
+        then: Yup.string().required(i18n.t('validation-error-text-required')),
+    }),
+    ongoing_symptom_week_before_first_vaccine: Yup.string().nullable().when('had_covid', {
+        is: (had_covid) => (had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY'),
+        then: Yup.string().required(i18n.t('validation-error-text-required')),
+    }),
+    symptom_change_2_weeks_after_first_vaccine: Yup.string().nullable().when('had_covid', {
+        is: (had_covid) => (had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY'),
+        then: Yup.string().required(i18n.t('validation-error-text-required')),
+    }),
+})
+
 export const dropdownItemsQ1 = [
     { value: 'YES_TEST', label: i18n.t('long-covid.q1-a1') },
     { value: 'YES_ADVICE', label: i18n.t('long-covid.q1-a2') },
     { value: 'YES_SUSPICION', label: i18n.t('long-covid.q1-a3') },
-    { value: 'NO', label: i18n.t('long-covid.q1-a4') },
-    { value: 'UNSURE', label: i18n.t('long-covid.q1-a5') },
+    { value: 'UNSURE', label: i18n.t('long-covid.q1-a4') },
+    { value: 'NO', label: i18n.t('long-covid.q1-a5') },
     { value: 'DECLINE_TO_SAY', label: i18n.t('long-covid.q1-a6') },
 ];
 
@@ -89,8 +116,8 @@ export const checkBoxQuestions4To17 = [
 ];
 
 export const dropdownItemsQ18 = [
-    { value: true, label: i18n.t('long-covid.q18-a1') },
-    { value: false, label: i18n.t('long-covid.q18-a2') },
+    { value: 'YES', label: i18n.t('long-covid.q18-a1') },
+    { value: 'NO', label: i18n.t('long-covid.q18-a2') },
 ];
 
 export const dropdownItemsQ19 = [

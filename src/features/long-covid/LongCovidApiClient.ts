@@ -3,53 +3,35 @@ import { injectable, inject } from 'inversify';
 import { IApiClient } from '@covid/core/api/ApiClient';
 import { Services } from '@covid/provider/services.types';
 
-import { LongCovidInfosRequest } from './LongCovidInfosRequest';
+import { LongCovidQuestionPageOneData } from './types';
 
-const API_URL = '/mental_health/';
+const API_URL = '/long_covid/';
 
 export interface ILongCovidApiClient {
-  get(id: any): Promise<LongCovidInfosRequest[]>;
-  add(patientId: string, LongCovid: LongCovidInfosRequest): Promise<LongCovidInfosRequest>;
-  update(LongCovid: LongCovidInfosRequest): Promise<LongCovidInfosRequest>;
-}
-
-export interface ILongCovidApiClientBuildRequest {
-  // LongCovidChanges?: ILongCovidChanges;
-  // LongCovidFrequency?: ILongCovidFrequency;
-  // LongCovidHistory?: ILongCovidHistory;
-  // LongCovidLearning?: ILongCovidLearning;
-  // LongCovidSupport?: ILongCovidSupport;
+  get(id: any): Promise<LongCovidQuestionPageOneData[]>;
+  add(patientId: string, LongCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData>;
+  update(LongCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData>;
 }
 
 @injectable()
 export class LongCovidApiClient implements ILongCovidApiClient {
   constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
-  get(): Promise<LongCovidInfosRequest[]> {
-    return this.apiClient.get<LongCovidInfosRequest[]>(API_URL);
+  get(): Promise<LongCovidQuestionPageOneData[]> {
+    return this.apiClient.get<LongCovidQuestionPageOneData[]>(API_URL);
   }
 
-  add(patientId: string, LongCovid: LongCovidInfosRequest): Promise<LongCovidInfosRequest> {
-    LongCovid = {
-      patient: patientId,
-      ...LongCovid,
+  add(patientId: string, longCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData> {
+    longCovid = {
+      patientId: patientId,
+      ...longCovid,
     };
-    return this.apiClient.post<LongCovidInfosRequest, LongCovidInfosRequest>(API_URL, LongCovid);
+    console.log('LongCovidApiClient add: ', longCovid)
+    return this.apiClient.post<LongCovidQuestionPageOneData, LongCovidQuestionPageOneData>(API_URL, longCovid);
   }
 
-  update(LongCovid: LongCovidInfosRequest): Promise<LongCovidInfosRequest> {
+  update(LongCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData> {
     const url = `${API_URL}${LongCovid.id}/`;
-    return this.apiClient.patch<LongCovidInfosRequest, LongCovidInfosRequest>(url, LongCovid);
-  }
-
-  buildRequestObject(
-    existingLongCovid: LongCovidInfosRequest,
-    data: ILongCovidApiClientBuildRequest
-  ): LongCovidInfosRequest {
-    let updatedLongCovid: LongCovidInfosRequest = {
-      id: existingLongCovid.id,
-      patient: existingLongCovid.patient,
-    };
-    return updatedLongCovid;
+    return this.apiClient.patch<LongCovidQuestionPageOneData, LongCovidQuestionPageOneData>(url, LongCovid);
   }
 }

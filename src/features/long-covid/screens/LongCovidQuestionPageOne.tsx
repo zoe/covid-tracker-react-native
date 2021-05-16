@@ -1,59 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { BasicPage, Spacer, RegularText, HeaderText, DropdownField, CheckboxList, CheckboxItem } from '@covid/components';
-import NavigatorService from '@covid/NavigatorService';
+import { BasicPage, RegularText, HeaderText, DropdownField, CheckboxList, CheckboxItem, ErrorText } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import { Form, Textarea } from 'native-base';
-import * as Yup from 'yup';
 import { LongCovidQuestionPageOneData } from '../types';
-import { defaultState, dropdownItemsQ1, dropdownItemsQ2, dropdownItemsQ3, checkBoxQuestions4To17, dropdownItemsQ18, dropdownItemsQ19, dropdownItemsSymptomsChange, symtpomChangesKeyList } from './consts.questions';
+import { defaultState, dropdownItemsQ1, dropdownItemsQ2, dropdownItemsQ3, checkBoxQuestions4To17, dropdownItemsQ18, dropdownItemsQ19, dropdownItemsSymptomsChange, symtpomChangesKeyList, validations } from './consts.questions';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RouteProp } from '@react-navigation/native';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { longCovidApiClient } from '@covid/Services';
 
-LongCovidQuestionPageOneScreen.initialFormValues = (): LongCovidQuestionPageOneData => defaultState;
+interface IProps {
+    route: RouteProp<ScreenParamList, 'LongCovidStart'>;
+}
+
+export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
+  const [isSubmitting, setSubmitting] = useState<boolean>(false);
+  const { patientData } = route.params;
   
-LongCovidQuestionPageOneScreen.schema = () => {
-    return Yup.object().shape({
-      fatigueFollowUp: Yup.string().when('fatigue', {
-        is: true,
-        then: Yup.string().required(i18n.t('describe-symptoms.follow-up-required')),
-      }),
-    });
-};
-
-export default function LongCovidQuestionPageOneScreen() {
-  const dispatch = useDispatch();
-  const [isSubmitting, setSubmitting] = useState(false);
-
+  console.log('QUIZ IT WITH ', patientData.patientId)
   useEffect(() => {
     // if (!LongCovidState.completed) {
     //   dispatch(setCompleted(true));
     // }
   });
 
-  const handleSubmit = (formData: LongCovidQuestionPageOneData) => {
-      console.log('handleSubmit!!!');
+  const handleSubmit = async (formData: LongCovidQuestionPageOneData) => {
+    if (isSubmitting) {
+        return;
+    }
     setSubmitting(true);
-    // assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(formData, hasHayfever));
-    // assessmentCoordinator.gotoNextScreen(route.name);
+    longCovidApiClient.add(patientData.patientId, formData).then((result)=>{
+        console.log('RESULT IS ', result)
+    });
   };
 
   const renderFormCheckboxes = (props: FormikProps<LongCovidQuestionPageOneData>) => <View style={{ marginVertical: 16 }}>
     <CheckboxList>
-        { checkBoxQuestions4To17.map((key: string, index: number) =>  <CheckboxItem onChange={(value: boolean) => 
+        { checkBoxQuestions4To17.map((key: string, index: number) =>
+            <CheckboxItem onChange={(value: boolean) => 
               props.setFieldValue(key, !props.values[key])
             }
             value={props.values[key]}>
             {i18n.t(`long-covid.q${index + 4}`)}
-        </CheckboxItem>) }
-        {props.values.other ? (
+            </CheckboxItem>)
+        }
+        { props.values.other ? (
           <GenericTextField
             formikProps={props}
             name="other"
           />
-        ) : null}
+        ) : null }
     </CheckboxList>
   </View>;
 
@@ -127,9 +126,9 @@ export default function LongCovidQuestionPageOneScreen() {
         {/* Did your symptoms change 2 weeks (or more) after your first COVID-19 vaccine injection? */}
         <HeaderText>{i18n.t('long-covid.q20')}</HeaderText>
         <DropdownField
-            selectedValue={props.values.ongoing_symptom_week_before_first_vaccine}
-            onValueChange={props.handleChange('ongoing_symptom_week_before_first_vaccine')}
-            error={props.touched.ongoing_symptom_week_before_first_vaccine && props.errors.ongoing_symptom_week_before_first_vaccine}
+            selectedValue={props.values.symptom_change_2_weeks_after_first_vaccine}
+            onValueChange={props.handleChange('symptom_change_2_weeks_after_first_vaccine')}
+            error={props.touched.symptom_change_2_weeks_after_first_vaccine && props.errors.symptom_change_2_weeks_after_first_vaccine}
             items={dropdownItemsSymptomsChange}
         />
         <View style={styles.hr} />
@@ -161,48 +160,46 @@ export default function LongCovidQuestionPageOneScreen() {
   ): null;
 
   return (
-    <BasicPage footerTitle="Next" onPress={() => NavigatorService.navigate('Dashboard', undefined)} withGutter>
-        <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>        
-        <Formik
-          style={{ margin: 16 }}
-          initialValues={{
-            ...LongCovidQuestionPageOneScreen.initialFormValues(),
-          }}
-          validationSchema={LongCovidQuestionPageOneScreen.schema}
-          onSubmit={(values: LongCovidQuestionPageOneData) => handleSubmit(values)}>
-          {(props: FormikProps<LongCovidQuestionPageOneData>) => {
-            return (
-              <Form style={{ flexGrow: 1 }}>
-                <DropdownField
-                    selectedValue={props.values.had_covid}
-                    onValueChange={props.handleChange('had_covid')}
-                    label={i18n.t('long-covid.q1')}
-                    error={props.touched.had_covid && props.errors.had_covid}
-                    items={dropdownItemsQ1}
-                />
-                { renderExtendedForm(props) }
-              </Form>
-            );
-          }}
-        </Formik>
-    </BasicPage>
+    <Formik
+        style={{ margin: 16 }}
+        initialValues={{
+        ...LongCovidQuestionPageOneScreen.initialFormValues(),
+        }}
+        validationSchema={LongCovidQuestionPageOneScreen.schema}
+        onSubmit={(values: LongCovidQuestionPageOneData) => handleSubmit(values)}
+    >
+        {(props: FormikProps<LongCovidQuestionPageOneData>) => {
+        return (
+            <BasicPage 
+            footerTitle="Next" active={props.values.had_covid !== null && Object.keys(props.errors).length < 1} onPress={()=>handleSubmit(props.values)} withGutter
+        >
+            <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>   
+            <Form style={{ flexGrow: 1 }}>
+            <DropdownField
+                selectedValue={props.values.had_covid}
+                onValueChange={props.handleChange('had_covid')}
+                label={i18n.t('long-covid.q1')}
+                error={props.touched.had_covid && props.errors.had_covid}
+                items={dropdownItemsQ1}
+            />
+            { renderExtendedForm(props) }
+            {Object.keys(props.errors).map((error)=><ErrorText>ERROR: {props.errors[error]}</ErrorText>)}            
+            </Form></BasicPage>
+        );
+        }}
+    </Formik>
   );
 }
+
+LongCovidQuestionPageOneScreen.initialFormValues = (): LongCovidQuestionPageOneData => defaultState;
+  
+LongCovidQuestionPageOneScreen.schema = () => validations;
 
 const styles = StyleSheet.create({
   textarea: {
     borderRadius: 8,
     backgroundColor: '#EEEEEF',
     paddingVertical: 32,
-  },
-  tick: {
-    alignItems: 'center',
-    borderColor: '#C0D904',
-    borderRadius: 24,
-    borderWidth: 3,
-    height: 48,
-    justifyContent: 'center',
-    width: 48,
   },
   infoBox: {
     textAlign: 'left',

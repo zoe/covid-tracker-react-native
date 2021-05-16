@@ -1,17 +1,24 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
 
-import { BasicPage, Done, Text, SimpleShare, Spacer, RegularText, HeaderText } from '@covid/components';
+import { BasicPage, Text, Spacer, RegularText, HeaderText } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 import i18n from '@covid/locale/i18n';
-import { setCompleted } from '@covid/core/state';
-import { events } from '@covid/core/Analytics';
 import { colors } from '@theme';
+import { RouteProp } from '@react-navigation/native';
+import { ScreenParamList } from '@covid/features';
 
-export default function LongCovidStartScreen() {
+interface IProps {
+  route: RouteProp<ScreenParamList, 'LongCovidStart'>;
+}
+
+export default function LongCovidStartScreen({ route }: IProps) {
   //const LongCovidState = useSelector(LongCovidStart);
   const dispatch = useDispatch();
+  const { patientData } = route.params;
+
+  console.log('START IT WITH ', patientData.patientId)
 
   useEffect(() => {
     // if (!LongCovidState.completed) {
@@ -20,7 +27,9 @@ export default function LongCovidStartScreen() {
   });
 
   return (
-    <BasicPage footerTitle="Next" onPress={() => NavigatorService.navigate('LongCovidQuestionPageOne', undefined)} withGutter>
+    <BasicPage footerTitle="Next" onPress={() => 
+      NavigatorService.navigate('LongCovidQuestionPageOne', {patientData: patientData})
+    } withGutter>
         <Text style={styles.oneOff}>
           {i18n.t('long-covid.one-off')}
         </Text>
