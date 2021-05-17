@@ -16,9 +16,9 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { longCovidApiClient } from '@covid/Services';
 
 import { IProfileService } from '../profile/ProfileService';
-import { longCovidApiClient } from '@covid/Services';
 
 export type AssessmentData = {
   assessmentId?: string;
@@ -181,7 +181,6 @@ export class AssessmentCoordinator extends Coordinator {
     longCovidApiClient.get().then((data) => {
       if (!data.length) {
         NavigatorService.navigate('LongCovidStart', { patientData: this.patientData });
-        return;
       }
     });
 
