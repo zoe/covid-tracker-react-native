@@ -177,8 +177,7 @@ export class AssessmentCoordinator extends Coordinator {
   };
 
   gotoEndAssessment = async () => {
-    // TODO store/check in redux state vs API
-    // Redirect to the long covid flow if needed
+    // TODO store/check in redux state vs API Redirect to the long covid flow if needed
     longCovidApiClient.get().then((data) => {
       if (!data.length) {
         NavigatorService.navigate('LongCovidStart', { patientData: this.patientData });
@@ -187,7 +186,6 @@ export class AssessmentCoordinator extends Coordinator {
     });
 
     const config = this.localisationService.getConfig();
-
     if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       NavigatorService.navigate('ReportForOther');
     } else {
