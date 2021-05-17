@@ -23,10 +23,9 @@ export class LongCovidApiClient implements ILongCovidApiClient {
 
   add(patientId: string, longCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData> {
     longCovid = {
-      patientId: patientId,
       ...longCovid,
+      patient: patientId,
     };
-    console.log('LongCovidApiClient add: ', longCovid)
     return this.apiClient.post<LongCovidQuestionPageOneData, LongCovidQuestionPageOneData>(API_URL, longCovid);
   }
 

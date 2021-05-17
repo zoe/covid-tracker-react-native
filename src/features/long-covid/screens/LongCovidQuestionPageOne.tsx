@@ -11,6 +11,9 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { RouteProp } from '@react-navigation/native';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { longCovidApiClient } from '@covid/Services';
+import NavigatorService from '@covid/NavigatorService';
+import { ScreenName } from '@covid/core/Coordinator';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
 
 interface IProps {
     route: RouteProp<ScreenParamList, 'LongCovidStart'>;
@@ -19,21 +22,14 @@ interface IProps {
 export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const { patientData } = route.params;
-  
-  console.log('QUIZ IT WITH ', patientData.patientId)
-  useEffect(() => {
-    // if (!LongCovidState.completed) {
-    //   dispatch(setCompleted(true));
-    // }
-  });
-
   const handleSubmit = async (formData: LongCovidQuestionPageOneData) => {
     if (isSubmitting) {
         return;
     }
     setSubmitting(true);
-    longCovidApiClient.add(patientData.patientId, formData).then((result)=>{
-        console.log('RESULT IS ', result)
+    longCovidApiClient.add(patientData.patientId, formData).then((result)=> {
+      const thankYouScreen: ScreenName = isSECountry() ? 'ThankYouSE' : 'ThankYouUK';
+      NavigatorService.reset([{ name: 'Dashboard' }, { name: thankYouScreen }], 1);
     });
   };
 
@@ -129,7 +125,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
             selectedValue={props.values.symptom_change_2_weeks_after_first_vaccine}
             onValueChange={props.handleChange('symptom_change_2_weeks_after_first_vaccine')}
             error={props.touched.symptom_change_2_weeks_after_first_vaccine && props.errors.symptom_change_2_weeks_after_first_vaccine}
-            items={dropdownItemsSymptomsChange}
+            items={dropdownItemsQ19}
         />
         <View style={styles.hr} />
 

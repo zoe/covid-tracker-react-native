@@ -2,8 +2,8 @@ import i18n from '@covid/locale/i18n';
 import * as Yup from 'yup';
 
 export const defaultState = {
-    id: '',
-    patientId: '',
+    id: null,
+    patient: null,
     had_covid: null,
     duration: null,
     restriction: null,
@@ -123,7 +123,7 @@ export const dropdownItemsQ18 = [
 export const dropdownItemsQ19 = [
     { value: 'YES', label: i18n.t('long-covid.q19-a1') },
     { value: 'NO', label: i18n.t('long-covid.q19-a2') },
-    { value: 'NOT_SURE', label: i18n.t('long-covid.q19-a3') },
+    { value: 'UNSURE', label: i18n.t('long-covid.q19-a3') },
 ];
 
 export const dropdownItemsSymptomsChange = [

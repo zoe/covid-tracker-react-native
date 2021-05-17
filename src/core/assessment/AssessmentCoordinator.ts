@@ -18,6 +18,7 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
 import { IProfileService } from '../profile/ProfileService';
+import { longCovidApiClient } from '@covid/Services';
 
 export type AssessmentData = {
   assessmentId?: string;
@@ -176,17 +177,14 @@ export class AssessmentCoordinator extends Coordinator {
   };
 
   gotoEndAssessment = async () => {
-
-
-    // Redirect to the long covid flow
-    NavigatorService.navigate('LongCovidStart', { patientData: this.patientData });
-    return;
-
-
-
-
-
-
+    // TODO store/check in redux state vs API
+    // Redirect to the long covid flow if needed
+    longCovidApiClient.get().then((data) => {
+      if (!data.length) {
+        NavigatorService.navigate('LongCovidStart', { patientData: this.patientData });
+        return;
+      }
+    });
 
     const config = this.localisationService.getConfig();
 
