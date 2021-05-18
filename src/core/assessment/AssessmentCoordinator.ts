@@ -181,6 +181,7 @@ export class AssessmentCoordinator extends Coordinator {
     longCovidApiClient.get().then((data) => {
       if (!data.length) {
         NavigatorService.navigate('LongCovidStart', { patientData: this.patientData });
+        return;
       }
     });
 
