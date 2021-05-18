@@ -88,14 +88,14 @@ export const dropdownItemsQ1 = [
 ];
 
 export const dropdownItemsQ2 = [
-  { label: i18n.t('long-covid.q2-a1'), value: 'LESS_THAN_TWO_WEEKS' },
+  { label: i18n.t('long-covid.q2-a1'), value: 'ALWAYS_FUNCTION_NORMAL' },
   { label: i18n.t('long-covid.q2-a2'), value: '2_TO_3_WEEKS' },
   { label: i18n.t('long-covid.q2-a3'), value: '4_TO_12_WEEKS' },
   { label: i18n.t('long-covid.q2-a4'), value: 'MORE_THAN_12_WEEKS' },
 ];
 
 export const dropdownItemsQ3 = [
-  { label: i18n.t('long-covid.q3-a1'), value: 'LESS_THAN_TWO_WEEKS' },
+  { label: i18n.t('long-covid.q3-a1'), value: 'ALWAYS_FUNCTION_NORMAL' },
   { label: i18n.t('long-covid.q3-a2'), value: '1_TO_3_DAYS' },
   { label: i18n.t('long-covid.q3-a3'), value: '4_TO_6_DAYS' },
   { label: i18n.t('long-covid.q3-a4'), value: '7_TO_13_DAYS' },
