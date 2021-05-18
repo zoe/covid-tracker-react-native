@@ -34,7 +34,7 @@ export const defaultState = {
   // comments at end
   symptom_change_comments: null,
   symptom_change_diarrhoea: null,
-  // Rapid fire symtpom changes
+  // rapid fire symptom changes
   symptom_change_headache: null,
   symptom_change_fatigue: null,
   symptom_change_smell: null,
