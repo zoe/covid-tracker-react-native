@@ -26,7 +26,7 @@ export default function MHPIntroductionScreen() {
       style={styling.backgroundWhite}>
       <Introduction />
       <View style={styling.padding}>
-        <Card style={styling.marginBottom}>
+        <Card backgroundColor="#F5F9FC" style={styling.marginBottom}>
           <Text style={styling.marginBottom} textClass="h4">
             {i18n.t('mental-health-playback.introduction.title')}
           </Text>

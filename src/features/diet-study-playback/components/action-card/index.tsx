@@ -20,18 +20,17 @@ function DietStudyActionCard() {
     return title;
   };
 
-  const buttonProps = {
-    buttonColor: settings.hasEmailSubscription ? 'white' : undefined,
-    textColor: settings.hasEmailSubscription ? colors.burgundy.main.bgColor : undefined,
-  };
-
   const handleOnPress = () => {
     track(settings.hasEmailSubscription ? events.DIET_STUDY_EMAIL_UNSUBSCRIBED : events.DIET_STUDY_EMAIL_SUBSCRIBED);
     dispatch(setEmailSubscription(!settings.hasEmailSubscription));
   };
 
   return (
-    <ActionCard actionTitle={getCtaTitle()} onPress={handleOnPress} {...buttonProps}>
+    <ActionCard
+      actionTitle={getCtaTitle()}
+      buttonColor={settings.hasEmailSubscription ? 'white' : undefined}
+      onPress={handleOnPress}
+      textColor={settings.hasEmailSubscription ? colors.burgundy.main.bgColor : undefined}>
       <Text textClass="h4" rhythm={16}>
         {i18n.t(`diet-study.email-action-title`)}
       </Text>
