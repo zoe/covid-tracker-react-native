@@ -18,13 +18,13 @@ import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import { Form, Textarea } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { LongCovidQuestionPageOneData } from '../types';
 import {
   checkBoxQuestions4To17,
-  defaultState,
+  longCovidQuestionPageOneDataInitialState,
   dropdownItemsQ1,
   dropdownItemsQ2,
   dropdownItemsQ3,
@@ -226,7 +226,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   );
 }
 
-LongCovidQuestionPageOneScreen.initialFormValues = (): LongCovidQuestionPageOneData => defaultState;
+LongCovidQuestionPageOneScreen.initialFormValues = (): LongCovidQuestionPageOneData => longCovidQuestionPageOneDataInitialState;
 
 LongCovidQuestionPageOneScreen.schema = () => validations;
 

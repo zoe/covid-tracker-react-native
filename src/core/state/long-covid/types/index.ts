@@ -1,4 +1,4 @@
-export type LongCovidQuestionPageOneData = {
+export interface ILongCovid {
   id?: string | null;
   patient?: string | null;
   had_covid: string | null;
@@ -43,4 +43,4 @@ export type LongCovidQuestionPageOneData = {
   symptom_change_fever: string | null;
 
   symptom_change_comments: string | null;
-};
+}

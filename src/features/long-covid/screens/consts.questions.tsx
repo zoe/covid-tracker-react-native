@@ -2,7 +2,7 @@
 import i18n from '@covid/locale/i18n';
 import * as Yup from 'yup';
 
-export const defaultState = {
+export const longCovidQuestionPageOneDataInitialState = {
   body_aches: false,
   duration: null,
   had_covid: null,
