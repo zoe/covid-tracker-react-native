@@ -42,6 +42,7 @@ interface ICheckboxProps extends ITest {
   value: boolean;
   onChange: (value: boolean) => void;
   children: React.ReactNode;
+  dark?: boolean;
 }
 
 interface ICheckboxListProps {
@@ -55,7 +56,10 @@ export function CheckboxItem(props: ICheckboxProps) {
         accessible
         accessibilityRole="checkbox"
         onPress={() => props.onChange(!props.value)}
-        style={checkboxStyles.checkBox}
+        style={{
+          ...checkboxStyles.checkBox,
+          backgroundColor: '#EEEEEF'
+        }}
       >
         {props.value ? <Check /> : null}
       </TouchableOpacity>

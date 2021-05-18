@@ -178,7 +178,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         ...LongCovidQuestionPageOneScreen.initialFormValues(),
       }}
       onSubmit={(values: LongCovidQuestionPageOneData) => handleSubmit(values)}
-      style={{ margin: 16 }}
+      style={{ padding: 16 }}
       validationSchema={LongCovidQuestionPageOneScreen.schema}
     >
       {(props: FormikProps<LongCovidQuestionPageOneData>) => {
