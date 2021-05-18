@@ -55,20 +55,25 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       return;
     }
 
-    if (!longCovid || !longCovid.had_covid) {
+    if (!longCovid.had_covid) {
       // Try and get from API: if nothing, redirect to quiz, otherwise and save to state if anything comes back!
       longCovidApiClient.get().then((data: LongCovidQuestionPageOneData[]) => {
         if (!data.length) {
           NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
-          assessmentCoordinator.gotoNextScreen(route.name, healthy);
           return;
         }
         else {
           const dataFromAPI: LongCovidQuestionPageOneData = data[0];
           dispatch(setlongCovid(dataFromAPI));
+          nextPage(healthy);
         }
       });
+      return;
     }
+    nextPage(healthy);
+  }
+
+  const nextPage = async (healthy: boolean) => {
     setIsSubmitting(true);
     const status = healthy ? 'healthy' : 'not_healthy';
     await updateAssessment(status, healthy);

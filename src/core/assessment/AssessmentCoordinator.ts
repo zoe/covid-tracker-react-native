@@ -16,8 +16,6 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { longCovidApiClient } from '@covid/Services';
-
 import { IProfileService } from '../profile/ProfileService';
 
 export type AssessmentData = {
@@ -177,14 +175,6 @@ export class AssessmentCoordinator extends Coordinator {
   };
 
   gotoEndAssessment = async () => {
-    // TODO store/check in redux state vs API Redirect to the long covid flow if needed
-    longCovidApiClient.get().then((data) => {
-      if (!data.length) {
-        NavigatorService.navigate('LongCovidStart', { patientData: this.patientData });
-        return;
-      }
-    });
-
     const config = this.localisationService.getConfig();
     if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       NavigatorService.navigate('ReportForOther');
