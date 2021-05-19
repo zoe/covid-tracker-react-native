@@ -124,4 +124,7 @@ export type ScreenParamList = {
 
   Anniversary: undefined;
   AnniversaryModal: undefined;
+
+  LongCovidStart: { patientData: PatientData };
+  LongCovidQuestionPageOne: { patientData: PatientData };
 };
