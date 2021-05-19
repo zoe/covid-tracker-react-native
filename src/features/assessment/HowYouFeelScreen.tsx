@@ -5,8 +5,7 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { selectMentalHealthHistory } from '@covid/core/state';
-import { selectlongCovid, setlongCovid } from '@covid/core/state/long-covid';
+import { ILongCovid, selectlongCovid, setlongCovid } from '@covid/core/state/long-covid';
 import { RootState } from '@covid/core/state/root';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ScreenParamList } from '@covid/features';
@@ -20,8 +19,6 @@ import { View } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { LongCovidQuestionPageOneData } from '../long-covid/types';
-
 import { USStudyInvite } from './partials/USStudyInvite';
 
 type Props = {
@@ -54,16 +51,15 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     if (isSubmitting) {
       return;
     }
-
     if (!longCovid.had_covid) {
       // Try and get from API: if nothing, redirect to quiz, otherwise and save to state if anything comes back!
-      longCovidApiClient.get().then((data: LongCovidQuestionPageOneData[]) => {
+      longCovidApiClient.get().then((data: ILongCovid[]) => {
         if (!data.length) {
           NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
           return;
         }
         else {
-          const dataFromAPI: LongCovidQuestionPageOneData = data[0];
+          const dataFromAPI: ILongCovid = data[0];
           dispatch(setlongCovid(dataFromAPI));
           nextPage(healthy);
         }

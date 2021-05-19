@@ -10,6 +10,7 @@ import {
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ScreenName } from '@covid/core/Coordinator';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { ILongCovid } from '@covid/core/state/long-covid';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -20,11 +21,8 @@ import { Formik, FormikProps } from 'formik';
 import { Form, Textarea } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { LongCovidQuestionPageOneData } from '../types';
 import {
   checkBoxQuestions4To17,
-  longCovidQuestionPageOneDataInitialState,
   dropdownItemsQ1,
   dropdownItemsQ2,
   dropdownItemsQ3,
@@ -33,6 +31,7 @@ import {
   dropdownItemsSymptomsChange,
   symptomChangesKeyList,
   validations,
+  longCovidQuestionPageOneDataInitialState,
 } from './consts.questions';
 
 interface IProps {
@@ -42,7 +41,7 @@ interface IProps {
 export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const { patientData } = route.params;
-  const handleSubmit = async (formData: LongCovidQuestionPageOneData) => {
+  const handleSubmit = async (formData: ILongCovid) => {
     if (isSubmitting) {
       return;
     }
@@ -53,7 +52,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     });
   };
 
-  const renderFormCheckboxes = (props: FormikProps<LongCovidQuestionPageOneData>) => (
+  const renderFormCheckboxes = (props: FormikProps<ILongCovid>) => (
     <View style={{ marginVertical: 16 }}>
       <CheckboxList>
         {checkBoxQuestions4To17.map((key: string, index: number) => (
@@ -77,12 +76,12 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     </View>
   );
 
-  const renderError = (props: FormikProps<LongCovidQuestionPageOneData>, propertyKey: string) => props.errors[propertyKey] ? 
+  const renderError = (props: FormikProps<ILongCovid>, propertyKey: string) => props.touched[propertyKey] && props.errors[propertyKey] ? 
     <View style={{ marginBottom: 16 }}>
         <ErrorText>{props.errors[propertyKey]}</ErrorText>
     </View> : null;
 
-  const renderExtendedForm = (props: FormikProps<LongCovidQuestionPageOneData>) =>
+  const renderExtendedForm = (props: FormikProps<ILongCovid>) =>
     props.values.had_covid && props.values.had_covid.startsWith('YES') ? (
       <View>
         <View style={styles.hr} />
@@ -195,11 +194,11 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
       initialValues={{
         ...LongCovidQuestionPageOneScreen.initialFormValues(),
       }}
-      onSubmit={(values: LongCovidQuestionPageOneData) => handleSubmit(values)}
+      onSubmit={(values: ILongCovid) => handleSubmit(values)}
       style={{ padding: 16 }}
       validationSchema={LongCovidQuestionPageOneScreen.schema}
     >
-      {(props: FormikProps<LongCovidQuestionPageOneData>) => {
+      {(props: FormikProps<ILongCovid>) => {
         return (
           <BasicPage
             withGutter
@@ -226,7 +225,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   );
 }
 
-LongCovidQuestionPageOneScreen.initialFormValues = (): LongCovidQuestionPageOneData => longCovidQuestionPageOneDataInitialState;
+LongCovidQuestionPageOneScreen.initialFormValues = (): ILongCovid => longCovidQuestionPageOneDataInitialState;
 
 LongCovidQuestionPageOneScreen.schema = () => validations;
 

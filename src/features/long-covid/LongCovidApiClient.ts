@@ -1,35 +1,35 @@
 import { IApiClient } from '@covid/core/api/ApiClient';
+import { ILongCovid } from '@covid/core/state/long-covid';
 import { Services } from '@covid/provider/services.types';
 import { inject, injectable } from 'inversify';
 
-import { LongCovidQuestionPageOneData } from './types';
 
 const API_URL = '/long_covid/';
 
 export interface ILongCovidApiClient {
-  get(id: any): Promise<LongCovidQuestionPageOneData[]>;
-  add(patientId: string, LongCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData>;
-  update(LongCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData>;
+  get(id: any): Promise<ILongCovid[]>;
+  add(patientId: string, LongCovid: ILongCovid): Promise<ILongCovid>;
+  update(LongCovid: ILongCovid): Promise<ILongCovid>;
 }
 
 @injectable()
 export class LongCovidApiClient implements ILongCovidApiClient {
   constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
-  get(): Promise<LongCovidQuestionPageOneData[]> {
-    return this.apiClient.get<LongCovidQuestionPageOneData[]>(API_URL);
+  get(): Promise<ILongCovid[]> {
+    return this.apiClient.get<ILongCovid[]>(API_URL);
   }
 
-  add(patientId: string, longCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData> {
+  add(patientId: string, longCovid: ILongCovid): Promise<ILongCovid> {
     longCovid = {
       ...longCovid,
       patient: patientId,
     };
-    return this.apiClient.post<LongCovidQuestionPageOneData, LongCovidQuestionPageOneData>(API_URL, longCovid);
+    return this.apiClient.post<ILongCovid, ILongCovid>(API_URL, longCovid);
   }
 
-  update(LongCovid: LongCovidQuestionPageOneData): Promise<LongCovidQuestionPageOneData> {
+  update(LongCovid: ILongCovid): Promise<ILongCovid> {
     const url = `${API_URL}${LongCovid.id}/`;
-    return this.apiClient.patch<LongCovidQuestionPageOneData, LongCovidQuestionPageOneData>(url, LongCovid);
+    return this.apiClient.patch<ILongCovid, ILongCovid>(url, LongCovid);
   }
 }

@@ -1,16 +1,16 @@
 import { longCovidQuestionPageOneDataInitialState } from '@covid/features/long-covid/screens/consts.questions';
-import { LongCovidQuestionPageOneData } from '@covid/features/long-covid/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../../root';
+import { ILongCovid } from '../types';
 
-const initialState: LongCovidQuestionPageOneData = longCovidQuestionPageOneDataInitialState;
+const initialState: ILongCovid = longCovidQuestionPageOneDataInitialState;
 
 const longCovidSlice = createSlice({
   initialState,
   name: 'longCovidState',
   reducers: {
-    setlongCovid: (state, action: PayloadAction<LongCovidQuestionPageOneData>) => {
+    setlongCovid: (state, action: PayloadAction<ILongCovid>) => {
       return {
         ...state,
         ...action.payload, // Replace the whole obj wholesale as currently a 1-page form
