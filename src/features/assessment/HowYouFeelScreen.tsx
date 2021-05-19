@@ -5,19 +5,20 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ILongCovid, selectlongCovid, setlongCovid } from '@covid/core/state/long-covid';
 import { RootState } from '@covid/core/state/root';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
+import NavigatorService from '@covid/NavigatorService';
+import { assessmentService, longCovidApiClient } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { View } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { USStudyInvite } from './partials/USStudyInvite';
 
 type Props = {
@@ -31,6 +32,8 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const [location, setLocation] = useState('');
   const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const isFocused = useIsFocused();
+  const longCovid = useSelector(selectlongCovid);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
@@ -51,6 +54,25 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     if (isSubmitting) {
       return;
     }
+    if (!longCovid.had_covid) {
+      // Try and get from API: if nothing, redirect to quiz, otherwise and save to state if anything comes back!
+      longCovidApiClient.get().then((data: ILongCovid[]) => {
+        if (!data.length) {
+          NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
+          return;
+        }
+        else {
+          const dataFromAPI: ILongCovid = data[0];
+          dispatch(setlongCovid(dataFromAPI));
+          nextPage(healthy);
+        }
+      });
+      return;
+    }
+    nextPage(healthy);
+  }
+
+  const nextPage = async (healthy: boolean) => {
     setIsSubmitting(true);
     const status = healthy ? 'healthy' : 'not_healthy';
     await updateAssessment(status, healthy);

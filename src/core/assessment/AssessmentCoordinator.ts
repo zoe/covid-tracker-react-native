@@ -16,7 +16,6 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
 import { IProfileService } from '../profile/ProfileService';
 
 export type AssessmentData = {
@@ -177,7 +176,6 @@ export class AssessmentCoordinator extends Coordinator {
 
   gotoEndAssessment = async () => {
     const config = this.localisationService.getConfig();
-
     if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       NavigatorService.navigate('ReportForOther');
     } else {

@@ -26,6 +26,7 @@ const checkboxStyles = StyleSheet.create({
   checkboxLabel: {
     marginLeft: 16,
     marginRight: 32,
+    paddingTop: 4,
   },
 
   checkboxList: {
@@ -35,6 +36,8 @@ const checkboxStyles = StyleSheet.create({
   checkboxRow: {
     borderColor: 'transparent',
     paddingVertical: 6,
+    flexDirection: 'row',
+    alignItems: 'flex-start'
   },
 });
 
@@ -42,6 +45,7 @@ interface ICheckboxProps extends ITest {
   value: boolean;
   onChange: (value: boolean) => void;
   children: React.ReactNode;
+  dark?: boolean;
 }
 
 interface ICheckboxListProps {
@@ -55,7 +59,11 @@ export function CheckboxItem(props: ICheckboxProps) {
         accessible
         accessibilityRole="checkbox"
         onPress={() => props.onChange(!props.value)}
-        style={checkboxStyles.checkBox}
+        style={{
+          ...checkboxStyles.checkBox,
+          borderColor: props.dark ? '#C4C4C4' : checkboxStyles.checkBox.backgroundColor,
+          borderWidth: 1,
+        }}
       >
         {props.value ? <Check /> : null}
       </TouchableOpacity>
