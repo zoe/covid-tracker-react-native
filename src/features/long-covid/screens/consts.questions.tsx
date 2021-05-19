@@ -157,3 +157,5 @@ export const symptomChangesKeyList: string[] = [
   'symptom_change_diarrhoea',
   'symptom_change_fever',
 ];
+
+export const checkboxIndexOffset: number = 4;

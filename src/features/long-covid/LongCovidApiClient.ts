@@ -9,7 +9,7 @@ const API_URL = '/long_covid/';
 export interface ILongCovidApiClient {
   get(id: any): Promise<ILongCovid[]>;
   add(patientId: string, LongCovid: ILongCovid): Promise<ILongCovid>;
-  update(LongCovid: ILongCovid): Promise<ILongCovid>;
+  update(longCovid: ILongCovid): Promise<ILongCovid>;
 }
 
 @injectable()
@@ -28,8 +28,8 @@ export class LongCovidApiClient implements ILongCovidApiClient {
     return this.apiClient.post<ILongCovid, ILongCovid>(API_URL, longCovid);
   }
 
-  update(LongCovid: ILongCovid): Promise<ILongCovid> {
-    const url = `${API_URL}${LongCovid.id}/`;
-    return this.apiClient.patch<ILongCovid, ILongCovid>(url, LongCovid);
+  update(longCovid: ILongCovid): Promise<ILongCovid> {
+    const url = `${API_URL}${longCovid.id}/`;
+    return this.apiClient.patch<ILongCovid, ILongCovid>(url, longCovid);
   }
 }

@@ -1,7 +1,7 @@
 import { SolidColorBar } from '@covid/components';
+import { colors } from '@theme/colors';
 import React from 'react';
 import { View } from 'react-native';
-
 import { TProgress } from '../types';
 
 interface IProps {
@@ -28,10 +28,10 @@ function ProgressBar({ current, progress, total }: IProps) {
   return (
     <View style={{ paddingRight, width }}>
       <View>
-        <SolidColorBar backgroundColor="#E2E2E2" height={8} />
+        <SolidColorBar backgroundColor={colors.backgroundFour} height={8} />
       </View>
       <View style={{ position: 'absolute', width: getProgress() }}>
-        <SolidColorBar backgroundColor="#024364" height={8} />
+        <SolidColorBar backgroundColor={colors.brand} height={8} />
       </View>
     </View>
   );
