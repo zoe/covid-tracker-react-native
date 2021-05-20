@@ -32,7 +32,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const [location, setLocation] = useState('');
   const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const isFocused = useIsFocused();
-  const longCovid = useSelector(selectlongCovid);
+  const longCovidState = useSelector(selectlongCovid);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,16 +51,16 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     if (isSubmitting) {
       return;
     }
-    if (!longCovid.had_covid) {
+    if (!longCovidApiClient.dataContainsPatientId(longCovidState.profiles, assessmentCoordinator.assessmentData.patientData.patientId)) {
       // Try and get from API: if nothing, redirect to quiz, otherwise and save to state if anything comes back!
-      longCovidApiClient.get().then((data: ILongCovid[]) => {
-        if (!data.length) {
+      longCovidApiClient.get(assessmentCoordinator.assessmentData.patientData.patientId).then((data: ILongCovid[]) => {
+        dispatch(setlongCovid(data));
+        if (!longCovidApiClient.dataContainsPatientId(data, assessmentCoordinator.assessmentData.patientData.patientId)) {
           NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
           return;
         }
         else {
-          const dataFromAPI: ILongCovid = data[0];
-          dispatch(setlongCovid(dataFromAPI));
+          dispatch(setlongCovid(data));
           nextPage(healthy);
         }
       });

@@ -7,7 +7,7 @@ import { combineReducers } from 'redux';
 import { anniversarySlice, IAnniversary } from './anniversary';
 import { appSlice, IApp } from './app';
 import { dietStudySlice, IDietStudy } from './diet-study';
-import { ILongCovid, longCovidSlice } from './long-covid';
+import { longCovidSlice, ILongCovidState } from './long-covid';
 import {
   IMentalHealthChanges,
   IMentalHealthFrequency,
@@ -32,7 +32,7 @@ export type RootState = {
   assessment: IAssessmentState;
   content: ContentState;
   dietStudy: IDietStudy;
-  longCovid: ILongCovid;
+  longCovid: ILongCovidState;
   mentalHealthChanges: IMentalHealthChanges;
   mentalHealthFrequency: IMentalHealthFrequency;
   mentalHealthHistory: IMentalHealthHistory;

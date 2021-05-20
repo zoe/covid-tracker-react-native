@@ -7,17 +7,17 @@ import { inject, injectable } from 'inversify';
 const API_URL = '/long_covid/';
 
 export interface ILongCovidApiClient {
-  get(id: any): Promise<ILongCovid[]>;
+  get(patientId: string): Promise<ILongCovid[]>;
   add(patientId: string, LongCovid: ILongCovid): Promise<ILongCovid>;
-  update(longCovid: ILongCovid): Promise<ILongCovid>;
+  dataContainsPatientId(longCovidList:ILongCovid[], patientId: string): boolean;
 }
 
 @injectable()
 export class LongCovidApiClient implements ILongCovidApiClient {
   constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
-  get(): Promise<ILongCovid[]> {
-    return this.apiClient.get<ILongCovid[]>(API_URL);
+  get(patientId: string): Promise<ILongCovid[]> {
+    return this.apiClient.get<ILongCovid[]>(API_URL, {patientId});
   }
 
   add(patientId: string, longCovid: ILongCovid): Promise<ILongCovid> {
@@ -28,8 +28,10 @@ export class LongCovidApiClient implements ILongCovidApiClient {
     return this.apiClient.post<ILongCovid, ILongCovid>(API_URL, longCovid);
   }
 
-  update(longCovid: ILongCovid): Promise<ILongCovid> {
-    const url = `${API_URL}${longCovid.id}/`;
-    return this.apiClient.patch<ILongCovid, ILongCovid>(url, longCovid);
+  dataContainsPatientId(longCovidList:ILongCovid[], patientId: string): boolean {
+    if (!longCovidList || !longCovidList.length) {
+      return false;
+    }
+    return longCovidList.filter((longCovid: ILongCovid) => longCovid.patient === patientId).length > 0;
   }
 }
