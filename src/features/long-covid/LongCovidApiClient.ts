@@ -17,7 +17,7 @@ export class LongCovidApiClient implements ILongCovidApiClient {
   constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
   get(patientId: string): Promise<ILongCovid[]> {
-    return this.apiClient.get<ILongCovid[]>(API_URL, {patientId});
+    return this.apiClient.get<ILongCovid[]>(API_URL, {patient: patientId});
   }
 
   add(patientId: string, longCovid: ILongCovid): Promise<ILongCovid> {
