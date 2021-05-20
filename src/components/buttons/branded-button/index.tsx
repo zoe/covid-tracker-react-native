@@ -1,51 +1,52 @@
-import { colors, fontStyles } from '@theme';
-import { Button } from 'native-base';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, TouchableOpacity, Text, ViewStyle } from 'react-native';
 
-import { IClickableProps } from '../../Text';
-import { ITest } from '../../types';
+import { colors, fontStyles } from '@theme';
+import { IClickableProps } from '@covid/components/Text';
+import { ITest } from '@covid/components/types';
 
-interface IProps extends ITest {
-  buttonProps?: any;
-  textProps?: any;
+interface IProps extends IClickableProps, ITest {
+  loading?: boolean;
 }
 
-function BrandedButton({ style, children, onPress, enable, buttonProps, textProps }: IClickableProps & IProps) {
+export default function BrandedButton(props: IProps) {
   return (
-    <View style={enable === false ? { opacity: 0.2 } : { opacity: 1 }}>
-      <Button
-        accessible
-        block
-        accessibilityRole="button"
-        onPress={() => {
-          if (enable !== false) {
-            onPress();
-          }
-        }}
-        style={[styles.button, style]}
-        testID="buttonTestID"
-        {...buttonProps}
-      >
-        <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
-          {children}
-        </Text>
-      </Button>
-    </View>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      accessible
+      accessibilityRole="button"
+      disabled={props.enable === false}
+      testID="buttonTestID"
+      style={[props.enable === false ? styles.buttonDisabled : styles.button, props.style]}
+      onPress={props.enable === false ? undefined : props.onPress}>
+      {props.loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}
+      <Text style={[fontStyles.bodyLight, styles.text]}>{props.children}</Text>
+    </TouchableOpacity>
   );
 }
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.brand,
-    borderRadius: 100,
-    elevation: 0,
-    height: 56,
-  },
+const buttonStyle: ViewStyle = {
+  alignItems: 'center',
+  borderRadius: 56 / 2,
+  elevation: 0,
+  height: 56,
+  justifyContent: 'center',
+};
 
-  buttonText: {
+const styles = StyleSheet.create({
+  activityIndicator: {
+    left: 56 / 2,
+    position: 'absolute',
+  },
+  button: {
+    ...buttonStyle,
+    backgroundColor: colors.brand,
+  },
+  buttonDisabled: {
+    ...buttonStyle,
+    backgroundColor: colors.transparentBrand,
+  },
+  text: {
     color: colors.white,
   },
 });
-
-export default BrandedButton;
