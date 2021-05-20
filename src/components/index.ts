@@ -21,3 +21,4 @@ export { default as Tag } from './Tag';
 export * from './Text';
 export { default as Triangle } from './Triangle';
 export * from './typography';
+export { default as Modal } from './Modal';

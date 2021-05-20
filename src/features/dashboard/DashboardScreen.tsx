@@ -130,14 +130,15 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   useEffect(() => {
     let isMounted = true;
-    if (!app.dashboardHasBeenViewed) {
-      dispatch(setDashboardHasBeenViewed(true));
-      setTimeout(() => {
-        if (isMounted) {
-          runCurrentFeature();
-        }
-      }, 800);
-    }
+    // if (!app.dashboardHasBeenViewed) {
+    //   dispatch(setDashboardHasBeenViewed(true));
+    //   setTimeout(() => {
+    //     if (isMounted) {
+    //       runCurrentFeature();
+    //     }
+    //   }, 800);
+    // }
+    NavigatorService.navigate('MentalHealthPlaybackModal');
     return function () {
       isMounted = false;
     };

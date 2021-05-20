@@ -122,6 +122,7 @@ export type ScreenParamList = {
   MentalHealthPlaybackIntroduction: undefined;
   MentalHealthPlaybackRating: undefined;
   MentalHealthPlaybackThankYou: undefined;
+  MentalHealthPlaybackModal: undefined;
 
   // Mental health study
   MentalHealthChanges: undefined;
@@ -136,7 +137,7 @@ export type ScreenParamList = {
   Modal: undefined;
   Main: undefined;
   Share: undefined;
-  VaccineListMissing: { vaccine: VaccineRequest };
+  VaccineListMissingModal: { vaccine: VaccineRequest };
   VersionUpdateModal: undefined;
 
   Trendline: { lad?: string };

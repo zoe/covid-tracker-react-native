@@ -14,7 +14,7 @@ import { Profile } from '@covid/core/profile/ProfileService';
 import Analytics, { events } from '@covid/core/Analytics';
 import appCoordinator from '@covid/features/AppCoordinator';
 
-export default function AnniversaryModal() {
+export default function MentalHealthPlaybackModal() {
   const { goBack } = useNavigation();
   const dispatch = useDispatch();
   const patientService = useInjection<IPatientService>(Services.Patient);
@@ -51,9 +51,13 @@ export default function AnniversaryModal() {
           </Text>
         </View>
       </View>
-      <Text textClass="h3" textAlign="center" rhythm={24}>
-        Your personal contribution to science!
-      </Text>
+      {Array(1)
+        .fill(null)
+        .map(() => (
+          <Text textClass="h3" textAlign="center" rhythm={24}>
+            Your personal contribution to science!
+          </Text>
+        ))}
       <Text textClass="pLight" textAlign="center">
         Thank you for reporting with us since
       </Text>
