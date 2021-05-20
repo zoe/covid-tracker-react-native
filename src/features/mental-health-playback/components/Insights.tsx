@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { useWindowDimensions, LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Background from '@assets/mental-health-playback/Background';
@@ -22,38 +22,43 @@ export default React.memo(function Insights(props: IProps) {
   const [illustrationHeights, setIllustrationHeights] = useState<TNumberObject>({});
   const insightsByName = useSelector(selectInsightsByName);
 
+  const windowWidth = useWindowDimensions().width;
+
   function onLayoutView(event: LayoutChangeEvent, index: number) {
     setIllustrationHeights({
       ...illustrationHeights,
-      [index]: event.nativeEvent.layout.height,
+      [index]: Math.floor(event.nativeEvent.layout.height),
     });
   }
 
   return (
     <>
       {(props.insights || []).map((insight: IInsight, index: number) => (
-        <View key={`insight-${index}`} style={{ height: props.itemHeight }}>
+        <View key={`insight-${index}`} style={{ height: props.itemHeight, justifyContent: 'space-between' }}>
           {index === 0 ? (
-            <View style={styling.flex}>
+            <View>
               <Spacer space={60} />
               <Card useShadow style={styles.card}>
                 <Text>{i18n.t('mental-health-playback.general.explanation-card')}</Text>
               </Card>
             </View>
-          ) : (
-            <View style={styles.illustrationWrapper}>
-              <Background
-                preserveAspectRatio="none"
-                height={index in illustrationHeights ? illustrationHeights[index] : 0}
-              />
-              <View
-                onLayout={(event: LayoutChangeEvent) => onLayoutView(event, index)}
-                style={[styling.absoluteFill, styling.centerCenter]}>
-                <InsightIllustration
-                  height={index in illustrationHeights ? illustrationHeights[index] - grid.xxl * 2 : 0}
-                  type={insight.activity_name}
-                />
-              </View>
+          ) : null}
+
+          {illustrationHeights[index] > 0 && illustrationHeights[index] < 100 ? null : (
+            <View
+              onLayout={(event: LayoutChangeEvent) => onLayoutView(event, index)}
+              style={styles.illustrationWrapper}>
+              {illustrationHeights[index] >= 100 ? (
+                <>
+                  <Background height={illustrationHeights[index]} preserveAspectRatio="none" width={windowWidth} />
+                  <View style={[styling.absoluteFill, styling.centerCenter]}>
+                    <InsightIllustration
+                      height={illustrationHeights[index] - grid.xxl * 2}
+                      type={insight.activity_name}
+                    />
+                  </View>
+                </>
+              ) : null}
             </View>
           )}
 
@@ -106,6 +111,7 @@ const styles = StyleSheet.create({
   },
   illustrationWrapper: {
     flex: 1,
+    maxHeight: 250,
     position: 'relative',
   },
   contentWrapper: {

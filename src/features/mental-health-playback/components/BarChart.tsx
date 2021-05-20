@@ -29,7 +29,7 @@ export default React.memo(function BarChart({ items = [], ...props }: IProps) {
     NO_CHANGE: i18n.t('mental-health-playback.no-change'),
   };
   return (
-    <>
+    <View>
       {items.map((item, index) => (
         <View key={`bar-chart-item-${index}`} style={styling.rowCenter}>
           {index === 0 ? (
@@ -67,7 +67,7 @@ export default React.memo(function BarChart({ items = [], ...props }: IProps) {
           </View>
         </View>
       ))}
-    </>
+    </View>
   );
 });
 

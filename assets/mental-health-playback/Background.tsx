@@ -4,7 +4,7 @@ import Svg, { Path, SvgProps } from 'react-native-svg';
 export default function Background(props: SvgProps) {
   return (
     <Svg
-      width={375}
+      width={props.width === undefined ? 375 : props.width}
       height={props.height === undefined ? 300 : props.height}
       viewBox="0 0 375 300"
       fill="none"
