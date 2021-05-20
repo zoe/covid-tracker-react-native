@@ -10,17 +10,17 @@ const insights: IInsight[] = [
     activity_name: 'sleeping_well_less',
     answers: [
       {
-        title: 'No change',
+        title: 'NO_CHANGE',
         value: 0.46,
         label: '46%',
       },
       {
-        title: 'less',
+        title: 'LESS',
         value: 0.37,
         label: '37%',
       },
       {
-        title: 'more',
+        title: 'MORE',
         value: 0.17,
         label: '17%',
       },
@@ -38,17 +38,17 @@ const insights: IInsight[] = [
     activity_name: 'interacting_face_to_face_with_family_friends_less',
     answers: [
       {
-        title: 'No change',
+        title: 'NO_CHANGE',
         value: 0.46,
         label: '46%',
       },
       {
-        title: 'less',
+        title: 'LESS',
         value: 0.37,
         label: '37%',
       },
       {
-        title: 'more',
+        title: 'MORE',
         value: 0.17,
         label: '17%',
       },
@@ -66,17 +66,17 @@ const insights: IInsight[] = [
     activity_name: 'smoking_or_vaping_less',
     answers: [
       {
-        title: 'No change',
+        title: 'NO_CHANGE',
         value: 0.46,
         label: '46%',
       },
       {
-        title: 'less',
+        title: 'LESS',
         value: 0.37,
         label: '37%',
       },
       {
-        title: 'more',
+        title: 'MORE',
         value: 0.17,
         label: '17%',
       },
@@ -94,17 +94,17 @@ const insights: IInsight[] = [
     activity_name: 'using_devices_with_a_screen_more',
     answers: [
       {
-        title: 'No change',
+        title: 'NO_CHANGE',
         value: 0.46,
         label: '46%',
       },
       {
-        title: 'less',
+        title: 'LESS',
         value: 0.37,
         label: '37%',
       },
       {
-        title: 'more',
+        title: 'MORE',
         value: 0.17,
         label: '17%',
       },

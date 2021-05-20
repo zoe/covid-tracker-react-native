@@ -1,6 +1,6 @@
 export interface IAnswer {
   label: string;
-  title: string;
+  title: 'NO_CHANGE' | 'LESS' | 'MORE';
   value: number;
 }
 

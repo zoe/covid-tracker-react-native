@@ -1415,6 +1415,9 @@
 
   "mental-health-playback": {
     "you": "You",
+    "no-change": "No change",
+    "less": "Less",
+    "more": "More",
 
     "general": {
       "correlated-description": "Reporting more of this was linked to",

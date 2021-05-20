@@ -23,6 +23,11 @@ const MIN_OPACITY = 0.4;
 
 export default React.memo(function BarChart({ items = [], ...props }: IProps) {
   const totalValue = items.reduce((previousValue, item) => previousValue + item.value, 0);
+  const translationDict: { [key: string]: string } = {
+    LESS: i18n.t('mental-health-playback.less'),
+    MORE: i18n.t('mental-health-playback.more'),
+    NO_CHANGE: i18n.t('mental-health-playback.no-change'),
+  };
   return (
     <>
       {items.map((item, index) => (
@@ -57,7 +62,7 @@ export default React.memo(function BarChart({ items = [], ...props }: IProps) {
               {item.label}
             </Text>
             <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmall">
-              {item.title}
+              {item.title in translationDict ? translationDict[item.title] : item.title}
             </Text>
           </View>
         </View>
