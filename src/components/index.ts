@@ -19,4 +19,5 @@ export { default as Spacer } from './spacer';
 export * from './status';
 export { default as Tag } from './Tag';
 export * from './Text';
+export { default as Triangle } from './Triangle';
 export * from './typography';

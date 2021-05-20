@@ -1,10 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 
 import NavigatorService from '@covid/NavigatorService';
 import { BasicPage, Text } from '@covid/components';
 import i18n from '@covid/locale/i18n';
-import Introduction from '@assets/mental-health-playback/introduction.svg';
+import Introduction, { defaultWidth as introductionWidth } from '@assets/mental-health-playback/Introduction';
 import Info from '@assets/mental-health-playback/info.svg';
 import { styling } from '@covid/themes';
 import Card from '@covid/components/Cards/Card';
@@ -17,6 +17,8 @@ const items = [
 ];
 
 export default function MHPIntroductionScreen() {
+  const windowWidth = useWindowDimensions().width;
+
   return (
     <BasicPage
       active
@@ -24,9 +26,9 @@ export default function MHPIntroductionScreen() {
       footerTitle={i18n.t('mental-health-playback.introduction.button')}
       onPress={() => NavigatorService.navigate('MentalHealthPlaybackGeneral')}
       style={styling.backgroundWhite}>
-      <Introduction />
-      <View style={styling.padding}>
-        <Card style={styling.marginBottom}>
+      <Introduction scale={windowWidth / introductionWidth} />
+      <View style={[styling.padding, styling.marginVerticalAuto]}>
+        <Card backgroundColor="#F5F9FC" style={styling.marginBottom}>
           <Text style={styling.marginBottom} textClass="h4">
             {i18n.t('mental-health-playback.introduction.title')}
           </Text>

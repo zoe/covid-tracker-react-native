@@ -1422,6 +1422,138 @@
   },
 
   "mental-health-playback": {
+    "you": "You",
+
+    "general": {
+      "correlated-description": "Reporting more of this was linked to",
+      "end-button": "Close",
+      "end-description": "You can always return to these via the Home Page or your personal Timeline",
+      "end-title": "That's it!\n\nYou made it through all your insights",
+      "explanation-card": "We have compared your answers against"
+    },
+
+    "insights": {
+      "drinking_alcohol_less": {
+        "abbreviation": "Less alcohol",
+        "description": "Was moderately associated with lower anxiety and depression within your group",
+        "title": "Consuming less alcohol"
+      },
+      "drinking_alcohol_more": {
+        "abbreviation": "More alcohol",
+        "description": "Was moderately associated with higher anxiety and depression within your group",
+        "title": "Consuming more alcohol"
+      },
+      "engaging_in_orgs_clubs_socs_less": {
+        "abbreviation": "Less social organisations",
+        "description": "Was moderately associated with higher anxiety and depression within your group",
+        "title": "Engaging less in organisations, clubs etc"
+      },
+      "engaging_in_orgs_clubs_socs_more": {
+        "abbreviation": "More social organisations",
+        "description": "Was moderately associated with lower anxiety and depression within your group",
+        "title": "Engaging more in organisations, clubs etc"
+      },
+      "being_physically_active_or_doing_exercise_less": {
+        "abbreviation": "Less physical activity",
+        "description": "Is strongly associated with lower anxiety and depression within your group",
+        "title": "Being more physically active"
+      },
+      "being_physically_active_or_doing_exercise_more": {
+        "abbreviation": "More physical activity",
+        "description": "Is strongly associated with higher anxiety and depression within your group",
+        "title": "Being less physically active"
+      },
+      "interacting_face_to_face_with_family_friends_less": {
+        "abbreviation": "Less face-to-face",
+        "description": "Was moderately associated with lower anxiety and depression within your group",
+        "title": "Having less face-to-face time with family and friends"
+      },
+      "interacting_face_to_face_with_family_friends_more": {
+        "abbreviation": "More face-to-face",
+        "description": "Was moderately associated with higher anxiety and depression within your group",
+        "title": "Having more face-to-face time with family and friends"
+      },
+      "spending_time_in_green_spaces_less": {
+        "abbreviation": "Less time in green spaces",
+        "description": "Was strongly associated with higher anxiety and depression within your group",
+        "title": "Spending less time in green spaces"
+      },
+      "spending_time_in_green_spaces_more": {
+        "abbreviation": "More time in green spaces",
+        "description": "Was strongly associated with lower anxiety and depression within your group",
+        "title": "Spending more time in green spaces"
+      },
+      "spending_time_with_pets_less": {
+        "abbreviation": "Less time with pets",
+        "description": "Was, in your group, moderately associated with higher anxiety and depression scores ",
+        "title": "Spending less time with pets"
+      },
+      "spending_time_with_pets_more": {
+        "abbreviation": "More time with pets",
+        "description": "Was, in your group, moderately associated with lower anxiety and depression scores ",
+        "title": "Spending more time with pets"
+      },
+      "relaxation_mindfulness_meditation_less": {
+        "abbreviation": "Relaxing less",
+        "description": "Was, in your group, moderately associated with higher anxiety and depression scores ",
+        "title": "Practising less relaxation and mindfulness"
+      },
+      "relaxation_mindfulness_meditation_more": {
+        "abbreviation": "Relaxing more",
+        "description": "Was, in your group, moderately associated with lower anxiety and depression scores ",
+        "title": "Practising more relaxation and mindfulness"
+      },
+      "using_devices_with_a_screen_less": {
+        "abbreviation": "Less screen usage",
+        "description": "Was mildly associated with lower anxiety and depression scores",
+        "title": "Spending less time on screens and devices"
+      },
+      "using_devices_with_a_screen_more": {
+        "abbreviation": "More screen usage",
+        "description": "Was mildly associated with higher anxiety and depression scores",
+        "title": "Spending more time on screens and devices"
+      },
+      "sleeping_well_less": {
+        "abbreviation": "Sleeping well less often",
+        "description": "Is strongly associated with higher anxiety and depression within your group",
+        "title": "Sleeping well less often"
+      },
+      "sleeping_well_more": {
+        "abbreviation": "Sleeping well more often",
+        "description": "Is strongly associated with lower anxiety and depression within your group",
+        "title": "Sleeping well more often"
+      },
+      "smoking_or_vaping_less": {
+        "abbreviation": "Smoking less",
+        "description": "Was moderately associated with lower anxiety and depression within your group",
+        "title": "Smoking or vaping less"
+      },
+      "smoking_or_vaping_more": {
+        "abbreviation": "Smoking more",
+        "description": "Was moderately associated with higher anxiety and depression within your group",
+        "title": "Smoking or vaping more"
+      },
+      "eating_savoury_snacks_or_confectionery_less": {
+        "abbreviation": "Less snacks",
+        "description": "Is moderately associated with lower anxiety and depression scores",
+        "title": "Eating less savoury snacks and confectionery"
+      },
+      "eating_savoury_snacks_or_confectionery_more": {
+        "abbreviation": "More snacks",
+        "description": "Is moderately associated with higher anxiety and depression scores",
+        "title": "Eating more savoury snacks and confectionery"
+      },
+      "talking_to_family_friends_via_phone_or_technology_less": {
+        "abbreviation": "Talking less to family / friends",
+        "description": "Was strongly associated with higher anxiety and depression scores",
+        "title": "Talking less to family / friends via devices"
+      },
+      "talking_to_family_friends_via_phone_or_technology_more": {
+        "abbreviation": "Talking more to family / friends",
+        "description": "Was strongly associated with lower anxiety and depression scores",
+        "title": "Talking more to family / friends via devices"
+      }
+    },
     "introduction": {
       "button": "Let's go!",
       "info": "Mental health, in these insights, is measured based on self-reported scores for anxiety and depression",

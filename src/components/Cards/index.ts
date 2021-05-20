@@ -4,3 +4,4 @@ export { default as SimpleShare } from './simple-share';
 export { default as SpeechCard } from './speech-card';
 export { default as StudyCard } from './StudyCard';
 export { default as ShareTimelineCard } from './share-timeline-card';
+export { default as Card } from './Card';

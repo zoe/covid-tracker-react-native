@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { useTheme } from '@covid/themes';
@@ -10,6 +10,7 @@ interface IProps {
   backgroundColor?: string;
   children?: React.ReactNode;
   paddingHorizontal?: number;
+  style?: StyleProp<ViewStyle>;
 }
 
 export default function BasicNavHeader(props: IProps) {
@@ -17,12 +18,15 @@ export default function BasicNavHeader(props: IProps) {
   const { colors, grid } = useTheme();
   return (
     <View
-      style={{
-        backgroundColor: props.backgroundColor ?? 'transparent',
-        paddingTop: grid.l,
-        paddingHorizontal: props.paddingHorizontal ?? grid.gutter,
-        paddingBottom: grid.m,
-      }}>
+      style={[
+        {
+          backgroundColor: props.backgroundColor ?? 'transparent',
+          paddingTop: grid.l,
+          paddingHorizontal: props.paddingHorizontal ?? grid.gutter,
+          paddingBottom: grid.m,
+        },
+        props.style,
+      ]}>
       <View style={styles.row}>
         <View style={styles.flex}>
           <RoundIconButton

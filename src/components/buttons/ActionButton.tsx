@@ -6,16 +6,14 @@ import { RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@covid/theme';
 
 interface IProps {
-  buttonProps?: any;
   children: ReactNode;
   error?: boolean;
   icon: ReactNode;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
-  textProps?: any;
 }
 
-function ActionButton({ buttonProps, children, error = false, icon, onPress, style = {}, textProps }: IProps) {
+function ActionButton({ children, error = false, icon, onPress, style = {} }: IProps) {
   const backgroundColor = colors.backgroundTertiary;
   const btnStyle = [
     styles.button,
@@ -23,12 +21,10 @@ function ActionButton({ buttonProps, children, error = false, icon, onPress, sty
     style,
   ];
   return (
-    <Button style={btnStyle} onPress={onPress} {...buttonProps}>
+    <Button style={btnStyle} onPress={onPress}>
       <View style={styles.row}>
         <View style={styles.textContainer}>
-          <RegularText style={[fontStyles.bodyLight, styles.label, { color: colors.primary }]} {...textProps}>
-            {children}
-          </RegularText>
+          <RegularText style={[fontStyles.bodyLight, styles.label, { color: colors.primary }]}>{children}</RegularText>
         </View>
         <View>{icon}</View>
       </View>

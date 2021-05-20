@@ -13,7 +13,7 @@ import Star from '@assets/mental-health-playback/Star';
 import { mentalHealthApiClient } from '@covid/Services';
 
 const AMOUNT_STARS = 5;
-const THROTTLE_TIME = 250 // Milliseconds
+const THROTTLE_TIME = 250; // Milliseconds
 
 const ratings = Array(AMOUNT_STARS)
   .fill(null)
