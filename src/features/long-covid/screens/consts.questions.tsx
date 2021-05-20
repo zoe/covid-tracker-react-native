@@ -48,32 +48,32 @@ export const validations = Yup.object().shape({
   at_least_one_vaccine: Yup.string()
     .nullable()
     .when('had_covid', {
-      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY',
+      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'UNSURE' && had_covid !== 'DECLINE_TO_SAY',
       then: Yup.string().required(i18n.t('validation-error-text-required')),
     }),
   duration: Yup.string()
     .nullable()
     .when('had_covid', {
-      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY',
+      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'UNSURE' && had_covid !== 'DECLINE_TO_SAY',
       then: Yup.string().required(i18n.t('validation-error-text-required')),
     }),
   had_covid: Yup.string().required(i18n.t('validation-error-text-required')),
   ongoing_symptom_week_before_first_vaccine: Yup.string()
     .nullable()
     .when('had_covid', {
-      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY',
+      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'UNSURE' && had_covid !== 'DECLINE_TO_SAY',
       then: Yup.string().required(i18n.t('validation-error-text-required')),
     }),
   restriction: Yup.string()
     .nullable()
     .when('had_covid', {
-      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY',
+      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'UNSURE' && had_covid !== 'DECLINE_TO_SAY',
       then: Yup.string().required(i18n.t('validation-error-text-required')),
     }),
   symptom_change_2_weeks_after_first_vaccine: Yup.string()
     .nullable()
     .when('had_covid', {
-      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'DECLINE_TO_SAY',
+      is: (had_covid) => had_covid !== 'NO' && had_covid !== 'UNSURE' && had_covid !== 'DECLINE_TO_SAY',
       then: Yup.string().required(i18n.t('validation-error-text-required')),
     }),
 });
