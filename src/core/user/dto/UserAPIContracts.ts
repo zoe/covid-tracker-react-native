@@ -257,6 +257,7 @@ export type PatientInfosRequest = {
   has_school_group: boolean;
   should_ask_vaccine_questions: boolean;
   vaccine_status: VaccineStatus;
+  should_ask_long_covid_questions: boolean;
 };
 
 export enum VaccineStatus {

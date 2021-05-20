@@ -27,11 +27,4 @@ export class LongCovidApiClient implements ILongCovidApiClient {
     };
     return this.apiClient.post<ILongCovid, ILongCovid>(API_URL, longCovid);
   }
-
-  dataContainsPatientId(longCovidList:ILongCovid[], patientId: string): boolean {
-    if (!longCovidList || !longCovidList.length) {
-      return false;
-    }
-    return longCovidList.filter((longCovid: ILongCovid) => longCovid.patient === patientId).length > 0;
-  }
 }

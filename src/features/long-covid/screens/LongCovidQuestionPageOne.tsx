@@ -10,7 +10,6 @@ import {
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ScreenName } from '@covid/core/Coordinator';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
-import { ILongCovid } from '@covid/core/state/long-covid';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -34,6 +33,7 @@ import {
   longCovidQuestionPageOneDataInitialState,
   checkboxIndexOffset,
 } from './consts.questions';
+import { ILongCovid } from '../types';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'LongCovidStart'>;
@@ -224,8 +224,6 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     </Formik>
   );
 }
-
-LongCovidQuestionPageOneScreen.initialFormValues = (): ILongCovid => longCovidQuestionPageOneDataInitialState;
 
 LongCovidQuestionPageOneScreen.schema = () => validations;
 

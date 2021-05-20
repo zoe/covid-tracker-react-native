@@ -5,7 +5,6 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ILongCovid, selectlongCovid, setlongCovid } from '@covid/core/state/long-covid';
 import { RootState } from '@covid/core/state/root';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ScreenParamList } from '@covid/features';
@@ -18,7 +17,7 @@ import { colors } from '@theme';
 import { View } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { USStudyInvite } from './partials/USStudyInvite';
 
 type Props = {
@@ -32,12 +31,13 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const [location, setLocation] = useState('');
   const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const isFocused = useIsFocused();
-  const longCovidState = useSelector(selectlongCovid);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
     const { getName } = require('country-list');
+
+    console.log('assessmentCoordinator.assessmentData.patientData: ',assessmentCoordinator.assessmentData.patientData)
+    console.log('assessmentCoordinator.assessmentData.patientData.should_ask_long_covid_questions: ',assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions)
 
     return navigation.addListener('focus', () => {
       const location = patientInfo?.current_country_code
@@ -51,26 +51,11 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     if (isSubmitting) {
       return;
     }
-    if (!longCovidApiClient.dataContainsPatientId(longCovidState.profiles, assessmentCoordinator.assessmentData.patientData.patientId)) {
-      // Try and get from API: if nothing, redirect to quiz, otherwise and save to state if anything comes back!
-      longCovidApiClient.get(assessmentCoordinator.assessmentData.patientData.patientId).then((data: ILongCovid[]) => {
-        dispatch(setlongCovid(data));
-        if (!longCovidApiClient.dataContainsPatientId(data, assessmentCoordinator.assessmentData.patientData.patientId)) {
-          NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
-          return;
-        }
-        else {
-          dispatch(setlongCovid(data));
-          nextPage(healthy);
-        }
-      });
+    setIsSubmitting(true);
+    if (assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions) {
+      NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
       return;
     }
-    nextPage(healthy);
-  }
-
-  const nextPage = async (healthy: boolean) => {
-    setIsSubmitting(true);
     const status = healthy ? 'healthy' : 'not_healthy';
     await updateAssessment(status, healthy);
     assessmentCoordinator.gotoNextScreen(route.name, healthy);

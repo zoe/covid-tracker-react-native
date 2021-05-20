@@ -44,7 +44,3 @@ export interface ILongCovid {
 
   symptom_change_comments: string | null;
 }
-
-export interface ILongCovidState {
-  profiles: ILongCovid[];
-}
