@@ -1416,6 +1416,17 @@
 
   "mental-health-playback": {
     "you": "You",
+    "no-change": "No change",
+    "less": "Less",
+    "more": "More",
+
+    "modal": {
+      "button-positive": "View insights",
+      "button-negative": "Skip for now",
+      "description": "We've crunched the data and have prepared your very own personal insights into your unique habits during the pandemic for you to look at!\n\nThanks for your participation.",
+      "tag": "INSIGHTS AVAILABLE",
+      "title": "Mental Health during the pandemic"
+    },
 
     "general": {
       "correlated-description": "Reporting more of this was linked to",

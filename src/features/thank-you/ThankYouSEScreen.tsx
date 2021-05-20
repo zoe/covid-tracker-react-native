@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   },
   content: {
     marginVertical: 32,
-    marginHorizontal: 18,
+    marginHorizontal: 16,
   },
   subTitle: {
     textAlign: 'center',

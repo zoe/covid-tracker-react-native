@@ -1,114 +1,76 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import moment from 'moment';
 
-import { Modal, Text } from '@covid/components';
-import { timelineModalCard } from '@assets';
-import { setHasViewedAnniversaryModal } from '@covid/core/state';
-import { useInjection } from '@covid/provider/services.hooks';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { Services } from '@covid/provider/services.types';
-import { Profile } from '@covid/core/profile/ProfileService';
-import Analytics, { events } from '@covid/core/Analytics';
+import { QuoteMarks } from '@assets';
+import i18n from '@covid/locale/i18n';
+import { BrandedButton, DoctorProfile, Modal, Tag, Text } from '@covid/components';
+import { colors, styling } from '@covid/themes';
+import { events, track } from '@covid/core/Analytics';
+import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import appCoordinator from '@covid/features/AppCoordinator';
 
 export default function MentalHealthPlaybackModal() {
+  const [tracked, setTracked] = useState(false);
   const { goBack } = useNavigation();
-  const dispatch = useDispatch();
-  const patientService = useInjection<IPatientService>(Services.Patient);
-  const [signupDate, setSignupDate] = useState<string>('');
 
-  const updateSignupDate = async () => {
-    const profile: Profile | null = await patientService.myPatientProfile();
-
-    if (profile) {
-      setSignupDate(moment(profile.created_at).format('MMMM Do YYYY'));
-    }
-  };
   useEffect(() => {
-    updateSignupDate();
-  });
-
-  const handleViewTimeline = (view: boolean) => {
-    dispatch(setHasViewedAnniversaryModal(true));
-    if (view) {
-      Analytics.track(events.ANNIVERSARY_FROM_MODAL);
-      appCoordinator.goToAnniversary();
-      return;
+    if (!tracked) {
+      track(events.MENTAL_HEALTH_PLAYBACK_SCREEN_MODAL);
+      setTracked(true);
     }
-    Analytics.track(events.ANNIVERSARY_SKIP);
-    goBack();
-  };
+  });
 
   return (
     <Modal>
-      <View style={{ alignItems: 'center' }}>
-        <View style={styles.feature}>
-          <Text textClass="pXSmall" style={{ color: 'white' }}>
-            NEW FEATURE
-          </Text>
-        </View>
-      </View>
-      {Array(1)
-        .fill(null)
-        .map(() => (
-          <Text textClass="h3" textAlign="center" rhythm={24}>
-            Your personal contribution to science!
-          </Text>
-        ))}
-      <Text textClass="pLight" textAlign="center">
-        Thank you for reporting with us since
+      <Tag
+        color={colors.coral.main.bgColor}
+        style={styling.selfCenter}
+        text={i18n.t('mental-health-playback.modal.tag').toUpperCase()}
+      />
+      <Text
+        inverted
+        colorPalette="accentBlue"
+        colorShade="main"
+        style={styles.title}
+        textClass="h3Regular"
+        textAlign="center">
+        {i18n.t('mental-health-playback.modal.title')}
       </Text>
-      <Text textAlign="center">{signupDate}</Text>
-      <View style={{ marginBottom: 12 }}>
-        <Image
-          source={timelineModalCard}
-          style={{
-            aspectRatio: 1.55,
-            resizeMode: 'contain',
-            height: undefined,
-            width: '100%',
-          }}
-        />
-      </View>
-      <View>
-        <TouchableOpacity
-          accessible
-          accessibilityRole="button"
-          style={[styles.button, { backgroundColor: '#0165B5' }]}
-          onPress={() => handleViewTimeline(true)}>
-          <Text textClass="pSmallLight" style={{ color: 'white' }}>
-            Discover your timeline
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          accessible
-          accessibilityRole="button"
-          style={[styles.button, { backgroundColor: 'white' }]}
-          onPress={() => handleViewTimeline(false)}>
-          <Text textClass="pSmallLight">Skip</Text>
-        </TouchableOpacity>
-      </View>
+      <DoctorProfile
+        image={getMentalHealthStudyDoctorImage()}
+        location={i18n.t('mental-health.doctor-location')}
+        name={i18n.t('mental-health.doctor-name')}
+        title={i18n.t('mental-health.doctor-title')}
+      />
+      <QuoteMarks />
+      <Text colorPalette="uiDark" colorShade="dark" inverted textClass="pLight" style={styles.description}>
+        {i18n.t('mental-health-playback.modal.description')}
+      </Text>
+      <BrandedButton onPress={() => appCoordinator.goToMentalHealthStudyPlayback()} style={styles.buttonPositive}>
+        {i18n.t('mental-health-playback.modal.button-positive')}
+      </BrandedButton>
+      <BrandedButton onPress={() => goBack()} style={styles.buttonNegative}>
+        <Text textClass="pSmallLight">{i18n.t('mental-health-playback.modal.button-negative')}</Text>
+      </BrandedButton>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  feature: {
-    backgroundColor: '#FA7268',
-    borderRadius: 4,
-    marginBottom: 20,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+  buttonPositive: {
+    backgroundColor: '#0165B5',
   },
-  button: {
-    alignItems: 'center',
-    borderRadius: 24,
-    height: 48,
-    justifyContent: 'center',
-    marginBottom: 8,
-    width: '100%',
+  buttonNegative: {
+    backgroundColor: 'white',
+  },
+  description: {
+    paddingTop: 8,
+    paddingHorizontal: 16,
+    paddingBottom: 24,
+  },
+  title: {
+    marginTop: 16,
+    marginBottom: 16,
   },
 });

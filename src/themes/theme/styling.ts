@@ -103,6 +103,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  selfCenter: {
+    alignSelf: 'center',
+  },
   shadow: {
     elevation: 5,
     shadowColor: 'black',
