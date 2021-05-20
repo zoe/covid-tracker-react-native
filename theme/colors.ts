@@ -3,6 +3,7 @@
 export const colors = {
   brand: '#024364',
   lightBrand: '#5D879C',
+  transparentBrand: '#02436433',
   predict: '#082A5D',
   accent: '#A0278F',
 
