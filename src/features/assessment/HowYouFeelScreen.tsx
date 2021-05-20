@@ -36,9 +36,6 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
     const { getName } = require('country-list');
 
-    console.log('assessmentCoordinator.assessmentData.patientData: ',assessmentCoordinator.assessmentData.patientData)
-    console.log('assessmentCoordinator.assessmentData.patientData.should_ask_long_covid_questions: ',assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions)
-
     return navigation.addListener('focus', () => {
       const location = patientInfo?.current_country_code
         ? getName(patientInfo?.current_country_code)
