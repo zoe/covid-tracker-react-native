@@ -225,6 +225,8 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   );
 }
 
+LongCovidQuestionPageOneScreen.initialFormValues = (): ILongCovid => longCovidQuestionPageOneDataInitialState;
+
 LongCovidQuestionPageOneScreen.schema = () => validations;
 
 const styles = StyleSheet.create({
