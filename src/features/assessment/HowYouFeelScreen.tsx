@@ -44,6 +44,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     });
   }, [navigation]);
 
+  const currentProfileHasVaccine = () => currentProfileVaccines.length && currentProfileVaccines[0] &&
+    assessmentCoordinator.assessmentData.patientData.patientId === currentProfileVaccines[0].patient;
+
   const handlePress = async (healthy: boolean) => {
     if (isSubmitting) {
       return;
@@ -76,9 +79,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       setIsSubmitting(false);
     }
   }
-
+  
   let currentProfileVaccineEnteredText;
-  if (currentProfileVaccines.length) {
+  if (currentProfileHasVaccine()) {
     currentProfileVaccineEnteredText = (
       <TouchableOpacity onPress={() => assessmentCoordinator.goToVaccineLogSymptomsInfo()} style={{ margin: 16 }}>
         <View style={{ flexDirection: 'row' }}>
