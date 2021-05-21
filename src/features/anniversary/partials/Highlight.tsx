@@ -1,4 +1,5 @@
 import { Icon, Text, TIconName } from '@covid/components';
+import { colors } from '@theme/colors';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -29,7 +30,7 @@ function Highlight({ timelineEvent }: IProps) {
 const styles = StyleSheet.create({
   circle: {
     alignItems: 'center',
-    backgroundColor: '#EEEEEF',
+    backgroundColor: colors.backgroundTertiary,
     borderRadius: 16,
     height: 32,
     justifyContent: 'center',

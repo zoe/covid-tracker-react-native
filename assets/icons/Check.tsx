@@ -1,3 +1,4 @@
+import { colors } from '@theme/colors';
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
@@ -11,7 +12,7 @@ const Check: React.FC<CheckProps> = ({ width = 20, height = 20 }) => {
     <Svg fill="none" height={height} viewBox="0 0 20 22" width={width}>
       <Path
         d="M2.8 13.5l3.714 3.713 10.421-10.42"
-        stroke="#024364"
+        stroke={colors.brand}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3"

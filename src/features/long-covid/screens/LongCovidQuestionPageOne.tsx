@@ -10,7 +10,6 @@ import {
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ScreenName } from '@covid/core/Coordinator';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
-import { ILongCovid } from '@covid/core/state/long-covid';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -32,11 +31,20 @@ import {
   symptomChangesKeyList,
   validations,
   longCovidQuestionPageOneDataInitialState,
+  checkboxIndexOffset,
 } from './consts.questions';
+import { ILongCovid } from '../types';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'LongCovidStart'>;
 }
+
+const renderBulletLine = (text: string) => (
+    <View style={{ flexDirection: 'row', paddingRight: 16, paddingTop: 16 }}>
+        <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
+        <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
+    </View>
+);
 
 export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
@@ -61,18 +69,11 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
             value={props.values[key]}
             dark={true}
           >
-            {i18n.t(`long-covid.q${index + 4}`)}
+            {i18n.t(`long-covid.q${index + checkboxIndexOffset}`)}
           </CheckboxItem></View>
         ))}
         {props.values.other ? <GenericTextField formikProps={props} name="other" /> : null}
       </CheckboxList>
-    </View>
-  );
-
-  const renderBulletLine = (text: string) => (
-    <View style={{ flexDirection: 'row', paddingRight: 16, paddingTop: 16 }}>
-      <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
-      <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
     </View>
   );
 
@@ -216,7 +217,6 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
                 selectedValue={props.values.had_covid}
               />
               {renderExtendedForm(props)}
-
             </Form>
           </BasicPage>
         );
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 4,
   },
   hr: {
-    borderBottomColor: '#D8D8D8',
+    borderBottomColor: colors.hrColor,
     borderBottomWidth: 1,
     marginBottom: 40,
     marginTop: 16,
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   textarea: {
-    backgroundColor: '#EEEEEF',
+    backgroundColor: colors.backgroundTertiary,
     borderRadius: 8,
     paddingVertical: 32,
   },

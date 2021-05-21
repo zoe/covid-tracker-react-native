@@ -1,5 +1,6 @@
 import { covidByZoeIconDark } from '@assets';
 import { BasicNavHeader } from '@covid/components';
+import { colors } from '@theme/colors';
 import React from 'react';
 import { Image } from 'react-native';
 
@@ -18,7 +19,7 @@ function TimelineHeader() {
 
   return (
     <>
-      <BasicNavHeader backgroundColor="#EEEEEF">{getLogo()}</BasicNavHeader>
+      <BasicNavHeader backgroundColor={colors.backgroundTertiary}>{getLogo()}</BasicNavHeader>
     </>
   );
 }

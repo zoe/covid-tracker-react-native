@@ -1,4 +1,5 @@
 import ApiClient from '@covid/core/api/ApiClient';
+import { colors } from '@theme/colors';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, SafeAreaView } from 'react-native';
 
@@ -85,13 +86,13 @@ function Anniversary() {
   ];
 
   return (
-    <SafeAreaView style={{ backgroundColor: '#EEEEEF' }}>
+    <SafeAreaView style={{ backgroundColor: colors.backgroundTertiary }}>
       <TimelineHeader />
       <FlatList
         data={data}
         keyExtractor={(item: TRowItem) => item.id}
         renderItem={renderItem}
-        style={{ backgroundColor: '#EEEEEF' }}
+        style={{ backgroundColor: colors.backgroundTertiary }}
       />
     </SafeAreaView>
   );
