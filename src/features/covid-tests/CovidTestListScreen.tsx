@@ -121,7 +121,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
           <View style={{ flex: 1 }} />
 
           <BrandedButton onPress={this.handleNextButton} style={styles.continueButton}>
-            <Text>
+            <Text style={{ color: colors.white }}>
               {this.state.covidTests.length === 0
                 ? i18n.t('covid-test-list.never-had-test')
                 : i18n.t('covid-test-list.above-list-correct')}

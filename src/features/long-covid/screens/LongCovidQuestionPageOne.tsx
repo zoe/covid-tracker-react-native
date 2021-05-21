@@ -212,7 +212,6 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
               <DropdownField
                 error={props.touched.had_covid && props.errors.had_covid}
                 items={dropdownItemsQ1}
-                label={i18n.t('long-covid.q1')}
                 onValueChange={props.handleChange('had_covid')}
                 selectedValue={props.values.had_covid}
               />
