@@ -106,7 +106,6 @@ export const dropdownItemsQ3 = [
 
 export const checkBoxQuestions4To17 = [
   'problems_thinking_and_communicating',
-  'mood_changes',
   'poor_sleep',
   'body_aches',
   'muscle_aches',
