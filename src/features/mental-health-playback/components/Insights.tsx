@@ -39,7 +39,12 @@ export default React.memo(function Insights(props: IProps) {
             <View>
               <Spacer space={60} />
               <Card useShadow style={styles.card}>
-                <Text>{i18n.t('mental-health-playback.general.explanation-card')}</Text>
+                <Text>
+                  {i18n.t('mental-health-playback.general.explanation-card')}{' '}
+                  {i18n.t(`mental-health-playback.segments.${insight.segment}`, {
+                    defaultValue: i18n.t('mental-health-playback.segments.general'),
+                  })}
+                </Text>
               </Card>
             </View>
           ) : null}
@@ -63,13 +68,31 @@ export default React.memo(function Insights(props: IProps) {
           )}
 
           <View style={styles.contentWrapper}>
-            <TextHighlight textClass="h3Regular" color={colors.accentBlue.main.bgColor} query="less">
-              {i18n.t(`mental-health-playback.insights.${insight.activity_name}.title`)}
+            <TextHighlight
+              textClass="h3Regular"
+              color={colors.accentBlue.main.bgColor}
+              query={
+                insight.activity_name.includes('less')
+                  ? i18n.t('mental-health-playback.less')
+                  : i18n.t('mental-health-playback.more')
+              }>
+              {i18n.t(`mental-health-playback.insights.${insight.activity_name}.title`, {
+                defaultValue: i18n.t('mental-health-playback.general.default-title'),
+              })}
             </TextHighlight>
-            <Text inverted style={styles.description} colorPalette="uiDark" colorShade="dark" textClass="p">
-              {i18n.t(`mental-health-playback.insights.${insight.activity_name}.description`)}
-            </Text>
-
+            <TextHighlight
+              inverted
+              color={colors.accentBlue.main.bgColor}
+              style={styles.description}
+              colorPalette="uiDark"
+              colorShade="dark"
+              textClass="p"
+              query={insight.direction}>
+              {i18n.t('mental-health-playback.general.insight-description', {
+                direction: insight.direction,
+                level_of_association: insight.level_of_association,
+              })}
+            </TextHighlight>
             <BarChart color="#0165B5" items={insight.answers} />
           </View>
 
@@ -90,7 +113,7 @@ export default React.memo(function Insights(props: IProps) {
                       colorShade="main"
                       textClass="pSmall"
                       style={styling.marginTopSmall}>
-                      {i18n.t(`mental-health-playback.insights.${activityName}.abbreviation`)}
+                      {i18n.t(`mental-health-playback.insights.${activityName}.abbreviation`, { defaultValue: '' })}
                     </Text>
                   </View>
                 ))}
