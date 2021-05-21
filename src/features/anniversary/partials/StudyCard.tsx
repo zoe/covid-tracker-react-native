@@ -1,4 +1,5 @@
 import { Icon, Text } from '@covid/components';
+import { colors } from '@theme/colors';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -38,7 +39,7 @@ function StudyCard({ timelineEvent }: IProps) {
           iconSize={18}
           style={{ marginTop: 4, opacity }}
         />
-        <Text style={{ color: '#24262B', marginLeft: 12, opacity }} textClass="pLight">
+        <Text style={{ color: colors.textDark, marginLeft: 12, opacity }} textClass="pLight">
           {title}
         </Text>
       </View>
@@ -49,7 +50,7 @@ function StudyCard({ timelineEvent }: IProps) {
       ) : null}
       <ProgressBars progress={p} />
       {summary ? (
-        <Text style={{ color: '#024364', marginTop: 12 }} textClass="pLight">
+        <Text style={{ color: colors.brand, marginTop: 12 }} textClass="pLight">
           {summary}
         </Text>
       ) : null}

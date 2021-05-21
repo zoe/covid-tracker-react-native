@@ -1,5 +1,6 @@
 import { TTypeSizes } from '@covid/themes';
 import { TStyleObject } from '@covid/utils/types';
+import { colors } from '@theme/colors';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
@@ -18,7 +19,7 @@ interface IProps {
 
 function CheckBoxButton({
   active = true,
-  backgroundColor = '#EEEEEF',
+  backgroundColor = colors.backgroundTertiary,
   backgroundSize = 32,
   iconColor = 'black',
   iconName = 'tick',

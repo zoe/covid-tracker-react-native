@@ -1,10 +1,11 @@
 import styled from '@covid/themes/styled-components';
+import { colors } from '@theme/colors';
 import { View } from 'react-native';
 
 export const SContainerView = styled(View)`
   ${(props) => `
     background-color: white;
-    border-color: #EEEEEF;
+    border-color: ${colors.backgroundTertiary};
     border-radius: ${props.theme.grid.l}px;
     border-width: 1px;
     margin: ${props.theme.grid.s}px 0;

@@ -4,6 +4,7 @@ import { setDietStudyConsent, TDietStudyConsent } from '@covid/core/state';
 import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
 import { useNavigation } from '@react-navigation/native';
+import { colors } from '@theme/colors';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -71,7 +72,7 @@ function DietStudyModal() {
               accessible
               accessibilityRole="button"
               onPress={() => handleSetConsent('NO')}
-              style={[styles.button, { backgroundColor: '#EEEEEF' }]}
+              style={[styles.button, { backgroundColor: colors.backgroundTertiary }]}
             >
               <Text textClass="pSmallLight">{i18n.t('diet-study.modal-answer-no')}</Text>
             </TouchableOpacity>

@@ -5,6 +5,7 @@ import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { setConsent, setLastPresentedDate, TMentalHealthConsent } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { useNavigation } from '@react-navigation/native';
+import { colors } from '@theme/colors';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -81,7 +82,7 @@ function MentalHealthModal() {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => handleSetConsent('LATER')}
-              style={[styles.button, { backgroundColor: '#EEEEEF' }]}
+              style={[styles.button, { backgroundColor: colors.backgroundTertiary }]}
             >
               <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-later')}</Text>
             </TouchableOpacity>

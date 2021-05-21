@@ -7,17 +7,17 @@ import { inject, injectable } from 'inversify';
 const API_URL = '/long_covid/';
 
 export interface ILongCovidApiClient {
-  get(id: any): Promise<ILongCovid[]>;
+  get(patientId: string): Promise<ILongCovid[]>;
   add(patientId: string, LongCovid: ILongCovid): Promise<ILongCovid>;
-  update(LongCovid: ILongCovid): Promise<ILongCovid>;
+  dataContainsPatientId(longCovidList:ILongCovid[], patientId: string): boolean;
 }
 
 @injectable()
 export class LongCovidApiClient implements ILongCovidApiClient {
   constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
-  get(): Promise<ILongCovid[]> {
-    return this.apiClient.get<ILongCovid[]>(API_URL);
+  get(patientId: string): Promise<ILongCovid[]> {
+    return this.apiClient.get<ILongCovid[]>(API_URL, {patient: patientId});
   }
 
   add(patientId: string, longCovid: ILongCovid): Promise<ILongCovid> {
@@ -26,10 +26,5 @@ export class LongCovidApiClient implements ILongCovidApiClient {
       patient: patientId,
     };
     return this.apiClient.post<ILongCovid, ILongCovid>(API_URL, longCovid);
-  }
-
-  update(LongCovid: ILongCovid): Promise<ILongCovid> {
-    const url = `${API_URL}${LongCovid.id}/`;
-    return this.apiClient.patch<ILongCovid, ILongCovid>(url, LongCovid);
   }
 }
