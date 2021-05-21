@@ -49,7 +49,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       return;
     }
     setIsSubmitting(true);
-    if (assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions) {
+    if (healthy && assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions) {
       NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
       return;
     }
