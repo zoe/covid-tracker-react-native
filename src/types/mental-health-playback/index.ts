@@ -1,6 +1,8 @@
+export type TTitle = 'NO_CHANGE' | 'LESS' | 'MORE' | '';
+
 export interface IAnswer {
   label: string;
-  title: 'NO_CHANGE' | 'LESS' | 'MORE';
+  title: TTitle;
   value: number;
 }
 
@@ -11,4 +13,5 @@ export interface IInsight {
   direction: 'higher' | 'lower';
   level_of_association: 'mildly' | 'moderately' | 'strongly';
   segment: string;
+  user_answer?: TTitle;
 }

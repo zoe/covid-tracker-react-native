@@ -9,12 +9,17 @@ import { grid, styling } from '@covid/themes';
 import i18n from '@covid/locale/i18n';
 import PaginationIndicator from '@covid/features/mental-health-playback/components/PaginationIndicator';
 import Insights from '@covid/features/mental-health-playback/components/Insights';
+import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
 export default function MHPGeneralScreen() {
   const [scrollViewHeight, setScrollViewHeight] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const insights = useSelector(selectInsights);
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const scrollViewRef = useRef<ScrollView>(null);
+
+  const isGeneral = startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b';
 
   function onPress() {
     NavigatorService.navigate('MentalHealthPlaybackRating');
@@ -59,7 +64,11 @@ export default function MHPGeneralScreen() {
           <View style={{ height: scrollViewHeight }}>
             <View style={styles.view}>
               <Text textAlign="center" textClass="h3Regular">
-                {i18n.t('mental-health-playback.general.end-title')}
+                {i18n.t(
+                  isGeneral
+                    ? 'mental-health-playback.general.end-title-general'
+                    : 'mental-health-playback.general.end-title-personal'
+                )}
               </Text>
               <Text
                 inverted

@@ -15,6 +15,7 @@ interface IItem {
 interface IProps {
   color: string;
   items: IItem[];
+  userAnswer?: string;
 }
 
 const ITEM_HEIGHT = 50;
@@ -28,19 +29,19 @@ export default React.memo(function BarChart({ items = [], ...props }: IProps) {
     MORE: i18n.t('mental-health-playback.more'),
     NO_CHANGE: i18n.t('mental-health-playback.no-change'),
   };
+  const answerIndex = items.findIndex((item) => item.title === props.userAnswer);
   return (
     <View>
       {items.map((item, index) => (
         <View key={`bar-chart-item-${index}`} style={styling.rowCenter}>
-          {index === 0 ? (
+          {answerIndex === index ? (
             <Mention color="#A10056">
               <Text inverted colorPalette="ui" colorShade="lighter" textClass="h6Regular" style={styles.text}>
                 {i18n.t('mental-health-playback.you')}
               </Text>
             </Mention>
-          ) : (
-            <Mention color="#ffffff" />
-          )}
+          ) : null}
+          {answerIndex > -1 && answerIndex !== index ? <Mention color="#ffffff" /> : null}
           <View
             style={{
               backgroundColor: props.color,

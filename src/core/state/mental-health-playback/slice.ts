@@ -33,6 +33,7 @@ const insights: IInsight[] = [
     direction: 'higher',
     level_of_association: 'strongly',
     segment: 'men_40',
+    user_answer: '',
   },
   {
     activity_name: 'interacting_face_to_face_with_family_friends_less',
@@ -61,6 +62,7 @@ const insights: IInsight[] = [
     direction: 'higher',
     level_of_association: 'strongly',
     segment: 'men_20',
+    user_answer: 'NO_CHANGE',
   },
   {
     activity_name: 'smoking_or_vaping_less',
@@ -89,6 +91,7 @@ const insights: IInsight[] = [
     direction: 'higher',
     level_of_association: 'strongly',
     segment: 'women_50',
+    user_answer: 'LESS',
   },
   {
     activity_name: 'using_devices_with_a_screen_more',
@@ -117,6 +120,7 @@ const insights: IInsight[] = [
     direction: 'higher',
     level_of_association: 'strongly',
     segment: 'women_70',
+    user_answer: 'MORE',
   },
 ];
 

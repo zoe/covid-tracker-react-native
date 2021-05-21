@@ -83,7 +83,13 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
-    // enforce timeline if not yet viewed and is availble
+    NavigatorService.navigate('MentalHealthPlaybackModal');
+    if (startupInfo?.show_modal === 'mental-health-playback') {
+      NavigatorService.navigate('MentalHealthPlaybackModal');
+      return;
+    }
+
+    // Enforce timeline if not yet viewed and is available.
     if (startupInfo?.show_timeline && !anniversary.hasViewedModal) {
       NavigatorService.navigate('AnniversaryModal');
       return;
@@ -97,17 +103,12 @@ export function DashboardScreen({ navigation, route }: IProps) {
       }
     }
 
-    switch (settings.currentFeature) {
-      case 'UK_DIET_STUDY':
-        showDietStudy();
+    if (settings.currentFeature === 'UK_DIET_STUDY') {
+      if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
+        return;
+      }
+      NavigatorService.navigate('DietStudyModal');
     }
-  };
-
-  const showDietStudy = () => {
-    if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
-      return;
-    }
-    NavigatorService.navigate('DietStudyModal');
   };
 
   useEffect(() => {
@@ -144,9 +145,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
   }, []);
 
   useEffect(() => {
-    Linking.addEventListener('url', (url) => {
-      // TODO - get route from deeplink url
-    });
+    Linking.addEventListener('url', () => {});
   }, []);
 
   const hasNetworkData = networks && networks.length > 0;

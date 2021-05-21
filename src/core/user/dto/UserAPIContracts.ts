@@ -299,21 +299,24 @@ export type AreaStatsResponse = {
 };
 
 export type StartupInfo = {
-  min_supported_app_version?: string;
   app_requires_update?: boolean;
-  users_count: number;
   ip_country: string;
-  show_new_dashboard: boolean;
-  show_edit_location: boolean;
-  show_trendline: boolean;
-  show_timeline: boolean;
+  mh_insight_cohort?: 'MHIP-v1-cohort_a' | 'MHIP-v1-cohort_b' | 'MHIP-v1-cohort_c';
+  min_supported_app_version?: string;
   show_diet_score: boolean;
+  show_edit_location: boolean;
+  show_mh_insight?: boolean;
+  show_modal?: 'mental-health-playback';
+  show_new_dashboard: boolean;
+  show_timeline: boolean;
+  show_trendline: boolean;
+  users_count: number;
   local_data: {
-    map_url: string;
-    lad: string;
-    name: string;
-    cases: number;
     app_users: number;
+    cases: number;
+    lad: string;
+    map_url: string;
+    name: string;
     map_config?: {
       lat: number;
       lng: number;
