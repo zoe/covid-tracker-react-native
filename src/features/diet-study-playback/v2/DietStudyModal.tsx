@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
-import { SafeLayout, Text } from '@covid/components';
+import { BrandedButton, DoctorProfile, Modal, Text } from '@covid/components';
 import { setDietStudyConsent, TDietStudyConsent } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { events, track } from '@covid/core/Analytics';
 import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+import appCoordinator from '@covid/features/AppCoordinator';
 
-import appCoordinator from '../../AppCoordinator';
-
-function DietStudyModal() {
+export default function DietStudyModal() {
   const [tracked, setTracked] = useState(false);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
@@ -34,74 +33,34 @@ function DietStudyModal() {
   });
 
   return (
-    <SafeLayout withGutter>
-      <ScrollView>
-        <View style={styles.card}>
-          <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>
-            {i18n.t('diet-study.modal-title')}
-          </Text>
-          <View style={styles.profile}>
-            {getDietStudyDoctorImage()}
-            <View style={{ marginLeft: 16 }}>
-              <Text>{i18n.t('diet-study.doctor-name')}</Text>
-              <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-                {i18n.t('diet-study.doctor-title')}
-              </Text>
-              <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-                {i18n.t('diet-study.doctor-location')}
-              </Text>
-            </View>
-          </View>
-          <View>
-            <Text rhythm={24} textClass="pLight">
-              {i18n.t('diet-study.modal-intro-0')}
-            </Text>
-          </View>
-          <View>
-            <TouchableOpacity
-              accessible
-              accessibilityRole="button"
-              style={[styles.button, { backgroundColor: '#0165B5' }]}
-              onPress={() => handleSetConsent('YES')}>
-              <Text textClass="pSmallLight" style={{ color: 'white' }}>
-                {i18n.t('diet-study.modal-answer-yes')}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              accessible
-              accessibilityRole="button"
-              style={[styles.button, { backgroundColor: '#EEEEEF' }]}
-              onPress={() => handleSetConsent('NO')}>
-              <Text textClass="pSmallLight">{i18n.t('diet-study.modal-answer-no')}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeLayout>
+    <Modal>
+      <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>
+        {i18n.t('diet-study.modal-title')}
+      </Text>
+      <DoctorProfile
+        image={getDietStudyDoctorImage()}
+        location={i18n.t('diet-study.doctor-location')}
+        name={i18n.t('diet-study.doctor-name')}
+        title={i18n.t('diet-study.doctor-title')}
+      />
+      <Text rhythm={24} textClass="pLight">
+        {i18n.t('diet-study.modal-intro-0')}
+      </Text>
+      <BrandedButton onPress={() => handleSetConsent('YES')} style={styles.buttonPositive}>
+        {i18n.t('diet-study.modal-answer-yes')}
+      </BrandedButton>
+      <BrandedButton onPress={() => handleSetConsent('NO')} style={styles.buttonNegative}>
+        <Text textClass="pSmallLight">{i18n.t('diet-study.modal-answer-no')}</Text>
+      </BrandedButton>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
+  buttonPositive: {
+    backgroundColor: '#0165B5',
+  },
+  buttonNegative: {
     backgroundColor: 'white',
-    borderRadius: 16,
-    marginBottom: 24,
-    marginTop: 24,
-    padding: 24,
-  },
-  profile: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 24,
-  },
-  button: {
-    alignItems: 'center',
-    borderRadius: 24,
-    height: 48,
-    justifyContent: 'center',
-    marginBottom: 8,
-    width: '100%',
   },
 });
-
-export default DietStudyModal;

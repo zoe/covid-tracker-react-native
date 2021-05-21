@@ -146,7 +146,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const showPopup = () => {
-    NavigatorService.navigate('VaccineListMissing', { vaccine: vaccines[0] });
+    NavigatorService.navigate('VaccineListMissingModal', { vaccine: vaccines[0] });
   };
 
   const navigateToNextPageOrShowPopup = () => {

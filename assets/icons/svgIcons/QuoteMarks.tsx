@@ -9,7 +9,7 @@ interface IProps {
   style?: StyleProp<ViewStyle>;
 }
 
-function QuoteMarks(props: IProps) {
+export default function QuoteMarks(props: IProps) {
   return (
     <Svg style={props.style} width="24px" height="22px" viewBox="0 0 24 22">
       <G
@@ -30,5 +30,3 @@ function QuoteMarks(props: IProps) {
     </Svg>
   );
 }
-
-export default QuoteMarks;

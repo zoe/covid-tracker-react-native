@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
-import { Avatar, SafeLayout, Text } from '@covid/components';
+import { Avatar, Modal, Text } from '@covid/components';
 import { TMentalHealthConsent, setConsent, setLastPresentedDate } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { drEllenThompsonUK, drKarstenKoenenUS } from '@assets';
@@ -12,7 +12,7 @@ import { events, track } from '@covid/core/Analytics';
 
 import appCoordinator from '../../AppCoordinator';
 
-function MentalHealthModal() {
+export default function MentalHealthModal() {
   const [tracked, setTracked] = useState(false);
   const dispatch = useDispatch();
   const { goBack } = useNavigation();
@@ -42,65 +42,55 @@ function MentalHealthModal() {
   });
 
   return (
-    <SafeLayout withGutter>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.card}>
-          <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>
-            {i18n.t('mental-health.modal-title')}
+    <Modal>
+      <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>
+        {i18n.t('mental-health.modal-title')}
+      </Text>
+      <View style={styles.profile}>
+        <Avatar imgsrc={getImgSrc()} />
+        <View style={{ marginLeft: 16, marginRight: 32 }}>
+          <Text>{i18n.t('mental-health.doctor-name')}</Text>
+          <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+            {i18n.t('mental-health.doctor-title')}
           </Text>
-          <View style={styles.profile}>
-            <Avatar imgsrc={getImgSrc()} />
-            <View style={{ marginLeft: 16, marginRight: 32 }}>
-              <Text>{i18n.t('mental-health.doctor-name')}</Text>
-              <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-                {i18n.t('mental-health.doctor-title')}
-              </Text>
-              <Text textClass="pSmall" style={{ color: '#888B8C' }}>
-                {i18n.t('mental-health.doctor-location')}
-              </Text>
-            </View>
-          </View>
-          <View>
-            <Text rhythm={24} textClass="pLight">
-              {i18n.t('mental-health.modal-intro-0')}
-            </Text>
-            <Text rhythm={24} textClass="pLight">
-              {i18n.t('mental-health.modal-intro-1')}
-            </Text>
-            <Text rhythm={12} textClass="pLight">
-              {i18n.t('mental-health.modal-intro-2')}
-            </Text>
-          </View>
-          <View>
-            <TouchableOpacity
-              style={[styles.button, { backgroundColor: '#0165B5' }]}
-              onPress={() => handleSetConsent('YES')}>
-              <Text textClass="pSmallLight" style={{ color: 'white' }}>
-                {i18n.t('mental-health.modal-answer-yes')}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.button, { backgroundColor: '#EEEEEF' }]}
-              onPress={() => handleSetConsent('LATER')}>
-              <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-later')}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.button]} onPress={() => handleSetConsent('NO')}>
-              <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-no')}</Text>
-            </TouchableOpacity>
-          </View>
+          <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+            {i18n.t('mental-health.doctor-location')}
+          </Text>
         </View>
-      </ScrollView>
-    </SafeLayout>
+      </View>
+      <View>
+        <Text rhythm={24} textClass="pLight">
+          {i18n.t('mental-health.modal-intro-0')}
+        </Text>
+        <Text rhythm={24} textClass="pLight">
+          {i18n.t('mental-health.modal-intro-1')}
+        </Text>
+        <Text rhythm={12} textClass="pLight">
+          {i18n.t('mental-health.modal-intro-2')}
+        </Text>
+      </View>
+      <View>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: '#0165B5' }]}
+          onPress={() => handleSetConsent('YES')}>
+          <Text textClass="pSmallLight" style={{ color: 'white' }}>
+            {i18n.t('mental-health.modal-answer-yes')}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: '#EEEEEF' }]}
+          onPress={() => handleSetConsent('LATER')}>
+          <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-later')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button]} onPress={() => handleSetConsent('NO')}>
+          <Text textClass="pSmallLight">{i18n.t('mental-health.modal-answer-no')}</Text>
+        </TouchableOpacity>
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    marginBottom: 24,
-    padding: 24,
-  },
   profile: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -115,5 +105,3 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-export default MentalHealthModal;

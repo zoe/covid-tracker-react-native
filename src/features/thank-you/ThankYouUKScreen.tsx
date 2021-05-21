@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   signOff: {
     textAlign: 'center',
-    marginHorizontal: 18,
+    marginHorizontal: 16,
   },
   dateLabel: {
     textAlign: 'center',
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
   rootContainer: {
     maxWidth: 500,
-    padding: 18,
+    padding: 16,
   },
   socialIconContainer: {
     marginVertical: -10,
