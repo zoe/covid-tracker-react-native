@@ -4,12 +4,12 @@ import Text, { IProps as ITextProps } from '../text';
 
 interface IProps extends ITextProps {
   color?: string;
-  query?: string;
+  query: string;
 }
 
 export default function TextHighlight({ color, children, query, ...props }: IProps) {
   if (query && typeof children === 'string') {
-    const index = children.toLowerCase().indexOf(query);
+    const index = children.toLowerCase().indexOf(query.toLowerCase());
     if (index > -1) {
       return (
         <Text {...props}>

@@ -15,8 +15,8 @@ function DietStudyActionCard() {
 
   const getCtaTitle = () => {
     const title = settings.hasEmailSubscription
-      ? i18n.t(`diet-study.email-action-cta-unsubscribe`)
-      : i18n.t(`diet-study.email-action-cta`);
+      ? i18n.t('diet-study.email-action-cta-unsubscribe')
+      : i18n.t('diet-study.email-action-cta');
     return title;
   };
 
@@ -32,10 +32,10 @@ function DietStudyActionCard() {
       onPress={handleOnPress}
       textColor={settings.hasEmailSubscription ? colors.burgundy.main.bgColor : undefined}>
       <Text textClass="h4" rhythm={16}>
-        {i18n.t(`diet-study.email-action-title`)}
+        {i18n.t('diet-study.email-action-title')}
       </Text>
       <Text textClass="pLight" rhythm={8}>
-        {i18n.t(`diet-study.email-action-body`)}
+        {i18n.t('diet-study.email-action-body')}
       </Text>
       {settings.hasEmailSubscription && (
         <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', marginTop: 24 }}>
