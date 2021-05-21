@@ -1,5 +1,6 @@
 import {
   BasicPage,
+    BrandedButton,
   CheckboxItem,
   CheckboxList,
   DropdownField,
@@ -19,7 +20,7 @@ import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import { Form, Textarea } from 'native-base';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import {
   checkBoxQuestions4To17,
   dropdownItemsQ1,
@@ -201,14 +202,10 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     >
       {(props: FormikProps<ILongCovid>) => {
         return (
-          <BasicPage
-            withGutter
-            active={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
-            footerTitle="Next"
-            onPress={() => handleSubmit(props.values)}
-          >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+          <ScrollView>
+            <Form style={{ flexGrow: 1 }}>            
             <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
-            <Form style={{ flexGrow: 1 }}>
               <DropdownField
                 error={props.touched.had_covid && props.errors.had_covid}
                 items={dropdownItemsQ1}
@@ -216,11 +213,19 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
                 selectedValue={props.values.had_covid}
               />
               {renderExtendedForm(props)}
+              <View style={{ marginVertical: 64 }}><BrandedButton 
+                enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
+                onPress={() => handleSubmit(props.values)}
+              >
+                <RegularText style={{ color: colors.white }}>Next</RegularText>
+                </BrandedButton>
+              </View>
             </Form>
-          </BasicPage>
+          </ScrollView>
+        </KeyboardAvoidingView>
         );
-      }}
-    </Formik>
+      }} 
+    </Formik>   
   );
 }
 
@@ -249,5 +254,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundTertiary,
     borderRadius: 8,
     paddingVertical: 32,
+  },
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingTop: 56,
+    paddingBottom: 32,
   },
 });
