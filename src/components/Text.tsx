@@ -8,6 +8,7 @@ interface Props {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
   passProps?: any;
+  highlightColor?: any;
 }
 
 export const Header0Text = ({ style, children }: Props) => <Text style={[styles.header0Text, style]}>{children}</Text>;
@@ -19,6 +20,25 @@ export const HeaderLightText = ({ style, children }: Props) => (
 );
 
 export const Header3Text = ({ style, children }: Props) => <Text style={[styles.header3Text, style]}>{children}</Text>;
+
+interface IColourHighlightHeaderTextTextProps {
+  text: string;
+  style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
+  highlightColor?: any;
+}
+// Basic component that allows single colour highlighted text - wrap the marked text with **
+export const ColourHighlightHeaderTextText = ({ text, style, highlightColor }: IColourHighlightHeaderTextTextProps) => {
+  const textParts: string[] = text.split('*');
+  let highlightedText: boolean = text.startsWith('*') ? true : false;
+  return(
+  <Text style={[styles.headerText, style]}>
+    {textParts.filter((text: string) => text).map((text: string)=> {
+      const node: React.ReactNode = <Text style={{ color: highlightedText ? highlightColor : styles.headerText.color  }}>{ text }</Text>;
+      highlightedText = !highlightedText;
+      return node;
+    })}
+  </Text>
+)};
 
 export const RegularText = ({ style, children, passProps }: Props) => (
   <Text style={[styles.regularText, style]} {...passProps}>
