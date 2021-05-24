@@ -10,6 +10,8 @@ import BarChart from '@covid/features/mental-health-playback/components/BarChart
 import InsightIllustration from '@covid/features/mental-health-playback/components/InsightIllustration';
 import { Card, Spacer, Text, TextHighlight } from '@covid/components';
 import i18n from '@covid/locale/i18n';
+import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
 interface IProps {
   itemHeight: number;
@@ -21,8 +23,10 @@ type TNumberObject = { [key: number]: number };
 export default React.memo(function Insights(props: IProps) {
   const [illustrationHeights, setIllustrationHeights] = useState<TNumberObject>({});
   const insightsByName = useSelector(selectInsightsByName);
-
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const windowWidth = useWindowDimensions().width;
+
+  const isGeneral = startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b';
 
   function onLayoutView(event: LayoutChangeEvent, index: number) {
     setIllustrationHeights({
@@ -35,7 +39,7 @@ export default React.memo(function Insights(props: IProps) {
     <>
       {(props.insights || []).map((insight: IInsight, index: number) => (
         <View key={`insight-${index}`} style={{ height: props.itemHeight, justifyContent: 'space-between' }}>
-          {index === 0 ? (
+          {!isGeneral && index === 0 ? (
             <View>
               <Spacer space={60} />
               <Card useShadow style={styles.card}>
@@ -88,12 +92,17 @@ export default React.memo(function Insights(props: IProps) {
               colorShade="dark"
               textClass="p"
               query={insight.direction}>
-              {i18n.t('mental-health-playback.general.insight-description', {
-                direction: insight.direction,
-                level_of_association: insight.level_of_association,
-              })}
+              {i18n.t(
+                isGeneral
+                  ? 'mental-health-playback.general.insight-description-general'
+                  : 'mental-health-playback.general.insight-description-personal',
+                {
+                  direction: insight.direction,
+                  level_of_association: insight.level_of_association,
+                }
+              )}
             </TextHighlight>
-            <BarChart color="#0165B5" items={insight.answers} />
+            <BarChart color="#0165B5" items={insight.answers} userAnswer={insight.user_answer} />
           </View>
 
           <View style={styles.correlatedWrapper}>

@@ -1,4 +1,6 @@
 {
+  "loading": "Loading",
+
   "create-account": {
     "title": "Skapa nytt konto",
     "btn": "Skapa konto",
@@ -1421,9 +1423,10 @@
     "more": "More",
 
     "modal": {
-      "button-positive": "View insights",
       "button-negative": "Skip for now",
-      "description": "We've crunched the data and have prepared your very own personal insights into your unique habits during the pandemic for you to look at!\n\nThanks for your participation.",
+      "button-positive": "View insights",
+      "description-general": "We're excited to share the insights we found into how habits and lifestyle affected mental health during the pandemic\n\nThank you for your participation!",
+      "description-personal": "We've crunched the data and have prepared your very own personal insights into your unique habits during the pandemic for you to look at!\n\nThanks for your participation.",
       "tag": "INSIGHTS AVAILABLE",
       "title": "Mental Health during the pandemic"
     },
@@ -1434,9 +1437,11 @@
       "default-title": "This insight",
       "end-button": "Close",
       "end-description": "You can always return to these via the Home Page or your personal Timeline",
-      "end-title": "That's it!\n\nYou made it through all your insights",
+      "end-title-general": "That's it!\n\nYou made it through all the insights",
+      "end-title-personal": "That's it!\n\nYou made it through all your insights",
       "explanation-card": "We have compared your answers against",
-      "insight-description": "Was {{level_of_association}} associated with {{direction}} anxiety and depression within your group"
+      "insight-description-general": "Was {{level_of_association}} associated with {{direction}} anxiety and depression scores within your group",
+      "insight-description-personal": "Was {{level_of_association}} associated with {{direction}} anxiety and depression scores within your group"
     },
     "insights": {
       "drinking_alcohol_less": {
@@ -1554,10 +1559,13 @@
     "introduction": {
       "button": "Let's go!",
       "info": "Mental health, in these insights, is measured based on self-reported scores for anxiety and depression",
-      "point-1": "How you spent your time differently during the pandemic compared to before",
-      "point-2": "How your changes in habits compared with your peers",
-      "point-3": "How these habits were associated with mental health in different ways",
-      "title": "We will show you insights into your habits during the pandemic"
+      "point-general-1": "How people spent their time during the pandemic",
+      "point-general-2": "What associations these habits had on mental health",
+      "point-personal-1": "How you spent your time differently during the pandemic compared to before",
+      "point-personal-2": "How your changes in habits compared with your peers",
+      "point-personal-3": "How these habits were associated with mental health in different ways",
+      "title-general": "What associations these habits and lifestyle changes had on mental health",
+      "title-personal": "We will show you insights into your habits during the pandemic"
     },
     "rating": {
       "button": "Continue",

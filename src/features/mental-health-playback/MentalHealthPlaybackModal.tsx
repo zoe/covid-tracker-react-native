@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import { QuoteMarks } from '@assets';
 import i18n from '@covid/locale/i18n';
@@ -9,8 +10,11 @@ import { colors, styling } from '@covid/themes';
 import { events, track } from '@covid/core/Analytics';
 import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
 export default function MentalHealthPlaybackModal() {
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const [tracked, setTracked] = useState(false);
   const { goBack } = useNavigation();
 
@@ -45,9 +49,13 @@ export default function MentalHealthPlaybackModal() {
       />
       <QuoteMarks />
       <Text colorPalette="uiDark" colorShade="dark" inverted textClass="pLight" style={styles.description}>
-        {i18n.t('mental-health-playback.modal.description')}
+        {startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b'
+          ? i18n.t('mental-health-playback.modal.description-general')
+          : i18n.t('mental-health-playback.modal.description-personal')}
       </Text>
-      <BrandedButton onPress={() => appCoordinator.goToMentalHealthStudyPlayback()} style={styles.buttonPositive}>
+      <BrandedButton
+        onPress={() => appCoordinator.goToMentalHealthStudyPlayback(startupInfo)}
+        style={styles.buttonPositive}>
         {i18n.t('mental-health-playback.modal.button-positive')}
       </BrandedButton>
       <BrandedButton onPress={() => goBack()} style={styles.buttonNegative}>

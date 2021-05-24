@@ -83,7 +83,13 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   const runCurrentFeature = () => {
-    // enforce timeline if not yet viewed and is availble
+    NavigatorService.navigate('MentalHealthPlaybackModal');
+    if (startupInfo?.show_modal === 'mental-health-playback') {
+      NavigatorService.navigate('MentalHealthPlaybackModal');
+      return;
+    }
+
+    // Enforce timeline if not yet viewed and is available.
     if (startupInfo?.show_timeline && !anniversary.hasViewedModal) {
       NavigatorService.navigate('AnniversaryModal');
       return;
@@ -97,17 +103,12 @@ export function DashboardScreen({ navigation, route }: IProps) {
       }
     }
 
-    switch (settings.currentFeature) {
-      case 'UK_DIET_STUDY':
-        showDietStudy();
+    if (settings.currentFeature === 'UK_DIET_STUDY') {
+      if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
+        return;
+      }
+      NavigatorService.navigate('DietStudyModal');
     }
-  };
-
-  const showDietStudy = () => {
-    if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
-      return;
-    }
-    NavigatorService.navigate('DietStudyModal');
   };
 
   useEffect(() => {
@@ -144,9 +145,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
   }, []);
 
   useEffect(() => {
-    Linking.addEventListener('url', (url) => {
-      // TODO - get route from deeplink url
-    });
+    Linking.addEventListener('url', () => {});
   }, []);
 
   const hasNetworkData = networks && networks.length > 0;
@@ -167,16 +166,18 @@ export function DashboardScreen({ navigation, route }: IProps) {
           />
         )}
 
-        <StudyCard
-          doctorLocation={i18n.t('mental-health.doctor-location')}
-          doctorName={i18n.t('mental-health.doctor-name')}
-          doctorTitle={i18n.t('mental-health.doctor-title')}
-          imageNode={getMentalHealthStudyDoctorImage()}
-          onPress={() => appCoordinator.goToMentalHealthStudyPlayback()}
-          style={styling.marginVerticalSmall}
-          tagColor={colors.coral.main.bgColor}
-          title={i18n.t('mental-health.results-ready')}
-        />
+        {startupInfo?.show_mh_insight ? (
+          <StudyCard
+            doctorLocation={i18n.t('mental-health.doctor-location')}
+            doctorName={i18n.t('mental-health.doctor-name')}
+            doctorTitle={i18n.t('mental-health.doctor-title')}
+            imageNode={getMentalHealthStudyDoctorImage()}
+            onPress={() => appCoordinator.goToMentalHealthStudyPlayback(startupInfo)}
+            style={styling.marginVerticalSmall}
+            tagColor={colors.coral.main.bgColor}
+            title={i18n.t('mental-health.results-ready')}
+          />
+        ) : null}
 
         {startupInfo?.show_diet_score && (
           <StudyCard
