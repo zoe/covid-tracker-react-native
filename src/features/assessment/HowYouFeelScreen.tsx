@@ -19,6 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import { USStudyInvite } from './partials/USStudyInvite';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
@@ -31,6 +32,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const [location, setLocation] = useState('');
   const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const isFocused = useIsFocused();
+
+  // Startup info is currently used to toggle long covid - this is per user account and not per profile
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   useEffect(() => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
@@ -52,7 +56,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       return;
     }
     setIsSubmitting(true);
-    if (healthy && assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions) {
+    if (startupInfo.show_long_covid && healthy && 
+      assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions
+    ) {
       NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
       return;
     }
