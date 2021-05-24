@@ -348,6 +348,8 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   }
 
   goToMentalHealthStudyPlayback(startupInfo: StartupInfo | undefined) {
+    NavigatorService.navigate('MentalHealthPlaybackBlogPost');
+    return;
     if (startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_c') {
       NavigatorService.navigate('MentalHealthPlaybackBlogPost');
     } else {
