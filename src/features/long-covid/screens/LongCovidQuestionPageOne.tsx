@@ -3,6 +3,7 @@ import {
     BrandedButton,
   CheckboxItem,
   CheckboxList,
+  ColourHighlightHeaderTextText,
   DropdownField,
   ErrorText,
   HeaderText,
@@ -35,6 +36,7 @@ import {
   checkboxIndexOffset,
 } from './consts.questions';
 import { ILongCovid } from '../types';
+import InfoCircle from '@assets/icons/InfoCircle';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'LongCovidStart'>;
@@ -114,10 +116,13 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         {renderError(props, 'restriction')}
 
         <View style={styles.hr} />
-        <HeaderText>{i18n.t('long-covid.q4-header')}</HeaderText>
+        <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q4-header')} />
         <View style={{ ...styles.infoBox, marginBottom: 24 }}>
-          <RegularText>{i18n.t('long-covid.q4-info-1')}</RegularText>
-          <View style={{ marginTop: 18 }}>
+        <View style={{ flexDirection: 'row', paddingRight: 24, paddingTop: 16 }}>
+            <View style={{ paddingRight: 12 }}><InfoCircle color={colors.primary} /></View>
+            <RegularText>{i18n.t('long-covid.q4-info-1')}</RegularText>
+        </View>
+          <View style={{ marginTop: 18, paddingLeft: 33 }}>
             <RegularText>{i18n.t('long-covid.q4-info-2')}</RegularText>
           </View>
         </View>
@@ -137,7 +142,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
 
         <View style={styles.hr} />
         {/* Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection? */}
-        <HeaderText>{i18n.t('long-covid.q19')}</HeaderText>
+        <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q19')} />
         <DropdownField
           error={
             props.touched.ongoing_symptom_week_before_first_vaccine &&
@@ -151,7 +156,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
 
         <View style={styles.hr} />
         {/* Did your symptoms change 2 weeks (or more) after your first COVID-19 vaccine injection? */}
-        <HeaderText>{i18n.t('long-covid.q20')}</HeaderText>
+        <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q20')} />
         <DropdownField
           error={
             props.touched.symptom_change_2_weeks_after_first_vaccine &&
@@ -165,7 +170,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
 
         <View style={styles.hr} />
         {/* Have your symptoms changed in the week after your vaccination (excluding the first 2 days)? */}
-        <HeaderText>{i18n.t('long-covid.q21')}</HeaderText>
+        <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q21')} />
         {symptomChangesKeyList.map((key: string) => (
           <DropdownField
             error={props.touched[key] && props.errors[key]}
@@ -248,6 +253,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 16,
     padding: 16,
+    paddingBottom: 24,
     textAlign: 'left',
   },
   textarea: {
@@ -256,7 +262,7 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
   },
   rootContainer: {
-    backgroundColor: colors.backgroundPrimary,
+    backgroundColor: colors.backgroundSecondary,
     flex: 1,
     justifyContent: 'space-between',
     paddingHorizontal: 24,

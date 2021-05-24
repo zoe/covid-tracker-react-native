@@ -465,7 +465,7 @@
     "q3-a6": "4 - 12 weeks",
     "q3-a7": "12+ weeks",
 
-    "q4-header": "12 weeks (or more) after first catching COVID-19, did you experience any of the following?",
+    "q4-header": "12 weeks (or more) *after* first catching COVID-19, did you experience any of the following?",
     "q4-info-1": "Please only consider symptoms that are not explained by another reason.",
     "q4-info-2": "If you are unsure if you had COVID-19, please answer regarding the 12 weeks (or more) after you think you caught it.",
     "q4-info-3": "Select all that apply",
@@ -489,14 +489,14 @@
     "q18-a1": "Yes",
     "q18-a2": "No",
 
-    "q19": "Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection?",
+    "q19": "Did you have ongoing COVID-19 symptoms in the week *before* your first COVID-19 vaccine injection?",
     "q19-a1": "Yes",
     "q19-a2": "No",
     "q19-a3": "Not sure",
 
-    "q20": "Did your symptoms change 2 weeks (or more) after your first COVID-19 vaccine injection?",
+    "q20": "Did your symptoms change 2 weeks (or more) *after* your first COVID-19 vaccine injection?",
 
-    "q21": "Have your symptoms changed in the week after your vaccination (excluding the first 2 days)?",
+    "q21": "Have your symptoms changed in the week *after* your vaccination (excluding the first 2 days)?",
     "q21-symptom_change_headache": "Headache",
 
     "q21-symptom_change_smell": "Loss of smell",
