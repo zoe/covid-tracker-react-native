@@ -166,16 +166,18 @@ export function DashboardScreen({ navigation, route }: IProps) {
           />
         )}
 
-        <StudyCard
-          doctorLocation={i18n.t('mental-health.doctor-location')}
-          doctorName={i18n.t('mental-health.doctor-name')}
-          doctorTitle={i18n.t('mental-health.doctor-title')}
-          imageNode={getMentalHealthStudyDoctorImage()}
-          onPress={() => appCoordinator.goToMentalHealthStudyPlayback()}
-          style={styling.marginVerticalSmall}
-          tagColor={colors.coral.main.bgColor}
-          title={i18n.t('mental-health.results-ready')}
-        />
+        {startupInfo?.show_mh_insight ? (
+          <StudyCard
+            doctorLocation={i18n.t('mental-health.doctor-location')}
+            doctorName={i18n.t('mental-health.doctor-name')}
+            doctorTitle={i18n.t('mental-health.doctor-title')}
+            imageNode={getMentalHealthStudyDoctorImage()}
+            onPress={() => appCoordinator.goToMentalHealthStudyPlayback(startupInfo)}
+            style={styling.marginVerticalSmall}
+            tagColor={colors.coral.main.bgColor}
+            title={i18n.t('mental-health.results-ready')}
+          />
+        ) : null}
 
         {startupInfo?.show_diet_score && (
           <StudyCard

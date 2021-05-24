@@ -1,4 +1,6 @@
 {
+  "loading": "Loading",
+
   "create-account": {
     "already-registered": "An account already exists with this email address. Try to log in instead.",
     "btn": "Create account",

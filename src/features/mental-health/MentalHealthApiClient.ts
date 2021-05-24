@@ -9,6 +9,7 @@ import {
   IMentalHealthLearning,
 } from '@covid/core/state';
 import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
+import { IInsight } from '@covid/types/mental-health-playback';
 
 import { MentalHealthInfosRequest } from './MentalHealthInfosRequest';
 
@@ -34,6 +35,10 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
 
   get(): Promise<MentalHealthInfosRequest[]> {
     return this.apiClient.get<MentalHealthInfosRequest[]>(PATH);
+  }
+
+  getInsights() {
+    return this.apiClient.get<IInsight[]>('/mental-health-insight/');
   }
 
   feedback(rating: number, comments: string) {

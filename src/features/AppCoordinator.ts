@@ -36,6 +36,7 @@ import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coord
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
 import { Profile } from '@covid/core/profile/ProfileService';
+import { selectInsights, requestInsights } from '@covid/core/state/mental-health-playback/slice';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -163,6 +164,16 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     await this.fetchInitialData();
 
     const { startupInfo } = store.getState().content;
+
+    if (
+      startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_a' ||
+      startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b'
+    ) {
+      const insights = selectInsights(store.getState());
+      if (!insights?.length) {
+        store.dispatch(requestInsights());
+      }
+    }
 
     if (startupInfo?.app_requires_update) {
       this.goToVersionUpdateModal();

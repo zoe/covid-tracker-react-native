@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useWindowDimensions, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import NavigatorService from '@covid/NavigatorService';
 import { BasicPage, Text } from '@covid/components';
@@ -12,6 +12,7 @@ import Card from '@covid/components/Cards/Card';
 import UL from '@covid/components/UL';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { requestInsights } from '@covid/core/state/mental-health-playback/slice';
 
 const generalItems = [
   i18n.t('mental-health-playback.introduction.point-general-1'),
@@ -25,10 +26,15 @@ const personalItems = [
 ];
 
 export default function MHPIntroductionScreen() {
+  const dispatch = useDispatch();
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const windowWidth = useWindowDimensions().width;
 
   const isGeneral = startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b';
+
+  useEffect(() => {
+    dispatch(requestInsights());
+  }, []);
 
   return (
     <BasicPage

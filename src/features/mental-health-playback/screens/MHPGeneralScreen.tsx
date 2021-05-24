@@ -4,18 +4,21 @@ import { useSelector } from 'react-redux';
 
 import NavigatorService from '@covid/NavigatorService';
 import { BrandedButton, BasicNavHeader, SafeLayout, Text } from '@covid/components';
-import { selectInsights } from '@covid/core/state/mental-health-playback/slice';
+import { isLoading, selectInsights } from '@covid/core/state/mental-health-playback/slice';
 import { grid, styling } from '@covid/themes';
 import i18n from '@covid/locale/i18n';
 import PaginationIndicator from '@covid/features/mental-health-playback/components/PaginationIndicator';
 import Insights from '@covid/features/mental-health-playback/components/Insights';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import EmptyState from '@covid/components/EmptyState';
 
 export default function MHPGeneralScreen() {
   const [scrollViewHeight, setScrollViewHeight] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const insights = useSelector(selectInsights);
+  const loading = useSelector(isLoading);
+
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -51,43 +54,47 @@ export default function MHPGeneralScreen() {
   return (
     <SafeLayout style={styling.backgroundWhite}>
       <BasicNavHeader backgroundColor="transparent" style={styles.basicNavHeader} />
-      <View style={styling.flex}>
-        <ScrollView
-          decelerationRate="fast"
-          onLayout={onLayoutScrollView}
-          onScroll={onScroll}
-          ref={scrollViewRef}
-          scrollEventThrottle={80}
-          snapToInterval={scrollViewHeight}>
-          <Insights itemHeight={scrollViewHeight} insights={insights} />
+      {!insights.length && loading ? (
+        <EmptyState />
+      ) : (
+        <>
+          <ScrollView
+            decelerationRate="fast"
+            onLayout={onLayoutScrollView}
+            onScroll={onScroll}
+            ref={scrollViewRef}
+            scrollEventThrottle={80}
+            snapToInterval={scrollViewHeight}>
+            <Insights itemHeight={scrollViewHeight} insights={insights} />
 
-          <View style={{ height: scrollViewHeight }}>
-            <View style={styles.view}>
-              <Text textAlign="center" textClass="h3Regular">
-                {i18n.t(
-                  isGeneral
-                    ? 'mental-health-playback.general.end-title-general'
-                    : 'mental-health-playback.general.end-title-personal'
-                )}
-              </Text>
-              <Text
-                inverted
-                textAlign="center"
-                colorPalette="uiDark"
-                colorShade="dark"
-                textClass="p"
-                style={styling.marginTopBig}>
-                {i18n.t('mental-health-playback.general.end-description')}
-              </Text>
+            <View style={{ height: scrollViewHeight }}>
+              <View style={styles.view}>
+                <Text textAlign="center" textClass="h3Regular">
+                  {i18n.t(
+                    isGeneral
+                      ? 'mental-health-playback.general.end-title-general'
+                      : 'mental-health-playback.general.end-title-personal'
+                  )}
+                </Text>
+                <Text
+                  inverted
+                  textAlign="center"
+                  colorPalette="uiDark"
+                  colorShade="dark"
+                  textClass="p"
+                  style={styling.marginTopBig}>
+                  {i18n.t('mental-health-playback.general.end-description')}
+                </Text>
+              </View>
+              <BrandedButton onPress={onPress} style={styles.button}>
+                {i18n.t('mental-health-playback.general.end-button')}
+              </BrandedButton>
             </View>
-            <BrandedButton onPress={onPress} style={styles.button}>
-              {i18n.t('mental-health-playback.general.end-button')}
-            </BrandedButton>
-          </View>
-        </ScrollView>
+          </ScrollView>
 
-        <PaginationIndicator amount={insights.length + 1} selectedIndex={selectedIndex} onSelection={onSelection} />
-      </View>
+          <PaginationIndicator amount={insights.length + 1} selectedIndex={selectedIndex} onSelection={onSelection} />
+        </>
+      )}
     </SafeLayout>
   );
 }
