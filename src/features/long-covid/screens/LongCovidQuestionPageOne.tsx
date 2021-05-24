@@ -35,6 +35,7 @@ import {
   checkboxIndexOffset,
 } from './consts.questions';
 import { ILongCovid } from '../types';
+import InfoCircle from '@assets/icons/InfoCircle';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'LongCovidStart'>;
@@ -116,8 +117,11 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <View style={styles.hr} />
         <HeaderText>{i18n.t('long-covid.q4-header')}</HeaderText>
         <View style={{ ...styles.infoBox, marginBottom: 24 }}>
-          <RegularText>{i18n.t('long-covid.q4-info-1')}</RegularText>
-          <View style={{ marginTop: 18 }}>
+            <View style={{ flexDirection: 'row', paddingRight: 24, paddingTop: 16 }}>
+                <View style={{ paddingRight: 12 }}><InfoCircle color={colors.primary} /></View>
+                <RegularText>{i18n.t('long-covid.q4-info-1')}</RegularText>
+            </View>
+          <View style={{ marginTop: 18, paddingLeft: 33 }}>
             <RegularText>{i18n.t('long-covid.q4-info-2')}</RegularText>
           </View>
         </View>
@@ -248,6 +252,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 16,
     padding: 16,
+    paddingBottom: 24,
     textAlign: 'left',
   },
   textarea: {
@@ -256,7 +261,7 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
   },
   rootContainer: {
-    backgroundColor: colors.backgroundPrimary,
+    backgroundColor: colors.backgroundSecondary,
     flex: 1,
     justifyContent: 'space-between',
     paddingHorizontal: 24,
