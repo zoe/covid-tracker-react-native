@@ -19,6 +19,7 @@ export interface ILongCovid {
   breathing_problems: boolean;
   heart_problems: boolean;
   abdominal_pain_diarrhoea: boolean;
+  other_checkbox: boolean; // For display only - not BE model
   other: string | null;
 
   // Q18

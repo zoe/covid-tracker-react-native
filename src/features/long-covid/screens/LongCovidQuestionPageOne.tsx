@@ -43,10 +43,10 @@ interface IProps {
 }
 
 const renderBulletLine = (text: string) => (
-    <View style={{ flexDirection: 'row', paddingRight: 16, paddingTop: 16 }}>
-        <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
-        <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
-    </View>
+  <View style={{ flexDirection: 'row', paddingRight: 16, paddingTop: 16 }}>
+      <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
+      <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
+  </View>
 );
 
 export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
@@ -56,6 +56,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     if (isSubmitting) {
       return;
     }
+    delete formData.other_checkbox;
     setSubmitting(true);
     longCovidApiClient.add(patientData.patientId, formData).then((result) => {
       const thankYouScreen: ScreenName = isSECountry() ? 'ThankYouSE' : 'ThankYouUK';
@@ -75,7 +76,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
             {i18n.t(`long-covid.q${index + checkboxIndexOffset}`)}
           </CheckboxItem></View>
         ))}
-        {props.values.other ? <GenericTextField formikProps={props} name="other" /> : null}
+        {props.values.other_checkbox ? <GenericTextField formikProps={props} name="other" /> : null}
       </CheckboxList>
     </View>
   );
