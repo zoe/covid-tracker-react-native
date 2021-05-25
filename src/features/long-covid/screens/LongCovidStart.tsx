@@ -1,5 +1,3 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { ClockIcon } from '@assets/icons/svgIcons';
 import { BasicPage, HeaderText, RegularText, Spacer, Text } from '@covid/components';
 import { ScreenParamList } from '@covid/features';
@@ -7,6 +5,8 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'LongCovidStart'>;
@@ -21,13 +21,16 @@ export default function LongCovidStartScreen({ route }: IProps) {
       footerTitle="Next"
       onPress={() => NavigatorService.navigate('LongCovidQuestionPageOne', { patientData })}
     >
-      <View style={styles.oneOff}><Text style={styles.oneOffText}>{i18n.t('long-covid.one-off')}</Text></View>
-      <HeaderText style={{...styles.text, marginTop: 8 }}>{i18n.t('long-covid.title')}</HeaderText>
-        <View style={{ flexDirection: 'row', alignSelf: 'center', margin: 'auto', alignItems: 'center', marginTop: 16 }}>
-        <View style={{ width: 20, height: 20 }}><ClockIcon /></View>
+      <View style={styles.oneOff}>
+        <Text style={styles.oneOffText}>{i18n.t('long-covid.one-off')}</Text>
+      </View>
+      <HeaderText style={{ ...styles.text, marginTop: 8 }}>{i18n.t('long-covid.title')}</HeaderText>
+      <View style={{ alignItems: 'center', alignSelf: 'center', flexDirection: 'row', margin: 'auto', marginTop: 16 }}>
+        <View style={{ height: 20, width: 20 }}>
+          <ClockIcon />
+        </View>
         <RegularText style={{}}>{i18n.t('long-covid.time')}</RegularText>
       </View>
-      <RegularText style={styles.text}>{i18n.t('long-covid.body-1')}</RegularText>
       <RegularText style={styles.text}>{i18n.t('long-covid.body-2')}</RegularText>
       <RegularText style={styles.text}>{i18n.t('long-covid.body-3')}</RegularText>
       <Spacer space={24} />

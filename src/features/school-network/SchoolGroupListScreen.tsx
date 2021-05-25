@@ -107,7 +107,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
         </BrandedButton>
 
         <BrandedButton onPress={done} style={styles.continueButton}>
-          <Text>Done</Text>
+          {i18n.t('completed')}
         </BrandedButton>
       </View>
     </View>

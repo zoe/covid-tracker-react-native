@@ -21,6 +21,7 @@ import { Services } from '@covid/provider/services.types';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
@@ -479,7 +480,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   hideLoading={!props.isSubmitting}
                   onPress={props.handleSubmit}
                 >
-                  <Text>{this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}</Text>
+                  {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>
               </Form>
             );
