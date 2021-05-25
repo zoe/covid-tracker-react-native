@@ -16,6 +16,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+
 import { IProfileService } from '../profile/ProfileService';
 
 export type AssessmentData = {

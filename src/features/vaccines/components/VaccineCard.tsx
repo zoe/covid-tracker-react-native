@@ -57,7 +57,6 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
   return (
     <TouchableWithoutFeedback onPress={() => onPressEdit(1)}>
       <View style={styles.container}>
-        {/* Dose 1 */}
         <View style={styles.dose}>
           <View style={styles.row}>
             {renderTick(hasFirstDoseDate, hasFirstDoseName)}
@@ -82,7 +81,6 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
           ) : null}
         </View>
 
-        {/* Dose 2 */}
         {dose1.brand && dose1.brand === VaccineBrands.JOHNSON ? (
           <></>
         ) : (
@@ -110,7 +108,6 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
           </View>
         )}
 
-        {/* CTA */}
         <Text style={{ marginBottom: 8, marginTop: 8, textAlign: 'center' }}>
           <Text style={styles.clickableText}>{i18n.t('vaccines.vaccine-card.edit-vaccine')}</Text>
         </Text>

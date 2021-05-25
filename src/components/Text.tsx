@@ -29,16 +29,21 @@ interface IColourHighlightHeaderTextTextProps {
 // Basic component that allows single colour highlighted text - wrap the marked text with **
 export const ColourHighlightHeaderTextText = ({ text, style, highlightColor }: IColourHighlightHeaderTextTextProps) => {
   const textParts: string[] = text.split('*');
-  let highlightedText: boolean = text.startsWith('*') ? true : false;
-  return(
-  <Text style={[styles.headerText, style]}>
-    {textParts.filter((text: string) => text).map((text: string)=> {
-      const node: React.ReactNode = <Text style={{ color: highlightedText ? highlightColor : styles.headerText.color  }}>{ text }</Text>;
-      highlightedText = !highlightedText;
-      return node;
-    })}
-  </Text>
-)};
+  let highlightedText: boolean = !!text.startsWith('*');
+  return (
+    <Text style={[styles.headerText, style]}>
+      {textParts
+        .filter((text: string) => text)
+        .map((text: string) => {
+          const node: React.ReactNode = (
+            <Text style={{ color: highlightedText ? highlightColor : styles.headerText.color }}>{text}</Text>
+          );
+          highlightedText = !highlightedText;
+          return node;
+        })}
+    </Text>
+  );
+};
 
 export const RegularText = ({ style, children, passProps }: Props) => (
   <Text style={[styles.regularText, style]} {...passProps}>

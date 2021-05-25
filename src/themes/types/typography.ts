@@ -36,6 +36,7 @@ export type ITextClass = {
   //
   h3: TText;
   h3Bold: TText;
+  h3Regular: TText;
   //
   h4: TText;
   h4Light: TText;

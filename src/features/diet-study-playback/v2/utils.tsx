@@ -1,4 +1,4 @@
-import { doctorsAvatars, drSarahBerry } from '@assets';
+import { doctorsAvatars, drEllenThompsonUK, drSarahBerry } from '@assets';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import React from 'react';
 import { Image } from 'react-native';
@@ -24,5 +24,21 @@ export function getDietStudyDoctorImage() {
     />
   ) : (
     <Avatar imgsrc={drSarahBerry} />
+  );
+}
+
+export function getMentalHealthStudyDoctorImage() {
+  return isUSCountry() ? (
+    <Image
+      source={doctorsAvatars}
+      style={{
+        aspectRatio: 1.889,
+        height: undefined,
+        resizeMode: 'contain',
+        width: 120,
+      }}
+    />
+  ) : (
+    <Avatar imgsrc={drEllenThompsonUK} />
   );
 }

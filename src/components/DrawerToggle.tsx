@@ -3,11 +3,11 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { colors } from '@theme';
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, ImageStyle, StyleProp, StyleSheet, TouchableOpacity } from 'react-native';
 
 type Props = {
   navigation: DrawerNavigationProp<ScreenParamList, keyof ScreenParamList>;
-  style?: object;
+  style?: StyleProp<ImageStyle>;
 };
 
 export const DrawerToggle: React.FC<Props> = (props) => (

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 
 export interface IBloodPressureData {
-  takesBloodPressureMedications: string; // pril
+  takesBloodPressureMedications: string;
   takesAnyBloodPressureMedications: string;
   takesBloodPressureMedicationsSartan: string;
 }
@@ -18,7 +18,7 @@ export class BloodPressureMedicationQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
       takesAnyBloodPressureMedications: 'no',
-      takesBloodPressureMedications: 'no', // pril
+      takesBloodPressureMedications: 'no',
       takesBloodPressureMedicationsSartan: 'no',
     };
   };

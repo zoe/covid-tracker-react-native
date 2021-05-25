@@ -126,11 +126,12 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     }),
 
     smokerStatus: Yup.string().required(),
+
     takesAnyBloodPressureMedications: Yup.string().required(),
 
     takesAspirin: Yup.string().required(),
 
-    takesBloodPressureMedications: Yup.string().required(), // pril
+    takesBloodPressureMedications: Yup.string().required(),
 
     takesBloodPressureMedicationsSartan: Yup.string().required(),
     takesCorticosteroids: Yup.string().required(),
@@ -191,7 +192,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     if (infos.takes_any_blood_pressure_medications) {
       infos = {
         ...infos,
-        takes_blood_pressure_medications: formData.takesBloodPressureMedications === 'yes', // pril
+        takes_blood_pressure_medications: formData.takesBloodPressureMedications === 'yes',
         takes_blood_pressure_medications_sartan: formData.takesBloodPressureMedicationsSartan === 'yes',
       };
     }

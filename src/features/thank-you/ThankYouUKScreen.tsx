@@ -166,14 +166,14 @@ const styles = StyleSheet.create({
   },
   rootContainer: {
     maxWidth: 500,
-    padding: 18,
+    padding: 16,
   },
   scrollView: {
     backgroundColor: colors.backgroundSecondary,
     flexGrow: 1,
   },
   signOff: {
-    marginHorizontal: 18,
+    marginHorizontal: 16,
     textAlign: 'center',
   },
   socialIcon: {

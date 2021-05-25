@@ -6,11 +6,12 @@ import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { assessmentService, longCovidApiClient } from '@covid/Services';
+import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -18,8 +19,8 @@ import { View } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
+
 import { USStudyInvite } from './partials/USStudyInvite';
-import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
@@ -48,7 +49,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     });
   }, [navigation]);
 
-  const currentProfileHasVaccine = () => currentProfileVaccines.length && currentProfileVaccines[0] &&
+  const currentProfileHasVaccine = () =>
+    currentProfileVaccines.length &&
+    currentProfileVaccines[0] &&
     assessmentCoordinator.assessmentData.patientData.patientId === currentProfileVaccines[0].patient;
 
   const handlePress = async (healthy: boolean) => {
@@ -56,7 +59,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       return;
     }
     setIsSubmitting(true);
-    if (startupInfo.show_long_covid && healthy && 
+    if (
+      startupInfo.show_long_covid &&
+      healthy &&
       assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions
     ) {
       NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
@@ -85,7 +90,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       setIsSubmitting(false);
     }
   }
-  
+
   let currentProfileVaccineEnteredText;
   if (currentProfileHasVaccine()) {
     currentProfileVaccineEnteredText = (

@@ -2,6 +2,7 @@ import { SolidColorBar } from '@covid/components';
 import { colors } from '@theme/colors';
 import React from 'react';
 import { View } from 'react-native';
+
 import { TProgress } from '../types';
 
 interface IProps {

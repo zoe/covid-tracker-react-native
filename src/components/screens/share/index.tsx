@@ -17,9 +17,9 @@ function ShareScreen() {
   const { bottom, top } = useSafeAreaInsets();
   const viewRef = useRef<View>(null);
   const route = useRoute();
-  const { sharable } = route.params;
-  const { hideLabel } = route.params;
-  const { label } = route.params;
+  const sharable = route?.params?.sharable;
+  const hideLabel = route?.params?.hideLabel;
+  const label = route?.params?.label;
 
   const share = async () => {
     try {

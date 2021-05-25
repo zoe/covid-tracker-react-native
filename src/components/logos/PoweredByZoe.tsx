@@ -2,14 +2,18 @@ import { poweredByZoeSmall, zoe } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ImageStyle, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { InlineFormatting } from '../InlineFormatting';
 import { RegularText } from '../Text';
 
-export const PoweredByZoe = () => {
+interface INormalProps {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const PoweredByZoe = (props: INormalProps) => {
   return (
-    <View style={styles.block}>
+    <View style={[styles.block, props.style]}>
       <View style={styles.poweredBy}>
         <RegularText style={styles.whiteRegularText}>{i18n.t('partners.powered-by')}</RegularText>
         <Image source={zoe} style={styles.zoeLogo} />
@@ -21,7 +25,13 @@ export const PoweredByZoe = () => {
   );
 };
 
-export const PoweredByZoeSmall = () => <Image source={poweredByZoeSmall} style={styles.poweredBySmall} />;
+interface ISmallProps {
+  style?: StyleProp<ImageStyle>;
+}
+
+export const PoweredByZoeSmall = (props: ISmallProps) => (
+  <Image source={poweredByZoeSmall} style={[styles.poweredBySmall, props.style]} />
+);
 
 const styles = StyleSheet.create({
   analysisBlock: {},

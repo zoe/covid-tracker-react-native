@@ -11,13 +11,13 @@ import {
   TTypeSizes,
   useTheme,
 } from '@covid/themes';
-import { TStyleObject } from '@covid/utils/types';
-import React, { ReactNode } from 'react';
+import React from 'react';
+import { StyleProp, TextStyle } from 'react-native';
 
 import { SText } from './styles';
 
-interface IProps {
-  children: ReactNode;
+export interface IProps {
+  children: React.ReactNode;
   colorPalette?: TColorPalette;
   colorShade?: TColorShade;
   fontFamily?: TFontFamily | undefined;
@@ -28,13 +28,13 @@ interface IProps {
   lineHeight?: number | undefined;
   onPress?: () => void | undefined;
   rhythm?: TGridSizes;
-  style?: TStyleObject;
+  style?: StyleProp<TextStyle>;
   textAlign?: TTextAlign | undefined;
   textDecorationLine?: TTtextDecorationLine | undefined;
   textClass?: TTextClass;
 }
 
-const Text = ({
+export default function Text({
   children,
   colorPalette = 'ui',
   colorShade = 'lighter',
@@ -50,7 +50,7 @@ const Text = ({
   style = {},
   textAlign = undefined,
   textClass = 'default',
-}: IProps) => {
+}: IProps) {
   const theme: IThemeVars = useTheme();
   const fFamily = fontFamily || theme.text[textClass].fontFamily;
   const fSize = fontSize || theme.text[textClass].fontSize;
@@ -78,6 +78,4 @@ const Text = ({
       {children}
     </SText>
   );
-};
-
-export default Text;
+}

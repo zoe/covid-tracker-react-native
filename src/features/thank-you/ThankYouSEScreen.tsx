@@ -106,7 +106,7 @@ export default class ThankYouSEScreen extends Component<RenderProps, State> {
 
 const styles = StyleSheet.create({
   content: {
-    marginHorizontal: 18,
+    marginHorizontal: 16,
     marginVertical: 32,
   },
   done: {

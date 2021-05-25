@@ -152,7 +152,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       if (infos.takes_any_blood_pressure_medications) {
         infos = {
           ...infos,
-          takes_blood_pressure_medications: formData.takesBloodPressureMedications === 'yes', // pril
+          takes_blood_pressure_medications: formData.takesBloodPressureMedications === 'yes',
           takes_blood_pressure_medications_sartan: formData.takesBloodPressureMedicationsSartan === 'yes',
         };
       }
