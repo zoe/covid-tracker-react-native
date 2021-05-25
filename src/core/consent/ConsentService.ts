@@ -1,20 +1,12 @@
-import { injectable } from 'inversify';
-
-import { AskForStudies, Consent } from '@covid/core/user/dto/UserAPIContracts';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import appConfig from '@covid/appConfig';
-import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { Consent } from '@covid/core/user/dto/UserAPIContracts';
+import { injectable } from 'inversify';
 
 export interface IConsentService {
   postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
   getConsentSigned(): Promise<Consent | null>;
   setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
-  setVaccineRegistryResponse(response: boolean): void;
-  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
-  shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
-  shouldAskForVaccineRegistry(): Promise<boolean>;
-  getStudyStatus(): Promise<AskForStudies>;
 }
 
 @injectable()
@@ -23,15 +15,15 @@ export class ConsentService extends ApiClientBase implements IConsentService {
 
   public static consentSigned: Consent = {
     document: '',
-    version: '',
     privacy_policy_version: '',
+    version: '',
   };
 
   public async postConsent(document: string, version: string, privacy_policy_version: string) {
     const payload = {
       document,
-      version,
       privacy_policy_version,
+      version,
     };
     return this.client.patch(`/consent/`, payload);
   }
@@ -44,63 +36,10 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
     const consent = {
       document,
-      version,
       privacy_policy_version,
+      version,
     };
     ConsentService.consentSigned = consent;
     await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
-  }
-
-  setVaccineRegistryResponse(response: boolean) {
-    return this.client.post('/study_consent/', {
-      study: 'Vaccine Register',
-      status: response ? 'signed' : 'declined',
-      version: appConfig.vaccineRegistryVersion, // Mandatory field but unused for vaccine registry
-      ad_version: appConfig.vaccineRegistryAdVersion,
-    });
-  }
-
-  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
-    return this.client.post('/study_consent/', {
-      study: 'UK Validation Study',
-      version: appConfig.ukValidationStudyConsentVersion,
-      ad_version: appConfig.ukValidationStudyAdVersion,
-      status: response ? 'signed' : 'declined',
-      allow_future_data_use: anonymizedData,
-      allow_contact_by_zoe: reContacted,
-    });
-  }
-
-  async shouldAskForVaccineRegistry(): Promise<boolean> {
-    if (!isGBCountry()) return Promise.resolve(false);
-    const url = `/study_consent/status/?home_screen=true`;
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_uk_vaccine_register;
-  }
-
-  async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
-    let url = `/study_consent/status/?consent_version=${appConfig.ukValidationStudyConsentVersion}`;
-    if (onThankYouScreen) {
-      url += '&thank_you_screen=true';
-    }
-
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_uk_validation_study;
-  }
-
-  private getDefaultStudyResponse(): AskForStudies {
-    return {
-      should_ask_uk_validation_study: false,
-      should_ask_uk_vaccine_register: false,
-    } as AskForStudies;
-  }
-
-  async getStudyStatus(): Promise<AskForStudies> {
-    // Sweden has no studies - so short circuit and save a call to server.
-    if (isSECountry()) return Promise.resolve(this.getDefaultStudyResponse());
-
-    const url = `/study_consent/status/?home_screen=true`;
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data;
   }
 }

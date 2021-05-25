@@ -10,12 +10,13 @@ export interface IAssessmentService {
   saveAssessment(assessment: Partial<AssessmentInfosRequest>): void;
   completeAssessment(
     assessment: Partial<AssessmentInfosRequest> | null,
-    patientInfo: PatientInfosRequest
+    patientInfo: PatientInfosRequest,
   ): Promise<boolean>;
 }
 
 export default class AssessmentService implements IAssessmentService {
   apiClient: IAssessmentRemoteClient;
+
   state: IAssessmentState;
 
   constructor(apiClient: IAssessmentRemoteClient, state: IAssessmentState) {
@@ -34,16 +35,12 @@ export default class AssessmentService implements IAssessmentService {
   }
 
   private async sendFullAssessmentToApi() {
-    try {
-      const assessment = this.state.getAssessment();
-      const response = await this.saveToApi(assessment);
-      if (response.id) {
-        this.state.updateAssessment({ id: response.id });
-      }
-      return response;
-    } catch (error) {
-      throw error;
+    const assessment = this.state.getAssessment();
+    const response = await this.saveToApi(assessment);
+    if (response.id) {
+      this.state.updateAssessment({ id: response.id });
     }
+    return response;
   }
 
   private saveToState(assessment: Partial<AssessmentInfosRequest>) {
@@ -64,17 +61,15 @@ export default class AssessmentService implements IAssessmentService {
 
   async completeAssessment(
     assessment: Partial<AssessmentInfosRequest>,
-    patientInfo: PatientInfosRequest
+    patientInfo: PatientInfosRequest,
   ): Promise<boolean> {
     if (assessment) {
       if (patientInfo.current_country_code) {
         assessment.current_country_code = patientInfo.current_country_code;
+      } else if (patientInfo.current_postcode) {
+        assessment.current_postcode = patientInfo.current_postcode;
       } else {
-        if (patientInfo.current_postcode) {
-          assessment.current_postcode = patientInfo.current_postcode;
-        } else {
-          assessment.current_postcode = patientInfo.postcode;
-        }
+        assessment.current_postcode = patientInfo.postcode;
       }
 
       this.saveAssessment(assessment);

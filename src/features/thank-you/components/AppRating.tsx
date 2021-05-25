@@ -1,17 +1,16 @@
+import { ModalContainer } from '@covid/components/ModalContainer';
+import { RegularBoldText, RegularText } from '@covid/components/Text';
+import { IContentService } from '@covid/core/content/ContentService';
+import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { IUserService } from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
+import { container, lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import Constants from '@covid/utils/Constants';
+import { colors } from '@theme';
 import { Toast, View } from 'native-base';
 import React, { Component } from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { ModalContainer } from '@covid/components/ModalContainer';
-import { container, lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { IUserService } from '@covid/core/user/UserService';
-import { IContentService } from '@covid/core/content/ContentService';
-import { RegularBoldText, RegularText } from '@covid/components/Text';
-import { isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
-import { useConstants } from '@covid/utils/hooks';
 
 type PropsType = object;
 
@@ -20,7 +19,6 @@ type State = {
   showTakeToStore: boolean;
 };
 
-const Constants = useConstants();
 const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id1503529611`;
 const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
 const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;
@@ -50,11 +48,10 @@ export class AppRating extends Component<PropsType, State> {
   declineFeedback = () => {
     this.decline();
     Toast.show({
-      text: i18n.t('rating.thank-you-for-rating'),
       duration: 3000,
       position: 'top',
-      textStyle: { textAlign: 'center', lineHeight: 25 },
-      // style: {paddingVertical: 40}
+      text: i18n.t('rating.thank-you-for-rating'),
+      textStyle: { lineHeight: 25, textAlign: 'center' },
     });
   };
 
@@ -82,16 +79,15 @@ export class AppRating extends Component<PropsType, State> {
 
   renderActionButtons = (yesLabel: string, yesAction: any, noLabel: string, noAction: any) => (
     <View style={styles.actionContainer}>
-      <TouchableOpacity style={styles.ratingButton} onPress={noAction}>
+      <TouchableOpacity onPress={noAction} style={styles.ratingButton}>
         <RegularText style={styles.buttonText}>{noLabel}</RegularText>
       </TouchableOpacity>
       <View style={styles.verticalDivider} />
-      <TouchableOpacity style={styles.ratingButton} onPress={yesAction}>
+      <TouchableOpacity onPress={yesAction} style={styles.ratingButton}>
         <RegularText style={styles.buttonText}>{yesLabel}</RegularText>
       </TouchableOpacity>
     </View>
   );
-  //
 
   render() {
     return (
@@ -104,7 +100,7 @@ export class AppRating extends Component<PropsType, State> {
                 i18n.t('rating.cta-rate'),
                 this.takeToStore,
                 i18n.t('rating.cta-later'),
-                this.decline
+                this.decline,
               )}
             </>
           ) : (
@@ -114,7 +110,7 @@ export class AppRating extends Component<PropsType, State> {
                 i18n.t('rating.cta-yes'),
                 this.askToRate,
                 i18n.t('rating.cta-no'),
-                this.declineFeedback
+                this.declineFeedback,
               )}
             </>
           )}
@@ -125,36 +121,36 @@ export class AppRating extends Component<PropsType, State> {
 }
 
 const styles = StyleSheet.create({
-  verticalDivider: {
-    height: '100%',
-    width: 1,
-    backgroundColor: colors.actionButtonBorder,
-  },
-  ratingText: {
-    paddingBottom: 30,
-    marginHorizontal: 60,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  ratingHeader: {
-    paddingBottom: 10,
-    fontSize: 18,
-    textAlign: 'center',
-  },
   actionContainer: {
+    borderColor: colors.actionButtonBorder,
+    borderTopWidth: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    borderTopWidth: 1,
-    borderColor: colors.actionButtonBorder,
   },
   buttonText: {
-    textAlign: 'center',
     color: colors.linkBlue,
+    textAlign: 'center',
   },
   ratingButton: {
-    width: '50%',
+    color: colors.linkBlue,
     height: 60,
     justifyContent: 'center',
-    color: colors.linkBlue,
+    width: '50%',
+  },
+  ratingHeader: {
+    fontSize: 18,
+    paddingBottom: 10,
+    textAlign: 'center',
+  },
+  ratingText: {
+    fontSize: 14,
+    marginHorizontal: 60,
+    paddingBottom: 30,
+    textAlign: 'center',
+  },
+  verticalDivider: {
+    backgroundColor: colors.actionButtonBorder,
+    height: '100%',
+    width: 1,
   },
 });

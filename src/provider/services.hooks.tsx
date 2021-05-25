@@ -1,7 +1,6 @@
-import { useContext } from 'react';
-import { interfaces, id } from 'inversify';
-
 import AppException from '@covid/core/Exception';
+import { id, interfaces } from 'inversify';
+import { useContext } from 'react';
 
 import { InversifyContext } from './services.provider';
 

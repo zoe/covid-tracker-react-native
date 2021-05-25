@@ -1,8 +1,7 @@
+import { colors } from '@theme';
 import { Spinner } from 'native-base';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
 
 const BrandedSpinner = () => (
   <View style={styles.middleOfScreen}>
@@ -12,8 +11,8 @@ const BrandedSpinner = () => (
 
 const styles = StyleSheet.create({
   middleOfScreen: {
-    flex: 1,
     alignContent: 'center',
+    flex: 1,
   },
 });
 

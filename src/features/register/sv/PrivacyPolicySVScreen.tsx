@@ -1,15 +1,14 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
+import { BrandedButton } from '@covid/components';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { openWebLink } from '@covid/utils/links';
 import { ScreenParamList } from '@covid/features';
 import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '@covid/features/register/components/LegalComponents';
-import { BrandedButton } from '@covid/components';
+import i18n from '@covid/locale/i18n';
+import { openWebLink } from '@covid/utils/links';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>;
@@ -140,7 +139,8 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             <ClickableText
               onPress={() =>
                 openWebLink('https://eur-lex.europa.eu/legal-content/SV/TXT/PDF/?uri=CELEX:32016R0679&rid=1')
-              }>
+              }
+            >
               GDPR
             </ClickableText>{' '}
             har du ett antal viktiga rättigheter utan kostnad. Sammanfattningsvis innefattar dessa rätten att:
@@ -161,9 +161,10 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             <ClickableText
               onPress={() =>
                 openWebLink(
-                  'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/'
+                  'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/',
                 )
-              }>
+              }
+            >
               Guidance from the United Kingdom Information Commissioner’s Office (ICO)
             </ClickableText>{' '}
             gällande enskilda personers rättigheter under Dataskyddsförodningen.
@@ -175,7 +176,8 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             <ClickableText
               onPress={() =>
                 openWebLink('https://eur-lex.europa.eu/legal-content/SV/TXT/PDF/?uri=CELEX:32016R0679&rid=1')
-              }>
+              }
+            >
               GDPR
             </ClickableText>{' '}
             har du även rätt att lämna in ett klagomål till en tillsynsmyndighet, särskilt i den medlemsstat inom den
@@ -183,7 +185,8 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien är
             Information Commissioner som kan kontaktas på{' '}
             <ClickableText
-              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}>
+              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}
+            >
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             eller per telefon: <RegularBoldText>+44 0303 123 1113</RegularBoldText>.{'\n'}
@@ -198,26 +201,26 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
           </RegularText>
         </ScrollView>
 
-        {!this.viewOnly && (
-          <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>
+        {!this.viewOnly ? (
+          <BrandedButton onPress={() => this.props.navigation.goBack()} style={styles.button}>
             {i18n.t('legal.back')}
           </BrandedButton>
-        )}
+        ) : null}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-  },
-
   button: {
     marginTop: 20,
+  },
+
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
   },
 });

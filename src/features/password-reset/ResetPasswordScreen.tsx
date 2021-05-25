@@ -1,17 +1,16 @@
+import { IUserService } from '@covid/core/user/UserService';
+import { ScreenParamList } from '@covid/features';
+import ResetPasswordForm, { IResetPasswordForm } from '@covid/features/password-reset/fields/ResetPasswordForm';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import { IUserService } from '@covid/core/user/UserService';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { colors } from '@theme';
-import ResetPasswordForm, { IResetPasswordForm } from '@covid/features/password-reset/fields/ResetPasswordForm';
-import { ScreenParamList } from '@covid/features';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ResetPassword'>;
@@ -23,8 +22,8 @@ type State = {
 };
 
 const initialState: State = {
-  errorMessage: '',
   enableSubmit: true,
+  errorMessage: '',
 };
 
 interface ResetPasswordData {
@@ -62,8 +61,8 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <Formik initialValues={{ email: '' }} validationSchema={this.registerSchema} onSubmit={this.handleClick}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+          <Formik initialValues={{ email: '' }} onSubmit={this.handleClick} validationSchema={this.registerSchema}>
             {(props: IResetPasswordForm) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
           </Formik>
         </KeyboardAvoidingView>
@@ -74,9 +73,9 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
 
 const styles = StyleSheet.create({
   rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
     paddingHorizontal: 24,
     paddingTop: 56,
   },

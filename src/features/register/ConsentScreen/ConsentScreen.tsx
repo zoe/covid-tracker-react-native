@@ -1,18 +1,17 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useCallback, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
+import appConfig from '@covid/appConfig';
+import { BrandedButton } from '@covid/components';
+import { IConsentService } from '@covid/core/consent/ConsentService';
 import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appConfig from '@covid/appConfig';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { IConsentService } from '@covid/core/consent/ConsentService';
-import { BrandedButton } from '@covid/components';
+import React, { FC, useCallback, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import ConsentScreenGB from './ConsentScreenGB';
 import ConsentScreenSE from './ConsentScreenSE';
@@ -61,11 +60,11 @@ const ConsentScreen: FC<PropsType> = (props) => {
   return (
     <View style={styles.rootContainer}>
       {renderConsent()}
-      {!props.route.params.viewOnly && (
-        <BrandedButton testID="agree" style={styles.button} enable={agreed} hideLoading onPress={handleAgreeClicked}>
+      {!props.route.params.viewOnly ? (
+        <BrandedButton hideLoading enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="agree">
           {i18n.t('legal.i-agree')}
         </BrandedButton>
-      )}
+      ) : null}
     </View>
   );
 };
@@ -73,14 +72,14 @@ const ConsentScreen: FC<PropsType> = (props) => {
 export default React.memo(ConsentScreen);
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-  },
   button: {
     marginTop: 20,
+  },
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
   },
 });

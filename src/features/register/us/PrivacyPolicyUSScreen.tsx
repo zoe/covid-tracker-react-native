@@ -1,14 +1,13 @@
+import { BrandedButton } from '@covid/components';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
+import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
-import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { openWebLink } from '@covid/utils/links';
-import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
-import i18n from '@covid/locale/i18n';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUS'>;
@@ -106,7 +105,8 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
           <RegularText>
             {i18n.t('privacy-policy-us.para-13-1')}{' '}
             <ClickableText
-              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}>
+              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}
+            >
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             {i18n.t('privacy-policy-us.para-13-2')}
@@ -132,7 +132,7 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
           </RegularText>
         </ScrollView>
 
-        <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>
+        <BrandedButton onPress={() => this.props.navigation.goBack()} style={styles.button}>
           {i18n.t('privacy-policy-us.back')}
         </BrandedButton>
       </View>
@@ -141,15 +141,15 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-  },
-
   button: {
     marginTop: 20,
+  },
+
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
   },
 });

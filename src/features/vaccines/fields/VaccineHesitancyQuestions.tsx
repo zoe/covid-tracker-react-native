@@ -1,8 +1,3 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import { PickerItemProps, View } from 'react-native';
-import * as Yup from 'yup';
-
 import {
   BooleanCheckBoxData,
   BooleanCheckboxes,
@@ -11,9 +6,13 @@ import {
   IFormQuestion,
   RegularText,
 } from '@covid/components';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { VaccinePlanRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import i18n from '@covid/locale/i18n';
-import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { FormikProps } from 'formik';
+import React from 'react';
+import { PickerItemProps, View } from 'react-native';
+import * as Yup from 'yup';
 
 type VaccineHesitancyCheckBoxData = {
   reason_vaccine_trial: boolean;
@@ -52,40 +51,41 @@ export const VaccineHesitancyQuestions: IFormQuestion<Props, VaccineHesitancyDat
   const checkboxesNotSE: BooleanCheckBoxData[] = isSECountry()
     ? []
     : [
-        { label: i18n.t('vaccines.hesitancy.vaccine-trial'), formKey: 'reason_vaccine_trial' },
-        { label: i18n.t('vaccines.hesitancy.religious'), formKey: 'reason_religion' },
+        { formKey: 'reason_vaccine_trial', label: i18n.t('vaccines.hesitancy.vaccine-trial') },
+        { formKey: 'reason_religion', label: i18n.t('vaccines.hesitancy.religious') },
       ];
 
   const checkboxes: BooleanCheckBoxData[] = [
     ...checkboxesNotSE,
-    { label: i18n.t('vaccines.hesitancy.philosophical'), formKey: 'reason_personal_belief' },
-    { label: i18n.t('vaccines.hesitancy.pregnancy'), formKey: 'reason_pregnancy_breastfeeding' },
-    { label: i18n.t('vaccines.hesitancy.illness'), formKey: 'reason_illness' },
-    { label: i18n.t('vaccines.hesitancy.safety-concern'), formKey: 'reason_safety' },
-    { label: i18n.t('vaccines.hesitancy.bad-reaction'), formKey: 'reason_bad_reaction' },
-    { label: i18n.t('vaccines.hesitancy.do-not-know'), formKey: 'reason_knowledge' },
-    { label: i18n.t('vaccines.hesitancy.unsure-is-working'), formKey: 'reason_efficacy' },
-    { label: i18n.t('vaccines.hesitancy.availability'), formKey: 'reason_availability' },
-    { label: i18n.t('vaccines.hesitancy.unnecessary'), formKey: 'reason_unnecessary' },
-    { label: i18n.t('vaccines.hesitancy.not-to-say'), formKey: 'reason_pfnts' },
-    { label: i18n.t('vaccines.hesitancy.Other'), formKey: 'other' },
+    { formKey: 'reason_personal_belief', label: i18n.t('vaccines.hesitancy.philosophical') },
+    { formKey: 'reason_pregnancy_breastfeeding', label: i18n.t('vaccines.hesitancy.pregnancy') },
+    { formKey: 'reason_illness', label: i18n.t('vaccines.hesitancy.illness') },
+    { formKey: 'reason_safety', label: i18n.t('vaccines.hesitancy.safety-concern') },
+    { formKey: 'reason_bad_reaction', label: i18n.t('vaccines.hesitancy.bad-reaction') },
+    { formKey: 'reason_knowledge', label: i18n.t('vaccines.hesitancy.do-not-know') },
+    { formKey: 'reason_efficacy', label: i18n.t('vaccines.hesitancy.unsure-is-working') },
+    { formKey: 'reason_availability', label: i18n.t('vaccines.hesitancy.availability') },
+    { formKey: 'reason_unnecessary', label: i18n.t('vaccines.hesitancy.unnecessary') },
+    { formKey: 'reason_pfnts', label: i18n.t('vaccines.hesitancy.not-to-say') },
+    { formKey: 'other', label: i18n.t('vaccines.hesitancy.Other') },
   ];
 
   return (
     <View style={{ marginBottom: 8 }}>
       <DropdownField
-        selectedValue={formikProps.values.plan}
-        onValueChange={formikProps.handleChange('plan')}
         items={dropdowns}
+        onValueChange={formikProps.handleChange('plan')}
+        selectedValue={formikProps.values.plan}
       />
 
-      {(formikProps.values.plan === 'no' || formikProps.values.plan === 'unsure') && (
+      {formikProps.values.plan === 'no' || formikProps.values.plan === 'unsure' ? (
         <>
           <RegularText
             style={{
-              paddingTop: 16,
               paddingBottom: 8,
-            }}>
+              paddingTop: 16,
+            }}
+          >
             {i18n.t('vaccines.hesitancy.check-all-that-apply')}
           </RegularText>
 
@@ -93,39 +93,39 @@ export const VaccineHesitancyQuestions: IFormQuestion<Props, VaccineHesitancyDat
             <BooleanCheckboxes
               data={checkboxes}
               showAdditionalInputProps={{
-                label: i18n.t('vaccines.hesitancy.specify'),
-                key: 'reason_other',
-                show: formikProps.values['other'],
                 inputProps: {
-                  multiline: true,
                   maxLength: 500,
+                  multiline: true,
                 },
+                key: 'reason_other',
+                label: i18n.t('vaccines.hesitancy.specify'),
+                show: formikProps.values.other,
               }}
             />
           </CheckboxList>
         </>
-      )}
+      ) : null}
     </View>
   );
 };
 
 VaccineHesitancyQuestions.initialFormValues = (): VaccineHesitancyData => {
   return {
-    plan: '',
-    reason_other: '',
-    reason_vaccine_trial: false,
-    reason_religion: false,
-    reason_personal_belief: false,
-    reason_pregnancy_breastfeeding: false,
-    reason_safety: false,
-    reason_knowledge: false,
-    reason_illness: false,
-    reason_availability: false,
-    reason_unnecessary: false,
-    reason_efficacy: false,
-    reason_bad_reaction: false,
-    reason_pfnts: false,
     other: false,
+    plan: '',
+    reason_availability: false,
+    reason_bad_reaction: false,
+    reason_efficacy: false,
+    reason_illness: false,
+    reason_knowledge: false,
+    reason_other: '',
+    reason_personal_belief: false,
+    reason_pfnts: false,
+    reason_pregnancy_breastfeeding: false,
+    reason_religion: false,
+    reason_safety: false,
+    reason_unnecessary: false,
+    reason_vaccine_trial: false,
   };
 };
 

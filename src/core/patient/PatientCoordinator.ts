@@ -1,18 +1,21 @@
+import { Coordinator, IUpdatePatient, ScreenFlow } from '@covid/core/Coordinator';
+import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { PatientData } from '@covid/core/patient/PatientData';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import { Coordinator, ScreenFlow, IUpdatePatient } from '@covid/core/Coordinator';
-import { PatientData } from '@covid/core/patient/PatientData';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { Services } from '@covid/provider/services.types';
-import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { IPatientService } from '@covid/core/patient/PatientService';
 import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 export class PatientCoordinator extends Coordinator implements IUpdatePatient {
   appCoordinator: AppCoordinator;
+
   navigation: NavigationType;
+
   userService: IUserService;
+
   patientData: PatientData;
 
   @lazyInject(Services.Patient)
@@ -22,12 +25,6 @@ export class PatientCoordinator extends Coordinator implements IUpdatePatient {
   private readonly localisationService: ILocalisationService;
 
   screenFlow: Partial<ScreenFlow> = {
-    YourStudy: () => {
-      NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
-    },
-    YourWork: () => {
-      NavigatorService.navigate('YourHealth', { patientData: this.patientData });
-    },
     AboutYou: () => {
       if (this.patientData.patientState.isMinor && this.patientData.patientState.isReportedByAnother) {
         NavigatorService.navigate('YourHealth', { patientData: this.patientData });
@@ -35,11 +32,17 @@ export class PatientCoordinator extends Coordinator implements IUpdatePatient {
         NavigatorService.navigate('YourWork', { patientData: this.patientData });
       }
     },
+    PreviousExposure: () => {
+      this.appCoordinator.startAssessmentFlow(this.patientData);
+    },
     YourHealth: () => {
       NavigatorService.navigate('PreviousExposure', { patientData: this.patientData });
     },
-    PreviousExposure: () => {
-      this.appCoordinator.startAssessmentFlow(this.patientData);
+    YourStudy: () => {
+      NavigatorService.navigate('AboutYou', { editing: false, patientData: this.patientData });
+    },
+    YourWork: () => {
+      NavigatorService.navigate('YourHealth', { patientData: this.patientData });
     },
   };
 
@@ -54,9 +57,9 @@ export class PatientCoordinator extends Coordinator implements IUpdatePatient {
     const shouldAskStudy = isUSCountry() && currentPatient.shouldAskStudy;
 
     if (shouldAskStudy) {
-      NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: false });
+      NavigatorService.navigate('YourStudy', { editing: false, patientData: this.patientData });
     } else {
-      NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
+      NavigatorService.navigate('AboutYou', { editing: false, patientData: this.patientData });
     }
   };
 

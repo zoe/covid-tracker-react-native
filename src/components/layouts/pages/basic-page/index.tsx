@@ -31,12 +31,12 @@ function BasicPage({
   style = {},
 }: IProps) {
   return (
-    <SafeLayout withGutter={withGutter} style={style}>
+    <SafeLayout style={style} withGutter={withGutter}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} stickyHeaderIndices={hasStickyHeader ? [0] : undefined}>
         <BasicNavHeader backgroundColor={headerBackgroundColor}>{navChildren}</BasicNavHeader>
         {children}
-        {withFooter && <BasicPageFooter active={active} onPress={onPress} title={footerTitle} />}
       </ScrollView>
+      {withFooter ? <BasicPageFooter active={active} onPress={onPress} title={footerTitle} /> : null}
     </SafeLayout>
   );
 }

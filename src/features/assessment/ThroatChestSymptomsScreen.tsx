@@ -1,23 +1,22 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
-import { Form } from 'native-base';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { View } from 'react-native';
-
+import { BrandedButton } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
+import { ScreenParamList } from '@covid/features';
 import {
   ThroatChestSymptomsData,
   ThroatChestSymptomsQuestions,
 } from '@covid/features/assessment/fields/ThroatChestSymptomsQuestions';
-import { BrandedButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
+import { assessmentService } from '@covid/Services';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
+import { Form } from 'native-base';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import * as Yup from 'yup';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ThroatChestSymptoms'>;
@@ -37,21 +36,22 @@ export const ThroatChestSymptomsScreen: React.FC<Props> = ({ route, navigation }
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
     <>
-      <Screen profile={currentPatient.profile} navigation={navigation}>
+      <Screen navigation={navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>{i18n.t('describe-symptoms.throat-chest-symptoms')}</HeaderText>
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={3} maxSteps={6} />
+          <ProgressStatus maxSteps={6} step={3} />
         </ProgressBlock>
 
         <Formik
           initialValues={{
             ...ThroatChestSymptomsQuestions.initialFormValues(),
           }}
+          onSubmit={(values: ThroatChestSymptomsData) => handleSubmit(values)}
           validationSchema={registerSchema}
-          onSubmit={(values: ThroatChestSymptomsData) => handleSubmit(values)}>
+        >
           {(props) => {
             return (
               <Form style={{ flexGrow: 1 }}>
@@ -61,9 +61,10 @@ export const ThroatChestSymptomsScreen: React.FC<Props> = ({ route, navigation }
 
                 <View style={{ flex: 1 }} />
                 <BrandedButton
-                  onPress={props.handleSubmit}
+                  enable={!props.isSubmitting}
                   hideLoading={!props.isSubmitting}
-                  enable={!props.isSubmitting}>
+                  onPress={props.handleSubmit}
+                >
                   {i18n.t('describe-symptoms.next')}
                 </BrandedButton>
               </Form>

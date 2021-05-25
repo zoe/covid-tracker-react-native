@@ -1,6 +1,5 @@
-import React from 'react';
+import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import { storiesOf } from '@storybook/react-native';
-
-import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
+import React from 'react';
 
 storiesOf('EstimatedCasesMapCard', module).add('default', () => <EstimatedCasesMapCard />);

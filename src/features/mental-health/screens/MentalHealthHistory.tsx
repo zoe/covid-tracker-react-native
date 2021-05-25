@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { BasicPage, DropdownField, Text, CheckBoxButton, GenericSelectableList } from '@covid/components';
-import NavigatorService from '@covid/NavigatorService';
-import { useTheme } from '@covid/themes';
+import { BasicPage, CheckBoxButton, DropdownField, GenericSelectableList, Text } from '@covid/components';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import {
   addHistoryCondition,
   removeHistoryCondition,
   selectMentalHealthHistory,
   setHasHistoryDiagnosis,
-  TMentalHealthCondition,
-  THasDiagnosis,
   setHistoryOtherText,
+  THasDiagnosis,
+  TMentalHealthCondition,
 } from '@covid/core/state/mental-health';
-import { mentalHealthApiClient } from '@covid/Services';
 import i18n from '@covid/locale/i18n';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import NavigatorService from '@covid/NavigatorService';
+import { mentalHealthApiClient } from '@covid/Services';
+import { useTheme } from '@covid/themes';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { TQuestion, questions, initialOptions } from '../data';
+import { initialOptions, questions, TQuestion } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthHistory() {
@@ -81,7 +80,7 @@ function MentalHealthHistory() {
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
       existingMentalHealth,
-      { mentalHealthHistory: MentalHealthHistory }
+      { mentalHealthHistory: MentalHealthHistory },
     );
     await mentalHealthApiClient.update(updatedMentalHealth);
     next();
@@ -89,29 +88,29 @@ function MentalHealthHistory() {
 
   const renderOtherTextInput = MentalHealthHistory.conditions.includes('OTHER') ? (
     <ValidatedTextInput
-      placeholder={i18n.t('mental-health.specify-other')}
-      value={MentalHealthHistory.otherText}
       onChangeText={(text: string) => {
         dispatch(setHistoryOtherText(text));
       }}
+      placeholder={i18n.t('mental-health.specify-other')}
+      value={MentalHealthHistory.otherText}
     />
   ) : null;
 
   return (
     <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
-        <Text textClass="h3" rhythm={16}>
+        <Text rhythm={16} textClass="h3">
           {i18n.t('mental-health.question-history-title')}
         </Text>
         <View>
           <DropdownField
-            label={i18n.t('mental-health.question-history')}
-            selectedValue={MentalHealthHistory.hasDiagnosis}
-            onValueChange={handleSetHasHistoryDiagnosis}
             items={initialOptions}
+            label={i18n.t('mental-health.question-history')}
+            onValueChange={handleSetHasHistoryDiagnosis}
+            selectedValue={MentalHealthHistory.hasDiagnosis}
           />
         </View>
-        {MentalHealthHistory.hasDiagnosis === 'YES' && (
+        {MentalHealthHistory.hasDiagnosis === 'YES' ? (
           <>
             <GenericSelectableList
               collection={questions}
@@ -121,7 +120,7 @@ function MentalHealthHistory() {
             />
             {renderOtherTextInput}
           </>
-        )}
+        ) : null}
       </View>
     </BasicPage>
   );

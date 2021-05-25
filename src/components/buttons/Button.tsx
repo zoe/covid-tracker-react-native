@@ -1,9 +1,8 @@
+import { BrandedButton } from '@covid/components';
+import { RegularText } from '@covid/components/Text';
+import { colors } from '@theme';
 import React from 'react';
 import { StyleSheet, TextStyle } from 'react-native';
-
-import { colors } from '@theme';
-import { RegularText } from '@covid/components/Text';
-import { BrandedButton } from '@covid/components';
 
 interface Props {
   onPress: VoidFunction;
@@ -15,7 +14,7 @@ interface Props {
 export const Button: React.FC<Props> = ({ children, onPress, ...props }) => {
   if (props.branded) {
     return (
-      <BrandedButton style={[styles.base, styles.container]} onPress={onPress}>
+      <BrandedButton onPress={onPress} style={[styles.base, styles.container]}>
         <RegularText style={[styles.lightLabel, props.labelStyle]}>{children}</RegularText>
       </BrandedButton>
     );
@@ -23,14 +22,14 @@ export const Button: React.FC<Props> = ({ children, onPress, ...props }) => {
 
   if (props.outline) {
     return (
-      <BrandedButton style={[styles.base, styles.outlineContainer]} onPress={onPress}>
+      <BrandedButton onPress={onPress} style={[styles.base, styles.outlineContainer]}>
         <RegularText style={[styles.outlineLabel, props.labelStyle]}>{children}</RegularText>
       </BrandedButton>
     );
   }
 
   return (
-    <BrandedButton style={[styles.base]} onPress={onPress}>
+    <BrandedButton onPress={onPress} style={[styles.base]}>
       <RegularText style={[styles.darkLabel, props.labelStyle]}>{children}</RegularText>
     </BrandedButton>
   );
@@ -38,14 +37,14 @@ export const Button: React.FC<Props> = ({ children, onPress, ...props }) => {
 
 const styles = StyleSheet.create({
   base: {
-    marginTop: 16,
-    marginHorizontal: 16,
     backgroundColor: 'transparent',
+    marginHorizontal: 16,
+    marginTop: 16,
   },
   container: {
-    marginTop: 16,
-    marginHorizontal: 16,
     backgroundColor: colors.brand,
+    marginHorizontal: 16,
+    marginTop: 16,
   },
   darkLabel: {
     color: colors.brand,
@@ -55,12 +54,12 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
 
-  outlineLabel: {
-    color: colors.brand,
-  },
-
   outlineContainer: {
     borderColor: colors.brand,
     borderWidth: 1,
+  },
+
+  outlineLabel: {
+    color: colors.brand,
   },
 });

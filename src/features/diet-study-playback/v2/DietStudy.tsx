@@ -1,13 +1,12 @@
-import React from 'react';
-import { ScrollView, View } from 'react-native';
-
 import { ActionCard, BasicNavHeader, BasicProfile, Link, SafeLayout, SpeechCard, Text } from '@covid/components';
-import NavigatorService from '@covid/NavigatorService';
+import { ScreenParamList } from '@covid/features';
+import { getDietStudyInfoUrl } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 import { useTheme } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
-import { getDietStudyInfoUrl } from '@covid/features/diet-study-playback/v2/utils';
-import { ScreenParamList } from '@covid/features';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
 
 import { DietStudyActionCard } from '../components';
 
@@ -17,7 +16,7 @@ function DietStudy() {
   const { colors } = useTheme();
 
   return (
-    <SafeLayout withGutter={false} style={{ backgroundColor: '#FFF' }}>
+    <SafeLayout style={{ backgroundColor: '#FFF' }} withGutter={false}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>
@@ -42,19 +41,20 @@ function DietStudy() {
           const key = `action-card-${index}`;
           return (
             <ActionCard
+              outline
               actionTitle={i18n.t(`diet-study.card-${index}-action`)}
               buttonColor={colors.burgundy.main.bgColor}
+              key={key}
               onPress={() => NavigatorService.navigate(route)}
-              outline
-              key={key}>
-              <Text textClass="pMedium" rhythm={16}>
+            >
+              <Text rhythm={16} textClass="pMedium">
                 {i18n.t(`diet-study.card-${index}-title`)}
               </Text>
               <Text textClass="pLight">{i18n.t(`diet-study.card-${index}-body`)}</Text>
             </ActionCard>
           );
         })}
-        <View style={{ paddingHorizontal: 16, marginTop: 32 }}>
+        <View style={{ marginTop: 32, paddingHorizontal: 16 }}>
           <Text rhythm={8} textClass="h3">
             {i18n.t('diet-study.introduction-ongoing-title')}
           </Text>

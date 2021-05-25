@@ -1,11 +1,10 @@
-import { Form } from 'native-base';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-
+import { BrandedButton } from '@covid/components';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton } from '@covid/components';
+import { Form } from 'native-base';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 export interface IResetPasswordForm {
   values: {
@@ -38,18 +37,18 @@ function ResetPasswordForm({
         <HeaderText>{i18n.t('reset-password.title')}</HeaderText>
         <Form>
           <ValidatedTextInput
-            keyboardType="email-address"
             autoCapitalize="none"
             autoCompleteType="email"
-            placeholder={i18n.t('reset-password.email-label')}
-            value={values.email}
-            onChangeText={handleChange('email')}
-            onBlur={handleBlur('email')}
             error={touched.email && errors.email}
+            keyboardType="email-address"
+            onBlur={handleBlur('email')}
+            onChangeText={handleChange('email')}
+            placeholder={i18n.t('reset-password.email-label')}
             returnKeyType="go"
+            value={values.email}
           />
 
-          {touched.email && errors.email && <ErrorText> {i18n.t('reset-password.email-error')}</ErrorText>}
+          {touched.email && errors.email ? <ErrorText> {i18n.t('reset-password.email-error')}</ErrorText> : null}
         </Form>
       </View>
       <View>

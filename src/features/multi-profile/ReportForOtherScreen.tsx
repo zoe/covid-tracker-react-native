@@ -1,20 +1,19 @@
+import { profilesIcon } from '@assets';
+import { BrandedButton } from '@covid/components';
+import { Header } from '@covid/components/Screen';
+import { ClickableText, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { IProfileService } from '@covid/core/profile/ProfileService';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-
-import { profilesIcon } from '@assets';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ClickableText, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
-import { Header } from '@covid/components/Screen';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { IProfileService } from '@covid/core/profile/ProfileService';
-import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ReportForOther'>;
@@ -54,7 +53,8 @@ export default class ReportForOtherScreen extends Component<RenderProps, object>
                 <BrandedButton
                   onPress={() => {
                     assessmentCoordinator.resetToCreateProfile();
-                  }}>
+                  }}
+                >
                   <Text>{i18n.t('report-for-others-add-profiles')}</Text>
                 </BrandedButton>
               </View>
@@ -73,25 +73,40 @@ export default class ReportForOtherScreen extends Component<RenderProps, object>
 }
 
 const styles = StyleSheet.create({
-  view: {
-    backgroundColor: colors.backgroundSecondary,
+  done: {
+    alignSelf: 'center',
+    color: colors.primary,
+    fontSize: 20,
+    margin: 40,
   },
 
-  scrollView: {
-    flexGrow: 1,
-    backgroundColor: colors.backgroundSecondary,
-    justifyContent: 'space-between',
+  icon: {
+    alignSelf: 'center',
+    height: 100,
+    resizeMode: 'contain',
+    width: 150,
+  },
+
+  innerContainer: {
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+
+  innerContainerBold: {
+    alignSelf: 'center',
+    fontSize: 18,
+    marginBottom: 8,
+    textAlign: 'center',
   },
 
   rootContainer: {
     padding: 10,
   },
 
-  shareSubtitle: {
-    paddingVertical: 10,
-    paddingHorizontal: 40,
-    textAlign: 'center',
-    color: colors.secondary,
+  scrollView: {
+    backgroundColor: colors.backgroundSecondary,
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
 
   shareContainer: {
@@ -102,29 +117,14 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
 
-  innerContainerBold: {
-    alignSelf: 'center',
-    textAlign: 'center',
-    fontSize: 18,
-    marginBottom: 8,
-  },
-
-  innerContainer: {
-    alignSelf: 'center',
+  shareSubtitle: {
+    color: colors.secondary,
+    paddingHorizontal: 40,
+    paddingVertical: 10,
     textAlign: 'center',
   },
 
-  icon: {
-    alignSelf: 'center',
-    height: 100,
-    width: 150,
-    resizeMode: 'contain',
-  },
-
-  done: {
-    alignSelf: 'center',
-    color: colors.primary,
-    margin: 40,
-    fontSize: 20,
+  view: {
+    backgroundColor: colors.backgroundSecondary,
   },
 });

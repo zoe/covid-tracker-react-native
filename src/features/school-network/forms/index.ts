@@ -1,2 +1,2 @@
-export { default as SchoolForm } from './school';
-export { default as UniversityForm } from './university';
+export { default as SchoolForm } from './School';
+export { default as UniversityForm } from './University';

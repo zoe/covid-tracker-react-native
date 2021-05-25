@@ -1,33 +1,32 @@
+import { BrandedButton } from '@covid/components';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { ErrorText, HeaderText } from '@covid/components/Text';
+import { ValidationError } from '@covid/components/ValidationError';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ConfigType } from '@covid/core/Config';
+import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { IUserService } from '@covid/core/user/UserService';
+import { AtopyQuestions, IAtopyData } from '@covid/features/patient/fields/AtopyQuestions';
+import { BloodGroupQuestion, IBloodGroupData } from '@covid/features/patient/fields/BloodGroupQuestion';
+import {
+  BloodPressureMedicationQuestion,
+  IBloodPressureData,
+} from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
+import { DiabetesQuestions, IDiabetesData } from '@covid/features/patient/fields/DiabetesQuestions';
+import { IRaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
-
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { ErrorText, HeaderText } from '@covid/components/Text';
-import { ValidationError } from '@covid/components/ValidationError';
-import { IUserService } from '@covid/core/user/UserService';
-import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { IAtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import i18n from '@covid/locale/i18n';
-import { ConfigType } from '@covid/core/Config';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { IBloodGroupData, BloodGroupQuestion } from '@covid/features/patient/fields/BloodGroupQuestion';
-import {
-  IBloodPressureData,
-  BloodPressureMedicationQuestion,
-} from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
-import { IRaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
-import { IDiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { BrandedButton } from '@covid/components';
 
 interface IBackfillData extends IBloodPressureData, IRaceEthnicityData, IAtopyData, IDiabetesData, IBloodGroupData {}
 
@@ -47,11 +46,11 @@ type State = {
 
 const initialState: State = {
   errorMessage: '',
-  needBloodPressureAnswer: false,
-  needRaceEthnicityAnswer: false,
   needAtopyAnswers: false,
-  needDiabetesAnswers: false,
   needBloodGroupAnswer: false,
+  needBloodPressureAnswer: false,
+  needDiabetesAnswers: false,
+  needRaceEthnicityAnswer: false,
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
@@ -74,6 +73,19 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   }
 
   registerSchema = Yup.object().shape({
+    ethnicity: Yup.string().when([], {
+      is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
+      then: Yup.string().required(),
+    }),
+    race: Yup.array<string>().when([], {
+      is: () => this.state.needRaceEthnicityAnswer,
+      then: Yup.array<string>().min(1, i18n.t('please-select-race')),
+    }),
+    raceOther: Yup.string().when('race', {
+      is: (val: string[]) => this.state.needRaceEthnicityAnswer && val.includes('other'),
+      then: Yup.string().required(),
+    }),
+
     takesAnyBloodPressureMedications: Yup.string().when([], {
       is: () => this.state.needBloodPressureAnswer,
       then: Yup.string().required(),
@@ -86,37 +98,24 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       is: () => this.state.needBloodPressureAnswer,
       then: Yup.string().required(),
     }),
-
-    race: Yup.array<string>().when([], {
-      is: () => this.state.needRaceEthnicityAnswer,
-      then: Yup.array<string>().min(1, i18n.t('please-select-race')),
-    }),
-    raceOther: Yup.string().when('race', {
-      is: (val: string[]) => this.state.needRaceEthnicityAnswer && val.includes('other'),
-      then: Yup.string().required(),
-    }),
-    ethnicity: Yup.string().when([], {
-      is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
-      then: Yup.string().required(),
-    }),
   });
 
   async componentDidMount() {
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     this.setState({
+      needAtopyAnswers: !currentPatient.hasAtopyAnswers,
+      needBloodGroupAnswer: !currentPatient.hasBloodGroupAnswer,
       needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer,
+      needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
       needRaceEthnicityAnswer:
         (this.features.showRaceQuestion || this.features.showEthnicityQuestion) &&
         !currentPatient.hasRaceEthnicityAnswer,
-      needAtopyAnswers: !currentPatient.hasAtopyAnswers,
-      needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
-      needBloodGroupAnswer: !currentPatient.hasBloodGroupAnswer,
     });
   }
 
   handleProfileUpdate(formData: IBackfillData) {
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
-    const patientId = currentPatient.patientId;
+    const { patientId } = currentPatient;
     const infos = this.createPatientInfos(formData);
 
     this.patientService
@@ -185,9 +184,9 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     if (this.state.needAtopyAnswers) {
       infos = {
         ...infos,
-        has_hayfever: formData.hasHayfever === 'yes',
-        has_eczema: formData.hasEczema === 'yes',
         has_asthma: formData.hasAsthma === 'yes',
+        has_eczema: formData.hasEczema === 'yes',
+        has_hayfever: formData.hasHayfever === 'yes',
         has_lung_disease_only: formData.hasLungDisease === 'yes',
       };
     }
@@ -213,13 +212,13 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
 
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>{i18n.t('back-date-profile-title')}</HeaderText>
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={1} maxSteps={6} />
+          <ProgressStatus maxSteps={6} step={1} />
         </ProgressBlock>
 
         <Formik
@@ -229,6 +228,9 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
             ...BloodGroupQuestion.initialFormValues(),
+          }}
+          onSubmit={(values: IBackfillData) => {
+            return this.handleProfileUpdate(values);
           }}
           validationSchema={() => {
             let schema = this.registerSchema;
@@ -240,41 +242,39 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             }
             return schema;
           }}
-          onSubmit={(values: IBackfillData) => {
-            return this.handleProfileUpdate(values);
-          }}>
+        >
           {(props) => {
             return (
               <Form>
-                {this.state.needBloodPressureAnswer && (
+                {this.state.needBloodPressureAnswer ? (
                   <BloodPressureMedicationQuestion formikProps={props as FormikProps<IBloodPressureData>} />
-                )}
+                ) : null}
 
-                {this.state.needRaceEthnicityAnswer && (
+                {this.state.needRaceEthnicityAnswer ? (
                   <RaceEthnicityQuestion
-                    showRaceQuestion={this.features.showRaceQuestion}
-                    showEthnicityQuestion={this.features.showEthnicityQuestion}
                     formikProps={props as FormikProps<IRaceEthnicityData>}
+                    showEthnicityQuestion={this.features.showEthnicityQuestion}
+                    showRaceQuestion={this.features.showRaceQuestion}
                   />
-                )}
+                ) : null}
 
-                {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} />}
+                {this.state.needAtopyAnswers ? <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} /> : null}
 
-                {this.state.needDiabetesAnswers && (
+                {this.state.needDiabetesAnswers ? (
                   <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />
-                )}
+                ) : null}
 
-                {this.state.needBloodGroupAnswer && (
+                {this.state.needBloodGroupAnswer ? (
                   <BloodGroupQuestion formikProps={props as FormikProps<IBloodGroupData>} />
-                )}
+                ) : null}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+                ) : null}
 
-                <BrandedButton onPress={props.handleSubmit} enable={!props.isSubmitting}>
-                  <Text>{i18n.t('update-profile')}</Text>
+                <BrandedButton enable={!props.isSubmitting} onPress={props.handleSubmit}>
+                  {i18n.t('update-profile')}
                 </BrandedButton>
               </Form>
             );

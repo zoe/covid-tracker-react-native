@@ -1,8 +1,7 @@
-import { inject, injectable } from 'inversify';
-
+import { IApiClient } from '@covid/core/api/ApiClient';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { Services } from '@covid/provider/services.types';
-import { IApiClient } from '@covid/core/api/ApiClient';
+import { inject, injectable } from 'inversify';
 
 import { FeaturedContentResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 

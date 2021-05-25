@@ -1,10 +1,9 @@
-import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { AppException } from '@covid/core/api/ApiServiceErrors';
 import { BrandedButton } from '@covid/components/buttons';
+import { AppException } from '@covid/core/api/ApiServiceErrors';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import React from 'react';
+import { ActivityIndicator, Modal, StyleSheet, View } from 'react-native';
 
 import { ErrorText, RegularText } from './Text';
 
@@ -31,18 +30,18 @@ const ErrorMessaging = ({ error, status, onRetry, onPress }: LoadingProps) => {
 
   return (
     <View>
-      {!!message && <ErrorText style={{ color: colors.coral }}>{message}</ErrorText>}
-      {!message && !!status && <RegularText>{status}</RegularText>}
-      {shouldRetry && !!onRetry && (
+      {message ? <ErrorText style={{ color: colors.coral }}>{message}</ErrorText> : null}
+      {!message ? !!status && <RegularText>{status}</RegularText> : null}
+      {shouldRetry && !!onRetry ? (
         <View style={styles.ctaBlock}>
           <BrandedButton onPress={onRetry}>{i18n.t('errors.button-retry')}</BrandedButton>
         </View>
-      )}
-      {shouldCancel && !!error && !!onPress && (
+      ) : null}
+      {shouldCancel && !!error && !!onPress ? (
         <View style={styles.ctaBlock}>
           <BrandedButton onPress={onPress}>{i18n.t('errors.button-okay')}</BrandedButton>
         </View>
-      )}
+      ) : null}
     </View>
   );
 };
@@ -54,7 +53,7 @@ export const Loading = (props: LoadingProps) => {
         <ErrorMessaging {...props} />
       ) : (
         <>
-          <ActivityIndicator size="large" color={colors.predict} />
+          <ActivityIndicator color={colors.predict} size="large" />
           <RegularText>{props.status}</RegularText>
         </>
       )}
@@ -64,10 +63,10 @@ export const Loading = (props: LoadingProps) => {
 
 export const LoadingModal = (props: LoadingProps) => {
   return (
-    <Modal visible transparent>
+    <Modal transparent visible>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <ActivityIndicator size="large" color={colors.predict} />
+          <ActivityIndicator color={colors.predict} size="large" />
           <ErrorMessaging {...props} />
         </View>
       </View>
@@ -77,35 +76,35 @@ export const LoadingModal = (props: LoadingProps) => {
 
 const styles = StyleSheet.create({
   centeredView: {
+    alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    width: '90%',
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  loadingView: {
-    flexDirection: 'column',
-    flex: 1,
-    alignItems: 'center',
-    marginVertical: 10,
   },
   ctaBlock: {
     margin: 10,
+  },
+  loadingView: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    marginVertical: 10,
+  },
+  modalView: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 20,
+    elevation: 5,
+    margin: 20,
+    padding: 35,
+    shadowColor: '#000',
+    shadowOffset: {
+      height: 2,
+      width: 0,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    width: '90%',
   },
 });

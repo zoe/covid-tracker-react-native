@@ -1,31 +1,28 @@
+import { notificationReminders } from '@assets';
+import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
+import { Header } from '@covid/components/Screen';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
+import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
+import store from '@covid/core/state/store';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
+import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { notificationReminders } from '@assets';
-import { colors } from '@theme';
-import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
-import InviteToStudy from '@covid/components/InviteToStudy';
-import { Header } from '@covid/components/Screen';
-import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
-import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import i18n from '@covid/locale/i18n';
-import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
-import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { IConsentService } from '@covid/core/consent/ConsentService';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
-import store from '@covid/core/state/store';
-import Analytics, { events } from '@covid/core/Analytics';
-
 import { ImpactTimelineCard } from '../anniversary';
 import appCoordinator from '../AppCoordinator';
-
 import { BigGreenTickFilled } from './components/BigGreenTick';
 
 type RenderProps = {
@@ -35,14 +32,12 @@ type RenderProps = {
 
 type State = {
   askForRating: boolean;
-  inviteToStudy: boolean;
   shouldShowReminders: boolean;
   showTimelineCard: boolean;
 };
 
 const initialState = {
   askForRating: false,
-  inviteToStudy: false,
   shouldShowReminders: false,
   showTimelineCard: false,
 };
@@ -50,6 +45,7 @@ const initialState = {
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
   @lazyInject(Services.Consent)
   private consentService: IConsentService;
+
   private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
   state = initialState;
@@ -57,7 +53,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   async componentDidMount() {
     this.setState({
       askForRating: await shouldAskForRating(),
-      inviteToStudy: await this.consentService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
     });
   }
@@ -81,7 +76,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-              {startupInfo?.show_timeline && (
+              {startupInfo?.show_timeline ? (
                 <ImpactTimelineCard
                   onPress={() => {
                     Analytics.track(events.ANNIVERSARY_FROM_THANKYOU);
@@ -89,31 +84,30 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                   }}
                   size="LARGE"
                 />
-              )}
+              ) : null}
 
-              <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
+              <FeaturedContentList screenName={this.props.route.name} type={FeaturedContentType.ThankYou} />
 
-              {this.state.shouldShowReminders && (
+              {this.state.shouldShowReminders ? (
                 <ExternalCallout
+                  aspectRatio={1244.0 / 368.0}
                   calloutID="notificationReminders"
                   imageSource={notificationReminders}
-                  aspectRatio={1244.0 / 368.0}
-                  screenName={this.props.route.name}
                   postClicked={() => {
                     PushNotificationService.openSettings();
                   }}
+                  screenName={this.props.route.name}
                 />
-              )}
+              ) : null}
 
               <View style={{ margin: 10 }} />
 
               <ShareAppCard />
 
-              {this.state.inviteToStudy && <InviteToStudy placement="ThankYouUK" />}
-
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
-                style={styles.ctaSingleProfile}>
+                style={styles.ctaSingleProfile}
+              >
                 <RegularText style={styles.ctaSingleProfileText}>
                   {i18n.t('thank-you-uk.cta-single-profile')}
                 </RegularText>
@@ -122,7 +116,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
                   onPress={() => assessmentCoordinator.gotoSelectProfile()}
-                  style={styles.ctaMultipleProfileText}>
+                  style={styles.ctaMultipleProfileText}
+                >
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>
               </View>
@@ -135,66 +130,66 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 }
 
 const styles = StyleSheet.create({
-  headerText: {
-    textAlign: 'center',
+  ctaMultipleProfile: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: 24,
+    paddingTop: 15,
   },
-  subTitle: {
-    textAlign: 'center',
-    marginBottom: 15,
+  ctaMultipleProfileText: {
+    color: colors.purple,
   },
-  signOff: {
-    textAlign: 'center',
-    marginHorizontal: 18,
+  ctaSingleProfile: {
+    backgroundColor: colors.backgroundSecondary,
+    borderColor: colors.brand,
+    borderWidth: 1,
+    marginVertical: 20,
+    paddingTop: 8,
+  },
+  ctaSingleProfileText: {
+    color: colors.brand,
   },
   dateLabel: {
-    textAlign: 'center',
-    marginTop: -16,
     marginBottom: 8,
+    marginTop: -16,
+    textAlign: 'center',
   },
-  scrollView: {
-    flexGrow: 1,
-    backgroundColor: colors.backgroundSecondary,
+  dietStudyImage: {
+    aspectRatio: 1200 / 1266,
+    height: undefined,
+    marginVertical: 8,
+    resizeMode: 'contain',
+    width: '100%',
+  },
+  headerText: {
+    textAlign: 'center',
   },
   rootContainer: {
     maxWidth: 500,
     padding: 18,
   },
-  socialIconContainer: {
-    marginVertical: -10,
-    borderRadius: 10,
-    marginHorizontal: 10,
-    alignSelf: 'center',
+  scrollView: {
+    backgroundColor: colors.backgroundSecondary,
+    flexGrow: 1,
+  },
+  signOff: {
+    marginHorizontal: 18,
+    textAlign: 'center',
   },
   socialIcon: {
-    resizeMode: 'contain',
-    width: '100%',
-    height: undefined,
     aspectRatio: 1,
-  },
-  ctaMultipleProfile: {
-    paddingTop: 15,
-    paddingBottom: 24,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  ctaMultipleProfileText: {
-    color: colors.purple,
-  },
-  ctaSingleProfileText: {
-    color: colors.brand,
-  },
-  ctaSingleProfile: {
-    marginVertical: 20,
-    paddingTop: 8,
-    backgroundColor: colors.backgroundSecondary,
-    borderColor: colors.brand,
-    borderWidth: 1,
-  },
-  dietStudyImage: {
-    width: '100%',
-    aspectRatio: 1200 / 1266,
     height: undefined,
     resizeMode: 'contain',
-    marginVertical: 8,
+    width: '100%',
+  },
+  socialIconContainer: {
+    alignSelf: 'center',
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginVertical: -10,
+  },
+  subTitle: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });

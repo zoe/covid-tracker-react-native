@@ -1,9 +1,8 @@
+import { colors, fontStyles } from '@theme';
 import { Text } from 'native-base';
 import React from 'react';
 import { GestureResponderEvent, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-import { colors, fontStyles } from '@theme';
 
 import { FieldWrapper } from './Screen';
 
@@ -19,7 +18,7 @@ interface IProps {
 export function SelectorButton(props: IProps) {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <TouchableOpacity onPress={props.onPress} testID={props.testID ?? 'buttonTestID'} disabled={props.disable}>
+      <TouchableOpacity disabled={props.disable} onPress={props.onPress} testID={props.testID ?? 'buttonTestID'}>
         <View style={styles.bigButton}>
           <Text style={[fontStyles.bodyReg, styles.buttonText]}>{props.text}</Text>
         </View>
@@ -29,8 +28,12 @@ export function SelectorButton(props: IProps) {
 }
 
 const styles = StyleSheet.create({
-  fieldWrapper: {
-    marginVertical: 16,
+  bigButton: {
+    backgroundColor: colors.white,
+    borderColor: colors.brand,
+    borderRadius: 8,
+    borderWidth: 1,
+    padding: 16,
   },
 
   buttonText: {
@@ -38,11 +41,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  bigButton: {
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.brand,
-    backgroundColor: colors.white,
-    padding: 16,
+  fieldWrapper: {
+    marginVertical: 16,
   },
 });

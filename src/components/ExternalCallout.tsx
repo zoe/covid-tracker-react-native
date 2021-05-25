@@ -1,3 +1,11 @@
+import { closeIcon } from '@assets';
+import { ContentLoadingView } from '@covid/components/content/ContentLoadingView';
+import Analytics, { events } from '@covid/core/Analytics';
+import { addDismissCallout } from '@covid/core/content/state/contentSlice';
+import { RootState } from '@covid/core/state/root';
+import { useAppDispatch } from '@covid/core/state/store';
+import i18n from '@covid/locale/i18n';
+import { openWebLink } from '@covid/utils/links';
 import React, { useEffect, useState } from 'react';
 import {
   Image,
@@ -9,17 +17,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
-
-import Analytics, { events } from '@covid/core/Analytics';
-import { openWebLink } from '@covid/utils/links';
-import { closeIcon } from '@assets';
-import { RootState } from '@covid/core/state/root';
-import { addDismissCallout } from '@covid/core/content/state/contentSlice';
-import { useAppDispatch } from '@covid/core/state/store';
-import { ContentLoadingView } from '@covid/components/Content/ContentLoadingView';
-import i18n from '@covid/locale/i18n';
+import { useSelector } from 'react-redux';
 
 type ExternalCalloutProps = {
   aspectRatio: number;
@@ -43,24 +42,24 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const imageProps = {
-    style: [
-      styles.image,
-      { aspectRatio: props.aspectRatio },
-      { ...(props.imageStyles as object) },
-      imageLoading && { opacity: 0 },
-    ],
-    onLoadStart: () => {
-      setImageLoading(true);
+    onError: () => {
+      setImageLoading(false);
+      setImageLoadError(i18n.t('generic.content-can-not-be-loaded-atm'));
     },
     onLoadEnd: () => {
       setTimeout(() => {
         setImageLoading(false);
       }, 330);
     },
-    onError: () => {
-      setImageLoading(false);
-      setImageLoadError(i18n.t('generic.content-can-not-be-loaded-atm'));
+    onLoadStart: () => {
+      setImageLoading(true);
     },
+    style: [
+      styles.image,
+      { aspectRatio: props.aspectRatio },
+      { ...(props.imageStyles as object) },
+      imageLoading && { opacity: 0 },
+    ],
   };
 
   useEffect(() => {
@@ -92,49 +91,51 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
 
   return (
     <ContentLoadingView
-      loading={imageLoading}
+      disableShimmers={props.disableLoadingState}
       errorMessage={imageLoadError}
-      disableShimmers={props.disableLoadingState}>
-      {!dismissed && (
+      loading={imageLoading}
+    >
+      {!dismissed ? (
         <TouchableWithoutFeedback
-          onPress={clickCallout}
+          accessibilityRole={props.isSharing ? 'none' : 'button'}
           accessible={props.isSharing}
-          accessibilityRole={props.isSharing ? 'none' : 'button'}>
+          onPress={clickCallout}
+        >
           <View style={styles.viewContainer}>
             {Object.keys(props.imageSource).includes('uri') ? (
               <FastImage {...imageProps} source={{ uri: (props.imageSource as ImageURISource).uri }} />
             ) : (
               <Image {...imageProps} source={props.imageSource} />
             )}
-            {props.canDismiss && !props.isSharing && (
+            {props.canDismiss && !props.isSharing ? (
               <TouchableWithoutFeedback onPress={clickDismiss}>
-                <Image style={styles.closeCross} source={closeIcon} />
+                <Image source={closeIcon} style={styles.closeCross} />
               </TouchableWithoutFeedback>
-            )}
+            ) : null}
           </View>
         </TouchableWithoutFeedback>
-      )}
+      ) : null}
     </ContentLoadingView>
   );
 };
 
 const styles = StyleSheet.create({
-  viewContainer: {
-    marginVertical: 8,
-    alignSelf: 'center',
-    flex: 1,
-    flexDirection: 'row',
+  closeCross: {
+    end: 12,
+    height: 24,
+    position: 'absolute',
+    tintColor: 'white',
+    top: 12,
+    width: 24,
   },
   image: {
     resizeMode: 'contain',
     width: '100%',
   },
-  closeCross: {
-    position: 'absolute',
-    end: 12,
-    top: 12,
-    height: 24,
-    width: 24,
-    tintColor: 'white',
+  viewContainer: {
+    alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    marginVertical: 8,
   },
 });

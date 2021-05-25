@@ -1,11 +1,10 @@
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useEffect } from 'react';
 import { ScrollView } from 'react-native';
-
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
-import { openWebLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;
@@ -18,7 +17,7 @@ const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicyUK', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly]
+    [navigation.navigate, route.params.viewOnly],
   );
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
         {'\n\n'}
         This app allows you to help others, but does not give health advice. If you need health advice please visit the
         NHS website:{' '}
-        <ClickableText testID="infoLink" onPress={onInfoLinkPress}>
+        <ClickableText onPress={onInfoLinkPress} testID="infoLink">
           https://www.nhs.uk/conditions/coronavirus-covid-19/
         </ClickableText>
         {'\n'}
@@ -44,7 +43,7 @@ const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
         This app is designed by doctors and scientists at Kings’ College London, Guys and St Thomas’ Hospitals and Zoe
         Global Limited, a health technology company. They have access to the information you enter, which may also be
         shared with the NHS and other medical researchers as outlined in our{' '}
-        <ClickableText testID="privacyPolicy1" onPress={onPrivacyPolicyPress}>
+        <ClickableText onPress={onPrivacyPolicyPress} testID="privacyPolicy1">
           privacy notice
         </ClickableText>
         .{'\n\n'}
@@ -70,7 +69,7 @@ const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
         {'\n\n'}
         We adhere to the General Data Protection Regulation ‘GDPR’. For more information about how we use and share
         personal information about you, please see our{' '}
-        <ClickableText testID="privacyPolicy2" onPress={onPrivacyPolicyPress}>
+        <ClickableText onPress={onPrivacyPolicyPress} testID="privacyPolicy2">
           privacy notice
         </ClickableText>
         .{'\n\n'}

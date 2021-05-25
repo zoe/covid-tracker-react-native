@@ -1,7 +1,6 @@
 import store from '../state/store';
-
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
-import { updateAssessment, clearAssessment } from './state/actions';
+import { clearAssessment, updateAssessment } from './state/actions';
 
 export interface IAssessmentState {
   initAssessment(assessment: Partial<AssessmentInfosRequest>): void;

@@ -1,5 +1,5 @@
-import { IGrid } from './grid';
 import { IColorPalettes } from './colors';
+import { IGrid } from './grid';
 import { ITextClass } from './typography';
 
 export interface IThemeVars {

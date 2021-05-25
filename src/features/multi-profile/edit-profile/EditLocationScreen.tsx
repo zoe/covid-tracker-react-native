@@ -1,23 +1,22 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
-import { Form, Text } from 'native-base';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { PickerItemProps, View } from 'react-native';
-
+import { BrandedButton } from '@covid/components';
+import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
 import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { useAppDispatch } from '@covid/core/state/store';
-import { fetchStartUpInfo } from '@covid/core/content/state/contentSlice';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import YesNoField from '@covid/components/YesNoField';
-import DropdownField from '@covid/components/DropdownField';
-import { BrandedButton } from '@covid/components';
+import { fetchStartUpInfo } from '@covid/core/content/state/contentSlice';
+import { useAppDispatch } from '@covid/core/state/store';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
+import { Form, Text } from 'native-base';
+import React, { useState } from 'react';
+import { PickerItemProps, View } from 'react-native';
+import * as Yup from 'yup';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'EditLocation'>;
@@ -43,23 +42,23 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const initialFormValues: EditLocationData = {
-    postcode: props.route.params.patientData.patientInfo!.postcode,
+    currentCountry: props.route.params.patientData.patientInfo!.current_country_code ?? '',
+    currentPostcode: props.route.params.patientData.patientInfo!.current_postcode ?? '',
     differentAddress: props.route.params.patientData.patientInfo!.current_postcode
       ? 'yes'
       : props.route.params.patientData.patientInfo!.current_country_code
       ? 'yes'
       : 'no',
+    postcode: props.route.params.patientData.patientInfo!.postcode,
     stillInUK: props.route.params.patientData.patientInfo!.current_country_code ? 'no' : 'yes',
-    currentPostcode: props.route.params.patientData.patientInfo!.current_postcode ?? '',
-    currentCountry: props.route.params.patientData.patientInfo!.current_country_code ?? '',
   };
 
   const validation = Yup.object().shape({
-    postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
-    differentAddress: Yup.string().required(),
-    stillInUK: Yup.string().when('differentAddress', {
-      is: 'no',
-      then: Yup.string().required(),
+    currentCountry: Yup.string().when(['stillInUK', 'differentAddress'], {
+      is: (stillInUK: string, differentAddress: string) => {
+        return stillInUK === 'no' && differentAddress === 'yes';
+      },
+      then: Yup.string().required(i18n.t('edit-profile.location.select-country')),
     }),
     currentPostcode: Yup.string().when(['stillInUK', 'differentAddress'], {
       is: (stillInUK: string, differentAddress: string) => {
@@ -67,11 +66,11 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
       },
       then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
     }),
-    currentCountry: Yup.string().when(['stillInUK', 'differentAddress'], {
-      is: (stillInUK: string, differentAddress: string) => {
-        return stillInUK === 'no' && differentAddress === 'yes';
-      },
-      then: Yup.string().required(i18n.t('edit-profile.location.select-country')),
+    differentAddress: Yup.string().required(),
+    postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+    stillInUK: Yup.string().when('differentAddress', {
+      is: 'no',
+      then: Yup.string().required(),
     }),
   });
 
@@ -82,16 +81,14 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
       infos.postcode = formData.postcode;
       infos.current_postcode = null;
       infos.current_country_code = null;
+    } else if (formData.stillInUK === 'yes') {
+      infos.postcode = formData.postcode;
+      infos.current_postcode = formData.currentPostcode;
+      infos.current_country_code = null;
     } else {
-      if (formData.stillInUK === 'yes') {
-        infos.postcode = formData.postcode;
-        infos.current_postcode = formData.currentPostcode;
-        infos.current_country_code = null;
-      } else {
-        infos.postcode = formData.postcode;
-        infos.current_postcode = null;
-        infos.current_country_code = formData.currentCountry;
-      }
+      infos.postcode = formData.postcode;
+      infos.current_postcode = null;
+      infos.current_country_code = formData.currentCountry;
     }
 
     editProfileCoordinator
@@ -116,66 +113,67 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     .sort((a: PickerItemProps, b: PickerItemProps) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
   return (
-    <Screen profile={props.route.params.patientData.profile} navigation={props.navigation} simpleCallout>
+    <Screen simpleCallout navigation={props.navigation} profile={props.route.params.patientData.profile}>
       <Header>
         <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
       </Header>
 
       <Formik
         initialValues={initialFormValues}
-        validationSchema={validation}
         onSubmit={(formData: EditLocationData) => {
           return handleLocationUpdate(formData);
-        }}>
+        }}
+        validationSchema={validation}
+      >
         {(props) => {
           return (
             <Form style={{ marginHorizontal: 16 }}>
               <GenericTextField
-                formikProps={props}
-                label={i18n.t('edit-profile.location.label')}
-                placeholder={i18n.t('placeholder-postcode')}
-                name="postcode"
-                inputProps={{ autoCompleteType: 'postal-code' }}
                 showError
+                formikProps={props}
+                inputProps={{ autoCompleteType: 'postal-code' }}
+                label={i18n.t('edit-profile.location.label')}
+                name="postcode"
+                placeholder={i18n.t('placeholder-postcode')}
               />
               <YesNoField
                 label={i18n.t('edit-profile.location.not-current-address')}
-                selectedValue={props.values.differentAddress}
                 onValueChange={props.handleChange('differentAddress')}
+                selectedValue={props.values.differentAddress}
               />
-              {props.values.differentAddress === 'yes' && (
+              {props.values.differentAddress === 'yes' ? (
                 <YesNoField
                   label={i18n.t('edit-profile.location.still-in-country')}
-                  selectedValue={props.values.stillInUK}
                   onValueChange={props.handleChange('stillInUK')}
+                  selectedValue={props.values.stillInUK}
                 />
-              )}
-              {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' && (
+              ) : null}
+              {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' ? (
                 <GenericTextField
-                  formikProps={props}
-                  label={i18n.t('edit-profile.location.other-postcode')}
-                  placeholder={i18n.t('placeholder-postcode')}
-                  name="currentPostcode"
-                  inputProps={{ autoCompleteType: 'postal-code' }}
                   showError
+                  formikProps={props}
+                  inputProps={{ autoCompleteType: 'postal-code' }}
+                  label={i18n.t('edit-profile.location.other-postcode')}
+                  name="currentPostcode"
+                  placeholder={i18n.t('placeholder-postcode')}
                 />
-              )}
-              {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' && (
+              ) : null}
+              {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' ? (
                 <DropdownField
-                  selectedValue={props.values.currentCountry}
-                  onValueChange={props.handleChange('currentCountry')}
-                  label={i18n.t('edit-profile.location.select-country')}
-                  items={countryList}
                   error={props.touched.currentCountry && props.errors.currentCountry}
+                  items={countryList}
+                  label={i18n.t('edit-profile.location.select-country')}
+                  onValueChange={props.handleChange('currentCountry')}
+                  selectedValue={props.values.currentCountry}
                 />
-              )}
+              ) : null}
               <View style={{ height: 100 }} />
-              <SecondaryText style={{ textAlign: 'center', paddingHorizontal: 8 }}>
+              <SecondaryText style={{ paddingHorizontal: 8, textAlign: 'center' }}>
                 {i18n.t('edit-profile.location.disclaimer')}
               </SecondaryText>
               <ErrorText>{errorMessage}</ErrorText>
-              <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                <Text>{i18n.t('edit-profile.done')}</Text>
+              <BrandedButton hideLoading={!props.isSubmitting} onPress={props.handleSubmit}>
+                {i18n.t('edit-profile.done')}
               </BrandedButton>
             </Form>
           );

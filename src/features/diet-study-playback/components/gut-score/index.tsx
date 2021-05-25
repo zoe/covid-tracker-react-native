@@ -1,11 +1,9 @@
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import React from 'react';
 
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-
 import MissingDataText from '../missing-data-text';
-
+import Score from './Score';
 import { SContainerView } from './styles';
-import Score from './score';
 
 interface IProps {
   beforeScore: number | null;
@@ -18,26 +16,26 @@ function GutScore({ beforeScore, duringScore, minValue = 0, maxValue = 10 }: IPr
   const duringPandemicSubtitle = isUSCountry() ? 'September - October 2020' : 'August - September 2020';
   return (
     <SContainerView>
-      {beforeScore && (
+      {beforeScore ? (
         <Score
           currentValue={beforeScore}
-          minValue={minValue}
           maxValue={maxValue}
-          title="Before the pandemic"
-          subTitle="February 2020"
+          minValue={minValue}
           style={{ marginBottom: 48 }}
+          subTitle="February 2020"
+          title="Before the pandemic"
         />
-      )}
-      {duringScore && (
+      ) : null}
+      {duringScore ? (
         <Score
           currentValue={duringScore}
-          minValue={minValue}
           maxValue={maxValue}
-          title="During the pandemic"
+          minValue={minValue}
           subTitle={duringPandemicSubtitle}
+          title="During the pandemic"
         />
-      )}
-      {!beforeScore && <MissingDataText />}
+      ) : null}
+      {!beforeScore ? <MissingDataText /> : null}
     </SContainerView>
   );
 }

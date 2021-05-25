@@ -1,9 +1,8 @@
+import { cardBackground1, cardBackground2, cardBackground3 } from '@assets';
+import { colors } from '@theme';
 import { View } from 'native-base';
 import React from 'react';
-import { StyleSheet, ImageBackground } from 'react-native';
-
-import { colors } from '@theme';
-import { cardBackground1, cardBackground2, cardBackground3 } from '@assets';
+import { ImageBackground, StyleSheet } from 'react-native';
 
 import { RegularBoldText, RegularText } from './Text';
 
@@ -59,15 +58,15 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   container: {
-    marginVertical: 24,
     backgroundColor: colors.white,
-    width: '100%',
-    elevation: 0,
     borderRadius: 16,
+    elevation: 0,
+    marginVertical: 24,
+    width: '100%',
   },
   contentContainer: {
-    paddingVertical: 24,
     paddingHorizontal: 32,
+    paddingVertical: 24,
   },
   paragraph: {
     marginVertical: 8,

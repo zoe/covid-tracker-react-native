@@ -1,19 +1,18 @@
-import React, { ReactNode } from 'react';
-
-import { TStyleObject } from '@covid/utils/types';
 import {
-  useTheme,
   IThemeVars,
-  TColorShade,
   TColorPalette,
-  TGridSizes,
+  TColorShade,
   TFontFamily,
   TFontStyle,
+  TGridSizes,
   TTextAlign,
-  TTtextDecorationLine,
   TTextClass,
+  TTtextDecorationLine,
   TTypeSizes,
+  useTheme,
 } from '@covid/themes';
+import { TStyleObject } from '@covid/utils/types';
+import React, { ReactNode } from 'react';
 
 import { SText } from './styles';
 
@@ -53,13 +52,13 @@ const Text = ({
   textClass = 'default',
 }: IProps) => {
   const theme: IThemeVars = useTheme();
-  const fFamily = fontFamily ? fontFamily : theme.text[textClass].fontFamily;
-  const fSize = fontSize ? fontSize : theme.text[textClass].fontSize;
-  const fStyle = fontStyle ? fontStyle : theme.text[textClass].fontStyle;
-  const lHeight = lineHeight ? lineHeight : theme.text[textClass].lineHeight;
-  const tAlign = textAlign ? textAlign : theme.text[textClass].textAlign;
-  const lSpacing = letterSpacing ? letterSpacing : theme.text[textClass].letterSpacing;
-  const tDecorationLine = textDecorationLine ? textDecorationLine : theme.text[textClass].textDecorationLine;
+  const fFamily = fontFamily || theme.text[textClass].fontFamily;
+  const fSize = fontSize || theme.text[textClass].fontSize;
+  const fStyle = fontStyle || theme.text[textClass].fontStyle;
+  const lHeight = lineHeight || theme.text[textClass].lineHeight;
+  const tAlign = textAlign || theme.text[textClass].textAlign;
+  const lSpacing = letterSpacing || theme.text[textClass].letterSpacing;
+  const tDecorationLine = textDecorationLine || theme.text[textClass].textDecorationLine;
   return (
     <SText
       colorPalette={colorPalette}
@@ -68,13 +67,14 @@ const Text = ({
       fontSize={fSize}
       fontStyle={fStyle}
       inverted={inverted}
-      lineHeight={lHeight}
       letterSpacing={lSpacing}
+      lineHeight={lHeight}
       onPress={onPress}
       rhythm={rhythm}
       style={style}
       textAlign={tAlign}
-      textDecorationLine={tDecorationLine}>
+      textDecorationLine={tDecorationLine}
+    >
       {children}
     </SText>
   );

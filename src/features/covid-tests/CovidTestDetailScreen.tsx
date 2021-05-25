@@ -1,19 +1,14 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
-import { Form, Text } from 'native-base';
-import React, { Component } from 'react';
-import { Alert, View } from 'react-native';
-import * as Yup from 'yup';
-
+import { BrandedButton } from '@covid/components';
+import { ClearButton } from '@covid/components/buttons/ClearButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
+import Analytics, { events } from '@covid/core/Analytics';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import {
   CovidTestDateQuestion,
   CovidTestInvitedQuestion,
@@ -28,14 +23,18 @@ import {
   ICovidTestMechanismData,
   ICovidTestResultData,
 } from '@covid/features/covid-tests/fields/';
-import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { Services } from '@covid/provider/services.types';
-import { lazyInject } from '@covid/provider/services';
-import { ClearButton } from '@covid/components/buttons/ClearButton';
+import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { BrandedButton } from '@covid/components';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik, FormikProps } from 'formik';
+import { Form, Text } from 'native-base';
+import React, { Component } from 'react';
+import { Alert, View } from 'react-native';
+import * as Yup from 'yup';
 
 interface ICovidTestData
   extends ICovidTestDateData,
@@ -96,24 +95,22 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             this.setState({ submitting: false });
           });
       }
+    } else if (
+      infos.result === 'positive' &&
+      this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+    ) {
+      this.setState({ submitting: false });
+      assessmentCoordinator.goToTestConfirm(infos as CovidTest);
     } else {
-      if (
-        infos.result === 'positive' &&
-        this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
-      ) {
-        this.setState({ submitting: false });
-        assessmentCoordinator.goToTestConfirm(infos as CovidTest);
-      } else {
-        this.covidTestService
-          .addTest(infos)
-          .then(() => {
-            NavigatorService.goBack();
-          })
-          .catch(() => {
-            this.setState({ errorMessage: i18n.t('something-went-wrong') });
-            this.setState({ submitting: false });
-          });
-      }
+      this.covidTestService
+        .addTest(infos)
+        .then(() => {
+          NavigatorService.goBack();
+        })
+        .catch(() => {
+          this.setState({ errorMessage: i18n.t('something-went-wrong') });
+          this.setState({ submitting: false });
+        });
     }
   }
 
@@ -156,18 +153,18 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       i18n.t('covid-test.delete-test-alert-text'),
       [
         {
-          text: i18n.t('cancel'),
           style: 'cancel',
+          text: i18n.t('cancel'),
         },
         {
-          text: i18n.t('delete'),
-          style: 'destructive',
           onPress: async () => {
             await this.deleteTest();
           },
+          style: 'destructive',
+          text: i18n.t('delete'),
         },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   }
 
@@ -191,7 +188,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       .concat(CovidTestIsRapidQuestion.schema());
 
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>
             {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}
@@ -199,7 +196,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={1} maxSteps={2} />
+          <ProgressStatus maxSteps={2} step={1} />
         </ProgressBlock>
 
         <Formik
@@ -211,10 +208,11 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             ...CovidTestLocationQuestion.initialFormValues(test),
             ...CovidTestIsRapidQuestion.initialFormValues(test),
           }}
-          validationSchema={registerSchema}
           onSubmit={(values: ICovidTestData) => {
             return this.handleAction(values);
-          }}>
+          }}
+          validationSchema={registerSchema}
+        >
           {(props) => {
             return (
               <Form>
@@ -227,22 +225,22 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                   <CovidTestInvitedQuestion formikProps={props as FormikProps<ICovidTestInvitedData>} test={test} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
-                  )}
+                  ) : null}
 
-                  {this.testId && (
+                  {this.testId ? (
                     <ClearButton
-                      text={i18n.t('covid-test.delete-test')}
                       onPress={async () => {
                         await this.promptDeleteTest();
                       }}
+                      text={i18n.t('covid-test.delete-test')}
                     />
-                  )}
+                  ) : null}
                 </View>
 
-                <BrandedButton onPress={props.handleSubmit} enable={!this.state.submitting}>
-                  <Text>{i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>
+                <BrandedButton enable={!this.state.submitting} onPress={props.handleSubmit}>
+                  {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </Form>
             );

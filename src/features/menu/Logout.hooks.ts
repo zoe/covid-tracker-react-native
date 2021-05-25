@@ -1,13 +1,12 @@
-import { DrawerActions } from '@react-navigation/native';
-import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
-import { useDispatch } from 'react-redux';
-
-import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
+import { reset } from '@covid/core/state/user';
+import { IUserService } from '@covid/core/user/UserService';
+import { DrawerMenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { DrawerMenuItem } from '@covid/features/menu/DrawerMenuItem';
-import { reset } from '@covid/core/state/user';
+import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
+import { DrawerActions } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
 export const useLogout = (navigation: DrawerNavigationHelpers) => {
   const userService = useInjection<IUserService>(Services.User);

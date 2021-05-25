@@ -257,6 +257,7 @@ export type PatientInfosRequest = {
   has_school_group: boolean;
   should_ask_vaccine_questions: boolean;
   vaccine_status: VaccineStatus;
+  should_ask_long_covid_questions: boolean;
 };
 
 export enum VaccineStatus {
@@ -307,6 +308,7 @@ export type StartupInfo = {
   show_edit_location: boolean;
   show_trendline: boolean;
   show_timeline: boolean;
+  show_long_covid: boolean;
   show_diet_score: boolean;
   local_data: {
     map_url: string;
@@ -319,9 +321,4 @@ export type StartupInfo = {
       lng: number;
     };
   };
-};
-
-export type AskForStudies = {
-  should_ask_uk_validation_study: boolean;
-  should_ask_uk_vaccine_register: boolean;
 };

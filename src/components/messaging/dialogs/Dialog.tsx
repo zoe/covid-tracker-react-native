@@ -1,12 +1,10 @@
+import { IUIMessage, useMessage } from '@covid/common';
+import { useTheme } from '@covid/themes';
 import React, { useEffect, useState } from 'react';
 import { Animated, Dimensions, Easing, View } from 'react-native';
 
-import { IUIMessage, useMessage } from '@covid/common';
-import { useTheme } from '@covid/themes';
-
 import { RoundIconButton, ThemeButton } from '../../buttons';
 import { Text } from '../../typography';
-
 import { SContainerView, SMessageWindowView, STitleView } from './styles';
 
 interface IProps {
@@ -31,17 +29,17 @@ function Dialog({ active, message }: IProps) {
         if (index % 2) {
           return (
             <ThemeButton
+              simple
+              colorPalette="burgundy"
+              colorShade="main"
               key={key}
               onPress={action.action}
               title={action.label}
-              colorPalette="burgundy"
-              colorShade="main"
-              simple
             />
           );
         }
         return (
-          <ThemeButton key={key} onPress={action.action} title={action.label} colorPalette="teal" colorShade="main" />
+          <ThemeButton colorPalette="teal" colorShade="main" key={key} onPress={action.action} title={action.label} />
         );
       });
     }
@@ -50,9 +48,9 @@ function Dialog({ active, message }: IProps) {
 
   const animate = (active: boolean) => {
     Animated.timing(animValue, {
-      toValue: active ? RANGE_TO : RANGE_FROM,
       duration: DURATION,
       easing: Easing.elastic(1),
+      toValue: active ? RANGE_TO : RANGE_FROM,
       useNativeDriver: true,
     }).start();
   };
@@ -76,7 +74,7 @@ function Dialog({ active, message }: IProps) {
     <SContainerView height={height} width={width}>
       <SMessageWindowView style={{ transform: [{ translateY: animateTo }] }}>
         <STitleView>
-          <Text textClass="h4Medium" rhythm={theme.grid.l}>
+          <Text rhythm={theme.grid.l} textClass="h4Medium">
             {message.message.title}
           </Text>
           <Text rhythm={theme.grid.xxxl}>{message.message.body}</Text>

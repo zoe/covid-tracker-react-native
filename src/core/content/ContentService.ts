@@ -1,19 +1,17 @@
-import { inject, injectable } from 'inversify';
-
-import { AsyncStorageService, PERSONALISED_LOCAL_DATA, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
-import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
-import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
-import i18n from '@covid/locale/i18n';
-import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
-import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
+import { AsyncStorageService, PERSONALISED_LOCAL_DATA, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IContentApiClient } from '@covid/core/content/ContentApiClient';
-import { useConstants } from '@covid/utils/hooks';
+import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
+import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
+import { Services } from '@covid/provider/services.types';
+import Constants from '@covid/utils/Constants';
+import { inject, injectable } from 'inversify';
 
 import { FeaturedContentResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
-const Constants = useConstants();
 export interface IContentService {
   localData?: PersonalisedLocalData;
   getUserCount(): Promise<string | null>;
@@ -37,28 +35,28 @@ export default class ContentService implements IContentService {
   static getWebsiteUrl = () => {
     if (isUSCountry()) {
       return 'https://covid.joinzoe.com/us';
-    } else if (isSECountry()) {
-      return 'https://covid19app.lu.se/';
-    } else {
-      return 'https://covid.joinzoe.com/';
     }
+    if (isSECountry()) {
+      return 'https://covid19app.lu.se/';
+    }
+    return 'https://covid.joinzoe.com/';
   };
 
   getCalloutBoxDefault(): ScreenContent {
     return {
-      title_text: i18n.t('welcome.research'),
-      body_text: i18n.t('welcome.see-how-your-area-is-affected'),
-      body_link: ContentService.getWebsiteUrl(),
-      link_text: i18n.t('welcome.visit-the-website'),
-      body_photo: null,
-      experiment_name: '',
-      cohort_id: 0,
       analytics: '',
+      body_link: ContentService.getWebsiteUrl(),
+      body_photo: null,
+      body_text: i18n.t('welcome.see-how-your-area-is-affected'),
+      cohort_id: 0,
+      experiment_name: '',
+      link_text: i18n.t('welcome.visit-the-website'),
+      title_text: i18n.t('welcome.research'),
     };
   }
 
   async getUserCount() {
-    return await AsyncStorageService.getUserCount();
+    return AsyncStorageService.getUserCount();
   }
 
   async checkVersionOfAPIAndApp(apiVersion: string | undefined): Promise<boolean> {
@@ -83,16 +81,16 @@ export default class ContentService implements IContentService {
     const appVersionParts: string[] = appVersion.split('.');
 
     // First check on the major (1st) digits
-    const startNumberAPI: number = parseInt(apiVersionParts[0]);
-    const startNumberAPP: number = parseInt(appVersionParts[0]);
+    const startNumberAPI: number = parseInt(apiVersionParts[0], 10);
+    const startNumberAPP: number = parseInt(appVersionParts[0], 10);
 
     if (startNumberAPP < startNumberAPI) {
       return true;
     }
 
     // Now check the middle digits. We don't do diffs for minor (3rd) digits
-    const middleNumberAPI: number = parseInt(apiVersionParts[1]);
-    const middleNumberAPP: number = parseInt(appVersionParts[1]);
+    const middleNumberAPI: number = parseInt(apiVersionParts[1], 10);
+    const middleNumberAPP: number = parseInt(appVersionParts[1], 10);
     return middleNumberAPP < middleNumberAPI;
   }
 
