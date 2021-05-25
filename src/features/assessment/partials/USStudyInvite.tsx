@@ -59,7 +59,7 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
                   </ScrollView>
 
                   <BrandedButton onPress={handleAgree} style={styles.modalButton}>
-                    <RegularText style={styles.buttonText}>{i18n.t('us-study-invite.button')}</RegularText>
+                    {i18n.t('us-study-invite.button')}
                   </BrandedButton>
                 </View>
               </ImageBackground>
@@ -82,10 +82,6 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
     paddingTop: 12,
     textAlign: 'center',
-  },
-  buttonText: {
-    ...fontStyles.bodySmallLight,
-    color: colors.white,
   },
   contentContainer: {
     padding: 24,

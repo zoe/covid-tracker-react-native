@@ -274,7 +274,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
                 ) : null}
 
                 <BrandedButton enable={!props.isSubmitting} onPress={props.handleSubmit}>
-                  <Text>{i18n.t('update-profile')}</Text>
+                  {i18n.t('update-profile')}
                 </BrandedButton>
               </Form>
             );

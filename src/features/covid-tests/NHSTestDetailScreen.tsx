@@ -197,7 +197,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
                 ) : null}
 
                 <BrandedButton onPress={props.handleSubmit}>
-                  <Text>{i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>
+                  {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </Form>
             );

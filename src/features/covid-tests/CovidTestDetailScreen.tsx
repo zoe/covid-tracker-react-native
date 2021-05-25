@@ -240,7 +240,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                 </View>
 
                 <BrandedButton enable={!this.state.submitting} onPress={props.handleSubmit}>
-                  <Text>{i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>
+                  {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </Form>
             );
