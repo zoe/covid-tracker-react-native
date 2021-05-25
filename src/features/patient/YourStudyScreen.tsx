@@ -407,7 +407,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
                 <BrandedButton onPress={props.handleSubmit}>
                   {
-                    // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
+                    // @ts-ignore - error due to cohort keys being in AllCohorts and not explicitly in the interface
                     props.values.is_in_uk_nhs_asymptomatic_study
                       ? i18n.t('edit-profile.next')
                       : this.props.route.params.editing
