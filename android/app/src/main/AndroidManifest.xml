@@ -33,7 +33,7 @@
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
         <data android:scheme="https"
-              android:host="api.covidradar.com"
+              android:host="api.covidradar.org"
               android:pathPattern="/launch/.*" />
       </intent-filter>
 
