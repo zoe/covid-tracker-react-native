@@ -12,7 +12,7 @@ import {
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ScreenName } from '@covid/core/Coordinator';
-import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { isSECountry, isUSCountry, isGBCountry, thankYouScreenName, homeScreenName } from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -57,10 +57,10 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     if (isSubmitting) {
       return;
     }
+    delete formData.other_checkbox;
     setSubmitting(true);
     longCovidApiClient.add(patientData.patientId, formData).then((result) => {
-      const thankYouScreen: ScreenName = isSECountry() ? 'ThankYouSE' : 'ThankYouUK';
-      NavigatorService.reset([{ name: 'Dashboard' }, { name: thankYouScreen }], 1);
+      NavigatorService.reset([{ name: homeScreenName() }, { name: thankYouScreenName() }], 1);
     });
   };
 
@@ -78,7 +78,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
             </CheckboxItem>
           </View>
         ))}
-        {props.values.other ? <GenericTextField formikProps={props} name="other" /> : null}
+        {props.values.other_checkbox ? <GenericTextField formikProps={props} name="other" /> : null}
       </CheckboxList>
     </View>
   );
