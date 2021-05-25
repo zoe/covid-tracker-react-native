@@ -86,7 +86,7 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
                     onPress={props.handleSubmit}
                     style={styles.continueButton}
                   >
-                    <Text>{i18n.t('vaccines.dose-symptoms.next')}</Text>
+                    {i18n.t('vaccines.dose-symptoms.next')}
                   </BrandedButton>
                 </Form>
               );

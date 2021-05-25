@@ -265,9 +265,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                 <ValidationError error={i18n.t('validation-error-text')} style={{ marginBottom: 32 }} />
               ) : null}
 
-              <BrandedButton onPress={props.handleSubmit}>
-                <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>
-              </BrandedButton>
+              <BrandedButton onPress={props.handleSubmit}>{i18n.t('vaccines.your-vaccine.confirm')}</BrandedButton>
               {renderDeleteButton()}
             </Form>
           );

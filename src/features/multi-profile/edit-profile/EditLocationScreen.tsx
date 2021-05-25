@@ -173,7 +173,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
               </SecondaryText>
               <ErrorText>{errorMessage}</ErrorText>
               <BrandedButton hideLoading={!props.isSubmitting} onPress={props.handleSubmit}>
-                <Text>{i18n.t('edit-profile.done')}</Text>
+                {i18n.t('edit-profile.done')}
               </BrandedButton>
             </Form>
           );
