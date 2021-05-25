@@ -48,16 +48,8 @@ export default function BasicPage({
           </BasicNavHeader>
         ) : null}
         {children}
-        {withFooter ? (
-          <BasicPageFooter
-            active={active}
-            loading={loading}
-            onPress={onPress}
-            paddingHorizontal={withGutter ? 0 : undefined}
-            title={footerTitle}
-          />
-        ) : null}
       </ScrollView>
+      {withFooter ? <BasicPageFooter active={active} onPress={onPress} title={footerTitle} /> : null}
     </SafeLayout>
   );
 }
