@@ -11,7 +11,7 @@ import {
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ScreenName } from '@covid/core/Coordinator';
-import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { isSECountry, isUSCountry, isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -59,8 +59,9 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     delete formData.other_checkbox;
     setSubmitting(true);
     longCovidApiClient.add(patientData.patientId, formData).then((result) => {
-      const thankYouScreen: ScreenName = isSECountry() ? 'ThankYouSE' : 'ThankYouUK';
-      NavigatorService.reset([{ name: 'Dashboard' }, { name: thankYouScreen }], 1);
+      const dashboard: ScreenName = isGBCountry() ? 'Dashboard' : isUSCountry() ? 'DashboardUS' : 'WelcomeRepeat';
+      const thankYouScreen: ScreenName = isUSCountry() ? 'ThankYouUS' : isSECountry() ? 'ThankYouSE' : 'ThankYouUK';
+      NavigatorService.reset([{ name: dashboard }, { name: thankYouScreen }], 1);
     });
   };
 
