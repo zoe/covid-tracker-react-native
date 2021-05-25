@@ -31,7 +31,6 @@ export default function LongCovidStartScreen({ route }: IProps) {
         </View>
         <RegularText style={{}}>{i18n.t('long-covid.time')}</RegularText>
       </View>
-      <RegularText style={styles.text}>{i18n.t('long-covid.body-1')}</RegularText>
       <RegularText style={styles.text}>{i18n.t('long-covid.body-2')}</RegularText>
       <RegularText style={styles.text}>{i18n.t('long-covid.body-3')}</RegularText>
       <Spacer space={24} />
