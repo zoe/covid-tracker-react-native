@@ -139,6 +139,12 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
           selectedValue={props.values.at_least_one_vaccine}
         />
         {renderError(props, 'at_least_one_vaccine')}
+        {renderExtendedVaccineForm(props)}
+    </View>) : null;
+    
+    const renderExtendedVaccineForm = (props: FormikProps<ILongCovid>) =>
+    props.values.at_least_one_vaccine && props.values.at_least_one_vaccine === 'YES' ? (
+      <View>
 
         <View style={styles.hr} />
         {/* Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection? */}
@@ -222,7 +228,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
                 enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
                 onPress={() => handleSubmit(props.values)}
               >
-                <RegularText style={{ color: colors.white }}>Next</RegularText>
+                <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
                 </BrandedButton>
               </View>
             </Form>

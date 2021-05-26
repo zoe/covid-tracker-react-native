@@ -432,7 +432,7 @@
   },
 
   "long-covid": {
-    "one-off": "ONE-off questionaire",
+    "one-off": "ONE-off questionnaire",
     "title": "Investigating COVID duration & Long COVID",
     "time": "LESS THAN 2 MIN",
     "body-1": "Thanks for reporting!",
@@ -521,7 +521,8 @@
     "symptoms-change-a8": "Other",
 
     "comments": "Do you have anything else to share regarding the evolution of your COVID-19 symptoms?",
-    "button": "Next"
+    "button": "Next",
+    "finish": "Finish"
   },
 
   "where-are-you": {
