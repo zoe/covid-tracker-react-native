@@ -1,12 +1,19 @@
 import { SafeLayout } from '@covid/components';
-import React from 'react';
+import { generalApiClient } from '@covid/Services';
+import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
 interface IProps {
   children?: React.ReactNode;
+  event?: string;
 }
 
 export default function Modal(props: IProps) {
+  useEffect(() => {
+    if (props.event) {
+      generalApiClient.postUserEvent(props.event);
+    }
+  }, [props.event]);
   return (
     <SafeLayout>
       <ScrollView

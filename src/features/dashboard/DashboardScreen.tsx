@@ -173,7 +173,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
             onPress={() => appCoordinator.goToMentalHealthStudyPlayback(startupInfo)}
             style={styling.marginVerticalSmall}
             tagColor={colors.coral.main.bgColor}
-            title={i18n.t('mental-health.results-ready')}
+            title={i18n.t('mental-health-playback.results-ready')}
           />
         ) : null}
 

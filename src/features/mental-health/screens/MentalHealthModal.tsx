@@ -41,7 +41,7 @@ export default function MentalHealthModal() {
   });
 
   return (
-    <Modal>
+    <Modal event="view_mental_health_modal-v1">
       <Text fontFamily="SofiaProRegular" rhythm={20} textClass="h3">
         {i18n.t('mental-health.modal-title')}
       </Text>

@@ -32,7 +32,7 @@ export interface IMentalHealthApiClientBuildRequest {
 export class MentalHealthApiClient implements IMentalHealthApiClient {
   constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
-  get(): Promise<MentalHealthInfosRequest[]> {
+  get() {
     return this.apiClient.get<MentalHealthInfosRequest[]>(PATH);
   }
 
@@ -48,7 +48,7 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
     });
   }
 
-  add(patientId: string, mentalHealth: MentalHealthInfosRequest): Promise<MentalHealthInfosRequest> {
+  add(patientId: string, mentalHealth: MentalHealthInfosRequest) {
     mentalHealth = {
       patient: patientId,
       ...mentalHealth,
@@ -56,15 +56,12 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
     return this.apiClient.post<MentalHealthInfosRequest, MentalHealthInfosRequest>(PATH, mentalHealth);
   }
 
-  update(mentalHealth: MentalHealthInfosRequest): Promise<MentalHealthInfosRequest> {
+  update(mentalHealth: MentalHealthInfosRequest) {
     const url = `${PATH}${mentalHealth.id}/`;
     return this.apiClient.patch<MentalHealthInfosRequest, MentalHealthInfosRequest>(url, mentalHealth);
   }
 
-  buildRequestObject(
-    existingMentalHealth: MentalHealthInfosRequest,
-    data: IMentalHealthApiClientBuildRequest,
-  ): MentalHealthInfosRequest {
+  buildRequestObject(existingMentalHealth: MentalHealthInfosRequest, data: IMentalHealthApiClientBuildRequest) {
     let updatedMentalHealth: MentalHealthInfosRequest = {
       id: existingMentalHealth.id,
       patient: existingMentalHealth.patient,

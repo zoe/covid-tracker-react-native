@@ -25,7 +25,7 @@ export default function MentalHealthPlaybackModal() {
   });
 
   return (
-    <Modal>
+    <Modal event="view_mental_health_playback_modal-v1">
       <Tag
         color={colors.coral.main.bgColor}
         style={styling.selfCenter}
