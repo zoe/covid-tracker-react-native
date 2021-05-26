@@ -1,9 +1,9 @@
 import { Text } from '@covid/components';
+import { TTimelineEvent } from '@covid/features/anniversary/types';
 import { useTheme } from '@covid/themes';
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { TTimelineEvent } from '../types';
 import FindingCard from './FindingCard';
 import Highlight from './Highlight';
 import StudyCard from './StudyCard';

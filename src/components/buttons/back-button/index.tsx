@@ -1,10 +1,9 @@
+import { Icon } from '@covid/components/icons';
+import { Text } from '@covid/components/typography';
 import i18n from '@covid/locale/i18n';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
-
-import { Icon } from '../../icons';
-import { Text } from '../../typography';
 
 interface IProps {
   style?: StyleProp<ViewStyle>;

@@ -1,9 +1,8 @@
+import { CheckboxItem } from '@covid/components/Checkbox';
+import { GenericTextField } from '@covid/components/GenericTextField';
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { TextInputProps, View } from 'react-native';
-
-import { CheckboxItem } from '../Checkbox';
-import { GenericTextField } from '../GenericTextField';
 
 export type BooleanCheckBoxData = {
   label: string;

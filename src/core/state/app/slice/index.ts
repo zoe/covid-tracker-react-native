@@ -1,7 +1,6 @@
+import { IApp } from '@covid/core/state/app/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../root';
-import { IApp } from '../types';
 
 // NOTE
 // THIS REDUCER IS BLACK LISTED AND RESET ON EVERY SESSION
@@ -17,7 +16,7 @@ const appSlice = createSlice({
   initialState: appInitialState,
   name: 'App',
   reducers: {
-    reset: (state) => {
+    reset: () => {
       return {
         ...appInitialState,
       };

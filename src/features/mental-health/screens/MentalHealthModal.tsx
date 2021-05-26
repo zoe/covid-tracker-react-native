@@ -3,13 +3,12 @@ import { Avatar, Modal, Text } from '@covid/components';
 import Analytics from '@covid/core/Analytics';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { setConsent, setLastPresentedDate, TMentalHealthConsent } from '@covid/core/state';
+import appCoordinator from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-
-import appCoordinator from '../../AppCoordinator';
 
 export default function MentalHealthModal() {
   const [tracked, setTracked] = useState(false);

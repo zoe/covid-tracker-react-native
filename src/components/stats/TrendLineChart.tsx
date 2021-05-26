@@ -1,3 +1,5 @@
+import { MutedText, RegularText } from '@covid/components/Text';
+import { WebView } from '@covid/components/WebView';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { RootState } from '@covid/core/state/root';
 import { loadTrendLineExplore, loadTrendLineOverview } from '@covid/utils/files';
@@ -5,9 +7,6 @@ import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-
-import { MutedText, RegularText } from '../Text';
-import { WebView } from '../WebView';
 
 export enum TrendlineTimeFilters {
   week = 'WEEK',

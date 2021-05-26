@@ -6,13 +6,12 @@ import {
   ITrendLineTimeSeriesData,
 } from '@covid/core/content/dto/ContentAPIContracts';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
+import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { createAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
-
-import { RootState } from '../../state/root';
 
 // State interface
 

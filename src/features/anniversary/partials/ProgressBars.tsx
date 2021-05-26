@@ -1,7 +1,7 @@
+import { TProgress } from '@covid/features/anniversary/types';
 import React from 'react';
 import { View } from 'react-native';
 
-import { TProgress } from '../types';
 import ProgressBar from './ProgressBar';
 
 interface IProps {

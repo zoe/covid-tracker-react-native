@@ -6,6 +6,8 @@ import {
   setPleasureInDoingThings,
   setStopWorrying,
 } from '@covid/core/state/mental-health';
+import { MentalHealthInfosRequest } from '@covid/features/mental-health/MentalHealthInfosRequest';
+import { FrequencyQuestion } from '@covid/features/mental-health/partials';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
@@ -13,9 +15,6 @@ import { useTheme } from '@covid/themes';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
-import { FrequencyQuestion } from '../partials';
 
 function MentalHealthFrequency() {
   const [canSubmit, setCanSubmit] = useState(false);

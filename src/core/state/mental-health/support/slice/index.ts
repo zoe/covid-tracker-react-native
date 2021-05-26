@@ -1,7 +1,6 @@
+import { IMentalHealthSupport, TGeneralAnswer } from '@covid/core/state/mental-health/support/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../../root';
-import { IMentalHealthSupport, TGeneralAnswer } from '../types';
 
 const initialState: IMentalHealthSupport = {
   hasNeededSupport: undefined,

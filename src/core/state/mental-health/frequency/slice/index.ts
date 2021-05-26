@@ -1,7 +1,6 @@
+import { IMentalHealthFrequency, TMentalHealthFrequency } from '@covid/core/state/mental-health/frequency/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../../root';
-import { IMentalHealthFrequency, TMentalHealthFrequency } from '../types';
 
 const initialState: IMentalHealthFrequency = {
   feelingDown: undefined,

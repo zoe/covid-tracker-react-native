@@ -1,4 +1,6 @@
 import { BrandedButton } from '@covid/components';
+import { ShareButton } from '@covid/components/buttons';
+import { Text } from '@covid/components/typography';
 import { WebView } from '@covid/components/WebView';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Coordinates, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
@@ -17,9 +19,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-
-import { ShareButton } from '../buttons';
-import { Text } from '../typography';
 
 const MAP_HEIGHT = 246;
 

@@ -1,8 +1,8 @@
+import { TIconName } from '@covid/components/icons/types';
 import { TTypeSizes } from '@covid/themes';
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
-import { TIconName } from '../types';
 import { SIconSet, SIconView } from './icon.styles';
 
 interface IProps {

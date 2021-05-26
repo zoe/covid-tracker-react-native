@@ -1,8 +1,8 @@
+import { Text } from '@covid/components/typography';
 import { TColorPalette, TColorShade, TGridSizes } from '@covid/themes';
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
-import { Text } from '../../typography';
 import { STouchableOpacity } from './styles';
 
 interface IProps {

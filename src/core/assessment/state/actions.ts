@@ -1,4 +1,5 @@
-import { AssessmentInfosRequest } from '../dto/AssessmentInfosRequest';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+
 import { ActionType, ActionTypes, PayloadActionType } from './types';
 
 export const updateAssessment = (assessment: Partial<AssessmentInfosRequest>): PayloadActionType => {

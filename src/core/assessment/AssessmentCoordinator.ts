@@ -9,6 +9,7 @@ import {
 } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientStateType } from '@covid/core/patient/PatientState';
+import { IProfileService } from '@covid/core/profile/ProfileService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
@@ -16,8 +17,6 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
-import { IProfileService } from '../profile/ProfileService';
 
 export type AssessmentData = {
   assessmentId?: string;

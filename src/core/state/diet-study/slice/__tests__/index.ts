@@ -1,5 +1,5 @@
-import store from '../../../store';
-import { setDietStudyConsent } from '../index';
+import { setDietStudyConsent } from '@covid/core/state/diet-study/slice';
+import store from '@covid/core/state/store';
 
 describe('\n** redux diet study state **\n', () => {
   let state = store.getState().dietStudy;

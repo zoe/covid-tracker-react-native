@@ -1,10 +1,9 @@
 import { ArrowDown, ArrowUp } from '@assets';
+import { Text } from '@covid/components/typography';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { Text } from '../../typography';
 
 interface IProps {
   change: number;

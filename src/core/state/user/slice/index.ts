@@ -1,7 +1,6 @@
 import { RootState } from '@covid/core/state/root';
+import { IUser } from '@covid/core/state/user/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { IUser } from '../types';
 
 const initialState: IUser = {
   ask_for_rating: false,

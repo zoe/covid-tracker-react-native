@@ -1,8 +1,7 @@
+import { BrandedButton } from '@covid/components/buttons';
 import { useTheme } from '@covid/themes';
 import React from 'react';
 import { View } from 'react-native';
-
-import { BrandedButton } from '../../../buttons';
 
 interface IProps {
   active?: boolean;

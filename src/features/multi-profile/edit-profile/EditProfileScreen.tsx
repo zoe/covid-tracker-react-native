@@ -3,6 +3,7 @@ import Screen, { Header } from '@covid/components/Screen';
 import { Header3Text, HeaderText, SecondaryText } from '@covid/components/Text';
 import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { RouteProp } from '@react-navigation/native';
@@ -10,8 +11,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import { ScreenParamList } from '../../ScreenParamList';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'EditProfile'>;

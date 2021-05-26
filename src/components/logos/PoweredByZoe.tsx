@@ -1,11 +1,10 @@
 import { poweredByZoeSmall, zoe } from '@assets';
+import { InlineFormatting } from '@covid/components/InlineFormatting';
+import { RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import React from 'react';
 import { Image, ImageStyle, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-
-import { InlineFormatting } from '../InlineFormatting';
-import { RegularText } from '../Text';
 
 interface INormalProps {
   style?: StyleProp<ViewStyle>;

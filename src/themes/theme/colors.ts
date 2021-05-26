@@ -1,6 +1,6 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 
-import { IColorPalettes } from '../types/colors';
+import { IColorPalettes } from '@covid/themes/types/colors';
 
 export const colors: IColorPalettes = {
   blue: {

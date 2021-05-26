@@ -1,8 +1,7 @@
+import ProgressCircle from '@covid/components/animations/progress-circle';
+import { Icon } from '@covid/components/icons';
 import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-
-import { Icon } from '../../icons';
-import ProgressCircle from '../progress-circle';
 
 function Done() {
   const springValue = useRef(new Animated.Value(0)).current;

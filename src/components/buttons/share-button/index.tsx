@@ -1,8 +1,8 @@
 import { ShareIcon } from '@assets';
+import { Text } from '@covid/components/typography';
 import { TColorPalette, TColorShade } from '@covid/themes';
 import React from 'react';
 
-import { Text } from '../../typography';
 import { SContainerView, SIconContainerView } from './styles';
 
 interface IProps {
