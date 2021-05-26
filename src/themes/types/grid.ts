@@ -12,8 +12,8 @@ export interface IGrid {
   xxxl: TGridSizes; //    32
   xxxxl: TGridSizes; //   48
   xxxxxl: TGridSizes; //  60
-  gutter: TGridSizes;
-  rhythm: TGridSizes;
+  gutter: TGridSizes; //  16
+  rhythm: TGridSizes; //  24
 }
 
 export type TGrid = keyof IGrid;

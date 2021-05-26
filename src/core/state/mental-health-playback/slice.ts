@@ -26,11 +26,6 @@ const slice = createSlice({
 });
 
 export const selectInsights = (state: RootState) => state.mentalHealthPlayback.insights;
-export const selectInsightsByName = (state: RootState) =>
-  state.mentalHealthPlayback.insights.reduce((map: IInsightsDict, insight: IInsight) => {
-    map[insight.activity_name] = insight;
-    return map;
-  }, {});
 export const isLoading = (state: RootState) => state.mentalHealthPlayback.loading;
 export function requestInsights() {
   return async (dispatch: typeof store.dispatch) => {
