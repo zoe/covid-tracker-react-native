@@ -24,7 +24,7 @@ export default function VersionUpdateModal({ navigation }: IProps) {
   }, [navigation]);
 
   return (
-    <Modal>
+    <Modal event="view_version_update_modal-v1">
       <HeaderText style={styles.text}>{i18n.t('version-update.title')}</HeaderText>
       <Text style={styles.text}>{i18n.t('version-update.body')}</Text>
       <BrandedButton onPress={goToAppStore} style={styles.button}>

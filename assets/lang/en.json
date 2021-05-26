@@ -1489,10 +1489,11 @@
     "specify-other": "Please specify"
   },
   "mental-health-playback": {
-    "you": "You",
-    "no-change": "No change",
     "less": "Less",
     "more": "More",
+    "no-change": "No change",
+    "results-ready": "Insights on COVID & Mental Health are ready",
+    "you": "You",
 
     "modal": {
       "button-negative": "Skip for now",

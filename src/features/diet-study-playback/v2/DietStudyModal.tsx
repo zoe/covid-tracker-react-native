@@ -32,7 +32,7 @@ export default function DietStudyModal() {
   });
 
   return (
-    <Modal>
+    <Modal event="view_diet_study_modal-v1">
       <Text fontFamily="SofiaProRegular" rhythm={20} textClass="h3">
         {i18n.t('diet-study.modal-title')}
       </Text>
