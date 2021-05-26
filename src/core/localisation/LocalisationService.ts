@@ -111,6 +111,10 @@ export const homeScreenName = (): ScreenName => {
   return isGBCountry() ? 'Dashboard' : isUSCountry() ? 'DashboardUS' : 'WelcomeRepeat';
 };
 
+export const thankYouScreenName = (): ScreenName => {
+  return isUSCountry() ? 'ThankYouUS' : isSECountry() ? 'ThankYouSE' : 'ThankYouUK';
+};
+
 export const isUSCountry = () => LocalisationService.userCountry === 'US';
 export const isGBCountry = () => LocalisationService.userCountry === 'GB';
 export const isSECountry = () => LocalisationService.userCountry === 'SE';

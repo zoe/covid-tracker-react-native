@@ -95,9 +95,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
                   </Item>
                 </FieldWrapper>
 
-                <BrandedButton onPress={props.handleSubmit}>
-                  <Text>{i18n.t('completed')}</Text>
-                </BrandedButton>
+                <BrandedButton onPress={props.handleSubmit}>{i18n.t('completed')}</BrandedButton>
               </Form>
             );
           }}
