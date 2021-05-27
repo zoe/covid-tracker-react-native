@@ -37,7 +37,7 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
   }
 
   getInsights() {
-    return this.apiClient.get<IInsight[]>('/mental-health-insight/');
+    return this.apiClient.get<IInsight[]>('/mental_health_insight/');
   }
 
   feedback(rating: number, comments: string) {

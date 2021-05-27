@@ -1,4 +1,5 @@
 {
+  "continue": "Continue",
   "loading": "Loading",
 
   "create-account": {
@@ -1511,8 +1512,8 @@
       "end-title-general": "That's it!\n\nYou made it through all the insights",
       "end-title-personal": "That's it!\n\nYou made it through all your insights",
       "explanation-card": "We have compared your answers against",
-      "insight-description-general": "Was {{level_of_association}} associated with {{direction}} anxiety and depression scores within your group",
-      "insight-description-personal": "Was {{level_of_association}} associated with {{direction}} anxiety and depression scores within your group"
+      "insight-description-general": "Was {{level_of_association}} associated with {{anxiety}} anxiety and depression scores within your group",
+      "insight-description-personal": "Was {{level_of_association}} associated with {{anxiety}} anxiety and depression scores within your group"
     },
     "insights": {
       "drinking_alcohol_less": {

@@ -11,6 +11,7 @@ import {
   RegularText,
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { ScreenName } from '@covid/core/Coordinator';
 import {
   homeScreenName,
   isGBCountry,

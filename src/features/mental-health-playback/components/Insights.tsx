@@ -1,6 +1,5 @@
 import Background from '@assets/mental-health-playback/Background';
 import { Card, Spacer, Text, TextHighlight } from '@covid/components';
-import { selectInsightsByName } from '@covid/core/state/mental-health-playback/slice';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import BarChart from '@covid/features/mental-health-playback/components/BarChart';
@@ -21,7 +20,6 @@ type TNumberObject = { [key: number]: number };
 
 export default React.memo(function Insights(props: IProps) {
   const [illustrationHeights, setIllustrationHeights] = useState<TNumberObject>({});
-  const insightsByName = useSelector(selectInsightsByName);
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const windowWidth = useWindowDimensions().width;
 
@@ -91,7 +89,7 @@ export default React.memo(function Insights(props: IProps) {
               color={colors.accentBlue.main.bgColor}
               colorPalette="uiDark"
               colorShade="dark"
-              query={insight.direction}
+              query={insight.anxiety}
               style={styles.description}
               textClass="p"
             >
@@ -100,12 +98,12 @@ export default React.memo(function Insights(props: IProps) {
                   ? 'mental-health-playback.general.insight-description-general'
                   : 'mental-health-playback.general.insight-description-personal',
                 {
-                  direction: insight.direction,
+                  anxiety: insight.anxiety,
                   level_of_association: insight.level_of_association,
                 },
               )}
             </TextHighlight>
-            <BarChart color="#0165B5" items={insight.answers} userAnswer={insight.user_answer} />
+            <BarChart color="#0165B5" items={insight.answer_distribution} userAnswer={insight.user_answer} />
           </View>
 
           <View style={styles.correlatedWrapper}>
@@ -113,24 +111,22 @@ export default React.memo(function Insights(props: IProps) {
               {i18n.t('mental-health-playback.general.correlated-description')}
             </Text>
             <View style={styles.activitiesWrapper}>
-              {(insight.correlated_activities || [])
-                .filter((activityName: string) => activityName in insightsByName)
-                .map((activityName: string) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <View key={`insight-${index}-correlated-${activityName}`} style={styles.activityWrapper}>
-                    <InsightIllustration height={45} type={activityName} width={50} />
-                    <Text
-                      inverted
-                      colorPalette="accentBlue"
-                      colorShade="main"
-                      style={styling.marginTopSmall}
-                      textAlign="center"
-                      textClass="pSmall"
-                    >
-                      {i18n.t(`mental-health-playback.insights.${activityName}.abbreviation`, { defaultValue: '' })}
-                    </Text>
-                  </View>
-                ))}
+              {(insight.correlated_activities || []).map((activityName: string) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <View key={`insight-${index}-correlated-${activityName}`} style={styles.activityWrapper}>
+                  <InsightIllustration height={45} type={activityName} width={50} />
+                  <Text
+                    inverted
+                    colorPalette="accentBlue"
+                    colorShade="main"
+                    style={styling.marginTopSmall}
+                    textAlign="center"
+                    textClass="pSmall"
+                  >
+                    {i18n.t(`mental-health-playback.insights.${activityName}.abbreviation`, { defaultValue: '' })}
+                  </Text>
+                </View>
+              ))}
             </View>
           </View>
         </View>
@@ -161,7 +157,8 @@ const styles = StyleSheet.create({
   contentWrapper: {
     marginBottom: grid.xxl,
     marginTop: grid.m,
-    paddingHorizontal: grid.gutter,
+    paddingLeft: grid.xl,
+    paddingRight: grid.xxxl,
   },
   correlatedWrapper: {
     backgroundColor: '#F5F9FC',

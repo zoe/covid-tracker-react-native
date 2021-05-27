@@ -8,9 +8,9 @@ export interface IAnswer {
 
 export interface IInsight {
   activity_name: string;
-  answers: IAnswer[];
+  answer_distribution: IAnswer[];
+  anxiety: 'higher' | 'lower';
   correlated_activities: string[];
-  direction: 'higher' | 'lower';
   level_of_association: 'mildly' | 'moderately' | 'strongly';
   segment: string;
   user_answer?: TTitle;
