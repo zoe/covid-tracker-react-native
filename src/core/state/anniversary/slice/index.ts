@@ -1,7 +1,6 @@
+import { IAnniversary } from '@covid/core/state/anniversary/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../root';
-import { IAnniversary } from '../types';
 
 const initialState: IAnniversary = {
   hasViewedModal: false,

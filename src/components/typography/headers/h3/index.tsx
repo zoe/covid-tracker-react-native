@@ -1,6 +1,5 @@
+import H from '@covid/components/typography/headers/h';
 import React, { ReactNode } from 'react';
-
-import H from '../h';
 
 interface IProps {
   children: ReactNode;

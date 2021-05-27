@@ -1,9 +1,9 @@
+import { ShareButton } from '@covid/components/buttons';
 import { ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { Share, View } from 'react-native';
 
-import { ShareButton } from '../../buttons';
 import SchoolHeader from './SchoolHeader';
 import SchoolStats from './SchoolStats';
 

@@ -1,5 +1,5 @@
-import store from '../../../../store';
-import { setHasNeededSupport, setHasReceivedSupport } from '../index';
+import { setHasNeededSupport, setHasReceivedSupport } from '@covid/core/state/mental-health/support/slice';
+import store from '@covid/core/state/store';
 
 describe('\n** redux mental health support **\n', () => {
   let state = store.getState().mentalHealthSupport;

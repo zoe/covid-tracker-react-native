@@ -22,7 +22,7 @@ type State = {
 const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id1503529611`;
 const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
 const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;
-const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
+const AndroidLink = `market://details?id=${Constants.expo.android.package}`;
 
 export async function shouldAskForRating(): Promise<boolean> {
   const profile = await container.get<IUserService>(Services.User).getUser();

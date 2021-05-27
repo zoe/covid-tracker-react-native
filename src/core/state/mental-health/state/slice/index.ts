@@ -1,7 +1,10 @@
+import {
+  IMentalHealthState,
+  TMentalHealthConsent,
+  TMentalHealthSection,
+} from '@covid/core/state/mental-health/state/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../../root';
-import { IMentalHealthState, TMentalHealthConsent, TMentalHealthSection } from '../types';
 
 const initialState: IMentalHealthState = {
   completed: false,

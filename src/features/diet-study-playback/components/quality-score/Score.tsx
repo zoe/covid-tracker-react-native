@@ -1,9 +1,9 @@
 import { GradientColorBar, Text } from '@covid/components';
+import DietScoreHeader from '@covid/features/diet-study-playback/components/diet-score-header';
+import ScoreCard from '@covid/features/diet-study-playback/components/score-card';
 import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, Easing, StyleProp, View, ViewStyle } from 'react-native';
 
-import DietScoreHeader from '../diet-score-header';
-import ScoreCard from '../score-card';
 import ScoreRange from './ScoreRange';
 import { SScoreContainerView } from './styles';
 

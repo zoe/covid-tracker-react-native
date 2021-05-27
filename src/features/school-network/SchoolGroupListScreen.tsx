@@ -3,6 +3,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
+import { ISchoolGroupModel, ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { RootState } from '@covid/core/state/root';
 import { SchoolGroupRow } from '@covid/features/school-network/SchoolGroupRow';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
@@ -15,8 +16,6 @@ import { Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-
-import { ISchoolGroupModel, ISubscribedSchoolGroupStats } from '../../core/schools/Schools.dto';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolGroupList'>;

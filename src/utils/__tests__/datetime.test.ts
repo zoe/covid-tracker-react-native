@@ -1,4 +1,4 @@
-import { calcDaysDiff } from '../datetime';
+import { calcDaysDiff } from '@covid/utils/datetime';
 
 const utcComparisons = [
   { endDate: '2020-05-02T18:13:29Z', expected: 5, startDate: '2020-05-07T18:13:29Z' },

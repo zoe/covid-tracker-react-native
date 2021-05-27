@@ -19,6 +19,7 @@ import {
   isUSCountry,
   thankYouScreenName,
 } from '@covid/core/localisation/LocalisationService';
+import { ILongCovid } from '@covid/features/long-covid/types';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -30,7 +31,6 @@ import { Form, Textarea } from 'native-base';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
-import { ILongCovid } from '../types';
 import {
   checkboxIndexOffset,
   checkBoxQuestions4To17,

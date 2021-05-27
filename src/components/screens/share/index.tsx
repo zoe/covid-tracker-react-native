@@ -1,4 +1,5 @@
 import { closeIcon } from '@assets';
+import { IconButton, ThemeButton } from '@covid/components/buttons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Sharing from 'expo-sharing';
 import React, { useRef } from 'react';
@@ -6,7 +7,6 @@ import { Dimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { captureRef } from 'react-native-view-shot';
 
-import { IconButton, ThemeButton } from '../../buttons';
 import ShareContainer from './Container';
 import ShareLabel from './Label';
 import { SButtonView, SCloseContainerView, SContainerView, SContentView, SInnerContentView } from './styles';

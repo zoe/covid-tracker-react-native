@@ -1,6 +1,6 @@
+import { IThemeVars } from '@covid/themes/types';
 import { DefaultTheme } from 'styled-components';
 
-import { IThemeVars } from '../types';
 import { colors } from './colors';
 import { grid } from './grid';
 import { text } from './typography';

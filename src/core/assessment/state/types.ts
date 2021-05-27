@@ -1,4 +1,4 @@
-import { AssessmentInfosRequest } from '../dto/AssessmentInfosRequest';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 
 export enum ActionTypes {
   ASSESSMENT_UPDATED = 'ASSESSMENT_UPDATED',

@@ -1,8 +1,4 @@
 import ApiClient from '@covid/core/api/ApiClient';
-import { colors } from '@theme/colors';
-import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, SafeAreaView } from 'react-native';
-
 import {
   LoadingIndicator,
   ReportCard,
@@ -11,8 +7,11 @@ import {
   TimelineFooter,
   TimelineHeader,
   TimelineIntroduction,
-} from '../partials';
-import { ITimeline } from '../types';
+} from '@covid/features/anniversary/partials';
+import { ITimeline } from '@covid/features/anniversary/types';
+import { colors } from '@theme/colors';
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, SafeAreaView } from 'react-native';
 
 type TRowType = 'ERROR' | 'FOOTER' | 'INTRODUCTION' | 'LOADER' | 'REPORT_CARD' | 'TIMELINE';
 

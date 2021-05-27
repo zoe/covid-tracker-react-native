@@ -1,10 +1,9 @@
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
+import { RootState } from '@covid/core/state/root';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../state/root';
 
 export type SchoolState = {
   joinedSchoolGroups: ISubscribedSchoolGroupStats[]; // TODO Rename

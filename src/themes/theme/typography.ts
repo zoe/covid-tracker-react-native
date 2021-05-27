@@ -1,4 +1,4 @@
-import { ITextClass, TFontFamily, TText, TTypeSizes } from '../types/typography';
+import { ITextClass, TFontFamily, TText, TTypeSizes } from '@covid/themes/types/typography';
 
 const getTextProperties = (
   fontSize: TTypeSizes,

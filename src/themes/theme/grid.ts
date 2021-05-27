@@ -1,6 +1,6 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 
-import { IGrid } from '../types';
+import { IGrid } from '@covid/themes/types';
 
 export const grid: IGrid = {
   xxxs: 1,

@@ -9,6 +9,7 @@ import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
 import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { VaccineWarning } from '@covid/features/vaccines/components';
 import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
@@ -24,8 +25,6 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-
-import { IVaccineService } from '../../core/vaccine/VaccineService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;

@@ -1,7 +1,7 @@
+import { Text } from '@covid/components/typography';
 import i18n from '@covid/locale/i18n';
 import React from 'react';
 
-import { Text } from '../../typography';
 import HealthStatus from './HealthStatus';
 import { SStatsContainerView } from './styles';
 

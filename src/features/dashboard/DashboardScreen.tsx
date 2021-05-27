@@ -20,7 +20,10 @@ import {
 import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { ImpactTimelineCard } from '@covid/features/anniversary';
+import appCoordinator from '@covid/features/AppCoordinator';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { pushNotificationService } from '@covid/Services';
@@ -33,9 +36,6 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { ImpactTimelineCard } from '../anniversary';
-import appCoordinator from '../AppCoordinator';
-import { ScreenParamList } from '../ScreenParamList';
 import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
 import { CompactHeader, Header } from './Header';
 
