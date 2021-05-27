@@ -152,6 +152,12 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
           selectedValue={props.values.at_least_one_vaccine}
         />
         {renderError(props, 'at_least_one_vaccine')}
+        {renderExtendedVaccineForm(props)}
+    </View>) : null;
+    
+    const renderExtendedVaccineForm = (props: FormikProps<ILongCovid>) =>
+    props.values.at_least_one_vaccine && props.values.at_least_one_vaccine === 'YES' ? (
+      <View>
 
         <View style={styles.hr} />
         {/* Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection? */}
@@ -220,28 +226,27 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     >
       {(props: FormikProps<ILongCovid>) => {
         return (
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
-            <ScrollView>
-              <Form style={{ flexGrow: 1 }}>
-                <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
-                <DropdownField
-                  error={props.touched.had_covid && props.errors.had_covid}
-                  items={dropdownItemsQ1}
-                  onValueChange={props.handleChange('had_covid')}
-                  selectedValue={props.values.had_covid}
-                />
-                {renderExtendedForm(props)}
-                <View style={{ marginVertical: 64 }}>
-                  <BrandedButton
-                    enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
-                    onPress={() => handleSubmit(props.values)}
-                  >
-                    <RegularText style={{ color: colors.white }}>Next</RegularText>
-                  </BrandedButton>
-                </View>
-              </Form>
-            </ScrollView>
-          </KeyboardAvoidingView>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+          <ScrollView>
+            <Form style={{ flexGrow: 1 }}>            
+            <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
+              <DropdownField
+                error={props.touched.had_covid && props.errors.had_covid}
+                items={dropdownItemsQ1}
+                onValueChange={props.handleChange('had_covid')}
+                selectedValue={props.values.had_covid}
+              />
+              {renderExtendedForm(props)}
+              <View style={{ marginVertical: 64 }}><BrandedButton 
+                enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
+                onPress={() => handleSubmit(props.values)}
+              >
+                <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
+                </BrandedButton>
+              </View>
+            </Form>
+          </ScrollView>
+        </KeyboardAvoidingView>
         );
       }}
     </Formik>
