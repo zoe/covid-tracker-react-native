@@ -1,7 +1,6 @@
+import { useTheme } from '@covid/themes';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-
-import { useTheme } from '@covid/themes';
 
 import { Icon, TIconName } from '../../icons';
 import { Text } from '../../typography';
@@ -29,14 +28,17 @@ function QuestionBlock({
   onPress,
 }: IProps) {
   const { colors } = useTheme();
-  const bgColor = backgroundColor ? backgroundColor : colors.ui.dark.bgColor;
+  const bgColor = backgroundColor || colors.ui.dark.bgColor;
   return (
     <TouchableOpacity
+      accessible
+      accessibilityRole="checkbox"
       disabled={disabled}
       onPress={onPress}
-      style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : bgColor }]}>
-      {iconName && <Icon iconName={iconName} iconStyle={{ color: active ? 'white' : 'black' }} />}
-      <Text textClass="label" textAlign="center" style={{ color: active ? 'white' : 'black' }}>
+      style={[styles.container, { backgroundColor: active ? colors.teal.main.bgColor : bgColor }]}
+    >
+      {iconName ? <Icon iconName={iconName} iconStyle={{ color: active ? 'white' : 'black' }} /> : null}
+      <Text style={{ color: active ? 'white' : 'black' }} textAlign="center" textClass="label">
         {keyValue.key}
       </Text>
     </TouchableOpacity>
@@ -45,9 +47,9 @@ function QuestionBlock({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     borderRadius: 8,
+    flex: 1,
     justifyContent: 'center',
     padding: 8,
   },

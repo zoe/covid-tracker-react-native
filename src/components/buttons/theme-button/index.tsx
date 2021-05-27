@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { TColorPalette, TColorShade, TGridSizes } from '@covid/themes';
 import { TStyleObject } from '@covid/utils/types';
+import React from 'react';
 
 import { Text } from '../../typography';
-
 import { STouchableOpacity } from './styles';
 
 interface IProps {
@@ -35,6 +33,8 @@ function ThemeButton({
   const inverted = !!(outline || simple);
   return (
     <STouchableOpacity
+      accessible
+      accessibilityRole="button"
       colorPalette={colorPalette}
       colorShade={colorShade}
       disabled={disabled}
@@ -42,12 +42,14 @@ function ThemeButton({
       outline={outline}
       rhythm={rhythm}
       simple={simple}
-      style={style}>
+      style={style}
+    >
       <Text
         colorPalette={colorPalette}
         colorShade={colorShade}
         inverted={inverted}
-        textClass={simple ? 'pBold' : 'pLight'}>
+        textClass={simple ? 'pBold' : 'pLight'}
+      >
         {title}
       </Text>
     </STouchableOpacity>

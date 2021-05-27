@@ -1,8 +1,7 @@
+import { colors } from '@theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
-
-import { colors } from '@theme';
 
 import { screenWidth } from './Screen';
 
@@ -18,12 +17,12 @@ const ProgressStatus: React.FC<ProgressProps> = (props) => {
   return (
     <View style={styles.progressBar}>
       <Progress.Bar
-        progress={progress / 100}
-        width={screenWidth - 36}
-        color={color}
-        unfilledColor={colors.backgroundFour}
         borderWidth={0}
+        color={color}
         height={2}
+        progress={progress / 100}
+        unfilledColor={colors.backgroundFour}
+        width={screenWidth - 36}
       />
     </View>
   );

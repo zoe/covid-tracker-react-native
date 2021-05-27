@@ -2,67 +2,45 @@
 
 exports[`branded-button tests renders correctly 1`] = `
 <View
+  accessibilityRole="button"
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Object {
+      "alignItems": "center",
+      "backgroundColor": "#024364",
+      "borderRadius": 28,
+      "elevation": 0,
+      "height": 56,
+      "justifyContent": "center",
       "opacity": 1,
     }
   }
+  testID="buttonTestID"
 >
-  <View
-    accessible={true}
-    focusable={true}
-    forwardedRef={[Function]}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
+  <Text
     style={
-      Object {
-        "alignItems": "center",
-        "alignSelf": "stretch",
-        "backgroundColor": "#024364",
-        "borderBottomWidth": null,
-        "borderColor": "#007aff",
-        "borderLeftWidth": null,
-        "borderRadius": 100,
-        "borderRightWidth": null,
-        "borderTopWidth": null,
-        "borderWidth": undefined,
-        "elevation": 0,
-        "flexDirection": "row",
-        "height": 56,
-        "justifyContent": "center",
-        "opacity": 1,
-        "paddingBottom": 6,
-        "paddingTop": 6,
-        "shadowColor": undefined,
-        "shadowOffset": undefined,
-        "shadowOpacity": undefined,
-        "shadowRadius": undefined,
-      }
+      Array [
+        Object {
+          "color": "#24262B",
+          "fontFamily": "SofiaPro-Light",
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "#FFFFFF",
+        },
+      ]
     }
-    testID="buttonTestID"
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "color": "#24262B",
-            "fontFamily": "SofiaPro-Light",
-            "fontSize": 16,
-            "lineHeight": 24,
-          },
-          Object {
-            "color": "#FFFFFF",
-          },
-        ]
-      }
-    >
-      This is a branded button
-    </Text>
-  </View>
+    This is a branded button
+  </Text>
 </View>
 `;

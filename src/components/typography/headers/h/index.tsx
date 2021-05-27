@@ -1,6 +1,5 @@
+import { TColorPalette, TColorShade, TGridSizes, TTextClass } from '@covid/themes';
 import React, { ReactNode } from 'react';
-
-import { TColorPalette, TColorShade, TTextClass, TGridSizes } from '@covid/themes';
 
 import Text from '../../text';
 
@@ -22,7 +21,7 @@ const H = ({
   textClass,
 }: IProps) => {
   return (
-    <Text colorPalette={colorPalette} colorShade={colorShade} inverted={inverted} textClass={textClass} rhythm={rhythm}>
+    <Text colorPalette={colorPalette} colorShade={colorShade} inverted={inverted} rhythm={rhythm} textClass={textClass}>
       {children}
     </Text>
   );

@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: covid-symptom-study
+  description: |
+    React Native Mobile App for COVID Symptom tracking and insights.
+  links:
+    - title: Website
+      url: https://covid.joinzoe.com
+    - title: Documentation
+      url: https://www.notion.so/joinzoe/COVID-Symptom-Study-96014898139b45a7bed7f1174c66f9a0
+  annotations:
+    github.com/project-slug: zoe/covid-tracker-react-native
+  tags:
+    - typescript
+    - react-native
+spec:
+  type: service
+  owner: covid-team
+  lifecycle: production
+  slack: #prj-covid-dev

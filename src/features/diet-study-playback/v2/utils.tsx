@@ -1,8 +1,7 @@
-import { Image } from 'react-native';
-import React from 'react';
-
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { doctorsAvatars, drSarahBerry } from '@assets';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import React from 'react';
+import { Image } from 'react-native';
 
 import Avatar from '../../../components/avatar';
 
@@ -18,9 +17,9 @@ export function getDietStudyDoctorImage() {
       source={doctorsAvatars}
       style={{
         aspectRatio: 1.889,
+        height: undefined,
         resizeMode: 'contain',
         width: 120,
-        height: undefined,
       }}
     />
   ) : (

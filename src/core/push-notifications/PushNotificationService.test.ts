@@ -1,10 +1,13 @@
-import { IStorageService } from '../LocalStorageService';
+// eslint-disable-next-line max-classes-per-file
+import moment from 'moment';
 
-import { IPushTokenRemoteClient, PushToken } from './types';
+import { IStorageService } from '../LocalStorageService';
 import PushNotificationService, { IPushTokenEnvironment } from './PushNotificationService';
+import { IPushTokenRemoteClient, PushToken } from './types';
 
 class MockApiClient implements IPushTokenRemoteClient {
   pushToken: PushToken;
+
   updatePushToken(pushToken: PushToken) {
     this.pushToken = pushToken;
     return Promise.resolve();
@@ -13,9 +16,11 @@ class MockApiClient implements IPushTokenRemoteClient {
 
 class MockStorageClient implements IStorageService {
   storage: { [key: string]: any } = {};
+
   getObject<T>(name: string) {
     return Promise.resolve(this.storage[name]);
   }
+
   setObject<T>(name: string, value: T) {
     this.storage[name] = value as T;
     return Promise.resolve();
@@ -37,8 +42,43 @@ describe('PushNotificationService', () => {
     const service = new PushNotificationService(
       new MockApiClient(),
       new MockStorageClient(),
-      new MockPushTokenEnvironment()
+      new MockPushTokenEnvironment(),
     );
     expect(service).not.toBeNull();
+  });
+
+  it('can call tokenNeedsRefreshing', () => {
+    const service = new PushNotificationService(
+      new MockApiClient(),
+      new MockStorageClient(),
+      new MockPushTokenEnvironment(),
+    );
+
+    const tokenFromThirtyDaysAgo = {
+      lastUpdated: moment().subtract(30, 'days').toISOString(),
+      platform: 'iOS',
+      token: 'MOCK',
+    } as PushToken;
+
+    const tokenFromFiveDaysAgo = {
+      lastUpdated: moment().subtract(5, 'days').toISOString(),
+      platform: 'iOS',
+      token: 'MOCK',
+    } as PushToken;
+
+    const tokenFromTheFuture = {
+      lastUpdated: moment().add(1, 'days').toISOString(),
+      platform: 'iOS',
+      token: 'MOCK',
+    } as PushToken;
+
+    // @ts-ignore
+    expect(service.tokenNeedsRefreshing(tokenFromThirtyDaysAgo)).toBeTruthy();
+
+    // @ts-ignore
+    expect(service.tokenNeedsRefreshing(tokenFromFiveDaysAgo)).toBeTruthy();
+
+    // @ts-ignore
+    expect(service.tokenNeedsRefreshing(tokenFromTheFuture)).toBeFalsy();
   });
 });

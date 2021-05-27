@@ -1,18 +1,17 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
 import { gbFlag, svFlag, usFlag } from '@assets';
-import { colors } from '@theme';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { SupportedCountryCodes } from '@covid/core/user/dto/UserAPIContracts';
+import { IUserService } from '@covid/core/user/UserService';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import { IUserService } from '@covid/core/user/UserService';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { SupportedCountryCodes } from '@covid/core/user/dto/UserAPIContracts';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CountrySelect'>;
@@ -26,6 +25,7 @@ const SV_CODE = 'SE';
 export class CountrySelectScreen extends Component<Props, object> {
   @lazyInject(Services.Localisation)
   private readonly localisationServce: ILocalisationService;
+
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
@@ -65,19 +65,19 @@ export class CountrySelectScreen extends Component<Props, object> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.predict,
-  },
-  text: {
-    color: colors.white,
-    paddingBottom: 40,
-    fontSize: 24,
+    flex: 1,
+    justifyContent: 'center',
   },
   flagRow: {
     alignSelf: 'stretch',
-    justifyContent: 'space-around',
     flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  text: {
+    color: colors.white,
+    fontSize: 24,
+    paddingBottom: 40,
   },
 });

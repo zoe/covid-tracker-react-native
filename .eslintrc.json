@@ -1,24 +1,78 @@
 {
-  "extends": ["universe/native", "universe/shared/typescript-analysis"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.d.ts", "*.js", "*.jsx"],
-      "parserOptions": {
-        "project": "./tsconfig.json"
-      }
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
-  ],
-
-  "settings": {
-    "import/internal-regex": "^@(covid)|(theme)|(assets)"
   },
-
+  "extends": [
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "simple-import-sort",
+    "sort-keys-fix"
+  ],
+  "globals": {
+    "__DEV__": false
+  },
   "rules": {
-    // Adding this because of difficulty to find - documentation for import/order
-    // https://github.com/benmosher/eslint-plugin-import/blob/v2.20.2/docs/rules/order.md
-    "import/order": [
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "class-methods-use-this": "off",
+    "default-case": "off",
+    "global-require": "off",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-cycle": "off",
+    "import/no-duplicates": "error",
+    "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-case-declarations": "off",
+    "no-empty": "off",
+    "no-nested-ternary": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-restricted-syntax": [
       "error",
-      { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"], "newlines-between": "always" }
-    ]
+      {
+        "selector": "JSXElement > JSXExpressionContainer > LogicalExpression[operator!='??']",
+        "message": "Use a ternary operator instead"
+      }
+    ],
+    "no-return-assign": ["error", "except-parens"],
+    "react-hooks/exhaustive-deps": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-sort-props": ["error", {
+      "callbacksLast": false,
+      "shorthandFirst": true,
+      "shorthandLast": false,
+      "reservedFirst": false,
+      "ignoreCase": true
+    }],
+    "react/no-unescaped-entities": "off",
+    "react/no-unused-prop-types": "off",
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react/sort-comp": "off",
+    "react/state-in-constructor": "off",
+    "react/style-prop-object": "error",
+    "simple-import-sort/imports": "error",
+    "sort-imports": "off",
+    "sort-keys-fix/sort-keys-fix": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

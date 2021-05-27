@@ -1,7 +1,6 @@
+import { TGridSizes } from '@covid/themes';
 import React from 'react';
 import { View } from 'react-native';
-
-import { TGridSizes } from '@covid/themes';
 
 interface IProps {
   space?: TGridSizes;

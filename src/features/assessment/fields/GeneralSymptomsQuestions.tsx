@@ -1,20 +1,19 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-import { StyleSheet, View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { RegularText } from '@covid/components/Text';
 import { CheckboxList } from '@covid/components/Checkbox';
+import DropdownField from '@covid/components/DropdownField';
+import { RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import {
   createSymptomCheckboxes,
-  SymptomCheckBoxData,
   ISymptomQuestions,
+  SymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import DropdownField from '@covid/components/DropdownField';
+import i18n from '@covid/locale/i18n';
 import { cleanFloatVal } from '@covid/utils/number';
+import { FormikProps } from 'formik';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 export type GeneralSymptomsData = GeneralSymptomsCheckBoxData & GeneralSymptomsFollowUpData;
 
@@ -56,16 +55,16 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
   const checkboxes: SymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
     { label: i18n.t('describe-symptoms.general-chills'), value: 'chills' },
     {
-      label: i18n.t('describe-symptoms.general-fatigue'),
-      value: 'fatigue',
       followUp: {
         label: i18n.t('describe-symptoms.general-fatigue-follow-up'),
-        value: 'fatigueFollowUp',
         options: [
           { label: i18n.t('describe-symptoms.picker-fatigue-mild'), value: 'mild' },
           { label: i18n.t('describe-symptoms.picker-fatigue-severe'), value: 'severe' },
         ],
+        value: 'fatigueFollowUp',
       },
+      label: i18n.t('describe-symptoms.general-fatigue'),
+      value: 'fatigue',
     },
     { label: i18n.t('describe-symptoms.general-rash'), value: 'rash' },
     { label: i18n.t('describe-symptoms.general-foot-sores'), value: 'blisters' },
@@ -89,39 +88,39 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
   ];
 
   return (
-    <View style={{ marginTop: 16, marginBottom: 32 }}>
+    <View style={{ marginBottom: 32, marginTop: 16 }}>
       <RegularText style={{ paddingTop: 16 }}>{i18n.t('describe-symptoms.check-all-that-apply')}</RegularText>
 
       <CheckboxList>{createSymptomCheckboxes(fever_checkbox, formikProps)}</CheckboxList>
 
-      {formikProps.values.fever && (
+      {formikProps.values.fever ? (
         <View style={{ marginVertical: 16 }}>
           <RegularText>{i18n.t('describe-symptoms.question-your-temperature')}</RegularText>
           <View style={styles.fieldRow}>
             <View style={styles.primaryField}>
               <ValidatedTextInput
-                placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
-                value={formikProps.values.temperature}
-                onChangeText={formikProps.handleChange('temperature')}
-                onBlur={formikProps.handleBlur('temperature')}
                 error={formikProps.touched.temperature && formikProps.errors.temperature}
-                returnKeyType="next"
-                onSubmitEditing={() => {}}
                 keyboardType="numeric"
+                onBlur={formikProps.handleBlur('temperature')}
+                onChangeText={formikProps.handleChange('temperature')}
+                onSubmitEditing={() => {}}
+                placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
+                returnKeyType="next"
+                value={formikProps.values.temperature}
               />
             </View>
             <View style={styles.secondaryField}>
               <DropdownField
-                selectedValue={formikProps.values.temperatureUnit}
-                onValueChange={formikProps.handleChange('temperatureUnit')}
+                onlyPicker
                 error={formikProps.touched.temperatureUnit && formikProps.errors.temperatureUnit}
                 items={temperatureItems}
-                onlyPicker
+                onValueChange={formikProps.handleChange('temperatureUnit')}
+                selectedValue={formikProps.values.temperatureUnit}
               />
             </View>
           </View>
         </View>
-      )}
+      ) : null}
 
       <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
     </View>
@@ -130,23 +129,23 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
 
 GeneralSymptomsQuestions.initialFormValues = (defaultTemperatureUnit = 'C'): GeneralSymptomsData => {
   return {
-    fever: false,
-    temperature: '',
-    temperatureUnit: defaultTemperatureUnit,
+    blisters: false,
+    brainFog: false,
     chills: false,
+    delirium: false,
     fatigue: false,
     fatigueFollowUp: '',
-    rash: false,
-    blisters: false,
-    welts: false,
-    skinBurning: false,
-    hairLoss: false,
-    musclePains: false,
-    jointPains: false,
     feelingDown: false,
-    brainFog: false,
-    delirium: false,
+    fever: false,
+    hairLoss: false,
+    jointPains: false,
+    musclePains: false,
+    rash: false,
+    skinBurning: false,
+    temperature: '',
+    temperatureUnit: defaultTemperatureUnit,
     typicalHayFever: false,
+    welts: false,
   };
 };
 
@@ -161,22 +160,22 @@ GeneralSymptomsQuestions.schema = () => {
 
 GeneralSymptomsQuestions.createAssessment = (
   formData: GeneralSymptomsData,
-  hasHayfever: boolean
+  hasHayfever: boolean,
 ): Partial<AssessmentInfosRequest> => {
   let assessment: Partial<AssessmentInfosRequest> = {
-    fever: formData.fever,
-    chills_or_shivers: formData.chills,
-    fatigue: formData.fatigue ? formData.fatigueFollowUp : 'no',
-    rash: formData.rash,
     blisters_on_feet: formData.blisters,
+    brain_fog: formData.brainFog,
+    chills_or_shivers: formData.chills,
+    delirium: formData.delirium,
+    fatigue: formData.fatigue ? formData.fatigueFollowUp : 'no',
+    feeling_down: formData.feelingDown,
+    fever: formData.fever,
+    hair_loss: formData.hairLoss,
+    rash: formData.rash,
     red_welts_on_face_or_lips: formData.welts,
     skin_burning: formData.skinBurning,
-    hair_loss: formData.hairLoss,
-    unusual_muscle_pains: formData.musclePains,
     unusual_joint_pains: formData.jointPains,
-    feeling_down: formData.feelingDown,
-    brain_fog: formData.brainFog,
-    delirium: formData.delirium,
+    unusual_muscle_pains: formData.musclePains,
   };
 
   if (hasHayfever) {
@@ -208,10 +207,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
 
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-
   primaryField: {
     flex: 3,
     marginRight: 4,
@@ -221,5 +216,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 4,
     marginTop: -8,
+  },
+
+  textItemStyle: {
+    borderColor: 'transparent',
   },
 });

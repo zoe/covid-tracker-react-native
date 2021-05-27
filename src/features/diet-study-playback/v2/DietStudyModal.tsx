@@ -1,13 +1,13 @@
+import { SafeLayout, Text } from '@covid/components';
+import Analytics from '@covid/core/Analytics';
+import { setDietStudyConsent, TDietStudyConsent } from '@covid/core/state';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
+import i18n from '@covid/locale/i18n';
+import { useNavigation } from '@react-navigation/native';
+import { colors } from '@theme/colors';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-
-import { SafeLayout, Text } from '@covid/components';
-import { setDietStudyConsent, TDietStudyConsent } from '@covid/core/state';
-import i18n from '@covid/locale/i18n';
-import { events, track } from '@covid/core/Analytics';
-import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 
 import appCoordinator from '../../AppCoordinator';
 
@@ -28,7 +28,7 @@ function DietStudyModal() {
 
   useEffect(() => {
     if (!tracked) {
-      track(events.DIET_STUDY_SCREEN_MODAL);
+      Analytics.track(Analytics.events.DIET_STUDY_SCREEN_MODAL);
       setTracked(true);
     }
   });
@@ -37,17 +37,17 @@ function DietStudyModal() {
     <SafeLayout>
       <ScrollView>
         <View style={styles.card}>
-          <Text textClass="h3" fontFamily="SofiaProRegular" rhythm={20}>
+          <Text fontFamily="SofiaProRegular" rhythm={20} textClass="h3">
             {i18n.t('diet-study.modal-title')}
           </Text>
           <View style={styles.profile}>
             {getDietStudyDoctorImage()}
             <View style={{ marginLeft: 16 }}>
               <Text>{i18n.t('diet-study.doctor-name')}</Text>
-              <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+              <Text style={{ color: '#888B8C' }} textClass="pSmall">
                 {i18n.t('diet-study.doctor-title')}
               </Text>
-              <Text textClass="pSmall" style={{ color: '#888B8C' }}>
+              <Text style={{ color: '#888B8C' }} textClass="pSmall">
                 {i18n.t('diet-study.doctor-location')}
               </Text>
             </View>
@@ -59,15 +59,21 @@ function DietStudyModal() {
           </View>
           <View>
             <TouchableOpacity
+              accessible
+              accessibilityRole="button"
+              onPress={() => handleSetConsent('YES')}
               style={[styles.button, { backgroundColor: '#0165B5' }]}
-              onPress={() => handleSetConsent('YES')}>
-              <Text textClass="pSmallLight" style={{ color: 'white' }}>
+            >
+              <Text style={{ color: 'white' }} textClass="pSmallLight">
                 {i18n.t('diet-study.modal-answer-yes')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.button, { backgroundColor: '#EEEEEF' }]}
-              onPress={() => handleSetConsent('NO')}>
+              accessible
+              accessibilityRole="button"
+              onPress={() => handleSetConsent('NO')}
+              style={[styles.button, { backgroundColor: colors.backgroundTertiary }]}
+            >
               <Text textClass="pSmallLight">{i18n.t('diet-study.modal-answer-no')}</Text>
             </TouchableOpacity>
           </View>
@@ -78,6 +84,14 @@ function DietStudyModal() {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    borderRadius: 24,
+    height: 48,
+    justifyContent: 'center',
+    marginBottom: 8,
+    width: '100%',
+  },
   card: {
     backgroundColor: 'white',
     borderRadius: 16,
@@ -89,14 +103,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginBottom: 24,
-  },
-  button: {
-    alignItems: 'center',
-    borderRadius: 24,
-    height: 48,
-    justifyContent: 'center',
-    marginBottom: 8,
-    width: '100%',
   },
 });
 

@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { StackNavigationProp } from '@react-navigation/stack';
-
 import { BackButton } from '@covid/components/PatientHeader';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { WebView } from 'react-native-webview';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList>;
@@ -25,21 +24,22 @@ export function EstimatedCasesScreen({ navigation }: IProps) {
     if (isMounted) {
       runAsync();
     }
-    return function () {
+    return () => {
       isMounted = false;
     };
   }, []);
 
   return (
-    <View style={{ flex: 1, marginBottom: 0, backgroundColor: 'white' }}>
+    <View style={{ backgroundColor: 'white', flex: 1, marginBottom: 0 }}>
       <View
         style={{
-          position: 'absolute',
-          zIndex: 100,
           display: 'flex',
-          top: 48,
           left: 20,
-        }}>
+          position: 'absolute',
+          top: 48,
+          zIndex: 100,
+        }}
+      >
         <BackButton navigation={navigation} />
       </View>
       <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} />
@@ -49,9 +49,9 @@ export function EstimatedCasesScreen({ navigation }: IProps) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.white,
     flex: 1,
     marginBottom: 0,
-    backgroundColor: colors.white,
   },
   webview: {},
 });

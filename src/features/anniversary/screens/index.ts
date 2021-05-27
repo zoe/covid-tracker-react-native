@@ -1,2 +1,2 @@
-export { default as Anniversary } from './anniversary';
-export { default as AnniversaryModal } from './anniversary-modal';
+export { default as Anniversary } from './Anniversary';
+export { default as AnniversaryModal } from './AnniversaryModal';

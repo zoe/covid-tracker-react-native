@@ -1,7 +1,6 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-
 import { Anniversary, ScreenParamList } from '@covid/features';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 
 const StackType = createStackNavigator<ScreenParamList>();
 
@@ -15,7 +14,7 @@ function AnniversaryNavigator({ Stack }: IProps) {
   };
   return (
     <>
-      <Stack.Screen name="Anniversary" component={Anniversary} options={noHeader} />
+      <Stack.Screen component={Anniversary} name="Anniversary" options={noHeader} />
     </>
   );
 }

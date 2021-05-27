@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { RouteProp, useIsFocused } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet, View } from 'react-native';
-
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText } from '@covid/components/Text';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-import { SelectorButton } from '@covid/components/SelectorButton';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { RouteProp, useIsFocused } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -31,7 +30,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     if (isComplete) {
       await assessmentService.completeAssessment(
         assessment,
-        assessmentCoordinator.assessmentData.patientData.patientInfo!
+        assessmentCoordinator.assessmentData.patientData.patientInfo!,
       );
     } else {
       assessmentService.saveAssessment(assessment);
@@ -45,7 +44,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     setIsSubmitting(true);
     try {
       await updateAssessment(location, endAssessment);
-      assessmentCoordinator.gotoNextScreen(route.name, { location, endAssessment });
+      assessmentCoordinator.gotoNextScreen(route.name, { endAssessment, location });
     } catch (error) {
       // TODO - activate messaging for error handling;
       setIsSubmitting(false);
@@ -57,13 +56,13 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
   }, [isFocused]);
 
   return (
-    <Screen profile={currentPatient.profile} navigation={navigation}>
+    <Screen navigation={navigation} profile={currentPatient.profile}>
       <Header>
         <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
       </Header>
 
       <ProgressBlock>
-        <ProgressStatus step={6} maxSteps={6} />
+        <ProgressStatus maxSteps={6} step={6} />
       </ProgressBlock>
 
       <View style={styles.content}>

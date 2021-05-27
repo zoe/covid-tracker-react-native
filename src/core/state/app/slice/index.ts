@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { action } from '@storybook/addon-actions';
 
 import { RootState } from '../../root';
 import { IApp } from '../types';
@@ -8,26 +7,25 @@ import { IApp } from '../types';
 // THIS REDUCER IS BLACK LISTED AND RESET ON EVERY SESSION
 // SET SESSION VALUES HERE
 
-const initialState: IApp = {
+export const appInitialState: IApp = {
   dashboardHasBeenViewed: false,
-  mentalHealthStudyActive: true,
   loggedVaccine: false,
+  mentalHealthStudyActive: true,
 };
 
 const appSlice = createSlice({
+  initialState: appInitialState,
   name: 'App',
-  initialState,
   reducers: {
+    reset: (state) => {
+      return {
+        ...appInitialState,
+      };
+    },
     setDashboardHasBeenViewed: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,
         dashboardHasBeenViewed: action.payload,
-      };
-    },
-    setMentalHealthStudyActive: (state, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        mentalHealthStudyActive: action.payload,
       };
     },
     setLoggedVaccine: (state, action: PayloadAction<boolean>) => {
@@ -36,9 +34,10 @@ const appSlice = createSlice({
         loggedVaccine: action.payload,
       };
     },
-    reset: (state) => {
+    setMentalHealthStudyActive: (state, action: PayloadAction<boolean>) => {
       return {
-        ...initialState,
+        ...state,
+        mentalHealthStudyActive: action.payload,
       };
     },
   },

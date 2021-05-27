@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MyStudy from './MyStudyIcon';
 import EditProfiles from './EditProfilesIcon';
+import MyStudy from './MyStudyIcon';
 import Share from './ShareIcon';
 import VaccineRegistry from './VaccineRegistryIcon';
 

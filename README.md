@@ -2,8 +2,6 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/zoe/covid-tracker-react-native/badge.svg?branch=selvach/coverage)](https://coveralls.io/github/zoe/covid-tracker-react-native?branch=selvach/coverage)
 
-
-
 ## Table of Contents
 
 - [About The Project](#about-the-project)
@@ -162,14 +160,30 @@ We are trying to embrace Component Driven Design. To develop
 
 See the [open issues](https://github.com/zoe/covid-tracker-react-native/issues) for a list of proposed features (and known issues).
 
+## Git usage
+
+For working with git we follow the Gitflow Workflow, to read all about it see the following explanation: [https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+
+To summarise it:
+
+* The **main** and **develop** branches are protected. It is not possible to directly commit to them.
+* Developing is done on **feature** branches which are branched from develop and merged into develop through pull requests. Naming of these branches: feature/(short description of the feature)
+* Bugfixes are done on **bugfix** branches which are branched from main and merged into main through pull requests. Naming of these branches: bugfix/(short description of the bugfix)
+
+### Pull Requests
+
+It is expected of the initiator of the PR to merge it themself after a reviewer approved it.
+
+Our PR merging strategy is to squash the branch into develop and then fast-forward develop into master for a release.
+
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated** - see the [contributing guidelines](CONTRIBUTING.md).
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** - see the [contributing guidelines](CONTRIBUTING.md).
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+4. Push to the Branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
 ## Common Issues

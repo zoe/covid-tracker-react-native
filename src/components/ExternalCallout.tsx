@@ -1,3 +1,11 @@
+import { closeIcon } from '@assets';
+import { ContentLoadingView } from '@covid/components/content/ContentLoadingView';
+import Analytics, { events } from '@covid/core/Analytics';
+import { addDismissCallout } from '@covid/core/content/state/contentSlice';
+import { RootState } from '@covid/core/state/root';
+import { useAppDispatch } from '@covid/core/state/store';
+import i18n from '@covid/locale/i18n';
+import { openWebLink } from '@covid/utils/links';
 import React, { useEffect, useState } from 'react';
 import {
   Image,
@@ -9,32 +17,24 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
-
-import Analytics, { events } from '@covid/core/Analytics';
-import { openWebLink } from '@covid/utils/links';
-import { closeIcon } from '@assets';
-import { RootState } from '@covid/core/state/root';
-import { addDismissCallout } from '@covid/core/content/state/contentSlice';
-import { useAppDispatch } from '@covid/core/state/store';
-import { ContentLoadingView } from '@covid/components/Content/ContentLoadingView';
-import i18n from '@covid/locale/i18n';
+import { useSelector } from 'react-redux';
 
 type ExternalCalloutProps = {
-  link?: string;
-  calloutID: string;
-  imageSource: ImageSourcePropType;
   aspectRatio: number;
-  postClicked?: VoidFunction;
-  screenName: string;
-  imageStyles?: StyleProp<ImageStyle>;
+  calloutID: string;
   canDismiss?: boolean;
   disableLoadingState?: boolean;
+  imageSource: ImageSourcePropType;
+  imageStyles?: StyleProp<ImageStyle>;
+  isSharing?: boolean;
+  link?: string;
+  orderIndex?: number;
+  postClicked?: VoidFunction;
+  screenName: string;
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
-  const { calloutID, link, screenName, postClicked, canDismiss } = props;
   const dismissedCalloutIds = useSelector<RootState, string[]>((state) => state.content.dismissedCallouts);
   const [dismissed, setDismissed] = useState<boolean>(false);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
@@ -42,28 +42,28 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const imageProps = {
-    style: [
-      styles.image,
-      { aspectRatio: props.aspectRatio },
-      { ...(props.imageStyles as object) },
-      imageLoading && { opacity: 0 },
-    ],
-    onLoadStart: () => {
-      setImageLoading(true);
+    onError: () => {
+      setImageLoading(false);
+      setImageLoadError(i18n.t('generic.content-can-not-be-loaded-atm'));
     },
     onLoadEnd: () => {
       setTimeout(() => {
         setImageLoading(false);
       }, 330);
     },
-    onError: () => {
-      setImageLoading(false);
-      setImageLoadError(i18n.t('generic.content-can-not-be-loaded-atm'));
+    onLoadStart: () => {
+      setImageLoading(true);
     },
+    style: [
+      styles.image,
+      { aspectRatio: props.aspectRatio },
+      { ...(props.imageStyles as object) },
+      imageLoading && { opacity: 0 },
+    ],
   };
 
   useEffect(() => {
-    setDismissed(dismissedCalloutIds.includes(calloutID));
+    setDismissed(dismissedCalloutIds.includes(props.calloutID));
   }, [dismissedCalloutIds]);
 
   useEffect(() => {
@@ -71,58 +71,71 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   }, []);
 
   function clickCallout() {
-    Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
-    if (link) openWebLink(link);
-    if (postClicked) postClicked();
+    Analytics.track(events.CLICK_CALLOUT, {
+      calloutID: props.calloutID,
+      orderIndex: props.orderIndex,
+      screenName: props.screenName,
+    });
+    if (props.link) openWebLink(props.link);
+    if (props.postClicked) props.postClicked();
   }
 
   function clickDismiss() {
-    Analytics.track(events.CLICK_CALLOUT_DISMISS, { calloutID, screenName });
-    dispatch(addDismissCallout(calloutID));
+    Analytics.track(events.CLICK_CALLOUT_DISMISS, {
+      calloutID: props.calloutID,
+      orderIndex: props.orderIndex,
+      screenName: props.screenName,
+    });
+    dispatch(addDismissCallout(props.calloutID));
   }
 
   return (
     <ContentLoadingView
-      loading={imageLoading}
+      disableShimmers={props.disableLoadingState}
       errorMessage={imageLoadError}
-      disableShimmers={props.disableLoadingState}>
-      {!dismissed && (
-        <TouchableWithoutFeedback onPress={clickCallout}>
+      loading={imageLoading}
+    >
+      {!dismissed ? (
+        <TouchableWithoutFeedback
+          accessibilityRole={props.isSharing ? 'none' : 'button'}
+          accessible={props.isSharing}
+          onPress={clickCallout}
+        >
           <View style={styles.viewContainer}>
             {Object.keys(props.imageSource).includes('uri') ? (
               <FastImage {...imageProps} source={{ uri: (props.imageSource as ImageURISource).uri }} />
             ) : (
               <Image {...imageProps} source={props.imageSource} />
             )}
-            {canDismiss && (
+            {props.canDismiss && !props.isSharing ? (
               <TouchableWithoutFeedback onPress={clickDismiss}>
-                <Image style={styles.closeCross} source={closeIcon} />
+                <Image source={closeIcon} style={styles.closeCross} />
               </TouchableWithoutFeedback>
-            )}
+            ) : null}
           </View>
         </TouchableWithoutFeedback>
-      )}
+      ) : null}
     </ContentLoadingView>
   );
 };
 
 const styles = StyleSheet.create({
-  viewContainer: {
-    marginVertical: 8,
-    alignSelf: 'center',
-    flex: 1,
-    flexDirection: 'row',
+  closeCross: {
+    end: 12,
+    height: 24,
+    position: 'absolute',
+    tintColor: 'white',
+    top: 12,
+    width: 24,
   },
   image: {
     resizeMode: 'contain',
     width: '100%',
   },
-  closeCross: {
-    position: 'absolute',
-    end: 12,
-    top: 12,
-    height: 24,
-    width: 24,
-    tintColor: 'white',
+  viewContainer: {
+    alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    marginVertical: 8,
   },
 });

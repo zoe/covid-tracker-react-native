@@ -1,14 +1,13 @@
+import { chevronRight, pending, tick } from '@assets';
+import { RegularText } from '@covid/components/Text';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
+import moment from 'moment';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import moment from 'moment';
-
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { RegularText } from '@covid/components/Text';
-import { chevronRight, pending, tick } from '@assets';
-import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 
 type Props = {
   item: CovidTest;
@@ -35,16 +34,20 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
     return result === 'waiting' ? pending : tick;
   };
 
-  const formatDateString = (dateString: string): string => {
-    return moment(dateString).format('MMM D');
+  const formatDateString = (dateString: string, format = 'MMM D, Y'): string => {
+    return moment(dateString).format(format);
   };
 
   const formatTestDate = (test: CovidTest) => {
     if (test.date_taken_specific) {
       return formatDateString(test.date_taken_specific);
-    } else {
-      return `${formatDateString(test.date_taken_between_start)} - ${formatDateString(test.date_taken_between_end)}`;
     }
+    const startYear = new Date(test.date_taken_between_start).getFullYear();
+    const endYear = new Date(test.date_taken_between_end).getFullYear();
+    return `${formatDateString(
+      test.date_taken_between_start,
+      endYear > startYear ? 'MMM D Y' : 'MMM D',
+    )} - ${formatDateString(test.date_taken_between_end)}`;
   };
 
   const formatTestMechanism = (mechanism: string) => {
@@ -59,15 +62,15 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
   };
 
   return (
-    <TouchableOpacity style={styles.itemTouchable} onPress={() => AssessmentCoordinator.goToAddEditTest(type, item)}>
+    <TouchableOpacity onPress={() => AssessmentCoordinator.goToAddEditTest(type, item)} style={styles.itemTouchable}>
       <Image source={getRowIcon(item.result)} style={styles.tick} />
       <RegularText style={[item.result === 'waiting' && styles.pendingText]}>{formatTestDate(item)}</RegularText>
-      {isNHSTest && (
+      {isNHSTest ? (
         <RegularText style={[item.result === 'waiting' && styles.pendingText]}>
           {' - '}
           {formatTestMechanism(item.mechanism)}
         </RegularText>
-      )}
+      ) : null}
       <View style={{ flex: 1 }} />
       <RegularText style={[item.result === 'waiting' && styles.pendingText]}>
         {formatTestResult(item.result)}
@@ -78,22 +81,22 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
 };
 
 const styles = StyleSheet.create({
-  itemTouchable: {
-    height: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  tick: {
-    marginEnd: 8,
-    height: 16,
-    width: 16,
-  },
   chevron: {
-    marginStart: 4,
     height: 12,
+    marginStart: 4,
     width: 12,
+  },
+  itemTouchable: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: 40,
   },
   pendingText: {
     color: colors.secondary,
+  },
+  tick: {
+    height: 16,
+    marginEnd: 8,
+    width: 16,
   },
 });

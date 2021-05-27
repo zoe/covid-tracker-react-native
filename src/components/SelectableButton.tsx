@@ -1,9 +1,8 @@
+import { RegularText } from '@covid/components/Text';
+import { colors, fontStyles } from '@theme';
 import { Button } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-
-import { colors, fontStyles } from '@theme';
-import { RegularText } from '@covid/components/Text';
 
 interface IProps {
   buttonProps?: any;
@@ -20,7 +19,7 @@ export function SelectableButton({ style, children, onPress, buttonProps, textPr
   const btnStyle = [styles.button, style, { backgroundColor }];
 
   return (
-    <Button style={btnStyle} onPress={onPress} {...buttonProps}>
+    <Button onPress={onPress} style={btnStyle} {...buttonProps}>
       <RegularText style={[fontStyles.bodyLight, styles.label, { color: textColor }]} {...textProps}>
         {children}
       </RegularText>
@@ -31,13 +30,13 @@ export function SelectableButton({ style, children, onPress, buttonProps, textPr
 const styles = StyleSheet.create({
   button: {
     borderRadius: 8,
-    height: 48,
     elevation: 0,
+    height: 48,
     justifyContent: 'center',
   },
   label: {
-    textAlign: 'center',
-    paddingHorizontal: 16,
     lineHeight: 20,
+    paddingHorizontal: 16,
+    textAlign: 'center',
   },
 });

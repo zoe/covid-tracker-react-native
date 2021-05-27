@@ -1,18 +1,17 @@
-import React from 'react';
-import { Linking } from 'react-native';
+import { BrandedButton } from '@covid/components';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { Coordinator } from '@covid/core/Coordinator';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { ScreenParamList } from '@covid/features';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { View } from 'native-base';
-
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { Coordinator } from '@covid/core/Coordinator';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import { ScreenParamList } from '@covid/features';
-import { BrandedButton } from '@covid/components';
+import React from 'react';
+import { Linking } from 'react-native';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSDetails'>;
@@ -33,17 +32,17 @@ export const NHSDetailsScreen: React.FC<Props> = (props: Props) => {
   const currentPatient = coordinator.patientData.patientState;
 
   return (
-    <Screen profile={currentPatient.profile} navigation={props.navigation}>
+    <Screen navigation={props.navigation} profile={currentPatient.profile}>
       <Header>
         <HeaderText>{i18n.t('nhs-study-questions.title')}</HeaderText>
       </Header>
 
       <ProgressBlock>
-        <ProgressStatus step={3} maxSteps={6} />
+        <ProgressStatus maxSteps={6} step={3} />
       </ProgressBlock>
 
       <View style={{ paddingHorizontal: 16 }}>
-        <RegularText style={{ marginTop: 32, marginBottom: 16 }}>{i18n.t('nhs-study-questions.text-1')}</RegularText>
+        <RegularText style={{ marginBottom: 16, marginTop: 32 }}>{i18n.t('nhs-study-questions.text-1')}</RegularText>
 
         <RegularText style={{ marginVertical: 16 }}>{i18n.t('nhs-study-questions.text-2')}</RegularText>
 
@@ -55,7 +54,7 @@ export const NHSDetailsScreen: React.FC<Props> = (props: Props) => {
         </RegularText>
       </View>
 
-      <BrandedButton style={{ marginVertical: 16 }} onPress={goNext}>
+      <BrandedButton onPress={goNext} style={{ marginVertical: 16 }}>
         {i18n.t('nhs-study-intro.next')}
       </BrandedButton>
     </Screen>

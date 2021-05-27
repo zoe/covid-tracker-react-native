@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-
+import { SecondaryText } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { getDaysAgo } from '@covid/utils/datetime';
-import { SecondaryText } from '@covid/components';
+import React, { Component } from 'react';
 
 type ProgressProps = {
   timeAgo: Date | undefined;
@@ -20,9 +19,9 @@ export default class LastReported extends Component<ProgressProps> {
       } else {
         text = i18n.t('days-ago', { diffDays });
       }
-      text = i18n.t('select-profile-last-report') + ' ' + text;
+      text = `${i18n.t('select-profile-last-report')} ${text}`;
     }
 
-    return <SecondaryText style={{ textAlign: 'center', fontSize: 12 }}>{text}</SecondaryText>;
+    return <SecondaryText style={{ fontSize: 12, textAlign: 'center' }}>{text}</SecondaryText>;
   }
 }

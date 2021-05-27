@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../root';
 import { IMentalHealthChanges, TMentalHealthChange } from '../types';
 
-const initialState: IMentalHealthChanges = {
+export const initialState: IMentalHealthChanges = {
   devicesWithScreen: undefined,
   drinkingAlcohol: undefined,
   engagingWithOrganisations: undefined,
@@ -11,8 +11,8 @@ const initialState: IMentalHealthChanges = {
   greenSpaces: undefined,
   interactingFaceToFace: undefined,
   interactingViaPhoneOrTechnology: undefined,
-  readingWatchingListeningNews: undefined,
   physical: undefined,
+  readingWatchingListeningNews: undefined,
   relaxation: undefined,
   sleep: undefined,
   smokingOrVaping: undefined,
@@ -22,8 +22,8 @@ const initialState: IMentalHealthChanges = {
 };
 
 const mentalHealthChangesSlice = createSlice({
-  name: 'MentalHealthChanges',
   initialState,
+  name: 'MentalHealthChanges',
   reducers: {
     setDevicesWithScreen: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
@@ -67,16 +67,16 @@ const mentalHealthChangesSlice = createSlice({
         interactingViaPhoneOrTechnology: action.payload,
       };
     },
-    setReadingWatchingListeningNews: (state, action: PayloadAction<TMentalHealthChange>) => {
-      return {
-        ...state,
-        readingWatchingListeningNews: action.payload,
-      };
-    },
     setPhysical: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         physical: action.payload,
+      };
+    },
+    setReadingWatchingListeningNews: (state, action: PayloadAction<TMentalHealthChange>) => {
+      return {
+        ...state,
+        readingWatchingListeningNews: action.payload,
       };
     },
     setRelaxation: (state, action: PayloadAction<TMentalHealthChange>) => {

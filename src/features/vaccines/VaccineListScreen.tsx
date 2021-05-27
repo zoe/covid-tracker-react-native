@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
-import { RouteProp, useFocusEffect } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet, View } from 'react-native';
-import moment from 'moment';
-import { useSelector } from 'react-redux';
-
-import { colors } from '@theme';
-import Screen from '@covid/components/Screen';
+import { IUIAction } from '@covid/common';
 import { BrandedButton, HeaderText, Text } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
-import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
+import Screen from '@covid/components/Screen';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { selectApp, setLoggedVaccine } from '@covid/core/state';
+import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
-import { RootState } from '@covid/core/state/root';
+import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { VaccineWarning } from '@covid/features/vaccines/components';
+import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
+import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useMessage } from '@covid/common';
-import { selectApp } from '@covid/core/state';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { openWebLink } from '@covid/utils/links';
+import { RouteProp, useFocusEffect } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -35,21 +37,21 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = assessmentCoordinator;
   const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [showVaccineWarning, setShowVaccineWarning] = useState<boolean>(false);
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
-  const { addMessage, removeMessage } = useMessage();
   const app = useSelector(selectApp);
 
   useFocusEffect(
     React.useCallback(() => {
       dispatch(vaccinesSlice.actions.reset());
       refreshVaccineList();
-    }, [])
+    }, []),
   );
 
   const refreshVaccineList = () => {
     setLoading(true);
-    const patientId = patientData.patientId;
+    const { patientId } = patientData;
     dispatch(fetchVaccines(patientId))
       .then(() => setLoading(false))
       .catch(() => {});
@@ -78,7 +80,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     if (vaccines.length > 0) {
       const dose = getFirstActiveDose(vaccines);
       const shouldAskDoseSymptoms = !!dose;
-      coordinator.gotoNextScreen(route.name, { shouldAskDoseSymptoms, dose });
+      coordinator.gotoNextScreen(route.name, { dose, shouldAskDoseSymptoms });
     } else {
       // No vaccines entered. Check if user has answered a VaccinePlan / VaccineHesitancy
       const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
@@ -115,32 +117,32 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const ListContent = () => {
     if (isLoading) {
-      return <Loading status="" error={null} />;
-    } else {
-      return (
-        <>
-          {vaccines.length === 0 && (
-            <BrandedButton style={styles.newButton} onPress={() => coordinator.goToAddEditVaccine()}>
-              <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
-            </BrandedButton>
-          )}
-
-          {vaccines.map((vaccine: VaccineRequest) => {
-            return (
-              <VaccineCard
-                style={{ marginVertical: 8 }}
-                vaccine={vaccine}
-                key={vaccine.id}
-                onPressEdit={(i) => {
-                  coordinator.goToAddEditVaccine(vaccine);
-                }}
-              />
-            );
-          })}
-        </>
-      );
+      return <Loading error={null} status="" />;
     }
+    return (
+      <>
+        {vaccines.length === 0 && (
+          <BrandedButton onPress={() => coordinator.goToAddEditVaccine()} style={styles.newButton}>
+            <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
+          </BrandedButton>
+        )}
+
+        {vaccines.map((vaccine: VaccineRequest) => {
+          return (
+            <VaccineCard
+              key={vaccine.id}
+              onPressEdit={(i) => {
+                coordinator.goToAddEditVaccine(vaccine);
+              }}
+              style={{ marginVertical: 8 }}
+              vaccine={vaccine}
+            />
+          );
+        })}
+      </>
+    );
   };
+
   const showPopup = () => {
     NavigatorService.navigate('VaccineListMissing', { vaccine: vaccines[0] });
   };
@@ -152,6 +154,36 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       showPopup();
     }
   };
+
+  useEffect(() => {
+    if (app.loggedVaccine) {
+      setShowVaccineWarning(true);
+    }
+  }, [app.loggedVaccine]);
+
+  const actions: IUIAction[] = [
+    ...(isSECountry()
+      ? [
+          {
+            action: () => {
+              setShowVaccineWarning(false);
+              dispatch(setLoggedVaccine(false));
+              openWebLink(
+                'https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/information-for-dig-om-vaccinationen/efter-vaccinationen--fortsatt-folja-de-allmanna-raden/',
+              );
+            },
+            label: i18n.t('navigation.learn-more'),
+          },
+        ]
+      : []),
+    {
+      action: () => {
+        setShowVaccineWarning(false);
+        dispatch(setLoggedVaccine(false));
+      },
+      label: i18n.t('navigation.dismiss'),
+    },
+  ];
 
   // Disable the banner popup until we can solve the "cannot call hook" problem
   //
@@ -191,16 +223,18 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={styles.rootContainer}>
-      <Screen profile={patientData.patientState.profile} navigation={navigation}>
+      {showVaccineWarning ? <VaccineWarning actions={actions} /> : null}
+
+      <Screen navigation={navigation} profile={patientData.patientState.profile}>
         <HeaderText style={{ margin: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
 
-        <Text style={{ marginVertical: 8, marginHorizontal: 16 }}>{i18n.t('vaccines.vaccine-list.description')}</Text>
+        <Text style={{ marginHorizontal: 16, marginVertical: 8 }}>{i18n.t('vaccines.vaccine-list.description')}</Text>
 
         <ListContent />
 
         <View style={{ flex: 1 }} />
 
-        <BrandedButton style={styles.continueButton} onPress={navigateToNextPageOrShowPopup}>
+        <BrandedButton onPress={navigateToNextPageOrShowPopup} style={styles.continueButton}>
           <Text style={{ color: colors.white }}>
             {vaccines.length === 0
               ? i18n.t('vaccines.vaccine-list.no-vaccine')
@@ -215,21 +249,21 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: colors.backgroundPrimary,
+  continueButton: {
+    color: colors.white,
+    marginHorizontal: 16,
   },
   newButton: {
-    marginVertical: 16,
-    borderWidth: 1,
-    borderColor: colors.purple,
     backgroundColor: colors.backgroundPrimary,
+    borderColor: colors.purple,
+    borderWidth: 1,
+    marginVertical: 16,
   },
   newText: {
     color: colors.purple,
   },
-  continueButton: {
-    marginHorizontal: 16,
-    color: colors.white,
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
   },
 });

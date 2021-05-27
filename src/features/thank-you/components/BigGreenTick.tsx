@@ -1,7 +1,6 @@
+import { tick } from '@assets';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-
-import { tick } from '@assets';
 
 export const BigGreenTickFilled: React.FC = (props) => (
   <View style={styles.circle}>
@@ -10,12 +9,12 @@ export const BigGreenTickFilled: React.FC = (props) => (
 );
 
 const styles = StyleSheet.create({
+  circle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   tick: {
     height: 50,
     width: 50,
-  },
-  circle: {
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

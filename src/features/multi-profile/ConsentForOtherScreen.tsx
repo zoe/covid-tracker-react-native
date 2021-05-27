@@ -1,20 +1,19 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { View } from 'react-native';
-
+import { BrandedButton } from '@covid/components';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import { LoadingModal } from '@covid/components/Loading';
 import Screen, { Header } from '@covid/components/Screen';
 import { ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
+import { IPatientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
-import { offlineService } from '@covid/Services';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { BrandedButton } from '@covid/components';
+import { offlineService } from '@covid/Services';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { Component } from 'react';
+import { View } from 'react-native';
 
 import appCoordinator from '../AppCoordinator';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
@@ -54,6 +53,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   };
 
   headerText = this.isAdultConsent() ? i18n.t('adult-consent-title') : i18n.t('child-consent-title');
+
   secondaryText = this.isAdultConsent() ? (
     <RegularText>
       {i18n.t('adult-consent-text-1')}{' '}
@@ -71,15 +71,16 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
       {i18n.t('child-consent-text-2')}
     </RegularText>
   );
+
   consentLabel = this.isAdultConsent() ? i18n.t('adult-consent-confirm') : i18n.t('child-consent-confirm');
 
   async createPatient(): Promise<string> {
     const name = this.props.route.params.profileName;
-    const avatarName = this.props.route.params.avatarName;
+    const { avatarName } = this.props.route.params;
 
     const newPatient = {
-      name,
       avatar_name: avatarName,
+      name,
       reported_by_another: true,
     } as Partial<PatientInfosRequest>;
 
@@ -95,12 +96,12 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
       this.setState({
-        isApiError: true,
         error,
+        isApiError: true,
         onRetry: () => {
           this.setState({
-            status: i18n.t('errors.status-retrying'),
             error: null,
+            status: i18n.t('errors.status-retrying'),
           });
           setTimeout(() => {
             this.setState({ status: i18n.t('errors.status-loading') });
@@ -113,29 +114,29 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
 
   render() {
     return (
-      <Screen navigation={this.props.navigation} showBackButton>
-        {this.state.isApiError && (
+      <Screen showBackButton navigation={this.props.navigation}>
+        {this.state.isApiError ? (
           <LoadingModal
             error={this.state.error}
-            status={this.state.status}
-            onRetry={this.state.onRetry}
             onPress={() => this.setState({ isApiError: false })}
+            onRetry={this.state.onRetry}
+            status={this.state.status}
           />
-        )}
+        ) : null}
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{this.headerText}</HeaderText>
           {this.secondaryText}
         </Header>
 
         <View style={{ marginHorizontal: 16 }}>
-          <CheckboxItem value={this.state.consentChecked} onChange={this.handleConsentClick}>
+          <CheckboxItem onChange={this.handleConsentClick} value={this.state.consentChecked}>
             {this.consentLabel}
           </CheckboxItem>
         </View>
 
         <ErrorText>{this.state.errorMessage}</ErrorText>
 
-        <BrandedButton enable={this.state.consentChecked} hideLoading onPress={this.handleCreatePatient}>
+        <BrandedButton hideLoading enable={this.state.consentChecked} onPress={this.handleCreatePatient}>
           {i18n.t('consent-create-profile')}
         </BrandedButton>
 

@@ -1,8 +1,7 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-
 import { TTypeSizes } from '@covid/themes';
 import { TStyleObject } from '@covid/utils/types';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
 import { Icon, TIconName } from '../../icons';
 
@@ -29,6 +28,8 @@ function RoundIconButton({
 }: IProps) {
   return (
     <TouchableOpacity
+      accessible
+      accessibilityRole="button"
       onPress={onPress}
       style={{
         alignItems: 'center',
@@ -38,7 +39,8 @@ function RoundIconButton({
         justifyContent: 'center',
         width: backgroundSize,
         ...style,
-      }}>
+      }}
+    >
       <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} />
     </TouchableOpacity>
   );

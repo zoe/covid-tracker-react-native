@@ -1,26 +1,25 @@
+import { BrandedButton } from '@covid/components';
+import { LoadingModal } from '@covid/components/Loading';
+import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { IUserService } from '@covid/core/user/UserService';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { offlineService, pushNotificationService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import { LoadingModal } from '@covid/components/Loading';
-import { offlineService, pushNotificationService } from '@covid/Services';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { IUserService } from '@covid/core/user/UserService';
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { BrandedButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
 
 import appCoordinator from '../AppCoordinator';
 
@@ -57,9 +56,9 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     this.state = initialState;
   }
 
-  private async setPushToken() {
+  private async subscribeForPushNotifications() {
     if (Constants.appOwnership !== 'expo') {
-      pushNotificationService.initPushToken();
+      await pushNotificationService.subscribeForPushNotifications();
     }
   }
 
@@ -77,18 +76,18 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
   private async handleSaveOptionalInfos(formData: OptionalInfoData) {
     try {
-      await this.setPushToken();
+      await this.subscribeForPushNotifications();
       await this.savePiiData(formData);
       this.setState({ isApiError: false });
       appCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({
-        isApiError: true,
         error,
+        isApiError: true,
         onRetry: () => {
           this.setState({
-            status: i18n.t('errors.status-retrying'),
             error: null,
+            status: i18n.t('errors.status-retrying'),
           });
           setTimeout(() => {
             this.setState({ status: i18n.t('errors.status-loading') });
@@ -111,17 +110,18 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         {this.state.isApiError && (
           <LoadingModal
             error={this.state.error}
-            status={this.state.status}
-            onRetry={this.state.onRetry}
             onPress={() => this.setState({ isApiError: false })}
+            onRetry={this.state.onRetry}
+            status={this.state.status}
           />
         )}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
             <Formik
               initialValues={{ name: '', phone: '' }}
+              onSubmit={(values: OptionalInfoData) => this.handleSaveOptionalInfos(values)}
               validationSchema={this.registerSchema}
-              onSubmit={(values: OptionalInfoData) => this.handleSaveOptionalInfos(values)}>
+            >
               {(props) => {
                 return (
                   <View>
@@ -132,26 +132,26 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
                       <Form>
                         <ValidatedTextInput
-                          placeholder={i18n.t('optional-info.name-placeholder')}
-                          value={props.values.name}
-                          onChangeText={props.handleChange('name')}
-                          onBlur={props.handleBlur('name')}
                           error={props.touched.name && props.errors.name}
-                          returnKeyType="next"
+                          onBlur={props.handleBlur('name')}
+                          onChangeText={props.handleChange('name')}
                           onSubmitEditing={() => {
                             this.phoneComponent.focus();
                           }}
+                          placeholder={i18n.t('optional-info.name-placeholder')}
+                          returnKeyType="next"
+                          value={props.values.name}
                         />
 
                         <ValidatedTextInput
-                          ref={(input) => (this.phoneComponent = input)}
-                          placeholder={i18n.t('optional-info.phone-placeholder')}
-                          value={props.values.phone}
-                          onChangeText={props.handleChange('phone')}
-                          onBlur={props.handleBlur('phone')}
                           error={props.touched.phone && props.errors.phone}
+                          onBlur={props.handleBlur('phone')}
+                          onChangeText={props.handleChange('phone')}
+                          placeholder={i18n.t('optional-info.phone-placeholder')}
+                          ref={(input) => (this.phoneComponent = input)}
+                          value={props.values.phone}
                         />
-                        {props.errors.phone && <ErrorText>{props.errors.phone}</ErrorText>}
+                        {props.errors.phone ? <ErrorText>{props.errors.phone}</ErrorText> : null}
                       </Form>
                     </View>
                     <View>
@@ -174,9 +174,9 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
 const styles = StyleSheet.create({
   rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: colors.backgroundPrimary,
     paddingHorizontal: 24,
     paddingTop: 56,
   },

@@ -1,17 +1,16 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-import { View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { RegularText } from '@covid/components/Text';
 import { CheckboxList } from '@covid/components/Checkbox';
+import { RegularText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import {
   createSymptomCheckboxes,
   ISymptomQuestions,
   SymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
+import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import React from 'react';
+import { View } from 'react-native';
+import * as Yup from 'yup';
 
 export type ThroatChestSymptomsData = ThroatChestSymptomsCheckBoxData & ThroatChestSymptomsFollowUpData;
 
@@ -42,17 +41,17 @@ export const ThroatChestSymptomsQuestions: ISymptomQuestions<Props, ThroatChestS
     { label: i18n.t('describe-symptoms.throat-chest-hoarse-voice'), value: 'hoarseVoice' },
     { label: i18n.t('describe-symptoms.throat-chest-persistent-cough'), value: 'persistentCough' },
     {
-      label: i18n.t('describe-symptoms.throat-chest-short-breath'),
-      value: 'shortBreath',
       followUp: {
         label: i18n.t('describe-symptoms.throat-chest-short-breath-follow-up'),
-        value: 'shortBreathFollowUp',
         options: [
           { label: i18n.t('describe-symptoms.picker-shortness-of-breath-mild'), value: 'mild' },
           { label: i18n.t('describe-symptoms.picker-shortness-of-breath-significant'), value: 'significant' },
           { label: i18n.t('describe-symptoms.picker-shortness-of-breath-severe'), value: 'severe' },
         ],
+        value: 'shortBreathFollowUp',
       },
+      label: i18n.t('describe-symptoms.throat-chest-short-breath'),
+      value: 'shortBreath',
     },
     { label: i18n.t('describe-symptoms.throat-chest-chest-pain'), value: 'chestPain' },
     { label: i18n.t('describe-symptoms.throat-chest-heart-beat'), value: 'heartbeat' },
@@ -68,14 +67,14 @@ export const ThroatChestSymptomsQuestions: ISymptomQuestions<Props, ThroatChestS
 
 ThroatChestSymptomsQuestions.initialFormValues = (): ThroatChestSymptomsData => {
   return {
-    soreThroat: false,
-    shortBreathFollowUp: '',
-    swollenGlands: false,
+    chestPain: false,
+    heartbeat: false,
     hoarseVoice: false,
     persistentCough: false,
     shortBreath: false,
-    chestPain: false,
-    heartbeat: false,
+    shortBreathFollowUp: '',
+    soreThroat: false,
+    swollenGlands: false,
   };
 };
 
@@ -89,15 +88,15 @@ ThroatChestSymptomsQuestions.schema = () => {
 };
 
 ThroatChestSymptomsQuestions.createAssessment = (
-  formData: ThroatChestSymptomsData
+  formData: ThroatChestSymptomsData,
 ): Partial<AssessmentInfosRequest> => {
   return {
-    sore_throat: formData.soreThroat,
-    swollen_glands: formData.swollenGlands,
+    chest_pain: formData.chestPain,
     hoarse_voice: formData.hoarseVoice,
+    irregular_heartbeat: formData.heartbeat,
     persistent_cough: formData.persistentCough,
     shortness_of_breath: formData.shortBreath ? formData.shortBreathFollowUp : 'no',
-    chest_pain: formData.chestPain,
-    irregular_heartbeat: formData.heartbeat,
+    sore_throat: formData.soreThroat,
+    swollen_glands: formData.swollenGlands,
   };
 };
