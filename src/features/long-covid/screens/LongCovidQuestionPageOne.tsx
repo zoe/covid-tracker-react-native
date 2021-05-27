@@ -13,11 +13,11 @@ import {
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ScreenName } from '@covid/core/Coordinator';
 import {
+  homeScreenName,
+  isGBCountry,
   isSECountry,
   isUSCountry,
-  isGBCountry,
   thankYouScreenName,
-  homeScreenName,
 } from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
