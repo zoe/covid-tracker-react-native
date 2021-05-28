@@ -9,6 +9,8 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import store from '@covid/core/state/store';
+import { ImpactTimelineCard } from '@covid/features/anniversary';
+import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
@@ -21,8 +23,6 @@ import { colors } from '@theme';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { ImpactTimelineCard } from '../anniversary';
-import appCoordinator from '../AppCoordinator';
 import { BigGreenTickFilled } from './components/BigGreenTick';
 
 type RenderProps = {
@@ -166,14 +166,14 @@ const styles = StyleSheet.create({
   },
   rootContainer: {
     maxWidth: 500,
-    padding: 18,
+    padding: 16,
   },
   scrollView: {
     backgroundColor: colors.backgroundSecondary,
     flexGrow: 1,
   },
   signOff: {
-    marginHorizontal: 18,
+    marginHorizontal: 16,
     textAlign: 'center',
   },
   socialIcon: {

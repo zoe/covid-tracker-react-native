@@ -1,11 +1,11 @@
 import { colors } from '@theme';
 import { Card } from 'native-base';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 type CardProps = {
   children: React.ReactNode;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const BasicCard: React.FC<CardProps> = (c) => {

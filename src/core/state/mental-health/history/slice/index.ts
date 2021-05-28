@@ -1,7 +1,10 @@
+import {
+  IMentalHealthHistory,
+  THasDiagnosis,
+  TMentalHealthCondition,
+} from '@covid/core/state/mental-health/history/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../../root';
-import { IMentalHealthHistory, THasDiagnosis, TMentalHealthCondition } from '../types';
 
 const initialState: IMentalHealthHistory = {
   conditions: [],

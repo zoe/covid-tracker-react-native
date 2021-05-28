@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
+import { IStorageService } from '@covid/core/LocalStorageService';
 import moment from 'moment';
 
-import { IStorageService } from '../LocalStorageService';
 import PushNotificationService, { IPushTokenEnvironment } from './PushNotificationService';
 import { IPushTokenRemoteClient, PushToken } from './types';
 

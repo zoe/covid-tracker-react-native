@@ -1,9 +1,8 @@
+import { Text } from '@covid/components/typography';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
-
-import { Text } from '../typography';
 
 const styles = StyleSheet.create({
   base: {

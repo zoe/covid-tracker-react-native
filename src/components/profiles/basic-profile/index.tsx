@@ -1,9 +1,8 @@
+import { Text } from '@covid/components/typography';
+import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { useTheme } from '@covid/themes';
 import React from 'react';
 import { View } from 'react-native';
-
-import { getDietStudyDoctorImage } from '../../../features/diet-study-playback/v2/utils';
-import { Text } from '../../typography';
 
 interface IProps {
   location: string;

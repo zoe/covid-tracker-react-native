@@ -6,6 +6,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { setUsername } from '@covid/core/state/user';
 import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
+import appCoordinator from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
@@ -19,8 +20,6 @@ import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
-
-import appCoordinator from '../AppCoordinator';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Register'>;

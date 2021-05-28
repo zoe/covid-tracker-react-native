@@ -1,5 +1,6 @@
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { PatientStateType } from '@covid/core/patient/PatientState';
 import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
@@ -100,12 +101,22 @@ export type ScreenParamList = {
   ConfirmSchool: { patientData: PatientData; school: ISchoolModel };
   JoinHigherEducation: { patientData: PatientData };
 
+  // Diet study
   DietStudyModal: undefined;
   DietStudy: undefined;
   DietStudyGlobal: undefined;
   DietStudyGut: undefined;
   DietStudyTraditional: undefined;
 
+  // Mental health playback
+  MentalHealthPlaybackBlogPost: undefined;
+  MentalHealthPlaybackGeneral: undefined;
+  MentalHealthPlaybackIntroduction: undefined;
+  MentalHealthPlaybackRating: undefined;
+  MentalHealthPlaybackThankYou: undefined;
+  MentalHealthPlaybackModal: undefined;
+
+  // Mental health study
   MentalHealthChanges: undefined;
   MentalHealthFrequency: undefined;
   MentalHealthHistory: undefined;
@@ -114,10 +125,11 @@ export type ScreenParamList = {
   MentalHealthEnd: undefined;
   MentalHealthModal: undefined;
 
+  // Others
   Modal: undefined;
   Main: undefined;
   Share: undefined;
-  VaccineListMissing: { vaccine: VaccineRequest };
+  VaccineListMissingModal: { vaccine: VaccineRequest };
   VersionUpdateModal: undefined;
 
   Trendline: { lad?: string };

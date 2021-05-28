@@ -1,9 +1,8 @@
-import React from 'react';
-import { ActivityIndicator, StyleSheet, TouchableOpacity, Text, ViewStyle } from 'react-native';
-
-import { colors, fontStyles } from '@theme';
 import { IClickableProps } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
+import { colors, fontStyles } from '@theme';
+import React from 'react';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps extends IClickableProps, ITest {
   loading?: boolean;
@@ -13,13 +12,15 @@ interface IProps extends IClickableProps, ITest {
 export default function BrandedButton(props: IProps) {
   return (
     <TouchableOpacity
-      activeOpacity={0.6}
       accessible
       accessibilityRole="button"
+      activeOpacity={0.6}
       disabled={props.enable === false}
       testID={props.testID ?? 'buttonTestID'}
+      onPress={props.enable === false ? undefined : props.onPress}
       style={[props.enable === false ? styles.buttonDisabled : styles.button, props.style]}
-      onPress={props.enable === false ? undefined : props.onPress}>
+      testID="buttonTestID"
+    >
       {props.loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}
       <Text style={[fontStyles.bodyLight, styles.text]}>{props.children}</Text>
     </TouchableOpacity>

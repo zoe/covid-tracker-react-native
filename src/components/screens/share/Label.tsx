@@ -1,8 +1,8 @@
 import { C19, CreatedByZoe } from '@assets';
+import { Text } from '@covid/components/typography';
 import { TColorPalette, TColorShade } from '@covid/themes';
 import React from 'react';
 
-import { Text } from '../../typography';
 import { SImageContainer, SLogoContainer, SRowView, SShareLabelView, STextContainer } from './styles';
 
 interface IProps {

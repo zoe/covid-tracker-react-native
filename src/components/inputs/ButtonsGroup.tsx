@@ -1,11 +1,10 @@
+import { FieldWrapper } from '@covid/components/Screen';
 import { SelectableButton } from '@covid/components/SelectableButton';
+import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
 import { Label, View } from 'native-base';
 import React, { useState } from 'react';
 import { PickerProps, StyleSheet } from 'react-native';
-
-import { FieldWrapper } from '../Screen';
-import { ValidationError } from '../ValidationError';
 
 export interface ISingleButton {
   label?: string;

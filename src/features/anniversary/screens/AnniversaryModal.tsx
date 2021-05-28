@@ -1,20 +1,19 @@
 import { timelineModalCard } from '@assets';
-import { SafeLayout, Text } from '@covid/components';
+import { Modal, Text } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { setHasViewedAnniversaryModal } from '@covid/core/state';
+import appCoordinator from '@covid/features/AppCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import appCoordinator from '../../AppCoordinator';
-
-function AnniversaryModal() {
+export default function AnniversaryModal() {
   const { goBack } = useNavigation();
   const dispatch = useDispatch();
   const patientService = useInjection<IPatientService>(Services.Patient);
@@ -43,57 +42,53 @@ function AnniversaryModal() {
   };
 
   return (
-    <SafeLayout>
-      <ScrollView>
-        <View style={styles.container}>
-          <View style={{ alignItems: 'center' }}>
-            <View style={styles.feature}>
-              <Text style={{ color: 'white' }} textClass="pXSmall">
-                NEW FEATURE
-              </Text>
-            </View>
-          </View>
-          <Text rhythm={24} textAlign="center" textClass="h3">
-            Your personal contribution to science!
+    <Modal event="view_anniversary_modal-v1">
+      <View style={{ alignItems: 'center' }}>
+        <View style={styles.feature}>
+          <Text style={{ color: 'white' }} textClass="pXSmall">
+            NEW FEATURE
           </Text>
-          <Text textAlign="center" textClass="pLight">
-            Thank you for reporting with us since
-          </Text>
-          <Text textAlign="center">{signupDate}</Text>
-          <View style={{ marginBottom: 12 }}>
-            <Image
-              source={timelineModalCard}
-              style={{
-                aspectRatio: 1.55,
-                height: undefined,
-                resizeMode: 'contain',
-                width: '100%',
-              }}
-            />
-          </View>
-          <View>
-            <TouchableOpacity
-              accessible
-              accessibilityRole="button"
-              onPress={() => handleViewTimeline(true)}
-              style={[styles.button, { backgroundColor: '#0165B5' }]}
-            >
-              <Text style={{ color: 'white' }} textClass="pSmallLight">
-                Discover your timeline
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              accessible
-              accessibilityRole="button"
-              onPress={() => handleViewTimeline(false)}
-              style={[styles.button, { backgroundColor: 'white' }]}
-            >
-              <Text textClass="pSmallLight">Skip</Text>
-            </TouchableOpacity>
-          </View>
         </View>
-      </ScrollView>
-    </SafeLayout>
+      </View>
+      <Text rhythm={24} textAlign="center" textClass="h3">
+        Your personal contribution to science!
+      </Text>
+      <Text textAlign="center" textClass="pLight">
+        Thank you for reporting with us since
+      </Text>
+      <Text textAlign="center">{signupDate}</Text>
+      <View style={{ marginBottom: 12 }}>
+        <Image
+          source={timelineModalCard}
+          style={{
+            aspectRatio: 1.55,
+            height: undefined,
+            resizeMode: 'contain',
+            width: '100%',
+          }}
+        />
+      </View>
+      <View>
+        <TouchableOpacity
+          accessible
+          accessibilityRole="button"
+          onPress={() => handleViewTimeline(true)}
+          style={[styles.button, { backgroundColor: '#0165B5' }]}
+        >
+          <Text style={{ color: 'white' }} textClass="pSmallLight">
+            Discover your timeline
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          accessible
+          accessibilityRole="button"
+          onPress={() => handleViewTimeline(false)}
+          style={[styles.button, { backgroundColor: 'white' }]}
+        >
+          <Text textClass="pSmallLight">Skip</Text>
+        </TouchableOpacity>
+      </View>
+    </Modal>
   );
 }
 
@@ -106,13 +101,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     width: '100%',
   },
-  container: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    marginBottom: 24,
-    marginTop: 24,
-    padding: 24,
-  },
   feature: {
     backgroundColor: '#FA7268',
     borderRadius: 4,
@@ -121,5 +109,3 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
 });
-
-export default AnniversaryModal;

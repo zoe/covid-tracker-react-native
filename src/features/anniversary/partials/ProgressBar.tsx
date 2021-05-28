@@ -1,8 +1,8 @@
 import { SolidColorBar } from '@covid/components';
+import { TProgress } from '@covid/features/anniversary/types';
 import { colors } from '@theme/colors';
 import React from 'react';
 import { View } from 'react-native';
-import { TProgress } from '../types';
 
 interface IProps {
   current: number;

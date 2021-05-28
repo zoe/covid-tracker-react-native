@@ -1,8 +1,8 @@
+import { Icon } from '@covid/components/icons';
 import { Profile } from '@covid/core/profile/ProfileService';
 import React, { useState } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { Icon } from '../icons';
 import Option from './Option';
 
 const { height } = Dimensions.get('window');

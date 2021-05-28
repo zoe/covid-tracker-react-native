@@ -1,8 +1,7 @@
 import { shareVaccine, shareVaccineBanner } from '@assets';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-
-import { ExternalCallout } from '../ExternalCallout';
 
 interface IProps {
   screenName: string;

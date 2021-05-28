@@ -1,8 +1,7 @@
 import ApiClient from '@covid/core/api/ApiClient';
+import { RootState } from '@covid/core/state/root';
+import { ISettings, TFeature } from '@covid/core/state/settings/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../root';
-import { ISettings, TFeature } from '../types';
 
 const initialState: ISettings = {
   currentFeature: 'TIMELINE',

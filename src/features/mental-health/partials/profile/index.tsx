@@ -19,7 +19,7 @@ function Profile() {
         <Avatar imgsrc={getImgSrc()} />
         <Text rhythm={8}>{i18n.t('mental-health.doctor-name')}</Text>
         <Text style={{ color: colors.uiDark.dark.bgColor }} textClass="pSmallLight">
-          {i18n.t('mental-health.doctor-title')}, {i18n.t('mental-health.doctor-college')}
+          {i18n.t('mental-health.doctor-title')}, {i18n.t('mental-health.doctor-location')}
         </Text>
       </View>
     </View>

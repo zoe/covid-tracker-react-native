@@ -1,10 +1,10 @@
 import { IUIAction, IUIMessage, useMessage } from '@covid/common';
+import { RoundIconButton, ThemeButton } from '@covid/components/buttons';
+import { Text } from '@covid/components/typography';
 import { TColorPalette, TColorShade } from '@covid/themes';
 import React, { useEffect, useState } from 'react';
 import { Animated, Easing, View } from 'react-native';
 
-import { RoundIconButton, ThemeButton } from '../../buttons';
-import { Text } from '../../typography';
 import { SCardView, SContainerView, SMessageText, TVariant } from './styles';
 
 interface IProps {

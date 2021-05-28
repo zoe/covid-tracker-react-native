@@ -43,7 +43,7 @@ export const ProgressBlock = (props: ProgressBlockType) => {
 
 type FieldWrapperType = {
   children: React.ReactNode;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const FieldWrapper = (props: FieldWrapperType) => {

@@ -1,7 +1,7 @@
+import { StatusIndicator } from '@covid/components/status';
 import i18n from '@covid/locale/i18n';
 import React from 'react';
 
-import { StatusIndicator } from '../../status';
 import { SHealthStatus, SHealthStatusText } from './styles';
 
 interface IProps {
