@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-
-import NavigatorService from '@covid/NavigatorService';
 import { BasicPage, DropdownField, Text } from '@covid/components';
-import { useTheme } from '@covid/themes';
 import {
   selectMentalHealthSupport,
   setHasNeededSupport,
   setHasReceivedSupport,
   TGeneralAnswer,
 } from '@covid/core/state/mental-health';
-import i18n from '@covid/locale/i18n';
-import { mentalHealthApiClient } from '@covid/Services';
 import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import { mentalHealthApiClient } from '@covid/Services';
+import { useTheme } from '@covid/themes';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { initialOptions } from '../data';
 import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
@@ -49,7 +48,7 @@ function MentalHealthSupport() {
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
       existingMentalHealth,
-      { mentalHealthSupport: MentalHealthSupport }
+      { mentalHealthSupport: MentalHealthSupport },
     );
     await mentalHealthApiClient.update(updatedMentalHealth);
     NavigatorService.navigate('MentalHealthLearning', undefined);
@@ -58,27 +57,27 @@ function MentalHealthSupport() {
   return (
     <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
-        <Text textClass="h3" rhythm={16}>
+        <Text rhythm={16} textClass="h3">
           {i18n.t('mental-health.question-support-title')}
         </Text>
         <View>
           <DropdownField
-            label={i18n.t('mental-health.question-support-needed')}
-            selectedValue={MentalHealthSupport.hasNeededSupport}
-            onValueChange={handleSetHasNeededSupport}
             items={initialOptions}
+            label={i18n.t('mental-health.question-support-needed')}
+            onValueChange={handleSetHasNeededSupport}
+            selectedValue={MentalHealthSupport.hasNeededSupport}
           />
         </View>
-        {MentalHealthSupport.hasNeededSupport === 'YES' && (
+        {MentalHealthSupport.hasNeededSupport === 'YES' ? (
           <View>
             <DropdownField
-              label={i18n.t('mental-health.question-support-received')}
-              selectedValue={MentalHealthSupport.hasReceivedSupport}
-              onValueChange={handleSetHasReceivedSupport}
               items={initialOptions}
+              label={i18n.t('mental-health.question-support-received')}
+              onValueChange={handleSetHasReceivedSupport}
+              selectedValue={MentalHealthSupport.hasReceivedSupport}
             />
           </View>
-        )}
+        ) : null}
       </View>
     </BasicPage>
   );

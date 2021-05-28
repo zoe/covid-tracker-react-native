@@ -1,21 +1,20 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Root } from 'native-base';
-import React, { useEffect } from 'react';
-import { Dimensions } from 'react-native';
-import * as Notifications from 'expo-notifications';
-
+import { ShareScreen } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
-import { MentalHealthModal, DietStudyModal, AnniversaryModal } from '@covid/features';
+import { AnniversaryModal, DietStudyModal, MentalHealthModal } from '@covid/features';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
-import { ShareScreen } from '@covid/components';
 import { MainNavigator } from '@covid/routes';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as Notifications from 'expo-notifications';
+import { Root } from 'native-base';
+import React, { useEffect } from 'react';
+import { Dimensions } from 'react-native';
 
-import { VaccineListMissingModal } from './features/vaccines/VaccineListMissingModal';
 import { VersionUpdateModal } from './core/VersionUpdateModal';
+import { VaccineListMissingModal } from './features/vaccines/VaccineListMissingModal';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -24,11 +23,12 @@ function DrawNavigator() {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <DrawerMenu {...props} />}
-      screenOptions={{ swipeEnabled: false }}
       drawerStyle={{
         width: Dimensions.get('screen').width,
-      }}>
-      <Drawer.Screen name="Main" component={MainNavigator} options={{ headerShown: false }} />
+      }}
+      screenOptions={{ swipeEnabled: false }}
+    >
+      <Drawer.Screen component={MainNavigator} name="Main" options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
 }
@@ -43,43 +43,44 @@ function CovidApp() {
   return (
     <Root>
       <NavigationContainer
+        linking={{
+          prefixes: ['zoe-covid-study://', 'https://covid.joinzoe.com'],
+        }}
+        onStateChange={NavigatorService.handleStateChange}
         ref={(navigatorRef) => {
           NavigatorService.setContainer(navigatorRef);
         }}
-        onStateChange={NavigatorService.handleStateChange}
-        linking={{
-          prefixes: ['zoe-covid-study://', 'https://covid.joinzoe.com'],
-        }}>
-        <Stack.Navigator headerMode="none" mode="modal" initialRouteName="Main">
-          <Stack.Screen name="Main" component={DrawNavigator} />
+      >
+        <Stack.Navigator headerMode="none" initialRouteName="Main" mode="modal">
+          <Stack.Screen component={DrawNavigator} name="Main" />
           <Stack.Screen
-            name="VersionUpdateModal"
             component={VersionUpdateModal}
+            name="VersionUpdateModal"
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
           />
           <Stack.Screen
-            name="Share"
             component={ShareScreen}
+            name="Share"
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.9)' } }}
           />
           <Stack.Screen
-            name="VaccineListMissing"
             component={VaccineListMissingModal}
+            name="VaccineListMissing"
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
           />
           <Stack.Screen
-            name="MentalHealthModal"
             component={MentalHealthModal}
+            name="MentalHealthModal"
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
           />
           <Stack.Screen
-            name="DietStudyModal"
             component={DietStudyModal}
+            name="DietStudyModal"
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
           />
           <Stack.Screen
-            name="AnniversaryModal"
             component={AnniversaryModal}
+            name="AnniversaryModal"
             options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' } }}
           />
         </Stack.Navigator>

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { AxiosResponse } from 'axios';
 
 const NETWORK_ERROR = 'Network Error';
@@ -25,19 +26,22 @@ export type ApiErrorState = {
 };
 
 export const initialErrorState = {
-  isApiError: false,
   error: null,
+  isApiError: false,
   status: '',
 };
 
 export class AppException extends Error {
   friendlyI18n: string | null;
+
   isRetryable = false;
+
   status: number;
 }
 
 class OfflineException extends AppException {
   isRetryable = true;
+
   friendlyI18n = 'errors.user-is-offline';
 }
 
@@ -74,6 +78,6 @@ export const handleServiceError = (error: ReceivedError) => {
     throw new OfflineException(error.message);
   }
 
-  // Rethrow error if we get here
+  // eslint-disable-next-line @typescript-eslint/no-throw-literal
   throw error;
 };

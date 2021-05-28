@@ -24,7 +24,8 @@ function ScoreCard({ backgroundColor, children, direction = 'DOWN' }: IProps) {
           width: 60,
         },
         direction === 'DOWN' ? { marginBottom: 14 } : { marginTop: 14 },
-      ]}>
+      ]}
+    >
       <Animated.View
         style={[
           {

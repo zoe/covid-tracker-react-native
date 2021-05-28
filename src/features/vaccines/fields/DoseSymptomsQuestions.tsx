@@ -1,24 +1,23 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import * as Yup from 'yup';
-import { View } from 'react-native';
-import { Textarea } from 'native-base';
-
-import i18n from '@covid/locale/i18n';
-import { RegularText } from '@covid/components/Text';
+import InfoCircle from '@assets/icons/InfoCircle';
 import { CheckboxList } from '@covid/components/Checkbox';
+import { RegularText } from '@covid/components/Text';
+import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import {
   createSymptomCheckboxes,
   IDoseSymptomQuestions,
   SymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
-import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import i18n from '@covid/locale/i18n';
 import { colors } from '@covid/themes/theme/colors';
-import InfoCircle from '@assets/icons/InfoCircle';
+import { FormikProps } from 'formik';
+import { Textarea } from 'native-base';
+import React from 'react';
+import { View } from 'react-native';
+import * as Yup from 'yup';
 
-export type DoesSymptomsData = DoesSymptomsCheckBoxData & DoesSymptomsFollowUpData;
+export type DoseSymptomsData = DoseSymptomsCheckBoxData & DoseSymptomsFollowUpData;
 
-type DoesSymptomsCheckBoxData = {
+type DoseSymptomsCheckBoxData = {
   pain: boolean;
   redness: boolean;
   swelling: boolean;
@@ -30,18 +29,18 @@ type DoesSymptomsCheckBoxData = {
   other: boolean;
 };
 
-type DoesSymptomsFollowUpData = {
+type DoseSymptomsFollowUpData = {
   otherSymptoms: string;
 };
 
 type Props = {
-  formikProps: FormikProps<DoesSymptomsData>;
+  formikProps: FormikProps<DoseSymptomsData>;
 };
 
-export const DoesSymptomsQuestions: IDoseSymptomQuestions<Props, DoesSymptomsData> = (props: Props) => {
+export const DoseSymptomsQuestions: IDoseSymptomQuestions<Props, DoseSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
-  const checkboxes: SymptomCheckBoxData<DoesSymptomsCheckBoxData, DoesSymptomsFollowUpData>[] = [
+  const checkboxes: SymptomCheckBoxData<DoseSymptomsCheckBoxData, DoseSymptomsFollowUpData>[] = [
     { label: i18n.t('vaccines.dose-symptoms.pain'), value: 'pain' },
     { label: i18n.t('vaccines.dose-symptoms.redness'), value: 'redness' },
     { label: i18n.t('vaccines.dose-symptoms.swelling'), value: 'swelling' },
@@ -58,7 +57,7 @@ export const DoesSymptomsQuestions: IDoseSymptomQuestions<Props, DoesSymptomsDat
       <RegularText style={{ paddingBottom: 8 }}>{i18n.t('vaccines.dose-symptoms.check-all-that-apply')}</RegularText>
       <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
 
-      {formikProps.values.other && (
+      {formikProps.values.other ? (
         <>
           <View style={{ flexDirection: 'row', marginVertical: 16, paddingRight: 32 }}>
             <View style={{ paddingRight: 8 }}>
@@ -72,50 +71,50 @@ export const DoesSymptomsQuestions: IDoseSymptomQuestions<Props, DoesSymptomsDat
           </View>
 
           <Textarea
-            rowSpan={4}
             bordered
             maxLength={500}
-            placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
-            value={formikProps.values.otherSymptoms}
             onChangeText={formikProps.handleChange('otherSymptoms')}
-            underline={false}
+            placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
+            rowSpan={4}
             style={{ borderRadius: 8 }}
+            underline={false}
+            value={formikProps.values.otherSymptoms}
           />
         </>
-      )}
+      ) : null}
     </View>
   );
 };
 
-DoesSymptomsQuestions.initialFormValues = (): DoesSymptomsData => {
+DoseSymptomsQuestions.initialFormValues = (): DoseSymptomsData => {
   return {
+    bruising: false,
+    glands: false,
+    itch: false,
+    other: false,
+    otherSymptoms: '',
     pain: false,
     redness: false,
     swelling: false,
-    glands: false,
-    warmth: false,
-    itch: false,
     tenderness: false,
-    bruising: false,
-    other: false,
-    otherSymptoms: '',
+    warmth: false,
   };
 };
 
-DoesSymptomsQuestions.schema = () => {
+DoseSymptomsQuestions.schema = () => {
   return Yup.object();
 };
 
-DoesSymptomsQuestions.createDoseSymptoms = (formData: DoesSymptomsData): Partial<DoseSymptomsRequest> => {
+DoseSymptomsQuestions.createDoseSymptoms = (formData: DoseSymptomsData): Partial<DoseSymptomsRequest> => {
   return {
+    bruising: formData.bruising,
+    itch: formData.itch,
     pain: formData.pain,
     redness: formData.redness,
     swelling: formData.swelling,
     swollen_armpit_glands: formData.glands,
-    warmth: formData.warmth,
-    itch: formData.itch,
     tenderness: formData.tenderness,
-    bruising: formData.bruising,
+    warmth: formData.warmth,
     ...(formData.other && { other: formData.otherSymptoms }),
   };
 };

@@ -1,8 +1,7 @@
-import { getStorybookUI, configure, addDecorator } from '@storybook/react-native';
+import './rn-addons';
 
 import { CenterView } from '@covid/storybook/decorator';
-
-import './rn-addons';
+import { addDecorator, configure, getStorybookUI } from '@storybook/react-native';
 
 configure(() => {
   require('./stories/Buttons.stories');
@@ -15,7 +14,6 @@ configure(() => {
   require('./stories/Buttons.stories');
   require('./stories/Selectable.stories');
   require('./stories/NumberIndicator.stories');
-  require('./stories/VaccineRegistryCallout.stories');
   require('./stories/TextInput.stories');
   require('./stories/EstimatedCasesMapCard.stories');
   require('./stories/PersonalisedDataCard.stories');

@@ -1,12 +1,10 @@
+import { IUIMessage, useMessage } from '@covid/common';
 import React from 'react';
 import { Dimensions } from 'react-native';
-
-import { useMessage, IUIMessage } from '@covid/common';
 
 import { Banner } from '../banners';
 import { Dialog } from '../dialogs';
 import { SnackBar } from '../snackbars';
-
 import { SContainerView } from './styles';
 
 function MessagingContainer() {
@@ -23,9 +21,9 @@ function MessagingContainer() {
         return (
           <SnackBar
             active
+            action={message.actions ? message.actions[0] : undefined}
             message={message}
             variant="bottom"
-            action={message.actions ? message.actions[0] : undefined}
           />
         );
     }

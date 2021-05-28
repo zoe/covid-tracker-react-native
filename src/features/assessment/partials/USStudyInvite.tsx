@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Image, Modal, TouchableOpacity, View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
-
-import { closeIcon, blobs } from '@assets';
-import { RegularText, HeaderText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
-import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
+import { blobs, closeIcon } from '@assets';
+import { HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
+import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { colors, fontStyles } from '@theme';
+import React, { useEffect, useState } from 'react';
+import { Image, ImageBackground, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { BrandedButton } from '../../../components/buttons';
 
@@ -46,21 +45,21 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
   return (
     <>
       {modalVisible && (
-        <Modal animationType="fade" transparent>
+        <Modal transparent animationType="fade">
           <View style={styles.outsideView}>
             <View style={styles.modalView}>
-              <ImageBackground source={blobs} style={{}} imageStyle={[styles.backgroundImage, { borderRadius: 16 }]}>
+              <ImageBackground imageStyle={[styles.backgroundImage, { borderRadius: 16 }]} source={blobs} style={{}}>
                 <View style={styles.contentContainer}>
                   <TouchableOpacity onPress={handleClose} style={{ alignSelf: 'flex-end' }}>
-                    <Image style={{ height: 24, width: 24 }} source={closeIcon} />
+                    <Image source={closeIcon} style={{ height: 24, width: 24 }} />
                   </TouchableOpacity>
                   <ScrollView>
                     <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
                     <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
                   </ScrollView>
 
-                  <BrandedButton style={styles.modalButton} onPress={handleAgree}>
-                    <RegularText style={styles.buttonText}>{i18n.t('us-study-invite.button')}</RegularText>
+                  <BrandedButton onPress={handleAgree} style={styles.modalButton}>
+                    {i18n.t('us-study-invite.button')}
                   </BrandedButton>
                 </View>
               </ImageBackground>
@@ -73,49 +72,45 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
 };
 
 const styles = StyleSheet.create({
-  title: {
-    paddingVertical: 0,
-    paddingHorizontal: 32,
-    fontSize: 20,
-    color: colors.primary,
-    textAlign: 'center',
-  },
-  body: {
-    paddingTop: 12,
-    paddingBottom: 32,
-    marginHorizontal: 30,
-    fontSize: 14,
-    textAlign: 'center',
-  },
   backgroundImage: {
     height: '30%',
     resizeMode: 'stretch',
   },
-  outsideView: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  body: {
+    fontSize: 14,
+    marginHorizontal: 30,
+    paddingBottom: 32,
+    paddingTop: 12,
+    textAlign: 'center',
   },
   contentContainer: {
     padding: 24,
   },
-  modalView: {
-    maxHeight: '60%',
-    margin: 24,
-    backgroundColor: colors.white,
-    borderRadius: 16,
-    alignItems: 'center',
-  },
   modalButton: {
-    width: '60%',
+    alignSelf: 'center',
+    backgroundColor: colors.purple,
     height: 40,
     marginBottom: 16,
-    backgroundColor: colors.purple,
-    alignSelf: 'center',
+    width: '60%',
   },
-  buttonText: {
-    ...fontStyles.bodySmallLight,
-    color: colors.white,
+  modalView: {
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    borderRadius: 16,
+    margin: 24,
+    maxHeight: '60%',
+  },
+  outsideView: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  title: {
+    color: colors.primary,
+    fontSize: 20,
+    paddingHorizontal: 32,
+    paddingVertical: 0,
+    textAlign: 'center',
   },
 });

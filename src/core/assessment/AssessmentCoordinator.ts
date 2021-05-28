@@ -1,22 +1,21 @@
-import { ConfigType } from '@covid/core/Config';
 import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
-import { PatientStateType } from '@covid/core/patient/PatientState';
-import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { AppCoordinator } from '@covid/features/AppCoordinator';
+import { ConfigType } from '@covid/core/Config';
+import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import {
   homeScreenName,
   ILocalisationService,
   isSECountry,
   isUSCountry,
 } from '@covid/core/localisation/LocalisationService';
-import { Services } from '@covid/provider/services.types';
-import { lazyInject } from '@covid/provider/services';
-import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
+import { PatientStateType } from '@covid/core/patient/PatientState';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-
+import { AppCoordinator } from '@covid/features/AppCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import NavigatorService from '@covid/NavigatorService';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { IProfileService } from '../profile/ProfileService';
 
 export type AssessmentData = {
@@ -33,15 +32,18 @@ export class AssessmentCoordinator extends Coordinator {
   private readonly localisationService: ILocalisationService;
 
   navigation: NavigationType;
+
   assessmentService: IAssessmentService;
+
   assessmentData: AssessmentData;
+
   appCoordinator: AppCoordinator;
 
   screenFlow: Partial<ScreenFlow> = {
-    ProfileBackDate: () => {
-      this.startAssessment();
+    AboutYourVaccine: () => {
+      NavigatorService.goBack();
     },
-    HealthWorkerExposure: () => {
+    CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
@@ -53,8 +55,58 @@ export class AssessmentCoordinator extends Coordinator {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
     },
-    CovidTestConfirm: () => {
+    GeneralSymptoms: () => {
+      NavigatorService.navigate('HeadSymptoms', { assessmentData: this.assessmentData });
+    },
+    GutStomachSymptoms: () => {
+      NavigatorService.navigate('OtherSymptoms', { assessmentData: this.assessmentData });
+    },
+    HeadSymptoms: () => {
+      NavigatorService.navigate('ThroatChestSymptoms', { assessmentData: this.assessmentData });
+    },
+    HealthWorkerExposure: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
+    },
+    HowYouFeel: (healthy: boolean) => {
+      if (healthy) {
+        this.gotoEndAssessment();
+      } else {
+        NavigatorService.navigate('GeneralSymptoms', { assessmentData: this.assessmentData });
+      }
+    },
+    NHSTestDetail: () => {
+      NavigatorService.goBack();
+    },
+    OtherSymptoms: () => {
+      NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
+    },
+    ProfileBackDate: () => {
+      this.startAssessment();
+    },
+    ReportForOther: () => {
+      this.goToThankYouScreen();
+    },
+    ThankYouSE: () => {
+      NavigatorService.goBack();
+    },
+    ThankYouUK: () => {
+      NavigatorService.goBack();
+    },
+    ThankYouUS: () => {
+      NavigatorService.goBack();
+    },
+    ThroatChestSymptoms: () => {
+      NavigatorService.navigate('GutStomachSymptoms', { assessmentData: this.assessmentData });
+    },
+    TreatmentOther: () => {
+      this.gotoEndAssessment();
+    },
+    TreatmentSelection: (params: { other: boolean; location: string }) => {
+      if (params.other) {
+        NavigatorService.navigate('TreatmentOther', { assessmentData: this.assessmentData, location: params.location });
+      } else {
+        this.gotoEndAssessment();
+      }
     },
     VaccineDoseSymptoms: () => {
       NavigatorService.reset([
@@ -70,66 +122,6 @@ export class AssessmentCoordinator extends Coordinator {
         { name: 'HowYouFeel', params: { assessmentData: this.assessmentData } },
       ]);
     },
-    NHSTestDetail: () => {
-      NavigatorService.goBack();
-    },
-    TreatmentOther: () => {
-      this.gotoEndAssessment();
-    },
-    ThankYouUS: () => {
-      NavigatorService.goBack();
-    },
-    ThankYouUK: () => {
-      NavigatorService.goBack();
-    },
-    ThankYouSE: () => {
-      NavigatorService.goBack();
-    },
-    ReportForOther: () => {
-      this.goToThankYouScreen();
-    },
-    HowYouFeel: (healthy: boolean) => {
-      if (healthy) {
-        this.gotoEndAssessment();
-      } else {
-        NavigatorService.navigate('GeneralSymptoms', { assessmentData: this.assessmentData });
-      }
-    },
-    WhereAreYou: (params: { location: string; endAssessment: boolean }) => {
-      if (params.endAssessment) {
-        this.gotoEndAssessment();
-      } else {
-        NavigatorService.navigate('TreatmentSelection', {
-          assessmentData: this.assessmentData,
-          location: params.location,
-        });
-      }
-    },
-    TreatmentSelection: (params: { other: boolean; location: string }) => {
-      if (params.other) {
-        NavigatorService.navigate('TreatmentOther', { assessmentData: this.assessmentData, location: params.location });
-      } else {
-        this.gotoEndAssessment();
-      }
-    },
-    GeneralSymptoms: () => {
-      NavigatorService.navigate('HeadSymptoms', { assessmentData: this.assessmentData });
-    },
-    HeadSymptoms: () => {
-      NavigatorService.navigate('ThroatChestSymptoms', { assessmentData: this.assessmentData });
-    },
-    ThroatChestSymptoms: () => {
-      NavigatorService.navigate('GutStomachSymptoms', { assessmentData: this.assessmentData });
-    },
-    GutStomachSymptoms: () => {
-      NavigatorService.navigate('OtherSymptoms', { assessmentData: this.assessmentData });
-    },
-    OtherSymptoms: () => {
-      NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
-    },
-    AboutYourVaccine: () => {
-      NavigatorService.goBack();
-    },
     VaccineList: (params: {
       shouldAskDoseSymptoms: boolean | undefined;
       askVaccineHesitancy: boolean | undefined;
@@ -143,6 +135,16 @@ export class AssessmentCoordinator extends Coordinator {
         NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
+    },
+    WhereAreYou: (params: { location: string; endAssessment: boolean }) => {
+      if (params.endAssessment) {
+        this.gotoEndAssessment();
+      } else {
+        NavigatorService.navigate('TreatmentSelection', {
+          assessmentData: this.assessmentData,
+          location: params.location,
+        });
       }
     },
   };
@@ -162,12 +164,10 @@ export class AssessmentCoordinator extends Coordinator {
     if (currentPatient.hasCompletedPatientDetails) {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
         NavigatorService.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
+      } else if (currentPatient.isHealthWorker) {
+        NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
       } else {
-        if (currentPatient.isHealthWorker) {
-          NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
-        } else {
-          NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
-        }
+        NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
       }
     } else {
       this.appCoordinator.startPatientFlow(this.patientData);
@@ -176,7 +176,6 @@ export class AssessmentCoordinator extends Coordinator {
 
   gotoEndAssessment = async () => {
     const config = this.localisationService.getConfig();
-
     if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       NavigatorService.navigate('ReportForOther');
     } else {
@@ -241,7 +240,7 @@ export class AssessmentCoordinator extends Coordinator {
           params: { assessmentFlow: true },
         },
       ],
-      1
+      1,
     );
   }
 
@@ -266,7 +265,7 @@ export class AssessmentCoordinator extends Coordinator {
         },
         { name: 'CreateProfile', params: { avatarName: 'profile2' } },
       ],
-      2
+      2,
     );
   }
 

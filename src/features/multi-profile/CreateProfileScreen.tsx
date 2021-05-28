@@ -1,17 +1,16 @@
+import { BrandedButton } from '@covid/components';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import Screen, { Header } from '@covid/components/Screen';
+import { HeaderText, SecondaryText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
-import * as Yup from 'yup';
 import { View } from 'react-native';
-
-import i18n from '@covid/locale/i18n';
-import { HeaderText, SecondaryText } from '@covid/components/Text';
-import Screen, { Header } from '@covid/components/Screen';
-import { GenericTextField } from '@covid/components/GenericTextField';
-import { BrandedButton } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
+import * as Yup from 'yup';
 
 const initialFormValues = {
   name: '',
@@ -38,8 +37,8 @@ export default class CreateProfileScreen extends Component<RenderProps> {
 
   handleClick(formData: FormData) {
     this.props.navigation.navigate('AdultOrChild', {
-      profileName: formData.name,
       avatarName: this.props.route.params.avatarName,
+      profileName: formData.name,
     });
   }
 
@@ -53,10 +52,11 @@ export default class CreateProfileScreen extends Component<RenderProps> {
 
         <Formik
           initialValues={initialFormValues}
-          validationSchema={this.registerSchema}
           onSubmit={(values: FormData) => {
             return this.handleClick(values);
-          }}>
+          }}
+          validationSchema={this.registerSchema}
+        >
           {(props) => {
             return (
               <Form>

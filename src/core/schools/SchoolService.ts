@@ -1,15 +1,14 @@
-import { injectable, inject } from 'inversify';
-
-import { Services } from '@covid/provider/services.types';
 import { IApiClient } from '@covid/core/api/ApiClient';
 import {
-  ISchoolModel,
+  ISchoolGroupJoinedResponse,
   ISchoolGroupModel,
   ISchoolGroupSubscriptionDTO,
+  ISchoolModel,
   ISubscribedSchoolGroupStats,
-  ISchoolGroupJoinedResponse,
 } from '@covid/core/schools/Schools.dto';
+import { Services } from '@covid/provider/services.types';
 import { naturalCompare } from '@covid/utils/array';
+import { inject, injectable } from 'inversify';
 
 export interface ISchoolService {
   getSubscribedSchoolGroups(): Promise<ISubscribedSchoolGroupStats[]>;
@@ -30,7 +29,7 @@ export class SchoolService implements ISchoolService {
   }
 
   getSchoolById(id: string, higherEducation: boolean = false): Promise<ISchoolModel[]> {
-    return this.apiClient.get<ISchoolModel[]>(`/schools/`, { verify: id, higher_education: higherEducation });
+    return this.apiClient.get<ISchoolModel[]>(`/schools/`, { higher_education: higherEducation, verify: id });
   }
 
   async searchSchoolGroups(schoolId: string): Promise<ISchoolGroupModel[]> {
@@ -45,12 +44,9 @@ export class SchoolService implements ISchoolService {
   }
 
   async joinGroup(groupId: string, patientId: string): Promise<ISchoolGroupJoinedResponse> {
-    return await this.apiClient.post<ISchoolGroupSubscriptionDTO, ISchoolGroupJoinedResponse>(
-      `/groups/${groupId}/join/`,
-      {
-        patient_id: patientId,
-      }
-    );
+    return this.apiClient.post<ISchoolGroupSubscriptionDTO, ISchoolGroupJoinedResponse>(`/groups/${groupId}/join/`, {
+      patient_id: patientId,
+    });
   }
 
   async leaveGroup(groupId: string, patientId: string): Promise<void> {

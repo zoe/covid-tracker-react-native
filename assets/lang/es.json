@@ -428,6 +428,100 @@
     "vaccine-reporting-link": ""
   },
 
+  "long-covid": {
+    "one-off": "ONE-off questionnaire",
+    "title": "Investigating COVID duration & Long COVID",
+    "time": "LESS THAN 2 MIN",
+    "body-1": "Thanks for reporting!",
+    "body-2": "Today, we’d like to ask you some one-off questions about Long COVID.",
+    "body-3": "Your answers will help us understand long-term effects of COVID-19.",
+    "q1": "Do you think you have or have had COVID-19?",
+    "q1-a1": "Yes, confirmed by positive test",
+    "q1-a2": "Yes, based on medical advice",
+    "q1-a3": "Yes, based on strong suspicion",
+    "q1-a4": "Unsure",
+    "q1-a5": "No",
+    "q1-a6": "Prefer not to say",
+    "q2": "How long do you think you’ve had COVID-19 symptoms overall?",
+    "q2-info-1": "Please include",
+    "q2-info-2": "Time spent with mild symptoms",
+    "q2-info-3": "Time in between symptoms if these have been coming and going",
+    "q2-info-4": "The longest episode of illness you experienced (if you have caught COVID-19 more than once)",
+    "q2-info-5": "If you answered “unsure” please answer about the illness you think might have been COVID-19.",
+    "q2-a1": "Less than 2 weeks",
+    "q2-a2": "2 - 3 weeks",
+    "q2-a3": "4 - 12 weeks",
+    "q2-a4": "More than 12 weeks",
+
+    "q3": "For how long did these symptoms restrict your day-to-day activities?",
+    "q3-a1": "I was always able to function as normal",
+    "q3-a2": "1 - 3 days",
+    "q3-a3": "4 - 6 days",
+    "q3-a4": "7 - 13 days",
+    "q3-a5": "2 - 3 weeks",
+    "q3-a6": "4 - 12 weeks",
+    "q3-a7": "12+ weeks",
+
+    "q4-header": "12 weeks (or more) after first catching COVID-19, did you experience any of the following?",
+    "q4-info-1": "Please only consider symptoms that are not explained by another reason.",
+    "q4-info-2": "If you are unsure if you had COVID-19, please answer regarding the 12 weeks (or more) after you think you caught it.",
+    "q4-info-3": "Select all that apply",
+    
+    "q4": "Problems thinking and communicating e.g. brain-fog, memory problems, difficulty concentrating, decreased alertness, confusion, difficulty speaking",
+    "q5": "Mood changes, e.g. anxiety, feeling ‘down’, or irritable",
+    "q6": "Poor or excessive sleep",
+    "q7": "Body aches, unusual tingling or pain­­­",
+    "q8": "Muscle aches, weakness or severe fatigue",
+    "q9": "Skin rashes",
+    "q10": "Bone or joint pain",
+    "q11": "Headaches",
+    "q12": "Light-headedness or dizziness when standing ",
+    "q13": "Altered sense of taste or smell",
+    "q14": "Breathing problems, e.g. breathlessness, pain on breathing, cough",
+    "q15": "Heart problems, e.g. chest pain, palpitations",
+    "q16": "Abdominal pain, diarrhoea or appetite loss",
+    "q17": "Other",
+
+    "q18": "Have you had at least one COVID-19 vaccine done?",
+    "q18-a1": "Yes",
+    "q18-a2": "No",
+
+    "q19": "Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection?",
+    "q19-a1": "Yes",
+    "q19-a2": "No",
+    "q19-a3": "Not sure",
+
+    "q20": "Did your symptoms change 2 weeks (or more) after your first COVID-19 vaccine injection?",
+
+    "q21": "Have your symptoms changed in the week after your vaccination (excluding the first 2 days)?",
+    "q21-symptom_change_headache": "Headache",
+
+    "q21-symptom_change_smell": "Headache",
+    "q21-symptom_change_voice": "Hoarse voice",
+    "q21-symptom_change_cough": "Persistant cough",
+    "q21-symptom_change_appetite": "Skipped meals / loss of appetite",
+    "q21-symptom_change_sore_throat": "Sore throat",
+    "q21-symptom_change_chest_pain": "Chest pain",
+    "q21-symptom_change_fatigue": "Fatigue",
+    "q21-symptom_change_muscle_joint_pain": "Muscle joint pain",
+    "q21-symptom_change_abdominal_pain": "Abdominal pain",
+    "q21-symptom_change_diarrhoea": "Diarrhoea",
+    "q21-symptom_change_fever": "Fever",
+
+    "symptoms-change-a1": "Yes – all symptoms got better",
+    "symptoms-change-a2": "Yes – some symptoms got better",
+    "symptoms-change-a3": "Nothing changed",
+    "symptoms-change-a4": "Yes - some symptoms got worse",
+    "symptoms-change-a5": "Yes - all symptoms got worse",
+    "symptoms-change-a6": "Some symptoms improved, others got worse",
+    "symptoms-change-a7": "It’s not yet been 2 weeks since my first COVID 19 vaccine",
+    "symptoms-change-a8": "Other",
+
+    "comments": "Do you have anything else to share regarding the evolution of your COVID-19 symptoms?",
+    "button": "Next",
+    "finish": "Finish"
+  },
+
   "where-are-you": {
     "question-location": "¿Dónde se encuentra?",
     "picker-location-home": "En casa. No he ido a una clínica u hospital por síntomas sospechosos de COVID-19.",
@@ -976,27 +1070,6 @@
     "partners": {
       "powered-by": false,
       "data-analysis": false
-    },
-
-    "validation-study-intro": {
-      "title": false,
-      "subtitle": false,
-      "info": false,
-      "yes": false,
-      "no": false,
-      "app-name": false
-    },
-
-    "validation-study-info": {
-      "title": false,
-      "header-1": false,
-      "para-1": false,
-      "header-2": false,
-      "para-2": false,
-      "header-3": false,
-      "para-3": false,
-      "interested": false,
-      "visit-next": false
     },
 
     "covid-test": {

@@ -1,11 +1,10 @@
-import { FormikProps } from 'formik';
-import React from 'react';
-import { View } from 'native-base';
-
-import i18n from '@covid/locale/i18n';
-import { vaccineBrandDisplayName, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import DropdownField from '@covid/components/DropdownField';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { vaccineBrandDisplayName, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import { View } from 'native-base';
+import React from 'react';
 
 import { IVaccineDoseData } from './VaccineDoseQuestion';
 
@@ -60,12 +59,12 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
 
     return (
       <DropdownField
+        error={brandTouched && brandError}
+        items={nameOptions}
+        label={i18n.t('vaccines.your-vaccine.label-name')}
+        onValueChange={props.formikProps.handleChange(brandString)}
         placeholder={i18n.t('vaccines.your-vaccine.label-name')}
         selectedValue={brandField}
-        onValueChange={props.formikProps.handleChange(brandString)}
-        label={i18n.t('vaccines.your-vaccine.label-name')}
-        items={nameOptions}
-        error={brandTouched && brandError}
       />
     );
   };
@@ -90,12 +89,12 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
 
     return (
       <DropdownField
+        error={descriptionTouched && descriptionError}
+        items={descriptionOptions}
+        label={i18n.t('vaccines.your-vaccine.label-name-other')}
+        onValueChange={props.formikProps.handleChange(descriptionString)}
         placeholder={i18n.t('vaccines.your-vaccine.label-name')}
         selectedValue={descriptionField}
-        onValueChange={props.formikProps.handleChange(descriptionString)}
-        label={i18n.t('vaccines.your-vaccine.label-name-other')}
-        items={descriptionOptions}
-        error={descriptionTouched && descriptionError}
       />
     );
   };

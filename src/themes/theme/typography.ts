@@ -1,22 +1,33 @@
-import { ITextClass, TText, TFontFamily, TTypeSizes } from '../types/typography';
+import { ITextClass, TFontFamily, TText, TTypeSizes } from '../types/typography';
 
 const getTextProperties = (
   fontSize: TTypeSizes,
   lineHeight: TTypeSizes,
-  fontFamily: TFontFamily = 'SofiaProRegular'
+  fontFamily: TFontFamily = 'SofiaProRegular',
 ): TText => {
   return {
     fontFamily,
     fontSize,
     fontStyle: 'normal',
-    lineHeight,
     letterSpacing: 0,
+    lineHeight,
     textAlign: 'left',
     textDecorationLine: 'none',
   };
 };
 
 export const text: ITextClass = {
+  button: {
+    fontFamily: 'SofiaPro-Bold',
+    fontSize: 16,
+    fontStyle: 'normal',
+    letterSpacing: 1,
+    lineHeight: 16,
+    textAlign: 'center',
+    textDecorationLine: 'none',
+  },
+  default: getTextProperties(16, 24),
+  //
   h0: getTextProperties(40, 48),
   //
   h1: getTextProperties(32, 48, 'SofiaPro-Light'),
@@ -41,26 +52,15 @@ export const text: ITextClass = {
   h6Medium: getTextProperties(12, 16, 'SofiaPro-Medium'),
   h6Regular: getTextProperties(12, 16),
   //
+  label: getTextProperties(10, 12),
+  //
   p: getTextProperties(16, 24),
   pBold: getTextProperties(16, 24, 'SofiaPro-SemiBold'),
   pLight: getTextProperties(16, 24, 'SofiaPro-Light'),
   pMedium: getTextProperties(16, 24, 'SofiaPro-Medium'),
-  //
   pSmall: getTextProperties(14, 20),
   pSmallBold: getTextProperties(14, 20, 'SofiaPro-SemiBold'),
   pSmallLight: getTextProperties(14, 20, 'SofiaPro-Light'),
   pXSmall: getTextProperties(12, 16),
   pXSmallMedium: getTextProperties(12, 16, 'SofiaPro-Medium'),
-  //
-  default: getTextProperties(16, 24),
-  button: {
-    fontFamily: 'SofiaPro-Bold',
-    fontSize: 16,
-    fontStyle: 'normal',
-    lineHeight: 16,
-    letterSpacing: 1,
-    textAlign: 'center',
-    textDecorationLine: 'none',
-  },
-  label: getTextProperties(10, 12),
 };

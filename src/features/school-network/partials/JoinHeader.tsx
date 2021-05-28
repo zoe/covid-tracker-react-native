@@ -1,11 +1,10 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
 interface IProps {
   headerText: string;
@@ -22,7 +21,7 @@ function JoinHeader({ headerText, bodyText, currentStep, maxSteps }: IProps) {
         <RegularText style={styles.spacer}>{i18n.t(bodyText)}</RegularText>
       </Header>
       <ProgressBlock>
-        <ProgressStatus step={currentStep} maxSteps={maxSteps} color={colors.brand} />
+        <ProgressStatus color={colors.brand} maxSteps={maxSteps} step={currentStep} />
       </ProgressBlock>
     </>
   );

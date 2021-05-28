@@ -8,8 +8,8 @@ const initialState: IDietStudy = {
 };
 
 const dietStudySlice = createSlice({
-  name: 'DietStudyState',
   initialState,
+  name: 'DietStudyState',
   reducers: {
     setDietStudyConsent: (state, action: PayloadAction<TDietStudyConsent>) => {
       return {

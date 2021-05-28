@@ -1,8 +1,7 @@
-import { inject, injectable } from 'inversify';
-
 import { Dose, DoseSymptomsRequest, VaccinePlanRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { IVaccineRemoteClient } from '@covid/core/vaccine/VaccineApiClient';
 import { Services } from '@covid/provider/services.types';
+import { inject, injectable } from 'inversify';
 
 export interface IVaccineService {
   hasVaccinePlans(patientId: string): Promise<boolean>;

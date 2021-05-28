@@ -9,8 +9,8 @@ const initialState: IMentalHealthSupport = {
 };
 
 const mentalHealthSupportSlice = createSlice({
-  name: 'MentalHealthSupport',
   initialState,
+  name: 'MentalHealthSupport',
   reducers: {
     setHasNeededSupport: (state, action: PayloadAction<TGeneralAnswer>) => {
       return {

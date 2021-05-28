@@ -1,11 +1,10 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import { RegularText, HeaderText, CaptionText } from '@covid/components/Text';
-import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
+import { NumberIndicator } from '@covid/components/stats/NumberIndicator';
+import { CaptionText, HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
+import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export enum DrawerMenuItem {
   RESEARCH_UPDATE = 'RESEARCH_UPDATE',
@@ -32,15 +31,15 @@ interface ILinkMenuItemProps {
 
 export function MenuItem({ image, onPress, label, smallLabel, indicator }: IMenuItemProps) {
   return (
-    <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={styles.iconNameRow}>
       <View style={{ flexDirection: 'row' }}>
-        {image && <View style={styles.icon}>{image}</View>}
+        {image ? <View style={styles.icon}>{image}</View> : null}
         <View style={styles.labelRow}>
           <HeaderText>{label}</HeaderText>
-          {indicator && <NumberIndicator number={indicator} />}
+          {indicator ? <NumberIndicator number={indicator} /> : null}
         </View>
       </View>
-      {smallLabel != null && <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText>}
+      {smallLabel != null ? <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText> : null}
     </TouchableOpacity>
   );
 }
@@ -71,7 +70,7 @@ export function LinkItem({
   };
 
   return (
-    <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={styles.iconNameRow}>
       <View style={styles.labelRow}>
         <RegularText>{getLabel()}</RegularText>
       </View>
@@ -81,17 +80,17 @@ export function LinkItem({
 
 const styles = StyleSheet.create({
   icon: {
-    width: 24,
-    marginRight: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: 20,
+    width: 24,
   },
   iconNameRow: {
-    marginStart: 8,
-    marginVertical: 16,
+    alignContent: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignContent: 'center',
+    marginStart: 8,
+    marginVertical: 16,
   },
   labelRow: {
     justifyContent: 'space-between',

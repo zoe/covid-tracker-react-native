@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { TTypeSizes } from '@covid/themes';
 import { TStyleObject } from '@covid/utils/types';
+import React from 'react';
 
 import { TIconName } from '../types';
-
 import { SIconSet, SIconView } from './icon.styles';
 
 interface IProps {
@@ -19,7 +17,7 @@ interface IProps {
 
 function Icon({ color = 'black', iconName, iconSize = 16, iconStyle = {}, inverted = false, style = {} }: IProps) {
   return (
-    <SIconView style={style} size={iconSize} accessibilityRole="none">
+    <SIconView accessibilityRole="none" size={iconSize} style={style}>
       <SIconSet color={color} inverted={inverted} name={iconName} size={iconSize} style={iconStyle} />
     </SIconView>
   );

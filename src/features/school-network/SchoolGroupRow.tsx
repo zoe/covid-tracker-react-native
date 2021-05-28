@@ -1,9 +1,8 @@
+import { RegularText } from '@covid/components/Text';
+import { ISchoolGroupModel } from '@covid/core/schools/Schools.dto';
+import { colors } from '@theme';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import { RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
-import { ISchoolGroupModel } from '@covid/core/schools/Schools.dto';
 
 type Props = {
   onPress: VoidFunction;
@@ -23,8 +22,8 @@ export const SchoolGroupRow: React.FC<Props> = ({ onPress, group }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
     flexDirection: 'row',
+    height: 40,
     justifyContent: 'space-between',
   },
 });

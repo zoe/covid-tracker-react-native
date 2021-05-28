@@ -1,24 +1,23 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
-import { Form, Text } from 'native-base';
-import { StyleSheet, View } from 'react-native';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
-import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components';
+import Screen, { Header } from '@covid/components/Screen';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { IVaccineService } from '@covid/core/vaccine/VaccineService';
+import { ScreenParamList } from '@covid/features';
 import {
   VaccineHesitancyData,
   VaccineHesitancyQuestions,
 } from '@covid/features/vaccines/fields/VaccineHesitancyQuestions';
-import { IVaccineService } from '@covid/core/vaccine/VaccineService';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { ScreenParamList } from '@covid/features';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import { Formik } from 'formik';
+import { Form, Text } from 'native-base';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineHesitancy'>;
@@ -34,14 +33,14 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
   const handleSubmit = async (formData: VaccineHesitancyData) => {
     if (!isSubmitting) {
       setSubmitting(true);
-      const patientId = route.params.assessmentData.patientData.patientId;
+      const { patientId } = route.params.assessmentData.patientData;
       try {
         const dto = VaccineHesitancyQuestions.createDTO(formData);
         await vaccineService.saveVaccinePlan(patientId, dto);
         assessmentCoordinator.gotoNextScreen(route.name);
       } catch (e) {
         setErrorMessage(i18n.t('something-went-wrong'));
-        //TODO Show error message toast?
+        // TODO Show error message toast?
       } finally {
         setSubmitting(false);
       }
@@ -53,7 +52,7 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
 
   return (
     <View style={styles.rootContainer}>
-      <Screen profile={currentPatient.profile} navigation={navigation}>
+      <Screen navigation={navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>{i18n.t('vaccines.hesitancy.title')}</HeaderText>
         </Header>
@@ -63,8 +62,9 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
             initialValues={{
               ...VaccineHesitancyQuestions.initialFormValues(),
             }}
+            onSubmit={(values: VaccineHesitancyData) => handleSubmit(values)}
             validationSchema={registerSchema}
-            onSubmit={(values: VaccineHesitancyData) => handleSubmit(values)}>
+          >
             {(props) => {
               return (
                 <Form style={{ flexGrow: 1 }}>
@@ -74,18 +74,19 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
 
                   <View style={{ flex: 1 }} />
 
-                  {!!Object.keys(props.errors).length && (
-                    <View style={{ marginHorizontal: 16, marginBottom: 24 }}>
+                  {Object.keys(props.errors).length ? (
+                    <View style={{ marginBottom: 24, marginHorizontal: 16 }}>
                       <ErrorText>{i18n.t('validation-error-text')}</ErrorText>
                     </View>
-                  )}
+                  ) : null}
 
                   <BrandedButton
-                    style={styles.continueButton}
-                    onPress={props.handleSubmit}
                     enable={!isSubmitting}
-                    hideLoading={!isSubmitting}>
-                    <Text>{i18n.t('vaccines.dose-symptoms.next')}</Text>
+                    hideLoading={!isSubmitting}
+                    onPress={props.handleSubmit}
+                    style={styles.continueButton}
+                  >
+                    {i18n.t('vaccines.dose-symptoms.next')}
                   </BrandedButton>
                 </Form>
               );
@@ -98,14 +99,14 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
 };
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: colors.backgroundPrimary,
+  continueButton: {
+    marginBottom: 32,
+    marginHorizontal: 16,
+    marginTop: 16,
   },
 
-  continueButton: {
-    marginTop: 16,
-    marginHorizontal: 16,
-    marginBottom: 32,
+  rootContainer: {
+    backgroundColor: colors.backgroundPrimary,
+    flex: 1,
   },
 });

@@ -1,5 +1,5 @@
 import store from '../../../../store';
-import { setCompleted, setCurrentSection, setConsent, setLastPresentedDate } from '../index';
+import { setCompleted, setConsent, setCurrentSection, setLastPresentedDate } from '../index';
 
 describe('\n** redux mental health state **\n', () => {
   let state = store.getState().mentalHealthState;

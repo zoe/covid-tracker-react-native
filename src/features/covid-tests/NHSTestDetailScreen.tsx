@@ -1,25 +1,13 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
-import { Form, Text } from 'native-base';
-import React, { Component } from 'react';
-import { Alert, View } from 'react-native';
-import * as Yup from 'yup';
-
+import { BrandedButton } from '@covid/components';
+import { ClearButton } from '@covid/components/buttons/ClearButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
+import Analytics, { events } from '@covid/core/Analytics';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
-import Analytics, { events } from '@covid/core/Analytics';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { Services } from '@covid/provider/services.types';
-import { lazyInject } from '@covid/provider/services';
-import { ClearButton } from '@covid/components/buttons/ClearButton';
-import { INHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
 import {
   CovidTestResultQuestion,
   CovidTestTimeQuestion,
@@ -28,7 +16,18 @@ import {
   INHSTestMechanismData,
   NHSTestMechanismQuestion,
 } from '@covid/features/covid-tests/fields/';
-import { BrandedButton } from '@covid/components';
+import { INHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik, FormikProps } from 'formik';
+import { Form, Text } from 'native-base';
+import React, { Component } from 'react';
+import { Alert, View } from 'react-native';
+import * as Yup from 'yup';
 
 interface INHSTestData extends INHSTestDateData, INHSTestMechanismData, ICovidTestResultData, ICovidTestTimeData {}
 
@@ -98,9 +97,9 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
       }
 
       const infos = {
+        invited_to_test: false,
         patient: AssessmentCoordinator.assessmentData.patientData.patientId,
         type: CovidTestType.NHSStudy,
-        invited_to_test: false,
         ...NHSTestDateQuestion.createDTO(formData),
         ...CovidTestTimeQuestion.createDTO(formData),
         ...NHSTestMechanismQuestion.createDTO(formData),
@@ -117,18 +116,18 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
       i18n.t('covid-test.delete-test-alert-text'),
       [
         {
-          text: i18n.t('cancel'),
           style: 'cancel',
+          text: i18n.t('cancel'),
         },
         {
-          text: i18n.t('delete'),
-          style: 'destructive',
           onPress: async () => {
             await this.deleteTest();
           },
+          style: 'destructive',
+          text: i18n.t('delete'),
         },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   }
 
@@ -150,7 +149,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
       .concat(CovidTestResultQuestion.schema());
 
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
         <Header>
           <HeaderText>
             {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}
@@ -158,7 +157,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={2} maxSteps={5} />
+          <ProgressStatus maxSteps={5} step={2} />
         </ProgressBlock>
 
         <Formik
@@ -168,10 +167,11 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
             ...NHSTestMechanismQuestion.initialFormValues(test),
             ...CovidTestResultQuestion.initialFormValues(test),
           }}
-          validationSchema={registerSchema}
           onSubmit={(values: INHSTestData) => {
             return this.handleAction(values);
-          }}>
+          }}
+          validationSchema={registerSchema}
+        >
           {(props) => {
             return (
               <Form>
@@ -183,21 +183,21 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
                 </View>
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+                ) : null}
 
-                {this.testId && (
+                {this.testId ? (
                   <ClearButton
-                    text={i18n.t('covid-test.delete-test')}
                     onPress={async () => {
                       await this.promptDeleteTest();
                     }}
+                    text={i18n.t('covid-test.delete-test')}
                   />
-                )}
+                ) : null}
 
                 <BrandedButton onPress={props.handleSubmit}>
-                  <Text>{i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>
+                  {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </Form>
             );

@@ -34,15 +34,19 @@ export default (dbPath: string) => {
     },
 
     // generic get: return the list of objects if no id is passed or the object with the specified id
-    get: <T>(path: string) => (id?: string): T | T[] =>
-      id === undefined ? Object.values(getObject<T>(path)) : getObject<T>(path)[id],
+    get:
+      <T>(path: string) =>
+      (id?: string): T | T[] =>
+        id === undefined ? Object.values(getObject<T>(path)) : getObject<T>(path)[id],
 
     // generic save: save the object to the "table" file
-    save: <T>(path: string) => (id: string, newData: T): T => {
-      const data = getObject<T>(path);
-      data[id] = { ...newData };
-      putObject(path, data);
-      return newData;
-    },
+    save:
+      <T>(path: string) =>
+      (id: string, newData: T): T => {
+        const data = getObject<T>(path);
+        data[id] = { ...newData };
+        putObject(path, data);
+        return newData;
+      },
   };
 };

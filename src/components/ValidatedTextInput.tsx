@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
-
 import Error from '@assets/icons/Error';
 import { colors } from '@theme';
+import React, { Component } from 'react';
+import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
 interface Props extends TextInputProps {
   error?: any;
@@ -24,43 +23,44 @@ export class ValidatedTextInput extends Component<Props, object> {
           {
             borderColor: error ? colors.feedbackBad : 'transparent',
           },
-        ]}>
+        ]}
+      >
         <TextInput
+          placeholderTextColor={colors.secondary}
           ref={(input) => (this.textInput = input)}
           style={[styles.inputStyle, this.props.multiline ? styles.multipleLines : styles.singleLine]}
-          placeholderTextColor={colors.secondary}
           {...this.props}
         />
-        {error && <Error />}
+        {error ? <Error /> : null}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  inputWrapper: {
-    backgroundColor: colors.backgroundTertiary,
-    borderRadius: 8,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 8,
-    borderWidth: 1,
-    paddingRight: 8,
-  },
   inputStyle: {
     color: colors.primary,
     flex: 1,
-    fontSize: 16,
     fontFamily: 'SofiaProRegular',
+    fontSize: 16,
     paddingLeft: 12,
     paddingRight: 16,
   },
-  singleLine: {
-    height: 48,
+  inputWrapper: {
+    alignItems: 'center',
+    backgroundColor: colors.backgroundTertiary,
+    borderRadius: 8,
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 8,
+    paddingRight: 8,
   },
   multipleLines: {
     height: 96,
     marginVertical: 8,
+  },
+  singleLine: {
+    height: 48,
   },
 });

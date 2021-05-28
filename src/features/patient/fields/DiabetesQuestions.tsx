@@ -1,22 +1,21 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { FormikProps } from 'formik';
-import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { GenericTextField } from '@covid/components/GenericTextField';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
-import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
+import { RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import YesNoField from '@covid/components/YesNoField';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
+import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
+import { FormikProps } from 'formik';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
-import { DiabetesTreamentsQuestion, IDiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 import { DiabetesOralMedsQuestion, IDiabetesOralMedsData } from './DiabetesOralMedsQuestion';
+import { DiabetesTreatmentsQuestion, IDiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 
 export interface IDiabetesData extends IDiabetesTreatmentsData, IDiabetesOralMedsData {
   diabetesType: string;
@@ -70,76 +69,76 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
   return (
     <View>
       <DropdownField
-        items={diabetesTypeOptions}
-        selectedValue={formikProps.values.diabetesType}
-        onValueChange={formikProps.handleChange('diabetesType')}
-        label={i18n.t('diabetes.which-type')}
         error={formikProps.touched.diabetesType && formikProps.errors.diabetesType}
+        items={diabetesTypeOptions}
+        label={i18n.t('diabetes.which-type')}
+        onValueChange={formikProps.handleChange('diabetesType')}
+        selectedValue={formikProps.values.diabetesType}
       />
-      {formikProps.values.diabetesType === DiabetesTypeValues.OTHER && (
+      {formikProps.values.diabetesType === DiabetesTypeValues.OTHER ? (
         <GenericTextField formikProps={formikProps} name="diabetesTypeOther" />
-      )}
+      ) : null}
 
       <FieldWrapper style={styles.fieldWrapper}>
         <RegularText>{i18n.t('diabetes.most-recent-hemoglobin-measure')}</RegularText>
         <View style={styles.fieldRow}>
           <View style={styles.primaryField}>
-            {formikProps.values.hemoglobinMeasureUnit === '%' && (
+            {formikProps.values.hemoglobinMeasureUnit === '%' ? (
               <ValidatedTextInput
-                placeholder={i18n.t('placeholder-optional')}
-                value={formikProps.values.a1cMeasurementPercent}
-                onChangeText={formikProps.handleChange('a1cMeasurementPercent')}
-                onBlur={formikProps.handleBlur('a1cMeasurementPercent')}
                 error={formikProps.touched.a1cMeasurementPercent && formikProps.errors.a1cMeasurementPercent}
-                returnKeyType="next"
-                onSubmitEditing={() => {}}
                 keyboardType="numeric"
-              />
-            )}
-            {formikProps.values.hemoglobinMeasureUnit === 'mmol/mol' && (
-              <ValidatedTextInput
+                onBlur={formikProps.handleBlur('a1cMeasurementPercent')}
+                onChangeText={formikProps.handleChange('a1cMeasurementPercent')}
+                onSubmitEditing={() => {}}
                 placeholder={i18n.t('placeholder-optional')}
-                value={formikProps.values.a1cMeasurementMol}
-                onChangeText={formikProps.handleChange('a1cMeasurementMol')}
-                onBlur={formikProps.handleBlur('a1cMeasurementMol')}
-                error={formikProps.touched.a1cMeasurementMol && formikProps.errors.a1cMeasurementMol}
                 returnKeyType="next"
-                onSubmitEditing={() => {}}
-                keyboardType="numeric"
+                value={formikProps.values.a1cMeasurementPercent}
               />
-            )}
+            ) : null}
+            {formikProps.values.hemoglobinMeasureUnit === 'mmol/mol' ? (
+              <ValidatedTextInput
+                error={formikProps.touched.a1cMeasurementMol && formikProps.errors.a1cMeasurementMol}
+                keyboardType="numeric"
+                onBlur={formikProps.handleBlur('a1cMeasurementMol')}
+                onChangeText={formikProps.handleChange('a1cMeasurementMol')}
+                onSubmitEditing={() => {}}
+                placeholder={i18n.t('placeholder-optional')}
+                returnKeyType="next"
+                value={formikProps.values.a1cMeasurementMol}
+              />
+            ) : null}
           </View>
           <View style={styles.secondaryField}>
             <DropdownField
+              onlyPicker
               items={hemoglobinUnitsOptions}
-              selectedValue={formikProps.values.hemoglobinMeasureUnit}
               onValueChange={formikProps.handleChange('hemoglobinMeasureUnit')}
               placeholder=""
-              onlyPicker
+              selectedValue={formikProps.values.hemoglobinMeasureUnit}
             />
           </View>
         </View>
       </FieldWrapper>
 
       <GenericTextField
-        placeholder={i18n.t('placeholder-optional')}
+        showError
         formikProps={formikProps}
+        keyboardType="numeric"
         label={i18n.t('diabetes.when-was-diagnosed')}
         name="diabetesDiagnosisYear"
-        keyboardType="numeric"
-        showError
+        placeholder={i18n.t('placeholder-optional')}
       />
 
-      <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<IDiabetesTreatmentsData>} />
+      <DiabetesTreatmentsQuestion formikProps={formikProps as FormikProps<IDiabetesTreatmentsData>} />
 
-      {formikProps.values.diabetesTreatmentOtherOral && (
+      {formikProps.values.diabetesTreatmentOtherOral ? (
         <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<IDiabetesOralMedsData>} />
-      )}
+      ) : null}
 
       <YesNoField
-        selectedValue={formikProps.values.diabetesUsesCGM}
-        onValueChange={formikProps.handleChange('diabetesUsesCGM')}
         label={i18n.t('diabetes.question-use-cgm')}
+        onValueChange={formikProps.handleChange('diabetesUsesCGM')}
+        selectedValue={formikProps.values.diabetesUsesCGM}
       />
     </View>
   );
@@ -149,14 +148,14 @@ DiabetesQuestions.initialFormValues = () => {
   // Default Hemoglobin Measure Unit to mmol/mol for Sweden.
   const defaultUnitKey = isSECountry() === true ? 'mol' : 'percent';
   return {
+    a1cMeasurementMol: undefined,
+    a1cMeasurementPercent: undefined,
+    diabetesDiagnosisYear: '',
     diabetesType: '',
     diabetesTypeOther: undefined,
-    hemoglobinMeasureUnit: i18n.t(`diabetes.hemoglobin-measurement-unit-${defaultUnitKey}`),
-    a1cMeasurementPercent: undefined,
-    a1cMeasurementMol: undefined,
-    diabetesDiagnosisYear: '',
     diabetesUsesCGM: '',
-    ...DiabetesTreamentsQuestion.initialFormValues(),
+    hemoglobinMeasureUnit: i18n.t(`diabetes.hemoglobin-measurement-unit-${defaultUnitKey}`),
+    ...DiabetesTreatmentsQuestion.initialFormValues(),
     ...DiabetesOralMedsQuestion.initialFormValues(),
   };
 };
@@ -164,11 +163,9 @@ DiabetesQuestions.initialFormValues = () => {
 DiabetesQuestions.schema = () => {
   return Yup.object()
     .shape({
-      diabetesType: Yup.string().required(i18n.t('diabetes.please-select-diabetes-type')),
-
-      diabetesTypeOther: Yup.string().when('diabetesType', {
-        is: (val: string) => val === DiabetesTypeValues.OTHER,
-        then: Yup.string(),
+      a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
+        is: (val: string) => val === HemoglobinMeasureUnits.MOL,
+        then: Yup.number(),
       }),
 
       a1cMeasurementPercent: Yup.number().when('hemoglobinMeasureUnit', {
@@ -176,16 +173,18 @@ DiabetesQuestions.schema = () => {
         then: Yup.number(),
       }),
 
-      a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
-        is: (val: string) => val === HemoglobinMeasureUnits.MOL,
-        then: Yup.number(),
-      }),
-
       diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(2020),
+
+      diabetesType: Yup.string().required(i18n.t('diabetes.please-select-diabetes-type')),
+
+      diabetesTypeOther: Yup.string().when('diabetesType', {
+        is: (val: string) => val === DiabetesTypeValues.OTHER,
+        then: Yup.string(),
+      }),
 
       diabetesUsesCGM: Yup.string(),
     })
-    .concat(DiabetesTreamentsQuestion.schema())
+    .concat(DiabetesTreatmentsQuestion.schema())
     .concat(DiabetesOralMedsQuestion.schema());
 };
 
@@ -195,7 +194,7 @@ DiabetesQuestions.createDTO = (data) => {
     diabetes_type_other: data.diabetesTypeOther,
     ...(data.diabetesDiagnosisYear && { diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear) }),
     ...(data.diabetesUsesCGM && { diabetes_uses_cgm: data.diabetesUsesCGM === 'yes' }),
-    ...DiabetesTreamentsQuestion.createDTO(data),
+    ...DiabetesTreatmentsQuestion.createDTO(data),
     ...DiabetesOralMedsQuestion.createDTO(data),
   };
 
@@ -217,21 +216,18 @@ DiabetesQuestions.createDTO = (data) => {
 };
 
 const styles = StyleSheet.create({
-  labelStyle: {
-    fontSize: 16,
-    lineHeight: 30,
-    marginTop: 16,
-    marginHorizontal: 16,
-    color: colors.primary,
-  },
-  textItemStyle: {
-    borderColor: 'transparent',
+  fieldRow: {
+    flexDirection: 'row',
   },
   fieldWrapper: {
     flex: 1,
   },
-  fieldRow: {
-    flexDirection: 'row',
+  labelStyle: {
+    color: colors.primary,
+    fontSize: 16,
+    lineHeight: 30,
+    marginHorizontal: 16,
+    marginTop: 16,
   },
   primaryField: {
     flex: 4,
@@ -241,5 +237,8 @@ const styles = StyleSheet.create({
     flex: 4,
     margin: -8,
     marginHorizontal: 4,
+  },
+  textItemStyle: {
+    borderColor: 'transparent',
   },
 });

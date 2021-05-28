@@ -1,8 +1,7 @@
+import { BrandedButton } from '@covid/components';
+import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { fireEvent, render } from '@testing-library/react-native';
-
-import { BrandedButton } from '@covid/components';
 
 describe('branded-button tests', () => {
   it('renders correctly', () => {
@@ -23,12 +22,14 @@ describe('branded-button tests', () => {
   it('Does not fire press events when disabled', () => {
     const onPress = jest.fn();
     const { getByTestId } = render(
-      <BrandedButton onPress={onPress} enable={false}>
+      <BrandedButton enable={false} onPress={onPress}>
         This is a branded button
-      </BrandedButton>
+      </BrandedButton>,
     );
     expect(onPress).toHaveBeenCalledTimes(0);
-    fireEvent.press(getByTestId('buttonTestID'));
+    try {
+      fireEvent.press(getByTestId('buttonTestID'));
+    } catch (_) {}
     expect(onPress).toHaveBeenCalledTimes(0);
   });
 
@@ -36,9 +37,9 @@ describe('branded-button tests', () => {
     const onPress = jest.fn();
     const style = { background: 'red' };
     const { getByTestId } = render(
-      <BrandedButton style={style} onPress={onPress} enable={false}>
+      <BrandedButton enable={false} onPress={onPress} style={style}>
         This is a branded button
-      </BrandedButton>
+      </BrandedButton>,
     );
     expect(getByTestId('buttonTestID').props.style.background).toBe('red');
   });

@@ -1,16 +1,15 @@
+import DropdownField from '@covid/components/DropdownField';
+import { FieldWrapper } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError } from '@covid/components/ValidationError';
+import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import i18n from '@covid/locale/i18n';
+import { container } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import DropdownField from '@covid/components/DropdownField';
-import { FieldWrapper } from '@covid/components/Screen';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationError } from '@covid/components/ValidationError';
-import i18n from '@covid/locale/i18n';
-import { RegularText } from '@covid/components/Text';
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 
 export interface IHeightData {
   height: string;
@@ -32,26 +31,26 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
     <View style={styles.primaryFieldRow}>
       <View style={styles.feetField}>
         <ValidatedTextInput
-          placeholder={i18n.t('placeholder-feet')}
-          value={formikProps.values.feet}
-          onChangeText={formikProps.handleChange('feet')}
-          onBlur={formikProps.handleBlur('feet')}
           error={formikProps.touched.feet && formikProps.errors.feet}
-          returnKeyType="next"
-          onSubmitEditing={() => {}}
           keyboardType="numeric"
+          onBlur={formikProps.handleBlur('feet')}
+          onChangeText={formikProps.handleChange('feet')}
+          onSubmitEditing={() => {}}
+          placeholder={i18n.t('placeholder-feet')}
+          returnKeyType="next"
+          value={formikProps.values.feet}
         />
       </View>
       <View style={styles.inchesField}>
         <ValidatedTextInput
-          placeholder={i18n.t('placeholder-inches')}
-          value={formikProps.values.inches}
-          onChangeText={formikProps.handleChange('inches')}
-          onBlur={formikProps.handleBlur('inches')}
           error={formikProps.touched.inches && formikProps.errors.inches}
-          returnKeyType="next"
-          onSubmitEditing={() => {}}
           keyboardType="numeric"
+          onBlur={formikProps.handleBlur('inches')}
+          onChangeText={formikProps.handleChange('inches')}
+          onSubmitEditing={() => {}}
+          placeholder={i18n.t('placeholder-inches')}
+          returnKeyType="next"
+          value={formikProps.values.inches}
         />
       </View>
     </View>
@@ -62,14 +61,14 @@ const HeightInCm: React.FC<Props> = ({ formikProps }) => {
   return (
     <View style={styles.cmField}>
       <ValidatedTextInput
-        placeholder={i18n.t('placeholder-height')}
-        value={formikProps.values.height}
-        onChangeText={formikProps.handleChange('height')}
-        onBlur={formikProps.handleBlur('height')}
         error={formikProps.touched.height && formikProps.errors.height}
-        returnKeyType="next"
-        onSubmitEditing={() => {}}
         keyboardType="numeric"
+        onBlur={formikProps.handleBlur('height')}
+        onChangeText={formikProps.handleChange('height')}
+        onSubmitEditing={() => {}}
+        placeholder={i18n.t('placeholder-height')}
+        returnKeyType="next"
+        value={formikProps.values.height}
       />
     </View>
   );
@@ -91,22 +90,26 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
           <View style={styles.unitsField}>
             <DropdownField
               onlyPicker
-              selectedValue={formikProps.values.heightUnit}
-              onValueChange={formikProps.handleChange('heightUnit')}
               items={[
                 { label: 'ft', value: 'ft' },
                 { label: 'cm', value: 'cm' },
               ]}
+              onValueChange={formikProps.handleChange('heightUnit')}
+              selectedValue={formikProps.values.heightUnit}
             />
           </View>
         </View>
       )}
-      {formikProps.touched.height && formikProps.errors.height && <ValidationError error={formikProps.errors.height} />}
-      {formikProps.touched.feet && formikProps.errors.feet && <ValidationError error={formikProps.errors.feet} />}
-      {formikProps.touched.inches && formikProps.errors.inches && <ValidationError error={formikProps.errors.inches} />}
-      {formikProps.touched.heightUnit && formikProps.errors.heightUnit && (
+      {formikProps.touched.height && formikProps.errors.height ? (
+        <ValidationError error={formikProps.errors.height} />
+      ) : null}
+      {formikProps.touched.feet && formikProps.errors.feet ? <ValidationError error={formikProps.errors.feet} /> : null}
+      {formikProps.touched.inches && formikProps.errors.inches ? (
+        <ValidationError error={formikProps.errors.inches} />
+      ) : null}
+      {formikProps.touched.heightUnit && formikProps.errors.heightUnit ? (
         <ValidationError error={formikProps.errors.heightUnit} />
-      )}
+      ) : null}
     </FieldWrapper>
   );
 };
@@ -114,34 +117,17 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
 HeightQuestion.initialFormValues = () => {
   const features = container.get<ILocalisationService>(Services.Localisation).getConfig();
   return {
-    height: '',
     feet: '',
-    inches: '',
+    height: '',
     heightUnit: features.defaultHeightUnit,
+    inches: '',
   };
 };
 
 const styles = StyleSheet.create({
-  fieldWrapper: {
-    flex: 1,
-  },
-
-  fieldRow: {
-    flexDirection: 'row',
-  },
-
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-
   cmField: {
     flex: 6,
     marginRight: 4,
-  },
-
-  primaryFieldRow: {
-    flex: 6,
-    flexDirection: 'row',
   },
 
   feetField: {
@@ -149,9 +135,26 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
 
+  fieldRow: {
+    flexDirection: 'row',
+  },
+
+  fieldWrapper: {
+    flex: 1,
+  },
+
   inchesField: {
-    marginHorizontal: 4,
     flex: 5,
+    marginHorizontal: 4,
+  },
+
+  primaryFieldRow: {
+    flex: 6,
+    flexDirection: 'row',
+  },
+
+  textItemStyle: {
+    borderColor: 'transparent',
   },
 
   unitsField: {

@@ -6,12 +6,12 @@ export default ({ config }) => {
     hooks: {
       postPublish: [
         {
-          file: 'sentry-expo/upload-sourcemaps',
           config: {
+            authToken: process.env.SENTRY_TOKEN,
             organization: 'zoe',
             project: 'covid-symptom-study',
-            authToken: process.env.SENTRY_TOKEN,
           },
+          file: 'sentry-expo/upload-sourcemaps',
         },
       ],
     },

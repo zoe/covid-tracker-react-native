@@ -1,13 +1,12 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react-native';
-import { FormikProps, Formik } from 'formik';
-import { ScrollView } from 'react-native-gesture-handler';
-import { View } from 'native-base';
-import { Text } from 'react-native';
-
-import { IDiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
-import i18n from '@covid/locale/i18n';
 import { BrandedButton } from '@covid/components';
+import { DiabetesQuestions, IDiabetesData } from '@covid/features/patient/fields/DiabetesQuestions';
+import i18n from '@covid/locale/i18n';
+import { storiesOf } from '@storybook/react-native';
+import { Formik, FormikProps } from 'formik';
+import { View } from 'native-base';
+import React from 'react';
+import { Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 storiesOf('DiabetesQuestions', module).add('default view', () => {
   return (
@@ -16,10 +15,9 @@ storiesOf('DiabetesQuestions', module).add('default view', () => {
         initialValues={{
           ...DiabetesQuestions.initialFormValues(),
         }}
+        onSubmit={() => {}}
         validationSchema={DiabetesQuestions.schema()}
-        onSubmit={(values: any) => {
-          console.log(values);
-        }}>
+      >
         {(props) => (
           <View style={{ marginHorizontal: 16 }}>
             <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />

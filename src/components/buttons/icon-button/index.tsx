@@ -1,7 +1,6 @@
+import { TColorPalette, TColorShade } from '@covid/themes';
 import React from 'react';
 import { Image, ImageSourcePropType } from 'react-native';
-
-import { TColorPalette, TColorShade } from '@covid/themes';
 
 import { STouchableOpacity } from './styles';
 
@@ -28,9 +27,10 @@ function IconButton({
     <STouchableOpacity
       colorPalette={colorPalette}
       colorShade={colorShade}
+      onPress={onPress}
       outline={outline}
       simple={simple}
-      onPress={onPress}>
+    >
       <Image source={imgSrc} />
     </STouchableOpacity>
   );

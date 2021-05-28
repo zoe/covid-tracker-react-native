@@ -1,16 +1,15 @@
-import { Text } from 'react-native';
-
 import {
   TColorPalette,
   TColorShade,
   TFontFamily,
   TFontStyle,
   TGridSizes,
+  TTextAlign,
   TTtextDecorationLine,
   TTypeSizes,
-  TTextAlign,
 } from '@covid/themes';
 import styled from '@covid/themes/styled-components';
+import { Text } from 'react-native';
 
 interface ITextProps {
   colorPalette: TColorPalette;

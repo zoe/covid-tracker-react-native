@@ -1,8 +1,8 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-
 import { TTypeSizes } from '@covid/themes';
 import { TStyleObject } from '@covid/utils/types';
+import { colors } from '@theme/colors';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
 import { Icon, TIconName } from '../../icons';
 
@@ -19,7 +19,7 @@ interface IProps {
 
 function CheckBoxButton({
   active = true,
-  backgroundColor = '#EEEEEF',
+  backgroundColor = colors.backgroundTertiary,
   backgroundSize = 32,
   iconColor = 'black',
   iconName = 'tick',
@@ -32,13 +32,14 @@ function CheckBoxButton({
       onPress={onPress}
       style={{
         alignItems: 'center',
-        borderRadius: 8,
         backgroundColor,
+        borderRadius: 8,
         height: backgroundSize,
         justifyContent: 'center',
         width: backgroundSize,
-      }}>
-      {active && <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} />}
+      }}
+    >
+      {active ? <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} /> : null}
     </TouchableOpacity>
   );
 }

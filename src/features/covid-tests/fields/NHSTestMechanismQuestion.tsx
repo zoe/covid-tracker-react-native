@@ -1,14 +1,13 @@
+import DropdownField from '@covid/components/DropdownField';
+import { FieldWrapper } from '@covid/components/Screen';
+import YesNoField from '@covid/components/YesNoField';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
+import { cleanIntegerVal } from '@covid/utils/number';
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-
-import i18n from '@covid/locale/i18n';
-import DropdownField from '@covid/components/DropdownField';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
-import YesNoField from '@covid/components/YesNoField';
-import { FieldWrapper } from '@covid/components/Screen';
-import { cleanIntegerVal } from '@covid/utils/number';
 
 export interface INHSTestMechanismData {
   mechanism: string;
@@ -44,29 +43,29 @@ export const NHSTestMechanismQuestion: INHSTestMechanismQuestion<IProps, INHSTes
   return (
     <>
       <DropdownField
-        selectedValue={formikProps.values.mechanism}
-        onValueChange={formikProps.handleChange('mechanism')}
-        label={i18n.t('nhs-test-detail.mechanism-label')}
         error={formikProps.touched.mechanism && formikProps.errors.mechanism}
         items={mechanismItems}
+        label={i18n.t('nhs-test-detail.mechanism-label')}
+        onValueChange={formikProps.handleChange('mechanism')}
+        selectedValue={formikProps.values.mechanism}
       />
 
       {formikProps.values.mechanism === CovidTestMechanismOptions.SPIT_TUBE && (
         <>
           <YesNoField
-            selectedValue={formikProps.values.storedInFridge}
-            onValueChange={formikProps.handleChange('storedInFridge')}
             error={formikProps.touched.storedInFridge && formikProps.errors.storedInFridge}
             label={i18n.t('nhs-test-detail.fridge-label')}
+            onValueChange={formikProps.handleChange('storedInFridge')}
+            selectedValue={formikProps.values.storedInFridge}
           />
 
           {formikProps.values.storedInFridge === 'yes' && (
             <FieldWrapper>
               <DropdownField
-                label={i18n.t('nhs-test-detail.days-label')}
-                selectedValue={formikProps.values.daysInFridge}
-                onValueChange={formikProps.handleChange('daysInFridge')}
                 items={dayInFridgeItems}
+                label={i18n.t('nhs-test-detail.days-label')}
+                onValueChange={formikProps.handleChange('daysInFridge')}
+                selectedValue={formikProps.values.daysInFridge}
               />
             </FieldWrapper>
           )}
@@ -88,37 +87,36 @@ NHSTestMechanismQuestion.initialFormValues = (test?: CovidTest): INHSTestMechani
   if (test?.id) {
     if (test.days_in_fridge) {
       return {
+        daysInFridge: test.days_in_fridge.toString(),
         mechanism,
         storedInFridge: 'yes',
-        daysInFridge: test.days_in_fridge.toString(),
-      };
-    } else {
-      return {
-        mechanism,
-        storedInFridge: 'no',
-        daysInFridge: '',
       };
     }
+    return {
+      daysInFridge: '',
+      mechanism,
+      storedInFridge: 'no',
+    };
   }
   return {
+    daysInFridge: '',
     mechanism,
     storedInFridge: '',
-    daysInFridge: '',
   };
 };
 
 NHSTestMechanismQuestion.schema = () => {
   return Yup.object().shape({
+    daysInFridge: Yup.string().when('storedInFridge', {
+      is: (storedInFridge) => {
+        return storedInFridge === 'yes';
+      },
+      then: Yup.string().required(i18n.t('nhs-test-detail.days-required')),
+    }),
     mechanism: Yup.string().required(i18n.t('nhs-test-detail.mechanism-required')),
     storedInFridge: Yup.string().when('mechanism', {
       is: (mechanism) => {
         return mechanism === CovidTestMechanismOptions.SPIT_TUBE;
-      },
-      then: Yup.string().required(i18n.t('nhs-test-detail.days-required')),
-    }),
-    daysInFridge: Yup.string().when('storedInFridge', {
-      is: (storedInFridge) => {
-        return storedInFridge === 'yes';
       },
       then: Yup.string().required(i18n.t('nhs-test-detail.days-required')),
     }),
