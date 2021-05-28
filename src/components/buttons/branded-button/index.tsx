@@ -19,7 +19,6 @@ export default function BrandedButton(props: IProps) {
       testID={props.testID ?? 'buttonTestID'}
       onPress={props.enable === false ? undefined : props.onPress}
       style={[props.enable === false ? styles.buttonDisabled : styles.button, props.style]}
-      testID="buttonTestID"
     >
       {props.loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}
       <Text style={[fontStyles.bodyLight, styles.text]}>{props.children}</Text>
