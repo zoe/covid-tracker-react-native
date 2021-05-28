@@ -52,50 +52,52 @@ export default function MHPGeneralScreen() {
 
   return (
     <SafeLayout style={styling.backgroundWhite}>
-      <BasicNavHeader backgroundColor="transparent" style={styles.basicNavHeader} />
-      {!insights.length && loading ? (
-        <EmptyState />
-      ) : (
-        <>
-          <ScrollView
-            decelerationRate="fast"
-            onLayout={onLayoutScrollView}
-            onScroll={onScroll}
-            ref={scrollViewRef}
-            scrollEventThrottle={80}
-            snapToInterval={scrollViewHeight}
-          >
-            <Insights insights={insights} itemHeight={scrollViewHeight} />
+      <View style={[styling.flex, styling.relative]}>
+        <BasicNavHeader backgroundColor="transparent" style={styles.basicNavHeader} />
+        {!insights.length && loading ? (
+          <EmptyState />
+        ) : (
+          <>
+            <ScrollView
+              decelerationRate="fast"
+              onLayout={onLayoutScrollView}
+              onScroll={onScroll}
+              ref={scrollViewRef}
+              scrollEventThrottle={80}
+              snapToInterval={scrollViewHeight}
+            >
+              <Insights insights={insights} itemHeight={scrollViewHeight} />
 
-            <View style={{ height: scrollViewHeight }}>
-              <View style={styles.view}>
-                <Text textAlign="center" textClass="h3Regular">
-                  {i18n.t(
-                    isGeneral
-                      ? 'mental-health-playback.general.end-title-general'
-                      : 'mental-health-playback.general.end-title-personal',
-                  )}
-                </Text>
-                <Text
-                  inverted
-                  colorPalette="uiDark"
-                  colorShade="dark"
-                  style={styling.marginTopBig}
-                  textAlign="center"
-                  textClass="p"
-                >
-                  {i18n.t('mental-health-playback.general.end-description')}
-                </Text>
+              <View style={{ height: scrollViewHeight }}>
+                <View style={styles.view}>
+                  <Text textAlign="center" textClass="h3Regular">
+                    {i18n.t(
+                      isGeneral
+                        ? 'mental-health-playback.general.end-title-general'
+                        : 'mental-health-playback.general.end-title-personal',
+                    )}
+                  </Text>
+                  <Text
+                    inverted
+                    colorPalette="uiDark"
+                    colorShade="dark"
+                    style={styling.marginTopBig}
+                    textAlign="center"
+                    textClass="p"
+                  >
+                    {i18n.t('mental-health-playback.general.end-description')}
+                  </Text>
+                </View>
+                <BrandedButton onPress={onPress} style={styles.button}>
+                  {i18n.t('mental-health-playback.general.end-button')}
+                </BrandedButton>
               </View>
-              <BrandedButton onPress={onPress} style={styles.button}>
-                {i18n.t('mental-health-playback.general.end-button')}
-              </BrandedButton>
-            </View>
-          </ScrollView>
+            </ScrollView>
 
-          <PaginationIndicator amount={insights.length + 1} onSelection={onSelection} selectedIndex={selectedIndex} />
-        </>
-      )}
+            <PaginationIndicator amount={insights.length + 1} onSelection={onSelection} selectedIndex={selectedIndex} />
+          </>
+        )}
+      </View>
     </SafeLayout>
   );
 }

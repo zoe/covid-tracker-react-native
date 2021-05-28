@@ -4,7 +4,7 @@ import { DietStudyActionCard } from '@covid/features/diet-study-playback/compone
 import { getDietStudyInfoUrl } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useTheme } from '@covid/themes';
+import { styling, useTheme } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
@@ -15,7 +15,7 @@ function DietStudy() {
   const { colors } = useTheme();
 
   return (
-    <SafeLayout style={{ backgroundColor: '#FFF' }} withGutter={false}>
+    <SafeLayout style={styling.backgroundWhite}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>

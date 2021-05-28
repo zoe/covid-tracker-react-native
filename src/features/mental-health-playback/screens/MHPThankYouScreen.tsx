@@ -10,25 +10,27 @@ export default function MHPThankYouScreen() {
     NavigatorService.goBack();
   }
   return (
-    <SafeLayout withGutter style={styling.backgroundWhite}>
-      <View style={styling.marginVerticalAuto}>
-        <Text
-          inverted
-          colorPalette="accentBlue"
-          colorShade="main"
-          style={styling.marginBottomHuge}
-          textAlign="center"
-          textClass="h2"
-        >
-          {i18n.t('mental-health-playback.thank-you.title')}
-        </Text>
-        <Text inverted colorPalette="accentBlue" colorShade="main" textAlign="center" textClass="h5Medium">
-          {i18n.t('mental-health-playback.thank-you.description')}
-        </Text>
+    <SafeLayout style={styling.backgroundWhite}>
+      <View style={[styling.padding, styling.flex]}>
+        <View style={styling.marginVerticalAuto}>
+          <Text
+            inverted
+            colorPalette="accentBlue"
+            colorShade="main"
+            style={styling.marginBottomHuge}
+            textAlign="center"
+            textClass="h2"
+          >
+            {i18n.t('mental-health-playback.thank-you.title')}
+          </Text>
+          <Text inverted colorPalette="accentBlue" colorShade="main" textAlign="center" textClass="h5Medium">
+            {i18n.t('mental-health-playback.thank-you.description')}
+          </Text>
+        </View>
+        <BrandedButton enable onPress={onPress} style={{ marginBottom: grid.gutter }}>
+          {i18n.t('mental-health-playback.thank-you.button')}
+        </BrandedButton>
       </View>
-      <BrandedButton enable onPress={onPress} style={{ marginBottom: grid.gutter }}>
-        {i18n.t('mental-health-playback.thank-you.button')}
-      </BrandedButton>
     </SafeLayout>
   );
 }
