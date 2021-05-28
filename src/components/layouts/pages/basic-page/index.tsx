@@ -49,7 +49,7 @@ export default function BasicPage({
         ) : null}
         {children}
       </ScrollView>
-      {withFooter ? <BasicPageFooter active={active} onPress={onPress} title={footerTitle} /> : null}
+      {withFooter ? <BasicPageFooter active={active} loading={loading} onPress={onPress} title={footerTitle} /> : null}
     </SafeLayout>
   );
 }

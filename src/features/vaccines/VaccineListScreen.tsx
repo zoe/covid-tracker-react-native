@@ -35,7 +35,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
   const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
-  const [isLoading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [showVaccineWarning, setShowVaccineWarning] = useState<boolean>(false);
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
@@ -115,7 +115,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const ListContent = () => {
-    if (isLoading) {
+    if (loading) {
       return <Loading error={null} status="" />;
     }
     return (
