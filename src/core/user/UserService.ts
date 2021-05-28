@@ -175,3 +175,5 @@ export default class UserService extends ApiClientBase implements IUserService {
     return this.client.delete(`/users/delete/`);
   }
 }
+
+export const userService = new UserService();
