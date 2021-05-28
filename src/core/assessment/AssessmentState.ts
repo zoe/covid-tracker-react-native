@@ -1,4 +1,5 @@
-import store from '../state/store';
+import store from '@covid/core/state/store';
+
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { clearAssessment, updateAssessment } from './state/actions';
 

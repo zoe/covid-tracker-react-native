@@ -1,8 +1,7 @@
+import { Text } from '@covid/components/typography';
 import { useTheme } from '@covid/themes';
 import React, { ReactNode } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import { Text } from '../typography';
 
 interface IProps {
   actionTitle: string;

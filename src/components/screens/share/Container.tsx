@@ -1,9 +1,9 @@
 import { TrendlineCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
+import ShareTimelineCard from '@covid/components/cards/ShareTimelineCard';
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import React from 'react';
 
-import { ShareTimelineCard } from '../../cards';
 import { SShareContainerView } from './styles';
 
 type Sharable = 'MAP' | 'TRENDLINE' | 'VACCINES' | 'TIMELINE';

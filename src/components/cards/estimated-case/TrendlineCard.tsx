@@ -1,4 +1,7 @@
 import ChevronRight from '@assets/icons/ChevronRight';
+import { Link, ShareButton } from '@covid/components/buttons';
+import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/stats/TrendLineChart';
+import { Text } from '@covid/components/typography';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { RootState } from '@covid/core/state/root';
@@ -11,9 +14,6 @@ import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 
-import { Link, ShareButton } from '../../buttons';
-import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../stats/TrendLineChart';
-import { Text } from '../../typography';
 import { DeltaTag } from './DeltaTag';
 
 interface IProps {

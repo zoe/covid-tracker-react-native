@@ -1,8 +1,7 @@
 import { Text } from '@covid/components';
+import DietScoreHeader from '@covid/features/diet-study-playback/components/diet-score-header';
 import React from 'react';
 import { View } from 'react-native';
-
-import DietScoreHeader from '../diet-score-header';
 
 function MissingDataText() {
   return (

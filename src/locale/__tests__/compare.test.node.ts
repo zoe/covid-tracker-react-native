@@ -1,4 +1,4 @@
-import { compareLocale } from '../compare';
+import { compareLocale } from '@covid/locale/compare';
 
 let mockedLocaleKeys: string[] = [];
 jest.mock('../utils/Locales', () => ({

@@ -14,14 +14,9 @@ function DietStudyActionCard() {
 
   const getCtaTitle = () => {
     const title = settings.hasEmailSubscription
-      ? i18n.t(`diet-study.email-action-cta-unsubscribe`)
-      : i18n.t(`diet-study.email-action-cta`);
+      ? i18n.t('diet-study.email-action-cta-unsubscribe')
+      : i18n.t('diet-study.email-action-cta');
     return title;
-  };
-
-  const buttonProps = {
-    buttonColor: settings.hasEmailSubscription ? 'white' : undefined,
-    textColor: settings.hasEmailSubscription ? colors.burgundy.main.bgColor : undefined,
   };
 
   const handleOnPress = () => {
@@ -34,12 +29,17 @@ function DietStudyActionCard() {
   };
 
   return (
-    <ActionCard actionTitle={getCtaTitle()} onPress={handleOnPress} {...buttonProps}>
+    <ActionCard
+      actionTitle={getCtaTitle()}
+      buttonColor={settings.hasEmailSubscription ? 'white' : undefined}
+      onPress={handleOnPress}
+      textColor={settings.hasEmailSubscription ? colors.burgundy.main.bgColor : undefined}
+    >
       <Text rhythm={16} textClass="h4">
-        {i18n.t(`diet-study.email-action-title`)}
+        {i18n.t('diet-study.email-action-title')}
       </Text>
       <Text rhythm={8} textClass="pLight">
-        {i18n.t(`diet-study.email-action-body`)}
+        {i18n.t('diet-study.email-action-body')}
       </Text>
       {settings.hasEmailSubscription ? (
         <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', marginTop: 24 }}>

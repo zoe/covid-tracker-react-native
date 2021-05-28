@@ -1,48 +1,56 @@
+import { RoundIconButton } from '@covid/components/buttons';
 import { useTheme } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
-import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
-
-import { RoundIconButton } from '../../../buttons';
+import React from 'react';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {
   backgroundColor?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
+  paddingHorizontal?: number;
+  style?: StyleProp<ViewStyle>;
 }
 
-function BasicNavHeader({ backgroundColor, children }: IProps) {
+export default function BasicNavHeader(props: IProps) {
   const { goBack } = useNavigation();
   const { colors, grid } = useTheme();
   return (
     <View
-      style={{
-        backgroundColor: backgroundColor || 'transparent',
-        paddingBottom: grid.m,
-        paddingHorizontal: grid.gutter,
-        paddingTop: grid.l,
-      }}
+      style={[
+        {
+          backgroundColor: props.backgroundColor ?? 'transparent',
+          paddingBottom: grid.m,
+          paddingHorizontal: props.paddingHorizontal ?? grid.gutter,
+          paddingTop: grid.l,
+        },
+        props.style,
+      ]}
     >
       <View style={styles.row}>
-        <View style={{ flex: 1 }}>
+        <View style={styles.flex}>
           <RoundIconButton
             backgroundColor={colors.ui.dark.bgColor}
             iconColor="black"
             iconName="arrow_back_ios"
-            iconStyle={{ transform: [{ translateX: 4 }] }} // center arrow
+            iconStyle={styles.icon}
             onPress={() => goBack()}
           />
         </View>
-        {children ? <View>{children}</View> : null}
+        {props.children ? <View>{props.children}</View> : null}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  icon: {
+    transform: [{ translateX: 4 }],
+  },
   row: {
     alignItems: 'center',
     flexDirection: 'row',
   },
 });
-
-export default BasicNavHeader;

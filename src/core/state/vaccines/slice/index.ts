@@ -1,10 +1,9 @@
+import { IVaccineState } from '@covid/core/state/vaccines/types';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { IVaccineState } from '../types';
 
 const initialState: IVaccineState = {
   vaccines: [],

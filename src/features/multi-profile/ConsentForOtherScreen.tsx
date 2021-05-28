@@ -6,6 +6,8 @@ import { ClickableText, ErrorText, HeaderText, RegularText } from '@covid/compon
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { ConsentType, ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
@@ -14,9 +16,6 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { View } from 'react-native';
-
-import appCoordinator from '../AppCoordinator';
-import { ConsentType, ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;

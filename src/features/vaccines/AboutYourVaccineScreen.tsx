@@ -7,6 +7,7 @@ import YesNoField from '@covid/components/YesNoField';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { setLoggedVaccine } from '@covid/core/state';
 import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IVaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import i18n from '@covid/locale/i18n';
@@ -23,8 +24,6 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-
-import { IVaccineService } from '../../core/vaccine/VaccineService';
 
 type IProps = {
   navigation: StackNavigationProp<ScreenParamList, 'AboutYourVaccine'>;

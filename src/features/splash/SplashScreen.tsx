@@ -3,6 +3,7 @@ import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import { setPatients, setUsername } from '@covid/core/state/user';
 import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
+import appCoordinator from '@covid/features/AppCoordinator';
 import Splash from '@covid/features/splash/components/Splash';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -17,8 +18,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import RNSplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
-
-import appCoordinator from '../AppCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Splash'>;

@@ -1,7 +1,6 @@
+import { IMentalHealthChanges, TMentalHealthChange } from '@covid/core/state/mental-health/changes/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../../root';
-import { IMentalHealthChanges, TMentalHealthChange } from '../types';
 
 export const initialState: IMentalHealthChanges = {
   devicesWithScreen: undefined,

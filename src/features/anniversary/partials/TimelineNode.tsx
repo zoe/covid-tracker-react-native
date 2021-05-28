@@ -1,9 +1,8 @@
 import { Text } from '@covid/components';
+import { TTimelineEvent } from '@covid/features/anniversary/types';
 import moment from 'moment';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { TTimelineEvent } from '../types';
 
 interface IProps {
   timelineEvent: TTimelineEvent;

@@ -1,10 +1,8 @@
+import { Icon, TIconName } from '@covid/components/icons';
 import { TTypeSizes } from '@covid/themes';
-import { TStyleObject } from '@covid/utils/types';
 import { colors } from '@theme/colors';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-
-import { Icon, TIconName } from '../../icons';
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps {
   active?: boolean;
@@ -13,7 +11,7 @@ interface IProps {
   iconColor?: string;
   iconName?: TIconName;
   iconSize?: TTypeSizes;
-  iconStyle?: TStyleObject;
+  iconStyle?: StyleProp<ViewStyle>;
   onPress?: () => void;
 }
 

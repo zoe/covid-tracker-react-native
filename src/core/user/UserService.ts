@@ -1,15 +1,14 @@
-import NavigatorService from '@covid/NavigatorService';
+import { ApiClientBase } from '@covid/core/api/ApiClientBase';
+import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
+import { camelizeKeys, objectToQueryString } from '@covid/core/api/utils';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
+import { UserNotFoundException } from '@covid/core/Exception';
+import { ILocalisationService, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
 import { AxiosResponse } from 'axios';
 import { inject, injectable, unmanaged } from 'inversify';
 
-import { ApiClientBase } from '../api/ApiClientBase';
-import { handleServiceError } from '../api/ApiServiceErrors';
-import { camelizeKeys, objectToQueryString } from '../api/utils';
-import { AsyncStorageService } from '../AsyncStorageService';
-import { ConsentService, IConsentService } from '../consent/ConsentService';
-import { UserNotFoundException } from '../Exception';
-import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
 import { LoginOrRegisterResponse, PiiRequest, UpdateCountryCodeRequest, UserResponse } from './dto/UserAPIContracts';
 
 export type AuthenticatedUser = {

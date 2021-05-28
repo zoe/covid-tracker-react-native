@@ -1,7 +1,10 @@
+import {
+  IMentalHealthLearning,
+  THasDisability,
+  TMentalHealthLearning,
+} from '@covid/core/state/mental-health/learning/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../../root';
-import { IMentalHealthLearning, THasDisability, TMentalHealthLearning } from '../types';
 
 const initialState: IMentalHealthLearning = {
   conditions: [],

@@ -1,6 +1,7 @@
+import InfoCircle from '@assets/icons/InfoCircle';
 import {
   BasicPage,
-    BrandedButton,
+  BrandedButton,
   CheckboxItem,
   CheckboxList,
   ColourHighlightHeaderTextText,
@@ -11,7 +12,14 @@ import {
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ScreenName } from '@covid/core/Coordinator';
-import { isSECountry, isUSCountry, isGBCountry, thankYouScreenName, homeScreenName } from '@covid/core/localisation/LocalisationService';
+import {
+  homeScreenName,
+  isGBCountry,
+  isSECountry,
+  isUSCountry,
+  thankYouScreenName,
+} from '@covid/core/localisation/LocalisationService';
+import { ILongCovid } from '@covid/features/long-covid/types';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -22,7 +30,9 @@ import { Formik, FormikProps } from 'formik';
 import { Form, Textarea } from 'native-base';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+
 import {
+  checkboxIndexOffset,
   checkBoxQuestions4To17,
   dropdownItemsQ1,
   dropdownItemsQ2,
@@ -30,13 +40,10 @@ import {
   dropdownItemsQ18,
   dropdownItemsQ19,
   dropdownItemsSymptomsChange,
+  longCovidQuestionPageOneDataInitialState,
   symptomChangesKeyList,
   validations,
-  longCovidQuestionPageOneDataInitialState,
-  checkboxIndexOffset,
 } from './consts.questions';
-import { ILongCovid } from '../types';
-import InfoCircle from '@assets/icons/InfoCircle';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'LongCovidStart'>;
@@ -44,8 +51,8 @@ interface IProps {
 
 const renderBulletLine = (text: string) => (
   <View style={{ flexDirection: 'row', paddingRight: 16, paddingTop: 16 }}>
-      <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
-      <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
+    <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
+    <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
   </View>
 );
 
@@ -67,23 +74,27 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     <View style={{ marginVertical: 16 }}>
       <CheckboxList>
         {checkBoxQuestions4To17.map((key: string, index: number) => (
-          <View style={{ marginBottom: 16 }}><CheckboxItem
-            onChange={(value: boolean) => props.setFieldValue(key, !props.values[key])}
-            value={props.values[key]}
-            dark={true}
-          >
-            {i18n.t(`long-covid.q${index + checkboxIndexOffset}`)}
-          </CheckboxItem></View>
+          <View style={{ marginBottom: 16 }}>
+            <CheckboxItem
+              dark
+              onChange={(value: boolean) => props.setFieldValue(key, !props.values[key])}
+              value={props.values[key]}
+            >
+              {i18n.t(`long-covid.q${index + checkboxIndexOffset}`)}
+            </CheckboxItem>
+          </View>
         ))}
         {props.values.other_checkbox ? <GenericTextField formikProps={props} name="other" /> : null}
       </CheckboxList>
     </View>
   );
 
-  const renderError = (props: FormikProps<ILongCovid>, propertyKey: string) => props.touched[propertyKey] && props.errors[propertyKey] ? 
-    <View style={{ marginBottom: 16 }}>
+  const renderError = (props: FormikProps<ILongCovid>, propertyKey: string) =>
+    props.touched[propertyKey] && props.errors[propertyKey] ? (
+      <View style={{ marginBottom: 16 }}>
         <ErrorText>{props.errors[propertyKey]}</ErrorText>
-    </View> : null;
+      </View>
+    ) : null;
 
   const renderExtendedForm = (props: FormikProps<ILongCovid>) =>
     props.values.had_covid && props.values.had_covid.startsWith('YES') ? (
@@ -118,18 +129,20 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <View style={styles.hr} />
         <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q4-header')} />
         <View style={{ ...styles.infoBox, marginBottom: 24 }}>
-        <View style={{ flexDirection: 'row', paddingRight: 24, paddingTop: 16 }}>
-            <View style={{ paddingRight: 12 }}><InfoCircle color={colors.primary} /></View>
+          <View style={{ flexDirection: 'row', paddingRight: 24, paddingTop: 16 }}>
+            <View style={{ paddingRight: 12 }}>
+              <InfoCircle color={colors.primary} />
+            </View>
             <RegularText>{i18n.t('long-covid.q4-info-1')}</RegularText>
-        </View>
-          <View style={{ marginTop: 18, paddingLeft: 33 }}>
+          </View>
+          <View style={{ marginTop: 16, paddingLeft: 32 }}>
             <RegularText>{i18n.t('long-covid.q4-info-2')}</RegularText>
           </View>
         </View>
         <RegularText>{i18n.t('long-covid.q4-info-3')}</RegularText>
         {renderFormCheckboxes(props)}
         <View style={styles.hr} />
-        
+
         {/* Have you had at least one COVID-19 vaccine done? */}
         <HeaderText>{i18n.t('long-covid.q18')}</HeaderText>
         <DropdownField
@@ -235,8 +248,8 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
           </ScrollView>
         </KeyboardAvoidingView>
         );
-      }} 
-    </Formik>   
+      }}
+    </Formik>
   );
 }
 
@@ -262,17 +275,17 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     textAlign: 'left',
   },
-  textarea: {
-    backgroundColor: colors.backgroundTertiary,
-    borderRadius: 8,
-    paddingVertical: 32,
-  },
   rootContainer: {
     backgroundColor: colors.backgroundSecondary,
     flex: 1,
     justifyContent: 'space-between',
+    paddingBottom: 32,
     paddingHorizontal: 24,
     paddingTop: 56,
-    paddingBottom: 32,
+  },
+  textarea: {
+    backgroundColor: colors.backgroundTertiary,
+    borderRadius: 8,
+    paddingVertical: 32,
   },
 });

@@ -1,10 +1,10 @@
 import { social } from '@assets';
+import { BrandedButton } from '@covid/components/buttons';
 import Analytics from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
-import { BrandedButton } from '../buttons';
 import { share } from './BaseShareApp';
 
 interface IProps {

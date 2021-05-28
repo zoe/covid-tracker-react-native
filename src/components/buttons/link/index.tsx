@@ -1,19 +1,17 @@
+import { Icon, TIconName } from '@covid/components/icons';
+import { Text } from '@covid/components/typography';
 import { TTypeSizes } from '@covid/themes';
-import { TStyleObject } from '@covid/utils/types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-
-import { Icon, TIconName } from '../../icons';
-import { Text } from '../../typography';
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps {
   color?: string;
   iconName?: TIconName;
   iconSize?: TTypeSizes;
-  iconStyle?: TStyleObject;
+  iconStyle?: StyleProp<ViewStyle>;
   linkText: string;
   onPress: () => void;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
 }
 
 function Link({
@@ -28,12 +26,7 @@ function Link({
   const linkColor = color || 'purple';
   const iSize = iconSize || 16;
   return (
-    <TouchableOpacity
-      accessible
-      accessibilityRole="button"
-      onPress={onPress}
-      style={{ flexDirection: 'row', ...style }}
-    >
+    <TouchableOpacity accessible accessibilityRole="button" onPress={onPress} style={[{ flexDirection: 'row' }, style]}>
       <Icon
         color={linkColor}
         iconName={iconName}

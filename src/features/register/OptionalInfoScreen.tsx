@@ -7,6 +7,7 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
+import appCoordinator from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
@@ -20,8 +21,6 @@ import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
-
-import appCoordinator from '../AppCoordinator';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>;

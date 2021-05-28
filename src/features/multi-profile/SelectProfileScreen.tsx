@@ -6,6 +6,7 @@ import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coord
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features';
+import appCoordinator from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
@@ -16,7 +17,6 @@ import { colors } from '@theme';
 import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import appCoordinator from '../AppCoordinator';
 import { ProfileCard } from './components/ProfileCard';
 import { ProfileList } from './components/ProfileList';
 import { useProfileList } from './ProfileList.hooks';

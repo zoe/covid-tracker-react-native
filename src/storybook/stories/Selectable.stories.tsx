@@ -1,10 +1,9 @@
 import { FOOD_INTAKE_FREQUENCY, Selectable } from '@covid/components/inputs/Selectable';
+import { PaddingView } from '@covid/storybook/decorator';
 import { action, HandlerFunction } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react-native';
 import React, { useState } from 'react';
 import { Button, View } from 'react-native';
-
-import { PaddingView } from '../decorator';
 
 const ValueChangeHandler = (): HandlerFunction => action('selectable-item-selected');
 

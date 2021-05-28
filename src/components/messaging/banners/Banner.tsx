@@ -1,10 +1,10 @@
 import { IUIMessage, useMessage } from '@covid/common';
+import { ThemeButton } from '@covid/components/buttons';
+import { Text } from '@covid/components/typography';
 import React, { useEffect, useState } from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ThemeButton } from '../../buttons';
-import { Text } from '../../typography';
 import { SButtonRowView, SContainerView } from './styles';
 
 interface IProps {

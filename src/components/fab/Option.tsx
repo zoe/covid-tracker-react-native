@@ -1,8 +1,7 @@
+import { Icon } from '@covid/components/icons';
+import { Text } from '@covid/components/typography';
 import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import { Icon } from '../icons';
-import { Text } from '../typography';
 
 interface IProps {
   label: string;

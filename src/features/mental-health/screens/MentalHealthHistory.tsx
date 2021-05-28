@@ -9,6 +9,8 @@ import {
   THasDiagnosis,
   TMentalHealthCondition,
 } from '@covid/core/state/mental-health';
+import { initialOptions, questions, TQuestion } from '@covid/features/mental-health/data';
+import { MentalHealthInfosRequest } from '@covid/features/mental-health/MentalHealthInfosRequest';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
@@ -16,9 +18,6 @@ import { useTheme } from '@covid/themes';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { initialOptions, questions, TQuestion } from '../data';
-import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
 
 function MentalHealthHistory() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);

@@ -6,8 +6,6 @@ interface IProps {
   space?: TGridSizes;
 }
 
-function Spacer({ space = 8 }: IProps) {
+export default function Spacer({ space = 8 }: IProps) {
   return <View style={{ height: space, width: space }} />;
 }
-
-export default Spacer;

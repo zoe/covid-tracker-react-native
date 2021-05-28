@@ -1,17 +1,16 @@
 import { Text } from '@covid/components';
-import { TStyleObject } from '@covid/utils/types';
+import DietScoreHeader from '@covid/features/diet-study-playback/components/diet-score-header';
+import ScoreCard from '@covid/features/diet-study-playback/components/score-card';
 import React, { useEffect, useRef } from 'react';
-import { Animated, Dimensions, Easing, View } from 'react-native';
+import { Animated, Dimensions, Easing, StyleProp, View, ViewStyle } from 'react-native';
 
-import DietScoreHeader from '../diet-score-header';
-import ScoreCard from '../score-card';
 import ScoreRange from './ScoreRange';
 
 interface IProps {
   currentValue: number;
   minValue: number;
   maxValue: number;
-  style?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
   subTitle: string;
   title: string;
 }
