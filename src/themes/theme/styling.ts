@@ -33,6 +33,9 @@ export default StyleSheet.create({
   flexGrow: {
     flexGrow: 1,
   },
+  fullWidth: {
+    width: '100%',
+  },
   itemsCenter: {
     alignItems: 'center',
   },
@@ -54,8 +57,14 @@ export default StyleSheet.create({
   marginBottomSmall: {
     marginBottom: sizes.spacingSmall,
   },
+  marginHorizontal: {
+    marginHorizontal: sizes.spacing,
+  },
   marginHorizontalTiny: {
     marginHorizontal: sizes.spacingTiny,
+  },
+  marginLeft: {
+    marginLeft: sizes.spacing,
   },
   marginRightSmall: {
     marginRight: sizes.spacingSmall,
