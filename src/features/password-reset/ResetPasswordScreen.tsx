@@ -1,9 +1,7 @@
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
 import ResetPasswordForm, { IResetPasswordForm } from '@covid/features/password-reset/fields/ResetPasswordForm';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { AxiosError } from 'axios';
@@ -31,9 +29,6 @@ interface ResetPasswordData {
 }
 
 export class ResetPasswordScreen extends Component<PropsType, State> {
-  @lazyInject(Services.User)
-  private userService: IUserService;
-
   constructor(props: PropsType) {
     super(props);
     this.state = initialState;
@@ -44,7 +39,7 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
   private handleClick(formData: ResetPasswordData) {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
-      this.userService
+      userService
         .resetPassword(formData.email)
         .then(() => this.props.navigation.navigate('ResetPasswordConfirm'))
         .catch((err: AxiosError) => {

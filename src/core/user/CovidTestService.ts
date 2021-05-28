@@ -40,3 +40,5 @@ export default class CovidTestService extends UserService implements ICovidTestS
     return this.client.patch<CovidTestResponse>(`/covid_tests/${testId}/`, { deleted: true });
   }
 }
+
+export const covidTestService = new CovidTestService();

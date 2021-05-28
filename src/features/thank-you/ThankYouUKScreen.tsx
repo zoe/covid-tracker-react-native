@@ -5,7 +5,6 @@ import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { IConsentService } from '@covid/core/consent/ConsentService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import store from '@covid/core/state/store';
@@ -15,8 +14,6 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -43,9 +40,6 @@ const initialState = {
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
-  @lazyInject(Services.Consent)
-  private consentService: IConsentService;
-
   private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
   state = initialState;

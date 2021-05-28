@@ -7,23 +7,18 @@ import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
 import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
-import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { isUSCountry, localisationService } from '@covid/core/localisation/LocalisationService';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
 import { isMinorAge } from '@covid/core/patient/PatientState';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
-import { Form, Text } from 'native-base';
+import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
@@ -89,15 +84,6 @@ const initialState: State = {
 };
 
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
-
   private coordinator: Coordinator & IUpdatePatient = this.props.route.params.editing
     ? editProfileCoordinator
     : patientCoordinator;
@@ -108,7 +94,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   }
 
   async componentDidMount() {
-    const features = this.localisationService.getConfig();
+    const features = localisationService.getConfig();
 
     this.setState({
       showEthnicityQuestion: features.showEthnicityQuestion,

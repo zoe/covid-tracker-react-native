@@ -118,4 +118,4 @@ export const isUSCountry = () => LocalisationService.userCountry === 'US';
 export const isGBCountry = () => LocalisationService.userCountry === 'GB';
 export const isSECountry = () => LocalisationService.userCountry === 'SE';
 
-export const localisationServce = new LocalisationService();
+export const localisationService = new LocalisationService();

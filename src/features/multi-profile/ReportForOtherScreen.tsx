@@ -3,11 +3,9 @@ import { BrandedButton } from '@covid/components';
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { IProfileService } from '@covid/core/profile/ProfileService';
+import { profileService } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -21,11 +19,8 @@ type RenderProps = {
 };
 
 export default class ReportForOtherScreen extends Component<RenderProps, object> {
-  @lazyInject(Services.Profile)
-  private readonly profileService: IProfileService;
-
   handleSkip = async () => {
-    await this.profileService.recordAskedToReportForOther();
+    await profileService.recordAskedToReportForOther();
     assessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 

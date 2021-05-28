@@ -1,10 +1,10 @@
 import { ModalContainer } from '@covid/components/ModalContainer';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
-import { IContentService } from '@covid/core/content/ContentService';
+import { contentService, IContentService } from '@covid/core/content/ContentService';
 import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import { container, lazyInject } from '@covid/provider/services';
+import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import Constants from '@covid/utils/Constants';
 import { colors } from '@theme';
@@ -32,16 +32,13 @@ export async function shouldAskForRating(): Promise<boolean> {
 }
 
 export class AppRating extends Component<PropsType, State> {
-  @lazyInject(Services.Content)
-  private readonly contentService: IContentService;
-
   state = {
     isModalOpen: true,
     showTakeToStore: false,
   };
 
   decline = () => {
-    this.contentService.setAskedToRateStatus('asked');
+    contentService.setAskedToRateStatus('asked');
     this.setState({ isModalOpen: false });
   };
 
@@ -56,7 +53,7 @@ export class AppRating extends Component<PropsType, State> {
   };
 
   takeToStore = () => {
-    this.contentService.setAskedToRateStatus('asked');
+    contentService.setAskedToRateStatus('asked');
     if (Platform.OS !== 'ios') {
       Linking.openURL(AndroidLink);
     } else {

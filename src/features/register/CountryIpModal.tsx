@@ -35,11 +35,11 @@ type Item = {
 
 const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal }) => {
   const [countrySelected, setCountrySelected] = useState('');
-  const localisationServce = useInjection<ILocalisationService>(Services.Localisation);
+  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   const selectCountry = useCallback(
     async (countryCode: string) => {
-      await localisationServce.setUserCountry(countryCode);
+      await localisationService.setUserCountry(countryCode);
 
       const screenStack = () => {
         if (countryCode === CountryCode.US) {

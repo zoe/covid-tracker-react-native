@@ -8,15 +8,13 @@ import { PoweredByZoe } from '@covid/components/logos/PoweredByZoe';
 import { RegularText } from '@covid/components/Text';
 import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { IConsentService } from '@covid/core/consent/ConsentService';
-import { IContentService } from '@covid/core/content/ContentService';
+import { contentService, IContentService } from '@covid/core/content/ContentService';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
-import { ILocalisationService, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { IUserService } from '@covid/core/user/UserService';
+import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { container, lazyInject } from '@covid/provider/services';
+import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { offlineService, pushNotificationService } from '@covid/Services';
 import { openWebLink } from '@covid/utils/links';
@@ -51,29 +49,17 @@ const initialState = {
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
-
-  @lazyInject(Services.Content)
-  private readonly contentService: IContentService;
-
-  @lazyInject(Services.Consent)
-  private readonly consentService: IConsentService;
-
   state: WelcomeRepeatScreenState = initialState;
 
   async componentDidMount() {
-    const userCount = await this.contentService.getUserCount();
+    const userCount = await contentService.getUserCount();
     const cleanUserCount = userCount ? cleanIntegerVal(userCount as string) : 0;
 
     AnalyticsService.identify();
     await pushNotificationService.subscribeForPushNotifications();
 
     this.setState({
-      calloutBoxContent: this.contentService.getCalloutBoxDefault(),
+      calloutBoxContent: contentService.getCalloutBoxDefault(),
       userCount: cleanUserCount,
     });
   }

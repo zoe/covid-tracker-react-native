@@ -5,10 +5,9 @@ import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ConfigType } from '@covid/core/Config';
-import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { isUSCountry, localisationService } from '@covid/core/localisation/LocalisationService';
+import { patientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { IUserService } from '@covid/core/user/UserService';
 import { AtopyQuestions, IAtopyData } from '@covid/features/patient/fields/AtopyQuestions';
 import { BloodGroupQuestion, IBloodGroupData } from '@covid/features/patient/fields/BloodGroupQuestion';
 import {
@@ -19,8 +18,6 @@ import { DiabetesQuestions, IDiabetesData } from '@covid/features/patient/fields
 import { IRaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
@@ -54,17 +51,8 @@ const initialState: State = {
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
   get features(): ConfigType {
-    return this.localisationService.getConfig();
+    return localisationService.getConfig();
   }
 
   constructor(props: BackDateProps) {
@@ -118,9 +106,9 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     const { patientId } = currentPatient;
     const infos = this.createPatientInfos(formData);
 
-    this.patientService
+    patientService
       .updatePatientInfo(patientId, infos)
-      .then((response) => {
+      .then(() => {
         if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
         if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;

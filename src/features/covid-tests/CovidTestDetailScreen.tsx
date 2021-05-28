@@ -6,9 +6,8 @@ import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { covidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
-import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import {
   CovidTestDateQuestion,
   CovidTestInvitedQuestion,
@@ -26,12 +25,10 @@ import {
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form, Text } from 'native-base';
+import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { Alert, View } from 'react-native';
 import * as Yup from 'yup';
@@ -60,9 +57,6 @@ const initialState: State = {
 };
 
 export default class CovidTestDetailScreen extends Component<CovidProps, State> {
-  @lazyInject(Services.CovidTest)
-  private readonly covidTestService: ICovidTestService;
-
   constructor(props: CovidProps) {
     super(props);
     this.state = initialState;
@@ -85,7 +79,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         infos.id = this.testId;
         assessmentCoordinator.goToTestConfirm(infos as CovidTest);
       } else {
-        this.covidTestService
+        covidTestService
           .updateTest(test.id, infos)
           .then(() => {
             NavigatorService.goBack();
@@ -102,7 +96,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       this.setState({ submitting: false });
       assessmentCoordinator.goToTestConfirm(infos as CovidTest);
     } else {
-      this.covidTestService
+      covidTestService
         .addTest(infos)
         .then(() => {
           NavigatorService.goBack();
@@ -169,7 +163,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   async deleteTest() {
-    await this.covidTestService.deleteTest(this.testId!);
+    await covidTestService.deleteTest(this.testId!);
     this.props.navigation.goBack();
     Analytics.track(events.DELETE_COVID_TEST);
   }

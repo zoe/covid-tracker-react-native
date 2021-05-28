@@ -135,3 +135,5 @@ export default class ContentService implements IContentService {
     return this.apiClient.signUpForDietNewsletter(signup);
   }
 }
+
+export const contentService = new ContentService();

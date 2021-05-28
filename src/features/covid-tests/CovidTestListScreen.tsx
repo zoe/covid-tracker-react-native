@@ -4,12 +4,10 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { covidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -32,9 +30,6 @@ type State = {
 };
 
 export default class CovidTestListScreen extends Component<Props, State> {
-  @lazyInject(Services.CovidTest)
-  private readonly covidTestService: ICovidTestService;
-
   state: State = {
     covidTests: [],
     isLoading: false,
@@ -46,7 +41,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
     this.unsubscribe = this.props.navigation.addListener('focus', async () => {
       this.setState({ isLoading: true });
       try {
-        const tests = (await this.covidTestService.listTests()).data;
+        const tests = (await covidTestService.listTests()).data;
         const { patientId } = AssessmentCoordinator.assessmentData.patientData;
         const patientTests = tests.filter((t) => t.patient === patientId);
         this.setState({ covidTests: patientTests, isLoading: false });

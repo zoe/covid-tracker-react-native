@@ -195,3 +195,5 @@ export class PatientService extends ApiClientBase implements IPatientService {
     this.updatePatientInfo(patientId, { contact_additional_studies: response });
   }
 }
+
+export const patientService = new PatientService();
