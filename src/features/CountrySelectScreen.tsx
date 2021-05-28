@@ -1,83 +1,102 @@
 import { gbFlag, svFlag, usFlag } from '@assets';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { BasicNavHeader, SafeLayout } from '@covid/components';
+import { localisationServce } from '@covid/core/localisation/LocalisationService';
 import { SupportedCountryCodes } from '@covid/core/user/dto/UserAPIContracts';
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
+import { grid, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-type Props = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'CountrySelect'>;
   route: RouteProp<ScreenParamList, 'CountrySelect'>;
+}
+
+type TCountry = {
+  code: SupportedCountryCodes;
+  source: any;
 };
 
-const US_CODE = 'US';
-const GB_CODE = 'GB';
-const SV_CODE = 'SE';
+const countries: TCountry[] = [
+  {
+    code: 'US',
+    source: usFlag,
+  },
+  {
+    code: 'GB',
+    source: gbFlag,
+  },
+  {
+    code: 'SE',
+    source: svFlag,
+  },
+];
 
-export class CountrySelectScreen extends Component<Props, object> {
-  @lazyInject(Services.Localisation)
-  private readonly localisationServce: ILocalisationService;
+export function CountrySelectScreen(props: IProps) {
+  async function selectCountry(countryCode: SupportedCountryCodes) {
+    await localisationServce.setUserCountry(countryCode);
 
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
-  private selectCountry = async (countryCode: SupportedCountryCodes) => {
-    await this.localisationServce.setUserCountry(countryCode);
-
-    if (appCoordinator.shouldShowCountryPicker && this.props.route?.params?.onComplete) {
-      await this.userService.updateCountryCode({ country_code: countryCode });
-      this.props.route.params.onComplete();
+    if (appCoordinator.shouldShowCountryPicker && props.route?.params?.onComplete) {
+      await userService.updateCountryCode({ country_code: countryCode });
+      props.route.params.onComplete();
     } else {
-      this.props.navigation.reset({
+      props.navigation.reset({
         index: 0,
         routes: [{ name: 'Welcome' }],
       });
     }
-  };
+  }
 
-  public render() {
-    return (
+  return (
+    <SafeLayout style={styles.safeLayout}>
       <View style={styles.container}>
+        <BasicNavHeader style={styles.navHeader} />
         <Text style={styles.text}>{i18n.t('select-country')}</Text>
         <View style={styles.flagRow}>
-          <TouchableOpacity onPress={() => this.selectCountry(US_CODE)}>
-            <Image source={usFlag} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.selectCountry(GB_CODE)}>
-            <Image source={gbFlag} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.selectCountry(SV_CODE)}>
-            <Image source={svFlag} />
-          </TouchableOpacity>
+          {countries.map((country, index) => (
+            <TouchableOpacity
+              onPress={() => selectCountry(country.code)}
+              style={index !== 0 ? [styling.flex, styling.marginLeft] : styling.flex}
+            >
+              <Image resizeMode="contain" source={country.source} style={styling.fullWidth} />
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
-    );
-  }
+    </SafeLayout>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: colors.predict,
     flex: 1,
     justifyContent: 'center',
+    padding: grid.gutter,
+    position: 'relative',
   },
   flagRow: {
     alignSelf: 'stretch',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+  },
+  navHeader: {
+    left: 0,
+    position: 'absolute',
+    top: 0,
+  },
+  safeLayout: {
+    backgroundColor: colors.predict,
   },
   text: {
     color: colors.white,
     fontSize: 24,
     paddingBottom: 40,
+    textAlign: 'center',
   },
 });
