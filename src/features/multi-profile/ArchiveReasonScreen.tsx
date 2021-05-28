@@ -1,12 +1,10 @@
 import { BigButton } from '@covid/components';
 import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
 import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientService } from '@covid/core/patient/PatientService';
 import { ScreenParamList } from '@covid/features';
 import appCoordinator from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
@@ -17,8 +15,6 @@ type RenderProps = {
 };
 
 export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
-  const patientService = useInjection<IPatientService>(Services.Patient);
-
   const reasons = [
     {
       text: i18n.t('archive-reason.choice-duplicate-account'),

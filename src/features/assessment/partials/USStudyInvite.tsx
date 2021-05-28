@@ -4,11 +4,9 @@ import { HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientService } from '@covid/core/patient/PatientService';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
-import { colors, fontStyles } from '@theme';
+import { colors } from '@theme';
 import React, { useEffect, useState } from 'react';
 import { Image, ImageBackground, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -17,7 +15,6 @@ type StudyInviteProps = {
 };
 
 export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProps) => {
-  const patientService = useInjection<IPatientService>(Services.Patient);
   const [modalVisible, setModalVisible] = useState(false);
   const currentPatient = props.assessmentData.patientData.patientState;
 

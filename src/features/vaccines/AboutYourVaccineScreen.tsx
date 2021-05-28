@@ -7,12 +7,10 @@ import YesNoField from '@covid/components/YesNoField';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { setLoggedVaccine } from '@covid/core/state';
 import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
-import { IVaccineService } from '@covid/core/vaccine/VaccineService';
+import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IVaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { formatDateToPost } from '@covid/utils/datetime';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -35,7 +33,6 @@ const registerSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema(
 interface IAboutYourVaccineData extends IVaccineDoseData {}
 
 export function AboutYourVaccineScreen({ route, navigation }: IProps) {
-  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [hasSecondDose, setHasSecondDose] = useState<string | undefined>(undefined);

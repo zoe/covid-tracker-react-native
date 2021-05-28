@@ -2,11 +2,9 @@ import { closeIcon } from '@assets';
 import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { localisationService } from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { isAndroid } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -35,7 +33,6 @@ type Item = {
 
 const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal }) => {
   const [countrySelected, setCountrySelected] = useState('');
-  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   const selectCountry = useCallback(
     async (countryCode: string) => {

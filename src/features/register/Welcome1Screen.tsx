@@ -1,12 +1,10 @@
 import { gbMap, svMap, usMap } from '@assets';
 import { BrandedButton } from '@covid/components';
 import { ClickableText, RegularText } from '@covid/components/Text';
-import { IContentService } from '@covid/core/content/ContentService';
+import { contentService } from '@covid/core/content/ContentService';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -22,8 +20,6 @@ type PropsType = {
 
 const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
   const [userCount, setUserCount] = useState<number>(0);
-
-  const contentService = useInjection<IContentService>(Services.Content);
 
   useEffect(() => {
     contentService.getUserCount().then((response) => {

@@ -3,12 +3,10 @@ import { InlineNeedle } from '@covid/components/InlineNeedle';
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { IVaccineService } from '@covid/core/vaccine/VaccineService';
+import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { ScreenParamList } from '@covid/features';
 import { DoseSymptomsData, DoseSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -24,10 +22,8 @@ type Props = {
 };
 
 export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
+  const [_, setErrorMessage] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
-
-  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
 
   const handleSubmit = async (formData: DoseSymptomsData) => {
     if (!isSubmitting) {

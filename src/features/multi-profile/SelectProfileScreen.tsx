@@ -3,13 +3,11 @@ import { BackButton } from '@covid/components/PatientHeader';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { localisationService } from '@covid/core/localisation/LocalisationService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features';
 import appCoordinator from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { offlineService } from '@covid/Services';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
@@ -35,7 +33,6 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
     useProfileList();
   const { assessmentFlow } = route.params;
   const coordinator: SelectProfileCoordinator = appCoordinator;
-  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
   const showCreateProfile = localisationService.getConfig().enableMultiplePatients;
 
   useEffect(() => {

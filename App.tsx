@@ -6,7 +6,6 @@ import { ErrorBoundary } from '@covid/core/ErrorBoundary';
 import store, { persistor } from '@covid/core/state/store';
 import CovidApp from '@covid/CovidApp';
 import { container } from '@covid/provider/services';
-import { Provider as ServiceProvider } from '@covid/provider/services.provider';
 import StorybookUIRoot from '@covid/storybook';
 import { Theme } from '@covid/themes';
 import { useFonts } from 'expo-font';
@@ -43,7 +42,7 @@ const App: React.FC = () => {
             <ThemeProvider theme={Theme}>
               <SafeAreaProvider>
                 <MessagingContainer />
-                <ServiceProvider container={container}>{loaded ? <Root /> : null}</ServiceProvider>
+                {loaded ? <Root /> : null}
               </SafeAreaProvider>
             </ThemeProvider>
           </PersistGate>

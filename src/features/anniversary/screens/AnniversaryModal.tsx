@@ -1,12 +1,10 @@
 import { timelineModalCard } from '@assets';
 import { Modal, Text } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { setHasViewedAnniversaryModal } from '@covid/core/state';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -16,7 +14,6 @@ import { useDispatch } from 'react-redux';
 export default function AnniversaryModal() {
   const { goBack } = useNavigation();
   const dispatch = useDispatch();
-  const patientService = useInjection<IPatientService>(Services.Patient);
   const [signupDate, setSignupDate] = useState<string>('');
 
   const updateSignupDate = async () => {

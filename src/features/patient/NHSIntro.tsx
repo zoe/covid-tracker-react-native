@@ -7,14 +7,12 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
 import { Coordinator } from '@covid/core/Coordinator';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '@covid/features';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
@@ -35,7 +33,6 @@ interface IProps {
 export function NHSIntroScreen(props: IProps) {
   const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
-  const patientService = useInjection<IPatientService>(Services.Patient);
   const [consent, setConsent] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 

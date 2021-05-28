@@ -61,3 +61,5 @@ export class VaccineService implements IVaccineService {
     return this.apiClient.deleteVaccine(vaccineId);
   }
 }
+
+export const vaccineService = new VaccineService();
