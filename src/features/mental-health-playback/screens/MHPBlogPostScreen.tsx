@@ -59,21 +59,22 @@ export default function MHPBlogPostScreen() {
       onPress={() => NavigatorService.navigate('MentalHealthPlaybackRating')}
       style={styling.backgroundWhite}
     >
-      <WebView
-        injectedJavaScript={js}
-        injectedJavaScriptBeforeContentLoaded={js}
-        onLoad={() => webView.current?.injectJavaScript(js)}
-        onLoadEnd={onLoadEnd}
-        onNavigationStateChange={onNavigationStateChange}
-        ref={webView}
-        source={source}
-      >
+      <View style={styling.flex}>
+        <WebView
+          injectedJavaScript={js}
+          injectedJavaScriptBeforeContentLoaded={js}
+          onLoad={() => webView.current?.injectJavaScript(js)}
+          onLoadEnd={onLoadEnd}
+          onNavigationStateChange={onNavigationStateChange}
+          ref={webView}
+          source={source}
+        />
         {!loaded ? (
           <View style={styles.view}>
             <ActivityIndicator color={colors.coral.main.bgColor} size="large" />
           </View>
         ) : null}
-      </WebView>
+      </View>
     </BasicPage>
   );
 }
