@@ -1,10 +1,13 @@
 import { BasicPage } from '@covid/components';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
+import { selectInsights } from '@covid/core/state/mental-health-playback/slice';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { colors, styling } from '@covid/themes';
 import React, { useRef, useState } from 'react';
 import { ActivityIndicator, Linking, StyleSheet, View } from 'react-native';
 import WebView, { WebViewNavigation } from 'react-native-webview';
+import { useSelector } from 'react-redux';
 import UrlParse from 'url-parse';
 
 const js = `
@@ -30,6 +33,8 @@ const source = { uri };
 
 export default function MHPBlogPostScreen() {
   const [loaded, setLoaded] = useState(false);
+  const mhInsights = useSelector(selectInsights);
+  const { completed_feedback } = mhInsights;
   const webView = useRef<WebView>(null);
 
   function onLoadEnd() {
@@ -52,13 +57,16 @@ export default function MHPBlogPostScreen() {
     }
   }
 
+  function onPress() {
+    if (completed_feedback) {
+      NavigatorService.navigate(homeScreenName());
+    } else {
+      NavigatorService.navigate('MentalHealthPlaybackRating');
+    }
+  }
+
   return (
-    <BasicPage
-      active
-      footerTitle={i18n.t('continue')}
-      onPress={() => NavigatorService.navigate('MentalHealthPlaybackRating')}
-      style={styling.backgroundWhite}
-    >
+    <BasicPage active footerTitle={i18n.t('continue')} onPress={onPress} style={styling.backgroundWhite}>
       <View style={styling.flex}>
         <WebView
           injectedJavaScript={js}

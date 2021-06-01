@@ -2,7 +2,7 @@ import { IInsightsDict, IMentalHealthPlayback } from '@covid/core/state/mental-h
 import { RootState } from '@covid/core/state/root';
 import store from '@covid/core/state/store';
 import { mentalHealthApiClient } from '@covid/Services';
-import { IInsight } from '@covid/types/mental-health-playback';
+import { IInsight, IMHInsight } from '@covid/types/mental-health-playback';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IMentalHealthPlayback = {
@@ -18,7 +18,7 @@ const slice = createSlice({
       ...state,
       loading: action.payload,
     }),
-    setInsights: (state, action: PayloadAction<IInsight[]>) => ({
+    setInsights: (state, action: PayloadAction<IMHInsight>) => ({
       ...state,
       insights: action.payload,
     }),
