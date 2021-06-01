@@ -165,6 +165,7 @@
     "body-parser": "1.19.0",
     "coveralls": "3.1.0",
     "detox": "^18.1.1",
+    "eslint": "^7.26.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-universe": "3.0.0",
