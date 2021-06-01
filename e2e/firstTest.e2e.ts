@@ -28,7 +28,7 @@ describe('Welcome page content', () => {
     await expect(element(by.text('Select country of residence'))).toExist();
     await expect(element(by.id('selectCountryUS'))).toBeVisible();
     await expect(element(by.id('selectCountryGB'))).toBeVisible();
-    await expect(element(by.id('selectCountrySV'))).toBeVisible();
+    await expect(element(by.id('selectCountrySE'))).toBeVisible();
   });
 
   it('should show correct text on welcome screen', async () => {
