@@ -70,6 +70,11 @@ references:
         - develop-legacy
         - release-0.x-legacy
         - stage
+  
+  e2e_filter: &develop_filter
+    branches:
+      only:
+        - develop
 
 ###
 ### Define shared commands:
@@ -245,7 +250,7 @@ jobs:
           path: ./reports/junit
   
   # Run Dtox E2E
-  teste2e:
+  e2etest:
     executor: mobile-build-box
     working_directory: ~/covid-react
 
@@ -355,6 +360,7 @@ workflows:
   # |-- Lint project
   # |-- Check i18n string
   # |-- Run Tests
+  # |-- Run Detox E2E Tests
   #
 
   tests:
@@ -365,6 +371,8 @@ workflows:
           filters: *feature_filter
       - test:
           filters: *feature_filter
+      - e2etest:
+          filters: *e2e_filter
 
   ota:
     jobs:
