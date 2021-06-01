@@ -374,7 +374,8 @@
     "symptoms-change-a7": "Det har inte gått 2 veckor sedan min första covid-19-vaccindos än",
     "symptoms-change-a8": "Annat",
     "comments": "Är det något annat du vill berätta angående hur dina covid-19-symtom har utvecklats?",
-    "button": "Klar"	
+    "button": "Nästa",
+    "finish": "Klar"
   },
 
   "describe-symptoms": {

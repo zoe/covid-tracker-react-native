@@ -18,7 +18,7 @@ export default function LongCovidStartScreen({ route }: IProps) {
   return (
     <BasicPage
       withGutter
-      footerTitle="Next"
+      footerTitle={i18n.t('long-covid.button')}
       onPress={() => NavigatorService.navigate('LongCovidQuestionPageOne', { patientData })}
     >
       <View style={styles.oneOff}>
