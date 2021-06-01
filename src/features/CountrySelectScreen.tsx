@@ -61,7 +61,7 @@ export function CountrySelectScreen(props: IProps) {
         <View style={styles.flagRow}>
           {countries.map((country, index) => (
             <TouchableOpacity
-              key={`country-${country}`}
+              key={`country-${country.code}`}
               onPress={() => selectCountry(country.code)}
               style={index !== 0 ? [styling.flex, styling.marginLeft] : styling.flex}
             >
