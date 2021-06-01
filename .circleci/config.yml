@@ -167,7 +167,13 @@ commands:
       - set_expo_release_channel
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target bare
-
+  
+  # Prepare E2E setup
+  prepare_e2e:
+    steps:
+      - run: npm install -g detox-cli
+      - run: brew tap wix/brew
+      - run: brew install applesimutils
 
 ###
 ### Define jobs
@@ -237,13 +243,6 @@ jobs:
           path: ./reports/junit/
       - store_artifacts:
           path: ./reports/junit
-  
-  # Prepare E2E setup
-  prepare_e2e:
-    steps:
-      - run: npm install -g detox-cli
-      - run: brew tap wix/brew
-      - run: brew install applesimutils
   
   # Run Dtox E2E
   teste2e:
