@@ -6,9 +6,10 @@
     "browserslist": ">=4.16.5"
   },
   "scripts": {
-    "android": "ENVFILE=.env.staging react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe.qa",
+    "android": "react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe.qa",
     "android:devices": " ~/Library/Android/sdk/emulator/emulator -list-avds",
-    "android:local": "ENVFILE=.env.local react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe.qa",
+    "android:local": "ENVFILE=.env.local yarn android",
+    "android:staging": "ENVFILE=.env.staging yarn android",
     "build-fonts": "./.circleci/pull_private_assets.sh",
     "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump",
     "bump:minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
