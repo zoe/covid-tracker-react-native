@@ -114,7 +114,7 @@ npm install expo-cli --g
    ```bash
    npm run mock-server
    ```
-   * note: Mock server is currently unavailble (using)
+   * note: Mock server is currently unavailable (using)
    
 ### Git Hooks
 
