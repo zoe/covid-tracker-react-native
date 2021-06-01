@@ -82,7 +82,7 @@ function LoginScreen({ route }: IProps) {
   return (
     <BasicPage style={styling.backgroundWhite} withFooter={false}>
       <View style={styles.contentWrapper}>
-        <HeaderLightText>{i18n.t('login.title')}</HeaderLightText>
+        <HeaderLightText testID="loginPageHeaderText">{i18n.t('login.title')}</HeaderLightText>
         <Item floatingLabel error={hasErrors} style={styles.item}>
           <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
           <Input
