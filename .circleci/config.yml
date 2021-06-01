@@ -237,6 +237,27 @@ jobs:
           path: ./reports/junit/
       - store_artifacts:
           path: ./reports/junit
+  
+  # Prepare E2E setup
+  prepare_e2e:
+    steps:
+      - run: npm install -g detox-cli
+      - run: brew tap wix/brew
+      - run: brew install applesimutils
+  
+  # Run Dtox E2E
+  teste2e:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+
+    steps:
+      - prepare_code
+      - prepare_blank_env
+      - node-install
+      - prepare_e2e
+      - run: cd ios && pod install && cd ..
+      - run: detox build --configuration ios.sim.release
+      - run: detox test --configuration ios.sim.release --cleanup
 
   ### ------------------- ###
   ### Deploy related jobs ###
