@@ -71,7 +71,7 @@ references:
         - release-0.x-legacy
         - stage
   
-  e2e_filter: &develop_filter
+  e2e_filter: &e2e_filter
     branches:
       only:
         - develop
