@@ -11,8 +11,8 @@
       }
     },
     "ios.release": {
-      "binaryPath": "./ios/build/Build/Products/Release-iphonesimulator/testReactNativeDetox.app",
-      "build": "xcodebuild -workspace ios/testReactNativeDetox.xcworkspace -configuration release -scheme testReactNativeDetox -sdk iphonesimulator -derivedDataPath ios/build",
+      "binaryPath": "./ios/build/Build/Products/Release-iphonesimulator/covid-zoe Stage.app",
+      "build": "xcodebuild -workspace ios/Covid.xcworkspace -configuration release -scheme Covid -sdk iphonesimulator -derivedDataPath ios/build",
       "type": "ios.simulator",
       "name": "iPhone X"
     }
