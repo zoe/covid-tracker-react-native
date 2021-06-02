@@ -372,7 +372,9 @@ workflows:
       - test:
           filters: *feature_filter
       - e2etest:
-          filters: *e2e_filter
+          # This should be the e2e_filter to avoid running on every push
+          # filters: *e2e_filter
+          filters: *feature_filter
 
   ota:
     jobs:
