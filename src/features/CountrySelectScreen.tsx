@@ -1,5 +1,5 @@
 import { gbFlag, svFlag, usFlag } from '@assets';
-import { BasicNavHeader, SafeLayout, BrandedButton } from '@covid/components';
+import { BasicNavHeader, SafeLayout } from '@covid/components';
 import { localisationServce } from '@covid/core/localisation/LocalisationService';
 import { SupportedCountryCodes } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
@@ -54,24 +54,24 @@ export function CountrySelectScreen(props: IProps) {
   }
 
   return (
-    
+    <SafeLayout style={styles.safeLayout}>
       <View style={styles.container}>
         <BasicNavHeader style={styles.navHeader} />
         <Text style={styles.text}>{i18n.t('select-country')}</Text>
         <View style={styles.flagRow}>
           {countries.map((country, index) => (
             <TouchableOpacity
-              key={`country-${country.code}`}
               testID={`selectCountry${country.code}`}
+              key={`country-${country.code}`}
               onPress={() => selectCountry(country.code)}
               style={index !== 0 ? [styling.flex, styling.marginLeft] : styling.flex}
             >
-              <Image resizeMode="contain" source={country.source} style={styling.fullWidth}  />
-              <Text>{`selectCountry${country.code}`}</Text>
+              <Image resizeMode="contain" source={country.source} style={styling.fullWidth} />
             </TouchableOpacity>
           ))}
         </View>
       </View>
+    </SafeLayout>
   );
 }
 
