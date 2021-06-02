@@ -6,7 +6,7 @@ import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMap
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import Analytics, { events, identify } from '@covid/core/Analytics';
+import Analytics, { events } from '@covid/core/Analytics';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
@@ -108,9 +108,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
     }
   };
 
+  // TODO: Can we move this into app initialisation?
   useEffect(() => {
     (async () => {
-      identify();
       await pushNotificationService.subscribeForPushNotifications();
     })();
   }, []);
