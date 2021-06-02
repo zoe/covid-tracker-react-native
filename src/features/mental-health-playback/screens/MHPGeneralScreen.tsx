@@ -1,5 +1,6 @@
 import { BasicNavHeader, BrandedButton, SafeLayout, Text } from '@covid/components';
 import EmptyState from '@covid/components/EmptyState';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import { isLoading, selectInsights } from '@covid/core/state/mental-health-playback/slice';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -15,7 +16,8 @@ import { useSelector } from 'react-redux';
 export default function MHPGeneralScreen() {
   const [scrollViewHeight, setScrollViewHeight] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const insights = useSelector(selectInsights);
+  const mhInsights = useSelector(selectInsights);
+  const { completed_feedback, insights } = mhInsights;
   const loading = useSelector(isLoading);
 
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
@@ -24,7 +26,11 @@ export default function MHPGeneralScreen() {
   const isGeneral = startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b';
 
   function onPress() {
-    NavigatorService.navigate('MentalHealthPlaybackRating');
+    if (completed_feedback) {
+      NavigatorService.navigate(homeScreenName());
+    } else {
+      NavigatorService.navigate('MentalHealthPlaybackRating');
+    }
   }
 
   function onScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {

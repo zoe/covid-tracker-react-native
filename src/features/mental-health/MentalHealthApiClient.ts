@@ -7,7 +7,7 @@ import {
 } from '@covid/core/state';
 import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
 import { Services } from '@covid/provider/services.types';
-import { IInsight } from '@covid/types/mental-health-playback';
+import { IMHInsights } from '@covid/types/mental-health-playback';
 import { inject, injectable } from 'inversify';
 
 import { MentalHealthInfosRequest } from './MentalHealthInfosRequest';
@@ -37,7 +37,7 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
   }
 
   getInsights() {
-    return this.apiClient.get<IInsight[]>('/mental_health_insight/');
+    return this.apiClient.get<IMHInsights>('/mental_health_insight/');
   }
 
   feedback(rating: number, comments: string) {
