@@ -1,10 +1,13 @@
 import { BasicPage } from '@covid/components';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
+import { requestInsights, selectInsights } from '@covid/core/state/mental-health-playback/slice';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { colors, styling } from '@covid/themes';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Linking, StyleSheet, View } from 'react-native';
 import WebView, { WebViewNavigation } from 'react-native-webview';
+import { useDispatch, useSelector } from 'react-redux';
 import UrlParse from 'url-parse';
 
 const js = `
@@ -29,8 +32,15 @@ const url = new UrlParse(uri);
 const source = { uri };
 
 export default function MHPBlogPostScreen() {
+  const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
+  const mhInsights = useSelector(selectInsights);
+  const { completed_feedback } = mhInsights;
   const webView = useRef<WebView>(null);
+
+  useEffect(() => {
+    dispatch(requestInsights());
+  }, []);
 
   function onLoadEnd() {
     webView.current?.injectJavaScript(js);
@@ -52,13 +62,16 @@ export default function MHPBlogPostScreen() {
     }
   }
 
+  function onPress() {
+    if (completed_feedback) {
+      NavigatorService.navigate(homeScreenName());
+    } else {
+      NavigatorService.navigate('MentalHealthPlaybackRating');
+    }
+  }
+
   return (
-    <BasicPage
-      active
-      footerTitle={i18n.t('continue')}
-      onPress={() => NavigatorService.navigate('MentalHealthPlaybackRating')}
-      style={styling.backgroundWhite}
-    >
+    <BasicPage active footerTitle={i18n.t('continue')} onPress={onPress} style={styling.backgroundWhite}>
       <View style={styling.flex}>
         <WebView
           injectedJavaScript={js}

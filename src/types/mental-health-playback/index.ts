@@ -15,3 +15,8 @@ export interface IInsight {
   segment: string;
   user_answer?: TTitle;
 }
+
+export interface IMHInsights {
+  completed_feedback: boolean;
+  insights: IInsight[];
+}
