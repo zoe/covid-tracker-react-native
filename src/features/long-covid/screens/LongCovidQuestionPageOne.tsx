@@ -35,6 +35,7 @@ import {
   dropdownItemsQ18,
   dropdownItemsQ19,
   dropdownItemsSymptomsChange,
+  dropdownItemsSymptomsChangeSeverity,
   longCovidQuestionPageOneDataInitialState,
   symptomChangesKeyList,
   validations,
@@ -188,7 +189,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         {symptomChangesKeyList.map((key: string) => (
           <DropdownField
             error={props.touched[key] && props.errors[key]}
-            items={dropdownItemsSymptomsChange}
+            items={dropdownItemsSymptomsChangeSeverity}
             label={i18n.t(`long-covid.q21-${key}`)}
             onValueChange={props.handleChange(key)}
             selectedValue={props.values[key]}
