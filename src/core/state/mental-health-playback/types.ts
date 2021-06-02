@@ -1,7 +1,7 @@
-import { IInsight } from '@covid/types/mental-health-playback';
+import { IInsight, IMHInsights } from '@covid/types/mental-health-playback';
 
 export interface IMentalHealthPlayback {
-  insights: IInsight[];
+  mh_insights: IMHInsights;
   loading: boolean;
 }
 
