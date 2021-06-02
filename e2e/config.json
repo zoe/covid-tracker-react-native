@@ -1,10 +1,10 @@
 {
   "preset": "ts-jest",
+  "reporters": ["detox/runners/jest/streamlineReporter"],
   "setupFilesAftrEnv": ["./init.ts"],
   "testEnvironment": "./environment",
+  "testRegex": "\\.e2e\\.ts$",
   "testRunner": "jest-circus/runner",
   "testTimeout": 10000,
-  "reporters": ["detox/runners/jest/streamlineReporter"],
-  "verbose": true,
-  "testRegex": "\\.e2e\\.ts$"
+  "verbose": true
 }

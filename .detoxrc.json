@@ -3,7 +3,7 @@
   "runnerConfig": "e2e/config.json",
   "configurations": {
     "ios.sim.release": {
-      "binaryPath": "/Users/benfox/Library/Developer/Xcode/DerivedData/Covid-bojtounpaxieefcnmhloioovtqqh/Build/Products/Debug-iphonesimulator/covid-zoe Debug.app",
+      "binaryPath": "./build/covid-zoe Stage.app",
       "build": "fastlane ios build env:stage",
       "type": "ios.simulator",
       "device": {
