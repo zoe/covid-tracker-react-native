@@ -375,6 +375,7 @@ workflows:
           # This should be the e2e_filter to avoid running on every push
           # filters: *e2e_filter
           filters: *feature_filter
+          context: react-covid-tracker-stage
 
   ota:
     jobs:
