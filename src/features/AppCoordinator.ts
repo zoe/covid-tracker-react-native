@@ -167,7 +167,16 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
       this.goToVersionUpdateModal();
     }
 
-    // Track insights
+    // Setup Amplitude analytics
+    if (startupInfo?.mh_insight_cohort) {
+      // Identity Mental Health Insights experiment cohort
+      Analytics.identify({
+        Experiment_mhip: startupInfo.mh_insight_cohort,
+      });
+    } else {
+      Analytics.identify();
+    }
+
     if (this.shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
     }

@@ -9,6 +9,7 @@ let isInitialized = false;
 type AdditionalUserProperties = {
   isTester?: boolean;
   Experiment_001?: string;
+  Experiment_mhip?: string;
 };
 
 const DietStudyEvents = {
