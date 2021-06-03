@@ -51,7 +51,6 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 
   useEffect(() => {
     (async () => {
-      AnalyticsService.identify();
       await pushNotificationService.subscribeForPushNotifications();
     })();
   }, []);

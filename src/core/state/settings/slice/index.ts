@@ -1,11 +1,9 @@
 import ApiClient from '@covid/core/api/ApiClient';
 import { RootState } from '@covid/core/state/root';
-import { ISettings, TFeature } from '@covid/core/state/settings/types';
+import { ISettings } from '@covid/core/state/settings/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: ISettings = {
-  currentFeature: 'TIMELINE',
-  featureRunDate: undefined,
   hasEmailSubscription: false,
 };
 
@@ -16,8 +14,7 @@ type TSubscriptionResponse = {
 };
 
 export const setEmailSubscription = createAsyncThunk('/users/email_preference/', async (preference: boolean) => {
-  const response = await apiClient.patch('/users/email_preference/', { nutrition_newsletter: preference });
-  return response;
+  return apiClient.patch('/users/email_preference/', { nutrition_newsletter: preference });
 });
 
 const settingsSlice = createSlice({
@@ -29,18 +26,6 @@ const settingsSlice = createSlice({
   initialState,
   name: 'Settings',
   reducers: {
-    setCurrentFeature: (state, action: PayloadAction<TFeature>) => {
-      return {
-        ...state,
-        currentFeature: action.payload,
-      };
-    },
-    setFeatureRunDate: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        featureRunDate: action.payload,
-      };
-    },
     setHasEmailSubscription: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,
@@ -50,6 +35,6 @@ const settingsSlice = createSlice({
   },
 });
 
-export const { setCurrentFeature, setFeatureRunDate, setHasEmailSubscription } = settingsSlice.actions;
+export const { setHasEmailSubscription } = settingsSlice.actions;
 export const selectSettings = (state: RootState) => state.settings;
 export default settingsSlice.reducer;
