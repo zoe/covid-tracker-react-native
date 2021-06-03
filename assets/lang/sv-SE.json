@@ -295,6 +295,7 @@
   },
 
   "long-covid": {
+    "apology": "Vi ber alla som redan har fyllt i detta att göra det igen eftersom vi hade ett fel i våran tidigare version -tack så mycket!",
     "one-off": "Engångsenkät",
     "title": "Undersökning av hur länge symtomen varar och långdragna covid-19-symtom",
     "time": "MINDRE ÄN 2 MINUTER",
@@ -373,6 +374,12 @@
     "symptoms-change-a6": "En del symtom blev bättre, andra blev sämre",
     "symptoms-change-a7": "Det har inte gått 2 veckor sedan min första covid-19-vaccindos än",
     "symptoms-change-a8": "Annat",
+    "symptoms-change-severity-a1": "Helt försvunnit",
+    "symptoms-change-severity-a2": "Minskat (intensitet eller frekvens)",
+    "symptoms-change-severity-a3": "Samma",
+    "symptoms-change-severity-a4": "Ökat (intensitet eller frekvens)",
+    "symptoms-change-severity-a5": "Återkommit",
+    "symptoms-change-severity-a6": "Ej aktuellt",
     "comments": "Är det något annat du vill berätta angående hur dina covid-19-symtom har utvecklats?",
     "button": "Nästa",
     "finish": "Klar"

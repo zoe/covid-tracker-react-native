@@ -1,6 +1,5 @@
 import InfoCircle from '@assets/icons/InfoCircle';
 import {
-  BasicPage,
   BrandedButton,
   CheckboxItem,
   CheckboxList,
@@ -11,12 +10,8 @@ import {
   RegularText,
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
-import { ScreenName } from '@covid/core/Coordinator';
 import {
   homeScreenName,
-  isGBCountry,
-  isSECountry,
-  isUSCountry,
   thankYouScreenName,
 } from '@covid/core/localisation/LocalisationService';
 import { ILongCovid } from '@covid/features/long-covid/types';
@@ -40,6 +35,7 @@ import {
   dropdownItemsQ18,
   dropdownItemsQ19,
   dropdownItemsSymptomsChange,
+  dropdownItemsSymptomsChangeSeverity,
   longCovidQuestionPageOneDataInitialState,
   symptomChangesKeyList,
   validations,
@@ -65,7 +61,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     }
     delete formData.other_checkbox;
     setSubmitting(true);
-    longCovidApiClient.add(patientData.patientId, formData).then((result) => {
+    longCovidApiClient.add(patientData.patientId, formData).then(() => {
       NavigatorService.reset([{ name: homeScreenName() }, { name: thankYouScreenName() }], 1);
     });
   };
@@ -106,7 +102,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
           {renderBulletLine(i18n.t('long-covid.q2-info-2'))}
           {renderBulletLine(i18n.t('long-covid.q2-info-3'))}
           {renderBulletLine(i18n.t('long-covid.q2-info-4'))}
-          {renderBulletLine(i18n.t('long-covid.q2-info-4'))}
+          {renderBulletLine(i18n.t('long-covid.q2-info-5'))}
         </View>
         <DropdownField
           error={props.touched.duration && props.errors.duration}
@@ -181,7 +177,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
             props.touched.symptom_change_2_weeks_after_first_vaccine &&
             props.errors.symptom_change_2_weeks_after_first_vaccine
           }
-          items={dropdownItemsQ19}
+          items={dropdownItemsSymptomsChange}
           onValueChange={props.handleChange('symptom_change_2_weeks_after_first_vaccine')}
           selectedValue={props.values.symptom_change_2_weeks_after_first_vaccine}
         />
@@ -193,7 +189,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         {symptomChangesKeyList.map((key: string) => (
           <DropdownField
             error={props.touched[key] && props.errors[key]}
-            items={dropdownItemsSymptomsChange}
+            items={dropdownItemsSymptomsChangeSeverity}
             label={i18n.t(`long-covid.q21-${key}`)}
             onValueChange={props.handleChange(key)}
             selectedValue={props.values[key]}
@@ -211,6 +207,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
           style={styles.textarea}
           underline={false}
           value={props.values.symptom_change_comments}
+          maxLength={1000}
         />
       </View>
     ) : null;
@@ -286,6 +283,6 @@ const styles = StyleSheet.create({
   textarea: {
     backgroundColor: colors.backgroundTertiary,
     borderRadius: 8,
-    paddingVertical: 32,
+    paddingVertical: 40,
   },
 });

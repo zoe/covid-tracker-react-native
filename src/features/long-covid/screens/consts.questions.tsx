@@ -143,6 +143,15 @@ export const dropdownItemsSymptomsChange = [
   { label: i18n.t('long-covid.symptoms-change-a8'), value: 'OTHER' },
 ];
 
+export const dropdownItemsSymptomsChangeSeverity = [
+  { label: i18n.t('long-covid.symptoms-change-severity-a1'), value: 'COMPLETELY_DISAPPEARED' },
+  { label: i18n.t('long-covid.symptoms-change-severity-a2'), value: 'DECREASED' },
+  { label: i18n.t('long-covid.symptoms-change-severity-a3'), value: 'NO_CHANGE' },
+  { label: i18n.t('long-covid.symptoms-change-severity-a4'), value: 'INCREASED' },
+  { label: i18n.t('long-covid.symptoms-change-severity-a5'), value: 'CAME_BACK' },
+  { label: i18n.t('long-covid.symptoms-change-severity-a6'), value: 'NOT_APPLICABLE' },
+];
+
 export const symptomChangesKeyList: string[] = [
   'symptom_change_headache',
   'symptom_change_smell',
