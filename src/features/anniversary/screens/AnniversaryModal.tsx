@@ -42,7 +42,7 @@ export default function AnniversaryModal() {
   };
 
   return (
-    <Modal event="view_anniversary_modal-v1">
+    <Modal>
       <View style={{ alignItems: 'center' }}>
         <View style={styles.feature}>
           <Text style={{ color: 'white' }} textClass="pXSmall">
