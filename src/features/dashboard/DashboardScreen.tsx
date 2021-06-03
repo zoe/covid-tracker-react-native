@@ -10,13 +10,7 @@ import Analytics, { events, identify } from '@covid/core/Analytics';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import {
-  selectAnniversary,
-  selectApp,
-  selectDietStudy,
-  selectSettings,
-  setDashboardHasBeenViewed,
-} from '@covid/core/state';
+import { selectApp, setDashboardHasBeenViewed } from '@covid/core/state';
 import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -48,9 +42,6 @@ interface IProps {
 }
 
 export function DashboardScreen({ navigation, route }: IProps) {
-  const anniversary = useSelector(selectAnniversary);
-  const settings = useSelector(selectSettings);
-  const dietStudy = useSelector(selectDietStudy);
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
@@ -83,28 +74,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const runCurrentFeature = () => {
     if (startupInfo?.show_modal === 'mental-health-playback') {
       NavigatorService.navigate('MentalHealthPlaybackModal');
-      return;
-    }
-
-    // Enforce timeline if not yet viewed and is available.
-    if (startupInfo?.show_timeline && !anniversary.hasViewedModal) {
-      NavigatorService.navigate('AnniversaryModal');
-      return;
-    }
-
-    if (settings.featureRunDate) {
-      const now = new Date().getTime();
-      const featureRunDate = new Date(settings.featureRunDate).getTime();
-      if (featureRunDate > now) {
-        return;
-      }
-    }
-
-    if (settings.currentFeature === 'UK_DIET_STUDY') {
-      if (!startupInfo?.show_diet_score || dietStudy.consent === 'YES') {
-        return;
-      }
-      NavigatorService.navigate('DietStudyModal');
     }
   };
 
