@@ -1550,11 +1550,11 @@
       },
       "being_physically_active_or_doing_exercise_less": {
         "abbreviation": "Less physical activity",
-        "title": "Being more physically active"
+        "title": "Being less physically active"
       },
       "being_physically_active_or_doing_exercise_more": {
         "abbreviation": "More physical activity",
-        "title": "Being less physically active"
+        "title": "Being more physically active"
       },
       "interacting_face_to_face_with_family_friends_less": {
         "abbreviation": "Less face-to-face",
