@@ -10,10 +10,7 @@ import {
   RegularText,
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
-import {
-  homeScreenName,
-  thankYouScreenName,
-} from '@covid/core/localisation/LocalisationService';
+import { homeScreenName, thankYouScreenName } from '@covid/core/localisation/LocalisationService';
 import { ILongCovid } from '@covid/features/long-covid/types';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -33,24 +30,35 @@ import {
   validations,
 } from './consts.questions';
 
+interface IProps {
+  route: RouteProp<ScreenParamList, 'LongCovidStart'>;
+}
 
-const dropdownItemsQ1 = [
+const renderBulletLine = (text: string) => (
+  <View style={{ flexDirection: 'row', paddingRight: 16, paddingTop: 16 }}>
+    <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
+    <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
+  </View>
+);
+
+export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
+  const dropdownItemsQ1 = [
     { label: i18n.t('long-covid.q1-a1'), value: 'YES_TEST' },
     { label: i18n.t('long-covid.q1-a2'), value: 'YES_ADVICE' },
     { label: i18n.t('long-covid.q1-a3'), value: 'YES_SUSPICION' },
     { label: i18n.t('long-covid.q1-a4'), value: 'UNSURE' },
     { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a6'), value: 'DECLINE_TO_SAY' },
-];
-  
-const dropdownItemsQ2 = [
+  ];
+
+  const dropdownItemsQ2 = [
     { label: i18n.t('long-covid.q2-a1'), value: 'LESS_THAN_TWO_WEEKS' },
     { label: i18n.t('long-covid.q2-a2'), value: '2_TO_3_WEEKS' },
     { label: i18n.t('long-covid.q2-a3'), value: '4_TO_12_WEEKS' },
     { label: i18n.t('long-covid.q2-a4'), value: 'MORE_THAN_12_WEEKS' },
-];
-  
-const dropdownItemsQ3 = [
+  ];
+
+  const dropdownItemsQ3 = [
     { label: i18n.t('long-covid.q3-a1'), value: 'ALWAYS_FUNCTION_NORMAL' },
     { label: i18n.t('long-covid.q3-a2'), value: '1_TO_3_DAYS' },
     { label: i18n.t('long-covid.q3-a3'), value: '4_TO_6_DAYS' },
@@ -58,9 +66,9 @@ const dropdownItemsQ3 = [
     { label: i18n.t('long-covid.q3-a5'), value: '2_TO_3_WEEKS' },
     { label: i18n.t('long-covid.q3-a6'), value: '4_TO_12_WEEKS' },
     { label: i18n.t('long-covid.q3-a7'), value: 'MORE_THAN_12_WEEKS' },
-];
-  
-const checkBoxQuestions4To17 = [
+  ];
+
+  const checkBoxQuestions4To17 = [
     'problems_thinking_and_communicating',
     'mood_changes',
     'poor_sleep',
@@ -75,20 +83,20 @@ const checkBoxQuestions4To17 = [
     'heart_problems',
     'abdominal_pain_diarrhoea',
     'other_checkbox',
-];
-  
-const dropdownItemsQ18 = [
+  ];
+
+  const dropdownItemsQ18 = [
     { label: i18n.t('long-covid.q18-a1'), value: 'YES' },
     { label: i18n.t('long-covid.q18-a2'), value: 'NO' },
-];
-  
-const dropdownItemsQ19 = [
+  ];
+
+  const dropdownItemsQ19 = [
     { label: i18n.t('long-covid.q19-a1'), value: 'YES' },
     { label: i18n.t('long-covid.q19-a2'), value: 'NO' },
     { label: i18n.t('long-covid.q19-a3'), value: 'UNSURE' },
-];
-  
-const dropdownItemsSymptomsChange = [
+  ];
+
+  const dropdownItemsSymptomsChange = [
     { label: i18n.t('long-covid.symptoms-change-a1'), value: 'YES_ALL_BETTER' },
     { label: i18n.t('long-covid.symptoms-change-a2'), value: 'YES_SOME_BETTER' },
     { label: i18n.t('long-covid.symptoms-change-a3'), value: 'NO_CHANGE' },
@@ -97,29 +105,17 @@ const dropdownItemsSymptomsChange = [
     { label: i18n.t('long-covid.symptoms-change-a6'), value: 'SOME_IMPROVED' },
     { label: i18n.t('long-covid.symptoms-change-a7'), value: 'NOT_YET_TWO_WEEKS' },
     { label: i18n.t('long-covid.symptoms-change-a8'), value: 'OTHER' },
-];
-  
-const dropdownItemsSymptomsChangeSeverity = [
+  ];
+
+  const dropdownItemsSymptomsChangeSeverity = [
     { label: i18n.t('long-covid.symptoms-change-severity-a1'), value: 'COMPLETELY_DISAPPEARED' },
     { label: i18n.t('long-covid.symptoms-change-severity-a2'), value: 'DECREASED' },
     { label: i18n.t('long-covid.symptoms-change-severity-a3'), value: 'NO_CHANGE' },
     { label: i18n.t('long-covid.symptoms-change-severity-a4'), value: 'INCREASED' },
     { label: i18n.t('long-covid.symptoms-change-severity-a5'), value: 'CAME_BACK' },
     { label: i18n.t('long-covid.symptoms-change-severity-a6'), value: 'NOT_APPLICABLE' },
-];
-  
-interface IProps {
-  route: RouteProp<ScreenParamList, 'LongCovidStart'>;
-}
+  ];
 
-const renderBulletLine = (text: string) => (
-  <View style={{ flexDirection: 'row', paddingRight: 16, paddingTop: 16 }}>
-    <RegularText style={styles.bullet}>{'\u2B24'}</RegularText>
-    <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
-  </View>
-);
-
-export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const { patientData } = route.params;
   const handleSubmit = async (formData: ILongCovid) => {
@@ -216,12 +212,12 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         />
         {renderError(props, 'at_least_one_vaccine')}
         {renderExtendedVaccineForm(props)}
-    </View>) : null;
-    
-    const renderExtendedVaccineForm = (props: FormikProps<ILongCovid>) =>
+      </View>
+    ) : null;
+
+  const renderExtendedVaccineForm = (props: FormikProps<ILongCovid>) =>
     props.values.at_least_one_vaccine && props.values.at_least_one_vaccine === 'YES' ? (
       <View>
-
         <View style={styles.hr} />
         {/* Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection? */}
         <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q19')} />
@@ -268,13 +264,13 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <HeaderText style={{ marginBottom: 16 }}>{i18n.t('long-covid.comments')}</HeaderText>
         <Textarea
           bordered
+          maxLength={1000}
           onChangeText={props.handleChange('symptom_change_comments')}
           placeholder={i18n.t('placeholder-optional-question')}
           rowSpan={5}
           style={styles.textarea}
           underline={false}
           value={props.values.symptom_change_comments}
-          maxLength={1000}
         />
       </View>
     ) : null;
@@ -290,27 +286,28 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     >
       {(props: FormikProps<ILongCovid>) => {
         return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
-          <ScrollView>
-            <Form style={{ flexGrow: 1 }}>            
-            <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
-              <DropdownField
-                error={props.touched.had_covid && props.errors.had_covid}
-                items={dropdownItemsQ1}
-                onValueChange={props.handleChange('had_covid')}
-                selectedValue={props.values.had_covid}
-              />
-              {renderExtendedForm(props)}
-              <View style={{ marginVertical: 64 }}><BrandedButton 
-                enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
-                onPress={() => handleSubmit(props.values)}
-              >
-                <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
-                </BrandedButton>
-              </View>
-            </Form>
-          </ScrollView>
-        </KeyboardAvoidingView>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+            <ScrollView>
+              <Form style={{ flexGrow: 1 }}>
+                <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
+                <DropdownField
+                  error={props.touched.had_covid && props.errors.had_covid}
+                  items={dropdownItemsQ1}
+                  onValueChange={props.handleChange('had_covid')}
+                  selectedValue={props.values.had_covid}
+                />
+                {renderExtendedForm(props)}
+                <View style={{ marginVertical: 64 }}>
+                  <BrandedButton
+                    enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
+                    onPress={() => handleSubmit(props.values)}
+                  >
+                    <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
+                  </BrandedButton>
+                </View>
+              </Form>
+            </ScrollView>
+          </KeyboardAvoidingView>
         );
       }}
     </Formik>
