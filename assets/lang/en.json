@@ -1515,16 +1515,17 @@
     },
 
     "general": {
+      "chart-label": "Reported activity level",
       "correlated-description": "Reporting more of this was linked to",
       "default-abbreviation": "...",
       "default-title": "This insight",
       "end-button": "Close",
-      "end-description": "You can always return to these via the Home Page or your personal Timeline",
+      "end-description": "You can always return to these via the Home Page",
       "end-title-general": "That's it!\n\nYou made it through all the insights",
       "end-title-personal": "That's it!\n\nYou made it through all your insights",
       "explanation-card": "We have compared your answers against",
-      "insight-description-general": "Was {{level_of_association}} associated with {{anxiety}} anxiety and depression scores within your group",
-      "insight-description-personal": "Was {{level_of_association}} associated with {{anxiety}} anxiety and depression scores within your group"
+      "insight-description-general": "Was {{level_of_association}} associated with {{anxiety}} anxiety and depression scores",
+      "insight-description-personal": "Was {{level_of_association}} associated with {{anxiety}} anxiety and depression scores in your group"
     },
     "insights": {
       "drinking_alcohol_less": {
@@ -1537,19 +1538,19 @@
       },
       "engaging_in_orgs_clubs_socs_less": {
         "abbreviation": "Less social organisations",
-        "title": "Engaging less in organisations, clubs etc"
+        "title": "Engaging less in organisations, clubs etc."
       },
       "engaging_in_orgs_clubs_socs_more": {
         "abbreviation": "More social organisations",
-        "title": "Engaging more in organisations, clubs etc"
+        "title": "Engaging more in organisations, clubs etc."
       },
       "being_physically_active_or_doing_exercise_less": {
         "abbreviation": "Less physical activity",
-        "title": "Being more physically active"
+        "title": "Being less physically active"
       },
       "being_physically_active_or_doing_exercise_more": {
         "abbreviation": "More physical activity",
-        "title": "Being less physically active"
+        "title": "Being more physically active"
       },
       "interacting_face_to_face_with_family_friends_less": {
         "abbreviation": "Less face-to-face",
@@ -1584,11 +1585,11 @@
         "title": "Practising more relaxation and mindfulness"
       },
       "using_devices_with_a_screen_less": {
-        "abbreviation": "Less screen usage",
+        "abbreviation": "Less time on devices",
         "title": "Spending less time on screens and devices"
       },
       "using_devices_with_a_screen_more": {
-        "abbreviation": "More screen usage",
+        "abbreviation": "More time on devices",
         "title": "Spending more time on screens and devices"
       },
       "sleeping_well_less": {
@@ -1608,11 +1609,11 @@
         "title": "Smoking or vaping more"
       },
       "eating_savoury_snacks_or_confectionery_less": {
-        "abbreviation": "Less snacks",
+        "abbreviation": "Snacking less",
         "title": "Eating less savoury snacks and confectionery"
       },
       "eating_savoury_snacks_or_confectionery_more": {
-        "abbreviation": "More snacks",
+        "abbreviation": "Snacking more",
         "title": "Eating more savoury snacks and confectionery"
       },
       "talking_to_family_friends_via_phone_or_technology_less": {
@@ -1642,13 +1643,13 @@
     "introduction": {
       "button": "Let's go!",
       "info": "Mental health, in these insights, is measured based on self-reported scores for anxiety and depression",
-      "point-general-1": "How people spent their time during the pandemic",
-      "point-general-2": "What associations these habits had on mental health",
+      "point-general-1": "How people spent their time differently during the pandemic",
+      "point-general-2": "What associations these habits and lifestyle changes had on mental health",
       "point-personal-1": "How you spent your time differently during the pandemic compared to before",
-      "point-personal-2": "How your changes in habits compared with your peers",
+      "point-personal-2": "Unique insights into your habit changes compared with your peers",
       "point-personal-3": "How these habits were associated with mental health in different ways",
-      "title-general": "What associations these habits and lifestyle changes had on mental health",
-      "title-personal": "We will show you insights into your habits during the pandemic"
+      "title-general": "Discover people’s habits during the pandemic",
+      "title-personal": "We worked hard to personalise these insights around your habits during the pandemic"
     },
     "rating": {
       "button": "Continue",
