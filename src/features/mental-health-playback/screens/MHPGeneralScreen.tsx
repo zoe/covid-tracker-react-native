@@ -10,14 +10,20 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { grid, styling } from '@covid/themes';
 import React, { useRef, useState } from 'react';
-import { LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
 export default function MHPGeneralScreen() {
-  const [scrollViewHeight, setScrollViewHeight] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const mhInsights = useSelector(selectInsights);
-  const { completed_feedback, insights } = mhInsights;
   const loading = useSelector(isLoading);
 
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
@@ -26,7 +32,7 @@ export default function MHPGeneralScreen() {
   const isGeneral = startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b';
 
   function onPress() {
-    if (completed_feedback) {
+    if (mhInsights.completed_feedback) {
       NavigatorService.navigate(homeScreenName());
     } else {
       NavigatorService.navigate('MentalHealthPlaybackRating');
@@ -36,16 +42,12 @@ export default function MHPGeneralScreen() {
   function onScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
     if (scrollViewHeight > 0) {
       const index = Math.floor(
-        Math.max(0, event.nativeEvent.contentOffset.y + scrollViewHeight / 2) / scrollViewHeight,
+        Math.max(0, event?.nativeEvent?.contentOffset.y + scrollViewHeight / 2) / scrollViewHeight,
       );
       if (index !== selectedIndex) {
         setSelectedIndex(index);
       }
     }
-  }
-
-  function onLayoutScrollView(event: LayoutChangeEvent) {
-    setScrollViewHeight(event.nativeEvent.layout.height);
   }
 
   function onSelection(index: number) {
@@ -56,23 +58,27 @@ export default function MHPGeneralScreen() {
     });
   }
 
+  const windowDimensions = useWindowDimensions();
+  const safeAreaInsets = useSafeAreaInsets();
+
+  const scrollViewHeight = windowDimensions.height - safeAreaInsets.top - safeAreaInsets.bottom;
+
   return (
     <SafeLayout style={styling.backgroundWhite}>
       <View style={[styling.flex, styling.relative]}>
         <BasicNavHeader backgroundColor="transparent" style={styles.basicNavHeader} />
-        {!insights.length && loading ? (
+        {!mhInsights.insights.length && loading ? (
           <EmptyState />
         ) : (
           <>
             <ScrollView
               decelerationRate="fast"
-              onLayout={onLayoutScrollView}
               onScroll={onScroll}
               ref={scrollViewRef}
               scrollEventThrottle={80}
               snapToInterval={scrollViewHeight}
             >
-              <Insights insights={insights} itemHeight={scrollViewHeight} />
+              <Insights insights={mhInsights.insights} itemHeight={scrollViewHeight} />
 
               <View style={{ height: scrollViewHeight }}>
                 <View style={styles.view}>
@@ -100,7 +106,11 @@ export default function MHPGeneralScreen() {
               </View>
             </ScrollView>
 
-            <PaginationIndicator amount={insights.length + 1} onSelection={onSelection} selectedIndex={selectedIndex} />
+            <PaginationIndicator
+              amount={mhInsights.insights.length + 1}
+              onSelection={onSelection}
+              selectedIndex={selectedIndex}
+            />
           </>
         )}
       </View>
