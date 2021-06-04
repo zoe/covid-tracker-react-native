@@ -432,6 +432,7 @@
   },
 
   "long-covid": {
+    "apology": "We kindly ask anyone who already completed this to do so once more as we made a mistake in our previous version - thank you!",
     "one-off": "ONE-off questionnaire",
     "title": "Investigating COVID duration & Long COVID",
     "time": "LESS THAN 2 MIN",
@@ -519,6 +520,13 @@
     "symptoms-change-a6": "Some symptoms improved, others got worse",
     "symptoms-change-a7": "It’s not yet been 2 weeks since my first COVID 19 vaccine",
     "symptoms-change-a8": "Other",
+
+    "symptoms-change-severity-a1": "Completely disappeared",
+    "symptoms-change-severity-a2": "Decreased (intensity or frequency)",
+    "symptoms-change-severity-a3": "Stayed the same",
+    "symptoms-change-severity-a4": "Increased (intensity or frequency)",
+    "symptoms-change-severity-a5": "Came back again",
+    "symptoms-change-severity-a6": "Not applicable",
 
     "comments": "Do you have anything else to share regarding the evolution of your COVID-19 symptoms?",
     "button": "Next",
