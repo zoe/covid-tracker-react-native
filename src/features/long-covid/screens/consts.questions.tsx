@@ -14,9 +14,7 @@ export const longCovidQuestionPageOneDataInitialState = {
   patient: null,
   abdominal_pain_diarrhoea: false,
   breathing_problems: false,
-  // checkboxes
   problems_thinking_and_communicating: false,
-  // back to dropdowns
   at_least_one_vaccine: null,
   restriction: null,
   muscle_aches: false,
@@ -27,21 +25,19 @@ export const longCovidQuestionPageOneDataInitialState = {
   skin_rashes: false,
   other: null,
   symptom_change_2_weeks_after_first_vaccine: null,
-  symptom_change_appetite: null,
-  symptom_change_abdominal_pain: null,
-  symptom_change_chest_pain: null,
-  symptom_change_cough: null,
-  // comments at end
+  symptom_change_appetite: 'NOT_APPLICABLE',
+  symptom_change_abdominal_pain: 'NOT_APPLICABLE',
+  symptom_change_chest_pain: 'NOT_APPLICABLE',
+  symptom_change_cough: 'NOT_APPLICABLE',
   symptom_change_comments: null,
-  symptom_change_diarrhoea: null,
-  // rapid fire symptom changes
-  symptom_change_headache: null,
-  symptom_change_fatigue: null,
-  symptom_change_smell: null,
-  symptom_change_fever: null,
-  symptom_change_voice: null,
-  symptom_change_muscle_joint_pain: null,
-  symptom_change_sore_throat: null,
+  symptom_change_diarrhoea: 'NOT_APPLICABLE',
+  symptom_change_headache: 'NOT_APPLICABLE',
+  symptom_change_fatigue: 'NOT_APPLICABLE',
+  symptom_change_smell: 'NOT_APPLICABLE',
+  symptom_change_fever: 'NOT_APPLICABLE',
+  symptom_change_voice: 'NOT_APPLICABLE',
+  symptom_change_muscle_joint_pain: 'NOT_APPLICABLE',
+  symptom_change_sore_throat: 'NOT_APPLICABLE',
 };
 
 export const validations = Yup.object().shape({
