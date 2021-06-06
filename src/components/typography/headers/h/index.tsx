@@ -1,7 +1,6 @@
+import Text from '@covid/components/typography/text';
 import { TColorPalette, TColorShade, TGridSizes, TTextClass } from '@covid/themes';
 import React, { ReactNode } from 'react';
-
-import Text from '../../text';
 
 interface IProps {
   children: ReactNode;

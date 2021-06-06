@@ -18,6 +18,8 @@ import {
   setWorking,
 } from '@covid/core/state/mental-health';
 import { IUser, selectUser } from '@covid/core/state/user';
+import { MentalHealthInfosRequest } from '@covid/features/mental-health/MentalHealthInfosRequest';
+import { ChangesQuestion } from '@covid/features/mental-health/partials';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
@@ -25,9 +27,6 @@ import { useTheme } from '@covid/themes';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { MentalHealthInfosRequest } from '../MentalHealthInfosRequest';
-import { ChangesQuestion } from '../partials';
 
 function MentalHealthChanges() {
   const user: IUser = useSelector(selectUser);

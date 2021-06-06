@@ -1,5 +1,6 @@
-import { IApiClient } from '../api/ApiClient';
-import { TokenInfoRequest, TokenInfoResponse } from '../user/dto/UserAPIContracts';
+import { IApiClient } from '@covid/core/api/ApiClient';
+import { TokenInfoRequest, TokenInfoResponse } from '@covid/core/user/dto/UserAPIContracts';
+
 import { IPushTokenRemoteClient, PushToken } from './types';
 
 export default class PushNotificationApiClient implements IPushTokenRemoteClient {

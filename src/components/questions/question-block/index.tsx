@@ -1,9 +1,8 @@
+import { Icon, TIconName } from '@covid/components/icons';
+import { Text } from '@covid/components/typography';
 import { useTheme } from '@covid/themes';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-
-import { Icon, TIconName } from '../../icons';
-import { Text } from '../../typography';
 
 type TKeyValue = {
   key: string;

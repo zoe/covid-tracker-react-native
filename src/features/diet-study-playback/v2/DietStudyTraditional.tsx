@@ -1,10 +1,10 @@
 import { BackButton, BasicNavHeader, SafeLayout, Spacer, Text } from '@covid/components';
+import { QualityScore } from '@covid/features/diet-study-playback/components';
+import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import i18n from '@covid/locale/i18n';
+import { styling } from '@covid/themes';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-
-import { QualityScore } from '../components';
-import dietStudyPlaybackCoordinator from '../DietStudyPlaybackCoordinator';
 
 function DietStudyTraditional() {
   const { dietScore } = dietStudyPlaybackCoordinator;
@@ -12,7 +12,7 @@ function DietStudyTraditional() {
   const duringScore = dietScore ? dietScore.post_diet_score : 5;
 
   return (
-    <SafeLayout style={{ backgroundColor: '#FFF' }} withGutter={false}>
+    <SafeLayout style={styling.backgroundWhite}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>

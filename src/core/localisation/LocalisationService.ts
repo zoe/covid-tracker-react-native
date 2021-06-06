@@ -1,10 +1,9 @@
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { ConfigType, getCountryConfig } from '@covid/core/Config';
 import { ScreenName } from '@covid/core/Coordinator';
 import i18n from '@covid/locale/i18n';
 import * as Localization from 'expo-localization';
 import { injectable } from 'inversify';
-
-import { AsyncStorageService } from '../AsyncStorageService';
-import { ConfigType, getCountryConfig } from '../Config';
 
 export interface ILocalisationService {
   setUserCountry(countryCode: string): void;
@@ -118,3 +117,5 @@ export const thankYouScreenName = (): ScreenName => {
 export const isUSCountry = () => LocalisationService.userCountry === 'US';
 export const isGBCountry = () => LocalisationService.userCountry === 'GB';
 export const isSECountry = () => LocalisationService.userCountry === 'SE';
+
+export const localisationServce = new LocalisationService();

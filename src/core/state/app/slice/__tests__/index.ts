@@ -1,11 +1,11 @@
-import store from '../../../store';
 import {
   appInitialState,
   reset,
   setDashboardHasBeenViewed,
   setLoggedVaccine,
   setMentalHealthStudyActive,
-} from '../index';
+} from '@covid/core/state/app/slice';
+import store from '@covid/core/state/store';
 
 describe('\n** redux app state **\n', () => {
   let state = store.getState().app;

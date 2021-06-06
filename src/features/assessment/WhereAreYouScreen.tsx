@@ -3,14 +3,13 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { ScreenParamList } from '../ScreenParamList';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;

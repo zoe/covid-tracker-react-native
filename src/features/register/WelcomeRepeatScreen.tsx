@@ -6,7 +6,6 @@ import { LoadingModal } from '@covid/components/Loading';
 import { PartnerLogoSE, PartnerLogoUS } from '@covid/components/logos/PartnerLogo';
 import { PoweredByZoe } from '@covid/components/logos/PoweredByZoe';
 import { RegularText } from '@covid/components/Text';
-import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import { IContentService } from '@covid/core/content/ContentService';
@@ -69,7 +68,6 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     const userCount = await this.contentService.getUserCount();
     const cleanUserCount = userCount ? cleanIntegerVal(userCount as string) : 0;
 
-    AnalyticsService.identify();
     await pushNotificationService.subscribeForPushNotifications();
 
     this.setState({

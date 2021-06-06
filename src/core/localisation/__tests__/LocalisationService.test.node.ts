@@ -1,8 +1,7 @@
 import { getCountryConfig } from '@covid/core/Config';
+import { ILocalisationService, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
-import { ILocalisationService, LocalisationService } from '../LocalisationService';
 
 describe('Checks LocalisationService', () => {
   let localisationService: ILocalisationService;

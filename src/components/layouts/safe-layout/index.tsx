@@ -1,29 +1,15 @@
-import { useTheme } from '@covid/themes';
-import React, { ReactNode } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { styling } from '@covid/themes';
+import React from 'react';
+import { SafeAreaView, StyleProp, View, ViewStyle } from 'react-native';
 
 interface IProps {
-  children: ReactNode;
-  withGutter?: boolean;
-  style?: object;
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 }
 
-function SafeLayout({ children, withGutter = true, style }: IProps) {
-  const theme = useTheme();
-  return (
-    <SafeAreaView style={[styles.safeArea, style]}>
-      <View style={[styles.container, { paddingHorizontal: withGutter ? theme.grid.gutter : 0 }]}>{children}</View>
-    </SafeAreaView>
-  );
+// Keep in mind that certain styling properties don't work on the SafeAreaView.
+// For example setting a padding is ignored.
+
+export default function SafeLayout(props: IProps) {
+  return <SafeAreaView style={[styling.flex, props.style]}>{props.children}</SafeAreaView>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  safeArea: {
-    flex: 1,
-  },
-});
-
-export default SafeLayout;

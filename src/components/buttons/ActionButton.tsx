@@ -2,21 +2,17 @@ import { RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { Button } from 'native-base';
 import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
-
-type TStyleObject = { [key: string]: string | number };
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {
-  buttonProps?: any;
   children: ReactNode;
   error?: boolean;
   icon: ReactNode;
   onPress: () => void;
-  style?: TStyleObject;
-  textProps?: any;
+  style?: StyleProp<ViewStyle>;
 }
 
-function ActionButton({ buttonProps, children, error = false, icon, onPress, style = {}, textProps }: IProps) {
+export default function ActionButton({ children, error = false, icon, onPress, style = {} }: IProps) {
   const backgroundColor = colors.backgroundTertiary;
   const btnStyle = [
     styles.button,
@@ -24,12 +20,10 @@ function ActionButton({ buttonProps, children, error = false, icon, onPress, sty
     style,
   ];
   return (
-    <Button onPress={onPress} style={btnStyle} {...buttonProps}>
+    <Button onPress={onPress} style={btnStyle}>
       <View style={styles.row}>
         <View style={styles.textContainer}>
-          <RegularText style={[fontStyles.bodyLight, styles.label, { color: colors.primary }]} {...textProps}>
-            {children}
-          </RegularText>
+          <RegularText style={[fontStyles.bodyLight, styles.label, { color: colors.primary }]}>{children}</RegularText>
         </View>
         <View>{icon}</View>
       </View>
@@ -56,5 +50,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export default ActionButton;

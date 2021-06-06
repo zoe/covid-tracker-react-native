@@ -1,7 +1,6 @@
+import { Text } from '@covid/components/typography';
 import styled from '@covid/themes/styled-components';
 import { View } from 'react-native';
-
-import { Text } from '../../typography';
 
 export const SContainerView = styled(View)`
   ${(props) => `

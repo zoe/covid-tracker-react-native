@@ -1,6 +1,5 @@
+import { MessageContext } from '@covid/common/providers';
 import { useContext } from 'react';
-
-import { MessageContext } from '../../providers';
 
 function useMessage() {
   const { message, addMessage, removeMessage } = useContext(MessageContext);

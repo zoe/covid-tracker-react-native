@@ -1,44 +1,55 @@
+import { BasicPageFooter } from '@covid/components/layouts/footers';
+import { BasicNavHeader } from '@covid/components/layouts/headers';
+import SafeLayout from '@covid/components/layouts/safe-layout';
+import { styling, useTheme } from '@covid/themes';
 import React, { ReactNode } from 'react';
-import { ScrollView } from 'react-native';
-
-import { BasicPageFooter } from '../../footers';
-import { BasicNavHeader } from '../../headers';
-import SafeLayout from '../../safe-layout';
+import { ScrollView, StyleProp, ViewStyle } from 'react-native';
 
 interface IProps {
   active?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   footerTitle?: string;
   hasStickyHeader?: boolean;
   headerBackgroundColor?: string;
+  loading?: boolean;
   navChildren?: ReactNode;
   onPress?: () => void;
-  style?: object;
-  withGutter?: boolean;
+  style?: StyleProp<ViewStyle>;
   withFooter?: boolean;
+  withGutter?: boolean;
+  withHeader?: boolean;
 }
 
-function BasicPage({
+export default function BasicPage({
   active = true,
   children,
   footerTitle = '',
   hasStickyHeader = false,
   headerBackgroundColor = 'transparent',
+  loading = false,
   navChildren = null,
   onPress = () => null,
-  withGutter = false,
-  withFooter = true,
   style = {},
+  withFooter = true,
+  withGutter = false,
+  withHeader = true,
 }: IProps) {
+  const theme = useTheme();
   return (
-    <SafeLayout style={style} withGutter={withGutter}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} stickyHeaderIndices={hasStickyHeader ? [0] : undefined}>
-        <BasicNavHeader backgroundColor={headerBackgroundColor}>{navChildren}</BasicNavHeader>
+    <SafeLayout style={style}>
+      <ScrollView
+        contentContainerStyle={styling.flexGrow}
+        stickyHeaderIndices={hasStickyHeader ? [0] : undefined}
+        style={withGutter && { paddingHorizontal: theme.grid.gutter }}
+      >
+        {withHeader ? (
+          <BasicNavHeader backgroundColor={headerBackgroundColor} paddingHorizontal={withGutter ? 0 : undefined}>
+            {navChildren}
+          </BasicNavHeader>
+        ) : null}
         {children}
       </ScrollView>
-      {withFooter ? <BasicPageFooter active={active} onPress={onPress} title={footerTitle} /> : null}
+      {withFooter ? <BasicPageFooter active={active} loading={loading} onPress={onPress} title={footerTitle} /> : null}
     </SafeLayout>
   );
 }
-
-export default BasicPage;

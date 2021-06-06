@@ -1,8 +1,8 @@
+import { Text } from '@covid/components/typography';
 import { TColorPalette, TColorShade, TGridSizes } from '@covid/themes';
-import { TStyleObject } from '@covid/utils/types';
 import React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 
-import { Text } from '../../typography';
 import { STouchableOpacity } from './styles';
 
 interface IProps {
@@ -13,8 +13,7 @@ interface IProps {
   outline?: boolean;
   rhythm?: TGridSizes;
   simple?: boolean;
-  style?: TStyleObject;
-  textStyle?: TStyleObject;
+  style?: StyleProp<ViewStyle>;
   title: string;
 }
 
@@ -27,7 +26,6 @@ function ThemeButton({
   rhythm = 0,
   simple = false,
   style = {},
-  textStyle = {},
   title,
 }: IProps) {
   const inverted = !!(outline || simple);

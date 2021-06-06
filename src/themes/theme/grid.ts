@@ -1,8 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 
-import { IGrid } from '../types';
+import { IGrid } from '@covid/themes/types';
 
-// layout
 export const grid: IGrid = {
   xxxs: 1,
   xxs: 2,
@@ -14,6 +13,7 @@ export const grid: IGrid = {
   xxl: 24,
   xxxl: 32,
   xxxxl: 48,
+  xxxxxl: 60,
   gutter: 16,
   rhythm: 24,
 };

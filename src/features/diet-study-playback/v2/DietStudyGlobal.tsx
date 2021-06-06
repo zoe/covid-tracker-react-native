@@ -1,12 +1,13 @@
 import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGlobal3 } from '@assets';
 import { BackButton, BasicNavHeader, SafeLayout, Spacer, Text } from '@covid/components';
 import i18n from '@covid/locale/i18n';
+import { styling } from '@covid/themes';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
 function DietStudyGlobal() {
   return (
-    <SafeLayout style={{ backgroundColor: '#FFF' }} withGutter={false}>
+    <SafeLayout style={styling.backgroundWhite}>
       <ScrollView>
         <BasicNavHeader />
         <View style={{ paddingHorizontal: 16 }}>

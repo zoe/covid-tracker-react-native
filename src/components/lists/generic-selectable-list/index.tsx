@@ -1,14 +1,13 @@
-import { TStyleObject } from '@covid/utils/types';
 import React, { ReactElement } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps<T> {
   collection: T[];
   onPress: (obj: T) => void;
   renderRow: (obj: T) => ReactElement;
-  style?: TStyleObject;
-  styleFirst?: TStyleObject | null;
-  styleLast?: TStyleObject | null;
+  style?: StyleProp<ViewStyle>;
+  styleFirst?: StyleProp<ViewStyle>;
+  styleLast?: StyleProp<ViewStyle>;
 }
 
 const GenericSelectableList = <T extends object>({
@@ -24,10 +23,10 @@ const GenericSelectableList = <T extends object>({
       const key = `generic-list-item-${index}`;
       let currentStyle = style;
       if (!index && styleFirst) {
-        currentStyle = { ...style, ...styleFirst };
+        currentStyle = [style, styleFirst];
       }
       if (index === collection.length - 1 && styleLast) {
-        currentStyle = { ...style, ...styleLast };
+        currentStyle = [style, styleLast];
       }
       return (
         <TouchableOpacity key={key} onPress={() => onPress(obj)} style={currentStyle}>

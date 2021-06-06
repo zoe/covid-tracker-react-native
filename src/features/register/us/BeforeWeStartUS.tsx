@@ -1,12 +1,11 @@
 import Screen, { Header } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { ScreenParamList } from '../../ScreenParamList';
 
 type HowYouFeelProps = {
   navigation: StackNavigationProp<ScreenParamList, 'BeforeWeStartUS'>;

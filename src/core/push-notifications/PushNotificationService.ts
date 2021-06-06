@@ -1,10 +1,10 @@
 import Analytics from '@covid/core/Analytics';
+import { IStorageService } from '@covid/core/LocalStorageService';
 import { isDateBefore, now, yesterday } from '@covid/utils/datetime';
+import { isAndroid } from '@covid/utils/platform';
 import * as IntentLauncher from 'expo-intent-launcher';
 import { Linking, Platform } from 'react-native';
 
-import { isAndroid } from '../../utils/platform';
-import { IStorageService } from '../LocalStorageService';
 import { IPushTokenRemoteClient, PushToken } from './types';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';

@@ -1,5 +1,5 @@
-import store from '../../../store';
-import { setHasViewedAnniversaryModal } from '../index';
+import { setHasViewedAnniversaryModal } from '@covid/core/state/anniversary/slice';
+import store from '@covid/core/state/store';
 
 describe('\n** redux anniversary state **\n', () => {
   let state = store.getState().anniversary;

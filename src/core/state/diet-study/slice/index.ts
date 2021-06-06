@@ -1,7 +1,6 @@
+import { IDietStudy, TDietStudyConsent } from '@covid/core/state/diet-study/types';
+import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { RootState } from '../../root';
-import { IDietStudy, TDietStudyConsent } from '../types';
 
 const initialState: IDietStudy = {
   consent: undefined,

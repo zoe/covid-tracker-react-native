@@ -9,6 +9,7 @@ let isInitialized = false;
 type AdditionalUserProperties = {
   isTester?: boolean;
   Experiment_001?: string;
+  Experiment_mhip?: string;
 };
 
 const DietStudyEvents = {
@@ -51,6 +52,7 @@ const MentalHealthStudyEvents = {
   MENTAL_HEALTH_CONSENT_YES: 'MENTAL_HEALTH_CONSENT_YES',
   MENTAL_HEALTH_DISPLAY_MODAL: 'MENTAL_HEALTH_DISPLAY_MODAL',
   MENTAL_HEALTH_EMAIL: 'MENTAL_HEALTH_EMAIL',
+  MENTAL_HEALTH_PLAYBACK_SCREEN_MODAL: 'MENTAL_HEALTH_PLAYBACK_SCREEN_MODAL',
   MENTAL_HEALTH_SCREEN_CHANGES: 'MENTAL_HEALTH_SCREEN_CHANGES',
   MENTAL_HEALTH_SCREEN_END: 'MENTAL_HEALTH_SCREEN_END',
   MENTAL_HEALTH_SCREEN_FREQUENCY: 'MENTAL_HEALTH_SCREEN_FREQUENCY',
@@ -114,7 +116,6 @@ function initialize(): void {
   }
 
   Amplitude.initializeAsync(appConfig.amplitudeKey);
-  // Amplitude.setTrackingOptions(trackingOptions);
   isInitialized = true;
 }
 

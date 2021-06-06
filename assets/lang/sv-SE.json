@@ -1,4 +1,7 @@
 {
+  "continue": "Continue",
+  "loading": "Loading",
+
   "create-account": {
     "title": "Skapa nytt konto",
     "btn": "Skapa konto",
@@ -40,10 +43,10 @@
     "worked-other-facility": "Annan vårdanläggning"
   },
 
-  "label-interacted-with-infected-patients": "Har du NÅGONSIN haft direktkontakt med patienter med bekräftad eller sannolik covid-19-infektion?",
-  "required-has-patient-interaction": "Ange om du har haft direktkontakt med en patient med covid-19",
+  "label-interacted-with-infected-patients": "Har du NÅGONSIN haft direktkontakt med patienter med bekräftad eller sannolik COVID-19-infektion?",
+  "required-has-patient-interaction": "Ange om du har haft direktkontakt med en patient med COVID-19",
 
-  "label-used-ppe-equipment": "Sedan covid-19-epidemin startade, har du använt skyddsutrustning på arbetet?",
+  "label-used-ppe-equipment": "Sedan COVID-19-epidemin startade, har du använt skyddsutrustning på arbetet?",
   "label-used-ppe-equipment-footnote": "*Beroende på särskilda krav på arbetsplatsen kan skyddsutrustning omfatta handskar, visir, andningsskydd, munskydd osv.",
   "label-ppe-equipment-available": "Är all den personliga skyddsutrustning du behöver tillgänglig?",
   "label-chose-an-option": "Välj ett av alternativen",
@@ -111,10 +114,10 @@
   "placeholder-optional": "Valfri",
   "placeholder-max-500": "",
 
-  "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik covid-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
-  "exposed-yes-documented": "Ja, bekräftat covid-19-fall",
-  "exposed-yes-undocumented": "Ja, sannolikt covid-19-fall",
-  "exposed-both": "Ja, både bekräftat och sannolikt covid-19-fall",
+  "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
+  "exposed-yes-documented": "Ja, bekräftat COVID-19-fall",
+  "exposed-yes-undocumented": "Ja, sannolikt COVID-19-fall",
+  "exposed-both": "Ja, både bekräftat och sannolikt COVID-19-fall",
   "exposed-no": "Inte vad jag vet",
 
   "housebound-problems": "Har du några hälsoproblem som gör att du har svårt att lämna hemmet?",
@@ -152,8 +155,8 @@
     "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?"
   },
 
-  "previous-exposure-title": "Tidigare exponering för covid-19",
-  "required-ever-exposed": "Ange om du har träffat någon med covid-19-infektion",
+  "previous-exposure-title": "Tidigare exponering för COVID-19",
+  "required-ever-exposed": "Ange om du har träffat någon med COVID-19-infektion",
   "label-unwell-month-before": "Har du känt dig sjuk under månaden innan du började rapportera i denna app?",
 
   "label-past-symptoms": "Hade du någon av följande symtom (markera alla som stämde in på dig):",
@@ -179,12 +182,12 @@
   "past-symptom-changed-little-worse": "Blivit lite sämre",
   "past-symptom-changed-much-worse": "Blivit mycket sämre",
 
-  "title-health-worker-exposure": "Exponering för covid-19 för vårdpersonal",
+  "title-health-worker-exposure": "Exponering för COVID-19 för vårdpersonal",
   "health-worker-exposure-question-interacted-any-patients": "Har du det senaste dygnet träffat patienter (ej via telefon eller videolänk)?",
-  "health-worker-exposure-question-treated-patients-with-covid": "Har du det senaste dygnet personligen träffat patienter med bekräftad eller sannolik covid-19-infektion?",
-  "health-worker-exposure-picker-patient-interaction-yes-documented": "Ja, bekräftat covid-19-fall",
-  "health-worker-exposure-picker-patient-interaction-yes-suspected": "Ja, sannolikt covid-19-fall",
-  "health-worker-exposure-picker-patient-interaction-yes-both": "Ja, både bekräftade och sannolika covid-19-fall",
+  "health-worker-exposure-question-treated-patients-with-covid": "Har du det senaste dygnet personligen träffat patienter med bekräftad eller sannolik COVID-19-infektion?",
+  "health-worker-exposure-picker-patient-interaction-yes-documented": "Ja, bekräftat COVID-19-fall",
+  "health-worker-exposure-picker-patient-interaction-yes-suspected": "Ja, sannolikt COVID-19-fall",
+  "health-worker-exposure-picker-patient-interaction-yes-both": "Ja, både bekräftade och sannolika COVID-19-fall",
   "health-worker-exposure-picker-patient-interaction-no": "Inte vad jag vet",
 
   "health-worker-exposure-question-has-used-ppe-equipment": "Har du det senaste dygnet använt skyddsutrustning på arbetet *Beroende på särskilda krav på arbetsplatsen kan skyddsutrustning omfatta handskar, visir, andningsskydd, munskydd osv.",
@@ -287,102 +290,99 @@
     "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
     "current-location": "Du rapporterar just nu från:",
     "update-location": "Uppdatera plats",
-    "vaccine-reporting-message": "Fortsätt gärna att rapportera hur du mår dagligen efter att du vaccinerats mot covid-19 och ange eventuella allmänna symtom som du upplever.",
+    "vaccine-reporting-message": "Fortsätt gärna att rapportera hur du mår dagligen efter att du vaccinerats mot COVID-19 och ange eventuella allmänna symtom som du upplever.",
     "vaccine-reporting-link": "Varför är detta viktigt?"
   },
 
   "long-covid": {
-    "one-off": "ONE-off questionnaire",
-    "title": "Investigating COVID duration & Long COVID",
-    "time": "LESS THAN 2 MIN",
-    "body-1": "Thanks for reporting!",
-    "body-2": "Today, we’d like to ask you some one-off questions about Long COVID.",
-    "body-3": "Your answers will help us understand long-term effects of COVID-19.",
-    "q1": "Do you think you have or have had COVID-19?",
-    "q1-a1": "Yes, confirmed by positive test",
-    "q1-a2": "Yes, based on medical advice",
-    "q1-a3": "Yes, based on strong suspicion",
-    "q1-a4": "Unsure",
-    "q1-a5": "No",
-    "q1-a6": "Prefer not to say",
-    "q2": "How long do you think you’ve had COVID-19 symptoms overall?",
-    "q2-info-1": "Please include",
-    "q2-info-2": "Time spent with mild symptoms",
-    "q2-info-3": "Time in between symptoms if these have been coming and going",
-    "q2-info-4": "The longest episode of illness you experienced (if you have caught COVID-19 more than once)",
-    "q2-info-5": "If you answered “unsure” please answer about the illness you think might have been COVID-19.",
-    "q2-a1": "Less than 2 weeks",
-    "q2-a2": "2 - 3 weeks",
-    "q2-a3": "4 - 12 weeks",
-    "q2-a4": "More than 12 weeks",
-
-    "q3": "For how long did these symptoms restrict your day-to-day activities?",
-    "q3-a1": "I was always able to function as normal",
-    "q3-a2": "1 - 3 days",
-    "q3-a3": "4 - 6 days",
-    "q3-a4": "7 - 13 days",
-    "q3-a5": "2 - 3 weeks",
-    "q3-a6": "4 - 12 weeks",
-    "q3-a7": "12+ weeks",
-
-    "q4-header": "12 weeks (or more) after first catching COVID-19, did you experience any of the following?",
-    "q4-info-1": "Please only consider symptoms that are not explained by another reason.",
-    "q4-info-2": "If you are unsure if you had COVID-19, please answer regarding the 12 weeks (or more) after you think you caught it.",
-    "q4-info-3": "Select all that apply",
-    
-    "q4": "Problems thinking and communicating e.g. brain-fog, memory problems, difficulty concentrating, decreased alertness, confusion, difficulty speaking",
-    "q5": "Mood changes, e.g. anxiety, feeling ‘down’, or irritable",
-    "q6": "Poor or excessive sleep",
-    "q7": "Body aches, unusual tingling or pain­­­",
-    "q8": "Muscle aches, weakness or severe fatigue",
-    "q9": "Skin rashes",
-    "q10": "Bone or joint pain",
-    "q11": "Headaches",
-    "q12": "Light-headedness or dizziness when standing ",
-    "q13": "Altered sense of taste or smell",
-    "q14": "Breathing problems, e.g. breathlessness, pain on breathing, cough",
-    "q15": "Heart problems, e.g. chest pain, palpitations",
-    "q16": "Abdominal pain, diarrhoea or appetite loss",
-    "q17": "Other",
-
-    "q18": "Have you had at least one COVID-19 vaccine done?",
-    "q18-a1": "Yes",
-    "q18-a2": "No",
-
-    "q19": "Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection?",
-    "q19-a1": "Yes",
-    "q19-a2": "No",
-    "q19-a3": "Not sure",
-
-    "q20": "Did your symptoms change 2 weeks (or more) after your first COVID-19 vaccine injection?",
-
-    "q21": "Have your symptoms changed in the week after your vaccination (excluding the first 2 days)?",
-    "q21-symptom_change_headache": "Headache",
-
-    "q21-symptom_change_smell": "Headache",
-    "q21-symptom_change_voice": "Hoarse voice",
-    "q21-symptom_change_cough": "Persistant cough",
-    "q21-symptom_change_appetite": "Skipped meals / loss of appetite",
-    "q21-symptom_change_sore_throat": "Sore throat",
-    "q21-symptom_change_chest_pain": "Chest pain",
-    "q21-symptom_change_fatigue": "Fatigue",
-    "q21-symptom_change_muscle_joint_pain": "Muscle joint pain",
-    "q21-symptom_change_abdominal_pain": "Abdominal pain",
-    "q21-symptom_change_diarrhoea": "Diarrhoea",
-    "q21-symptom_change_fever": "Fever",
-
-    "symptoms-change-a1": "Yes – all symptoms got better",
-    "symptoms-change-a2": "Yes – some symptoms got better",
-    "symptoms-change-a3": "Nothing changed",
-    "symptoms-change-a4": "Yes - some symptoms got worse",
-    "symptoms-change-a5": "Yes - all symptoms got worse",
-    "symptoms-change-a6": "Some symptoms improved, others got worse",
-    "symptoms-change-a7": "It’s not yet been 2 weeks since my first COVID 19 vaccine",
-    "symptoms-change-a8": "Other",
-
-    "comments": "Do you have anything else to share regarding the evolution of your COVID-19 symptoms?",
-    "button": "Next",
-    "finish": "Finish"
+    "apology": "Vi ber alla som redan har fyllt i detta att göra det igen eftersom vi hade ett fel i våran tidigare version -tack så mycket!",
+    "one-off": "Engångsenkät",
+    "title": "Undersökning av hur länge symtomen varar och långdragna COVID-19-symtom",
+    "time": "MINDRE ÄN 2 MINUTER",
+    "body-1": "Tack för att du rapporterar!",
+    "body-2": "Vi vill fråga dig några frågor som rör långdragna symtom vid COVID-19",
+    "body-3": "Svaren hjälper oss att förstå de långvariga effekterna av COVID-19",
+    "q1": "Tror/vet du att du har/har haft COVID-19?",
+    "q1-a1": "Ja, bekräftat av ett positivt test",
+    "q1-a2": "Ja, baserat på medicinsk rådgivning",
+    "q1-a3": "Ja, baserat på en stark misstanke",
+    "q1-a4": "Osäker",
+    "q1-a5": "Nej",
+    "q1-a6": "Föredrar att inte svara",
+    "q2": "Hur länge uppskattar du att du totalt har haft/hade symtom relaterat till COVID-19?",
+    "q2-info-1": "Du ska räkna med samtliga dessa:",
+    "q2-info-2": "Tiden du haft lindriga symtom",
+    "q2-info-3": "Tiden mellan symtomepisoder om symtomen har kommit och gått",
+    "q2-info-4": "Den längsta sjukdomsperiod du upplevde (om du har haft COVID-19 mer än en gång)",
+    "q2-info-5": "Om du svarade 'osäker' ovan ber vi dig svara utifrån den sjukdom du tror kan ha varit COVID-19",
+    "q2-a1": "Mindre än 2 veckor",
+    "q2-a2": "2–3 veckor",
+    "q2-a3": "4–12 veckor",
+    "q2-a4": "Mer än 12 veckor",
+    "q3": "Hur lång tid har dessa symtom begränsat dig i din vardag?",
+    "q3-a1": "Jag har hela tiden kunnat fungera som vanligt",
+    "q3-a2": "1–3 dagar",
+    "q3-a3": "4–6 dagar",
+    "q3-a4": "7–13 dagar",
+    "q3-a5": "2–3 veckor",
+    "q3-a6": "4–12 veckor",
+    "q3-a7": "Mer än 12 veckor",
+    "q4-header": "Upplevde du något av följande 12 veckor (eller mer) efter att du först fick COVID-19?",
+    "q4-info-1": "Ta endast hänsyn till symtom som inte kan förklaras av annan orsak",
+    "q4-info-2": "Om du är osäker på om du hade COVID-19 ber vi dig basera dina svar på de 12 veckorna (eller mer) direkt efter att du tror att du blev sjuk i COVID-19",
+    "q4-info-3": "Markera alla tillämpliga alternativ",
+    "q4": "Problem med att tänka och kommunicera, t.ex. hjärndimma/-trötthet, minnesproblem, koncentrationssvårigheter, mindre alert, förvirring, talsvårigheter",
+    "q5": "Humörförändringar, t.ex. oro, ångest, nedstämdhet eller irritation",
+    "q6": "Dålig sömn eller överdrivet sömnbehov",
+    "q7": "Ont i kroppen, ovanliga stickningar eller smärta",
+    "q8": "Ont i musklerna, svaghet eller svår trötthet",
+    "q9": "Hudutslag",
+    "q10": "Ben- eller ledsmärta",
+    "q11": "Huvudvärk",
+    "q12": "Yr eller svimfärdig när du ställer dig upp",
+    "q13": "Förändrat smak- och/eller luktsinne",
+    "q14": "Andningsproblem, t.ex. andfåddhet, smärta vid andning, hosta",
+    "q15": "Hjärtproblem, t.ex. bröstsmärta, hjärtklappning",
+    "q16": "Ont i magen, diarré eller förlorad aptit",
+    "q17": "Annat",
+    "q18": "Har du fått minst en COVID-19-vaccindos?",
+    "q18-a1": "Ja",
+    "q18-a2": "Nej",
+    "q19": "Hade du pågående COVID-19-symtom veckan innan din första COVID-19-vaccindos?",
+    "q19-a1": "Ja",
+    "q19-a2": "Nej",
+    "q19-a3": "Vet inte",
+    "q20": "Förändrades dina symtom 2 veckor (eller mer) efter din första COVID-19-vaccindos?",
+    "q21": "Har dina symtom förändrats under veckan efter din vaccination (med undantag för de 2 första dagarna)?",
+    "q21-symptom_change_headache": "Huvudvärk",
+    "q21-symptom_change_smell": "Förlorat lukt- och eller smaksinne",
+    "q21-symptom_change_voice": "Hes röst",
+    "q21-symptom_change_cough": "Ihållande hosta",
+    "q21-symptom_change_appetite": "Skippade måltider/förlorad aptit",
+    "q21-symptom_change_sore_throat": "Ont i halsen",
+    "q21-symptom_change_chest_pain": "Bröstsmärta",
+    "q21-symptom_change_fatigue": "Trötthet",
+    "q21-symptom_change_muscle_joint_pain": "Ont i muskler och/eller leder",
+    "q21-symptom_change_abdominal_pain": "Buksmärtor",
+    "q21-symptom_change_diarrhoea": "Diarré",
+    "q21-symptom_change_fever": "Feber",
+    "symptoms-change-a1": "Ja – alla symtom förbättrades",
+    "symptoms-change-a2": "Ja – vissa symtom förbättrades",
+    "symptoms-change-a3": "Ingen förändring",
+    "symptoms-change-a4": "Ja – vissa symtom blev värre",
+    "symptoms-change-a5": "Ja – alla symtom blev värre",
+    "symptoms-change-a6": "En del symtom blev bättre, andra blev sämre",
+    "symptoms-change-a7": "Det har inte gått 2 veckor sedan min första COVID-19-vaccindos än",
+    "symptoms-change-a8": "Annat",
+    "symptoms-change-severity-a1": "Helt försvunnit",
+    "symptoms-change-severity-a2": "Minskat (intensitet eller frekvens)",
+    "symptoms-change-severity-a3": "Samma",
+    "symptoms-change-severity-a4": "Ökat (intensitet eller frekvens)",
+    "symptoms-change-severity-a5": "Återkommit",
+    "symptoms-change-severity-a6": "Ej aktuellt",
+    "comments": "Är det något annat du vill berätta angående hur dina COVID-19-symtom har utvecklats?",
+    "button": "Nästa",
+    "finish": "Klar"
   },
 
   "describe-symptoms": {
@@ -459,8 +459,8 @@
 
   "where-are-you": {
     "question-location": "Var befinner du dig just nu?",
-    "picker-location-home": "Jag är hemma (eller på annan plats) och har inte varit på ett sjukhus pga misstänkt covid-19.",
-    "picker-location-hospital": "Jag är på sjukhuset pga misstänkt covid-19.",
+    "picker-location-home": "Jag är hemma (eller på annan plats) och har inte varit på ett sjukhus pga misstänkt COVID-19.",
+    "picker-location-hospital": "Jag är på sjukhuset pga misstänkt COVID-19.",
     "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill gärna berätta om min behandling.",
     "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om behandlingen jag fick."
   },
@@ -510,12 +510,12 @@
   "welcome": {
     "title": "COVID Symptom Study",
     "sign-in": "Logga in",
-    "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa covid-19.",
+    "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa COVID-19.",
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig besöka",
     "disclaimer-link": "1177.se",
     "tell-me-more": "Berätta mer",
     "visit-the-website": "Besök webbplatsen",
-    "see-how-your-area-is-affected": "Ditt deltagande är viktigare än någonsin i kampen mot covid-19. Se hur våra studiedeltagares data används av forskarna.",
+    "see-how-your-area-is-affected": "Ditt deltagande är viktigare än någonsin i kampen mot COVID-19. Se hur våra studiedeltagares data används av forskarna.",
     "report-button": "Rapportera i dag, även om du är frisk",
     "how-you-can-help": {
       "title": "Så här kan du hjälpa till",
@@ -545,14 +545,14 @@
     "message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
     "url": "https://covid19app.lu.se/",
     "primary-text": "Hjälp till att sprida appen",
-    "secondary-text": "Ju fler som rapporterar hur de mår, desto bättre kan vi kartlägga smittspridningen av covid-19",
+    "secondary-text": "Ju fler som rapporterar hur de mår, desto bättre kan vi kartlägga smittspridningen av COVID-19",
     "button-text": "Dela appen"
   },
 
   "thank-you-title": "Tack för att du rapporterar!",
   "blog-link": "https://covid19app.lu.se/",
-  "thank-you-body": "Vi har nu tagit emot dagens rapport. Ditt deltagande är viktigare än någonsin i kampen mot covid-19.",
-  "check-in-tomorrow": "Besök 1177.se om du har frågor som rör din hälsa eller covid-19.",
+  "thank-you-body": "Vi har nu tagit emot dagens rapport. Ditt deltagande är viktigare än någonsin i kampen mot COVID-19.",
+  "check-in-tomorrow": "Besök 1177.se om du har frågor som rör din hälsa eller COVID-19.",
   "check-news-feed": "Håll gärna utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
   "faq-link": "https://www.covid19app.lu.se/faq",
   "thank-you-completed": "Startsida",
@@ -647,15 +647,15 @@
   "create-profile": "Skapa",
 
   "covid-test-list": {
-    "title": "Dina covid-19-tester",
-    "text": "Lägg till dina eventuella covid-19-tester nedan. Detta innefattar tester för pågående infektion såsom PCR-tester och antigentester (näsa/svalg/saliv), samt tester för tidigare covid-19-infektion, såsom antikroppstester (blodprov). Du kan redigera listan när som helst i framtiden.",
+    "title": "Dina COVID-19-tester",
+    "text": "Lägg till dina eventuella COVID-19-tester nedan. Detta innefattar tester för pågående infektion såsom PCR-tester och antigentester (näsa/svalg/saliv), samt tester för tidigare COVID-19-infektion, såsom antikroppstester (blodprov). Du kan redigera listan när som helst i framtiden.",
     "add-new-test": "Lägg till nytt test",
     "positive": "Positivt",
     "negative": "Negativt",
     "failed": "Misslyckades",
     "pending": "Väntar",
     "update": "Uppdatera",
-    "never-had-test": "Jag har aldrig testats för covid-19",
+    "never-had-test": "Jag har aldrig testats för COVID-19",
     "above-list-correct": "Listan ovan är korrekt"
   },
 
@@ -683,7 +683,7 @@
     "location": {
       "title": "Min plats",
       "label": "Postnumret till din hemadress (t.ex. 205 02)",
-      "disclaimer": "Ditt postnummer används för att kartlägga hur covid-19 sprids i Sverige. Du hittar information om hur dina data används i ZOEs integritetsmeddelande.",
+      "disclaimer": "Ditt postnummer används för att kartlägga hur COVID-19 sprids i Sverige. Du hittar information om hur dina data används i ZOEs integritetsmeddelande.",
       "not-current-address": "Rapporterar du från en annan plats än ovan?",
       "still-in-country": "Befinner du dig fortfarande i Sverige?",
       "other-postcode": "Ange det postnummer du vill rapportera från",
@@ -708,7 +708,7 @@
   },
 
   "diabetes": {
-    "justification": "Du angav tidigare att du har diabetes, vilket är en viktig riskfaktor för covid-19. Våra forskare har några uppföljande frågor för att de ska förstå mer om detta. Alla frågor är helt frivilliga.",
+    "justification": "Du angav tidigare att du har diabetes, vilket är en viktig riskfaktor för COVID-19. Våra forskare har några uppföljande frågor för att de ska förstå mer om detta. Alla frågor är helt frivilliga.",
     "which-type": "Vilken typ av diabetes har du?",
     "answer-type-1": "Diabetes typ 1",
     "answer-type-2": "Diabetes typ 2",
@@ -742,7 +742,7 @@
   },
 
   "blood-group": {
-    "justification": "Vi frågar detta då andra studier har visat att vilken blodgrupp man har kan påverka både risken att drabbas av covid-19 samt hur allvarligt sjuk man blir. Vi vill undersöka detta i vår stora deltagargrupp.",
+    "justification": "Vi frågar detta då andra studier har visat att vilken blodgrupp man har kan påverka både risken att drabbas av COVID-19 samt hur allvarligt sjuk man blir. Vi vill undersöka detta i vår stora deltagargrupp.",
     "question": "Känner du till vilken blodgrupp du har? Vilken?",
     "answers": {
       "type-a": "A",
@@ -1112,7 +1112,7 @@
       "next": "Nästa"
     },
     "hesitancy": {
-      "title": "Skulle du vaccinera dig mot covid-19 om/när du erbjuds vaccination?",
+      "title": "Skulle du vaccinera dig mot COVID-19 om/när du erbjuds vaccination?",
       "check-all-that-apply": "Berätta gärna varför (markera alla som stämmer):",
       "vaccine-trial": "",
       "religious": "Personliga övertygelser",
@@ -1131,7 +1131,7 @@
     },
     "log-symptoms": {
       "title": "Varför är det så viktigt att fortsätta att rapportera symtom även efter vaccination?",
-      "body-1": "När antalet covid-19-fall snabbt ökade under våren 2020 så lanserade vi snabbt COVID Symptom Study för att öka kunskaperna om sjukdomen.",
+      "body-1": "När antalet COVID-19-fall snabbt ökade under våren 2020 så lanserade vi snabbt COVID Symptom Study för att öka kunskaperna om sjukdomen.",
       "body-2": "Nu när pandemin gått in i en ny fas kommer vi att monitorera hur vaccinerna påverkar pandemiförloppet.",
       "body-3": "Genom att logga din vaccination och berätta hur du mår efteråt bidrar du till att forskarna har så korrekta data som möjligt att tillgå."
     },
@@ -1141,8 +1141,8 @@
       "link": "Var hittar jag dessa uppgifter?"
     },
     "vaccine-list": {
-      "title": "Dina covid-19-vacciner",
-      "description": "Berätta om du har fått minst en dos av covid-19-vaccin under pågående vaccinationsprogram. Fråga gärna hälsopersonalen vilket vaccin du får så att du kan fylla i uppgifterna korrekt.",
+      "title": "Dina COVID-19-vacciner",
+      "description": "Berätta om du har fått minst en dos av COVID-19-vaccin under pågående vaccinationsprogram. Fråga gärna hälsopersonalen vilket vaccin du får så att du kan fylla i uppgifterna korrekt.",
       "add-button": "Lägg till vaccin",
       "correct-info": "Informationen är korrekt",
       "no-vaccine": "Jag har inte vaccinerats",
@@ -1407,7 +1407,7 @@
   "mental-health": {
     "doctor-name": "Dr Ellen Jo Thompson",
     "doctor-title": "Mental Health Researcher",
-    "doctor-college": "King’s College London",
+    "doctor-location": "King’s College London",
     "introduction-condition": "This study is only available for the “Me” primary profile.",
     "question-changes": "During this pandemic, have you changed the way you have spent time doing the following:",
     "question-devices-with-screen": "Using devices with a screen",
@@ -1484,6 +1484,172 @@
     "share": "Share this app",
     "share-message": "I'm helping scientists to investigate the impact of the pandemic on people's mental health - you can too! Download the app",
     "specify-other": "Please specify"
+  },
+  "mental-health-playback": {
+    "less": "Less",
+    "more": "More",
+    "no-change": "No change",
+    "results-ready": "Insights on COVID & Mental Health are ready",
+    "you": "You",
+
+    "modal": {
+      "button-negative": "Skip for now",
+      "button-positive": "View insights",
+      "description-general": "We're excited to share the insights we found into how habits and lifestyle affected mental health during the pandemic\n\nThank you for your participation!",
+      "description-personal": "We've crunched the data and have prepared your very own personal insights into your unique habits during the pandemic for you to look at!\n\nThanks for your participation.",
+      "tag": "INSIGHTS AVAILABLE",
+      "title": "Mental Health during the pandemic"
+    },
+
+    "general": {
+      "chart-label": "Reported activity level",
+      "correlated-description": "Reporting more of this was linked to",
+      "default-abbreviation": "...",
+      "default-title": "This insight",
+      "end-button": "Close",
+      "end-description": "You can always return to these via the Home Page",
+      "end-title-general": "That's it!\n\nYou made it through all the insights",
+      "end-title-personal": "That's it!\n\nYou made it through all your insights",
+      "explanation-card": "We have compared your answers against",
+      "insight-description-general": "Was {{level_of_association}} associated with {{anxiety}} anxiety and depression scores within your group",
+      "insight-description-personal": "Was {{level_of_association}} associated with {{anxiety}} anxiety and depression scores within your group"
+    },
+    "insights": {
+      "drinking_alcohol_less": {
+        "abbreviation": "Less alcohol",
+        "title": "Consuming less alcohol"
+      },
+      "drinking_alcohol_more": {
+        "abbreviation": "More alcohol",
+        "title": "Consuming more alcohol"
+      },
+      "engaging_in_orgs_clubs_socs_less": {
+        "abbreviation": "Less social organisations",
+        "title": "Engaging less in organisations, clubs etc."
+      },
+      "engaging_in_orgs_clubs_socs_more": {
+        "abbreviation": "More social organisations",
+        "title": "Engaging more in organisations, clubs etc."
+      },
+      "being_physically_active_or_doing_exercise_less": {
+        "abbreviation": "Less physical activity",
+        "title": "Being less physically active"
+      },
+      "being_physically_active_or_doing_exercise_more": {
+        "abbreviation": "More physical activity",
+        "title": "Being more physically active"
+      },
+      "interacting_face_to_face_with_family_friends_less": {
+        "abbreviation": "Less face-to-face",
+        "title": "Having less face-to-face time with family and friends"
+      },
+      "interacting_face_to_face_with_family_friends_more": {
+        "abbreviation": "More face-to-face",
+        "title": "Having more face-to-face time with family and friends"
+      },
+      "spending_time_in_green_spaces_less": {
+        "abbreviation": "Less time in green spaces",
+        "title": "Spending less time in green spaces"
+      },
+      "spending_time_in_green_spaces_more": {
+        "abbreviation": "More time in green spaces",
+        "title": "Spending more time in green spaces"
+      },
+      "spending_time_with_pets_less": {
+        "abbreviation": "Less time with pets",
+        "title": "Spending less time with pets"
+      },
+      "spending_time_with_pets_more": {
+        "abbreviation": "More time with pets",
+        "title": "Spending more time with pets"
+      },
+      "relaxation_mindfulness_meditation_less": {
+        "abbreviation": "Relaxing less",
+        "title": "Practising less relaxation and mindfulness"
+      },
+      "relaxation_mindfulness_meditation_more": {
+        "abbreviation": "Relaxing more",
+        "title": "Practising more relaxation and mindfulness"
+      },
+      "using_devices_with_a_screen_less": {
+        "abbreviation": "Less time on devices",
+        "title": "Spending less time on screens and devices"
+      },
+      "using_devices_with_a_screen_more": {
+        "abbreviation": "More time on devices",
+        "title": "Spending more time on screens and devices"
+      },
+      "sleeping_well_less": {
+        "abbreviation": "Sleeping well less often",
+        "title": "Sleeping well less often"
+      },
+      "sleeping_well_more": {
+        "abbreviation": "Sleeping well more often",
+        "title": "Sleeping well more often"
+      },
+      "smoking_or_vaping_less": {
+        "abbreviation": "Smoking less",
+        "title": "Smoking or vaping less"
+      },
+      "smoking_or_vaping_more": {
+        "abbreviation": "Smoking more",
+        "title": "Smoking or vaping more"
+      },
+      "eating_savoury_snacks_or_confectionery_less": {
+        "abbreviation": "Snacking less",
+        "title": "Eating less savoury snacks and confectionery"
+      },
+      "eating_savoury_snacks_or_confectionery_more": {
+        "abbreviation": "Snacking more",
+        "title": "Eating more savoury snacks and confectionery"
+      },
+      "talking_to_family_friends_via_phone_or_technology_less": {
+        "abbreviation": "Talking less to family / friends",
+        "title": "Talking less to family / friends via devices"
+      },
+      "talking_to_family_friends_via_phone_or_technology_more": {
+        "abbreviation": "Talking more to family / friends",
+        "title": "Talking more to family / friends via devices"
+      }
+    },
+    "segments": {
+      "general": "people in your age group",
+      "women_20": "women in your age group 21 - 30",
+      "women_30": "women in your age group 31 - 40",
+      "women_40": "women in your age group 41 - 50",
+      "women_50": "women in your age group 51 - 60",
+      "women_60": "women in your age group 61 - 70",
+      "women_70": "women in your age group 71+",
+      "men_20": "men in your age group 21 - 30",
+      "men_30": "men in your age group 31 - 40",
+      "men_40": "men in your age group 41 - 50",
+      "men_50": "men in your age group 51 - 60",
+      "men_60": "men in your age group 61 - 70",
+      "men_70": "men in your age group 71+"
+    },
+    "introduction": {
+      "button": "Let's go!",
+      "info": "Mental health, in these insights, is measured based on self-reported scores for anxiety and depression",
+      "point-general-1": "How people spent their time differently during the pandemic",
+      "point-general-2": "What associations these habits and lifestyle changes had on mental health",
+      "point-personal-1": "How you spent your time differently during the pandemic compared to before",
+      "point-personal-2": "Unique insights into your habit changes compared with your peers",
+      "point-personal-3": "How these habits were associated with mental health in different ways",
+      "title-general": "Discover people’s habits during the pandemic",
+      "title-personal": "We worked hard to personalise these insights around your habits during the pandemic"
+    },
+    "rating": {
+      "button": "Continue",
+      "card": "How helpful were these insights to you?",
+      "feedback": "Care to share some more feedback?",
+      "not-helpful": "Not helpful",
+      "very-helpful": "Very helpful" 
+    },
+    "thank-you": {
+      "button": "Close",
+      "description": "Thank you for taking the time to give us feedback",
+      "title": "Thank you!"
+    }
   },
   "diet-study": {
     "doctor-name": "Dr Sarah Berry",

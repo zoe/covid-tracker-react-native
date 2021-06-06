@@ -9,6 +9,7 @@ import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
 import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { VaccineWarning } from '@covid/features/vaccines/components';
 import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
@@ -25,8 +26,6 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { IVaccineService } from '../../core/vaccine/VaccineService';
-
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;
   route: RouteProp<ScreenParamList, 'VaccineList'>;
@@ -36,7 +35,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
   const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
-  const [isLoading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [showVaccineWarning, setShowVaccineWarning] = useState<boolean>(false);
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
@@ -116,7 +115,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const ListContent = () => {
-    if (isLoading) {
+    if (loading) {
       return <Loading error={null} status="" />;
     }
     return (
@@ -144,7 +143,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const showPopup = () => {
-    NavigatorService.navigate('VaccineListMissing', { vaccine: vaccines[0] });
+    NavigatorService.navigate('VaccineListMissingModal', { vaccine: vaccines[0] });
   };
 
   const navigateToNextPageOrShowPopup = () => {
