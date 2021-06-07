@@ -2,7 +2,7 @@ import { gbMap, svMap, usMap } from '@assets';
 import { BrandedButton } from '@covid/components';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import { IContentService } from '@covid/core/content/ContentService';
-import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, isSECountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -57,12 +57,12 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Image source={getMapImage()} style={styles.mapImage} testID="map" />
         <View style={styles.loginContainer}>
-          <ClickableText testID="loginLink" style={styles.login} onPress={onLoginPress}>
+          <ClickableText testID="login-link" style={styles.login} onPress={onLoginPress}>
             {i18n.t('welcome.sign-in')}
           </ClickableText>
           <View style={styles.pipe} />
-          <TouchableOpacity onPress={onSelectCountryPress} style={styles.countryFlag} testID="selectCountry">
-            <Image source={getFlagIcon()} style={styles.flagIcon} testID="flag" />
+          <TouchableOpacity onPress={onSelectCountryPress} style={styles.countryFlag} testID="select-country">
+            <Image source={getFlagIcon()} style={styles.flagIcon} testID={`flag-${LocalisationService.userCountry}`} />
           </TouchableOpacity>
         </View>
 
@@ -76,7 +76,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
         </View>
 
         <View style={styles.nextButtonContainer}>
-          <BrandedButton testID="createAccount" style={styles.nextButton} onPress={onNextButtonPress}>
+          <BrandedButton testID="create-account" style={styles.nextButton} onPress={onNextButtonPress}>
             {i18n.t('welcome.tell-me-more')}
           </BrandedButton>
         </View>

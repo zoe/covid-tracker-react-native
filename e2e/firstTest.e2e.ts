@@ -1,74 +1,86 @@
-import { by, expect, element, init, device } from 'detox';
+import { by, device, element, expect, init } from 'detox';
 
-describe('Welcome page content', () => {
-  beforeAll(async () => {
-    // Required to dismiss the permissions popup
-    // await device.launchApp({newInstance: true, permissions: {notifications: 'YES'}});
-    await device.launchApp();
-  });
+const countries = ['GB', 'SE', 'US'];
 
-  beforeEach(async () => {
-    if (typeof device == 'undefined') {
-      await init();
-    }
-    await device.reloadReactNative();
-  });
+beforeAll(async () => {
+  await device.launchApp();
+});
 
+// beforeEach(async () => {
+//   if (typeof device === 'undefined') {
+//     await init();
+//   }
+//   await device.reloadReactNative();
+// });
+
+// Test the flows on the non-authenticated part of the application
+
+describe('Test the welcome screen', () => {
   it('should show a map', async () => {
     await expect(element(by.id('map'))).toBeVisible();
   });
 
   it('should show a login button', async () => {
-    await expect(element(by.id('loginLink'))).toBeVisible();
+    await expect(element(by.id('login-link'))).toBeVisible();
   });
 
-  it('should show a selectCountry button, which on tap shows 3 flag options', async () => {
-    await expect(element(by.id('selectCountry'))).toBeVisible();
-    await element(by.id('selectCountry')).tap();
-    await expect(element(by.text('Select country of residence'))).toExist();
-    await expect(element(by.id('selectCountryUS'))).toBeVisible();
-    await expect(element(by.id('selectCountryGB'))).toBeVisible();
-    await expect(element(by.id('selectCountrySE'))).toBeVisible();
-  });
-
-  it('should show correct text on welcome screen', async () => {
-    await expect(element(by.text('Take 1 minute each day and help fight the outbreak in your community.'))).toExist();
+  it('should show a select country button', async () => {
+    await expect(element(by.id('select-country'))).toBeVisible();
   });
 
   it('should show a create account button', async () => {
-    await expect(element(by.id('createAccount'))).toExist();
+    await expect(element(by.id('create-account'))).toExist();
   });
 });
 
-describe('Login from welcome page', () => {
-  beforeAll(async () => {
-    await device.launchApp();
+describe('Test the select country screen', () => {
+  it('should open the select country screen', async () => {
+    await expect(element(by.id('select-country'))).toBeVisible();
+    await element(by.id('select-country')).tap();
   });
 
-  beforeEach(async () => {
-    if (typeof device == 'undefined') {
-      await init();
+  it('should show all the select country buttons', async () => {
+    for (const country of countries) {
+      // eslint-disable-next-line no-await-in-loop
+      await expect(element(by.id(`select-country-${country}`))).toBeVisible();
     }
-    await device.reloadReactNative();
   });
 
-  it('should show a login button which links to login page with header, email/password/submit inputs', async () => {
-    await expect(element(by.id('loginLink'))).toBeVisible();
-    await element(by.id('loginLink')).tap();
-    await expect(element(by.id('loginPageHeaderText'))).toBeVisible();
-    await expect(element(by.id('loginInputEmail'))).toBeVisible();
-    await expect(element(by.id('loginInputPassword'))).toBeVisible();
-    await expect(element(by.id('loginButton'))).toBeVisible();
+  it('should go to the login screen after clicking the back button', async () => {
+    await element(by.id('basic-nav-header-button')).tap();
+    await expect(element(by.id('select-country'))).toExist();
   });
 
-  it('should login to staging with dummy data', async () => {
-    await element(by.id('loginLink')).tap();
-    // This connects/logs in to staging directly.
-    // Still undecided if this is good strategy or not
-    // e2e test is about testing flow, so failures on staging, backend, don't necessarily need isolating
-    await element(by.id('loginInputEmail')).typeText('detox@joinzoe.com');
-    await element(by.id('loginInputPassword')).typeText('password');
-    await element(by.id('loginButton')).tap();
-    await expect(element(by.text("Report today, even if you're well"))).toBeVisible();
+  countries.reverse().forEach((country) => {
+    it(`should change the country to ${country}`, async () => {
+      await element(by.id('select-country')).tap();
+      await element(by.id(`select-country-${country}`)).tap();
+      await expect(element(by.id(`flag-${country}`))).toBeVisible();
+    });
+  });
+});
+
+describe('Test the login screen', () => {
+  it('should open, close and open the login screen', async () => {
+    await expect(element(by.id('login-link'))).toBeVisible();
+    await element(by.id('login-link')).tap();
+    await element(by.id('basic-nav-header-button')).tap();
+    await element(by.id('login-link')).tap();
+  });
+
+  test('that the inputs and submit button is visible', async () => {
+    await expect(element(by.id('login-input-email'))).toBeVisible();
+    await expect(element(by.id('login-input-password'))).toBeVisible();
+    await expect(element(by.id('login-button'))).toBeVisible();
+  });
+
+  // @todo: Test that the submit button is only enabled when both inputs are filled in.
+  // it("shouldn't be possible to submit the button with an empty input", async () => {
+  //   await element(by.id('login-button'));
+  // });
+
+  it('should be able to fill in the input fields', async () => {
+    await element(by.id('login-input-email')).typeText('test@joinzoe.com');
+    await element(by.id('login-input-password')).typeText('manymuffins');
   });
 });

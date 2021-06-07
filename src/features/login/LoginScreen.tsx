@@ -86,7 +86,7 @@ function LoginScreen({ route }: IProps) {
         <Item floatingLabel error={hasErrors} style={styles.item}>
           <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
           <Input
-            testID="loginInputEmail"
+            testID="login-input-email"
             autoCapitalize="none"
             autoCompleteType="email"
             blurOnSubmit={false}
@@ -101,7 +101,7 @@ function LoginScreen({ route }: IProps) {
         <Item floatingLabel error={hasErrors} style={styles.item}>
           <Label style={styles.labelStyle}>{i18n.t('login.password-label')}</Label>
           <Input
-            testID="loginInputPassword"
+            testID="login-input-password"
             secureTextEntry
             onChangeText={(password) => {
               setPass(password);
@@ -113,7 +113,7 @@ function LoginScreen({ route }: IProps) {
           />
         </Item>
 
-        <BrandedButton loading={loading} enable={isValid && !loading} onPress={handleLogin} style={styles.button} testID="loginButton">
+        <BrandedButton loading={loading} enable={isValid && !loading} onPress={handleLogin} style={styles.button} testID="login-button">
           <Text>{i18n.t('login.button')}</Text>
         </BrandedButton>
 

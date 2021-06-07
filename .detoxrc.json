@@ -3,7 +3,7 @@
   "runnerConfig": "e2e/config.json",
   "configurations": {
     "ios.sim.release": {
-      "binaryPath": "./build/covid-zoe Stage.app",
+      "binaryPath": "./build/covid-zoe Debug.app",
       "build": "fastlane ios build env:stage",
       "type": "ios.simulator",
       "device": {
@@ -11,7 +11,7 @@
       }
     },
     "ios.release": {
-      "binaryPath": "./build/covid-zoe Stage.app",
+      "binaryPath": "./build/covid-zoe Debug.app",
       "build": "xcodebuild -workspace ios/Covid.xcworkspace -configuration release -scheme 'Covid Release' -sdk iphonesimulator -derivedDataPath ios/build",
       "type": "ios.simulator",
       "name": "iPhone X"

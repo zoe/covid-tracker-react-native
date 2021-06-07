@@ -6,6 +6,7 @@ import {
   isGBCountry,
   isSECountry,
   isUSCountry,
+  LocalisationService,
 } from '@covid/core/localisation/LocalisationService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -76,7 +77,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
                 {i18n.t('welcome.sign-in')}
               </ClickableText>
               <TouchableOpacity onPress={() => navigation.navigate('CountrySelect')} testID="selectCountry">
-                <Image source={getFlagIcon()} style={styles.flagIcon} testID="flag" />
+                <Image source={getFlagIcon()} style={styles.flagIcon} testID={`flag-${LocalisationService.userCountry}`} />
               </TouchableOpacity>
             </View>
             <View>
@@ -132,7 +133,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
       />
 
       <View style={styles.buttonContainer}>
-        <BrandedButton onPress={onCreateAccountPress} testID="createAccount">
+        <BrandedButton onPress={onCreateAccountPress} testID="create-account">
           {i18n.t('welcome.create-account')}
         </BrandedButton>
       </View>
