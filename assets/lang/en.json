@@ -1,11 +1,11 @@
 {
   "continue": "Continue",
   "loading": "Loading",
+  "log-in": "Log in",
 
   "create-account": {
     "title": "Create new account",
     "btn": "Create account",
-    "login": "Log in",
     "existing-account": "to existing account.",
     "email": "Your email",
     "password": "Create password",
@@ -26,7 +26,6 @@
     "dont-have-account": "Don't have an account?",
     "create-account": "Create account",
     "forgot-your-password": "Forgot your password?",
-    "button": "Log in",
     "user-not-found-exception": "We couldn't identify you. Please try again.",
     "exception": "Unable to log in. Please try again."
   },
@@ -55,7 +54,6 @@
 
   "welcome": {
     "title": "COVID Symptom Study",
-    "sign-in": "Log in",
     "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
     "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
     "disclaimer-link": "visit the NHS website",
@@ -96,7 +94,6 @@
   "next-question": "Next question",
   "completed": "Done",
   "something-went-wrong": "Something went wrong, please try again later",
-  "choose-one-of-these-options": "Choose one of the options",
 
   "your-work": {
     "worked-hospital-inpatient": "Hospital inpatient",

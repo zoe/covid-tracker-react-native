@@ -82,7 +82,7 @@ function LoginScreen({ route }: IProps) {
   return (
     <BasicPage style={styling.backgroundWhite} withFooter={false}>
       <View style={styles.contentWrapper}>
-        <HeaderLightText testID="loginPageHeaderText">{i18n.t('login.title')}</HeaderLightText>
+        <HeaderLightText testID="login-page-header-text">{i18n.t('login.title')}</HeaderLightText>
         <Item floatingLabel error={hasErrors} style={styles.item}>
           <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
           <Input
@@ -114,7 +114,7 @@ function LoginScreen({ route }: IProps) {
         </Item>
 
         <BrandedButton loading={loading} enable={isValid && !loading} onPress={handleLogin} style={styles.button} testID="login-button">
-          <Text>{i18n.t('login.button')}</Text>
+          <Text>{i18n.t('log-in')}</Text>
         </BrandedButton>
 
         <View style={styles.textWrapper}>

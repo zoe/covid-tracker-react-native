@@ -16,9 +16,9 @@ export default function BrandedButton(props: IProps) {
       accessibilityRole="button"
       activeOpacity={0.6}
       disabled={props.enable === false}
-      testID={props.testID ?? 'buttonTestID'}
       onPress={props.enable === false ? undefined : props.onPress}
       style={[props.enable === false ? styles.buttonDisabled : styles.button, props.style]}
+      testID={props.testID ?? 'button-test-ID'}
     >
       {props.loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}
       <Text style={[fontStyles.bodyLight, styles.text]}>{props.children}</Text>

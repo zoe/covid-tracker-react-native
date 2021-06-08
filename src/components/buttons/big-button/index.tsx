@@ -29,7 +29,7 @@ const buttonStyles = StyleSheet.create({
 
 function BigButton(props: IProps) {
   return (
-    <TouchableOpacity onPress={props.onPress} testID="buttonTestID">
+    <TouchableOpacity onPress={props.onPress} testID="button-test-ID">
       <View style={buttonStyles.bigButton}>
         <Text style={buttonStyles.buttonText}>{props.children}</Text>
       </View>

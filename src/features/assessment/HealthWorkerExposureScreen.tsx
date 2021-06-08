@@ -142,11 +142,11 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     ];
 
     if (isAndroid) {
-      equipmentUsageOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-      availabilityAlwaysOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-      availabilitySometimesOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-      availabilityNeverOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-      patientInteractionOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
+      equipmentUsageOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
+      availabilityAlwaysOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
+      availabilitySometimesOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
+      availabilityNeverOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
+      patientInteractionOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
     }
 
     return (

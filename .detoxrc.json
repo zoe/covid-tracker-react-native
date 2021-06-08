@@ -7,14 +7,14 @@
       "build": "fastlane ios build env:stage",
       "type": "ios.simulator",
       "device": {
-        "type": "iPhone 8"
+        "type": "iPhone 11"
       }
     },
     "ios.release": {
       "binaryPath": "./build/covid-zoe Debug.app",
       "build": "xcodebuild -workspace ios/Covid.xcworkspace -configuration release -scheme 'Covid Release' -sdk iphonesimulator -derivedDataPath ios/build",
       "type": "ios.simulator",
-      "name": "iPhone X"
+      "name": "iPhone 11"
     }
   }
 }

@@ -19,7 +19,7 @@ export interface IVaccineNameQuestion<P, Data> extends React.FC<P> {
 
 export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData> = (props: IProps) => {
   const gbVaccineOptions = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
+    { label: i18n.t('label-chose-an-option'), value: '' },
     { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
     { label: vaccineBrandDisplayName[VaccineBrands.ASTRAZENECA], value: VaccineBrands.ASTRAZENECA },
     { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
@@ -27,7 +27,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
   ];
 
   const seVaccineOptions = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
+    { label: i18n.t('label-chose-an-option'), value: '' },
     { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
     { label: vaccineBrandDisplayName[VaccineBrands.ASTRAZENECA], value: VaccineBrands.ASTRAZENECA },
     { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
@@ -35,7 +35,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
   ];
 
   const usVaccineOptions = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
+    { label: i18n.t('label-chose-an-option'), value: '' },
     { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
     { label: vaccineBrandDisplayName[VaccineBrands.JOHNSON], value: VaccineBrands.JOHNSON },
     { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
@@ -45,7 +45,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
   const nameOptions = isGBCountry() ? gbVaccineOptions : isSECountry() ? seVaccineOptions : usVaccineOptions;
 
   const descriptionOptions = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
+    { label: i18n.t('label-chose-an-option'), value: '' },
     // mRNA doesn't need translation
     { label: 'mRNA', value: 'mrna' },
     { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'not_sure' },

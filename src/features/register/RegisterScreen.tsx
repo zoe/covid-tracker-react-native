@@ -151,7 +151,7 @@ class RegisterScreen extends Component<PropsType, State> {
                       <RegularText>
                         {i18n.t('create-account.if-you-have-an-account')}{' '}
                         <ClickableText onPress={() => this.props.navigation.navigate('Login')}>
-                          {i18n.t('create-account.login')}
+                          {i18n.t('log-in')}
                         </ClickableText>
                       </RegularText>
                     </View>
@@ -215,7 +215,7 @@ class RegisterScreen extends Component<PropsType, State> {
                   {this.state.accountExists ? (
                     <View style={styles.nextAction}>
                       <RegularText style={{ textAlign: 'center' }}>
-                        <ClickableText onPress={this.gotoLogin}>{i18n.t('create-account.login')}</ClickableText>{' '}
+                        <ClickableText onPress={this.gotoLogin}>{i18n.t('log-in')}</ClickableText>{' '}
                         {i18n.t('create-account.existing-account')}
                       </RegularText>
                     </View>

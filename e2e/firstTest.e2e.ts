@@ -1,17 +1,29 @@
 import { by, device, element, expect, init } from 'detox';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs();
+// eslint-disable-next-line no-console
+console.disableYellowBox = true;
 
 const countries = ['GB', 'SE', 'US'];
+const username = 'test@joinzoe.com';
+const password = 'manymuffins';
+
+async function sleep(milliseconds: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}
 
 beforeAll(async () => {
   await device.launchApp();
 });
 
-// beforeEach(async () => {
-//   if (typeof device === 'undefined') {
-//     await init();
-//   }
-//   await device.reloadReactNative();
-// });
+beforeEach(async () => {
+  if (typeof device === 'undefined') {
+    await init();
+  }
+});
 
 // Test the flows on the non-authenticated part of the application
 
@@ -29,7 +41,7 @@ describe('Test the welcome screen', () => {
   });
 
   it('should show a create account button', async () => {
-    await expect(element(by.id('create-account'))).toExist();
+    await expect(element(by.id('create-account-1'))).toExist();
   });
 });
 
@@ -60,6 +72,17 @@ describe('Test the select country screen', () => {
   });
 });
 
+describe('Test the register screen', () => {
+  it('should open the register screen', async () => {
+    await element(by.id('create-account-1')).tap();
+    await element(by.id('create-account-2')).tap();
+    // @todo: The current picker component does not support the testID property.
+    // await element(by.id('country-picker')).tap();
+    // await element(by.id('picker-item-GB')).tap();
+    await device.reloadReactNative();
+  });
+});
+
 describe('Test the login screen', () => {
   it('should open, close and open the login screen', async () => {
     await expect(element(by.id('login-link'))).toBeVisible();
@@ -80,7 +103,11 @@ describe('Test the login screen', () => {
   // });
 
   it('should be able to fill in the input fields', async () => {
-    await element(by.id('login-input-email')).typeText('test@joinzoe.com');
-    await element(by.id('login-input-password')).typeText('manymuffins');
+    await element(by.id('login-input-email')).typeText(username);
+    await element(by.id('login-input-password')).typeText(password);
+  });
+
+  it('should login the user', async () => {
+    await element(by.id('login-button')).tap();
   });
 });

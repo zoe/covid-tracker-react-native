@@ -149,7 +149,7 @@ export function DropdownField({
           style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}
         >
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
-            {selectedLabel ?? i18n.t('choose-one-of-these-options')}
+            {selectedLabel ?? i18n.t('label-chose-an-option')}
           </Label>
           <DropdownIcon />
         </View>

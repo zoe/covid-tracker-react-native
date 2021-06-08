@@ -61,10 +61,10 @@ export function CountrySelectScreen(props: IProps) {
         <View style={styles.flagRow}>
           {countries.map((country, index) => (
             <TouchableOpacity
-              testID={`selectCountry${country.code}`}
               key={`country-${country.code}`}
               onPress={() => selectCountry(country.code)}
               style={index !== 0 ? [styling.flex, styling.marginLeft] : styling.flex}
+              testID={`select-country-${country.code}`}
             >
               <Image resizeMode="contain" source={country.source} style={styling.fullWidth} />
             </TouchableOpacity>

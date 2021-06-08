@@ -34,6 +34,7 @@ export default function BasicNavHeader(props: IProps) {
             iconName="arrow_back_ios"
             iconStyle={styles.icon}
             onPress={() => goBack()}
+            testID="basic-nav-header-button"
           />
         </View>
         {props.children ? <View>{props.children}</View> : null}

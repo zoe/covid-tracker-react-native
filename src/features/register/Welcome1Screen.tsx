@@ -57,8 +57,8 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Image source={getMapImage()} style={styles.mapImage} testID="map" />
         <View style={styles.loginContainer}>
-          <ClickableText testID="login-link" style={styles.login} onPress={onLoginPress}>
-            {i18n.t('welcome.sign-in')}
+          <ClickableText onPress={onLoginPress} style={styles.login} testID="login-link">
+            {i18n.t('log-in')}
           </ClickableText>
           <View style={styles.pipe} />
           <TouchableOpacity onPress={onSelectCountryPress} style={styles.countryFlag} testID="select-country">
@@ -76,7 +76,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
         </View>
 
         <View style={styles.nextButtonContainer}>
-          <BrandedButton testID="create-account" style={styles.nextButton} onPress={onNextButtonPress}>
+          <BrandedButton onPress={onNextButtonPress} style={styles.nextButton} testID="create-account-1">
             {i18n.t('welcome.tell-me-more')}
           </BrandedButton>
         </View>

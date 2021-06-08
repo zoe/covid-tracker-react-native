@@ -14,7 +14,7 @@ describe('branded-button tests', () => {
     const onPress = jest.fn();
     const { getByTestId } = render(<BrandedButton onPress={onPress}>This is a branded button</BrandedButton>);
     expect(onPress).toHaveBeenCalledTimes(0);
-    const button = getByTestId('buttonTestID');
+    const button = getByTestId('button-test-ID');
     fireEvent.press(button);
     expect(onPress).toHaveBeenCalledTimes(1);
   });
@@ -28,7 +28,7 @@ describe('branded-button tests', () => {
     );
     expect(onPress).toHaveBeenCalledTimes(0);
     try {
-      fireEvent.press(getByTestId('buttonTestID'));
+      fireEvent.press(getByTestId('button-test-ID'));
     } catch (_) {}
     expect(onPress).toHaveBeenCalledTimes(0);
   });
@@ -41,6 +41,6 @@ describe('branded-button tests', () => {
         This is a branded button
       </BrandedButton>,
     );
-    expect(getByTestId('buttonTestID').props.style.background).toBe('red');
+    expect(getByTestId('button-test-ID').props.style.background).toBe('red');
   });
 });

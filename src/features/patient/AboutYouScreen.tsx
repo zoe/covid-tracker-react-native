@@ -324,21 +324,21 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   render() {
     const currentPatient = this.coordinator.patientData.patientState;
     const sexAtBirthItems = [
-      { label: i18n.t('choose-one-of-these-options'), value: '' },
+      { label: i18n.t('label-chose-an-option'), value: '' },
       { label: i18n.t('sex-at-birth-male'), value: 'male' },
       { label: i18n.t('sex-at-birth-female'), value: 'female' },
       { label: i18n.t('sex-at-birth-intersex'), value: 'intersex' },
       { label: i18n.t('sex-at-birth-pfnts'), value: 'pfnts' },
     ];
     const genderIdentityItems = [
-      { label: i18n.t('choose-one-of-these-options'), value: '' },
+      { label: i18n.t('label-chose-an-option'), value: '' },
       { label: i18n.t('gender-identity-male'), value: 'male' },
       { label: i18n.t('gender-identity-female'), value: 'female' },
       { label: i18n.t('gender-identity-pfnts'), value: 'pfnts' },
       { label: i18n.t('gender-identity-other'), value: 'other' },
     ];
     const everExposedItems = [
-      { label: i18n.t('choose-one-of-these-options'), value: '' },
+      { label: i18n.t('label-chose-an-option'), value: '' },
       { label: i18n.t('exposed-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('exposed-yes-undocumented'), value: 'yes_suspected' },
       { label: i18n.t('exposed-both'), value: 'yes_documented_suspected' },

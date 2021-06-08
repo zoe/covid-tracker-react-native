@@ -1,20 +1,20 @@
-import { cleanup, init } from 'detox';
-import * as adapter from 'detox/runners/jest/adapter';
+// import { cleanup, init } from 'detox';
+// import * as adapter from 'detox/runners/jest/adapter';
 
-const config = require('../package.json').detox;
+// const config = require('../package.json').detox;
 
-jest.setTimeout(120000);
-jasmine.getEnv().addReporter(adapter);
+// jest.setTimeout(120000);
+// jasmine.getEnv().addReporter(adapter);
 
-beforeAll(async () => {
-  await init(config, { initGlobals: false });
-});
+// beforeAll(async () => {
+//   await init(config, { initGlobals: false });
+// });
 
-beforeEach(async () => {
-  await adapter.beforeEach();
-});
+// beforeEach(async () => {
+//   await adapter.beforeEach();
+// });
 
-afterAll(async () => {
-  await adapter.afterAll();
-  await cleanup();
-});
+// afterAll(async () => {
+//   await adapter.afterAll();
+//   await cleanup();
+// });

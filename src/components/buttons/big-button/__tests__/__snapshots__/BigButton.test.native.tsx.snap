@@ -8,7 +8,7 @@ exports[`Button should match snapshot 1`] = `
   onGestureHandlerStateChange={[Function]}
   onHandlerStateChange={[Function]}
   rippleColor={0}
-  testID="buttonTestID"
+  testID="button-test-ID"
 >
   <View
     accessible={true}

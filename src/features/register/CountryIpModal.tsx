@@ -75,7 +75,13 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
 
   const renderItem = useCallback(
     (i: Item) => (
-      <Picker.Item color={i.value ? undefined : colors.tertiary} key={key(i)} label={i.label} value={i.value} />
+      <Picker.Item
+        color={i.value ? undefined : colors.tertiary}
+        key={key(i)}
+        label={i.label}
+        testID={`picker-item-${i.value || 'none'}`}
+        value={i.value}
+      />
     ),
     [colors.tertiary],
   );
@@ -87,14 +93,14 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
   ];
 
   if (isAndroid) {
-    items.unshift({ label: i18n.t('choose-one-of-these-options'), value: CountryCode.NONE });
+    items.unshift({ label: i18n.t('label-chose-an-option'), value: CountryCode.NONE });
   }
 
   return (
     <Modal transparent animationType="fade" visible={isModalVisible}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <TouchableOpacity onPress={closeModal} style={{ alignSelf: 'flex-end' }} testID="closeModal">
+          <TouchableOpacity onPress={closeModal} style={{ alignSelf: 'flex-end' }} testID="close-modal">
             <Image source={closeIcon} />
           </TouchableOpacity>
           <RegularText style={styles.titleText}>{i18n.t('your-country-title')}</RegularText>
@@ -105,9 +111,9 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
             <Picker
               iosIcon={<Icon name="arrow-down" />}
               onValueChange={onValueChange}
-              placeholder={i18n.t('choose-one-of-these-options')}
+              placeholder={i18n.t('label-chose-an-option')}
               selectedValue={countrySelected}
-              testID="countryPicker"
+              testID="country-picker"
             >
               {items.map(renderItem)}
             </Picker>
