@@ -82,7 +82,7 @@ export const fetchStartUpInfo = createAsyncThunk('content/startup_info', async (
   const serviceData = await service.getStartupInfo();
   return {
     personalizedLocalData: service.localData,
-    startupInfo: (await service.getStartupInfo()) ?? undefined,
+    startupInfo: serviceData,
   };
 });
 
