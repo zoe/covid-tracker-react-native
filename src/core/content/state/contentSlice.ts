@@ -77,6 +77,9 @@ export const fetchDismissedCallouts = createAsyncThunk('content/dismissed_callou
 
 export const fetchStartUpInfo = createAsyncThunk('content/startup_info', async (): Promise<Partial<ContentState>> => {
   const service = container.get<IContentService>(Services.Content);
+  // TODO: refactor the ContentService - localData is a property set async on the class within getStartupInfo() (line 107)
+  // TICKET: https://www.notion.so/joinzoe/Refactor-ContentService-7ea01969fff54f8299d53f95f05dcb6d
+  const serviceData = await service.getStartupInfo();
   return {
     personalizedLocalData: service.localData,
     startupInfo: (await service.getStartupInfo()) ?? undefined,
