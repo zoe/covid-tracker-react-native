@@ -2,12 +2,13 @@ import { closeIcon } from '@assets';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
-import { Header3Text, HeaderText, SecondaryText } from '@covid/components/Text';
+import { ClickableText, Header3Text, HeaderText, SecondaryText } from '@covid/components/Text';
 import { Text } from '@covid/components/typography';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
+import { openWebLink } from '@covid/utils/links';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
@@ -116,10 +117,9 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
           </TouchableOpacity>
           <Header3Text style={styles.question}>{i18n.t('pcr-test.question-interest')}</Header3Text>
           <SecondaryText style={styles.description}>{i18n.t('pcr-test.description')}</SecondaryText>
-
-          <TouchableOpacity>
-            <Text>{i18n.t('pcr-test.learn-more')}</Text>
-          </TouchableOpacity>
+          <ClickableText onPress={() => openWebLink(i18n.t('pcr-test.pcr-link'))}>
+            {i18n.t('pcr-test.learn-more')}
+          </ClickableText>
         </View>
       </BottomSheet>
     </Screen>
