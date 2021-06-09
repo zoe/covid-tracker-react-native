@@ -111,7 +111,7 @@ function LoginScreen({ route }: IProps) {
           />
         </Item>
 
-        <BrandedButton loading={loading} enable={isValid && !loading} onPress={handleLogin} style={styles.button}>
+        <BrandedButton enable={isValid && !loading} loading={loading} onPress={handleLogin} style={styles.button}>
           <Text>{i18n.t('login.button')}</Text>
         </BrandedButton>
 

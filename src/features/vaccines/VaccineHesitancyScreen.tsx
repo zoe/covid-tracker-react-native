@@ -14,7 +14,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
-import { Form, Text } from 'native-base';
+import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';

@@ -107,7 +107,7 @@ export default React.memo(function Insights(props: IProps) {
                 },
               )}
             </TextHighlight>
-            <Text inverted colorPalette="uiDark" colorShade="main" textClass="pSmall" style={styles.label}>
+            <Text inverted colorPalette="uiDark" colorShade="main" style={styles.label} textClass="pSmall">
               {i18n.t('mental-health-playback.general.chart-label')}
             </Text>
             <BarChart color="#0165B5" items={insight.answer_distribution} userAnswer={insight.user_answer} />

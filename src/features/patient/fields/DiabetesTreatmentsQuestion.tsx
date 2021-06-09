@@ -5,7 +5,6 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import { Item, Label } from 'native-base';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';

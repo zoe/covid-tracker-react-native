@@ -8,7 +8,7 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { colors, fontStyles } from '@theme';
+import { colors } from '@theme';
 import React, { useEffect, useState } from 'react';
 import { Image, ImageBackground, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 

@@ -19,7 +19,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
-import { Form, Text } from 'native-base';
+import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
