@@ -1,7 +1,8 @@
+import { closeIcon } from '@assets';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
-import { HeaderText } from '@covid/components/Text';
+import { Header3Text, HeaderText, SecondaryText } from '@covid/components/Text';
 import { Text } from '@covid/components/typography';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -10,7 +11,7 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { BottomSheet } from 'react-native-elements';
 
 interface IProps {
@@ -64,6 +65,12 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     }
   };
 
+  // const pcrTestDeclined = () => {
+  //   // console.log('hi');
+  //   setBottomSheetVisible(false);
+  //   handleLocationSelection('home', true);
+  // };
+
   useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
@@ -101,10 +108,15 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
       >
         <View style={styles.bottomSheet}>
           <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
+            <Image source={closeIcon} style={styles.closeIcon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
             <Text>Close</Text>
           </TouchableOpacity>
-          <Text>{i18n.t('pcr-test.question-interest')}</Text>
-          <Text>{i18n.t('pcr-test.description')}</Text>
+          <Header3Text style={styles.question}>{i18n.t('pcr-test.question-interest')}</Header3Text>
+          <SecondaryText style={styles.description}>{i18n.t('pcr-test.description')}</SecondaryText>
+
           <TouchableOpacity>
             <Text>{i18n.t('pcr-test.learn-more')}</Text>
           </TouchableOpacity>
@@ -121,8 +133,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
   },
+  closeIcon: {
+    alignSelf: 'flex-end',
+    height: 20,
+    marginBottom: 20,
+    width: 20,
+  },
   content: {
     marginVertical: 32,
+  },
+  description: {
+    marginBottom: 18,
+  },
+  question: {
+    marginBottom: 32,
   },
 });
 
