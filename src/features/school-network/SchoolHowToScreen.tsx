@@ -55,7 +55,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
         <Button branded onPress={goNext}>
           {i18n.t('school-networks.how-to.cta')}
         </Button>
-        <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.how-to.skip')}</Button>
+        <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('skip')}</Button>
       </View>
     </View>
   );

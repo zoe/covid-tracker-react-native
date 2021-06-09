@@ -8,6 +8,7 @@ import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -32,7 +33,7 @@ export default class ReportForOtherScreen extends Component<RenderProps, object>
   render() {
     return (
       <View style={styles.view}>
-        <SafeAreaView>
+        <SafeAreaView style={styling.flex}>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
               <Header>
@@ -55,14 +56,14 @@ export default class ReportForOtherScreen extends Component<RenderProps, object>
                     assessmentCoordinator.resetToCreateProfile();
                   }}
                 >
-                  <Text>{i18n.t('report-for-others-add-profiles')}</Text>
+                  {i18n.t('report-for-others-add-profiles')}
                 </BrandedButton>
               </View>
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('report-for-others-not-right-now')}</RegularText>
 
               <ClickableText onPress={() => this.handleSkip()} style={styles.done}>
-                {i18n.t('report-for-others-skip')}
+                {i18n.t('skip')}
               </ClickableText>
             </View>
           </ScrollView>
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   rootContainer: {
-    padding: 10,
+    padding: 12,
   },
 
   scrollView: {
@@ -126,5 +127,6 @@ const styles = StyleSheet.create({
 
   view: {
     backgroundColor: colors.backgroundSecondary,
+    flex: 1,
   },
 });

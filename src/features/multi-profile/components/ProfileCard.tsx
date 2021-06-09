@@ -12,43 +12,34 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { GreenTick } from './GreenTick';
 import LastReported from './LastReported';
 
-type Props = {
+type TProps = {
   index: number;
   profile: Profile;
   onEditPressed?: VoidFunction;
+  testID?: string;
 };
 
-export const ProfileCard: React.FC<Props> = (props) => {
-  const { profile } = props;
-  const avatarImage = getAvatarByName(profile.avatar_name as AvatarName);
-  const hasReportedToday = profile.last_reported_at && getDaysAgo(profile.last_reported_at) === 0;
-
-  const getProfileName = () => {
-    const { index } = props;
-    if (isSECountry() && index === 0) {
-      return 'Jag';
-    }
-    return profile.name;
-  };
+export function ProfileCard(props: TProps) {
+  const avatarImage = getAvatarByName(props.profile.avatar_name as AvatarName);
+  const hasReportedToday = props.profile.last_reported_at && getDaysAgo(props.profile.last_reported_at) === 0;
+  const profileName = isSECountry() && props.index === 0 ? 'Jag' : props.profile.name;
 
   return (
-    <Card transparent style={styles.card}>
+    <Card transparent style={styles.card} testID={props.testID}>
       <View style={styles.avatarContainer}>
         {hasReportedToday ? <GreenTick /> : null}
         <Image resizeMode="contain" source={avatarImage} style={styles.avatar} />
       </View>
-      <ClippedText>{getProfileName()}</ClippedText>
-      <LastReported timeAgo={profile.last_reported_at} />
+      <ClippedText>{profileName}</ClippedText>
+      <LastReported timeAgo={props.profile.last_reported_at} />
       {props.onEditPressed ? (
         <TouchableOpacity onPress={props.onEditPressed}>
-          <SecondaryText style={{ color: colors.accent, fontSize: 12, textAlign: 'center' }}>
-            {i18n.t('nav-edit-profile')}
-          </SecondaryText>
+          <SecondaryText style={styles.secondaryText}>{i18n.t('nav-edit-profile')}</SecondaryText>
         </TouchableOpacity>
       ) : null}
     </Card>
   );
-};
+}
 
 const styles = StyleSheet.create({
   avatar: {
@@ -74,4 +65,5 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
   },
+  secondaryText: { color: colors.accent, fontSize: 12, textAlign: 'center' },
 });

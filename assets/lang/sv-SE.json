@@ -2,6 +2,7 @@
   "continue": "Continue",
   "loading": "Loading",
   "log-in": "Logga in",
+  "skip": "Hoppa över",
 
   "create-account": {
     "title": "Skapa nytt konto",
@@ -611,7 +612,6 @@
   "report-for-others-add-profiles": "Lägg till profiler",
   "report-for-others-subtext": "Du kan nu rapportera å någon annans vägnar.",
   "report-for-others-not-right-now": "Inte just nu? Du kan när som helst lägga till ytterligare profiler från menyikonen ovan.",
-  "report-for-others-skip": "Hoppa över",
 
   "select-profile-title-assessment": "Välj den profil du vill rapportera åt",
   "select-profile-title-edit": "Välj den profil du vill redigera",
@@ -1255,8 +1255,7 @@
         "title": "",
         "description": ""
       },
-      "cta": "",
-      "skip": ""
+      "cta": ""
     },
 
     "how-to": {
@@ -1269,8 +1268,7 @@
         "title": "",
         "description": ""
       },
-      "cta": "",
-      "skip": ""
+      "cta": ""
     },
 
     "join-school": {

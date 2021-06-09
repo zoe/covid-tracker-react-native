@@ -56,7 +56,7 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
           <Button branded onPress={goNext}>
             {i18n.t('school-networks.intro.cta')}
           </Button>
-          <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.intro.skip')}</Button>
+          <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('skip')}</Button>
         </View>
       ) : null}
     </View>

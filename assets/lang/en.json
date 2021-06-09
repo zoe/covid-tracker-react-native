@@ -2,6 +2,7 @@
   "continue": "Continue",
   "loading": "Loading",
   "log-in": "Log in",
+  "skip": "Skip",
 
   "create-account": {
     "title": "Create new account",
@@ -666,10 +667,9 @@
   "report-for-others-add-profiles": "Add profiles",
   "report-for-others-subtext": "You can now report on behalf of someone else.",
   "report-for-others-not-right-now": "Not right now? You can add additional profiles from the menu icon above at any time.",
-  "report-for-others-skip": "Skip",
 
-  "select-profile-title-assessment": "Select profile you want to report for",
-  "select-profile-title-edit": "Select profile you want to edit",
+  "select-profile-title-assessment": "Select the profile you want to report for",
+  "select-profile-title-edit": "Select the profile you want to edit",
   "select-profile-text": "Or add more profiles",
   "select-profile-button": "New profile",
   "select-profile-last-report": "Last report:",
@@ -1265,8 +1265,7 @@
         "title": "What you need to do",
         "description": "Connect your child/children’s profile to their School Bubble and report for yourself and for your child/children daily."
       },
-      "cta": "Connect to school network",
-      "skip": "Skip"
+      "cta": "Connect to school network"
     },
 
     "how-to": {
@@ -1279,8 +1278,7 @@
         "title": "New profiles",
         "description": "While creating a new profile, you will find a dropdown labeled “School Network”. Select the school you want to connect to and it will appear on your dashboard once their profile is created."
       },
-      "cta": "View profiles now",
-      "skip": "Skip"
+      "cta": "View profiles now"
     },
 
     "join-school": {

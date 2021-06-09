@@ -2,6 +2,7 @@
   "continue": "Continue",
   "loading": "Loading",
   "log-in": "Iniciar sesión",
+  "skip": "Omitir",
 
   "create-account": {
     "title": "Crear nueva cuenta",
@@ -835,7 +836,6 @@
   "report-for-others-add-profiles": "Agregar perfiles",
   "report-for-others-subtext": "Ahora puede informar en nombre de alguien más.",
   "report-for-others-not-right-now": "¿No ahora? Puede agregar perfiles adicionales en el ícono de menú en cualquier momento.",
-  "report-for-others-skip": "Omitir",
 
   "select-profile-title-assessment": "Seleccione el perfil para el que informará",
   "select-profile-title-edit": "Seleccione el perfil que desea editar",
@@ -1272,8 +1272,7 @@
         "title": "",
         "description": ""
       },
-      "cta": "",
-      "skip": ""
+      "cta": ""
     },
 
     "how-to": {
@@ -1286,8 +1285,7 @@
         "title": "",
         "description": ""
       },
-      "cta": "",
-      "skip": ""
+      "cta": ""
     },
 
     "join-school": {

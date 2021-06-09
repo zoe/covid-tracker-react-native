@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   rootContainer: {
-    padding: 10,
+    padding: 12,
   },
   scrollView: {
     backgroundColor: colors.backgroundSecondary,

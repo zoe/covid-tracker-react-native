@@ -102,7 +102,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     Register: () => {
       const config = appCoordinator.getConfig();
 
-      let askPersonalInfo = config.enablePersonalInformation;
+      let askPersonalInfo = config?.enablePersonalInformation;
       if (isUSCountry() && ConsentService.consentSigned.document !== 'US Nurses') {
         askPersonalInfo = false;
       }
@@ -182,7 +182,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     }
   }
 
-  getConfig(): ConfigType {
+  getConfig(): ConfigType | null {
     return this.localisationService.getConfig();
   }
 

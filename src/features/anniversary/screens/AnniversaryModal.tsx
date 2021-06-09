@@ -13,6 +13,8 @@ import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
+// @todo: Localise this file.
+
 export default function AnniversaryModal() {
   const { goBack } = useNavigation();
   const dispatch = useDispatch();
@@ -74,6 +76,7 @@ export default function AnniversaryModal() {
           accessibilityRole="button"
           onPress={() => handleViewTimeline(true)}
           style={[styles.button, { backgroundColor: '#0165B5' }]}
+          testID="touchable-positive"
         >
           <Text style={{ color: 'white' }} textClass="pSmallLight">
             Discover your timeline
@@ -84,6 +87,7 @@ export default function AnniversaryModal() {
           accessibilityRole="button"
           onPress={() => handleViewTimeline(false)}
           style={[styles.button, { backgroundColor: 'white' }]}
+          testID="touchable-negative"
         >
           <Text textClass="pSmallLight">Skip</Text>
         </TouchableOpacity>

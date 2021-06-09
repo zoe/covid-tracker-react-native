@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.backgroundTertiary,
     borderRadius: 8,
-    padding: 10,
+    padding: 12,
   },
   selectedDay: {
     backgroundColor: colors.lightBlueBrand,
