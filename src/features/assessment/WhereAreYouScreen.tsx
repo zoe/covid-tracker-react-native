@@ -66,11 +66,11 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     }
   };
 
-  // const pcrTestDeclined = () => {
-  //   // console.log('hi');
-  //   setBottomSheetVisible(false);
-  //   handleLocationSelection('home', true);
-  // };
+  const pcrTestDeclined = () => {
+    console.log('hi');
+    setBottomSheetVisible(false);
+    handleLocationSelection('home', true);
+  };
 
   useEffect(() => {
     setIsSubmitting(false);
@@ -108,7 +108,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
         modalProps={{ animationType: 'slide' }}
       >
         <View style={styles.bottomSheet}>
-          <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
+          <TouchableOpacity onPress={() => pcrTestDeclined()}>
             <Image source={closeIcon} style={styles.closeIcon} />
           </TouchableOpacity>
 
