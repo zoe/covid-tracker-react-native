@@ -94,21 +94,33 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
         />
       </View>
 
-      <BottomSheet isVisible={bottomSheetVisible} modalProps={{ animationType: 'slide' }}>
-        <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
-          <Text>Close</Text>
-        </TouchableOpacity>
-        <Text>{i18n.t('pcr-test.question-interest')}</Text>
-        <Text>{i18n.t('pcr-test.description')}</Text>
-        <TouchableOpacity>
-          <Text>{i18n.t('pcr-test.learn-more')}</Text>
-        </TouchableOpacity>
+      <BottomSheet
+        containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+        isVisible={bottomSheetVisible}
+        modalProps={{ animationType: 'slide' }}
+      >
+        <View style={styles.bottomSheet}>
+          <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
+            <Text>Close</Text>
+          </TouchableOpacity>
+          <Text>{i18n.t('pcr-test.question-interest')}</Text>
+          <Text>{i18n.t('pcr-test.description')}</Text>
+          <TouchableOpacity>
+            <Text>{i18n.t('pcr-test.learn-more')}</Text>
+          </TouchableOpacity>
+        </View>
       </BottomSheet>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  bottomSheet: {
+    backgroundColor: '#f7f7f7',
+    paddingBottom: 45,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
   content: {
     marginVertical: 32,
   },
