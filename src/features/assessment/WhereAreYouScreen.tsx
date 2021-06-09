@@ -1,4 +1,5 @@
 import { closeIcon } from '@assets';
+import { BrandedButton } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
@@ -11,6 +12,7 @@ import { assessmentService } from '@covid/Services';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { BottomSheet } from 'react-native-elements';
@@ -67,7 +69,6 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
   };
 
   const pcrTestDeclined = () => {
-    console.log('hi');
     setBottomSheetVisible(false);
     handleLocationSelection('home', true);
   };
@@ -111,15 +112,22 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
           <TouchableOpacity onPress={() => pcrTestDeclined()}>
             <Image source={closeIcon} style={styles.closeIcon} />
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
             <Text>Close</Text>
           </TouchableOpacity>
           <Header3Text style={styles.question}>{i18n.t('pcr-test.question-interest')}</Header3Text>
           <SecondaryText style={styles.description}>{i18n.t('pcr-test.description')}</SecondaryText>
-          <ClickableText onPress={() => openWebLink(i18n.t('pcr-test.pcr-link'))}>
+          <ClickableText
+            onPress={() => {
+              console.log('learn more');
+            }}
+            style={styles.learnMore}
+          >
             {i18n.t('pcr-test.learn-more')}
           </ClickableText>
+          <BrandedButton onPress={() => openWebLink(i18n.t('pcr-test.pcr-link'))} style={styles.bookTestButton}>
+            {i18n.t('pcr-test.book-test')}
+          </BrandedButton>
         </View>
       </BottomSheet>
     </Screen>
@@ -127,8 +135,11 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
 }
 
 const styles = StyleSheet.create({
+  bookTestButton: {
+    backgroundColor: colors.purple,
+  },
   bottomSheet: {
-    backgroundColor: '#f7f7f7',
+    backgroundColor: colors.backgroundSecondary,
     paddingBottom: 45,
     paddingHorizontal: 20,
     paddingTop: 20,
@@ -144,6 +155,11 @@ const styles = StyleSheet.create({
   },
   description: {
     marginBottom: 18,
+  },
+  learnMore: {
+    color: colors.secondary,
+    marginBottom: 50,
+    textDecorationLine: 'underline',
   },
   question: {
     marginBottom: 32,
