@@ -473,7 +473,7 @@
     "q4-info-1": "Please only consider symptoms that are not explained by another reason.",
     "q4-info-2": "If you are unsure if you had COVID-19, please answer regarding the 12 weeks (or more) after you think you caught it.",
     "q4-info-3": "Select all that apply",
-    
+
     "q4": "Problems thinking and communicating e.g. brain-fog, memory problems, difficulty concentrating, decreased alertness, confusion, difficulty speaking",
     "q5": "Mood changes, e.g. anxiety, feeling ‘down’, or irritable",
     "q6": "Poor or excessive sleep",
@@ -542,6 +542,12 @@
     "picker-location-hospital": "I am at the hospital with suspected COVID-19 symptoms.",
     "picker-location-back-from-hospital": "I am back from the hospital, I'd like to tell you about my treatment.",
     "picker-location-back-from-hospital-already-reported": "I am back from the hospital, I've already told you about my treatment."
+  },
+
+  "pcr-test": {
+    "question-interest": "Would you be interested in a PCR test?",
+    "description": "Whilst your symptoms do not necessarily indicate that you have COVID-19, we would like to offer you a test to discover if you might have the virus.",
+    "learn-more": "Learn more"
   },
 
   "treatment-other-title-after": "What treatment did you receive while in the hospital?",
@@ -1656,7 +1662,7 @@
       "card": "How helpful were these insights to you?",
       "feedback": "Care to share some more feedback?",
       "not-helpful": "Not helpful",
-      "very-helpful": "Very helpful" 
+      "very-helpful": "Very helpful"
     },
     "thank-you": {
       "button": "Close",

@@ -102,6 +102,7 @@
     "react-native-calendar-picker": "6.1.5",
     "react-native-config": "1.4.1",
     "react-native-easy-markdown": "2.0.0",
+    "react-native-elements": "^3.4.1",
     "react-native-fast-image": "8.3.4",
     "react-native-gesture-handler": "1.7.0",
     "react-native-linear-gradient": "2.5.6",

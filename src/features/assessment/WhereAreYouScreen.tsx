@@ -2,6 +2,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText } from '@covid/components/Text';
+import { Text } from '@covid/components/typography';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -9,7 +10,8 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { BottomSheet } from 'react-native-elements';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
@@ -50,6 +52,18 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     }
   };
 
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+
+  const offeredPcrTest = false;
+
+  const offerPcrTest = () => {
+    if (!offeredPcrTest) {
+      setBottomSheetVisible(true);
+    } else {
+      handleLocationSelection('home', true);
+    }
+  };
+
   useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
@@ -65,10 +79,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
       </ProgressBlock>
 
       <View style={styles.content}>
-        <SelectorButton
-          onPress={() => handleLocationSelection('home', true)}
-          text={i18n.t('where-are-you.picker-location-home')}
-        />
+        <SelectorButton onPress={() => offerPcrTest()} text={i18n.t('where-are-you.picker-location-home')} />
         <SelectorButton
           onPress={() => handleLocationSelection('hospital', false)}
           text={i18n.t('where-are-you.picker-location-hospital')}
@@ -82,6 +93,17 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
           text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
         />
       </View>
+
+      <BottomSheet isVisible={bottomSheetVisible} modalProps={{ animationType: 'slide' }}>
+        <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
+          <Text>Close</Text>
+        </TouchableOpacity>
+        <Text>{i18n.t('pcr-test.question-interest')}</Text>
+        <Text>{i18n.t('pcr-test.description')}</Text>
+        <TouchableOpacity>
+          <Text>{i18n.t('pcr-test.learn-more')}</Text>
+        </TouchableOpacity>
+      </BottomSheet>
     </Screen>
   );
 }
