@@ -80,9 +80,7 @@ export class AssessmentCoordinator extends Coordinator {
     OtherSymptoms: () => {
       NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
-    PcrTestLearnMore: () => {
-      NavigatorService.goBack();
-    },
+    PcrTestLearnMore: () => {},
     ProfileBackDate: () => {
       this.startAssessment();
     },

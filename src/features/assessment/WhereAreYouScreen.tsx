@@ -74,6 +74,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
   };
 
   const learnMore = () => {
+    setBottomSheetVisible(false);
     assessmentCoordinator.gotoNextScreen(route.name, { endAssessment: false, location: 'learn_more' });
   };
 
