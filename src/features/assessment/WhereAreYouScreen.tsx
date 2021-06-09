@@ -73,6 +73,10 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     handleLocationSelection('home', true);
   };
 
+  const learnMore = () => {
+    assessmentCoordinator.gotoNextScreen(route.name, { endAssessment: false, location: 'learn_more' });
+  };
+
   useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
@@ -117,12 +121,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
           </TouchableOpacity>
           <Header3Text style={styles.question}>{i18n.t('pcr-test.question-interest')}</Header3Text>
           <SecondaryText style={styles.description}>{i18n.t('pcr-test.description')}</SecondaryText>
-          <ClickableText
-            onPress={() => {
-              console.log('learn more');
-            }}
-            style={styles.learnMore}
-          >
+          <ClickableText onPress={learnMore} style={styles.learnMore}>
             {i18n.t('pcr-test.learn-more')}
           </ClickableText>
           <BrandedButton onPress={() => openWebLink(i18n.t('pcr-test.pcr-link'))} style={styles.bookTestButton}>
