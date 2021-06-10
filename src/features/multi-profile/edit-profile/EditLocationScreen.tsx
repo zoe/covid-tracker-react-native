@@ -131,10 +131,10 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
               <GenericTextField
                 showError
                 formikProps={props}
-                inputProps={{ autoCompleteType: 'postal-code' }}
                 label={i18n.t('edit-profile.location.label')}
                 name="postcode"
                 placeholder={i18n.t('placeholder-postcode')}
+                textInputProps={{ autoCompleteType: 'postal-code' }}
               />
               <YesNoField
                 label={i18n.t('edit-profile.location.not-current-address')}
@@ -152,10 +152,10 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                 <GenericTextField
                   showError
                   formikProps={props}
-                  inputProps={{ autoCompleteType: 'postal-code' }}
                   label={i18n.t('edit-profile.location.other-postcode')}
                   name="currentPostcode"
                   placeholder={i18n.t('placeholder-postcode')}
+                  textInputProps={{ autoCompleteType: 'postal-code' }}
                 />
               ) : null}
               {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' ? (

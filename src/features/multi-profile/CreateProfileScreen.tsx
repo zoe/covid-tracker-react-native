@@ -7,40 +7,34 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
 const initialFormValues = {
   name: '',
 };
 
-interface FormData {
+interface IFormData {
   name: string;
 }
 
-type RenderProps = {
+type TProps = {
   navigation: StackNavigationProp<ScreenParamList, 'CreateProfile'>;
   route: RouteProp<ScreenParamList, 'CreateProfile'>;
 };
 
-export default class CreateProfileScreen extends Component<RenderProps> {
-  constructor(props: RenderProps) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
+export default class CreateProfileScreen extends Component<TProps> {
   registerSchema = Yup.object().shape({
     name: Yup.string().required().max(32, i18n.t('profile-name-too-long')),
   });
 
-  handleClick(formData: FormData) {
+  onSubmit = (values: IFormData) => {
     this.props.navigation.navigate('AdultOrChild', {
       avatarName: this.props.route.params.avatarName,
-      profileName: formData.name,
+      profileName: values.name,
     });
-  }
+  };
 
   render() {
     return (
@@ -50,26 +44,21 @@ export default class CreateProfileScreen extends Component<RenderProps> {
           <SecondaryText>{i18n.t('create-profile-text')}</SecondaryText>
         </Header>
 
-        <Formik
-          initialValues={initialFormValues}
-          onSubmit={(values: FormData) => {
-            return this.handleClick(values);
-          }}
-          validationSchema={this.registerSchema}
-        >
+        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
           {(props) => {
             return (
-              <Form>
-                <View style={{ marginHorizontal: 16 }}>
-                  <GenericTextField
-                    formikProps={props}
-                    name="name"
-                    placeholder={i18n.t('create-profile-placeholder')}
-                  />
-                </View>
+              <View style={styles.view}>
+                <GenericTextField
+                  formikProps={props}
+                  name="name"
+                  placeholder={i18n.t('create-profile-placeholder')}
+                  testID="input-profile-name"
+                />
 
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
-              </Form>
+                <BrandedButton onPress={props.handleSubmit} testID="button-submit">
+                  {i18n.t('create-profile-button')}
+                </BrandedButton>
+              </View>
             );
           }}
         </Formik>
@@ -77,3 +66,10 @@ export default class CreateProfileScreen extends Component<RenderProps> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
+});

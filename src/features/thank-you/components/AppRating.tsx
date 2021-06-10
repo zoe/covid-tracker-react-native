@@ -20,7 +20,7 @@ type State = {
 };
 
 const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id1503529611`;
-const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
+const GBiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
 const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;
 const AndroidLink = `market://details?id=${Constants.expo.android.package}`;
 
@@ -60,7 +60,7 @@ export class AppRating extends Component<PropsType, State> {
     if (Platform.OS !== 'ios') {
       Linking.openURL(AndroidLink);
     } else {
-      const storeLink = isUSCountry() ? USiOSLink : isSECountry() ? SEiOSLink : UKiOSLink;
+      const storeLink = isUSCountry() ? USiOSLink : isSECountry() ? SEiOSLink : GBiOSLink;
       Linking.openURL(storeLink);
     }
     this.setState({ isModalOpen: false });
@@ -77,13 +77,20 @@ export class AppRating extends Component<PropsType, State> {
     </>
   );
 
-  renderActionButtons = (yesLabel: string, yesAction: any, noLabel: string, noAction: any) => (
+  renderActionButtons = (
+    yesTestID: string,
+    yesLabel: string,
+    yesAction: any,
+    noTestID: string,
+    noLabel: string,
+    noAction: any,
+  ) => (
     <View style={styles.actionContainer}>
-      <TouchableOpacity onPress={noAction} style={styles.ratingButton}>
+      <TouchableOpacity onPress={noAction} style={styles.ratingButton} testID={noTestID}>
         <RegularText style={styles.buttonText}>{noLabel}</RegularText>
       </TouchableOpacity>
       <View style={styles.verticalDivider} />
-      <TouchableOpacity onPress={yesAction} style={styles.ratingButton}>
+      <TouchableOpacity onPress={yesAction} style={styles.ratingButton} testID={yesTestID}>
         <RegularText style={styles.buttonText}>{yesLabel}</RegularText>
       </TouchableOpacity>
     </View>
@@ -97,8 +104,10 @@ export class AppRating extends Component<PropsType, State> {
             <>
               {this.renderHeader(i18n.t('rating.rate-this-app'), i18n.t('rating.explanation'))}
               {this.renderActionButtons(
+                'button-rating-rate',
                 i18n.t('rating.cta-rate'),
                 this.takeToStore,
+                'button-rating-later',
                 i18n.t('rating.cta-later'),
                 this.decline,
               )}
@@ -107,8 +116,10 @@ export class AppRating extends Component<PropsType, State> {
             <>
               {this.renderHeader(i18n.t('rating.how-are-we-doing'), i18n.t('rating.would-you-recommend'))}
               {this.renderActionButtons(
+                'button-rating-yes',
                 i18n.t('rating.cta-yes'),
                 this.askToRate,
+                'button-rating-no',
                 i18n.t('rating.cta-no'),
                 this.declineFeedback,
               )}

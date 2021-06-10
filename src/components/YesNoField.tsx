@@ -5,12 +5,13 @@ import { PickerProps } from 'react-native';
 import { ButtonsGroup, ISingleButton } from './inputs/ButtonsGroup';
 
 interface IProps {
-  selectedValue: string;
-  onValueChange: any;
+  error?: any;
   label?: string;
+  onValueChange: any;
   onlyPicker?: boolean;
   pickerProps?: PickerProps;
-  error?: any;
+  selectedValue: string;
+  testID?: string;
 }
 
 const Items = (): ISingleButton[] => [

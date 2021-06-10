@@ -188,7 +188,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       .concat(CovidTestIsRapidQuestion.schema());
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile} testID="covid-test-detail-screen">
         <Header>
           <HeaderText>
             {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}
@@ -239,7 +239,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                   ) : null}
                 </View>
 
-                <BrandedButton enable={!this.state.submitting} onPress={props.handleSubmit}>
+                <BrandedButton enable={!this.state.submitting} onPress={props.handleSubmit} testID="button-submit">
                   {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </Form>

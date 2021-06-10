@@ -64,7 +64,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
       <>
         {this.state.askForRating && <AppRating />}
         <SafeAreaView>
-          <ScrollView contentContainerStyle={styles.scrollView}>
+          <ScrollView contentContainerStyle={styles.scrollView} testID="scroll-view-thank-you-screen">
             <View style={styles.rootContainer}>
               <View style={{ marginTop: 24 }}>
                 <BigGreenTickFilled />
@@ -107,6 +107,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
                 style={styles.ctaSingleProfile}
+                testID="button-back"
               >
                 <RegularText style={styles.ctaSingleProfileText}>
                   {i18n.t('thank-you-uk.cta-single-profile')}

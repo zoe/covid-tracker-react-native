@@ -3,15 +3,16 @@ import { colors } from '@theme';
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
-interface Props extends TextInputProps {
-  error?: any;
+interface IProps extends TextInputProps {
+  error?: boolean;
+  testID?: string;
 }
 
-export class ValidatedTextInput extends Component<Props, object> {
-  private textInput: any;
+export class ValidatedTextInput extends Component<IProps> {
+  private textInput: TextInput | null;
 
   focus() {
-    this.textInput.focus();
+    this.textInput?.focus();
   }
 
   render() {

@@ -233,7 +233,11 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
         <View style={{ flex: 1 }} />
 
-        <BrandedButton onPress={navigateToNextPageOrShowPopup} style={styles.continueButton}>
+        <BrandedButton
+          onPress={navigateToNextPageOrShowPopup}
+          style={styles.continueButton}
+          testID="button-vaccine-list-screen"
+        >
           <Text style={{ color: colors.white }}>
             {vaccines.length === 0
               ? i18n.t('vaccines.vaccine-list.no-vaccine')

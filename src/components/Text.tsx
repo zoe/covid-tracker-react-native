@@ -17,7 +17,7 @@ export const Header0Text = ({ style, children }: Props) => <Text style={[styles.
 export const HeaderText = ({ style, children }: Props) => <Text style={[styles.headerText, style]}>{children}</Text>;
 
 export const HeaderLightText = ({ style, children, testID }: Props) => (
-  <Text testID={testID ?? ''} style={[styles.headerLightText, style]}>
+  <Text style={[styles.headerLightText, style]} testID={testID ?? ''}>
     {children}
   </Text>
 );
@@ -88,7 +88,6 @@ export interface IClickableProps extends ITest {
   hideLoading?: boolean;
   testID?: string;
 }
-
 
 export const ClickableText = ({ style, children, onPress, testID }: IClickableProps) => (
   <Text onPress={onPress} style={[styles.clickableText, style]} testID={testID ?? ''}>

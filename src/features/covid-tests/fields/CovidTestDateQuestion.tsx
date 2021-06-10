@@ -91,6 +91,7 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
           formikProps.setFieldValue('knowsDateOfTest', value);
         }}
         selectedValue={formikProps.values.knowsDateOfTest}
+        testID="covid-test-date-question"
       />
 
       {formikProps.values.knowsDateOfTest === 'yes' && (
@@ -123,7 +124,6 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
           {state.showRangePicker ? (
             <CalendarPicker
               allowRangeSelection
-              // @ts-ignore Incorrect types on onDateChange, ignore it.
               maxDate={today}
               onDateChange={setRangeTestDates}
               selectedEndDate={formikProps.values.dateTakenBetweenEnd}

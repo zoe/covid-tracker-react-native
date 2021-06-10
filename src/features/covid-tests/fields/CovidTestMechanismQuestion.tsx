@@ -83,6 +83,7 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
         label={i18n.t('covid-test.question-mechanism')}
         onValueChange={formikProps.handleChange('mechanism')}
         selectedValue={formikProps.values.mechanism}
+        testID="covid-test-mechanism-question"
       />
 
       {formikProps.values.mechanism === 'other' && (

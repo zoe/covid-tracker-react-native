@@ -3,7 +3,7 @@
 
 // const config = require('../package.json').detox;
 
-// jest.setTimeout(120000);
+jest.setTimeout(30000);
 // jasmine.getEnv().addReporter(adapter);
 
 // beforeAll(async () => {

@@ -12,16 +12,17 @@ export interface ISingleButton {
 }
 
 interface IProps {
-  label?: string;
-  selectedValue: string;
+  error?: any;
   items: ISingleButton[];
+  label?: string;
   onValueChange: any;
   onlyPicker?: boolean;
   pickerProps?: PickerProps;
-  error?: any;
+  selectedValue: string;
+  testID?: string;
 }
 
-export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, onlyPicker }: IProps) {
+export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, onlyPicker, testID }: IProps) {
   const [selected, setSelected] = useState<string>(selectedValue);
 
   const onSelect = (value: string) => {
@@ -44,6 +45,7 @@ export function ButtonsGroup({ label, selectedValue, items, error, onValueChange
             onPress={() => onSelect(item.value)}
             selected={selected === item.value}
             style={{ flex: 1, marginEnd: 8 }}
+            testID={`button-${item.value}${testID ? `-${testID}` : ''}`}
           >
             {item.label}
           </SelectableButton>

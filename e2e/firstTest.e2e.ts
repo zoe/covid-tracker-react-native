@@ -1,18 +1,23 @@
 import { by, device, element, expect, init } from 'detox';
-import { LogBox } from 'react-native';
-
-LogBox.ignoreAllLogs();
-// eslint-disable-next-line no-console
-console.disableYellowBox = true;
 
 const countries = ['GB', 'SE', 'US'];
-const username = 'test@joinzoe.com';
 const password = 'manymuffins';
+const profileName = `profile ${Math.round(Date.now() / 1000)}`;
+const username = 'test@joinzoe.com';
 
-async function sleep(milliseconds: number) {
+function sleep(milliseconds: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, milliseconds);
   });
+}
+
+async function scrollTo(scrollElementId: string, elementId: string) {
+  try {
+    await waitFor(element(by.id(elementId)))
+      .toBeVisible()
+      .whileElement(by.id(scrollElementId))
+      .scroll(500, 'down');
+  } catch (_) {}
 }
 
 beforeAll(async () => {
@@ -116,8 +121,107 @@ beforeEach(async () => {
 //   });
 // });
 
+// describe('Test create a new profile', () => {
+//   it('should open the select profile screen', async () => {
+//     await element(by.id('button-report-today')).tap();
+//   });
+
+//   it('should be able to create a new profile', async () => {
+//     await element(by.id('scroll-view-select-profile-screen')).scrollTo('bottom');
+//     await element(by.id('button-new-profile')).tap();
+//     await element(by.id('input-profile-name')).typeText(profileName);
+//     await element(by.id('button-submit')).tap();
+//     await element(by.id('button-submit')).tap();
+
+//     // @todo: Also test button-under-18
+//     await element(by.id('button-over-18')).tap();
+//     await element(by.id('checkbox-consent')).tap();
+//     await element(by.id('button-create-profile')).tap();
+//   });
+
+//   it('should be able to fill in your profile', async () => {
+//     await element(by.id('input-year-of-birth')).typeText('2000');
+
+//     // @todo: The current input component does not support the testID property.
+//     // await element(by.id('input-sex-at-birth')).tap();
+//     // await element(by.id('input-gender-identity')).tap();
+//     // await element(by.id('race-ethnicity-checkbox-prefer_not_to_say')).tap();
+
+//     await scrollTo('scroll-view-about-you-screen', 'input-height-feet');
+//     await element(by.id('input-height-feet')).typeText('6');
+//     await element(by.id('input-height-inches')).typeText('0');
+
+//     await scrollTo('scroll-view-about-you-screen', 'input-weight-kg');
+//     await element(by.id('input-weight-kg')).typeText('75');
+
+//     await scrollTo('scroll-view-about-you-screen', 'input-postal-code');
+//     await element(by.id('input-postal-code')).typeText('1111AA');
+
+//     // @todo: The current input component does not support the testID property.
+//     // await scrollTo('scroll-view-about-you-screen', 'input-ever-exposed');
+//     // await element(by.id('input-ever-exposed')).tap();
+
+//     await scrollTo('scroll-view-about-you-screen', 'button-submit');
+//     await element(by.id('button-submit')).tap();
+//   });
+// });
+
 describe('Test report today', () => {
-  it('should open the selected profile screen', async () => {
+  it('should open the select profile screen', async () => {
     await element(by.id('button-report-today')).tap();
+  });
+
+  it('should open the first profile', async () => {
+    await element(by.id('profile-card-0')).tap();
+  });
+
+  // @todo: Test both screens NHS and Covid
+  it('should be able to add a COVID-19 test', async () => {
+    await element(by.id('button-add-test')).tap();
+    await element(by.id('button-yes-covid-test-date-question')).tap();
+
+    // @todo: The current input component does not support the testID property.
+
+    // await scrollTo('scroll-view-covid-test-detail-screen', 'covid-test-mechanism-question');
+    // await element(by.id('covid-test-mechanism-question')).tap();
+
+    // await scrollTo('scroll-view-covid-test-detail-screen', 'covid-test-location-question');
+    // await element(by.id('covid-test-location-question')).tap();
+
+    // await scrollTo('scroll-view-covid-test-detail-screen', 'covid-test-result-question');
+    // await element(by.id('covid-test-result-question')).tap();
+
+    await scrollTo('scroll-view-covid-test-detail-screen', 'button-no-covid-test-is-rapid-question');
+    await element(by.id('button-no-covid-test-is-rapid-question')).tap();
+
+    await scrollTo('scroll-view-covid-test-detail-screen', 'button-no-covid-test-invited-question');
+    await element(by.id('button-no-covid-test-invited-question')).tap();
+
+    await scrollTo('scroll-view-covid-test-detail-screen', 'button-submit');
+    await element(by.id('button-submit')).tap();
+
+    await element(by.id('basic-nav-header-button')).tap();
+
+    await element(by.id('button-covid-test-list-screen')).tap();
+  });
+
+  it('should be able to add a COVID-19 vaccine', async () => {
+    await element(by.id('button-vaccine-list-screen')).tap();
+  });
+
+  it('should set the health status', async () => {
+    await element(by.id('button-status-healthy')).tap();
+  });
+
+  it('should dismiss the rating modal if present', async () => {
+    try {
+      await element(by.id('button-rating-yes')).tap();
+      await element(by.id('button-rating-rate')).tap();
+    } catch (_) {}
+  });
+
+  it('should go back to the home screen', async () => {
+    await scrollTo('scroll-view-thank-you-screen', 'button-back');
+    await element(by.id('button-back')).tap();
   });
 });

@@ -11,6 +11,7 @@ import StorybookUIRoot from '@covid/storybook';
 import { Theme } from '@covid/themes';
 import { useFonts } from 'expo-font';
 import React from 'react';
+import { LogBox } from 'react-native';
 import env from 'react-native-config';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
@@ -29,12 +30,16 @@ Sentry.init({
   environment: env.NAME,
 });
 
-const App: React.FC = () => {
-  const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
-  SplashScreen.hide();
+export default function App() {
   const [loaded] = useFonts({
     icomoon: require('./assets/fonts/icomoon.ttf'),
   });
+  React.useEffect(() => {
+    // For e2e testing it's important that no overlaying warnings/errors are present in the view hierarchy.
+    LogBox.ignoreAllLogs();
+  }, []);
+  SplashScreen.hide();
+  const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
   return (
     <ErrorBoundary>
       <MessageProvider>
@@ -51,6 +56,4 @@ const App: React.FC = () => {
       </MessageProvider>
     </ErrorBoundary>
   );
-};
-
-export default App;
+}

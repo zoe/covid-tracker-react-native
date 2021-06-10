@@ -10,16 +10,17 @@ import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
 
 interface IProps {
-  placeholder?: string | undefined;
-  selectedValue?: any;
-  onValueChange: any;
-  label?: string;
-  items: PickerItemProps[];
-  pickerProps?: PickerProps;
   androidDefaultLabel?: string;
   error?: any;
-  onlyPicker?: boolean;
   itemIcons?: ImageSourcePropType[];
+  items: PickerItemProps[];
+  label?: string;
+  onValueChange: any;
+  onlyPicker?: boolean;
+  pickerProps?: PickerProps;
+  placeholder?: string | undefined;
+  selectedValue?: any;
+  testID?: string;
 }
 
 interface ISelectedItem {
@@ -29,15 +30,7 @@ interface ISelectedItem {
 
 const DROPDOWN_ROW_HEIGHT = 48.6;
 
-export function DropdownField({
-  label,
-  error,
-  onlyPicker,
-  items: providedItems,
-  selectedValue,
-  onValueChange,
-  itemIcons,
-}: IProps) {
+export function DropdownField(props: IProps) {
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
     return (
@@ -62,8 +55,8 @@ export function DropdownField({
   };
 
   // Get index & label from default value passed with props
-  const defaultItems = prepareItems(providedItems);
-  const { index: defaultIndex, label: defaultSelectedLabel } = getSelectedLabel(defaultItems, selectedValue);
+  const defaultItems = prepareItems(props.items);
+  const { index: defaultIndex, label: defaultSelectedLabel } = getSelectedLabel(defaultItems, props.selectedValue);
 
   const [options, setOptions] = useState(defaultItems);
   const [dropdownWidth, setDropdownWidth] = useState(0);
@@ -71,19 +64,19 @@ export function DropdownField({
   const [selectedLabel, setSelectedLabel] = useState(defaultSelectedLabel);
 
   const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : styles.dropdownNoBorder;
-  const dropdownErrorStyle = error ? styles.dropdownError : {};
+  const dropdownErrorStyle = props.error ? styles.dropdownError : {};
 
   // Update internal string items on props items change
   useEffect(() => {
-    setOptions(prepareItems(providedItems));
-    setSelectedLabel(getSelectedLabel(defaultItems, selectedValue).label);
-  }, [providedItems]);
+    setOptions(prepareItems(props.items));
+    setSelectedLabel(getSelectedLabel(defaultItems, props.selectedValue).label);
+  }, [props.items]);
 
   const onSelect = (id: any, label: any) => {
     setSelectedLabel(label);
     if (id !== -1) {
       const value = options?.find((item: PickerItemProps) => item.label === label)?.value;
-      onValueChange(value);
+      props.onValueChange(value);
     }
   };
 
@@ -112,8 +105,8 @@ export function DropdownField({
           isSelected && styles.dropdownTextHighlightStyle,
         ]}
       >
-        {itemIcons?.length ? (
-          <Image source={itemIcons[index]} style={{ height: 24, marginRight: 5, width: 24 }} />
+        {props.itemIcons?.length ? (
+          <Image source={props.itemIcons[index]} style={{ height: 24, marginRight: 5, width: 24 }} />
         ) : null}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
       </View>
@@ -122,7 +115,7 @@ export function DropdownField({
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
+      {props.onlyPicker ? null : <Label style={styles.labelStyle}>{props.label}</Label>}
       <ModalDropdown
         animated={false}
         defaultIndex={defaultIndex}
@@ -143,6 +136,7 @@ export function DropdownField({
         renderSeparator={renderDropdownSeparator}
         showsVerticalScrollIndicator={false}
         style={styles.dropdownButton}
+        testID={props.testID}
       >
         <View
           onLayout={updateDropdownWidth}
@@ -154,9 +148,9 @@ export function DropdownField({
           <DropdownIcon />
         </View>
       </ModalDropdown>
-      {error ? (
+      {props.error ? (
         <View style={{ marginHorizontal: 4, marginTop: 4 }}>
-          <ValidationError error={error} />
+          <ValidationError error={props.error} />
         </View>
       ) : null}
     </FieldWrapper>

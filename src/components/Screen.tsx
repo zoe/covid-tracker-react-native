@@ -66,6 +66,7 @@ export type ScreenProps = {
   showCloseButton?: boolean;
   extendEdges?: boolean;
   scrollEnabled?: boolean;
+  testID?: string;
 };
 
 export default class Screen extends Component<ScreenProps> {
@@ -123,6 +124,7 @@ export default class Screen extends Component<ScreenProps> {
                 flexGrow: 1,
                 justifyContent: 'space-between',
               }}
+              testID={`scroll-view-${this.props.testID || 'screen'}`}
             >
               {this.props.extendEdges ? (
                 <View style={styles.pageBlockExtendedEdges}>{this.props.children}</View>

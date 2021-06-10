@@ -44,6 +44,7 @@ const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<IRace
           }
           props.setFieldValue('race', raceArray);
         }}
+        testID={`race-ethnicity-checkbox-${checkBoxData.value}`}
         value={props.values.race.includes(checkBoxData.value)}
       >
         {checkBoxData.label}

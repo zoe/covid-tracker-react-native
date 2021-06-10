@@ -355,7 +355,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     };
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile} testID="about-you-screen">
         <Header>
           <HeaderText>{i18n.t('title-about-you')}</HeaderText>
         </Header>
@@ -384,6 +384,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     label={i18n.t('what-year-were-you-born')}
                     name="yearOfBirth"
                     placeholder={i18n.t('placeholder-year-of-birth')}
+                    testID="input-year-of-birth"
                   />
 
                   <DropdownField
@@ -393,6 +394,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     onValueChange={props.handleChange('sex')}
                     placeholder={i18n.t('placeholder-sex')}
                     selectedValue={props.values.sex}
+                    testID="input-sex-at-birth"
                   />
 
                   <DropdownField
@@ -401,6 +403,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     label={i18n.t('label-gender-identity')}
                     onValueChange={props.handleChange('genderIdentity')}
                     selectedValue={props.values.genderIdentity}
+                    testID="input-gender-identity"
                   />
 
                   {props.values.genderIdentity === 'other' ? (
@@ -426,10 +429,11 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     <GenericTextField
                       showError
                       formikProps={props}
-                      inputProps={{ autoCompleteType: 'postal-code' }}
                       label={i18n.t('your-postcode')}
                       name="postcode"
                       placeholder={i18n.t('placeholder-postcode')}
+                      testID="input-postal-code"
+                      textInputProps={{ autoCompleteType: 'postal-code' }}
                     />
                   ) : null}
 
@@ -439,6 +443,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     label={i18n.t('have-you-been-exposed')}
                     onValueChange={props.handleChange('everExposed')}
                     selectedValue={props.values.everExposed}
+                    testID="input-ever-exposed"
                   />
 
                   {!isMinor ? (
@@ -479,6 +484,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   enable={checkFormFilled(props)}
                   hideLoading={!props.isSubmitting}
                   onPress={props.handleSubmit}
+                  testID="button-submit"
                 >
                   {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>

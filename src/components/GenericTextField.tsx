@@ -9,38 +9,35 @@ import { ValidationError } from './ValidationError';
 
 interface IProps extends TextInputProps {
   formikProps: FormikProps<any>;
-  name: string;
-  label?: string;
-  placeholder?: string;
+  textInputProps?: TextInputProps;
   keyboardType?: KeyboardTypeOptions;
+  label?: string;
+  name: string;
+  placeholder?: string;
   showError?: boolean;
-  inputProps?: TextInputProps;
+  testID?: string;
   wrapperStyle?: StyleProp<ViewStyle>;
 }
 
 export function GenericTextField(props: IProps) {
-  const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
   return (
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
-      {label ? <RegularText>{label}</RegularText> : null}
+      {props.label ? <RegularText>{props.label}</RegularText> : null}
       <ValidatedTextInput
-        error={formikProps.touched[name] && formikProps.errors[name]}
-        keyboardType={keyboardType}
-        onBlur={formikProps.handleBlur(name)}
-        onChangeText={formikProps.handleChange(name)}
+        error={!!(props.formikProps.touched[props.name] && props.formikProps.errors[props.name])}
+        keyboardType={props.keyboardType}
+        onBlur={props.formikProps.handleBlur(props.name)}
+        onChangeText={props.formikProps.handleChange(props.name)}
         onSubmitEditing={() => {}}
-        placeholder={placeholder ?? ''}
+        placeholder={props.placeholder ?? ''}
         returnKeyType="next"
-        value={formikProps.values[name]}
-        {...inputProps}
-        {...otherProps}
+        testID={props.testID}
+        value={props.formikProps.values[props.name]}
+        {...props.textInputProps}
       />
 
-      {showError && !!formikProps.touched[name] && !!formikProps.errors[name] ? (
-        <ValidationError
-          // @ts-ignore - need to solve type for ValidationError error prop
-          error={formikProps.errors[name]}
-        />
+      {props.showError && !!props.formikProps.touched[props.name] && !!props.formikProps.errors[props.name] ? (
+        <ValidationError error={props.formikProps.errors[props.name]} />
       ) : null}
     </FieldWrapper>
   );

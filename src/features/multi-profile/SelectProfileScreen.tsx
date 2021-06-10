@@ -81,7 +81,7 @@ export default function SelectProfileScreen({ navigation, route }: TProps) {
 
   return (
     <SafeAreaView style={styling.flex}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.scrollView} testID="scroll-view-select-profile-screen">
         <View style={styles.rootContainer}>
           <View style={styles.navContainer}>{navigation ? <BackButton navigation={navigation} /> : null}</View>
 
