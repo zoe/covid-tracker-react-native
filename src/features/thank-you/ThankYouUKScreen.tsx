@@ -76,6 +76,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
+              <FeaturedContentList screenName={this.props.route.name} type={FeaturedContentType.ThankYou} />
+
               {startupInfo?.show_timeline ? (
                 <ImpactTimelineCard
                   onPress={() => {
@@ -85,8 +87,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                   size="LARGE"
                 />
               ) : null}
-
-              <FeaturedContentList screenName={this.props.route.name} type={FeaturedContentType.ThankYou} />
 
               {this.state.shouldShowReminders ? (
                 <ExternalCallout
@@ -100,7 +100,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 />
               ) : null}
 
-              <View style={{ margin: 10 }} />
+              <View style={{ margin: 6 }} />
 
               <ShareAppCard />
 
@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   signOff: {
+    marginBottom: 16,
     marginHorizontal: 16,
     textAlign: 'center',
   },

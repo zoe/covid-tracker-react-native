@@ -115,23 +115,21 @@ export function DashboardScreen({ navigation, route }: IProps) {
   }, []);
 
   const hasNetworkData = networks && networks.length > 0;
-
+  
   return (
     <CollapsibleHeaderScrollView
-      compactHeader={<CompactHeader reportOnPress={onReport} />}
-      config={headerConfig}
-      expandedHeader={<Header reportOnPress={onReport} />}
-      navigation={navigation}
+    compactHeader={<CompactHeader reportOnPress={onReport} />}
+    config={headerConfig}
+    expandedHeader={<Header reportOnPress={onReport} />}
+    navigation={navigation}
     >
       <View style={styles.calloutContainer}>
-        {startupInfo?.show_timeline ? (
-          <ImpactTimelineCard
-            onPress={() => {
-              Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
-              navigation.navigate('Anniversary');
-            }}
-          />
-        ) : null}
+
+        {showTrendline ? <TrendlineCard ctaOnPress={onExploreTrendline} /> : null}
+
+        <EstimatedCasesMapCard />
+
+        <UKEstimatedCaseCard onPress={onMoreDetails} />
 
         {startupInfo?.show_mh_insight ? (
           <StudyCard
@@ -145,6 +143,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
             title={i18n.t('mental-health-playback.results-ready')}
           />
         ) : null}
+
+        <FeaturedContentList screenName={route.name} type={FeaturedContentType.Home} />
 
         {startupInfo?.show_diet_score ? (
           <StudyCard
@@ -162,9 +162,17 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
         <ShareVaccineCard screenName="Dashboard" />
 
-        <FeaturedContentList screenName={route.name} type={FeaturedContentType.Home} />
 
-        {hasNetworkData ? (
+        {/* {startupInfo?.show_timeline ? (
+          <ImpactTimelineCard
+          onPress={() => {
+            Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
+            navigation.navigate('Anniversary');
+          }}
+          />
+          ) : null} */}
+          
+        {/* {hasNetworkData ? (
           <View
             style={{
               marginVertical: 8,
@@ -174,19 +182,13 @@ export function DashboardScreen({ navigation, route }: IProps) {
           </View>
         ) : null}
 
-        {showTrendline ? <TrendlineCard ctaOnPress={onExploreTrendline} /> : null}
-
-        <EstimatedCasesMapCard />
-
-        <UKEstimatedCaseCard onPress={onMoreDetails} />
-
         <ExternalCallout
           aspectRatio={311 / 135}
           calloutID="sharev3"
           imageSource={shareAppV3}
           postClicked={onShare}
           screenName={route.name}
-        />
+        /> */}
       </View>
 
       <View style={styles.zoe}>
