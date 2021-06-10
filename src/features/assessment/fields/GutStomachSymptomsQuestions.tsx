@@ -1,5 +1,5 @@
 import { CheckboxList } from '@covid/components/Checkbox';
-import { FieldLabel, RegularText } from '@covid/components/Text';
+import { RegularText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import {
   createSymptomCheckboxes,
@@ -8,9 +8,8 @@ import {
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import { Item } from 'native-base';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import * as Yup from 'yup';
 
 export type GutStomachSymptomsData = GutStomachSymptomsCheckBoxData & GutStomachSymptomsFollowUpData;
