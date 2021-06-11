@@ -12,9 +12,9 @@ import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -24,12 +24,11 @@ type Props = {
 };
 
 export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleSubmit = (formData: GutStomachSymptomsData) => {
-    assessmentService.saveAssessment(GutStomachSymptomsQuestions.createAssessment(formData));
+  function onSubmit(values: GutStomachSymptomsData, formikHelpers: FormikHelpers<GutStomachSymptomsData>) {
+    assessmentService.saveAssessment(GutStomachSymptomsQuestions.createAssessment(values));
     assessmentCoordinator.gotoNextScreen(route.name);
-  };
+    formikHelpers.setSubmitting(false);
+  }
 
   const registerSchema = Yup.object().shape({}).concat(GutStomachSymptomsQuestions.schema());
 
@@ -48,7 +47,7 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
         initialValues={{
           ...GutStomachSymptomsQuestions.initialFormValues(),
         }}
-        onSubmit={(values: GutStomachSymptomsData) => handleSubmit(values)}
+        onSubmit={onSubmit}
         validationSchema={registerSchema}
       >
         {(props) => {

@@ -24,7 +24,6 @@ type Props = {
 };
 
 export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
 
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
@@ -37,11 +36,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
         const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(formData);
         dosePayload.dose = route.params.dose;
         await vaccineService.saveDoseSymptoms(patientId, dosePayload);
-      } catch (e) {
-        setErrorMessage(i18n.t('something-went-wrong'));
-        // TODO Show error message toast?
-      } finally {
-        // TODO Not sure this is the right behaviour. Discuss what to do on error....
+      } catch (_) {
         assessmentCoordinator.gotoNextScreen(route.name);
       }
     }
