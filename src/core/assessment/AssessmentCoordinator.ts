@@ -115,25 +115,15 @@ export class AssessmentCoordinator extends Coordinator {
         { name: 'HowYouFeel', params: { assessmentData: this.assessmentData } },
       ]);
     },
-    VaccineHesitancy: () => {
-      NavigatorService.reset([
-        { name: homeScreenName() },
-        { name: 'SelectProfile', params: { assessmentFlow: true } },
-        { name: 'HowYouFeel', params: { assessmentData: this.assessmentData } },
-      ]);
-    },
     VaccineList: (params: {
       shouldAskDoseSymptoms: boolean | undefined;
-      askVaccineHesitancy: boolean | undefined;
       dose: string | undefined;
     }) => {
       if (params.shouldAskDoseSymptoms && params.dose) {
         // For 7 days after a dose, they'll have to log VaccineDoseSymptoms (shouldAskDoseSymptoms = True)
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, dose: params.dose });
-      } else if (params.askVaccineHesitancy) {
-        // Users without a Vaccine are asked about their VaccinePlans (aka VaccineHesitancy) once
-        NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
-      } else {
+      }
+      else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
     },
