@@ -41,33 +41,29 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
     currentPatient.shouldShowUSStudyInvite = false;
   };
 
-  return (
-    <>
-      {modalVisible && (
-        <Modal transparent animationType="fade">
-          <View style={styles.outsideView}>
-            <View style={styles.modalView}>
-              <ImageBackground imageStyle={[styles.backgroundImage, { borderRadius: 16 }]} source={blobs} style={{}}>
-                <View style={styles.contentContainer}>
-                  <TouchableOpacity onPress={handleClose} style={{ alignSelf: 'flex-end' }}>
-                    <Image source={closeIcon} style={{ height: 24, width: 24 }} />
-                  </TouchableOpacity>
-                  <ScrollView>
-                    <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
-                    <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
-                  </ScrollView>
+  return modalVisible ? (
+    <Modal transparent animationType="fade">
+      <View style={styles.outsideView}>
+        <View style={styles.modalView}>
+          <ImageBackground imageStyle={[styles.backgroundImage, { borderRadius: 16 }]} source={blobs} style={{}}>
+            <View style={styles.contentContainer}>
+              <TouchableOpacity onPress={handleClose} style={{ alignSelf: 'flex-end' }}>
+                <Image source={closeIcon} style={{ height: 24, width: 24 }} />
+              </TouchableOpacity>
+              <ScrollView>
+                <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
+                <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
+              </ScrollView>
 
-                  <BrandedButton onPress={handleAgree} style={styles.modalButton}>
-                    {i18n.t('us-study-invite.button')}
-                  </BrandedButton>
-                </View>
-              </ImageBackground>
+              <BrandedButton onPress={handleAgree} style={styles.modalButton}>
+                {i18n.t('us-study-invite.button')}
+              </BrandedButton>
             </View>
-          </View>
-        </Modal>
-      )}
-    </>
-  );
+          </ImageBackground>
+        </View>
+      </View>
+    </Modal>
+  ) : null;
 };
 
 const styles = StyleSheet.create({
