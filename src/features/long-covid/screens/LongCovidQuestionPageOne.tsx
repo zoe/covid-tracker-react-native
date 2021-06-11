@@ -43,11 +43,11 @@ const renderBulletLine = (text: string) => (
 
 export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   const dropdownItemsQ1 = [
+    { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a1'), value: 'YES_TEST' },
     { label: i18n.t('long-covid.q1-a2'), value: 'YES_ADVICE' },
     { label: i18n.t('long-covid.q1-a3'), value: 'YES_SUSPICION' },
     { label: i18n.t('long-covid.q1-a4'), value: 'UNSURE' },
-    { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a6'), value: 'DECLINE_TO_SAY' },
   ];
 
