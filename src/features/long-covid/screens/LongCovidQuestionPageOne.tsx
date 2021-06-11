@@ -149,7 +149,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     </View>
   );
 
-  const renderError = (props: FormikProps<ILongCovid>, propertyKey: string) =>
+  const renderError = (props: FormikProps<ILongCovid>, propertyKey: keyof ILongCovid) =>
     props.touched[propertyKey] && props.errors[propertyKey] ? (
       <View style={{ marginBottom: 16 }}>
         <ErrorText>{props.errors[propertyKey]}</ErrorText>
