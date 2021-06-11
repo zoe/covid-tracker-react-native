@@ -23,7 +23,7 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
@@ -113,29 +113,30 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     });
   }
 
-  handleProfileUpdate(formData: IBackfillData) {
+  async onSubmit(values: IBackfillData, formikHelpers: FormikHelpers<IBackfillData>) {
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const { patientId } = currentPatient;
-    const infos = this.createPatientInfos(formData);
+    const infos = this.createPatientInfos(values);
 
-    this.patientService
-      .updatePatientInfo(patientId, infos)
-      .then((response) => {
-        if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
-        if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
-        if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
-        if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
-        if (formData.diabetesType) {
-          currentPatient.hasDiabetesAnswers = true;
-          currentPatient.shouldAskExtendedDiabetes = false;
-        }
-        if (formData.bloodGroup) currentPatient.hasBloodGroupAnswer = true;
+    try {
+      await this.patientService.updatePatientInfo(patientId, infos);
 
-        AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-      })
-      .catch((_) => {
-        this.setState({ errorMessage: i18n.t('something-went-wrong') });
-      });
+      if (values.race) currentPatient.hasRaceEthnicityAnswer = true;
+      if (values.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
+      if (values.hasHayfever) currentPatient.hasAtopyAnswers = true;
+      if (values.hasHayfever === 'yes') currentPatient.hasHayfever = true;
+      if (values.diabetesType) {
+        currentPatient.hasDiabetesAnswers = true;
+        currentPatient.shouldAskExtendedDiabetes = false;
+      }
+      if (values.bloodGroup) currentPatient.hasBloodGroupAnswer = true;
+
+      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+    } catch (_) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+    }
+
+    formikHelpers.setSubmitting(false);
   }
 
   createPatientInfos(formData: IBackfillData) {
@@ -229,9 +230,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...DiabetesQuestions.initialFormValues(),
             ...BloodGroupQuestion.initialFormValues(),
           }}
-          onSubmit={(values: IBackfillData) => {
-            return this.handleProfileUpdate(values);
-          }}
+          onSubmit={this.onSubmit}
           validationSchema={() => {
             let schema = this.registerSchema;
             if (this.state.needDiabetesAnswers) {

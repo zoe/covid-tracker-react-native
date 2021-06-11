@@ -12,7 +12,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { PickerItemProps, View } from 'react-native';
@@ -74,33 +74,33 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     }),
   });
 
-  const handleLocationUpdate = (formData: EditLocationData) => {
+  async function onSubmit(values: EditLocationData, formikHelpers: FormikHelpers<EditLocationData>) {
     const infos: Partial<PatientInfosRequest> = {};
 
-    if (formData.differentAddress === 'no') {
-      infos.postcode = formData.postcode;
+    if (values.differentAddress === 'no') {
+      infos.postcode = values.postcode;
       infos.current_postcode = null;
       infos.current_country_code = null;
-    } else if (formData.stillInUK === 'yes') {
-      infos.postcode = formData.postcode;
-      infos.current_postcode = formData.currentPostcode;
+    } else if (values.stillInUK === 'yes') {
+      infos.postcode = values.postcode;
+      infos.current_postcode = values.currentPostcode;
       infos.current_country_code = null;
     } else {
-      infos.postcode = formData.postcode;
+      infos.postcode = values.postcode;
       infos.current_postcode = null;
-      infos.current_country_code = formData.currentCountry;
+      infos.current_country_code = values.currentCountry;
     }
 
-    editProfileCoordinator
-      .updatePatientInfo(infos)
-      .then(() => {
-        dispatch(fetchStartUpInfo());
-        editProfileCoordinator.gotoNextScreen(props.route.name);
-      })
-      .catch(() => {
-        setErrorMessage(i18n.t('something-went-wrong'));
-      });
-  };
+    try {
+      await editProfileCoordinator.updatePatientInfo(infos);
+      dispatch(fetchStartUpInfo());
+      editProfileCoordinator.gotoNextScreen(props.route.name);
+    } catch (_) {
+      setErrorMessage(i18n.t('something-went-wrong'));
+    }
+
+    formikHelpers.setSubmitting(false);
+  }
 
   const countryList: PickerItemProps[] = require('country-list')
     .getData()
@@ -118,13 +118,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
         <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
       </Header>
 
-      <Formik
-        initialValues={initialFormValues}
-        onSubmit={(formData: EditLocationData) => {
-          return handleLocationUpdate(formData);
-        }}
-        validationSchema={validation}
-      >
+      <Formik initialValues={initialFormValues} onSubmit={onSubmit} validationSchema={validation}>
         {(props) => {
           return (
             <Form style={{ marginHorizontal: 16 }}>

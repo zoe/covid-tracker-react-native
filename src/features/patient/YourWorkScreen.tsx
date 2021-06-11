@@ -23,7 +23,7 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
 import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
@@ -85,23 +85,22 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     return true;
   };
 
-  handleUpdateWork(formData: IYourWorkData) {
+  async onSubmit(values: IYourWorkData, formikHelpers: FormikHelpers<IYourWorkData>) {
     const currentPatient = patientCoordinator.patientData.patientState;
-    const { patientId } = currentPatient;
-    const infos = this.createPatientInfos(formData);
+    const infos = this.createPatientInfos(values);
 
-    this.patientService
-      .updatePatientInfo(patientId, infos)
-      .then(() => {
-        currentPatient.isHealthWorker =
-          infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
-        patientCoordinator.gotoNextScreen(this.props.route.name);
-      })
-      .catch(() =>
-        this.setState({
-          errorMessage: i18n.t('something-went-wrong'),
-        }),
-      );
+    try {
+      await this.patientService.updatePatientInfo(currentPatient.patientId, infos);
+      currentPatient.isHealthWorker =
+        infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
+      patientCoordinator.gotoNextScreen(this.props.route.name);
+    } catch (_) {
+      this.setState({
+        errorMessage: i18n.t('something-went-wrong'),
+      });
+    }
+
+    formikHelpers.setSubmitting(false);
   }
 
   private createPatientInfos(formData: IYourWorkData) {
@@ -270,11 +269,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
           <ProgressStatus maxSteps={6} step={2} />
         </ProgressBlock>
 
-        <Formik
-          initialValues={{} as IYourWorkData}
-          onSubmit={(values: IYourWorkData) => this.handleUpdateWork(values)}
-          validationSchema={this.registerSchema}
-        >
+        <Formik initialValues={{} as IYourWorkData} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
           {(props) => {
             const {
               isHealthcareStaff,
@@ -285,8 +280,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
               ppeAvailabilityAlways,
               ppeAvailabilityNever,
             } = props.values;
-            const { handleSubmit, handleChange, touched, errors } = props;
-
             const showWorkerAndCarerQuestions: boolean =
               (!!isHealthcareStaff && isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT) ||
               (!!isCarer && isCarer === 'yes');
@@ -295,17 +288,17 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 <Form>
                   <View style={{ marginHorizontal: 16 }}>
                     <DropdownField
-                      error={touched.isHealthcareStaff && errors.isHealthcareStaff}
+                      error={props.touched.isHealthcareStaff && props.errors.isHealthcareStaff}
                       items={healthcareStaffOptions}
                       label={i18n.t('are-you-healthcare-staff')}
-                      onValueChange={handleChange('isHealthcareStaff')}
+                      onValueChange={props.handleChange('isHealthcareStaff')}
                       selectedValue={isHealthcareStaff}
                     />
 
                     <YesNoField
-                      error={touched.isCarer && errors.isCarer}
+                      error={props.touched.isCarer && props.errors.isCarer}
                       label={i18n.t('are-you-carer')}
-                      onValueChange={handleChange('isCarer')}
+                      onValueChange={props.handleChange('isCarer')}
                       selectedValue={isCarer}
                     />
 
@@ -392,47 +385,47 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         </FieldWrapper>
 
                         <DropdownField
-                          error={touched.hasPatientInteraction && errors.hasPatientInteraction}
+                          error={props.touched.hasPatientInteraction && props.errors.hasPatientInteraction}
                           items={patientInteractionOptions}
                           label={i18n.t('label-interacted-with-infected-patients')}
-                          onValueChange={handleChange('hasPatientInteraction')}
+                          onValueChange={props.handleChange('hasPatientInteraction')}
                           selectedValue={hasPatientInteraction}
                         />
 
                         <DropdownField
-                          error={touched.hasUsedPPEEquipment && errors.hasUsedPPEEquipment}
+                          error={props.touched.hasUsedPPEEquipment && props.errors.hasUsedPPEEquipment}
                           items={equipmentUsageOptions}
                           label={i18n.t('label-used-ppe-equipment')}
-                          onValueChange={handleChange('hasUsedPPEEquipment')}
+                          onValueChange={props.handleChange('hasUsedPPEEquipment')}
                           selectedValue={hasUsedPPEEquipment}
                         />
 
                         {hasUsedPPEEquipment === 'always' ? (
                           <DropdownField
-                            error={touched.ppeAvailabilityAlways && errors.ppeAvailabilityAlways}
+                            error={props.touched.ppeAvailabilityAlways && props.errors.ppeAvailabilityAlways}
                             items={availabilityAlwaysOptions}
                             label={i18n.t('label-chose-an-option')}
-                            onValueChange={handleChange('ppeAvailabilityAlways')}
+                            onValueChange={props.handleChange('ppeAvailabilityAlways')}
                             selectedValue={ppeAvailabilityAlways}
                           />
                         ) : null}
 
                         {hasUsedPPEEquipment === 'sometimes' ? (
                           <DropdownField
-                            error={touched.ppeAvailabilitySometimes && errors.ppeAvailabilitySometimes}
+                            error={props.touched.ppeAvailabilitySometimes && props.errors.ppeAvailabilitySometimes}
                             items={availabilitySometimesOptions}
                             label={i18n.t('label-chose-an-option')}
-                            onValueChange={handleChange('ppeAvailabilitySometimes')}
+                            onValueChange={props.handleChange('ppeAvailabilitySometimes')}
                             selectedValue={ppeAvailabilitySometimes}
                           />
                         ) : null}
 
                         {hasUsedPPEEquipment === 'never' ? (
                           <DropdownField
-                            error={touched.ppeAvailabilityNever && errors.ppeAvailabilityNever}
+                            error={props.touched.ppeAvailabilityNever && props.errors.ppeAvailabilityNever}
                             items={availabilityNeverOptions}
                             label={i18n.t('label-chose-an-option')}
-                            onValueChange={handleChange('ppeAvailabilityNever')}
+                            onValueChange={props.handleChange('ppeAvailabilityNever')}
                             selectedValue={ppeAvailabilityNever}
                           />
                         ) : null}
@@ -441,14 +434,14 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   </View>
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(errors).length && props.submitCount > 0 ? (
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
 
                   <BrandedButton
                     enable={this.checkFormFilled(props)}
                     hideLoading={!props.isSubmitting}
-                    onPress={handleSubmit}
+                    onPress={props.handleSubmit}
                   >
                     {i18n.t('next-question')}
                   </BrandedButton>

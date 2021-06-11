@@ -17,7 +17,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
 import { Form, View } from 'native-base';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -71,18 +71,19 @@ export function NHSIntroScreen(props: IProps) {
       .catch(() => setErrorMessage(i18n.t('something-went-wrong')));
   };
 
-  const handleSubmit = (formData: IData) => {
+  async function onSubmit(values: IData, formikHelpers: FormikHelpers<IData>) {
     const currentPatient = coordinator.patientData.patientState;
-    const { patientId } = currentPatient;
-    const infos = createPatientInfos(formData);
+    const infos = createPatientInfos(values);
 
-    patientService
-      .updatePatientInfo(patientId, infos)
-      .then(() => {
-        coordinator.gotoNextScreen(props.route.name);
-      })
-      .catch(() => setErrorMessage(i18n.t('something-went-wrong')));
-  };
+    try {
+      await patientService.updatePatientInfo(currentPatient.patientId, infos);
+      coordinator.gotoNextScreen(props.route.name);
+    } catch (_) {
+      setErrorMessage(i18n.t('something-went-wrong'));
+    }
+
+    formikHelpers.setSubmitting(false);
+  }
 
   const createPatientInfos = (formData: IData) => {
     return {
@@ -106,14 +107,8 @@ export function NHSIntroScreen(props: IProps) {
       <View style={{ paddingHorizontal: 16 }}>
         <RegularText style={{ marginBottom: 24 }}>{i18n.t('nhs-study-intro.text-1')}</RegularText>
 
-        <Formik
-          initialValues={{} as IData}
-          onSubmit={(values: IData) => handleSubmit(values)}
-          validationSchema={registerSchema}
-        >
+        <Formik initialValues={{} as IData} onSubmit={onSubmit} validationSchema={registerSchema}>
           {(props) => {
-            const { handleSubmit, errors } = props;
-
             return (
               <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <Form>
@@ -137,14 +132,14 @@ export function NHSIntroScreen(props: IProps) {
                   </CheckboxItem>
 
                   <ErrorText>{errorMessage}</ErrorText>
-                  {!!Object.keys(errors).length && props.submitCount > 0 ? (
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
 
                   <BrandedButton
                     enable={checkFormFilled(props) && consent}
                     hideLoading={!props.isSubmitting}
-                    onPress={handleSubmit}
+                    onPress={props.handleSubmit}
                   >
                     {i18n.t('nhs-study-intro.next')}
                   </BrandedButton>

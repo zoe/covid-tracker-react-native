@@ -21,7 +21,7 @@ import { Services } from '@covid/provider/services.types';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
@@ -115,29 +115,27 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     });
   }
 
-  handleUpdateHealth(formData: IAboutYouData) {
+  async onSubmit(values: IAboutYouData, formikHelpers: FormikHelpers<IAboutYouData>) {
     if (this.state.enableSubmit) {
-      this.setState({ enableSubmit: false }); // Stop resubmissions
+      this.setState({ enableSubmit: false });
 
       const currentPatient = this.coordinator.patientData.patientState;
-      const infos = this.createPatientInfos(formData);
+      const infos = this.createPatientInfos(values);
 
-      this.coordinator
-        .updatePatientInfo(infos)
-        .then(() => {
-          currentPatient.hasRaceEthnicityAnswer = formData.race.length > 0;
-          currentPatient.isFemale = formData.sex !== 'male';
-          currentPatient.isPeriodCapable =
-            !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
-          currentPatient.isMinor = isMinorAge(cleanIntegerVal(formData.yearOfBirth));
-          this.coordinator.gotoNextScreen(this.props.route.name);
-        })
-        .catch(() => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        })
-        .then(() => {
-          this.setState({ enableSubmit: true });
-        });
+      try {
+        await this.coordinator.updatePatientInfo(infos);
+        currentPatient.hasRaceEthnicityAnswer = values.race.length > 0;
+        currentPatient.isFemale = values.sex !== 'male';
+        currentPatient.isPeriodCapable =
+          !['', 'male', 'pfnts'].includes(values.sex) || !['', 'male', 'pfnts'].includes(values.genderIdentity);
+        currentPatient.isMinor = isMinorAge(cleanIntegerVal(values.yearOfBirth));
+        this.coordinator.gotoNextScreen(this.props.route.name);
+      } catch (_) {
+        this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      }
+
+      this.setState({ enableSubmit: true });
+      formikHelpers.setSubmitting(false);
     }
   }
 
@@ -365,9 +363,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
         <Formik
           initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
-          onSubmit={(values: IAboutYouData) => {
-            return this.handleUpdateHealth(values);
-          }}
+          onSubmit={this.onSubmit}
           validationSchema={this.registerSchema}
         >
           {(props) => {

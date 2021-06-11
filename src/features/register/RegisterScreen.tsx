@@ -14,7 +14,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { AxiosError } from 'axios';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Form, Label } from 'native-base';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
@@ -60,52 +60,45 @@ class RegisterScreen extends Component<PropsType, State> {
     this.state = initialState;
   }
 
-  private checkFieldsFilled = (props: any) => {
-    if (props.errors.password || props.errors.email) return false;
-    return true;
-  };
-
-  private handleCreateAccount(formData: RegistrationData) {
+  private async onSubmit(values: RegistrationData, formikHelpers: FormikHelpers<RegistrationData>) {
     if (this.state.enableSubmit) {
-      this.setState({ enableSubmit: false }); // Stop resubmissions
-      this.userService
-        .register(formData.email, formData.password)
-        .then(async (response) => {
-          const isTester = response.user.is_tester;
-          Analytics.identify({ isTester });
-          Analytics.track(events.SIGNUP);
-          this.props.setUsername(response.user.username);
-          const patientId = response.user.patients[0];
-          await appCoordinator.setPatientById(patientId).then(() => appCoordinator.fetchInitialData());
-          appCoordinator.gotoNextScreen(this.props.route.name);
-        })
-        .catch((err: AxiosError) => {
-          // TODO - These error messages are misleading and we could display what the server sends back
-          //
-          // (In version 2 of the register endpoint we receive 403 FORBIDDEN if account has already
-          // been registered.  In version 1 it was a 500, which is not an error we should ever return
-          // deliberately!)
-          if (err.response?.status === 403) {
-            this.setState({
-              accountExists: true,
-              errorMessage: i18n.t('create-account.already-registered'),
-            });
-          } else if (err.response?.status === 400) {
-            this.setState({
-              accountExists: false,
-              errorMessage: i18n.t('create-account.password-too-simple'),
-            });
-          } else {
-            this.setState({
-              accountExists: false,
-              errorMessage: i18n.t('create-account.something-went-wrong', { msg: err.response?.status }),
-            });
-          }
-        })
-        // do nothing for now but find a way to report it somewhere?
-        .catch((err: Error) => {
-          this.setState({ errorMessage: i18n.t('create-account.error', { msg: err.message }) });
-        });
+      this.setState({ enableSubmit: false });
+      try {
+        const response = await this.userService.register(values.email, values.password);
+        const isTester = response.user.is_tester;
+        Analytics.identify({ isTester });
+        Analytics.track(events.SIGNUP);
+        this.props.setUsername(response.user.username);
+        const patientId = response.user.patients[0];
+        await appCoordinator.setPatientById(patientId);
+        await appCoordinator.fetchInitialData();
+        appCoordinator.gotoNextScreen(this.props.route.name);
+      } catch (error: any) {
+        // TODO - These error messages are misleading and we could display what the server sends back
+        //
+        // (In version 2 of the register endpoint we receive 403 FORBIDDEN if account has already
+        // been registered.  In version 1 it was a 500, which is not an error we should ever return
+        // deliberately!)
+        if ((error as AxiosError).response?.status === 403) {
+          this.setState({
+            accountExists: true,
+            errorMessage: i18n.t('create-account.already-registered'),
+          });
+        } else if ((error as AxiosError).response?.status === 400) {
+          this.setState({
+            accountExists: false,
+            errorMessage: i18n.t('create-account.password-too-simple'),
+          });
+        } else {
+          this.setState({
+            accountExists: false,
+            errorMessage: i18n.t('create-account.something-went-wrong', {
+              msg: (error as AxiosError).response?.status,
+            }),
+          });
+        }
+      }
+      formikHelpers.setSubmitting(false);
     }
   }
 
@@ -117,13 +110,8 @@ class RegisterScreen extends Component<PropsType, State> {
     email: Yup.string().required(i18n.t('create-account.email-required')).email(i18n.t('create-account.email-error')),
     password: Yup.string()
       .required(i18n.t('create-account.password-required'))
-      .min(8, i18n.t('create-account.password-too-simple')), // todo: complicated enough...
+      .min(8, i18n.t('create-account.password-too-simple')),
   });
-
-  /*   .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-    ) */
 
   setIsEnabled(user: string, pass: string) {
     const enableSubmit = user.length > 0 && pass.length > 7;
@@ -132,11 +120,7 @@ class RegisterScreen extends Component<PropsType, State> {
 
   render() {
     return (
-      <Formik
-        initialValues={initialRegistrationValues}
-        onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}
-        validationSchema={this.registerSchema}
-      >
+      <Formik initialValues={initialRegistrationValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
         {(props) => {
           return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -168,7 +152,6 @@ class RegisterScreen extends Component<PropsType, State> {
                           keyboardType="email-address"
                           onBlur={props.handleBlur('email')}
                           onChangeText={(text) => {
-                            // this.setState({ enableSubmit: true });
                             props.handleChange('email')(text);
                             this.setIsEnabled(text, props.values.password);
                           }}
