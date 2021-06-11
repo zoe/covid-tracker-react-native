@@ -1111,24 +1111,6 @@
       "other-placeholder": "Beskriv dina symtom här...",
       "next": "Nästa"
     },
-    "hesitancy": {
-      "title": "Skulle du vaccinera dig mot COVID-19 om/när du erbjuds vaccination?",
-      "check-all-that-apply": "Berätta gärna varför (markera alla som stämmer):",
-      "vaccine-trial": "",
-      "religious": "Personliga övertygelser",
-      "philosophical": "Personliga övertygelser/filosofiska skäl",
-      "pregnancy": "Gravid/ammar",
-      "illness": "Sjukdom/medicinering",
-      "safety-concern": "Orolig för långsiktiga biverkningar",
-      "bad-reaction": "Orolig för kortsiktiga biverkningar",
-      "do-not-know": "Vet inte tillräckligt om det",
-      "unsure-is-working": "Tror inte att det kommer att fungera",
-      "availability": "Tror inte att jag kommer att erbjudas vaccination",
-      "unnecessary": "Tycker inte att det är nödvändigt",
-      "Other": "Annat",
-      "not-to-say": "Föredrar att inte berätta",
-      "specify": ""
-    },
     "log-symptoms": {
       "title": "Varför är det så viktigt att fortsätta att rapportera symtom även efter vaccination?",
       "body-1": "När antalet COVID-19-fall snabbt ökade under våren 2020 så lanserade vi snabbt COVID Symptom Study för att öka kunskaperna om sjukdomen.",

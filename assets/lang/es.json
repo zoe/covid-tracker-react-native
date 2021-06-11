@@ -1197,25 +1197,6 @@
         "name-missing": "Edit to add vaccine name",
         "not-logged": "Not yet logged",
         "edit-vaccine": "Edit vaccine"
-      },
-
-      "hesitancy": {
-        "title": "Would you accept a COVID019 vaccine if offered?",
-        "check-all-that-apply": "Please tell us why (check all that apply):",
-        "vaccine-trial": "I took part on a vaccine trial",
-        "religious": "Religious reasons",
-        "philosophical": "Personal belief / philosophical reasons",
-        "pregnancy": "Pregnancy / breastfeeding",
-        "illness": "Illness / medication",
-        "safety-concern": "Concerned about long term side effects",
-        "bad-reaction": "Concerned about adverse reaction",
-        "do-not-know": "Do not know enough about it",
-        "unsure-is-working": "Do not think it will work",
-        "availability": "Do not think it will be available to me",
-        "unnecessary": "Do not think it is necessary",
-        "Other": "Other",
-        "not-to-say": "Prefer not to say",
-        "specify": "Please specify the other reason"
       }
     },
 

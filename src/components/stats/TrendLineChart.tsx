@@ -32,7 +32,7 @@ export const TrendLineEmptyView: React.FC = () => {
   );
 };
 
-const AMOUNT_ROWS = 10;
+const Y_AXIS_GRID_LINES = 10;
 const Y_AXIS_STEP_SIZES = [
   1, 2, 5, 10, 20, 25, 40, 50, 80, 100, 150, 200, 400, 500, 800, 1000, 2000, 2500, 5000, 10000, 20000, 25000, 50000,
 ];
@@ -112,9 +112,9 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
           setMonthRangeLabel(`${monthLabelSet[0]}`);
         }
         const values = filtered.map((item) => item.value).reverse();
-        const needle = Math.max(...values) / AMOUNT_ROWS;
-        const stepSize = Y_AXIS_STEP_SIZES.find((snap) => snap >= needle) || 1;
-        const max = stepSize * AMOUNT_ROWS;
+        const needle = Math.max(...values) / Y_AXIS_GRID_LINES;
+        const stepSize = Y_AXIS_STEP_SIZES.find((stepSize) => stepSize >= needle) || 1;
+        const max = stepSize * Y_AXIS_GRID_LINES;
         webview.current?.call('setData', {
           payload: {
             labels: filtered.map((item) => item.label).reverse(),
