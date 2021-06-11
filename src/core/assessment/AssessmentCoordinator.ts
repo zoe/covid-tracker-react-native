@@ -115,15 +115,11 @@ export class AssessmentCoordinator extends Coordinator {
         { name: 'HowYouFeel', params: { assessmentData: this.assessmentData } },
       ]);
     },
-    VaccineList: (params: {
-      shouldAskDoseSymptoms: boolean | undefined;
-      dose: string | undefined;
-    }) => {
+    VaccineList: (params: { shouldAskDoseSymptoms: boolean | undefined; dose: string | undefined }) => {
       if (params.shouldAskDoseSymptoms && params.dose) {
         // For 7 days after a dose, they'll have to log VaccineDoseSymptoms (shouldAskDoseSymptoms = True)
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, dose: params.dose });
-      }
-      else {
+      } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
     },
