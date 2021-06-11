@@ -28,8 +28,7 @@
 
     window.covid = {
       setData: function (event) {
-        const { labels, values } = event.payload;
-        setupChart(labels, values)
+        setupChart(event.payload.labels, event.payload.values, event.payload.max, event.payload.stepSize)
       },
       emit: function (event, data) {
         window.ReactNativeWebView.postMessage(JSON.stringify({
@@ -42,14 +41,14 @@
 
     Chart.defaults.global.defaultFontSize = 10;
 
-    const setupChart = function (labels, data) {
+    const setupChart = function (labels, values, max, stepSize) {
       chart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: labels,
           datasets: [{
             label: 'Predicted # of cases',
-            data: data,
+            data: values,
             borderWidth: 2,
             borderColor: primaryColor,
             pointBorderColor: primaryColor,
@@ -80,9 +79,8 @@
             yAxes: [{
               ticks: {
                 beginAtZero : true,
-                max: Math.max(...data),
-                stepSize: Math.max(...data) / 30,
-                callback: (value) => Math.round(value / 100) * 100,
+                max,
+                stepSize,
               },
               gridLines: {
                 color: "rgba(0, 0, 0, 0.05)",
@@ -91,13 +89,6 @@
             xAxes: [{
               display: false,
               ticks: {
-                // type: 'time',
-                // time: {
-                //   unit: 'day'
-                // },
-                // beginAtZero: false,
-                // autoSkip: true,
-                // maxTicksLimit: 6
                 maxRotation: 0,
                 minRotation: 0
               },
