@@ -95,7 +95,7 @@ export function DropdownField({
 
   const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
-  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT);
+  const dropdownHeight: number = (options?.length ?? 1) * DROPDOWN_ROW_HEIGHT;
 
   const renderDropdownRow = (option: string, index: any, isSelected: boolean): React.ReactNode => {
     // There is a type error in renderDropdownRow index is actually a number, not a string
