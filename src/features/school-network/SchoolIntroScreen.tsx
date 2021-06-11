@@ -12,7 +12,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { View } from 'native-base';
 import React from 'react';
-import { Linking, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolIntro'>;

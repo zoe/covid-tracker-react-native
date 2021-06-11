@@ -3,12 +3,7 @@ import { homeScreenName, ILocalisationService } from '@covid/core/localisation/L
 import { PatientData } from '@covid/core/patient/PatientData';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
-import {
-  ISchoolGroupModel,
-  ISchoolModel,
-  ISubscribedSchoolGroupStats,
-  ISubscribedSchoolStats,
-} from '@covid/core/schools/Schools.dto';
+import { ISchoolGroupModel, ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups, schoolSlice } from '@covid/core/schools/Schools.slice';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import store from '@covid/core/state/store';

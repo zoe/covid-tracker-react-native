@@ -9,9 +9,9 @@ import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -21,53 +21,50 @@ type Props = {
 };
 
 export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleSubmit = (formData: HeadSymptomsData) => {
-    assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(formData));
+  function onSubmit(values: HeadSymptomsData, formikHelpers: FormikHelpers<HeadSymptomsData>) {
+    assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(values));
     assessmentCoordinator.gotoNextScreen(route.name);
-  };
+    formikHelpers.setSubmitting(false);
+  }
 
   const registerSchema = Yup.object().shape({}).concat(HeadSymptomsQuestions.schema());
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <>
-      <Screen navigation={navigation} profile={currentPatient.profile}>
-        <Header>
-          <HeaderText>{i18n.t('describe-symptoms.head-symptoms')}</HeaderText>
-        </Header>
+    <Screen navigation={navigation} profile={currentPatient.profile}>
+      <Header>
+        <HeaderText>{i18n.t('describe-symptoms.head-symptoms')}</HeaderText>
+      </Header>
 
-        <ProgressBlock>
-          <ProgressStatus maxSteps={6} step={2} />
-        </ProgressBlock>
+      <ProgressBlock>
+        <ProgressStatus maxSteps={6} step={2} />
+      </ProgressBlock>
 
-        <Formik
-          initialValues={{
-            ...HeadSymptomsQuestions.initialFormValues(),
-          }}
-          onSubmit={(values: HeadSymptomsData) => handleSubmit(values)}
-          validationSchema={registerSchema}
-        >
-          {(props) => {
-            return (
-              <Form style={{ flexGrow: 1 }}>
-                <View style={{ marginHorizontal: 16 }}>
-                  <HeadSymptomsQuestions formikProps={props} />
-                </View>
-                <View style={{ flex: 1 }} />
-                <BrandedButton
-                  enable={!props.isSubmitting}
-                  hideLoading={!props.isSubmitting}
-                  onPress={props.handleSubmit}
-                >
-                  {i18n.t('describe-symptoms.next')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Screen>
-    </>
+      <Formik
+        initialValues={{
+          ...HeadSymptomsQuestions.initialFormValues(),
+        }}
+        onSubmit={onSubmit}
+        validationSchema={registerSchema}
+      >
+        {(props) => {
+          return (
+            <Form style={{ flexGrow: 1 }}>
+              <View style={{ marginHorizontal: 16 }}>
+                <HeadSymptomsQuestions formikProps={props} />
+              </View>
+              <View style={{ flex: 1 }} />
+              <BrandedButton
+                enable={!props.isSubmitting}
+                hideLoading={!props.isSubmitting}
+                onPress={props.handleSubmit}
+              >
+                {i18n.t('describe-symptoms.next')}
+              </BrandedButton>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Screen>
   );
 };

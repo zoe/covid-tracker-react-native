@@ -26,30 +26,26 @@ export const InfoCard: React.FC<CardProps> = (props) => {
     }
   };
 
-  return (
-    <>
-      {props.backgroundVariant ? (
-        <View style={styles.container}>
-          <ImageBackground source={backgroundImage(props.backgroundVariant)} style={styles.backgroundImage}>
-            <View style={styles.contentContainer}>
-              <RegularBoldText>
-                {props.header}
-                {'\n'}
-              </RegularBoldText>
-              <RegularText style={styles.paragraph}>{props.body}</RegularText>
-            </View>
-          </ImageBackground>
-        </View>
-      ) : (
-        <View style={styles.container}>
+  return props.backgroundVariant ? (
+    <View style={styles.container}>
+      <ImageBackground source={backgroundImage(props.backgroundVariant)} style={styles.backgroundImage}>
+        <View style={styles.contentContainer}>
           <RegularBoldText>
             {props.header}
             {'\n'}
           </RegularBoldText>
           <RegularText style={styles.paragraph}>{props.body}</RegularText>
         </View>
-      )}
-    </>
+      </ImageBackground>
+    </View>
+  ) : (
+    <View style={styles.container}>
+      <RegularBoldText>
+        {props.header}
+        {'\n'}
+      </RegularBoldText>
+      <RegularText style={styles.paragraph}>{props.body}</RegularText>
+    </View>
   );
 };
 

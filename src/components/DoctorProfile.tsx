@@ -1,5 +1,4 @@
 import { Text } from '@covid/components';
-import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 

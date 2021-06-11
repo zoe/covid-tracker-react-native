@@ -1,5 +1,4 @@
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { FieldWrapper } from '@covid/components/Screen';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import YesNoField from '@covid/components/YesNoField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -7,9 +6,9 @@ import i18n from '@covid/locale/i18n';
 import { colors, fontStyles } from '@theme';
 import { FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
-import { Item, Label, Text } from 'native-base';
+import { Text } from 'native-base';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 export interface ICovidTestDateData {

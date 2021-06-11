@@ -11,28 +11,22 @@ interface IProps {
 export function ShareVaccineCard({ screenName, isSharing = false }: IProps) {
   const { navigate } = useNavigation();
 
-  return (
-    <>
-      {!isSharing && (
-        <ExternalCallout
-          aspectRatio={311 / 135}
-          calloutID="shareVaccineBanner"
-          imageSource={shareVaccineBanner}
-          postClicked={() => navigate('Share', { hideLabel: true, sharable: 'VACCINES' })}
-          screenName={screenName}
-        />
-      )}
-
-      {isSharing && (
-        <ExternalCallout
-          isSharing
-          aspectRatio={1125 / 877}
-          calloutID="shareVaccine"
-          imageSource={shareVaccine}
-          postClicked={() => navigate('Share', { hideLabel: true, sharable: 'VACCINES' })}
-          screenName={screenName}
-        />
-      )}
-    </>
+  return isSharing ? (
+    <ExternalCallout
+      isSharing
+      aspectRatio={1125 / 877}
+      calloutID="shareVaccine"
+      imageSource={shareVaccine}
+      postClicked={() => navigate('Share', { hideLabel: true, sharable: 'VACCINES' })}
+      screenName={screenName}
+    />
+  ) : (
+    <ExternalCallout
+      aspectRatio={311 / 135}
+      calloutID="shareVaccineBanner"
+      imageSource={shareVaccineBanner}
+      postClicked={() => navigate('Share', { hideLabel: true, sharable: 'VACCINES' })}
+      screenName={screenName}
+    />
   );
 }

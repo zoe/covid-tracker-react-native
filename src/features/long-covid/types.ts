@@ -19,11 +19,11 @@ export interface ILongCovid {
   breathing_problems: boolean;
   heart_problems: boolean;
   abdominal_pain_diarrhoea: boolean;
-  other_checkbox: boolean; // For display only - not BE model
+  other_checkbox?: boolean; // For display only - not BE model
   other: string | null;
 
   // Q18
-  at_least_one_vaccine: boolean | null;
+  at_least_one_vaccine: string | null;
   ongoing_symptom_week_before_first_vaccine: string | null;
 
   // Q20

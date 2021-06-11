@@ -10,7 +10,7 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form, Item, Label, Text, Textarea } from 'native-base';
+import { Form, Item, Label, Textarea } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';

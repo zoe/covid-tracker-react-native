@@ -1,3 +1,4 @@
+import InfoCircle from '@assets/icons/InfoCircle';
 import { ClockIcon } from '@assets/icons/svgIcons';
 import { BasicPage, HeaderText, RegularText, Spacer, Text } from '@covid/components';
 import { ScreenParamList } from '@covid/features';
@@ -7,7 +8,6 @@ import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import InfoCircle from '@assets/icons/InfoCircle';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'LongCovidStart'>;
@@ -48,6 +48,14 @@ export default function LongCovidStartScreen({ route }: IProps) {
 }
 
 const styles = StyleSheet.create({
+  infoBox: {
+    backgroundColor: '#dee8f0', // This is the brand colour with .2 opacity
+    borderRadius: 8,
+    marginTop: 16,
+    padding: 16,
+    paddingBottom: 24,
+    textAlign: 'left',
+  },
   oneOff: {
     alignSelf: 'center',
     backgroundColor: colors.brand,
@@ -66,13 +74,5 @@ const styles = StyleSheet.create({
   text: {
     padding: 16,
     textAlign: 'center',
-  },
-  infoBox: {
-    backgroundColor: '#dee8f0', // This is the brand colour with .2 opacity
-    borderRadius: 8,
-    marginTop: 16,
-    padding: 16,
-    paddingBottom: 24,
-    textAlign: 'left',
   },
 });
