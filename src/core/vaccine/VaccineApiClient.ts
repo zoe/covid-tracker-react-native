@@ -1,10 +1,7 @@
 import appConfig from '@covid/appConfig';
 import { IApiClient } from '@covid/core/api/ApiClient';
 import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import {
-  DoseSymptomsResponse,
-  VaccineResponse,
-} from '@covid/core/vaccine/dto/VaccineResponse';
+import { DoseSymptomsResponse, VaccineResponse } from '@covid/core/vaccine/dto/VaccineResponse';
 import { Services } from '@covid/provider/services.types';
 import { inject, injectable } from 'inversify';
 
