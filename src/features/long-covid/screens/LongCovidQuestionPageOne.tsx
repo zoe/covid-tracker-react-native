@@ -1,6 +1,7 @@
 import InfoCircle from '@assets/icons/InfoCircle';
 import {
   BrandedButton,
+  CaptionText,
   CheckboxItem,
   CheckboxList,
   ColourHighlightHeaderTextText,
@@ -215,6 +216,8 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
       </View>
     ) : null;
 
+  const [symptomChangeCharCount, setSymptomChangeCharCount] = useState(0);
+
   const renderExtendedVaccineForm = (props: FormikProps<ILongCovid>) =>
     props.values.at_least_one_vaccine && props.values.at_least_one_vaccine === 'YES' ? (
       <View>
@@ -265,13 +268,17 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <Textarea
           bordered
           maxLength={1000}
-          onChangeText={props.handleChange('symptom_change_comments')}
+          onChangeText={(value) => {
+            props.handleChange('symptom_change_comments');
+            setSymptomChangeCharCount(value.length);
+          }}
           placeholder={i18n.t('placeholder-optional-question')}
           rowSpan={5}
           style={styles.textarea}
           underline={false}
           value={props.values.symptom_change_comments}
         />
+        <CaptionText style={{ alignSelf: 'flex-end' }}>{symptomChangeCharCount} / 1000</CaptionText>
       </View>
     ) : null;
 
