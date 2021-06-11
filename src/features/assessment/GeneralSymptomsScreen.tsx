@@ -41,42 +41,40 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
   return (
-    <>
-      <Screen navigation={navigation} profile={currentPatient.profile}>
-        <Header>
-          <HeaderText>{i18n.t('describe-symptoms.general-symptoms')}</HeaderText>
-        </Header>
+    <Screen navigation={navigation} profile={currentPatient.profile}>
+      <Header>
+        <HeaderText>{i18n.t('describe-symptoms.general-symptoms')}</HeaderText>
+      </Header>
 
-        <ProgressBlock>
-          <ProgressStatus maxSteps={6} step={1} />
-        </ProgressBlock>
+      <ProgressBlock>
+        <ProgressStatus maxSteps={6} step={1} />
+      </ProgressBlock>
 
-        <Formik
-          initialValues={{
-            ...GeneralSymptomsQuestions.initialFormValues(features.defaultTemperatureUnit),
-          }}
-          onSubmit={onSubmit}
-          validationSchema={registerSchema}
-        >
-          {(props) => {
-            return (
-              <Form style={{ flexGrow: 1 }}>
-                <View style={{ marginHorizontal: 16 }}>
-                  <GeneralSymptomsQuestions formikProps={props} hasHayfever={hasHayfever} />
-                </View>
-                <View style={{ flex: 1 }} />
-                <BrandedButton
-                  enable={!props.isSubmitting}
-                  hideLoading={!props.isSubmitting}
-                  onPress={props.handleSubmit}
-                >
-                  {i18n.t('describe-symptoms.next')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Screen>
-    </>
+      <Formik
+        initialValues={{
+          ...GeneralSymptomsQuestions.initialFormValues(features.defaultTemperatureUnit),
+        }}
+        onSubmit={onSubmit}
+        validationSchema={registerSchema}
+      >
+        {(props) => {
+          return (
+            <Form style={{ flexGrow: 1 }}>
+              <View style={{ marginHorizontal: 16 }}>
+                <GeneralSymptomsQuestions formikProps={props} hasHayfever={hasHayfever} />
+              </View>
+              <View style={{ flex: 1 }} />
+              <BrandedButton
+                enable={!props.isSubmitting}
+                hideLoading={!props.isSubmitting}
+                onPress={props.handleSubmit}
+              >
+                {i18n.t('describe-symptoms.next')}
+              </BrandedButton>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Screen>
   );
 };
