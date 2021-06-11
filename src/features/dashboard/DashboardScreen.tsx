@@ -1,12 +1,9 @@
-import { shareAppV3 } from '@assets';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks, StudyCard } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, StudyCard } from '@covid/components';
 import { share } from '@covid/components/cards/BaseShareApp';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import Analytics, { events } from '@covid/core/Analytics';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
@@ -14,7 +11,6 @@ import { selectApp, setDashboardHasBeenViewed } from '@covid/core/state';
 import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { ImpactTimelineCard } from '@covid/features/anniversary';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -115,16 +111,15 @@ export function DashboardScreen({ navigation, route }: IProps) {
   }, []);
 
   const hasNetworkData = networks && networks.length > 0;
-  
+
   return (
     <CollapsibleHeaderScrollView
-    compactHeader={<CompactHeader reportOnPress={onReport} />}
-    config={headerConfig}
-    expandedHeader={<Header reportOnPress={onReport} />}
-    navigation={navigation}
+      compactHeader={<CompactHeader reportOnPress={onReport} />}
+      config={headerConfig}
+      expandedHeader={<Header reportOnPress={onReport} />}
+      navigation={navigation}
     >
       <View style={styles.calloutContainer}>
-
         {showTrendline ? <TrendlineCard ctaOnPress={onExploreTrendline} /> : null}
 
         <EstimatedCasesMapCard />
@@ -162,7 +157,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
         <ShareVaccineCard screenName="Dashboard" />
 
-
         {/* {startupInfo?.show_timeline ? (
           <ImpactTimelineCard
           onPress={() => {
@@ -171,7 +165,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
           }}
           />
           ) : null} */}
-          
+
         {/* {hasNetworkData ? (
           <View
             style={{
