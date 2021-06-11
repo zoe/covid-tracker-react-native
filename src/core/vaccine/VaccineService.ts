@@ -1,12 +1,10 @@
-import { Dose, DoseSymptomsRequest, VaccinePlanRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { Dose, DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { IVaccineRemoteClient } from '@covid/core/vaccine/VaccineApiClient';
 import { Services } from '@covid/provider/services.types';
 import { inject, injectable } from 'inversify';
 
 export interface IVaccineService {
-  hasVaccinePlans(patientId: string): Promise<boolean>;
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean>;
-  saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<boolean>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<boolean>;
   deleteVaccine(vaccineId: string): Promise<void>;
   listVaccines(): Promise<VaccineRequest[]>;
@@ -28,11 +26,6 @@ export class VaccineService implements IVaccineService {
     ];
   }
 
-  public async hasVaccinePlans(patientId: string): Promise<boolean> {
-    const plans = await this.apiClient.getVaccinePlans(patientId);
-    return plans && plans.filter((plan) => plan.patient === patientId).length > 0;
-  }
-
   public async saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean> {
     if (!payload.doses) payload.doses = this.initDoses();
     if (payload.id) {
@@ -40,11 +33,6 @@ export class VaccineService implements IVaccineService {
     } else {
       await this.apiClient.saveVaccineResponse(patientId, payload);
     }
-    return true;
-  }
-
-  public async saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<boolean> {
-    await this.apiClient.saveVaccinePlan(patientId, payload);
     return true;
   }
 
