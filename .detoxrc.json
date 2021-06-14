@@ -12,7 +12,7 @@
     },
     "ios.release": {
       "binaryPath": "./build/covid-zoe Debug.app",
-      "build": "xcodebuild -workspace ios/Covid.xcworkspace -configuration release -scheme 'Covid Release' -sdk iphonesimulator -derivedDataPath ios/build",
+      "build": "fastlane ios build env:stage -configuration release -scheme 'Covid Release' -sdk iphonesimulator -derivedDataPath ios/build",
       "type": "ios.simulator",
       "name": "iPhone 11"
     }
