@@ -260,7 +260,11 @@ jobs:
       - node-install
       - prepare_e2e
       - run: cd ios && pod install && cd ..
-      - run: detox build --configuration ios.release
+      #- run: fastlane ios build env:stage detox build --configuration ios.release
+      #- run: bundle install --path vendor/bundle --clean
+      - run: yarn fastlane:ios:release env:$RELEASE_TYPE
+      - store_artifacts:
+          path: ~/covid-react/build
       - run: detox test --configuration ios.release --cleanup
 
   ### ------------------- ###
