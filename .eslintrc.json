@@ -15,7 +15,8 @@
   ],
   "plugins": [
     "simple-import-sort",
-    "sort-keys-fix"
+    "sort-keys-fix",
+    "unused-imports"
   ],
   "globals": {
     "__DEV__": false
@@ -68,7 +69,8 @@
     "react/style-prop-object": "error",
     "simple-import-sort/imports": "error",
     "sort-imports": "off",
-    "sort-keys-fix/sort-keys-fix": "error"
+    "sort-keys-fix/sort-keys-fix": "error",
+    "unused-imports/no-unused-imports": "error"
   },
   "settings": {
     "react": {

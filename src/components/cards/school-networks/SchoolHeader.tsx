@@ -1,8 +1,7 @@
-import i18n from '@covid/locale/i18n';
 import React from 'react';
 import { View } from 'react-native';
 
-import { SSchoolNameText, STitleText } from './styles';
+import { STitleText } from './styles';
 
 interface IProps {
   schoolName: string;

@@ -19,11 +19,11 @@ import { VaccineNameQuestion } from './VaccineNameQuestion';
 export interface IVaccineDoseData {
   firstDoseDate: Date | undefined;
   firstBatchNumber: string | undefined;
-  firstBrand: VaccineBrands | undefined;
+  firstBrand: VaccineBrands | undefined | null;
   firstDescription: string | undefined;
   secondDoseDate: Date | undefined;
   secondBatchNumber: string | undefined;
-  secondBrand: VaccineBrands | undefined;
+  secondBrand: VaccineBrands | undefined | null;
   secondDescription: string | undefined;
   hasSecondDose: boolean;
 }

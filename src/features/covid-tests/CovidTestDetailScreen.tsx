@@ -8,7 +8,6 @@ import Analytics, { events } from '@covid/core/Analytics';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
-import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import {
   CovidTestDateQuestion,
   CovidTestInvitedQuestion,
@@ -31,7 +30,7 @@ import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form, Text } from 'native-base';
+import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { Alert, View } from 'react-native';
 import * as Yup from 'yup';

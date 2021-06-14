@@ -6,6 +6,7 @@ import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
+import { generalApiClient } from '@covid/Services';
 import { colors, styling } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
@@ -24,8 +25,18 @@ export default function MentalHealthPlaybackModal() {
     }
   });
 
+  function handlePositive() {
+    generalApiClient.postUserEvent('view-mental-health-insights');
+    appCoordinator.goToMentalHealthStudyPlayback(startupInfo);
+  }
+
+  function handleNegative() {
+    generalApiClient.postUserEvent('skip-mental-health-insights');
+    goBack();
+  }
+
   return (
-    <Modal event="view_mental_health_playback_modal-v1">
+    <Modal>
       <Tag
         color={colors.coral.main.bgColor}
         style={styling.selfCenter}
@@ -53,13 +64,10 @@ export default function MentalHealthPlaybackModal() {
           ? i18n.t('mental-health-playback.modal.description-general')
           : i18n.t('mental-health-playback.modal.description-personal')}
       </Text>
-      <BrandedButton
-        onPress={() => appCoordinator.goToMentalHealthStudyPlayback(startupInfo)}
-        style={styles.buttonPositive}
-      >
+      <BrandedButton onPress={handlePositive} style={styles.buttonPositive}>
         {i18n.t('mental-health-playback.modal.button-positive')}
       </BrandedButton>
-      <BrandedButton onPress={() => goBack()} style={styles.buttonNegative}>
+      <BrandedButton onPress={handleNegative} style={styles.buttonNegative}>
         <Text textClass="pSmallLight">{i18n.t('mental-health-playback.modal.button-negative')}</Text>
       </BrandedButton>
     </Modal>

@@ -32,6 +32,10 @@ export default React.memo(function Insights(props: IProps) {
     });
   }
 
+  if (props.itemHeight <= 0) {
+    return null;
+  }
+
   return (
     <>
       {(props.insights || []).map((insight: IInsight, index: number) => (
@@ -103,6 +107,9 @@ export default React.memo(function Insights(props: IProps) {
                 },
               )}
             </TextHighlight>
+            <Text inverted colorPalette="uiDark" colorShade="main" style={styles.label} textClass="pSmall">
+              {i18n.t('mental-health-playback.general.chart-label')}
+            </Text>
             <BarChart color="#0165B5" items={insight.answer_distribution} userAnswer={insight.user_answer} />
           </View>
 
@@ -165,12 +172,15 @@ const styles = StyleSheet.create({
     padding: grid.l,
   },
   description: {
-    marginBottom: grid.xxl,
     marginTop: grid.m,
   },
   illustrationWrapper: {
     flex: 1,
     maxHeight: 250,
     position: 'relative',
+  },
+  label: {
+    marginBottom: grid.m,
+    marginTop: grid.xxl,
   },
 });

@@ -88,6 +88,8 @@ export function DropdownField(props: IProps) {
 
   const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
+  const dropdownHeight: number = (options?.length ?? 1) * DROPDOWN_ROW_HEIGHT;
+
   const renderDropdownRow = (option: string, index: any, isSelected: boolean): React.ReactNode => {
     // There is a type error in renderDropdownRow index is actually a number, not a string
 
@@ -121,7 +123,7 @@ export function DropdownField(props: IProps) {
         defaultIndex={defaultIndex}
         dropdownStyle={{
           ...styles.dropdownStyle,
-          height: Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220),
+          height: dropdownHeight,
           width: dropdownWidth,
         }}
         onDropdownWillHide={() => {

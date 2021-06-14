@@ -1,3 +1,4 @@
+import InfoCircle from '@assets/icons/InfoCircle';
 import { ClockIcon } from '@assets/icons/svgIcons';
 import { BasicPage, HeaderText, RegularText, Spacer, Text } from '@covid/components';
 import { ScreenParamList } from '@covid/features';
@@ -34,11 +35,27 @@ export default function LongCovidStartScreen({ route }: IProps) {
       <RegularText style={styles.text}>{i18n.t('long-covid.body-2')}</RegularText>
       <RegularText style={styles.text}>{i18n.t('long-covid.body-3')}</RegularText>
       <Spacer space={24} />
+      <View style={{ ...styles.infoBox, marginBottom: 24 }}>
+        <View style={{ flexDirection: 'row', paddingRight: 24, paddingTop: 16 }}>
+          <View style={{ paddingRight: 12 }}>
+            <InfoCircle color={colors.brand} />
+          </View>
+          <RegularText style={{ color: colors.brand }}>{i18n.t('long-covid.apology')}</RegularText>
+        </View>
+      </View>
     </BasicPage>
   );
 }
 
 const styles = StyleSheet.create({
+  infoBox: {
+    backgroundColor: '#dee8f0', // This is the brand colour with .2 opacity
+    borderRadius: 8,
+    marginTop: 16,
+    padding: 16,
+    paddingBottom: 24,
+    textAlign: 'left',
+  },
   oneOff: {
     alignSelf: 'center',
     backgroundColor: colors.brand,

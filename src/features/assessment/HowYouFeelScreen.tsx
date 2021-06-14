@@ -28,7 +28,6 @@ type Props = {
 };
 
 export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [location, setLocation] = useState('');
   const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
@@ -86,7 +85,6 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
         assessmentService.saveAssessment(assessment);
       }
     } catch (error) {
-      setErrorMessage(i18n.t('something-went-wrong'));
       setIsSubmitting(false);
     }
   }

@@ -1,20 +1,13 @@
 import appConfig from '@covid/appConfig';
 import { IApiClient } from '@covid/core/api/ApiClient';
-import { DoseSymptomsRequest, VaccinePlanRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import {
-  DoseSymptomsResponse,
-  VaccinePlanResponse,
-  VaccinePlansResponse,
-  VaccineResponse,
-} from '@covid/core/vaccine/dto/VaccineResponse';
+import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { DoseSymptomsResponse, VaccineResponse } from '@covid/core/vaccine/dto/VaccineResponse';
 import { Services } from '@covid/provider/services.types';
 import { inject, injectable } from 'inversify';
 
 export interface IVaccineRemoteClient {
-  getVaccinePlans(patientId: string): Promise<VaccinePlansResponse>;
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse>;
   updateVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse>;
-  saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse>;
   listVaccines(): Promise<VaccineRequest[]>;
   deleteVaccine(vaccineId: string): Promise<void>;
@@ -24,10 +17,6 @@ export interface IVaccineRemoteClient {
 export class VaccineApiClient implements IVaccineRemoteClient {
   @inject(Services.Api)
   private readonly apiClient: IApiClient;
-
-  public async getVaccinePlans(patientId: string): Promise<VaccinePlansResponse> {
-    return this.apiClient.get<VaccinePlansResponse>('/vaccine_plans/');
-  }
 
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse> {
     payload = {
@@ -45,17 +34,6 @@ export class VaccineApiClient implements IVaccineRemoteClient {
       version: appConfig.vaccineVersion,
     };
     return this.apiClient.patch<VaccineRequest, VaccineResponse>(`/vaccines/${payload.id}/`, payload as VaccineRequest);
-  }
-
-  saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse> {
-    payload = {
-      ...payload,
-      patient: patientId,
-    };
-    return this.apiClient.post<VaccinePlanRequest, VaccinePlanResponse>(
-      '/vaccine_plans/',
-      payload as VaccinePlanRequest,
-    );
   }
 
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse> {

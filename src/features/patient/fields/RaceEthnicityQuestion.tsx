@@ -6,7 +6,6 @@ import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { FormikProps } from 'formik';
-import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 

@@ -81,10 +81,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       const shouldAskDoseSymptoms = !!dose;
       coordinator.gotoNextScreen(route.name, { dose, shouldAskDoseSymptoms });
     } else {
-      // No vaccines entered. Check if user has answered a VaccinePlan / VaccineHesitancy
-      const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
-      const askVaccineHesitancy = !hasPlans;
-      coordinator.gotoNextScreen(route.name, { askVaccineHesitancy });
+      coordinator.gotoNextScreen(route.name, {});
     }
   };
 

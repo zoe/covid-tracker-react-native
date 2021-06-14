@@ -32,6 +32,11 @@ export const TrendLineEmptyView: React.FC = () => {
   );
 };
 
+const Y_AXIS_GRID_LINES = 10;
+const Y_AXIS_STEP_SIZES = [
+  1, 2, 5, 10, 20, 25, 40, 50, 80, 100, 150, 200, 400, 500, 800, 1000, 2000, 2500, 5000, 10000, 20000, 25000, 50000,
+];
+
 export function TrendLineChart({ filter, viewMode }: IProps) {
   const [html, setHtml] = useState<string>('');
   const [monthRangeLabel, setMonthRangeLabel] = useState<string>('');
@@ -93,7 +98,7 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
     });
 
     switch (viewMode) {
-      case TrendLineViewMode.overview:
+      case TrendLineViewMode.overview: {
         const overviewSorted = timeseries.sort((a: any, b: any) => (a.date < b.date ? 1 : -1));
         const filtered = overviewSorted.filter((_: any, index: number) => index <= 90);
         const monthLabels = (filtered ?? []).map((data) => moment(data.date).format('MMM'));
@@ -106,14 +111,21 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
         } else if (monthLabelSet.length === 1) {
           setMonthRangeLabel(`${monthLabelSet[0]}`);
         }
+        const values = filtered.map((item) => item.value).reverse();
+        const needle = Math.max(...values) / Y_AXIS_GRID_LINES;
+        const stepSize = Y_AXIS_STEP_SIZES.find((stepSize) => stepSize >= needle) || 1;
+        const max = stepSize * Y_AXIS_GRID_LINES;
         webview.current?.call('setData', {
           payload: {
             labels: filtered.map((item) => item.label).reverse(),
-            values: filtered.map((item) => item.value).reverse(),
+            max,
+            stepSize,
+            values,
           },
         });
         return;
-      case TrendLineViewMode.explore:
+      }
+      case TrendLineViewMode.explore: {
         const timeseriesSorted = timeseries.sort((a, b) => (a.date > b.date ? 1 : -1));
         const values = timeseriesSorted.map((item) => item.value);
         webview.current?.call('setData', {
@@ -123,6 +135,7 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
             min: Math.min(...values),
           },
         });
+      }
     }
   };
 

@@ -1,5 +1,5 @@
 import Screen from '@covid/components/Screen';
-import { selectAllJoinedGroups, selectPatientsJoinedGroups } from '@covid/core/schools/Schools.slice';
+import { selectPatientsJoinedGroups } from '@covid/core/schools/Schools.slice';
 import { RootState } from '@covid/core/state/root';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RouteProp } from '@react-navigation/native';
