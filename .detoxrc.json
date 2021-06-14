@@ -12,7 +12,7 @@
     },
     "ios.release": {
       "binaryPath": "~/covid-react/build/covid-zoe Debug.app",
-      "build": "yarn fastlane:ios:stage",
+      "build": "fastlane ios build env:stage",
       "type": "ios.simulator",
       "device": {
         "type": "iPhone 11"
