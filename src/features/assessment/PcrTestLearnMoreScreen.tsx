@@ -28,7 +28,7 @@ function PcrTestLearnMoreScreen({ closeButtonHandler }: IProps) {
   );
 
   return (
-    <Screen>
+    <Screen style={{ paddingTop: -50 }}>
       <TouchableOpacity onPress={closeButtonHandler}>
         <Image source={closeIcon} style={styles.closeIcon} />
       </TouchableOpacity>

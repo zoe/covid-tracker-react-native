@@ -4,7 +4,6 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { ClickableText, Header3Text, HeaderText, SecondaryText } from '@covid/components/Text';
-import { Text } from '@covid/components/typography';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -124,9 +123,6 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
         <View style={styles.bottomSheet}>
           <TouchableOpacity onPress={() => pcrTestDeclined()}>
             <Image source={closeIcon} style={styles.closeIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setBottomSheetVisible(false)}>
-            <Text>Close</Text>
           </TouchableOpacity>
           <Header3Text style={styles.question}>{i18n.t('pcr-test.question-interest')}</Header3Text>
           <SecondaryText style={styles.description}>{i18n.t('pcr-test.description')}</SecondaryText>
