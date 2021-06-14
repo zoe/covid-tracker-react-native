@@ -34,7 +34,6 @@ import {
   NursesConsentUSScreen,
   OptionalInfoScreen,
   OtherSymptomsScreen,
-  PcrTestLearnMoreScreen,
   PreviousExposureScreen,
   PrivacyPolicySVScreen,
   PrivacyPolicyUKScreen,
@@ -139,7 +138,6 @@ export default function MainNavigator() {
         name="PrivacyPolicySV"
         options={{ headerShown: true, title: 'Integritetsmeddelande' }}
       />
-      <Stack.Screen component={PcrTestLearnMoreScreen} name="PcrTestLearnMore" options={noHeader} />
       <Stack.Screen component={PrivacyPolicyUKScreen} name="PrivacyPolicyUK" options={simpleHeader} />
       <Stack.Screen component={PrivacyPolicyUSScreen} name="PrivacyPolicyUS" options={simpleHeader} />
       <Stack.Screen component={ProfileBackDateScreen} name="ProfileBackDate" options={noHeader} />

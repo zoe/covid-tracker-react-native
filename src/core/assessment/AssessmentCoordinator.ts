@@ -80,7 +80,6 @@ export class AssessmentCoordinator extends Coordinator {
     OtherSymptoms: () => {
       NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
-    PcrTestLearnMore: () => {},
     ProfileBackDate: () => {
       this.startAssessment();
     },
@@ -141,8 +140,6 @@ export class AssessmentCoordinator extends Coordinator {
     WhereAreYou: (params: { location: string; endAssessment: boolean }) => {
       if (params.endAssessment) {
         this.gotoEndAssessment();
-      } else if (params.location === 'learn_more') {
-        NavigatorService.navigate('PcrTestLearnMore');
       } else {
         NavigatorService.navigate('TreatmentSelection', {
           assessmentData: this.assessmentData,

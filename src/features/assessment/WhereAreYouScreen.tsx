@@ -14,8 +14,10 @@ import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { BottomSheet } from 'react-native-elements';
+
+import PcrTestLearnMoreScreen from './PcrTestLearnMoreScreen';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
@@ -57,6 +59,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
   };
 
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const offeredPcrTest = false;
 
@@ -73,9 +76,14 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     handleLocationSelection('home', true);
   };
 
-  const learnMore = () => {
+  const openLearnMore = () => {
     setBottomSheetVisible(false);
-    assessmentCoordinator.gotoNextScreen(route.name, { endAssessment: false, location: 'learn_more' });
+    setModalVisible(true);
+  };
+
+  const closeLearnMore = () => {
+    setModalVisible(false);
+    setBottomSheetVisible(true);
   };
 
   useEffect(() => {
@@ -122,7 +130,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
           </TouchableOpacity>
           <Header3Text style={styles.question}>{i18n.t('pcr-test.question-interest')}</Header3Text>
           <SecondaryText style={styles.description}>{i18n.t('pcr-test.description')}</SecondaryText>
-          <ClickableText onPress={learnMore} style={styles.learnMore}>
+          <ClickableText onPress={openLearnMore} style={styles.learnMore}>
             {i18n.t('pcr-test.learn-more')}
           </ClickableText>
           <BrandedButton onPress={() => openWebLink(i18n.t('pcr-test.pcr-link'))} style={styles.bookTestButton}>
@@ -130,6 +138,10 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
           </BrandedButton>
         </View>
       </BottomSheet>
+
+      <Modal transparent animationType="slide" onRequestClose={closeLearnMore} visible={modalVisible}>
+        <PcrTestLearnMoreScreen closeButtonHandler={closeLearnMore} />
+      </Modal>
     </Screen>
   );
 }

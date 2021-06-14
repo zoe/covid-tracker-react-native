@@ -1,15 +1,14 @@
+import { closeIcon } from '@assets';
 import Screen, { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import { ScreenParamList } from '@covid/features';
-import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { GestureResponderEvent, Image, Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface IProps {
-  navigation?: StackNavigationProp<ScreenParamList, 'PcrTestLearnMore'>;
+  closeButtonHandler: (event: GestureResponderEvent) => void;
 }
 
-function PcrTestLearnMoreScreen({ navigation }: IProps) {
+function PcrTestLearnMoreScreen({ closeButtonHandler }: IProps) {
   const openUrl = (link: string) => {
     Linking.openURL(link);
   };
@@ -29,7 +28,11 @@ function PcrTestLearnMoreScreen({ navigation }: IProps) {
   );
 
   return (
-    <Screen showBackButton navigation={navigation}>
+    <Screen>
+      <TouchableOpacity onPress={closeButtonHandler}>
+        <Image source={closeIcon} style={styles.closeIcon} />
+      </TouchableOpacity>
+
       <Header>
         <HeaderText>Learn more</HeaderText>
       </Header>
@@ -120,6 +123,12 @@ function PcrTestLearnMoreScreen({ navigation }: IProps) {
 }
 
 const styles = StyleSheet.create({
+  closeIcon: {
+    alignSelf: 'flex-end',
+    height: 20,
+    marginBottom: 20,
+    width: 20,
+  },
   contentContainer: {
     paddingHorizontal: 16,
   },

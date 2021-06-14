@@ -8,5 +8,4 @@ export { default as ProfileBackDateScreen } from './ProfileBackDateScreen';
 export { ThroatChestSymptomsScreen } from './ThroatChestSymptomsScreen';
 export { default as TreatmentOtherScreen } from './TreatmentOtherScreen';
 export { default as TreatmentSelectionScreen } from './TreatmentSelectionScreen';
-export { default as PcrTestLearnMoreScreen } from './PcrTestLearnMoreScreen';
 export { default as WhereAreYouScreen } from './WhereAreYouScreen';
