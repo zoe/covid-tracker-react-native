@@ -1,15 +1,33 @@
 import Screen, { Header } from '@covid/components/Screen';
-import { HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 
 interface IProps {
   navigation?: StackNavigationProp<ScreenParamList, 'PcrTestLearnMore'>;
 }
 
 function PcrTestLearnMoreScreen({ navigation }: IProps) {
+  const openUrl = (link: string) => {
+    Linking.openURL(link);
+  };
+
+  const renderBulletLine = (text: string) => (
+    <View style={{ flexDirection: 'row', marginBottom: 8 }}>
+      <RegularText style={{ fontSize: 4 }}>{'\u2B24'}</RegularText>
+      <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
+    </View>
+  );
+
+  const renderSubBulletLine = (text: string) => (
+    <View style={{ flexDirection: 'row', marginBottom: 8, paddingLeft: 20 }}>
+      <RegularText style={{ fontSize: 4 }}>{'\u25EF'}</RegularText>
+      <RegularText style={{ flex: 1, paddingLeft: 16 }}>{text}</RegularText>
+    </View>
+  );
+
   return (
     <Screen showBackButton navigation={navigation}>
       <Header>
@@ -18,16 +36,20 @@ function PcrTestLearnMoreScreen({ navigation }: IProps) {
       <View style={styles.contentContainer}>
         <RegularText style={styles.paragraph}>
           Thank you so much for using the COVID Symptom Study app and helping to fight the outbreak. ZOE is very excited
-          to be able to offer you a chance to get tested for COVID-19. By getting tested, your results will help
+          to be able to offer you a chance to get tested for COVID-19. By getting tested, your results will help us
           understand the level of COVID-19 infections in your area, so this really will make a difference.
         </RegularText>
         <RegularText style={styles.paragraph}>
           You’ve recently reported feeling unwell with a particular combination of symptoms. Whilst these symptoms do
           not necessarily indicate that you have COVID-19, we would like to offer you a test to discover if you have the
-          virus right now. Even if you have been recently vaccinated, your test results are very valuable to understand
-          possible post-vaccine infections. Depending on your symptoms, you should follow the latest government guidance
-          for households with possible coronavirus infection.You may also invite any other app users who live in the
-          same household with you to also be tested.
+          virus right now. Even if you have been recently vaccinated, your test results are very valuable for
+          understanding possible post-vaccine infections. Depending on your symptoms, you should follow{' '}
+          <ClickableText
+            onPress={() => openUrl('https://www.gov.uk/government/publications/covid-19-stay-at-home-guidance')}
+          >
+            the latest government guidance for households with possible coronavirus infection
+          </ClickableText>
+          . You may also invite any other app users who live in the same household with you to also be tested.
         </RegularText>
         <RegularText style={styles.paragraph}>
           This request comes from our work with the Department of Health and Social Care (DHSC) to give you access to a
@@ -49,54 +71,49 @@ function PcrTestLearnMoreScreen({ navigation }: IProps) {
           and make sure to enter the results of your test into the app once you get them.
         </RegularText>
         <RegularText style={styles.paragraph}>Thank you so much for your amazing contribution to science.</RegularText>
-        <RegularText>
-          Tim Spector <br />
-          on behalf of ZOE
-        </RegularText>
-        <RegularText>
+        <RegularText style={styles.paragraph}>Tim Spector {'\n'}on behalf of ZOE</RegularText>
+        <RegularText style={styles.paragraph}>
           Please read the following key information carefully before booking a test. NOTE: WE ARE USING A NEW PROCESS.
-          <ul>
-            <li>
-              To access the test, please go to the NHS Covid Test Portal here. Please answer the questions as normal.
-            </li>
-            <ul>
-              <li>
-                For the first step, if you have one of the core three symptoms, select “Yes, at least one of these
-                symptoms”; if you do not have any of the core three symptoms, select “No, none of these symptoms”
-              </li>
-              <li>
-                On the following question, please do NOT select to indicate that you are an essential worker unless that
-                is true for you (note that this is different from what we asked you to do previously) When you are asked
-                whether you are part of a trial or government pilot project, please select “Yes” Then select “The person
-                was told to get a test by the COVID Symptom Study app (by ZOE)” Please note: this permission only
-                applies to you as the study participant and to any other app users who live in the same household with
-                you. You must not encourage other members of your family or friends, except those in your household, to
-                access a test unless they have also been invited as a study participant or a symptomatic essential
-                worker, and therefore already qualify. You will then be offered the choice between a home testing kit or
-                booking a testing slot at one of our regional testing sites (RTS’s). Home tests are delivered to your
-                address. You then self-administer the swab (taking a sample from both your nose and throat) before
-                returning the kit for analysis via a courier. Full instructions will be delivered along with the kit.
-                Please note: capacity for these tests is released at the beginning of each day and demand is high.
-                Therefore you may find that there are none available when you attempt to book. In this case, please
-                select a slot at a suitable RTS, if possible. If you have trouble getting a home testing kit, please
-                check the website soon after 0800 or 1700 as kits can book out within hours after each time slot when
-                they are released. Regional Testing Sites are distributed across the UK, with more than 50 sites now
-                available. You can book a slot at the site nearest to you (if capacity is available) or at another site
-                with available capacity and within a regional driving distance. Please note: this opportunity is
-                currently only available to app users within England and Northern Ireland. We are working to expand this
-                to Scotland and Wales. Once you have selected your home testing kit or booked a testing slot at an RTS,
-                you will then see a summary screen with your name mobile number and profession listed. Please note:
-                check that your phone number is correct as this is how you will receive further information, including
-                your test results. Once you have submitted your application you will receive a text message with a link
-                to either a) claim your home testing kit or b) book a slot at a regional testing site. Once you have
-                completed your tests, results will be sent back to you by the Department of Health and Social Care. This
-                will confirm whether you were positive or negative for COVID-19, or, in a minority of cases, whether it
-                was not possible to confirm your result. Please note: you are then responsible for reporting these
-                results in the COVID Symptom Study app. They will not be automatically shared by the test site.
-              </li>
-            </ul>
-          </ul>
         </RegularText>
+        {renderBulletLine(
+          'To access the test, please go to the NHS Covid Test Portal. Please answer the questions as normal.',
+        )}
+        {renderSubBulletLine(
+          'For the first step, if you have one of the core three symptoms, select “Yes, at least one of these symptoms”; if you do not have any of the core three symptoms, select “No, none of these symptoms”.',
+        )}
+        {renderSubBulletLine(
+          'On the following question, please do NOT select to indicate that you are an essential worker unless that is true for you (note that this is different from what we asked you to do previously).',
+        )}
+        {renderSubBulletLine(
+          'When you are asked whether you are part of a trial or government pilot project, please select “Yes”.',
+        )}
+        {renderSubBulletLine(
+          'Then select “The person was told to get a test by the COVID Symptom Study app (by ZOE)”.',
+        )}
+        {renderBulletLine(
+          'Please note: this permission only applies to you as the study participant and to any other app users who live in the same household with you. You must not encourage other members of your family or friends, except those in your household, to access a test unless they have also been invited as a study participant or a symptomatic essential worker, and therefore already qualify.',
+        )}
+        {renderBulletLine(
+          'You will then be offered the choice between a home testing kit or booking a testing slot at one of our regional testing sites (RTS’s).',
+        )}
+        {renderBulletLine(
+          'Home tests are delivered to your address. You then self-administer the swab (taking a sample from both your nose and throat) before returning the kit for analysis via a courier. Full instructions will be delivered along with the kit. Please note: capacity for these tests is released at the beginning of each day and demand is high. Therefore you may find that there are none available when you attempt to book. In this case, please select a slot at a suitable RTS, if possible. ',
+        )}
+        {renderBulletLine(
+          'If you have trouble getting a home testing kit, please check the website soon after 0800 or 1700 as kits can book out within hours after each time slot when they are released.',
+        )}
+        {renderBulletLine(
+          'Regional Testing Sites are distributed across the UK, with more than 50 sites now available. You can book a slot at the site nearest to you (if capacity is available) or at another site with available capacity and within a regional driving distance. Please note: this opportunity is currently only available to app users within England and Northern Ireland. We are working to expand this to Scotland and Wales.',
+        )}
+        {renderBulletLine(
+          'Once you have selected your home testing kit or booked a testing slot at an RTS, you will then see a summary screen with your name, mobile number and profession listed. Please note: check that your phone number is correct as this is how you will receive further information, including your test results.',
+        )}
+        {renderBulletLine(
+          'Once you have submitted your application you will receive a text message with a link to either a) claim your home testing kit or b) book a slot at a regional testing site.',
+        )}
+        {renderBulletLine(
+          'Once you have completed your tests, results will be sent back to you by the Department of Health and Social Care. This will confirm whether you were positive or negative for COVID-19, or, in a minority of cases, whether it was not possible to confirm your result. Please note: you are then responsible for reporting these results in the COVID Symptom Study app. They will not be automatically shared by the test site.',
+        )}
       </View>
     </Screen>
   );
