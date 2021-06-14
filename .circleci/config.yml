@@ -256,10 +256,12 @@ jobs:
 
     steps:
       - prepare_code
-      - prepare_blank_env
-      - node-install
+      # - prepare_blank_env
+      # - node-install
       - prepare_e2e
       - run: yarn
+      - attach_workspace:
+          at: *default_workspace
       #- run: cd ios && pod install && cd ..
       #- run: fastlane ios build env:stage detox build --configuration ios.release
       - run: bundle install --path vendor/bundle --clean
