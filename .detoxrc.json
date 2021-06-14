@@ -11,10 +11,12 @@
       }
     },
     "ios.release": {
-      "binaryPath": "./build/covid-zoe Debug.app",
-      "build": "fastlane ios build env:stage -configuration release -scheme 'Covid Release' -sdk iphonesimulator -derivedDataPath ios/build",
+      "binaryPath": "~/covid-react/build/covid-zoe Debug.app",
+      "build": "yarn fastlane:ios:stage",
       "type": "ios.simulator",
-      "name": "iPhone 11"
+      "device": {
+        "type": "iPhone 11"
+      }
     }
   }
 }
