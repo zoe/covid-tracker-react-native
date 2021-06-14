@@ -544,14 +544,6 @@
     "picker-location-back-from-hospital-already-reported": "I am back from the hospital, I've already told you about my treatment."
   },
 
-  "pcr-test": {
-    "question-interest": "Would you be interested in a PCR test?",
-    "description": "Whilst your symptoms do not necessarily indicate that you have COVID-19, we would like to offer you a test to discover if you might have the virus.",
-    "learn-more": "Learn more",
-    "pcr-link": "https://www.gov.uk/get-coronavirus-test",
-    "book-test": "Book your test"
-  },
-
   "treatment-other-title-after": "What treatment did you receive while in the hospital?",
   "treatment-other-title-during": "What treatment are you receiving in hospital?",
   "treatment-other-question-treatment-after": "What medical treatment did you receive?",

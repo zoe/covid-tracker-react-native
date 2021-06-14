@@ -124,13 +124,19 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
           <TouchableOpacity onPress={() => pcrTestDeclined()}>
             <Image source={closeIcon} style={styles.closeIcon} />
           </TouchableOpacity>
-          <Header3Text style={styles.question}>{i18n.t('pcr-test.question-interest')}</Header3Text>
-          <SecondaryText style={styles.description}>{i18n.t('pcr-test.description')}</SecondaryText>
+          <Header3Text style={styles.question}>Would you be interested in a PCR test?</Header3Text>
+          <SecondaryText style={styles.description}>
+            Whilst your symptoms do not necessarily indicate that you have COVID-19, we would like to offer you a test
+            to discover if you might have the virus.
+          </SecondaryText>
           <ClickableText onPress={openLearnMore} style={styles.learnMore}>
-            {i18n.t('pcr-test.learn-more')}
+            Learn more
           </ClickableText>
-          <BrandedButton onPress={() => openWebLink(i18n.t('pcr-test.pcr-link'))} style={styles.bookTestButton}>
-            {i18n.t('pcr-test.book-test')}
+          <BrandedButton
+            onPress={() => openWebLink('https://www.gov.uk/get-coronavirus-test')}
+            style={styles.bookTestButton}
+          >
+            Book your test
           </BrandedButton>
         </View>
       </BottomSheet>
