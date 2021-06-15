@@ -135,6 +135,10 @@ export class AssessmentCoordinator extends Coordinator {
     },
   };
 
+  test = (dose: string) => {
+    NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, dose });
+  };
+
   init = (appCoordinator: AppCoordinator, assessmentData: AssessmentData, assessmentService: IAssessmentService) => {
     this.appCoordinator = appCoordinator;
     this.assessmentData = assessmentData;

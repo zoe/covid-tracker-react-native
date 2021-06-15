@@ -144,6 +144,9 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const navigateToNextPageOrShowPopup = () => {
+    const dose = getFirstActiveDose(vaccines);
+    coordinator.test(dose);
+    return;
     if (enableNext()) {
       navigateToNextPage();
     } else {
