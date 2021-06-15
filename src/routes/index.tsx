@@ -59,7 +59,6 @@ import {
   TrendlineScreen,
   VaccineDoseSymptomsScreen,
   VaccineFindInfoScreen,
-  VaccineHesitancyScreen,
   VaccineListScreen,
   VaccineLogSymptomsInfoScreen,
   Welcome1Screen,
@@ -160,7 +159,6 @@ export default function MainNavigator() {
       <Stack.Screen component={TrendlineScreen} name="Trendline" options={noHeader} />
       <Stack.Screen component={VaccineDoseSymptomsScreen} name="VaccineDoseSymptoms" options={noHeader} />
       <Stack.Screen component={VaccineFindInfoScreen} name="VaccineFindInfo" options={noHeader} />
-      <Stack.Screen component={VaccineHesitancyScreen} name="VaccineHesitancy" options={noHeader} />
       <Stack.Screen component={VaccineListScreen} name="VaccineList" options={noHeader} />
       <Stack.Screen component={VaccineLogSymptomsInfoScreen} name="VaccineLogSymptomsInfo" options={noHeader} />
       <Stack.Screen component={Welcome1Screen} name="Welcome" options={noHeader} />

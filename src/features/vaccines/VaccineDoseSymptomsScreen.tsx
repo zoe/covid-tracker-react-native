@@ -41,7 +41,6 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
         setErrorMessage(i18n.t('something-went-wrong'));
         // TODO Show error message toast?
       } finally {
-        // TODO Not sure this is the right behaviour. Discuss what to do on error....
         assessmentCoordinator.gotoNextScreen(route.name);
       }
     }

@@ -1,6 +1,7 @@
 import InfoCircle from '@assets/icons/InfoCircle';
 import {
   BrandedButton,
+  CaptionText,
   CheckboxItem,
   CheckboxList,
   ColourHighlightHeaderTextText,
@@ -43,11 +44,11 @@ const renderBulletLine = (text: string) => (
 
 export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   const dropdownItemsQ1 = [
+    { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a1'), value: 'YES_TEST' },
     { label: i18n.t('long-covid.q1-a2'), value: 'YES_ADVICE' },
     { label: i18n.t('long-covid.q1-a3'), value: 'YES_SUSPICION' },
     { label: i18n.t('long-covid.q1-a4'), value: 'UNSURE' },
-    { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a6'), value: 'DECLINE_TO_SAY' },
   ];
 
@@ -148,7 +149,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     </View>
   );
 
-  const renderError = (props: FormikProps<ILongCovid>, propertyKey: string) =>
+  const renderError = (props: FormikProps<ILongCovid>, propertyKey: keyof ILongCovid) =>
     props.touched[propertyKey] && props.errors[propertyKey] ? (
       <View style={{ marginBottom: 16 }}>
         <ErrorText>{props.errors[propertyKey]}</ErrorText>
@@ -215,6 +216,8 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
       </View>
     ) : null;
 
+  const [symptomChangeCharCount, setSymptomChangeCharCount] = useState(0);
+
   const renderExtendedVaccineForm = (props: FormikProps<ILongCovid>) =>
     props.values.at_least_one_vaccine && props.values.at_least_one_vaccine === 'YES' ? (
       <View>
@@ -265,13 +268,17 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <Textarea
           bordered
           maxLength={1000}
-          onChangeText={props.handleChange('symptom_change_comments')}
+          onChangeText={(value) => {
+            props.handleChange('symptom_change_comments');
+            setSymptomChangeCharCount(value.length);
+          }}
           placeholder={i18n.t('placeholder-optional-question')}
           rowSpan={5}
           style={styles.textarea}
           underline={false}
           value={props.values.symptom_change_comments}
         />
+        <CaptionText style={{ alignSelf: 'flex-end' }}>{symptomChangeCharCount} / 1000</CaptionText>
       </View>
     ) : null;
 
