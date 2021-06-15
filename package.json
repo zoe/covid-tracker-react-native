@@ -30,7 +30,7 @@
     "lint:pre-commit": "eslint --fix",
     "metro-empty-cache": "rm -rf $TMPDIR/metro-cache",
     "mock-server": "ts-node ./mock-server/mockServer.ts --watch",
-    "postinstall": "yarn run bundle:ios; cd ios && pod install",
+    "postinstall": "cd ios && pod install",
     "prettier": "prettier --check 'src/**/*.(js|jsx|ts|tsx)' --ignore-path .gitignore",
     "prettier:fix": "npm run prettier -- --write",
     "prettier:pre-commit": "prettier --write",
@@ -47,7 +47,6 @@
     "ts-node": "ts-node",
     "web": "expo start --web",
     "write-icon-names": "node writeIconNames.js",
-    "bundle:ios": "react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.13.2",
