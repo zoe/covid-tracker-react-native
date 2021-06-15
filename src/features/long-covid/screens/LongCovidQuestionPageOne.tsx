@@ -1,7 +1,6 @@
 import InfoCircle from '@assets/icons/InfoCircle';
 import {
   BrandedButton,
-  CaptionText,
   CheckboxItem,
   CheckboxList,
   ColourHighlightHeaderTextText,
@@ -9,6 +8,7 @@ import {
   ErrorText,
   HeaderText,
   RegularText,
+  TextareaWithCharCount,
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { homeScreenName, thankYouScreenName } from '@covid/core/localisation/LocalisationService';
@@ -20,7 +20,7 @@ import { longCovidApiClient } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
-import { Form, Textarea } from 'native-base';
+import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
@@ -216,8 +216,6 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
       </View>
     ) : null;
 
-  const [symptomChangeCharCount, setSymptomChangeCharCount] = useState(0);
-
   const renderExtendedVaccineForm = (props: FormikProps<ILongCovid>) =>
     props.values.at_least_one_vaccine && props.values.at_least_one_vaccine === 'YES' ? (
       <View>
@@ -265,20 +263,13 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
 
         {/* Do you have anything else to share regarding the evolution of your COVID-19 symptoms? */}
         <HeaderText style={{ marginBottom: 16 }}>{i18n.t('long-covid.comments')}</HeaderText>
-        <Textarea
-          bordered
+        <TextareaWithCharCount
           maxLength={1000}
-          onChangeText={(value) => {
-            props.handleChange('symptom_change_comments');
-            setSymptomChangeCharCount(value.length);
-          }}
+          onChangeText={props.handleChange('symptom_change_comments')}
           placeholder={i18n.t('placeholder-optional-question')}
-          rowSpan={5}
           style={styles.textarea}
-          underline={false}
           value={props.values.symptom_change_comments}
         />
-        <CaptionText style={{ alignSelf: 'flex-end' }}>{symptomChangeCharCount} / 1000</CaptionText>
       </View>
     ) : null;
 
