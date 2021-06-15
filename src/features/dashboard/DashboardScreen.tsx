@@ -40,6 +40,8 @@ interface IProps {
   route: RouteProp<ScreenParamList, 'Dashboard'>;
 }
 
+const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
+
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
@@ -65,7 +67,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
     appCoordinator.goToTrendline();
   };
 
-  const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
   const [shouldShowReminders, setShouldShowReminders] = useState(false);
 
   const runCurrentFeature = () => {
