@@ -1,20 +1,19 @@
-import { shareAppV3 } from '@assets';
+import { notificationReminders } from '@assets';
 import { FeaturedContentList, FeaturedContentType, SchoolNetworks, StudyCard } from '@covid/components';
-import { share } from '@covid/components/cards/BaseShareApp';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import Analytics, { events } from '@covid/core/Analytics';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
+import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
+import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { selectApp, setDashboardHasBeenViewed } from '@covid/core/state';
 import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { ImpactTimelineCard } from '@covid/features/anniversary';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -41,6 +40,8 @@ interface IProps {
   route: RouteProp<ScreenParamList, 'Dashboard'>;
 }
 
+const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
+
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
@@ -66,10 +67,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
     appCoordinator.goToTrendline();
   };
 
-  const onShare = async () => {
-    const shareMessage = i18n.t('share-this-app.message');
-    await share(shareMessage);
-  };
+  const [shouldShowReminders, setShouldShowReminders] = useState(false);
 
   const runCurrentFeature = () => {
     if (startupInfo?.show_modal === 'mental-health-playback') {
@@ -81,6 +79,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
   useEffect(() => {
     (async () => {
       await pushNotificationService.subscribeForPushNotifications();
+      setShouldShowReminders(!(await pushService.isGranted()));
     })();
   }, []);
 
@@ -124,14 +123,22 @@ export function DashboardScreen({ navigation, route }: IProps) {
       navigation={navigation}
     >
       <View style={styles.calloutContainer}>
-        {startupInfo?.show_timeline ? (
-          <ImpactTimelineCard
-            onPress={() => {
-              Analytics.track(events.ANNIVERSARY_FROM_DASHBOARD);
-              navigation.navigate('Anniversary');
+        {shouldShowReminders ? (
+          <ExternalCallout
+            aspectRatio={1244.0 / 368.0}
+            calloutID="notificationReminders"
+            imageSource={notificationReminders}
+            postClicked={() => {
+              PushNotificationService.openSettings();
             }}
+            screenName={route.name}
           />
         ) : null}
+        {showTrendline ? <TrendlineCard ctaOnPress={onExploreTrendline} /> : null}
+
+        <EstimatedCasesMapCard />
+
+        <UKEstimatedCaseCard onPress={onMoreDetails} />
 
         {startupInfo?.show_mh_insight ? (
           <StudyCard
@@ -145,6 +152,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
             title={i18n.t('mental-health-playback.results-ready')}
           />
         ) : null}
+
+        <FeaturedContentList screenName={route.name} type={FeaturedContentType.Home} />
 
         {startupInfo?.show_diet_score ? (
           <StudyCard
@@ -162,8 +171,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
         <ShareVaccineCard screenName="Dashboard" />
 
-        <FeaturedContentList screenName={route.name} type={FeaturedContentType.Home} />
-
         {hasNetworkData ? (
           <View
             style={{
@@ -173,20 +180,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
             <SchoolNetworks schoolGroups={networks!} />
           </View>
         ) : null}
-
-        {showTrendline ? <TrendlineCard ctaOnPress={onExploreTrendline} /> : null}
-
-        <EstimatedCasesMapCard />
-
-        <UKEstimatedCaseCard onPress={onMoreDetails} />
-
-        <ExternalCallout
-          aspectRatio={311 / 135}
-          calloutID="sharev3"
-          imageSource={shareAppV3}
-          postClicked={onShare}
-          screenName={route.name}
-        />
       </View>
 
       <View style={styles.zoe}>
