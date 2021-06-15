@@ -37,11 +37,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
-  constructor(props: RenderProps) {
-    super(props);
-    this.state = initialState;
-    this.createPatient = this.createPatient.bind(this);
-  }
+  state = initialState;
 
   handleConsentClick = (checked: boolean) => {
     this.setState({ consentChecked: checked });
@@ -73,7 +69,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
 
   consentLabel = this.isAdultConsent() ? i18n.t('adult-consent-confirm') : i18n.t('child-consent-confirm');
 
-  async createPatient(): Promise<string> {
+  createPatient = async (): Promise<string> => {
     const name = this.props.route.params.profileName;
     const { avatarName } = this.props.route.params;
 
@@ -85,7 +81,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
 
     const response = await this.patientService.createPatient(newPatient);
     return response.id;
-  }
+  };
 
   handleCreatePatient = async () => {
     try {

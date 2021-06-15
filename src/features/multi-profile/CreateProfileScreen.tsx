@@ -6,7 +6,7 @@ import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
@@ -26,21 +26,17 @@ type RenderProps = {
 };
 
 export default class CreateProfileScreen extends Component<RenderProps> {
-  constructor(props: RenderProps) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   registerSchema = Yup.object().shape({
     name: Yup.string().required().max(32, i18n.t('profile-name-too-long')),
   });
 
-  handleClick(formData: FormData) {
+  onSubmit = (values: FormData, formikHelpers: FormikHelpers<FormData>) => {
     this.props.navigation.navigate('AdultOrChild', {
       avatarName: this.props.route.params.avatarName,
-      profileName: formData.name,
+      profileName: values.name,
     });
-  }
+    formikHelpers.setSubmitting(false);
+  };
 
   render() {
     return (
@@ -52,9 +48,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
 
         <Formik
           initialValues={initialFormValues}
-          onSubmit={(values: FormData) => {
-            return this.handleClick(values);
-          }}
+          onSubmit={this.onSubmit}
           validationSchema={this.registerSchema}
         >
           {(props) => {

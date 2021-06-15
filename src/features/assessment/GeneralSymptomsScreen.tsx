@@ -38,11 +38,11 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
     setSubmitting(false);
   }, [isFocused]);
 
-  const handleSubmit = (formData: GeneralSymptomsData) => {
+  function onSubmit(values: GeneralSymptomsData) {
     setSubmitting(true);
-    assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(formData, hasHayfever));
+    assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(values, hasHayfever));
     assessmentCoordinator.gotoNextScreen(route.name);
-  };
+  }
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
@@ -60,7 +60,7 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
         initialValues={{
           ...GeneralSymptomsQuestions.initialFormValues(features.defaultTemperatureUnit),
         }}
-        onSubmit={(values: GeneralSymptomsData) => handleSubmit(values)}
+        onSubmit={onSubmit}
         validationSchema={registerSchema}
       >
         {(props) => {
