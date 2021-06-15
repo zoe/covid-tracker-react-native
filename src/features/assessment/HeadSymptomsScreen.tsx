@@ -9,9 +9,9 @@ import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -21,12 +21,11 @@ type Props = {
 };
 
 export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleSubmit = (formData: HeadSymptomsData) => {
-    assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(formData));
+  function onSubmit(values: HeadSymptomsData, formikHelpers: FormikHelpers<HeadSymptomsData>) {
+    assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(values));
     assessmentCoordinator.gotoNextScreen(route.name);
-  };
+    formikHelpers.setSubmitting(false);
+  }
 
   const registerSchema = Yup.object().shape({}).concat(HeadSymptomsQuestions.schema());
 
@@ -45,7 +44,7 @@ export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
         initialValues={{
           ...HeadSymptomsQuestions.initialFormValues(),
         }}
-        onSubmit={(values: HeadSymptomsData) => handleSubmit(values)}
+        onSubmit={onSubmit}
         validationSchema={registerSchema}
       >
         {(props) => {
