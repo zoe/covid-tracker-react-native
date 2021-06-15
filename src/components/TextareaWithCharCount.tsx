@@ -16,7 +16,7 @@ interface ITextareaWithCharCountProps {
 export default function TextareaWithCharCount(props: ITextareaWithCharCountProps) {
   const [charCount, setCharCount] = useState(0);
 
-  const maxLength = props.maxLength || 500;
+  const maxLength = props.maxLength || 1000;
 
   return (
     <>

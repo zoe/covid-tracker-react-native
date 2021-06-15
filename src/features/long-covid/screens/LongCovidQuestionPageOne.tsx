@@ -264,7 +264,6 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         {/* Do you have anything else to share regarding the evolution of your COVID-19 symptoms? */}
         <HeaderText style={{ marginBottom: 16 }}>{i18n.t('long-covid.comments')}</HeaderText>
         <TextareaWithCharCount
-          maxLength={1000}
           onChangeText={props.handleChange('symptom_change_comments')}
           placeholder={i18n.t('placeholder-optional-question')}
           style={styles.textarea}
