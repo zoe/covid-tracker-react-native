@@ -5,9 +5,10 @@ import { StyleProp, TextStyle } from 'react-native';
 import { CaptionText } from './Text';
 
 interface ITextareaWithCharCountProps {
+  bordered?: boolean;
   maxLength?: number;
   onChangeText: (value: string) => void;
-  placeholder: string;
+  placeholder?: string;
   rowSpan?: number;
   style?: StyleProp<TextStyle>;
   value: string | null;
@@ -21,7 +22,7 @@ export default function TextareaWithCharCount(props: ITextareaWithCharCountProps
   return (
     <>
       <Textarea
-        bordered
+        bordered={props.bordered || false}
         maxLength={maxLength}
         onChangeText={(value) => {
           props.onChangeText(value);
