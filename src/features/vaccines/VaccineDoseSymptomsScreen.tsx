@@ -14,7 +14,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -24,27 +24,16 @@ type Props = {
 };
 
 export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isSubmitting, setSubmitting] = useState(false);
-
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
 
-  const handleSubmit = async (formData: DoseSymptomsData) => {
-    if (!isSubmitting) {
-      setSubmitting(true);
-      const { patientId } = route.params.assessmentData.patientData;
-      try {
-        const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(formData);
-        dosePayload.dose = route.params.dose;
-        await vaccineService.saveDoseSymptoms(patientId, dosePayload);
-      } catch (e) {
-        setErrorMessage(i18n.t('something-went-wrong'));
-        // TODO Show error message toast?
-      } finally {
-        assessmentCoordinator.gotoNextScreen(route.name);
-      }
-    }
-  };
+  async function onSubmit(values: DoseSymptomsData) {
+    try {
+      const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(values);
+      dosePayload.dose = route.params.dose;
+      await vaccineService.saveDoseSymptoms(route.params.assessmentData.patientData.patientId, dosePayload);
+    } catch (_) {}
+    assessmentCoordinator.gotoNextScreen(route.name);
+  }
 
   const registerSchema = Yup.object().shape({}).concat(DoseSymptomsQuestions.schema());
   const currentPatient = route.params.assessmentData.patientData.patientState;
@@ -69,7 +58,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
             initialValues={{
               ...DoseSymptomsQuestions.initialFormValues(),
             }}
-            onSubmit={(values: DoseSymptomsData) => handleSubmit(values)}
+            onSubmit={onSubmit}
             validationSchema={registerSchema}
           >
             {(props) => {
@@ -81,8 +70,8 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
 
                   <View style={{ flex: 1 }} />
                   <BrandedButton
-                    enable={!isSubmitting}
-                    hideLoading={!isSubmitting}
+                    enable={!props.isSubmitting}
+                    hideLoading={!props.isSubmitting}
                     onPress={props.handleSubmit}
                     style={styles.continueButton}
                   >
