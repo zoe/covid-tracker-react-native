@@ -1,13 +1,9 @@
-import { notificationReminders } from '@assets';
 import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { IConsentService } from '@covid/core/consent/ConsentService';
-import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import store from '@covid/core/state/store';
 import { ImpactTimelineCard } from '@covid/features/anniversary';
 import appCoordinator from '@covid/features/AppCoordinator';
@@ -46,14 +42,11 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   @lazyInject(Services.Consent)
   private consentService: IConsentService;
 
-  private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
-
   state = initialState;
 
   async componentDidMount() {
     this.setState({
       askForRating: await shouldAskForRating(),
-      shouldShowReminders: !(await this.pushService.isGranted()),
     });
   }
 
@@ -76,6 +69,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
+              <FeaturedContentList screenName={this.props.route.name} type={FeaturedContentType.ThankYou} />
+
               {startupInfo?.show_timeline ? (
                 <ImpactTimelineCard
                   onPress={() => {
@@ -86,21 +81,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 />
               ) : null}
 
-              <FeaturedContentList screenName={this.props.route.name} type={FeaturedContentType.ThankYou} />
-
-              {this.state.shouldShowReminders ? (
-                <ExternalCallout
-                  aspectRatio={1244.0 / 368.0}
-                  calloutID="notificationReminders"
-                  imageSource={notificationReminders}
-                  postClicked={() => {
-                    PushNotificationService.openSettings();
-                  }}
-                  screenName={this.props.route.name}
-                />
-              ) : null}
-
-              <View style={{ margin: 10 }} />
+              <View style={{ margin: 6 }} />
 
               <ShareAppCard />
 
@@ -174,6 +155,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   signOff: {
+    marginBottom: 16,
     marginHorizontal: 16,
     textAlign: 'center',
   },
