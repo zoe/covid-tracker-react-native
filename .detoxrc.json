@@ -11,12 +11,10 @@
       }
     },
     "ios.release": {
-      "binaryPath": "~/covid-react/build/covid-zoe Stage.app",
+      "binaryPath": "./ios/build/Build/Products/Release-iphonesimulator/covid-zoe Stage.app",
       "build": "fastlane ios build env:stage",
       "type": "ios.simulator",
-      "device": {
-        "type": "iPhone 11"
-      }
-    }
+      "name": "iPhone X"
+   }
   }
 }
