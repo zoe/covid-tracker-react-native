@@ -12,7 +12,7 @@ import i18n from '@covid/locale/i18n';
 import { colors } from '@covid/themes/theme/colors';
 import { FormikProps } from 'formik';
 import React from 'react';
-import { View } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import * as Yup from 'yup';
 
 export type DoseSymptomsData = DoseSymptomsCheckBoxData & DoseSymptomsFollowUpData;
@@ -33,13 +33,12 @@ type DoseSymptomsFollowUpData = {
   otherSymptoms: string;
 };
 
-type Props = {
+type TProps = {
   formikProps: FormikProps<DoseSymptomsData>;
+  style?: StyleProp<ViewStyle>;
 };
 
-export const DoseSymptomsQuestions: IDoseSymptomQuestions<Props, DoseSymptomsData> = (props: Props) => {
-  const { formikProps } = props;
-
+export const DoseSymptomsQuestions: IDoseSymptomQuestions<TProps, DoseSymptomsData> = (props: TProps) => {
   const checkboxes: SymptomCheckBoxData<DoseSymptomsCheckBoxData, DoseSymptomsFollowUpData>[] = [
     { label: i18n.t('vaccines.dose-symptoms.pain'), value: 'pain' },
     { label: i18n.t('vaccines.dose-symptoms.redness'), value: 'redness' },
@@ -53,11 +52,11 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<Props, DoseSymptomsDat
   ];
 
   return (
-    <View style={{ marginVertical: 8 }}>
+    <View style={props.style}>
       <RegularText style={{ paddingBottom: 8 }}>{i18n.t('vaccines.dose-symptoms.check-all-that-apply')}</RegularText>
-      <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
+      <CheckboxList>{createSymptomCheckboxes(checkboxes, props.formikProps)}</CheckboxList>
 
-      {formikProps.values.other ? (
+      {props.formikProps.values.other ? (
         <>
           <View style={{ flexDirection: 'row', marginVertical: 16, paddingRight: 32 }}>
             <View style={{ paddingRight: 8 }}>
@@ -73,11 +72,11 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<Props, DoseSymptomsDat
           <TextareaWithCharCount
             bordered
             maxLength={500}
-            onChangeText={formikProps.handleChange('otherSymptoms')}
+            onChangeText={props.formikProps.handleChange('otherSymptoms')}
             placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
             rowSpan={4}
             style={{ borderRadius: 8 }}
-            value={formikProps.values.otherSymptoms}
+            value={props.formikProps.values.otherSymptoms}
           />
         </>
       ) : null}
