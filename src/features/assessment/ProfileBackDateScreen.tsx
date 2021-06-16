@@ -67,12 +67,9 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     return this.localisationService.getConfig();
   }
 
-  constructor(props: BackDateProps) {
-    super(props);
-    this.state = initialState;
-  }
+  state = initialState;
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     ethnicity: Yup.string().when([], {
       is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
       then: Yup.string().required(),
@@ -209,11 +206,31 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     return infos;
   }
 
+  getValidationSchema = () => {
+    let schema = this.validationSchema;
+    if (this.state.needDiabetesAnswers) {
+      schema = schema.concat(DiabetesQuestions.schema());
+    }
+    if (this.state.needBloodGroupAnswer) {
+      schema = schema.concat(BloodGroupQuestion.schema());
+    }
+    return schema;
+  };
+
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
+    const initialValues = {
+      ...RaceEthnicityQuestion.initialFormValues(),
+      ...BloodPressureMedicationQuestion.initialFormValues(),
+      ...AtopyQuestions.initialFormValues(),
+      ...DiabetesQuestions.initialFormValues(),
+      ...BloodGroupQuestion.initialFormValues(),
+    };
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={AssessmentCoordinator.assessmentData.patientData.patientState.profile}
+      >
         <Header>
           <HeaderText>{i18n.t('back-date-profile-title')}</HeaderText>
         </Header>
@@ -222,57 +239,40 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           <ProgressStatus maxSteps={6} step={1} />
         </ProgressBlock>
 
-        <Formik
-          initialValues={{
-            ...RaceEthnicityQuestion.initialFormValues(),
-            ...BloodPressureMedicationQuestion.initialFormValues(),
-            ...AtopyQuestions.initialFormValues(),
-            ...DiabetesQuestions.initialFormValues(),
-            ...BloodGroupQuestion.initialFormValues(),
-          }}
-          onSubmit={this.onSubmit}
-          validationSchema={() => {
-            let schema = this.registerSchema;
-            if (this.state.needDiabetesAnswers) {
-              schema = schema.concat(DiabetesQuestions.schema());
-            }
-            if (this.state.needBloodGroupAnswer) {
-              schema = schema.concat(BloodGroupQuestion.schema());
-            }
-            return schema;
-          }}
-        >
-          {(props) => {
+        <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.getValidationSchema}>
+          {(formikProps) => {
             return (
               <Form>
                 {this.state.needBloodPressureAnswer ? (
-                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<IBloodPressureData>} />
+                  <BloodPressureMedicationQuestion formikProps={formikProps as FormikProps<IBloodPressureData>} />
                 ) : null}
 
                 {this.state.needRaceEthnicityAnswer ? (
                   <RaceEthnicityQuestion
-                    formikProps={props as FormikProps<IRaceEthnicityData>}
+                    formikProps={formikProps as FormikProps<IRaceEthnicityData>}
                     showEthnicityQuestion={this.features.showEthnicityQuestion}
                     showRaceQuestion={this.features.showRaceQuestion}
                   />
                 ) : null}
 
-                {this.state.needAtopyAnswers ? <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} /> : null}
+                {this.state.needAtopyAnswers ? (
+                  <AtopyQuestions formikProps={formikProps as FormikProps<IAtopyData>} />
+                ) : null}
 
                 {this.state.needDiabetesAnswers ? (
-                  <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />
+                  <DiabetesQuestions formikProps={formikProps as FormikProps<IDiabetesData>} />
                 ) : null}
 
                 {this.state.needBloodGroupAnswer ? (
-                  <BloodGroupQuestion formikProps={props as FormikProps<IBloodGroupData>} />
+                  <BloodGroupQuestion formikProps={formikProps as FormikProps<IBloodGroupData>} />
                 ) : null}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
                 ) : null}
 
-                <BrandedButton enable={!props.isSubmitting} onPress={props.handleSubmit}>
+                <BrandedButton enable={!formikProps.isSubmitting} onPress={formikProps.handleSubmit}>
                   {i18n.t('update-profile')}
                 </BrandedButton>
               </Form>

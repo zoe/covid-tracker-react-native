@@ -41,6 +41,8 @@ interface OptionalInfoData {
   phone: string;
 }
 
+const initialValues = { name: '', phone: '' };
+
 export class OptionalInfoScreen extends Component<PropsType, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
@@ -73,10 +75,10 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     }
   }
 
-  private async handleSaveOptionalInfos(formData: OptionalInfoData) {
+  private async onSubmit(values: OptionalInfoData) {
     try {
       await this.subscribeForPushNotifications();
-      await this.savePiiData(formData);
+      await this.savePiiData(values);
       this.setState({ isApiError: false });
       appCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
@@ -90,15 +92,14 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
           });
           setTimeout(() => {
             this.setState({ status: i18n.t('errors.status-loading') });
-            this.handleSaveOptionalInfos(formData);
+            this.onSubmit(values);
           }, offlineService.getRetryDelay());
         },
       });
     }
   }
 
-  // see http://regexlib.com/(X(1)A(TahywDmnNCw0iyuu7jNEB2AWTPaTyZQd-r8XZECVzmio5oP08fV7JoAWrNnIoyH3vysaiCJYtQO_FfuRAXJRSwB8zqAr_L9ddGD5V0eCJcVBJ65SiOnOt1tLVw4pd_Q3Q0FoUOPG5fXsbR6DHK6jqtBaIxnP0NL5oevVH6y0uSXhYgbCrrRx1DeE-59F0s5i0))/UserPatterns.aspx?authorid=d95177b0-6014-4e73-a959-73f1663ae814&AspxAutoDetectCookieSupport=1
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     name: Yup.string(),
     phone: Yup.string(),
   });
@@ -116,12 +117,8 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         )}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
-            <Formik
-              initialValues={{ name: '', phone: '' }}
-              onSubmit={(values: OptionalInfoData) => this.handleSaveOptionalInfos(values)}
-              validationSchema={this.registerSchema}
-            >
-              {(props) => {
+            <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
+              {(formikProps) => {
                 return (
                   <View>
                     <View>
@@ -131,26 +128,26 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
                       <Form>
                         <ValidatedTextInput
-                          error={props.touched.name && props.errors.name}
-                          onBlur={props.handleBlur('name')}
-                          onChangeText={props.handleChange('name')}
+                          error={formikProps.touched.name && formikProps.errors.name}
+                          onBlur={formikProps.handleBlur('name')}
+                          onChangeText={formikProps.handleChange('name')}
                           onSubmitEditing={() => {
                             this.phoneComponent.focus();
                           }}
                           placeholder={i18n.t('optional-info.name-placeholder')}
                           returnKeyType="next"
-                          value={props.values.name}
+                          value={formikProps.values.name}
                         />
 
                         <ValidatedTextInput
-                          error={props.touched.phone && props.errors.phone}
-                          onBlur={props.handleBlur('phone')}
-                          onChangeText={props.handleChange('phone')}
+                          error={formikProps.touched.phone && formikProps.errors.phone}
+                          onBlur={formikProps.handleBlur('phone')}
+                          onChangeText={formikProps.handleChange('phone')}
                           placeholder={i18n.t('optional-info.phone-placeholder')}
                           ref={(input) => (this.phoneComponent = input)}
-                          value={props.values.phone}
+                          value={formikProps.values.phone}
                         />
-                        {props.errors.phone ? <ErrorText>{props.errors.phone}</ErrorText> : null}
+                        {formikProps.errors.phone ? <ErrorText>{formikProps.errors.phone}</ErrorText> : null}
                       </Form>
                     </View>
                     <View>
@@ -158,7 +155,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
                     </View>
 
                     <View>
-                      <BrandedButton onPress={props.handleSubmit}>{i18n.t('optional-info.button')}</BrandedButton>
+                      <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('optional-info.button')}</BrandedButton>
                     </View>
                   </View>
                 );

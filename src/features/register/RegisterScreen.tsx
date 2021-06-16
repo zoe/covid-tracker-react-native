@@ -44,7 +44,7 @@ interface RegistrationData {
   password: string;
 }
 
-const initialRegistrationValues = {
+const initialValues = {
   email: '',
   password: '',
 };
@@ -106,7 +106,7 @@ class RegisterScreen extends Component<PropsType, State> {
     this.props.navigation.replace('Login', { terms: '' });
   };
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     email: Yup.string().required(i18n.t('create-account.email-required')).email(i18n.t('create-account.email-error')),
     password: Yup.string()
       .required(i18n.t('create-account.password-required'))
@@ -120,8 +120,8 @@ class RegisterScreen extends Component<PropsType, State> {
 
   render() {
     return (
-      <Formik initialValues={initialRegistrationValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
-        {(props) => {
+      <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
+        {(formikProps) => {
           return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <KeyboardAvoidingView
@@ -148,22 +148,22 @@ class RegisterScreen extends Component<PropsType, State> {
                         <ValidatedTextInput
                           autoCapitalize="none"
                           autoCompleteType="email"
-                          error={(props.touched.email && props.errors.email) || this.state.accountExists}
+                          error={(formikProps.touched.email && formikProps.errors.email) || this.state.accountExists}
                           keyboardType="email-address"
-                          onBlur={props.handleBlur('email')}
+                          onBlur={formikProps.handleBlur('email')}
                           onChangeText={(text) => {
-                            props.handleChange('email')(text);
-                            this.setIsEnabled(text, props.values.password);
+                            formikProps.handleChange('email')(text);
+                            this.setIsEnabled(text, formikProps.values.password);
                           }}
                           onSubmitEditing={() => {
                             this.passwordComponent.focus();
                           }}
                           placeholder={i18n.t('create-account.email')}
                           returnKeyType="next"
-                          value={props.values.email}
+                          value={formikProps.values.email}
                         />
-                        {!!props.touched.email && !!props.errors.email ? (
-                          <FieldError>{props.errors.email}</FieldError>
+                        {!!formikProps.touched.email && !!formikProps.errors.email ? (
+                          <FieldError>{formikProps.errors.email}</FieldError>
                         ) : null}
                         {this.state.accountExists ? (
                           <FieldError>{i18n.t('create-account.already-registered')}</FieldError>
@@ -176,20 +176,20 @@ class RegisterScreen extends Component<PropsType, State> {
                         <Label style={styles.labelStyle}>{i18n.t('create-account.password')}</Label>
                         <ValidatedTextInput
                           secureTextEntry
-                          error={props.touched.password && props.errors.password}
-                          onBlur={props.handleBlur('password')}
+                          error={formikProps.touched.password && formikProps.errors.password}
+                          onBlur={formikProps.handleBlur('password')}
                           onChangeText={(text) => {
-                            props.handleChange('password')(text);
-                            this.setIsEnabled(props.values.email, text);
+                            formikProps.handleChange('password')(text);
+                            this.setIsEnabled(formikProps.values.email, text);
                           }}
-                          onSubmitEditing={(event) => props.handleSubmit()}
+                          onSubmitEditing={(event) => formikProps.handleSubmit()}
                           placeholder={i18n.t('create-account.password')}
                           ref={(input) => (this.passwordComponent = input)}
                           returnKeyType="go"
-                          value={props.values.password}
+                          value={formikProps.values.password}
                         />
-                        {!!props.touched.password && !!props.errors.password ? (
-                          <FieldError>{props.errors.password}</FieldError>
+                        {!!formikProps.touched.password && !!formikProps.errors.password ? (
+                          <FieldError>{formikProps.errors.password}</FieldError>
                         ) : null}
                       </Field>
                     </View>
@@ -213,8 +213,8 @@ class RegisterScreen extends Component<PropsType, State> {
                   <View>
                     <BrandedButton
                       enable={this.state.enableSubmit}
-                      hideLoading={!props.isSubmitting}
-                      onPress={props.handleSubmit}
+                      hideLoading={!formikProps.isSubmitting}
+                      onPress={formikProps.handleSubmit}
                     >
                       {i18n.t('create-account.btn')}
                     </BrandedButton>

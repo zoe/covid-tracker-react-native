@@ -32,11 +32,13 @@ type JoinGroupData = {
   groupId: string;
 };
 
-const ValidationSchema = () => {
+const getValidationSchema = () => {
   return Yup.object().shape({
     groupId: Yup.string().required(i18n.t('validation-error-text-required')),
   });
 };
+
+const initialValues = { groupId: '' } as JoinGroupData;
 
 export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
   const inputMode: InputMode = InputMode.dropdown;
@@ -57,10 +59,6 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
       setGroupList(pickerItems);
     })();
   }, []);
-
-  const create = () => {
-    schoolNetworkCoordinator.goToCreateSchoolGroup();
-  };
 
   const next = () => {
     schoolNetworkCoordinator.gotoNextScreen(route.name);
@@ -102,15 +100,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
         <ProgressStatus color={colors.brand} maxSteps={4} step={3} />
       </ProgressBlock>
 
-      <Formik
-        initialValues={
-          {
-            groupId: '',
-          } as JoinGroupData
-        }
-        onSubmit={onSubmit}
-        validationSchema={ValidationSchema()}
-      >
+      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={getValidationSchema()}>
         {(formikProps) => {
           return (
             <View style={styles.formContainer}>

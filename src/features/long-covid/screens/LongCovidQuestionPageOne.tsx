@@ -43,6 +43,9 @@ const renderBulletLine = (text: string) => (
 );
 
 export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
+  const [isSubmitting, setSubmitting] = useState<boolean>(false);
+  const [symptomChangeCharCount, setSymptomChangeCharCount] = useState(0);
+
   const dropdownItemsQ1 = [
     { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a1'), value: 'YES_TEST' },
@@ -117,29 +120,25 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     { label: i18n.t('long-covid.symptoms-change-severity-a6'), value: 'NOT_APPLICABLE' },
   ];
 
-  const [isSubmitting, setSubmitting] = useState<boolean>(false);
-  const { patientData } = route.params;
-  const handleSubmit = async (formData: ILongCovid) => {
+  async function onSubmit(values: ILongCovid) {
     if (isSubmitting) {
       return;
     }
-    delete formData.other_checkbox;
+    delete values.other_checkbox;
     setSubmitting(true);
-    longCovidApiClient.add(patientData.patientId, formData).then(() => {
+    longCovidApiClient.add(route.params.patientId, values).then(() => {
       NavigatorService.reset([{ name: homeScreenName() }, { name: thankYouScreenName() }], 1);
     });
-  };
+  }
+
+  const initialValues = LongCovidQuestionPageOneScreen.initialFormValues();
 
   const renderFormCheckboxes = (props: FormikProps<ILongCovid>) => (
     <View style={{ marginVertical: 16 }}>
       <CheckboxList>
         {checkBoxQuestions4To17.map((key: string, index: number) => (
           <View style={{ marginBottom: 16 }}>
-            <CheckboxItem
-              dark
-              onChange={(value: boolean) => props.setFieldValue(key, !props.values[key])}
-              value={props.values[key]}
-            >
+            <CheckboxItem dark onChange={() => props.setFieldValue(key, !props.values[key])} value={props.values[key]}>
               {i18n.t(`long-covid.q${index + checkboxIndexOffset}`)}
             </CheckboxItem>
           </View>
@@ -216,8 +215,6 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
       </View>
     ) : null;
 
-  const [symptomChangeCharCount, setSymptomChangeCharCount] = useState(0);
-
   const renderExtendedVaccineForm = (props: FormikProps<ILongCovid>) =>
     props.values.at_least_one_vaccine && props.values.at_least_one_vaccine === 'YES' ? (
       <View>
@@ -284,10 +281,8 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
 
   return (
     <Formik
-      initialValues={{
-        ...LongCovidQuestionPageOneScreen.initialFormValues(),
-      }}
-      onSubmit={(values: ILongCovid) => handleSubmit(values)}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
       style={{ padding: 16 }}
       validationSchema={LongCovidQuestionPageOneScreen.schema}
     >
@@ -307,7 +302,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
                 <View style={{ marginVertical: 64 }}>
                   <BrandedButton
                     enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
-                    onPress={() => handleSubmit(props.values)}
+                    onPress={() => onSubmit(props.values)}
                   >
                     <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
                   </BrandedButton>

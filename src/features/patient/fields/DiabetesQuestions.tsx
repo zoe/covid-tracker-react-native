@@ -198,7 +198,7 @@ DiabetesQuestions.createDTO = (data) => {
     ...DiabetesOralMedsQuestion.createDTO(data),
   };
 
-  // Remove property if it is not defined
+  // Remove property if it is not defined.
   if (!dto.diabetes_type_other) {
     delete dto.diabetes_type_other;
   }

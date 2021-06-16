@@ -31,7 +31,7 @@ interface IYourHealthData {
   classicSymptoms: string;
 }
 
-const initialFormValues = {
+const initialValues = {
   classicSymptoms: 'no',
   pastSymptomsChanged: 'no',
   pastSymptomsDaysAgo: '',
@@ -83,7 +83,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     this.state = initialState;
   }
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     pastSymptomsChanged: Yup.string().when('stillHavePastSymptoms', {
       is: 'yes',
       then: Yup.string().required(),
@@ -99,10 +99,10 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     unwellMonthBefore: Yup.string().required(),
   });
 
-  handleUpdateHealth(formData: IYourHealthData) {
+  onSubmit(values: IYourHealthData) {
     const currentPatient = patientCoordinator.patientData.patientState;
     const { patientId } = currentPatient;
-    const infos = this.createPatientInfos(formData);
+    const infos = this.createPatientInfos(values);
 
     this.patientService
       .updatePatientInfo(patientId, infos)
@@ -170,24 +170,18 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
           <ProgressStatus maxSteps={6} step={4} />
         </ProgressBlock>
 
-        <Formik
-          initialValues={initialFormValues}
-          onSubmit={(values: IYourHealthData) => {
-            return this.handleUpdateHealth(values);
-          }}
-          validationSchema={this.registerSchema}
-        >
-          {(props) => {
+        <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
+          {(formikProps) => {
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
                   <YesNoField
                     label={i18n.t('label-unwell-month-before')}
-                    onValueChange={props.handleChange('unwellMonthBefore')}
-                    selectedValue={props.values.unwellMonthBefore}
+                    onValueChange={formikProps.handleChange('unwellMonthBefore')}
+                    selectedValue={formikProps.values.unwellMonthBefore}
                   />
 
-                  {props.values.unwellMonthBefore === 'yes' ? (
+                  {formikProps.values.unwellMonthBefore === 'yes' ? (
                     <>
                       <FieldWrapper>
                         <Item stackedLabel style={styles.textItemStyle}>
@@ -264,7 +258,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                       </FieldWrapper>
 
                       <GenericTextField
-                        formikProps={props}
+                        formikProps={formikProps}
                         keyboardType="numeric"
                         label={i18n.t('label-past-symptoms-days-ago')}
                         name="pastSymptomsDaysAgo"
@@ -272,28 +266,28 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
 
                       <YesNoField
                         label={i18n.t('label-past-symptoms-still-have')}
-                        onValueChange={props.handleChange('stillHavePastSymptoms')}
-                        selectedValue={props.values.stillHavePastSymptoms}
+                        onValueChange={formikProps.handleChange('stillHavePastSymptoms')}
+                        selectedValue={formikProps.values.stillHavePastSymptoms}
                       />
                     </>
                   ) : null}
 
-                  {props.values.stillHavePastSymptoms === 'yes' ? (
+                  {formikProps.values.stillHavePastSymptoms === 'yes' ? (
                     <DropdownField
                       items={symptomChangeChoices}
                       label={i18n.t('label-past-symptoms-changed')}
-                      onValueChange={props.handleChange('pastSymptomsChanged')}
-                      selectedValue={props.values.pastSymptomsChanged}
+                      onValueChange={formikProps.handleChange('pastSymptomsChanged')}
+                      selectedValue={formikProps.values.pastSymptomsChanged}
                     />
                   ) : null}
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
                 </View>
 
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
               </Form>
             );
           }}

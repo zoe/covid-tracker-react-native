@@ -70,6 +70,8 @@ const initialState: State = {
   isDiabetesRegistry: false,
 };
 
+const initialValues = {} as IYourWorkData;
+
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
@@ -146,7 +148,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     return infos;
   }
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     hasPatientInteraction: Yup.string().when(['isHealthcareStaff', 'isCarer'], {
       is: (isHealthcareStaff, isCarer) =>
         isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT || isCarer === 'yes',
@@ -269,8 +271,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
           <ProgressStatus maxSteps={6} step={2} />
         </ProgressBlock>
 
-        <Formik initialValues={{} as IYourWorkData} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
-          {(props) => {
+        <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
+          {(formikProps) => {
             const {
               isHealthcareStaff,
               isCarer,
@@ -279,7 +281,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
               ppeAvailabilitySometimes,
               ppeAvailabilityAlways,
               ppeAvailabilityNever,
-            } = props.values;
+            } = formikProps.values;
             const showWorkerAndCarerQuestions: boolean =
               (!!isHealthcareStaff && isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT) ||
               (!!isCarer && isCarer === 'yes');
@@ -288,17 +290,17 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 <Form>
                   <View style={{ marginHorizontal: 16 }}>
                     <DropdownField
-                      error={props.touched.isHealthcareStaff && props.errors.isHealthcareStaff}
+                      error={formikProps.touched.isHealthcareStaff && formikProps.errors.isHealthcareStaff}
                       items={healthcareStaffOptions}
                       label={i18n.t('are-you-healthcare-staff')}
-                      onValueChange={props.handleChange('isHealthcareStaff')}
+                      onValueChange={formikProps.handleChange('isHealthcareStaff')}
                       selectedValue={isHealthcareStaff}
                     />
 
                     <YesNoField
-                      error={props.touched.isCarer && props.errors.isCarer}
+                      error={formikProps.touched.isCarer && formikProps.errors.isCarer}
                       label={i18n.t('are-you-carer')}
-                      onValueChange={props.handleChange('isCarer')}
+                      onValueChange={formikProps.handleChange('isCarer')}
                       selectedValue={isCarer}
                     />
 
@@ -385,47 +387,52 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         </FieldWrapper>
 
                         <DropdownField
-                          error={props.touched.hasPatientInteraction && props.errors.hasPatientInteraction}
+                          error={formikProps.touched.hasPatientInteraction && formikProps.errors.hasPatientInteraction}
                           items={patientInteractionOptions}
                           label={i18n.t('label-interacted-with-infected-patients')}
-                          onValueChange={props.handleChange('hasPatientInteraction')}
+                          onValueChange={formikProps.handleChange('hasPatientInteraction')}
                           selectedValue={hasPatientInteraction}
                         />
 
                         <DropdownField
-                          error={props.touched.hasUsedPPEEquipment && props.errors.hasUsedPPEEquipment}
+                          error={formikProps.touched.hasUsedPPEEquipment && formikProps.errors.hasUsedPPEEquipment}
                           items={equipmentUsageOptions}
                           label={i18n.t('label-used-ppe-equipment')}
-                          onValueChange={props.handleChange('hasUsedPPEEquipment')}
+                          onValueChange={formikProps.handleChange('hasUsedPPEEquipment')}
                           selectedValue={hasUsedPPEEquipment}
                         />
 
                         {hasUsedPPEEquipment === 'always' ? (
                           <DropdownField
-                            error={props.touched.ppeAvailabilityAlways && props.errors.ppeAvailabilityAlways}
+                            error={
+                              formikProps.touched.ppeAvailabilityAlways && formikProps.errors.ppeAvailabilityAlways
+                            }
                             items={availabilityAlwaysOptions}
                             label={i18n.t('label-chose-an-option')}
-                            onValueChange={props.handleChange('ppeAvailabilityAlways')}
+                            onValueChange={formikProps.handleChange('ppeAvailabilityAlways')}
                             selectedValue={ppeAvailabilityAlways}
                           />
                         ) : null}
 
                         {hasUsedPPEEquipment === 'sometimes' ? (
                           <DropdownField
-                            error={props.touched.ppeAvailabilitySometimes && props.errors.ppeAvailabilitySometimes}
+                            error={
+                              formikProps.touched.ppeAvailabilitySometimes &&
+                              formikProps.errors.ppeAvailabilitySometimes
+                            }
                             items={availabilitySometimesOptions}
                             label={i18n.t('label-chose-an-option')}
-                            onValueChange={props.handleChange('ppeAvailabilitySometimes')}
+                            onValueChange={formikProps.handleChange('ppeAvailabilitySometimes')}
                             selectedValue={ppeAvailabilitySometimes}
                           />
                         ) : null}
 
                         {hasUsedPPEEquipment === 'never' ? (
                           <DropdownField
-                            error={props.touched.ppeAvailabilityNever && props.errors.ppeAvailabilityNever}
+                            error={formikProps.touched.ppeAvailabilityNever && formikProps.errors.ppeAvailabilityNever}
                             items={availabilityNeverOptions}
                             label={i18n.t('label-chose-an-option')}
-                            onValueChange={props.handleChange('ppeAvailabilityNever')}
+                            onValueChange={formikProps.handleChange('ppeAvailabilityNever')}
                             selectedValue={ppeAvailabilityNever}
                           />
                         ) : null}
@@ -434,14 +441,14 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   </View>
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
 
                   <BrandedButton
-                    enable={this.checkFormFilled(props)}
-                    hideLoading={!props.isSubmitting}
-                    onPress={props.handleSubmit}
+                    enable={this.checkFormFilled(formikProps)}
+                    hideLoading={!formikProps.isSubmitting}
+                    onPress={formikProps.handleSubmit}
                   >
                     {i18n.t('next-question')}
                   </BrandedButton>

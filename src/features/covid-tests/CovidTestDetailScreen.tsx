@@ -113,18 +113,18 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   }
 
-  handleAction(formData: ICovidTestData) {
+  onSubmit(values: ICovidTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
-      if (formData.knowsDateOfTest === 'yes' && !formData.dateTakenSpecific) {
+      if (values.knowsDateOfTest === 'yes' && !values.dateTakenSpecific) {
         this.setState({ errorMessage: i18n.t('covid-test.required-date') });
         this.setState({ submitting: false });
         return;
       }
 
       if (
-        formData.knowsDateOfTest === 'no' &&
-        (formData.dateTakenBetweenStart === undefined || formData.dateTakenBetweenEnd === undefined)
+        values.knowsDateOfTest === 'no' &&
+        (values.dateTakenBetweenStart === undefined || values.dateTakenBetweenEnd === undefined)
       ) {
         this.setState({ errorMessage: i18n.t('covid-test.required-dates') });
         this.setState({ submitting: false });
@@ -134,12 +134,12 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       const infos = {
         patient: assessmentCoordinator.assessmentData.patientData.patientId,
         type: CovidTestType.Generic,
-        ...CovidTestDateQuestion.createDTO(formData),
-        ...CovidTestMechanismQuestion.createDTO(formData),
-        ...CovidTestResultQuestion.createDTO(formData),
-        ...CovidTestInvitedQuestion.createDTO(formData),
-        ...CovidTestLocationQuestion.createDTO(formData),
-        ...CovidTestIsRapidQuestion.createDTO(formData),
+        ...CovidTestDateQuestion.createDTO(values),
+        ...CovidTestMechanismQuestion.createDTO(values),
+        ...CovidTestResultQuestion.createDTO(values),
+        ...CovidTestInvitedQuestion.createDTO(values),
+        ...CovidTestLocationQuestion.createDTO(values),
+        ...CovidTestIsRapidQuestion.createDTO(values),
       } as Partial<CovidTest>;
 
       this.submitCovidTest(infos);
@@ -174,10 +174,18 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   render() {
-    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
     const { test } = this.props.route.params;
 
-    const registerSchema = Yup.object()
+    const initialValues = {
+      ...CovidTestDateQuestion.initialFormValues(test),
+      ...CovidTestMechanismQuestion.initialFormValues(test),
+      ...CovidTestResultQuestion.initialFormValues(test),
+      ...CovidTestInvitedQuestion.initialFormValues(test),
+      ...CovidTestLocationQuestion.initialFormValues(test),
+      ...CovidTestIsRapidQuestion.initialFormValues(test),
+    };
+
+    const validationSchema = Yup.object()
       .shape({})
       .concat(CovidTestDateQuestion.schema())
       .concat(CovidTestMechanismQuestion.schema())
@@ -187,7 +195,10 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       .concat(CovidTestIsRapidQuestion.schema());
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={assessmentCoordinator.assessmentData.patientData.patientState.profile}
+      >
         <Header>
           <HeaderText>
             {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}
@@ -198,33 +209,32 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           <ProgressStatus maxSteps={2} step={1} />
         </ProgressBlock>
 
-        <Formik
-          initialValues={{
-            ...CovidTestDateQuestion.initialFormValues(test),
-            ...CovidTestMechanismQuestion.initialFormValues(test),
-            ...CovidTestResultQuestion.initialFormValues(test),
-            ...CovidTestInvitedQuestion.initialFormValues(test),
-            ...CovidTestLocationQuestion.initialFormValues(test),
-            ...CovidTestIsRapidQuestion.initialFormValues(test),
-          }}
-          onSubmit={(values: ICovidTestData) => {
-            return this.handleAction(values);
-          }}
-          validationSchema={registerSchema}
-        >
-          {(props) => {
+        <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={validationSchema}>
+          {(formikProps) => {
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
-                  <CovidTestDateQuestion formikProps={props as FormikProps<ICovidTestDateData>} test={test} />
-                  <CovidTestMechanismQuestion formikProps={props as FormikProps<ICovidTestMechanismData>} test={test} />
-                  <CovidTestLocationQuestion formikProps={props as FormikProps<ICovidTestLocationData>} test={test} />
-                  <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
-                  <CovidTestIsRapidQuestion formikProps={props as FormikProps<ICovidTestIsRapidData>} test={test} />
-                  <CovidTestInvitedQuestion formikProps={props as FormikProps<ICovidTestInvitedData>} test={test} />
+                  <CovidTestDateQuestion formikProps={formikProps as FormikProps<ICovidTestDateData>} test={test} />
+                  <CovidTestMechanismQuestion
+                    formikProps={formikProps as FormikProps<ICovidTestMechanismData>}
+                    test={test}
+                  />
+                  <CovidTestLocationQuestion
+                    formikProps={formikProps as FormikProps<ICovidTestLocationData>}
+                    test={test}
+                  />
+                  <CovidTestResultQuestion formikProps={formikProps as FormikProps<ICovidTestResultData>} test={test} />
+                  <CovidTestIsRapidQuestion
+                    formikProps={formikProps as FormikProps<ICovidTestIsRapidData>}
+                    test={test}
+                  />
+                  <CovidTestInvitedQuestion
+                    formikProps={formikProps as FormikProps<ICovidTestInvitedData>}
+                    test={test}
+                  />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
 
@@ -238,7 +248,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                   ) : null}
                 </View>
 
-                <BrandedButton enable={!this.state.submitting} onPress={props.handleSubmit}>
+                <BrandedButton enable={!this.state.submitting} onPress={formikProps.handleSubmit}>
                   {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </Form>

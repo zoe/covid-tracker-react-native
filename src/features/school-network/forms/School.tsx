@@ -7,7 +7,7 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
@@ -15,6 +15,12 @@ import * as Yup from 'yup';
 interface IProps {
   patientData: PatientData;
 }
+
+interface IValues {
+  schoolCode: string;
+}
+
+const initialValues: IValues = { schoolCode: '' };
 
 function SchoolForm({ patientData }: IProps) {
   const service = useInjection<ISchoolService>(Services.SchoolService);
@@ -25,23 +31,20 @@ function SchoolForm({ patientData }: IProps) {
       .matches(/^[a-zA-Z0-9_-]{7}$/, 'Code contains seven characters'),
   });
 
+  async function onSubmit(values: IValues, formikHelpers: FormikHelpers<IValues>) {
+    try {
+      const response = await service.getSchoolById(values.schoolCode);
+      NavigatorService.navigate('ConfirmSchool', {
+        patientData,
+        school: response[0],
+      });
+    } catch (error) {
+      formikHelpers.setFieldError('schoolId', 'Incorrect code');
+    }
+  }
+
   return (
-    <Formik
-      initialValues={{ schoolCode: '' }}
-      onSubmit={async ({ schoolCode }, FormikProps) => {
-        try {
-          // setIsLoading(true);
-          const response = await service.getSchoolById(schoolCode);
-          NavigatorService.navigate('ConfirmSchool', {
-            patientData,
-            school: response[0],
-          });
-        } catch (error) {
-          FormikProps.setFieldError('schoolId', 'Incorrect code');
-        }
-      }}
-      validationSchema={validationSchema}
-    >
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
       {(formikProps) => (
         <View style={styles.formContainer}>
           <View style={{ margin: 16 }}>

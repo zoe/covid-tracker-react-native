@@ -86,11 +86,11 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
     }
   }
 
-  handleAction(formData: INHSTestData) {
+  onSubmit(values: INHSTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
 
-      if (!formData.dateTakenSpecific) {
+      if (!values.dateTakenSpecific) {
         this.setState({ errorMessage: i18n.t('covid-test.required-date') });
         this.setState({ submitting: false });
         return;
@@ -100,10 +100,10 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
         invited_to_test: false,
         patient: AssessmentCoordinator.assessmentData.patientData.patientId,
         type: CovidTestType.NHSStudy,
-        ...NHSTestDateQuestion.createDTO(formData),
-        ...CovidTestTimeQuestion.createDTO(formData),
-        ...NHSTestMechanismQuestion.createDTO(formData),
-        ...CovidTestResultQuestion.createDTO(formData),
+        ...NHSTestDateQuestion.createDTO(values),
+        ...CovidTestTimeQuestion.createDTO(values),
+        ...NHSTestMechanismQuestion.createDTO(values),
+        ...CovidTestResultQuestion.createDTO(values),
       } as Partial<CovidTest>;
 
       this.submitCovidTest(infos);
@@ -138,10 +138,16 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const { test } = this.props.route.params;
 
-    const registerSchema = Yup.object()
+    const initialValues = {
+      ...NHSTestDateQuestion.initialFormValues(test),
+      ...CovidTestTimeQuestion.initialFormValues(test),
+      ...NHSTestMechanismQuestion.initialFormValues(test),
+      ...CovidTestResultQuestion.initialFormValues(test),
+    };
+
+    const validationSchema = Yup.object()
       .shape({})
       .concat(NHSTestDateQuestion.schema())
       .concat(CovidTestTimeQuestion.schema())
@@ -149,7 +155,10 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
       .concat(CovidTestResultQuestion.schema());
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={AssessmentCoordinator.assessmentData.patientData.patientState.profile}
+      >
         <Header>
           <HeaderText>
             {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}
@@ -160,30 +169,22 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
           <ProgressStatus maxSteps={5} step={2} />
         </ProgressBlock>
 
-        <Formik
-          initialValues={{
-            ...NHSTestDateQuestion.initialFormValues(test),
-            ...CovidTestTimeQuestion.initialFormValues(test),
-            ...NHSTestMechanismQuestion.initialFormValues(test),
-            ...CovidTestResultQuestion.initialFormValues(test),
-          }}
-          onSubmit={(values: INHSTestData) => {
-            return this.handleAction(values);
-          }}
-          validationSchema={registerSchema}
-        >
-          {(props) => {
+        <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={validationSchema}>
+          {(formikProps) => {
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
-                  <NHSTestDateQuestion formikProps={props as FormikProps<INHSTestDateData>} test={test} />
-                  <CovidTestTimeQuestion formikProps={props as FormikProps<ICovidTestTimeData>} test={test} />
-                  <NHSTestMechanismQuestion formikProps={props as FormikProps<INHSTestMechanismData>} test={test} />
-                  <CovidTestResultQuestion formikProps={props as FormikProps<ICovidTestResultData>} test={test} />
+                  <NHSTestDateQuestion formikProps={formikProps as FormikProps<INHSTestDateData>} test={test} />
+                  <CovidTestTimeQuestion formikProps={formikProps as FormikProps<ICovidTestTimeData>} test={test} />
+                  <NHSTestMechanismQuestion
+                    formikProps={formikProps as FormikProps<INHSTestMechanismData>}
+                    test={test}
+                  />
+                  <CovidTestResultQuestion formikProps={formikProps as FormikProps<ICovidTestResultData>} test={test} />
                 </View>
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
                 ) : null}
 
@@ -196,7 +197,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
                   />
                 ) : null}
 
-                <BrandedButton onPress={props.handleSubmit}>
+                <BrandedButton onPress={formikProps.handleSubmit}>
                   {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </Form>

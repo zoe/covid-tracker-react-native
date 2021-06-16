@@ -32,6 +32,8 @@ interface IProps {
   route: RouteProp<ScreenParamList, 'NHSIntro'>;
 }
 
+const initialValues = {} as IData;
+
 export function NHSIntroScreen(props: IProps) {
   const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
@@ -91,7 +93,7 @@ export function NHSIntroScreen(props: IProps) {
     } as PatientInfosRequest;
   };
 
-  const registerSchema = Yup.object().shape({});
+  const validationSchema = Yup.object().shape({});
   const currentPatient = coordinator.patientData.patientState;
 
   return (
@@ -107,19 +109,19 @@ export function NHSIntroScreen(props: IProps) {
       <View style={{ paddingHorizontal: 16 }}>
         <RegularText style={{ marginBottom: 24 }}>{i18n.t('nhs-study-intro.text-1')}</RegularText>
 
-        <Formik initialValues={{} as IData} onSubmit={onSubmit} validationSchema={registerSchema}>
-          {(props) => {
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+          {(formikProps) => {
             return (
               <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <Form>
                   <RegularText style={{ marginBottom: 16 }}>{i18n.t('nhs-study-intro.text-2')}</RegularText>
 
                   <ValidatedTextInput
-                    error={props.touched.nhsID && props.errors.nhsID}
-                    onBlur={props.handleBlur('nhsID')}
-                    onChangeText={props.handleChange('nhsID')}
+                    error={formikProps.touched.nhsID && formikProps.errors.nhsID}
+                    onBlur={formikProps.handleBlur('nhsID')}
+                    onChangeText={formikProps.handleChange('nhsID')}
                     placeholder={i18n.t('nhs-study-intro.nhsID-placeholder')}
-                    value={props.values.nhsID}
+                    value={formikProps.values.nhsID}
                   />
 
                   <RegularText style={{ marginVertical: 16 }}>
@@ -132,14 +134,14 @@ export function NHSIntroScreen(props: IProps) {
                   </CheckboxItem>
 
                   <ErrorText>{errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
 
                   <BrandedButton
-                    enable={checkFormFilled(props) && consent}
-                    hideLoading={!props.isSubmitting}
-                    onPress={props.handleSubmit}
+                    enable={checkFormFilled(formikProps) && consent}
+                    hideLoading={!formikProps.isSubmitting}
+                    onPress={formikProps.handleSubmit}
                   >
                     {i18n.t('nhs-study-intro.next')}
                   </BrandedButton>

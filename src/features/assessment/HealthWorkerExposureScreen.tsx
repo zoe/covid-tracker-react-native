@@ -83,7 +83,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     } as Partial<AssessmentInfosRequest>;
   }
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     hasUsedPPEEquipment: Yup.string().when('interactedAnyPatients', {
       is: 'yes',
       then: Yup.string().required(i18n.t('required-has-used-ppe-equipment')),
@@ -162,68 +162,70 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
         <Formik
           initialValues={initialFormValues}
           onSubmit={(values: IHealthWorkerExposureData) => this.handleUpdate(values)}
-          validationSchema={this.registerSchema}
+          validationSchema={this.validationSchema}
         >
-          {(props) => {
+          {(formikProps) => {
             return (
               <Form>
                 <View>
                   <YesNoField
                     label={i18n.t('health-worker-exposure-question-interacted-any-patients')}
-                    onValueChange={props.handleChange('interactedAnyPatients')}
-                    selectedValue={props.values.interactedAnyPatients}
+                    onValueChange={formikProps.handleChange('interactedAnyPatients')}
+                    selectedValue={formikProps.values.interactedAnyPatients}
                   />
 
-                  {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' ? (
+                  {!!formikProps.values.interactedAnyPatients && formikProps.values.interactedAnyPatients === 'yes' ? (
                     <View style={{ marginHorizontal: 16 }}>
                       <DropdownField
                         items={patientInteractionOptions}
                         label={i18n.t('health-worker-exposure-question-treated-patients-with-covid')}
-                        onValueChange={props.handleChange('treatedPatientsWithCovid')}
-                        selectedValue={props.values.treatedPatientsWithCovid}
+                        onValueChange={formikProps.handleChange('treatedPatientsWithCovid')}
+                        selectedValue={formikProps.values.treatedPatientsWithCovid}
                       />
 
                       <DropdownField
                         items={equipmentUsageOptions}
                         label={i18n.t('health-worker-exposure-question-has-used-ppe-equipment')}
-                        onValueChange={props.handleChange('hasUsedPPEEquipment')}
-                        selectedValue={props.values.hasUsedPPEEquipment}
+                        onValueChange={formikProps.handleChange('hasUsedPPEEquipment')}
+                        selectedValue={formikProps.values.hasUsedPPEEquipment}
                       />
 
-                      {props.values.hasUsedPPEEquipment === 'always' ? (
+                      {formikProps.values.hasUsedPPEEquipment === 'always' ? (
                         <DropdownField
                           items={availabilityAlwaysOptions}
                           label={i18n.t('label-chose-an-option')}
-                          onValueChange={props.handleChange('ppeAvailabilityAlways')}
-                          selectedValue={props.values.ppeAvailabilityAlways}
+                          onValueChange={formikProps.handleChange('ppeAvailabilityAlways')}
+                          selectedValue={formikProps.values.ppeAvailabilityAlways}
                         />
                       ) : null}
 
-                      {props.values.hasUsedPPEEquipment === 'sometimes' ? (
+                      {formikProps.values.hasUsedPPEEquipment === 'sometimes' ? (
                         <DropdownField
                           items={availabilitySometimesOptions}
                           label={i18n.t('label-chose-an-option')}
-                          onValueChange={props.handleChange('ppeAvailabilitySometimes')}
-                          selectedValue={props.values.ppeAvailabilitySometimes}
+                          onValueChange={formikProps.handleChange('ppeAvailabilitySometimes')}
+                          selectedValue={formikProps.values.ppeAvailabilitySometimes}
                         />
                       ) : null}
 
-                      {props.values.hasUsedPPEEquipment === 'never' ? (
+                      {formikProps.values.hasUsedPPEEquipment === 'never' ? (
                         <DropdownField
                           items={availabilityNeverOptions}
                           label={i18n.t('label-chose-an-option')}
-                          onValueChange={props.handleChange('ppeAvailabilityNever')}
-                          selectedValue={props.values.ppeAvailabilityNever}
+                          onValueChange={formikProps.handleChange('ppeAvailabilityNever')}
+                          selectedValue={formikProps.values.ppeAvailabilityNever}
                         />
                       ) : null}
                     </View>
                   ) : null}
                 </View>
 
-                {Object.keys(props.errors).length ? <ErrorText>{i18n.t('validation-error-text')}</ErrorText> : null}
+                {Object.keys(formikProps.errors).length ? (
+                  <ErrorText>{i18n.t('validation-error-text')}</ErrorText>
+                ) : null}
                 <ErrorText>{this.state.errorMessage}</ErrorText>
 
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
               </Form>
             );
           }}

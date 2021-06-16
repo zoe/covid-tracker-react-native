@@ -29,7 +29,7 @@ type TreatmentOtherProps = {
 };
 
 export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     description: Yup.string(),
   });
 
@@ -75,9 +75,9 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
           onSubmit={(values: ITreatmentData) => {
             return this.handleUpdateTreatment(values);
           }}
-          validationSchema={this.registerSchema}
+          validationSchema={this.validationSchema}
         >
-          {(props) => {
+          {(formikProps) => {
             return (
               <Form>
                 <FieldWrapper style={{ marginVertical: 64 }}>
@@ -85,17 +85,17 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
                     <Label style={{ marginBottom: 16 }}>{question}</Label>
                     <Textarea
                       bordered
-                      onChangeText={props.handleChange('description')}
+                      onChangeText={formikProps.handleChange('description')}
                       placeholder={i18n.t('placeholder-optional-question')}
                       rowSpan={5}
                       style={styles.textarea}
                       underline={false}
-                      value={props.values.description}
+                      value={formikProps.values.description}
                     />
                   </Item>
                 </FieldWrapper>
 
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('completed')}</BrandedButton>
+                <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('completed')}</BrandedButton>
               </Form>
             );
           }}

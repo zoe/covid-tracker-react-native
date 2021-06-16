@@ -30,6 +30,8 @@ interface ResetPasswordData {
   email: string;
 }
 
+const initialValues = { email: '' };
+
 export class ResetPasswordScreen extends Component<PropsType, State> {
   @lazyInject(Services.User)
   private userService: IUserService;
@@ -50,7 +52,7 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
     }
   };
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     email: Yup.string().email().required(),
   });
 
@@ -58,7 +60,7 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
-          <Formik initialValues={{ email: '' }} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
+          <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
             {(props: IResetPasswordForm) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
           </Formik>
         </KeyboardAvoidingView>

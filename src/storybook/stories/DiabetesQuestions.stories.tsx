@@ -8,20 +8,18 @@ import React from 'react';
 import { Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+function onSubmit() {}
+
 storiesOf('DiabetesQuestions', module).add('default view', () => {
+  const initialValues = DiabetesQuestions.initialFormValues();
+  const validationSchema = DiabetesQuestions.schema();
   return (
     <ScrollView>
-      <Formik
-        initialValues={{
-          ...DiabetesQuestions.initialFormValues(),
-        }}
-        onSubmit={() => {}}
-        validationSchema={DiabetesQuestions.schema()}
-      >
-        {(props) => (
+      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+        {(formikProps) => (
           <View style={{ marginHorizontal: 16 }}>
-            <DiabetesQuestions formikProps={props as FormikProps<IDiabetesData>} />
-            <BrandedButton onPress={props.handleSubmit}>
+            <DiabetesQuestions formikProps={formikProps as FormikProps<IDiabetesData>} />
+            <BrandedButton onPress={formikProps.handleSubmit}>
               <Text>{i18n.t('update-profile')}</Text>
             </BrandedButton>
           </View>

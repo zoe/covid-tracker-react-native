@@ -20,17 +20,17 @@ type Props = {
 };
 
 export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
+  const initialValues = OtherSymptomsQuestions.initialFormValues();
+  const validationSchema = Yup.object().shape({}).concat(OtherSymptomsQuestions.schema());
+
   function onSubmit(values: OtherSymptomsData, formikHelpers: FormikHelpers<OtherSymptomsData>) {
     assessmentService.saveAssessment(OtherSymptomsQuestions.createAssessment(values));
     assessmentCoordinator.gotoNextScreen(route.name);
     formikHelpers.setSubmitting(false);
   }
 
-  const registerSchema = Yup.object().shape({}).concat(OtherSymptomsQuestions.schema());
-
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={assessmentCoordinator.assessmentData.patientData.patientState.profile}>
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.other-symptoms')}</HeaderText>
       </Header>
@@ -39,25 +39,19 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
         <ProgressStatus maxSteps={6} step={5} />
       </ProgressBlock>
 
-      <Formik
-        initialValues={{
-          ...OtherSymptomsQuestions.initialFormValues(),
-        }}
-        onSubmit={onSubmit}
-        validationSchema={registerSchema}
-      >
-        {(props) => {
+      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+        {(formikProps) => {
           return (
             <View style={{ flexGrow: 1 }}>
               <View style={{ marginHorizontal: 16 }}>
-                <OtherSymptomsQuestions formikProps={props} />
+                <OtherSymptomsQuestions formikProps={formikProps} />
               </View>
 
               <View style={{ flex: 1 }} />
               <BrandedButton
-                enable={!props.isSubmitting}
-                hideLoading={!props.isSubmitting}
-                onPress={props.handleSubmit}
+                enable={!formikProps.isSubmitting}
+                hideLoading={!formikProps.isSubmitting}
+                onPress={formikProps.handleSubmit}
               >
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>

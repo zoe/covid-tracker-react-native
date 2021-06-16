@@ -12,25 +12,23 @@ import React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
-export type GutStomachSymptomsData = GutStomachSymptomsCheckBoxData & GutStomachSymptomsFollowUpData;
+export type TGutStomachSymptomsData = TGutStomachSymptomsCheckBoxData & TGutStomachSymptomsFollowUpData;
 
-type GutStomachSymptomsCheckBoxData = {
+type TGutStomachSymptomsCheckBoxData = {
   abdominalPain: boolean;
   nausea: boolean;
   diarrhoea: boolean;
   skippedMeals: boolean;
 };
 
-type GutStomachSymptomsFollowUpData = any; // No follow up questions so type is unused.
+type TGutStomachSymptomsFollowUpData = any; // No follow up questions so type is unused.
 
-type Props = {
-  formikProps: FormikProps<GutStomachSymptomsData>;
+type TProps = {
+  formikProps: FormikProps<TGutStomachSymptomsData>;
 };
 
-export const GutStomachSymptomsQuestions: ISymptomQuestions<Props, GutStomachSymptomsData> = (props: Props) => {
-  const { formikProps } = props;
-
-  const checkboxes: SymptomCheckBoxData<GutStomachSymptomsCheckBoxData, GutStomachSymptomsFollowUpData>[] = [
+export const GutStomachSymptomsQuestions: ISymptomQuestions<TProps, TGutStomachSymptomsData> = (props: TProps) => {
+  const checkboxes: SymptomCheckBoxData<TGutStomachSymptomsCheckBoxData, TGutStomachSymptomsFollowUpData>[] = [
     { label: i18n.t('describe-symptoms.gut-stomach-abdominal-pain'), value: 'abdominalPain' },
     { label: i18n.t('describe-symptoms.gut-stomach-nausea'), value: 'nausea' },
     { label: i18n.t('describe-symptoms.gut-stomach-diarrhoea'), value: 'diarrhoea' },
@@ -40,12 +38,12 @@ export const GutStomachSymptomsQuestions: ISymptomQuestions<Props, GutStomachSym
   return (
     <View style={{ marginVertical: 16 }}>
       <RegularText style={{ paddingTop: 16 }}>{i18n.t('describe-symptoms.check-all-that-apply')}</RegularText>
-      <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
+      <CheckboxList>{createSymptomCheckboxes(checkboxes, props.formikProps)}</CheckboxList>
     </View>
   );
 };
 
-GutStomachSymptomsQuestions.initialFormValues = (): GutStomachSymptomsData => {
+GutStomachSymptomsQuestions.initialFormValues = (): TGutStomachSymptomsData => {
   return {
     abdominalPain: false,
     diarrhoea: false,
@@ -58,7 +56,7 @@ GutStomachSymptomsQuestions.schema = () => {
   return Yup.object();
 };
 
-GutStomachSymptomsQuestions.createAssessment = (formData: GutStomachSymptomsData): Partial<AssessmentInfosRequest> => {
+GutStomachSymptomsQuestions.createAssessment = (formData: TGutStomachSymptomsData): Partial<AssessmentInfosRequest> => {
   return {
     abdominal_pain: formData.abdominalPain,
     diarrhoea: formData.diarrhoea,

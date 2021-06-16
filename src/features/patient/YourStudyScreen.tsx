@@ -249,7 +249,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     ? editProfileCoordinator
     : patientCoordinator;
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     clinicalStudyContact: Yup.string(),
     clinicalStudyInstitution: Yup.string(),
     clinicalStudyNames: Yup.string(),
@@ -266,7 +266,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     });
   }
 
-  getInitialFormValues() {
+  getInitialValues() {
     const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
     if (this.props.route.params.editing) {
       const patientInfo = this.props.route.params.patientData.patientInfo!;
@@ -304,9 +304,9 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     };
   }
 
-  handleSubmit(formData: IYourStudyData) {
+  onSubmit(values: IYourStudyData) {
     const currentPatient = this.coordinator.patientData.patientState;
-    const infos = this.createPatientInfos(formData);
+    const infos = this.createPatientInfos(values);
 
     this.coordinator
       .updatePatientInfo(infos)
@@ -332,11 +332,11 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={this.getInitialFormValues()}
-          onSubmit={(values: IYourStudyData) => this.handleSubmit(values)}
-          validationSchema={this.registerSchema}
+          initialValues={this.getInitialValues()}
+          onSubmit={this.onSubmit}
+          validationSchema={this.validationSchema}
         >
-          {(props) => {
+          {(formikProps) => {
             return (
               <Form>
                 <FieldWrapper>
@@ -350,13 +350,13 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                           onChange={(value: boolean) => {
                             if (cohort.key === 'is_in_none_of_the_above') {
                               // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
-                              props.setValues(this.buildInitCohortsValues(countrySpecificCohorts));
-                            } else if (Object.keys(props.values).includes('is_in_none_of_the_above')) {
-                              props.setFieldValue('is_in_none_of_the_above', false);
+                              formikProps.setValues(this.buildInitCohortsValues(countrySpecificCohorts));
+                            } else if (Object.keys(formikProps.values).includes('is_in_none_of_the_above')) {
+                              formikProps.setFieldValue('is_in_none_of_the_above', false);
                             }
-                            props.setFieldValue(cohort.key, value);
+                            formikProps.setFieldValue(cohort.key, value);
                           }}
-                          value={props.values[cohort.key]}
+                          value={formikProps.values[cohort.key]}
                         >
                           {cohort.label}
                         </CheckboxItem>
@@ -371,27 +371,27 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
                     <View style={{ marginHorizontal: 16 }}>
                       <GenericTextField
-                        formikProps={props}
+                        formikProps={formikProps}
                         label={i18n.t('your-study.add-study-names')}
                         name="clinicalStudyNames"
                         placeholder={i18n.t('placeholder-optional')}
                       />
 
                       <GenericTextField
-                        formikProps={props}
+                        formikProps={formikProps}
                         label={i18n.t('your-study.contact-name')}
                         name="clinicalStudyContacts"
                         placeholder={i18n.t('placeholder-optional')}
                       />
                       <GenericTextField
-                        formikProps={props}
+                        formikProps={formikProps}
                         label={i18n.t('your-study.uni-hospital')}
                         name="clinicalStudyInstitutions"
                         placeholder={i18n.t('placeholder-optional')}
                       />
 
                       <GenericTextField
-                        formikProps={props}
+                        formikProps={formikProps}
                         label={i18n.t('your-study.nct-number')}
                         name="clinicalStudyNctIds"
                         placeholder={i18n.t('placeholder-optional')}
@@ -401,14 +401,14 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 ) : null}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
                 ) : null}
 
-                <BrandedButton onPress={props.handleSubmit}>
+                <BrandedButton onPress={formikProps.handleSubmit}>
                   {
                     // @ts-ignore - error due to cohort keys being in AllCohorts and not explicitly in the interface
-                    props.values.is_in_uk_nhs_asymptomatic_study
+                    formikProps.values.is_in_uk_nhs_asymptomatic_study
                       ? i18n.t('edit-profile.next')
                       : this.props.route.params.editing
                       ? i18n.t('edit-profile.done')

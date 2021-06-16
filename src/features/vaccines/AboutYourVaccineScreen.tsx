@@ -29,7 +29,7 @@ type IProps = {
   route: RouteProp<ScreenParamList, 'AboutYourVaccine'>;
 };
 
-const registerSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema());
+const validationSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema());
 
 interface IAboutYourVaccineData extends IVaccineDoseData {}
 
@@ -194,21 +194,19 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
     return date1Changed || date2Changed;
   };
 
-  const buildInitialValues = (vaccine?: VaccineRequest): IVaccineDoseData => {
-    return {
-      firstBatchNumber: vaccine?.doses[0]?.batch_number ?? '',
-      firstBrand: vaccine?.doses[0]?.brand ?? undefined,
-      firstDescription: vaccine?.doses[0]?.description,
-      firstDoseDate: vaccine?.doses[0]?.date_taken_specific
-        ? moment(vaccine.doses[0].date_taken_specific).toDate()
-        : undefined,
-      secondBatchNumber: vaccine?.doses[1]?.batch_number ?? '',
-      secondBrand: vaccine?.doses[1]?.brand ?? undefined,
-      secondDescription: vaccine?.doses[1]?.description,
-      secondDoseDate: vaccine?.doses[1]?.date_taken_specific
-        ? moment(vaccine.doses[1].date_taken_specific).toDate()
-        : undefined,
-    };
+  const initialValues: IVaccineDoseData = {
+    firstBatchNumber: assessmentData.vaccineData?.doses[0]?.batch_number ?? '',
+    firstBrand: assessmentData.vaccineData?.doses[0]?.brand ?? undefined,
+    firstDescription: assessmentData.vaccineData?.doses[0]?.description,
+    firstDoseDate: assessmentData.vaccineData?.doses[0]?.date_taken_specific
+      ? moment(assessmentData.vaccineData.doses[0].date_taken_specific).toDate()
+      : undefined,
+    secondBatchNumber: assessmentData.vaccineData?.doses[1]?.batch_number ?? '',
+    secondBrand: assessmentData.vaccineData?.doses[1]?.brand ?? undefined,
+    secondDescription: assessmentData.vaccineData?.doses[1]?.description,
+    secondDoseDate: assessmentData.vaccineData?.doses[1]?.date_taken_specific
+      ? moment(assessmentData.vaccineData.doses[1].date_taken_specific).toDate()
+      : undefined,
   };
 
   const renderDeleteButton = () =>
@@ -218,20 +216,19 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
       </ClickableText>
     ) : null;
 
+  function onSubmit(values: IAboutYourVaccineData) {
+    // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    dateHasBeenEdited(values) ? checkDateChangePrompt(values) : processFormDataForSubmit(values);
+  }
+
   return (
     <Screen navigation={navigation} profile={assessmentData.patientData.profile}>
       <Header>
         <HeaderText>{i18n.t('vaccines.your-vaccine.title')}</HeaderText>
       </Header>
       {renderFindInfoLink}
-      <Formik
-        initialValues={{ ...buildInitialValues(assessmentData.vaccineData) }}
-        onSubmit={(formData: IAboutYourVaccineData) =>
-          // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
-          dateHasBeenEdited(formData) ? checkDateChangePrompt(formData) : processFormDataForSubmit(formData)
-        }
-        validationSchema={registerSchema}
-      >
+      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
         {(props: FormikProps<IAboutYourVaccineData>) => {
           return (
             <View style={{ flex: 1 }}>
