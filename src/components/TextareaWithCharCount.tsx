@@ -14,10 +14,13 @@ interface ITextareaWithCharCountProps {
   value: string | null;
 }
 
+const DEFAULT_MAX_LENGTH = 1000;
+const DEFAULT_ROW_SPAN = 5;
+
 export default function TextareaWithCharCount(props: ITextareaWithCharCountProps) {
   const [charCount, setCharCount] = useState(0);
 
-  const maxLength = props.maxLength || 1000;
+  const maxLength = props.maxLength || DEFAULT_MAX_LENGTH;
 
   return (
     <>
@@ -29,7 +32,7 @@ export default function TextareaWithCharCount(props: ITextareaWithCharCountProps
           setCharCount(value.length);
         }}
         placeholder={props.placeholder}
-        rowSpan={props.rowSpan || 5}
+        rowSpan={props.rowSpan || DEFAULT_ROW_SPAN}
         style={props.style}
         underline={false}
         value={props.value}
