@@ -49,6 +49,7 @@
     "write-icon-names": "node writeIconNames.js",
     "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/Covid/main.jsbundle' --dev=false --platform='ios'"
   },
+
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.13.2",
     "@react-native-community/datetimepicker": "3.0.0",
