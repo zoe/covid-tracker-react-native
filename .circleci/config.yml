@@ -258,13 +258,11 @@ jobs:
       - run: yarn
       - attach_workspace:
           at: *default_workspace
-      #- prepare_deploy_env
-      - prepare_blank_env
+      - prepare_deploy_env
       - run: bundle install --path vendor/bundle --clean
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
-          executor: mobile-build-box
       #- run: detox build --configuration ios.release
       #- run: detox test --configuration ios.release --cleanup
 
