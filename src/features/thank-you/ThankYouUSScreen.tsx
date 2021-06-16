@@ -9,78 +9,71 @@ import { AntDesign } from '@expo/vector-icons';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import I18n from 'i18n-js';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-type Props = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUS'>;
   route: RouteProp<ScreenParamList, 'ThankYouUS'>;
-};
+}
 
-type State = {
-  askForRating: boolean;
-};
+export default function ThankYouUSScreen({ navigation, route }: IProps) {
+  const [askForRating, setAskForRating] = useState<boolean>(false);
 
-const initialState: State = {
-  askForRating: false,
-};
+  useEffect(() => {
+    (async () => {
+      try {
+        const ratingAskResponse = await shouldAskForRating();
+        setAskForRating(ratingAskResponse);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(`Ask for rating call failed with error: ${e}`);
+      }
+    })();
+  }, []);
 
-export default class ThankYouUSScreen extends Component<Props, State> {
-  state = { ...initialState };
+  return (
+    <>
+      {askForRating && <AppRating />}
+      <SafeAreaView>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.rootContainer}>
+            <AntDesign name="checkcircle" size={32} style={styles.checkIcon} />
+            <HeaderText style={{ marginTop: 24, textAlign: 'center' }}>
+              {i18n.t('thank-you.report-tomorrow')}
+            </HeaderText>
+            <Text style={styles.thankYou}>{i18n.t('thank-you.numbers')}</Text>
 
-  async componentDidMount() {
-    if (await shouldAskForRating()) {
-      this.setState({ askForRating: true });
-    }
-  }
+            <ShareAppCardViral />
 
-  formatNumber = (x: number | undefined) => I18n.toNumber(x ?? 0, { precision: 0 });
+            <RegularText style={styles.partnerContainer}>
+              {i18n.t('thank-you.thank-you-for-joining')}{' '}
+              <Text style={styles.partner}>Massachusetts General Hospital</Text>,{' '}
+              <Text style={styles.partner}>Stanford University School of Medicine</Text> &{' '}
+              <Text style={styles.partner}>King's College London</Text> {i18n.t('thank-you.to-help-communities')}
+            </RegularText>
 
-  render() {
-    return (
-      <>
-        {this.state.askForRating && <AppRating />}
-        <SafeAreaView>
-          <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.rootContainer}>
-              <AntDesign name="checkcircle" size={32} style={styles.checkIcon} />
-              <HeaderText style={{ marginTop: 24, textAlign: 'center' }}>
-                {i18n.t('thank-you.report-tomorrow')}
-              </HeaderText>
-              <Text style={styles.thankYou}>{i18n.t('thank-you.numbers')}</Text>
+            <RegularText style={styles.visitWebsite}>
+              {i18n.t('thank-you.visit-our')}{' '}
+              <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>
+                {i18n.t('thank-you.website')}
+              </ClickableText>{' '}
+              {i18n.t('thank-you.to-see-discoveries')}
+            </RegularText>
 
-              <ShareAppCardViral />
-
-              <RegularText style={styles.partnerContainer}>
-                {i18n.t('thank-you.thank-you-for-joining')}{' '}
-                <Text style={styles.partner}>Massachusetts General Hospital</Text>,{' '}
-                <Text style={styles.partner}>Stanford University School of Medicine</Text> &{' '}
-                <Text style={styles.partner}>King's College London</Text> {i18n.t('thank-you.to-help-communities')}
-              </RegularText>
-
-              <RegularText style={styles.visitWebsite}>
-                {i18n.t('thank-you.visit-our')}{' '}
-                <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>
-                  {i18n.t('thank-you.website')}
-                </ClickableText>{' '}
-                {i18n.t('thank-you.to-see-discoveries')}
-              </RegularText>
-
-              <ClickableText
-                onPress={() => {
-                  assessmentCoordinator.gotoNextScreen(this.props.route.name);
-                }}
-                style={styles.done}
-              >
-                {i18n.t('thank-you.done')}
-              </ClickableText>
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    );
-  }
+            <ClickableText
+              onPress={() => {
+                assessmentCoordinator.gotoNextScreen(route.name);
+              }}
+              style={styles.done}
+            >
+              {i18n.t('thank-you.done')}
+            </ClickableText>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
