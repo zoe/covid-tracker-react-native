@@ -12,7 +12,7 @@
     },
     "ios.release": {
       "binaryPath": "./ios/build/Build/Products/Release-iphonesimulator/covid-zoe Stage.app",
-      "build": "yarn run build:ios && fastlane ios build env:stage",
+      "build": "xcodebuild -workspace ios/Covid.xcworkspace -configuration release -scheme Covid -sdk iphonesimulator -derivedDataPath ios/build",
       "type": "ios.simulator",
       "name": "iPhone X"
    }
