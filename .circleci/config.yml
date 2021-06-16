@@ -265,7 +265,7 @@ jobs:
       #- run: cd ios && pod install && cd ..
       #- run: fastlane ios build env:stage detox build --configuration ios.release
       - run: bundle install --path vendor/bundle --clean
-      - run: detox build
+      - run: detox build --configuration ios.release
       - run: detox test --configuration ios.release --cleanup
 
   ### ------------------- ###
