@@ -15,7 +15,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-const initialFormValues = {
+const initialValues = {
   description: '',
 };
 
@@ -33,12 +33,12 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     description: Yup.string(),
   });
 
-  handleUpdateTreatment = async (formData: ITreatmentData) => {
+  onSubmit = async (values: ITreatmentData) => {
     let assessment: Partial<AssessmentInfosRequest> = {};
 
-    if (formData.description) {
+    if (values.description) {
       assessment = {
-        treatment: formData.description,
+        treatment: values.description,
       };
     }
 
@@ -70,35 +70,27 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
           <ProgressStatus maxSteps={5} step={5} />
         </ProgressBlock>
 
-        <Formik
-          initialValues={initialFormValues}
-          onSubmit={(values: ITreatmentData) => {
-            return this.handleUpdateTreatment(values);
-          }}
-          validationSchema={this.validationSchema}
-        >
-          {(formikProps) => {
-            return (
-              <Form>
-                <FieldWrapper style={{ marginVertical: 64 }}>
-                  <Item stackedLabel>
-                    <Label style={{ marginBottom: 16 }}>{question}</Label>
-                    <Textarea
-                      bordered
-                      onChangeText={formikProps.handleChange('description')}
-                      placeholder={i18n.t('placeholder-optional-question')}
-                      rowSpan={5}
-                      style={styles.textarea}
-                      underline={false}
-                      value={formikProps.values.description}
-                    />
-                  </Item>
-                </FieldWrapper>
+        <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
+          {(formikProps) => (
+            <Form>
+              <FieldWrapper style={{ marginVertical: 64 }}>
+                <Item stackedLabel>
+                  <Label style={{ marginBottom: 16 }}>{question}</Label>
+                  <Textarea
+                    bordered
+                    onChangeText={formikProps.handleChange('description')}
+                    placeholder={i18n.t('placeholder-optional-question')}
+                    rowSpan={5}
+                    style={styles.textarea}
+                    underline={false}
+                    value={formikProps.values.description}
+                  />
+                </Item>
+              </FieldWrapper>
 
-                <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('completed')}</BrandedButton>
-              </Form>
-            );
-          }}
+              <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('completed')}</BrandedButton>
+            </Form>
+          )}
         </Formik>
       </Screen>
     );

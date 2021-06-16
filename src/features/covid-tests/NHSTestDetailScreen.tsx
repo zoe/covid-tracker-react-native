@@ -170,39 +170,34 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
         </ProgressBlock>
 
         <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={validationSchema}>
-          {(formikProps) => {
-            return (
-              <Form>
-                <View style={{ marginHorizontal: 16 }}>
-                  <NHSTestDateQuestion formikProps={formikProps as FormikProps<INHSTestDateData>} test={test} />
-                  <CovidTestTimeQuestion formikProps={formikProps as FormikProps<ICovidTestTimeData>} test={test} />
-                  <NHSTestMechanismQuestion
-                    formikProps={formikProps as FormikProps<INHSTestMechanismData>}
-                    test={test}
-                  />
-                  <CovidTestResultQuestion formikProps={formikProps as FormikProps<ICovidTestResultData>} test={test} />
-                </View>
+          {(formikProps) => (
+            <Form>
+              <View style={{ marginHorizontal: 16 }}>
+                <NHSTestDateQuestion formikProps={formikProps as FormikProps<INHSTestDateData>} test={test} />
+                <CovidTestTimeQuestion formikProps={formikProps as FormikProps<ICovidTestTimeData>} test={test} />
+                <NHSTestMechanismQuestion formikProps={formikProps as FormikProps<INHSTestMechanismData>} test={test} />
+                <CovidTestResultQuestion formikProps={formikProps as FormikProps<ICovidTestResultData>} test={test} />
+              </View>
 
-                <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                ) : null}
+              <ErrorText>{this.state.errorMessage}</ErrorText>
+              {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                <ValidationError error={i18n.t('validation-error-text')} />
+              ) : null}
 
-                {this.testId ? (
-                  <ClearButton
-                    onPress={async () => {
-                      await this.promptDeleteTest();
-                    }}
-                    text={i18n.t('covid-test.delete-test')}
-                  />
-                ) : null}
+              {this.testId ? (
+                <ClearButton
+                  onPress={async () => {
+                    await this.promptDeleteTest();
+                  }}
+                  text={i18n.t('covid-test.delete-test')}
+                />
+              ) : null}
 
-                <BrandedButton onPress={formikProps.handleSubmit}>
-                  {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
+              <BrandedButton onPress={formikProps.handleSubmit}>
+                {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
+              </BrandedButton>
+            </Form>
+          )}
         </Formik>
       </Screen>
     );

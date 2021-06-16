@@ -286,32 +286,30 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
       style={{ padding: 16 }}
       validationSchema={LongCovidQuestionPageOneScreen.schema}
     >
-      {(props: FormikProps<ILongCovid>) => {
-        return (
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
-            <ScrollView>
-              <View style={{ flexGrow: 1 }}>
-                <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
-                <DropdownField
-                  error={props.touched.had_covid && props.errors.had_covid}
-                  items={dropdownItemsQ1}
-                  onValueChange={props.handleChange('had_covid')}
-                  selectedValue={props.values.had_covid}
-                />
-                {renderExtendedForm(props)}
-                <View style={{ marginVertical: 64 }}>
-                  <BrandedButton
-                    enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
-                    onPress={() => onSubmit(props.values)}
-                  >
-                    <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
-                  </BrandedButton>
-                </View>
+      {(formikProps) => (
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+          <ScrollView>
+            <View style={{ flexGrow: 1 }}>
+              <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
+              <DropdownField
+                error={formikProps.touched.had_covid && formikProps.errors.had_covid}
+                items={dropdownItemsQ1}
+                onValueChange={formikProps.handleChange('had_covid')}
+                selectedValue={formikProps.values.had_covid}
+              />
+              {renderExtendedForm(formikProps)}
+              <View style={{ marginVertical: 64 }}>
+                <BrandedButton
+                  enable={formikProps.values.had_covid !== null && Object.keys(formikProps.errors).length < 1}
+                  onPress={() => onSubmit(formikProps.values)}
+                >
+                  <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
+                </BrandedButton>
               </View>
-            </ScrollView>
-          </KeyboardAvoidingView>
-        );
-      }}
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      )}
     </Formik>
   );
 }

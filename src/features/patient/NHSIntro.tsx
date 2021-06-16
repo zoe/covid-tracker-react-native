@@ -110,45 +110,43 @@ export function NHSIntroScreen(props: IProps) {
         <RegularText style={{ marginBottom: 24 }}>{i18n.t('nhs-study-intro.text-1')}</RegularText>
 
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-          {(formikProps) => {
-            return (
-              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <Form>
-                  <RegularText style={{ marginBottom: 16 }}>{i18n.t('nhs-study-intro.text-2')}</RegularText>
+          {(formikProps) => (
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+              <Form>
+                <RegularText style={{ marginBottom: 16 }}>{i18n.t('nhs-study-intro.text-2')}</RegularText>
 
-                  <ValidatedTextInput
-                    error={formikProps.touched.nhsID && formikProps.errors.nhsID}
-                    onBlur={formikProps.handleBlur('nhsID')}
-                    onChangeText={formikProps.handleChange('nhsID')}
-                    placeholder={i18n.t('nhs-study-intro.nhsID-placeholder')}
-                    value={formikProps.values.nhsID}
-                  />
+                <ValidatedTextInput
+                  error={formikProps.touched.nhsID && formikProps.errors.nhsID}
+                  onBlur={formikProps.handleBlur('nhsID')}
+                  onChangeText={formikProps.handleChange('nhsID')}
+                  placeholder={i18n.t('nhs-study-intro.nhsID-placeholder')}
+                  value={formikProps.values.nhsID}
+                />
 
-                  <RegularText style={{ marginVertical: 16 }}>
-                    <RegularText>{i18n.t('nhs-study-intro.text-3')}</RegularText>
-                    <ClickableText onPress={handleCancel}>{i18n.t('nhs-study-intro.text-cancel')}</ClickableText>
-                  </RegularText>
+                <RegularText style={{ marginVertical: 16 }}>
+                  <RegularText>{i18n.t('nhs-study-intro.text-3')}</RegularText>
+                  <ClickableText onPress={handleCancel}>{i18n.t('nhs-study-intro.text-cancel')}</ClickableText>
+                </RegularText>
 
-                  <CheckboxItem onChange={toggleConsent} value={consent}>
-                    {i18n.t('nhs-study-intro.consent')}
-                  </CheckboxItem>
+                <CheckboxItem onChange={toggleConsent} value={consent}>
+                  {i18n.t('nhs-study-intro.consent')}
+                </CheckboxItem>
 
-                  <ErrorText>{errorMessage}</ErrorText>
-                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                    <ValidationError error={i18n.t('validation-error-text')} />
-                  ) : null}
+                <ErrorText>{errorMessage}</ErrorText>
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                ) : null}
 
-                  <BrandedButton
-                    enable={checkFormFilled(formikProps) && consent}
-                    hideLoading={!formikProps.isSubmitting}
-                    onPress={formikProps.handleSubmit}
-                  >
-                    {i18n.t('nhs-study-intro.next')}
-                  </BrandedButton>
-                </Form>
-              </KeyboardAvoidingView>
-            );
-          }}
+                <BrandedButton
+                  enable={checkFormFilled(formikProps) && consent}
+                  hideLoading={!formikProps.isSubmitting}
+                  onPress={formikProps.handleSubmit}
+                >
+                  {i18n.t('nhs-study-intro.next')}
+                </BrandedButton>
+              </Form>
+            </KeyboardAvoidingView>
+          )}
         </Formik>
       </View>
     </Screen>

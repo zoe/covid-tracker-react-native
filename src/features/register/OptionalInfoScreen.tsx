@@ -118,48 +118,46 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
             <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
-              {(formikProps) => {
-                return (
+              {(formikProps) => (
+                <View>
                   <View>
-                    <View>
-                      <HeaderText style={{ marginBottom: 24 }}>{i18n.t('optional-info.title')}</HeaderText>
+                    <HeaderText style={{ marginBottom: 24 }}>{i18n.t('optional-info.title')}</HeaderText>
 
-                      <RegularText>{i18n.t('optional-info.description')}</RegularText>
+                    <RegularText>{i18n.t('optional-info.description')}</RegularText>
 
-                      <Form>
-                        <ValidatedTextInput
-                          error={formikProps.touched.name && formikProps.errors.name}
-                          onBlur={formikProps.handleBlur('name')}
-                          onChangeText={formikProps.handleChange('name')}
-                          onSubmitEditing={() => {
-                            this.phoneComponent.focus();
-                          }}
-                          placeholder={i18n.t('optional-info.name-placeholder')}
-                          returnKeyType="next"
-                          value={formikProps.values.name}
-                        />
+                    <Form>
+                      <ValidatedTextInput
+                        error={formikProps.touched.name && formikProps.errors.name}
+                        onBlur={formikProps.handleBlur('name')}
+                        onChangeText={formikProps.handleChange('name')}
+                        onSubmitEditing={() => {
+                          this.phoneComponent.focus();
+                        }}
+                        placeholder={i18n.t('optional-info.name-placeholder')}
+                        returnKeyType="next"
+                        value={formikProps.values.name}
+                      />
 
-                        <ValidatedTextInput
-                          error={formikProps.touched.phone && formikProps.errors.phone}
-                          onBlur={formikProps.handleBlur('phone')}
-                          onChangeText={formikProps.handleChange('phone')}
-                          placeholder={i18n.t('optional-info.phone-placeholder')}
-                          ref={(input) => (this.phoneComponent = input)}
-                          value={formikProps.values.phone}
-                        />
-                        {formikProps.errors.phone ? <ErrorText>{formikProps.errors.phone}</ErrorText> : null}
-                      </Form>
-                    </View>
-                    <View>
-                      <ErrorText>{this.state.errorMessage}</ErrorText>
-                    </View>
-
-                    <View>
-                      <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('optional-info.button')}</BrandedButton>
-                    </View>
+                      <ValidatedTextInput
+                        error={formikProps.touched.phone && formikProps.errors.phone}
+                        onBlur={formikProps.handleBlur('phone')}
+                        onChangeText={formikProps.handleChange('phone')}
+                        placeholder={i18n.t('optional-info.phone-placeholder')}
+                        ref={(input) => (this.phoneComponent = input)}
+                        value={formikProps.values.phone}
+                      />
+                      {formikProps.errors.phone ? <ErrorText>{formikProps.errors.phone}</ErrorText> : null}
+                    </Form>
                   </View>
-                );
-              }}
+                  <View>
+                    <ErrorText>{this.state.errorMessage}</ErrorText>
+                  </View>
+
+                  <View>
+                    <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('optional-info.button')}</BrandedButton>
+                  </View>
+                </View>
+              )}
             </Formik>
           </KeyboardAvoidingView>
         </TouchableWithoutFeedback>

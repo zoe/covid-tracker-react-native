@@ -229,42 +229,40 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
       </Header>
       {renderFindInfoLink}
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-        {(props: FormikProps<IAboutYourVaccineData>) => {
-          return (
-            <View style={{ flex: 1 }}>
-              <View style={{ marginBottom: 32, marginHorizontal: 16 }}>
-                {renderFirstDoseUI(props)}
-                {props.values.firstBrand && props.values.firstBrand !== VaccineBrands.JOHNSON ? (
-                  <>
-                    <Header3Text style={{ marginBottom: 8, marginTop: 48 }}>
-                      {i18n.t('vaccines.your-vaccine.second-dose')}
-                    </Header3Text>
+        {(formikProps) => (
+          <View style={{ flex: 1 }}>
+            <View style={{ marginBottom: 32, marginHorizontal: 16 }}>
+              {renderFirstDoseUI(formikProps)}
+              {formikProps.values.firstBrand && formikProps.values.firstBrand !== VaccineBrands.JOHNSON ? (
+                <>
+                  <Header3Text style={{ marginBottom: 8, marginTop: 48 }}>
+                    {i18n.t('vaccines.your-vaccine.second-dose')}
+                  </Header3Text>
 
-                    <YesNoField
-                      label={i18n.t('vaccines.your-vaccine.have-had-second')}
-                      onValueChange={(value: string) => {
-                        props.values.hasSecondDose = value === 'yes';
-                        if (value === 'no') {
-                          props.values.secondDoseDate = undefined;
-                        }
-                        setHasSecondDose(value);
-                      }}
-                      selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
-                    />
-                    {renderSecondDoseUI(props)}
-                  </>
-                ) : null}
-              </View>
-
-              {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
-                <ValidationError error={i18n.t('validation-error-text')} style={{ marginBottom: 32 }} />
+                  <YesNoField
+                    label={i18n.t('vaccines.your-vaccine.have-had-second')}
+                    onValueChange={(value: string) => {
+                      formikProps.values.hasSecondDose = value === 'yes';
+                      if (value === 'no') {
+                        formikProps.values.secondDoseDate = undefined;
+                      }
+                      setHasSecondDose(value);
+                    }}
+                    selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
+                  />
+                  {renderSecondDoseUI(formikProps)}
+                </>
               ) : null}
-
-              <BrandedButton onPress={props.handleSubmit}>{i18n.t('vaccines.your-vaccine.confirm')}</BrandedButton>
-              {renderDeleteButton()}
             </View>
-          );
-        }}
+
+            {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+              <ValidationError error={i18n.t('validation-error-text')} style={{ marginBottom: 32 }} />
+            ) : null}
+
+            <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('vaccines.your-vaccine.confirm')}</BrandedButton>
+            {renderDeleteButton()}
+          </View>
+        )}
       </Formik>
     </Screen>
   );

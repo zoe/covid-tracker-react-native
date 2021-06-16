@@ -40,24 +40,22 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
       </ProgressBlock>
 
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-        {(formikProps) => {
-          return (
-            <View style={{ flexGrow: 1 }}>
-              <View style={{ marginHorizontal: 16 }}>
-                <OtherSymptomsQuestions formikProps={formikProps} />
-              </View>
-
-              <View style={{ flex: 1 }} />
-              <BrandedButton
-                enable={!formikProps.isSubmitting}
-                hideLoading={!formikProps.isSubmitting}
-                onPress={formikProps.handleSubmit}
-              >
-                {i18n.t('describe-symptoms.next')}
-              </BrandedButton>
+        {(formikProps) => (
+          <View style={{ flexGrow: 1 }}>
+            <View style={{ marginHorizontal: 16 }}>
+              <OtherSymptomsQuestions formikProps={formikProps} />
             </View>
-          );
-        }}
+
+            <View style={{ flex: 1 }} />
+            <BrandedButton
+              enable={!formikProps.isSubmitting}
+              hideLoading={!formikProps.isSubmitting}
+              onPress={formikProps.handleSubmit}
+            >
+              {i18n.t('describe-symptoms.next')}
+            </BrandedButton>
+          </View>
+        )}
       </Formik>
     </Screen>
   );

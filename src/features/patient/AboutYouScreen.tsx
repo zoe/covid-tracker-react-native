@@ -351,6 +351,8 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       };
     };
 
+    const initialValues = this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues();
+
     return (
       <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
         <Header>
@@ -361,125 +363,117 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           <ProgressStatus maxSteps={6} step={2} />
         </ProgressBlock>
 
-        <Formik
-          initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
-          onSubmit={this.onSubmit}
-          validationSchema={this.validationSchema}
-        >
-          {(formikProps) => {
-            const isMinor = isMinorAge(cleanIntegerVal(formikProps.values.yearOfBirth));
+        <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
+          {(formikProps) => (
+            <Form>
+              <View style={{ marginHorizontal: 16 }}>
+                <GenericTextField
+                  showError
+                  formikProps={formikProps}
+                  keyboardType="numeric"
+                  label={i18n.t('what-year-were-you-born')}
+                  name="yearOfBirth"
+                  placeholder={i18n.t('placeholder-year-of-birth')}
+                />
 
-            return (
-              <Form>
-                <View style={{ marginHorizontal: 16 }}>
+                <DropdownField
+                  error={formikProps.touched.sex && formikProps.errors.sex}
+                  items={sexAtBirthItems}
+                  label={i18n.t('your-sex-at-birth')}
+                  onValueChange={formikProps.handleChange('sex')}
+                  placeholder={i18n.t('placeholder-sex')}
+                  selectedValue={formikProps.values.sex}
+                />
+
+                <DropdownField
+                  error={formikProps.touched.genderIdentity && formikProps.errors.genderIdentity}
+                  items={genderIdentityItems}
+                  label={i18n.t('label-gender-identity')}
+                  onValueChange={formikProps.handleChange('genderIdentity')}
+                  selectedValue={formikProps.values.genderIdentity}
+                />
+
+                {formikProps.values.genderIdentity === 'other' ? (
+                  <GenericTextField
+                    formikProps={formikProps}
+                    label={i18n.t('label-gender-identity-other')}
+                    name="genderIdentityDescription"
+                    placeholder={i18n.t('placeholder-optional')}
+                  />
+                ) : null}
+
+                <RaceEthnicityQuestion
+                  formikProps={formikProps as FormikProps<IRaceEthnicityData>}
+                  showEthnicityQuestion={this.state.showEthnicityQuestion}
+                  showRaceQuestion={this.state.showRaceQuestion}
+                />
+
+                <HeightQuestion formikProps={formikProps as FormikProps<IHeightData>} />
+
+                <WeightQuestion formikProps={formikProps as FormikProps<IWeightData>} label={i18n.t('your-weight')} />
+
+                {!this.props.route.params.editing ? (
                   <GenericTextField
                     showError
                     formikProps={formikProps}
-                    keyboardType="numeric"
-                    label={i18n.t('what-year-were-you-born')}
-                    name="yearOfBirth"
-                    placeholder={i18n.t('placeholder-year-of-birth')}
+                    inputProps={{ autoCompleteType: 'postal-code' }}
+                    label={i18n.t('your-postcode')}
+                    name="postcode"
+                    placeholder={i18n.t('placeholder-postcode')}
                   />
+                ) : null}
 
-                  <DropdownField
-                    error={formikProps.touched.sex && formikProps.errors.sex}
-                    items={sexAtBirthItems}
-                    label={i18n.t('your-sex-at-birth')}
-                    onValueChange={formikProps.handleChange('sex')}
-                    placeholder={i18n.t('placeholder-sex')}
-                    selectedValue={formikProps.values.sex}
-                  />
+                <DropdownField
+                  error={formikProps.touched.everExposed && formikProps.errors.everExposed}
+                  items={everExposedItems}
+                  label={i18n.t('have-you-been-exposed')}
+                  onValueChange={formikProps.handleChange('everExposed')}
+                  selectedValue={formikProps.values.everExposed}
+                />
 
-                  <DropdownField
-                    error={formikProps.touched.genderIdentity && formikProps.errors.genderIdentity}
-                    items={genderIdentityItems}
-                    label={i18n.t('label-gender-identity')}
-                    onValueChange={formikProps.handleChange('genderIdentity')}
-                    selectedValue={formikProps.values.genderIdentity}
-                  />
-
-                  {formikProps.values.genderIdentity === 'other' ? (
-                    <GenericTextField
-                      formikProps={formikProps}
-                      label={i18n.t('label-gender-identity-other')}
-                      name="genderIdentityDescription"
-                      placeholder={i18n.t('placeholder-optional')}
+                {!isMinorAge(cleanIntegerVal(formikProps.values.yearOfBirth)) ? (
+                  <>
+                    <YesNoField
+                      label={i18n.t('housebound-problems')}
+                      onValueChange={formikProps.handleChange('houseboundProblems')}
+                      selectedValue={formikProps.values.houseboundProblems}
                     />
-                  ) : null}
 
-                  <RaceEthnicityQuestion
-                    formikProps={formikProps as FormikProps<IRaceEthnicityData>}
-                    showEthnicityQuestion={this.state.showEthnicityQuestion}
-                    showRaceQuestion={this.state.showRaceQuestion}
-                  />
-
-                  <HeightQuestion formikProps={formikProps as FormikProps<IHeightData>} />
-
-                  <WeightQuestion formikProps={formikProps as FormikProps<IWeightData>} label={i18n.t('your-weight')} />
-
-                  {!this.props.route.params.editing ? (
-                    <GenericTextField
-                      showError
-                      formikProps={formikProps}
-                      inputProps={{ autoCompleteType: 'postal-code' }}
-                      label={i18n.t('your-postcode')}
-                      name="postcode"
-                      placeholder={i18n.t('placeholder-postcode')}
+                    <YesNoField
+                      label={i18n.t('needs-help')}
+                      onValueChange={formikProps.handleChange('needsHelp')}
+                      selectedValue={formikProps.values.needsHelp}
                     />
-                  ) : null}
 
-                  <DropdownField
-                    error={formikProps.touched.everExposed && formikProps.errors.everExposed}
-                    items={everExposedItems}
-                    label={i18n.t('have-you-been-exposed')}
-                    onValueChange={formikProps.handleChange('everExposed')}
-                    selectedValue={formikProps.values.everExposed}
-                  />
+                    <YesNoField
+                      label={i18n.t('help-available')}
+                      onValueChange={formikProps.handleChange('helpAvailable')}
+                      selectedValue={formikProps.values.helpAvailable}
+                    />
 
-                  {!isMinor ? (
-                    <>
-                      <YesNoField
-                        label={i18n.t('housebound-problems')}
-                        onValueChange={formikProps.handleChange('houseboundProblems')}
-                        selectedValue={formikProps.values.houseboundProblems}
-                      />
+                    <YesNoField
+                      label={i18n.t('mobility-aid')}
+                      onValueChange={formikProps.handleChange('mobilityAid')}
+                      selectedValue={formikProps.values.mobilityAid}
+                    />
+                  </>
+                ) : null}
 
-                      <YesNoField
-                        label={i18n.t('needs-help')}
-                        onValueChange={formikProps.handleChange('needsHelp')}
-                        selectedValue={formikProps.values.needsHelp}
-                      />
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                ) : null}
+              </View>
 
-                      <YesNoField
-                        label={i18n.t('help-available')}
-                        onValueChange={formikProps.handleChange('helpAvailable')}
-                        selectedValue={formikProps.values.helpAvailable}
-                      />
-
-                      <YesNoField
-                        label={i18n.t('mobility-aid')}
-                        onValueChange={formikProps.handleChange('mobilityAid')}
-                        selectedValue={formikProps.values.mobilityAid}
-                      />
-                    </>
-                  ) : null}
-
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                    <ValidationError error={i18n.t('validation-error-text')} />
-                  ) : null}
-                </View>
-
-                <BrandedButton
-                  enable={checkFormFilled(formikProps)}
-                  hideLoading={!formikProps.isSubmitting}
-                  onPress={formikProps.handleSubmit}
-                >
-                  {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
+              <BrandedButton
+                enable={checkFormFilled(formikProps)}
+                hideLoading={!formikProps.isSubmitting}
+                onPress={formikProps.handleSubmit}
+              >
+                {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
+              </BrandedButton>
+            </Form>
+          )}
         </Formik>
       </Screen>
     );

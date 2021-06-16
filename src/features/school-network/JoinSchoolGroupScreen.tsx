@@ -101,43 +101,41 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
       </ProgressBlock>
 
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={getValidationSchema()}>
-        {(formikProps) => {
-          return (
-            <View style={styles.formContainer}>
-              <View>
-                <View style={{ height: 16 }} />
-                {inputMode === InputMode.input ? (
-                  <GenericTextField
-                    showError
-                    formikProps={formikProps}
-                    label={i18n.t('school-networks.join-group.input.label')}
-                    name="groupName"
-                    placeholder={i18n.t('school-networks.join-group.input.placeholder')}
-                  />
-                ) : null}
+        {(formikProps) => (
+          <View style={styles.formContainer}>
+            <View>
+              <View style={{ height: 16 }} />
+              {inputMode === InputMode.input ? (
+                <GenericTextField
+                  showError
+                  formikProps={formikProps}
+                  label={i18n.t('school-networks.join-group.input.label')}
+                  name="groupName"
+                  placeholder={i18n.t('school-networks.join-group.input.placeholder')}
+                />
+              ) : null}
 
-                {inputMode === InputMode.dropdown ? (
-                  <DropdownField
-                    error={formikProps.touched.groupId && formikProps.errors.groupId}
-                    items={groupList}
-                    label={i18n.t('school-networks.join-group.dropdown.label')}
-                    onValueChange={formikProps.handleChange('groupId')}
-                    selectedValue={formikProps.values.groupId}
-                  />
-                ) : null}
-              </View>
-
-              <View>
-                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                  <ValidationError error={i18n.t('validation-error-text')} style={{ marginHorizontal: 16 }} />
-                ) : null}
-                <Button branded onPress={formikProps.handleSubmit}>
-                  {i18n.t('school-networks.join-group.next')}
-                </Button>
-              </View>
+              {inputMode === InputMode.dropdown ? (
+                <DropdownField
+                  error={formikProps.touched.groupId && formikProps.errors.groupId}
+                  items={groupList}
+                  label={i18n.t('school-networks.join-group.dropdown.label')}
+                  onValueChange={formikProps.handleChange('groupId')}
+                  selectedValue={formikProps.values.groupId}
+                />
+              ) : null}
             </View>
-          );
-        }}
+
+            <View>
+              {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                <ValidationError error={i18n.t('validation-error-text')} style={{ marginHorizontal: 16 }} />
+              ) : null}
+              <Button branded onPress={formikProps.handleSubmit}>
+                {i18n.t('school-networks.join-group.next')}
+              </Button>
+            </View>
+          </View>
+        )}
       </Formik>
     </Screen>
   );

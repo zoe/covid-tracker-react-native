@@ -268,122 +268,120 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         </ProgressBlock>
 
         <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.getValidationSchema}>
-          {(formikProps) => {
-            return (
-              <Form>
-                <View style={{ marginHorizontal: 16 }}>
+          {(formikProps) => (
+            <Form>
+              <View style={{ marginHorizontal: 16 }}>
+                <YesNoField
+                  label={i18n.t('your-health.health-problems-that-limit-activity')}
+                  onValueChange={formikProps.handleChange('limitedActivity')}
+                  selectedValue={formikProps.values.limitedActivity}
+                />
+
+                {this.state.showPregnancyQuestion ? (
                   <YesNoField
-                    label={i18n.t('your-health.health-problems-that-limit-activity')}
-                    onValueChange={formikProps.handleChange('limitedActivity')}
-                    selectedValue={formikProps.values.limitedActivity}
+                    label={i18n.t('your-health.are-you-pregnant')}
+                    onValueChange={formikProps.handleChange('isPregnant')}
+                    selectedValue={formikProps.values.isPregnant}
                   />
+                ) : null}
 
-                  {this.state.showPregnancyQuestion ? (
-                    <YesNoField
-                      label={i18n.t('your-health.are-you-pregnant')}
-                      onValueChange={formikProps.handleChange('isPregnant')}
-                      selectedValue={formikProps.values.isPregnant}
-                    />
-                  ) : null}
+                <YesNoField
+                  label={i18n.t('your-health.have-heart-disease')}
+                  onValueChange={formikProps.handleChange('hasHeartDisease')}
+                  selectedValue={formikProps.values.hasHeartDisease}
+                />
 
-                  <YesNoField
-                    label={i18n.t('your-health.have-heart-disease')}
-                    onValueChange={formikProps.handleChange('hasHeartDisease')}
-                    selectedValue={formikProps.values.hasHeartDisease}
+                <YesNoField
+                  label={i18n.t('your-health.have-diabetes')}
+                  onValueChange={(value: string) => {
+                    formikProps.handleChange('hasDiabetes');
+                    this.setState({ showDiabetesQuestion: value === 'yes' });
+                  }}
+                  selectedValue={formikProps.values.hasDiabetes}
+                />
+
+                {this.state.showDiabetesQuestion ? (
+                  <DiabetesQuestions formikProps={formikProps as FormikProps<IDiabetesData>} />
+                ) : null}
+
+                <AtopyQuestions formikProps={formikProps as FormikProps<IAtopyData>} />
+
+                <DropdownField
+                  error={formikProps.touched.smokerStatus && formikProps.errors.smokerStatus}
+                  items={smokerStatusItems}
+                  label={i18n.t('your-health.is-smoker')}
+                  onValueChange={formikProps.handleChange('smokerStatus')}
+                  selectedValue={formikProps.values.smokerStatus}
+                />
+
+                {formikProps.values.smokerStatus === 'not_currently' ? (
+                  <GenericTextField
+                    formikProps={formikProps}
+                    keyboardType="numeric"
+                    label={i18n.t('your-health.years-since-last-smoked')}
+                    name="smokedYearsAgo"
                   />
+                ) : null}
 
-                  <YesNoField
-                    label={i18n.t('your-health.have-diabetes')}
-                    onValueChange={(value: string) => {
-                      formikProps.handleChange('hasDiabetes');
-                      this.setState({ showDiabetesQuestion: value === 'yes' });
-                    }}
-                    selectedValue={formikProps.values.hasDiabetes}
-                  />
+                <YesNoField
+                  label={i18n.t('your-health.has-kidney-disease')}
+                  onValueChange={formikProps.handleChange('hasKidneyDisease')}
+                  selectedValue={formikProps.values.hasKidneyDisease}
+                />
 
-                  {this.state.showDiabetesQuestion ? (
-                    <DiabetesQuestions formikProps={formikProps as FormikProps<IDiabetesData>} />
-                  ) : null}
+                <YesNoField
+                  label={i18n.t('your-health.has-cancer')}
+                  onValueChange={formikProps.handleChange('hasCancer')}
+                  selectedValue={formikProps.values.hasCancer}
+                />
 
-                  <AtopyQuestions formikProps={formikProps as FormikProps<IAtopyData>} />
-
-                  <DropdownField
-                    error={formikProps.touched.smokerStatus && formikProps.errors.smokerStatus}
-                    items={smokerStatusItems}
-                    label={i18n.t('your-health.is-smoker')}
-                    onValueChange={formikProps.handleChange('smokerStatus')}
-                    selectedValue={formikProps.values.smokerStatus}
-                  />
-
-                  {formikProps.values.smokerStatus === 'not_currently' ? (
-                    <GenericTextField
-                      formikProps={formikProps}
-                      keyboardType="numeric"
-                      label={i18n.t('your-health.years-since-last-smoked')}
-                      name="smokedYearsAgo"
-                    />
-                  ) : null}
-
-                  <YesNoField
-                    label={i18n.t('your-health.has-kidney-disease')}
-                    onValueChange={formikProps.handleChange('hasKidneyDisease')}
-                    selectedValue={formikProps.values.hasKidneyDisease}
-                  />
-
-                  <YesNoField
-                    label={i18n.t('your-health.has-cancer')}
-                    onValueChange={formikProps.handleChange('hasCancer')}
-                    selectedValue={formikProps.values.hasCancer}
-                  />
-
-                  {formikProps.values.hasCancer === 'yes' ? (
-                    <>
-                      {isUSCountry() && (
-                        <GenericTextField
-                          formikProps={formikProps}
-                          label={i18n.t('your-health.what-cancer-type')}
-                          name="cancerType"
-                        />
-                      )}
-                      <YesNoField
-                        label={i18n.t('your-health.is-on-chemotherapy')}
-                        onValueChange={formikProps.handleChange('doesChemiotherapy')}
-                        selectedValue={formikProps.values.doesChemiotherapy}
+                {formikProps.values.hasCancer === 'yes' ? (
+                  <>
+                    {isUSCountry() && (
+                      <GenericTextField
+                        formikProps={formikProps}
+                        label={i18n.t('your-health.what-cancer-type')}
+                        name="cancerType"
                       />
-                    </>
-                  ) : null}
+                    )}
+                    <YesNoField
+                      label={i18n.t('your-health.is-on-chemotherapy')}
+                      onValueChange={formikProps.handleChange('doesChemiotherapy')}
+                      selectedValue={formikProps.values.doesChemiotherapy}
+                    />
+                  </>
+                ) : null}
 
-                  <YesNoField
-                    label={i18n.t('your-health.takes-immunosuppressant')}
-                    onValueChange={formikProps.handleChange('takesImmunosuppressants')}
-                    selectedValue={formikProps.values.takesImmunosuppressants}
-                  />
+                <YesNoField
+                  label={i18n.t('your-health.takes-immunosuppressant')}
+                  onValueChange={formikProps.handleChange('takesImmunosuppressants')}
+                  selectedValue={formikProps.values.takesImmunosuppressants}
+                />
 
-                  <YesNoField
-                    label={i18n.t('your-health.takes-asprin')}
-                    onValueChange={formikProps.handleChange('takesAspirin')}
-                    selectedValue={formikProps.values.takesAspirin}
-                  />
+                <YesNoField
+                  label={i18n.t('your-health.takes-asprin')}
+                  onValueChange={formikProps.handleChange('takesAspirin')}
+                  selectedValue={formikProps.values.takesAspirin}
+                />
 
-                  <YesNoField
-                    label={i18n.t('your-health.takes-nsaids')}
-                    onValueChange={formikProps.handleChange('takesCorticosteroids')}
-                    selectedValue={formikProps.values.takesCorticosteroids}
-                  />
+                <YesNoField
+                  label={i18n.t('your-health.takes-nsaids')}
+                  onValueChange={formikProps.handleChange('takesCorticosteroids')}
+                  selectedValue={formikProps.values.takesCorticosteroids}
+                />
 
-                  <BloodPressureMedicationQuestion formikProps={formikProps as FormikProps<IBloodPressureData>} />
+                <BloodPressureMedicationQuestion formikProps={formikProps as FormikProps<IBloodPressureData>} />
 
-                  <BloodGroupQuestion formikProps={formikProps as FormikProps<IBloodGroupData>} />
+                <BloodGroupQuestion formikProps={formikProps as FormikProps<IBloodGroupData>} />
 
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                    <ValidationError error={i18n.t('validation-error-text')} />
-                  ) : null}
-                </View>
-                <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-              </Form>
-            );
-          }}
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                ) : null}
+              </View>
+              <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+            </Form>
+          )}
         </Formik>
       </Screen>
     );

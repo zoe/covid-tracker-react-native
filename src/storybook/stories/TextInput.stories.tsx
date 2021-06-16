@@ -38,12 +38,7 @@ storiesOf('Text input', module).add('default', () => (
 
 storiesOf('Text input', module).add('multi-line', () => (
   <ScrollView>
-    <Formik
-      initialValues={{
-        input: '',
-      }}
-      onSubmit={() => {}}
-    >
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {(formikProps) => (
         <View style={{ marginHorizontal: 16 }}>
           <View style={{ marginVertical: 16 }}>

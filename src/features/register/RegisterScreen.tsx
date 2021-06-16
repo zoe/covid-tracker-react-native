@@ -121,109 +121,104 @@ class RegisterScreen extends Component<PropsType, State> {
   render() {
     return (
       <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
-        {(formikProps) => {
-          return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                style={styles.rootContainer}
-              >
-                <View>
-                  <View style={styles.loginHeader}>
-                    <HeaderLightText>{i18n.t('create-account.title')}</HeaderLightText>
-                    <View style={styles.loginSubtitle}>
-                      <RegularText>
-                        {i18n.t('create-account.if-you-have-an-account')}{' '}
-                        <ClickableText onPress={() => this.props.navigation.navigate('Login')}>
-                          {i18n.t('create-account.login')}
-                        </ClickableText>
-                      </RegularText>
-                    </View>
+        {(formikProps) => (
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+              <View>
+                <View style={styles.loginHeader}>
+                  <HeaderLightText>{i18n.t('create-account.title')}</HeaderLightText>
+                  <View style={styles.loginSubtitle}>
+                    <RegularText>
+                      {i18n.t('create-account.if-you-have-an-account')}{' '}
+                      <ClickableText onPress={() => this.props.navigation.navigate('Login')}>
+                        {i18n.t('create-account.login')}
+                      </ClickableText>
+                    </RegularText>
                   </View>
-
-                  <View style={styles.form}>
-                    <View style={styles.formItem}>
-                      <Field>
-                        <Label style={styles.labelStyle}>{i18n.t('create-account.email')}</Label>
-                        <ValidatedTextInput
-                          autoCapitalize="none"
-                          autoCompleteType="email"
-                          error={(formikProps.touched.email && formikProps.errors.email) || this.state.accountExists}
-                          keyboardType="email-address"
-                          onBlur={formikProps.handleBlur('email')}
-                          onChangeText={(text) => {
-                            formikProps.handleChange('email')(text);
-                            this.setIsEnabled(text, formikProps.values.password);
-                          }}
-                          onSubmitEditing={() => {
-                            this.passwordComponent.focus();
-                          }}
-                          placeholder={i18n.t('create-account.email')}
-                          returnKeyType="next"
-                          value={formikProps.values.email}
-                        />
-                        {!!formikProps.touched.email && !!formikProps.errors.email ? (
-                          <FieldError>{formikProps.errors.email}</FieldError>
-                        ) : null}
-                        {this.state.accountExists ? (
-                          <FieldError>{i18n.t('create-account.already-registered')}</FieldError>
-                        ) : null}
-                      </Field>
-                    </View>
-
-                    <View style={styles.formItem}>
-                      <Field>
-                        <Label style={styles.labelStyle}>{i18n.t('create-account.password')}</Label>
-                        <ValidatedTextInput
-                          secureTextEntry
-                          error={formikProps.touched.password && formikProps.errors.password}
-                          onBlur={formikProps.handleBlur('password')}
-                          onChangeText={(text) => {
-                            formikProps.handleChange('password')(text);
-                            this.setIsEnabled(formikProps.values.email, text);
-                          }}
-                          onSubmitEditing={(event) => formikProps.handleSubmit()}
-                          placeholder={i18n.t('create-account.password')}
-                          ref={(input) => (this.passwordComponent = input)}
-                          returnKeyType="go"
-                          value={formikProps.values.password}
-                        />
-                        {!!formikProps.touched.password && !!formikProps.errors.password ? (
-                          <FieldError>{formikProps.errors.password}</FieldError>
-                        ) : null}
-                      </Field>
-                    </View>
-                  </View>
-
-                  {this.state.accountExists ? (
-                    <View style={styles.nextAction}>
-                      <RegularText style={{ textAlign: 'center' }}>
-                        <ClickableText onPress={this.gotoLogin}>{i18n.t('create-account.login')}</ClickableText>{' '}
-                        {i18n.t('create-account.existing-account')}
-                      </RegularText>
-                    </View>
-                  ) : null}
                 </View>
-                <View style={styles.actionBlock}>
-                  {!!this.state.errorMessage && !this.state.accountExists ? (
-                    <View>
-                      <ErrorText>{this.state.errorMessage}</ErrorText>
-                    </View>
-                  ) : null}
+
+                <View style={styles.form}>
+                  <View style={styles.formItem}>
+                    <Field>
+                      <Label style={styles.labelStyle}>{i18n.t('create-account.email')}</Label>
+                      <ValidatedTextInput
+                        autoCapitalize="none"
+                        autoCompleteType="email"
+                        error={(formikProps.touched.email && formikProps.errors.email) || this.state.accountExists}
+                        keyboardType="email-address"
+                        onBlur={formikProps.handleBlur('email')}
+                        onChangeText={(text) => {
+                          formikProps.handleChange('email')(text);
+                          this.setIsEnabled(text, formikProps.values.password);
+                        }}
+                        onSubmitEditing={() => {
+                          this.passwordComponent.focus();
+                        }}
+                        placeholder={i18n.t('create-account.email')}
+                        returnKeyType="next"
+                        value={formikProps.values.email}
+                      />
+                      {!!formikProps.touched.email && !!formikProps.errors.email ? (
+                        <FieldError>{formikProps.errors.email}</FieldError>
+                      ) : null}
+                      {this.state.accountExists ? (
+                        <FieldError>{i18n.t('create-account.already-registered')}</FieldError>
+                      ) : null}
+                    </Field>
+                  </View>
+
+                  <View style={styles.formItem}>
+                    <Field>
+                      <Label style={styles.labelStyle}>{i18n.t('create-account.password')}</Label>
+                      <ValidatedTextInput
+                        secureTextEntry
+                        error={formikProps.touched.password && formikProps.errors.password}
+                        onBlur={formikProps.handleBlur('password')}
+                        onChangeText={(text) => {
+                          formikProps.handleChange('password')(text);
+                          this.setIsEnabled(formikProps.values.email, text);
+                        }}
+                        onSubmitEditing={(event) => formikProps.handleSubmit()}
+                        placeholder={i18n.t('create-account.password')}
+                        ref={(input) => (this.passwordComponent = input)}
+                        returnKeyType="go"
+                        value={formikProps.values.password}
+                      />
+                      {!!formikProps.touched.password && !!formikProps.errors.password ? (
+                        <FieldError>{formikProps.errors.password}</FieldError>
+                      ) : null}
+                    </Field>
+                  </View>
+                </View>
+
+                {this.state.accountExists ? (
+                  <View style={styles.nextAction}>
+                    <RegularText style={{ textAlign: 'center' }}>
+                      <ClickableText onPress={this.gotoLogin}>{i18n.t('create-account.login')}</ClickableText>{' '}
+                      {i18n.t('create-account.existing-account')}
+                    </RegularText>
+                  </View>
+                ) : null}
+              </View>
+              <View style={styles.actionBlock}>
+                {!!this.state.errorMessage && !this.state.accountExists ? (
                   <View>
-                    <BrandedButton
-                      enable={this.state.enableSubmit}
-                      hideLoading={!formikProps.isSubmitting}
-                      onPress={formikProps.handleSubmit}
-                    >
-                      {i18n.t('create-account.btn')}
-                    </BrandedButton>
+                    <ErrorText>{this.state.errorMessage}</ErrorText>
                   </View>
+                ) : null}
+                <View>
+                  <BrandedButton
+                    enable={this.state.enableSubmit}
+                    hideLoading={!formikProps.isSubmitting}
+                    onPress={formikProps.handleSubmit}
+                  >
+                    {i18n.t('create-account.btn')}
+                  </BrandedButton>
                 </View>
-              </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
-          );
-        }}
+              </View>
+            </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
+        )}
       </Formik>
     );
   }

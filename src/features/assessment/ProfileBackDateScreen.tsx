@@ -240,44 +240,42 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         </ProgressBlock>
 
         <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.getValidationSchema}>
-          {(formikProps) => {
-            return (
-              <Form>
-                {this.state.needBloodPressureAnswer ? (
-                  <BloodPressureMedicationQuestion formikProps={formikProps as FormikProps<IBloodPressureData>} />
-                ) : null}
+          {(formikProps) => (
+            <Form>
+              {this.state.needBloodPressureAnswer ? (
+                <BloodPressureMedicationQuestion formikProps={formikProps as FormikProps<IBloodPressureData>} />
+              ) : null}
 
-                {this.state.needRaceEthnicityAnswer ? (
-                  <RaceEthnicityQuestion
-                    formikProps={formikProps as FormikProps<IRaceEthnicityData>}
-                    showEthnicityQuestion={this.features.showEthnicityQuestion}
-                    showRaceQuestion={this.features.showRaceQuestion}
-                  />
-                ) : null}
+              {this.state.needRaceEthnicityAnswer ? (
+                <RaceEthnicityQuestion
+                  formikProps={formikProps as FormikProps<IRaceEthnicityData>}
+                  showEthnicityQuestion={this.features.showEthnicityQuestion}
+                  showRaceQuestion={this.features.showRaceQuestion}
+                />
+              ) : null}
 
-                {this.state.needAtopyAnswers ? (
-                  <AtopyQuestions formikProps={formikProps as FormikProps<IAtopyData>} />
-                ) : null}
+              {this.state.needAtopyAnswers ? (
+                <AtopyQuestions formikProps={formikProps as FormikProps<IAtopyData>} />
+              ) : null}
 
-                {this.state.needDiabetesAnswers ? (
-                  <DiabetesQuestions formikProps={formikProps as FormikProps<IDiabetesData>} />
-                ) : null}
+              {this.state.needDiabetesAnswers ? (
+                <DiabetesQuestions formikProps={formikProps as FormikProps<IDiabetesData>} />
+              ) : null}
 
-                {this.state.needBloodGroupAnswer ? (
-                  <BloodGroupQuestion formikProps={formikProps as FormikProps<IBloodGroupData>} />
-                ) : null}
+              {this.state.needBloodGroupAnswer ? (
+                <BloodGroupQuestion formikProps={formikProps as FormikProps<IBloodGroupData>} />
+              ) : null}
 
-                <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                ) : null}
+              <ErrorText>{this.state.errorMessage}</ErrorText>
+              {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                <ValidationError error={i18n.t('validation-error-text')} />
+              ) : null}
 
-                <BrandedButton enable={!formikProps.isSubmitting} onPress={formikProps.handleSubmit}>
-                  {i18n.t('update-profile')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
+              <BrandedButton enable={!formikProps.isSubmitting} onPress={formikProps.handleSubmit}>
+                {i18n.t('update-profile')}
+              </BrandedButton>
+            </Form>
+          )}
         </Formik>
       </Screen>
     );

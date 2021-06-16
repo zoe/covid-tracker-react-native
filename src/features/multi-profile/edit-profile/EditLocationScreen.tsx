@@ -118,59 +118,57 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
       </Header>
 
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-        {(formikProps) => {
-          return (
-            <View style={{ marginHorizontal: 16 }}>
+        {(formikProps) => (
+          <View style={{ marginHorizontal: 16 }}>
+            <GenericTextField
+              showError
+              formikProps={formikProps}
+              inputProps={{ autoCompleteType: 'postal-code' }}
+              label={i18n.t('edit-profile.location.label')}
+              name="postcode"
+              placeholder={i18n.t('placeholder-postcode')}
+            />
+            <YesNoField
+              label={i18n.t('edit-profile.location.not-current-address')}
+              onValueChange={formikProps.handleChange('differentAddress')}
+              selectedValue={formikProps.values.differentAddress}
+            />
+            {formikProps.values.differentAddress === 'yes' ? (
+              <YesNoField
+                label={i18n.t('edit-profile.location.still-in-country')}
+                onValueChange={formikProps.handleChange('stillInUK')}
+                selectedValue={formikProps.values.stillInUK}
+              />
+            ) : null}
+            {formikProps.values.stillInUK === 'yes' && formikProps.values.differentAddress === 'yes' ? (
               <GenericTextField
                 showError
                 formikProps={formikProps}
                 inputProps={{ autoCompleteType: 'postal-code' }}
-                label={i18n.t('edit-profile.location.label')}
-                name="postcode"
+                label={i18n.t('edit-profile.location.other-postcode')}
+                name="currentPostcode"
                 placeholder={i18n.t('placeholder-postcode')}
               />
-              <YesNoField
-                label={i18n.t('edit-profile.location.not-current-address')}
-                onValueChange={formikProps.handleChange('differentAddress')}
-                selectedValue={formikProps.values.differentAddress}
+            ) : null}
+            {formikProps.values.stillInUK === 'no' && formikProps.values.differentAddress === 'yes' ? (
+              <DropdownField
+                error={formikProps.touched.currentCountry && formikProps.errors.currentCountry}
+                items={countryList}
+                label={i18n.t('edit-profile.location.select-country')}
+                onValueChange={formikProps.handleChange('currentCountry')}
+                selectedValue={formikProps.values.currentCountry}
               />
-              {formikProps.values.differentAddress === 'yes' ? (
-                <YesNoField
-                  label={i18n.t('edit-profile.location.still-in-country')}
-                  onValueChange={formikProps.handleChange('stillInUK')}
-                  selectedValue={formikProps.values.stillInUK}
-                />
-              ) : null}
-              {formikProps.values.stillInUK === 'yes' && formikProps.values.differentAddress === 'yes' ? (
-                <GenericTextField
-                  showError
-                  formikProps={formikProps}
-                  inputProps={{ autoCompleteType: 'postal-code' }}
-                  label={i18n.t('edit-profile.location.other-postcode')}
-                  name="currentPostcode"
-                  placeholder={i18n.t('placeholder-postcode')}
-                />
-              ) : null}
-              {formikProps.values.stillInUK === 'no' && formikProps.values.differentAddress === 'yes' ? (
-                <DropdownField
-                  error={formikProps.touched.currentCountry && formikProps.errors.currentCountry}
-                  items={countryList}
-                  label={i18n.t('edit-profile.location.select-country')}
-                  onValueChange={formikProps.handleChange('currentCountry')}
-                  selectedValue={formikProps.values.currentCountry}
-                />
-              ) : null}
-              <View style={{ height: 100 }} />
-              <SecondaryText style={{ paddingHorizontal: 8, textAlign: 'center' }}>
-                {i18n.t('edit-profile.location.disclaimer')}
-              </SecondaryText>
-              <ErrorText>{errorMessage}</ErrorText>
-              <BrandedButton hideLoading={!formikProps.isSubmitting} onPress={formikProps.handleSubmit}>
-                {i18n.t('edit-profile.done')}
-              </BrandedButton>
-            </View>
-          );
-        }}
+            ) : null}
+            <View style={{ height: 100 }} />
+            <SecondaryText style={{ paddingHorizontal: 8, textAlign: 'center' }}>
+              {i18n.t('edit-profile.location.disclaimer')}
+            </SecondaryText>
+            <ErrorText>{errorMessage}</ErrorText>
+            <BrandedButton hideLoading={!formikProps.isSubmitting} onPress={formikProps.handleSubmit}>
+              {i18n.t('edit-profile.done')}
+            </BrandedButton>
+          </View>
+        )}
       </Formik>
     </Screen>
   );

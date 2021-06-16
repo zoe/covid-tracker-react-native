@@ -210,50 +210,42 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         </ProgressBlock>
 
         <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={validationSchema}>
-          {(formikProps) => {
-            return (
-              <Form>
-                <View style={{ marginHorizontal: 16 }}>
-                  <CovidTestDateQuestion formikProps={formikProps as FormikProps<ICovidTestDateData>} test={test} />
-                  <CovidTestMechanismQuestion
-                    formikProps={formikProps as FormikProps<ICovidTestMechanismData>}
-                    test={test}
-                  />
-                  <CovidTestLocationQuestion
-                    formikProps={formikProps as FormikProps<ICovidTestLocationData>}
-                    test={test}
-                  />
-                  <CovidTestResultQuestion formikProps={formikProps as FormikProps<ICovidTestResultData>} test={test} />
-                  <CovidTestIsRapidQuestion
-                    formikProps={formikProps as FormikProps<ICovidTestIsRapidData>}
-                    test={test}
-                  />
-                  <CovidTestInvitedQuestion
-                    formikProps={formikProps as FormikProps<ICovidTestInvitedData>}
-                    test={test}
-                  />
+          {(formikProps) => (
+            <Form>
+              <View style={{ marginHorizontal: 16 }}>
+                <CovidTestDateQuestion formikProps={formikProps as FormikProps<ICovidTestDateData>} test={test} />
+                <CovidTestMechanismQuestion
+                  formikProps={formikProps as FormikProps<ICovidTestMechanismData>}
+                  test={test}
+                />
+                <CovidTestLocationQuestion
+                  formikProps={formikProps as FormikProps<ICovidTestLocationData>}
+                  test={test}
+                />
+                <CovidTestResultQuestion formikProps={formikProps as FormikProps<ICovidTestResultData>} test={test} />
+                <CovidTestIsRapidQuestion formikProps={formikProps as FormikProps<ICovidTestIsRapidData>} test={test} />
+                <CovidTestInvitedQuestion formikProps={formikProps as FormikProps<ICovidTestInvitedData>} test={test} />
 
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                    <ValidationError error={i18n.t('validation-error-text')} />
-                  ) : null}
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                ) : null}
 
-                  {this.testId ? (
-                    <ClearButton
-                      onPress={async () => {
-                        await this.promptDeleteTest();
-                      }}
-                      text={i18n.t('covid-test.delete-test')}
-                    />
-                  ) : null}
-                </View>
+                {this.testId ? (
+                  <ClearButton
+                    onPress={async () => {
+                      await this.promptDeleteTest();
+                    }}
+                    text={i18n.t('covid-test.delete-test')}
+                  />
+                ) : null}
+              </View>
 
-                <BrandedButton enable={!this.state.submitting} onPress={formikProps.handleSubmit}>
-                  {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
+              <BrandedButton enable={!this.state.submitting} onPress={formikProps.handleSubmit}>
+                {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
+              </BrandedButton>
+            </Form>
+          )}
         </Formik>
       </Screen>
     );

@@ -46,21 +46,19 @@ export default function CreateProfileScreen(props: TProps) {
       </Header>
 
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-        {(formikProps) => {
-          return (
-            <Form>
-              <View style={{ marginHorizontal: 16 }}>
-                <GenericTextField
-                  formikProps={formikProps}
-                  name="name"
-                  placeholder={i18n.t('create-profile-placeholder')}
-                />
-              </View>
+        {(formikProps) => (
+          <Form>
+            <View style={{ marginHorizontal: 16 }}>
+              <GenericTextField
+                formikProps={formikProps}
+                name="name"
+                placeholder={i18n.t('create-profile-placeholder')}
+              />
+            </View>
 
-              <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
-            </Form>
-          );
-        }}
+            <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
+          </Form>
+        )}
       </Formik>
     </Screen>
   );

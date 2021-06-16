@@ -171,126 +171,124 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
         </ProgressBlock>
 
         <Formik initialValues={initialValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
-          {(formikProps) => {
-            return (
-              <Form>
-                <View style={{ marginHorizontal: 16 }}>
-                  <YesNoField
-                    label={i18n.t('label-unwell-month-before')}
-                    onValueChange={formikProps.handleChange('unwellMonthBefore')}
-                    selectedValue={formikProps.values.unwellMonthBefore}
-                  />
+          {(formikProps) => (
+            <Form>
+              <View style={{ marginHorizontal: 16 }}>
+                <YesNoField
+                  label={i18n.t('label-unwell-month-before')}
+                  onValueChange={formikProps.handleChange('unwellMonthBefore')}
+                  selectedValue={formikProps.values.unwellMonthBefore}
+                />
 
-                  {formikProps.values.unwellMonthBefore === 'yes' ? (
-                    <>
-                      <FieldWrapper>
-                        <Item stackedLabel style={styles.textItemStyle}>
-                          <Label>{i18n.t('label-past-symptoms')}</Label>
-                          <CheckboxList>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomAnosmia: value })}
-                              value={this.state.pastSymptomAnosmia}
-                            >
-                              {i18n.t('label-past-symptom-anosmia')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomShortnessOfBreath: value })}
-                              value={this.state.pastSymptomShortnessOfBreath}
-                            >
-                              {i18n.t('label-past-symptom-breath')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomFatigue: value })}
-                              value={this.state.pastSymptomFatigue}
-                            >
-                              {i18n.t('label-past-symptom-fatigue')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomFever: value })}
-                              value={this.state.pastSymptomFever}
-                            >
-                              {i18n.t('label-past-symptom-fever')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomSkippedMeals: value })}
-                              value={this.state.pastSymptomSkippedMeals}
-                            >
-                              {i18n.t('label-past-symptom-skipped-meals')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomPersistentCough: value })}
-                              value={this.state.pastSymptomPersistentCough}
-                            >
-                              {i18n.t('label-past-symptom-cough')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomDiarrhoea: value })}
-                              value={this.state.pastSymptomDiarrhoea}
-                            >
-                              {i18n.t('label-past-symptom-diarrhoea')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomChestPain: value })}
-                              value={this.state.pastSymptomChestPain}
-                            >
-                              {i18n.t('label-past-symptom-chest-pain')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomHoarseVoice: value })}
-                              value={this.state.pastSymptomHoarseVoice}
-                            >
-                              {i18n.t('label-past-symptom-hoarse-voice')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomAbdominalPain: value })}
-                              value={this.state.pastSymptomAbdominalPain}
-                            >
-                              {i18n.t('label-past-symptom-abdominal-pain')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              onChange={(value: boolean) => this.setState({ pastSymptomDelirium: value })}
-                              value={this.state.pastSymptomDelirium}
-                            >
-                              {i18n.t('label-past-symptom-confusion')}
-                            </CheckboxItem>
-                          </CheckboxList>
-                        </Item>
-                      </FieldWrapper>
+                {formikProps.values.unwellMonthBefore === 'yes' ? (
+                  <>
+                    <FieldWrapper>
+                      <Item stackedLabel style={styles.textItemStyle}>
+                        <Label>{i18n.t('label-past-symptoms')}</Label>
+                        <CheckboxList>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomAnosmia: value })}
+                            value={this.state.pastSymptomAnosmia}
+                          >
+                            {i18n.t('label-past-symptom-anosmia')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomShortnessOfBreath: value })}
+                            value={this.state.pastSymptomShortnessOfBreath}
+                          >
+                            {i18n.t('label-past-symptom-breath')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomFatigue: value })}
+                            value={this.state.pastSymptomFatigue}
+                          >
+                            {i18n.t('label-past-symptom-fatigue')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomFever: value })}
+                            value={this.state.pastSymptomFever}
+                          >
+                            {i18n.t('label-past-symptom-fever')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomSkippedMeals: value })}
+                            value={this.state.pastSymptomSkippedMeals}
+                          >
+                            {i18n.t('label-past-symptom-skipped-meals')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomPersistentCough: value })}
+                            value={this.state.pastSymptomPersistentCough}
+                          >
+                            {i18n.t('label-past-symptom-cough')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomDiarrhoea: value })}
+                            value={this.state.pastSymptomDiarrhoea}
+                          >
+                            {i18n.t('label-past-symptom-diarrhoea')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomChestPain: value })}
+                            value={this.state.pastSymptomChestPain}
+                          >
+                            {i18n.t('label-past-symptom-chest-pain')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomHoarseVoice: value })}
+                            value={this.state.pastSymptomHoarseVoice}
+                          >
+                            {i18n.t('label-past-symptom-hoarse-voice')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomAbdominalPain: value })}
+                            value={this.state.pastSymptomAbdominalPain}
+                          >
+                            {i18n.t('label-past-symptom-abdominal-pain')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            onChange={(value: boolean) => this.setState({ pastSymptomDelirium: value })}
+                            value={this.state.pastSymptomDelirium}
+                          >
+                            {i18n.t('label-past-symptom-confusion')}
+                          </CheckboxItem>
+                        </CheckboxList>
+                      </Item>
+                    </FieldWrapper>
 
-                      <GenericTextField
-                        formikProps={formikProps}
-                        keyboardType="numeric"
-                        label={i18n.t('label-past-symptoms-days-ago')}
-                        name="pastSymptomsDaysAgo"
-                      />
-
-                      <YesNoField
-                        label={i18n.t('label-past-symptoms-still-have')}
-                        onValueChange={formikProps.handleChange('stillHavePastSymptoms')}
-                        selectedValue={formikProps.values.stillHavePastSymptoms}
-                      />
-                    </>
-                  ) : null}
-
-                  {formikProps.values.stillHavePastSymptoms === 'yes' ? (
-                    <DropdownField
-                      items={symptomChangeChoices}
-                      label={i18n.t('label-past-symptoms-changed')}
-                      onValueChange={formikProps.handleChange('pastSymptomsChanged')}
-                      selectedValue={formikProps.values.pastSymptomsChanged}
+                    <GenericTextField
+                      formikProps={formikProps}
+                      keyboardType="numeric"
+                      label={i18n.t('label-past-symptoms-days-ago')}
+                      name="pastSymptomsDaysAgo"
                     />
-                  ) : null}
 
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                    <ValidationError error={i18n.t('validation-error-text')} />
-                  ) : null}
-                </View>
+                    <YesNoField
+                      label={i18n.t('label-past-symptoms-still-have')}
+                      onValueChange={formikProps.handleChange('stillHavePastSymptoms')}
+                      selectedValue={formikProps.values.stillHavePastSymptoms}
+                    />
+                  </>
+                ) : null}
 
-                <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-              </Form>
-            );
-          }}
+                {formikProps.values.stillHavePastSymptoms === 'yes' ? (
+                  <DropdownField
+                    items={symptomChangeChoices}
+                    label={i18n.t('label-past-symptoms-changed')}
+                    onValueChange={formikProps.handleChange('pastSymptomsChanged')}
+                    selectedValue={formikProps.values.pastSymptomsChanged}
+                  />
+                ) : null}
+
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                ) : null}
+              </View>
+
+              <BrandedButton onPress={formikProps.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+            </Form>
+          )}
         </Formik>
       </Screen>
     );
