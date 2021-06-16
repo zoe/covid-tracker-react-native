@@ -20,7 +20,7 @@ import { longCovidApiClient } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
-import { Form, Textarea } from 'native-base';
+import { Textarea } from 'native-base';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
@@ -295,7 +295,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         return (
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
             <ScrollView>
-              <Form style={{ flexGrow: 1 }}>
+              <View style={{ flexGrow: 1 }}>
                 <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
                 <DropdownField
                   error={props.touched.had_covid && props.errors.had_covid}
@@ -312,7 +312,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
                     <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
                   </BrandedButton>
                 </View>
-              </Form>
+              </View>
             </ScrollView>
           </KeyboardAvoidingView>
         );

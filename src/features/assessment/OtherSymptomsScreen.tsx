@@ -10,7 +10,6 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikHelpers } from 'formik';
-import { Form } from 'native-base';
 import React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
@@ -49,7 +48,7 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
       >
         {(props) => {
           return (
-            <Form style={{ flexGrow: 1 }}>
+            <View style={{ flexGrow: 1 }}>
               <View style={{ marginHorizontal: 16 }}>
                 <OtherSymptomsQuestions formikProps={props} />
               </View>
@@ -62,7 +61,7 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
               >
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>
-            </Form>
+            </View>
           );
         }}
       </Formik>

@@ -13,7 +13,6 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
@@ -74,7 +73,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
           >
             {(props) => {
               return (
-                <Form style={{ flexGrow: 1 }}>
+                <View style={{ flexGrow: 1 }}>
                   <View style={{ marginHorizontal: 16 }}>
                     <DoseSymptomsQuestions formikProps={props} />
                   </View>
@@ -88,7 +87,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
                   >
                     {i18n.t('vaccines.dose-symptoms.next')}
                   </BrandedButton>
-                </Form>
+                </View>
               );
             }}
           </Formik>

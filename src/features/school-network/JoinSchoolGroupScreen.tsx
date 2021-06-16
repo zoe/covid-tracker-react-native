@@ -14,7 +14,6 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Alert, PickerItemProps, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
@@ -114,7 +113,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
       >
         {(formikProps) => {
           return (
-            <Form style={styles.formContainer}>
+            <View style={styles.formContainer}>
               <View>
                 <View style={{ height: 16 }} />
                 {inputMode === InputMode.input ? (
@@ -146,7 +145,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
                   {i18n.t('school-networks.join-group.next')}
                 </Button>
               </View>
-            </Form>
+            </View>
           );
         }}
       </Formik>

@@ -46,11 +46,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
           <SecondaryText>{i18n.t('create-profile-text')}</SecondaryText>
         </Header>
 
-        <Formik
-          initialValues={initialFormValues}
-          onSubmit={this.onSubmit}
-          validationSchema={this.registerSchema}
-        >
+        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
           {(props) => {
             return (
               <Form>

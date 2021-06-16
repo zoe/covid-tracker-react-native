@@ -15,7 +15,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { AxiosError } from 'axios';
 import { Formik, FormikHelpers } from 'formik';
-import { Form, Label } from 'native-base';
+import { Label } from 'native-base';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -141,7 +141,7 @@ class RegisterScreen extends Component<PropsType, State> {
                     </View>
                   </View>
 
-                  <Form style={styles.form}>
+                  <View style={styles.form}>
                     <View style={styles.formItem}>
                       <Field>
                         <Label style={styles.labelStyle}>{i18n.t('create-account.email')}</Label>
@@ -193,7 +193,7 @@ class RegisterScreen extends Component<PropsType, State> {
                         ) : null}
                       </Field>
                     </View>
-                  </Form>
+                  </View>
 
                   {this.state.accountExists ? (
                     <View style={styles.nextAction}>

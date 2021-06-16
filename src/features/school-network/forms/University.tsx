@@ -5,9 +5,8 @@ import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetwo
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
 interface IProps {
@@ -39,7 +38,7 @@ function UniversityForm({ currentJoinedGroup, schools }: IProps) {
       validationSchema={validationSchema}
     >
       {(formikProps) => (
-        <Form style={styles.formContainer}>
+        <View style={styles.formContainer}>
           <DropdownField
             error={formikProps.touched.schoolId && formikProps.errors.schoolId}
             items={schools.map((item) => ({ label: item.name, value: item.id }))}
@@ -50,7 +49,7 @@ function UniversityForm({ currentJoinedGroup, schools }: IProps) {
           <Button branded onPress={formikProps.handleSubmit}>
             {i18n.t('school-networks.join-school.cta')}
           </Button>
-        </Form>
+        </View>
       )}
     </Formik>
   );

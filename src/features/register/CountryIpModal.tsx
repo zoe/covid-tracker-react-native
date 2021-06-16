@@ -10,7 +10,7 @@ import { Services } from '@covid/provider/services.types';
 import { isAndroid } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import { Form, Icon, Label, Picker } from 'native-base';
+import { Icon, Label, Picker } from 'native-base';
 import React, { FC, useCallback, useState } from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
@@ -100,7 +100,7 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
           <RegularText style={styles.titleText}>{i18n.t('your-country-title')}</RegularText>
           <RegularText style={styles.bodyText}>{i18n.t('your-country-text')}</RegularText>
 
-          <Form style={{ marginTop: 32, width: 300 }}>
+          <View style={{ marginTop: 32, width: 300 }}>
             <Label style={styles.labelStyle}>{i18n.t('select-country')}</Label>
             <Picker
               iosIcon={<Icon name="arrow-down" />}
@@ -111,7 +111,7 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
             >
               {items.map(renderItem)}
             </Picker>
-          </Form>
+          </View>
         </View>
       </View>
     </Modal>

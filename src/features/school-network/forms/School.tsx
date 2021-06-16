@@ -8,7 +8,6 @@ import NavigatorService from '@covid/NavigatorService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
@@ -44,7 +43,7 @@ function SchoolForm({ patientData }: IProps) {
       validationSchema={validationSchema}
     >
       {(formikProps) => (
-        <Form style={styles.formContainer}>
+        <View style={styles.formContainer}>
           <View style={{ margin: 16 }}>
             <GenericTextField
               showError
@@ -61,7 +60,7 @@ function SchoolForm({ patientData }: IProps) {
           <Button branded onPress={formikProps.handleSubmit}>
             {i18n.t('school-networks.join-school.cta')}
           </Button>
-        </Form>
+        </View>
       )}
     </Formik>
   );

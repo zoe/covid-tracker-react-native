@@ -13,7 +13,6 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikHelpers } from 'formik';
-import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';
@@ -121,7 +120,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
       <Formik initialValues={initialFormValues} onSubmit={onSubmit} validationSchema={validation}>
         {(props) => {
           return (
-            <Form style={{ marginHorizontal: 16 }}>
+            <View style={{ marginHorizontal: 16 }}>
               <GenericTextField
                 showError
                 formikProps={props}
@@ -169,7 +168,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
               <BrandedButton hideLoading={!props.isSubmitting} onPress={props.handleSubmit}>
                 {i18n.t('edit-profile.done')}
               </BrandedButton>
-            </Form>
+            </View>
           );
         }}
       </Formik>
