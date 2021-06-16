@@ -256,8 +256,8 @@ jobs:
 
     steps:
       - prepare_code
-      # - prepare_blank_env
-      # - node-install
+      - prepare_blank_env
+      - node-install
       - prepare_e2e
       - run: yarn
       - attach_workspace:
