@@ -253,20 +253,20 @@ jobs:
   e2etest:
     executor: mobile-build-box
     working_directory: ~/covid-react
-
     steps:
       - prepare_code
-      - prepare_blank_env
-      - node-install
-      - prepare_e2e
       - run: yarn
       - attach_workspace:
           at: *default_workspace
-      #- run: cd ios && pod install && cd ..
-      #- run: fastlane ios build env:stage detox build --configuration ios.release
+      #- prepare_deploy_env
+      - prepare_blank_env
       - run: bundle install --path vendor/bundle --clean
-      - run: detox build --configuration ios.release
-      - run: detox test --configuration ios.release --cleanup
+      - run: yarn fastlane:ios:release env:$RELEASE_TYPE
+      - store_artifacts:
+          path: ~/covid-react/build
+          executor: mobile-build-box
+      #- run: detox build --configuration ios.release
+      #- run: detox test --configuration ios.release --cleanup
 
   ### ------------------- ###
   ### Deploy related jobs ###
