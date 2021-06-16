@@ -40,7 +40,6 @@ import {
   PrivacyPolicyUSScreen,
   ProfileBackDateScreen,
   RegisterScreen,
-  ReportForOtherScreen,
   ResetPasswordConfirmScreen,
   ResetPasswordScreen,
   SchoolDashboardScreen,
@@ -141,7 +140,6 @@ export default function MainNavigator() {
       <Stack.Screen component={PrivacyPolicyUSScreen} name="PrivacyPolicyUS" options={simpleHeader} />
       <Stack.Screen component={ProfileBackDateScreen} name="ProfileBackDate" options={noHeader} />
       <Stack.Screen component={RegisterScreen} name="Register" options={noHeader} />
-      <Stack.Screen component={ReportForOtherScreen} name="ReportForOther" options={noHeader} />
       <Stack.Screen component={ResetPasswordConfirmScreen} name="ResetPasswordConfirm" options={noHeader} />
       <Stack.Screen component={ResetPasswordScreen} name="ResetPassword" options={noHeader} />
       <Stack.Screen component={SchoolDashboardScreen} name="SchoolDashboard" options={noHeader} />
