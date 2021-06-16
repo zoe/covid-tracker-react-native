@@ -264,10 +264,11 @@ jobs:
           at: *default_workspace
       #- run: cd ios && pod install && cd ..
       #- run: fastlane ios build env:stage detox build --configuration ios.release
+      - run: yarn build:ios
       - run: bundle install --path vendor/bundle --clean
       - run: bundle update fastlane
       # Build the bundle
-      - run: yarn build:ios
+      
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
