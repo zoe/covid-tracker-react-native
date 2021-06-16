@@ -176,6 +176,8 @@ commands:
   # Prepare E2E setup
   prepare_e2e:
     steps:
+      - run: brew update
+      - run: brew install watchman
       - run: npm install -g detox-cli
       - run: brew tap wix/brew
       - run: brew install applesimutils
@@ -253,18 +255,21 @@ jobs:
   e2etest:
     executor: mobile-build-box
     working_directory: ~/covid-react
+
     steps:
       - prepare_code
+      - prepare_blank_env
+      - node-install
+      - prepare_e2e
       - run: yarn
       - attach_workspace:
           at: *default_workspace
-      - prepare_deploy_env
+      #- run: cd ios && pod install && cd ..
+      #- run: fastlane ios build env:stage detox build --configuration ios.release
       - run: bundle install --path vendor/bundle --clean
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
-      - store_artifacts:
-          path: ~/covid-react/build
       #- run: detox build --configuration ios.release
-      #- run: detox test --configuration ios.release --cleanup
+      - run: detox test --configuration ios.release --cleanup
 
   ### ------------------- ###
   ### Deploy related jobs ###
