@@ -265,8 +265,10 @@ jobs:
       - attach_workspace:
           at: *default_workspace
       #- run: cd ios && pod install && cd ..
-      #- run: fastlane ios build env:stage detox build --configuration ios.release
+      #- run: fastlane ios build env:stage 
       - run: bundle install --path vendor/bundle --clean
+      # Build the bundle.js
+      - run: yarn build:ios
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       #- run: detox build --configuration ios.release
       - run: detox test --configuration ios.release --cleanup
