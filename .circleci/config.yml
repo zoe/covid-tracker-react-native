@@ -264,13 +264,13 @@ jobs:
       #- run: detox build --configuration ios.release
       - run: detox test --configuration ios.release --cleanup
       - persist_to_workspace:
-        root: *default_workspace
-        paths:
-          - node_modules
-          - vendor/bundle
-          - ios/Pods
-          - android/app/src/main/assets/index.android.bundle
-          - android/app/src/main/res
+          root: *default_workspace
+          paths:
+            - node_modules
+            - vendor/bundle
+            - ios/Pods
+            - android/app/src/main/assets/index.android.bundle
+            - android/app/src/main/res
 
   ### ------------------- ###
   ### Deploy related jobs ###
