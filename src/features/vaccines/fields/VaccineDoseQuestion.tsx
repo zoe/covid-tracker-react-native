@@ -9,9 +9,8 @@ import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
-import { View } from 'native-base';
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import * as Yup from 'yup';
 
 import { VaccineNameQuestion } from './VaccineNameQuestion';
