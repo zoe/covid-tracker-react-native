@@ -8,3 +8,4 @@ export { default as Link } from './link';
 export { default as RoundIconButton } from './round-icon-button';
 export { default as ShareButton } from './share-button';
 export { default as ThemeButton } from './theme-button';
+export { SubmitButton } from './SubmitButton';

@@ -1,4 +1,4 @@
-import { BrandedButton } from '@covid/components';
+import { SubmitButton } from '@covid/components';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
@@ -13,89 +13,90 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
-type Props = {
+type TProps = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineDoseSymptoms'>;
   route: RouteProp<ScreenParamList, 'VaccineDoseSymptoms'>;
 };
 
-export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
+const initialValues = {
+  ...DoseSymptomsQuestions.initialFormValues(),
+};
+
+const validationSchema = Yup.object().shape({}).concat(DoseSymptomsQuestions.schema());
+
+export function VaccineDoseSymptomsScreen(props: TProps) {
+  const [errorMessage, setErrorMessage] = React.useState('');
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
 
   async function onSubmit(values: DoseSymptomsData) {
     try {
       const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(values);
-      dosePayload.dose = route.params.dose;
-      await vaccineService.saveDoseSymptoms(route.params.assessmentData.patientData.patientId, dosePayload);
-    } catch (_) {}
-    assessmentCoordinator.gotoNextScreen(route.name);
+      dosePayload.dose = props.route.params.dose;
+      await vaccineService.saveDoseSymptoms(props.route.params.assessmentData.patientData.patientId, dosePayload);
+      assessmentCoordinator.gotoNextScreen(props.route.name);
+    } catch (_) {
+      setErrorMessage(i18n.t('something-went-wrong'));
+    }
   }
 
-  const registerSchema = Yup.object().shape({}).concat(DoseSymptomsQuestions.schema());
-  const currentPatient = route.params.assessmentData.patientData.patientState;
   return (
-    <View style={styles.rootContainer}>
-      <Screen navigation={navigation} profile={currentPatient.profile}>
-        <Header>
-          <View style={{ alignItems: 'center', flexDirection: 'row' }}>
-            <InlineNeedle />
-            <RegularText>{i18n.t('vaccines.dose-symptoms.label')}</RegularText>
-          </View>
-
-          <HeaderText>
-            <HeaderText>{i18n.t('vaccines.dose-symptoms.title-1')}</HeaderText>
-            <HeaderText style={{ color: colors.purple }}>{i18n.t('vaccines.dose-symptoms.title-2')}</HeaderText>
-            <HeaderText>{i18n.t('vaccines.dose-symptoms.title-3')}</HeaderText>
-          </HeaderText>
-        </Header>
-
-        <View>
-          <Formik
-            initialValues={{
-              ...DoseSymptomsQuestions.initialFormValues(),
-            }}
-            onSubmit={onSubmit}
-            validationSchema={registerSchema}
-          >
-            {(props) => {
-              return (
-                <Form style={{ flexGrow: 1 }}>
-                  <View style={{ marginHorizontal: 16 }}>
-                    <DoseSymptomsQuestions formikProps={props} />
-                  </View>
-
-                  <View style={{ flex: 1 }} />
-                  <BrandedButton
-                    enable={!props.isSubmitting}
-                    hideLoading={!props.isSubmitting}
-                    onPress={props.handleSubmit}
-                    style={styles.continueButton}
-                  >
-                    {i18n.t('vaccines.dose-symptoms.next')}
-                  </BrandedButton>
-                </Form>
-              );
-            }}
-          </Formik>
+    <Screen navigation={props.navigation} profile={props.route.params.assessmentData.patientData.patientState.profile}>
+      <Header>
+        <View style={styles.view}>
+          <InlineNeedle />
+          <RegularText>{i18n.t('vaccines.dose-symptoms.label')}</RegularText>
         </View>
-      </Screen>
-    </View>
+
+        <HeaderText>
+          <HeaderText>{i18n.t('vaccines.dose-symptoms.title-1')}</HeaderText>
+          <HeaderText style={styles.purple}>{i18n.t('vaccines.dose-symptoms.title-2')}</HeaderText>
+          <HeaderText>{i18n.t('vaccines.dose-symptoms.title-3')}</HeaderText>
+        </HeaderText>
+      </Header>
+
+      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+        {(props) => {
+          return (
+            <View style={styles.flexGrow}>
+              <DoseSymptomsQuestions formikProps={props} style={styles.questions} />
+
+              <SubmitButton
+                enable={!props.isSubmitting}
+                errorMessage={errorMessage}
+                loading={props.isSubmitting}
+                onPress={props.handleSubmit}
+                style={styles.button}
+              >
+                {i18n.t('vaccines.dose-symptoms.next')}
+              </SubmitButton>
+            </View>
+          );
+        }}
+      </Formik>
+    </Screen>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  continueButton: {
-    marginBottom: 32,
+  button: {
     marginHorizontal: 16,
-    marginTop: 16,
+    marginTop: 'auto',
   },
-
-  rootContainer: {
-    backgroundColor: colors.backgroundPrimary,
-    flex: 1,
+  flexGrow: {
+    flexGrow: 1,
+  },
+  purple: {
+    color: colors.purple,
+  },
+  questions: {
+    margin: 16,
+  },
+  view: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });

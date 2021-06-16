@@ -4,7 +4,7 @@ import { colors, fontStyles } from '@theme';
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
-interface IProps extends IClickableProps, ITest {
+export interface IProps extends IClickableProps, ITest {
   loading?: boolean;
 }
 
