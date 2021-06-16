@@ -614,14 +614,7 @@
 
   "answer-for": "Svara åt %{name}",
   "profile-name-too-long": "Ange ett profilnamn med färre än 32 tecken",
-
-  "report-for-others-title": "Rapporterar du åt någon annan?",
-  "report-for-others-text": "Du kan nu skapa profiler för andra personer som du vill rapportera åt.",
-  "report-for-others-add-profiles": "Lägg till profiler",
-  "report-for-others-subtext": "Du kan nu rapportera å någon annans vägnar.",
-  "report-for-others-not-right-now": "Inte just nu? Du kan när som helst lägga till ytterligare profiler från menyikonen ovan.",
-  "report-for-others-skip": "Hoppa över",
-
+  
   "select-profile-title-assessment": "Välj den profil du vill rapportera åt",
   "select-profile-title-edit": "Välj den profil du vill redigera",
   "select-profile-text": "Eller lägg till fler profiler",

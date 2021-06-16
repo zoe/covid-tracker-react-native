@@ -1,9 +1,8 @@
 import { ModalContainer } from '@covid/components/ModalContainer';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
-import { View } from 'native-base';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type Props = {
   headerText?: string;

@@ -2,9 +2,8 @@ import { IUIAction } from '@covid/common';
 import { Text, ThemeButton } from '@covid/components';
 import { SButtonRowView } from '@covid/components/messaging/banners/styles';
 import i18n from '@covid/locale/i18n';
-import { View } from 'native-base';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 interface IProps {
   actions: IUIAction[];

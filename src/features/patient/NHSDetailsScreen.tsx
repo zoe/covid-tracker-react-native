@@ -9,9 +9,8 @@ import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/E
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { View } from 'native-base';
 import React from 'react';
-import { Linking } from 'react-native';
+import { Linking, View } from 'react-native';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSDetails'>;

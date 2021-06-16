@@ -83,9 +83,6 @@ export class AssessmentCoordinator extends Coordinator {
     ProfileBackDate: () => {
       this.startAssessment();
     },
-    ReportForOther: () => {
-      this.goToThankYouScreen();
-    },
     ThankYouSE: () => {
       NavigatorService.goBack();
     },
@@ -161,12 +158,7 @@ export class AssessmentCoordinator extends Coordinator {
   };
 
   gotoEndAssessment = async () => {
-    const config = this.localisationService.getConfig();
-    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
-      NavigatorService.navigate('ReportForOther');
-    } else {
-      this.goToThankYouScreen();
-    }
+    this.goToThankYouScreen();
   };
 
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
@@ -202,14 +194,6 @@ export class AssessmentCoordinator extends Coordinator {
       !currentPatient.hasBloodPressureAnswer ||
       !currentPatient.hasAtopyAnswers ||
       !currentPatient.hasBloodGroupAnswer
-    );
-  }
-
-  static async shouldShowReportForOthers(config: ConfigType, profileService: IProfileService) {
-    return (
-      config.enableMultiplePatients &&
-      !(await profileService.hasMultipleProfiles()) &&
-      (await profileService.shouldAskToReportForOthers())
     );
   }
 
