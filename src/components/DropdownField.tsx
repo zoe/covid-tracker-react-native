@@ -1,9 +1,9 @@
 import DropdownIcon from '@assets/icons/DropdownIcon';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import { Label, View } from 'native-base';
+import { Label } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text } from 'react-native';
+import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text, View } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { FieldWrapper } from './Screen';

@@ -8,9 +8,9 @@ import { container, lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import Constants from '@covid/utils/Constants';
 import { colors } from '@theme';
-import { Toast, View } from 'native-base';
+import { Toast } from 'native-base';
 import React, { Component } from 'react';
-import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type PropsType = object;
 

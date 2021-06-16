@@ -670,14 +670,8 @@
   "create-profile-placeholder": "e.g. name, nickname or relation",
   "create-profile-button": "Continue",
 
-  "report-for-others-title": "Reporting on behalf of someone else?",
-  "report-for-others-text": "You can now create profiles for other people on whose behalf you want to report.",
-  "report-for-others-add-profiles": "Add profiles",
-  "report-for-others-subtext": "You can now report on behalf of someone else.",
-  "report-for-others-not-right-now": "Not right now? You can add additional profiles from the menu icon above at any time.",
-
-  "select-profile-title-assessment": "Select the profile you want to report for",
-  "select-profile-title-edit": "Select the profile you want to edit",
+  "select-profile-title-assessment": "Select profile you want to report for",
+  "select-profile-title-edit": "Select profile you want to edit",
   "select-profile-text": "Or add more profiles",
   "select-profile-button": "New profile",
   "select-profile-last-report": "Last report:",

@@ -15,9 +15,8 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import { View } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { USStudyInvite } from './partials/USStudyInvite';

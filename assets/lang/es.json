@@ -839,12 +839,6 @@
   "create-profile-placeholder": "por ej., nombre, alias o relación",
   "create-profile-button": "Continuar",
 
-  "report-for-others-title": "¿Informa en nombre de alguien más?",
-  "report-for-others-text": "Ahora puede crear perfiles para otras personas para informar en su nombre.",
-  "report-for-others-add-profiles": "Agregar perfiles",
-  "report-for-others-subtext": "Ahora puede informar en nombre de alguien más.",
-  "report-for-others-not-right-now": "¿No ahora? Puede agregar perfiles adicionales en el ícono de menú en cualquier momento.",
-
   "select-profile-title-assessment": "Seleccione el perfil para el que informará",
   "select-profile-title-edit": "Seleccione el perfil que desea editar",
   "select-profile-text": "O agregue más perfiles",
