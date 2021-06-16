@@ -266,6 +266,7 @@ jobs:
       #- run: fastlane ios build env:stage detox build --configuration ios.release
       - run: bundle install --path vendor/bundle --clean
       - run: bundle update fastlane
+      - run: yarn build:ios
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
