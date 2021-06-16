@@ -2,7 +2,6 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { Services } from '@covid/provider/services.types';
 import { inject, injectable } from 'inversify';
 
-const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export type Profile = {
   id: string;
