@@ -257,19 +257,16 @@ jobs:
     working_directory: ~/covid-react
 
     steps:
-      - prepare_code
-      - prepare_blank_env
-      - node-install
+      - build
+      - persist_to_workspace:
+        root: *default_workspace
+        paths:
+          - node_modules
+          - vendor/bundle
+          - ios/Pods
+          - android/app/src/main/assets/index.android.bundle
+          - android/app/src/main/res
       - prepare_e2e
-      - run: yarn
-      - attach_workspace:
-          at: *default_workspace
-      #- run: cd ios && pod install && cd ..
-      #- run: fastlane ios build env:stage 
-      - run: bundle install --path vendor/bundle --clean
-      # Build the bundle.js
-      - run: yarn add -D react-native-clean-project
-      - run: react-native clean-project-auto
       - run: yarn build:ios
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       #- run: detox build --configuration ios.release
