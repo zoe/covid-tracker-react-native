@@ -1,6 +1,4 @@
 import { closeIcon } from '@assets';
-import { ShareIcon } from '@assets/icons/navigation';
-import EditProfilesIcon from '@assets/icons/navigation/EditProfilesIcon';
 import { share } from '@covid/components/cards/BaseShareApp';
 import { CaptionText } from '@covid/components/Text';
 import { selectUser } from '@covid/core/state/user';
@@ -10,6 +8,7 @@ import { useLogout } from '@covid/features/menu/Logout.hooks';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import Constants from '@covid/utils/Constants';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -40,7 +39,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
         </View>
 
         <MenuItem
-          image={<EditProfilesIcon />}
+          image={<FontAwesomeIcon icon={['far', 'user']} size={20} />}
           label={i18n.t('nav-edit-profile')}
           onPress={() => {
             NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
@@ -48,7 +47,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
         />
 
         <MenuItem
-          image={<ShareIcon />}
+          image={<FontAwesomeIcon icon={['far', 'share-square']} size={20} />}
           label={i18n.t('nav-share-this-app')}
           onPress={() => {
             const shareMessage = i18n.t('share-this-app.message');

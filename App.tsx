@@ -9,6 +9,8 @@ import { container } from '@covid/provider/services';
 import { Provider as ServiceProvider } from '@covid/provider/services.provider';
 import StorybookUIRoot from '@covid/storybook';
 import { Theme } from '@covid/themes';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faShareSquare, faUser } from '@fortawesome/free-regular-svg-icons';
 import { useFonts } from 'expo-font';
 import React from 'react';
 import env from 'react-native-config';
@@ -28,6 +30,8 @@ Sentry.init({
   enableInExpoDevelopment: false,
   environment: env.NAME,
 });
+
+library.add(faUser, faShareSquare);
 
 const App: React.FC = () => {
   const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
