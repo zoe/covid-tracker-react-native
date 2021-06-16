@@ -1,4 +1,5 @@
 import InfoCircle from '@assets/icons/InfoCircle';
+import { TextareaWithCharCount } from '@covid/components';
 import { CheckboxList } from '@covid/components/Checkbox';
 import { RegularText } from '@covid/components/Text';
 import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
@@ -10,7 +11,6 @@ import {
 import i18n from '@covid/locale/i18n';
 import { colors } from '@covid/themes/theme/colors';
 import { FormikProps } from 'formik';
-import { Textarea } from 'native-base';
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import * as Yup from 'yup';
@@ -69,14 +69,13 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<TProps, DoseSymptomsDa
             </View>
           </View>
 
-          <Textarea
+          <TextareaWithCharCount
             bordered
             maxLength={500}
             onChangeText={props.formikProps.handleChange('otherSymptoms')}
             placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
             rowSpan={4}
             style={{ borderRadius: 8 }}
-            underline={false}
             value={props.formikProps.values.otherSymptoms}
           />
         </>
