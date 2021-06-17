@@ -11,7 +11,7 @@ export function SubmitButton({ errorMessage, style, ...props }: IProps) {
   return (
     <View style={style}>
       {errorMessage ? <ErrorText style={{ marginBottom: 8 }}>{errorMessage}</ErrorText> : null}
-      <BrandedButton {...props} />
+      <BrandedButton {...props} onPress={props.loading ? undefined : props.onPress} />
     </View>
   );
 }

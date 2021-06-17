@@ -3,21 +3,17 @@ import { TextareaWithCharCount } from '@covid/components';
 import { CheckboxList } from '@covid/components/Checkbox';
 import { RegularText } from '@covid/components/Text';
 import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import {
-  createSymptomCheckboxes,
-  IDoseSymptomQuestions,
-  SymptomCheckBoxData,
-} from '@covid/features/assessment/fields/SymptomsTypes';
+import { createSymptomCheckboxes, TSymptomCheckBoxData } from '@covid/features/assessment/fields/SymptomsTypes';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@covid/themes/theme/colors';
 import { FormikProps } from 'formik';
 import React from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import * as Yup from 'yup';
 
-export type DoseSymptomsData = DoseSymptomsCheckBoxData & DoseSymptomsFollowUpData;
+export type TDoseSymptomsData = TDoseSymptomsCheckBoxData & TDoseSymptomsFollowUpData;
 
-type DoseSymptomsCheckBoxData = {
+type TDoseSymptomsCheckBoxData = {
   pain: boolean;
   redness: boolean;
   swelling: boolean;
@@ -29,17 +25,17 @@ type DoseSymptomsCheckBoxData = {
   other: boolean;
 };
 
-type DoseSymptomsFollowUpData = {
+type TDoseSymptomsFollowUpData = {
   otherSymptoms: string;
 };
 
 type TProps = {
-  formikProps: FormikProps<DoseSymptomsData>;
+  formikProps: FormikProps<TDoseSymptomsData>;
   style?: StyleProp<ViewStyle>;
 };
 
-export const DoseSymptomsQuestions: IDoseSymptomQuestions<TProps, DoseSymptomsData> = (props: TProps) => {
-  const checkboxes: SymptomCheckBoxData<DoseSymptomsCheckBoxData, DoseSymptomsFollowUpData>[] = [
+export function DoseSymptomsQuestions(props: TProps) {
+  const checkboxes: TSymptomCheckBoxData<TDoseSymptomsCheckBoxData, TDoseSymptomsFollowUpData>[] = [
     { label: i18n.t('vaccines.dose-symptoms.pain'), value: 'pain' },
     { label: i18n.t('vaccines.dose-symptoms.redness'), value: 'redness' },
     { label: i18n.t('vaccines.dose-symptoms.swelling'), value: 'swelling' },
@@ -53,19 +49,17 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<TProps, DoseSymptomsDa
 
   return (
     <View style={props.style}>
-      <RegularText style={{ paddingBottom: 8 }}>{i18n.t('vaccines.dose-symptoms.check-all-that-apply')}</RegularText>
+      <RegularText style={styles.paddingBottom}>{i18n.t('vaccines.dose-symptoms.check-all-that-apply')}</RegularText>
       <CheckboxList>{createSymptomCheckboxes(checkboxes, props.formikProps)}</CheckboxList>
 
       {props.formikProps.values.other ? (
         <>
-          <View style={{ flexDirection: 'row', marginVertical: 16, paddingRight: 32 }}>
-            <View style={{ paddingRight: 8 }}>
+          <View style={styles.view}>
+            <View style={styles.paddingRight}>
               <InfoCircle color={colors.burgundy.main.bgColor} />
             </View>
             <View>
-              <RegularText style={{ color: colors.burgundy.main.bgColor }}>
-                {i18n.t('vaccines.dose-symptoms.other-info')}
-              </RegularText>
+              <RegularText style={styles.color}>{i18n.t('vaccines.dose-symptoms.other-info')}</RegularText>
             </View>
           </View>
 
@@ -75,35 +69,51 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<TProps, DoseSymptomsDa
             onChangeText={props.formikProps.handleChange('otherSymptoms')}
             placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
             rowSpan={4}
-            style={{ borderRadius: 8 }}
+            style={styles.borderRadius}
             value={props.formikProps.values.otherSymptoms}
           />
         </>
       ) : null}
     </View>
   );
+}
+
+const styles = StyleSheet.create({
+  borderRadius: {
+    borderRadius: 8,
+  },
+  color: {
+    color: colors.burgundy.main.bgColor,
+  },
+  paddingBottom: {
+    paddingBottom: 8,
+  },
+  paddingRight: {
+    paddingRight: 8,
+  },
+  view: {
+    flexDirection: 'row',
+    marginVertical: 16,
+    paddingRight: 32,
+  },
+});
+
+export const validationSchema = Yup.object().shape({}).concat(Yup.object());
+
+export const initialValues = {
+  bruising: false,
+  glands: false,
+  itch: false,
+  other: false,
+  otherSymptoms: '',
+  pain: false,
+  redness: false,
+  swelling: false,
+  tenderness: false,
+  warmth: false,
 };
 
-DoseSymptomsQuestions.initialFormValues = (): DoseSymptomsData => {
-  return {
-    bruising: false,
-    glands: false,
-    itch: false,
-    other: false,
-    otherSymptoms: '',
-    pain: false,
-    redness: false,
-    swelling: false,
-    tenderness: false,
-    warmth: false,
-  };
-};
-
-DoseSymptomsQuestions.schema = () => {
-  return Yup.object();
-};
-
-DoseSymptomsQuestions.createDoseSymptoms = (formData: DoseSymptomsData, dose: string): Partial<DoseSymptomsRequest> => {
+export function createDoseSymptoms(formData: TDoseSymptomsData, dose: string): Partial<DoseSymptomsRequest> {
   const doseSymptoms: Partial<DoseSymptomsRequest> = {
     bruising: formData.bruising,
     dose,
@@ -119,4 +129,4 @@ DoseSymptomsQuestions.createDoseSymptoms = (formData: DoseSymptomsData, dose: st
     doseSymptoms.other = formData.otherSymptoms;
   }
   return doseSymptoms;
-};
+}

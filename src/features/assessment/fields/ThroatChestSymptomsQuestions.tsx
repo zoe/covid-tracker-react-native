@@ -4,7 +4,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import {
   createSymptomCheckboxes,
   ISymptomQuestions,
-  SymptomCheckBoxData,
+  TSymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
@@ -35,7 +35,7 @@ type Props = {
 export const ThroatChestSymptomsQuestions: ISymptomQuestions<Props, ThroatChestSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
-  const checkboxes: SymptomCheckBoxData<ThroatChestSymptomsCheckBoxData, ThroatChestSymptomsFollowUpData>[] = [
+  const checkboxes: TSymptomCheckBoxData<ThroatChestSymptomsCheckBoxData, ThroatChestSymptomsFollowUpData>[] = [
     { label: i18n.t('describe-symptoms.throat-chest-sore-throat'), value: 'soreThroat' },
     { label: i18n.t('describe-symptoms.throat-chest-swollen-glands'), value: 'swollenGlands' },
     { label: i18n.t('describe-symptoms.throat-chest-hoarse-voice'), value: 'hoarseVoice' },

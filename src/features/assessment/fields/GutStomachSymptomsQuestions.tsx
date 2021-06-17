@@ -4,7 +4,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import {
   createSymptomCheckboxes,
   ISymptomQuestions,
-  SymptomCheckBoxData,
+  TSymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
@@ -30,7 +30,7 @@ type Props = {
 export const GutStomachSymptomsQuestions: ISymptomQuestions<Props, GutStomachSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
-  const checkboxes: SymptomCheckBoxData<GutStomachSymptomsCheckBoxData, GutStomachSymptomsFollowUpData>[] = [
+  const checkboxes: TSymptomCheckBoxData<GutStomachSymptomsCheckBoxData, GutStomachSymptomsFollowUpData>[] = [
     { label: i18n.t('describe-symptoms.gut-stomach-abdominal-pain'), value: 'abdominalPain' },
     { label: i18n.t('describe-symptoms.gut-stomach-nausea'), value: 'nausea' },
     { label: i18n.t('describe-symptoms.gut-stomach-diarrhoea'), value: 'diarrhoea' },

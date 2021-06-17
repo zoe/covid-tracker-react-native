@@ -5,7 +5,13 @@ import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 import { ScreenParamList } from '@covid/features';
-import { DoseSymptomsData, DoseSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
+import {
+  createDoseSymptoms,
+  DoseSymptomsQuestions,
+  initialValues,
+  TDoseSymptomsData,
+  validationSchema,
+} from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
@@ -15,27 +21,22 @@ import { colors } from '@theme';
 import { Formik } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import * as Yup from 'yup';
 
 type TProps = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineDoseSymptoms'>;
   route: RouteProp<ScreenParamList, 'VaccineDoseSymptoms'>;
 };
 
-const initialValues = {
-  ...DoseSymptomsQuestions.initialFormValues(),
-};
-
-const validationSchema = Yup.object().shape({}).concat(DoseSymptomsQuestions.schema());
-
 export function VaccineDoseSymptomsScreen(props: TProps) {
   const [errorMessage, setErrorMessage] = React.useState('');
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
 
-  async function onSubmit(values: DoseSymptomsData) {
+  async function onSubmit(values: TDoseSymptomsData) {
+    setErrorMessage('');
     try {
-      const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(values, props.route.params.dose);
+      const dosePayload = createDoseSymptoms(values, props.route.params.dose);
       await vaccineService.saveDoseSymptoms(props.route.params?.assessmentData?.patientData?.patientId, dosePayload);
+      // Only allow the user to navigate to the next screen on a successfull api call.
       assessmentCoordinator.gotoNextScreen(props.route.name);
     } catch (_) {
       setErrorMessage(i18n.t('something-went-wrong'));
@@ -67,7 +68,6 @@ export function VaccineDoseSymptomsScreen(props: TProps) {
               <DoseSymptomsQuestions formikProps={props} style={styles.questions} />
 
               <SubmitButton
-                enable={!props.isSubmitting}
                 errorMessage={errorMessage}
                 loading={props.isSubmitting}
                 onPress={props.handleSubmit}

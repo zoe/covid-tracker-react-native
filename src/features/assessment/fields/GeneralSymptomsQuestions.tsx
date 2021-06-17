@@ -6,7 +6,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import {
   createSymptomCheckboxes,
   ISymptomQuestions,
-  SymptomCheckBoxData,
+  TSymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import i18n from '@covid/locale/i18n';
 import { cleanFloatVal } from '@covid/utils/number';
@@ -48,11 +48,11 @@ type Props = {
 export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
-  const fever_checkbox: SymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
+  const fever_checkbox: TSymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
     { label: i18n.t('describe-symptoms.general-fever'), value: 'fever' },
   ];
 
-  const checkboxes: SymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
+  const checkboxes: TSymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
     { label: i18n.t('describe-symptoms.general-chills'), value: 'chills' },
     {
       followUp: {

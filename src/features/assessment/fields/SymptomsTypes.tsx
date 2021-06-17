@@ -1,7 +1,6 @@
 import { CheckboxItem } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { PickerItemProps, View } from 'react-native';
@@ -13,16 +12,10 @@ export interface ISymptomQuestions<P, Data> extends React.FC<P> {
   createAssessment: (data: Data, param?: any) => Partial<AssessmentInfosRequest>;
 }
 
-export interface IDoseSymptomQuestions<P, Data> extends React.FC<P> {
-  initialFormValues: () => Data;
-  schema: () => Yup.ObjectSchema;
-  createDoseSymptoms: (data: Data, param?: any) => Partial<DoseSymptomsRequest>;
-}
-
 type BoolObject = { [key: string]: boolean | undefined };
 type StringObject = { [key: string]: string };
 
-export type SymptomCheckBoxData<T extends BoolObject, F extends StringObject> = {
+export type TSymptomCheckBoxData<T extends BoolObject, F extends StringObject> = {
   label: string;
   value: Extract<keyof T, string>; // Extract used because by default keyof can be (string | number | symbol)
   followUp?: FollowUpQuestion<F>;
@@ -35,7 +28,7 @@ export type FollowUpQuestion<F> = {
 };
 
 export function createSymptomCheckboxes<T extends BoolObject, F extends StringObject>(
-  data: SymptomCheckBoxData<T, F>[],
+  data: TSymptomCheckBoxData<T, F>[],
   props: FormikProps<T & F>,
 ): JSX.Element[] {
   return data.map((checkBoxData) => {

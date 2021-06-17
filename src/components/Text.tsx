@@ -80,7 +80,7 @@ export const RegularBoldText = ({ style, children }: Props) => (
 export interface IClickableProps extends ITest {
   children: React.ReactNode;
   style?: any;
-  onPress: () => void;
+  onPress?: () => void;
   enable?: boolean;
   hideLoading?: boolean;
 }

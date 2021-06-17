@@ -4,7 +4,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import {
   createSymptomCheckboxes,
   ISymptomQuestions,
-  SymptomCheckBoxData,
+  TSymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
@@ -39,7 +39,7 @@ type Props = {
 export const HeadSymptomsQuestions: ISymptomQuestions<Props, HeadSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
-  const checkboxes: SymptomCheckBoxData<HeadSymptomsCheckBoxData, HeadSymptomsFollowUpData>[] = [
+  const checkboxes: TSymptomCheckBoxData<HeadSymptomsCheckBoxData, HeadSymptomsFollowUpData>[] = [
     {
       followUp: {
         label: i18n.t('describe-symptoms.head-headache-follow-up'),
