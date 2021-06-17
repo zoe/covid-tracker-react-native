@@ -103,9 +103,10 @@ DoseSymptomsQuestions.schema = () => {
   return Yup.object();
 };
 
-DoseSymptomsQuestions.createDoseSymptoms = (formData: DoseSymptomsData): Partial<DoseSymptomsRequest> => {
-  return {
+DoseSymptomsQuestions.createDoseSymptoms = (formData: DoseSymptomsData, dose: string): Partial<DoseSymptomsRequest> => {
+  const doseSymptoms: Partial<DoseSymptomsRequest> = {
     bruising: formData.bruising,
+    dose,
     itch: formData.itch,
     pain: formData.pain,
     redness: formData.redness,
@@ -113,6 +114,9 @@ DoseSymptomsQuestions.createDoseSymptoms = (formData: DoseSymptomsData): Partial
     swollen_armpit_glands: formData.glands,
     tenderness: formData.tenderness,
     warmth: formData.warmth,
-    ...(formData.other && { other: formData.otherSymptoms }),
   };
+  if (formData.other) {
+    doseSymptoms.other = formData.otherSymptoms;
+  }
+  return doseSymptoms;
 };

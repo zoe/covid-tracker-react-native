@@ -34,9 +34,8 @@ export function VaccineDoseSymptomsScreen(props: TProps) {
 
   async function onSubmit(values: DoseSymptomsData) {
     try {
-      const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(values);
-      dosePayload.dose = props.route.params.dose;
-      await vaccineService.saveDoseSymptoms(props.route.params.assessmentData.patientData.patientId, dosePayload);
+      const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(values, props.route.params.dose);
+      await vaccineService.saveDoseSymptoms(props.route.params?.assessmentData?.patientData?.patientId, dosePayload);
       assessmentCoordinator.gotoNextScreen(props.route.name);
     } catch (_) {
       setErrorMessage(i18n.t('something-went-wrong'));
@@ -44,7 +43,10 @@ export function VaccineDoseSymptomsScreen(props: TProps) {
   }
 
   return (
-    <Screen navigation={props.navigation} profile={props.route.params.assessmentData.patientData.patientState.profile}>
+    <Screen
+      navigation={props.navigation}
+      profile={props.route.params?.assessmentData?.patientData?.patientState.profile}
+    >
       <Header>
         <View style={styles.view}>
           <InlineNeedle />
