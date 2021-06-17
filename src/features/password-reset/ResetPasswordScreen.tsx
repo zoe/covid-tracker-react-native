@@ -1,3 +1,4 @@
+import { BasicPage } from '@covid/components';
 import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
 import ResetPasswordForm, { IResetPasswordForm } from '@covid/features/password-reset/fields/ResetPasswordForm';
@@ -60,13 +61,15 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <BasicPage style={{ backgroundColor: colors.white }} withFooter={false}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
           <Formik initialValues={{ email: '' }} onSubmit={this.handleClick} validationSchema={this.registerSchema}>
             {(props: IResetPasswordForm) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
           </Formik>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
+      </BasicPage>
     );
   }
 }
