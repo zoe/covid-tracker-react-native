@@ -257,6 +257,8 @@ jobs:
     working_directory: ~/covid-react
 
     steps:
+      - run: yarn metro-empty-cache
+      - run: yarn start:reset
       - build
       - prepare_e2e
       #- run: yarn build:ios
