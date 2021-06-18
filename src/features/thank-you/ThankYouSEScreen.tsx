@@ -14,85 +14,78 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors, fontStyles } from '@theme';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import VisitWebsite from './components/VisitWebsite';
 
-type RenderProps = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouSE'>;
   route: RouteProp<ScreenParamList, 'ThankYouSE'>;
-};
+}
 
-type State = {
-  askForRating: boolean;
-  shouldShowReminders: boolean;
-};
+const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
-const initialState = {
-  askForRating: false,
-  shouldShowReminders: false,
-};
+export default function ThankYouSEScreen({ navigation, route }: IProps) {
+  const [askForRating, setAskForRating] = useState<boolean>(false);
+  const [shouldShowReminders, setShouldShowReminders] = useState<boolean>(false);
 
-export default class ThankYouSEScreen extends Component<RenderProps, State> {
-  private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
+  useEffect(() => {
+    (async () => {
+      try {
+        const ratingAskResponse = await shouldAskForRating();
+        setAskForRating(ratingAskResponse);
 
-  state = initialState;
+        const notificationsAllowed = await pushService.isGranted();
+        setShouldShowReminders(!notificationsAllowed);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(`Ask for rating and / or push notifications service call failed with error: ${e}`);
+      }
+    })();
+  }, []);
 
-  async componentDidMount() {
-    // Ask for rating if not asked before and server indicates eligible.
-    this.setState({
-      askForRating: await shouldAskForRating(),
-      shouldShowReminders: !(await this.pushService.isGranted()),
-    });
-  }
+  return (
+    <>
+      {askForRating && <AppRating />}
+      <SafeAreaView>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.rootContainer}>
+            <Header>
+              <HeaderText style={styles.headerText}>{i18n.t('thank-you-title')}</HeaderText>
+            </Header>
 
-  render() {
-    return (
-      <>
-        {this.state.askForRating && <AppRating />}
-        <SafeAreaView>
-          <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.rootContainer}>
-              <Header>
-                <HeaderText style={styles.headerText}>{i18n.t('thank-you-title')}</HeaderText>
-              </Header>
-
-              <View>
-                <RegularText style={styles.subTitle}> {i18n.t('thank-you-body')}</RegularText>
-              </View>
-
-              <FacebookSECard />
-
-              {this.state.shouldShowReminders ? (
-                <ExternalCallout
-                  aspectRatio={311.0 / 104.0}
-                  calloutID="notificationRemindersSE"
-                  imageSource={notificationRemindersSE}
-                  postClicked={() => {
-                    PushNotificationService.openSettings();
-                  }}
-                  screenName={this.props.route.name}
-                />
-              ) : null}
-
-              <ShareAppCard />
-              <VisitWebsite />
-
-              <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
-
-              <BrandedButton
-                onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
-                style={styles.done}
-              >
-                <RegularText>{i18n.t('thank-you-completed')}</RegularText>
-              </BrandedButton>
+            <View>
+              <RegularText style={styles.subTitle}> {i18n.t('thank-you-body')}</RegularText>
             </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    );
-  }
+
+            <FacebookSECard />
+
+            {shouldShowReminders ? (
+              <ExternalCallout
+                aspectRatio={311.0 / 104.0}
+                calloutID="notificationRemindersSE"
+                imageSource={notificationRemindersSE}
+                postClicked={() => {
+                  PushNotificationService.openSettings();
+                }}
+                screenName={route.name}
+              />
+            ) : null}
+
+            <ShareAppCard />
+            <VisitWebsite />
+
+            <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
+
+            <BrandedButton onPress={() => assessmentCoordinator.gotoNextScreen(route.name)} style={styles.done}>
+              <RegularText>{i18n.t('thank-you-completed')}</RegularText>
+            </BrandedButton>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -136,7 +129,6 @@ const styles = StyleSheet.create({
     ...fontStyles.bodySmallLight,
 
     color: colors.secondary,
-    // paddingVertical: 10,
     paddingHorizontal: 16,
     textAlign: 'center',
   },

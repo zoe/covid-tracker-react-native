@@ -35,7 +35,6 @@ export type ScreenParamList = {
   OptionalInfo: undefined;
 
   // Profile screens
-  ReportForOther: undefined;
   SelectProfile: { assessmentFlow: boolean };
   CreateProfile: { avatarName: string };
   AdultOrChild: { profileName: string; avatarName?: string };

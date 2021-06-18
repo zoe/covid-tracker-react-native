@@ -1,10 +1,7 @@
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Services } from '@covid/provider/services.types';
-import { cleanIntegerVal } from '@covid/utils/number';
 import { inject, injectable } from 'inversify';
 
-const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export type Profile = {
   id: string;
@@ -18,8 +15,6 @@ export type Profile = {
 
 export interface IProfileService {
   hasMultipleProfiles(): Promise<boolean>;
-  shouldAskToReportForOthers(): Promise<boolean>;
-  recordAskedToReportForOther(): Promise<void>;
 }
 
 @injectable()
@@ -33,29 +28,6 @@ export class ProfileService implements IProfileService {
       return !!response && response.length > 1;
     } catch (e) {
       return false;
-    }
-  }
-
-  public async shouldAskToReportForOthers() {
-    try {
-      const response = await AsyncStorageService.getAskedToReportForOthers();
-      if (response) {
-        return cleanIntegerVal(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
-      }
-      await AsyncStorageService.setAskedToReportForOthers('0');
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  public async recordAskedToReportForOther() {
-    const response = await AsyncStorageService.getAskedToReportForOthers();
-    if (response) {
-      const value = cleanIntegerVal(response) + 1;
-      await AsyncStorageService.setAskedToReportForOthers(value.toString());
-    } else {
-      await AsyncStorageService.setAskedToReportForOthers('0');
     }
   }
 }
