@@ -42,6 +42,11 @@ interface IProps {
 
 const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
+const headerConfig = {
+  compact: HEADER_COLLAPSED_HEIGHT,
+  expanded: HEADER_EXPANDED_HEIGHT,
+};
+
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
@@ -49,11 +54,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
-
-  const headerConfig = {
-    compact: HEADER_COLLAPSED_HEIGHT,
-    expanded: HEADER_EXPANDED_HEIGHT,
-  };
 
   const onReport = async () => {
     await appCoordinator.gotoNextScreen(route.name);

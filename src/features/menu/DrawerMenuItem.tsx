@@ -16,11 +16,12 @@ export enum DrawerMenuItem {
 }
 
 interface IMenuItemProps {
-  label: string;
   image?: React.ReactNode;
-  smallLabel?: string;
   indicator?: number;
+  label: string;
   onPress: () => void;
+  smallLabel?: string;
+  testID?: string;
 }
 
 interface ILinkMenuItemProps {
@@ -29,17 +30,17 @@ interface ILinkMenuItemProps {
   onPress?: () => void;
 }
 
-export function MenuItem({ image, onPress, label, smallLabel, indicator }: IMenuItemProps) {
+export function MenuItem(props: IMenuItemProps) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.iconNameRow}>
+    <TouchableOpacity onPress={props.onPress} style={styles.iconNameRow} testID={props.testID}>
       <View style={{ flexDirection: 'row' }}>
-        {image ? <View style={styles.icon}>{image}</View> : null}
+        {props.image ? <View style={styles.icon}>{props.image}</View> : null}
         <View style={styles.labelRow}>
-          <HeaderText>{label}</HeaderText>
-          {indicator ? <NumberIndicator number={indicator} /> : null}
+          <HeaderText>{props.label}</HeaderText>
+          {props.indicator ? <NumberIndicator number={props.indicator} /> : null}
         </View>
       </View>
-      {smallLabel != null ? <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText> : null}
+      {props.smallLabel != null ? <CaptionText style={styles.smallLabel}>{props.smallLabel}</CaptionText> : null}
     </TouchableOpacity>
   );
 }

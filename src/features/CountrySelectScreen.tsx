@@ -54,7 +54,7 @@ export function CountrySelectScreen(props: IProps) {
   }
 
   return (
-    <SafeLayout style={styles.safeLayout}>
+    <SafeLayout style={styles.safeLayout} testID="select-country-screen">
       <View style={styles.container}>
         <BasicNavHeader style={styles.navHeader} />
         <Text style={styles.text}>{i18n.t('select-country')}</Text>

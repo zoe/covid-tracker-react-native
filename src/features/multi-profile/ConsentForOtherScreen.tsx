@@ -106,36 +106,39 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         ) : null}
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{this.headerText}</HeaderText>
-          {
-            this.isAdultConsent() ? (
-              <RegularText>
-                {i18n.t('adult-consent-text-1')}{' '}
-                <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
-                  {i18n.t('consent')}
-                </ClickableText>{' '}
-                {i18n.t('adult-consent-text-2')}
-              </RegularText>
-            ) : (
-              <RegularText>
-                {i18n.t('child-consent-text-1')}{' '}
-                <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
-                  {i18n.t('consent-summary')}
-                </ClickableText>{' '}
-                {i18n.t('child-consent-text-2')}
-              </RegularText>
-            )
-          }
+          {this.isAdultConsent() ? (
+            <RegularText>
+              {i18n.t('adult-consent-text-1')}{' '}
+              <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
+                {i18n.t('consent')}
+              </ClickableText>{' '}
+              {i18n.t('adult-consent-text-2')}
+            </RegularText>
+          ) : (
+            <RegularText>
+              {i18n.t('child-consent-text-1')}{' '}
+              <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
+                {i18n.t('consent-summary')}
+              </ClickableText>{' '}
+              {i18n.t('child-consent-text-2')}
+            </RegularText>
+          )}
         </Header>
 
         <View style={{ marginHorizontal: 16 }}>
-          <CheckboxItem onChange={this.handleConsentClick} value={this.state.consentChecked} testID="checkbox-consent">
+          <CheckboxItem onChange={this.handleConsentClick} testID="checkbox-consent" value={this.state.consentChecked}>
             {this.consentLabel}
           </CheckboxItem>
         </View>
 
         <ErrorText>{this.state.errorMessage}</ErrorText>
 
-        <BrandedButton hideLoading enable={this.state.consentChecked} onPress={this.handleCreatePatient} testID="button-create-profile">
+        <BrandedButton
+          hideLoading
+          enable={this.state.consentChecked}
+          onPress={this.handleCreatePatient}
+          testID="button-create-profile"
+        >
           {i18n.t('consent-create-profile')}
         </BrandedButton>
 
