@@ -12,17 +12,16 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { ListItem } from 'native-base';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-type PropsType = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestConfirm'>;
   route: RouteProp<ScreenParamList, 'CovidTestConfirm'>;
-};
+}
 
-export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
+export default function CovidTestConfirmScreen({ navigation, route }: IProps) {
   const [agreed, setAgreed] = useState(false);
-
   const covidTestService = useInjection<ICovidTestService>(Services.CovidTest);
 
   const handleConsentClick = (checked: boolean) => {
@@ -34,21 +33,21 @@ export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
       return;
     }
 
-    const { test } = props.route.params;
+    const { test } = route.params;
 
     if (test.id) {
       covidTestService.updateTest(test.id, test).then(() => {
-        assessmentCoordinator.gotoNextScreen(props.route.name);
+        assessmentCoordinator.gotoNextScreen(route.name);
       });
     } else {
       covidTestService.addTest(test).then(() => {
-        assessmentCoordinator.gotoNextScreen(props.route.name);
+        assessmentCoordinator.gotoNextScreen(route.name);
       });
     }
   };
 
   return (
-    <Screen showBackButton navigation={props.navigation} style={styles.container}>
+    <Screen showBackButton navigation={navigation} style={styles.container}>
       <Header>
         <HeaderText>{i18n.t('covid-test.confirm-test.title')}</HeaderText>
       </Header>
@@ -68,7 +67,7 @@ export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
       </BrandedButton>
     </Screen>
   );
-};
+}
 
 const styles = StyleSheet.create({
   body: {
