@@ -99,7 +99,6 @@ export type ScreenParamList = {
   JoinHigherEducation: { patientData: PatientData };
 
   // Diet study
-  DietStudyModal: undefined;
   DietStudy: undefined;
   DietStudyGlobal: undefined;
   DietStudyGut: undefined;
@@ -120,7 +119,6 @@ export type ScreenParamList = {
   MentalHealthSupport: undefined;
   MentalHealthLearning: undefined;
   MentalHealthEnd: undefined;
-  MentalHealthModal: undefined;
 
   // Others
   Modal: undefined;
