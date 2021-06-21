@@ -45,7 +45,9 @@ const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
+  const schoolGroups = useSelector<RootState, ISubscribedSchoolGroupStats[]>(
+    (state) => state.school.joinedSchoolGroups,
+  );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
@@ -114,8 +116,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
     Linking.addEventListener('url', () => {});
   }, []);
 
-  const hasNetworkData = networks && networks.length > 0;
-
   return (
     <CollapsibleHeaderScrollView
       compactHeader={<CompactHeader reportOnPress={onReport} />}
@@ -172,15 +172,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
         <ShareVaccineCard screenName="Dashboard" />
 
-        {hasNetworkData ? (
-          <View
-            style={{
-              marginVertical: 8,
-            }}
-          >
-            <SchoolNetworks schoolGroups={networks!} />
-          </View>
-        ) : null}
+        <SchoolNetworks schoolGroups={schoolGroups} style={styles.marginVertical} />
 
         <MentalHealthPlaybackModal
           closeModalHandler={() => setMentalHealthPlaybackModalVisible(false)}
@@ -205,6 +197,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     resizeMode: 'contain',
     width: '100%',
+  },
+  marginVertical: {
+    marginVertical: 8,
   },
   zoe: {
     marginVertical: 32,
