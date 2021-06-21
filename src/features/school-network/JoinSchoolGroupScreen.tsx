@@ -1,6 +1,6 @@
 import { Button } from '@covid/components/buttons/Button';
-import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
@@ -128,7 +128,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
                 ) : null}
 
                 {inputMode === InputMode.dropdown ? (
-                  <DropdownField
+                  <RadioInput
                     error={formikProps.touched.groupId && formikProps.errors.groupId}
                     items={groupList}
                     label={i18n.t('school-networks.join-group.dropdown.label')}

@@ -3,23 +3,21 @@ import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { Label } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageSourcePropType, PickerItemProps, StyleSheet, Text, View } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
 
 interface IProps {
-  placeholder?: string | undefined;
-  selectedValue?: any;
-  onValueChange: any;
-  label?: string;
-  items: PickerItemProps[];
-  pickerProps?: PickerProps;
-  androidDefaultLabel?: string;
-  error?: any;
-  onlyPicker?: boolean;
+  error?: string;
+  hideLabel?: boolean;
   itemIcons?: ImageSourcePropType[];
+  items: PickerItemProps[];
+  label?: string;
+  onValueChange: (value: any) => void;
+  placeholder?: string;
+  selectedValue?: any;
 }
 
 interface ISelectedItem {
@@ -32,7 +30,7 @@ const DROPDOWN_ROW_HEIGHT = 48.6;
 export function DropdownField({
   label,
   error,
-  onlyPicker,
+  hideLabel,
   items: providedItems,
   selectedValue,
   onValueChange,
@@ -95,7 +93,7 @@ export function DropdownField({
 
   const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
-  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220)
+  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220);
   const renderDropdownRow = (option: string, index: any, isSelected: boolean): React.ReactNode => {
     // There is a type error in renderDropdownRow index is actually a number, not a string
 
@@ -123,7 +121,7 @@ export function DropdownField({
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
+      {hideLabel ? null : <Label style={styles.labelStyle}>{label}</Label>}
       <ModalDropdown
         animated={false}
         defaultIndex={defaultIndex}

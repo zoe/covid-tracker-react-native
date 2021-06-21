@@ -1,6 +1,6 @@
 import { BrandedButton } from '@covid/components';
-import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -385,7 +385,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     placeholder={i18n.t('placeholder-year-of-birth')}
                   />
 
-                  <DropdownField
+                  <RadioInput
                     error={props.touched.sex && props.errors.sex}
                     items={sexAtBirthItems}
                     label={i18n.t('your-sex-at-birth')}
@@ -394,7 +394,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     selectedValue={props.values.sex}
                   />
 
-                  <DropdownField
+                  <RadioInput
                     error={props.touched.genderIdentity && props.errors.genderIdentity}
                     items={genderIdentityItems}
                     label={i18n.t('label-gender-identity')}
@@ -432,7 +432,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     />
                   ) : null}
 
-                  <DropdownField
+                  <RadioInput
                     error={props.touched.everExposed && props.errors.everExposed}
                     items={everExposedItems}
                     label={i18n.t('have-you-been-exposed')}

@@ -1,4 +1,4 @@
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { vaccineBrandDisplayName, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import i18n from '@covid/locale/i18n';
@@ -59,7 +59,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
     const brandError = props.firstDose ? props.formikProps.errors.firstBrand : props.formikProps.errors.secondBrand;
 
     return (
-      <DropdownField
+      <RadioInput
         error={brandTouched && brandError}
         items={nameOptions}
         label={i18n.t('vaccines.your-vaccine.label-name')}
@@ -89,7 +89,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
       : props.formikProps.errors.secondDescription;
 
     return (
-      <DropdownField
+      <RadioInput
         error={descriptionTouched && descriptionError}
         items={descriptionOptions}
         label={i18n.t('vaccines.your-vaccine.label-name-other')}

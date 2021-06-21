@@ -1,7 +1,7 @@
 import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -279,7 +279,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                   ) : null}
 
                   {props.values.stillHavePastSymptoms === 'yes' ? (
-                    <DropdownField
+                    <RadioInput
                       items={symptomChangeChoices}
                       label={i18n.t('label-past-symptoms-changed')}
                       onValueChange={props.handleChange('pastSymptomsChanged')}

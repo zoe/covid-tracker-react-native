@@ -63,12 +63,12 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
     return (
       <BasicPage style={{ backgroundColor: colors.white }} withFooter={false}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
-          <Formik initialValues={{ email: '' }} onSubmit={this.handleClick} validationSchema={this.registerSchema}>
-            {(props: IResetPasswordForm) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
-          </Formik>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+            <Formik initialValues={{ email: '' }} onSubmit={this.handleClick} validationSchema={this.registerSchema}>
+              {(props: IResetPasswordForm) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
+            </Formik>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </BasicPage>
     );
   }

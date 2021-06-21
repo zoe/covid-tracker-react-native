@@ -4,6 +4,14 @@ import { ImageStyle, StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } f
 
 import { ITest } from './types';
 
+interface IClickableTextProps extends ITest {
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  onPress: () => void;
+  enable?: boolean;
+  hideLoading?: boolean;
+}
+
 interface Props {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
@@ -11,15 +19,15 @@ interface Props {
   highlightColor?: any;
 }
 
-export const Header0Text = ({ style, children }: Props) => <Text style={[styles.header0Text, style]}>{children}</Text>;
+export const Header0Text = ({ style, children }: Props) => <Text style={[fontStyles.h0Reg, style]}>{children}</Text>;
 
-export const HeaderText = ({ style, children }: Props) => <Text style={[styles.headerText, style]}>{children}</Text>;
+export const HeaderText = ({ style, children }: Props) => <Text style={[fontStyles.h2Reg, style]}>{children}</Text>;
 
 export const HeaderLightText = ({ style, children }: Props) => (
-  <Text style={[styles.headerLightText, style]}>{children}</Text>
+  <Text style={[fontStyles.h1Light, style]}>{children}</Text>
 );
 
-export const Header3Text = ({ style, children }: Props) => <Text style={[styles.header3Text, style]}>{children}</Text>;
+export const Header3Text = ({ style, children }: Props) => <Text style={[fontStyles.h3Reg, style]}>{children}</Text>;
 
 interface IColourHighlightHeaderTextTextProps {
   text: string;
@@ -31,12 +39,12 @@ export const ColourHighlightHeaderTextText = ({ text, style, highlightColor }: I
   const textParts: string[] = text.split('*');
   let highlightedText: boolean = !!text.startsWith('*');
   return (
-    <Text style={[styles.headerText, style]}>
+    <Text style={[fontStyles.h2Reg, style]}>
       {textParts
         .filter((text: string) => text)
         .map((text: string) => {
           const node: React.ReactNode = (
-            <Text style={{ color: highlightedText ? highlightColor : styles.headerText.color }}>{text}</Text>
+            <Text style={{ color: highlightedText ? highlightColor : fontStyles.h2Reg.color }}>{text}</Text>
           );
           highlightedText = !highlightedText;
           return node;
@@ -46,30 +54,36 @@ export const ColourHighlightHeaderTextText = ({ text, style, highlightColor }: I
 };
 
 export const RegularText = ({ style, children, passProps }: Props) => (
-  <Text style={[styles.regularText, style]} {...passProps}>
+  <Text style={[fontStyles.bodyReg, style]} {...passProps}>
     {children}
   </Text>
 );
 
 export const FieldLabel = ({ style, children }: Props) => (
-  <Text style={[styles.regularText, styles.fieldLabel, style]}>{children}</Text>
+  <Text style={[fontStyles.bodyReg, styles.fieldLabel, style]}>{children}</Text>
 );
 
 export const ClippedText = ({ style, children }: Props) => (
-  <Text numberOfLines={1} style={[styles.regularText, style]}>
+  <Text numberOfLines={1} style={[fontStyles.bodyReg, style]}>
     {children}
   </Text>
 );
 
 export const SecondaryText = ({ style, children }: Props) => (
-  <Text style={[styles.secondaryText, style]}>{children}</Text>
+  <Text style={[fontStyles.bodySecondary, style]}>{children}</Text>
+);
+
+export const SecondaryLightText = ({ style, children }: Props) => (
+  <Text style={[fontStyles.bodySecondaryLight, style]}>{children}</Text>
 );
 
 export const MutedText = ({ style, children }: Props) => (
-  <Text style={[styles.regularMutedText, style]}>{children}</Text>
+  <Text style={[fontStyles.bodyMutedReg, style]}>{children}</Text>
 );
 
-export const CaptionText = ({ style, children }: Props) => <Text style={[styles.captionText, style]}>{children}</Text>;
+export const CaptionText = ({ style, children }: Props) => (
+  <Text style={[fontStyles.bodySmallLight, style]}>{children}</Text>
+);
 
 export const ErrorText = ({ style, children }: Props) => <Text style={[styles.errorText, style]}>{children}</Text>;
 
@@ -77,15 +91,7 @@ export const RegularBoldText = ({ style, children }: Props) => (
   <Text style={[styles.regularBoldText, style]}>{children}</Text>
 );
 
-export interface IClickableProps extends ITest {
-  children: React.ReactNode;
-  style?: any;
-  onPress: () => void;
-  enable?: boolean;
-  hideLoading?: boolean;
-}
-
-export const ClickableText = ({ style, children, onPress }: IClickableProps) => (
+export const ClickableText = ({ style, children, onPress }: IClickableTextProps) => (
   <Text onPress={onPress} style={[styles.clickableText, style]}>
     {children}
   </Text>
@@ -95,60 +101,26 @@ export const Divider: React.FC<{ styles?: StyleProp<ViewStyle> }> = ({ styles: p
   <View style={[styles.divider, passed]} />
 );
 
-const styles = StyleSheet.create({
-  captionText: {
-    ...fontStyles.bodySmallLight,
-  },
+export const LabelText = ({ style, children }: Props) => <Text style={[fontStyles.label, style]}>{children}</Text>;
 
+const styles = StyleSheet.create({
   clickableText: {
     ...fontStyles.bodyReg,
     color: colors.purple,
   },
-
   divider: {
     borderBottomWidth: 2,
     borderColor: colors.backgroundFour,
   },
-
   errorText: {
     ...fontStyles.bodyReg,
     color: colors.feedbackBad,
   },
-
   fieldLabel: {
     marginBottom: -16,
   },
-
-  header0Text: {
-    ...fontStyles.h0Reg,
-  },
-
-  header3Text: {
-    ...fontStyles.h3Reg,
-  },
-
-  headerLightText: {
-    ...fontStyles.h1Light,
-  },
-
-  headerText: {
-    ...fontStyles.h2Reg,
-  },
-
   regularBoldText: {
     ...fontStyles.bodyReg,
     fontFamily: 'SofiaPro-SemiBold',
-  },
-
-  regularMutedText: {
-    ...fontStyles.bodyMutedReg,
-  },
-
-  regularText: {
-    ...fontStyles.bodyReg,
-  },
-
-  secondaryText: {
-    ...fontStyles.bodySecondary,
   },
 });

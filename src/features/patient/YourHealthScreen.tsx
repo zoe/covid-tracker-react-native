@@ -1,6 +1,6 @@
 import { BrandedButton } from '@covid/components';
-import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -311,7 +311,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                   <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} />
 
-                  <DropdownField
+                  <RadioInput
                     error={props.touched.smokerStatus && props.errors.smokerStatus}
                     items={smokerStatusItems}
                     label={i18n.t('your-health.is-smoker')}

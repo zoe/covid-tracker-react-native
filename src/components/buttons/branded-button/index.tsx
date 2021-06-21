@@ -1,11 +1,14 @@
-import { IClickableProps } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { colors, fontStyles } from '@theme';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { ActivityIndicator, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
-interface IProps extends IClickableProps, ITest {
+interface IProps extends ITest {
+  children: React.ReactNode;
+  enable?: boolean;
   loading?: boolean;
+  onPress: () => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 export default function BrandedButton(props: IProps) {

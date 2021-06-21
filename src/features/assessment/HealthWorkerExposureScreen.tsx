@@ -1,5 +1,5 @@
 import { BrandedButton } from '@covid/components';
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -176,14 +176,14 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
 
                   {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' ? (
                     <View style={{ marginHorizontal: 16 }}>
-                      <DropdownField
+                      <RadioInput
                         items={patientInteractionOptions}
                         label={i18n.t('health-worker-exposure-question-treated-patients-with-covid')}
                         onValueChange={props.handleChange('treatedPatientsWithCovid')}
                         selectedValue={props.values.treatedPatientsWithCovid}
                       />
 
-                      <DropdownField
+                      <RadioInput
                         items={equipmentUsageOptions}
                         label={i18n.t('health-worker-exposure-question-has-used-ppe-equipment')}
                         onValueChange={props.handleChange('hasUsedPPEEquipment')}
@@ -191,7 +191,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                       />
 
                       {props.values.hasUsedPPEEquipment === 'always' ? (
-                        <DropdownField
+                        <RadioInput
                           items={availabilityAlwaysOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilityAlways')}
@@ -200,7 +200,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                       ) : null}
 
                       {props.values.hasUsedPPEEquipment === 'sometimes' ? (
-                        <DropdownField
+                        <RadioInput
                           items={availabilitySometimesOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilitySometimes')}
@@ -209,7 +209,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                       ) : null}
 
                       {props.values.hasUsedPPEEquipment === 'never' ? (
-                        <DropdownField
+                        <RadioInput
                           items={availabilityNeverOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilityNever')}

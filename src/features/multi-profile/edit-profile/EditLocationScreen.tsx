@@ -1,6 +1,6 @@
 import { BrandedButton } from '@covid/components';
-import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import Screen, { Header } from '@covid/components/Screen';
 import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
 import YesNoField from '@covid/components/YesNoField';
@@ -159,7 +159,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                 />
               ) : null}
               {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' ? (
-                <DropdownField
+                <RadioInput
                   error={props.touched.currentCountry && props.errors.currentCountry}
                   items={countryList}
                   label={i18n.t('edit-profile.location.select-country')}

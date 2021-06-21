@@ -1,6 +1,6 @@
 import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -294,7 +294,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
               <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <Form>
                   <View style={{ marginHorizontal: 16 }}>
-                    <DropdownField
+                    <RadioInput
                       error={touched.isHealthcareStaff && errors.isHealthcareStaff}
                       items={healthcareStaffOptions}
                       label={i18n.t('are-you-healthcare-staff')}
@@ -391,7 +391,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                           </Item>
                         </FieldWrapper>
 
-                        <DropdownField
+                        <RadioInput
                           error={touched.hasPatientInteraction && errors.hasPatientInteraction}
                           items={patientInteractionOptions}
                           label={i18n.t('label-interacted-with-infected-patients')}
@@ -399,7 +399,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                           selectedValue={hasPatientInteraction}
                         />
 
-                        <DropdownField
+                        <RadioInput
                           error={touched.hasUsedPPEEquipment && errors.hasUsedPPEEquipment}
                           items={equipmentUsageOptions}
                           label={i18n.t('label-used-ppe-equipment')}
@@ -408,7 +408,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         />
 
                         {hasUsedPPEEquipment === 'always' ? (
-                          <DropdownField
+                          <RadioInput
                             error={touched.ppeAvailabilityAlways && errors.ppeAvailabilityAlways}
                             items={availabilityAlwaysOptions}
                             label={i18n.t('label-chose-an-option')}
@@ -418,7 +418,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         ) : null}
 
                         {hasUsedPPEEquipment === 'sometimes' ? (
-                          <DropdownField
+                          <RadioInput
                             error={touched.ppeAvailabilitySometimes && errors.ppeAvailabilitySometimes}
                             items={availabilitySometimesOptions}
                             label={i18n.t('label-chose-an-option')}
@@ -428,7 +428,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         ) : null}
 
                         {hasUsedPPEEquipment === 'never' ? (
-                          <DropdownField
+                          <RadioInput
                             error={touched.ppeAvailabilityNever && errors.ppeAvailabilityNever}
                             items={availabilityNeverOptions}
                             label={i18n.t('label-chose-an-option')}

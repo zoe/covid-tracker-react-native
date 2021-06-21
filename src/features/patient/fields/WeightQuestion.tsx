@@ -1,4 +1,4 @@
-import DropdownField from '@covid/components/DropdownField';
+import { DropdownField } from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
@@ -88,7 +88,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
           )}
           <View style={styles.secondaryField}>
             <DropdownField
-              onlyPicker
+              hideLabel
               items={[
                 { label: 'lbs', value: 'lbs' },
                 { label: 'kg', value: 'kg' },

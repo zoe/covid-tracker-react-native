@@ -1,4 +1,4 @@
-import DropdownField from '@covid/components/DropdownField';
+import { DropdownField } from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
@@ -89,7 +89,7 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
           )}
           <View style={styles.unitsField}>
             <DropdownField
-              onlyPicker
+              hideLabel
               items={[
                 { label: 'ft', value: 'ft' },
                 { label: 'cm', value: 'cm' },

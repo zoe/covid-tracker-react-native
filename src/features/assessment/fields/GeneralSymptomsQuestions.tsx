@@ -1,5 +1,5 @@
 import { CheckboxList } from '@covid/components/Checkbox';
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
@@ -110,8 +110,8 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
               />
             </View>
             <View style={styles.secondaryField}>
-              <DropdownField
-                onlyPicker
+              <RadioInput
+                hideLabel
                 error={formikProps.touched.temperatureUnit && formikProps.errors.temperatureUnit}
                 items={temperatureItems}
                 onValueChange={formikProps.handleChange('temperatureUnit')}

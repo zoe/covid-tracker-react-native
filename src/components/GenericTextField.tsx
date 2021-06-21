@@ -1,11 +1,10 @@
+import { FieldWrapper } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError } from '@covid/components/ValidationError';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { KeyboardTypeOptions, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
-
-import { FieldWrapper } from './Screen';
-import { RegularText } from './Text';
-import { ValidatedTextInput } from './ValidatedTextInput';
-import { ValidationError } from './ValidationError';
 
 interface IProps extends TextInputProps {
   formikProps: FormikProps<any>;

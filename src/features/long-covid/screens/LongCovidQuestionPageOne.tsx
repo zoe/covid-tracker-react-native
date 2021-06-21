@@ -4,13 +4,13 @@ import {
   CheckboxItem,
   CheckboxList,
   ColourHighlightHeaderTextText,
-  DropdownField,
   ErrorText,
   HeaderText,
   RegularText,
   TextareaWithCharCount,
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { homeScreenName, thankYouScreenName } from '@covid/core/localisation/LocalisationService';
 import { ILongCovid } from '@covid/features/long-covid/types';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -168,7 +168,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
           {renderBulletLine(i18n.t('long-covid.q2-info-4'))}
           {renderBulletLine(i18n.t('long-covid.q2-info-5'))}
         </View>
-        <DropdownField
+        <RadioInput
           error={props.touched.duration && props.errors.duration}
           items={dropdownItemsQ2}
           onValueChange={props.handleChange('duration')}
@@ -178,7 +178,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
 
         <View style={styles.hr} />
         <HeaderText>{i18n.t('long-covid.q3')}</HeaderText>
-        <DropdownField
+        <RadioInput
           error={props.touched.restriction && props.errors.restriction}
           items={dropdownItemsQ3}
           onValueChange={props.handleChange('restriction')}
@@ -205,7 +205,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
 
         {/* Have you had at least one COVID-19 vaccine done? */}
         <HeaderText>{i18n.t('long-covid.q18')}</HeaderText>
-        <DropdownField
+        <RadioInput
           error={props.touched.at_least_one_vaccine && props.errors.at_least_one_vaccine}
           items={dropdownItemsQ18}
           onValueChange={props.handleChange('at_least_one_vaccine')}
@@ -222,7 +222,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <View style={styles.hr} />
         {/* Did you have ongoing COVID-19 symptoms in the week before your first COVID-19 vaccine injection? */}
         <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q19')} />
-        <DropdownField
+        <RadioInput
           error={
             props.touched.ongoing_symptom_week_before_first_vaccine &&
             props.errors.ongoing_symptom_week_before_first_vaccine
@@ -236,7 +236,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <View style={styles.hr} />
         {/* Did your symptoms change 2 weeks (or more) after your first COVID-19 vaccine injection? */}
         <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q20')} />
-        <DropdownField
+        <RadioInput
           error={
             props.touched.symptom_change_2_weeks_after_first_vaccine &&
             props.errors.symptom_change_2_weeks_after_first_vaccine
@@ -251,7 +251,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         {/* Have your symptoms changed in the week after your vaccination (excluding the first 2 days)? */}
         <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q21')} />
         {symptomChangesKeyList.map((key: string) => (
-          <DropdownField
+          <RadioInput
             error={props.touched[key] && props.errors[key]}
             items={dropdownItemsSymptomsChangeSeverity}
             label={i18n.t(`long-covid.q21-${key}`)}
@@ -288,7 +288,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
             <ScrollView>
               <Form style={{ flexGrow: 1 }}>
                 <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
-                <DropdownField
+                <RadioInput
                   error={props.touched.had_covid && props.errors.had_covid}
                   items={dropdownItemsQ1}
                   onValueChange={props.handleChange('had_covid')}

@@ -1,5 +1,5 @@
 import { Button } from '@covid/components/buttons/Button';
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { ISchoolModel, ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import i18n from '@covid/locale/i18n';
@@ -40,7 +40,7 @@ function UniversityForm({ currentJoinedGroup, schools }: IProps) {
     >
       {(formikProps) => (
         <Form style={styles.formContainer}>
-          <DropdownField
+          <RadioInput
             error={formikProps.touched.schoolId && formikProps.errors.schoolId}
             items={schools.map((item) => ({ label: item.name, value: item.id }))}
             label={i18n.t('school-networks.join-school.dropdown.label-higher-education')}
