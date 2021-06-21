@@ -40,7 +40,6 @@ import {
   PrivacyPolicyUSScreen,
   ProfileBackDateScreen,
   RegisterScreen,
-  ReportForOtherScreen,
   ResetPasswordConfirmScreen,
   ResetPasswordScreen,
   SchoolDashboardScreen,
@@ -59,7 +58,6 @@ import {
   TrendlineScreen,
   VaccineDoseSymptomsScreen,
   VaccineFindInfoScreen,
-  VaccineHesitancyScreen,
   VaccineListScreen,
   VaccineLogSymptomsInfoScreen,
   Welcome1Screen,
@@ -142,7 +140,6 @@ export default function MainNavigator() {
       <Stack.Screen component={PrivacyPolicyUSScreen} name="PrivacyPolicyUS" options={simpleHeader} />
       <Stack.Screen component={ProfileBackDateScreen} name="ProfileBackDate" options={noHeader} />
       <Stack.Screen component={RegisterScreen} name="Register" options={noHeader} />
-      <Stack.Screen component={ReportForOtherScreen} name="ReportForOther" options={noHeader} />
       <Stack.Screen component={ResetPasswordConfirmScreen} name="ResetPasswordConfirm" options={noHeader} />
       <Stack.Screen component={ResetPasswordScreen} name="ResetPassword" options={noHeader} />
       <Stack.Screen component={SchoolDashboardScreen} name="SchoolDashboard" options={noHeader} />
@@ -160,7 +157,6 @@ export default function MainNavigator() {
       <Stack.Screen component={TrendlineScreen} name="Trendline" options={noHeader} />
       <Stack.Screen component={VaccineDoseSymptomsScreen} name="VaccineDoseSymptoms" options={noHeader} />
       <Stack.Screen component={VaccineFindInfoScreen} name="VaccineFindInfo" options={noHeader} />
-      <Stack.Screen component={VaccineHesitancyScreen} name="VaccineHesitancy" options={noHeader} />
       <Stack.Screen component={VaccineListScreen} name="VaccineList" options={noHeader} />
       <Stack.Screen component={VaccineLogSymptomsInfoScreen} name="VaccineLogSymptomsInfo" options={noHeader} />
       <Stack.Screen component={Welcome1Screen} name="Welcome" options={noHeader} />

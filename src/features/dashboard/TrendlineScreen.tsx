@@ -1,7 +1,6 @@
 import { BrandedButton } from '@covid/components';
 import { DeltaTag } from '@covid/components/cards/estimated-case/DeltaTag';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import { Tabs } from '@covid/components/nav/Tabs';
 import { BackButton } from '@covid/components/PatientHeader';
 import { Header } from '@covid/components/Screen';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/stats/TrendLineChart';
@@ -15,7 +14,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors, fontStyles } from '@theme';
 import * as Sharing from 'expo-sharing';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +27,6 @@ type Props = {
 export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const viewRef = useRef<View>(null);
-  const [timeFilter, setTimeFilter] = useState<TrendlineTimeFilters>(TrendlineTimeFilters.all);
   const trendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
     ...state.content.exploreTrendline,
   }));
@@ -66,16 +64,9 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
         ) : null}
 
         <View style={styles.chartContainer}>
-          <TrendLineChart filter={timeFilter} viewMode={TrendLineViewMode.explore} />
+          <TrendLineChart filter={TrendlineTimeFilters.all} viewMode={TrendLineViewMode.explore} />
         </View>
 
-        <Tabs
-          labels={['ALL', 'MONTH', 'WEEK']}
-          onSelected={(value, index) => {
-            setTimeFilter(value as TrendlineTimeFilters);
-          }}
-          styles={{ justifyContent: 'center', marginVertical: 32 }}
-        />
         <View style={styles.buttonsContainer}>
           <BrandedButton onPress={share} style={styles.detailsButton}>
             <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>

@@ -13,7 +13,7 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form, Text } from 'native-base';
+import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';

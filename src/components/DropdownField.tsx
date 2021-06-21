@@ -1,9 +1,9 @@
 import DropdownIcon from '@assets/icons/DropdownIcon';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import { Label, View } from 'native-base';
+import { Label } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text } from 'react-native';
+import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text, View } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { FieldWrapper } from './Screen';
@@ -95,6 +95,7 @@ export function DropdownField({
 
   const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
+  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220)
   const renderDropdownRow = (option: string, index: any, isSelected: boolean): React.ReactNode => {
     // There is a type error in renderDropdownRow index is actually a number, not a string
 
@@ -128,7 +129,7 @@ export function DropdownField({
         defaultIndex={defaultIndex}
         dropdownStyle={{
           ...styles.dropdownStyle,
-          height: Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220),
+          height: dropdownHeight,
           width: dropdownWidth,
         }}
         onDropdownWillHide={() => {

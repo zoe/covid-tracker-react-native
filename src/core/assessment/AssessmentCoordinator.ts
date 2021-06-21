@@ -83,9 +83,6 @@ export class AssessmentCoordinator extends Coordinator {
     ProfileBackDate: () => {
       this.startAssessment();
     },
-    ReportForOther: () => {
-      this.goToThankYouScreen();
-    },
     ThankYouSE: () => {
       NavigatorService.goBack();
     },
@@ -115,24 +112,10 @@ export class AssessmentCoordinator extends Coordinator {
         { name: 'HowYouFeel', params: { assessmentData: this.assessmentData } },
       ]);
     },
-    VaccineHesitancy: () => {
-      NavigatorService.reset([
-        { name: homeScreenName() },
-        { name: 'SelectProfile', params: { assessmentFlow: true } },
-        { name: 'HowYouFeel', params: { assessmentData: this.assessmentData } },
-      ]);
-    },
-    VaccineList: (params: {
-      shouldAskDoseSymptoms: boolean | undefined;
-      askVaccineHesitancy: boolean | undefined;
-      dose: string | undefined;
-    }) => {
+    VaccineList: (params: { shouldAskDoseSymptoms: boolean | undefined; dose: string | undefined }) => {
       if (params.shouldAskDoseSymptoms && params.dose) {
         // For 7 days after a dose, they'll have to log VaccineDoseSymptoms (shouldAskDoseSymptoms = True)
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, dose: params.dose });
-      } else if (params.askVaccineHesitancy) {
-        // Users without a Vaccine are asked about their VaccinePlans (aka VaccineHesitancy) once
-        NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
@@ -175,12 +158,7 @@ export class AssessmentCoordinator extends Coordinator {
   };
 
   gotoEndAssessment = async () => {
-    const config = this.localisationService.getConfig();
-    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
-      NavigatorService.navigate('ReportForOther');
-    } else {
-      this.goToThankYouScreen();
-    }
+    this.goToThankYouScreen();
   };
 
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
@@ -216,14 +194,6 @@ export class AssessmentCoordinator extends Coordinator {
       !currentPatient.hasBloodPressureAnswer ||
       !currentPatient.hasAtopyAnswers ||
       !currentPatient.hasBloodGroupAnswer
-    );
-  }
-
-  static async shouldShowReportForOthers(config: ConfigType, profileService: IProfileService) {
-    return (
-      config.enableMultiplePatients &&
-      !(await profileService.hasMultipleProfiles()) &&
-      (await profileService.shouldAskToReportForOthers())
     );
   }
 

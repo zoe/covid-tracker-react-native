@@ -841,13 +841,6 @@
   "create-profile-placeholder": "por ej., nombre, alias o relación",
   "create-profile-button": "Continuar",
 
-  "report-for-others-title": "¿Informa en nombre de alguien más?",
-  "report-for-others-text": "Ahora puede crear perfiles para otras personas para informar en su nombre.",
-  "report-for-others-add-profiles": "Agregar perfiles",
-  "report-for-others-subtext": "Ahora puede informar en nombre de alguien más.",
-  "report-for-others-not-right-now": "¿No ahora? Puede agregar perfiles adicionales en el ícono de menú en cualquier momento.",
-  "report-for-others-skip": "Omitir",
-
   "select-profile-title-assessment": "Seleccione el perfil para el que informará",
   "select-profile-title-edit": "Seleccione el perfil que desea editar",
   "select-profile-text": "O agregue más perfiles",
@@ -1197,25 +1190,6 @@
         "name-missing": "Edit to add vaccine name",
         "not-logged": "Not yet logged",
         "edit-vaccine": "Edit vaccine"
-      },
-
-      "hesitancy": {
-        "title": "Would you accept a COVID019 vaccine if offered?",
-        "check-all-that-apply": "Please tell us why (check all that apply):",
-        "vaccine-trial": "I took part on a vaccine trial",
-        "religious": "Religious reasons",
-        "philosophical": "Personal belief / philosophical reasons",
-        "pregnancy": "Pregnancy / breastfeeding",
-        "illness": "Illness / medication",
-        "safety-concern": "Concerned about long term side effects",
-        "bad-reaction": "Concerned about adverse reaction",
-        "do-not-know": "Do not know enough about it",
-        "unsure-is-working": "Do not think it will work",
-        "availability": "Do not think it will be available to me",
-        "unnecessary": "Do not think it is necessary",
-        "Other": "Other",
-        "not-to-say": "Prefer not to say",
-        "specify": "Please specify the other reason"
       }
     },
 

@@ -8,6 +8,7 @@ import {
   ErrorText,
   HeaderText,
   RegularText,
+  TextareaWithCharCount,
 } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { homeScreenName, thankYouScreenName } from '@covid/core/localisation/LocalisationService';
@@ -19,7 +20,7 @@ import { longCovidApiClient } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
-import { Form, Textarea } from 'native-base';
+import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
@@ -43,11 +44,11 @@ const renderBulletLine = (text: string) => (
 
 export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   const dropdownItemsQ1 = [
+    { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a1'), value: 'YES_TEST' },
     { label: i18n.t('long-covid.q1-a2'), value: 'YES_ADVICE' },
     { label: i18n.t('long-covid.q1-a3'), value: 'YES_SUSPICION' },
     { label: i18n.t('long-covid.q1-a4'), value: 'UNSURE' },
-    { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a6'), value: 'DECLINE_TO_SAY' },
   ];
 
@@ -148,7 +149,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
     </View>
   );
 
-  const renderError = (props: FormikProps<ILongCovid>, propertyKey: string) =>
+  const renderError = (props: FormikProps<ILongCovid>, propertyKey: keyof ILongCovid) =>
     props.touched[propertyKey] && props.errors[propertyKey] ? (
       <View style={{ marginBottom: 16 }}>
         <ErrorText>{props.errors[propertyKey]}</ErrorText>
@@ -262,14 +263,11 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
 
         {/* Do you have anything else to share regarding the evolution of your COVID-19 symptoms? */}
         <HeaderText style={{ marginBottom: 16 }}>{i18n.t('long-covid.comments')}</HeaderText>
-        <Textarea
+        <TextareaWithCharCount
           bordered
-          maxLength={1000}
           onChangeText={props.handleChange('symptom_change_comments')}
           placeholder={i18n.t('placeholder-optional-question')}
-          rowSpan={5}
           style={styles.textarea}
-          underline={false}
           value={props.values.symptom_change_comments}
         />
       </View>

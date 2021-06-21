@@ -1,7 +1,7 @@
 import rootReducer from '@covid/core/state/root';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import env from 'react-native-config';
+import { LogBox } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 
@@ -13,8 +13,11 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+// The middleware only runs in development mode of the app so it's safe to ignore the warning.
+LogBox.ignoreLogs(['ImmutableStateInvariantMiddleware took']);
+
 const store = configureStore({
-  devTools: env.NAME === 'Staging',
+  devTools: __DEV__,
   middleware: getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

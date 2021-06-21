@@ -15,9 +15,8 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import { View } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { USStudyInvite } from './partials/USStudyInvite';
@@ -28,7 +27,6 @@ type Props = {
 };
 
 export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [location, setLocation] = useState('');
   const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
@@ -86,7 +84,6 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
         assessmentService.saveAssessment(assessment);
       }
     } catch (error) {
-      setErrorMessage(i18n.t('something-went-wrong'));
       setIsSubmitting(false);
     }
   }

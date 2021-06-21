@@ -1,6 +1,5 @@
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { PatientStateType } from '@covid/core/patient/PatientState';
 import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
@@ -36,7 +35,6 @@ export type ScreenParamList = {
   OptionalInfo: undefined;
 
   // Profile screens
-  ReportForOther: undefined;
   SelectProfile: { assessmentFlow: boolean };
   CreateProfile: { avatarName: string };
   AdultOrChild: { profileName: string; avatarName?: string };
@@ -74,7 +72,6 @@ export type ScreenParamList = {
 
   // Vaccines
   VaccineDoseSymptoms: { assessmentData: AssessmentData; dose: string };
-  VaccineHesitancy: { assessmentData: AssessmentData };
   VaccineList: { assessmentData: AssessmentData };
   AboutYourVaccine: { assessmentData: AssessmentData; editIndex?: number };
   VaccineLogSymptomsInfo: { assessmentData: AssessmentData };

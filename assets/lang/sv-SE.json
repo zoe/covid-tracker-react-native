@@ -614,14 +614,7 @@
 
   "answer-for": "Svara åt %{name}",
   "profile-name-too-long": "Ange ett profilnamn med färre än 32 tecken",
-
-  "report-for-others-title": "Rapporterar du åt någon annan?",
-  "report-for-others-text": "Du kan nu skapa profiler för andra personer som du vill rapportera åt.",
-  "report-for-others-add-profiles": "Lägg till profiler",
-  "report-for-others-subtext": "Du kan nu rapportera å någon annans vägnar.",
-  "report-for-others-not-right-now": "Inte just nu? Du kan när som helst lägga till ytterligare profiler från menyikonen ovan.",
-  "report-for-others-skip": "Hoppa över",
-
+  
   "select-profile-title-assessment": "Välj den profil du vill rapportera åt",
   "select-profile-title-edit": "Välj den profil du vill redigera",
   "select-profile-text": "Eller lägg till fler profiler",
@@ -1110,24 +1103,6 @@
       "other-info": "Ange endast symtom i närheten av injektionsplatsen (förmodligen din arm). Vi frågar om allmäna symtom i nästa avsnitt.",
       "other-placeholder": "Beskriv dina symtom här...",
       "next": "Nästa"
-    },
-    "hesitancy": {
-      "title": "Skulle du vaccinera dig mot COVID-19 om/när du erbjuds vaccination?",
-      "check-all-that-apply": "Berätta gärna varför (markera alla som stämmer):",
-      "vaccine-trial": "",
-      "religious": "Personliga övertygelser",
-      "philosophical": "Personliga övertygelser/filosofiska skäl",
-      "pregnancy": "Gravid/ammar",
-      "illness": "Sjukdom/medicinering",
-      "safety-concern": "Orolig för långsiktiga biverkningar",
-      "bad-reaction": "Orolig för kortsiktiga biverkningar",
-      "do-not-know": "Vet inte tillräckligt om det",
-      "unsure-is-working": "Tror inte att det kommer att fungera",
-      "availability": "Tror inte att jag kommer att erbjudas vaccination",
-      "unnecessary": "Tycker inte att det är nödvändigt",
-      "Other": "Annat",
-      "not-to-say": "Föredrar att inte berätta",
-      "specify": ""
     },
     "log-symptoms": {
       "title": "Varför är det så viktigt att fortsätta att rapportera symtom även efter vaccination?",

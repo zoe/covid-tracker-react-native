@@ -1,132 +1,98 @@
-import { notificationReminders } from '@assets';
 import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/components';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { IConsentService } from '@covid/core/consent/ConsentService';
-import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
-import store from '@covid/core/state/store';
+import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { ImpactTimelineCard } from '@covid/features/anniversary';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { BigGreenTickFilled } from './components/BigGreenTick';
 
-type RenderProps = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
   route: RouteProp<ScreenParamList, 'ThankYouUK'>;
-};
+}
 
-type State = {
-  askForRating: boolean;
-  shouldShowReminders: boolean;
-  showTimelineCard: boolean;
-};
+export default function ThankYouUKScreen({ navigation, route }: IProps) {
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
+  const [askForRating, setAskForRating] = useState<boolean>(false);
 
-const initialState = {
-  askForRating: false,
-  shouldShowReminders: false,
-  showTimelineCard: false,
-};
+  useEffect(() => {
+    (async () => {
+      try {
+        const ratingAskResponse = await shouldAskForRating();
+        setAskForRating(ratingAskResponse);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(`Ask for rating call failed with error: ${e}`);
+      }
+    })();
+  }, []);
 
-export default class ThankYouUKScreen extends Component<RenderProps, State> {
-  @lazyInject(Services.Consent)
-  private consentService: IConsentService;
-
-  private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
-
-  state = initialState;
-
-  async componentDidMount() {
-    this.setState({
-      askForRating: await shouldAskForRating(),
-      shouldShowReminders: !(await this.pushService.isGranted()),
-    });
-  }
-
-  render() {
-    const { startupInfo } = store.getState().content;
-
-    return (
-      <>
-        {this.state.askForRating && <AppRating />}
-        <SafeAreaView>
-          <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.rootContainer}>
-              <View style={{ marginTop: 24 }}>
-                <BigGreenTickFilled />
-              </View>
-
-              <Header>
-                <HeaderText style={styles.headerText}>{i18n.t('thank-you-uk.title')}</HeaderText>
-              </Header>
-
-              <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
-
-              {startupInfo?.show_timeline ? (
-                <ImpactTimelineCard
-                  onPress={() => {
-                    Analytics.track(events.ANNIVERSARY_FROM_THANKYOU);
-                    appCoordinator.goToAnniversary();
-                  }}
-                  size="LARGE"
-                />
-              ) : null}
-
-              <FeaturedContentList screenName={this.props.route.name} type={FeaturedContentType.ThankYou} />
-
-              {this.state.shouldShowReminders ? (
-                <ExternalCallout
-                  aspectRatio={1244.0 / 368.0}
-                  calloutID="notificationReminders"
-                  imageSource={notificationReminders}
-                  postClicked={() => {
-                    PushNotificationService.openSettings();
-                  }}
-                  screenName={this.props.route.name}
-                />
-              ) : null}
-
-              <View style={{ margin: 10 }} />
-
-              <ShareAppCard />
-
-              <BrandedButton
-                onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
-                style={styles.ctaSingleProfile}
-              >
-                <RegularText style={styles.ctaSingleProfileText}>
-                  {i18n.t('thank-you-uk.cta-single-profile')}
-                </RegularText>
-              </BrandedButton>
-
-              <View style={styles.ctaMultipleProfile}>
-                <ClickableText
-                  onPress={() => assessmentCoordinator.gotoSelectProfile()}
-                  style={styles.ctaMultipleProfileText}
-                >
-                  {i18n.t('thank-you-uk.cta-multi-profile')}
-                </ClickableText>
-              </View>
+  return (
+    <>
+      {askForRating && <AppRating />}
+      <SafeAreaView>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.rootContainer}>
+            <View style={{ marginTop: 24 }}>
+              <BigGreenTickFilled />
             </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    );
-  }
+
+            <Header>
+              <HeaderText style={styles.headerText}>{i18n.t('thank-you-uk.title')}</HeaderText>
+            </Header>
+
+            <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
+
+            <FeaturedContentList screenName={route.name} type={FeaturedContentType.ThankYou} />
+
+            {startupInfo?.show_timeline ? (
+              <ImpactTimelineCard
+                onPress={() => {
+                  Analytics.track(events.ANNIVERSARY_FROM_THANKYOU);
+                  appCoordinator.goToAnniversary();
+                }}
+                size="LARGE"
+              />
+            ) : null}
+
+            <View style={{ margin: 6 }} />
+
+            <ShareAppCard />
+
+            <BrandedButton
+              onPress={() => assessmentCoordinator.gotoNextScreen(route.name)}
+              style={styles.ctaSingleProfile}
+            >
+              <RegularText style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</RegularText>
+            </BrandedButton>
+
+            <View style={styles.ctaMultipleProfile}>
+              <ClickableText
+                onPress={() => assessmentCoordinator.gotoSelectProfile()}
+                style={styles.ctaMultipleProfileText}
+              >
+                {i18n.t('thank-you-uk.cta-multi-profile')}
+              </ClickableText>
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -173,6 +139,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   signOff: {
+    marginBottom: 16,
     marginHorizontal: 16,
     textAlign: 'center',
   },

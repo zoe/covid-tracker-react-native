@@ -1,6 +1,6 @@
 import { styling } from '@covid/themes';
 import React from 'react';
-import { SafeAreaView, StyleProp, View, ViewStyle } from 'react-native';
+import { SafeAreaView, StyleProp, ViewStyle } from 'react-native';
 
 interface IProps {
   children: React.ReactNode;

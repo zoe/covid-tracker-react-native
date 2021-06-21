@@ -11,9 +11,7 @@ const USER_COUNTRY = 'userCountry';
 const CONSENT_SIGNED = 'consentSigned';
 const PUSH_TOKEN = 'pushToken';
 const DIET_STUDY_CONSENT = 'dietStudyConsent';
-
 const ASKED_COUNTRY = 'askedCountry';
-const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers';
 
 export const PERSONALISED_LOCAL_DATA = 'personalisedLocalData';
 export const DISMISSED_CALLOUTS = 'dismissedCallouts';
@@ -94,20 +92,6 @@ export class AsyncStorageService {
     if (askedCountry == null) return false;
 
     return JSON.parse(askedCountry) as boolean;
-  }
-
-  static async getAskedToReportForOthers() {
-    try {
-      return await AsyncStorage.getItem(ASKED_TO_REPORT_FOR_OTHERS);
-    } catch (err) {
-      return null;
-    }
-  }
-
-  static async setAskedToReportForOthers(count: string) {
-    try {
-      await AsyncStorage.setItem(ASKED_TO_REPORT_FOR_OTHERS, count);
-    } catch (err) {}
   }
 
   static async getAskedToRateStatus() {

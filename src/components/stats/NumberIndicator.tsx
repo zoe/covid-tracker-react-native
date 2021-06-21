@@ -1,7 +1,6 @@
 import { colors } from '@theme';
-import { View } from 'native-base';
 import React from 'react';
-import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 interface IProps {
   number?: number;

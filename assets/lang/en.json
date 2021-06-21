@@ -672,13 +672,6 @@
   "create-profile-placeholder": "e.g. name, nickname or relation",
   "create-profile-button": "Continue",
 
-  "report-for-others-title": "Reporting on behalf of someone else?",
-  "report-for-others-text": "You can now create profiles for other people on whose behalf you want to report.",
-  "report-for-others-add-profiles": "Add profiles",
-  "report-for-others-subtext": "You can now report on behalf of someone else.",
-  "report-for-others-not-right-now": "Not right now? You can add additional profiles from the menu icon above at any time.",
-  "report-for-others-skip": "Skip",
-
   "select-profile-title-assessment": "Select profile you want to report for",
   "select-profile-title-edit": "Select profile you want to edit",
   "select-profile-text": "Or add more profiles",
@@ -1122,25 +1115,6 @@
       "name-missing": "Edit to add vaccine name",
       "not-logged": "Not yet logged",
       "edit-vaccine": "Edit vaccine"
-    },
-
-    "hesitancy": {
-      "title": "Would you accept a COVID-19 vaccine if offered?",
-      "check-all-that-apply": "Please tell us why (check all that apply):",
-      "vaccine-trial": "I took part on a vaccine trial",
-      "religious": "Religious reasons",
-      "philosophical": "Personal belief / philosophical reasons",
-      "pregnancy": "Pregnancy / breastfeeding",
-      "illness": "Illness / medication",
-      "safety-concern": "Concerned about long term side effects",
-      "bad-reaction": "Concerned about adverse reaction",
-      "do-not-know": "Do not know enough about it",
-      "unsure-is-working": "Do not think it will work",
-      "availability": "Do not think it will be available to me",
-      "unnecessary": "Do not think it is necessary",
-      "Other": "Other",
-      "not-to-say": "Prefer not to say",
-      "specify": "Please specify the other reason"
     }
   },
 

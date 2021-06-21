@@ -1,4 +1,4 @@
-import { BrandedButton } from '@covid/components';
+import { BrandedButton, TextareaWithCharCount } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
@@ -10,7 +10,7 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form, Item, Label, Text, Textarea } from 'native-base';
+import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
@@ -81,15 +81,13 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
             return (
               <Form>
                 <FieldWrapper style={{ marginVertical: 64 }}>
-                  <Item stackedLabel>
+                  <Item stackedLabel style={{ borderBottomWidth: 0 }}>
                     <Label style={{ marginBottom: 16 }}>{question}</Label>
-                    <Textarea
+                    <TextareaWithCharCount
                       bordered
                       onChangeText={props.handleChange('description')}
                       placeholder={i18n.t('placeholder-optional-question')}
-                      rowSpan={5}
                       style={styles.textarea}
-                      underline={false}
                       value={props.values.description}
                     />
                   </Item>

@@ -2,7 +2,7 @@ import { RegularText } from '@covid/components/Text';
 import { ISchoolGroupModel } from '@covid/core/schools/Schools.dto';
 import { colors } from '@theme';
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type Props = {
   onPress: VoidFunction;

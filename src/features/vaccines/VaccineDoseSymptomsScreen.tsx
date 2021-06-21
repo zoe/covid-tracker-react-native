@@ -13,7 +13,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
-import { Form, Text } from 'native-base';
+import { Form } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
@@ -41,7 +41,6 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
         setErrorMessage(i18n.t('something-went-wrong'));
         // TODO Show error message toast?
       } finally {
-        // TODO Not sure this is the right behaviour. Discuss what to do on error....
         assessmentCoordinator.gotoNextScreen(route.name);
       }
     }

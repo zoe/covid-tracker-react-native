@@ -1,5 +1,5 @@
 import Star from '@assets/mental-health-playback/Star';
-import { BasicPage, Text } from '@covid/components';
+import { BasicPage, Text, TextareaWithCharCount } from '@covid/components';
 import Card from '@covid/components/cards/Card';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
@@ -7,7 +7,6 @@ import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
 import { grid, styling } from '@covid/themes';
 import lodash from 'lodash';
-import { Textarea } from 'native-base';
 import React, { useState } from 'react';
 import { LayoutChangeEvent, TouchableOpacity, View } from 'react-native';
 
@@ -99,12 +98,9 @@ export default function MHPRatingScreen() {
         >
           {i18n.t('mental-health-playback.rating.feedback')}
         </Text>
-        <Textarea
-          bordered={false}
+        <TextareaWithCharCount
           onChangeText={setComments}
-          rowSpan={5}
           style={[styling.textarea, styling.marginBottomAuto]}
-          underline={false}
           value={comments}
         />
       </View>
