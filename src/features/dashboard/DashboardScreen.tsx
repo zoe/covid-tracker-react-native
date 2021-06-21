@@ -5,7 +5,6 @@ import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMap
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import ModalZoe from '@covid/components/ModalZoe';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
@@ -15,6 +14,7 @@ import { selectApp, setDashboardHasBeenViewed } from '@covid/core/state';
 import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { MentalHealthPlaybackModal } from '@covid/features';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -29,7 +29,6 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import MentalHealthPlaybackModal from '../mental-health-playback/MentalHealthPlaybackModal';
 import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
 import { CompactHeader, Header } from './Header';
 
@@ -183,14 +182,10 @@ export function DashboardScreen({ navigation, route }: IProps) {
           </View>
         ) : null}
 
-        <ModalZoe
-          closeModalHandler={() => {
-            setMentalHealthPlaybackModalVisible(false);
-          }}
+        <MentalHealthPlaybackModal
+          closeModalHandler={() => setMentalHealthPlaybackModalVisible(false)}
           showModal={mentalHealthPlaybackModalVisible}
-        >
-          <MentalHealthPlaybackModal closeModalHandler={() => setMentalHealthPlaybackModalVisible(false)} />
-        </ModalZoe>
+        />
       </View>
 
       <View style={styles.zoe}>

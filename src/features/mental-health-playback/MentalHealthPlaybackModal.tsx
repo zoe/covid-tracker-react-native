@@ -1,5 +1,5 @@
 import { QuoteMarks } from '@assets';
-import { BrandedButton, DoctorProfile, Tag, Text } from '@covid/components';
+import { BrandedButton, DoctorProfile, ModalZoe, Tag, Text } from '@covid/components';
 import { events, track } from '@covid/core/Analytics';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -9,14 +9,15 @@ import i18n from '@covid/locale/i18n';
 import { generalApiClient } from '@covid/Services';
 import { colors, styling } from '@covid/themes';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 interface IProps {
   closeModalHandler: () => void;
+  showModal: boolean;
 }
 
-export default function MentalHealthPlaybackModal({ closeModalHandler }: IProps) {
+export default function MentalHealthPlaybackModal({ closeModalHandler, showModal }: IProps) {
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const [tracked, setTracked] = useState(false);
 
@@ -39,7 +40,7 @@ export default function MentalHealthPlaybackModal({ closeModalHandler }: IProps)
   }
 
   return (
-    <View>
+    <ModalZoe closeModalHandler={closeModalHandler} showModal={showModal}>
       <Tag
         color={colors.coral.main.bgColor}
         style={styling.selfCenter}
@@ -73,7 +74,7 @@ export default function MentalHealthPlaybackModal({ closeModalHandler }: IProps)
       <BrandedButton onPress={handleNegative} style={styles.buttonNegative}>
         <Text textClass="pSmallLight">{i18n.t('mental-health-playback.modal.button-negative')}</Text>
       </BrandedButton>
-    </View>
+    </ModalZoe>
   );
 }
 
