@@ -21,7 +21,7 @@ _Please attach screenshots showing the change if relevant_
 
 ## Checklist (for reviewers)
 
-- [ ] Checked against Figma designs
+- [ ] Checked against Figma designs (if relevant)
 - [ ] Checked that data has been successfully saved to the backend (if relevant)
 
 ## Out of scope and potential follow-up
