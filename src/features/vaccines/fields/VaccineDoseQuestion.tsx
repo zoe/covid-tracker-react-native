@@ -28,8 +28,9 @@ export interface IVaccineDoseData {
 }
 
 interface IProps {
-  formikProps: FormikProps<IVaccineDoseData>;
   firstDose: boolean;
+  formikProps: FormikProps<IVaccineDoseData>;
+  testID?: string;
 }
 
 interface IVaccineDoseQuestion<P, Data> extends React.FC<P> {
@@ -86,6 +87,7 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
         minDate={minDate}
         onDateChange={setDoseDate}
         selectedStartDate={dateField}
+        testID="input-dose-date"
       />
     );
   };
@@ -103,7 +105,7 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
 
     return (
       <>
-        <TouchableOpacity onPress={() => setShowPicker(true)} style={styles.dateBox}>
+        <TouchableOpacity onPress={() => setShowPicker(true)} style={styles.dateBox} testID="button-calendar-picker">
           <CalendarIcon />
           {dateField ? (
             <RegularText style={{ marginStart: 8 }}>{moment(dateField).format('MMMM D, YYYY')}</RegularText>
@@ -153,7 +155,7 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
   };
 
   return (
-    <>
+    <View testID={props.testID}>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
           <VaccineNameQuestion firstDose={props.firstDose} formikProps={formikProps as FormikProps<IVaccineDoseData>} />
@@ -164,7 +166,7 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
       </View>
       <RegularText>{i18n.t('vaccines.your-vaccine.label-batch')}</RegularText>
       {renderBatchNumber()}
-    </>
+    </View>
   );
 };
 

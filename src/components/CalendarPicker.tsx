@@ -14,6 +14,7 @@ const ZoeCalendarPicker = (props: CalendarPickerProps) => (
       selectedDayTextColor={colors.white}
       selectedRangeStyle={styles.selectedRange}
       startFromMonday={!isUSCountry()}
+      testID={props.testID}
       todayBackgroundColor="transparent"
       todayTextStyle={styles.today}
       width={screenWidth - 16}

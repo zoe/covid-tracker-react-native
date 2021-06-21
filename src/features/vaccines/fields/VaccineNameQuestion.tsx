@@ -9,8 +9,8 @@ import { View } from 'react-native';
 import { IVaccineDoseData } from './VaccineDoseQuestion';
 
 interface IProps {
-  formikProps: FormikProps<IVaccineDoseData>;
   firstDose?: boolean;
+  formikProps: FormikProps<IVaccineDoseData>;
 }
 
 export interface IVaccineNameQuestion<P, Data> extends React.FC<P> {
@@ -66,6 +66,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
         onValueChange={props.formikProps.handleChange(brandString)}
         placeholder={i18n.t('vaccines.your-vaccine.label-name')}
         selectedValue={brandField}
+        testID="input-your-vaccin"
       />
     );
   };

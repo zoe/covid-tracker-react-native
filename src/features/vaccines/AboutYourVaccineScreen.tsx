@@ -158,13 +158,13 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
   const renderFirstDoseUI = (props: FormikProps<IVaccineDoseData>) => (
     <>
       <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-      <VaccineDoseQuestion firstDose formikProps={props as FormikProps<IVaccineDoseData>} />
+      <VaccineDoseQuestion firstDose formikProps={props as FormikProps<IVaccineDoseData>} testID="vaccine-first-dose-question" />
     </>
   );
 
   const renderSecondDoseUI = (props: FormikProps<IVaccineDoseData>) =>
     vaccineOrFormHasSecondDose() ? (
-      <VaccineDoseQuestion firstDose={false} formikProps={props as FormikProps<IVaccineDoseData>} />
+      <VaccineDoseQuestion firstDose={false} formikProps={props as FormikProps<IVaccineDoseData>} testID="vaccine-second-dose-question" />
     ) : null;
 
   const renderFindInfoLink = (
@@ -220,7 +220,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
     ) : null;
 
   return (
-    <Screen navigation={navigation} profile={assessmentData.patientData.profile}>
+    <Screen navigation={navigation} profile={assessmentData.patientData.profile} testID="about-your-vaccine-screen">
       <Header>
         <HeaderText>{i18n.t('vaccines.your-vaccine.title')}</HeaderText>
       </Header>
@@ -254,6 +254,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                         setHasSecondDose(value);
                       }}
                       selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
+                      testID="has-second-dose"
                     />
                     {renderSecondDoseUI(props)}
                   </>
@@ -264,7 +265,9 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                 <ValidationError error={i18n.t('validation-error-text')} style={{ marginBottom: 32 }} />
               ) : null}
 
-              <BrandedButton onPress={props.handleSubmit}>{i18n.t('vaccines.your-vaccine.confirm')}</BrandedButton>
+              <BrandedButton onPress={props.handleSubmit} testID="button-submit">
+                {i18n.t('vaccines.your-vaccine.confirm')}
+              </BrandedButton>
               {renderDeleteButton()}
             </Form>
           );

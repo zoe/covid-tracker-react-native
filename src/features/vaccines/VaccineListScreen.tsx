@@ -118,7 +118,11 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     return (
       <>
         {vaccines.length === 0 && (
-          <BrandedButton onPress={() => coordinator.goToAddEditVaccine()} style={styles.newButton}>
+          <BrandedButton
+            onPress={() => coordinator.goToAddEditVaccine()}
+            style={styles.newButton}
+            testID="button-add-vaccine"
+          >
             <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
           </BrandedButton>
         )}
