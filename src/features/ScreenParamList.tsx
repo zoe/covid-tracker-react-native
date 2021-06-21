@@ -99,7 +99,6 @@ export type ScreenParamList = {
   JoinHigherEducation: { patientData: PatientData };
 
   // Diet study
-  DietStudyModal: undefined;
   DietStudy: undefined;
   DietStudyGlobal: undefined;
   DietStudyGut: undefined;
