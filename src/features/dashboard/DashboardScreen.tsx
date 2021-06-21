@@ -5,6 +5,7 @@ import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMap
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
+import ModalZoe from '@covid/components/ModalZoe';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
@@ -18,7 +19,6 @@ import appCoordinator from '@covid/features/AppCoordinator';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import NavigatorService from '@covid/NavigatorService';
 import { pushNotificationService } from '@covid/Services';
 import { colors, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
@@ -29,6 +29,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import MentalHealthPlaybackModal from '../mental-health-playback/MentalHealthPlaybackModal';
 import { CollapsibleHeaderScrollView } from './CollapsibleHeaderScrollView';
 import { CompactHeader, Header } from './Header';
 
@@ -49,6 +50,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
+  const [mentalHealthPlaybackModalVisible, setMentalHealthPlaybackModalVisible] = useState(false);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -71,7 +73,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   const runCurrentFeature = () => {
     if (startupInfo?.show_modal === 'mental-health-playback') {
-      NavigatorService.navigate('MentalHealthPlaybackModal');
+      setMentalHealthPlaybackModalVisible(true);
     }
   };
 
@@ -180,6 +182,15 @@ export function DashboardScreen({ navigation, route }: IProps) {
             <SchoolNetworks schoolGroups={networks!} />
           </View>
         ) : null}
+
+        <ModalZoe
+          closeModalHandler={() => {
+            setMentalHealthPlaybackModalVisible(false);
+          }}
+          showModal={mentalHealthPlaybackModalVisible}
+        >
+          <MentalHealthPlaybackModal closeModalHandler={() => setMentalHealthPlaybackModalVisible(false)} />
+        </ModalZoe>
       </View>
 
       <View style={styles.zoe}>
