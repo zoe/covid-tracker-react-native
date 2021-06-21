@@ -38,3 +38,4 @@ We're trying to standardise how we write our code, to make it as easy as possibl
 - Airbnb's eslint plugin with Typescript: [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript)
 - Prefacing Typescript types and interface names with `T` and `I` respectively. e.g. ` type TComponentNameProps = {}`
 - Using `const styles = StyleSheet.create({})` to store all CSS styles pertaining to a specific component
+- We follow the TypeScript for React community style guide from: [`typescript-cheatsheets/react`](https://github.com/typescript-cheatsheets/react)
