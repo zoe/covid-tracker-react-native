@@ -1,12 +1,12 @@
 import { BrandedButton } from '@covid/components';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
-import { HeaderText, SecondaryText } from '@covid/components/Text';
+import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
@@ -56,19 +56,22 @@ export default class CreateProfileScreen extends Component<RenderProps> {
             return this.handleClick(values);
           }}
           validationSchema={this.registerSchema}
+          validateOnChange={true}
+          validateOnBlur={true}
+          validateOnMount={true}
         >
           {(props) => {
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
                   <GenericTextField
+                    required={true}
                     formikProps={props}
                     name="name"
                     placeholder={i18n.t('create-profile-placeholder')}
                   />
-                </View>
-
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
+                </View> 
+                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
               </Form>
             );
           }}
