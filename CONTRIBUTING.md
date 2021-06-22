@@ -36,10 +36,10 @@ Now that we've excluded a few things, let's discuss what would be great contribu
 We're trying to standardise how we write our code, to make it as easy as possible for others to contribute. Here are some of the standards we use:
 
 - Airbnb's eslint plugin with Typescript: [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript)
-- Define components using the `function` syntax (rather than `const` arrow functions), and destructure props e.g.
+- Define components using the `function` syntax (rather than `const` arrow functions) e.g.
 
 ```jsx
-export default function CovidTestConfirmScreen({ navigation, route }: IProps) {
+export default function CovidTestConfirmScreen(props: IProps) {
   // ...
   return (
     // ...
