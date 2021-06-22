@@ -3,9 +3,53 @@ import { colors } from '@theme/colors';
 import { Item } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-
+import { requiredFormMarker } from '@covid/components/Forms'
 import { RegularText } from './Text';
 import { ITest } from './types';
+
+interface ICheckboxProps extends ITest {
+  value: boolean;
+  onChange: (value: boolean) => void;
+  children: React.ReactNode;
+  dark?: boolean;
+}
+
+interface ICheckboxListProps {
+  children: React.ReactNode;
+  label?: string;
+  required?: boolean;
+}
+
+export function CheckboxItem(props: ICheckboxProps) {
+  return (
+    <Item style={styles.checkboxRow}>
+      <TouchableOpacity
+        accessible
+        accessibilityRole="checkbox"
+        onPress={() => props.onChange(!props.value)}
+        style={props.dark ? styles.checkBoxDark : styles.checkBox}
+      >
+        {props.value ? <Check /> : null}
+      </TouchableOpacity>
+      <Item onPress={() => props.onChange(!props.value)} style={styles.checkBoxText}>
+        <RegularText style={{ ...styles.checkboxLabel }}>{props.children}</RegularText>
+      </Item>
+    </Item>
+  );
+}
+
+export function CheckboxList({ children, label, required }: ICheckboxListProps) {
+    const renderLabel = () => required ?
+      <RegularText>
+        {required ? `${requiredFormMarker} ` : null }{label}
+      </RegularText> 
+      : null;
+
+  return <View style={styles.checkboxList}>
+    {renderLabel()}
+    {children}
+  </View>;
+}
 
 const checkBoxStyle: ViewStyle = {
   alignItems: 'center',
@@ -43,36 +87,3 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
 });
-
-interface ICheckboxProps extends ITest {
-  value: boolean;
-  onChange: (value: boolean) => void;
-  children: React.ReactNode;
-  dark?: boolean;
-}
-
-interface ICheckboxListProps {
-  children: React.ReactNode;
-}
-
-export function CheckboxItem(props: ICheckboxProps) {
-  return (
-    <Item style={styles.checkboxRow}>
-      <TouchableOpacity
-        accessible
-        accessibilityRole="checkbox"
-        onPress={() => props.onChange(!props.value)}
-        style={props.dark ? styles.checkBoxDark : styles.checkBox}
-      >
-        {props.value ? <Check /> : null}
-      </TouchableOpacity>
-      <Item onPress={() => props.onChange(!props.value)} style={styles.checkBoxText}>
-        <RegularText style={{ ...styles.checkboxLabel }}>{props.children}</RegularText>
-      </Item>
-    </Item>
-  );
-}
-
-export function CheckboxList({ children }: ICheckboxListProps) {
-  return <View style={styles.checkboxList}>{children}</View>;
-}
