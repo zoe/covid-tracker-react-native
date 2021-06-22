@@ -129,7 +129,6 @@ export type ScreenParamList = {
   Trendline: { lad?: string };
 
   Anniversary: undefined;
-  AnniversaryModal: undefined;
 
   LongCovidStart: { patientData: PatientData };
   LongCovidQuestionPageOne: { patientData: PatientData };
