@@ -19,12 +19,12 @@ export const FieldError = (props: FieldProps) => (
 
 export const requiredFormMarker = `*`;
 
-type FormWrapperProps = {
+type TFormWrapperProps = {
   children: React.ReactNode;
   hasRequiredFields?: boolean;
 };
 
-export const FormWrapper = (props: FormWrapperProps) => (
+export const FormWrapper = (props: TFormWrapperProps) => (
   <Form>
       { props.hasRequiredFields ? (
         <RegularText style={styles.requiredFieldHeader}>
