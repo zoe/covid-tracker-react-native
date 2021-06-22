@@ -21,7 +21,7 @@ export const requiredFormMarker = `*`;
 
 type FormWrapperProps = {
   children: React.ReactNode;
-  hasRequiredFields: boolean;
+  hasRequiredFields?: boolean;
 };
 
 export const FormWrapper = (props: FormWrapperProps) => (

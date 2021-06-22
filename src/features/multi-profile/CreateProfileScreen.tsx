@@ -1,4 +1,5 @@
 import { BrandedButton } from '@covid/components';
+import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
@@ -62,7 +63,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
         >
           {(props) => {
             return (
-              <Form>
+              <FormWrapper hasRequiredFields={true}>
                 <View style={{ marginHorizontal: 16 }}>
                   <GenericTextField
                     required={true}
@@ -72,7 +73,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
                   />
                 </View> 
                 <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
-              </Form>
+              </FormWrapper>
             );
           }}
         </Formik>
