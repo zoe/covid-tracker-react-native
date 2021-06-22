@@ -1,9 +1,10 @@
 import { BrandedButton } from '@covid/components';
 import DropdownField from '@covid/components/DropdownField';
+import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { ErrorText, HeaderText } from '@covid/components/Text';
+import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
 import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
@@ -22,7 +23,6 @@ import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
@@ -37,7 +37,6 @@ const initialFormValues = {
   genderIdentityDescription: '',
   helpAvailable: 'no',
   houseboundProblems: 'no',
-
   mobilityAid: 'no',
   needsHelp: 'no',
   postcode: '',
@@ -50,9 +49,7 @@ export interface IAboutYouData extends IRaceEthnicityData, IHeightData, IWeightD
   sex: string;
   genderIdentity: string;
   genderIdentityDescription: string;
-
   postcode: string;
-
   everExposed: string;
   houseboundProblems: string;
   needsHelp: string;
@@ -68,15 +65,8 @@ type AboutYouProps = {
 type State = {
   errorMessage: string;
   enableSubmit: boolean;
-
   showRaceQuestion: boolean;
   showEthnicityQuestion: boolean;
-};
-
-const checkFormFilled = (props: FormikProps<IAboutYouData>) => {
-  if (Object.keys(props.errors).length) return false;
-  if (Object.keys(props.values).length === 0) return false;
-  return true;
 };
 
 const initialState: State = {
@@ -369,32 +359,37 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             return this.handleUpdateHealth(values);
           }}
           validationSchema={this.registerSchema}
+          validateOnMount={true}
+          validateOnChange={true}
         >
           {(props) => {
             const isMinor = isMinorAge(cleanIntegerVal(props.values.yearOfBirth));
 
             return (
-              <Form>
+              <FormWrapper hasRequiredFields={true}>
                 <View style={{ marginHorizontal: 16 }}>
                   <GenericTextField
                     showError
                     formikProps={props}
                     keyboardType="numeric"
                     label={i18n.t('what-year-were-you-born')}
-                    name="yearOfBirth"
                     placeholder={i18n.t('placeholder-year-of-birth')}
+                    name="yearOfBirth"
+                    required={true}
                   />
 
                   <DropdownField
+                    required={true}
                     error={props.touched.sex && props.errors.sex}
                     items={sexAtBirthItems}
                     label={i18n.t('your-sex-at-birth')}
-                    onValueChange={props.handleChange('sex')}
                     placeholder={i18n.t('placeholder-sex')}
+                    onValueChange={props.handleChange('sex')}
                     selectedValue={props.values.sex}
                   />
 
                   <DropdownField
+                    required={true}
                     error={props.touched.genderIdentity && props.errors.genderIdentity}
                     items={genderIdentityItems}
                     label={i18n.t('label-gender-identity')}
@@ -423,6 +418,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                   {!this.props.route.params.editing ? (
                     <GenericTextField
+                      required={true}
                       showError
                       formikProps={props}
                       inputProps={{ autoCompleteType: 'postal-code' }}
@@ -433,6 +429,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   ) : null}
 
                   <DropdownField
+                    required={true}
                     error={props.touched.everExposed && props.errors.everExposed}
                     items={everExposedItems}
                     label={i18n.t('have-you-been-exposed')}
@@ -475,13 +472,13 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </View>
 
                 <BrandedButton
-                  enable={checkFormFilled(props)}
+                  enable={props.isValid}
                   hideLoading={!props.isSubmitting}
                   onPress={props.handleSubmit}
                 >
                   {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>
-              </Form>
+              </FormWrapper>
             );
           }}
         </Formik>

@@ -48,6 +48,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
           {formikProps.values.weightUnit === 'kg' ? (
             <View style={styles.primaryField}>
               <ValidatedTextInput
+                required={true}
                 error={formikProps.touched.weight && formikProps.errors.weight}
                 keyboardType="numeric"
                 onBlur={formikProps.handleBlur('weight')}
@@ -62,6 +63,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
             <View style={styles.primaryFieldRow}>
               <View style={styles.stonesField}>
                 <ValidatedTextInput
+                  required={true}
                   error={formikProps.touched.stones && formikProps.errors.stones}
                   keyboardType="numeric"
                   onBlur={formikProps.handleBlur('stones')}
@@ -74,6 +76,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
               </View>
               <View style={styles.poundsField}>
                 <ValidatedTextInput
+                  required={true}
                   error={formikProps.touched.pounds && formikProps.errors.pounds}
                   keyboardType="numeric"
                   onBlur={formikProps.handleBlur('pounds')}
