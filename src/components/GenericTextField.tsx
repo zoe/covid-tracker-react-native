@@ -1,3 +1,4 @@
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { KeyboardTypeOptions, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
@@ -16,10 +17,12 @@ interface IProps extends TextInputProps {
   showError?: boolean;
   inputProps?: TextInputProps;
   wrapperStyle?: StyleProp<ViewStyle>;
+  required?: boolean;
 }
 
 export function GenericTextField(props: IProps) {
   const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
+
   return (
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
       {label ? <RegularText>{label}</RegularText> : null}
@@ -29,7 +32,8 @@ export function GenericTextField(props: IProps) {
         onBlur={formikProps.handleBlur(name)}
         onChangeText={formikProps.handleChange(name)}
         onSubmitEditing={() => {}}
-        placeholder={placeholder ?? ''}
+        placeholder={props.placeholder}
+        required={props.required}
         returnKeyType="next"
         value={formikProps.values[name]}
         {...inputProps}

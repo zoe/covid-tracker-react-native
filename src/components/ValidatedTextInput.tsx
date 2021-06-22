@@ -1,14 +1,23 @@
 import Error from '@assets/icons/Error';
+import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
+import { placeholder } from 'i18n-js';
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
+import { requiredFormMarker } from '@covid/components/Forms';
 
 interface Props extends TextInputProps {
   error?: any;
+  required?: boolean;
 }
 
 export class ValidatedTextInput extends Component<Props, object> {
   private textInput: any;
+
+  renderPlaceholder() {
+    return this.props.required ? 
+      `${requiredFormMarker} ${this.props.placeholder}` : this.props.placeholder
+  }
 
   focus() {
     this.textInput.focus();
@@ -30,6 +39,7 @@ export class ValidatedTextInput extends Component<Props, object> {
           ref={(input) => (this.textInput = input)}
           style={[styles.inputStyle, this.props.multiline ? styles.multipleLines : styles.singleLine]}
           {...this.props}
+          placeholder={this.renderPlaceholder()}
         />
         {error ? <Error /> : null}
       </View>

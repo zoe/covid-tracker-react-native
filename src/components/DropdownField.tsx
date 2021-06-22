@@ -5,6 +5,7 @@ import { Label } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text, View } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { requiredFormMarker } from '@covid/components/Forms';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
@@ -20,6 +21,7 @@ interface IProps {
   error?: any;
   onlyPicker?: boolean;
   itemIcons?: ImageSourcePropType[];
+  required?: boolean;
 }
 
 interface ISelectedItem {
@@ -30,6 +32,7 @@ interface ISelectedItem {
 const DROPDOWN_ROW_HEIGHT = 48.6;
 
 export function DropdownField({
+  placeholder,
   label,
   error,
   onlyPicker,
@@ -37,7 +40,15 @@ export function DropdownField({
   selectedValue,
   onValueChange,
   itemIcons,
+  required,
 }: IProps) {
+
+  const renderPlaceholder = () => required ?
+    `${requiredFormMarker} ${placeholder ? placeholder : i18n.t('choose-one-of-these-options')}`
+    :
+    placeholder ? placeholder : i18n.t('choose-one-of-these-options')
+  ;
+
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
     return (
@@ -150,7 +161,7 @@ export function DropdownField({
           style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}
         >
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
-            {selectedLabel ?? i18n.t('choose-one-of-these-options')}
+            {selectedLabel ?? renderPlaceholder()}
           </Label>
           <DropdownIcon />
         </View>
