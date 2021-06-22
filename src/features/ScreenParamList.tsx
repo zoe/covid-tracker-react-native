@@ -110,7 +110,6 @@ export type ScreenParamList = {
   MentalHealthPlaybackIntroduction: undefined;
   MentalHealthPlaybackRating: undefined;
   MentalHealthPlaybackThankYou: undefined;
-  MentalHealthPlaybackModal: undefined;
 
   // Mental health study
   MentalHealthChanges: undefined;

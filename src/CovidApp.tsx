@@ -1,7 +1,7 @@
 import { ShareScreen } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
-import { AnniversaryModal, MentalHealthPlaybackModal } from '@covid/features';
+import { AnniversaryModal } from '@covid/features';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { VaccineListMissingModal } from '@covid/features/vaccines/VaccineListMissingModal';
@@ -57,7 +57,6 @@ function CovidApp() {
         <Stack.Navigator headerMode="none" initialRouteName="Main" mode="modal">
           <Stack.Screen component={DrawNavigator} name="Main" />
           <Stack.Screen component={AnniversaryModal} name="AnniversaryModal" options={modalOptions} />
-          <Stack.Screen component={MentalHealthPlaybackModal} name="MentalHealthPlaybackModal" options={modalOptions} />
           <Stack.Screen component={VaccineListMissingModal} name="VaccineListMissingModal" options={modalOptions} />
           <Stack.Screen component={VersionUpdateModal} name="VersionUpdateModal" options={modalOptions} />
           <Stack.Screen

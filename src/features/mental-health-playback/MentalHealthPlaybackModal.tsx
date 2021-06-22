@@ -1,5 +1,5 @@
 import { QuoteMarks } from '@assets';
-import { BrandedButton, DoctorProfile, Modal, Tag, Text } from '@covid/components';
+import { BrandedButton, DoctorProfile, ModalZoe, Tag, Text } from '@covid/components';
 import { events, track } from '@covid/core/Analytics';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -8,15 +8,18 @@ import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-play
 import i18n from '@covid/locale/i18n';
 import { generalApiClient } from '@covid/Services';
 import { colors, styling } from '@covid/themes';
-import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
-export default function MentalHealthPlaybackModal() {
+interface IProps {
+  closeModalHandler: () => void;
+  showModal: boolean;
+}
+
+export default function MentalHealthPlaybackModal({ closeModalHandler, showModal }: IProps) {
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const [tracked, setTracked] = useState(false);
-  const { goBack } = useNavigation();
 
   useEffect(() => {
     if (!tracked) {
@@ -27,16 +30,17 @@ export default function MentalHealthPlaybackModal() {
 
   function handlePositive() {
     generalApiClient.postUserEvent('view-mental-health-insights');
+    closeModalHandler();
     appCoordinator.goToMentalHealthStudyPlayback(startupInfo);
   }
 
   function handleNegative() {
     generalApiClient.postUserEvent('skip-mental-health-insights');
-    goBack();
+    closeModalHandler();
   }
 
   return (
-    <Modal>
+    <ModalZoe closeModalHandler={closeModalHandler} showModal={showModal}>
       <Tag
         color={colors.coral.main.bgColor}
         style={styling.selfCenter}
@@ -70,7 +74,7 @@ export default function MentalHealthPlaybackModal() {
       <BrandedButton onPress={handleNegative} style={styles.buttonNegative}>
         <Text textClass="pSmallLight">{i18n.t('mental-health-playback.modal.button-negative')}</Text>
       </BrandedButton>
-    </Modal>
+    </ModalZoe>
   );
 }
 
