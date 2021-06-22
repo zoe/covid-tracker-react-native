@@ -14,11 +14,11 @@ import { selectApp, setDashboardHasBeenViewed } from '@covid/core/state';
 import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { MentalHealthPlaybackModal } from '@covid/features';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import NavigatorService from '@covid/NavigatorService';
 import { pushNotificationService } from '@covid/Services';
 import { colors, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
@@ -45,10 +45,13 @@ const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
-  const schoolGroups = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
+  const schoolGroups = useSelector<RootState, ISubscribedSchoolGroupStats[]>(
+    (state) => state.school.joinedSchoolGroups,
+  );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
+  const [mentalHealthPlaybackModalVisible, setMentalHealthPlaybackModalVisible] = useState(false);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -71,7 +74,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   const runCurrentFeature = () => {
     if (startupInfo?.show_modal === 'mental-health-playback') {
-      NavigatorService.navigate('MentalHealthPlaybackModal');
+      setMentalHealthPlaybackModalVisible(true);
     }
   };
 
@@ -170,6 +173,11 @@ export function DashboardScreen({ navigation, route }: IProps) {
         <ShareVaccineCard screenName="Dashboard" />
 
         <SchoolNetworks schoolGroups={schoolGroups} style={styles.marginVertical} />
+
+        <MentalHealthPlaybackModal
+          closeModalHandler={() => setMentalHealthPlaybackModalVisible(false)}
+          showModal={mentalHealthPlaybackModalVisible}
+        />
       </View>
 
       <View style={styles.zoe}>
