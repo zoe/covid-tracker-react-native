@@ -1,12 +1,5 @@
-import {
-  MentalHealthChanges,
-  MentalHealthEnd,
-  MentalHealthFrequency,
-  MentalHealthHistory,
-  MentalHealthLearning,
-  MentalHealthSupport,
-  ScreenParamList,
-} from '@covid/features';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import * as screens from '@covid/features/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
@@ -23,12 +16,12 @@ const noHeader = {
 export default function MentalHealthNavigator({ Stack }: IProps) {
   return (
     <>
-      <Stack.Screen component={MentalHealthChanges} name="MentalHealthChanges" options={noHeader} />
-      <Stack.Screen component={MentalHealthFrequency} name="MentalHealthFrequency" options={noHeader} />
-      <Stack.Screen component={MentalHealthHistory} name="MentalHealthHistory" options={noHeader} />
-      <Stack.Screen component={MentalHealthSupport} name="MentalHealthSupport" options={noHeader} />
-      <Stack.Screen component={MentalHealthLearning} name="MentalHealthLearning" options={noHeader} />
-      <Stack.Screen component={MentalHealthEnd} name="MentalHealthEnd" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthChanges} name="MentalHealthChanges" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthFrequency} name="MentalHealthFrequency" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthHistory} name="MentalHealthHistory" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthSupport} name="MentalHealthSupport" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthLearning} name="MentalHealthLearning" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthEnd} name="MentalHealthEnd" options={noHeader} />
     </>
   );
 }
