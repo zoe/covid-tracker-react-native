@@ -88,7 +88,9 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
         {this.props.showRaceQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
-              <CheckboxList label={i18n.t('race-question')} required={true}>{createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
+              <CheckboxList label={i18n.t('race-question')} required={true}>
+                {createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}
+              </CheckboxList>
             </View>
           </FieldWrapper>
         ) : null}
@@ -96,7 +98,9 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
         {this.props.showEthnicityQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
-              <CheckboxList label={i18n.t('race-question')} required={true}>{createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
+              <CheckboxList label={i18n.t('race-question')} required={true}>
+                {createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}
+              </CheckboxList>
             </View>
           </FieldWrapper>
         ) : null}

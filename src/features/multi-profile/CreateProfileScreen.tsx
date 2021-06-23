@@ -71,8 +71,10 @@ export default class CreateProfileScreen extends Component<RenderProps> {
                     name="name"
                     placeholder={i18n.t('create-profile-placeholder')}
                   />
-                </View> 
-                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
+                </View>
+                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
+                  {i18n.t('create-profile-button')}
+                </BrandedButton>
               </FormWrapper>
             );
           }}

@@ -32,7 +32,9 @@ interface Props {
 export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <RegularText>{label} {requiredFormMarker}</RegularText>
+      <RegularText>
+        {label} {requiredFormMarker}
+      </RegularText>
       {isUSCountry() ? (
         <ValidatedTextInput
           error={formikProps.touched.pounds && formikProps.errors.pounds}
