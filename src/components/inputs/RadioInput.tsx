@@ -1,3 +1,4 @@
+import { requiredFormMarker } from '@covid/components/Forms';
 import { RadioButton } from '@covid/components/RadioButton';
 import { ErrorText, LabelText, SecondaryLightText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
@@ -22,6 +23,7 @@ interface IProps<V = any> {
   items: IItem[];
   label?: string;
   onValueChange: (value: V) => void;
+  required?: boolean;
   selectedValue?: V;
   testID?: string;
 }
@@ -36,7 +38,11 @@ export function RadioInput(props: IProps) {
 
   return (
     <View style={styles.marginVertical}>
-      {props.hideLabel ? null : <LabelText style={styles.marginBottom}>{props.label}</LabelText>}
+      {props.hideLabel || !props.label ? null : (
+        <LabelText style={styles.marginBottom}>
+          {props.label} {props.required ? requiredFormMarker : null}
+        </LabelText>
+      )}
       {items.map((item, index) => (
         <TouchableOpacity
           key={`item-${item.value}`}

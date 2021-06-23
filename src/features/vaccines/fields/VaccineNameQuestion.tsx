@@ -19,7 +19,6 @@ export interface IVaccineNameQuestion<P, Data> extends React.FC<P> {
 
 export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData> = (props: IProps) => {
   const gbVaccineOptions = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
     { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
     { label: vaccineBrandDisplayName[VaccineBrands.ASTRAZENECA], value: VaccineBrands.ASTRAZENECA },
     { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
@@ -28,7 +27,6 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
   ];
 
   const seVaccineOptions = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
     { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
     { label: vaccineBrandDisplayName[VaccineBrands.ASTRAZENECA], value: VaccineBrands.ASTRAZENECA },
     { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
@@ -36,7 +34,6 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
   ];
 
   const usVaccineOptions = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
     { label: vaccineBrandDisplayName[VaccineBrands.PFIZER], value: VaccineBrands.PFIZER },
     { label: vaccineBrandDisplayName[VaccineBrands.JOHNSON], value: VaccineBrands.JOHNSON },
     { label: vaccineBrandDisplayName[VaccineBrands.MODERNA], value: VaccineBrands.MODERNA },
@@ -46,7 +43,6 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
   const nameOptions = isGBCountry() ? gbVaccineOptions : isSECountry() ? seVaccineOptions : usVaccineOptions;
 
   const descriptionOptions = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
     // mRNA doesn't need translation
     { label: 'mRNA', value: 'mrna' },
     { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'not_sure' },
@@ -90,11 +86,10 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
 
     return (
       <RadioInput
-        error={descriptionTouched && descriptionError}
+        error={descriptionTouched ? descriptionError : ''}
         items={descriptionOptions}
         label={i18n.t('vaccines.your-vaccine.label-name-other')}
         onValueChange={props.formikProps.handleChange(descriptionString)}
-        placeholder={i18n.t('vaccines.your-vaccine.label-name')}
         selectedValue={descriptionField}
       />
     );

@@ -44,10 +44,7 @@ export function GenericTextField(props: IProps) {
       />
 
       {showError && !!formikProps.touched[name] && !!formikProps.errors[name] ? (
-        <ValidationError
-          // @ts-ignore - need to solve type for ValidationError error prop
-          error={formikProps.errors[name]}
-        />
+        <ValidationError error={formikProps.errors[name]} />
       ) : null}
     </FieldWrapper>
   );

@@ -89,18 +89,10 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
     { label: i18n.t('picker-unsure'), value: CovidTestTrainedWorkerOptions.UNSURE },
   ];
 
-  // @todo: delete this
-  let mechanismItemIcons;
-  if (!test || (test && !noIcons.includes(test.mechanism))) {
-    if (!isSECountry()) {
-      mechanismItemIcons = [noseSwabX3, spitX3, fingerPrickX3, syringeX3, otherTestX3];
-    }
-  }
-
   return (
     <>
       <RadioInput
-        error={formikProps.touched.mechanism && formikProps.errors.mechanism}
+        error={formikProps.touched.mechanism ? formikProps.errors.mechanism : ''}
         items={mechanismItems}
         label={i18n.t('covid-test.question-mechanism')}
         onValueChange={formikProps.handleChange('mechanism')}
@@ -118,7 +110,7 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
 
       {formikProps.values.mechanism === 'nose_throat_swab' && (
         <RadioInput
-          error={formikProps.touched.trainedWorker && formikProps.errors.trainedWorker}
+          error={formikProps.touched.trainedWorker ? formikProps.errors.trainedWorker : ''}
           items={trainedWorkerItems}
           label={i18n.t('covid-test.question-trained-worker')}
           onValueChange={formikProps.handleChange('trainedWorker')}

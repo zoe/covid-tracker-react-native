@@ -4,7 +4,7 @@ import * as React from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
 interface Props extends TextInputProps {
-  error?: any;
+  error?: boolean;
   label?: string;
 }
 
@@ -16,13 +16,12 @@ export class ValidatedTextInput extends React.Component<Props, object> {
   }
 
   render() {
-    const { error } = this.props;
     return (
       <View
         style={[
           styles.inputWrapper,
           {
-            borderColor: error ? colors.feedbackBad : 'transparent',
+            borderColor: this.props.error ? colors.feedbackBad : 'transparent',
           },
         ]}
       >
@@ -32,7 +31,7 @@ export class ValidatedTextInput extends React.Component<Props, object> {
           style={[styles.inputStyle, this.props.multiline ? styles.multipleLines : styles.singleLine]}
           {...this.props}
         />
-        {error ? <Error /> : null}
+        {this.props.error ? <Error /> : null}
       </View>
     );
   }

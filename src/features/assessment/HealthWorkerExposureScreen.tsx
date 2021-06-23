@@ -137,14 +137,6 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
       { label: i18n.t('health-worker-exposure-picker-ppe-never-not-available'), value: 'not_available' },
     ];
 
-    if (isAndroid) {
-      equipmentUsageOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-      availabilityAlwaysOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-      availabilitySometimesOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-      availabilityNeverOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-      patientInteractionOptions.unshift({ label: i18n.t('choose-one-of-these-options'), value: '' });
-    }
-
     return (
       <Screen
         navigation={this.props.navigation}
