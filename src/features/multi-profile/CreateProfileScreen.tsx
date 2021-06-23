@@ -26,21 +26,16 @@ type RenderProps = {
 };
 
 export default class CreateProfileScreen extends React.Component<RenderProps> {
-  constructor(props: RenderProps) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   registerSchema = Yup.object().shape({
     name: Yup.string().required().max(32, i18n.t('profile-name-too-long')),
   });
 
-  handleClick(formData: FormData) {
+  handleClick = (formData: FormData) => {
     this.props.navigation.navigate('AdultOrChild', {
       avatarName: this.props.route.params.avatarName,
       profileName: formData.name,
     });
-  }
+  };
 
   render() {
     return (

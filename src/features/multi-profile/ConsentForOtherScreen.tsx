@@ -40,7 +40,6 @@ export default class ConsentForOtherScreen extends React.Component<RenderProps, 
   constructor(props: RenderProps) {
     super(props);
     this.state = initialState;
-    this.createPatient = this.createPatient.bind(this);
   }
 
   handleConsentClick = (checked: boolean) => {
@@ -73,19 +72,16 @@ export default class ConsentForOtherScreen extends React.Component<RenderProps, 
 
   consentLabel = this.isAdultConsent() ? i18n.t('adult-consent-confirm') : i18n.t('child-consent-confirm');
 
-  async createPatient(): Promise<string> {
-    const name = this.props.route.params.profileName;
-    const { avatarName } = this.props.route.params;
-
+  createPatient = async (): Promise<string> => {
     const newPatient = {
-      avatar_name: avatarName,
-      name,
+      avatar_name: this.props.route.params.avatarName,
+      name: this.props.route.params.profileName,
       reported_by_another: true,
     } as Partial<PatientInfosRequest>;
 
     const response = await this.patientService.createPatient(newPatient);
     return response.id;
-  }
+  };
 
   handleCreatePatient = async () => {
     try {

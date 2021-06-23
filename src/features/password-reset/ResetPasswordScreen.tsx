@@ -38,13 +38,11 @@ export class ResetPasswordScreen extends React.Component<PropsType, State> {
   constructor(props: PropsType) {
     super(props);
     this.state = initialState;
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  private handleClick(formData: ResetPasswordData) {
+  handleClick = (formData: ResetPasswordData) => {
     if (this.state.enableSubmit) {
-      this.setState({ enableSubmit: false }); // Stop resubmissions
+      this.setState({ enableSubmit: false });
       this.userService
         .resetPassword(formData.email)
         .then(() => this.props.navigation.navigate('ResetPasswordConfirm'))
@@ -53,7 +51,7 @@ export class ResetPasswordScreen extends React.Component<PropsType, State> {
           this.setState({ enableSubmit: true });
         });
     }
-  }
+  };
 
   registerSchema = Yup.object().shape({
     email: Yup.string().email().required(),
