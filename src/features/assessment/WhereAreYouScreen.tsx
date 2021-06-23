@@ -1,15 +1,22 @@
+import { closeIcon } from '@assets';
+import { BrandedButton } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
-import { HeaderText } from '@covid/components/Text';
+import { ClickableText, Header3Text, HeaderText, SecondaryText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
+import { openWebLink } from '@covid/utils/links';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { BottomSheet } from 'react-native-elements';
+
+import PcrTestLearnMoreScreen from './PcrTestLearnMoreScreen';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
@@ -50,6 +57,34 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     }
   };
 
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const offeredPcrTest = false;
+
+  const offerPcrTest = () => {
+    if (!offeredPcrTest) {
+      setBottomSheetVisible(true);
+    } else {
+      handleLocationSelection('home', true);
+    }
+  };
+
+  const pcrTestDeclined = () => {
+    setBottomSheetVisible(false);
+    handleLocationSelection('home', true);
+  };
+
+  const openLearnMore = () => {
+    setBottomSheetVisible(false);
+    setModalVisible(true);
+  };
+
+  const closeLearnMore = () => {
+    setModalVisible(false);
+    setBottomSheetVisible(true);
+  };
+
   useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
@@ -65,10 +100,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
       </ProgressBlock>
 
       <View style={styles.content}>
-        <SelectorButton
-          onPress={() => handleLocationSelection('home', true)}
-          text={i18n.t('where-are-you.picker-location-home')}
-        />
+        <SelectorButton onPress={() => offerPcrTest()} text={i18n.t('where-are-you.picker-location-home')} />
         <SelectorButton
           onPress={() => handleLocationSelection('hospital', false)}
           text={i18n.t('where-are-you.picker-location-hospital')}
@@ -82,13 +114,69 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
           text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
         />
       </View>
+
+      <BottomSheet
+        containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+        isVisible={bottomSheetVisible}
+        modalProps={{ animationType: 'slide' }}
+      >
+        <View style={styles.bottomSheet}>
+          <TouchableOpacity onPress={() => pcrTestDeclined()}>
+            <Image source={closeIcon} style={styles.closeIcon} />
+          </TouchableOpacity>
+          <Header3Text style={styles.question}>Would you be interested in a PCR test?</Header3Text>
+          <SecondaryText style={styles.description}>
+            Whilst your symptoms do not necessarily indicate that you have COVID-19, we would like to offer you a test
+            to discover if you might have the virus.
+          </SecondaryText>
+          <ClickableText onPress={openLearnMore} style={styles.learnMore}>
+            Learn more
+          </ClickableText>
+          <BrandedButton
+            onPress={() => openWebLink('https://www.gov.uk/get-coronavirus-test')}
+            style={styles.bookTestButton}
+          >
+            Book your test
+          </BrandedButton>
+        </View>
+      </BottomSheet>
+
+      <Modal transparent animationType="slide" onRequestClose={closeLearnMore} visible={modalVisible}>
+        <PcrTestLearnMoreScreen closeButtonHandler={closeLearnMore} />
+      </Modal>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  bookTestButton: {
+    backgroundColor: colors.purple,
+  },
+  bottomSheet: {
+    backgroundColor: colors.backgroundSecondary,
+    paddingBottom: 45,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  closeIcon: {
+    alignSelf: 'flex-end',
+    height: 20,
+    marginBottom: 20,
+    width: 20,
+  },
   content: {
     marginVertical: 32,
+  },
+  description: {
+    marginBottom: 18,
+  },
+  learnMore: {
+    color: colors.secondary,
+    marginBottom: 50,
+    textDecorationLine: 'underline',
+  },
+  question: {
+    marginBottom: 32,
   },
 });
 
