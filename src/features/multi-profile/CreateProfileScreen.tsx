@@ -8,7 +8,6 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';

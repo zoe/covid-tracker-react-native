@@ -1,5 +1,5 @@
 import { Coordinator, IUpdatePatient, ScreenFlow } from '@covid/core/Coordinator';
-import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -20,9 +20,6 @@ export class PatientCoordinator extends Coordinator implements IUpdatePatient {
 
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
-
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
 
   screenFlow: Partial<ScreenFlow> = {
     AboutYou: () => {

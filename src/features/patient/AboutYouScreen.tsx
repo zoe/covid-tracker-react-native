@@ -10,10 +10,8 @@ import YesNoField from '@covid/components/YesNoField';
 import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
 import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
 import { isMinorAge } from '@covid/core/patient/PatientState';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
@@ -23,7 +21,6 @@ import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
@@ -79,12 +76,6 @@ const initialState: State = {
 };
 
 export default class AboutYouScreen extends React.Component<AboutYouProps, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
