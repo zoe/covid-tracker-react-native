@@ -26,9 +26,11 @@ export function GenericTextField(props: IProps) {
 
   return (
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
-      {label ? <RegularText>
-        {label} {props.required ? requiredFormMarker : null}
-      </RegularText> : null}
+      {label ? (
+        <RegularText>
+          {label} {props.required ? requiredFormMarker : null}
+        </RegularText>
+      ) : null}
       <ValidatedTextInput
         error={formikProps.touched[name] && formikProps.errors[name]}
         keyboardType={keyboardType}

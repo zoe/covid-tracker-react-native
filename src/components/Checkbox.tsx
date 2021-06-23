@@ -3,7 +3,7 @@ import { colors } from '@theme/colors';
 import { Item } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-import { requiredFormMarker } from '@covid/components/Forms'
+import { requiredFormMarker } from '@covid/components/Forms';
 import { RegularText } from './Text';
 import { ITest } from './types';
 
@@ -39,16 +39,19 @@ export function CheckboxItem(props: ICheckboxProps) {
 }
 
 export function CheckboxList({ children, label, required }: ICheckboxListProps) {
-    const renderLabel = () => required ?
+  const renderLabel = () =>
+    required ? (
       <RegularText>
-       {label} {required ? `${requiredFormMarker}` : null }
-      </RegularText> 
-      : null;
+        {label} {required ? `${requiredFormMarker}` : null}
+      </RegularText>
+    ) : null;
 
-  return <View style={styles.checkboxList}>
-    {renderLabel()}
-    {children}
-  </View>;
+  return (
+    <View style={styles.checkboxList}>
+      {renderLabel()}
+      {children}
+    </View>
+  );
 }
 
 const checkBoxStyle: ViewStyle = {

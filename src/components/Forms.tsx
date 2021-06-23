@@ -26,11 +26,11 @@ type TFormWrapperProps = {
 
 export const FormWrapper = (props: TFormWrapperProps) => (
   <Form>
-      { props.hasRequiredFields ? (
-        <RegularText style={styles.requiredFieldHeader}>
-          {requiredFormMarker} {i18n.t('required-field')}
-        </RegularText>) : null 
-      }
+    {props.hasRequiredFields ? (
+      <RegularText style={styles.requiredFieldHeader}>
+        {requiredFormMarker} {i18n.t('required-field')}
+      </RegularText>
+    ) : null}
     {props.children}
   </Form>
 );
@@ -43,5 +43,5 @@ const styles = StyleSheet.create({
   requiredFieldHeader: {
     margin: 16,
     marginBottom: 0,
-  }
+  },
 });

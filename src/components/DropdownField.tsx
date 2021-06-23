@@ -42,8 +42,7 @@ export function DropdownField({
   itemIcons,
   required,
 }: IProps) {
-
-  const renderPlaceholder = () => placeholder ? placeholder : i18n.t('choose-one-of-these-options');
+  const renderPlaceholder = () => (placeholder ? placeholder : i18n.t('choose-one-of-these-options'));
 
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
@@ -102,7 +101,7 @@ export function DropdownField({
 
   const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
-  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220)
+  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220);
   const renderDropdownRow = (option: string, index: any, isSelected: boolean): React.ReactNode => {
     // There is a type error in renderDropdownRow index is actually a number, not a string
 
@@ -130,9 +129,11 @@ export function DropdownField({
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {onlyPicker ? null : <Label style={styles.labelStyle}>
-        {label} {required ? requiredFormMarker : null }
-      </Label>}
+      {onlyPicker ? null : (
+        <Label style={styles.labelStyle}>
+          {label} {required ? requiredFormMarker : null}
+        </Label>
+      )}
       <ModalDropdown
         animated={false}
         defaultIndex={defaultIndex}
