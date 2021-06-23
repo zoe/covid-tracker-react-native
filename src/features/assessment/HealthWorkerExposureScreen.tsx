@@ -66,12 +66,9 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   };
 
   private createAssessment(formData: IHealthWorkerExposureData) {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
-    const { patientId } = currentPatient;
-
     return {
       interacted_any_patients: formData.interactedAnyPatients === 'yes',
-      patient: patientId,
+      patient: AssessmentCoordinator.assessmentData?.patientData?.patientState?.patientId,
       ...(formData.treatedPatientsWithCovid && { treated_patients_with_covid: formData.treatedPatientsWithCovid }),
       ...(formData.hasUsedPPEEquipment && { have_used_PPE: formData.hasUsedPPEEquipment }),
       ...(formData.hasUsedPPEEquipment === 'always' &&
@@ -111,7 +108,6 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   });
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientInteractionOptions = [
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-suspected'), value: 'yes_suspected' },
@@ -150,7 +146,10 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     }
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={AssessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      >
         <Header>
           <HeaderText>{i18n.t('title-health-worker-exposure')}</HeaderText>
         </Header>

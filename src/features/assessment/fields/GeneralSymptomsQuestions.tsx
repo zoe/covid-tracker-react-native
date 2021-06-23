@@ -1,5 +1,5 @@
 import { CheckboxList } from '@covid/components/Checkbox';
-import { RadioInput } from '@covid/components/inputs/RadioInput';
+import DropdownField from '@covid/components/DropdownField';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
@@ -110,9 +110,9 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
               />
             </View>
             <View style={styles.secondaryField}>
-              <RadioInput
+              <DropdownField
                 hideLabel
-                error={formikProps.touched.temperatureUnit && formikProps.errors.temperatureUnit}
+                error={formikProps.touched.temperatureUnit ? formikProps.errors.temperatureUnit : ''}
                 items={temperatureItems}
                 onValueChange={formikProps.handleChange('temperatureUnit')}
                 selectedValue={formikProps.values.temperatureUnit}
@@ -201,24 +201,13 @@ const styles = StyleSheet.create({
   fieldRow: {
     flexDirection: 'row',
   },
-
-  fieldWrapper: {
-    flex: 1,
-    marginHorizontal: 16,
-  },
-
   primaryField: {
     flex: 3,
     marginRight: 4,
   },
-
   secondaryField: {
     flex: 1,
     marginLeft: 4,
     marginTop: -8,
-  },
-
-  textItemStyle: {
-    borderColor: 'transparent',
   },
 });

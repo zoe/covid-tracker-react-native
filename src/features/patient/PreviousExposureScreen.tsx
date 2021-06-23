@@ -100,12 +100,10 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   });
 
   handleUpdateHealth(formData: IYourHealthData) {
-    const currentPatient = patientCoordinator.patientData.patientState;
-    const { patientId } = currentPatient;
     const infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatientInfo(patientId, infos)
+      .updatePatientInfo(patientCoordinator.patientData?.patientState?.patientId, infos)
       .then(async (info) => {
         const currentState = patientCoordinator.patientData.patientState;
         patientCoordinator.patientData.patientInfo = info;
@@ -152,7 +150,6 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.patientState;
     const symptomChangeChoices = [
       { label: i18n.t('past-symptom-changed-much-better'), value: 'much_better' },
       { label: i18n.t('past-symptom-changed-little-better'), value: 'little_better' },
@@ -161,7 +158,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
       { label: i18n.t('past-symptom-changed-much-worse'), value: 'much_worse' },
     ];
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
         <Header>
           <HeaderText>{i18n.t('previous-exposure-title')}</HeaderText>
         </Header>

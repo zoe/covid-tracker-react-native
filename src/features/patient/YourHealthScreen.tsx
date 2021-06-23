@@ -92,12 +92,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
   constructor(props: HealthProps) {
     super(props);
-    const currentPatient = patientCoordinator.patientData.patientState;
     const features = this.localisationService.getConfig();
     this.state = {
       ...initialState,
       showDiabetesQuestion: false,
-      showPregnancyQuestion: features.showPregnancyQuestion && currentPatient.isFemale,
+      showPregnancyQuestion: features.showPregnancyQuestion && patientCoordinator.patientData?.patientState?.isFemale,
     };
   }
 
@@ -139,12 +138,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   });
 
   handleUpdateHealth(formData: IYourHealthData) {
-    const currentPatient = patientCoordinator.patientData.patientState;
-    const { patientId } = currentPatient;
+    const currentPatient = patientCoordinator.patientData?.patientState;
     const infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatientInfo(patientId, infos)
+      .updatePatientInfo(currentPatient.patientId, infos)
       .then((_) => {
         currentPatient.hasCompletedPatientDetails = true;
         currentPatient.hasBloodPressureAnswer = true;
@@ -153,9 +151,12 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           currentPatient.hasDiabetesAnswers = true;
           currentPatient.shouldAskExtendedDiabetes = false;
         }
-        if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
-        if (formData.bloodGroup) currentPatient.hasBloodGroupAnswer = true;
-
+        if (formData.hasHayfever === 'yes') {
+          currentPatient.hasHayfever = true;
+        }
+        if (formData.bloodGroup) {
+          currentPatient.hasBloodGroupAnswer = true;
+        }
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => {
@@ -236,14 +237,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.patientState;
     const smokerStatusItems = [
       { label: i18n.t('your-health.never-smoked'), value: 'never' },
       { label: i18n.t('your-health.not-currently-smoking'), value: 'not_currently' },
       { label: i18n.t('your-health.yes-smoking'), value: 'yes' },
     ];
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
         <Header>
           <HeaderText>{i18n.t('your-health.page-title')}</HeaderText>
         </Header>
@@ -312,7 +312,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} />
 
                   <RadioInput
-                    error={props.touched.smokerStatus && props.errors.smokerStatus}
+                    error={props.touched.smokerStatus ? props.errors.smokerStatus : ''}
                     items={smokerStatusItems}
                     label={i18n.t('your-health.is-smoker')}
                     onValueChange={props.handleChange('smokerStatus')}

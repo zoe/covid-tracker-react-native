@@ -64,7 +64,7 @@ export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovi
   return (
     <>
       <RadioInput
-        error={formikProps.touched.location && formikProps.errors.location}
+        error={formikProps.touched.location ? formikProps.errors.location : ''}
         items={locationItems}
         label={i18n.t('covid-test.location.question')}
         onValueChange={formikProps.handleChange('location')}

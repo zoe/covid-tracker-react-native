@@ -16,7 +16,6 @@ interface IProps {
   items: PickerItemProps[];
   label?: string;
   onValueChange: (value: any) => void;
-  placeholder?: string;
   selectedValue?: any;
 }
 

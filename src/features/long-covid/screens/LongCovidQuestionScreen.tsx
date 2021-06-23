@@ -42,7 +42,7 @@ const renderBulletLine = (text: string) => (
   </View>
 );
 
-export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
+export default function LongCovidQuestionScreen({ route }: IProps) {
   const dropdownItemsQ1 = [
     { label: i18n.t('long-covid.q1-a5'), value: 'NO' },
     { label: i18n.t('long-covid.q1-a1'), value: 'YES_TEST' },
@@ -118,14 +118,13 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   ];
 
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
-  const { patientData } = route.params;
   const handleSubmit = async (formData: ILongCovid) => {
     if (isSubmitting) {
       return;
     }
     delete formData.other_checkbox;
     setSubmitting(true);
-    longCovidApiClient.add(patientData.patientId, formData).then(() => {
+    longCovidApiClient.add(route.params?.patientData?.patientId, formData).then(() => {
       NavigatorService.reset([{ name: homeScreenName() }, { name: thankYouScreenName() }], 1);
     });
   };
@@ -169,7 +168,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
           {renderBulletLine(i18n.t('long-covid.q2-info-5'))}
         </View>
         <RadioInput
-          error={props.touched.duration && props.errors.duration}
+          error={props.touched.duration ? props.errors.duration : ''}
           items={dropdownItemsQ2}
           onValueChange={props.handleChange('duration')}
           selectedValue={props.values.duration}
@@ -179,7 +178,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <View style={styles.hr} />
         <HeaderText>{i18n.t('long-covid.q3')}</HeaderText>
         <RadioInput
-          error={props.touched.restriction && props.errors.restriction}
+          error={props.touched.restriction ? props.errors.restriction : ''}
           items={dropdownItemsQ3}
           onValueChange={props.handleChange('restriction')}
           selectedValue={props.values.restriction}
@@ -206,7 +205,7 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         {/* Have you had at least one COVID-19 vaccine done? */}
         <HeaderText>{i18n.t('long-covid.q18')}</HeaderText>
         <RadioInput
-          error={props.touched.at_least_one_vaccine && props.errors.at_least_one_vaccine}
+          error={props.touched.at_least_one_vaccine ? props.errors.at_least_one_vaccine : ''}
           items={dropdownItemsQ18}
           onValueChange={props.handleChange('at_least_one_vaccine')}
           selectedValue={props.values.at_least_one_vaccine}
@@ -224,8 +223,9 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q19')} />
         <RadioInput
           error={
-            props.touched.ongoing_symptom_week_before_first_vaccine &&
-            props.errors.ongoing_symptom_week_before_first_vaccine
+            props.touched.ongoing_symptom_week_before_first_vaccine
+              ? props.errors.ongoing_symptom_week_before_first_vaccine
+              : ''
           }
           items={dropdownItemsQ19}
           onValueChange={props.handleChange('ongoing_symptom_week_before_first_vaccine')}
@@ -238,8 +238,9 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
         <ColourHighlightHeaderTextText highlightColor={colors.purple} text={i18n.t('long-covid.q20')} />
         <RadioInput
           error={
-            props.touched.symptom_change_2_weeks_after_first_vaccine &&
-            props.errors.symptom_change_2_weeks_after_first_vaccine
+            props.touched.symptom_change_2_weeks_after_first_vaccine
+              ? props.errors.symptom_change_2_weeks_after_first_vaccine
+              : ''
           }
           items={dropdownItemsSymptomsChange}
           onValueChange={props.handleChange('symptom_change_2_weeks_after_first_vaccine')}
@@ -276,11 +277,11 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   return (
     <Formik
       initialValues={{
-        ...LongCovidQuestionPageOneScreen.initialFormValues(),
+        ...LongCovidQuestionScreen.initialFormValues(),
       }}
       onSubmit={(values: ILongCovid) => handleSubmit(values)}
       style={{ padding: 16 }}
-      validationSchema={LongCovidQuestionPageOneScreen.schema}
+      validationSchema={LongCovidQuestionScreen.schema}
     >
       {(props: FormikProps<ILongCovid>) => {
         return (
@@ -312,9 +313,9 @@ export default function LongCovidQuestionPageOneScreen({ route }: IProps) {
   );
 }
 
-LongCovidQuestionPageOneScreen.initialFormValues = (): ILongCovid => longCovidQuestionPageOneDataInitialState;
+LongCovidQuestionScreen.initialFormValues = (): ILongCovid => longCovidQuestionPageOneDataInitialState;
 
-LongCovidQuestionPageOneScreen.schema = () => validations;
+LongCovidQuestionScreen.schema = () => validations;
 
 const styles = StyleSheet.create({
   bullet: {

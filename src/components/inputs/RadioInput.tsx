@@ -42,7 +42,7 @@ export function RadioInput(props: IProps) {
           key={`item-${item.value}`}
           onPress={() => props.onValueChange(item.value)}
           style={
-            index === 0 ? styles.firstItem : index + 1 === props.items.length ? styles.lastItem : styles.middleItem
+            index === 0 ? styles.firstItem : index + 1 === props.items?.length ? styles.lastItem : styles.middleItem
           }
         >
           <RadioButton selected={props.selectedValue === item.value} />

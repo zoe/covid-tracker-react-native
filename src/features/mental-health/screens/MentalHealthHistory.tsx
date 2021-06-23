@@ -20,7 +20,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-function MentalHealthHistory() {
+export default function MentalHealthHistory() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
   const [canSubmit, setCanSubmit] = useState(false);
   const dispatch = useDispatch();
@@ -123,5 +123,3 @@ function MentalHealthHistory() {
     </BasicPage>
   );
 }
-
-export default MentalHealthHistory;

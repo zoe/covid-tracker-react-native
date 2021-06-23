@@ -86,12 +86,11 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   };
 
   handleUpdateWork(formData: IYourWorkData) {
-    const currentPatient = patientCoordinator.patientData.patientState;
-    const { patientId } = currentPatient;
+    const currentPatient = patientCoordinator.patientData?.patientState;
     const infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatientInfo(patientId, infos)
+      .updatePatientInfo(currentPatient?.patientId, infos)
       .then(() => {
         currentPatient.isHealthWorker =
           infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
@@ -175,8 +174,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   });
 
   render() {
-    const currentPatient = patientCoordinator.patientData.patientState;
-
     const healthcareStaffOptions = [
       {
         label: i18n.t('picker-no'),
@@ -261,7 +258,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     ];
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
         <Header>
           <HeaderText>{i18n.t('title-about-work')}</HeaderText>
         </Header>
@@ -295,7 +292,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 <Form>
                   <View style={{ marginHorizontal: 16 }}>
                     <RadioInput
-                      error={touched.isHealthcareStaff && errors.isHealthcareStaff}
+                      error={touched.isHealthcareStaff ? errors.isHealthcareStaff : ''}
                       items={healthcareStaffOptions}
                       label={i18n.t('are-you-healthcare-staff')}
                       onValueChange={handleChange('isHealthcareStaff')}
@@ -392,7 +389,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         </FieldWrapper>
 
                         <RadioInput
-                          error={touched.hasPatientInteraction && errors.hasPatientInteraction}
+                          error={touched.hasPatientInteraction ? errors.hasPatientInteraction : ''}
                           items={patientInteractionOptions}
                           label={i18n.t('label-interacted-with-infected-patients')}
                           onValueChange={handleChange('hasPatientInteraction')}
@@ -400,7 +397,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         />
 
                         <RadioInput
-                          error={touched.hasUsedPPEEquipment && errors.hasUsedPPEEquipment}
+                          error={touched.hasUsedPPEEquipment ? errors.hasUsedPPEEquipment : ''}
                           items={equipmentUsageOptions}
                           label={i18n.t('label-used-ppe-equipment')}
                           onValueChange={handleChange('hasUsedPPEEquipment')}
@@ -409,7 +406,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
                         {hasUsedPPEEquipment === 'always' ? (
                           <RadioInput
-                            error={touched.ppeAvailabilityAlways && errors.ppeAvailabilityAlways}
+                            error={touched.ppeAvailabilityAlways ? errors.ppeAvailabilityAlways : ''}
                             items={availabilityAlwaysOptions}
                             label={i18n.t('label-chose-an-option')}
                             onValueChange={handleChange('ppeAvailabilityAlways')}
@@ -419,7 +416,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
                         {hasUsedPPEEquipment === 'sometimes' ? (
                           <RadioInput
-                            error={touched.ppeAvailabilitySometimes && errors.ppeAvailabilitySometimes}
+                            error={touched.ppeAvailabilitySometimes ? errors.ppeAvailabilitySometimes : ''}
                             items={availabilitySometimesOptions}
                             label={i18n.t('label-chose-an-option')}
                             onValueChange={handleChange('ppeAvailabilitySometimes')}
@@ -429,7 +426,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
                         {hasUsedPPEEquipment === 'never' ? (
                           <RadioInput
-                            error={touched.ppeAvailabilityNever && errors.ppeAvailabilityNever}
+                            error={touched.ppeAvailabilityNever ? errors.ppeAvailabilityNever : ''}
                             items={availabilityNeverOptions}
                             label={i18n.t('label-chose-an-option')}
                             onValueChange={handleChange('ppeAvailabilityNever')}
@@ -447,7 +444,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
                   <BrandedButton
                     enable={this.checkFormFilled(props)}
-                    hideLoading={!props.isSubmitting}
+                    loading={props.isSubmitting}
                     onPress={handleSubmit}
                   >
                     {i18n.t('next-question')}

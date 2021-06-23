@@ -1,3 +1,4 @@
+import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { FieldWrapper } from '@covid/components/Screen';
@@ -69,7 +70,7 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
   return (
     <View>
       <RadioInput
-        error={formikProps.touched.diabetesType && formikProps.errors.diabetesType}
+        error={formikProps.touched.diabetesType ? formikProps.errors.diabetesType : ''}
         items={diabetesTypeOptions}
         label={i18n.t('diabetes.which-type')}
         onValueChange={formikProps.handleChange('diabetesType')}
@@ -109,11 +110,10 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
             ) : null}
           </View>
           <View style={styles.secondaryField}>
-            <RadioInput
+            <DropdownField
               hideLabel
               items={hemoglobinUnitsOptions}
               onValueChange={formikProps.handleChange('hemoglobinMeasureUnit')}
-              placeholder=""
               selectedValue={formikProps.values.hemoglobinMeasureUnit}
             />
           </View>

@@ -15,7 +15,7 @@ interface IProps {
   schools: ISchoolModel[];
 }
 
-function UniversityForm({ currentJoinedGroup, schools }: IProps) {
+export default function UniversityForm({ currentJoinedGroup, schools }: IProps) {
   const initialValues = {
     schoolId: currentJoinedGroup ? currentJoinedGroup.school.id : '',
   };
@@ -41,7 +41,7 @@ function UniversityForm({ currentJoinedGroup, schools }: IProps) {
       {(formikProps) => (
         <Form style={styles.formContainer}>
           <RadioInput
-            error={formikProps.touched.schoolId && formikProps.errors.schoolId}
+            error={formikProps.touched.schoolId ? formikProps.errors.schoolId : ''}
             items={schools.map((item) => ({ label: item.name, value: item.id }))}
             label={i18n.t('school-networks.join-school.dropdown.label-higher-education')}
             onValueChange={formikProps.handleChange('schoolId')}
@@ -63,5 +63,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
 });
-
-export default UniversityForm;

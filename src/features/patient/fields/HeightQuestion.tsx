@@ -1,4 +1,4 @@
-import { DropdownField } from '@covid/components/DropdownField';
+import DropdownField from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';

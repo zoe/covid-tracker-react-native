@@ -53,11 +53,11 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
         {checkBoxData.followUp && props.values[checkBoxData.value] ? (
           <View style={{ marginBottom: 16 }}>
             <RadioInput
-              error={props.touched[checkBoxData.followUp.value] && props.errors[checkBoxData.followUp.value]}
-              items={checkBoxData.followUp.options}
-              label={checkBoxData.followUp.label}
-              onValueChange={props.handleChange(checkBoxData.followUp.value)}
-              selectedValue={props.values[checkBoxData.followUp.value]}
+              error={props.touched[checkBoxData.followUp?.value] ? props.errors[checkBoxData.followUp?.value] : ''}
+              items={checkBoxData.followUp?.options}
+              label={checkBoxData.followUp?.label}
+              onValueChange={props.handleChange(checkBoxData.followUp?.value)}
+              selectedValue={props.values[checkBoxData.followUp?.value]}
             />
           </View>
         ) : null}
