@@ -1,4 +1,5 @@
 import DropdownField from '@covid/components/DropdownField';
+import { requiredFormMarker } from '@covid/components/Forms';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
@@ -31,7 +32,6 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
     <View style={styles.primaryFieldRow}>
       <View style={styles.feetField}>
         <ValidatedTextInput
-          required={true}
           error={formikProps.touched.feet && formikProps.errors.feet}
           keyboardType="numeric"
           onBlur={formikProps.handleBlur('feet')}
@@ -44,7 +44,6 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
       </View>
       <View style={styles.inchesField}>
         <ValidatedTextInput
-          required={true}
           error={formikProps.touched.inches && formikProps.errors.inches}
           keyboardType="numeric"
           onBlur={formikProps.handleBlur('inches')}
@@ -63,7 +62,6 @@ const HeightInCm: React.FC<Props> = ({ formikProps }) => {
   return (
     <View style={styles.cmField}>
       <ValidatedTextInput
-        required={true}
         error={formikProps.touched.height && formikProps.errors.height}
         keyboardType="numeric"
         onBlur={formikProps.handleBlur('height')}
@@ -80,7 +78,7 @@ const HeightInCm: React.FC<Props> = ({ formikProps }) => {
 export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <RegularText>{i18n.t('your-height')}</RegularText>
+      <RegularText>{i18n.t('your-height')} {requiredFormMarker}</RegularText>
       {isUSCountry() ? (
         <HeightInInches formikProps={formikProps} />
       ) : (

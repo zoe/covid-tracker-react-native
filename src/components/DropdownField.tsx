@@ -43,11 +43,7 @@ export function DropdownField({
   required,
 }: IProps) {
 
-  const renderPlaceholder = () => required ?
-    `${requiredFormMarker} ${placeholder ? placeholder : i18n.t('choose-one-of-these-options')}`
-    :
-    placeholder ? placeholder : i18n.t('choose-one-of-these-options')
-  ;
+  const renderPlaceholder = () => placeholder ? placeholder : i18n.t('choose-one-of-these-options');
 
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
@@ -134,7 +130,9 @@ export function DropdownField({
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
+      {onlyPicker ? null : <Label style={styles.labelStyle}>
+        {label} {required ? requiredFormMarker : null }
+      </Label>}
       <ModalDropdown
         animated={false}
         defaultIndex={defaultIndex}

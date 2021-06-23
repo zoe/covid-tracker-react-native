@@ -41,7 +41,7 @@ export function CheckboxItem(props: ICheckboxProps) {
 export function CheckboxList({ children, label, required }: ICheckboxListProps) {
     const renderLabel = () => required ?
       <RegularText>
-        {required ? `${requiredFormMarker} ` : null }{label}
+       {label} {required ? `${requiredFormMarker}` : null }
       </RegularText> 
       : null;
 

@@ -2,6 +2,7 @@ import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { KeyboardTypeOptions, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
+import { requiredFormMarker } from './Forms';
 
 import { FieldWrapper } from './Screen';
 import { RegularText } from './Text';
@@ -25,7 +26,9 @@ export function GenericTextField(props: IProps) {
 
   return (
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
-      {label ? <RegularText>{label}</RegularText> : null}
+      {label ? <RegularText>
+        {label} {props.required ? requiredFormMarker : null}
+      </RegularText> : null}
       <ValidatedTextInput
         error={formikProps.touched[name] && formikProps.errors[name]}
         keyboardType={keyboardType}
