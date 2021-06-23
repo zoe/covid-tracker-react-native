@@ -73,10 +73,6 @@ export const SecondaryText = ({ style, children }: Props) => (
   <Text style={[fontStyles.bodySecondary, style]}>{children}</Text>
 );
 
-export const SecondaryLightText = ({ style, children }: Props) => (
-  <Text style={[fontStyles.bodySecondaryLight, style]}>{children}</Text>
-);
-
 export const MutedText = ({ style, children }: Props) => (
   <Text style={[fontStyles.bodyMutedReg, style]}>{children}</Text>
 );

@@ -1,6 +1,6 @@
 import { requiredFormMarker } from '@covid/components/Forms';
 import { RadioButton } from '@covid/components/RadioButton';
-import { ErrorText, LabelText, SecondaryLightText } from '@covid/components/Text';
+import { ErrorText, LabelText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import React from 'react';
 import {
@@ -53,7 +53,7 @@ export function RadioInput(props: IProps) {
         >
           <RadioButton selected={props.selectedValue === item.value} />
           {item.iconSource ? <Image source={item.iconSource} style={styles.image} /> : null}
-          <SecondaryLightText style={styles.marginLeft}>{item.label}</SecondaryLightText>
+          <SecondaryText style={styles.marginLeft}>{item.label}</SecondaryText>
         </TouchableOpacity>
       ))}
       {props.error ? <ErrorText style={styles.marginTop}>{props.error}</ErrorText> : null}

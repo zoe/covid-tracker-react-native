@@ -27,12 +27,6 @@ export const fontStyles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
   },
-  bodySecondaryLight: {
-    color: colors.secondary,
-    fontFamily: 'SofiaPro-Light',
-    fontSize: 16,
-    lineHeight: 24,
-  },
   bodySmallLight: {
     color: colors.tertiary,
     fontFamily: 'SofiaPro-Light',
