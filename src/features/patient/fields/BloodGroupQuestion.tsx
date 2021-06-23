@@ -1,4 +1,4 @@
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
@@ -33,7 +33,7 @@ export function BloodGroupQuestion({ formikProps }: IProps) {
   ];
 
   return (
-    <DropdownField
+    <RadioInput
       items={bloodTypeItems}
       label={i18n.t('blood-group.question')}
       onValueChange={formikProps.handleChange('bloodGroup')}

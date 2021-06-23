@@ -4,24 +4,22 @@ import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { Label } from 'native-base';
 import * as React from 'react';
-import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageSourcePropType, PickerItemProps, StyleSheet, Text, View } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
 
 interface IProps {
-  placeholder?: string | undefined;
-  selectedValue?: any;
-  onValueChange: any;
-  label?: string;
-  items: PickerItemProps[];
-  pickerProps?: PickerProps;
-  androidDefaultLabel?: string;
-  error?: any;
-  onlyPicker?: boolean;
+  error?: string;
+  hideLabel?: boolean;
   itemIcons?: ImageSourcePropType[];
+  items: PickerItemProps[];
+  label?: string;
+  onValueChange: (value: any) => void;
+  placeholder?: string;
   required?: boolean;
+  selectedValue?: any;
 }
 
 interface ISelectedItem {
@@ -35,15 +33,13 @@ export function DropdownField({
   placeholder,
   label,
   error,
-  onlyPicker,
+  hideLabel,
   items: providedItems,
   selectedValue,
   onValueChange,
   itemIcons,
   required,
 }: IProps) {
-  const renderPlaceholder = () => placeholder || i18n.t('choose-one-of-these-options');
-
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
     return (
@@ -129,7 +125,7 @@ export function DropdownField({
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {onlyPicker ? null : (
+      {hideLabel ? null : (
         <Label style={styles.labelStyle}>
           {label} {required ? requiredFormMarker : null}
         </Label>
@@ -160,7 +156,7 @@ export function DropdownField({
           style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}
         >
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
-            {selectedLabel ?? renderPlaceholder()}
+            {selectedLabel ?? (placeholder || i18n.t('choose-one-of-these-options'))}
           </Label>
           <DropdownIcon />
         </View>

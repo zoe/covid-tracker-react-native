@@ -68,24 +68,23 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
   }
 
   get testId(): string | undefined {
-    const { test } = this.props.route.params;
-    return test?.id;
+    return this.props.route.params?.test?.id;
   }
 
   submitCovidTest(infos: Partial<CovidTest>) {
     const { test } = this.props.route.params;
-    if (test?.id) {
+    if (this.props.route.params?.test?.id) {
       if (
-        test.result !== 'positive' &&
+        this.props.route.params?.test?.result !== 'positive' &&
         infos.result === 'positive' &&
-        this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+        this.props.route.params?.assessmentData?.patientData?.patientState?.hasSchoolGroup
       ) {
         this.setState({ submitting: false });
         infos.id = this.testId;
         assessmentCoordinator.goToTestConfirm(infos as CovidTest);
       } else {
         this.covidTestService
-          .updateTest(test.id, infos)
+          .updateTest(this.props.route.params?.test?.id, infos)
           .then(() => {
             NavigatorService.goBack();
           })
@@ -96,7 +95,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
       }
     } else if (
       infos.result === 'positive' &&
-      this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+      this.props.route.params?.assessmentData?.patientData?.patientState?.hasSchoolGroup
     ) {
       this.setState({ submitting: false });
       assessmentCoordinator.goToTestConfirm(infos as CovidTest);
@@ -132,7 +131,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
       }
 
       const infos = {
-        patient: assessmentCoordinator.assessmentData.patientData.patientId,
+        patient: assessmentCoordinator.assessmentData?.patientData?.patientId,
         type: CovidTestType.Generic,
         ...CovidTestDateQuestion.createDTO(formData),
         ...CovidTestMechanismQuestion.createDTO(formData),
@@ -174,8 +173,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
   }
 
   render() {
-    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
-    const { test } = this.props.route.params;
+    const test = this.props.route.params?.test;
 
     const registerSchema = Yup.object()
       .shape({})
@@ -187,7 +185,10 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
       .concat(CovidTestIsRapidQuestion.schema());
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      >
         <Header>
           <HeaderText>
             {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}

@@ -1,5 +1,5 @@
 import { CheckboxItem } from '@covid/components/Checkbox';
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { FormikProps } from 'formik';
@@ -52,12 +52,12 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
 
         {checkBoxData.followUp && props.values[checkBoxData.value] ? (
           <View style={{ marginBottom: 16 }}>
-            <DropdownField
-              error={props.touched[checkBoxData.followUp.value] && props.errors[checkBoxData.followUp.value]}
-              items={checkBoxData.followUp.options}
-              label={checkBoxData.followUp.label}
-              onValueChange={props.handleChange(checkBoxData.followUp.value)}
-              selectedValue={props.values[checkBoxData.followUp.value]}
+            <RadioInput
+              error={props.touched[checkBoxData.followUp?.value] ? props.errors[checkBoxData.followUp?.value] : ''}
+              items={checkBoxData.followUp?.options}
+              label={checkBoxData.followUp?.label}
+              onValueChange={props.handleChange(checkBoxData.followUp?.value)}
+              selectedValue={props.values[checkBoxData.followUp?.value]}
             />
           </View>
         ) : null}

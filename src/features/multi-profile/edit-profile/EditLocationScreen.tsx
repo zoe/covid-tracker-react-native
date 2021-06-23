@@ -42,15 +42,15 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const initialFormValues: EditLocationData = {
-    currentCountry: props.route.params.patientData.patientInfo!.current_country_code ?? '',
-    currentPostcode: props.route.params.patientData.patientInfo!.current_postcode ?? '',
-    differentAddress: props.route.params.patientData.patientInfo!.current_postcode
+    currentCountry: props.route.params?.patientData?.patientInfo!.current_country_code ?? '',
+    currentPostcode: props.route.params?.patientData?.patientInfo!.current_postcode ?? '',
+    differentAddress: props.route.params?.patientData?.patientInfo!.current_postcode
       ? 'yes'
-      : props.route.params.patientData.patientInfo!.current_country_code
+      : props.route.params?.patientData?.patientInfo!.current_country_code
       ? 'yes'
       : 'no',
-    postcode: props.route.params.patientData.patientInfo!.postcode,
-    stillInUK: props.route.params.patientData.patientInfo!.current_country_code ? 'no' : 'yes',
+    postcode: props.route.params?.patientData?.patientInfo!.postcode,
+    stillInUK: props.route.params?.patientData?.patientInfo!.current_country_code ? 'no' : 'yes',
   };
 
   const validation = Yup.object().shape({
@@ -113,7 +113,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     .sort((a: PickerItemProps, b: PickerItemProps) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
   return (
-    <Screen simpleCallout navigation={props.navigation} profile={props.route.params.patientData.profile}>
+    <Screen simpleCallout navigation={props.navigation} profile={props.route.params?.patientData?.profile}>
       <Header>
         <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
       </Header>

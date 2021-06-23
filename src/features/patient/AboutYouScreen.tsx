@@ -1,7 +1,7 @@
 import { BrandedButton } from '@covid/components';
-import DropdownField from '@covid/components/DropdownField';
 import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -79,7 +79,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
-  private coordinator: Coordinator & IUpdatePatient = this.props.route.params.editing
+  private coordinator: Coordinator & IUpdatePatient = this.props.route.params?.editing
     ? editProfileCoordinator
     : patientCoordinator;
 
@@ -101,7 +101,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
-      const currentPatient = this.coordinator.patientData.patientState;
+      const currentPatient = this.coordinator.patientData?.patientState;
       const infos = this.createPatientInfos(formData);
 
       this.coordinator
@@ -201,7 +201,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
   }
 
   private getPatientFormValues(): IAboutYouData {
-    const patientInfo = this.props.route.params.patientData.patientInfo!;
+    const patientInfo = this.props.route.params?.patientData.patientInfo!;
 
     const patientFormData: IAboutYouData = {
       ethnicity: patientInfo.ethnicity ?? '',
@@ -269,7 +269,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
     mobilityAid: Yup.string().required(),
     needsHelp: Yup.string().required(),
     postcode: Yup.string().when([], {
-      is: () => !this.props.route.params.editing,
+      is: () => !this.props.route.params?.editing,
       then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
     }),
     pounds: Yup.number().when('weightUnit', {
@@ -303,23 +303,19 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
   });
 
   render() {
-    const currentPatient = this.coordinator.patientData.patientState;
     const sexAtBirthItems = [
-      { label: i18n.t('choose-one-of-these-options'), value: '' },
       { label: i18n.t('sex-at-birth-male'), value: 'male' },
       { label: i18n.t('sex-at-birth-female'), value: 'female' },
       { label: i18n.t('sex-at-birth-intersex'), value: 'intersex' },
       { label: i18n.t('sex-at-birth-pfnts'), value: 'pfnts' },
     ];
     const genderIdentityItems = [
-      { label: i18n.t('choose-one-of-these-options'), value: '' },
       { label: i18n.t('gender-identity-male'), value: 'male' },
       { label: i18n.t('gender-identity-female'), value: 'female' },
       { label: i18n.t('gender-identity-pfnts'), value: 'pfnts' },
       { label: i18n.t('gender-identity-other'), value: 'other' },
     ];
     const everExposedItems = [
-      { label: i18n.t('choose-one-of-these-options'), value: '' },
       { label: i18n.t('exposed-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('exposed-yes-undocumented'), value: 'yes_suspected' },
       { label: i18n.t('exposed-both'), value: 'yes_documented_suspected' },
@@ -336,7 +332,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
     };
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={this.coordinator.patientData?.patientState?.profile}>
         <Header>
           <HeaderText>{i18n.t('title-about-you')}</HeaderText>
         </Header>
@@ -348,7 +344,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
         <Formik
           validateOnChange
           validateOnMount
-          initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
+          initialValues={this.props.route.params?.editing ? this.getPatientFormValues() : getInitialFormValues()}
           onSubmit={(values: IAboutYouData) => {
             return this.handleUpdateHealth(values);
           }}
@@ -370,19 +366,18 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                     placeholder={i18n.t('placeholder-year-of-birth')}
                   />
 
-                  <DropdownField
+                  <RadioInput
                     required
-                    error={props.touched.sex && props.errors.sex}
+                    error={props.touched.sex ? props.errors.sex : ''}
                     items={sexAtBirthItems}
                     label={i18n.t('your-sex-at-birth')}
                     onValueChange={props.handleChange('sex')}
-                    placeholder={i18n.t('placeholder-sex')}
                     selectedValue={props.values.sex}
                   />
 
-                  <DropdownField
+                  <RadioInput
                     required
-                    error={props.touched.genderIdentity && props.errors.genderIdentity}
+                    error={props.touched.genderIdentity ? props.errors.genderIdentity : ''}
                     items={genderIdentityItems}
                     label={i18n.t('label-gender-identity')}
                     onValueChange={props.handleChange('genderIdentity')}
@@ -408,7 +403,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
 
                   <WeightQuestion formikProps={props as FormikProps<IWeightData>} label={i18n.t('your-weight')} />
 
-                  {!this.props.route.params.editing ? (
+                  {!this.props.route.params?.editing ? (
                     <GenericTextField
                       required
                       showError
@@ -420,9 +415,9 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                     />
                   ) : null}
 
-                  <DropdownField
+                  <RadioInput
                     required
-                    error={props.touched.everExposed && props.errors.everExposed}
+                    error={props.touched.everExposed ? props.errors.everExposed : ''}
                     items={everExposedItems}
                     label={i18n.t('have-you-been-exposed')}
                     onValueChange={props.handleChange('everExposed')}
@@ -464,7 +459,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                 </View>
 
                 <BrandedButton enable={props.isValid} loading={props.isSubmitting} onPress={props.handleSubmit}>
-                  {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
+                  {this.props.route.params?.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>
               </FormWrapper>
             );

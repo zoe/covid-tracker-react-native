@@ -91,7 +91,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
           )}
           <View style={styles.secondaryField}>
             <DropdownField
-              onlyPicker
+              hideLabel
               items={[
                 { label: 'lbs', value: 'lbs' },
                 { label: 'kg', value: 'kg' },
