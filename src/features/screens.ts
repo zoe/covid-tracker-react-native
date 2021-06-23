@@ -1,3 +1,6 @@
+// It can feel overcomplicated to add the screen component here and then use it in the navigator.
+// But it's for a reason, to ensure every newly added screen is automatically unit tested.
+
 export {
   AboutYouScreen,
   AboutYourVaccineScreen,
