@@ -23,7 +23,6 @@ import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
