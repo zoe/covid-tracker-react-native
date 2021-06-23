@@ -1,6 +1,6 @@
 import { SvgProps } from '@assets/Svg';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 const color = colors.textDark;

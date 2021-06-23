@@ -1,5 +1,5 @@
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 
 export const ModalContainer: React.FC = (props) => (

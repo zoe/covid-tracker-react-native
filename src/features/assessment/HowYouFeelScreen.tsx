@@ -15,7 +15,7 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -27,15 +27,15 @@ type Props = {
 };
 
 export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [location, setLocation] = useState('');
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [location, setLocation] = React.useState('');
   const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const isFocused = useIsFocused();
 
   // Startup info is currently used to toggle long covid - this is per user account and not per profile
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
     const { getName } = require('country-list');
 
@@ -114,7 +114,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
-  useEffect(() => {
+  React.useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
 

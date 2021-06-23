@@ -9,7 +9,7 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface IProps {
@@ -18,7 +18,7 @@ interface IProps {
 }
 
 function TreatmentSelectionScreen({ navigation, route }: IProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   const title =
     route.params.location === 'back_from_hospital'
@@ -44,7 +44,7 @@ function TreatmentSelectionScreen({ navigation, route }: IProps) {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
 

@@ -11,7 +11,7 @@ import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 type PropsType = {
@@ -24,7 +24,7 @@ interface TermsState {
   termsOfUseChecked: boolean;
 }
 
-export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
+export class NursesConsentUSScreen extends React.Component<PropsType, TermsState> {
   @lazyInject(Services.Consent)
   private readonly consentService: IConsentService;
 

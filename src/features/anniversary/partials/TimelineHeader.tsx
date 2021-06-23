@@ -1,7 +1,7 @@
 import { covidByZoeIconDark } from '@assets';
 import { BasicNavHeader } from '@covid/components';
 import { colors } from '@theme/colors';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet } from 'react-native';
 
 export default function TimelineHeader() {

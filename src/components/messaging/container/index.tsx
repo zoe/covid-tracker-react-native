@@ -2,7 +2,7 @@ import { IUIMessage, useMessage } from '@covid/common';
 import { Banner } from '@covid/components/messaging/banners';
 import { Dialog } from '@covid/components/messaging/dialogs';
 import { SnackBar } from '@covid/components/messaging/snackbars';
-import React from 'react';
+import * as React from 'react';
 import { Dimensions } from 'react-native';
 
 import { SContainerView } from './styles';

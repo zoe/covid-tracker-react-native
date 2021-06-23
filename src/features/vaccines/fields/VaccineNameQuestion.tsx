@@ -3,7 +3,7 @@ import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationS
 import { vaccineBrandDisplayName, VaccineBrands, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 import { IVaccineDoseData } from './VaccineDoseQuestion';

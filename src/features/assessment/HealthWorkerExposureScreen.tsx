@@ -14,7 +14,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -49,7 +49,7 @@ const initialState: State = {
   errorMessage: '',
 };
 
-export default class HealthWorkerExposureScreen extends Component<HealthWorkerExposureProps, State> {
+export default class HealthWorkerExposureScreen extends React.Component<HealthWorkerExposureProps, State> {
   constructor(props: HealthWorkerExposureProps) {
     super(props);
     this.state = initialState;

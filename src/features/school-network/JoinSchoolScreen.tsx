@@ -4,7 +4,7 @@ import { RootState } from '@covid/core/state/root';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
+import * as React from 'react';
 import { useSelector } from 'react-redux';
 
 import { SchoolForm } from './forms';

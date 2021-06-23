@@ -1,6 +1,6 @@
 import { BaseShareAppCard, ICommonShareProps, share } from '@covid/components/cards/BaseShareApp';
 import i18n from '@covid/locale/i18n';
-import React from 'react';
+import * as React from 'react';
 
 export function ShareAppCard(props: ICommonShareProps) {
   const shareMessage = i18n.t('share-this-app.message');

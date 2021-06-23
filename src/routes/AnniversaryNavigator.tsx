@@ -1,6 +1,6 @@
 import { Anniversary, ScreenParamList } from '@covid/features';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import * as React from 'react';
 
 const StackType = createStackNavigator<ScreenParamList>();
 

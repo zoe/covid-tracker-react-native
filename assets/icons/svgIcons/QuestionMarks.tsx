@@ -1,5 +1,5 @@
 import { colors } from '@theme/colors';
-import React from 'react';
+import * as React from 'react';
 import { G, Path, Svg } from 'react-native-svg';
 
 interface IProps {

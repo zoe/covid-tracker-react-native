@@ -1,10 +1,10 @@
 import { studyInvite } from '@assets';
 import Analytics, { events } from '@covid/core/Analytics';
 import appCoordinator from '@covid/features/AppCoordinator';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
-export default class InviteToStudy extends Component<{ placement: string }> {
+export default class InviteToStudy extends React.Component<{ placement: string }> {
   render() {
     return (
       <TouchableWithoutFeedback

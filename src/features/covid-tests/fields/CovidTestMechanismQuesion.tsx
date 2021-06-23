@@ -6,7 +6,7 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 
 export interface ICovidTestMechanismData {

@@ -16,7 +16,7 @@ import { colors } from '@theme';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
 import { Form, Label } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
@@ -49,7 +49,7 @@ const initialRegistrationValues = {
   password: '',
 };
 
-class RegisterScreen extends Component<PropsType, State> {
+class RegisterScreen extends React.Component<PropsType, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 

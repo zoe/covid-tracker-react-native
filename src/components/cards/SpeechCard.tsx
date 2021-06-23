@@ -1,10 +1,10 @@
 import { QuoteMarks } from '@assets';
 import { useTheme } from '@covid/themes';
-import React, { ReactNode } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface IProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 function SpeechCard({ children }: IProps) {

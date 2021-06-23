@@ -3,7 +3,7 @@ import { SelectableButton } from '@covid/components/SelectableButton';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
 import { Label } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { PickerProps, StyleSheet, View } from 'react-native';
 
 export interface ISingleButton {
@@ -22,7 +22,7 @@ interface IProps {
 }
 
 export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, onlyPicker }: IProps) {
-  const [selected, setSelected] = useState<string>(selectedValue);
+  const [selected, setSelected] = React.useState<string>(selectedValue);
 
   const onSelect = (value: string) => {
     setSelected(value);

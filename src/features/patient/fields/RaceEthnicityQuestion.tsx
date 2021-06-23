@@ -6,7 +6,7 @@ import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { FormikProps } from 'formik';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 export interface IRaceEthnicityData {
@@ -51,7 +51,7 @@ const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<IRace
   });
 };
 
-export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps, object> {
+export class RaceEthnicityQuestion extends React.Component<RaceEthnicityQuestionProps, object> {
   UKRaceCheckboxes = [
     { label: i18n.t('uk-asian'), value: 'uk_asian' },
     { label: i18n.t('uk-black'), value: 'uk_black' },

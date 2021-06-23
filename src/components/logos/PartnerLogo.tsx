@@ -1,5 +1,5 @@
 import { svPartnersReturn, usPartnersDash, usPartnersReturn } from '@assets';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet } from 'react-native';
 
 export const PartnerLogoSE = () => {

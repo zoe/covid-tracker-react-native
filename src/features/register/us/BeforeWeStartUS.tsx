@@ -4,14 +4,14 @@ import { HeaderText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 type HowYouFeelProps = {
   navigation: StackNavigationProp<ScreenParamList, 'BeforeWeStartUS'>;
 };
 
-export default class BeforeWeStart extends Component<HowYouFeelProps> {
+export default class BeforeWeStart extends React.Component<HowYouFeelProps> {
   render() {
     return (
       <Screen>

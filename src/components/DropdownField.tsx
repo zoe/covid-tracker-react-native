@@ -2,7 +2,7 @@ import DropdownIcon from '@assets/icons/DropdownIcon';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { Label } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text, View } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -65,16 +65,16 @@ export function DropdownField({
   const defaultItems = prepareItems(providedItems);
   const { index: defaultIndex, label: defaultSelectedLabel } = getSelectedLabel(defaultItems, selectedValue);
 
-  const [options, setOptions] = useState(defaultItems);
-  const [dropdownWidth, setDropdownWidth] = useState(0);
-  const [dropdownFocus, setDropdownFocus] = useState(false);
-  const [selectedLabel, setSelectedLabel] = useState(defaultSelectedLabel);
+  const [options, setOptions] = React.useState(defaultItems);
+  const [dropdownWidth, setDropdownWidth] = React.useState(0);
+  const [dropdownFocus, setDropdownFocus] = React.useState(false);
+  const [selectedLabel, setSelectedLabel] = React.useState(defaultSelectedLabel);
 
   const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : styles.dropdownNoBorder;
   const dropdownErrorStyle = error ? styles.dropdownError : {};
 
   // Update internal string items on props items change
-  useEffect(() => {
+  React.useEffect(() => {
     setOptions(prepareItems(providedItems));
     setSelectedLabel(getSelectedLabel(defaultItems, selectedValue).label);
   }, [providedItems]);
@@ -95,7 +95,7 @@ export function DropdownField({
 
   const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
-  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220)
+  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220);
   const renderDropdownRow = (option: string, index: any, isSelected: boolean): React.ReactNode => {
     // There is a type error in renderDropdownRow index is actually a number, not a string
 

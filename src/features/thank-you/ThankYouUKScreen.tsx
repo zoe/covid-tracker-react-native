@@ -14,7 +14,7 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -27,9 +27,9 @@ interface IProps {
 
 export default function ThankYouUKScreen({ navigation, route }: IProps) {
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
-  const [askForRating, setAskForRating] = useState<boolean>(false);
+  const [askForRating, setAskForRating] = React.useState<boolean>(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       try {
         const ratingAskResponse = await shouldAskForRating();

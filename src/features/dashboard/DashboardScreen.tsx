@@ -25,7 +25,7 @@ import { openWebLink } from '@covid/utils/links';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -50,8 +50,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
   );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
-  const [showTrendline, setShowTrendline] = useState<boolean>(false);
-  const [mentalHealthPlaybackModalVisible, setMentalHealthPlaybackModalVisible] = useState(false);
+  const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
+  const [mentalHealthPlaybackModalVisible, setMentalHealthPlaybackModalVisible] = React.useState(false);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -70,7 +70,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
     appCoordinator.goToTrendline();
   };
 
-  const [shouldShowReminders, setShouldShowReminders] = useState(false);
+  const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
 
   const runCurrentFeature = () => {
     if (startupInfo?.show_modal === 'mental-health-playback') {
@@ -79,14 +79,14 @@ export function DashboardScreen({ navigation, route }: IProps) {
   };
 
   // TODO: Can we move this into app initialisation?
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       await pushNotificationService.subscribeForPushNotifications();
       setShouldShowReminders(!(await pushService.isGranted()));
     })();
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     return navigation.addListener('focus', async () => {
       dispatch(updateTodayDate());
       dispatch(fetchSubscribedSchoolGroups());
@@ -97,7 +97,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
     });
   }, [navigation]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     if (!app.dashboardHasBeenViewed) {
       dispatch(setDashboardHasBeenViewed(true));
@@ -112,7 +112,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
     };
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     Linking.addEventListener('url', () => {});
   }, []);
 

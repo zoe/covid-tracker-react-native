@@ -8,7 +8,7 @@ import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-play
 import i18n from '@covid/locale/i18n';
 import { generalApiClient } from '@covid/Services';
 import { colors, styling } from '@covid/themes';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -19,9 +19,9 @@ interface IProps {
 
 export default function MentalHealthPlaybackModal({ closeModalHandler, showModal }: IProps) {
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
-  const [tracked, setTracked] = useState(false);
+  const [tracked, setTracked] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!tracked) {
       track(events.MENTAL_HEALTH_PLAYBACK_SCREEN_MODAL);
       setTracked(true);

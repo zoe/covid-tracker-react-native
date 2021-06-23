@@ -7,7 +7,7 @@ import {
 } from '@covid/features/mental-health-playback/screens';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import * as React from 'react';
 
 const StackType = createStackNavigator<ScreenParamList>();
 

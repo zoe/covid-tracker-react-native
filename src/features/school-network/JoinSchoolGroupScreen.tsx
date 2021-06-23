@@ -15,7 +15,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Alert, PickerItemProps, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -44,9 +44,9 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
 
   const currentPatient = route.params.patientData.patientState;
 
-  const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
+  const [groupList, setGroupList] = React.useState<PickerItemProps[]>([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       const groups: ISchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
         route.params.selectedSchool.id,

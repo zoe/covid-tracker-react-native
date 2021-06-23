@@ -1,7 +1,7 @@
 import { Text } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 function TimelineFooter() {

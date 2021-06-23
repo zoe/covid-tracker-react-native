@@ -2,7 +2,7 @@ import { SolidColorBar, Text } from '@covid/components';
 import { TReportedEvent } from '@covid/features/anniversary/types';
 import { useTheme } from '@covid/themes';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ReportedEvent from './ReportedEvent';

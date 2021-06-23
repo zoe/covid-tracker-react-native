@@ -1,13 +1,13 @@
 import Error from '@assets/icons/Error';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
 interface Props extends TextInputProps {
   error?: any;
 }
 
-export class ValidatedTextInput extends Component<Props, object> {
+export class ValidatedTextInput extends React.Component<Props, object> {
   private textInput: any;
 
   focus() {

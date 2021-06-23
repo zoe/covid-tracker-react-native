@@ -1,5 +1,5 @@
 import i18n from '@covid/locale/i18n';
-import React from 'react';
+import * as React from 'react';
 import { PickerProps } from 'react-native';
 
 import { ButtonsGroup, ISingleButton } from './inputs/ButtonsGroup';

@@ -5,7 +5,7 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 type PropsType = {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class TermsOfUseUSScreen extends Component<PropsType> {
+export default class TermsOfUseUSScreen extends React.Component<PropsType> {
   viewOnly = this.props.route.params.viewOnly;
 
   render() {

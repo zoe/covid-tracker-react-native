@@ -7,7 +7,7 @@ import i18n from '@covid/locale/i18n';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 

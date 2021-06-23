@@ -5,17 +5,17 @@ import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { offlineService } from '@covid/Services';
-import { useState } from 'react';
+import * as React from 'react';
 
 export const useProfileList = () => {
   const patientService = useInjection<IPatientService>(Services.Patient);
 
-  const [status, setStatus] = useState<string>('');
-  const [error, setError] = useState<AppException | null>(null);
-  const [isApiError, setIsApiError] = useState<boolean>(false);
+  const [status, setStatus] = React.useState<string>('');
+  const [error, setError] = React.useState<AppException | null>(null);
+  const [isApiError, setIsApiError] = React.useState<boolean>(false);
 
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [profiles, setProfiles] = React.useState<Profile[]>([]);
+  const [isLoaded, setIsLoaded] = React.useState<boolean>(false);
 
   const retryListProfiles = () => {
     setStatus(i18n.t('errors.status-retrying'));

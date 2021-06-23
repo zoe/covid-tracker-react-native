@@ -1,5 +1,5 @@
 import { SelectableButton } from '@covid/components/SelectableButton';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 interface ISelectableItem {
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 export function Selectable({ items, resetAnimation, onSelected }: IProps) {
-  const [selected, setSelected] = useState<ISelectableItem | null>();
+  const [selected, setSelected] = React.useState<ISelectableItem | null>();
   const isSelected = (item: ISelectableItem): boolean => selected?.title === item.title;
 
   return (

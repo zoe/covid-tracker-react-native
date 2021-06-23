@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
+import * as React from 'react';
 import { Animated } from 'react-native';
 
 function useFade(from: number, toValue: number, duration: number) {
-  const fade = useRef(new Animated.Value(from)).current;
+  const fade = React.useRef(new Animated.Value(from)).current;
   const fadeAnim = () => {
     Animated.timing(fade, {
       duration,
@@ -11,7 +11,7 @@ function useFade(from: number, toValue: number, duration: number) {
     }).start();
   };
 
-  useEffect(fadeAnim);
+  React.useEffect(fadeAnim);
 
   return fade;
 }

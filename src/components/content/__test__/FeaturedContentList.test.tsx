@@ -5,7 +5,7 @@ import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import MockAdapter from 'axios-mock-adapter';
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';

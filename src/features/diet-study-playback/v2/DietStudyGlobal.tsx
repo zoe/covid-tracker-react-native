@@ -2,7 +2,7 @@ import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGl
 import { BackButton, BasicNavHeader, SafeLayout, Spacer, Text } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { styling } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
 function DietStudyGlobal() {

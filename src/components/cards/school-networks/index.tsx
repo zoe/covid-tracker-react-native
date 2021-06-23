@@ -1,5 +1,5 @@
 import { ISubscribedSchoolGroupStats, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
-import React from 'react';
+import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 import Card from './Card';

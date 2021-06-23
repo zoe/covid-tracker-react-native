@@ -1,5 +1,5 @@
 declare module 'react-native-easy-markdown' {
-  import React from 'react';
+  import * as React from 'react';
   import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
 
   export interface IProps {

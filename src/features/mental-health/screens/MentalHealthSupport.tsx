@@ -12,12 +12,12 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
 import { useTheme } from '@covid/themes';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 function MentalHealthSupport() {
-  const [canSubmit, setCanSubmit] = useState(false);
+  const [canSubmit, setCanSubmit] = React.useState(false);
   const { grid } = useTheme();
   const MentalHealthSupport: IMentalHealthSupport = useSelector(selectMentalHealthSupport);
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function MentalHealthSupport() {
     dispatch(setHasReceivedSupport(value));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (MentalHealthSupport.hasNeededSupport === 'NO' || MentalHealthSupport.hasNeededSupport === 'DECLINE_TO_SAY') {
       setCanSubmit(true);
       return;

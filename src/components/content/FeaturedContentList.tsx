@@ -1,7 +1,7 @@
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { IFeaturedContent } from '@covid/core/content/dto/ContentAPIContracts';
 import { RootState } from '@covid/core/state/root';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 

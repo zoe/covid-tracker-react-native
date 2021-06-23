@@ -5,7 +5,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import * as React from 'react';
 import { ScrollView } from 'react-native';
 
 type PropsType = {
@@ -14,35 +14,35 @@ type PropsType = {
   setAgreed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
-  const [participateChecked, setParticipateChecked] = useState(false);
-  const [processingChecked, setProcessingChecked] = useState(false);
-  const [agreeChecked, setAgreeChecked] = useState(false);
+const ConsentScreenSE: React.FC<PropsType> = ({ navigation, route, setAgreed }) => {
+  const [participateChecked, setParticipateChecked] = React.useState(false);
+  const [processingChecked, setProcessingChecked] = React.useState(false);
+  const [agreeChecked, setAgreeChecked] = React.useState(false);
 
-  const onInfoLinkPress = useCallback(() => openWebLink('https://Covid19app.lu.se'), []);
+  const onInfoLinkPress = React.useCallback(() => openWebLink('https://Covid19app.lu.se'), []);
 
-  const onPrivacyPolicyPress = useCallback(
+  const onPrivacyPolicyPress = React.useCallback(
     () => navigation.navigate('PrivacyPolicySV', { viewOnly: route.params.viewOnly }),
     [navigation.navigate, route.params.viewOnly],
   );
 
-  const toggleParticipateChecked = useCallback(() => {
+  const toggleParticipateChecked = React.useCallback(() => {
     setParticipateChecked(!participateChecked);
   }, [setParticipateChecked, participateChecked]);
 
-  const toggleProcessingChecked = useCallback(() => {
+  const toggleProcessingChecked = React.useCallback(() => {
     setProcessingChecked(!processingChecked);
   }, [setProcessingChecked, processingChecked]);
 
-  const toggleAgreeChecked = useCallback(() => {
+  const toggleAgreeChecked = React.useCallback(() => {
     setAgreeChecked(!agreeChecked);
   }, [setAgreeChecked, agreeChecked]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     navigation.setOptions({ title: 'Information till studiedeltagare' });
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setAgreed(participateChecked && processingChecked && agreeChecked);
   }, [participateChecked, processingChecked, agreeChecked]);
 
