@@ -82,7 +82,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
                   <View style={{ flex: 1 }} />
                   <BrandedButton
                     enable={!isSubmitting}
-                    hideLoading={!isSubmitting}
+                    loading={isSubmitting}
                     onPress={props.handleSubmit}
                     style={styles.continueButton}
                   >

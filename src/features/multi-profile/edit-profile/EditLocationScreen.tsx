@@ -160,7 +160,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
               ) : null}
               {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' ? (
                 <DropdownField
-                  error={props.touched.currentCountry && props.errors.currentCountry}
+                  error={props.touched.currentCountry ? props.errors.currentCountry : ''}
                   items={countryList}
                   label={i18n.t('edit-profile.location.select-country')}
                   onValueChange={props.handleChange('currentCountry')}
@@ -172,7 +172,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                 {i18n.t('edit-profile.location.disclaimer')}
               </SecondaryText>
               <ErrorText>{errorMessage}</ErrorText>
-              <BrandedButton hideLoading={!props.isSubmitting} onPress={props.handleSubmit}>
+              <BrandedButton loading={props.isSubmitting} onPress={props.handleSubmit}>
                 {i18n.t('edit-profile.done')}
               </BrandedButton>
             </Form>
