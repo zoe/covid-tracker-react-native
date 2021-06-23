@@ -1,9 +1,8 @@
-import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { KeyboardTypeOptions, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
-import { requiredFormMarker } from './Forms';
 
+import { requiredFormMarker } from './Forms';
 import { FieldWrapper } from './Screen';
 import { RegularText } from './Text';
 import { ValidatedTextInput } from './ValidatedTextInput';

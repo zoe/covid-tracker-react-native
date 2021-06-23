@@ -1,10 +1,7 @@
 import Error from '@assets/icons/Error';
-import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import { placeholder } from 'i18n-js';
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
-import { Label } from 'native-base';
 
 interface Props extends TextInputProps {
   error?: any;

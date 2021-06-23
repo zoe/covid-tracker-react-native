@@ -1,7 +1,6 @@
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
-import { RegularText } from '@covid/components/Text';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
@@ -88,7 +87,7 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
         {this.props.showRaceQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
-              <CheckboxList label={i18n.t('race-question')} required={true}>
+              <CheckboxList required label={i18n.t('race-question')}>
                 {createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}
               </CheckboxList>
             </View>
@@ -98,7 +97,7 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
         {this.props.showEthnicityQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
-              <CheckboxList label={i18n.t('race-question')} required={true}>
+              <CheckboxList required label={i18n.t('race-question')}>
                 {createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}
               </CheckboxList>
             </View>
@@ -116,7 +115,7 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
         {isUSCountry() ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
-              <CheckboxList label={i18n.t('ethnicity-question')} required={true}>
+              <CheckboxList required label={i18n.t('ethnicity-question')}>
                 <CheckboxItem
                   onChange={(value: boolean) => {
                     this.props.formikProps.setFieldValue('ethnicity', value ? 'hispanic' : '');

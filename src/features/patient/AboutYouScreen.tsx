@@ -4,7 +4,7 @@ import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
 import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
@@ -354,42 +354,42 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         </ProgressBlock>
 
         <Formik
+          validateOnChange
+          validateOnMount
           initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
           onSubmit={(values: IAboutYouData) => {
             return this.handleUpdateHealth(values);
           }}
           validationSchema={this.registerSchema}
-          validateOnMount={true}
-          validateOnChange={true}
         >
           {(props) => {
             const isMinor = isMinorAge(cleanIntegerVal(props.values.yearOfBirth));
 
             return (
-              <FormWrapper hasRequiredFields={true}>
+              <FormWrapper hasRequiredFields>
                 <View style={{ marginHorizontal: 16 }}>
                   <GenericTextField
+                    required
                     showError
                     formikProps={props}
                     keyboardType="numeric"
                     label={i18n.t('what-year-were-you-born')}
-                    placeholder={i18n.t('placeholder-year-of-birth')}
                     name="yearOfBirth"
-                    required={true}
+                    placeholder={i18n.t('placeholder-year-of-birth')}
                   />
 
                   <DropdownField
-                    required={true}
+                    required
                     error={props.touched.sex && props.errors.sex}
                     items={sexAtBirthItems}
                     label={i18n.t('your-sex-at-birth')}
-                    placeholder={i18n.t('placeholder-sex')}
                     onValueChange={props.handleChange('sex')}
+                    placeholder={i18n.t('placeholder-sex')}
                     selectedValue={props.values.sex}
                   />
 
                   <DropdownField
-                    required={true}
+                    required
                     error={props.touched.genderIdentity && props.errors.genderIdentity}
                     items={genderIdentityItems}
                     label={i18n.t('label-gender-identity')}
@@ -418,7 +418,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                   {!this.props.route.params.editing ? (
                     <GenericTextField
-                      required={true}
+                      required
                       showError
                       formikProps={props}
                       inputProps={{ autoCompleteType: 'postal-code' }}
@@ -429,7 +429,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   ) : null}
 
                   <DropdownField
-                    required={true}
+                    required
                     error={props.touched.everExposed && props.errors.everExposed}
                     items={everExposedItems}
                     label={i18n.t('have-you-been-exposed')}

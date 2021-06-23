@@ -1,11 +1,11 @@
 import DropdownIcon from '@assets/icons/DropdownIcon';
+import { requiredFormMarker } from '@covid/components/Forms';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { Label } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text, View } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { requiredFormMarker } from '@covid/components/Forms';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
@@ -42,7 +42,7 @@ export function DropdownField({
   itemIcons,
   required,
 }: IProps) {
-  const renderPlaceholder = () => (placeholder ? placeholder : i18n.t('choose-one-of-these-options'));
+  const renderPlaceholder = () => placeholder || i18n.t('choose-one-of-these-options');
 
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
