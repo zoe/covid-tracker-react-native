@@ -447,7 +447,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
 
                   <BrandedButton
                     enable={this.checkFormFilled(props)}
-                    hideLoading={!props.isSubmitting}
+                    loading={props.isSubmitting}
                     onPress={handleSubmit}
                   >
                     {i18n.t('next-question')}

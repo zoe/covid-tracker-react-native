@@ -82,7 +82,6 @@ export interface IClickableProps extends ITest {
   style?: any;
   onPress: () => void;
   enable?: boolean;
-  hideLoading?: boolean;
 }
 
 export const ClickableText = ({ style, children, onPress }: IClickableProps) => (

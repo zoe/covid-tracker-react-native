@@ -23,7 +23,6 @@ import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
@@ -472,7 +471,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                   ) : null}
                 </View>
 
-                <BrandedButton enable={props.isValid} hideLoading={!props.isSubmitting} onPress={props.handleSubmit}>
+                <BrandedButton enable={props.isValid} loading={props.isSubmitting} onPress={props.handleSubmit}>
                   {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>
               </FormWrapper>

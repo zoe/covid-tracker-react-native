@@ -135,7 +135,7 @@ export default class ConsentForOtherScreen extends React.Component<RenderProps, 
 
         <ErrorText>{this.state.errorMessage}</ErrorText>
 
-        <BrandedButton hideLoading enable={this.state.consentChecked} onPress={this.handleCreatePatient}>
+        <BrandedButton enable={this.state.consentChecked} onPress={this.handleCreatePatient}>
           {i18n.t('consent-create-profile')}
         </BrandedButton>
 
