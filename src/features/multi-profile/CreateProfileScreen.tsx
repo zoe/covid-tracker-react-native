@@ -1,4 +1,5 @@
 import { BrandedButton } from '@covid/components';
+import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
@@ -51,6 +52,9 @@ export default class CreateProfileScreen extends React.Component<RenderProps> {
         </Header>
 
         <Formik
+          validateOnBlur
+          validateOnChange
+          validateOnMount
           initialValues={initialFormValues}
           onSubmit={(values: FormData) => {
             return this.handleClick(values);
@@ -59,17 +63,19 @@ export default class CreateProfileScreen extends React.Component<RenderProps> {
         >
           {(props) => {
             return (
-              <Form>
+              <FormWrapper hasRequiredFields>
                 <View style={{ marginHorizontal: 16 }}>
                   <GenericTextField
+                    required
                     formikProps={props}
                     name="name"
                     placeholder={i18n.t('create-profile-placeholder')}
                   />
                 </View>
-
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
-              </Form>
+                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
+                  {i18n.t('create-profile-button')}
+                </BrandedButton>
+              </FormWrapper>
             );
           }}
         </Formik>

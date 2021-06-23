@@ -1,4 +1,5 @@
 import DropdownIcon from '@assets/icons/DropdownIcon';
+import { requiredFormMarker } from '@covid/components/Forms';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { Label } from 'native-base';
@@ -20,6 +21,7 @@ interface IProps {
   error?: any;
   onlyPicker?: boolean;
   itemIcons?: ImageSourcePropType[];
+  required?: boolean;
 }
 
 interface ISelectedItem {
@@ -30,6 +32,7 @@ interface ISelectedItem {
 const DROPDOWN_ROW_HEIGHT = 48.6;
 
 export function DropdownField({
+  placeholder,
   label,
   error,
   onlyPicker,
@@ -37,7 +40,10 @@ export function DropdownField({
   selectedValue,
   onValueChange,
   itemIcons,
+  required,
 }: IProps) {
+  const renderPlaceholder = () => placeholder || i18n.t('choose-one-of-these-options');
+
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
     return (
@@ -123,7 +129,11 @@ export function DropdownField({
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
+      {onlyPicker ? null : (
+        <Label style={styles.labelStyle}>
+          {label} {required ? requiredFormMarker : null}
+        </Label>
+      )}
       <ModalDropdown
         animated={false}
         defaultIndex={defaultIndex}
@@ -150,7 +160,7 @@ export function DropdownField({
           style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}
         >
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
-            {selectedLabel ?? i18n.t('choose-one-of-these-options')}
+            {selectedLabel ?? renderPlaceholder()}
           </Label>
           <DropdownIcon />
         </View>

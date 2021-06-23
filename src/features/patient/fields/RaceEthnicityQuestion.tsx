@@ -1,7 +1,6 @@
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
-import { RegularText } from '@covid/components/Text';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
@@ -88,8 +87,9 @@ export class RaceEthnicityQuestion extends React.Component<RaceEthnicityQuestion
         {this.props.showRaceQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
-              <RegularText>{i18n.t('race-question')}</RegularText>
-              <CheckboxList>{createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
+              <CheckboxList required label={i18n.t('race-question')}>
+                {createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}
+              </CheckboxList>
             </View>
           </FieldWrapper>
         ) : null}
@@ -97,8 +97,9 @@ export class RaceEthnicityQuestion extends React.Component<RaceEthnicityQuestion
         {this.props.showEthnicityQuestion ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
-              <RegularText>{i18n.t('race-question')}</RegularText>
-              <CheckboxList>{createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
+              <CheckboxList required label={i18n.t('race-question')}>
+                {createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}
+              </CheckboxList>
             </View>
           </FieldWrapper>
         ) : null}
@@ -114,8 +115,7 @@ export class RaceEthnicityQuestion extends React.Component<RaceEthnicityQuestion
         {isUSCountry() ? (
           <FieldWrapper>
             <View style={styles.textItemStyle}>
-              <RegularText>{i18n.t('ethnicity-question')}</RegularText>
-              <CheckboxList>
+              <CheckboxList required label={i18n.t('ethnicity-question')}>
                 <CheckboxItem
                   onChange={(value: boolean) => {
                     this.props.formikProps.setFieldValue('ethnicity', value ? 'hispanic' : '');

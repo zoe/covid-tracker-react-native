@@ -1,4 +1,5 @@
 import DropdownField from '@covid/components/DropdownField';
+import { requiredFormMarker } from '@covid/components/Forms';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
@@ -77,7 +78,9 @@ const HeightInCm: React.FC<Props> = ({ formikProps }) => {
 export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <RegularText>{i18n.t('your-height')}</RegularText>
+      <RegularText>
+        {i18n.t('your-height')} {requiredFormMarker}
+      </RegularText>
       {isUSCountry() ? (
         <HeightInInches formikProps={formikProps} />
       ) : (

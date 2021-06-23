@@ -1,5 +1,6 @@
 import { BrandedButton } from '@covid/components';
 import DropdownField from '@covid/components/DropdownField';
+import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -37,7 +38,6 @@ const initialFormValues = {
   genderIdentityDescription: '',
   helpAvailable: 'no',
   houseboundProblems: 'no',
-
   mobilityAid: 'no',
   needsHelp: 'no',
   postcode: '',
@@ -50,9 +50,7 @@ export interface IAboutYouData extends IRaceEthnicityData, IHeightData, IWeightD
   sex: string;
   genderIdentity: string;
   genderIdentityDescription: string;
-
   postcode: string;
-
   everExposed: string;
   houseboundProblems: string;
   needsHelp: string;
@@ -68,15 +66,8 @@ type AboutYouProps = {
 type State = {
   errorMessage: string;
   enableSubmit: boolean;
-
   showRaceQuestion: boolean;
   showEthnicityQuestion: boolean;
-};
-
-const checkFormFilled = (props: FormikProps<IAboutYouData>) => {
-  if (Object.keys(props.errors).length) return false;
-  if (Object.keys(props.values).length === 0) return false;
-  return true;
 };
 
 const initialState: State = {
@@ -364,6 +355,8 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
         </ProgressBlock>
 
         <Formik
+          validateOnChange
+          validateOnMount
           initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
           onSubmit={(values: IAboutYouData) => {
             return this.handleUpdateHealth(values);
@@ -374,9 +367,10 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
             const isMinor = isMinorAge(cleanIntegerVal(props.values.yearOfBirth));
 
             return (
-              <Form>
+              <FormWrapper hasRequiredFields>
                 <View style={{ marginHorizontal: 16 }}>
                   <GenericTextField
+                    required
                     showError
                     formikProps={props}
                     keyboardType="numeric"
@@ -386,6 +380,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                   />
 
                   <DropdownField
+                    required
                     error={props.touched.sex && props.errors.sex}
                     items={sexAtBirthItems}
                     label={i18n.t('your-sex-at-birth')}
@@ -395,6 +390,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                   />
 
                   <DropdownField
+                    required
                     error={props.touched.genderIdentity && props.errors.genderIdentity}
                     items={genderIdentityItems}
                     label={i18n.t('label-gender-identity')}
@@ -423,6 +419,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
 
                   {!this.props.route.params.editing ? (
                     <GenericTextField
+                      required
                       showError
                       formikProps={props}
                       inputProps={{ autoCompleteType: 'postal-code' }}
@@ -433,6 +430,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                   ) : null}
 
                   <DropdownField
+                    required
                     error={props.touched.everExposed && props.errors.everExposed}
                     items={everExposedItems}
                     label={i18n.t('have-you-been-exposed')}
@@ -474,14 +472,10 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                   ) : null}
                 </View>
 
-                <BrandedButton
-                  enable={checkFormFilled(props)}
-                  hideLoading={!props.isSubmitting}
-                  onPress={props.handleSubmit}
-                >
+                <BrandedButton enable={props.isValid} hideLoading={!props.isSubmitting} onPress={props.handleSubmit}>
                   {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>
-              </Form>
+              </FormWrapper>
             );
           }}
         </Formik>

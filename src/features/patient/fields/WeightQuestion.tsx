@@ -1,4 +1,5 @@
 import DropdownField from '@covid/components/DropdownField';
+import { requiredFormMarker } from '@covid/components/Forms';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
@@ -31,7 +32,9 @@ interface Props {
 export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <RegularText>{label}</RegularText>
+      <RegularText>
+        {label} {requiredFormMarker}
+      </RegularText>
       {isUSCountry() ? (
         <ValidatedTextInput
           error={formikProps.touched.pounds && formikProps.errors.pounds}
