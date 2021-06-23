@@ -230,7 +230,7 @@ class RegisterScreen extends React.Component<PropsType, State> {
                   <View>
                     <BrandedButton
                       enable={this.state.enableSubmit}
-                      hideLoading={!props.isSubmitting}
+                      loading={props.isSubmitting}
                       onPress={props.handleSubmit}
                     >
                       {i18n.t('create-account.btn')}

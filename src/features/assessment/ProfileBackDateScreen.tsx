@@ -8,7 +8,6 @@ import { ConfigType } from '@covid/core/Config';
 import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { IUserService } from '@covid/core/user/UserService';
 import { AtopyQuestions, IAtopyData } from '@covid/features/patient/fields/AtopyQuestions';
 import { BloodGroupQuestion, IBloodGroupData } from '@covid/features/patient/fields/BloodGroupQuestion';
 import {
@@ -54,9 +53,6 @@ const initialState: State = {
 };
 
 export default class ProfileBackDateScreen extends React.Component<BackDateProps, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 

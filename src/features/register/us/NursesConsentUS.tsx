@@ -289,7 +289,6 @@ export class NursesConsentUSScreen extends React.Component<PropsType, TermsState
 
         {!this.viewOnly ? (
           <BrandedButton
-            hideLoading
             enable={this.state.processingChecked && this.state.termsOfUseChecked}
             onPress={this.handleAgreeClicked}
             style={styles.button}

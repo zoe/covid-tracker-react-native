@@ -143,7 +143,7 @@ export function NHSIntroScreen(props: IProps) {
 
                   <BrandedButton
                     enable={checkFormFilled(props) && consent}
-                    hideLoading={!props.isSubmitting}
+                    loading={props.isSubmitting}
                     onPress={handleSubmit}
                   >
                     {i18n.t('nhs-study-intro.next')}

@@ -3,7 +3,6 @@ import { LoadingModal } from '@covid/components/Loading';
 import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { IPatientService } from '@covid/core/patient/PatientService';
 import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
@@ -44,9 +43,6 @@ interface OptionalInfoData {
 export class OptionalInfoScreen extends React.Component<PropsType, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
 
   private phoneComponent: any;
 
