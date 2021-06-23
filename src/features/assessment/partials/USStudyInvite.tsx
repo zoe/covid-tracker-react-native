@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Image, ImageBackground, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type StudyInviteProps = {
@@ -18,10 +18,10 @@ type StudyInviteProps = {
 
 export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProps) => {
   const patientService = useInjection<IPatientService>(Services.Patient);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
   const currentPatient = props.assessmentData.patientData.patientState;
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isUSCountry() && !currentPatient.isReportedByAnother && currentPatient.shouldShowUSStudyInvite) {
       setModalVisible(true);
     }

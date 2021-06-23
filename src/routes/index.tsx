@@ -71,7 +71,7 @@ import {
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import * as React from 'react';
 
 import AnniversaryNavigator from './AnniversaryNavigator';
 import DietStudyPlaybackNavigator from './DietStudyPlaybackNavigator';

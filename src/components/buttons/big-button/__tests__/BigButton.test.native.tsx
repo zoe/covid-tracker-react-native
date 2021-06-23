@@ -1,5 +1,5 @@
 import { BigButton } from '@covid/components';
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 
 describe('Button', () => {

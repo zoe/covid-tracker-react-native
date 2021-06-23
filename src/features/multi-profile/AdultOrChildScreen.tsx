@@ -5,7 +5,7 @@ import { ConsentType, ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 type HowYouFeelProps = {
@@ -13,7 +13,7 @@ type HowYouFeelProps = {
   route: RouteProp<ScreenParamList, 'AdultOrChild'>;
 };
 
-export default class AdultOrChildScreen extends Component<HowYouFeelProps> {
+export default class AdultOrChildScreen extends React.Component<HowYouFeelProps> {
   buildRouteParams = (consentType: ConsentType) => {
     return {
       avatarName: this.props.route.params.avatarName,

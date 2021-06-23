@@ -1,5 +1,5 @@
 import { avatarBlank } from '@assets';
-import React from 'react';
+import * as React from 'react';
 import { Image, ImageSourcePropType, ImageStyle, StyleProp, View } from 'react-native';
 
 interface IProps {

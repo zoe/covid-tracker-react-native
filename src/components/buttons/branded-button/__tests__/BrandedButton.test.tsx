@@ -1,6 +1,6 @@
 import { BrandedButton } from '@covid/components';
 import { fireEvent, render } from '@testing-library/react-native';
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 
 describe('branded-button tests', () => {

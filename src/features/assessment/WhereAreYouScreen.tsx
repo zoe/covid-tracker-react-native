@@ -8,7 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface IProps {
@@ -18,7 +18,7 @@ interface IProps {
 
 function WhereAreYouScreen({ navigation, route }: IProps) {
   const isFocused = useIsFocused();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
   const updateAssessment = async (status: string, isComplete = false) => {
@@ -50,7 +50,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
 

@@ -2,7 +2,7 @@ import Check from '@assets/icons/Check';
 import { requiredFormMarker } from '@covid/components/Forms';
 import { colors } from '@theme/colors';
 import { Item } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { RegularText } from './Text';

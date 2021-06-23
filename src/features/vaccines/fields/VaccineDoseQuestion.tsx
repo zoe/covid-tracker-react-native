@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -38,7 +38,7 @@ interface IVaccineDoseQuestion<P, Data> extends React.FC<P> {
 
 export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData> = (props: IProps) => {
   const { formikProps } = props;
-  const [showPicker, setShowPicker] = useState(false);
+  const [showPicker, setShowPicker] = React.useState(false);
 
   function convertToDate(selectedDate: Moment) {
     const offset = selectedDate.utcOffset();

@@ -21,7 +21,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -83,7 +83,7 @@ const initialState: State = {
   showPregnancyQuestion: false,
 };
 
-export default class YourHealthScreen extends Component<HealthProps, State> {
+export default class YourHealthScreen extends React.Component<HealthProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 

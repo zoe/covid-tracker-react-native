@@ -23,7 +23,8 @@ import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import React, { Component } from 'react';
+import { Form } from 'native-base';
+import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -77,7 +78,7 @@ const initialState: State = {
   showRaceQuestion: false,
 };
 
-export default class AboutYouScreen extends Component<AboutYouProps, State> {
+export default class AboutYouScreen extends React.Component<AboutYouProps, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 

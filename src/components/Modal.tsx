@@ -1,5 +1,5 @@
 import { SafeLayout } from '@covid/components';
-import React from 'react';
+import * as React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
 interface IProps {

@@ -1,7 +1,7 @@
 import { Icon, TIconName } from '@covid/components/icons';
 import { Text } from '@covid/components/typography';
 import { TTypeSizes } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps {

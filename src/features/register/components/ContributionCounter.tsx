@@ -6,7 +6,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
 import I18n from 'i18n-js';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 

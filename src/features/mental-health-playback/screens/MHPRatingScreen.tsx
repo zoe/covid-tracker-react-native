@@ -7,7 +7,7 @@ import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
 import { grid, styling } from '@covid/themes';
 import lodash from 'lodash';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { LayoutChangeEvent, TouchableOpacity, View } from 'react-native';
 
 const AMOUNT_STARS = 5;
@@ -20,10 +20,10 @@ const ratings = Array(AMOUNT_STARS)
 const throttledFunction = lodash.throttle((func) => func(), THROTTLE_TIME);
 
 export default function MHPRatingScreen() {
-  const [cardWidth, setCardWidth] = useState(0);
-  const [comments, setComments] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [selectedRating, setSelectedRating] = useState(0);
+  const [cardWidth, setCardWidth] = React.useState(0);
+  const [comments, setComments] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+  const [selectedRating, setSelectedRating] = React.useState(0);
 
   const starSize = cardWidth / (AMOUNT_STARS * 2);
   const spacingSize = starSize / 2;

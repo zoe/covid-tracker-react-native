@@ -1,7 +1,7 @@
 import { cardBackground1, cardBackground2, cardBackground3 } from '@assets';
 import { colors } from '@theme';
 import { View } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { ImageBackground, StyleSheet } from 'react-native';
 
 import { RegularBoldText, RegularText } from './Text';

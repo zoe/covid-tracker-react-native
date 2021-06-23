@@ -15,7 +15,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Input, Item, Label, Toast } from 'native-base';
-import React, { useRef, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -25,13 +25,13 @@ interface IProps {
 }
 
 function LoginScreen({ route }: IProps) {
-  const [hasErrors, setHasErrors] = useState(false);
-  const [isValid, setIsValidState] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [pass, setPass] = useState('');
-  const [user, setUser] = useState('');
+  const [hasErrors, setHasErrors] = React.useState(false);
+  const [isValid, setIsValidState] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [pass, setPass] = React.useState('');
+  const [user, setUser] = React.useState('');
   const dispatch = useDispatch();
-  const passwordInput = useRef(null);
+  const passwordInput = React.useRef(null);
   const userService = useInjection<IUserService>(Services.User);
 
   function handleLogin() {

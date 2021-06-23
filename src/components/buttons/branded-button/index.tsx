@@ -1,7 +1,7 @@
 import { IClickableProps } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { colors, fontStyles } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps extends IClickableProps, ITest {

@@ -24,7 +24,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { ContributionCounter } from './components/ContributionCounter';
@@ -49,7 +49,7 @@ const initialState = {
   userCount: null,
 };
 
-export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
+export class WelcomeRepeatScreen extends React.Component<PropsType, WelcomeRepeatScreenState> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 

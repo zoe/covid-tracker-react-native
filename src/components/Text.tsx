@@ -1,5 +1,5 @@
 import { colors, fontStyles } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { ImageStyle, StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 
 import { ITest } from './types';

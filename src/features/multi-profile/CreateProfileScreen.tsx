@@ -8,7 +8,8 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import React, { Component } from 'react';
+import { Form } from 'native-base';
+import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -25,7 +26,7 @@ type RenderProps = {
   route: RouteProp<ScreenParamList, 'CreateProfile'>;
 };
 
-export default class CreateProfileScreen extends Component<RenderProps> {
+export default class CreateProfileScreen extends React.Component<RenderProps> {
   constructor(props: RenderProps) {
     super(props);
     this.handleClick = this.handleClick.bind(this);

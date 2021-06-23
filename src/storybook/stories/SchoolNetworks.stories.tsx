@@ -1,7 +1,7 @@
 import { SchoolNetworks } from '@covid/components';
 import { CenterView, DarkBackground } from '@covid/storybook/decorator';
 import { storiesOf } from '@storybook/react-native';
-import React from 'react';
+import * as React from 'react';
 
 storiesOf('SchoolNetworks', module)
   .addDecorator(CenterView)

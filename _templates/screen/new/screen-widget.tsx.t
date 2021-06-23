@@ -1,7 +1,7 @@
 ---
 to: src/features/<%= feature %>/<%= h.screenName(name) %>.tsx
 ---
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

@@ -1,5 +1,5 @@
 import { SvgProps } from '@assets/Svg';
-import React from 'react';
+import * as React from 'react';
 import { Defs, Path, RadialGradient, Rect, Stop, Svg } from 'react-native-svg';
 
 const VaccineDemoUK: React.FC<SvgProps> = () => {

@@ -3,7 +3,7 @@ import DropdownField from '@covid/components/DropdownField';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';
 

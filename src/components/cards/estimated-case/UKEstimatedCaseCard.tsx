@@ -1,7 +1,7 @@
 import { ContentState } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { useSelector } from 'react-redux';
 
 import { EstimatedCaseCard } from './EstimatedCaseCard';
@@ -16,10 +16,10 @@ export function UKEstimatedCaseCard({ onPress }: IProps) {
     ukDaily: state.content.ukDaily,
   }));
 
-  const [dailyCases, setDailyCases] = useState<string>('');
-  const [activeCases, setActiveCases] = useState<string>('');
+  const [dailyCases, setDailyCases] = React.useState<string>('');
+  const [activeCases, setActiveCases] = React.useState<string>('');
 
-  useEffect(() => {
+  React.useEffect(() => {
     setDailyCases(metrics.ukDaily ?? '');
     setActiveCases(metrics.ukActive ?? '');
   }, [metrics]);

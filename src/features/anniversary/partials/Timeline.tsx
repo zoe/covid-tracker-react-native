@@ -1,7 +1,7 @@
 import { Text } from '@covid/components';
 import { TTimelineEvent } from '@covid/features/anniversary/types';
 import { useTheme } from '@covid/themes';
-import React, { ReactNode } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import FindingCard from './FindingCard';
@@ -15,7 +15,7 @@ interface IProps {
 
 function Timeline({ timelineEvents }: IProps) {
   const { grid } = useTheme();
-  const getMappedTimelineEvent = (timelineEvent: TTimelineEvent): ReactNode => {
+  const getMappedTimelineEvent = (timelineEvent: TTimelineEvent): React.ReactNode => {
     switch (timelineEvent.event_type) {
       case 'FINDING':
         return <FindingCard timelineEvent={timelineEvent} />;

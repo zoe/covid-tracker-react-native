@@ -2,11 +2,11 @@ import { ClickableText, RegularText } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 
-export default class VisitWebsite extends Component {
+export default class VisitWebsite extends React.Component {
   render() {
     return (
       <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))} style={styles.container}>

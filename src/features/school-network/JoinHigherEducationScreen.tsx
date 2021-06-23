@@ -8,7 +8,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { useSelector } from 'react-redux';
 
 import { UniversityForm } from './forms';
@@ -20,14 +20,14 @@ interface IProps {
 }
 
 function JoinHigherEducationScreen({ navigation, route }: IProps) {
-  const [schools, setSchools] = useState<ISchoolModel[]>([]);
+  const [schools, setSchools] = React.useState<ISchoolModel[]>([]);
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const { patientData } = route.params;
   const currentJoinedGroup = useSelector((state: RootState) =>
     selectPatientsJoinedGroups(state, patientData.patientId, true),
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       const schools = await service.getSchools();
       setSchools(schools.filter((s) => s.higher_education === true));

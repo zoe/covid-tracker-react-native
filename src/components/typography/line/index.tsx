@@ -1,9 +1,9 @@
 import Text from '@covid/components/typography/text';
 import { TTtextDecorationLine } from '@covid/themes';
-import React, { ReactNode } from 'react';
+import * as React from 'react';
 
 interface IProps {
-  children: ReactNode;
+  children: React.ReactNode;
   textDecorationLine?: TTtextDecorationLine | undefined;
 }
 

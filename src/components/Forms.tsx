@@ -1,6 +1,7 @@
+import * as React from 'react';
+
 import i18n from '@covid/locale/i18n';
 import { Form } from 'native-base';
-import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { ErrorText, RegularText } from './Text';

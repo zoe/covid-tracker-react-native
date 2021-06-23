@@ -6,7 +6,7 @@ import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import { colors } from '@theme';
 import { Card } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { GreenTick } from './GreenTick';

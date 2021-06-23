@@ -12,13 +12,13 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
 import { useTheme } from '@covid/themes';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 function MentalHealthFrequency() {
-  const [canSubmit, setCanSubmit] = useState(false);
-  const [curQuestion, setCurQuestion] = useState(0);
+  const [canSubmit, setCanSubmit] = React.useState(false);
+  const [curQuestion, setCurQuestion] = React.useState(0);
   const MentalHealthFrequency = useSelector(selectMentalHealthFrequency);
   const dispatch = useDispatch();
   const { grid } = useTheme();
@@ -45,7 +45,7 @@ function MentalHealthFrequency() {
     },
   ];
 
-  useEffect(() => {
+  React.useEffect(() => {
     const answered = Object.values(MentalHealthFrequency).filter((item) => item !== undefined);
     setCurQuestion(answered.length);
     const enableSubmit = answered.length >= questions.length;

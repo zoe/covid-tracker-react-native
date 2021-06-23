@@ -1,5 +1,5 @@
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { KeyboardTypeOptions, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
 
 import { requiredFormMarker } from './Forms';
