@@ -1,7 +1,6 @@
 import { ShareScreen } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
-import { AnniversaryModal, DietStudyModal, MentalHealthModal, MentalHealthPlaybackModal } from '@covid/features';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { VaccineListMissingModal } from '@covid/features/vaccines/VaccineListMissingModal';
@@ -12,7 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications';
 import { Root } from 'native-base';
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import { Dimensions } from 'react-native';
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -39,7 +38,7 @@ const linking = {
 const modalOptions = { cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' }, gestureEnabled: false };
 
 function CovidApp() {
-  useEffect(() => {
+  React.useEffect(() => {
     Notifications.addNotificationResponseReceivedListener((response) => {
       Analytics.track(events.OPEN_FROM_NOTIFICATION);
     });
@@ -56,10 +55,6 @@ function CovidApp() {
       >
         <Stack.Navigator headerMode="none" initialRouteName="Main" mode="modal">
           <Stack.Screen component={DrawNavigator} name="Main" />
-          <Stack.Screen component={AnniversaryModal} name="AnniversaryModal" options={modalOptions} />
-          <Stack.Screen component={DietStudyModal} name="DietStudyModal" options={modalOptions} />
-          <Stack.Screen component={MentalHealthModal} name="MentalHealthModal" options={modalOptions} />
-          <Stack.Screen component={MentalHealthPlaybackModal} name="MentalHealthPlaybackModal" options={modalOptions} />
           <Stack.Screen component={VaccineListMissingModal} name="VaccineListMissingModal" options={modalOptions} />
           <Stack.Screen component={VersionUpdateModal} name="VersionUpdateModal" options={modalOptions} />
           <Stack.Screen

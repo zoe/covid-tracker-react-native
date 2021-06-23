@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
-import React, { useRef } from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ interface IProps {
 
 export function TrendlineCard({ ctaOnPress = () => null, isSharing = false }: IProps) {
   const { navigate } = useNavigation();
-  const viewRef = useRef<View>(null);
+  const viewRef = React.useRef<View>(null);
 
   const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
     delta: state.content.localTrendline?.delta,

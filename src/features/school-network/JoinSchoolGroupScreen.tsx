@@ -14,7 +14,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Alert, PickerItemProps, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -34,9 +34,9 @@ const ValidationSchema = () => {
 };
 
 export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
-  const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
+  const [groupList, setGroupList] = React.useState<PickerItemProps[]>([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       const groups: ISchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
         route.params?.selectedSchool?.id,

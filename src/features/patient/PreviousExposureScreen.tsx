@@ -19,7 +19,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -74,7 +74,7 @@ const initialState: State = {
   pastSymptomSkippedMeals: false,
 };
 
-export default class PreviousExposureScreen extends Component<HealthProps, State> {
+export default class PreviousExposureScreen extends React.Component<HealthProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 

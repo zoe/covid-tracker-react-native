@@ -614,7 +614,7 @@
 
   "answer-for": "Svara åt %{name}",
   "profile-name-too-long": "Ange ett profilnamn med färre än 32 tecken",
-  
+
   "select-profile-title-assessment": "Välj den profil du vill rapportera åt",
   "select-profile-title-edit": "Välj den profil du vill redigera",
   "select-profile-text": "Eller lägg till fler profiler",
@@ -1445,13 +1445,6 @@
     "end-title": "Thank you for your time!",
     "end-0": "Your input is what makes our research possible. We will share any insights we learn from responses on our blog and in the app",
     "end-1": "If you know people that would be interested in taking part in this research, share the app with them below",
-    "modal-title": "COVID & Mental Health",
-    "modal-intro-0": "We are currently investigating how the pandemic has had an impact on people's mental health.",
-    "modal-intro-1": "This 2-3 minute questionnaire is a starting point to help us better understand this.",
-    "modal-intro-2": "Please answer these questions for yourself (the 'Me' primary profile) only.",
-    "modal-answer-yes": "Yes let's do it",
-    "modal-answer-later": "No but ask me again later",
-    "modal-answer-no": "Skip and don't ask me again",
     "answer-prefer-not-to-say": "Prefer not to say",
     "answer-yes": "Yes",
     "answer-no": "No",
@@ -1618,7 +1611,7 @@
       "card": "How helpful were these insights to you?",
       "feedback": "Care to share some more feedback?",
       "not-helpful": "Not helpful",
-      "very-helpful": "Very helpful" 
+      "very-helpful": "Very helpful"
     },
     "thank-you": {
       "button": "Close",
@@ -1630,10 +1623,6 @@
     "doctor-name": "Dr Sarah Berry",
     "doctor-title": "Nutritional Scientist",
     "doctor-location": "King’s College London",
-    "modal-title": "Diet Study results available",
-    "modal-intro-0": "Your personal results on COVID & Diet are ready! Thank you for participating in the study!",
-    "modal-answer-yes": "View insights",
-    "modal-answer-no": "No, thanks",
     "results-ready": "Your personal results on COVID & Diet are ready",
     "introduction-title": "Your diet study scores",
     "introduction-0": "We are excited to share our insights on how diets have changed during the pandemic.",
@@ -1696,5 +1685,7 @@
     "title": "Din appversion behöver uppdateras!",
     "body": "Uppdatera din app för att fortsätta använda den. Vid uppdateringen får du tillgång till de senaste funktionerna.",
     "cta": "Uppdatera nu"
-  }
+  },
+
+  "required-field": "Required Field"
 }

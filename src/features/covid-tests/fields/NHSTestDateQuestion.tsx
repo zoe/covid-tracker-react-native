@@ -6,7 +6,7 @@ import { colors, fontStyles } from '@theme';
 import { FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
 import { Text } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
@@ -30,7 +30,7 @@ export const NHSTestDateQuestion: INHSTestDateQuestion<IProps, INHSTestDateData>
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
   const isCreatingTest = !props.test;
 
-  const [showDatePicker, setShowDatePicker] = useState(isCreatingTest);
+  const [showDatePicker, setShowDatePicker] = React.useState(isCreatingTest);
 
   // TODO: Refactor function
   function convertToDate(selectedDate: Moment) {

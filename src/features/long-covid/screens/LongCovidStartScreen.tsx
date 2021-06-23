@@ -6,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface IProps {

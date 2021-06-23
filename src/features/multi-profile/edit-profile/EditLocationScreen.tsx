@@ -14,7 +14,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -37,7 +37,7 @@ type EditLocationData = {
 };
 
 export const EditLocationScreen: React.FC<RenderProps> = (props) => {
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const dispatch = useAppDispatch();
 

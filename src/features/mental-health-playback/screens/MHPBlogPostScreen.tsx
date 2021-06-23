@@ -4,7 +4,7 @@ import { requestInsights, selectInsights } from '@covid/core/state/mental-health
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { colors, styling } from '@covid/themes';
-import React, { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
 import { ActivityIndicator, Linking, StyleSheet, View } from 'react-native';
 import WebView, { WebViewNavigation } from 'react-native-webview';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,12 +33,12 @@ const source = { uri };
 
 export default function MHPBlogPostScreen() {
   const dispatch = useDispatch();
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = React.useState(false);
   const mhInsights = useSelector(selectInsights);
   const { completed_feedback } = mhInsights;
-  const webView = useRef<WebView>(null);
+  const webView = React.useRef<WebView>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(requestInsights());
   }, []);
 

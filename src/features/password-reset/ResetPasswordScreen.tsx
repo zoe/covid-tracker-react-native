@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import * as Yup from 'yup';
 
@@ -31,7 +31,7 @@ interface ResetPasswordData {
   email: string;
 }
 
-export class ResetPasswordScreen extends Component<PropsType, State> {
+export class ResetPasswordScreen extends React.Component<PropsType, State> {
   @lazyInject(Services.User)
   private userService: IUserService;
 

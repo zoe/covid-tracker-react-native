@@ -11,7 +11,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
@@ -28,7 +28,7 @@ type TreatmentOtherProps = {
   route: RouteProp<ScreenParamList, 'TreatmentOther'>;
 };
 
-export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
+export default class TreatmentOtherScreen extends React.Component<TreatmentOtherProps> {
   registerSchema = Yup.object().shape({
     description: Yup.string(),
   });

@@ -20,7 +20,7 @@ import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
@@ -37,8 +37,8 @@ interface IAboutYourVaccineData extends IVaccineDoseData {}
 export function AboutYourVaccineScreen({ route, navigation }: IProps) {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
-  const [submitting, setSubmitting] = useState<boolean>(false);
-  const [hasSecondDose, setHasSecondDose] = useState<string | undefined>(undefined);
+  const [submitting, setSubmitting] = React.useState<boolean>(false);
+  const [hasSecondDose, setHasSecondDose] = React.useState<string | undefined>(undefined);
   const assessmentData = route.params?.assessmentData;
   const dispatch = useDispatch();
 

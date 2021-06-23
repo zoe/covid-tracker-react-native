@@ -7,7 +7,7 @@ import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import RemoveSchoolButton from './RemoveSchoolButton';
@@ -35,7 +35,7 @@ function SelectedSchool({
   removeText,
   hasBubbles = false,
 }: IProps) {
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = React.useState(false);
 
   const handleOnRemove = (schoolId: string) => {
     schoolNetworkCoordinator.removePatientFromSchool(schoolId, currentPatient.patientId);

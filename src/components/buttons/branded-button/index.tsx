@@ -1,6 +1,6 @@
 import { ITest } from '@covid/components/types';
 import { colors, fontStyles } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { ActivityIndicator, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps extends ITest {

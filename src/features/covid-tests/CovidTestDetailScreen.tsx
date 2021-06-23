@@ -31,7 +31,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Alert, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -58,7 +58,7 @@ const initialState: State = {
   submitting: false,
 };
 
-export default class CovidTestDetailScreen extends Component<CovidProps, State> {
+export default class CovidTestDetailScreen extends React.Component<CovidProps, State> {
   @lazyInject(Services.CovidTest)
   private readonly covidTestService: ICovidTestService;
 

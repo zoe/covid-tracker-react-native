@@ -9,7 +9,7 @@ import NavigatorService from '@covid/NavigatorService';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';

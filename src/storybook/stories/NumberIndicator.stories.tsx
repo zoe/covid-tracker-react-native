@@ -1,6 +1,6 @@
 import { NumberIndicator } from '@covid/components/stats/NumberIndicator';
 import { storiesOf } from '@storybook/react-native';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 storiesOf('Number indicator', module).add('default view', () => (

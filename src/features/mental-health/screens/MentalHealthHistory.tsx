@@ -16,13 +16,13 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
 import { useTheme } from '@covid/themes';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function MentalHealthHistory() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
-  const [canSubmit, setCanSubmit] = useState(false);
+  const [canSubmit, setCanSubmit] = React.useState(false);
   const dispatch = useDispatch();
   const { grid } = useTheme();
 
@@ -63,7 +63,7 @@ export default function MentalHealthHistory() {
     NavigatorService.navigate('MentalHealthSupport', undefined);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (MentalHealthHistory.hasDiagnosis === 'NO' || MentalHealthHistory.hasDiagnosis === 'DECLINE_TO_SAY') {
       setCanSubmit(true);
       return;

@@ -1,11 +1,11 @@
-import React, { ReactElement, ReactNode } from 'react';
+import * as React from 'react';
 import { Animated } from 'react-native';
 
 type TDirection = 'UP' | 'DOWN';
 
 interface IProps {
   backgroundColor: any;
-  children: ReactNode | ReactNode[] | ReactElement | ReactElement[];
+  children: React.ReactNode | React.ReactNode[] | React.ReactElement | React.ReactElement[];
   direction?: TDirection;
 }
 

@@ -21,7 +21,7 @@ import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 import {
@@ -117,7 +117,7 @@ export default function LongCovidQuestionScreen({ route }: IProps) {
     { label: i18n.t('long-covid.symptoms-change-severity-a6'), value: 'NOT_APPLICABLE' },
   ];
 
-  const [isSubmitting, setSubmitting] = useState<boolean>(false);
+  const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
   const handleSubmit = async (formData: ILongCovid) => {
     if (isSubmitting) {
       return;
@@ -134,11 +134,7 @@ export default function LongCovidQuestionScreen({ route }: IProps) {
       <CheckboxList>
         {checkBoxQuestions4To17.map((key: string, index: number) => (
           <View style={{ marginBottom: 16 }}>
-            <CheckboxItem
-              dark
-              onChange={(value: boolean) => props.setFieldValue(key, !props.values[key])}
-              value={props.values[key]}
-            >
+            <CheckboxItem dark onChange={() => props.setFieldValue(key, !props.values[key])} value={props.values[key]}>
               {i18n.t(`long-covid.q${index + checkboxIndexOffset}`)}
             </CheckboxItem>
           </View>

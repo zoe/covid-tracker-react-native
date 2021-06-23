@@ -2,7 +2,7 @@ import { vaccineBg } from '@assets';
 import AnnouncementIcon from '@assets/icons/AnnouncementIcon';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleProp, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { RegularText } from './Text';

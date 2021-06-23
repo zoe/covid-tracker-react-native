@@ -3,7 +3,7 @@ import { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 interface IProps {

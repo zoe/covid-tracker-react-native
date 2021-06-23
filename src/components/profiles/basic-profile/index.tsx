@@ -1,7 +1,7 @@
 import { Text } from '@covid/components/typography';
 import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { useTheme } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 interface IProps {

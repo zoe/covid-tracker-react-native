@@ -25,7 +25,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -70,7 +70,7 @@ const initialState: State = {
   isDiabetesRegistry: false,
 };
 
-export default class YourWorkScreen extends Component<YourWorkProps, State> {
+export default class YourWorkScreen extends React.Component<YourWorkProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 

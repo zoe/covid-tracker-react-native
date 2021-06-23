@@ -14,7 +14,7 @@ import { Services } from '@covid/provider/services.types';
 import { offlineService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 type RenderProps = {
@@ -33,7 +33,7 @@ const initialState: ConsentState = {
   errorMessage: '',
 };
 
-export default class ConsentForOtherScreen extends Component<RenderProps, ConsentState> {
+export default class ConsentForOtherScreen extends React.Component<RenderProps, ConsentState> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 

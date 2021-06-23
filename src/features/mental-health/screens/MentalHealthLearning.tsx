@@ -16,13 +16,13 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
 import { useTheme } from '@covid/themes';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 function MentalHealthLearning() {
   const MentalHealthLearning = useSelector(selectMentalHealthLearning);
-  const [canSubmit, setCanSubmit] = useState(false);
+  const [canSubmit, setCanSubmit] = React.useState(false);
   const dispatch = useDispatch();
   const { grid } = useTheme();
 
@@ -58,7 +58,7 @@ function MentalHealthLearning() {
     );
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (MentalHealthLearning.hasDisability === 'NO' || MentalHealthLearning.hasDisability === 'DECLINE_TO_SAY') {
       setCanSubmit(true);
       return;

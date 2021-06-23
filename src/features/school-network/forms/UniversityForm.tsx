@@ -6,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 

@@ -2,7 +2,7 @@ import { closeIcon } from '@assets';
 import { IconButton, ThemeButton } from '@covid/components/buttons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Sharing from 'expo-sharing';
-import React, { useRef } from 'react';
+import * as React from 'react';
 import { Dimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { captureRef } from 'react-native-view-shot';
@@ -15,7 +15,7 @@ function ShareScreen() {
   const Navigation = useNavigation();
   const { height, width } = Dimensions.get('window');
   const { bottom, top } = useSafeAreaInsets();
-  const viewRef = useRef<View>(null);
+  const viewRef = React.useRef<View>(null);
   const route = useRoute();
   const sharable = route?.params?.sharable;
   const hideLabel = route?.params?.hideLabel;

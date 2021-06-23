@@ -19,7 +19,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -241,7 +241,7 @@ const AllCohorts: CohortDefinition[] = [
   },
 ];
 
-export default class YourStudyScreen extends Component<YourStudyProps, State> {
+export default class YourStudyScreen extends React.Component<YourStudyProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 

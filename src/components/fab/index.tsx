@@ -1,6 +1,6 @@
 import { Icon } from '@covid/components/icons';
 import { Profile } from '@covid/core/profile/ProfileService';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import Option from './Option';
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 function Fab({ profiles }: IProps) {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = React.useState(false);
 
   const handleOnPress = (profile: Profile) => {
     // TODO - navigate to...

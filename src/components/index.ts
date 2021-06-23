@@ -21,5 +21,6 @@ export * from './Text';
 export { default as Triangle } from './Triangle';
 export * from './typography';
 export { default as Modal } from './Modal';
+export { default as ModalZoe } from './ModalZoe';
 export { default as DoctorProfile } from './DoctorProfile';
 export { default as TextareaWithCharCount } from './TextareaWithCharCount';

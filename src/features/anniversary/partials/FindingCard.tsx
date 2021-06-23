@@ -3,7 +3,7 @@ import { TTimelineEvent } from '@covid/features/anniversary/types';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { openWebLink } from '@covid/utils/links';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import * as React from 'react';
 import { AccessibilityRole, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 interface IProps {
