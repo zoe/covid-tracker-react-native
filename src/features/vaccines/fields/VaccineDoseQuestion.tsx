@@ -1,5 +1,6 @@
 import { CalendarIcon } from '@assets';
 import CalendarPicker from '@covid/components/CalendarPicker';
+import { requiredFormMarker } from '@covid/components/Forms';
 import { ErrorText, RegularText, SecondaryText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -159,7 +160,9 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
           <VaccineNameQuestion firstDose={props.firstDose} formikProps={formikProps as FormikProps<IVaccineDoseData>} />
           {renderNameError()}
         </View>
-        <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
+        <SecondaryText>
+          {i18n.t('vaccines.your-vaccine.when-injection')} {requiredFormMarker}
+        </SecondaryText>
         {showPicker ? renderPicker() : renderCalenderButton()}
       </View>
       <RegularText>{i18n.t('vaccines.your-vaccine.label-batch')}</RegularText>

@@ -1,5 +1,6 @@
 import QuestionCircle from '@assets/icons/QuestionCircle';
 import { BrandedButton } from '@covid/components';
+import { FormWrapper } from '@covid/components/Forms';
 import Screen, { Header } from '@covid/components/Screen';
 import { ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -19,7 +20,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -235,7 +235,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
       >
         {(props: FormikProps<IAboutYourVaccineData>) => {
           return (
-            <Form style={{ flex: 1 }}>
+            <FormWrapper hasRequiredFields style={{ flex: 1 }}>
               <View style={{ marginBottom: 32, marginHorizontal: 16 }}>
                 {renderFirstDoseUI(props)}
                 {props.values.firstBrand && props.values.firstBrand !== VaccineBrands.JOHNSON ? (
@@ -266,7 +266,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
 
               <BrandedButton onPress={props.handleSubmit}>{i18n.t('vaccines.your-vaccine.confirm')}</BrandedButton>
               {renderDeleteButton()}
-            </Form>
+            </FormWrapper>
           );
         }}
       </Formik>
