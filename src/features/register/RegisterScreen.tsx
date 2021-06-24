@@ -178,8 +178,8 @@ class RegisterScreen extends React.Component<PropsType, State> {
                             }}
                             placeholder={i18n.t('create-account.email')}
                             returnKeyType="next"
-                            value={props.values.email}
                             testID="input-email-address"
+                            value={props.values.email}
                           />
                           {!!props.touched.email && !!props.errors.email ? (
                             <FieldError>{props.errors.email}</FieldError>
@@ -205,8 +205,8 @@ class RegisterScreen extends React.Component<PropsType, State> {
                             placeholder={i18n.t('create-account.password')}
                             ref={(input) => (this.passwordComponent = input)}
                             returnKeyType="go"
-                            value={props.values.password}
                             testID="input-password"
+                            value={props.values.password}
                           />
                           {!!props.touched.password && !!props.errors.password ? (
                             <FieldError>{props.errors.password}</FieldError>
@@ -261,14 +261,14 @@ const styles = StyleSheet.create({
   fieldError: {
     marginVertical: 4,
   },
+  flex: {
+    flex: 1,
+  },
   form: {
     marginVertical: 16,
   },
   formItem: {
     paddingVertical: 4,
-  },
-  flex: {
-    flex: 1,
   },
   labelStyle: {
     color: colors.tertiary,

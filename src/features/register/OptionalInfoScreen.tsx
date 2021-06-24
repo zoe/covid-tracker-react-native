@@ -135,8 +135,8 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
                           }}
                           placeholder={i18n.t('optional-info.name-placeholder')}
                           returnKeyType="next"
-                          value={props.values.name}
                           testID="input-name"
+                          value={props.values.name}
                         />
 
                         <ValidatedTextInput
@@ -145,8 +145,8 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
                           onChangeText={props.handleChange('phone')}
                           placeholder={i18n.t('optional-info.phone-placeholder')}
                           ref={(input) => (this.phoneComponent = input)}
-                          value={props.values.phone}
                           testID="input-phone"
+                          value={props.values.phone}
                         />
                         {props.errors.phone ? <ErrorText>{props.errors.phone}</ErrorText> : null}
                       </Form>

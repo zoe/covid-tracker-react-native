@@ -262,7 +262,6 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                         setHasSecondDose(value);
                       }}
                       selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
-                      testID="has-second-dose"
                     />
                     {renderSecondDoseUI(props)}
                   </>

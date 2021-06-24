@@ -49,7 +49,7 @@ export default function ThankYouSEScreen({ navigation, route }: IProps) {
     <>
       {askForRating && <AppRating />}
       <SafeAreaView>
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView contentContainerStyle={styles.scrollView} testID="scroll-view-thank-you-screen">
           <View style={styles.rootContainer}>
             <Header>
               <HeaderText style={styles.headerText}>{i18n.t('thank-you-title')}</HeaderText>
@@ -78,7 +78,11 @@ export default function ThankYouSEScreen({ navigation, route }: IProps) {
 
             <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
-            <BrandedButton onPress={() => assessmentCoordinator.gotoNextScreen(route.name)} style={styles.done}>
+            <BrandedButton
+              onPress={() => assessmentCoordinator.gotoNextScreen(route.name)}
+              style={styles.done}
+              testID="button-complete"
+            >
               <RegularText>{i18n.t('thank-you-completed')}</RegularText>
             </BrandedButton>
           </View>

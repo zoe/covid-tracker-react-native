@@ -388,7 +388,7 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
                 </View>
-                <BrandedButton onPress={props.handleSubmit} testID="submit-button">
+                <BrandedButton onPress={props.handleSubmit} testID="button-submit">
                   {i18n.t('next-question')}
                 </BrandedButton>
               </Form>
