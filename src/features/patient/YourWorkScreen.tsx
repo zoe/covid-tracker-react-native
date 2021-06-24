@@ -1,5 +1,6 @@
 import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { FormWrapper } from '@covid/components/Forms';
 import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
@@ -24,7 +25,7 @@ import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form, Item, Label } from 'native-base';
+import { Item, Label } from 'native-base';
 import * as React from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
@@ -289,9 +290,10 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
               (!!isCarer && isCarer === 'yes');
             return (
               <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <Form>
+                <FormWrapper hasRequiredFields>
                   <View style={{ marginHorizontal: 16 }}>
                     <RadioInput
+                      required
                       error={touched.isHealthcareStaff ? errors.isHealthcareStaff : ''}
                       items={healthcareStaffOptions}
                       label={i18n.t('are-you-healthcare-staff')}
@@ -300,6 +302,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                     />
 
                     <YesNoField
+                      required
                       error={touched.isCarer && errors.isCarer}
                       label={i18n.t('are-you-carer')}
                       onValueChange={handleChange('isCarer')}
@@ -389,6 +392,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                         </FieldWrapper>
 
                         <RadioInput
+                          required
                           error={touched.hasPatientInteraction ? errors.hasPatientInteraction : ''}
                           items={patientInteractionOptions}
                           label={i18n.t('label-interacted-with-infected-patients')}
@@ -397,6 +401,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                         />
 
                         <RadioInput
+                          required
                           error={touched.hasUsedPPEEquipment ? errors.hasUsedPPEEquipment : ''}
                           items={equipmentUsageOptions}
                           label={i18n.t('label-used-ppe-equipment')}
@@ -406,6 +411,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
 
                         {hasUsedPPEEquipment === 'always' ? (
                           <RadioInput
+                            required
                             error={touched.ppeAvailabilityAlways ? errors.ppeAvailabilityAlways : ''}
                             items={availabilityAlwaysOptions}
                             label={i18n.t('label-chose-an-option')}
@@ -416,6 +422,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
 
                         {hasUsedPPEEquipment === 'sometimes' ? (
                           <RadioInput
+                            required
                             error={touched.ppeAvailabilitySometimes ? errors.ppeAvailabilitySometimes : ''}
                             items={availabilitySometimesOptions}
                             label={i18n.t('label-chose-an-option')}
@@ -426,6 +433,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
 
                         {hasUsedPPEEquipment === 'never' ? (
                           <RadioInput
+                            required
                             error={touched.ppeAvailabilityNever ? errors.ppeAvailabilityNever : ''}
                             items={availabilityNeverOptions}
                             label={i18n.t('label-chose-an-option')}
@@ -449,7 +457,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                   >
                     {i18n.t('next-question')}
                   </BrandedButton>
-                </Form>
+                </FormWrapper>
               </KeyboardAvoidingView>
             );
           }}
