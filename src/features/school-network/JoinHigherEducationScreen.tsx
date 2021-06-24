@@ -19,12 +19,11 @@ interface IProps {
   route: RouteProp<ScreenParamList, 'ConfirmSchool'>;
 }
 
-function JoinHigherEducationScreen({ navigation, route }: IProps) {
+export default function JoinHigherEducationScreen({ navigation, route }: IProps) {
   const [schools, setSchools] = React.useState<ISchoolModel[]>([]);
   const service = useInjection<ISchoolService>(Services.SchoolService);
-  const { patientData } = route.params;
   const currentJoinedGroup = useSelector((state: RootState) =>
-    selectPatientsJoinedGroups(state, patientData.patientId, true),
+    selectPatientsJoinedGroups(state, route.params?.patientData?.patientId, true),
   );
 
   React.useEffect(() => {
@@ -35,11 +34,11 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
   }, []);
 
   return (
-    <Screen navigation={navigation} profile={patientData.patientState.profile}>
+    <Screen navigation={navigation} profile={route.params?.patientData?.patientState?.profile}>
       {currentJoinedGroup ? (
         <SelectedSchool
           currentJoinedGroup={currentJoinedGroup}
-          currentPatient={patientData.patientState}
+          currentPatient={route.params?.patientData?.patientState}
           removeText="school-networks.join-school.removeHigherEducation"
           title="school-networks.join-school.university-network-header"
         />
@@ -57,5 +56,3 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
     </Screen>
   );
 }
-
-export default JoinHigherEducationScreen;

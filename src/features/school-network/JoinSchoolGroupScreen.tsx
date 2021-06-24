@@ -1,6 +1,5 @@
 import { Button } from '@covid/components/buttons/Button';
-import DropdownField from '@covid/components/DropdownField';
-import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
@@ -24,11 +23,6 @@ type Props = {
   route: RouteProp<ScreenParamList, 'JoinSchoolGroup'>;
 };
 
-enum InputMode {
-  input,
-  dropdown,
-}
-
 type JoinGroupData = {
   groupId: string;
 };
@@ -40,16 +34,12 @@ const ValidationSchema = () => {
 };
 
 export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
-  const inputMode: InputMode = InputMode.dropdown;
-
-  const currentPatient = route.params.patientData.patientState;
-
   const [groupList, setGroupList] = React.useState<PickerItemProps[]>([]);
 
   React.useEffect(() => {
     (async () => {
       const groups: ISchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
-        route.params.selectedSchool.id,
+        route.params?.selectedSchool?.id,
       );
       const pickerItems = groups.map<PickerItemProps>((g) => ({
         label: g.name,
@@ -59,18 +49,13 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
     })();
   }, []);
 
-  const create = () => {
-    schoolNetworkCoordinator.goToCreateSchoolGroup();
-  };
-
   const next = () => {
     schoolNetworkCoordinator.gotoNextScreen(route.name);
   };
 
   const onSubmit = async (schoolData: JoinGroupData) => {
     try {
-      const { patientId } = route.params.patientData;
-      await schoolNetworkCoordinator.addPatientToGroup(schoolData.groupId, patientId);
+      await schoolNetworkCoordinator.addPatientToGroup(schoolData.groupId, route.params?.patientData?.patientId);
       next();
     } catch {
       Alert.alert(
@@ -89,12 +74,12 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   };
 
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={route.params?.patientData?.patientState?.profile}>
       <Header>
         <HeaderText>{i18n.t('school-networks.join-group.title')}</HeaderText>
         <RegularText style={styles.topText}>
           {i18n.t('school-networks.join-group.description', {
-            school: route.params.selectedSchool?.name ?? '',
+            school: route.params?.selectedSchool?.name ?? '',
           })}
         </RegularText>
       </Header>
@@ -115,30 +100,16 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
         {(formikProps) => {
           return (
             <Form style={styles.formContainer}>
-              <View>
-                <View style={{ height: 16 }} />
-                {inputMode === InputMode.input ? (
-                  <GenericTextField
-                    showError
-                    formikProps={formikProps}
-                    label={i18n.t('school-networks.join-group.input.label')}
-                    name="groupName"
-                    placeholder={i18n.t('school-networks.join-group.input.placeholder')}
-                  />
-                ) : null}
+              <View style={{ height: 16 }} />
+              <RadioInput
+                error={formikProps.touched.groupId ? formikProps.errors.groupId : ''}
+                items={groupList}
+                label={i18n.t('school-networks.join-group.dropdown.label')}
+                onValueChange={formikProps.handleChange('groupId')}
+                selectedValue={formikProps.values.groupId}
+              />
 
-                {inputMode === InputMode.dropdown ? (
-                  <DropdownField
-                    error={formikProps.touched.groupId && formikProps.errors.groupId}
-                    items={groupList}
-                    label={i18n.t('school-networks.join-group.dropdown.label')}
-                    onValueChange={formikProps.handleChange('groupId')}
-                    selectedValue={formikProps.values.groupId}
-                  />
-                ) : null}
-              </View>
-
-              <View>
+              <View style={styles.view}>
                 {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} style={{ marginHorizontal: 16 }} />
                 ) : null}
@@ -157,7 +128,6 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
 const styles = StyleSheet.create({
   formContainer: {
     flexGrow: 1,
-    justifyContent: 'space-between',
   },
   primaryButton: {
     backgroundColor: colors.brand,
@@ -174,5 +144,8 @@ const styles = StyleSheet.create({
   },
   topText: {
     marginTop: 16,
+  },
+  view: {
+    marginTop: 'auto',
   },
 });

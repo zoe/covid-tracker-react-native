@@ -1,4 +1,5 @@
-import { BasicPage, CheckBoxButton, DropdownField, GenericSelectableList, Text } from '@covid/components';
+import { BasicPage, CheckBoxButton, GenericSelectableList, Text } from '@covid/components';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import {
   addLearningCondition,
@@ -97,7 +98,7 @@ function MentalHealthLearning() {
           {i18n.t('mental-health.question-learning-title')}
         </Text>
         <View>
-          <DropdownField
+          <RadioInput
             items={learningInitialOptions}
             label={i18n.t('mental-health.question-learning')}
             onValueChange={handleSetHasLearningDisability}

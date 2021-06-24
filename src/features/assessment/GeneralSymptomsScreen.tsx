@@ -29,19 +29,18 @@ type Props = {
 export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
   const features = localisationService.getConfig();
-  const { hasHayfever } = route.params.assessmentData.patientData.patientState;
   const registerSchema = Yup.object().shape({}).concat(GeneralSymptomsQuestions.schema());
 
+  const patientState = route.params?.assessmentData?.patientData?.patientState;
+
   function onSubmit(values: GeneralSymptomsData, formikHelpers: FormikHelpers<GeneralSymptomsData>) {
-    assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(values, hasHayfever));
+    assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(values, patientState?.hasHayfever));
     assessmentCoordinator.gotoNextScreen(route.name);
     formikHelpers.setSubmitting(false);
   }
 
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
-
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={patientState?.profile}>
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.general-symptoms')}</HeaderText>
       </Header>
@@ -61,14 +60,10 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
           return (
             <Form style={{ flexGrow: 1 }}>
               <View style={{ marginHorizontal: 16 }}>
-                <GeneralSymptomsQuestions formikProps={props} hasHayfever={hasHayfever} />
+                <GeneralSymptomsQuestions formikProps={props} hasHayfever={patientState?.hasHayfever} />
               </View>
               <View style={{ flex: 1 }} />
-              <BrandedButton
-                enable={!props.isSubmitting}
-                hideLoading={!props.isSubmitting}
-                onPress={props.handleSubmit}
-              >
+              <BrandedButton enable={!props.isSubmitting} loading={props.isSubmitting} onPress={props.handleSubmit}>
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>
             </Form>

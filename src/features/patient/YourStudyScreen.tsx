@@ -8,13 +8,10 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
 import { isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '@covid/features';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
@@ -242,9 +239,6 @@ const AllCohorts: CohortDefinition[] = [
 ];
 
 export default class YourStudyScreen extends React.Component<YourStudyProps, State> {
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
   private coordinator: Coordinator & IUpdatePatient = this.props.route.params.editing
     ? editProfileCoordinator
     : patientCoordinator;
