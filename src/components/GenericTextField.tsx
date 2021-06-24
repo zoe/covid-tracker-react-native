@@ -1,43 +1,50 @@
+import { requiredFormMarker } from '@covid/components/Forms';
+import { FieldWrapper } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError } from '@covid/components/ValidationError';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { KeyboardTypeOptions, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
-
-import { FieldWrapper } from './Screen';
-import { RegularText } from './Text';
-import { ValidatedTextInput } from './ValidatedTextInput';
-import { ValidationError } from './ValidationError';
 
 interface IProps extends TextInputProps {
   formikProps: FormikProps<any>;
-  textInputProps?: TextInputProps;
-  keyboardType?: KeyboardTypeOptions;
-  label?: string;
   name: string;
+  label?: string;
   placeholder?: string;
+  keyboardType?: KeyboardTypeOptions;
   showError?: boolean;
-  testID?: string;
+  inputProps?: TextInputProps;
   wrapperStyle?: StyleProp<ViewStyle>;
+  required?: boolean;
 }
 
 export function GenericTextField(props: IProps) {
+  const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
+
   return (
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
-      {props.label ? <RegularText>{props.label}</RegularText> : null}
+      {label ? (
+        <RegularText>
+          {label} {props.required ? requiredFormMarker : null}
+        </RegularText>
+      ) : null}
       <ValidatedTextInput
-        error={!!(props.formikProps.touched[props.name] && props.formikProps.errors[props.name])}
-        keyboardType={props.keyboardType}
-        onBlur={props.formikProps.handleBlur(props.name)}
-        onChangeText={props.formikProps.handleChange(props.name)}
+        error={formikProps.touched[name] && formikProps.errors[name]}
+        keyboardType={keyboardType}
+        onBlur={formikProps.handleBlur(name)}
+        onChangeText={formikProps.handleChange(name)}
         onSubmitEditing={() => {}}
-        placeholder={props.placeholder ?? ''}
+        placeholder={props.placeholder}
+        required={props.required}
         returnKeyType="next"
-        testID={props.testID}
-        value={props.formikProps.values[props.name]}
-        {...props.textInputProps}
+        value={formikProps.values[name]}
+        {...inputProps}
+        {...otherProps}
       />
 
-      {props.showError && !!props.formikProps.touched[props.name] && !!props.formikProps.errors[props.name] ? (
-        <ValidationError error={props.formikProps.errors[props.name]} />
+      {showError && !!formikProps.touched[name] && !!formikProps.errors[name] ? (
+        <ValidationError error={formikProps.errors[name]} />
       ) : null}
     </FieldWrapper>
   );

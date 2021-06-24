@@ -1,5 +1,5 @@
 import { SolidColorBar, Text } from '@covid/components';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 interface IProps {

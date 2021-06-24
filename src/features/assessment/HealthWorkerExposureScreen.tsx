@@ -1,5 +1,5 @@
 import { BrandedButton } from '@covid/components';
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -9,12 +9,11 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-import { isAndroid } from '@covid/utils/platform';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -49,7 +48,7 @@ const initialState: State = {
   errorMessage: '',
 };
 
-export default class HealthWorkerExposureScreen extends Component<HealthWorkerExposureProps, State> {
+export default class HealthWorkerExposureScreen extends React.Component<HealthWorkerExposureProps, State> {
   constructor(props: HealthWorkerExposureProps) {
     super(props);
     this.state = initialState;
@@ -66,12 +65,9 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   };
 
   private createAssessment(formData: IHealthWorkerExposureData) {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
-    const { patientId } = currentPatient;
-
     return {
       interacted_any_patients: formData.interactedAnyPatients === 'yes',
-      patient: patientId,
+      patient: AssessmentCoordinator.assessmentData?.patientData?.patientState?.patientId,
       ...(formData.treatedPatientsWithCovid && { treated_patients_with_covid: formData.treatedPatientsWithCovid }),
       ...(formData.hasUsedPPEEquipment && { have_used_PPE: formData.hasUsedPPEEquipment }),
       ...(formData.hasUsedPPEEquipment === 'always' &&
@@ -111,7 +107,6 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   });
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientInteractionOptions = [
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-suspected'), value: 'yes_suspected' },
@@ -141,16 +136,11 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
       { label: i18n.t('health-worker-exposure-picker-ppe-never-not-available'), value: 'not_available' },
     ];
 
-    if (isAndroid) {
-      equipmentUsageOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
-      availabilityAlwaysOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
-      availabilitySometimesOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
-      availabilityNeverOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
-      patientInteractionOptions.unshift({ label: i18n.t('label-chose-an-option'), value: '' });
-    }
-
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={AssessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      >
         <Header>
           <HeaderText>{i18n.t('title-health-worker-exposure')}</HeaderText>
         </Header>
@@ -176,14 +166,14 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
 
                   {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' ? (
                     <View style={{ marginHorizontal: 16 }}>
-                      <DropdownField
+                      <RadioInput
                         items={patientInteractionOptions}
                         label={i18n.t('health-worker-exposure-question-treated-patients-with-covid')}
                         onValueChange={props.handleChange('treatedPatientsWithCovid')}
                         selectedValue={props.values.treatedPatientsWithCovid}
                       />
 
-                      <DropdownField
+                      <RadioInput
                         items={equipmentUsageOptions}
                         label={i18n.t('health-worker-exposure-question-has-used-ppe-equipment')}
                         onValueChange={props.handleChange('hasUsedPPEEquipment')}
@@ -191,7 +181,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                       />
 
                       {props.values.hasUsedPPEEquipment === 'always' ? (
-                        <DropdownField
+                        <RadioInput
                           items={availabilityAlwaysOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilityAlways')}
@@ -200,7 +190,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                       ) : null}
 
                       {props.values.hasUsedPPEEquipment === 'sometimes' ? (
-                        <DropdownField
+                        <RadioInput
                           items={availabilitySometimesOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilitySometimes')}
@@ -209,7 +199,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                       ) : null}
 
                       {props.values.hasUsedPPEEquipment === 'never' ? (
-                        <DropdownField
+                        <RadioInput
                           items={availabilityNeverOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilityNever')}

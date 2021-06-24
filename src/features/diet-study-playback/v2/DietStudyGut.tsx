@@ -5,7 +5,7 @@ import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/Di
 import { getDietStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
 import { styling } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
 function DietStudyGut() {

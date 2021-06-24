@@ -30,3 +30,23 @@ Now that we've excluded a few things, let's discuss what would be great contribu
   - Edit your info
   - View when you reported assessment and backfill them
   - Manage your family members or relatives
+
+## Style guide
+
+We're trying to standardise how we write our code, to make it as easy as possible for others to contribute. Here are some of the standards we use:
+
+- Airbnb's eslint plugin with Typescript: [`eslint-config-airbnb-typescript`](https://github.com/iamturns/eslint-config-airbnb-typescript)
+- Define components using the `function` syntax (rather than `const` arrow functions) e.g.
+
+```jsx
+export default function CovidTestConfirmScreen(props: IProps) {
+  // ...
+  return (
+    // ...
+  )
+}
+```
+
+- Prefacing Typescript types and interface names with `T` and `I` respectively. e.g. ` type TComponentNameProps = {}`
+- Using `const styles = StyleSheet.create({})` to store all CSS styles pertaining to a specific component
+- We follow the TypeScript for React community style guide from: [`typescript-cheatsheets/react`](https://github.com/typescript-cheatsheets/react)

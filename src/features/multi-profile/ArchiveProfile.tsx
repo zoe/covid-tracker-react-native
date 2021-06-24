@@ -3,7 +3,7 @@ import appCoordinator from '@covid/features/AppCoordinator';
 import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const ArchiveProfile: React.FC<Props> = (props) => {
-  const [isConfirmModalVisible, setConfirmModalVisibility] = useState(false);
+  const [isConfirmModalVisible, setConfirmModalVisibility] = React.useState(false);
 
   function clickArchive() {
     setConfirmModalVisibility(true);

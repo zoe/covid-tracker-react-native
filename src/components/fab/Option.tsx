@@ -1,6 +1,6 @@
 import { Icon } from '@covid/components/icons';
 import { Text } from '@covid/components/typography';
-import React, { useEffect, useRef } from 'react';
+import * as React from 'react';
 import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface IProps {
@@ -11,8 +11,8 @@ interface IProps {
 }
 
 function Option({ label, handleOnPress, toValue, yValue }: IProps) {
-  const springValue = useRef(new Animated.Value(0)).current;
-  const fadeValue = useRef(new Animated.Value(0)).current;
+  const springValue = React.useRef(new Animated.Value(0)).current;
+  const fadeValue = React.useRef(new Animated.Value(0)).current;
 
   const spring = () => {
     Animated.spring(springValue, {
@@ -47,7 +47,7 @@ function Option({ label, handleOnPress, toValue, yValue }: IProps) {
     spring();
   };
 
-  useEffect(animate);
+  React.useEffect(animate);
 
   return (
     <Animated.View

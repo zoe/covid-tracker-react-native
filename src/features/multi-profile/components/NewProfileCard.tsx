@@ -3,7 +3,7 @@ import { RegularText } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { Card } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet } from 'react-native';
 
 export const NewProfileCard: React.FC = () => {

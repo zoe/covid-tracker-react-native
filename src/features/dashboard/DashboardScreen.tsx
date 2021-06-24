@@ -14,18 +14,18 @@ import { selectApp, setDashboardHasBeenViewed } from '@covid/core/state';
 import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { MentalHealthPlaybackModal } from '@covid/features';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import NavigatorService from '@covid/NavigatorService';
 import { pushNotificationService } from '@covid/Services';
 import { colors, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -50,10 +50,13 @@ const headerConfig = {
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
+  const schoolGroups = useSelector<RootState, ISubscribedSchoolGroupStats[]>(
+    (state) => state.school.joinedSchoolGroups,
+  );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
-  const [showTrendline, setShowTrendline] = useState<boolean>(false);
+  const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
+  const [mentalHealthPlaybackModalVisible, setMentalHealthPlaybackModalVisible] = React.useState(false);
 
   const onReport = async () => {
     await appCoordinator.gotoNextScreen(route.name);
@@ -67,23 +70,23 @@ export function DashboardScreen({ navigation, route }: IProps) {
     appCoordinator.goToTrendline();
   };
 
-  const [shouldShowReminders, setShouldShowReminders] = useState(false);
+  const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
 
   const runCurrentFeature = () => {
     if (startupInfo?.show_modal === 'mental-health-playback') {
-      NavigatorService.navigate('MentalHealthPlaybackModal');
+      setMentalHealthPlaybackModalVisible(true);
     }
   };
 
   // TODO: Can we move this into app initialisation?
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       await pushNotificationService.subscribeForPushNotifications();
       setShouldShowReminders(!(await pushService.isGranted()));
     })();
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     return navigation.addListener('focus', async () => {
       dispatch(updateTodayDate());
       dispatch(fetchSubscribedSchoolGroups());
@@ -94,7 +97,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
     });
   }, [navigation]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     if (!app.dashboardHasBeenViewed) {
       dispatch(setDashboardHasBeenViewed(true));
@@ -109,11 +112,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
     };
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     Linking.addEventListener('url', () => {});
   }, []);
-
-  const hasNetworkData = networks && networks.length > 0;
 
   return (
     <CollapsibleHeaderScrollView
@@ -171,15 +172,12 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
         <ShareVaccineCard screenName="Dashboard" />
 
-        {hasNetworkData ? (
-          <View
-            style={{
-              marginVertical: 8,
-            }}
-          >
-            <SchoolNetworks schoolGroups={networks!} />
-          </View>
-        ) : null}
+        <SchoolNetworks schoolGroups={schoolGroups} style={styles.marginVertical} />
+
+        <MentalHealthPlaybackModal
+          closeModalHandler={() => setMentalHealthPlaybackModalVisible(false)}
+          showModal={mentalHealthPlaybackModalVisible}
+        />
       </View>
 
       <View style={styles.zoe}>
@@ -199,6 +197,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     resizeMode: 'contain',
     width: '100%',
+  },
+  marginVertical: {
+    marginVertical: 8,
   },
   zoe: {
     marginVertical: 32,

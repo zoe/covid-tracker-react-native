@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import EditProfiles from './EditProfilesIcon';
 import MyStudy from './MyStudyIcon';

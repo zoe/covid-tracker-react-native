@@ -6,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import moment from 'moment';
 import { Text } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 
 export const displayDescriptionNameMap = {

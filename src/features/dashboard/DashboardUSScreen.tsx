@@ -17,7 +17,7 @@ import i18n from '@covid/locale/i18n';
 import { pushNotificationService } from '@covid/Services';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -33,7 +33,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
   const dispatch = useAppDispatch();
 
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
-  const [showDietStudyPlayback] = useState<boolean | undefined>(startupInfo?.show_diet_score);
+  const [showDietStudyPlayback] = React.useState<boolean | undefined>(startupInfo?.show_diet_score);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -49,13 +49,13 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
     await share(shareMessage);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       await pushNotificationService.subscribeForPushNotifications();
     })();
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     return navigation.addListener('focus', async () => {
       dispatch(updateTodayDate());
     });

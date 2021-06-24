@@ -3,7 +3,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useCallback, useEffect } from 'react';
+import * as React from 'react';
 import { ScrollView } from 'react-native';
 
 type PropsType = {
@@ -12,15 +12,18 @@ type PropsType = {
   setAgreed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
-  const onInfoLinkPress = useCallback(() => openWebLink('https://www.nhs.uk/conditions/coronavirus-covid-19/'), []);
+const ConsentScreenGB: React.FC<PropsType> = ({ navigation, route, setAgreed }) => {
+  const onInfoLinkPress = React.useCallback(
+    () => openWebLink('https://www.nhs.uk/conditions/coronavirus-covid-19/'),
+    [],
+  );
 
-  const onPrivacyPolicyPress = useCallback(
+  const onPrivacyPolicyPress = React.useCallback(
     () => navigation.navigate('PrivacyPolicyUK', { viewOnly: route.params.viewOnly }),
     [navigation.navigate, route.params.viewOnly],
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     setAgreed(true);
   }, []);
 

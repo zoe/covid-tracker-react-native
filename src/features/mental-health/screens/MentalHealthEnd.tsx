@@ -3,7 +3,7 @@ import { events } from '@covid/core/Analytics';
 import { selectMentalHealthState, setCompleted } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,7 +11,7 @@ function MentalHealthSupport() {
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!MentalHealthState.completed) {
       dispatch(setCompleted(true));
     }

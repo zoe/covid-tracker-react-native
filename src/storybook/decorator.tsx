@@ -1,5 +1,5 @@
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 export const PaddingView = (fn: () => React.ReactNode) => <View style={{ marginHorizontal: 16 }}>{fn()}</View>;

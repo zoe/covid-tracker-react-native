@@ -2,7 +2,7 @@ import { IUIMessage, useMessage } from '@covid/common';
 import { RoundIconButton, ThemeButton } from '@covid/components/buttons';
 import { Text } from '@covid/components/typography';
 import { useTheme } from '@covid/themes';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Animated, Dimensions, Easing, View } from 'react-native';
 
 import { SContainerView, SMessageWindowView, STitleView } from './styles';
@@ -17,7 +17,7 @@ const RANGE_FROM = 0;
 const RANGE_TO = 1;
 
 function Dialog({ active, message }: IProps) {
-  const [animValue] = useState(new Animated.Value(0));
+  const [animValue] = React.useState(new Animated.Value(0));
   const { height, width } = Dimensions.get('window');
   const theme = useTheme();
   const { removeMessage } = useMessage();
@@ -55,7 +55,7 @@ function Dialog({ active, message }: IProps) {
     }).start();
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       animate(active);

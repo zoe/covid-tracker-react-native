@@ -1,7 +1,7 @@
 import { YesNoField } from '@covid/components/YesNoField';
 import { action, HandlerFunction } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react-native';
-import React from 'react';
+import * as React from 'react';
 
 const ValueChangeHandler = (): HandlerFunction => action('yes-no-button-selected');
 

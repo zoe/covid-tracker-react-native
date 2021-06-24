@@ -1,5 +1,5 @@
 import { Text } from '@covid/components';
-import React from 'react';
+import * as React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 function LoadingIndicator() {

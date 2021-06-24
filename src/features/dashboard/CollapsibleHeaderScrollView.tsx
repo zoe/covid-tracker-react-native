@@ -2,7 +2,7 @@ import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { colors } from '@theme';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Animated, Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('screen');
@@ -26,7 +26,7 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
   config,
   children,
 }) => {
-  const [scrollY, _] = useState<Animated.Value>(new Animated.Value(0));
+  const [scrollY, _] = React.useState<Animated.Value>(new Animated.Value(0));
 
   const headerHeight = scrollY.interpolate({
     extrapolate: 'clamp',

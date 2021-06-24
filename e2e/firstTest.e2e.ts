@@ -315,18 +315,25 @@ function testReportToday(healthy = true) {
       });
     }
 
-    // it('should dismiss the rating modal if present', async () => {
-    //   try {
-    //     await element(by.id('button-rating-yes')).tap();
-    //     await element(by.id('button-rating-rate')).tap();
-    //   } catch (_) {}
-    // });
+    it('should dismiss the rating modal if present', async () => {
+      try {
+        await element(by.id('button-rating-yes')).tap();
+        await element(by.id('button-rating-rate')).tap();
+      } catch (_) {}
+    });
 
-    // it('should go back to the home screen', async () => {
-    //   await scrollToId('scroll-view-thank-you-screen', 'button-back');
-    //   await element(by.id('button-back')).tap();
-    // });
+    it('should go back to the home screen', async () => {
+      await scrollToId('scroll-view-thank-you-screen', 'button-back');
+      await element(by.id('button-back')).tap();
+    });
   });
 }
 
-testReportToday(false);
+testWelcomeScreen();
+testSelectCountryScreen();
+testRegisterScreen();
+testLoginScreen();
+testLogout();
+testCreateNewProfile();
+testReportToday(true);
+// testReportToday(false);

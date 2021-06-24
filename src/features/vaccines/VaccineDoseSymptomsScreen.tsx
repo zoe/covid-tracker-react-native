@@ -14,7 +14,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -24,8 +24,8 @@ type Props = {
 };
 
 export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isSubmitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [isSubmitting, setSubmitting] = React.useState(false);
 
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
 
@@ -82,7 +82,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
                   <View style={{ flex: 1 }} />
                   <BrandedButton
                     enable={!isSubmitting}
-                    hideLoading={!isSubmitting}
+                    loading={isSubmitting}
                     onPress={props.handleSubmit}
                     style={styles.continueButton}
                   >

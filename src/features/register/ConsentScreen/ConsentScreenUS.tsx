@@ -5,7 +5,7 @@ import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import * as React from 'react';
 import { ScrollView } from 'react-native';
 
 type PropsType = {
@@ -14,36 +14,39 @@ type PropsType = {
   setAgreed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ConsentScreenUS: FC<PropsType> = ({ navigation, route, setAgreed }) => {
-  const [processingChecked, setProcessingChecked] = useState(false);
-  const [termsOfUseChecked, setTermsOfUseChecked] = useState(false);
+const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) => {
+  const [processingChecked, setProcessingChecked] = React.useState(false);
+  const [termsOfUseChecked, setTermsOfUseChecked] = React.useState(false);
 
-  const onNurseConsentPress = useCallback(
+  const onNurseConsentPress = React.useCallback(
     () => navigation.replace('NursesConsentUS', { viewOnly: route.params.viewOnly }),
     [navigation.replace, route.params.viewOnly],
   );
 
-  const onInfoLinkPress = useCallback(() => openWebLink('https://www.cdc.gov/coronavirus/2019-ncov/index.html'), []);
+  const onInfoLinkPress = React.useCallback(
+    () => openWebLink('https://www.cdc.gov/coronavirus/2019-ncov/index.html'),
+    [],
+  );
 
-  const onPrivacyPolicyPress = useCallback(
+  const onPrivacyPolicyPress = React.useCallback(
     () => navigation.navigate('PrivacyPolicyUS', { viewOnly: route.params.viewOnly }),
     [navigation.navigate, route.params.viewOnly],
   );
 
-  const onTermsOfUsePress = useCallback(
+  const onTermsOfUsePress = React.useCallback(
     () => navigation.navigate('TermsOfUseUS', { viewOnly: route.params.viewOnly }),
     [navigation.navigate, route.params.viewOnly],
   );
 
-  const toggleProcessingChecked = useCallback(() => {
+  const toggleProcessingChecked = React.useCallback(() => {
     setProcessingChecked(!processingChecked);
   }, [processingChecked, setProcessingChecked]);
 
-  const toggleTermsOfUseChecked = useCallback(() => {
+  const toggleTermsOfUseChecked = React.useCallback(() => {
     setTermsOfUseChecked(!termsOfUseChecked);
   }, [termsOfUseChecked, setTermsOfUseChecked]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setAgreed(processingChecked && termsOfUseChecked);
   }, [processingChecked, termsOfUseChecked]);
 

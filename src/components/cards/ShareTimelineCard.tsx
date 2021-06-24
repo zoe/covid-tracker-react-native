@@ -1,5 +1,5 @@
 import { timelineShare } from '@assets';
-import React from 'react';
+import * as React from 'react';
 import { Image } from 'react-native';
 
 export default function ShareTimelineCard() {

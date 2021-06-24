@@ -9,7 +9,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 interface IProps {
@@ -18,9 +18,9 @@ interface IProps {
 }
 
 export default function ThankYouUSScreen({ navigation, route }: IProps) {
-  const [askForRating, setAskForRating] = useState<boolean>(false);
+  const [askForRating, setAskForRating] = React.useState<boolean>(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       try {
         const ratingAskResponse = await shouldAskForRating();

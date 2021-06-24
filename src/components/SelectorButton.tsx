@@ -1,6 +1,6 @@
 import { colors, fontStyles } from '@theme';
 import { Text } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { GestureResponderEvent, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 

@@ -1,7 +1,7 @@
 import { RoundIconButton } from '@covid/components/buttons';
 import { useTheme } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import * as React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {

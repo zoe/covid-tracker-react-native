@@ -1,7 +1,7 @@
 import { doctorsAvatars, drEllenThompsonUK, drSarahBerry } from '@assets';
 import Avatar from '@covid/components/avatar';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
-import React from 'react';
+import * as React from 'react';
 import { Image } from 'react-native';
 
 export function getDietStudyInfoUrl() {

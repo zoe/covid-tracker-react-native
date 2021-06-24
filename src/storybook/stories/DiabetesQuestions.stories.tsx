@@ -3,7 +3,7 @@ import { DiabetesQuestions, IDiabetesData } from '@covid/features/patient/fields
 import i18n from '@covid/locale/i18n';
 import { storiesOf } from '@storybook/react-native';
 import { Formik, FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 

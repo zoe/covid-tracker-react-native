@@ -1,6 +1,6 @@
 import { Text } from '@covid/components';
 import { sizes, styling } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {

@@ -1,7 +1,7 @@
 import { Icon, Text, TIconName } from '@covid/components';
 import { TTimelineEvent } from '@covid/features/anniversary/types';
 import { colors } from '@theme/colors';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface IProps {

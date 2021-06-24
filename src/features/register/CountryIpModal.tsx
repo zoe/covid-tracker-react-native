@@ -11,7 +11,7 @@ import { isAndroid } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Form, Icon, Label, Picker } from 'native-base';
-import React, { useCallback, useState } from 'react';
+import * as React from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
@@ -34,10 +34,10 @@ type Item = {
 };
 
 export default React.memo(function CountryIpModal({ navigation, isModalVisible, closeModal }: IProps) {
-  const [countrySelected, setCountrySelected] = useState('');
+  const [countrySelected, setCountrySelected] = React.useState('');
   const localisationServce = useInjection<ILocalisationService>(Services.Localisation);
 
-  const selectCountry = useCallback(
+  const selectCountry = React.useCallback(
     async (countryCode: string) => {
       await localisationServce.setUserCountry(countryCode);
 
@@ -63,7 +63,7 @@ export default React.memo(function CountryIpModal({ navigation, isModalVisible, 
     [navigation.reset],
   );
 
-  const onValueChange = useCallback(
+  const onValueChange = React.useCallback(
     async (value: string) => {
       closeModal();
       setCountrySelected(value);
@@ -73,7 +73,7 @@ export default React.memo(function CountryIpModal({ navigation, isModalVisible, 
     [closeModal, setCountrySelected, selectCountry],
   );
 
-  const renderItem = useCallback(
+  const renderItem = React.useCallback(
     (i: Item) => (
       <Picker.Item
         color={i.value ? undefined : colors.tertiary}

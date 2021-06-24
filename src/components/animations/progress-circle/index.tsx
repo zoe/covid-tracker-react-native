@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import * as React from 'react';
 import { Animated } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
@@ -27,7 +27,7 @@ function ProgressCircle({
   const circumference = radius * 2 * Math.PI;
   const cx = size * 0.5;
   const cy = size * 0.5;
-  const springValue = useRef(new Animated.Value(0)).current;
+  const springValue = React.useRef(new Animated.Value(0)).current;
 
   const offset = springValue.interpolate({
     extrapolate: 'clamp',
@@ -49,7 +49,7 @@ function ProgressCircle({
     spring();
   };
 
-  useEffect(animate);
+  React.useEffect(animate);
 
   return (
     <Svg

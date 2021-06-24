@@ -1,8 +1,8 @@
 import H from '@covid/components/typography/headers/h';
-import React, { ReactNode } from 'react';
+import * as React from 'react';
 
 interface IProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export default ({ children }: IProps) => <H textClass="h5">{children}</H>;

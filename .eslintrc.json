@@ -49,6 +49,7 @@
       }
     ],
     "no-return-assign": ["error", "except-parens"],
+    "prefer-destructuring": "off",
     "react-hooks/exhaustive-deps": "off",
     "react/destructuring-assignment": "off",
     "react/jsx-props-no-spreading": "off",

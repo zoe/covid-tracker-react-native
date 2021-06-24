@@ -7,7 +7,7 @@ import { colors, fontStyles } from '@theme';
 import { FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
 import { Text } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
@@ -33,7 +33,7 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 
-  const [state, setState] = useState({
+  const [state, setState] = React.useState({
     showDatePicker: false,
     showRangePicker: false,
   });

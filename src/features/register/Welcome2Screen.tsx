@@ -17,7 +17,7 @@ import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { FC, useCallback, useState } from 'react';
+import * as React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import CountryIpModal from './CountryIpModal';
@@ -30,16 +30,16 @@ type PropsType = {
   route: RouteProp<ScreenParamList, 'Welcome'>;
 };
 
-const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
+const Welcome2Screen: React.FC<PropsType> = ({ navigation }) => {
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
-  const [ipModalVisible, setIpModalVisible] = useState(false);
+  const [ipModalVisible, setIpModalVisible] = React.useState(false);
 
-  const onLoginPress = useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
+  const onLoginPress = React.useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
 
-  const onCloseModal = useCallback(() => setIpModalVisible(false), [setIpModalVisible]);
+  const onCloseModal = React.useCallback(() => setIpModalVisible(false), [setIpModalVisible]);
 
-  const onCreateAccountPress = useCallback(async () => {
+  const onCreateAccountPress = React.useCallback(async () => {
     if (await localisationService.shouldAskCountryConfirmation()) {
       setIpModalVisible(true);
     } else {
@@ -47,9 +47,9 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
     }
   }, [localisationService.shouldAskCountryConfirmation, setIpModalVisible, isUSCountry, navigation.navigate]);
 
-  const getFlagIcon = useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
+  const getFlagIcon = React.useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
 
-  const helpUrl = useCallback(() => {
+  const helpUrl = React.useCallback(() => {
     if (isGBCountry()) {
       openWebLink('https://www.nhs.uk/conditions/coronavirus-covid-19/');
     } else if (isSECountry()) {
@@ -57,7 +57,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
     }
   }, [isGBCountry, isSECountry]);
 
-  const partnersLogos = useCallback(() => {
+  const partnersLogos = React.useCallback(() => {
     if (isGBCountry()) {
       return gbPartners;
     }

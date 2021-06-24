@@ -6,7 +6,7 @@ import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 type PropsType = {
@@ -23,7 +23,7 @@ const HeaderText = (props: { text: string }) => {
   );
 };
 
-export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
+export class PrivacyPolicyUSScreen extends React.Component<PropsType, object> {
   viewOnly = this.props.route.params.viewOnly;
 
   render() {

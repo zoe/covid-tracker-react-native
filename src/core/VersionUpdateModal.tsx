@@ -4,7 +4,7 @@ import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { getPlatformStoreLinkDeep } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 interface IProps {
@@ -16,7 +16,7 @@ export default function VersionUpdateModal({ navigation }: IProps) {
     openWebLink(getPlatformStoreLinkDeep);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     return navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
       return false;

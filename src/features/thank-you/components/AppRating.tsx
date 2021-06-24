@@ -9,7 +9,7 @@ import { Services } from '@covid/provider/services.types';
 import Constants from '@covid/utils/Constants';
 import { colors } from '@theme';
 import { Toast } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type PropsType = object;
@@ -31,7 +31,7 @@ export async function shouldAskForRating(): Promise<boolean> {
   return !askedToRateStatus && eligibleToAskForRating;
 }
 
-export class AppRating extends Component<PropsType, State> {
+export class AppRating extends React.Component<PropsType, State> {
   @lazyInject(Services.Content)
   private readonly contentService: IContentService;
 

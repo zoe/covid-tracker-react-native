@@ -1,5 +1,5 @@
 import { impactTimeline, impactTimeline2 } from '@assets';
-import React from 'react';
+import * as React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 
 type TCardSize = 'SMALL' | 'LARGE';

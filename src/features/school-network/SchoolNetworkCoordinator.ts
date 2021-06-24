@@ -1,5 +1,5 @@
 import { Coordinator, ISelectProfile, ScreenFlow } from '@covid/core/Coordinator';
-import { homeScreenName, ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
@@ -7,7 +7,6 @@ import { ISchoolGroupModel, ISchoolModel, ISubscribedSchoolStats } from '@covid/
 import { fetchSubscribedSchoolGroups, schoolSlice } from '@covid/core/schools/Schools.slice';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import store from '@covid/core/state/store';
-import { IUserService } from '@covid/core/user/UserService';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
@@ -17,17 +16,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
 
   higherEducation: boolean;
 
-  // Form state
   private selectedSchool?: ISchoolModel;
-
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
 
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
-
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
 
   @lazyInject(Services.SchoolService)
   private readonly schoolService: ISchoolService;

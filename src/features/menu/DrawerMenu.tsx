@@ -11,7 +11,7 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import Constants from '@covid/utils/Constants';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
-import React from 'react';
+import * as React from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';

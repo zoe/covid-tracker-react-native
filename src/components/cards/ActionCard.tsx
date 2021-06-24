@@ -1,12 +1,12 @@
 import { Text } from '@covid/components/typography';
 import { useTheme } from '@covid/themes';
-import React, { ReactNode } from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface IProps {
   actionTitle: string;
   buttonColor?: string;
-  children: ReactNode;
+  children: React.ReactNode;
   onPress: () => void;
   outline?: boolean;
   textColor?: string;

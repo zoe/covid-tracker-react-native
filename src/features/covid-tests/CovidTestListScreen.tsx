@@ -15,7 +15,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Text } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import key from 'weak-key';
 
@@ -31,7 +31,7 @@ type State = {
   isLoading: boolean;
 };
 
-export default class CovidTestListScreen extends Component<Props, State> {
+export default class CovidTestListScreen extends React.Component<Props, State> {
   @lazyInject(Services.CovidTest)
   private readonly covidTestService: ICovidTestService;
 

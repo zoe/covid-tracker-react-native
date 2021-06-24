@@ -7,7 +7,7 @@ import InsightIllustration from '@covid/features/mental-health-playback/componen
 import i18n from '@covid/locale/i18n';
 import { colors, grid, styling } from '@covid/themes';
 import { IInsight } from '@covid/types/mental-health-playback';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { LayoutChangeEvent, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -19,7 +19,7 @@ interface IProps {
 type TNumberObject = { [key: number]: number };
 
 export default React.memo(function Insights(props: IProps) {
-  const [illustrationHeights, setIllustrationHeights] = useState<TNumberObject>({});
+  const [illustrationHeights, setIllustrationHeights] = React.useState<TNumberObject>({});
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const windowWidth = useWindowDimensions().width;
 

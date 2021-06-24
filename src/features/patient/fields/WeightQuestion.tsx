@@ -1,4 +1,5 @@
 import DropdownField from '@covid/components/DropdownField';
+import { requiredFormMarker } from '@covid/components/Forms';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
@@ -7,7 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -31,7 +32,9 @@ interface Props {
 export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <RegularText>{label}</RegularText>
+      <RegularText>
+        {label} {requiredFormMarker}
+      </RegularText>
       {isUSCountry() ? (
         <ValidatedTextInput
           error={formikProps.touched.pounds && formikProps.errors.pounds}
@@ -92,7 +95,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
           )}
           <View style={styles.secondaryField}>
             <DropdownField
-              onlyPicker
+              hideLabel
               items={[
                 { label: 'lbs', value: 'lbs' },
                 { label: 'kg', value: 'kg' },

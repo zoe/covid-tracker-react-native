@@ -3,7 +3,6 @@ import { LoadingModal } from '@covid/components/Loading';
 import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { IPatientService } from '@covid/core/patient/PatientService';
 import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
@@ -18,7 +17,7 @@ import { colors } from '@theme';
 import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -41,12 +40,9 @@ interface OptionalInfoData {
   phone: string;
 }
 
-export class OptionalInfoScreen extends Component<PropsType, State> {
+export class OptionalInfoScreen extends React.Component<PropsType, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
 
   private phoneComponent: any;
 

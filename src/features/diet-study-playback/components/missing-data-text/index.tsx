@@ -1,6 +1,6 @@
 import { Text } from '@covid/components';
 import DietScoreHeader from '@covid/features/diet-study-playback/components/diet-score-header';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 function MissingDataText() {

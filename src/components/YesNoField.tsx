@@ -1,15 +1,13 @@
 import i18n from '@covid/locale/i18n';
-import React from 'react';
-import { PickerProps } from 'react-native';
+import * as React from 'react';
 
 import { ButtonsGroup, ISingleButton } from './inputs/ButtonsGroup';
 
 interface IProps {
   error?: any;
+  hideLabel?: boolean;
   label?: string;
   onValueChange: any;
-  onlyPicker?: boolean;
-  pickerProps?: PickerProps;
   selectedValue: string;
   testID?: string;
 }

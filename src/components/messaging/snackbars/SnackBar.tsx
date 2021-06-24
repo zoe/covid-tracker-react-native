@@ -2,7 +2,7 @@ import { IUIAction, IUIMessage, useMessage } from '@covid/common';
 import { RoundIconButton, ThemeButton } from '@covid/components/buttons';
 import { Text } from '@covid/components/typography';
 import { TColorPalette, TColorShade } from '@covid/themes';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Animated, Easing, View } from 'react-native';
 
 import { SCardView, SContainerView, SMessageText, TVariant } from './styles';
@@ -28,7 +28,7 @@ function Snackbar({
   message,
   variant = 'bottom',
 }: IProps) {
-  const [animValue] = useState(new Animated.Value(0));
+  const [animValue] = React.useState(new Animated.Value(0));
   const { removeMessage } = useMessage();
 
   const config = {
@@ -49,7 +49,7 @@ function Snackbar({
     }).start(cb);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMouted = true;
     if (isMouted) {
       animate(active);

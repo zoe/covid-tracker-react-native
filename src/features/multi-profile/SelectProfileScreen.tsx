@@ -15,7 +15,7 @@ import { styling } from '@covid/themes';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ProfileCard } from './components/ProfileCard';
@@ -39,7 +39,7 @@ export default function SelectProfileScreen({ navigation, route }: TProps) {
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
   const showCreateProfile = localisationService.getConfig()?.enableMultiplePatients;
 
-  useEffect(() => {
+  React.useEffect(() => {
     return navigation.addListener('focus', listProfiles);
   }, [navigation]);
 

@@ -2,7 +2,7 @@ import { menuIcon } from '@assets';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { Image, ImageStyle, StyleProp, StyleSheet, TouchableOpacity } from 'react-native';
 
 type Props = {

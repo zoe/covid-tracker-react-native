@@ -19,7 +19,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -36,8 +36,8 @@ export function NHSIntroScreen(props: IProps) {
   const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
   const patientService = useInjection<IPatientService>(Services.Patient);
-  const [consent, setConsent] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [consent, setConsent] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const checkFormFilled = (props: FormikProps<IData>) => {
     if (Object.keys(props.errors).length) return false;
@@ -143,7 +143,7 @@ export function NHSIntroScreen(props: IProps) {
 
                   <BrandedButton
                     enable={checkFormFilled(props) && consent}
-                    hideLoading={!props.isSubmitting}
+                    loading={props.isSubmitting}
                     onPress={handleSubmit}
                   >
                     {i18n.t('nhs-study-intro.next')}

@@ -14,7 +14,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -37,20 +37,20 @@ type EditLocationData = {
 };
 
 export const EditLocationScreen: React.FC<RenderProps> = (props) => {
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const dispatch = useAppDispatch();
 
   const initialFormValues: EditLocationData = {
-    currentCountry: props.route.params.patientData.patientInfo!.current_country_code ?? '',
-    currentPostcode: props.route.params.patientData.patientInfo!.current_postcode ?? '',
-    differentAddress: props.route.params.patientData.patientInfo!.current_postcode
+    currentCountry: props.route.params?.patientData?.patientInfo!.current_country_code ?? '',
+    currentPostcode: props.route.params?.patientData?.patientInfo!.current_postcode ?? '',
+    differentAddress: props.route.params?.patientData?.patientInfo!.current_postcode
       ? 'yes'
-      : props.route.params.patientData.patientInfo!.current_country_code
+      : props.route.params?.patientData?.patientInfo!.current_country_code
       ? 'yes'
       : 'no',
-    postcode: props.route.params.patientData.patientInfo!.postcode,
-    stillInUK: props.route.params.patientData.patientInfo!.current_country_code ? 'no' : 'yes',
+    postcode: props.route.params?.patientData?.patientInfo!.postcode,
+    stillInUK: props.route.params?.patientData?.patientInfo!.current_country_code ? 'no' : 'yes',
   };
 
   const validation = Yup.object().shape({
@@ -113,7 +113,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     .sort((a: PickerItemProps, b: PickerItemProps) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
   return (
-    <Screen simpleCallout navigation={props.navigation} profile={props.route.params.patientData.profile}>
+    <Screen simpleCallout navigation={props.navigation} profile={props.route.params?.patientData?.profile}>
       <Header>
         <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
       </Header>
@@ -160,7 +160,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
               ) : null}
               {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' ? (
                 <DropdownField
-                  error={props.touched.currentCountry && props.errors.currentCountry}
+                  error={props.touched.currentCountry ? props.errors.currentCountry : ''}
                   items={countryList}
                   label={i18n.t('edit-profile.location.select-country')}
                   onValueChange={props.handleChange('currentCountry')}
@@ -172,7 +172,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                 {i18n.t('edit-profile.location.disclaimer')}
               </SecondaryText>
               <ErrorText>{errorMessage}</ErrorText>
-              <BrandedButton hideLoading={!props.isSubmitting} onPress={props.handleSubmit}>
+              <BrandedButton loading={props.isSubmitting} onPress={props.handleSubmit}>
                 {i18n.t('edit-profile.done')}
               </BrandedButton>
             </Form>

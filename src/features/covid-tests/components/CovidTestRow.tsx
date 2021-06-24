@@ -6,7 +6,7 @@ import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import moment from 'moment';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type Props = {

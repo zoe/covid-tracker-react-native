@@ -1,26 +1,25 @@
 import DropdownIcon from '@assets/icons/DropdownIcon';
+import { requiredFormMarker } from '@covid/components/Forms';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { Label } from 'native-base';
-import React, { useEffect, useState } from 'react';
-import { Image, ImageSourcePropType, PickerItemProps, PickerProps, StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { Image, ImageSourcePropType, PickerItemProps, StyleSheet, Text, View } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
 
 interface IProps {
-  androidDefaultLabel?: string;
-  error?: any;
+  error?: string;
+  hideLabel?: boolean;
   itemIcons?: ImageSourcePropType[];
   items: PickerItemProps[];
   label?: string;
-  onValueChange: any;
-  onlyPicker?: boolean;
-  pickerProps?: PickerProps;
-  placeholder?: string | undefined;
+  onValueChange: (value: any) => void;
+  placeholder?: string;
+  required?: boolean;
   selectedValue?: any;
-  testID?: string;
 }
 
 interface ISelectedItem {
@@ -30,7 +29,17 @@ interface ISelectedItem {
 
 const DROPDOWN_ROW_HEIGHT = 48.6;
 
-export function DropdownField(props: IProps) {
+export function DropdownField({
+  placeholder,
+  label,
+  error,
+  hideLabel,
+  items: providedItems,
+  selectedValue,
+  onValueChange,
+  itemIcons,
+  required,
+}: IProps) {
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
     return (
@@ -55,28 +64,28 @@ export function DropdownField(props: IProps) {
   };
 
   // Get index & label from default value passed with props
-  const defaultItems = prepareItems(props.items);
-  const { index: defaultIndex, label: defaultSelectedLabel } = getSelectedLabel(defaultItems, props.selectedValue);
+  const defaultItems = prepareItems(providedItems);
+  const { index: defaultIndex, label: defaultSelectedLabel } = getSelectedLabel(defaultItems, selectedValue);
 
-  const [options, setOptions] = useState(defaultItems);
-  const [dropdownWidth, setDropdownWidth] = useState(0);
-  const [dropdownFocus, setDropdownFocus] = useState(false);
-  const [selectedLabel, setSelectedLabel] = useState(defaultSelectedLabel);
+  const [options, setOptions] = React.useState(defaultItems);
+  const [dropdownWidth, setDropdownWidth] = React.useState(0);
+  const [dropdownFocus, setDropdownFocus] = React.useState(false);
+  const [selectedLabel, setSelectedLabel] = React.useState(defaultSelectedLabel);
 
   const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : styles.dropdownNoBorder;
-  const dropdownErrorStyle = props.error ? styles.dropdownError : {};
+  const dropdownErrorStyle = error ? styles.dropdownError : {};
 
   // Update internal string items on props items change
-  useEffect(() => {
-    setOptions(prepareItems(props.items));
-    setSelectedLabel(getSelectedLabel(defaultItems, props.selectedValue).label);
-  }, [props.items]);
+  React.useEffect(() => {
+    setOptions(prepareItems(providedItems));
+    setSelectedLabel(getSelectedLabel(defaultItems, selectedValue).label);
+  }, [providedItems]);
 
   const onSelect = (id: any, label: any) => {
     setSelectedLabel(label);
     if (id !== -1) {
       const value = options?.find((item: PickerItemProps) => item.label === label)?.value;
-      props.onValueChange(value);
+      onValueChange(value);
     }
   };
 
@@ -88,8 +97,7 @@ export function DropdownField(props: IProps) {
 
   const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
-  const dropdownHeight: number = (options?.length ?? 1) * DROPDOWN_ROW_HEIGHT;
-
+  const dropdownHeight: number = Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 220);
   const renderDropdownRow = (option: string, index: any, isSelected: boolean): React.ReactNode => {
     // There is a type error in renderDropdownRow index is actually a number, not a string
 
@@ -107,8 +115,8 @@ export function DropdownField(props: IProps) {
           isSelected && styles.dropdownTextHighlightStyle,
         ]}
       >
-        {props.itemIcons?.length ? (
-          <Image source={props.itemIcons[index]} style={{ height: 24, marginRight: 5, width: 24 }} />
+        {itemIcons?.length ? (
+          <Image source={itemIcons[index]} style={{ height: 24, marginRight: 5, width: 24 }} />
         ) : null}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
       </View>
@@ -117,7 +125,11 @@ export function DropdownField(props: IProps) {
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {props.onlyPicker ? null : <Label style={styles.labelStyle}>{props.label}</Label>}
+      {hideLabel ? null : (
+        <Label style={styles.labelStyle}>
+          {label} {required ? requiredFormMarker : null}
+        </Label>
+      )}
       <ModalDropdown
         animated={false}
         defaultIndex={defaultIndex}
@@ -138,21 +150,20 @@ export function DropdownField(props: IProps) {
         renderSeparator={renderDropdownSeparator}
         showsVerticalScrollIndicator={false}
         style={styles.dropdownButton}
-        testID={props.testID}
       >
         <View
           onLayout={updateDropdownWidth}
           style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}
         >
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
-            {selectedLabel ?? i18n.t('label-chose-an-option')}
+            {selectedLabel ?? (placeholder || i18n.t('choose-one-of-these-options'))}
           </Label>
           <DropdownIcon />
         </View>
       </ModalDropdown>
-      {props.error ? (
+      {error ? (
         <View style={{ marginHorizontal: 4, marginTop: 4 }}>
-          <ValidationError error={props.error} />
+          <ValidationError error={error} />
         </View>
       ) : null}
     </FieldWrapper>

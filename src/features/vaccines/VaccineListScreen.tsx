@@ -22,7 +22,7 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -35,8 +35,8 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
   const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [showVaccineWarning, setShowVaccineWarning] = useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [showVaccineWarning, setShowVaccineWarning] = React.useState<boolean>(false);
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
   const app = useSelector(selectApp);
@@ -155,7 +155,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (app.loggedVaccine) {
       setShowVaccineWarning(true);
     }
@@ -187,7 +187,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
   // Disable the banner popup until we can solve the "cannot call hook" problem
   //
-  // useEffect(() => {
+  // React.useEffect(() => {
   //   if (app.loggedVaccine) {
   //     addMessage({
   //       actions: [

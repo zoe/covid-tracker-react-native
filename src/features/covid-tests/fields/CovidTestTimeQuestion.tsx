@@ -8,7 +8,7 @@ import { colors } from '@theme';
 import { FormikProps } from 'formik';
 import moment from 'moment';
 import { Label } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as Yup from 'yup';
@@ -29,7 +29,7 @@ interface IProps {
 }
 
 export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTimeData> = ({ ...props }: IProps) => {
-  const [state, setState] = useState({ error: false, showTimePicker: false });
+  const [state, setState] = React.useState({ error: false, showTimePicker: false });
 
   function handleSetTime(date: Date) {
     props.formikProps.handleChange('dateTestTime')(date.toISOString());

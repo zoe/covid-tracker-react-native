@@ -1,6 +1,6 @@
 import { Text } from '@covid/components';
 import { TGridSizes } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 
 interface IProps {
   subTitle: string;

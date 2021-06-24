@@ -1,12 +1,12 @@
 import { Button } from '@covid/components/buttons/Button';
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { ISchoolModel, ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
@@ -15,7 +15,7 @@ interface IProps {
   schools: ISchoolModel[];
 }
 
-function UniversityForm({ currentJoinedGroup, schools }: IProps) {
+export default function UniversityForm({ currentJoinedGroup, schools }: IProps) {
   const initialValues = {
     schoolId: currentJoinedGroup ? currentJoinedGroup.school.id : '',
   };
@@ -40,8 +40,8 @@ function UniversityForm({ currentJoinedGroup, schools }: IProps) {
     >
       {(formikProps) => (
         <Form style={styles.formContainer}>
-          <DropdownField
-            error={formikProps.touched.schoolId && formikProps.errors.schoolId}
+          <RadioInput
+            error={formikProps.touched.schoolId ? formikProps.errors.schoolId : ''}
             items={schools.map((item) => ({ label: item.name, value: item.id }))}
             label={i18n.t('school-networks.join-school.dropdown.label-higher-education')}
             onValueChange={formikProps.handleChange('schoolId')}
@@ -63,5 +63,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
 });
-
-export default UniversityForm;

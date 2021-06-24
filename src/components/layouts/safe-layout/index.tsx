@@ -1,5 +1,5 @@
 import { styling } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { SafeAreaView, StyleProp, ViewStyle } from 'react-native';
 
 interface IProps {

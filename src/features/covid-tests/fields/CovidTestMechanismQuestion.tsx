@@ -1,12 +1,12 @@
 import { fingerPrickX3, noseSwabX3, otherTestX3, spitX3, syringeX3 } from '@assets';
-import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 
 export interface ICovidTestMechanismData {
@@ -31,8 +31,19 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
 ) => {
   const { formikProps, test } = props;
 
+  const noIcons: string[] = [
+    CovidTestMechanismOptions.NOSE_SWAB,
+    CovidTestMechanismOptions.THROAT_SWAB,
+    CovidTestMechanismOptions.BLOOD_SAMPLE,
+  ];
+  const showMechanismIcons = (!test || (test && !noIcons.includes(test.mechanism))) && !isSECountry();
+
   const mechanismItems = [
-    { label: i18n.t('covid-test.picker-nose-throat-swab'), value: CovidTestMechanismOptions.NOSE_OR_THROAT_SWAB },
+    {
+      iconSource: showMechanismIcons ? noseSwabX3 : undefined,
+      label: i18n.t('covid-test.picker-nose-throat-swab'),
+      value: CovidTestMechanismOptions.NOSE_OR_THROAT_SWAB,
+    },
     ...(test?.mechanism === CovidTestMechanismOptions.NOSE_SWAB
       ? [{ label: i18n.t('covid-test.picker-nose-swab'), value: CovidTestMechanismOptions.NOSE_SWAB }]
       : []),
@@ -47,13 +58,29 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
           },
         ]
       : []),
-    { label: i18n.t('covid-test.picker-saliva-sample'), value: CovidTestMechanismOptions.SPIT_TUBE },
+    {
+      iconSource: showMechanismIcons ? spitX3 : undefined,
+      label: i18n.t('covid-test.picker-saliva-sample'),
+      value: CovidTestMechanismOptions.SPIT_TUBE,
+    },
     ...(test?.mechanism === 'blood_sample'
       ? [{ label: i18n.t('covid-test.picker-blood-sample'), value: CovidTestMechanismOptions.BLOOD_SAMPLE }]
       : []),
-    { label: i18n.t('covid-test.picker-finger-prick'), value: CovidTestMechanismOptions.BLOOD_FINGER_PRICK },
-    { label: i18n.t('covid-test.picker-blood-draw'), value: CovidTestMechanismOptions.BLOOD_NEEDLE_DRAW },
-    { label: i18n.t('covid-test.picker-other'), value: CovidTestMechanismOptions.OTHER },
+    {
+      iconSource: showMechanismIcons ? fingerPrickX3 : undefined,
+      label: i18n.t('covid-test.picker-finger-prick'),
+      value: CovidTestMechanismOptions.BLOOD_FINGER_PRICK,
+    },
+    {
+      iconSource: showMechanismIcons ? syringeX3 : undefined,
+      label: i18n.t('covid-test.picker-blood-draw'),
+      value: CovidTestMechanismOptions.BLOOD_NEEDLE_DRAW,
+    },
+    {
+      iconSource: showMechanismIcons ? otherTestX3 : undefined,
+      label: i18n.t('covid-test.picker-other'),
+      value: CovidTestMechanismOptions.OTHER,
+    },
   ];
 
   const trainedWorkerItems = [
@@ -62,23 +89,10 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
     { label: i18n.t('picker-unsure'), value: CovidTestTrainedWorkerOptions.UNSURE },
   ];
 
-  const noIcons: string[] = [
-    CovidTestMechanismOptions.NOSE_SWAB,
-    CovidTestMechanismOptions.THROAT_SWAB,
-    CovidTestMechanismOptions.BLOOD_SAMPLE,
-  ];
-  let mechanismItemIcons;
-  if (!test || (test && !noIcons.includes(test.mechanism))) {
-    if (!isSECountry()) {
-      mechanismItemIcons = [noseSwabX3, spitX3, fingerPrickX3, syringeX3, otherTestX3];
-    }
-  }
-
   return (
     <>
-      <DropdownField
-        error={formikProps.touched.mechanism && formikProps.errors.mechanism}
-        itemIcons={mechanismItemIcons}
+      <RadioInput
+        error={formikProps.touched.mechanism ? formikProps.errors.mechanism : ''}
         items={mechanismItems}
         label={i18n.t('covid-test.question-mechanism')}
         onValueChange={formikProps.handleChange('mechanism')}
@@ -95,8 +109,8 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
       )}
 
       {formikProps.values.mechanism === 'nose_throat_swab' && (
-        <DropdownField
-          error={formikProps.touched.trainedWorker && formikProps.errors.trainedWorker}
+        <RadioInput
+          error={formikProps.touched.trainedWorker ? formikProps.errors.trainedWorker : ''}
           items={trainedWorkerItems}
           label={i18n.t('covid-test.question-trained-worker')}
           onValueChange={formikProps.handleChange('trainedWorker')}

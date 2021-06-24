@@ -10,7 +10,7 @@ import { Services } from '@covid/provider/services.types';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { useCallback, useEffect, useState } from 'react';
+import * as React from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { ContributionCounter } from './components/ContributionCounter';
@@ -21,11 +21,11 @@ type PropsType = {
 };
 
 const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
-  const [userCount, setUserCount] = useState<number>(0);
+  const [userCount, setUserCount] = React.useState<number>(0);
 
   const contentService = useInjection<IContentService>(Services.Content);
 
-  useEffect(() => {
+  React.useEffect(() => {
     contentService.getUserCount().then((response) => {
       if (response) {
         const userCount = cleanIntegerVal(response);
@@ -34,7 +34,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
     });
   }, [contentService.getUserCount, cleanIntegerVal, setUserCount]);
 
-  const getMapImage = useCallback(() => {
+  const getMapImage = React.useCallback(() => {
     if (isGBCountry()) {
       return gbMap;
     }
@@ -44,13 +44,13 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
     return usMap;
   }, [isGBCountry, isSECountry, gbMap, svMap, usMap]);
 
-  const getFlagIcon = useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
+  const getFlagIcon = React.useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
 
-  const onLoginPress = useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
+  const onLoginPress = React.useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
 
-  const onSelectCountryPress = useCallback(() => navigation.navigate('CountrySelect'), [navigation.navigate]);
+  const onSelectCountryPress = React.useCallback(() => navigation.navigate('CountrySelect'), [navigation.navigate]);
 
-  const onNextButtonPress = useCallback(() => navigation.navigate('Welcome2'), [navigation.navigate]);
+  const onNextButtonPress = React.useCallback(() => navigation.navigate('Welcome2'), [navigation.navigate]);
 
   return (
     <View style={styles.safeView}>
