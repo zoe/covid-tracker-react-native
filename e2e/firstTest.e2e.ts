@@ -204,7 +204,7 @@ function testCreateNewProfile() {
   });
 }
 
-function testReportToday() {
+function testReportToday(healthy = true) {
   describe('Test report today', () => {
     it('should open the select profile screen', async () => {
       await device.reloadReactNative();
@@ -265,17 +265,17 @@ function testReportToday() {
           // @todo: Calendar input
           await element(by.id('button-calendar-picker').withAncestor(by.id('vaccine-first-dose-question'))).tap();
           await element(by.id('input-dose-date').withAncestor(by.id('vaccine-first-dose-question')));
+        }
 
-          if (secondDose) {
-            await element(by.id('button-yes-has').withAncestor(by.id('vaccine-second-dose-question')));
+        if (secondDose) {
+          await element(by.id('button-yes-has').withAncestor(by.id('vaccine-second-dose-question')));
 
-            // @todo: Dropdown input
-            await element(by.id('input-your-vaccine').withAncestor(by.id('vaccine-second-dose-question')));
+          // @todo: Dropdown input
+          await element(by.id('input-your-vaccine').withAncestor(by.id('vaccine-second-dose-question')));
 
-            // @todo: Calendar input
-            await element(by.id('button-calendar-picker').withAncestor(by.id('vaccine-second-dose-question'))).tap();
-            await element(by.id('input-dose-date').withAncestor(by.id('vaccine-second-dose-question')));
-          }
+          // @todo: Calendar input
+          await element(by.id('button-calendar-picker').withAncestor(by.id('vaccine-second-dose-question'))).tap();
+          await element(by.id('input-dose-date').withAncestor(by.id('vaccine-second-dose-question')));
         }
 
         await scrollToElement(
@@ -287,15 +287,33 @@ function testReportToday() {
         await element(by.id('button-back-navigation').withAncestor(by.id('about-your-vaccine-screen'))).tap();
       });
     }
-    testAddVaccine(0, false);
-    testAddVaccine(0, true);
-    testAddVaccine(1);
-    testAddVaccine(2, false);
-    testAddVaccine(2, true);
+    // testAddVaccine(0, false);
+    // testAddVaccine(0, true);
+    // testAddVaccine(1);
+    // testAddVaccine(2, false);
+    // testAddVaccine(2, true);
 
-    // it('should set the health status', async () => {
-    //   await element(by.id('button-status-healthy')).tap();
-    // });
+    if (healthy) {
+      it('should set the health status to healthy', async () => {
+        await element(by.id('button-vaccine-list-screen')).tap();
+        await element(by.id('button-status-healthy')).tap();
+      });
+    } else {
+      it('should set the health status to not healthy', async () => {
+        await element(by.id('button-vaccine-list-screen')).tap();
+        await element(by.id('button-status-not-healthy')).tap();
+      });
+
+      it('should accept the general symptoms from when empty', async () => {
+        await scrollToElement(
+          'scroll-view-general-symptoms-screen',
+          element(by.id('button-submit').withAncestor(by.id('general-symptoms-screen'))),
+        );
+        await element(by.id('button-submit')).tap();
+
+        await element(by.id('button-back-navigation')).tap();
+      });
+    }
 
     // it('should dismiss the rating modal if present', async () => {
     //   try {
@@ -311,4 +329,4 @@ function testReportToday() {
   });
 }
 
-testReportToday();
+testReportToday(false);

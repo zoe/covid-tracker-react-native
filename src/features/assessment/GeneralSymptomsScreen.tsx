@@ -41,7 +41,7 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={currentPatient.profile} testID="general-symptoms-screen">
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.general-symptoms')}</HeaderText>
       </Header>
@@ -68,6 +68,7 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
                 enable={!props.isSubmitting}
                 hideLoading={!props.isSubmitting}
                 onPress={props.handleSubmit}
+                testID="button-submit"
               >
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>

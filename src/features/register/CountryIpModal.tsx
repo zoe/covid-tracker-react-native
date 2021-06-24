@@ -11,7 +11,7 @@ import { isAndroid } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Form, Icon, Label, Picker } from 'native-base';
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
@@ -22,10 +22,10 @@ enum CountryCode {
   SV = 'SE',
 }
 
-interface PropsType extends ITest {
-  navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
-  isModalVisible: boolean;
+interface IProps extends ITest {
   closeModal: () => void;
+  isModalVisible: boolean;
+  navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
 }
 
 type Item = {
@@ -33,7 +33,7 @@ type Item = {
   value: CountryCode;
 };
 
-const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal }) => {
+export default React.memo(function CountryIpModal({ navigation, isModalVisible, closeModal }: IProps) {
   const [countrySelected, setCountrySelected] = useState('');
   const localisationServce = useInjection<ILocalisationService>(Services.Localisation);
 
@@ -122,7 +122,7 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
       </View>
     </Modal>
   );
-};
+});
 
 const styles = StyleSheet.create({
   bodyText: {
@@ -161,5 +161,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default React.memo(CountryIpModal);

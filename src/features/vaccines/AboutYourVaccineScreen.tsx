@@ -158,13 +158,21 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
   const renderFirstDoseUI = (props: FormikProps<IVaccineDoseData>) => (
     <>
       <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-      <VaccineDoseQuestion firstDose formikProps={props as FormikProps<IVaccineDoseData>} testID="vaccine-first-dose-question" />
+      <VaccineDoseQuestion
+        firstDose
+        formikProps={props as FormikProps<IVaccineDoseData>}
+        testID="vaccine-first-dose-question"
+      />
     </>
   );
 
   const renderSecondDoseUI = (props: FormikProps<IVaccineDoseData>) =>
     vaccineOrFormHasSecondDose() ? (
-      <VaccineDoseQuestion firstDose={false} formikProps={props as FormikProps<IVaccineDoseData>} testID="vaccine-second-dose-question" />
+      <VaccineDoseQuestion
+        firstDose={false}
+        formikProps={props as FormikProps<IVaccineDoseData>}
+        testID="vaccine-second-dose-question"
+      />
     ) : null;
 
   const renderFindInfoLink = (
