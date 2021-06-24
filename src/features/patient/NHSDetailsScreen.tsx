@@ -31,7 +31,7 @@ export const NHSDetailsScreen: React.FC<Props> = (props: Props) => {
   const currentPatient = coordinator.patientData.patientState;
 
   return (
-    <Screen navigation={props.navigation} profile={currentPatient.profile}>
+    <Screen navigation={props.navigation} profile={currentPatient.profile} testID="nhs-details-screen">
       <Header>
         <HeaderText>{i18n.t('nhs-study-questions.title')}</HeaderText>
       </Header>

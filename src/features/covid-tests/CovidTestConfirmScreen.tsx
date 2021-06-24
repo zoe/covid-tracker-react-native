@@ -47,7 +47,7 @@ export default function CovidTestConfirmScreen({ navigation, route }: IProps) {
   };
 
   return (
-    <Screen showBackButton navigation={navigation} style={styles.container}>
+    <Screen showBackButton navigation={navigation} style={styles.container} testID="covid-test-confirm-screen">
       <Header>
         <HeaderText>{i18n.t('covid-test.confirm-test.title')}</HeaderText>
       </Header>

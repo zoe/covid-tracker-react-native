@@ -94,7 +94,7 @@ export function NHSIntroScreen(props: IProps) {
   const currentPatient = coordinator.patientData.patientState;
 
   return (
-    <Screen navigation={props.navigation} profile={currentPatient.profile}>
+    <Screen navigation={props.navigation} profile={currentPatient.profile} testID="nhs-intro-screen">
       <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
         <NHSLogo />
       </View>

@@ -30,7 +30,13 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Screen simpleCallout navigation={navigation} profile={currentPatient?.profile} style={styles.container}>
+      <Screen
+        simpleCallout
+        navigation={navigation}
+        profile={currentPatient?.profile}
+        style={styles.container}
+        testID="school-how-to-screen"
+      >
         <View style={styles.container}>
           <Header>
             <HeaderText style={styles.header}>{i18n.t('school-networks.how-to.title')}</HeaderText>

@@ -37,7 +37,7 @@ export function RadioInput(props: IProps) {
   const items = props.items?.length ? props.items : defaultItems;
 
   return (
-    <View style={styles.marginVertical}>
+    <View style={styles.marginVertical} testID={props.testID}>
       {props.hideLabel || !props.label ? null : (
         <LabelText style={styles.marginBottom}>
           {props.label} {props.required ? requiredFormMarker : null}
@@ -50,6 +50,7 @@ export function RadioInput(props: IProps) {
           style={
             index === 0 ? styles.firstItem : index + 1 === props.items?.length ? styles.lastItem : styles.middleItem
           }
+          testID={`${props.testID || 'input-radio'}-item-${item.value}`}
         >
           <RadioButton selected={props.selectedValue === item.value} />
           {item.iconSource ? <Image source={item.iconSource} style={styles.image} /> : null}

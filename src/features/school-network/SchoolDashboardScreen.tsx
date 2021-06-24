@@ -67,7 +67,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Screen showBackButton navigation={props.navigation} style={styles.container}>
+      <Screen showBackButton navigation={props.navigation} style={styles.container} testID="school-dashboard-screen">
         <View style={styles.container}>
           <Header>
             <HeaderText style={styles.header}>

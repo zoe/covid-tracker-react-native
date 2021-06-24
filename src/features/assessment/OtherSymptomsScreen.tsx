@@ -31,7 +31,7 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={currentPatient.profile} testID="other-symptoms-screen">
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.other-symptoms')}</HeaderText>
       </Header>

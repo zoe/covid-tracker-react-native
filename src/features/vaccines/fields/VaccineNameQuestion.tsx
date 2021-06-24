@@ -60,7 +60,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
         label={i18n.t('vaccines.your-vaccine.label-name')}
         onValueChange={props.formikProps.handleChange(brandString)}
         selectedValue={brandField}
-        testID="input-your-vaccin"
+        testID="input-your-vaccine"
       />
     );
   };

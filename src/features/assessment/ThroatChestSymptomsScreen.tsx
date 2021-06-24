@@ -34,7 +34,7 @@ export const ThroatChestSymptomsScreen: React.FC<Props> = ({ route, navigation }
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={currentPatient.profile} testID="throat-chest-symptoms-screen">
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.throat-chest-symptoms')}</HeaderText>
       </Header>

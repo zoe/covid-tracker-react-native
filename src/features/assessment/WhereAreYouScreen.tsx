@@ -55,7 +55,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
   }, [isFocused]);
 
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={currentPatient.profile} testID="where-are-you-screen">
       <Header>
         <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
       </Header>

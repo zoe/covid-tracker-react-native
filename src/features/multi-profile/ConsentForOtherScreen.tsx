@@ -91,7 +91,7 @@ export default class ConsentForOtherScreen extends React.Component<RenderProps, 
 
   render() {
     return (
-      <Screen showBackButton navigation={this.props.navigation}>
+      <Screen showBackButton navigation={this.props.navigation} testID="consent-for-other-screen">
         {this.state.isApiError ? (
           <LoadingModal
             error={this.state.error}

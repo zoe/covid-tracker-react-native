@@ -61,7 +61,7 @@ export default class TreatmentOtherScreen extends React.Component<TreatmentOther
         : i18n.t('treatment-other-question-treatment-during');
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile} testID="treatment-other-screen">
         <Header>
           <HeaderText>{title}</HeaderText>
         </Header>

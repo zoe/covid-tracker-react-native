@@ -243,7 +243,11 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
       { label: i18n.t('your-health.yes-smoking'), value: 'yes' },
     ];
     return (
-      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={patientCoordinator.patientData?.patientState?.profile}
+        testID="your-health-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('your-health.page-title')}</HeaderText>
         </Header>
@@ -384,7 +388,9 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
                 </View>
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                <BrandedButton onPress={props.handleSubmit} testID="submit-button">
+                  {i18n.t('next-question')}
+                </BrandedButton>
               </Form>
             );
           }}

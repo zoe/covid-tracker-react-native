@@ -34,7 +34,7 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={currentPatient.profile} testID="gut-stomach-symptoms-screen">
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.gut-stomach-symptoms')}</HeaderText>
       </Header>

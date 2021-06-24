@@ -316,7 +316,12 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
     const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     return (
-      <Screen simpleCallout navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        simpleCallout
+        navigation={this.props.navigation}
+        profile={currentPatient.profile}
+        testID="your-study-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('your-study.title')}</HeaderText>
         </Header>

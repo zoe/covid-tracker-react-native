@@ -82,7 +82,7 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
 
     return (
       <View style={styles.rootContainer}>
-        <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+        <Screen navigation={this.props.navigation} profile={currentPatient.profile} testID="covid-test-list-screen">
           <Header>
             <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>

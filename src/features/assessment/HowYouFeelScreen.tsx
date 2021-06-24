@@ -122,7 +122,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     <>
       <USStudyInvite assessmentData={assessmentCoordinator.assessmentData} />
 
-      <Screen navigation={navigation} profile={currentPatient.profile}>
+      <Screen navigation={navigation} profile={currentPatient.profile} testID="how-you-feel-screen">
         <Header>
           <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
         </Header>

@@ -2,7 +2,7 @@ import Detox, { by, device, element, expect, init } from 'detox';
 
 const countries = ['GB', 'SE', 'US'];
 const defaultPassword = 'manymuffins';
-const defaultUsername = 'test@joinzoe.com';
+const defaultEmailAddress = 'test@joinzoe.com';
 const profileName = `profile ${Math.round(Date.now() / 1000)}`;
 
 function sleep(milliseconds: number) {
@@ -19,6 +19,16 @@ async function scrollToElement(scrollElementId: string, element: Detox.NativeEle
 
 async function scrollToId(scrollElementId: string, elementId: string) {
   return scrollToElement(scrollElementId, element(by.id(elementId)));
+}
+
+async function tapInputByElement(element: Detox.NativeElement) {
+  // Tap twice to lose the focus from the previous input (if it was a text input).
+  await element.tap();
+  await element.tap();
+}
+
+async function tapInputById(elementId: string) {
+  return tapInputByElement(element(by.id(elementId)));
 }
 
 beforeAll(async () => {
@@ -58,8 +68,6 @@ function testWelcomeScreen() {
 function testSelectCountryScreen() {
   describe('Test the select country screen', () => {
     it('should open the select country screen', async () => {
-      await device.reloadReactNative();
-
       await expect(element(by.id('select-country'))).toBeVisible();
       await element(by.id('select-country')).tap();
     });
@@ -86,25 +94,60 @@ function testSelectCountryScreen() {
   });
 }
 
-function testRegisterScreen() {
+type TRegisterConfig = {
+  emailAddress: string;
+  name?: string;
+  password: string;
+  phoneNumber?: string;
+};
+
+function testRegisterScreen(config: TRegisterConfig) {
   // @todo: The current picker component does not support the testID property.
   describe('Test the register screen for GB', () => {
     it('should open the register screen', async () => {
-      await device.reloadReactNative();
-
-      await element(by.id('create-account-1')).tap();
+      // Sometimes this screen is not shown.
+      try {
+        await element(by.id('create-account-1')).tap();
+      } catch (_) {}
       await element(by.id('create-account-2')).tap();
-      await element(by.id('country-picker')).tap();
-      await element(by.id('picker-item-GB')).tap();
+      // Somtimes this input is not shown.
+      try {
+        await element(by.id('input-select-country-item-GB')).tap();
+      } catch (_) {}
+      await element(by.id('button-agree')).tap();
+    });
+
+    it('should fill in the register form', async () => {
+      await element(by.id('input-email-address')).typeText(config.emailAddress);
+      await element(by.id('input-password')).typeText(config.password);
+
+      await element(by.id('button-submit').withAncestor(by.id('register-screen'))).tap();
+    });
+
+    it('should fill in the optional info form', async () => {
+      if (config.name) {
+        await element(by.id('input-name')).typeText(config.name);
+      }
+      if (config.phoneNumber) {
+        await element(by.id('input-phone')).typeText(config.phoneNumber);
+      }
+
+      await element(by.id('button-submit').withAncestor(by.id('optional-info-screen'))).tap();
+
+      // Skip filling in the other forms and just reload the app.
+      await device.reloadReactNative();
     });
   });
 }
 
-function testLoginScreen(username: string = defaultUsername, password: string = defaultPassword) {
+type TLoginConfig = {
+  emailAddress: string;
+  password: string;
+};
+
+function testLoginScreen(config: TLoginConfig) {
   describe('Test the login screen', () => {
     it('should open, close and open the login screen', async () => {
-      await device.reloadReactNative();
-
       await expect(element(by.id('login-link'))).toBeVisible();
       await element(by.id('login-link')).tap();
       await element(by.id('button-back-navigation')).tap();
@@ -123,14 +166,20 @@ function testLoginScreen(username: string = defaultUsername, password: string = 
     // });
 
     it('should be able to fill in the input fields', async () => {
-      await element(by.id('login-input-email')).typeText(username);
-      await element(by.id('login-input-password')).typeText(password);
+      await element(by.id('login-input-email')).typeText(config.emailAddress);
+      await element(by.id('login-input-password')).typeText(config.password);
     });
 
     it('should login the user', async () => {
       await element(by.id('login-button')).tap();
       await element(by.id('login-button')).tap();
       await expect(element(by.id('login-button'))).not.toBeVisible();
+    });
+
+    // It would be better if the user directly goes to the dashboard screen.
+    it('should complete the select country screen (if present)', async () => {
+      await expect(element(by.id('select-country-screen'))).toBeVisible();
+      await element(by.id('select-country-GB')).tap();
     });
   });
 }
@@ -148,7 +197,7 @@ function testLogout() {
       await element(by.id('menu-item-logout')).tap();
     });
     // It would be better if the user directly goes to the home screen.
-    it('should show the select country screen', async () => {
+    it('should complete the select country screen (if present)', async () => {
       await expect(element(by.id('select-country-screen'))).toBeVisible();
       await element(by.id('select-country-GB')).tap();
     });
@@ -167,8 +216,8 @@ function testCreateNewProfile() {
       await element(by.id('scroll-view-select-profile-screen')).scrollTo('bottom');
       await element(by.id('button-new-profile')).tap();
       await element(by.id('input-profile-name')).typeText(profileName);
-      await element(by.id('button-submit')).tap();
-      await element(by.id('button-submit')).tap();
+      await element(by.id('button-submit').withAncestor(by.id('create-profile-screen'))).tap();
+      await element(by.id('button-submit').withAncestor(by.id('create-profile-screen'))).tap();
 
       // @todo: Also test button-under-18
       await element(by.id('button-over-18')).tap();
@@ -176,13 +225,16 @@ function testCreateNewProfile() {
       await element(by.id('button-create-profile')).tap();
     });
 
-    it('should be able to fill in your profile', async () => {
+    it('should be able to fill in the form about you', async () => {
       await element(by.id('input-year-of-birth')).typeText('2000');
 
-      // @todo: The current input component does not support the testID property.
-      // await element(by.id('input-sex-at-birth')).tap();
-      // await element(by.id('input-gender-identity')).tap();
-      // await element(by.id('race-ethnicity-checkbox-prefer_not_to_say')).tap();
+      await tapInputById('input-sex-at-birth-item-pfnts');
+
+      await scrollToId('scroll-view-about-you-screen', 'input-gender-identity-item-pfnts');
+      await tapInputById('input-gender-identity-item-pfnts');
+
+      await scrollToId('scroll-view-about-you-screen', 'checkbox-race-ethnicity-prefer_not_to_say');
+      await tapInputById('checkbox-race-ethnicity-prefer_not_to_say');
 
       await scrollToId('scroll-view-about-you-screen', 'input-height-feet');
       await element(by.id('input-height-feet')).typeText('6');
@@ -192,19 +244,49 @@ function testCreateNewProfile() {
       await element(by.id('input-weight-kg')).typeText('75');
 
       await scrollToId('scroll-view-about-you-screen', 'input-postal-code');
-      await element(by.id('input-postal-code')).typeText('1111AA');
+      await element(by.id('input-postal-code')).typeText('SW1A 1AA');
 
-      // @todo: The current input component does not support the testID property.
-      // await scrollToId('scroll-view-about-you-screen', 'input-ever-exposed');
-      // await element(by.id('input-ever-exposed')).tap();
+      await scrollToId('scroll-view-about-you-screen', 'input-ever-exposed-item-no');
+      await tapInputById('input-ever-exposed-item-no');
 
       await scrollToId('scroll-view-about-you-screen', 'button-submit');
-      await element(by.id('button-submit')).tap();
+      await element(by.id('button-submit').withAncestor(by.id('about-you-screen'))).tap();
+    });
+
+    it('should be able to fill in the form about your work', async () => {
+      await tapInputById('input-healthcare-staff-item-no');
+
+      await element(by.id('button-no-is-carer-question')).tap();
+
+      await scrollToId('scroll-view-your-work-screen', 'button-submit');
+      await element(by.id('button-submit').withAncestor(by.id('your-work-screen'))).tap();
+    });
+
+    it('should be able to fill in the form about your health', async () => {
+      await scrollToId('scroll-view-your-health-screen', 'input-blood-group-item-pfnts');
+      await element(by.id('input-blood-group-item-pfnts')).tap();
+
+      await scrollToId('scroll-view-your-health-screen', 'button-submit');
+      await element(by.id('button-submit').withAncestor(by.id('your-health-screen'))).tap();
+    });
+
+    it('should be able to fill in the form previous exposure', async () => {
+      await scrollToId('scroll-view-previous-exposure-screen', 'button-submit');
+      await element(by.id('button-submit').withAncestor(by.id('previous-exposure-screen'))).tap();
+
+      // Reload to the dashboard screen.
+      await device.reloadReactNative();
     });
   });
 }
 
-function testReportToday(healthy = true) {
+type TReportTodayConfig = {
+  addTest: boolean;
+  addVaccine: boolean;
+  healthy: boolean;
+};
+
+function testReportToday(config: TReportTodayConfig) {
   describe('Test report today', () => {
     it('should open the select profile screen', async () => {
       await device.reloadReactNative();
@@ -221,16 +303,14 @@ function testReportToday(healthy = true) {
         await element(by.id('button-add-test')).tap();
         await element(by.id('button-yes-covid-test-date-question')).tap();
 
-        // @todo: The current input component does not support the testID property.
+        await scrollToId('scroll-view-covid-test-detail-screen', 'covid-test-mechanism-question');
+        await element(by.id('covid-test-mechanism-question-item-spit_tube')).tap();
 
-        // await scrollToId('scroll-view-covid-test-detail-screen', 'covid-test-mechanism-question');
-        // await element(by.id('covid-test-mechanism-question')).tap();
+        await scrollToId('scroll-view-covid-test-detail-screen', 'covid-test-location-question');
+        await element(by.id('covid-test-location-question-item-home')).tap();
 
-        // await scrollToId('scroll-view-covid-test-detail-screen', 'covid-test-location-question');
-        // await element(by.id('covid-test-location-question')).tap();
-
-        // await scrollToId('scroll-view-covid-test-detail-screen', 'covid-test-result-question');
-        // await element(by.id('covid-test-result-question')).tap();
+        await scrollToId('scroll-view-covid-test-detail-screen', 'covid-test-result-question');
+        await element(by.id('covid-test-result-question-item-negative')).tap();
 
         await scrollToId('scroll-view-covid-test-detail-screen', 'button-no-covid-test-is-rapid-question');
         await element(by.id('button-no-covid-test-is-rapid-question')).tap();
@@ -239,10 +319,14 @@ function testReportToday(healthy = true) {
         await element(by.id('button-no-covid-test-invited-question')).tap();
 
         await scrollToId('scroll-view-covid-test-detail-screen', 'button-submit');
-        await element(by.id('button-submit')).tap();
+        await element(by.id('button-submit').withAncestor(by.id('covid-test-detail-screen'))).tap();
 
+        // The test can't be completed because the date input is not testable.
         await element(by.id('button-back-navigation').withAncestor(by.id('covid-test-detail-screen'))).tap();
       });
+    }
+    if (config.addTest) {
+      testAddTest();
     }
 
     it('should open the vaccine list screen', async () => {
@@ -258,24 +342,36 @@ function testReportToday(healthy = true) {
         // 1: Johnson and Johnson, which has a single shot
         // 2: Other / I don't know
 
-        // @todo: Dropdown input
-        await element(by.id('input-your-vaccine').withAncestor(by.id('vaccine-first-dose-question')));
+        await element(by.id('input-your-vaccine-item-pfizer').withAncestor(by.id('vaccine-first-dose-question'))).tap();
 
         if (type === 0) {
           // @todo: Calendar input
           await element(by.id('button-calendar-picker').withAncestor(by.id('vaccine-first-dose-question'))).tap();
-          await element(by.id('input-dose-date').withAncestor(by.id('vaccine-first-dose-question')));
         }
 
         if (secondDose) {
-          await element(by.id('button-yes-has').withAncestor(by.id('vaccine-second-dose-question')));
+          await scrollToElement(
+            'scroll-view-about-your-vaccine-screen',
+            element(by.id('button-yes-has').withAncestor(by.id('vaccine-second-dose-question'))),
+          );
+          await element(by.id('button-yes-has').withAncestor(by.id('vaccine-second-dose-question'))).tap();
 
-          // @todo: Dropdown input
-          await element(by.id('input-your-vaccine').withAncestor(by.id('vaccine-second-dose-question')));
+          await scrollToElement(
+            'scroll-view-about-your-vaccine-screen',
+            element(
+              by.id('input-your-vaccine-item-pfizer').withAncestor(by.id('vaccine-second-dose-question')),
+            )
+          );
+          await element(
+            by.id('input-your-vaccine-item-pfizer').withAncestor(by.id('vaccine-second-dose-question')),
+          ).tap();
 
           // @todo: Calendar input
+          await scrollToElement(
+            'scroll-view-about-your-vaccine-screen',
+            element(by.id('button-calendar-picker').withAncestor(by.id('vaccine-second-dose-question'))),
+          );
           await element(by.id('button-calendar-picker').withAncestor(by.id('vaccine-second-dose-question'))).tap();
-          await element(by.id('input-dose-date').withAncestor(by.id('vaccine-second-dose-question')));
         }
 
         await scrollToElement(
@@ -284,16 +380,19 @@ function testReportToday(healthy = true) {
         );
         await element(by.id('button-submit').withAncestor(by.id('about-your-vaccine-screen'))).tap();
 
+        // The test can't be completed because the date input is not testable.
         await element(by.id('button-back-navigation').withAncestor(by.id('about-your-vaccine-screen'))).tap();
       });
     }
-    // testAddVaccine(0, false);
-    // testAddVaccine(0, true);
-    // testAddVaccine(1);
-    // testAddVaccine(2, false);
-    // testAddVaccine(2, true);
+    if (config.addVaccine) {
+      testAddVaccine(0, false);
+      testAddVaccine(0, true);
+      // testAddVaccine(1);
+      // testAddVaccine(2, false);
+      // testAddVaccine(2, true);
+    }
 
-    if (healthy) {
+    if (config.healthy) {
       it('should set the health status to healthy', async () => {
         await element(by.id('button-vaccine-list-screen')).tap();
         await element(by.id('button-status-healthy')).tap();
@@ -309,7 +408,7 @@ function testReportToday(healthy = true) {
           'scroll-view-general-symptoms-screen',
           element(by.id('button-submit').withAncestor(by.id('general-symptoms-screen'))),
         );
-        await element(by.id('button-submit')).tap();
+        await element(by.id('button-submit').withAncestor(by.id('general-symptoms-screen'))).tap();
 
         await element(by.id('button-back-navigation')).tap();
       });
@@ -329,11 +428,26 @@ function testReportToday(healthy = true) {
   });
 }
 
-testWelcomeScreen();
-testSelectCountryScreen();
-testRegisterScreen();
-testLoginScreen();
-testLogout();
-testCreateNewProfile();
-testReportToday(true);
+const timestamp = Math.round(Date.now() / 1000);
+const tempEmailAddress = `test-${timestamp}@joinzoe.com`;
+const tempPhoneNumber = `+44 7900 ${timestamp}`;
+
+// testWelcomeScreen();
+// testSelectCountryScreen();
+// testRegisterScreen({
+//   emailAddress: tempEmailAddress,
+//   password: defaultPassword,
+//   phoneNumber: tempPhoneNumber,
+// });
+// testLoginScreen({
+//   emailAddress: tempEmailAddress,
+//   password: defaultPassword,
+// });
+// testLogout();
+// testCreateNewProfile();
+testReportToday({
+  addTest: false,
+  addVaccine: true,
+  healthy: true,
+});
 // testReportToday(false);

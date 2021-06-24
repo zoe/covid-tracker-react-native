@@ -69,6 +69,7 @@ export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovi
         label={i18n.t('covid-test.location.question')}
         onValueChange={formikProps.handleChange('location')}
         selectedValue={formikProps.values.location}
+        testID="covid-test-location-question"
       />
 
       {formikProps.values.location === 'other' && (

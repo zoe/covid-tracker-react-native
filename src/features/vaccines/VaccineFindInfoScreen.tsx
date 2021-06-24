@@ -28,7 +28,13 @@ export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) =>
   }
 
   return (
-    <Screen extendEdges showCloseButton navigation={navigation} profile={assessmentData.patientData.profile}>
+    <Screen
+      extendEdges
+      showCloseButton
+      navigation={navigation}
+      profile={assessmentData.patientData.profile}
+      testID="vaccine-find-info-screen"
+    >
       <View style={{ padding: 16 }}>
         <Header>
           <HeaderText>{i18n.t('vaccines.find-info.title')}</HeaderText>

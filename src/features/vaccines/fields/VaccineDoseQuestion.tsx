@@ -87,7 +87,6 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
         minDate={minDate}
         onDateChange={setDoseDate}
         selectedStartDate={dateField}
-        testID="input-dose-date"
       />
     );
   };

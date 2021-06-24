@@ -113,7 +113,12 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     .sort((a: PickerItemProps, b: PickerItemProps) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
   return (
-    <Screen simpleCallout navigation={props.navigation} profile={props.route.params?.patientData?.profile}>
+    <Screen
+      simpleCallout
+      navigation={props.navigation}
+      profile={props.route.params?.patientData?.profile}
+      testID="edit-location-screen"
+    >
       <Header>
         <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
       </Header>

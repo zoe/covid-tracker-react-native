@@ -29,7 +29,7 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Screen showBackButton navigation={navigation} style={styles.container}>
+      <Screen showBackButton navigation={navigation} style={styles.container} testID="school-intro-screen">
         <View style={styles.container}>
           <SchoolConnectImage style={{ marginBottom: 24, marginLeft: 16, marginTop: 24 }} />
 

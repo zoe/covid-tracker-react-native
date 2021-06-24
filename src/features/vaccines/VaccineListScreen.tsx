@@ -225,7 +225,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     <View style={styles.rootContainer}>
       {showVaccineWarning ? <VaccineWarning actions={actions} /> : null}
 
-      <Screen navigation={navigation} profile={patientData.patientState.profile}>
+      <Screen navigation={navigation} profile={patientData.patientState.profile} testID="vaccine-list-screen">
         <HeaderText style={{ margin: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
 
         <Text style={{ marginHorizontal: 16, marginVertical: 8 }}>{i18n.t('vaccines.vaccine-list.description')}</Text>

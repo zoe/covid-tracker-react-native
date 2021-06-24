@@ -16,7 +16,12 @@ export const VaccineLogSymptomsInfoScreen: React.FC<Props> = ({ route, navigatio
   const { assessmentData } = route.params;
 
   return (
-    <Screen showCloseButton navigation={navigation} profile={assessmentData.patientData.profile}>
+    <Screen
+      showCloseButton
+      navigation={navigation}
+      profile={assessmentData.patientData.profile}
+      testID="vaccine-log-symptoms-info-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('vaccines.log-symptoms.title')}</HeaderText>
       </Header>

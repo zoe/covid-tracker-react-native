@@ -1,4 +1,5 @@
 import { closeIcon } from '@assets';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
@@ -10,10 +11,8 @@ import { Services } from '@covid/provider/services.types';
 import { isAndroid } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import { Form, Icon, Label, Picker } from 'native-base';
 import * as React from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
-import key from 'weak-key';
 
 enum CountryCode {
   NONE = '',
@@ -73,19 +72,6 @@ export default React.memo(function CountryIpModal({ navigation, isModalVisible, 
     [closeModal, setCountrySelected, selectCountry],
   );
 
-  const renderItem = React.useCallback(
-    (i: Item) => (
-      <Picker.Item
-        color={i.value ? undefined : colors.tertiary}
-        key={key(i)}
-        label={i.label}
-        testID={`picker-item-${i.value || 'none'}`}
-        value={i.value}
-      />
-    ),
-    [colors.tertiary],
-  );
-
   const items: Item[] = [
     { label: i18n.t('united-states'), value: CountryCode.US },
     { label: i18n.t('united-kingdom'), value: CountryCode.GB },
@@ -104,20 +90,15 @@ export default React.memo(function CountryIpModal({ navigation, isModalVisible, 
             <Image source={closeIcon} />
           </TouchableOpacity>
           <RegularText style={styles.titleText}>{i18n.t('your-country-title')}</RegularText>
-          <RegularText style={styles.bodyText}>{i18n.t('your-country-text')}</RegularText>
+          <RegularText>{i18n.t('your-country-text')}</RegularText>
 
-          <Form style={{ marginTop: 32, width: 300 }}>
-            <Label style={styles.labelStyle}>{i18n.t('select-country')}</Label>
-            <Picker
-              iosIcon={<Icon name="arrow-down" />}
-              onValueChange={onValueChange}
-              placeholder={i18n.t('label-chose-an-option')}
-              selectedValue={countrySelected}
-              testID="country-picker"
-            >
-              {items.map(renderItem)}
-            </Picker>
-          </Form>
+          <RadioInput
+            items={items}
+            label={i18n.t('select-country')}
+            onValueChange={onValueChange}
+            selectedValue={countrySelected}
+            testID="input-select-country"
+          />
         </View>
       </View>
     </Modal>
@@ -125,9 +106,6 @@ export default React.memo(function CountryIpModal({ navigation, isModalVisible, 
 });
 
 const styles = StyleSheet.create({
-  bodyText: {
-    textAlign: 'center',
-  },
   centeredView: {
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -141,7 +119,6 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   modalView: {
-    alignItems: 'center',
     backgroundColor: colors.white,
     borderRadius: 8,
     elevation: 5,

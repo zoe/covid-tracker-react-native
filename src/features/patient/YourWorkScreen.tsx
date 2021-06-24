@@ -258,7 +258,11 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
     ];
 
     return (
-      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={patientCoordinator.patientData?.patientState?.profile}
+        testID="your-work-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('title-about-work')}</HeaderText>
         </Header>
@@ -297,6 +301,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                       label={i18n.t('are-you-healthcare-staff')}
                       onValueChange={handleChange('isHealthcareStaff')}
                       selectedValue={isHealthcareStaff}
+                      testID="input-healthcare-staff"
                     />
 
                     <YesNoField
@@ -304,6 +309,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                       label={i18n.t('are-you-carer')}
                       onValueChange={handleChange('isCarer')}
                       selectedValue={isCarer}
+                      testID="is-carer-question"
                     />
 
                     {/* if is healthcare worker question is yes */}
@@ -446,6 +452,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                     enable={this.checkFormFilled(props)}
                     loading={props.isSubmitting}
                     onPress={handleSubmit}
+                    testID="button-submit"
                   >
                     {i18n.t('next-question')}
                   </BrandedButton>
