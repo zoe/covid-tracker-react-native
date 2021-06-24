@@ -22,7 +22,6 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
       <View style={styles.rootContainer}>
         <ScrollView>
           <RegularBoldText>Your consent{'\n'}</RegularBoldText>
-          <RegularBoldText>European General Data Protection Regulation{'\n'}</RegularBoldText>
           <RegularText>
             This page explains how we process information about individual people, known as “personal data”, that we
             collect through our COVID monitoring app. If you are using the app and entering your own personal data, then
@@ -34,7 +33,7 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
             {'\n'}
           </RegularText>
 
-          <RegularBoldText>Sensitive personal data{'\n'}</RegularBoldText>
+          <RegularBoldText>Sensitive personal data</RegularBoldText>
 
           <RegularText>
             This is information about you, your health and your symptoms if unwell. It includes:
@@ -76,10 +75,10 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
             on the storage of your sensitive personal data, but we will keep it under regular review and ensure that it
             is not kept longer than is necessary.{'\n\n'}If you wish us to stop processing your sensitive personal data,
             you may withdraw your consent at any time by emailing us at leavecovidtracking@joinzoe.com. When you
-            withdraw your consent, we will delete all sensitive personal data we hold about you.
+            withdraw your consent, we will delete all sensitive personal data we hold about you.{'\n'}
           </RegularText>
 
-          <RegularBoldText>Other personal data{'\n'}</RegularBoldText>
+          <RegularBoldText>Other personal data</RegularBoldText>
 
           <RegularText>
             We also collect contact information and other information from your device including:
@@ -103,16 +102,16 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
             Our legal basis for processing this information is our legitimate interest in developing, marketing and
             running the app and providing you with information as part of your experience of using the app.{'\n\n'}We
             keep your contact information for 6 years after the last communication with us, or the last use of the app,
-            for liability purposes, then we delete it.
+            for liability purposes, then we delete it.{'\n'}
           </RegularText>
 
-          <RegularBoldText>Cookies{'\n'}</RegularBoldText>
+          <RegularBoldText>Cookies</RegularBoldText>
           <RegularText>
             Our use of cookies is a little more complicated, so we have written a detailed Cookie Policy, explaining
             what cookies are and explaining in detail how we process different kinds of cookies.{'\n'}
           </RegularText>
 
-          <RegularBoldText>Recording information for others{'\n'}</RegularBoldText>
+          <RegularBoldText>Recording information for others</RegularBoldText>
           <RegularText>
             The app also allows users to input information about other people in addition to their own by making a
             separate profile for them. If you do this and the other person is able to understand the concept of consent,
@@ -123,10 +122,10 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
             doing. If so, you should explain to them what you are doing and what may happen to information about them to
             the extent they are capable of understanding. You should also try to take into account their views, even if
             you make the ultimate decision. We trust you to know your child and to do what is appropriate given their
-            level of maturity. These processors include:
+            level of maturity.{'\n'}
           </RegularText>
 
-          <RegularBoldText>School Attendance{'\n'}</RegularBoldText>
+          <RegularBoldText>School Attendance</RegularBoldText>
           <RegularText>
             If you are reporting for your child and they are attending school, you may optionally tell us about the
             school they attend, which bubble your child belongs to in addition to the other sensitive personal data
@@ -135,10 +134,10 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
             {'\n\n'}- Give schools insight into the health of their students, allowing faster decision making and better
             protection for children.{'\n'}- Reassure parents that they are their school are making informed choices
             about their child’s safety and education.{'\n'}- Increase protection for children.{'\n'}- Collect important
-            information on the impact of COVID-19 on children for the purposes of wider scientific research.
+            information on the impact of COVID-19 on children for the purposes of wider scientific research.{'\n'}
           </RegularText>
 
-          <RegularBoldText>Third party processors for both kinds of information{'\n'}</RegularBoldText>
+          <RegularBoldText>Third party processors for both kinds of information</RegularBoldText>
           <RegularText>
             We use third parties to process some of your personal data on our behalf. When we allow them access to your
             data, we do not permit them to use it for their own purposes. We have in place with each processor, a
@@ -165,7 +164,7 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
             ]}
           />
 
-          <RegularBoldText>Your rights{'\n'}</RegularBoldText>
+          <RegularBoldText>Your rights</RegularBoldText>
           <RegularText>
             Because the work Zoe Global Limited does takes place in the UK, the European Union’s “General Data
             Protection Regulation” (GDPR) applies to our processing of your personal data, even if you do not live in
@@ -197,9 +196,9 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
                 )
               }
             >
-              Guidance from the United Kingdom Information Commissioner’s Office (ICO) on individuals rights under the
-              General Data Protection Regulation.
-            </ClickableText>
+              Guidance from the United Kingdom Information Commissioner’s Office
+            </ClickableText>{' '}
+            (ICO) on individuals rights under the General Data Protection Regulation.
             {'\n\n'}
             If you would like to exercise any of those rights, please email, call or write to our data protection
             officer using the contact details given below.
@@ -222,7 +221,7 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
             or telephone: <RegularBoldText>+44 0303 123 1113</RegularBoldText>.{'\n'}
           </RegularText>
 
-          <RegularBoldText>About us{'\n'}</RegularBoldText>
+          <RegularBoldText>About us</RegularBoldText>
 
           <RegularText>
             Our UK address is: Zoe Global Limited, 164 Westminster Bridge Road, London SE1 7RW{'\n\n'}
@@ -230,7 +229,7 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
             {'\n'}
           </RegularText>
 
-          <RegularBoldText>Institutions we share data with{'\n'}</RegularBoldText>
+          <RegularBoldText>Institutions we share data with</RegularBoldText>
 
           <RegularText>
             King’s College London{'\n'}
