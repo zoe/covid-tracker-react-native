@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import * as React from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps<T> {
   collection: T[];
   onPress: (obj: T) => void;
-  renderRow: (obj: T) => ReactElement;
+  renderRow: (obj: T) => React.ReactElement;
   style?: StyleProp<ViewStyle>;
   styleFirst?: StyleProp<ViewStyle>;
   styleLast?: StyleProp<ViewStyle>;

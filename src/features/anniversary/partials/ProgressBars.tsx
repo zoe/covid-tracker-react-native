@@ -1,5 +1,5 @@
 import { TProgress } from '@covid/features/anniversary/types';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 import ProgressBar from './ProgressBar';

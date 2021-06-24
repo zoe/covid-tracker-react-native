@@ -1,5 +1,5 @@
 import { TColorPalette, TColorShade } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { Image, ImageSourcePropType } from 'react-native';
 
 import { STouchableOpacity } from './styles';

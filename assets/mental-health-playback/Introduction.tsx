@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
 export const defaultWidth = 375;

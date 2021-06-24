@@ -13,7 +13,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as Linking from 'expo-linking';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import RNSplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
@@ -31,7 +31,7 @@ type SplashState = {
   isRetryEnabled: boolean;
 };
 
-class SplashScreen extends Component<Props, SplashState> {
+class SplashScreen extends React.Component<Props, SplashState> {
   @lazyInject(Services.User)
   userService: IUserService;
 

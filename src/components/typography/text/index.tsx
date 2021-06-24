@@ -11,7 +11,7 @@ import {
   TTypeSizes,
   useTheme,
 } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { StyleProp, TextStyle } from 'react-native';
 
 import { SText } from './styles';

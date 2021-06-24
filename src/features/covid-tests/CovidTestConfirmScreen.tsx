@@ -12,7 +12,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { ListItem } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface IProps {
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 export default function CovidTestConfirmScreen({ navigation, route }: IProps) {
-  const [agreed, setAgreed] = useState(false);
+  const [agreed, setAgreed] = React.useState(false);
   const covidTestService = useInjection<ICovidTestService>(Services.CovidTest);
 
   const handleConsentClick = (checked: boolean) => {
@@ -62,7 +62,7 @@ export default function CovidTestConfirmScreen({ navigation, route }: IProps) {
         </CheckboxItem>
       </ListItem>
 
-      <BrandedButton hideLoading enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="confirm">
+      <BrandedButton enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="confirm">
         {i18n.t('legal.confirm')}
       </BrandedButton>
     </Screen>

@@ -3,7 +3,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
@@ -12,9 +12,9 @@ interface IProps {
 }
 
 export function EstimatedCasesScreen({ navigation }: IProps) {
-  const [html, setHtml] = useState<string>('');
+  const [html, setHtml] = React.useState<string>('');
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     const runAsync = async () => {
       try {

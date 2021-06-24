@@ -1,5 +1,5 @@
 import { styling, useTheme } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 
 interface IProps {

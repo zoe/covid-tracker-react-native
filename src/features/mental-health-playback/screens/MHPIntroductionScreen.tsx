@@ -9,7 +9,7 @@ import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { styling } from '@covid/themes';
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import { useWindowDimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -31,7 +31,7 @@ export default function MHPIntroductionScreen() {
 
   const isGeneral = startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b';
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(requestInsights());
   }, []);
 

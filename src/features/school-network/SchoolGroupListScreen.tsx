@@ -13,7 +13,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Text } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -23,13 +23,13 @@ type Props = {
 };
 
 export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [joinedGroups, setJoinedGroups] = useState<ISchoolGroupModel[]>([]);
-  const [isModalVisible, setModalVisible] = useState<boolean>(false);
-  const [pressedGroup, setPressedGroup] = useState<ISchoolGroupModel>();
+  const [joinedGroups, setJoinedGroups] = React.useState<ISchoolGroupModel[]>([]);
+  const [isModalVisible, setModalVisible] = React.useState<boolean>(false);
+  const [pressedGroup, setPressedGroup] = React.useState<ISchoolGroupModel>();
 
   const allGroups = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const { patientId } = route.params.patientData;
     const schoolId = route.params.selectedSchool.id;
     const currentJoinedGroups = allGroups.filter(

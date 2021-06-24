@@ -2,7 +2,7 @@ import { QuoteMarks } from '@assets';
 import { RoundIconButton, Tag, Text } from '@covid/components';
 import i18n from '@covid/locale/i18n';
 import { colors, sizes, styling } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 interface IProps {

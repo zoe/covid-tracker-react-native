@@ -1,13 +1,13 @@
 import { RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { Button } from 'native-base';
-import React, { ReactNode } from 'react';
+import * as React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {
-  children: ReactNode;
+  children: React.ReactNode;
   error?: boolean;
-  icon: ReactNode;
+  icon: React.ReactNode;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
 }

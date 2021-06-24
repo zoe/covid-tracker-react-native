@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import * as Yup from 'yup';
 
@@ -31,20 +31,18 @@ interface ResetPasswordData {
   email: string;
 }
 
-export class ResetPasswordScreen extends Component<PropsType, State> {
+export class ResetPasswordScreen extends React.Component<PropsType, State> {
   @lazyInject(Services.User)
   private userService: IUserService;
 
   constructor(props: PropsType) {
     super(props);
     this.state = initialState;
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  private handleClick(formData: ResetPasswordData) {
+  handleClick = (formData: ResetPasswordData) => {
     if (this.state.enableSubmit) {
-      this.setState({ enableSubmit: false }); // Stop resubmissions
+      this.setState({ enableSubmit: false });
       this.userService
         .resetPassword(formData.email)
         .then(() => this.props.navigation.navigate('ResetPasswordConfirm'))
@@ -53,7 +51,7 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
           this.setState({ enableSubmit: true });
         });
     }
-  }
+  };
 
   registerSchema = Yup.object().shape({
     email: Yup.string().email().required(),
@@ -63,12 +61,12 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
     return (
       <BasicPage style={{ backgroundColor: colors.white }} withFooter={false}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
-          <Formik initialValues={{ email: '' }} onSubmit={this.handleClick} validationSchema={this.registerSchema}>
-            {(props: IResetPasswordForm) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
-          </Formik>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+            <Formik initialValues={{ email: '' }} onSubmit={this.handleClick} validationSchema={this.registerSchema}>
+              {(props: IResetPasswordForm) => <ResetPasswordForm {...props} errorMessage={this.state.errorMessage} />}
+            </Formik>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </BasicPage>
     );
   }

@@ -3,8 +3,8 @@ import { SelectableButton } from '@covid/components/SelectableButton';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
 import { Label } from 'native-base';
-import React, { useState } from 'react';
-import { PickerProps, StyleSheet, View } from 'react-native';
+import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 export interface ISingleButton {
   label?: string;
@@ -16,13 +16,12 @@ interface IProps {
   selectedValue: string;
   items: ISingleButton[];
   onValueChange: any;
-  onlyPicker?: boolean;
-  pickerProps?: PickerProps;
+  hideLabel?: boolean;
   error?: any;
 }
 
-export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, onlyPicker }: IProps) {
-  const [selected, setSelected] = useState<string>(selectedValue);
+export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, hideLabel }: IProps) {
+  const [selected, setSelected] = React.useState<string>(selectedValue);
 
   const onSelect = (value: string) => {
     setSelected(value);
@@ -31,7 +30,7 @@ export function ButtonsGroup({ label, selectedValue, items, error, onValueChange
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
+      {hideLabel ? null : <Label style={styles.labelStyle}>{label}</Label>}
       <View
         style={{
           flexDirection: 'row',

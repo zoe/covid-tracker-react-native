@@ -1,10 +1,10 @@
-import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 
 export interface ICovidTestLocationData {
@@ -63,8 +63,8 @@ export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovi
 
   return (
     <>
-      <DropdownField
-        error={formikProps.touched.location && formikProps.errors.location}
+      <RadioInput
+        error={formikProps.touched.location ? formikProps.errors.location : ''}
         items={locationItems}
         label={i18n.t('covid-test.location.question')}
         onValueChange={formikProps.handleChange('location')}

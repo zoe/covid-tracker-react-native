@@ -1,7 +1,7 @@
 import { Text } from '@covid/components';
 import DietScoreHeader from '@covid/features/diet-study-playback/components/diet-score-header';
 import ScoreCard from '@covid/features/diet-study-playback/components/score-card';
-import React, { useEffect, useRef } from 'react';
+import * as React from 'react';
 import { Animated, Dimensions, Easing, StyleProp, View, ViewStyle } from 'react-native';
 
 import ScoreRange from './ScoreRange';
@@ -16,8 +16,8 @@ interface IProps {
 }
 
 function Score({ currentValue, minValue, maxValue, style = {}, subTitle, title }: IProps) {
-  const animatedValue = useRef(new Animated.Value(0)).current;
-  const translateXValue = useRef(new Animated.Value(0)).current;
+  const animatedValue = React.useRef(new Animated.Value(0)).current;
+  const translateXValue = React.useRef(new Animated.Value(0)).current;
   const { width } = Dimensions.get('window');
 
   const getPercentValue = () => {
@@ -73,7 +73,7 @@ function Score({ currentValue, minValue, maxValue, style = {}, subTitle, title }
     backgroundColor,
   };
 
-  useEffect(run);
+  React.useEffect(run);
 
   return (
     <View style={style}>

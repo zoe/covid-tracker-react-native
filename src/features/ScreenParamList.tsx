@@ -131,5 +131,5 @@ export type ScreenParamList = {
   Anniversary: undefined;
 
   LongCovidStart: { patientData: PatientData };
-  LongCovidQuestionPageOne: { patientData: PatientData };
+  LongCovidQuestion: { patientData: PatientData };
 };

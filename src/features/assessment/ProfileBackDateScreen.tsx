@@ -8,7 +8,6 @@ import { ConfigType } from '@covid/core/Config';
 import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { IUserService } from '@covid/core/user/UserService';
 import { AtopyQuestions, IAtopyData } from '@covid/features/patient/fields/AtopyQuestions';
 import { BloodGroupQuestion, IBloodGroupData } from '@covid/features/patient/fields/BloodGroupQuestion';
 import {
@@ -25,7 +24,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 
 interface IBackfillData extends IBloodPressureData, IRaceEthnicityData, IAtopyData, IDiabetesData, IBloodGroupData {}
@@ -53,10 +52,7 @@ const initialState: State = {
   needRaceEthnicityAnswer: false,
 };
 
-export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
+export default class ProfileBackDateScreen extends React.Component<BackDateProps, State> {
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 

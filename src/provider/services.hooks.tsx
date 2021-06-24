@@ -1,6 +1,6 @@
 import AppException from '@covid/core/Exception';
 import { id, interfaces } from 'inversify';
-import { useContext } from 'react';
+import * as React from 'react';
 
 import { InversifyContext } from './services.provider';
 
@@ -12,7 +12,7 @@ export class DependencyNotFoundException extends AppException {
 }
 
 export function useInjection<T>(identifier: interfaces.ServiceIdentifier<T>) {
-  const { container } = useContext(InversifyContext);
+  const { container } = React.useContext(InversifyContext);
   if (!container) {
     throw new DependencyNotFoundException(`Did you forget to register a service with id: ${id}?`);
   }

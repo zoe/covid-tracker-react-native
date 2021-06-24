@@ -1,7 +1,7 @@
 import YesNoField from '@covid/components/YesNoField';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 export interface IBloodPressureData {
@@ -14,7 +14,7 @@ interface Props {
   formikProps: FormikProps<IBloodPressureData>;
 }
 
-export class BloodPressureMedicationQuestion extends Component<Props, object> {
+export class BloodPressureMedicationQuestion extends React.Component<Props, object> {
   static initialFormValues = () => {
     return {
       takesAnyBloodPressureMedications: 'no',

@@ -2,7 +2,7 @@ import { CalloutBox } from '@covid/components/CalloutBox';
 import appCoordinator from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 
 export function VaccineRegistryCallout() {
   return (

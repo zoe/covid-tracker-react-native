@@ -2,7 +2,6 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { Services } from '@covid/provider/services.types';
 import { inject, injectable } from 'inversify';
 
-
 export type Profile = {
   id: string;
   name?: string;

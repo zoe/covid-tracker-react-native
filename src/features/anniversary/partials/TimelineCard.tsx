@@ -1,5 +1,5 @@
 import { Icon, Link, Text } from '@covid/components';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 function TimelineCard() {

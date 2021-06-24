@@ -1,6 +1,6 @@
 import { colors } from '@theme';
 import { Spinner } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 const BrandedSpinner = () => (

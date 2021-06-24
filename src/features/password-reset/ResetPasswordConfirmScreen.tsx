@@ -4,7 +4,7 @@ import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 type PropsType = {
@@ -16,7 +16,7 @@ type State = {
   enableSubmit: boolean;
 };
 
-export class ResetPasswordConfirmScreen extends Component<PropsType, State> {
+export class ResetPasswordConfirmScreen extends React.Component<PropsType, State> {
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

@@ -10,7 +10,7 @@ import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { FC, useCallback, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ConsentScreenGB from './ConsentScreenGB';
@@ -22,12 +22,12 @@ type PropsType = {
   route: RouteProp<ScreenParamList, 'Consent'>;
 };
 
-const ConsentScreen: FC<PropsType> = (props) => {
-  const [agreed, setAgreed] = useState(false);
+const ConsentScreen: React.FC<PropsType> = (props) => {
+  const [agreed, setAgreed] = React.useState(false);
 
   const consentService = useInjection<IConsentService>(Services.Consent);
 
-  const handleAgreeClicked = useCallback(async () => {
+  const handleAgreeClicked = React.useCallback(async () => {
     if (!agreed) {
       return;
     }
@@ -44,7 +44,7 @@ const ConsentScreen: FC<PropsType> = (props) => {
     appCoordinator.gotoNextScreen(props.route.name);
   }, [agreed, consentService.setConsentSigned]);
 
-  const renderConsent = useCallback(() => {
+  const renderConsent = React.useCallback(() => {
     if (isUSCountry()) {
       return <ConsentScreenUS {...props} setAgreed={setAgreed} />;
     }
@@ -61,7 +61,7 @@ const ConsentScreen: FC<PropsType> = (props) => {
     <View style={styles.rootContainer}>
       {renderConsent()}
       {!props.route.params.viewOnly ? (
-        <BrandedButton hideLoading enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="agree">
+        <BrandedButton enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="agree">
           {i18n.t('legal.i-agree')}
         </BrandedButton>
       ) : null}

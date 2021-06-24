@@ -5,19 +5,19 @@ import { addDecorator, configure, getStorybookUI } from '@storybook/react-native
 
 configure(() => {
   require('./stories/Buttons.stories');
-  require('./stories/PoweredByZoe.stories');
-  require('./stories/Spinner.stories');
-  require('./stories/DropdownField.stories');
-  require('./stories/DiabetesQuestions.stories');
-  require('./stories/YesNoField.stories');
-  require('./stories/ShareApp.stories');
   require('./stories/Buttons.stories');
-  require('./stories/Selectable.stories');
-  require('./stories/NumberIndicator.stories');
-  require('./stories/TextInput.stories');
+  require('./stories/DiabetesQuestions.stories');
   require('./stories/EstimatedCasesMapCard.stories');
+  require('./stories/NumberIndicator.stories');
   require('./stories/PersonalisedDataCard.stories');
+  require('./stories/PoweredByZoe.stories');
+  require('./stories/RadioInput.stories');
   require('./stories/SchoolNetworks.stories');
+  require('./stories/Selectable.stories');
+  require('./stories/ShareApp.stories');
+  require('./stories/Spinner.stories');
+  require('./stories/TextInput.stories');
+  require('./stories/YesNoField.stories');
 }, module);
 
 // Global Decorator

@@ -3,7 +3,7 @@ import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import i18n from '@covid/locale/i18n';
 import { Form } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 export interface IResetPasswordForm {

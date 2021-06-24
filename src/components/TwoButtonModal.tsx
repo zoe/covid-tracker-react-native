@@ -1,7 +1,7 @@
 import { ModalContainer } from '@covid/components/ModalContainer';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type Props = {

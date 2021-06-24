@@ -11,7 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications';
 import { Root } from 'native-base';
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import { Dimensions } from 'react-native';
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -38,7 +38,7 @@ const linking = {
 const modalOptions = { cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' }, gestureEnabled: false };
 
 function CovidApp() {
-  useEffect(() => {
+  React.useEffect(() => {
     Notifications.addNotificationResponseReceivedListener((response) => {
       Analytics.track(events.OPEN_FROM_NOTIFICATION);
     });
