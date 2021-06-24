@@ -49,9 +49,9 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
 
   function setDoseDate(selectedDate: Moment): void {
     if (props.firstDose) {
-      formikProps.values.firstDoseDate = convertToDate(selectedDate);
+      formikProps.setFieldValue('firstDoseDate', convertToDate(selectedDate));
     } else {
-      formikProps.values.secondDoseDate = convertToDate(selectedDate);
+      formikProps.setFieldValue('secondDoseDate', convertToDate(selectedDate));
     }
     setShowPicker(false);
   }

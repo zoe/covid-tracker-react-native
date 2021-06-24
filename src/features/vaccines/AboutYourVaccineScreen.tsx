@@ -226,6 +226,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
       </Header>
       {renderFindInfoLink}
       <Formik
+        validateOnChange
         initialValues={{ ...buildInitialValues(assessmentData?.vaccineData) }}
         onSubmit={(formData: IAboutYourVaccineData) =>
           // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
@@ -245,6 +246,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                     </Header3Text>
 
                     <YesNoField
+                      required
                       label={i18n.t('vaccines.your-vaccine.have-had-second')}
                       onValueChange={(value: string) => {
                         props.values.hasSecondDose = value === 'yes';
@@ -252,6 +254,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                           props.values.secondDoseDate = undefined;
                         }
                         setHasSecondDose(value);
+                        props.validateForm();
                       }}
                       selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
                     />
@@ -264,7 +267,9 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                 <ValidationError error={i18n.t('validation-error-text')} style={{ marginBottom: 32 }} />
               ) : null}
 
-              <BrandedButton onPress={props.handleSubmit}>{i18n.t('vaccines.your-vaccine.confirm')}</BrandedButton>
+              <BrandedButton enable={props.isValid && props.dirty} onPress={props.handleSubmit}>
+                {i18n.t('vaccines.your-vaccine.confirm')}
+              </BrandedButton>
               {renderDeleteButton()}
             </FormWrapper>
           );
