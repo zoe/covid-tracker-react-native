@@ -9,6 +9,7 @@ interface IProps {
   label?: string;
   hideLabel?: boolean;
   error?: any;
+  required?: boolean;
 }
 
 const Items = (): ISingleButton[] => [
