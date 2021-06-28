@@ -1,5 +1,6 @@
 import QuestionCircle from '@assets/icons/QuestionCircle';
 import { BrandedButton } from '@covid/components';
+import { FormWrapper } from '@covid/components/Forms';
 import Screen, { Header } from '@covid/components/Screen';
 import { ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -19,7 +20,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -226,6 +226,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
       </Header>
       {renderFindInfoLink}
       <Formik
+        validateOnChange
         initialValues={{ ...buildInitialValues(assessmentData?.vaccineData) }}
         onSubmit={(formData: IAboutYourVaccineData) =>
           // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
@@ -235,7 +236,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
       >
         {(props: FormikProps<IAboutYourVaccineData>) => {
           return (
-            <Form style={{ flex: 1 }}>
+            <FormWrapper hasRequiredFields style={{ flex: 1 }}>
               <View style={{ marginBottom: 32, marginHorizontal: 16 }}>
                 {renderFirstDoseUI(props)}
                 {props.values.firstBrand && props.values.firstBrand !== VaccineBrands.JOHNSON ? (
@@ -245,6 +246,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                     </Header3Text>
 
                     <YesNoField
+                      required
                       label={i18n.t('vaccines.your-vaccine.have-had-second')}
                       onValueChange={(value: string) => {
                         props.values.hasSecondDose = value === 'yes';
@@ -252,6 +254,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                           props.values.secondDoseDate = undefined;
                         }
                         setHasSecondDose(value);
+                        props.validateForm();
                       }}
                       selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
                     />
@@ -264,9 +267,11 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                 <ValidationError error={i18n.t('validation-error-text')} style={{ marginBottom: 32 }} />
               ) : null}
 
-              <BrandedButton onPress={props.handleSubmit}>{i18n.t('vaccines.your-vaccine.confirm')}</BrandedButton>
+              <BrandedButton enable={props.isValid && props.dirty} onPress={props.handleSubmit}>
+                {i18n.t('vaccines.your-vaccine.confirm')}
+              </BrandedButton>
               {renderDeleteButton()}
-            </Form>
+            </FormWrapper>
           );
         }}
       </Formik>

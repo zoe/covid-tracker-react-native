@@ -27,6 +27,7 @@ export class BloodPressureMedicationQuestion extends React.Component<Props, obje
     return (
       <View>
         <YesNoField
+          required
           error={
             this.props.formikProps.touched.takesAnyBloodPressureMedications &&
             this.props.formikProps.errors.takesAnyBloodPressureMedications
@@ -39,12 +40,14 @@ export class BloodPressureMedicationQuestion extends React.Component<Props, obje
         {this.props.formikProps.values.takesAnyBloodPressureMedications === 'yes' ? (
           <>
             <YesNoField
+              required
               label={i18n.t('your-health.takes-pril-blood-pressure-medication')}
               onValueChange={this.props.formikProps.handleChange('takesBloodPressureMedications')}
               selectedValue={this.props.formikProps.values.takesBloodPressureMedications}
             />
 
             <YesNoField
+              required
               label={i18n.t('your-health.takes-sartan-blood-pressure-medication')}
               onValueChange={this.props.formikProps.handleChange('takesBloodPressureMedicationsSartan')}
               selectedValue={this.props.formikProps.values.takesBloodPressureMedicationsSartan}
