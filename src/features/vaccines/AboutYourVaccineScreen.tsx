@@ -227,6 +227,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
       {renderFindInfoLink}
       <Formik
         validateOnChange
+        validateOnMount
         initialValues={{ ...buildInitialValues(assessmentData?.vaccineData) }}
         onSubmit={(formData: IAboutYourVaccineData) =>
           // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
@@ -267,7 +268,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                 <ValidationError error={i18n.t('validation-error-text')} style={{ marginBottom: 32 }} />
               ) : null}
 
-              <BrandedButton enable={props.isValid && props.dirty} onPress={props.handleSubmit}>
+              <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
                 {i18n.t('vaccines.your-vaccine.confirm')}
               </BrandedButton>
               {renderDeleteButton()}
