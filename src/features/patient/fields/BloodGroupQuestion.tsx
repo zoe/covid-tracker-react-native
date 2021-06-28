@@ -34,6 +34,7 @@ export function BloodGroupQuestion({ formikProps }: IProps) {
 
   return (
     <RadioInput
+      required
       items={bloodTypeItems}
       label={i18n.t('blood-group.question')}
       onValueChange={formikProps.handleChange('bloodGroup')}

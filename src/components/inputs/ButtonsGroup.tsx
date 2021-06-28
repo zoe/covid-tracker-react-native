@@ -6,6 +6,8 @@ import { Label } from 'native-base';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { requiredFormMarker } from '../Forms';
+
 export interface ISingleButton {
   label?: string;
   value: string;
@@ -19,9 +21,10 @@ interface IProps {
   hideLabel?: boolean;
   error?: any;
   testID?: string;
+  required?: boolean;
 }
 
-export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, hideLabel, testID }: IProps) {
+export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, hideLabel, testID, required}: IProps) {
   const [selected, setSelected] = React.useState<string>(selectedValue);
 
   const onSelect = (value: string) => {
@@ -31,7 +34,11 @@ export function ButtonsGroup({ label, selectedValue, items, error, onValueChange
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {hideLabel ? null : <Label style={styles.labelStyle}>{label}</Label>}
+      {hideLabel ? null : (
+        <Label style={styles.labelStyle}>
+          {label} {required ? requiredFormMarker : null}
+        </Label>
+      )}
       <View
         style={{
           flexDirection: 'row',

@@ -10,6 +10,7 @@ interface IProps {
   onValueChange: any;
   selectedValue: string;
   testID?: string;
+  required?: boolean;
 }
 
 const Items = (): ISingleButton[] => [

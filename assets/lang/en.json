@@ -125,7 +125,7 @@
   "required-is-healthcare-worker": "Please indicate if you are a healthcare worker",
   "required-is-carer": "Please indicate if you are a carer",
 
-  "are-you-healthcare-staff": "Are you a healthcare worker (including hospital, elderly care, or in the community)",
+  "are-you-healthcare-staff": "Are you a healthcare worker (including hospital, elderly care, or in the community)?",
   "yes-interacting-patients": "Yes, I currently interact with patients",
   "yes-not-interacting-patients": "Yes, but I do not currently interact with patients",
   "are-you-carer": "Do you care for multiple people in the community, with direct contact with your patients?",

@@ -45,6 +45,8 @@ export function RadioInput(props: IProps) {
       )}
       {items.map((item, index) => (
         <TouchableOpacity
+          accessible
+          accessibilityRole="radio"
           key={`item-${item.value}`}
           onPress={() => props.onValueChange(item.value)}
           style={
