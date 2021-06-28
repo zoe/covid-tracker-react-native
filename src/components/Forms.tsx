@@ -22,7 +22,7 @@ export const requiredFormMarker = `*`;
 type TFormWrapperProps = {
   children: React.ReactNode;
   hasRequiredFields?: boolean;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const FormWrapper = (props: TFormWrapperProps) => (
