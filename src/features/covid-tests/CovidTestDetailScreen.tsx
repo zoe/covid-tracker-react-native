@@ -200,6 +200,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
         </ProgressBlock>
 
         <Formik
+          validateOnMount
           initialValues={{
             ...CovidTestDateQuestion.initialFormValues(test),
             ...CovidTestMechanismQuestion.initialFormValues(test),
@@ -239,10 +240,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
                   ) : null}
                 </View>
 
-                <BrandedButton
-                  enable={!this.state.submitting && props.isValid && props.dirty}
-                  onPress={props.handleSubmit}
-                >
+                <BrandedButton enable={!this.state.submitting && props.isValid} onPress={props.handleSubmit}>
                   {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </FormWrapper>
