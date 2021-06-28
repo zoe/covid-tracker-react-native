@@ -1,8 +1,8 @@
 import { BrandedButton } from '@covid/components';
+import { FormWrapper, requiredFormMarker } from '@covid/components/Forms';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import i18n from '@covid/locale/i18n';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -17,6 +17,7 @@ export interface IResetPasswordForm {
     email?: string;
   };
   errorMessage?: string;
+  isValid?: boolean;
   handleChange: (field: string) => (text: string) => void;
   handleBlur: (field: string) => () => void;
   handleSubmit: () => void;
@@ -30,12 +31,15 @@ function ResetPasswordForm({
   handleBlur,
   handleSubmit,
   errorMessage,
+  isValid,
 }: IResetPasswordForm) {
   return (
     <View>
       <View style={styles.formItem}>
-        <HeaderText>{i18n.t('reset-password.title')}</HeaderText>
-        <Form>
+        <HeaderText>
+          {i18n.t('reset-password.title')} {requiredFormMarker}
+        </HeaderText>
+        <FormWrapper>
           <ValidatedTextInput
             autoCapitalize="none"
             autoCompleteType="email"
@@ -49,14 +53,16 @@ function ResetPasswordForm({
           />
 
           {touched.email && errors.email ? <ErrorText> {i18n.t('reset-password.email-error')}</ErrorText> : null}
-        </Form>
+        </FormWrapper>
       </View>
       <View>
         <ErrorText>{errorMessage}</ErrorText>
       </View>
 
       <View>
-        <BrandedButton onPress={handleSubmit}>{i18n.t('reset-password.button')}</BrandedButton>
+        <BrandedButton enable={values.email.length > 0 && isValid && !errors.email} onPress={handleSubmit}>
+          {i18n.t('reset-password.button')}
+        </BrandedButton>
       </View>
     </View>
   );
