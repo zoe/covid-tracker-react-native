@@ -25,6 +25,7 @@ export const CovidTestInvitedQuestion: ICovidTestInvitedQuestion<IProps, ICovidT
   const { formikProps } = props;
   return isGBCountry() ? (
     <YesNoField
+      required
       error={formikProps.touched.invitedToTest && formikProps.errors.invitedToTest}
       label={i18n.t('covid-test.question-invite-to-test')}
       onValueChange={formikProps.handleChange('invitedToTest')}

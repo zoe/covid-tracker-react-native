@@ -32,6 +32,7 @@ export const CovidTestResultQuestion: ICovidTestResultQuestion<IProps, ICovidTes
 
   return (
     <RadioInput
+      required
       error={formikProps.touched.result ? formikProps.errors.result : ''}
       items={resultItems}
       label={i18n.t('covid-test.question-result')}

@@ -1,5 +1,6 @@
 import { BrandedButton } from '@covid/components';
 import { ClearButton } from '@covid/components/buttons/ClearButton';
+import { FormWrapper } from '@covid/components/Forms';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -30,7 +31,6 @@ import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { Alert, View } from 'react-native';
 import * as Yup from 'yup';
@@ -200,6 +200,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
         </ProgressBlock>
 
         <Formik
+          validateOnMount
           initialValues={{
             ...CovidTestDateQuestion.initialFormValues(test),
             ...CovidTestMechanismQuestion.initialFormValues(test),
@@ -215,7 +216,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
         >
           {(props) => {
             return (
-              <Form>
+              <FormWrapper hasRequiredFields>
                 <View style={{ marginHorizontal: 16 }}>
                   <CovidTestDateQuestion formikProps={props as FormikProps<ICovidTestDateData>} test={test} />
                   <CovidTestMechanismQuestion formikProps={props as FormikProps<ICovidTestMechanismData>} test={test} />
@@ -239,10 +240,10 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
                   ) : null}
                 </View>
 
-                <BrandedButton enable={!this.state.submitting} onPress={props.handleSubmit}>
+                <BrandedButton enable={!this.state.submitting && props.isValid} onPress={props.handleSubmit}>
                   {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
-              </Form>
+              </FormWrapper>
             );
           }}
         </Formik>
