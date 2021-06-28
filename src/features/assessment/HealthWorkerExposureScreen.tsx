@@ -4,6 +4,7 @@ import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
+import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
@@ -215,7 +216,12 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
                   ) : null}
                 </View>
 
-                {Object.keys(props.errors).length ? <ErrorText>{i18n.t('validation-error-text')}</ErrorText> : null}
+                {/* {Object.keys(props.errors).length ? <ErrorText>{i18n.t('validation-error-text')}</ErrorText> : null} */}
+
+                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                ) : null}
+
                 <ErrorText>{this.state.errorMessage}</ErrorText>
 
                 <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
