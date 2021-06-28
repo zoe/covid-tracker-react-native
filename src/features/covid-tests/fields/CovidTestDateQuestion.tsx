@@ -1,4 +1,5 @@
 import CalendarPicker from '@covid/components/CalendarPicker';
+import { requiredFormMarker } from '@covid/components/Forms';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import YesNoField from '@covid/components/YesNoField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -70,6 +71,7 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
   return (
     <>
       <YesNoField
+        required
         label={i18n.t('covid-test.question-knows-date-of-test')}
         onValueChange={(value: string) => {
           if (value === 'yes') {
@@ -94,7 +96,9 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
 
       {formikProps.values.knowsDateOfTest === 'yes' && (
         <>
-          <RegularText style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</RegularText>
+          <RegularText style={styles.labelStyle}>
+            {i18n.t('covid-test.question-date-test-occurred')} {requiredFormMarker}
+          </RegularText>
           {state.showDatePicker ? (
             <CalendarPicker
               maxDate={today}
@@ -117,7 +121,9 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
 
       {formikProps.values.knowsDateOfTest === 'no' && (
         <>
-          <RegularText style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred-guess')}</RegularText>
+          <RegularText style={styles.labelStyle}>
+            {i18n.t('covid-test.question-date-test-occurred-guess')} {requiredFormMarker}
+          </RegularText>
 
           {state.showRangePicker ? (
             <CalendarPicker
