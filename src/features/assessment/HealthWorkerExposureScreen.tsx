@@ -216,8 +216,6 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
                   ) : null}
                 </View>
 
-                {/* {Object.keys(props.errors).length ? <ErrorText>{i18n.t('validation-error-text')}</ErrorText> : null} */}
-
                 {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
                 ) : null}
