@@ -1,7 +1,7 @@
 /* eslint-env jest */
 
 import MockedNavigator from '@covid/__mocks__/MockedNavigator';
-import * as screens from '@covid/features/screens';
+import * as screensX from '@covid/features/screens';
 import * as React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
@@ -21,6 +21,10 @@ type TConfig = {
   mockNavigator?: boolean;
   mockRedux?: boolean;
   mockSafeAreaProvider?: boolean;
+};
+
+const screens = {
+  WelcomeRepeatScreen: screensX.WelcomeRepeatScreen,
 };
 
 function testComponent(name: string, Component: React.ComponentType, config: TConfig = {}) {

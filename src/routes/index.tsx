@@ -53,7 +53,7 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.JoinSchoolGroupScreen} name="JoinSchoolGroup" options={noHeader} />
       <Stack.Screen component={screens.JoinSchoolScreen} name="JoinSchool" options={noHeader} />
       <Stack.Screen component={screens.LoginScreen} name="Login" options={noHeader} />
-      <Stack.Screen component={screens.LongCovidQuestionPageOneScreen} name="LongCovidQuestionPageOne" options={noHeader} />
+      <Stack.Screen component={screens.LongCovidQuestionScreen} name="LongCovidQuestion" options={noHeader} />
       <Stack.Screen component={screens.LongCovidStartScreen} name="LongCovidStart" options={noHeader} />
       <Stack.Screen component={screens.NHSDetailsScreen} name="NHSDetails" options={noHeader} />
       <Stack.Screen component={screens.NHSIntroScreen} name="NHSIntro" options={noHeader} />

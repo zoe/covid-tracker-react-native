@@ -7,11 +7,9 @@ import { PartnerLogoSE, PartnerLogoUS } from '@covid/components/logos/PartnerLog
 import { PoweredByZoe } from '@covid/components/logos/PoweredByZoe';
 import { RegularText } from '@covid/components/Text';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { IConsentService } from '@covid/core/consent/ConsentService';
 import { IContentService } from '@covid/core/content/ContentService';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
-import { ILocalisationService, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { IUserService } from '@covid/core/user/UserService';
+import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -50,17 +48,8 @@ const initialState = {
 };
 
 export class WelcomeRepeatScreen extends React.Component<PropsType, WelcomeRepeatScreenState> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
-
   @lazyInject(Services.Content)
   private readonly contentService: IContentService;
-
-  @lazyInject(Services.Consent)
-  private readonly consentService: IConsentService;
 
   state: WelcomeRepeatScreenState = initialState;
 

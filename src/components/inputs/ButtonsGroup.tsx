@@ -4,7 +4,9 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
 import { Label } from 'native-base';
 import * as React from 'react';
-import { PickerProps, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import { requiredFormMarker } from '../Forms';
 
 export interface ISingleButton {
   label?: string;
@@ -16,12 +18,12 @@ interface IProps {
   selectedValue: string;
   items: ISingleButton[];
   onValueChange: any;
-  onlyPicker?: boolean;
-  pickerProps?: PickerProps;
+  hideLabel?: boolean;
   error?: any;
+  required?: boolean;
 }
 
-export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, onlyPicker }: IProps) {
+export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, hideLabel, required }: IProps) {
   const [selected, setSelected] = React.useState<string>(selectedValue);
 
   const onSelect = (value: string) => {
@@ -31,7 +33,11 @@ export function ButtonsGroup({ label, selectedValue, items, error, onValueChange
 
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
+      {hideLabel ? null : (
+        <Label style={styles.labelStyle}>
+          {label} {required ? requiredFormMarker : null}
+        </Label>
+      )}
       <View
         style={{
           flexDirection: 'row',

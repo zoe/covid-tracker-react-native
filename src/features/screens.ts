@@ -34,7 +34,7 @@ export {
   JoinSchoolGroupScreen,
   JoinSchoolScreen,
   LoginScreen,
-  LongCovidQuestionPageOneScreen,
+  LongCovidQuestionScreen,
   LongCovidStartScreen,
   MHPBlogPostScreen,
   MHPGeneralScreen,

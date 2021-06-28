@@ -111,8 +111,8 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
             </View>
             <View style={styles.secondaryField}>
               <DropdownField
-                onlyPicker
-                error={formikProps.touched.temperatureUnit && formikProps.errors.temperatureUnit}
+                hideLabel
+                error={formikProps.touched.temperatureUnit ? formikProps.errors.temperatureUnit : ''}
                 items={temperatureItems}
                 onValueChange={formikProps.handleChange('temperatureUnit')}
                 selectedValue={formikProps.values.temperatureUnit}
@@ -201,24 +201,13 @@ const styles = StyleSheet.create({
   fieldRow: {
     flexDirection: 'row',
   },
-
-  fieldWrapper: {
-    flex: 1,
-    marginHorizontal: 16,
-  },
-
   primaryField: {
     flex: 3,
     marginRight: 4,
   },
-
   secondaryField: {
     flex: 1,
     marginLeft: 4,
     marginTop: -8,
-  },
-
-  textItemStyle: {
-    borderColor: 'transparent',
   },
 });

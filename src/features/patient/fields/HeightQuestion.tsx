@@ -92,7 +92,7 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
           )}
           <View style={styles.unitsField}>
             <DropdownField
-              onlyPicker
+              hideLabel
               items={[
                 { label: 'ft', value: 'ft' },
                 { label: 'cm', value: 'cm' },

@@ -9,7 +9,6 @@ import {
 } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { IProfileService } from '@covid/core/profile/ProfileService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
@@ -25,9 +24,6 @@ export type AssessmentData = {
 };
 
 export class AssessmentCoordinator extends Coordinator {
-  @lazyInject(Services.Profile)
-  private readonly profileService: IProfileService;
-
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 

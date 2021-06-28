@@ -1,12 +1,11 @@
+import { requiredFormMarker } from '@covid/components/Forms';
+import { FieldWrapper } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError } from '@covid/components/ValidationError';
 import { FormikProps } from 'formik';
 import * as React from 'react';
 import { KeyboardTypeOptions, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
-
-import { requiredFormMarker } from './Forms';
-import { FieldWrapper } from './Screen';
-import { RegularText } from './Text';
-import { ValidatedTextInput } from './ValidatedTextInput';
-import { ValidationError } from './ValidationError';
 
 interface IProps extends TextInputProps {
   formikProps: FormikProps<any>;
@@ -45,10 +44,7 @@ export function GenericTextField(props: IProps) {
       />
 
       {showError && !!formikProps.touched[name] && !!formikProps.errors[name] ? (
-        <ValidationError
-          // @ts-ignore - need to solve type for ValidationError error prop
-          error={formikProps.errors[name]}
-        />
+        <ValidationError error={formikProps.errors[name]} />
       ) : null}
     </FieldWrapper>
   );

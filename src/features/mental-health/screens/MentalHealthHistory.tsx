@@ -1,4 +1,5 @@
-import { BasicPage, CheckBoxButton, DropdownField, GenericSelectableList, Text } from '@covid/components';
+import { BasicPage, CheckBoxButton, GenericSelectableList, Text } from '@covid/components';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import {
   addHistoryCondition,
@@ -19,7 +20,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-function MentalHealthHistory() {
+export default function MentalHealthHistory() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
   const [canSubmit, setCanSubmit] = React.useState(false);
   const dispatch = useDispatch();
@@ -101,14 +102,12 @@ function MentalHealthHistory() {
         <Text rhythm={16} textClass="h3">
           {i18n.t('mental-health.question-history-title')}
         </Text>
-        <View>
-          <DropdownField
-            items={initialOptions}
-            label={i18n.t('mental-health.question-history')}
-            onValueChange={handleSetHasHistoryDiagnosis}
-            selectedValue={MentalHealthHistory.hasDiagnosis}
-          />
-        </View>
+        <RadioInput
+          items={initialOptions}
+          label={i18n.t('mental-health.question-history')}
+          onValueChange={handleSetHasHistoryDiagnosis}
+          selectedValue={MentalHealthHistory.hasDiagnosis}
+        />
         {MentalHealthHistory.hasDiagnosis === 'YES' ? (
           <>
             <GenericSelectableList
@@ -124,5 +123,3 @@ function MentalHealthHistory() {
     </BasicPage>
   );
 }
-
-export default MentalHealthHistory;

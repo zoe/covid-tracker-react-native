@@ -1,4 +1,4 @@
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { action, HandlerFunction } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react-native';
 import * as React from 'react';
@@ -21,33 +21,20 @@ const MultiLineItems = DropdownOptionsFactory([
 
 const ValueChangeHandler = (): HandlerFunction => action('dropdown-item-selected');
 
-storiesOf('DropdownField', module).add('default view', () => (
-  <DropdownField
-    error={false}
-    items={SingleLineItems}
-    label="Test Label"
-    onValueChange={ValueChangeHandler()}
-    selectedValue={null}
-  />
+storiesOf('RadioInput', module).add('default view', () => (
+  <RadioInput items={SingleLineItems} label="Test Label" onValueChange={ValueChangeHandler()} selectedValue={null} />
 ));
 
-storiesOf('DropdownField', module).add('multi lines items', () => (
-  <DropdownField
-    error={false}
-    items={MultiLineItems}
-    label="Test Label"
-    onValueChange={ValueChangeHandler()}
-    selectedValue={null}
-  />
+storiesOf('RadioInput', module).add('multi lines items', () => (
+  <RadioInput items={MultiLineItems} label="Test Label" onValueChange={ValueChangeHandler()} selectedValue={null} />
 ));
 
-storiesOf('DropdownField', module).add('no default items', () => (
-  <DropdownField error label="Test Label" onValueChange={ValueChangeHandler()} selectedValue={null} />
+storiesOf('RadioInput', module).add('no default items', () => (
+  <RadioInput error="Test error" label="Test Label" onValueChange={ValueChangeHandler()} selectedValue={null} />
 ));
 
-storiesOf('DropdownField', module).add('with default value', () => (
-  <DropdownField
-    error={false}
+storiesOf('RadioInput', module).add('with default value', () => (
+  <RadioInput
     items={SingleLineItems}
     label="Test Label"
     onValueChange={ValueChangeHandler()}
@@ -55,9 +42,9 @@ storiesOf('DropdownField', module).add('with default value', () => (
   />
 ));
 
-storiesOf('DropdownField', module).add('with error', () => (
-  <DropdownField
-    error
+storiesOf('RadioInput', module).add('with error', () => (
+  <RadioInput
+    error="Test error"
     items={MultiLineItems}
     label="Test Label"
     onValueChange={ValueChangeHandler()}

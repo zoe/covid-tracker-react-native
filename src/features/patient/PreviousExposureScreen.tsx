@@ -1,7 +1,7 @@
 import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -100,12 +100,10 @@ export default class PreviousExposureScreen extends React.Component<HealthProps,
   });
 
   handleUpdateHealth(formData: IYourHealthData) {
-    const currentPatient = patientCoordinator.patientData.patientState;
-    const { patientId } = currentPatient;
     const infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatientInfo(patientId, infos)
+      .updatePatientInfo(patientCoordinator.patientData?.patientState?.patientId, infos)
       .then(async (info) => {
         const currentState = patientCoordinator.patientData.patientState;
         patientCoordinator.patientData.patientInfo = info;
@@ -152,7 +150,6 @@ export default class PreviousExposureScreen extends React.Component<HealthProps,
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.patientState;
     const symptomChangeChoices = [
       { label: i18n.t('past-symptom-changed-much-better'), value: 'much_better' },
       { label: i18n.t('past-symptom-changed-little-better'), value: 'little_better' },
@@ -161,7 +158,7 @@ export default class PreviousExposureScreen extends React.Component<HealthProps,
       { label: i18n.t('past-symptom-changed-much-worse'), value: 'much_worse' },
     ];
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
         <Header>
           <HeaderText>{i18n.t('previous-exposure-title')}</HeaderText>
         </Header>
@@ -279,7 +276,7 @@ export default class PreviousExposureScreen extends React.Component<HealthProps,
                   ) : null}
 
                   {props.values.stillHavePastSymptoms === 'yes' ? (
-                    <DropdownField
+                    <RadioInput
                       items={symptomChangeChoices}
                       label={i18n.t('label-past-symptoms-changed')}
                       onValueChange={props.handleChange('pastSymptomsChanged')}
