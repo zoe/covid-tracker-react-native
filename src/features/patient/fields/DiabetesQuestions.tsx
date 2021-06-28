@@ -70,6 +70,7 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
   return (
     <View>
       <RadioInput
+        required
         error={formikProps.touched.diabetesType ? formikProps.errors.diabetesType : ''}
         items={diabetesTypeOptions}
         label={i18n.t('diabetes.which-type')}

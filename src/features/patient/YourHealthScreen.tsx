@@ -1,4 +1,5 @@
 import { BrandedButton } from '@covid/components';
+import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -20,7 +21,6 @@ import { stripAndRound } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
@@ -274,9 +274,10 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
         >
           {(props) => {
             return (
-              <Form>
+              <FormWrapper hasRequiredFields>
                 <View style={{ marginHorizontal: 16 }}>
                   <YesNoField
+                    required
                     label={i18n.t('your-health.health-problems-that-limit-activity')}
                     onValueChange={props.handleChange('limitedActivity')}
                     selectedValue={props.values.limitedActivity}
@@ -284,6 +285,7 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
 
                   {this.state.showPregnancyQuestion ? (
                     <YesNoField
+                      required
                       label={i18n.t('your-health.are-you-pregnant')}
                       onValueChange={props.handleChange('isPregnant')}
                       selectedValue={props.values.isPregnant}
@@ -291,12 +293,14 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                   ) : null}
 
                   <YesNoField
+                    required
                     label={i18n.t('your-health.have-heart-disease')}
                     onValueChange={props.handleChange('hasHeartDisease')}
                     selectedValue={props.values.hasHeartDisease}
                   />
 
                   <YesNoField
+                    required
                     label={i18n.t('your-health.have-diabetes')}
                     onValueChange={(value: string) => {
                       props.handleChange('hasDiabetes');
@@ -312,6 +316,7 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                   <AtopyQuestions formikProps={props as FormikProps<IAtopyData>} />
 
                   <RadioInput
+                    required
                     error={props.touched.smokerStatus ? props.errors.smokerStatus : ''}
                     items={smokerStatusItems}
                     label={i18n.t('your-health.is-smoker')}
@@ -321,6 +326,7 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
 
                   {props.values.smokerStatus === 'not_currently' ? (
                     <GenericTextField
+                      required
                       formikProps={props}
                       keyboardType="numeric"
                       label={i18n.t('your-health.years-since-last-smoked')}
@@ -329,12 +335,14 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                   ) : null}
 
                   <YesNoField
+                    required
                     label={i18n.t('your-health.has-kidney-disease')}
                     onValueChange={props.handleChange('hasKidneyDisease')}
                     selectedValue={props.values.hasKidneyDisease}
                   />
 
                   <YesNoField
+                    required
                     label={i18n.t('your-health.has-cancer')}
                     onValueChange={props.handleChange('hasCancer')}
                     selectedValue={props.values.hasCancer}
@@ -350,6 +358,7 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                         />
                       )}
                       <YesNoField
+                        required
                         label={i18n.t('your-health.is-on-chemotherapy')}
                         onValueChange={props.handleChange('doesChemiotherapy')}
                         selectedValue={props.values.doesChemiotherapy}
@@ -358,18 +367,21 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                   ) : null}
 
                   <YesNoField
+                    required
                     label={i18n.t('your-health.takes-immunosuppressant')}
                     onValueChange={props.handleChange('takesImmunosuppressants')}
                     selectedValue={props.values.takesImmunosuppressants}
                   />
 
                   <YesNoField
+                    required
                     label={i18n.t('your-health.takes-asprin')}
                     onValueChange={props.handleChange('takesAspirin')}
                     selectedValue={props.values.takesAspirin}
                   />
 
                   <YesNoField
+                    required
                     label={i18n.t('your-health.takes-nsaids')}
                     onValueChange={props.handleChange('takesCorticosteroids')}
                     selectedValue={props.values.takesCorticosteroids}
@@ -384,8 +396,10 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
                 </View>
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-              </Form>
+                <BrandedButton enable={props.isValid && props.dirty} onPress={props.handleSubmit}>
+                  {i18n.t('next-question')}
+                </BrandedButton>
+              </FormWrapper>
             );
           }}
         </Formik>

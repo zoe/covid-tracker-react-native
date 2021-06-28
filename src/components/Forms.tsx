@@ -1,7 +1,7 @@
 import i18n from '@covid/locale/i18n';
 import { Form } from 'native-base';
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { ErrorText, RegularText } from './Text';
 
@@ -22,10 +22,11 @@ export const requiredFormMarker = `*`;
 type TFormWrapperProps = {
   children: React.ReactNode;
   hasRequiredFields?: boolean;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const FormWrapper = (props: TFormWrapperProps) => (
-  <Form>
+  <Form style={props.style}>
     {props.hasRequiredFields ? (
       <RegularText style={styles.requiredFieldHeader}>
         {requiredFormMarker} {i18n.t('required-field')}

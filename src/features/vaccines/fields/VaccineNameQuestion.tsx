@@ -56,6 +56,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
 
     return (
       <RadioInput
+        required
         error={brandTouched && brandError}
         items={nameOptions}
         label={i18n.t('vaccines.your-vaccine.label-name')}
@@ -86,6 +87,7 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
 
     return (
       <RadioInput
+        required
         error={descriptionTouched ? descriptionError : ''}
         items={descriptionOptions}
         label={i18n.t('vaccines.your-vaccine.label-name-other')}

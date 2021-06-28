@@ -29,24 +29,28 @@ export class AtopyQuestions extends React.Component<Props, object> {
     return (
       <View>
         <YesNoField
+          required
           label={i18n.t('your-health.have-hayfever')}
           onValueChange={this.props.formikProps.handleChange('hasHayfever')}
           selectedValue={this.props.formikProps.values.hasHayfever}
         />
 
         <YesNoField
+          required
           label={i18n.t('your-health.have-eczema')}
           onValueChange={this.props.formikProps.handleChange('hasEczema')}
           selectedValue={this.props.formikProps.values.hasEczema}
         />
 
         <YesNoField
+          required
           label={i18n.t('your-health.have-asthma')}
           onValueChange={this.props.formikProps.handleChange('hasAsthma')}
           selectedValue={this.props.formikProps.values.hasAsthma}
         />
 
         <YesNoField
+          required
           label={i18n.t('your-health.have-lung-disease')}
           onValueChange={this.props.formikProps.handleChange('hasLungDisease')}
           selectedValue={this.props.formikProps.values.hasLungDisease}
