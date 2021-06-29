@@ -1,7 +1,7 @@
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import { camelizeKeys } from '@covid/core/api/utils';
 import { AsyncStorageService, PERSONALISED_LOCAL_DATA, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
-import { IContentApiClient } from '@covid/core/content/ContentApiClient';
+import { contentApiClient } from '@covid/core/content/ContentApiClient';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -27,9 +27,6 @@ export interface IContentService {
 
 @injectable()
 export default class ContentService implements IContentService {
-  @inject(Services.ContentApi)
-  private readonly apiClient: IContentApiClient;
-
   localData: PersonalisedLocalData;
 
   static getWebsiteUrl = () => {
@@ -96,7 +93,7 @@ export default class ContentService implements IContentService {
 
   async getStartupInfo() {
     try {
-      const info = await this.apiClient.getStartupInfo();
+      const info = await contentApiClient.getStartupInfo();
       info.app_requires_update = await this.checkVersionOfAPIAndApp(info.min_supported_app_version);
 
       LocalisationService.ipCountry = info.ip_country;
@@ -123,15 +120,15 @@ export default class ContentService implements IContentService {
   }
 
   public async getTrendLines(lad?: string): Promise<TrendLineResponse> {
-    return this.apiClient.getTrendLines(lad);
+    return contentApiClient.getTrendLines(lad);
   }
 
   public async getFeaturedContent(): Promise<FeaturedContentResponse> {
-    return this.apiClient.getFeaturedContent();
+    return contentApiClient.getFeaturedContent();
   }
 
   public signUpForDietNewsletter(signup: boolean): Promise<void> {
-    return this.apiClient.signUpForDietNewsletter(signup);
+    return contentApiClient.signUpForDietNewsletter(signup);
   }
 }
 

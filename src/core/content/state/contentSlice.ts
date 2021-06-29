@@ -121,7 +121,8 @@ export const fetchFeaturedContent = createAsyncThunk('content/featured_content',
       featuredHome: home,
       featuredThankyou: thankyou,
     };
-  } catch (_) {
+  } catch (error) {
+    console.error(error);
     return {
       featuredHome: [],
       featuredThankyou: [],

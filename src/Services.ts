@@ -22,7 +22,7 @@ export const pushNotificationService = new PushNotificationService(
   new ExpoPushTokenEnvironment(),
 );
 
-export const assessmentService = new AssessmentService(new AssessmentApiClient(apiClient), new ReduxAssessmentState());
+export const assessmentService = new AssessmentService(new ReduxAssessmentState());
 
 export const vaccineService = new VaccineService();
 
@@ -30,4 +30,4 @@ export const mentalHealthApiClient = new MentalHealthApiClient(apiClient);
 
 export const longCovidApiClient = new LongCovidApiClient(apiClient);
 
-export const generalApiClient = new GeneralApiClient(apiClient);
+export const generalApiClient = new GeneralApiClient();
