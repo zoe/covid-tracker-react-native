@@ -1,21 +1,13 @@
 import { Coordinator, IUpdatePatient, ScreenFlow } from '@covid/core/Coordinator';
-import { homeScreenName, ILocalisationService, isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { homeScreenName, isGBCountry, localisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
 import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import { Services } from '@covid/provider/services.types';
-import { inject } from 'inversify';
 
 export class EditProfileCoordinator extends Coordinator implements IUpdatePatient {
-  @inject(Services.Patient)
-  private readonly patientService: IPatientService;
-
-  @inject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
-
   userService: IUserService;
 
   patientData: PatientData;
@@ -61,7 +53,7 @@ export class EditProfileCoordinator extends Coordinator implements IUpdatePatien
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
-    return this.patientService.updatePatientInfo(this.patientData.patientId, patientInfo).then((info) => {
+    return patientService.updatePatientInfo(this.patientData.patientId, patientInfo).then((info) => {
       Object.assign(this.patientData.patientInfo, patientInfo);
       return info;
     });
@@ -95,7 +87,7 @@ export class EditProfileCoordinator extends Coordinator implements IUpdatePatien
 
   shouldShowEditStudy() {
     const currentPatient = this.patientData?.patientState;
-    const config = this.localisationService?.getConfig();
+    const config = localisationService.getConfig();
 
     return config?.enableCohorts && currentPatient.shouldAskStudy;
   }

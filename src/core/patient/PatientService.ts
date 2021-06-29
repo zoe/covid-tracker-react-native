@@ -1,16 +1,14 @@
 import appConfig from '@covid/appConfig';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
-import { IConsentService } from '@covid/core/consent/ConsentService';
+import { consentService } from '@covid/core/consent/ConsentService';
 import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { getInitialPatientState, isMinorAge, PatientStateType } from '@covid/core/patient/PatientState';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { PatientInfosRequest, VaccineStatus } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
-import { Services } from '@covid/provider/services.types';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
-import { inject, injectable } from 'inversify';
 
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
@@ -23,11 +21,7 @@ export interface IPatientService {
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
 }
 
-@injectable()
 export class PatientService extends ApiClientBase implements IPatientService {
-  @inject(Services.Consent)
-  public consentService: IConsentService;
-
   protected client = ApiClientBase.client;
 
   public async myPatientProfile(): Promise<Profile | null> {
@@ -151,7 +145,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const isSameHousehold = patient.same_household_as_reporter || false;
 
     // Decide whether patient needs to answer YourStudy questions
-    const consent = await this.consentService.getConsentSigned();
+    const consent = await consentService.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
     const hasAtopyAnswers = patient.has_hayfever != null;
     const hasDiabetes = patient.has_diabetes;

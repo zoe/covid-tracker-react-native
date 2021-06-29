@@ -1,11 +1,12 @@
 import Analytics from '@covid/core/Analytics';
 import { IStorageService } from '@covid/core/LocalStorageService';
+import { pushNotificationApiClient } from '@covid/core/push-notifications/PushNotificationApiClient';
 import { isDateBefore, now, yesterday } from '@covid/utils/datetime';
 import { isAndroid } from '@covid/utils/platform';
 import * as IntentLauncher from 'expo-intent-launcher';
 import { Linking, Platform } from 'react-native';
 
-import { IPushTokenRemoteClient, PushToken } from './types';
+import { PushToken } from './types';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
@@ -29,14 +30,11 @@ const createTokenDoc = (token: string): PushToken => {
 };
 
 export default class PushNotificationService {
-  apiClient: IPushTokenRemoteClient;
-
   storage: IStorageService;
 
   environment: IPushTokenEnvironment;
 
-  constructor(apiClient: IPushTokenRemoteClient, storage: IStorageService, environment: IPushTokenEnvironment) {
-    this.apiClient = apiClient;
+  constructor(storage: IStorageService, environment: IPushTokenEnvironment) {
     this.storage = storage;
     this.environment = environment;
   }
@@ -79,7 +77,7 @@ export default class PushNotificationService {
 
       if (notify_backend && pushToken) {
         // Send to our backend first and save locally only once successful.
-        await this.apiClient.updatePushToken(pushToken);
+        await pushNotificationApiClient.updatePushToken(pushToken);
         await this.savePushToken(pushToken);
       }
     } catch (error) {

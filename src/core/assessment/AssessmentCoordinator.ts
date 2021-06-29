@@ -3,9 +3,9 @@ import { ConfigType } from '@covid/core/Config';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import {
   homeScreenName,
-  ILocalisationService,
   isSECountry,
   isUSCountry,
+  localisationService,
 } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientStateType } from '@covid/core/patient/PatientState';
@@ -14,8 +14,6 @@ import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
-import { Services } from '@covid/provider/services.types';
-import { inject } from 'inversify';
 
 export type AssessmentData = {
   assessmentId?: string;
@@ -24,9 +22,6 @@ export type AssessmentData = {
 };
 
 export class AssessmentCoordinator extends Coordinator {
-  @inject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
-
   navigation: NavigationType;
 
   assessmentService: IAssessmentService;
@@ -137,7 +132,7 @@ export class AssessmentCoordinator extends Coordinator {
 
   startAssessment = () => {
     const currentPatient = this.patientData?.patientState;
-    const config = this.localisationService.getConfig();
+    const config = localisationService.getConfig();
     this.assessmentService.initAssessment(this.patientData.patientState.patientId);
 
     if (currentPatient.hasCompletedPatientDetails) {

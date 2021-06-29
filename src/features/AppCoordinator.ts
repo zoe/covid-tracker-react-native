@@ -2,7 +2,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ConfigType } from '@covid/core/Config';
 import { ConsentService } from '@covid/core/consent/ConsentService';
-import { IContentService } from '@covid/core/content/ContentService';
+import { contentService } from '@covid/core/content/ContentService';
 import {
   fetchDismissedCallouts,
   fetchFeaturedContent,
@@ -12,29 +12,27 @@ import {
   fetchUKMetrics,
 } from '@covid/core/content/state/contentSlice';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
-import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
+import { dietScoreApiClient } from '@covid/core/diet-score/DietScoreApiClient';
 import {
   homeScreenName,
-  ILocalisationService,
   isGBCountry,
   isUSCountry,
   LocalisationService,
+  localisationService,
 } from '@covid/core/localisation/LocalisationService';
 import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import store from '@covid/core/state/store';
 import { StartupInfo, UserResponse } from '@covid/core/user/dto/UserAPIContracts';
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
-import { Services } from '@covid/provider/services.types';
 import { assessmentService } from '@covid/Services';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { inject } from 'inversify';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -44,21 +42,6 @@ type ScreenFlow = {
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class AppCoordinator extends Coordinator implements ISelectProfile, IEditableProfile {
-  @inject(Services.User)
-  private readonly userService: IUserService;
-
-  @inject(Services.Patient)
-  private readonly patientService: IPatientService;
-
-  @inject(Services.Content)
-  contentService: IContentService;
-
-  @inject(Services.Localisation)
-  localisationService: ILocalisationService;
-
-  @inject(Services.DietScore)
-  dietScoreApiClient: IDietScoreRemoteClient;
-
   navigation: NavigationType;
 
   patientData: PatientData;
@@ -115,13 +98,13 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     },
 
     Splash: () => {
-      if (this.userService.hasUser && this.patientData && this.shouldShowCountryPicker) {
+      if (userService.hasUser && this.patientData && this.shouldShowCountryPicker) {
         NavigatorService.replace('CountrySelect', {
           onComplete: () => {
             NavigatorService.replace(homeScreenName());
           },
         });
-      } else if (this.userService.hasUser && this.patientData) {
+      } else if (userService.hasUser && this.patientData) {
         NavigatorService.replace(homeScreenName());
       } else {
         NavigatorService.replace('Welcome');
@@ -142,17 +125,17 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     let user: UserResponse | null = null;
     let patientId: string | null = null;
 
-    await this.userService.loadUser();
+    await userService.loadUser();
 
-    if (this.userService.hasUser) {
-      user = await this.userService.getUser();
+    if (userService.hasUser) {
+      user = await userService.getUser();
       patientId = user?.patients[0] ?? null;
       setUsername(user?.username ?? '');
       setPatients(user?.patients ?? []);
     }
 
     if (patientId && user) {
-      this.patientData = await this.patientService.getPatientDataById(patientId);
+      this.patientData = await patientService.getPatientDataById(patientId);
       this.shouldShowCountryPicker = user!.country_code !== LocalisationService.userCountry;
     }
 
@@ -189,7 +172,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   }
 
   getConfig(): ConfigType | undefined {
-    return this.localisationService.getConfig();
+    return localisationService.getConfig();
   }
 
   resetToProfileStartAssessment() {
@@ -198,7 +181,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   }
 
   startPatientFlow(patientData: PatientData) {
-    patientCoordinator.init(this, patientData, this.userService);
+    patientCoordinator.init(this, patientData, userService);
     patientCoordinator.startPatient();
   }
 
@@ -211,13 +194,13 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   async startEditProfile(profile: Profile) {
     await this.setPatientByProfile(profile);
 
-    editProfileCoordinator.init(this.patientData, this.userService);
+    editProfileCoordinator.init(this.patientData, userService);
     editProfileCoordinator.startEditProfile();
   }
 
   async startEditLocation(profile: Profile, patientData?: PatientData) {
     if (!patientData) await this.setPatientByProfile(profile);
-    editProfileCoordinator.init(patientData ?? this.patientData, this.userService);
+    editProfileCoordinator.init(patientData ?? this.patientData, userService);
     editProfileCoordinator.goToEditLocation();
   }
 
@@ -227,15 +210,15 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   }
 
   async setPatientById(patientId: string) {
-    this.patientData = await this.patientService.getPatientDataById(patientId);
+    this.patientData = await patientService.getPatientDataById(patientId);
   }
 
   async setPatientByProfile(profile: Profile) {
-    this.patientData = await this.patientService.getPatientDataByProfile(profile);
+    this.patientData = await patientService.getPatientDataByProfile(profile);
   }
 
   async setPatientToPrimary() {
-    const user = await this.userService.getUser();
+    const user = await userService.getUser();
     const patientId = user?.patients[0] ?? null;
 
     if (patientId) {
@@ -253,7 +236,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     if (this.patientData.patientState.isReportedByAnother) {
       await this.setPatientToPrimary();
     }
-    dietStudyPlaybackCoordinator.init(this, this.patientData, this.contentService, this.dietScoreApiClient);
+    dietStudyPlaybackCoordinator.init(this, this.patientData, contentService, dietScoreApiClient);
     NavigatorService.navigate('DietStudy');
   }
 

@@ -1,7 +1,7 @@
 import { apiClient, IApiClient } from '@covid/core/api/ApiClient';
 import { Services } from '@covid/provider/services.types';
 import Axios from 'axios';
-import { inject, injectable } from 'inversify';
+import { inject } from 'inversify';
 
 export interface IPredictiveMetricsClient {
   getDailyCases(): Promise<string>;
@@ -16,7 +16,6 @@ type PrevalenceResponse = {
   uk_prevalence: string;
 };
 
-@injectable()
 export class PredictiveMetricsClient implements IPredictiveMetricsClient {
   constructor(@inject(Services.IncidenceHttpApi) private apiClient: IApiClient) {
     const client = Axios.create({

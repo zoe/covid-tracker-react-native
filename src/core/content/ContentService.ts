@@ -6,9 +6,7 @@ import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
-import { Services } from '@covid/provider/services.types';
 import Constants from '@covid/utils/Constants';
-import { inject, injectable } from 'inversify';
 
 import { FeaturedContentResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
@@ -25,7 +23,6 @@ export interface IContentService {
   signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
 
-@injectable()
 export default class ContentService implements IContentService {
   localData: PersonalisedLocalData;
 

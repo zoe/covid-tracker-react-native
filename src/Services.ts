@@ -1,12 +1,10 @@
 import ApiClient from '@covid/core/api/ApiClient';
 import GeneralApiClient from '@covid/core/api/GeneralApiClient';
-import { AssessmentApiClient } from '@covid/core/assessment/AssessmentApiClient';
 import AssessmentService from '@covid/core/assessment/AssessmentService';
 import ReduxAssessmentState from '@covid/core/assessment/AssessmentState';
 import LocalStorageService from '@covid/core/LocalStorageService';
 import OfflineService from '@covid/core/offline/OfflineService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-import PushNotificationApiClient from '@covid/core/push-notifications/PushNotificationApiClient';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { VaccineService } from '@covid/core/vaccine/VaccineService';
 import { LongCovidApiClient } from '@covid/features/long-covid/LongCovidApiClient';
@@ -17,7 +15,6 @@ const apiClient = new ApiClient();
 export const offlineService = new OfflineService();
 
 export const pushNotificationService = new PushNotificationService(
-  new PushNotificationApiClient(apiClient),
   new LocalStorageService(),
   new ExpoPushTokenEnvironment(),
 );

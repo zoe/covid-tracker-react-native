@@ -3,7 +3,6 @@ import { ConfigType, getCountryConfig } from '@covid/core/Config';
 import { ScreenName } from '@covid/core/Coordinator';
 import i18n from '@covid/locale/i18n';
 import * as Localization from 'expo-localization';
-import { injectable } from 'inversify';
 
 export interface ILocalisationService {
   setUserCountry(countryCode: string): void;
@@ -15,7 +14,6 @@ export interface ILocalisationService {
   getConfig(): ConfigType | undefined;
 }
 
-@injectable()
 export class LocalisationService implements ILocalisationService {
   public static userCountry = 'US';
 

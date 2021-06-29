@@ -1,6 +1,4 @@
-import { apiClient, IApiClient } from '@covid/core/api/ApiClient';
-import { Services } from '@covid/provider/services.types';
-import { inject, injectable } from 'inversify';
+import { apiClient } from '@covid/core/api/ApiClient';
 
 import { TDietScoreResponse } from './dto/DietScoreResponse';
 
@@ -10,13 +8,10 @@ export interface IDietScoreRemoteClient {
   getDietScore(id: any): Promise<TDietScoreResponse>;
 }
 
-@injectable()
 export class DietScoreApiClient implements IDietScoreRemoteClient {
-  constructor(@inject(Services.Api) private apiClient: IApiClient) {}
-
   getDietScore(patientId: string): Promise<TDietScoreResponse> {
-    return this.apiClient.get<TDietScoreResponse>(`${API_URL}?patient=${patientId}`);
+    return apiClient.get<TDietScoreResponse>(`${API_URL}?patient=${patientId}`);
   }
 }
 
-export const dietScoreApiClient = new DietScoreApiClient(apiClient);
+export const dietScoreApiClient = new DietScoreApiClient();

@@ -1,6 +1,5 @@
 import { apiClient } from '@covid/core/api/ApiClient';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { injectable } from 'inversify';
 
 import { FeaturedContentResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
@@ -11,7 +10,6 @@ export interface IContentApiClient {
   signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
 
-@injectable()
 export class ContentApiClient implements IContentApiClient {
   getStartupInfo(): Promise<StartupInfo> {
     return apiClient.get<StartupInfo>('/users/startup_info/');
