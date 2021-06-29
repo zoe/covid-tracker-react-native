@@ -37,7 +37,8 @@ function ResetPasswordForm({
     <View>
       <View style={styles.formItem}>
         <HeaderText>
-          {i18n.t('reset-password.title')} {requiredFormMarker}
+          {i18n.t('reset-password.title')}
+          {requiredFormMarker}
         </HeaderText>
         <FormWrapper>
           <ValidatedTextInput
