@@ -26,7 +26,8 @@ export function GenericTextField(props: IProps) {
     <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
       {label ? (
         <RegularText>
-          {label} {props.required ? requiredFormMarker : null}
+          {label}
+          {props.required ? requiredFormMarker : null}
         </RegularText>
       ) : null}
       <ValidatedTextInput
