@@ -31,10 +31,10 @@ import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playbac
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
-import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { assessmentService } from '@covid/Services';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { inject } from 'inversify';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -44,19 +44,19 @@ type ScreenFlow = {
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class AppCoordinator extends Coordinator implements ISelectProfile, IEditableProfile {
-  @lazyInject(Services.User)
+  @inject(Services.User)
   private readonly userService: IUserService;
 
-  @lazyInject(Services.Patient)
+  @inject(Services.Patient)
   private readonly patientService: IPatientService;
 
-  @lazyInject(Services.Content)
+  @inject(Services.Content)
   contentService: IContentService;
 
-  @lazyInject(Services.Localisation)
+  @inject(Services.Localisation)
   localisationService: ILocalisationService;
 
-  @lazyInject(Services.DietScore)
+  @inject(Services.DietScore)
   dietScoreApiClient: IDietScoreRemoteClient;
 
   navigation: NavigationType;

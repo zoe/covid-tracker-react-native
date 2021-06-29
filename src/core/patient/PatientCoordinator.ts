@@ -6,11 +6,11 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { inject } from 'inversify';
 
 export class PatientCoordinator extends Coordinator implements IUpdatePatient {
-  @lazyInject(Services.Patient)
+  @inject(Services.Patient)
   private readonly patientService: IPatientService;
 
   appCoordinator: AppCoordinator;

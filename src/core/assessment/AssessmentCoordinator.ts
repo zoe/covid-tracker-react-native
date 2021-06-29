@@ -14,8 +14,8 @@ import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
-import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { inject } from 'inversify';
 
 export type AssessmentData = {
   assessmentId?: string;
@@ -24,7 +24,7 @@ export type AssessmentData = {
 };
 
 export class AssessmentCoordinator extends Coordinator {
-  @lazyInject(Services.Localisation)
+  @inject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
   navigation: NavigationType;

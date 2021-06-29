@@ -3,8 +3,6 @@
 import 'react-native-gesture-handler/jestSetup';
 
 import * as screens from '@covid/features/screens';
-import { container } from '@covid/provider/services';
-import { ServicesProvider } from '@covid/provider/services.provider';
 import { theme } from '@covid/themes';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import * as React from 'react';
@@ -26,7 +24,6 @@ type TConfig = {
   mockNavigator?: boolean;
   mockRedux?: boolean;
   mockSafeAreaProvider?: boolean;
-  mockServices?: boolean;
   mockTheme?: boolean;
 };
 
@@ -54,9 +51,6 @@ function testComponent(name: string, Component: React.ComponentType, config: TCo
     test(`${name} renders without error`, async () => {
       await act(async () => {
         let element = config.mockNavigator ? <MockedNavigator Component={Component} /> : <Component />;
-        if (config.mockServices) {
-          element = <ServicesProvider container={container}>{element}</ServicesProvider>;
-        }
         if (config.mockRedux) {
           element = <ReduxProvider store={store}>{element}</ReduxProvider>;
         }
@@ -74,5 +68,5 @@ function testComponent(name: string, Component: React.ComponentType, config: TCo
 
 describe('Test if the screens render without error', () =>
   Object.entries(screens).forEach(([key, value]) =>
-    testComponent(key, value, { mockNavigator: true, mockRedux: true, mockServices: true, mockTheme: true }),
+    testComponent(key, value, { mockNavigator: true, mockRedux: true, mockTheme: true }),
   ));

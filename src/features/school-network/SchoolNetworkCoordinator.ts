@@ -8,14 +8,14 @@ import { fetchSubscribedSchoolGroups, schoolSlice } from '@covid/core/schools/Sc
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import store from '@covid/core/state/store';
 import NavigatorService from '@covid/NavigatorService';
-import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { inject } from 'inversify';
 
 export class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
-  @lazyInject(Services.Patient)
+  @inject(Services.Patient)
   private readonly patientService: IPatientService;
 
-  @lazyInject(Services.SchoolService)
+  @inject(Services.SchoolService)
   private readonly schoolService: ISchoolService;
 
   patientData: PatientData;
