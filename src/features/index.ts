@@ -9,6 +9,7 @@ export * from './mental-health-playback';
 export * from './multi-profile';
 export * from './password-reset';
 export * from './patient';
+export * from './reconsent';
 export * from './register';
 export * from './school-network';
 export * from './splash';
