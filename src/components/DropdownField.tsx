@@ -127,7 +127,8 @@ export function DropdownField({
     <FieldWrapper style={styles.fieldWrapper}>
       {hideLabel ? null : (
         <Label style={styles.labelStyle}>
-          {label} {required ? requiredFormMarker : null}
+          {label}
+          {required ? requiredFormMarker : null}
         </Label>
       )}
       <ModalDropdown

@@ -17,7 +17,8 @@ export const FieldError = (props: FieldProps) => (
   </View>
 );
 
-export const requiredFormMarker = `*`;
+// The space character is added in this way to prevent the asterisk from being word-wrapped at the end of the line.
+export const requiredFormMarker = '\u00a0*';
 
 type TFormWrapperProps = {
   children: React.ReactNode;

@@ -97,7 +97,8 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
       {formikProps.values.knowsDateOfTest === 'yes' && (
         <>
           <RegularText style={styles.labelStyle}>
-            {i18n.t('covid-test.question-date-test-occurred')} {requiredFormMarker}
+            {i18n.t('covid-test.question-date-test-occurred')}
+            {requiredFormMarker}
           </RegularText>
           {state.showDatePicker ? (
             <CalendarPicker
@@ -122,7 +123,8 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
       {formikProps.values.knowsDateOfTest === 'no' && (
         <>
           <RegularText style={styles.labelStyle}>
-            {i18n.t('covid-test.question-date-test-occurred-guess')} {requiredFormMarker}
+            {i18n.t('covid-test.question-date-test-occurred-guess')}
+            {requiredFormMarker}
           </RegularText>
 
           {state.showRangePicker ? (
