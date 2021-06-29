@@ -32,7 +32,7 @@ export default class CreateProfileScreen extends React.Component<RenderProps> {
 
   handleClick = (formData: FormData) => {
     this.props.navigation.navigate('AdultOrChild', {
-      avatarName: this.props.route.params.avatarName,
+      avatarName: this.props.route.params?.avatarName,
       profileName: formData.name,
     });
   };

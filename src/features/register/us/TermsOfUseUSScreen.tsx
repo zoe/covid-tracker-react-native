@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 export default class TermsOfUseUSScreen extends React.Component<PropsType> {
-  viewOnly = this.props.route.params.viewOnly;
+  viewOnly = this.props.route.params?.viewOnly;
 
   render() {
     return (

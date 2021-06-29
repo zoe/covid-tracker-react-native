@@ -3,13 +3,11 @@ import { Loading } from '@covid/components/Loading';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { covidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -32,9 +30,6 @@ type State = {
 };
 
 export default class CovidTestListScreen extends React.Component<Props, State> {
-  @lazyInject(Services.CovidTest)
-  private readonly covidTestService: ICovidTestService;
-
   state: State = {
     covidTests: [],
     isLoading: false,
@@ -46,9 +41,10 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
     this.unsubscribe = this.props.navigation.addListener('focus', async () => {
       this.setState({ isLoading: true });
       try {
-        const tests = (await this.covidTestService.listTests()).data;
-        const { patientId } = AssessmentCoordinator.assessmentData.patientData;
-        const patientTests = tests.filter((t) => t.patient === patientId);
+        const tests = (await covidTestService.listTests()).data;
+        const patientTests = tests.filter(
+          (t) => t.patient === assessmentCoordinator.assessmentData?.patientData?.patientId,
+        );
         this.setState({ covidTests: patientTests, isLoading: false });
       } finally {
         this.setState({ isLoading: false });
@@ -61,28 +57,27 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
   }
 
   getCovidTestType = (): CovidTestType => {
-    return AssessmentCoordinator.assessmentData.patientData.patientState.isNHSStudy
+    return assessmentCoordinator.assessmentData?.patientData?.patientState?.isNHSStudy
       ? CovidTestType.NHSStudy
       : CovidTestType.Generic;
   };
 
   gotoAddTest = () => {
     const testType = this.getCovidTestType();
-    AssessmentCoordinator.goToAddEditTest(testType);
+    assessmentCoordinator.goToAddEditTest(testType);
   };
 
   handleNextButton = async () => {
-    AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+    assessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
+    const currentPatient = assessmentCoordinator.assessmentData?.patientData?.patientState;
     const { isLoading } = this.state;
-    const { isNHSStudy } = currentPatient;
 
     return (
       <View style={styles.rootContainer}>
-        <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+        <Screen navigation={this.props.navigation} profile={currentPatient?.profile}>
           <Header>
             <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
@@ -91,7 +86,7 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
             <ProgressStatus maxSteps={1} step={0} />
           </ProgressBlock>
 
-          {isNHSStudy ? (
+          {currentPatient?.isNHSStudy ? (
             <RegularText style={styles.content}>
               <RegularText>{i18n.t('covid-test-list.nhs-text')}</RegularText>
               <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/passt')}>

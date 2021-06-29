@@ -1,9 +1,9 @@
 import { gbFlag, svFlag, usFlag } from '@assets';
 import { BasicNavHeader, SafeLayout } from '@covid/components';
-import { localisationServce } from '@covid/core/localisation/LocalisationService';
+import { localisationService } from '@covid/core/localisation/LocalisationService';
 import { SupportedCountryCodes } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { grid, styling } from '@covid/themes';
@@ -40,11 +40,11 @@ const countries: TCountry[] = [
 
 export function CountrySelectScreen(props: IProps) {
   async function selectCountry(countryCode: SupportedCountryCodes) {
-    await localisationServce.setUserCountry(countryCode);
+    await localisationService.setUserCountry(countryCode);
 
     if (appCoordinator.shouldShowCountryPicker && props.route?.params?.onComplete) {
       await userService.updateCountryCode({ country_code: countryCode });
-      props.route.params.onComplete();
+      props.route.params?.onComplete();
     } else {
       props.navigation.reset({
         index: 0,

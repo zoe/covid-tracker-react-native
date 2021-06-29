@@ -6,13 +6,13 @@ import {
 import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IMentalHealthLearning = {
+export const initialStateMentalHealthLearning: IMentalHealthLearning = {
   conditions: [],
   hasDisability: undefined,
 };
 
 const mentalHealthLearningSlice = createSlice({
-  initialState,
+  initialState: initialStateMentalHealthLearning,
   name: 'MentalHealthLearning',
   reducers: {
     addLearningCondition: (state, action: PayloadAction<TMentalHealthLearning>) => {

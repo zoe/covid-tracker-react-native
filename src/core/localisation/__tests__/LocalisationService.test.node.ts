@@ -1,15 +1,7 @@
 import { getCountryConfig } from '@covid/core/Config';
-import { ILocalisationService, LocalisationService } from '@covid/core/localisation/LocalisationService';
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
+import { LocalisationService, localisationService } from '@covid/core/localisation/LocalisationService';
 
 describe('Checks LocalisationService', () => {
-  let localisationService: ILocalisationService;
-
-  beforeAll(() => {
-    localisationService = container.get<ILocalisationService>(Services.Localisation);
-  });
-
   it('service should be fetched from container', () => {
     expect(localisationService).toBeDefined();
   });

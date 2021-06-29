@@ -12,7 +12,7 @@ export interface ILocalisationService {
   shouldAskCountryConfirmation(): Promise<boolean>;
   defaultCountryFromLocale(): void;
   updateUserCountry(isLoggedIn: boolean): void;
-  getConfig(): ConfigType;
+  getConfig(): ConfigType | undefined;
 }
 
 @injectable()
@@ -27,7 +27,7 @@ export class LocalisationService implements ILocalisationService {
     LocalisationService.countryConfig = getCountryConfig(countryCode);
   }
 
-  getConfig(): ConfigType {
+  getConfig(): ConfigType | undefined {
     return LocalisationService.countryConfig;
   }
 
@@ -118,4 +118,4 @@ export const isUSCountry = () => LocalisationService.userCountry === 'US';
 export const isGBCountry = () => LocalisationService.userCountry === 'GB';
 export const isSECountry = () => LocalisationService.userCountry === 'SE';
 
-export const localisationServce = new LocalisationService();
+export const localisationService = new LocalisationService();

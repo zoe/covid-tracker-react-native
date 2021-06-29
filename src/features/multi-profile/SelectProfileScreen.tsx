@@ -3,13 +3,11 @@ import { BackButton } from '@covid/components/PatientHeader';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { localisationService } from '@covid/core/localisation/LocalisationService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { offlineService } from '@covid/Services';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
@@ -33,10 +31,9 @@ export type SelectProfileCoordinator =
 const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
   const { status, error, isLoaded, isApiError, setIsApiError, setError, profiles, listProfiles, retryListProfiles } =
     useProfileList();
-  const { assessmentFlow } = route.params;
+  const assessmentFlow = route.params?.assessmentFlow;
   const coordinator: SelectProfileCoordinator = appCoordinator;
-  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
-  const showCreateProfile = localisationService.getConfig().enableMultiplePatients;
+  const config = localisationService.getConfig();
 
   React.useEffect(() => {
     return navigation.addListener('focus', listProfiles);
@@ -83,7 +80,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
 
           <ProfileList
             addProfile={
-              showCreateProfile
+              config?.enableMultiplePatients
                 ? () => {
                     gotoCreateProfile();
                   }

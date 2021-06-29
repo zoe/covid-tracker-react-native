@@ -1,5 +1,5 @@
 import { HeaderText } from '@covid/components/Text';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';

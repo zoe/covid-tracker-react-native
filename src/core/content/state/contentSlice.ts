@@ -1,15 +1,13 @@
 import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
-import { IContentService } from '@covid/core/content/ContentService';
+import { contentService } from '@covid/core/content/ContentService';
 import {
   IFeaturedContent,
   ITrendLineData,
   ITrendLineTimeSeriesData,
 } from '@covid/core/content/dto/ContentAPIContracts';
-import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
+import { predictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { createAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 
@@ -46,7 +44,7 @@ export type ContentState = {
 
 const todaysDate = (): string => moment().format('dddd Do MMMM');
 
-const initialState: ContentState = {
+export const initialStateContent: ContentState = {
   dismissedCallouts: [],
   exploreTrendlineUpdating: false,
   featuredHome: [],
@@ -76,21 +74,19 @@ export const fetchDismissedCallouts = createAsyncThunk('content/dismissed_callou
 });
 
 export const fetchStartUpInfo = createAsyncThunk('content/startup_info', async (): Promise<Partial<ContentState>> => {
-  const service = container.get<IContentService>(Services.Content);
   // TODO: refactor the ContentService - localData is a property set async on the class within getStartupInfo() (line 107)
   // TICKET: https://www.notion.so/joinzoe/Refactor-ContentService-7ea01969fff54f8299d53f95f05dcb6d
-  const serviceData = await service.getStartupInfo();
+  const serviceData = await contentService.getStartupInfo();
   return {
-    personalizedLocalData: service.localData,
+    personalizedLocalData: contentService.localData,
     startupInfo: serviceData,
   };
 });
 
 export const fetchUKMetrics = createAsyncThunk('content/uk_metrics', async (): Promise<Partial<ContentState>> => {
-  const service = container.get<IPredictiveMetricsClient>(Services.PredictiveMetricsClient);
   return {
-    ukActive: (await service.getActiveCases()) ?? undefined,
-    ukDaily: (await service.getDailyCases()) ?? undefined,
+    ukActive: (await predictiveMetricsClient.getActiveCases()) ?? undefined,
+    ukDaily: (await predictiveMetricsClient.getDailyCases()) ?? undefined,
   };
 });
 
@@ -101,8 +97,7 @@ export type FetchLocalTrendlinePayload = {
 export const fetchLocalTrendLine = createAsyncThunk<Promise<Partial<ContentState>>>(
   'content/fetch_local_trend_line',
   async (): Promise<Partial<ContentState>> => {
-    const service = container.get<IContentService>(Services.Content);
-    const { timeseries, ...trendline } = await service.getTrendLines();
+    const { timeseries, ...trendline } = await contentService.getTrendLines();
     return {
       localTrendline: {
         delta: getTrendLineDelta(timeseries, 7),
@@ -116,9 +111,8 @@ export const fetchLocalTrendLine = createAsyncThunk<Promise<Partial<ContentState
 export const fetchFeaturedContent = createAsyncThunk('content/featured_content', async (): Promise<
   Partial<ContentState>
 > => {
-  const service = container.get<IContentService>(Services.Content);
   try {
-    const content = await service.getFeaturedContent();
+    const content = await contentService.getFeaturedContent();
     const sort = <T extends IFeaturedContent>(left: T, right: T): number =>
       left.order_index > right.order_index ? 1 : -1;
     const home = content.filter((item) => item.featured_uk_home === true).sort(sort);
@@ -138,8 +132,7 @@ export const fetchFeaturedContent = createAsyncThunk('content/featured_content',
 export const searchTrendLine = createAsyncThunk('content/search_trend_line', async (query?: string): Promise<
   Partial<ContentState>
 > => {
-  const service = container.get<IContentService>(Services.Content);
-  const { timeseries, ...trendline } = await service.getTrendLines(query);
+  const { timeseries, ...trendline } = await contentService.getTrendLines(query);
   return {
     exploreTrendline: {
       delta: getTrendLineDelta(timeseries, 7),
@@ -221,7 +214,7 @@ export const contentSlice = createSlice({
       current.exploreTrendlineUpdating = false;
     },
   },
-  initialState,
+  initialState: initialStateContent,
   name: 'content',
   reducers: {},
 });

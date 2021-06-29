@@ -55,3 +55,5 @@ export class SchoolService implements ISchoolService {
     });
   }
 }
+
+export const schoolService = new SchoolService();

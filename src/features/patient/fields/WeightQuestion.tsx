@@ -3,10 +3,8 @@ import { requiredFormMarker } from '@covid/components/Forms';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { isUSCountry, localisationService } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { FormikProps } from 'formik';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -107,12 +105,12 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
 };
 
 WeightQuestion.initialFormValues = () => {
-  const features = container.get<ILocalisationService>(Services.Localisation).getConfig();
+  const config = localisationService.getConfig();
   return {
     pounds: '',
     stones: '',
     weight: '',
-    weightUnit: features.defaultWeightUnit,
+    weightUnit: config?.defaultWeightUnit || '',
   };
 };
 

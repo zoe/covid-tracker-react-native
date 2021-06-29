@@ -1,6 +1,6 @@
-import styled from '@covid/themes/styled-components';
 import { colors } from '@theme/colors';
 import { View } from 'react-native';
+import styled from 'styled-components/native';
 
 export const SContainerView = styled(View)`
   ${(props) => `

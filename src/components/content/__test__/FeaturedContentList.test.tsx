@@ -1,9 +1,7 @@
 import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
 import { FeaturedContentList, FeaturedContentType } from '@covid/components/Content/FeaturedContentList';
-import ApiClient from '@covid/core/api/ApiClient';
+import { apiClient } from '@covid/core/api/ApiClient';
 import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import MockAdapter from 'axios-mock-adapter';
 import * as React from 'react';
 import { Provider } from 'react-redux';
@@ -11,7 +9,6 @@ import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-// Mock Redux store
 const mockReduxStore = (state: any) => {
   const middlewares = [thunk];
   const mockStore = configureStore(middlewares);
@@ -20,10 +17,7 @@ const mockReduxStore = (state: any) => {
 };
 
 const mockNetworkResponse = () => {
-  const api = container.get<ApiClient>(Services.Api);
-  const client = api.getClient();
-  // Mock
-  const mock = new MockAdapter(client);
+  const mock = new MockAdapter(apiClient.getClient());
   mock.onGet('/content/').reply(200, FeaturedContentJson);
 };
 
@@ -33,8 +27,6 @@ describe('FeaturedContentList tests', () => {
   });
 
   it('renders home screen featured content correctly', async () => {
-    // Test Redux action
-    // Unable to type but should be AsyncThunk<Partial<ContentState>, any, any>;
     const testActionStore = mockReduxStore({});
     const result = await testActionStore.dispatch<any>(fetchFeaturedContent());
     const content = result.payload.featuredHome;
@@ -49,7 +41,6 @@ describe('FeaturedContentList tests', () => {
       },
     });
 
-    // Test rendering
     const instance = renderer.create(
       <Provider store={testContentStore}>
         <FeaturedContentList disableLoadingState screenName="Screen name" type={FeaturedContentType.Home} />
@@ -64,8 +55,6 @@ describe('FeaturedContentList tests', () => {
   });
 
   it('renders home screen featured content correctly', async () => {
-    // Test Redux action
-    // Unable to type but should be AsyncThunk<Partial<ContentState>, any, any>;
     const testActionStore = mockReduxStore({});
     const result = await testActionStore.dispatch<any>(fetchFeaturedContent());
     const content = result.payload.featuredThankyou;
@@ -80,7 +69,6 @@ describe('FeaturedContentList tests', () => {
       },
     });
 
-    // Test rendering
     const instance = renderer.create(
       <Provider store={testContentStore}>
         <FeaturedContentList disableLoadingState screenName="Screen name" type={FeaturedContentType.ThankYou} />

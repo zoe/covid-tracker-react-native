@@ -5,8 +5,8 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { covidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import {
   CovidTestDateQuestion,
@@ -25,8 +25,6 @@ import {
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
@@ -59,9 +57,6 @@ const initialState: State = {
 };
 
 export default class CovidTestDetailScreen extends React.Component<CovidProps, State> {
-  @lazyInject(Services.CovidTest)
-  private readonly covidTestService: ICovidTestService;
-
   constructor(props: CovidProps) {
     super(props);
     this.state = initialState;
@@ -83,7 +78,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
         infos.id = this.testId;
         assessmentCoordinator.goToTestConfirm(infos as CovidTest);
       } else {
-        this.covidTestService
+        covidTestService
           .updateTest(this.props.route.params?.test?.id, infos)
           .then(() => {
             NavigatorService.goBack();
@@ -100,7 +95,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
       this.setState({ submitting: false });
       assessmentCoordinator.goToTestConfirm(infos as CovidTest);
     } else {
-      this.covidTestService
+      covidTestService
         .addTest(infos)
         .then(() => {
           NavigatorService.goBack();
@@ -167,7 +162,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
   }
 
   async deleteTest() {
-    await this.covidTestService.deleteTest(this.testId!);
+    await covidTestService.deleteTest(this.testId!);
     this.props.navigation.goBack();
     Analytics.track(events.DELETE_COVID_TEST);
   }

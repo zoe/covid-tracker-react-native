@@ -30,3 +30,5 @@ export class ProfileService implements IProfileService {
     }
   }
 }
+
+export const profileService = new ProfileService();

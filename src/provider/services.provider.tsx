@@ -7,6 +7,6 @@ interface Props {
   container: Container;
 }
 
-export const Provider: React.FC<Props> = ({ container, children }) => {
+export const ServicesProvider: React.FC<Props> = ({ container, children }) => {
   return <InversifyContext.Provider value={{ container }}>{children}</InversifyContext.Provider>;
 };

@@ -4,12 +4,10 @@ import { ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/c
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import Analytics, { events } from '@covid/core/Analytics';
 import { setUsername } from '@covid/core/state/user';
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -50,9 +48,6 @@ const initialRegistrationValues = {
 };
 
 class RegisterScreen extends React.Component<PropsType, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
   private passwordComponent: any;
 
   constructor(props: PropsType) {
@@ -68,7 +63,7 @@ class RegisterScreen extends React.Component<PropsType, State> {
   private handleCreateAccount(formData: RegistrationData) {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
-      this.userService
+      userService
         .register(formData.email, formData.password)
         .then(async (response) => {
           const isTester = response.user.is_tester;

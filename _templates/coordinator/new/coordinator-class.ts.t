@@ -14,9 +14,6 @@ export class <%= h.inflection.camelize(h.coordinatorName(name)) %> extends Coord
   appCoordinator: AppCoordinator;
   patientData: PatientData;
 
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
   screenFlow: Partial<ScreenFlow> = {
     // __HYGEN_INJECT_SCREEN_FLOW_ABOVE__
   } as Partial<ScreenFlow>;

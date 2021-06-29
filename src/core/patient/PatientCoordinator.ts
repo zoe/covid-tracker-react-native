@@ -10,6 +10,9 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
 export class PatientCoordinator extends Coordinator implements IUpdatePatient {
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
+
   appCoordinator: AppCoordinator;
 
   navigation: NavigationType;
@@ -17,9 +20,6 @@ export class PatientCoordinator extends Coordinator implements IUpdatePatient {
   userService: IUserService;
 
   patientData: PatientData;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
 
   screenFlow: Partial<ScreenFlow> = {
     AboutYou: () => {
@@ -50,7 +50,7 @@ export class PatientCoordinator extends Coordinator implements IUpdatePatient {
   };
 
   startPatient = () => {
-    const currentPatient = this.patientData.patientState;
+    const currentPatient = this.patientData?.patientState;
     const shouldAskStudy = isUSCountry() && currentPatient.shouldAskStudy;
 
     if (shouldAskStudy) {
@@ -68,5 +68,4 @@ export class PatientCoordinator extends Coordinator implements IUpdatePatient {
   }
 }
 
-const patientCoordinator = new PatientCoordinator();
-export default patientCoordinator;
+export const patientCoordinator = new PatientCoordinator();

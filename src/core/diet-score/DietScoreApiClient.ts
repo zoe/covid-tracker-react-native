@@ -1,4 +1,4 @@
-import { IApiClient } from '@covid/core/api/ApiClient';
+import { apiClient, IApiClient } from '@covid/core/api/ApiClient';
 import { Services } from '@covid/provider/services.types';
 import { inject, injectable } from 'inversify';
 
@@ -18,3 +18,5 @@ export class DietScoreApiClient implements IDietScoreRemoteClient {
     return this.apiClient.get<TDietScoreResponse>(`${API_URL}?patient=${patientId}`);
   }
 }
+
+export const dietScoreApiClient = new DietScoreApiClient(apiClient);

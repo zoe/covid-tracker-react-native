@@ -12,7 +12,7 @@ import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
+import { schoolNetworkCoordinator } from './SchoolNetworkCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolHowTo'>;
@@ -26,7 +26,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
     coordinator.gotoNextScreen(route.name);
   };
 
-  const currentPatient = route.params.patientData?.patientState;
+  const currentPatient = route.params?.patientData?.patientState;
 
   return (
     <View style={styles.container}>

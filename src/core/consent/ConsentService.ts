@@ -43,3 +43,5 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
   }
 }
+
+export const consentService = new ConsentService();

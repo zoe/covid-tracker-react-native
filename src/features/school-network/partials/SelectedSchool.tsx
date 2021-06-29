@@ -4,7 +4,7 @@ import { ClickableText, Header3Text, HeaderText, RegularText } from '@covid/comp
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import * as React from 'react';

@@ -14,7 +14,7 @@ interface IProps {
 }
 
 export default function LongCovidStartScreen({ route }: IProps) {
-  const { patientData } = route.params;
+  const patientData = route.params?.patientData;
 
   return (
     <BasicPage

@@ -2,11 +2,9 @@ import { Button } from '@covid/components/buttons/Button';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { ValidationError } from '@covid/components/ValidationError';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { ISchoolService } from '@covid/core/schools/SchoolService';
+import { schoolService } from '@covid/core/schools/SchoolService';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import * as React from 'react';
@@ -18,8 +16,6 @@ interface IProps {
 }
 
 function SchoolForm({ patientData }: IProps) {
-  const service = useInjection<ISchoolService>(Services.SchoolService);
-
   const validationSchema = Yup.object().shape({
     schoolCode: Yup.string()
       .required('Please enter your school code.')
@@ -31,8 +27,7 @@ function SchoolForm({ patientData }: IProps) {
       initialValues={{ schoolCode: '' }}
       onSubmit={async ({ schoolCode }, FormikProps) => {
         try {
-          // setIsLoading(true);
-          const response = await service.getSchoolById(schoolCode);
+          const response = await schoolService.getSchoolById(schoolCode);
           NavigatorService.navigate('ConfirmSchool', {
             patientData,
             school: response[0],

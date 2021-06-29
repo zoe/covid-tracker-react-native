@@ -7,13 +7,11 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
+import { patientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { stripAndRound } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -75,9 +73,6 @@ const initialState: State = {
 };
 
 export default class PreviousExposureScreen extends React.Component<HealthProps, State> {
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
   constructor(props: HealthProps) {
     super(props);
     this.state = initialState;
@@ -102,12 +97,12 @@ export default class PreviousExposureScreen extends React.Component<HealthProps,
   handleUpdateHealth(formData: IYourHealthData) {
     const infos = this.createPatientInfos(formData);
 
-    this.patientService
+    patientService
       .updatePatientInfo(patientCoordinator.patientData?.patientState?.patientId, infos)
       .then(async (info) => {
         const currentState = patientCoordinator.patientData.patientState;
         patientCoordinator.patientData.patientInfo = info;
-        patientCoordinator.patientData.patientState = await this.patientService.updatePatientState(currentState, info);
+        patientCoordinator.patientData.patientState = await patientService.updatePatientState(currentState, info);
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => {

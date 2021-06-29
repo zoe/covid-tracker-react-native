@@ -2,13 +2,13 @@ import { IMentalHealthSupport, TGeneralAnswer } from '@covid/core/state/mental-h
 import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IMentalHealthSupport = {
+export const initialStateMentalHealthSupport: IMentalHealthSupport = {
   hasNeededSupport: undefined,
   hasReceivedSupport: undefined,
 };
 
 const mentalHealthSupportSlice = createSlice({
-  initialState,
+  initialState: initialStateMentalHealthSupport,
   name: 'MentalHealthSupport',
   reducers: {
     setHasNeededSupport: (state, action: PayloadAction<TGeneralAnswer>) => {

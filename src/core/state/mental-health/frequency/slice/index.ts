@@ -2,7 +2,7 @@ import { IMentalHealthFrequency, TMentalHealthFrequency } from '@covid/core/stat
 import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IMentalHealthFrequency = {
+export const initialStateMentalHealthFrequency: IMentalHealthFrequency = {
   feelingDown: undefined,
   feelingNervous: undefined,
   pleasureInDoingThings: undefined,
@@ -10,7 +10,7 @@ const initialState: IMentalHealthFrequency = {
 };
 
 const mentalHealthFrequencySlice = createSlice({
-  initialState,
+  initialState: initialStateMentalHealthFrequency,
   name: 'MentalHealthFrequency',
   reducers: {
     setFeelingDown: (state, action: PayloadAction<TMentalHealthFrequency>) => {

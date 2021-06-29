@@ -6,15 +6,13 @@ import { ClickableText, ErrorText, HeaderText, RegularText } from '@covid/compon
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
 import { Coordinator } from '@covid/core/Coordinator';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
+import { patientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '@covid/features';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
@@ -33,11 +31,12 @@ interface IProps {
 }
 
 export function NHSIntroScreen(props: IProps) {
-  const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
+  const coordinator: Coordinator = props.route.params?.editing ? editProfileCoordinator : patientCoordinator;
 
-  const patientService = useInjection<IPatientService>(Services.Patient);
   const [consent, setConsent] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
+
+  const currentPatient = coordinator.patientData?.patientState;
 
   const checkFormFilled = (props: FormikProps<IData>) => {
     if (Object.keys(props.errors).length) return false;
@@ -50,19 +49,16 @@ export function NHSIntroScreen(props: IProps) {
   };
 
   const handleCancel = () => {
-    const currentPatient = coordinator.patientData.patientState;
-    const { patientId } = currentPatient;
-
     const infos = {
       is_in_uk_nhs_asymptomatic_study: false,
     };
 
     patientService
-      .updatePatientInfo(patientId, infos)
+      .updatePatientInfo(currentPatient?.patientId, infos)
       .then(() => {
         currentPatient.isNHSStudy = false;
 
-        if (props.route.params.editing) {
+        if (props.route.params?.editing) {
           NavigatorService.goBack();
         } else {
           coordinator.gotoNextScreen(props.route.name);
@@ -72,12 +68,10 @@ export function NHSIntroScreen(props: IProps) {
   };
 
   const handleSubmit = (formData: IData) => {
-    const currentPatient = coordinator.patientData.patientState;
-    const { patientId } = currentPatient;
     const infos = createPatientInfos(formData);
 
     patientService
-      .updatePatientInfo(patientId, infos)
+      .updatePatientInfo(currentPatient?.patientId, infos)
       .then(() => {
         coordinator.gotoNextScreen(props.route.name);
       })
@@ -91,10 +85,9 @@ export function NHSIntroScreen(props: IProps) {
   };
 
   const registerSchema = Yup.object().shape({});
-  const currentPatient = coordinator.patientData.patientState;
 
   return (
-    <Screen navigation={props.navigation} profile={currentPatient.profile}>
+    <Screen navigation={props.navigation} profile={currentPatient?.profile}>
       <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
         <NHSLogo />
       </View>

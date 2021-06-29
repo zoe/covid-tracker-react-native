@@ -3,7 +3,7 @@ import { BrandedButton, DoctorProfile, ModalZoe, Tag, Text } from '@covid/compon
 import { events, track } from '@covid/core/Analytics';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
 import { generalApiClient } from '@covid/Services';

@@ -2,7 +2,7 @@ import { BigButton } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { CaptionText, HeaderText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
@@ -19,15 +19,14 @@ interface IProps {
 
 function TreatmentSelectionScreen({ navigation, route }: IProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   const title =
-    route.params.location === 'back_from_hospital'
+    route.params?.location === 'back_from_hospital'
       ? i18n.t('treatment-selection-title-after')
       : i18n.t('treatment-selection-title-during');
   const isFocused = useIsFocused();
 
   const handleTreatment = async (treatment: string) => {
-    const { location } = route.params;
+    const location = route.params?.location;
     if (isSubmitting) {
       return;
     }
@@ -38,7 +37,7 @@ function TreatmentSelectionScreen({ navigation, route }: IProps) {
       const assessment = { treatment };
       await assessmentService.completeAssessment(
         assessment,
-        assessmentCoordinator.assessmentData.patientData.patientInfo!,
+        assessmentCoordinator.assessmentData?.patientData?.patientInfo!,
       );
       assessmentCoordinator.gotoNextScreen(route.name, { location, other: false });
     }
@@ -49,7 +48,7 @@ function TreatmentSelectionScreen({ navigation, route }: IProps) {
   }, [isFocused]);
 
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}>
       <Header>
         <HeaderText>{title}</HeaderText>
       </Header>

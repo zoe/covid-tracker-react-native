@@ -136,7 +136,7 @@ export class AssessmentCoordinator extends Coordinator {
   };
 
   startAssessment = () => {
-    const currentPatient = this.patientData.patientState;
+    const currentPatient = this.patientData?.patientState;
     const config = this.localisationService.getConfig();
     this.assessmentService.initAssessment(this.patientData.patientState.patientId);
 
@@ -183,9 +183,9 @@ export class AssessmentCoordinator extends Coordinator {
     });
   };
 
-  static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
+  static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType | undefined) {
     return (
-      ((config.showRaceQuestion || config.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
+      ((config?.showRaceQuestion || config?.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
       currentPatient.shouldAskExtendedDiabetes ||
       !currentPatient.hasBloodPressureAnswer ||
       !currentPatient.hasAtopyAnswers ||
@@ -247,5 +247,4 @@ export class AssessmentCoordinator extends Coordinator {
   }
 }
 
-const assessmentCoordinator = new AssessmentCoordinator();
-export default assessmentCoordinator;
+export const assessmentCoordinator = new AssessmentCoordinator();

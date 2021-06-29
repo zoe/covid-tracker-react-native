@@ -1,4 +1,4 @@
-import Info from '@assets/mental-health-playback/info.svg';
+import Info from '@assets/mental-health-playback/Info';
 import Introduction, { defaultWidth as introductionWidth } from '@assets/mental-health-playback/Introduction';
 import { BasicPage, Text } from '@covid/components';
 import Card from '@covid/components/cards/Card';

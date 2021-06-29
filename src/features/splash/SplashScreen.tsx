@@ -1,14 +1,12 @@
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import { setPatients, setUsername } from '@covid/core/state/user';
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import Splash from '@covid/features/splash/components/Splash';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -32,9 +30,6 @@ type SplashState = {
 };
 
 class SplashScreen extends React.Component<Props, SplashState> {
-  @lazyInject(Services.User)
-  userService: IUserService;
-
   constructor(props: Props) {
     super(props);
 
@@ -94,7 +89,7 @@ class SplashScreen extends React.Component<Props, SplashState> {
   };
 
   private logout = async () => {
-    await this.userService.logout();
+    await userService.logout();
   };
 
   public render() {

@@ -5,7 +5,7 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { ISchoolGroupModel } from '@covid/core/schools/Schools.dto';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';

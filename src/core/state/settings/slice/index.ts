@@ -3,7 +3,7 @@ import { RootState } from '@covid/core/state/root';
 import { ISettings } from '@covid/core/state/settings/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: ISettings = {
+export const initialStateSettings: ISettings = {
   hasEmailSubscription: false,
 };
 
@@ -23,7 +23,7 @@ const settingsSlice = createSlice({
       state.hasEmailSubscription = action.payload.nutrition_newsletter;
     },
   },
-  initialState,
+  initialState: initialStateSettings,
   name: 'Settings',
   reducers: {
     setHasEmailSubscription: (state, action: PayloadAction<boolean>) => {

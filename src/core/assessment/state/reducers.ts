@@ -2,12 +2,12 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 
 import { ActionTypes, AssessmentActions, PayloadActionType } from './types';
 
-const initialState: Partial<AssessmentInfosRequest> = {};
+export const initialStateAssessment: Partial<AssessmentInfosRequest> = {};
 
-const reducer = (state = initialState, action: AssessmentActions): Partial<AssessmentInfosRequest> => {
+const reducer = (state = initialStateAssessment, action: AssessmentActions): Partial<AssessmentInfosRequest> => {
   switch (action.type) {
     case ActionTypes.ASSESSMENT_CLEARED:
-      return initialState;
+      return initialStateAssessment;
     case ActionTypes.ASSESSMENT_UPDATED:
       return {
         ...state,

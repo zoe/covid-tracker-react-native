@@ -4,21 +4,22 @@ import { PatientData } from '@covid/core/patient/PatientData';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { inject } from 'inversify';
 
 export class EditProfileCoordinator extends Coordinator implements IUpdatePatient {
+  @inject(Services.Patient)
+  private readonly patientService: IPatientService;
+
+  @inject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
   userService: IUserService;
 
   patientData: PatientData;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
 
   screenFlow: Partial<ScreenFlow> = {
     AboutYou: () => {
@@ -94,14 +95,14 @@ export class EditProfileCoordinator extends Coordinator implements IUpdatePatien
   }
 
   shouldShowEditStudy() {
-    const currentPatient = this.patientData.patientState;
-    const config = this.localisationService.getConfig();
+    const currentPatient = this.patientData?.patientState;
+    const config = this.localisationService?.getConfig();
 
-    return config.enableCohorts && currentPatient.shouldAskStudy;
+    return config?.enableCohorts && currentPatient.shouldAskStudy;
   }
 
   shouldShowSchoolNetwork() {
-    const currentPatient = this.patientData.patientState;
+    const currentPatient = this.patientData?.patientState;
     return isGBCountry() && currentPatient.isReportedByAnother && currentPatient.isMinor;
   }
 
@@ -110,5 +111,4 @@ export class EditProfileCoordinator extends Coordinator implements IUpdatePatien
   }
 }
 
-const editProfileCoordinator = new EditProfileCoordinator();
-export default editProfileCoordinator;
+export const editProfileCoordinator = new EditProfileCoordinator();

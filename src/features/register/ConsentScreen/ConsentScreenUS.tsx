@@ -19,8 +19,8 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
   const [termsOfUseChecked, setTermsOfUseChecked] = React.useState(false);
 
   const onNurseConsentPress = React.useCallback(
-    () => navigation.replace('NursesConsentUS', { viewOnly: route.params.viewOnly }),
-    [navigation.replace, route.params.viewOnly],
+    () => navigation.replace('NursesConsentUS', { viewOnly: route.params?.viewOnly }),
+    [navigation.replace, route.params?.viewOnly],
   );
 
   const onInfoLinkPress = React.useCallback(
@@ -29,13 +29,13 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
   );
 
   const onPrivacyPolicyPress = React.useCallback(
-    () => navigation.navigate('PrivacyPolicyUS', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly],
+    () => navigation.navigate('PrivacyPolicyUS', { viewOnly: route.params?.viewOnly }),
+    [navigation.navigate, route.params?.viewOnly],
   );
 
   const onTermsOfUsePress = React.useCallback(
-    () => navigation.navigate('TermsOfUseUS', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly],
+    () => navigation.navigate('TermsOfUseUS', { viewOnly: route.params?.viewOnly }),
+    [navigation.navigate, route.params?.viewOnly],
   );
 
   const toggleProcessingChecked = React.useCallback(() => {
@@ -96,7 +96,7 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
         <RegularBoldText>covidtrackingquestions-us@joinzoe.com</RegularBoldText>
       </RegularText>
 
-      {!route.params.viewOnly ? (
+      {!route.params?.viewOnly ? (
         <CheckboxList>
           <CheckboxItem onChange={toggleProcessingChecked} testID="processingCheck" value={processingChecked}>
             {i18n.t('consent-normal-us.i-consent')}{' '}

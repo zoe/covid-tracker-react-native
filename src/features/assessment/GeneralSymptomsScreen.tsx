@@ -2,16 +2,14 @@ import { BrandedButton } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { localisationService } from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features';
 import {
   GeneralSymptomsData,
   GeneralSymptomsQuestions,
 } from '@covid/features/assessment/fields/GeneralSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -27,8 +25,7 @@ type Props = {
 };
 
 export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
-  const features = localisationService.getConfig();
+  const config = localisationService.getConfig();
   const registerSchema = Yup.object().shape({}).concat(GeneralSymptomsQuestions.schema());
 
   const patientState = route.params?.assessmentData?.patientData?.patientState;
@@ -51,7 +48,7 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
 
       <Formik
         initialValues={{
-          ...GeneralSymptomsQuestions.initialFormValues(features.defaultTemperatureUnit),
+          ...GeneralSymptomsQuestions.initialFormValues(config?.defaultTemperatureUnit),
         }}
         onSubmit={onSubmit}
         validationSchema={registerSchema}

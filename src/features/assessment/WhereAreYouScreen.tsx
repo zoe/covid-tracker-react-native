@@ -2,7 +2,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
@@ -19,7 +19,6 @@ interface IProps {
 function WhereAreYouScreen({ navigation, route }: IProps) {
   const isFocused = useIsFocused();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
   const updateAssessment = async (status: string, isComplete = false) => {
     const assessment = {
@@ -29,7 +28,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     if (isComplete) {
       await assessmentService.completeAssessment(
         assessment,
-        assessmentCoordinator.assessmentData.patientData.patientInfo!,
+        assessmentCoordinator.assessmentData?.patientData?.patientInfo!,
       );
     } else {
       assessmentService.saveAssessment(assessment);
@@ -55,7 +54,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
   }, [isFocused]);
 
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}>
       <Header>
         <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
       </Header>

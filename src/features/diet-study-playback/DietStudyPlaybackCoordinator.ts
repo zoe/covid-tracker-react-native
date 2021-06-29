@@ -27,5 +27,4 @@ class DietStudyPlaybackCoordinator extends Coordinator {
   };
 }
 
-const dietStudyPlaybackCoordinator = new DietStudyPlaybackCoordinator();
-export default dietStudyPlaybackCoordinator;
+export const dietStudyPlaybackCoordinator = new DietStudyPlaybackCoordinator();

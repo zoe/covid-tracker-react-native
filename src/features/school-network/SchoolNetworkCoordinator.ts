@@ -12,17 +12,17 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
 export class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
-  patientData: PatientData;
-
-  higherEducation: boolean;
-
-  private selectedSchool?: ISchoolModel;
-
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
   @lazyInject(Services.SchoolService)
   private readonly schoolService: ISchoolService;
+
+  patientData: PatientData;
+
+  higherEducation: boolean;
+
+  private selectedSchool?: ISchoolModel;
 
   public screenFlow: Partial<ScreenFlow> = {
     JoinSchoolGroup: () => {
@@ -125,5 +125,4 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   }
 }
 
-const schoolNetworkCoordinator = new SchoolNetworkCoordinator();
-export default schoolNetworkCoordinator;
+export const schoolNetworkCoordinator = new SchoolNetworkCoordinator();

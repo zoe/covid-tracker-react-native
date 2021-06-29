@@ -1,7 +1,7 @@
 import Analytics, { events } from '@covid/core/Analytics';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ConfigType } from '@covid/core/Config';
-import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
+import { ConsentService } from '@covid/core/consent/ConsentService';
 import { IContentService } from '@covid/core/content/ContentService';
 import {
   fetchDismissedCallouts,
@@ -20,15 +20,15 @@ import {
   isUSCountry,
   LocalisationService,
 } from '@covid/core/localisation/LocalisationService';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import store from '@covid/core/state/store';
 import { StartupInfo, UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
-import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
+import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
@@ -53,14 +53,11 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   @lazyInject(Services.Content)
   contentService: IContentService;
 
-  @lazyInject(Services.Consent)
-  consentService: IConsentService;
-
   @lazyInject(Services.Localisation)
   localisationService: ILocalisationService;
 
   @lazyInject(Services.DietScore)
-  dietScoreService: IDietScoreRemoteClient;
+  dietScoreApiClient: IDietScoreRemoteClient;
 
   navigation: NavigationType;
 
@@ -102,7 +99,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     Register: () => {
       const config = appCoordinator.getConfig();
 
-      let askPersonalInfo = config.enablePersonalInformation;
+      let askPersonalInfo = config?.enablePersonalInformation;
       if (isUSCountry() && ConsentService.consentSigned.document !== 'US Nurses') {
         askPersonalInfo = false;
       }
@@ -133,7 +130,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
     WelcomeRepeat: () => {
       const config = this.getConfig();
-      if (config.enableMultiplePatients) {
+      if (config?.enableMultiplePatients) {
         NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
       } else {
         this.startAssessmentFlow(this.patientData);
@@ -191,7 +188,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     }
   }
 
-  getConfig(): ConfigType {
+  getConfig(): ConfigType | undefined {
     return this.localisationService.getConfig();
   }
 
@@ -256,7 +253,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     if (this.patientData.patientState.isReportedByAnother) {
       await this.setPatientToPrimary();
     }
-    dietStudyPlaybackCoordinator.init(this, this.patientData, this.contentService, this.dietScoreService);
+    dietStudyPlaybackCoordinator.init(this, this.patientData, this.contentService, this.dietScoreApiClient);
     NavigatorService.navigate('DietStudy');
   }
 
@@ -331,5 +328,4 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
   }
 }
 
-const appCoordinator = new AppCoordinator();
-export default appCoordinator;
+export const appCoordinator = new AppCoordinator();

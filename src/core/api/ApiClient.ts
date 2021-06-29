@@ -68,3 +68,5 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
     return {} as TResponse;
   }
 }
+
+export const apiClient = new ApiClient();

@@ -8,7 +8,6 @@ import OfflineService from '@covid/core/offline/OfflineService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationApiClient from '@covid/core/push-notifications/PushNotificationApiClient';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
-import { VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
 import { VaccineService } from '@covid/core/vaccine/VaccineService';
 import { LongCovidApiClient } from '@covid/features/long-covid/LongCovidApiClient';
 import { MentalHealthApiClient } from '@covid/features/mental-health/MentalHealthApiClient';
@@ -25,7 +24,7 @@ export const pushNotificationService = new PushNotificationService(
 
 export const assessmentService = new AssessmentService(new AssessmentApiClient(apiClient), new ReduxAssessmentState());
 
-export const vaccineService = new VaccineService(new VaccineApiClient(apiClient));
+export const vaccineService = new VaccineService();
 
 export const mentalHealthApiClient = new MentalHealthApiClient(apiClient);
 

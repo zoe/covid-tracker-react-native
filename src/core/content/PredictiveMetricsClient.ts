@@ -1,4 +1,4 @@
-import { IApiClient } from '@covid/core/api/ApiClient';
+import { apiClient, IApiClient } from '@covid/core/api/ApiClient';
 import { Services } from '@covid/provider/services.types';
 import Axios from 'axios';
 import { inject, injectable } from 'inversify';
@@ -38,3 +38,5 @@ export class PredictiveMetricsClient implements IPredictiveMetricsClient {
     return uk_prevalence;
   }
 }
+
+export const predictiveMetricsClient = new PredictiveMetricsClient(apiClient);

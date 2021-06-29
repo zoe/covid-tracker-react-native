@@ -37,3 +37,5 @@ export class ContentApiClient implements IContentApiClient {
     return this.apiClient.patch(`/users/email_preference/`, infos);
   }
 }
+
+export const contentApiClient = new ContentApiClient();

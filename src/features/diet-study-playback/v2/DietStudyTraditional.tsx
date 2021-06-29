@@ -1,6 +1,6 @@
 import { BackButton, BasicNavHeader, SafeLayout, Spacer, Text } from '@covid/components';
 import { QualityScore } from '@covid/features/diet-study-playback/components';
-import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
+import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import i18n from '@covid/locale/i18n';
 import { styling } from '@covid/themes';
 import * as React from 'react';
