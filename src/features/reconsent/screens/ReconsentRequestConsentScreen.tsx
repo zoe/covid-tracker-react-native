@@ -1,13 +1,12 @@
 import { Link, SafeLayout, Text } from '@covid/components';
+import ReconsentFooter from '@covid/features/reconsent/components/ReconsentFooter';
+import ReconsentHeader from '@covid/features/reconsent/components/ReconsentHeader';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { styling, useTheme } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-
-import ReconsentFooter from '../components/ReconsentFooter';
-import ReconsentHeader from '../components/ReconsentHeader';
 
 export default function ReconsentRequestConsentScreen() {
   const theme = useTheme();
