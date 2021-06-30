@@ -81,6 +81,7 @@ export default function ReconsentDiseasePreferencesScreen() {
       <DiseaseCard
         description={i18n.t(`disease-cards.${disease.name}.description`)}
         iconName={disease.iconName}
+        key={disease.name}
         name={i18n.t(`disease-cards.${disease.name}.name`)}
         onPressHandler={addToPreferences}
         style={{ marginBottom: grid.xxl }}
