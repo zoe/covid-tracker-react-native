@@ -109,7 +109,7 @@ export default function ReconsentDiseasePreferencesScreen() {
           )}
           {showExtendedList ? renderDiseaseCards(extendedDiseases) : null}
           <View style={styles.infoBox}>
-            <InfoBox text={i18n.t('reconsent.how-data-used')} />
+            <InfoBox text={i18n.t('reconsent.disease-preferences.how-data-used')} />
           </View>
         </View>
       </ScrollView>

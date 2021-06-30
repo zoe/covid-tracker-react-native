@@ -1687,5 +1687,58 @@
     "cta": "Uppdatera nu"
   },
 
-  "required-field": "Obligatoriska fält"
+  "required-field": "Obligatoriska fält",
+
+  "reconsent": {
+    "disease-preferences": {
+      "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
+    }
+  },
+
+  "disease-cards": {
+    "dementia": {
+      "name": "Dementia",
+      "description": "1 in 3 people born in the UK this year will develop dementia in their lifetime"
+    },
+    "cvd": {
+      "name": "Cardiovascular Diseases",
+      "description": "Responsible for 1 in 4 deaths in the UK"
+    },
+    "cancer": {
+      "name": "Cancer",
+      "description": "Someone in the UK is diagnosed with cancer every 2 mins"
+    },
+    "joint-bone": {
+      "name": "Joint and Bone Diseases",
+      "description": "Musculoskeletal conditions affect 1 in 4 UK adults"
+    },
+    "mental-health": {
+      "name": "Mental Health",
+      "description": "Up to 10% of people in the UK will experience depression"
+    },
+    "womens-health": {
+      "name": "Women's Health",
+      "description": "In the UK, a woman is diagnosed with breast cancer every 10 minutes"
+    },
+    "vision-hearing": {
+      "name": "Vision & Hearing Conditions",
+      "description": "1 in 5 UK adults live with hearing loss"
+    },
+    "autoimmune": {
+      "name": "Autoimmune Conditions",
+      "description": "Around 4 million people are living with an autoimmune condition in the UK"
+    },
+    "skin": {
+      "name": "Skin Conditions",
+      "description": "Skin diseases kill approximately  4,000 people every year in the UK"
+    },
+    "lung": {
+      "name": "Lung Diseases",
+      "description": "About 10,000 people in the UK are diagnosed with lung disease every week"
+    },
+    "neurological": {
+      "name": "Neurological Conditions",
+      "description": "600,000 people are diagnosed with a brain disorder every year in the UK"
+    }
+  }
 }
