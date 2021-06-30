@@ -1689,5 +1689,14 @@
     "cta": "Uppdatera nu"
   },
 
+  "reconsent": {
+    "introduction": {
+      "button": "Next",
+      "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",
+      "sidenote": "This study has ethical approval from King's College London",
+      "title": "Help us fight major diseases beyond COVID-19"
+    }
+  },
+
   "required-field": "Obligatoriska fält"
 }
