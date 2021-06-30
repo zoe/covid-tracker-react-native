@@ -8,17 +8,23 @@ import NavigatorService from '@covid/NavigatorService';
 import { grid, styling, useTheme } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+
+type TDiseaseType = {
+  iconName: React.ElementType;
+  name: string;
+};
 
 export default function ReconsentDiseasePreferencesScreen() {
   const theme = useTheme();
+  const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
   const addToPreferences = () => {
     console.log('hi');
   };
 
   // TODO: Replace icons
 
-  const diseases = [
+  const initialDiseases = [
     {
       iconName: Brain,
       name: 'dementia',
@@ -39,6 +45,9 @@ export default function ReconsentDiseasePreferencesScreen() {
       iconName: Brain,
       name: 'mental-health',
     },
+  ];
+
+  const extendedDiseases = [
     {
       iconName: Brain,
       name: 'womens-health',
@@ -65,8 +74,8 @@ export default function ReconsentDiseasePreferencesScreen() {
     },
   ];
 
-  const renderDiseaseCards = () => {
-    return diseases.map((disease) => (
+  const renderDiseaseCards = (diseasesArray: TDiseaseType[]) => {
+    return diseasesArray.map((disease) => (
       <DiseaseCard
         description={i18n.t(`disease-cards.${disease.name}.description`)}
         iconName={disease.iconName}
@@ -84,7 +93,13 @@ export default function ReconsentDiseasePreferencesScreen() {
         <View>
           <Text>What matters most to you?</Text>
           <Text>Select as many as you like</Text>
-          {renderDiseaseCards()}
+          {renderDiseaseCards(initialDiseases)}
+          {showExtendedList ? null : (
+            <Pressable onPress={() => setShowExtendedList(true)}>
+              <Text>Show more</Text>
+            </Pressable>
+          )}
+          {showExtendedList ? renderDiseaseCards(extendedDiseases) : null}
         </View>
       </ScrollView>
       <ReconsentFooter
