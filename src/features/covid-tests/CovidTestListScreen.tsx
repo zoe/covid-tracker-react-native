@@ -2,15 +2,14 @@ import { BrandedButton } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { HeaderText, RegularText } from '@covid/components/Text';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
-import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -60,15 +59,8 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
     this.unsubscribe();
   }
 
-  getCovidTestType = (): CovidTestType => {
-    return AssessmentCoordinator.assessmentData.patientData.patientState.isNHSStudy
-      ? CovidTestType.NHSStudy
-      : CovidTestType.Generic;
-  };
-
   gotoAddTest = () => {
-    const testType = this.getCovidTestType();
-    AssessmentCoordinator.goToAddEditTest(testType);
+    AssessmentCoordinator.goToAddEditTest();
   };
 
   handleNextButton = async () => {
@@ -78,7 +70,6 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const { isLoading } = this.state;
-    const { isNHSStudy } = currentPatient;
 
     return (
       <View style={styles.rootContainer}>
@@ -91,18 +82,9 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
             <ProgressStatus maxSteps={1} step={0} />
           </ProgressBlock>
 
-          {isNHSStudy ? (
-            <RegularText style={styles.content}>
-              <RegularText>{i18n.t('covid-test-list.nhs-text')}</RegularText>
-              <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/passt')}>
-                {i18n.t('covid-test-list.nhs-text-link')}
-              </ClickableText>
-            </RegularText>
-          ) : (
-            <View style={styles.content}>
-              <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
-            </View>
-          )}
+          <View style={styles.content}>
+            <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
+          </View>
 
           <BrandedButton onPress={this.gotoAddTest} style={styles.newButton}>
             <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
@@ -113,7 +95,7 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
           ) : (
             <View style={styles.content}>
               {this.state.covidTests.map((item: CovidTest) => {
-                return <CovidTestRow item={item} key={key(item)} type={item.type} />;
+                return <CovidTestRow item={item} key={key(item)} />;
               })}
             </View>
           )}

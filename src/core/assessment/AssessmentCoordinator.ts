@@ -9,10 +9,9 @@ import {
 } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
@@ -69,9 +68,6 @@ export class AssessmentCoordinator extends Coordinator {
       } else {
         NavigatorService.navigate('GeneralSymptoms', { assessmentData: this.assessmentData });
       }
-    },
-    NHSTestDetail: () => {
-      NavigatorService.goBack();
     },
     OtherSymptoms: () => {
       NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
@@ -157,9 +153,8 @@ export class AssessmentCoordinator extends Coordinator {
     this.goToThankYouScreen();
   };
 
-  goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
-    const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
-    NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
+  goToAddEditTest = (covidTest?: CovidTest) => {
+    NavigatorService.navigate('CovidTestDetail', { assessmentData: this.assessmentData, test: covidTest });
   };
 
   goToVaccineLogSymptomsInfo = () => {

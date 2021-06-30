@@ -28,9 +28,6 @@ import {
   LoginScreen,
   LongCovidQuestionScreen,
   LongCovidStartScreen,
-  NHSDetailsScreen,
-  NHSIntroScreen,
-  NHSTestDetailScreen,
   NursesConsentUSScreen,
   OptionalInfoScreen,
   OtherSymptomsScreen,
@@ -124,9 +121,6 @@ export default function MainNavigator() {
       <Stack.Screen component={LoginScreen} name="Login" options={noHeader} />
       <Stack.Screen component={LongCovidQuestionScreen} name="LongCovidQuestion" options={noHeader} />
       <Stack.Screen component={LongCovidStartScreen} name="LongCovidStart" options={noHeader} />
-      <Stack.Screen component={NHSDetailsScreen} name="NHSDetails" options={noHeader} />
-      <Stack.Screen component={NHSIntroScreen} name="NHSIntro" options={noHeader} />
-      <Stack.Screen component={NHSTestDetailScreen} name="NHSTestDetail" options={noHeader} />
       <Stack.Screen component={NursesConsentUSScreen} name="NursesConsentUS" options={simpleHeader} />
       <Stack.Screen component={OptionalInfoScreen} name="OptionalInfo" options={noHeader} />
       <Stack.Screen component={OtherSymptomsScreen} name="OtherSymptoms" options={noHeader} />

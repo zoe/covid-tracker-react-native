@@ -3,7 +3,4 @@ export * from './CovidTestInvitedQuesetion';
 export * from './CovidTestLocation';
 export * from './CovidTestMechanismQuestion';
 export * from './CovidTestResultQuestion';
-export * from './CovidTestTimeQuestion';
-export * from './NHSTestDateQuestion';
-export * from './NHSTestMechanismQuestion';
 export * from './CovidTestIsRapidQuestion';
