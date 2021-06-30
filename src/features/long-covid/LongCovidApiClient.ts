@@ -1,7 +1,7 @@
-import { apiClient } from '@covid/core/api/ApiClient';
+import ApiClient from '@covid/core/api/ApiClient';
 import { ILongCovid } from '@covid/features/long-covid/types';
 
-const API_PATH = '/long_covid/';
+const apiClient = new ApiClient();
 
 export interface ILongCovidApiClient {
   get(patientId: string): Promise<ILongCovid[]>;
@@ -10,7 +10,7 @@ export interface ILongCovidApiClient {
 
 export class LongCovidApiClient implements ILongCovidApiClient {
   get(patientId: string): Promise<ILongCovid[]> {
-    return apiClient.get<ILongCovid[]>(API_PATH, { patient: patientId });
+    return apiClient.get<ILongCovid[]>('/long_covid/', { patient: patientId });
   }
 
   add(patientId: string, longCovid: ILongCovid): Promise<ILongCovid> {
@@ -18,6 +18,6 @@ export class LongCovidApiClient implements ILongCovidApiClient {
       ...longCovid,
       patient: patientId,
     };
-    return apiClient.post<ILongCovid, ILongCovid>(API_PATH, longCovid);
+    return apiClient.post<ILongCovid, ILongCovid>('/long_covid/', longCovid);
   }
 }

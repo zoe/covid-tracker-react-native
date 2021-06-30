@@ -1,4 +1,4 @@
-import { apiClient } from '@covid/core/api/ApiClient';
+import ApiClient from '@covid/core/api/ApiClient';
 import {
   IMentalHealthChanges,
   IMentalHealthFrequency,
@@ -25,6 +25,8 @@ export interface IMentalHealthApiClientBuildRequest {
   mentalHealthLearning?: IMentalHealthLearning;
   mentalHealthSupport?: IMentalHealthSupport;
 }
+
+const apiClient = new ApiClient();
 
 export class MentalHealthApiClient implements IMentalHealthApiClient {
   get() {

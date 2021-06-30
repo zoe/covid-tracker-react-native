@@ -1,4 +1,4 @@
-import { apiClient } from '@covid/core/api/ApiClient';
+import ApiClient from '@covid/core/api/ApiClient';
 import {
   ISchoolGroupJoinedResponse,
   ISchoolGroupModel,
@@ -16,6 +16,8 @@ export interface ISchoolService {
   joinGroup(groupId: string, patientId: string): Promise<ISchoolGroupJoinedResponse>;
   leaveGroup(groupId: string, patientId: string): Promise<void>;
 }
+
+const apiClient = new ApiClient();
 
 export class SchoolService implements ISchoolService {
   getSchools(): Promise<ISchoolModel[]> {

@@ -1,5 +1,5 @@
 import appConfig from '@covid/appConfig';
-import { apiClient } from '@covid/core/api/ApiClient';
+import ApiClient from '@covid/core/api/ApiClient';
 import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { DoseSymptomsResponse, VaccineResponse } from '@covid/core/vaccine/dto/VaccineResponse';
 
@@ -10,6 +10,8 @@ export interface IVaccineRemoteClient {
   listVaccines(): Promise<VaccineRequest[]>;
   deleteVaccine(vaccineId: string): Promise<void>;
 }
+
+const apiClient = new ApiClient();
 
 export class VaccineApiClient implements IVaccineRemoteClient {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse> {
