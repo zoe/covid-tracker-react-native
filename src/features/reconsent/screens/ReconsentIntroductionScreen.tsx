@@ -1,35 +1,70 @@
-import { SafeLayout, Text } from '@covid/components';
+import { Text } from '@covid/components';
+import IllustrationTim from '@covid/features/reconsent/components/IllustrationTim';
+import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
+import TalkRectangle from '@covid/features/reconsent/components/TalkRectangle';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { styling, useTheme } from '@covid/themes';
-import { colors } from '@theme';
 import * as React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-
-import ReconsentFooter from '../components/ReconsentFooter';
-import ReconsentHeader from '../components/ReconsentHeader';
+import { StyleSheet } from 'react-native';
 
 export default function ReconsentIntroductionScreen() {
-  const theme = useTheme();
-
   return (
-    <SafeLayout style={styles.page}>
-      <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
-        <ReconsentHeader showLogo />
-        <View>
-          <Text>Introduction</Text>
-        </View>
-      </ScrollView>
-      <ReconsentFooter
-        onPress={() => NavigatorService.navigate('ReconsentDiseasePreferences')}
-        title={i18n.t('navigation.next')}
-      />
-    </SafeLayout>
+    <ReconsentScreen
+      buttonOnPress={() => NavigatorService.navigate('ReconsentDiseasePreferences')}
+      buttonTitle={i18n.t('reconsent.introduction.button')}
+    >
+      <Text
+        inverted
+        colorPalette="actionPrimary"
+        colorShade="main"
+        style={{ alignSelf: 'center' }}
+        textClass="h5Medium"
+      >
+        {i18n.t('company-name')}{' '}
+        <Text inverted colorPalette="actionPrimary" colorShade="main" textClass="h5Light">
+          {i18n.t('app-name')}
+        </Text>
+      </Text>
+      <IllustrationTim style={styles.illustration} />
+      <TalkRectangle>
+        <Text textAlign="center" textClass="h2Light">
+          {i18n.t('reconsent.introduction.title')}
+        </Text>
+      </TalkRectangle>
+      <Text
+        inverted
+        colorPalette="uiDark"
+        colorShade="darker"
+        style={styles.description}
+        textAlign="center"
+        textClass="h5Light"
+      >
+        {i18n.t('reconsent.introduction.description')}
+      </Text>
+      <Text
+        inverted
+        colorPalette="uiDark"
+        colorShade="main"
+        style={styles.sidenote}
+        textAlign="center"
+        textClass="h5Light"
+      >
+        {i18n.t('reconsent.introduction.sidenote')}
+      </Text>
+    </ReconsentScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {
-    backgroundColor: colors.backgroundPrimary,
+  description: {
+    marginBottom: 32,
+    marginTop: 32,
+  },
+  illustration: {
+    alignSelf: 'center',
+    marginTop: 12,
+  },
+  sidenote: {
+    marginBottom: 32,
   },
 });
