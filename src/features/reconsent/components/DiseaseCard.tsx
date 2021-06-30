@@ -19,7 +19,7 @@ export default function DiseaseCard(props: IProps) {
     props.onPressHandler();
   };
 
-  // TODO: Can't get certical align center on description
+  // TODO: Can't get vertical align center on description
   // TODO: Do we use the lighter font? Go by font name or typography name in Figma?
 
   const IconName = props.iconName;
