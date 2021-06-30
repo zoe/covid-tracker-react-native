@@ -77,7 +77,8 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
       <RegularText>
-        {i18n.t('your-height')} {requiredFormMarker}
+        {i18n.t('your-height')}
+        {requiredFormMarker}
       </RegularText>
       {isUSCountry() ? (
         <HeightInInches formikProps={formikProps} />

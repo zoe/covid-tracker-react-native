@@ -1,5 +1,6 @@
 import { BrandedButton } from '@covid/components';
 import DropdownField from '@covid/components/DropdownField';
+import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
 import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
@@ -13,7 +14,6 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';
@@ -127,55 +127,62 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
       >
         {(props) => {
           return (
-            <Form style={{ marginHorizontal: 16 }}>
-              <GenericTextField
-                showError
-                formikProps={props}
-                inputProps={{ autoCompleteType: 'postal-code' }}
-                label={i18n.t('edit-profile.location.label')}
-                name="postcode"
-                placeholder={i18n.t('placeholder-postcode')}
-              />
-              <YesNoField
-                label={i18n.t('edit-profile.location.not-current-address')}
-                onValueChange={props.handleChange('differentAddress')}
-                selectedValue={props.values.differentAddress}
-              />
-              {props.values.differentAddress === 'yes' ? (
-                <YesNoField
-                  label={i18n.t('edit-profile.location.still-in-country')}
-                  onValueChange={props.handleChange('stillInUK')}
-                  selectedValue={props.values.stillInUK}
-                />
-              ) : null}
-              {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' ? (
+            <FormWrapper hasRequiredFields>
+              <View style={{ marginHorizontal: 16 }}>
                 <GenericTextField
+                  required
                   showError
                   formikProps={props}
                   inputProps={{ autoCompleteType: 'postal-code' }}
-                  label={i18n.t('edit-profile.location.other-postcode')}
-                  name="currentPostcode"
+                  label={i18n.t('edit-profile.location.label')}
+                  name="postcode"
                   placeholder={i18n.t('placeholder-postcode')}
                 />
-              ) : null}
-              {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' ? (
-                <DropdownField
-                  error={props.touched.currentCountry ? props.errors.currentCountry : ''}
-                  items={countryList}
-                  label={i18n.t('edit-profile.location.select-country')}
-                  onValueChange={props.handleChange('currentCountry')}
-                  selectedValue={props.values.currentCountry}
+                <YesNoField
+                  required
+                  label={i18n.t('edit-profile.location.not-current-address')}
+                  onValueChange={props.handleChange('differentAddress')}
+                  selectedValue={props.values.differentAddress}
                 />
-              ) : null}
-              <View style={{ height: 100 }} />
-              <SecondaryText style={{ paddingHorizontal: 8, textAlign: 'center' }}>
-                {i18n.t('edit-profile.location.disclaimer')}
-              </SecondaryText>
-              <ErrorText>{errorMessage}</ErrorText>
-              <BrandedButton loading={props.isSubmitting} onPress={props.handleSubmit}>
-                {i18n.t('edit-profile.done')}
-              </BrandedButton>
-            </Form>
+                {props.values.differentAddress === 'yes' ? (
+                  <YesNoField
+                    required
+                    label={i18n.t('edit-profile.location.still-in-country')}
+                    onValueChange={props.handleChange('stillInUK')}
+                    selectedValue={props.values.stillInUK}
+                  />
+                ) : null}
+                {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' ? (
+                  <GenericTextField
+                    required
+                    showError
+                    formikProps={props}
+                    inputProps={{ autoCompleteType: 'postal-code' }}
+                    label={i18n.t('edit-profile.location.other-postcode')}
+                    name="currentPostcode"
+                    placeholder={i18n.t('placeholder-postcode')}
+                  />
+                ) : null}
+                {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' ? (
+                  <DropdownField
+                    required
+                    error={props.touched.currentCountry ? props.errors.currentCountry : ''}
+                    items={countryList}
+                    label={i18n.t('edit-profile.location.select-country')}
+                    onValueChange={props.handleChange('currentCountry')}
+                    selectedValue={props.values.currentCountry}
+                  />
+                ) : null}
+                <View style={{ height: 100 }} />
+                <SecondaryText style={{ paddingHorizontal: 8, textAlign: 'center' }}>
+                  {i18n.t('edit-profile.location.disclaimer')}
+                </SecondaryText>
+                <ErrorText>{errorMessage}</ErrorText>
+                <BrandedButton enable={props.isValid} loading={props.isSubmitting} onPress={props.handleSubmit}>
+                  {i18n.t('edit-profile.done')}
+                </BrandedButton>
+              </View>
+            </FormWrapper>
           );
         }}
       </Formik>

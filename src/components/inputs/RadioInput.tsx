@@ -40,11 +40,14 @@ export function RadioInput(props: IProps) {
     <View style={styles.marginVertical}>
       {props.hideLabel || !props.label ? null : (
         <LabelText style={styles.marginBottom}>
-          {props.label} {props.required ? requiredFormMarker : null}
+          {props.label}
+          {props.required ? requiredFormMarker : null}
         </LabelText>
       )}
       {items.map((item, index) => (
         <TouchableOpacity
+          accessible
+          accessibilityRole="radio"
           key={`item-${item.value}`}
           onPress={() => props.onValueChange(item.value)}
           style={
