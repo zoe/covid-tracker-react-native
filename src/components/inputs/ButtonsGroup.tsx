@@ -35,7 +35,8 @@ export function ButtonsGroup({ label, selectedValue, items, error, onValueChange
     <FieldWrapper style={styles.fieldWrapper}>
       {hideLabel ? null : (
         <Label style={styles.labelStyle}>
-          {label} {required ? requiredFormMarker : null}
+          {label}
+          {required ? requiredFormMarker : null}
         </Label>
       )}
       <View
