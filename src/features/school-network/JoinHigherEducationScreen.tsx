@@ -8,7 +8,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { useSelector } from 'react-redux';
 
 import { UniversityForm } from './forms';
@@ -19,15 +19,14 @@ interface IProps {
   route: RouteProp<ScreenParamList, 'ConfirmSchool'>;
 }
 
-function JoinHigherEducationScreen({ navigation, route }: IProps) {
-  const [schools, setSchools] = useState<ISchoolModel[]>([]);
+export default function JoinHigherEducationScreen({ navigation, route }: IProps) {
+  const [schools, setSchools] = React.useState<ISchoolModel[]>([]);
   const service = useInjection<ISchoolService>(Services.SchoolService);
-  const { patientData } = route.params;
   const currentJoinedGroup = useSelector((state: RootState) =>
-    selectPatientsJoinedGroups(state, patientData.patientId, true),
+    selectPatientsJoinedGroups(state, route.params?.patientData?.patientId, true),
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       const schools = await service.getSchools();
       setSchools(schools.filter((s) => s.higher_education === true));
@@ -35,11 +34,11 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
   }, []);
 
   return (
-    <Screen navigation={navigation} profile={patientData.patientState.profile}>
+    <Screen navigation={navigation} profile={route.params?.patientData?.patientState?.profile}>
       {currentJoinedGroup ? (
         <SelectedSchool
           currentJoinedGroup={currentJoinedGroup}
-          currentPatient={patientData.patientState}
+          currentPatient={route.params?.patientData?.patientState}
           removeText="school-networks.join-school.removeHigherEducation"
           title="school-networks.join-school.university-network-header"
         />
@@ -57,5 +56,3 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
     </Screen>
   );
 }
-
-export default JoinHigherEducationScreen;

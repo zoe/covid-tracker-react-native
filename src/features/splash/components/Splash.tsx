@@ -3,7 +3,7 @@ import { RegularBoldText } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 import { FlexView } from './FlexView';

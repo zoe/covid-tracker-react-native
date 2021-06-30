@@ -2,7 +2,7 @@ import { QuestionBlock, Text, TIconName, useFade } from '@covid/components';
 import { TMentalHealthChange } from '@covid/core/state/mental-health';
 import i18n from '@covid/locale/i18n';
 import { useTheme } from '@covid/themes';
-import React from 'react';
+import * as React from 'react';
 import { Animated, View } from 'react-native';
 
 interface IProps {

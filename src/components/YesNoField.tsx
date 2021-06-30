@@ -1,6 +1,5 @@
 import i18n from '@covid/locale/i18n';
-import React from 'react';
-import { PickerProps } from 'react-native';
+import * as React from 'react';
 
 import { ButtonsGroup, ISingleButton } from './inputs/ButtonsGroup';
 
@@ -8,9 +7,9 @@ interface IProps {
   selectedValue: string;
   onValueChange: any;
   label?: string;
-  onlyPicker?: boolean;
-  pickerProps?: PickerProps;
+  hideLabel?: boolean;
   error?: any;
+  required?: boolean;
 }
 
 const Items = (): ISingleButton[] => [

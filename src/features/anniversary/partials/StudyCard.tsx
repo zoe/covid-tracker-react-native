@@ -1,7 +1,7 @@
 import { Icon, Text } from '@covid/components';
 import { TProgress, TTimelineEvent } from '@covid/features/anniversary/types';
 import { colors } from '@theme/colors';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ProgressBars from './ProgressBars';

@@ -1,5 +1,5 @@
 import { SvgProps } from '@assets/Svg';
-import React from 'react';
+import * as React from 'react';
 import { Image as SvgImage, Path, Svg } from 'react-native-svg';
 
 const logoData =

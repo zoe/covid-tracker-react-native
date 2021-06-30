@@ -10,7 +10,7 @@ import { Provider as ServiceProvider } from '@covid/provider/services.provider';
 import StorybookUIRoot from '@covid/storybook';
 import { Theme } from '@covid/themes';
 import { useFonts } from 'expo-font';
-import React from 'react';
+import * as React from 'react';
 import env from 'react-native-config';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';

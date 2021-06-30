@@ -25,7 +25,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Alert, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -46,7 +46,7 @@ const initialState: State = {
   submitting: false,
 };
 
-export default class NHSTestDetailScreen extends Component<CovidProps, State> {
+export default class NHSTestDetailScreen extends React.Component<CovidProps, State> {
   @lazyInject(Services.CovidTest)
   private readonly covidTestService: ICovidTestService;
 
@@ -56,16 +56,14 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
   }
 
   get testId(): string | undefined {
-    const { test } = this.props.route.params;
-    return test?.id;
+    return this.props.route.params?.test?.id;
   }
 
   // TODO: refactor this into a util function
   submitCovidTest(infos: Partial<CovidTest>) {
-    const { test } = this.props.route.params;
-    if (test?.id) {
+    if (this.props.route.params?.test?.id) {
       this.covidTestService
-        .updateTest(test.id, infos)
+        .updateTest(this.props.route.params?.test?.id, infos)
         .then(() => {
           AssessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
@@ -98,7 +96,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
 
       const infos = {
         invited_to_test: false,
-        patient: AssessmentCoordinator.assessmentData.patientData.patientId,
+        patient: AssessmentCoordinator.assessmentData?.patientData?.patientId,
         type: CovidTestType.NHSStudy,
         ...NHSTestDateQuestion.createDTO(formData),
         ...CovidTestTimeQuestion.createDTO(formData),
@@ -138,8 +136,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
-    const { test } = this.props.route.params;
+    const test = this.props.route.params?.test;
 
     const registerSchema = Yup.object()
       .shape({})
@@ -149,7 +146,10 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
       .concat(CovidTestResultQuestion.schema());
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={AssessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      >
         <Header>
           <HeaderText>
             {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}

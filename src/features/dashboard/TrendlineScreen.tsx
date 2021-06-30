@@ -14,7 +14,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors, fontStyles } from '@theme';
 import * as Sharing from 'expo-sharing';
-import React, { useEffect, useRef } from 'react';
+import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +26,7 @@ type Props = {
 
 export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useDispatch();
-  const viewRef = useRef<View>(null);
+  const viewRef = React.useRef<View>(null);
   const trendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
     ...state.content.exploreTrendline,
   }));
@@ -38,7 +38,7 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
     } catch (_) {}
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(fetchLocalTrendLine());
   }, []);
 

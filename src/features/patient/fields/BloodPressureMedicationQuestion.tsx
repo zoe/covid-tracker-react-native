@@ -1,7 +1,7 @@
 import YesNoField from '@covid/components/YesNoField';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 
 export interface IBloodPressureData {
@@ -14,7 +14,7 @@ interface Props {
   formikProps: FormikProps<IBloodPressureData>;
 }
 
-export class BloodPressureMedicationQuestion extends Component<Props, object> {
+export class BloodPressureMedicationQuestion extends React.Component<Props, object> {
   static initialFormValues = () => {
     return {
       takesAnyBloodPressureMedications: 'no',
@@ -27,6 +27,7 @@ export class BloodPressureMedicationQuestion extends Component<Props, object> {
     return (
       <View>
         <YesNoField
+          required
           error={
             this.props.formikProps.touched.takesAnyBloodPressureMedications &&
             this.props.formikProps.errors.takesAnyBloodPressureMedications
@@ -39,12 +40,14 @@ export class BloodPressureMedicationQuestion extends Component<Props, object> {
         {this.props.formikProps.values.takesAnyBloodPressureMedications === 'yes' ? (
           <>
             <YesNoField
+              required
               label={i18n.t('your-health.takes-pril-blood-pressure-medication')}
               onValueChange={this.props.formikProps.handleChange('takesBloodPressureMedications')}
               selectedValue={this.props.formikProps.values.takesBloodPressureMedications}
             />
 
             <YesNoField
+              required
               label={i18n.t('your-health.takes-sartan-blood-pressure-medication')}
               onValueChange={this.props.formikProps.handleChange('takesBloodPressureMedicationsSartan')}
               selectedValue={this.props.formikProps.values.takesBloodPressureMedicationsSartan}

@@ -1,5 +1,6 @@
 import { BrandedButton } from '@covid/components';
 import { ClearButton } from '@covid/components/buttons/ClearButton';
+import { FormWrapper } from '@covid/components/Forms';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -30,8 +31,7 @@ import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Alert, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -58,7 +58,7 @@ const initialState: State = {
   submitting: false,
 };
 
-export default class CovidTestDetailScreen extends Component<CovidProps, State> {
+export default class CovidTestDetailScreen extends React.Component<CovidProps, State> {
   @lazyInject(Services.CovidTest)
   private readonly covidTestService: ICovidTestService;
 
@@ -68,24 +68,23 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   get testId(): string | undefined {
-    const { test } = this.props.route.params;
-    return test?.id;
+    return this.props.route.params?.test?.id;
   }
 
   submitCovidTest(infos: Partial<CovidTest>) {
     const { test } = this.props.route.params;
-    if (test?.id) {
+    if (this.props.route.params?.test?.id) {
       if (
-        test.result !== 'positive' &&
+        this.props.route.params?.test?.result !== 'positive' &&
         infos.result === 'positive' &&
-        this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+        this.props.route.params?.assessmentData?.patientData?.patientState?.hasSchoolGroup
       ) {
         this.setState({ submitting: false });
         infos.id = this.testId;
         assessmentCoordinator.goToTestConfirm(infos as CovidTest);
       } else {
         this.covidTestService
-          .updateTest(test.id, infos)
+          .updateTest(this.props.route.params?.test?.id, infos)
           .then(() => {
             NavigatorService.goBack();
           })
@@ -96,7 +95,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       }
     } else if (
       infos.result === 'positive' &&
-      this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+      this.props.route.params?.assessmentData?.patientData?.patientState?.hasSchoolGroup
     ) {
       this.setState({ submitting: false });
       assessmentCoordinator.goToTestConfirm(infos as CovidTest);
@@ -132,7 +131,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       }
 
       const infos = {
-        patient: assessmentCoordinator.assessmentData.patientData.patientId,
+        patient: assessmentCoordinator.assessmentData?.patientData?.patientId,
         type: CovidTestType.Generic,
         ...CovidTestDateQuestion.createDTO(formData),
         ...CovidTestMechanismQuestion.createDTO(formData),
@@ -174,8 +173,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   render() {
-    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
-    const { test } = this.props.route.params;
+    const test = this.props.route.params?.test;
 
     const registerSchema = Yup.object()
       .shape({})
@@ -187,7 +185,10 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       .concat(CovidTestIsRapidQuestion.schema());
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      >
         <Header>
           <HeaderText>
             {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}
@@ -199,6 +200,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         </ProgressBlock>
 
         <Formik
+          validateOnMount
           initialValues={{
             ...CovidTestDateQuestion.initialFormValues(test),
             ...CovidTestMechanismQuestion.initialFormValues(test),
@@ -214,7 +216,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         >
           {(props) => {
             return (
-              <Form>
+              <FormWrapper hasRequiredFields>
                 <View style={{ marginHorizontal: 16 }}>
                   <CovidTestDateQuestion formikProps={props as FormikProps<ICovidTestDateData>} test={test} />
                   <CovidTestMechanismQuestion formikProps={props as FormikProps<ICovidTestMechanismData>} test={test} />
@@ -238,10 +240,10 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                   ) : null}
                 </View>
 
-                <BrandedButton enable={!this.state.submitting} onPress={props.handleSubmit}>
+                <BrandedButton enable={!this.state.submitting && props.isValid} onPress={props.handleSubmit}>
                   {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
-              </Form>
+              </FormWrapper>
             );
           }}
         </Formik>

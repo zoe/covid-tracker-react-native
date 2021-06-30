@@ -1,4 +1,5 @@
-import { BasicPage, DropdownField, Text } from '@covid/components';
+import { BasicPage, Text } from '@covid/components';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import {
   selectMentalHealthSupport,
   setHasNeededSupport,
@@ -12,12 +13,12 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { mentalHealthApiClient } from '@covid/Services';
 import { useTheme } from '@covid/themes';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 function MentalHealthSupport() {
-  const [canSubmit, setCanSubmit] = useState(false);
+  const [canSubmit, setCanSubmit] = React.useState(false);
   const { grid } = useTheme();
   const MentalHealthSupport: IMentalHealthSupport = useSelector(selectMentalHealthSupport);
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function MentalHealthSupport() {
     dispatch(setHasReceivedSupport(value));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (MentalHealthSupport.hasNeededSupport === 'NO' || MentalHealthSupport.hasNeededSupport === 'DECLINE_TO_SAY') {
       setCanSubmit(true);
       return;
@@ -59,23 +60,19 @@ function MentalHealthSupport() {
         <Text rhythm={16} textClass="h3">
           {i18n.t('mental-health.question-support-title')}
         </Text>
-        <View>
-          <DropdownField
-            items={initialOptions}
-            label={i18n.t('mental-health.question-support-needed')}
-            onValueChange={handleSetHasNeededSupport}
-            selectedValue={MentalHealthSupport.hasNeededSupport}
-          />
-        </View>
+        <RadioInput
+          items={initialOptions}
+          label={i18n.t('mental-health.question-support-needed')}
+          onValueChange={handleSetHasNeededSupport}
+          selectedValue={MentalHealthSupport.hasNeededSupport}
+        />
         {MentalHealthSupport.hasNeededSupport === 'YES' ? (
-          <View>
-            <DropdownField
-              items={initialOptions}
-              label={i18n.t('mental-health.question-support-received')}
-              onValueChange={handleSetHasReceivedSupport}
-              selectedValue={MentalHealthSupport.hasReceivedSupport}
-            />
-          </View>
+          <RadioInput
+            items={initialOptions}
+            label={i18n.t('mental-health.question-support-received')}
+            onValueChange={handleSetHasReceivedSupport}
+            selectedValue={MentalHealthSupport.hasReceivedSupport}
+          />
         ) : null}
       </View>
     </BasicPage>

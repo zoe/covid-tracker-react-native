@@ -1,5 +1,6 @@
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
@@ -10,7 +11,7 @@ import i18n from '@covid/locale/i18n';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -68,8 +69,9 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
 
   return (
     <View>
-      <DropdownField
-        error={formikProps.touched.diabetesType && formikProps.errors.diabetesType}
+      <RadioInput
+        required
+        error={formikProps.touched.diabetesType ? formikProps.errors.diabetesType : ''}
         items={diabetesTypeOptions}
         label={i18n.t('diabetes.which-type')}
         onValueChange={formikProps.handleChange('diabetesType')}
@@ -110,10 +112,9 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<Props, IDiabetesData> = (
           </View>
           <View style={styles.secondaryField}>
             <DropdownField
-              onlyPicker
+              hideLabel
               items={hemoglobinUnitsOptions}
               onValueChange={formikProps.handleChange('hemoglobinMeasureUnit')}
-              placeholder=""
               selectedValue={formikProps.values.hemoglobinMeasureUnit}
             />
           </View>

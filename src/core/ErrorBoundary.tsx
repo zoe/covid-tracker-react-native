@@ -2,7 +2,7 @@ import { errors } from '@assets';
 import { Header3Text, RegularBoldText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
 

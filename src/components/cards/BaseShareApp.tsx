@@ -5,7 +5,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { isAndroid } from '@covid/utils/platform';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
 
 export interface ICommonShareProps {

@@ -2,7 +2,7 @@ import { Profile } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import {
   Dimensions,
   ImageStyle,
@@ -68,7 +68,7 @@ export type ScreenProps = {
   scrollEnabled?: boolean;
 };
 
-export default class Screen extends Component<ScreenProps> {
+export default class Screen extends React.Component<ScreenProps> {
   screenWidth: number = screenWidth;
 
   screenHeight: number = screenHeight;

@@ -1,7 +1,8 @@
 import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import DropdownField from '@covid/components/DropdownField';
+import { FormWrapper } from '@covid/components/Forms';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
@@ -18,8 +19,8 @@ import { stripAndRound } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
+import { Item, Label } from 'native-base';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -33,7 +34,7 @@ interface IYourHealthData {
 
 const initialFormValues = {
   classicSymptoms: 'no',
-  pastSymptomsChanged: 'no',
+  pastSymptomsChanged: 'much_better',
   pastSymptomsDaysAgo: '',
   stillHavePastSymptoms: 'no',
   unwellMonthBefore: 'no',
@@ -74,7 +75,7 @@ const initialState: State = {
   pastSymptomSkippedMeals: false,
 };
 
-export default class PreviousExposureScreen extends Component<HealthProps, State> {
+export default class PreviousExposureScreen extends React.Component<HealthProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
@@ -100,12 +101,10 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   });
 
   handleUpdateHealth(formData: IYourHealthData) {
-    const currentPatient = patientCoordinator.patientData.patientState;
-    const { patientId } = currentPatient;
     const infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatientInfo(patientId, infos)
+      .updatePatientInfo(patientCoordinator.patientData?.patientState?.patientId, infos)
       .then(async (info) => {
         const currentState = patientCoordinator.patientData.patientState;
         patientCoordinator.patientData.patientInfo = info;
@@ -152,7 +151,6 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.patientState;
     const symptomChangeChoices = [
       { label: i18n.t('past-symptom-changed-much-better'), value: 'much_better' },
       { label: i18n.t('past-symptom-changed-little-better'), value: 'little_better' },
@@ -161,7 +159,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
       { label: i18n.t('past-symptom-changed-much-worse'), value: 'much_worse' },
     ];
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
         <Header>
           <HeaderText>{i18n.t('previous-exposure-title')}</HeaderText>
         </Header>
@@ -171,6 +169,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
         </ProgressBlock>
 
         <Formik
+          validateOnChange
           initialValues={initialFormValues}
           onSubmit={(values: IYourHealthData) => {
             return this.handleUpdateHealth(values);
@@ -179,9 +178,10 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
         >
           {(props) => {
             return (
-              <Form>
+              <FormWrapper hasRequiredFields>
                 <View style={{ marginHorizontal: 16 }}>
                   <YesNoField
+                    required
                     label={i18n.t('label-unwell-month-before')}
                     onValueChange={props.handleChange('unwellMonthBefore')}
                     selectedValue={props.values.unwellMonthBefore}
@@ -264,6 +264,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                       </FieldWrapper>
 
                       <GenericTextField
+                        required
                         formikProps={props}
                         keyboardType="numeric"
                         label={i18n.t('label-past-symptoms-days-ago')}
@@ -271,6 +272,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                       />
 
                       <YesNoField
+                        required
                         label={i18n.t('label-past-symptoms-still-have')}
                         onValueChange={props.handleChange('stillHavePastSymptoms')}
                         selectedValue={props.values.stillHavePastSymptoms}
@@ -279,7 +281,8 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                   ) : null}
 
                   {props.values.stillHavePastSymptoms === 'yes' ? (
-                    <DropdownField
+                    <RadioInput
+                      required
                       items={symptomChangeChoices}
                       label={i18n.t('label-past-symptoms-changed')}
                       onValueChange={props.handleChange('pastSymptomsChanged')}
@@ -293,8 +296,10 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                   ) : null}
                 </View>
 
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-              </Form>
+                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
+                  {i18n.t('next-question')}
+                </BrandedButton>
+              </FormWrapper>
             );
           }}
         </Formik>

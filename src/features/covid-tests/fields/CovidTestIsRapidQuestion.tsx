@@ -2,7 +2,7 @@ import YesNoField from '@covid/components/YesNoField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 
 export interface ICovidTestIsRapidData {
@@ -24,6 +24,7 @@ export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion<IProps, ICovidT
   const { formikProps } = props;
   return (
     <YesNoField
+      required
       error={formikProps.touched.isRapidTest && formikProps.errors.isRapidTest}
       label={i18n.t('covid-test.question-is-rapid-test')}
       onValueChange={formikProps.handleChange('isRapidTest')}

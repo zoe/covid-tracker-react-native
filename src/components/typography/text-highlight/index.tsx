@@ -1,5 +1,5 @@
 import Text, { IProps as ITextProps } from '@covid/components/typography/text';
-import React from 'react';
+import * as React from 'react';
 
 interface IProps extends ITextProps {
   color?: string;

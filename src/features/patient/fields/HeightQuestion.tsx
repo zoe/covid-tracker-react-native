@@ -1,4 +1,5 @@
 import DropdownField from '@covid/components/DropdownField';
+import { requiredFormMarker } from '@covid/components/Forms';
 import { FieldWrapper } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
@@ -8,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 export interface IHeightData {
@@ -77,7 +78,10 @@ const HeightInCm: React.FC<Props> = ({ formikProps }) => {
 export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <RegularText>{i18n.t('your-height')}</RegularText>
+      <RegularText>
+        {i18n.t('your-height')}
+        {requiredFormMarker}
+      </RegularText>
       {isUSCountry() ? (
         <HeightInInches formikProps={formikProps} />
       ) : (
@@ -89,7 +93,7 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
           )}
           <View style={styles.unitsField}>
             <DropdownField
-              onlyPicker
+              hideLabel
               items={[
                 { label: 'ft', value: 'ft' },
                 { label: 'cm', value: 'cm' },

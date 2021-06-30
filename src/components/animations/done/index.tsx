@@ -1,10 +1,10 @@
 import ProgressCircle from '@covid/components/animations/progress-circle';
 import { Icon } from '@covid/components/icons';
-import React, { useEffect, useRef } from 'react';
+import * as React from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 function Done() {
-  const springValue = useRef(new Animated.Value(0)).current;
+  const springValue = React.useRef(new Animated.Value(0)).current;
 
   const spring = () => {
     Animated.spring(springValue, {
@@ -21,7 +21,7 @@ function Done() {
     outputRange: [0, 1],
   });
 
-  useEffect(spring);
+  React.useEffect(spring);
 
   return (
     <View style={styles.container}>

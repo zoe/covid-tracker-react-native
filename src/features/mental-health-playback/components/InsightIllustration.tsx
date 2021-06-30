@@ -12,7 +12,7 @@ import ItemSmoking from '@assets/mental-health-playback/insight_smoking.svg';
 import ItemSnacks from '@assets/mental-health-playback/insight_snacks.svg';
 import ItemTalking from '@assets/mental-health-playback/insight_talking.svg';
 import ItemWorking from '@assets/mental-health-playback/insight_working.svg';
-import React from 'react';
+import * as React from 'react';
 import { SvgProps } from 'react-native-svg';
 
 interface IProps extends SvgProps {

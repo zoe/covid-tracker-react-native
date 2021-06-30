@@ -11,7 +11,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikHelpers } from 'formik';
 import { Form } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -54,11 +54,7 @@ export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
                 <HeadSymptomsQuestions formikProps={props} />
               </View>
               <View style={{ flex: 1 }} />
-              <BrandedButton
-                enable={!props.isSubmitting}
-                hideLoading={!props.isSubmitting}
-                onPress={props.handleSubmit}
-              >
+              <BrandedButton enable={!props.isSubmitting} loading={props.isSubmitting} onPress={props.handleSubmit}>
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>
             </Form>

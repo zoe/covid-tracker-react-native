@@ -1,6 +1,6 @@
 import { SvgProps } from '@assets/Svg';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import Svg, { Circle, Path } from 'react-native-svg';
 
 interface IProps extends SvgProps {

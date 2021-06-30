@@ -4,7 +4,7 @@ import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { RootState } from '@covid/core/state/root';
 import { loadTrendLineExplore, loadTrendLineOverview } from '@covid/utils/files';
 import moment from 'moment';
-import React, { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -38,9 +38,9 @@ const Y_AXIS_STEP_SIZES = [
 ];
 
 export function TrendLineChart({ filter, viewMode }: IProps) {
-  const [html, setHtml] = useState<string>('');
-  const [monthRangeLabel, setMonthRangeLabel] = useState<string>('');
-  const webview = useRef<WebView>(null);
+  const [html, setHtml] = React.useState<string>('');
+  const [monthRangeLabel, setMonthRangeLabel] = React.useState<string>('');
+  const webview = React.useRef<WebView>(null);
   const trendline = useSelector<RootState, ITrendLineData | undefined>((state) => {
     if (viewMode === TrendLineViewMode.explore) {
       return state.content.exploreTrendline;
@@ -48,7 +48,7 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
     return state.content.localTrendline;
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     const runAsync = async () => {
       try {
@@ -64,7 +64,7 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
     };
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       webview.current?.call('updateTimeWindow', { payload: { type: filter } });
@@ -74,7 +74,7 @@ export function TrendLineChart({ filter, viewMode }: IProps) {
     };
   }, [filter]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     updateChartDate();
   }, [trendline]);
 

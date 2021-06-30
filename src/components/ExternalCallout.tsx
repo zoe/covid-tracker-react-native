@@ -6,7 +6,7 @@ import { RootState } from '@covid/core/state/root';
 import { useAppDispatch } from '@covid/core/state/store';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import {
   Image,
   ImageSourcePropType,
@@ -36,9 +36,9 @@ type ExternalCalloutProps = {
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   const dismissedCalloutIds = useSelector<RootState, string[]>((state) => state.content.dismissedCallouts);
-  const [dismissed, setDismissed] = useState<boolean>(false);
-  const [imageLoading, setImageLoading] = useState<boolean>(false);
-  const [imageLoadError, setImageLoadError] = useState<string | undefined>(undefined);
+  const [dismissed, setDismissed] = React.useState<boolean>(false);
+  const [imageLoading, setImageLoading] = React.useState<boolean>(false);
+  const [imageLoadError, setImageLoadError] = React.useState<string | undefined>(undefined);
   const dispatch = useAppDispatch();
 
   const imageProps = {
@@ -62,11 +62,11 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
     ],
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     setDismissed(dismissedCalloutIds.includes(props.calloutID));
   }, [dismissedCalloutIds]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setImageLoading(true);
   }, []);
 

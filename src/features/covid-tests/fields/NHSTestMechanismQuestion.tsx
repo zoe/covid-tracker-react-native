@@ -1,4 +1,4 @@
-import DropdownField from '@covid/components/DropdownField';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { FieldWrapper } from '@covid/components/Screen';
 import YesNoField from '@covid/components/YesNoField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -6,7 +6,7 @@ import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts
 import i18n from '@covid/locale/i18n';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { FormikProps } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 
 export interface INHSTestMechanismData {
@@ -42,7 +42,7 @@ export const NHSTestMechanismQuestion: INHSTestMechanismQuestion<IProps, INHSTes
 
   return (
     <>
-      <DropdownField
+      <RadioInput
         error={formikProps.touched.mechanism && formikProps.errors.mechanism}
         items={mechanismItems}
         label={i18n.t('nhs-test-detail.mechanism-label')}
@@ -61,7 +61,7 @@ export const NHSTestMechanismQuestion: INHSTestMechanismQuestion<IProps, INHSTes
 
           {formikProps.values.storedInFridge === 'yes' && (
             <FieldWrapper>
-              <DropdownField
+              <RadioInput
                 items={dayInFridgeItems}
                 label={i18n.t('nhs-test-detail.days-label')}
                 onValueChange={formikProps.handleChange('daysInFridge')}

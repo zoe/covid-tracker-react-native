@@ -9,7 +9,7 @@ import PaginationIndicator from '@covid/features/mental-health-playback/componen
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { grid, styling } from '@covid/themes';
-import React, { useRef, useState } from 'react';
+import * as React from 'react';
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -22,12 +22,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
 export default function MHPGeneralScreen() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const mhInsights = useSelector(selectInsights);
   const loading = useSelector(isLoading);
 
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
-  const scrollViewRef = useRef<ScrollView>(null);
+  const scrollViewRef = React.useRef<ScrollView>(null);
 
   const isGeneral = startupInfo?.mh_insight_cohort === 'MHIP-v1-cohort_b';
 

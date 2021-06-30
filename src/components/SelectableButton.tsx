@@ -1,7 +1,7 @@
 import { RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { Button } from 'native-base';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 interface IProps {

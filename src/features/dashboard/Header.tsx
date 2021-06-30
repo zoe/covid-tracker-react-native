@@ -7,7 +7,7 @@ import { RootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -23,14 +23,14 @@ enum HeaderType {
 
 export function Header({ reportedCount, reportOnPress }: IProps) {
   const content = useSelector<RootState, ContentState>((state) => state.content);
-  const [contributors, setContributors] = useState<string | null>(null);
+  const [contributors, setContributors] = React.useState<string | null>(null);
 
   const prettyContributorsValue = i18n.toNumber(contributors ? cleanIntegerVal(contributors) : 0, {
     delimiter: ',',
     precision: 0,
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     setContributors(content.startupInfo?.users_count.toString() ?? null);
   }, [content.startupInfo]);
 

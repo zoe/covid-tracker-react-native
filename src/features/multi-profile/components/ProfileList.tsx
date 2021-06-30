@@ -2,7 +2,7 @@ import { Loading, LoadingModal } from '@covid/components/Loading';
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { NewProfileCard } from './NewProfileCard';

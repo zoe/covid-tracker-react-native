@@ -1,13 +1,14 @@
 import Error from '@assets/icons/Error';
 import { colors } from '@theme';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
 interface Props extends TextInputProps {
-  error?: any;
+  error?: boolean;
+  label?: string;
 }
 
-export class ValidatedTextInput extends Component<Props, object> {
+export class ValidatedTextInput extends React.Component<Props, object> {
   private textInput: any;
 
   focus() {
@@ -15,13 +16,12 @@ export class ValidatedTextInput extends Component<Props, object> {
   }
 
   render() {
-    const { error } = this.props;
     return (
       <View
         style={[
           styles.inputWrapper,
           {
-            borderColor: error ? colors.feedbackBad : 'transparent',
+            borderColor: this.props.error ? colors.feedbackBad : 'transparent',
           },
         ]}
       >
@@ -31,7 +31,7 @@ export class ValidatedTextInput extends Component<Props, object> {
           style={[styles.inputStyle, this.props.multiline ? styles.multipleLines : styles.singleLine]}
           {...this.props}
         />
-        {error ? <Error /> : null}
+        {this.props.error ? <Error /> : null}
       </View>
     );
   }
@@ -55,6 +55,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 8,
     paddingRight: 8,
+  },
+  labelStyle: {
+    color: colors.primary,
+    fontFamily: 'SofiaProRegular',
+    fontSize: 16,
+    lineHeight: 30,
+    marginBottom: 8,
   },
   multipleLines: {
     height: 96,

@@ -2,17 +2,17 @@ import { BasicPageFooter } from '@covid/components/layouts/footers';
 import { BasicNavHeader } from '@covid/components/layouts/headers';
 import SafeLayout from '@covid/components/layouts/safe-layout';
 import { styling, useTheme } from '@covid/themes';
-import React, { ReactNode } from 'react';
+import * as React from 'react';
 import { ScrollView, StyleProp, ViewStyle } from 'react-native';
 
 interface IProps {
   active?: boolean;
-  children?: ReactNode;
+  children?: React.ReactNode;
   footerTitle?: string;
   hasStickyHeader?: boolean;
   headerBackgroundColor?: string;
   loading?: boolean;
-  navChildren?: ReactNode;
+  navChildren?: React.ReactNode;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   withFooter?: boolean;

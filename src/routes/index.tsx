@@ -26,7 +26,7 @@ import {
   JoinSchoolGroupScreen,
   JoinSchoolScreen,
   LoginScreen,
-  LongCovidQuestionPageOneScreen,
+  LongCovidQuestionScreen,
   LongCovidStartScreen,
   NHSDetailsScreen,
   NHSIntroScreen,
@@ -71,7 +71,7 @@ import {
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import * as React from 'react';
 
 import AnniversaryNavigator from './AnniversaryNavigator';
 import DietStudyPlaybackNavigator from './DietStudyPlaybackNavigator';
@@ -122,7 +122,7 @@ export default function MainNavigator() {
       <Stack.Screen component={JoinSchoolGroupScreen} name="JoinSchoolGroup" options={noHeader} />
       <Stack.Screen component={JoinSchoolScreen} name="JoinSchool" options={noHeader} />
       <Stack.Screen component={LoginScreen} name="Login" options={noHeader} />
-      <Stack.Screen component={LongCovidQuestionPageOneScreen} name="LongCovidQuestionPageOne" options={noHeader} />
+      <Stack.Screen component={LongCovidQuestionScreen} name="LongCovidQuestion" options={noHeader} />
       <Stack.Screen component={LongCovidStartScreen} name="LongCovidStart" options={noHeader} />
       <Stack.Screen component={NHSDetailsScreen} name="NHSDetails" options={noHeader} />
       <Stack.Screen component={NHSIntroScreen} name="NHSIntro" options={noHeader} />

@@ -1,5 +1,5 @@
 import { Textarea } from 'native-base';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { StyleProp, TextStyle } from 'react-native';
 
 import { CaptionText } from './Text';
@@ -18,7 +18,7 @@ const DEFAULT_MAX_LENGTH = 1000;
 const DEFAULT_ROW_SPAN = 5;
 
 export default function TextareaWithCharCount(props: ITextareaWithCharCountProps) {
-  const [charCount, setCharCount] = useState(0);
+  const [charCount, setCharCount] = React.useState(0);
 
   const maxLength = props.maxLength || DEFAULT_MAX_LENGTH;
 

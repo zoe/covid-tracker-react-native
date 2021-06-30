@@ -1,7 +1,7 @@
 import { IUIMessage, useMessage } from '@covid/common';
 import { ThemeButton } from '@covid/components/buttons';
 import { Text } from '@covid/components/typography';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -17,7 +17,7 @@ const RANGE_FROM = 0;
 const RANGE_TO = 1;
 
 function Banner({ active = true, message }: IProps) {
-  const [animValue] = useState(new Animated.Value(0));
+  const [animValue] = React.useState(new Animated.Value(0));
   const { width } = Dimensions.get('window');
   const { top } = useSafeAreaInsets();
   const { removeMessage } = useMessage();
@@ -35,7 +35,7 @@ function Banner({ active = true, message }: IProps) {
     }).start();
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       animate(active);

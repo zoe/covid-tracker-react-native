@@ -1,17 +1,17 @@
 import { ISubscribedSchoolGroupStats, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
-import React from 'react';
+import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 import Card from './Card';
 import { SContainerView } from './styles';
 
-type Props = {
+type TProps = {
   schoolGroups: ISubscribedSchoolGroupStats[];
   style?: StyleProp<ViewStyle>;
 };
 
-const transformResponseToUIData = (data: ISubscribedSchoolGroupStats[]): ISubscribedSchoolStats[] => {
-  return data.reduce((initial: ISubscribedSchoolStats[], group): ISubscribedSchoolStats[] => {
+function transformToUIData(schoolGroups: ISubscribedSchoolGroupStats[]): ISubscribedSchoolStats[] {
+  return schoolGroups.reduce((initial: ISubscribedSchoolStats[], group): ISubscribedSchoolStats[] => {
     const school = initial.find((school) => school.id === group.school.id);
 
     if (school) {
@@ -33,15 +33,17 @@ const transformResponseToUIData = (data: ISubscribedSchoolGroupStats[]): ISubscr
     });
     return initial;
   }, []);
-};
-
-function SchoolNetworks(props: Props) {
-  const data: ISubscribedSchoolStats[] = transformResponseToUIData(props.schoolGroups);
-  return (
-    <SContainerView style={props.style}>
-      {data.map((school) => (school.higher_education ? null : <Card key={school.id} school={school} />))}
-    </SContainerView>
-  );
 }
 
-export default SchoolNetworks;
+export default function SchoolNetworks(props: TProps) {
+  const schools: ISubscribedSchoolStats[] = transformToUIData(props.schoolGroups).filter(
+    (school) => !school.higher_education,
+  );
+  return schools?.length ? (
+    <SContainerView style={props.style}>
+      {schools.map((school) => (
+        <Card key={school.id} school={school} />
+      ))}
+    </SContainerView>
+  ) : null;
+}

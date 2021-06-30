@@ -15,7 +15,7 @@ import { Services } from '@covid/provider/services.types';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
-import React, { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
@@ -40,7 +40,7 @@ enum MapType {
 }
 
 function EmptyView({ onPress, ...props }: IEmptyViewProps) {
-  const [html, setHtml] = useState<string>('');
+  const [html, setHtml] = React.useState<string>('');
 
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
@@ -48,7 +48,9 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
 
-  const [showUpdatePostcode, setShowUpdatePostcode] = useState<boolean | undefined>(startupInfo?.show_edit_location);
+  const [showUpdatePostcode, setShowUpdatePostcode] = React.useState<boolean | undefined>(
+    startupInfo?.show_edit_location,
+  );
   const showCartoMap = true;
   const root = showCartoMap ? { paddingTop: 0 } : {};
 
@@ -57,9 +59,9 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
     NavigatorService.navigate('EstimatedCases');
   };
 
-  useEffect(() => setShowUpdatePostcode(startupInfo?.show_edit_location), [startupInfo]);
+  React.useEffect(() => setShowUpdatePostcode(startupInfo?.show_edit_location), [startupInfo]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     const runAsync = async () => {
       try {
@@ -137,22 +139,22 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
     (state) => state.content.personalizedLocalData,
   );
 
-  const viewRef = useRef(null);
-  const webViewRef = useRef<WebView>(null);
+  const viewRef = React.useRef(null);
+  const webViewRef = React.useRef<WebView>(null);
 
-  const [displayLocation, setDisplayLocation] = useState<string>('your area');
-  const [mapUrl, setMapUrl] = useState<string | null>(null);
-  const [activeCases, setActiveCases] = useState<number | null | undefined>(localData?.cases);
-  const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
-  const [useCartoMap, setUseCartoMap] = useState<boolean>(true);
-  const [html, setHtml] = useState<string>('');
+  const [displayLocation, setDisplayLocation] = React.useState<string>('your area');
+  const [mapUrl, setMapUrl] = React.useState<string | null>(null);
+  const [activeCases, setActiveCases] = React.useState<number | null | undefined>(localData?.cases);
+  const [showEmptyState, setShowEmptyState] = React.useState<boolean>(true);
+  const [useCartoMap, setUseCartoMap] = React.useState<boolean>(true);
+  const [html, setHtml] = React.useState<string>('');
 
-  const [mapConfig, setMapConfig] = useState<MapConfig>({
+  const [mapConfig, setMapConfig] = React.useState<MapConfig>({
     coordinates: DEFAULT_MAP_CENTER,
     zoom: ZOOM_LEVEL_FURTHER,
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Use carto map if map url is not avaliable
     const hasMapUrl = !!localData?.mapUrl;
     setUseCartoMap(!hasMapUrl);
@@ -176,12 +178,12 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
     }
   }, [localData]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!webViewRef.current) return;
     webViewRef.current!.call('updateMapView', mapConfig);
   }, [mapConfig, setMapConfig, webViewRef.current]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true;
     Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
     (async () => {

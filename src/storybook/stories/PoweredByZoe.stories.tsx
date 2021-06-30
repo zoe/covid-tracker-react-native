@@ -1,7 +1,7 @@
 import { PoweredByZoe } from '@covid/components/logos/PoweredByZoe';
 import { CenterView, DarkBackground } from '@covid/storybook/decorator';
 import { storiesOf } from '@storybook/react-native';
-import React from 'react';
+import * as React from 'react';
 
 storiesOf('PoweredByZoe', module)
   .addDecorator(CenterView)

@@ -1,5 +1,5 @@
 import { tick } from '@assets';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 export const BigGreenTickFilled: React.FC = (props) => (

@@ -1,6 +1,6 @@
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import MissingDataText from '@covid/features/diet-study-playback/components/missing-data-text';
-import React from 'react';
+import * as React from 'react';
 
 import Score from './Score';
 import { SContainerView } from './styles';

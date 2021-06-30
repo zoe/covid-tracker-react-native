@@ -2,7 +2,7 @@ import { BrandedButton } from '@covid/components/buttons';
 import { AppException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import React from 'react';
+import * as React from 'react';
 import { ActivityIndicator, Modal, StyleSheet, View } from 'react-native';
 
 import { ErrorText, RegularText } from './Text';
