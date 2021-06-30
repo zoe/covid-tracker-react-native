@@ -1,6 +1,6 @@
 import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
 import { FeaturedContentList, FeaturedContentType } from '@covid/components/Content/FeaturedContentList';
-import { apiClient } from '@covid/core/api/ApiClient';
+import ApiClient from '@covid/core/api/ApiClient';
 import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
 import MockAdapter from 'axios-mock-adapter';
 import * as React from 'react';
@@ -15,6 +15,8 @@ const mockReduxStore = (state: any) => {
   const store = mockStore(state);
   return store;
 };
+
+const apiClient = new ApiClient();
 
 const mockNetworkResponse = () => {
   const mock = new MockAdapter(apiClient.getClient());
