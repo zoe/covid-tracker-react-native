@@ -24,7 +24,6 @@ export default function ReconsentDiseasePreferencesScreen() {
   };
 
   // TODO: Replace icons
-  // TODO: Space to button seems quite large - let's agree on standardised layout to prevent merge conflicts
 
   const initialDiseases = [
     {
