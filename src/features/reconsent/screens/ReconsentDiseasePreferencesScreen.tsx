@@ -1,6 +1,7 @@
 import { Brain } from '@assets/icons/svgIcons';
 import { SafeLayout, Text } from '@covid/components';
 import DiseaseCard from '@covid/features/reconsent/components/DiseaseCard';
+import InfoBox from '@covid/features/reconsent/components/InfoBox';
 import ReconsentFooter from '@covid/features/reconsent/components/ReconsentFooter';
 import ReconsentHeader from '@covid/features/reconsent/components/ReconsentHeader';
 import i18n from '@covid/locale/i18n';
@@ -23,6 +24,7 @@ export default function ReconsentDiseasePreferencesScreen() {
   };
 
   // TODO: Replace icons
+  // TODO: Space to button seems quite large - let's agree on standardised layout to prevent merge conflicts
 
   const initialDiseases = [
     {
@@ -100,12 +102,15 @@ export default function ReconsentDiseasePreferencesScreen() {
           {renderDiseaseCards(initialDiseases)}
           {showExtendedList ? null : (
             <Pressable onPress={() => setShowExtendedList(true)}>
-              <Text style={styles.showMore} textClass="p">
+              <Text rhythm={16} style={styles.showMore} textClass="p">
                 + Show more
               </Text>
             </Pressable>
           )}
           {showExtendedList ? renderDiseaseCards(extendedDiseases) : null}
+          <View style={styles.infoBox}>
+            <InfoBox text={i18n.t('reconsent.how-data-used')} />
+          </View>
         </View>
       </ScrollView>
       <ReconsentFooter
@@ -119,6 +124,10 @@ export default function ReconsentDiseasePreferencesScreen() {
 const styles = StyleSheet.create({
   center: {
     textAlign: 'center',
+  },
+  infoBox: {
+    marginBottom: grid.xl,
+    marginTop: grid.s,
   },
   page: {
     backgroundColor: colors.backgroundPrimary,

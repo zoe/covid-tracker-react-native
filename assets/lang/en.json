@@ -1702,6 +1702,10 @@
 
   "required-field": "Required Field",
 
+  "reconsent": {
+    "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
+  },
+
   "disease-cards": {
     "dementia": {
       "name": "Dementia",

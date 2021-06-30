@@ -20,7 +20,7 @@ export default function DiseaseCard(props: IProps) {
   };
 
   // TODO: Vertical align description??
-  // confused about light font weight? go by name or actual prop in Figma?
+  // TODO: Do we use the lighter font? Go by font name or typography name in Figma?
 
   const IconName = props.iconName;
   return (
