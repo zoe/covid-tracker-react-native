@@ -34,7 +34,7 @@ export default function DiseaseCard(props: IProps) {
       >
         <IconName color={active ? colors.white : colors.darkblue} />
         <View style={styles.textSection}>
-          <Text style={[styles.name, active ? styles.activeName : null]} textClass="pSmall">
+          <Text rhythm={2} style={[styles.name, active ? styles.activeName : null]} textClass="pSmall">
             {props.name}
           </Text>
           <Text
@@ -65,20 +65,19 @@ const styles = StyleSheet.create({
   },
   description: {
     minHeight: grid.xxxl,
-    paddingRight: grid.gutter,
+    paddingRight: grid.l,
   },
   inactiveDescription: {
     color: colors.secondary,
   },
   name: {
     color: colors.darkblue,
-    marginBottom: grid.xxs,
-    paddingRight: grid.gutter,
+    paddingRight: grid.l,
   },
   pressable: {
     alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal: grid.gutter,
+    paddingHorizontal: grid.l,
     paddingVertical: grid.s,
   },
   shadow: {
@@ -91,6 +90,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginLeft: grid.xl,
-    paddingRight: grid.gutter,
+    paddingRight: grid.l,
   },
 });

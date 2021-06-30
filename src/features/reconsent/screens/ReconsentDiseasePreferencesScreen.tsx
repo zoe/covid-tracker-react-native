@@ -88,15 +88,21 @@ export default function ReconsentDiseasePreferencesScreen() {
 
   return (
     <SafeLayout style={styles.page}>
-      <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
+      <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.xxl }}>
         <ReconsentHeader showBackIcon showDots />
         <View>
-          <Text>What matters most to you?</Text>
-          <Text>Select as many as you like</Text>
+          <Text rhythm={24} style={styles.center} textClass="h2">
+            What matters most to you?
+          </Text>
+          <Text rhythm={16} style={[styles.center, styles.subtitle]} textClass="p">
+            Select as many as you like
+          </Text>
           {renderDiseaseCards(initialDiseases)}
           {showExtendedList ? null : (
             <Pressable onPress={() => setShowExtendedList(true)}>
-              <Text>Show more</Text>
+              <Text style={styles.showMore} textClass="p">
+                + Show more
+              </Text>
             </Pressable>
           )}
           {showExtendedList ? renderDiseaseCards(extendedDiseases) : null}
@@ -111,7 +117,19 @@ export default function ReconsentDiseasePreferencesScreen() {
 }
 
 const styles = StyleSheet.create({
+  center: {
+    textAlign: 'center',
+  },
   page: {
     backgroundColor: colors.backgroundPrimary,
+  },
+  showMore: {
+    color: colors.purple,
+    marginTop: grid.m,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+  },
+  subtitle: {
+    color: colors.secondary,
   },
 });
