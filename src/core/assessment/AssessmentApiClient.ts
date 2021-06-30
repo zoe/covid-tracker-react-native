@@ -1,14 +1,14 @@
 import appConfig from '@covid/appConfig';
-import { apiClient } from '@covid/core/api/ApiClient';
+import ApiClient from '@covid/core/api/ApiClient';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { AssessmentResponse } from '@covid/core/assessment/dto/AssessmentInfosResponse';
-
-const API_ASSESSMENTS = '/assessments/';
 
 export interface IAssessmentRemoteClient {
   addAssessment(assessment: AssessmentInfosRequest): Promise<AssessmentResponse>;
   updateAssessment(assessmentId: string, assessment: AssessmentInfosRequest): Promise<AssessmentResponse>;
 }
+
+const apiClient = new ApiClient();
 
 export class AssessmentApiClient implements IAssessmentRemoteClient {
   addAssessment(assessment: AssessmentInfosRequest): Promise<AssessmentResponse> {
@@ -16,7 +16,7 @@ export class AssessmentApiClient implements IAssessmentRemoteClient {
       ...assessment,
       version: appConfig.assessmentVersion,
     };
-    return apiClient.post<AssessmentInfosRequest, AssessmentResponse>(API_ASSESSMENTS, assessment);
+    return apiClient.post<AssessmentInfosRequest, AssessmentResponse>('/assessments/', assessment);
   }
 
   updateAssessment(assessmentId: string, assessment: AssessmentInfosRequest): Promise<AssessmentResponse> {
