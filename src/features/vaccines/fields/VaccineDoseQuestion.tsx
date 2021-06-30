@@ -162,7 +162,8 @@ export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps, IVaccineDoseData>
           {renderNameError()}
         </View>
         <SecondaryText>
-          {i18n.t('vaccines.your-vaccine.when-injection')} {requiredFormMarker}
+          {i18n.t('vaccines.your-vaccine.when-injection')}
+          {requiredFormMarker}
         </SecondaryText>
         {showPicker ? renderPicker() : renderCalenderButton()}
       </View>

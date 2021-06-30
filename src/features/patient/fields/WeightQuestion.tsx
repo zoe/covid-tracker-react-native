@@ -33,7 +33,8 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
       <RegularText>
-        {label} {requiredFormMarker}
+        {label}
+        {requiredFormMarker}
       </RegularText>
       {isUSCountry() ? (
         <ValidatedTextInput

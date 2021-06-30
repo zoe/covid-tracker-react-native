@@ -347,7 +347,6 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
 
         <Formik
           validateOnChange
-          validateOnMount
           initialValues={this.props.route.params?.editing ? this.getPatientFormValues() : getInitialFormValues()}
           onSubmit={(values: IAboutYouData) => {
             return this.handleUpdateHealth(values);
@@ -467,12 +466,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                   ) : null}
                 </View>
 
-                <BrandedButton
-                  enable={props.isValid}
-                  loading={props.isSubmitting}
-                  onPress={props.handleSubmit}
-                  testID="button-submit"
-                >
+                <BrandedButton enable={props.isValid && props.dirty} onPress={props.handleSubmit} testID="button-submit">
                   {this.props.route.params?.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>
               </FormWrapper>

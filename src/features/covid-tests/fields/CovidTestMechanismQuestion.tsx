@@ -92,6 +92,7 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
   return (
     <>
       <RadioInput
+        required
         error={formikProps.touched.mechanism ? formikProps.errors.mechanism : ''}
         items={mechanismItems}
         label={i18n.t('covid-test.question-mechanism')}
@@ -102,6 +103,7 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
 
       {formikProps.values.mechanism === 'other' && (
         <GenericTextField
+          required
           formikProps={formikProps}
           label={i18n.t('covid-test.question-mechanism-specify')}
           name="mechanismSpecify"
@@ -110,6 +112,7 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
 
       {formikProps.values.mechanism === 'nose_throat_swab' && (
         <RadioInput
+          required
           error={formikProps.touched.trainedWorker ? formikProps.errors.trainedWorker : ''}
           items={trainedWorkerItems}
           label={i18n.t('covid-test.question-trained-worker')}

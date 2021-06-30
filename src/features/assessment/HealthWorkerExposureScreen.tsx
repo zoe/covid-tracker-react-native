@@ -1,8 +1,10 @@
 import { BrandedButton } from '@covid/components';
+import { FormWrapper } from '@covid/components/Forms';
 import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
+import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
@@ -12,7 +14,6 @@ import { assessmentService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form } from 'native-base';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
@@ -156,7 +157,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
         >
           {(props) => {
             return (
-              <Form>
+              <FormWrapper hasRequiredFields>
                 <View>
                   <YesNoField
                     label={i18n.t('health-worker-exposure-question-interacted-any-patients')}
@@ -167,6 +168,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
                   {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' ? (
                     <View style={{ marginHorizontal: 16 }}>
                       <RadioInput
+                        required
                         items={patientInteractionOptions}
                         label={i18n.t('health-worker-exposure-question-treated-patients-with-covid')}
                         onValueChange={props.handleChange('treatedPatientsWithCovid')}
@@ -174,6 +176,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
                       />
 
                       <RadioInput
+                        required
                         items={equipmentUsageOptions}
                         label={i18n.t('health-worker-exposure-question-has-used-ppe-equipment')}
                         onValueChange={props.handleChange('hasUsedPPEEquipment')}
@@ -182,6 +185,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
 
                       {props.values.hasUsedPPEEquipment === 'always' ? (
                         <RadioInput
+                          required
                           items={availabilityAlwaysOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilityAlways')}
@@ -191,6 +195,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
 
                       {props.values.hasUsedPPEEquipment === 'sometimes' ? (
                         <RadioInput
+                          required
                           items={availabilitySometimesOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilitySometimes')}
@@ -200,6 +205,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
 
                       {props.values.hasUsedPPEEquipment === 'never' ? (
                         <RadioInput
+                          required
                           items={availabilityNeverOptions}
                           label={i18n.t('label-chose-an-option')}
                           onValueChange={props.handleChange('ppeAvailabilityNever')}
@@ -210,11 +216,16 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
                   ) : null}
                 </View>
 
-                {Object.keys(props.errors).length ? <ErrorText>{i18n.t('validation-error-text')}</ErrorText> : null}
+                {!!Object.keys(props.errors).length && props.submitCount > 0 ? (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                ) : null}
+
                 <ErrorText>{this.state.errorMessage}</ErrorText>
 
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-              </Form>
+                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
+                  {i18n.t('next-question')}
+                </BrandedButton>
+              </FormWrapper>
             );
           }}
         </Formik>

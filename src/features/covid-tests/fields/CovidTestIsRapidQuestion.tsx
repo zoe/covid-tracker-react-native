@@ -24,6 +24,7 @@ export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion<IProps, ICovidT
   const { formikProps } = props;
   return (
     <YesNoField
+      required
       error={formikProps.touched.isRapidTest && formikProps.errors.isRapidTest}
       label={i18n.t('covid-test.question-is-rapid-test')}
       onValueChange={formikProps.handleChange('isRapidTest')}
