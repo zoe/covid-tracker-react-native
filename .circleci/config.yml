@@ -178,8 +178,7 @@ commands:
     steps:
       - run: brew update
       - run: brew install watchman
-      - run: yarn uninstall detox-cli
-      - run: yarn install -g detox-cli
+      - run: yarn add detox-cli
       - run: brew tap wix/brew
       - run: brew install applesimutils
 
