@@ -47,10 +47,10 @@ references:
   default_workspace: &default_workspace ~/covid-react
 
   # Cache keys
-  yarn_cache_key: &yarn_cache_key yarn-v7-{{ checksum "yarn.lock" }}-{{ arch }}
-  node_cache_key: &node_cache_key node-v7-{{ checksum "package.json" }}-{{ arch }}
-  pod_cache_key: &pod_cache_key pod-v7-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
-  gem_cache_key: &gem_cache_key gems-v7-{{ checksum "Gemfile.lock" }}-{{ arch }}
+  yarn_cache_key: &yarn_cache_key yarn-v6-{{ checksum "yarn.lock" }}-{{ arch }}
+  node_cache_key: &node_cache_key node-v6-{{ checksum "package.json" }}-{{ arch }}
+  pod_cache_key: &pod_cache_key pod-v6-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+  gem_cache_key: &gem_cache_key gems-v6-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
   # Branch filter
   master_filter: &master_filter
@@ -60,13 +60,13 @@ references:
   develop_filter: &develop_filter
     branches:
       only:
-        - selvach/fix
+        - develop
 
   feature_filter: &feature_filter
     branches:
       ignore:
         - master
-        - selvach/fix
+        - develop
         - develop-legacy
         - release-0.x-legacy
         - stage
