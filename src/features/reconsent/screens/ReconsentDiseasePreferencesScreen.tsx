@@ -93,16 +93,16 @@ export default function ReconsentDiseasePreferencesScreen() {
       <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.xxl }}>
         <ReconsentHeader showBackIcon showDots />
         <View>
-          <Text rhythm={24} style={styles.center} textClass="h2">
+          <Text rhythm={24} style={styles.center} textClass="h2Light">
             What matters most to you?
           </Text>
-          <Text rhythm={16} style={[styles.center, styles.subtitle]} textClass="p">
+          <Text rhythm={16} style={[styles.center, styles.subtitle]} textClass="pLight">
             Select as many as you like
           </Text>
           {renderDiseaseCards(initialDiseases)}
           {showExtendedList ? null : (
             <Pressable onPress={() => setShowExtendedList(true)}>
-              <Text rhythm={16} style={styles.showMore} textClass="p">
+              <Text rhythm={16} style={styles.showMore} textClass="pMedium">
                 + Show more
               </Text>
             </Pressable>

@@ -15,7 +15,7 @@ export default function InfoBox(props: IProps) {
       <View style={styles.icon}>
         <InfoCircle color={colors.darkblue} />
       </View>
-      <Text rhythm={2} style={styles.text} textClass="p">
+      <Text rhythm={2} style={styles.text} textClass="pLight">
         {props.text}
       </Text>
     </View>

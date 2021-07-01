@@ -34,12 +34,12 @@ export default function DiseaseCard(props: IProps) {
       >
         <IconName color={active ? colors.white : colors.darkblue} />
         <View style={styles.textSection}>
-          <Text rhythm={2} style={[styles.name, active ? styles.activeName : null]} textClass="pSmall">
+          <Text rhythm={2} style={[styles.name, active ? styles.activeName : null]} textClass="pSmallMedium">
             {props.name}
           </Text>
           <Text
             style={[styles.description, active ? styles.activeDescription : styles.inactiveDescription]}
-            textClass="pXSmall"
+            textClass="h6Light"
           >
             {props.description}
           </Text>

@@ -54,6 +54,7 @@ export const styles: ITextClass = {
   pSmall: getTextProperties(14, 20),
   pSmallBold: getTextProperties(14, 20, 'SofiaPro-SemiBold'),
   pSmallLight: getTextProperties(14, 20, 'SofiaPro-Light'),
+  pSmallMedium: getTextProperties(14, 20, 'SofiaPro-Medium'),
   pXSmall: getTextProperties(12, 16),
   pXSmallMedium: getTextProperties(12, 16, 'SofiaPro-Medium'),
 };
