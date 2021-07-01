@@ -178,11 +178,10 @@ commands:
     steps:
       - run: brew update
       - run: brew install watchman
-      - run: npm uninstall detox-cli
-      - run: npm install -g detox-cli
+      - run: yarn uninstall detox-cli
+      - run: yarn install -g detox-cli
       - run: brew tap wix/brew
       - run: brew install applesimutils
-      
 
 ###
 ### Define jobs
