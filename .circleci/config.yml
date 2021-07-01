@@ -390,13 +390,11 @@ workflows:
           filters: *feature_filter
       - test:
           filters: *feature_filter
-
-      # DISABLED FOR MERGE TO MASTER
-      # - e2etest:
-      #     # This should be the e2e_filter to avoid running on every push
-      #     # filters: *e2e_filter
-      #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
+      - e2etest:
+          # This should be the e2e_filter to avoid running on every push
+          # filters: *e2e_filter
+          filters: *feature_filter
+          context: react-covid-tracker-stage
 
   ota:
     jobs:
