@@ -8,7 +8,7 @@ import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-function Callout(props: { title: string; description: string }) {
+const Callout = (props: { title: string; description: string }) => {
   return (
     <View style={styles.card}>
       <Text rhythm={8} style={styles.cardTitle} textClass="h4Medium">
@@ -19,9 +19,22 @@ function Callout(props: { title: string; description: string }) {
       </Text>
     </View>
   );
-}
+};
 
 export default function ReconsentRequestConsentScreen() {
+  const onPrivacyPolicyPress = () => {
+    NavigatorService.navigate('PrivacyPolicyUK', { viewOnly: true });
+  };
+
+  const renderCallouts = () => {
+    return [1, 2, 3].map((i) => (
+      <Callout
+        description={i18n.t(`reconsent.request-consent.use-${i}-description`)}
+        title={i18n.t(`reconsent.request-consent.use-${i}-title`)}
+      />
+    ));
+  };
+
   return (
     <ReconsentScreen
       buttonOnPress={() => NavigatorService.navigate('ReconsentNewsletterSignup')}
@@ -34,11 +47,11 @@ export default function ReconsentRequestConsentScreen() {
       <Text rhythm={24} style={[styles.center, styles.subtitle]} textClass="pLight">
         {i18n.t('reconsent.request-consent.subtitle')}
       </Text>
-
-      <Callout
-        description={i18n.t('reconsent.request-consent.use-1-description')}
-        title={i18n.t('reconsent.request-consent.use-1-title')}
-      />
+      {renderCallouts()}
+      <Text onPress={onPrivacyPolicyPress} style={styles.privacyLink} textClass="pSmallLight">
+        {i18n.t('reconsent.request-consent.learn-more')}{' '}
+      </Text>
+      <View style={styles.hr} />
     </ReconsentScreen>
   );
 }
@@ -47,6 +60,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.lightBlueBackground,
     borderRadius: grid.l,
+    marginBottom: grid.l,
     paddingHorizontal: grid.xxl,
     paddingVertical: grid.xxl,
   },
@@ -59,10 +73,21 @@ const styles = StyleSheet.create({
   center: {
     textAlign: 'center',
   },
+  hr: {
+    borderBottomColor: colors.backgroundFour,
+    borderBottomWidth: 1,
+    marginBottom: grid.xxl,
+  },
   page: {
     backgroundColor: colors.backgroundPrimary,
   },
-
+  privacyLink: {
+    color: colors.darkblue,
+    marginBottom: 30,
+    marginTop: grid.s,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+  },
   subtitle: {
     color: colors.secondary,
   },
