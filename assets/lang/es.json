@@ -1,4 +1,6 @@
 {
+  "app-name": "COVID Study",
+  "company-name": "ZOE",
   "continue": "Continue",
   "loading": "Loading",
 
@@ -1703,6 +1705,15 @@
     "title": "Your app version needs updating!",
     "body": "You need to update your app to continue using it. This will give you all the latest features.",
     "cta": "Update now"
+  },
+
+  "reconsent": {
+    "introduction": {
+      "button": "Next",
+      "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",
+      "sidenote": "This study has ethical approval from King's College London",
+      "title": "Help us fight major diseases beyond COVID-19"
+    }
   },
 
   "required-field": "Required Field"
