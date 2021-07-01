@@ -1,4 +1,6 @@
 {
+  "app-name": "COVID Study",
+  "company-name": "ZOE",
   "continue": "Continue",
   "loading": "Loading",
 
@@ -1700,11 +1702,15 @@
     "cta": "Update now"
   },
 
-  "required-field": "Required Field",
-
   "reconsent": {
     "disease-preferences": {
       "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
+    },
+    "introduction": {
+      "button": "Next",
+      "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",
+      "sidenote": "This study has ethical approval from King's College London",
+      "title": "Help us fight major diseases beyond COVID-19"
     }
   },
 
@@ -1753,5 +1759,7 @@
       "name": "Neurological Conditions",
       "description": "600,000 people are diagnosed with a brain disorder every year in the UK"
     }
-  }
+  },
+
+  "required-field": "Required Field"
 }
