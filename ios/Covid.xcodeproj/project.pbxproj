@@ -40,7 +40,6 @@
 		F778D8FA252644E900CB635B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F778D8F9252644E800CB635B /* LaunchScreen.storyboard */; };
 		F7E2425225125F3700D03296 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7E2425125125F3700D03296 /* AppCenter-Config.plist */; };
 		F823E172FA094AAFBE34DD11 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D39F52C00735433899C82B37 /* Foundation.ttf */; };
-		F90451F5267A4B6D0055A8AB /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		F919B95DF372484D98936B18 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C13E86B875447CC9E60BC10 /* SimpleLineIcons.ttf */; };
 		FE47494A5C594737B9FAFCD2 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8863502152F4361AD4F1391 /* rubicon-icon-font.ttf */; };
 /* End PBXBuildFile section */
@@ -304,7 +303,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F90451F5267A4B6D0055A8AB /* main.jsbundle in Resources */,
 				F74394A4253F286200708825 /* SofiaPro-UltraLight.otf in Resources */,
 				F74394A5253F286200708825 /* SofiaProRegular.otf in Resources */,
 				F74394A6253F286200708825 /* SofiaPro-Bold.otf in Resources */,
