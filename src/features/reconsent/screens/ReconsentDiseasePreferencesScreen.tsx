@@ -16,64 +16,64 @@ type TDiseaseType = {
   name: string;
 };
 
+// TODO: Replace icons
+
+const initialDiseases = [
+  {
+    iconName: Brain,
+    name: 'dementia',
+  },
+  {
+    iconName: Brain,
+    name: 'cvd',
+  },
+  {
+    iconName: Brain,
+    name: 'cancer',
+  },
+  {
+    iconName: Brain,
+    name: 'joint-bone',
+  },
+  {
+    iconName: Brain,
+    name: 'mental-health',
+  },
+];
+
+const extendedDiseases = [
+  {
+    iconName: Brain,
+    name: 'womens-health',
+  },
+  {
+    iconName: Brain,
+    name: 'vision-hearing',
+  },
+  {
+    iconName: Brain,
+    name: 'autoimmune',
+  },
+  {
+    iconName: Brain,
+    name: 'skin',
+  },
+  {
+    iconName: Brain,
+    name: 'lung',
+  },
+  {
+    iconName: Brain,
+    name: 'neurological',
+  },
+];
+
 export default function ReconsentDiseasePreferencesScreen() {
   const theme = useTheme();
   const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
   const addToPreferences = () => {
     console.log('hi');
   };
-
-  // TODO: Replace icons
-
-  const initialDiseases = [
-    {
-      iconName: Brain,
-      name: 'dementia',
-    },
-    {
-      iconName: Brain,
-      name: 'cvd',
-    },
-    {
-      iconName: Brain,
-      name: 'cancer',
-    },
-    {
-      iconName: Brain,
-      name: 'joint-bone',
-    },
-    {
-      iconName: Brain,
-      name: 'mental-health',
-    },
-  ];
-
-  const extendedDiseases = [
-    {
-      iconName: Brain,
-      name: 'womens-health',
-    },
-    {
-      iconName: Brain,
-      name: 'vision-hearing',
-    },
-    {
-      iconName: Brain,
-      name: 'autoimmune',
-    },
-    {
-      iconName: Brain,
-      name: 'skin',
-    },
-    {
-      iconName: Brain,
-      name: 'lung',
-    },
-    {
-      iconName: Brain,
-      name: 'neurological',
-    },
-  ];
 
   const renderDiseaseCards = (diseasesArray: TDiseaseType[]) => {
     return diseasesArray.map((disease) => (
