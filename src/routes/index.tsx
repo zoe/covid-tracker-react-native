@@ -98,9 +98,6 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.YourStudyScreen} name="YourStudy" options={noHeader} />
       <Stack.Screen component={screens.YourWorkScreen} name="YourWork" options={noHeader} />
 
-      {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
-      {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
-
       {AnniversaryNavigator({ Stack })}
       {DietStudyPlaybackNavigator({ Stack })}
       {MentalHealthNavigator({ Stack })}
