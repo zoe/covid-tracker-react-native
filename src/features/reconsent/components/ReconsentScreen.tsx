@@ -16,7 +16,7 @@ export default function ReconsentScreen(props: IProps) {
 
   return (
     <SafeLayout style={styles.safeLayout}>
-      <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
+      <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.xxl }}>
         {props.children}
         <BrandedButton enable onPress={props.buttonOnPress} style={styles.button}>
           {props.buttonTitle}
