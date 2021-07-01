@@ -6,7 +6,7 @@ import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 import { ISchoolGroupModel, ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { RootState } from '@covid/core/state/root';
 import { SchoolGroupRow } from '@covid/features/school-network/SchoolGroupRow';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -30,10 +30,10 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
   const allGroups = useSelector<RootState, ISubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
 
   React.useEffect(() => {
-    const { patientId } = route.params.patientData;
-    const schoolId = route.params.selectedSchool.id;
     const currentJoinedGroups = allGroups.filter(
-      (group) => group.patient_id === patientId && group.school.id === schoolId,
+      (group) =>
+        group.patient_id === route.params?.patientData?.patientId &&
+        group.school.id === route.params?.selectedSchool?.id,
     );
 
     if (currentJoinedGroups.length > 0) {
@@ -53,13 +53,13 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
 
   return (
     <View style={styles.rootContainer}>
-      <Screen navigation={navigation} profile={route.params.patientData.profile}>
+      <Screen navigation={navigation} profile={route.params?.patientData.profile} testID="school-group-list-screen">
         <Header>
           <HeaderText>{i18n.t('school-networks.groups-list.title')}</HeaderText>
         </Header>
 
         <RegularText style={styles.content}>
-          {`${i18n.t('school-networks.groups-list.subtitle')} ${route.params.selectedSchool.name}`}
+          {`${i18n.t('school-networks.groups-list.subtitle')} ${route.params?.selectedSchool.name}`}
         </RegularText>
 
         <ProgressBlock>
@@ -74,7 +74,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
             button2Callback={async () => {
               await schoolNetworkCoordinator.removePatientFromGroup(
                 pressedGroup!.id,
-                route.params.patientData.patientId,
+                route.params?.patientData.patientId,
               );
               setModalVisible(false);
             }}

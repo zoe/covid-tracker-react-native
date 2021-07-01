@@ -51,9 +51,9 @@ export const BooleanCheckboxes: React.FC<BooleanCheckBoxesProps> = ({ data, show
               setFieldValue,
               values,
             }}
-            inputProps={showAdditionalInputProps.inputProps}
             label={showAdditionalInputProps.label}
             name={showAdditionalInputProps.key}
+            textInputProps={showAdditionalInputProps.inputProps}
           />
         </View>
       )}

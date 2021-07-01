@@ -1,11 +1,9 @@
 import Screen from '@covid/components/Screen';
 import { ISchoolModel } from '@covid/core/schools/Schools.dto';
 import { selectPatientsJoinedGroups } from '@covid/core/schools/Schools.slice';
-import { ISchoolService } from '@covid/core/schools/SchoolService';
+import { schoolService } from '@covid/core/schools/SchoolService';
 import { RootState } from '@covid/core/state/root';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
@@ -21,20 +19,23 @@ interface IProps {
 
 export default function JoinHigherEducationScreen({ navigation, route }: IProps) {
   const [schools, setSchools] = React.useState<ISchoolModel[]>([]);
-  const service = useInjection<ISchoolService>(Services.SchoolService);
   const currentJoinedGroup = useSelector((state: RootState) =>
     selectPatientsJoinedGroups(state, route.params?.patientData?.patientId, true),
   );
 
   React.useEffect(() => {
     (async () => {
-      const schools = await service.getSchools();
+      const schools = await schoolService.getSchools();
       setSchools(schools.filter((s) => s.higher_education === true));
     })();
   }, []);
 
   return (
-    <Screen navigation={navigation} profile={route.params?.patientData?.patientState?.profile}>
+    <Screen
+      navigation={navigation}
+      profile={route.params?.patientData?.patientState?.profile}
+      testID="join-higher-education-screen"
+    >
       {currentJoinedGroup ? (
         <SelectedSchool
           currentJoinedGroup={currentJoinedGroup}

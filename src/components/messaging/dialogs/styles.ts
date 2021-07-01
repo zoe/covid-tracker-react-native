@@ -1,5 +1,5 @@
-import styled from '@covid/themes/styled-components';
 import { Animated, View } from 'react-native';
+import styled from 'styled-components/native';
 
 export interface IContainerViewProps {
   height: number;

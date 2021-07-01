@@ -1,7 +1,7 @@
 import { Button } from '@covid/components/buttons/Button';
 import Screen from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -18,15 +18,17 @@ interface IProps {
 }
 
 function ConfirmSchoolScreen({ route, navigation }: IProps) {
-  const { patientData, school } = route.params;
-
   const handleOnPress = async () => {
-    await schoolNetworkCoordinator.setSelectedSchool(school);
+    await schoolNetworkCoordinator.setSelectedSchool(route.params?.school);
     schoolNetworkCoordinator.goToJoinGroup();
   };
 
   return (
-    <Screen navigation={navigation} profile={patientData.patientState.profile}>
+    <Screen
+      navigation={navigation}
+      profile={route.params?.patientData?.patientState?.profile}
+      testID="confirm-school-screen"
+    >
       <View style={styles.container}>
         <JoinHeader
           bodyText="school-networks.join-school.school-code-confirm-instructions"
@@ -35,7 +37,7 @@ function ConfirmSchoolScreen({ route, navigation }: IProps) {
           maxSteps={4}
         />
         <View style={styles.box}>
-          <RegularText>{school.name}</RegularText>
+          <RegularText>{route.params?.school.name}</RegularText>
         </View>
       </View>
       <Button branded onPress={handleOnPress}>

@@ -3,10 +3,10 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ConfigType } from '@covid/core/Config';
-import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { isUSCountry, localisationService } from '@covid/core/localisation/LocalisationService';
+import { patientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { AtopyQuestions, IAtopyData } from '@covid/features/patient/fields/AtopyQuestions';
 import { BloodGroupQuestion, IBloodGroupData } from '@covid/features/patient/fields/BloodGroupQuestion';
@@ -18,8 +18,6 @@ import { DiabetesQuestions, IDiabetesData } from '@covid/features/patient/fields
 import { IRaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
@@ -53,14 +51,8 @@ const initialState: State = {
 };
 
 export default class ProfileBackDateScreen extends React.Component<BackDateProps, State> {
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
-  get features(): ConfigType {
-    return this.localisationService.getConfig();
+  get features(): ConfigType | undefined {
+    return localisationService.getConfig();
   }
 
   constructor(props: BackDateProps) {
@@ -97,26 +89,25 @@ export default class ProfileBackDateScreen extends React.Component<BackDateProps
   });
 
   async componentDidMount() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
+    const currentPatient = assessmentCoordinator.assessmentData?.patientData?.patientState;
     this.setState({
-      needAtopyAnswers: !currentPatient.hasAtopyAnswers,
-      needBloodGroupAnswer: !currentPatient.hasBloodGroupAnswer,
-      needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer,
-      needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
+      needAtopyAnswers: currentPatient?.hasAtopyAnswers,
+      needBloodGroupAnswer: currentPatient?.hasBloodGroupAnswer,
+      needBloodPressureAnswer: currentPatient?.hasBloodPressureAnswer,
+      needDiabetesAnswers: currentPatient?.shouldAskExtendedDiabetes,
       needRaceEthnicityAnswer:
-        (this.features.showRaceQuestion || this.features.showEthnicityQuestion) &&
-        !currentPatient.hasRaceEthnicityAnswer,
+        (this.features?.showRaceQuestion || this.features?.showEthnicityQuestion) &&
+        currentPatient?.hasRaceEthnicityAnswer,
     });
   }
 
   handleProfileUpdate(formData: IBackfillData) {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
-    const { patientId } = currentPatient;
+    const currentPatient = assessmentCoordinator.assessmentData?.patientData?.patientState;
     const infos = this.createPatientInfos(formData);
 
-    this.patientService
-      .updatePatientInfo(patientId, infos)
-      .then((response) => {
+    patientService
+      .updatePatientInfo(currentPatient?.patientId, infos)
+      .then(() => {
         if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
         if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
@@ -127,7 +118,7 @@ export default class ProfileBackDateScreen extends React.Component<BackDateProps
         }
         if (formData.bloodGroup) currentPatient.hasBloodGroupAnswer = true;
 
-        AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+        assessmentCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -205,10 +196,12 @@ export default class ProfileBackDateScreen extends React.Component<BackDateProps
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
-
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+        testID="profile-back-date-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('back-date-profile-title')}</HeaderText>
         </Header>
@@ -249,8 +242,8 @@ export default class ProfileBackDateScreen extends React.Component<BackDateProps
                 {this.state.needRaceEthnicityAnswer ? (
                   <RaceEthnicityQuestion
                     formikProps={props as FormikProps<IRaceEthnicityData>}
-                    showEthnicityQuestion={this.features.showEthnicityQuestion}
-                    showRaceQuestion={this.features.showRaceQuestion}
+                    showEthnicityQuestion={this.features?.showEthnicityQuestion}
+                    showRaceQuestion={this.features?.showRaceQuestion}
                   />
                 ) : null}
 

@@ -2,7 +2,7 @@ import { BrandedButton, TextareaWithCharCount } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
@@ -44,24 +44,27 @@ export default class TreatmentOtherScreen extends React.Component<TreatmentOther
 
     await assessmentService.completeAssessment(
       assessment,
-      assessmentCoordinator.assessmentData.patientData.patientInfo!,
+      assessmentCoordinator.assessmentData?.patientData?.patientInfo!,
     );
     assessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 
   render() {
-    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
     const title =
-      this.props.route.params.location === 'back_from_hospital'
+      this.props.route.params?.location === 'back_from_hospital'
         ? i18n.t('treatment-other-title-after')
         : i18n.t('treatment-other-title-during');
     const question =
-      this.props.route.params.location === 'back_from_hospital'
+      this.props.route.params?.location === 'back_from_hospital'
         ? i18n.t('treatment-other-question-treatment-after')
         : i18n.t('treatment-other-question-treatment-during');
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+        testID="treatment-other-screen"
+      >
         <Header>
           <HeaderText>{title}</HeaderText>
         </Header>

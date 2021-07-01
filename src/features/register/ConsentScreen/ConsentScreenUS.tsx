@@ -19,8 +19,8 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
   const [termsOfUseChecked, setTermsOfUseChecked] = React.useState(false);
 
   const onNurseConsentPress = React.useCallback(
-    () => navigation.replace('NursesConsentUS', { viewOnly: route.params.viewOnly }),
-    [navigation.replace, route.params.viewOnly],
+    () => navigation.replace('NursesConsentUS', { viewOnly: route.params?.viewOnly }),
+    [navigation.replace, route.params?.viewOnly],
   );
 
   const onInfoLinkPress = React.useCallback(
@@ -29,13 +29,13 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
   );
 
   const onPrivacyPolicyPress = React.useCallback(
-    () => navigation.navigate('PrivacyPolicyUS', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly],
+    () => navigation.navigate('PrivacyPolicyUS', { viewOnly: route.params?.viewOnly }),
+    [navigation.navigate, route.params?.viewOnly],
   );
 
   const onTermsOfUsePress = React.useCallback(
-    () => navigation.navigate('TermsOfUseUS', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly],
+    () => navigation.navigate('TermsOfUseUS', { viewOnly: route.params?.viewOnly }),
+    [navigation.navigate, route.params?.viewOnly],
   );
 
   const toggleProcessingChecked = React.useCallback(() => {
@@ -54,7 +54,7 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
     <ScrollView>
       <RegularText>
         {i18n.t('consent-normal-us.existing-study')}{' '}
-        <ClickableText onPress={onNurseConsentPress} testID="nurseConsent">
+        <ClickableText onPress={onNurseConsentPress} testID="nurse-consent">
           {i18n.t('consent-normal-us.click-here')}
         </ClickableText>
         {'\n'}
@@ -66,7 +66,7 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
       </RegularBoldText>
       <RegularText>
         {i18n.t('consent-normal-us.purpose-body')}{' '}
-        <ClickableText onPress={onInfoLinkPress} testID="infoLink">
+        <ClickableText onPress={onInfoLinkPress} testID="info-link">
           https://www.cdc.gov/coronavirus/2019-ncov/index.html
         </ClickableText>
         {'\n'}
@@ -85,7 +85,7 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
       </RegularBoldText>
       <RegularText>
         {i18n.t('consent-normal-us.your-consent-body')}{' '}
-        <ClickableText onPress={onPrivacyPolicyPress} testID="privacyPolicy1">
+        <ClickableText onPress={onPrivacyPolicyPress} testID="privacy-policy1">
           {i18n.t('consent-normal-us.privacy-policy')}
         </ClickableText>
         .{'\n\n'}
@@ -96,22 +96,22 @@ const ConsentScreenUS: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
         <RegularBoldText>covidtrackingquestions-us@joinzoe.com</RegularBoldText>
       </RegularText>
 
-      {!route.params.viewOnly ? (
+      {!route.params?.viewOnly ? (
         <CheckboxList>
-          <CheckboxItem onChange={toggleProcessingChecked} testID="processingCheck" value={processingChecked}>
+          <CheckboxItem onChange={toggleProcessingChecked} testID="processing-check" value={processingChecked}>
             {i18n.t('consent-normal-us.i-consent')}{' '}
-            <ClickableText onPress={onPrivacyPolicyPress} testID="privacyPolicy2">
+            <ClickableText onPress={onPrivacyPolicyPress} testID="privacy-policy2">
               {i18n.t('consent-normal-us.privacy-policy')}
             </ClickableText>
             .
           </CheckboxItem>
-          <CheckboxItem onChange={toggleTermsOfUseChecked} testID="termsOfUseCheck" value={termsOfUseChecked}>
+          <CheckboxItem onChange={toggleTermsOfUseChecked} testID="terms-of-use-check" value={termsOfUseChecked}>
             {i18n.t('consent-normal-us.read-accepted')}{' '}
-            <ClickableText onPress={onTermsOfUsePress} testID="termsOfUse">
+            <ClickableText onPress={onTermsOfUsePress} testID="terms-of-use">
               {i18n.t('consent-normal-us.terms')}
             </ClickableText>{' '}
             {i18n.t('consent-normal-us.and')}{' '}
-            <ClickableText onPress={onPrivacyPolicyPress} testID="privacyPolicy3">
+            <ClickableText onPress={onPrivacyPolicyPress} testID="privacy-policy3">
               {i18n.t('consent-normal-us.privacy-policy')}
             </ClickableText>
             .

@@ -2,18 +2,15 @@ import { Divider } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import { DrawerMenuItem, LinkItem } from '@covid/features/menu/DrawerMenuItem';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 import * as React from 'react';
 import { Alert, StyleSheet } from 'react-native';
 
 export const LinksSection: React.FC<{ navigation: DrawerNavigationHelpers }> = ({ navigation }) => {
-  const userService = useInjection<IUserService>(Services.User);
   const { logout } = useLogout(navigation);
 
   function goToPrivacy() {

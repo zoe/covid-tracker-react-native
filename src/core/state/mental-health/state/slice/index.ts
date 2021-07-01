@@ -6,7 +6,7 @@ import {
 import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IMentalHealthState = {
+export const initialStateMentalHealth: IMentalHealthState = {
   completed: false,
   consent: undefined,
   currentSection: undefined,
@@ -14,7 +14,7 @@ const initialState: IMentalHealthState = {
 };
 
 const mentalHealthStateSlice = createSlice({
-  initialState,
+  initialState: initialStateMentalHealth,
   name: 'MentalHealthState',
   reducers: {
     setCompleted: (state, action: PayloadAction<boolean>) => {

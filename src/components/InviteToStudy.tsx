@@ -1,6 +1,6 @@
 import { studyInvite } from '@assets';
 import Analytics, { events } from '@covid/core/Analytics';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import * as React from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 

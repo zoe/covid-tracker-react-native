@@ -8,8 +8,8 @@ import {
   TTtextDecorationLine,
   TTypeSizes,
 } from '@covid/themes';
-import styled from '@covid/themes/styled-components';
 import { Text } from 'react-native';
+import styled from 'styled-components/native';
 
 interface ITextProps {
   colorPalette: TColorPalette;

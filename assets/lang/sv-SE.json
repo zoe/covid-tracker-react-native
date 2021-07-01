@@ -3,11 +3,12 @@
   "company-name": "ZOE",
   "continue": "Continue",
   "loading": "Loading",
+  "log-in": "Logga in",
+  "skip": "Hoppa över",
 
   "create-account": {
     "title": "Skapa nytt konto",
     "btn": "Skapa konto",
-    "login": "Logga in",
     "existing-account": "till befintligt konto.",
     "email": "Din e-postadress",
     "password": "Skapa lösenord",
@@ -490,7 +491,6 @@
     "dont-have-account": "Har du inget konto?",
     "create-account": "Skapa konto",
     "forgot-your-password": "Glömt lösenordet?",
-    "button": "Logga in",
     "user-not-found-exception": "Vi kunde inte identifiera dig. Försök igen.",
     "exception": "Det gick inte att logga in. Försök igen."
   },
@@ -511,8 +511,7 @@
 
   "welcome": {
     "title": "COVID Symptom Study",
-    "sign-in": "Logga in",
-    "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa COVID-19.",
+    "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa covid-19.",
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig besöka",
     "disclaimer-link": "1177.se",
     "tell-me-more": "Berätta mer",
@@ -627,7 +626,6 @@
   "next-question": "Nästa fråga",
   "completed": "Klar",
   "something-went-wrong": "Någonting gick fel, var god försök igen senare",
-  "choose-one-of-these-options": "Välj ett av alternativen",
   "prefer-not-to-say": "Föredrar att inte svara",
 
   "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
@@ -1242,8 +1240,7 @@
         "title": "",
         "description": ""
       },
-      "cta": "",
-      "skip": ""
+      "cta": ""
     },
 
     "how-to": {
@@ -1256,8 +1253,7 @@
         "title": "",
         "description": ""
       },
-      "cta": "",
-      "skip": ""
+      "cta": ""
     },
 
     "join-school": {

@@ -15,7 +15,7 @@ type PropsType = {
 };
 
 export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
-  viewOnly = this.props.route.params.viewOnly;
+  viewOnly = this.props.route.params?.viewOnly;
 
   render() {
     return (

@@ -4,12 +4,10 @@ import { ClickableText, HeaderLightText, RegularText } from '@covid/components/T
 import Analytics from '@covid/core/Analytics';
 import { UserNotFoundException } from '@covid/core/Exception';
 import { setPatients, setUsername } from '@covid/core/state/user';
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { grid, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -32,7 +30,6 @@ function LoginScreen({ route }: IProps) {
   const [user, setUser] = React.useState('');
   const dispatch = useDispatch();
   const passwordInput = React.useRef(null);
-  const userService = useInjection<IUserService>(Services.User);
 
   function handleLogin() {
     setLoading(true);
@@ -95,6 +92,7 @@ function LoginScreen({ route }: IProps) {
               setIsValid(username, pass);
             }}
             returnKeyType="next"
+            testID="login-input-email"
           />
         </Item>
         <Item floatingLabel error={hasErrors} style={styles.item}>
@@ -108,11 +106,18 @@ function LoginScreen({ route }: IProps) {
             onSubmitEditing={handleLogin}
             ref={passwordInput}
             returnKeyType="go"
+            testID="login-input-password"
           />
         </Item>
 
-        <BrandedButton enable={isValid && !loading} loading={loading} onPress={handleLogin} style={styles.button}>
-          <Text>{i18n.t('login.button')}</Text>
+        <BrandedButton
+          enable={isValid && !loading}
+          loading={loading}
+          onPress={handleLogin}
+          style={styles.button}
+          testID="login-button"
+        >
+          <Text>{i18n.t('log-in')}</Text>
         </BrandedButton>
 
         <View style={styles.textWrapper}>

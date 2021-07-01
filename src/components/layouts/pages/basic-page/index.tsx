@@ -18,6 +18,7 @@ interface IProps {
   withFooter?: boolean;
   withGutter?: boolean;
   withHeader?: boolean;
+  testID?: string;
 }
 
 export default function BasicPage({
@@ -33,10 +34,11 @@ export default function BasicPage({
   withFooter = true,
   withGutter = false,
   withHeader = true,
+  testID = '',
 }: IProps) {
   const theme = useTheme();
   return (
-    <SafeLayout style={style}>
+    <SafeLayout style={style} testID={testID}>
       <ScrollView
         contentContainerStyle={styling.flexGrow}
         stickyHeaderIndices={hasStickyHeader ? [0] : undefined}

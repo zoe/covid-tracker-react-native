@@ -66,7 +66,7 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
     <SafeAreaView style={styles.container}>
       <View style={styles.subContainer}>
         <View style={styles.drawerToggleContainer}>
-          <DrawerToggle navigation={navigation} style={{ tintColor: colors.white }} />
+          <DrawerToggle navigation={navigation} style={{ tintColor: colors.white }} testID="drawer-toggle" />
         </View>
         <Animated.View style={[styles.header, { height: headerHeight }]}>
           <Animated.View

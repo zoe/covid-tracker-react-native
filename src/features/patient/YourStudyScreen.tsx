@@ -7,10 +7,10 @@ import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
 import { isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '@covid/features';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -239,7 +239,7 @@ const AllCohorts: CohortDefinition[] = [
 ];
 
 export default class YourStudyScreen extends React.Component<YourStudyProps, State> {
-  private coordinator: Coordinator & IUpdatePatient = this.props.route.params.editing
+  private coordinator: Coordinator & IUpdatePatient = this.props.route.params?.editing
     ? editProfileCoordinator
     : patientCoordinator;
 
@@ -251,10 +251,9 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
   });
 
   filterCohortsByCountry(allCohorts: CohortDefinition[], country: string) {
-    const currentPatient = this.coordinator.patientData.patientState;
     return AllCohorts.filter((cohort) => {
       if (cohort.key === 'is_in_uk_nhs_asymptomatic_study') {
-        return cohort.country === country && !currentPatient.isReportedByAnother;
+        return cohort.country === country && !this.coordinator.patientData?.patientState?.isReportedByAnother;
       }
       return cohort.country === country;
     });
@@ -262,8 +261,8 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
 
   getInitialFormValues() {
     const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
-    if (this.props.route.params.editing) {
-      const patientInfo = this.props.route.params.patientData.patientInfo!;
+    if (this.props.route.params?.editing) {
+      const patientInfo = this.props.route.params?.patientData.patientInfo!;
       const patientFormData = {
         clinicalStudyContacts: patientInfo.clinical_study_contacts ?? '',
         clinicalStudyInstitutions: patientInfo.clinical_study_institutions ?? '',
@@ -299,24 +298,27 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
   }
 
   handleSubmit(formData: IYourStudyData) {
-    const currentPatient = this.coordinator.patientData.patientState;
     const infos = this.createPatientInfos(formData);
 
     this.coordinator
       .updatePatientInfo(infos)
       .then((_) => {
-        currentPatient.isNHSStudy = !!infos.is_in_uk_nhs_asymptomatic_study;
+        this.coordinator.patientData.patientState.isNHSStudy = !!infos.is_in_uk_nhs_asymptomatic_study;
         this.coordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
 
   render() {
-    const currentPatient = this.coordinator.patientData.patientState;
     const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     return (
-      <Screen simpleCallout navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen
+        simpleCallout
+        navigation={this.props.navigation}
+        profile={this.coordinator.patientData?.patientState?.profile}
+        testID="your-study-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('your-study.title')}</HeaderText>
         </Header>
@@ -404,7 +406,7 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
                     // @ts-ignore - error due to cohort keys being in AllCohorts and not explicitly in the interface
                     props.values.is_in_uk_nhs_asymptomatic_study
                       ? i18n.t('edit-profile.next')
-                      : this.props.route.params.editing
+                      : this.props.route.params?.editing
                       ? i18n.t('edit-profile.done')
                       : i18n.t('next-question')
                   }

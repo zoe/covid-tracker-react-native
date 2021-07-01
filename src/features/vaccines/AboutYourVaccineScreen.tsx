@@ -5,15 +5,13 @@ import Screen, { Header } from '@covid/components/Screen';
 import { ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { setLoggedVaccine } from '@covid/core/state';
 import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
-import { IVaccineService } from '@covid/core/vaccine/VaccineService';
+import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IVaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { formatDateToPost } from '@covid/utils/datetime';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -35,7 +33,6 @@ const registerSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema(
 interface IAboutYourVaccineData extends IVaccineDoseData {}
 
 export function AboutYourVaccineScreen({ route, navigation }: IProps) {
-  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const [hasSecondDose, setHasSecondDose] = React.useState<string | undefined>(undefined);
@@ -158,13 +155,21 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
   const renderFirstDoseUI = (props: FormikProps<IVaccineDoseData>) => (
     <>
       <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-      <VaccineDoseQuestion firstDose formikProps={props as FormikProps<IVaccineDoseData>} />
+      <VaccineDoseQuestion
+        firstDose
+        formikProps={props as FormikProps<IVaccineDoseData>}
+        testID="vaccine-first-dose-question"
+      />
     </>
   );
 
   const renderSecondDoseUI = (props: FormikProps<IVaccineDoseData>) =>
     vaccineOrFormHasSecondDose() ? (
-      <VaccineDoseQuestion firstDose={false} formikProps={props as FormikProps<IVaccineDoseData>} />
+      <VaccineDoseQuestion
+        firstDose={false}
+        formikProps={props as FormikProps<IVaccineDoseData>}
+        testID="vaccine-second-dose-question"
+      />
     ) : null;
 
   const renderFindInfoLink = (
@@ -220,7 +225,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
     ) : null;
 
   return (
-    <Screen navigation={navigation} profile={assessmentData?.patientData.profile}>
+    <Screen navigation={navigation} profile={assessmentData?.patientData.profile} testID="about-your-vaccine-screen">
       <Header>
         <HeaderText>{i18n.t('vaccines.your-vaccine.title')}</HeaderText>
       </Header>
@@ -268,7 +273,7 @@ export function AboutYourVaccineScreen({ route, navigation }: IProps) {
                 <ValidationError error={i18n.t('validation-error-text')} style={{ marginBottom: 32 }} />
               ) : null}
 
-              <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
+              <BrandedButton enable={props.isValid} onPress={props.handleSubmit} testID="button-submit">
                 {i18n.t('vaccines.your-vaccine.confirm')}
               </BrandedButton>
               {renderDeleteButton()}

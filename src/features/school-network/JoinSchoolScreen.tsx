@@ -16,14 +16,14 @@ interface IProps {
 }
 
 function JoinSchoolScreen({ route, navigation }: IProps) {
-  const currentPatient = route.params.patientData.patientState;
+  const currentPatient = route.params?.patientData?.patientState;
 
   const currentJoinedGroup = useSelector((state: RootState) =>
-    selectPatientsJoinedGroups(state, currentPatient.patientId, false),
+    selectPatientsJoinedGroups(state, currentPatient?.patientId, false),
   );
 
   return (
-    <Screen simpleCallout navigation={navigation} profile={currentPatient.profile}>
+    <Screen simpleCallout navigation={navigation} profile={currentPatient?.profile} testID="join-school-screen">
       {currentJoinedGroup ? (
         <SelectedSchool
           hasBubbles
@@ -44,7 +44,7 @@ function JoinSchoolScreen({ route, navigation }: IProps) {
             headerText="school-networks.join-school.school-code-title"
             maxSteps={4}
           />
-          <SchoolForm patientData={route.params.patientData} />
+          <SchoolForm patientData={route.params?.patientData} />
         </>
       )}
     </Screen>

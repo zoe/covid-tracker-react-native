@@ -6,13 +6,14 @@ import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 interface Props extends TextInputProps {
   error?: boolean;
   label?: string;
+  testID?: string;
 }
 
 export class ValidatedTextInput extends React.Component<Props, object> {
-  private textInput: any;
+  private textInput: TextInput | null;
 
   focus() {
-    this.textInput.focus();
+    this.textInput?.focus();
   }
 
   render() {

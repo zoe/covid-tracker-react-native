@@ -1,15 +1,13 @@
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
-import { ISchoolService } from '@covid/core/schools/SchoolService';
+import { schoolService } from '@covid/core/schools/SchoolService';
 import { RootState } from '@covid/core/state/root';
-import { container } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type SchoolState = {
   joinedSchoolGroups: ISubscribedSchoolGroupStats[]; // TODO Rename
 };
 
-const initialState: SchoolState = {
+export const initialStateSchools: SchoolState = {
   joinedSchoolGroups: [],
 };
 
@@ -18,8 +16,7 @@ const initialState: SchoolState = {
 export const fetchSubscribedSchoolGroups = createAsyncThunk('school/fetch_subscribed_school_groups', async (): Promise<
   ISubscribedSchoolGroupStats[]
 > => {
-  const service = container.get<ISchoolService>(Services.SchoolService);
-  return service.getSubscribedSchoolGroups();
+  return schoolService.getSubscribedSchoolGroups();
 });
 
 // Slice (Store, Reducer, Actions etc...)
@@ -30,7 +27,7 @@ export const schoolSlice = createSlice({
       state.joinedSchoolGroups = action.payload;
     },
   },
-  initialState,
+  initialState: initialStateSchools,
   name: 'school',
   reducers: {
     removeGroup: (state, action: PayloadAction<string>) => {

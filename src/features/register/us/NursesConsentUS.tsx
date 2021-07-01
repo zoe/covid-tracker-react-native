@@ -2,11 +2,9 @@ import appConfig from '@covid/appConfig';
 import { BrandedButton } from '@covid/components';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { IConsentService } from '@covid/core/consent/ConsentService';
+import { consentService } from '@covid/core/consent/ConsentService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -25,9 +23,6 @@ interface TermsState {
 }
 
 export class NursesConsentUSScreen extends React.Component<PropsType, TermsState> {
-  @lazyInject(Services.Consent)
-  private readonly consentService: IConsentService;
-
   constructor(props: PropsType) {
     super(props);
     this.state = {
@@ -36,7 +31,7 @@ export class NursesConsentUSScreen extends React.Component<PropsType, TermsState
     };
   }
 
-  viewOnly = this.props.route.params.viewOnly;
+  viewOnly = this.props.route.params?.viewOnly;
 
   handleProcessingChange = () => {
     this.setState((prevState) => ({ processingChecked: !prevState.processingChecked }));
@@ -48,7 +43,7 @@ export class NursesConsentUSScreen extends React.Component<PropsType, TermsState
 
   handleAgreeClicked = async () => {
     if (this.state.processingChecked && this.state.termsOfUseChecked) {
-      await this.consentService.setConsentSigned(
+      await consentService.setConsentSigned(
         'US Nurses',
         appConfig.nursesConsentVersionUS,
         appConfig.privacyPolicyVersionUS,

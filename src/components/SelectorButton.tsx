@@ -18,7 +18,7 @@ interface IProps {
 export function SelectorButton(props: IProps) {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <TouchableOpacity disabled={props.disable} onPress={props.onPress} testID={props.testID ?? 'buttonTestID'}>
+      <TouchableOpacity disabled={props.disable} onPress={props.onPress} testID={props.testID ?? 'button-test-ID'}>
         <View style={styles.bigButton}>
           <Text style={[fontStyles.bodyReg, styles.buttonText]}>{props.text}</Text>
         </View>

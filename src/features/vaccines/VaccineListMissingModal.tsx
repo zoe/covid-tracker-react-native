@@ -1,5 +1,5 @@
 import { BrandedButton, HeaderText, Text } from '@covid/components';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -17,7 +17,7 @@ export const VaccineListMissingModal: React.FC<Props> = ({ route }) => {
   const coordinator = assessmentCoordinator;
 
   const close = () => {
-    coordinator.goToAddEditVaccine(route.params.vaccine);
+    coordinator.goToAddEditVaccine(route.params?.vaccine);
   };
 
   return (

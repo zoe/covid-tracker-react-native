@@ -8,7 +8,7 @@ import YesNoField from '@covid/components/YesNoField';
 import { fetchStartUpInfo } from '@covid/core/content/state/contentSlice';
 import { useAppDispatch } from '@covid/core/state/store';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -113,7 +113,12 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     .sort((a: PickerItemProps, b: PickerItemProps) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
   return (
-    <Screen simpleCallout navigation={props.navigation} profile={props.route.params?.patientData?.profile}>
+    <Screen
+      simpleCallout
+      navigation={props.navigation}
+      profile={props.route.params?.patientData?.profile}
+      testID="edit-location-screen"
+    >
       <Header>
         <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
       </Header>

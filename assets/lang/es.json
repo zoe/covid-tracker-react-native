@@ -3,11 +3,12 @@
   "company-name": "ZOE",
   "continue": "Continue",
   "loading": "Loading",
+  "log-in": "Iniciar sesión",
+  "skip": "Omitir",
 
   "create-account": {
     "title": "Crear nueva cuenta",
     "btn": "Crear cuenta",
-    "login": "Iniciar sesión",
     "existing-account": "en cuenta existente.",
     "email": "Su correo electrónico",
     "password": "Crear contraseña",
@@ -28,7 +29,6 @@
     "dont-have-account": "¿No tiene una cuenta?",
     "create-account": "Crear cuenta",
     "forgot-your-password": "¿Olvidó su contraseña?",
-    "button": "Iniciar sesión",
     "user-not-found-exception": "No lo pudimos identificar. Intente nuevamente.",
     "exception": "No se puede iniciar sesión. Intente nuevamente."
   },
@@ -57,7 +57,6 @@
 
   "welcome": {
     "title": "COVID Symptom Study",
-    "sign-in": "Iniciar sesión",
     "take-a-minute": "Tómese 1 minuto diario y ayude a combatir el brote en su comunidad.",
     "disclaimer": "Esta aplicación le permite ayudar a los demás, pero \n no da consejos de salud. Si necesita \n consejos de salud",
     "disclaimer-link": "visite el sitio web de NHS",
@@ -98,7 +97,6 @@
   "next-question": "Siguiente pregunta",
   "completed": "Listo",
   "something-went-wrong": "Algo salió mal, intente nuevamente más tarde",
-  "choose-one-of-these-options": "Elija una de las opciones",
 
   "your-work": {
     "worked-hospital-inpatient": "Paciente hospitalizado",
@@ -1259,8 +1257,7 @@
         "title": "",
         "description": ""
       },
-      "cta": "",
-      "skip": ""
+      "cta": ""
     },
 
     "how-to": {
@@ -1273,8 +1270,7 @@
         "title": "",
         "description": ""
       },
-      "cta": "",
-      "skip": ""
+      "cta": ""
     },
 
     "join-school": {

@@ -3,7 +3,6 @@ import { ConfigType, getCountryConfig } from '@covid/core/Config';
 import { ScreenName } from '@covid/core/Coordinator';
 import i18n from '@covid/locale/i18n';
 import * as Localization from 'expo-localization';
-import { injectable } from 'inversify';
 
 export interface ILocalisationService {
   setUserCountry(countryCode: string): void;
@@ -12,14 +11,13 @@ export interface ILocalisationService {
   shouldAskCountryConfirmation(): Promise<boolean>;
   defaultCountryFromLocale(): void;
   updateUserCountry(isLoggedIn: boolean): void;
-  getConfig(): ConfigType;
+  getConfig(): ConfigType | undefined;
 }
 
-@injectable()
 export class LocalisationService implements ILocalisationService {
   public static userCountry = 'US';
 
-  public static countryConfig: ConfigType;
+  public static countryConfig: ConfigType | undefined;
 
   public static ipCountry = '';
 
@@ -27,7 +25,7 @@ export class LocalisationService implements ILocalisationService {
     LocalisationService.countryConfig = getCountryConfig(countryCode);
   }
 
-  getConfig(): ConfigType {
+  getConfig(): ConfigType | undefined {
     return LocalisationService.countryConfig;
   }
 
@@ -118,4 +116,4 @@ export const isUSCountry = () => LocalisationService.userCountry === 'US';
 export const isGBCountry = () => LocalisationService.userCountry === 'GB';
 export const isSECountry = () => LocalisationService.userCountry === 'SE';
 
-export const localisationServce = new LocalisationService();
+export const localisationService = new LocalisationService();

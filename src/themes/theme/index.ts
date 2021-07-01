@@ -9,13 +9,10 @@ declare module 'styled-components' {
   export interface DefaultTheme extends IThemeVars {}
 }
 
-const Theme: DefaultTheme = {
-  // colors
+const theme: DefaultTheme = {
   colors,
-  // layout
   grid,
-  // typography
   text: styles,
 };
 
-export default Theme;
+export default theme;

@@ -12,7 +12,7 @@ import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
+import { schoolNetworkCoordinator } from './SchoolNetworkCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolHowTo'>;
@@ -26,11 +26,17 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
     coordinator.gotoNextScreen(route.name);
   };
 
-  const currentPatient = route.params.patientData?.patientState;
+  const currentPatient = route.params?.patientData?.patientState;
 
   return (
     <View style={styles.container}>
-      <Screen simpleCallout navigation={navigation} profile={currentPatient?.profile} style={styles.container}>
+      <Screen
+        simpleCallout
+        navigation={navigation}
+        profile={currentPatient?.profile}
+        style={styles.container}
+        testID="school-how-to-screen"
+      >
         <View style={styles.container}>
           <Header>
             <HeaderText style={styles.header}>{i18n.t('school-networks.how-to.title')}</HeaderText>
@@ -54,7 +60,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
         <Button branded onPress={goNext}>
           {i18n.t('school-networks.how-to.cta')}
         </Button>
-        <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.how-to.skip')}</Button>
+        <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('skip')}</Button>
       </View>
     </View>
   );

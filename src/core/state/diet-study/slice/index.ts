@@ -2,12 +2,12 @@ import { IDietStudy, TDietStudyConsent } from '@covid/core/state/diet-study/type
 import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IDietStudy = {
+export const initialStateDietStudy: IDietStudy = {
   consent: undefined,
 };
 
 const dietStudySlice = createSlice({
-  initialState,
+  initialState: initialStateDietStudy,
   name: 'DietStudyState',
   reducers: {
     setDietStudyConsent: (state, action: PayloadAction<TDietStudyConsent>) => {

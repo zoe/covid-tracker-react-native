@@ -1,6 +1,4 @@
-import { IPatientService } from '@covid/core/patient/PatientService';
-import { Services } from '@covid/provider/services.types';
-import { inject, injectable } from 'inversify';
+import { patientService } from '@covid/core/patient/PatientService';
 
 export type Profile = {
   id: string;
@@ -16,17 +14,15 @@ export interface IProfileService {
   hasMultipleProfiles(): Promise<boolean>;
 }
 
-@injectable()
 export class ProfileService implements IProfileService {
-  @inject(Services.Patient)
-  private readonly patientService: IPatientService;
-
   public async hasMultipleProfiles() {
     try {
-      const response = await this.patientService.listProfiles();
+      const response = await patientService.listProfiles();
       return !!response && response.length > 1;
     } catch (e) {
       return false;
     }
   }
 }
+
+export const profileService = new ProfileService();

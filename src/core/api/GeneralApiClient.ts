@@ -1,12 +1,9 @@
-import { IApiClient } from '@covid/core/api/ApiClient';
-import { Services } from '@covid/provider/services.types';
-import { inject, injectable } from 'inversify';
+import ApiClient from '@covid/core/api/ApiClient';
 
-@injectable()
+const apiClient = new ApiClient();
+
 export default class GeneralApiClient {
-  constructor(@inject(Services.Api) private apiClient: IApiClient) {}
-
   postUserEvent(event: string) {
-    return this.apiClient.post('/user_events/', { event });
+    return apiClient.post('/user_events/', { event });
   }
 }

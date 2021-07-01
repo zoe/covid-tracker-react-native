@@ -14,13 +14,14 @@ interface IProps {
 }
 
 export default function LongCovidStartScreen({ route }: IProps) {
-  const { patientData } = route.params;
+  const patientData = route.params?.patientData;
 
   return (
     <BasicPage
       withGutter
       footerTitle={i18n.t('long-covid.button')}
       onPress={() => NavigatorService.navigate('LongCovidQuestion', { patientData })}
+      testID="long-covid-start-screen"
     >
       <View style={styles.oneOff}>
         <Text style={styles.oneOffText}>{i18n.t('long-covid.one-off')}</Text>

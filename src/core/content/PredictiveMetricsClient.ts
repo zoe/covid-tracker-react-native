@@ -1,7 +1,5 @@
-import { IApiClient } from '@covid/core/api/ApiClient';
-import { Services } from '@covid/provider/services.types';
+import ApiClient, { IApiClient } from '@covid/core/api/ApiClient';
 import Axios from 'axios';
-import { inject, injectable } from 'inversify';
 
 export interface IPredictiveMetricsClient {
   getDailyCases(): Promise<string>;
@@ -16,16 +14,20 @@ type PrevalenceResponse = {
   uk_prevalence: string;
 };
 
-@injectable()
 export class PredictiveMetricsClient implements IPredictiveMetricsClient {
-  constructor(@inject(Services.IncidenceHttpApi) private apiClient: IApiClient) {
+  apiClient: IApiClient;
+
+  constructor() {
+    this.apiClient = new ApiClient();
+
     const client = Axios.create({
       baseURL: 'https://covid-assets.joinzoe.com',
       headers: { 'Content-Type': 'application/json' },
       responseType: 'json',
       timeout: 5 * 1000,
     });
-    apiClient.setClient(client);
+
+    this.apiClient.setClient(client);
   }
 
   async getDailyCases(): Promise<string> {
@@ -38,3 +40,5 @@ export class PredictiveMetricsClient implements IPredictiveMetricsClient {
     return uk_prevalence;
   }
 }
+
+export const predictiveMetricsClient = new PredictiveMetricsClient();

@@ -4,12 +4,10 @@ import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { offlineService, pushNotificationService } from '@covid/Services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -41,9 +39,6 @@ interface OptionalInfoData {
 }
 
 export class OptionalInfoScreen extends React.Component<PropsType, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
   private phoneComponent: any;
 
   constructor(props: PropsType) {
@@ -65,7 +60,7 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
         ...(formData.name && { name: formData.name }),
         ...(formData.phone && { phone_number: formData.phone }),
       } as Partial<PiiRequest>;
-      await this.userService.updatePii(piiDoc);
+      await userService.updatePii(piiDoc);
     }
   }
 
@@ -110,7 +105,7 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
             status={this.state.status}
           />
         )}
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} testID="optional-info-screen">
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
             <Formik
               initialValues={{ name: '', phone: '' }}
@@ -135,6 +130,7 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
                           }}
                           placeholder={i18n.t('optional-info.name-placeholder')}
                           returnKeyType="next"
+                          testID="input-name"
                           value={props.values.name}
                         />
 
@@ -144,18 +140,17 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
                           onChangeText={props.handleChange('phone')}
                           placeholder={i18n.t('optional-info.phone-placeholder')}
                           ref={(input) => (this.phoneComponent = input)}
+                          testID="input-phone"
                           value={props.values.phone}
                         />
                         {props.errors.phone ? <ErrorText>{props.errors.phone}</ErrorText> : null}
                       </Form>
                     </View>
-                    <View>
-                      <ErrorText>{this.state.errorMessage}</ErrorText>
-                    </View>
+                    <ErrorText>{this.state.errorMessage}</ErrorText>
 
-                    <View>
-                      <BrandedButton onPress={props.handleSubmit}>{i18n.t('optional-info.button')}</BrandedButton>
-                    </View>
+                    <BrandedButton onPress={props.handleSubmit} testID="button-submit">
+                      {i18n.t('optional-info.button')}
+                    </BrandedButton>
                   </View>
                 );
               }}

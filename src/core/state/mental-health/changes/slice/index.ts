@@ -2,7 +2,7 @@ import { IMentalHealthChanges, TMentalHealthChange } from '@covid/core/state/men
 import { RootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialState: IMentalHealthChanges = {
+export const initialStateMentalHealthChanges: IMentalHealthChanges = {
   devicesWithScreen: undefined,
   drinkingAlcohol: undefined,
   engagingWithOrganisations: undefined,
@@ -21,7 +21,7 @@ export const initialState: IMentalHealthChanges = {
 };
 
 const mentalHealthChangesSlice = createSlice({
-  initialState,
+  initialState: initialStateMentalHealthChanges,
   name: 'MentalHealthChanges',
   reducers: {
     setDevicesWithScreen: (state, action: PayloadAction<TMentalHealthChange>) => {

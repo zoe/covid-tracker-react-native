@@ -70,6 +70,11 @@ references:
         - develop-legacy
         - release-0.x-legacy
         - stage
+  
+  e2e_filter: &e2e_filter
+    branches:
+      only:
+        - develop
 
 ###
 ### Define shared commands:
@@ -167,7 +172,15 @@ commands:
       - set_expo_release_channel
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target bare
-
+  
+  # Prepare E2E setup
+  prepare_e2e:
+    steps:
+      - run: brew update
+      - run: brew install watchman
+      - run: npm install -g detox-cli
+      - run: brew tap wix/brew
+      - run: brew install applesimutils
 
 ###
 ### Define jobs
@@ -237,6 +250,37 @@ jobs:
           path: ./reports/junit/
       - store_artifacts:
           path: ./reports/junit
+  
+  # Run Dtox E2E
+  e2etest:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+
+    steps:
+      - build
+      - prepare_e2e
+      #- run: yarn build:ios
+      - run:
+          name: Force specific nodejs version
+          command: |
+            export NODE_VERSION=$(cat .nvmrc)
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.1/install.sh | bash -s -- --no-use
+            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
+            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
+            echo 'nvm install v10.2.0' >> $BASH_ENV
+            echo 'nvm alias default v10.2.0' >> $BASH_ENV
+
+      - run: yarn fastlane:ios:release env:$RELEASE_TYPE
+      #- run: detox build --configuration ios.release
+      - run: detox test --configuration ios.release --cleanup
+      - persist_to_workspace:
+          root: *default_workspace
+          paths:
+            - node_modules
+            - vendor/bundle
+            - ios/Pods
+            - android/app/src/main/assets/index.android.bundle
+            - android/app/src/main/res
 
   ### ------------------- ###
   ### Deploy related jobs ###
@@ -335,6 +379,7 @@ workflows:
   # |-- Lint project
   # |-- Check i18n string
   # |-- Run Tests
+  # |-- Run Detox E2E Tests
   #
 
   tests:
@@ -345,6 +390,13 @@ workflows:
           filters: *feature_filter
       - test:
           filters: *feature_filter
+
+      # DISABLED FOR MERGE TO MASTER
+      # - e2etest:
+      #     # This should be the e2e_filter to avoid running on every push
+      #     # filters: *e2e_filter
+      #     filters: *feature_filter
+      #     context: react-covid-tracker-stage
 
   ota:
     jobs:

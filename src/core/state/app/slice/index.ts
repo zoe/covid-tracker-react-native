@@ -6,19 +6,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // THIS REDUCER IS BLACK LISTED AND RESET ON EVERY SESSION
 // SET SESSION VALUES HERE
 
-export const appInitialState: IApp = {
+export const initialStateApp: IApp = {
   dashboardHasBeenViewed: false,
   loggedVaccine: false,
   mentalHealthStudyActive: true,
 };
 
 const appSlice = createSlice({
-  initialState: appInitialState,
+  initialState: initialStateApp,
   name: 'App',
   reducers: {
     reset: () => {
       return {
-        ...appInitialState,
+        ...initialStateApp,
       };
     },
     setDashboardHasBeenViewed: (state, action: PayloadAction<boolean>) => {

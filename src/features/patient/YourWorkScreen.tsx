@@ -7,8 +7,8 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
+import { patientService } from '@covid/core/patient/PatientService';
 import {
   AvailabilityAlwaysOptions,
   AvailabilityNeverOptions,
@@ -20,8 +20,6 @@ import {
 } from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
@@ -72,9 +70,6 @@ const initialState: State = {
 };
 
 export default class YourWorkScreen extends React.Component<YourWorkProps, State> {
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
   constructor(props: YourWorkProps) {
     super(props);
     this.state = initialState;
@@ -90,7 +85,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
     const currentPatient = patientCoordinator.patientData?.patientState;
     const infos = this.createPatientInfos(formData);
 
-    this.patientService
+    patientService
       .updatePatientInfo(currentPatient?.patientId, infos)
       .then(() => {
         currentPatient.isHealthWorker =
@@ -259,7 +254,11 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
     ];
 
     return (
-      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={patientCoordinator.patientData?.patientState?.profile}
+        testID="your-work-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('title-about-work')}</HeaderText>
         </Header>
@@ -299,6 +298,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                       label={i18n.t('are-you-healthcare-staff')}
                       onValueChange={handleChange('isHealthcareStaff')}
                       selectedValue={isHealthcareStaff}
+                      testID="input-healthcare-staff"
                     />
 
                     <YesNoField
@@ -307,6 +307,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                       label={i18n.t('are-you-carer')}
                       onValueChange={handleChange('isCarer')}
                       selectedValue={isCarer}
+                      testID="is-carer-question"
                     />
 
                     {/* if is healthcare worker question is yes */}
@@ -454,6 +455,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                     enable={this.checkFormFilled(props)}
                     loading={props.isSubmitting}
                     onPress={handleSubmit}
+                    testID="button-submit"
                   >
                     {i18n.t('next-question')}
                   </BrandedButton>

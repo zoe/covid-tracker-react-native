@@ -2,11 +2,11 @@ import { BrandedButton, FeaturedContentList, FeaturedContentType } from '@covid/
 import { Header } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { ImpactTimelineCard } from '@covid/features/anniversary';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
@@ -45,7 +45,7 @@ export default function ThankYouUKScreen({ navigation, route }: IProps) {
     <>
       {askForRating && <AppRating />}
       <SafeAreaView>
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView contentContainerStyle={styles.scrollView} testID="scroll-view-thank-you-screen">
           <View style={styles.rootContainer}>
             <View style={{ marginTop: 24 }}>
               <BigGreenTickFilled />
@@ -76,6 +76,7 @@ export default function ThankYouUKScreen({ navigation, route }: IProps) {
             <BrandedButton
               onPress={() => assessmentCoordinator.gotoNextScreen(route.name)}
               style={styles.ctaSingleProfile}
+              testID="button-complete"
             >
               <RegularText style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</RegularText>
             </BrandedButton>

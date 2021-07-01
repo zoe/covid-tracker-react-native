@@ -2,7 +2,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
@@ -19,7 +19,6 @@ interface IProps {
 function WhereAreYouScreen({ navigation, route }: IProps) {
   const isFocused = useIsFocused();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
   const updateAssessment = async (status: string, isComplete = false) => {
     const assessment = {
@@ -29,7 +28,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
     if (isComplete) {
       await assessmentService.completeAssessment(
         assessment,
-        assessmentCoordinator.assessmentData.patientData.patientInfo!,
+        assessmentCoordinator.assessmentData?.patientData?.patientInfo!,
       );
     } else {
       assessmentService.saveAssessment(assessment);
@@ -55,7 +54,11 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
   }, [isFocused]);
 
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen
+      navigation={navigation}
+      profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      testID="where-are-you-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
       </Header>
@@ -67,18 +70,22 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
       <View style={styles.content}>
         <SelectorButton
           onPress={() => handleLocationSelection('home', true)}
+          testID="button-location-home"
           text={i18n.t('where-are-you.picker-location-home')}
         />
         <SelectorButton
           onPress={() => handleLocationSelection('hospital', false)}
+          testID="button-location-hospital"
           text={i18n.t('where-are-you.picker-location-hospital')}
         />
         <SelectorButton
           onPress={() => handleLocationSelection('back_from_hospital', false)}
+          testID="button-location-back-from-hospital"
           text={i18n.t('where-are-you.picker-location-back-from-hospital')}
         />
         <SelectorButton
           onPress={() => handleLocationSelection('back_from_hospital', true)}
+          testID="button-location-back-from-hospital-already-reported"
           text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
         />
       </View>

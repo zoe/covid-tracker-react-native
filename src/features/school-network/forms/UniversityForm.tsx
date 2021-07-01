@@ -1,7 +1,7 @@
 import { Button } from '@covid/components/buttons/Button';
 import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { ISchoolModel, ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { Formik } from 'formik';

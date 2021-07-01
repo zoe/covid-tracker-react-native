@@ -2,7 +2,7 @@ import { chevronRight } from '@assets';
 import Screen, { Header } from '@covid/components/Screen';
 import { Header3Text, HeaderText, SecondaryText } from '@covid/components/Text';
 import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -17,8 +17,6 @@ type RenderProps = {
 };
 
 export const EditProfileScreen: React.FC<RenderProps> = (props) => {
-  const { patientData } = props.route.params;
-
   const LinkItem: React.FC<{ title: string; action: VoidFunction }> = ({ title, action }) => {
     return (
       <TouchableOpacity onPress={action} style={styles.profileLabel}>
@@ -30,7 +28,12 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
 
   return (
     <>
-      <Screen simpleCallout navigation={props.navigation} profile={patientData.profile}>
+      <Screen
+        simpleCallout
+        navigation={props.navigation}
+        profile={props.route.params?.patientData?.profile}
+        testID="edit-profile-screen"
+      >
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.title')}</HeaderText>
           <SecondaryText>{i18n.t('edit-profile.text')}</SecondaryText>
@@ -55,9 +58,9 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
       </Screen>
 
       <View>
-        {patientData.profile!.reported_by_another ? (
+        {props.route.params?.patientData?.profile?.reported_by_another ? (
           <View style={styles.archiveProfileContainer}>
-            <ArchiveProfile patientId={patientData.patientId} />
+            <ArchiveProfile patientId={props.route.params?.patientData?.patientId} />
           </View>
         ) : null}
       </View>

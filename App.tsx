@@ -5,11 +5,10 @@ import { MessagingContainer } from '@covid/components';
 import { ErrorBoundary } from '@covid/core/ErrorBoundary';
 import store, { persistor } from '@covid/core/state/store';
 import CovidApp from '@covid/CovidApp';
-import { container } from '@covid/provider/services';
-import { Provider as ServiceProvider } from '@covid/provider/services.provider';
 import StorybookUIRoot from '@covid/storybook';
-import { Theme } from '@covid/themes';
+import { theme } from '@covid/themes';
 import { useFonts } from 'expo-font';
+import { LogBox } from 'react-native';
 import * as React from 'react';
 import env from 'react-native-config';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -17,7 +16,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import * as Sentry from 'sentry-expo';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components/native';
 
 const ENABLE_STORYBOOK = false;
 
@@ -29,21 +28,25 @@ Sentry.init({
   environment: env.NAME,
 });
 
-const App: React.FC = () => {
-  const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
-  SplashScreen.hide();
+export default function App() {
   const [loaded] = useFonts({
     icomoon: require('./assets/fonts/icomoon.ttf'),
   });
+  React.useEffect(() => {
+    // For e2e testing it's important that no overlaying warnings/errors are present in the view hierarchy.
+    LogBox.ignoreAllLogs();
+  }, []);
+  SplashScreen.hide();
+  const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
   return (
     <ErrorBoundary>
       <MessageProvider>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <ThemeProvider theme={Theme}>
+            <ThemeProvider theme={theme}>
               <SafeAreaProvider>
                 <MessagingContainer />
-                <ServiceProvider container={container}>{loaded ? <Root /> : null}</ServiceProvider>
+                {loaded ? <Root /> : null}
               </SafeAreaProvider>
             </ThemeProvider>
           </PersistGate>
@@ -51,6 +54,4 @@ const App: React.FC = () => {
       </MessageProvider>
     </ErrorBoundary>
   );
-};
-
-export default App;
+}

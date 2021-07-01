@@ -16,9 +16,9 @@ type HowYouFeelProps = {
 export default class AdultOrChildScreen extends React.Component<HowYouFeelProps> {
   buildRouteParams = (consentType: ConsentType) => {
     return {
-      avatarName: this.props.route.params.avatarName,
+      avatarName: this.props.route.params?.avatarName,
       consentType,
-      profileName: this.props.route.params.profileName,
+      profileName: this.props.route.params?.profileName,
     };
   };
 
@@ -33,11 +33,13 @@ export default class AdultOrChildScreen extends React.Component<HowYouFeelProps>
         <View style={styles.content}>
           <SelectorButton
             onPress={() => this.props.navigation.navigate('ConsentForOther', this.buildRouteParams(ConsentType.Adult))}
+            testID="button-over-18"
             text={i18n.t('person-over-18')}
           />
 
           <SelectorButton
             onPress={() => this.props.navigation.navigate('ConsentForOther', this.buildRouteParams(ConsentType.Child))}
+            testID="button-under-18"
             text={i18n.t('person-under-18')}
           />
         </View>

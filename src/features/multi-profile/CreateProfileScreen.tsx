@@ -32,14 +32,14 @@ export default class CreateProfileScreen extends React.Component<RenderProps> {
 
   handleClick = (formData: FormData) => {
     this.props.navigation.navigate('AdultOrChild', {
-      avatarName: this.props.route.params.avatarName,
+      avatarName: this.props.route.params?.avatarName,
       profileName: formData.name,
     });
   };
 
   render() {
     return (
-      <Screen showBackButton navigation={this.props.navigation}>
+      <Screen showBackButton navigation={this.props.navigation} testID="create-profile-screen">
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{i18n.t('create-profile-title')}</HeaderText>
           <SecondaryText>{i18n.t('create-profile-text')}</SecondaryText>
@@ -64,9 +64,10 @@ export default class CreateProfileScreen extends React.Component<RenderProps> {
                     formikProps={props}
                     name="name"
                     placeholder={i18n.t('create-profile-placeholder')}
+                    testID="input-profile-name"
                   />
                 </View>
-                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
+                <BrandedButton enable={props.isValid} onPress={props.handleSubmit} testID="button-submit">
                   {i18n.t('create-profile-button')}
                 </BrandedButton>
               </FormWrapper>

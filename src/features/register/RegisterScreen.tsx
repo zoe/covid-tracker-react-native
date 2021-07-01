@@ -4,12 +4,10 @@ import { ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/c
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import Analytics, { events } from '@covid/core/Analytics';
 import { setUsername } from '@covid/core/state/user';
-import { IUserService } from '@covid/core/user/UserService';
+import { userService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -50,9 +48,6 @@ const initialRegistrationValues = {
 };
 
 class RegisterScreen extends React.Component<PropsType, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
   private passwordComponent: any;
 
   constructor(props: PropsType) {
@@ -68,7 +63,7 @@ class RegisterScreen extends React.Component<PropsType, State> {
   private handleCreateAccount(formData: RegistrationData) {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
-      this.userService
+      userService
         .register(formData.email, formData.password)
         .then(async (response) => {
           const isTester = response.user.is_tester;
@@ -132,116 +127,121 @@ class RegisterScreen extends React.Component<PropsType, State> {
 
   render() {
     return (
-      <Formik
-        initialValues={initialRegistrationValues}
-        onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}
-        validationSchema={this.registerSchema}
-      >
-        {(props) => {
-          return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                style={styles.rootContainer}
-              >
-                <View>
-                  <View style={styles.loginHeader}>
-                    <HeaderLightText>{i18n.t('create-account.title')}</HeaderLightText>
-                    <View style={styles.loginSubtitle}>
-                      <RegularText>
-                        {i18n.t('create-account.if-you-have-an-account')}{' '}
-                        <ClickableText onPress={() => this.props.navigation.navigate('Login')}>
-                          {i18n.t('create-account.login')}
-                        </ClickableText>
-                      </RegularText>
-                    </View>
-                  </View>
-
-                  <Form style={styles.form}>
-                    <View style={styles.formItem}>
-                      <Field>
-                        <Label style={styles.labelStyle}>{i18n.t('create-account.email')}</Label>
-                        <ValidatedTextInput
-                          autoCapitalize="none"
-                          autoCompleteType="email"
-                          error={(props.touched.email && props.errors.email) || this.state.accountExists}
-                          keyboardType="email-address"
-                          onBlur={props.handleBlur('email')}
-                          onChangeText={(text) => {
-                            // this.setState({ enableSubmit: true });
-                            props.handleChange('email')(text);
-                            this.setIsEnabled(text, props.values.password);
-                          }}
-                          onSubmitEditing={() => {
-                            this.passwordComponent.focus();
-                          }}
-                          placeholder={i18n.t('create-account.email')}
-                          returnKeyType="next"
-                          value={props.values.email}
-                        />
-                        {!!props.touched.email && !!props.errors.email ? (
-                          <FieldError>{props.errors.email}</FieldError>
-                        ) : null}
-                        {this.state.accountExists ? (
-                          <FieldError>{i18n.t('create-account.already-registered')}</FieldError>
-                        ) : null}
-                      </Field>
-                    </View>
-
-                    <View style={styles.formItem}>
-                      <Field>
-                        <Label style={styles.labelStyle}>{i18n.t('create-account.password')}</Label>
-                        <ValidatedTextInput
-                          secureTextEntry
-                          error={props.touched.password && props.errors.password}
-                          onBlur={props.handleBlur('password')}
-                          onChangeText={(text) => {
-                            props.handleChange('password')(text);
-                            this.setIsEnabled(props.values.email, text);
-                          }}
-                          onSubmitEditing={(event) => props.handleSubmit()}
-                          placeholder={i18n.t('create-account.password')}
-                          ref={(input) => (this.passwordComponent = input)}
-                          returnKeyType="go"
-                          value={props.values.password}
-                        />
-                        {!!props.touched.password && !!props.errors.password ? (
-                          <FieldError>{props.errors.password}</FieldError>
-                        ) : null}
-                      </Field>
-                    </View>
-                  </Form>
-
-                  {this.state.accountExists ? (
-                    <View style={styles.nextAction}>
-                      <RegularText style={{ textAlign: 'center' }}>
-                        <ClickableText onPress={this.gotoLogin}>{i18n.t('create-account.login')}</ClickableText>{' '}
-                        {i18n.t('create-account.existing-account')}
-                      </RegularText>
-                    </View>
-                  ) : null}
-                </View>
-                <View style={styles.actionBlock}>
-                  {!!this.state.errorMessage && !this.state.accountExists ? (
-                    <View>
-                      <ErrorText>{this.state.errorMessage}</ErrorText>
-                    </View>
-                  ) : null}
+      <View style={styles.flex} testID="register-screen">
+        <Formik
+          initialValues={initialRegistrationValues}
+          onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}
+          validationSchema={this.registerSchema}
+        >
+          {(props) => {
+            return (
+              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <KeyboardAvoidingView
+                  behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                  style={styles.rootContainer}
+                >
                   <View>
-                    <BrandedButton
-                      enable={this.state.enableSubmit}
-                      loading={props.isSubmitting}
-                      onPress={props.handleSubmit}
-                    >
-                      {i18n.t('create-account.btn')}
-                    </BrandedButton>
+                    <View style={styles.loginHeader}>
+                      <HeaderLightText>{i18n.t('create-account.title')}</HeaderLightText>
+                      <View style={styles.loginSubtitle}>
+                        <RegularText>
+                          {i18n.t('create-account.if-you-have-an-account')}{' '}
+                          <ClickableText onPress={() => this.props.navigation.navigate('Login')}>
+                            {i18n.t('log-in')}
+                          </ClickableText>
+                        </RegularText>
+                      </View>
+                    </View>
+
+                    <Form style={styles.form}>
+                      <View style={styles.formItem}>
+                        <Field>
+                          <Label style={styles.labelStyle}>{i18n.t('create-account.email')}</Label>
+                          <ValidatedTextInput
+                            autoCapitalize="none"
+                            autoCompleteType="email"
+                            error={(props.touched.email && !!props.errors.email) || this.state.accountExists}
+                            keyboardType="email-address"
+                            onBlur={props.handleBlur('email')}
+                            onChangeText={(text) => {
+                              // this.setState({ enableSubmit: true });
+                              props.handleChange('email')(text);
+                              this.setIsEnabled(text, props.values.password);
+                            }}
+                            onSubmitEditing={() => {
+                              this.passwordComponent.focus();
+                            }}
+                            placeholder={i18n.t('create-account.email')}
+                            returnKeyType="next"
+                            testID="input-email-address"
+                            value={props.values.email}
+                          />
+                          {!!props.touched.email && !!props.errors.email ? (
+                            <FieldError>{props.errors.email}</FieldError>
+                          ) : null}
+                          {this.state.accountExists ? (
+                            <FieldError>{i18n.t('create-account.already-registered')}</FieldError>
+                          ) : null}
+                        </Field>
+                      </View>
+
+                      <View style={styles.formItem}>
+                        <Field>
+                          <Label style={styles.labelStyle}>{i18n.t('create-account.password')}</Label>
+                          <ValidatedTextInput
+                            secureTextEntry
+                            error={props.touched.password && props.errors.password}
+                            onBlur={props.handleBlur('password')}
+                            onChangeText={(text) => {
+                              props.handleChange('password')(text);
+                              this.setIsEnabled(props.values.email, text);
+                            }}
+                            onSubmitEditing={(event) => props.handleSubmit()}
+                            placeholder={i18n.t('create-account.password')}
+                            ref={(input) => (this.passwordComponent = input)}
+                            returnKeyType="go"
+                            testID="input-password"
+                            value={props.values.password}
+                          />
+                          {!!props.touched.password && !!props.errors.password ? (
+                            <FieldError>{props.errors.password}</FieldError>
+                          ) : null}
+                        </Field>
+                      </View>
+                    </Form>
+
+                    {this.state.accountExists ? (
+                      <View style={styles.nextAction}>
+                        <RegularText style={{ textAlign: 'center' }}>
+                          <ClickableText onPress={this.gotoLogin}>{i18n.t('log-in')}</ClickableText>{' '}
+                          {i18n.t('create-account.existing-account')}
+                        </RegularText>
+                      </View>
+                    ) : null}
                   </View>
-                </View>
-              </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
-          );
-        }}
-      </Formik>
+                  <View style={styles.actionBlock}>
+                    {!!this.state.errorMessage && !this.state.accountExists ? (
+                      <View>
+                        <ErrorText>{this.state.errorMessage}</ErrorText>
+                      </View>
+                    ) : null}
+                    <View>
+                      <BrandedButton
+                        enable={this.state.enableSubmit}
+                        loading={props.isSubmitting}
+                        onPress={props.handleSubmit}
+                        testID="button-submit"
+                      >
+                        {i18n.t('create-account.btn')}
+                      </BrandedButton>
+                    </View>
+                  </View>
+                </KeyboardAvoidingView>
+              </TouchableWithoutFeedback>
+            );
+          }}
+        </Formik>
+      </View>
     );
   }
 }
@@ -255,6 +255,9 @@ const styles = StyleSheet.create({
   },
   fieldError: {
     marginVertical: 4,
+  },
+  flex: {
+    flex: 1,
   },
   form: {
     marginVertical: 16,

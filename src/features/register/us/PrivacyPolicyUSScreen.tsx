@@ -24,7 +24,7 @@ const HeaderText = (props: { text: string }) => {
 };
 
 export class PrivacyPolicyUSScreen extends React.Component<PropsType, object> {
-  viewOnly = this.props.route.params.viewOnly;
+  viewOnly = this.props.route.params?.viewOnly;
 
   render() {
     return (

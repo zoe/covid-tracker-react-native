@@ -6,7 +6,7 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
@@ -59,7 +59,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
     try {
       const assessment = this.createAssessment(formData);
       assessmentService.saveAssessment(assessment);
-      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+      assessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
@@ -68,7 +68,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
   private createAssessment(formData: IHealthWorkerExposureData) {
     return {
       interacted_any_patients: formData.interactedAnyPatients === 'yes',
-      patient: AssessmentCoordinator.assessmentData?.patientData?.patientState?.patientId,
+      patient: assessmentCoordinator.assessmentData?.patientData?.patientState?.patientId,
       ...(formData.treatedPatientsWithCovid && { treated_patients_with_covid: formData.treatedPatientsWithCovid }),
       ...(formData.hasUsedPPEEquipment && { have_used_PPE: formData.hasUsedPPEEquipment }),
       ...(formData.hasUsedPPEEquipment === 'always' &&
@@ -140,7 +140,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
     return (
       <Screen
         navigation={this.props.navigation}
-        profile={AssessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+        profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
       >
         <Header>
           <HeaderText>{i18n.t('title-health-worker-exposure')}</HeaderText>

@@ -13,10 +13,13 @@ type Props = {
 };
 
 export const VaccineLogSymptomsInfoScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { assessmentData } = route.params;
-
   return (
-    <Screen showCloseButton navigation={navigation} profile={assessmentData.patientData.profile}>
+    <Screen
+      showCloseButton
+      navigation={navigation}
+      profile={route.params?.assessmentData?.patientData?.profile}
+      testID="vaccine-log-symptoms-info-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('vaccines.log-symptoms.title')}</HeaderText>
       </Header>

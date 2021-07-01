@@ -19,8 +19,8 @@ const ConsentScreenGB: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
   );
 
   const onPrivacyPolicyPress = React.useCallback(
-    () => navigation.navigate('PrivacyPolicyUK', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly],
+    () => navigation.navigate('PrivacyPolicyUK', { viewOnly: route.params?.viewOnly }),
+    [navigation.navigate, route.params?.viewOnly],
   );
 
   React.useEffect(() => {
@@ -35,7 +35,7 @@ const ConsentScreenGB: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
         {'\n\n'}
         This app allows you to help others, but does not give health advice. If you need health advice please visit the
         NHS website:{' '}
-        <ClickableText onPress={onInfoLinkPress} testID="infoLink">
+        <ClickableText onPress={onInfoLinkPress} testID="info-link">
           https://www.nhs.uk/conditions/coronavirus-covid-19/
         </ClickableText>
         {'\n'}
@@ -46,7 +46,7 @@ const ConsentScreenGB: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
         This app is designed by doctors and scientists at Kings’ College London, Guys and St Thomas’ Hospitals and Zoe
         Global Limited, a health technology company. They have access to the information you enter, which may also be
         shared with the NHS and other medical researchers as outlined in our{' '}
-        <ClickableText onPress={onPrivacyPolicyPress} testID="privacyPolicy1">
+        <ClickableText onPress={onPrivacyPolicyPress} testID="privacy-policy1">
           privacy notice
         </ClickableText>
         .{'\n\n'}
@@ -72,7 +72,7 @@ const ConsentScreenGB: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
         {'\n\n'}
         We adhere to the General Data Protection Regulation ‘GDPR’. For more information about how we use and share
         personal information about you, please see our{' '}
-        <ClickableText onPress={onPrivacyPolicyPress} testID="privacyPolicy2">
+        <ClickableText onPress={onPrivacyPolicyPress} testID="privacy-policy2">
           privacy notice
         </ClickableText>
         .{'\n\n'}

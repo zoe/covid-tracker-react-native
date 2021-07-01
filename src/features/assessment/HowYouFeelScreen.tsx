@@ -4,7 +4,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
@@ -36,7 +36,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
 
   React.useEffect(() => {
-    const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
+    const patientInfo = assessmentCoordinator.assessmentData?.patientData?.patientInfo;
     const { getName } = require('country-list');
 
     return navigation.addListener('focus', () => {
@@ -50,7 +50,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const currentProfileHasVaccine = () =>
     currentProfileVaccines.length &&
     currentProfileVaccines[0] &&
-    assessmentCoordinator.assessmentData.patientData.patientId === currentProfileVaccines[0].patient;
+    assessmentCoordinator.assessmentData?.patientData?.patientId === currentProfileVaccines[0].patient;
 
   const handlePress = async (healthy: boolean) => {
     if (isSubmitting) {
@@ -60,9 +60,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     if (
       startupInfo.show_long_covid &&
       healthy &&
-      assessmentCoordinator.assessmentData.patientData.patientInfo?.should_ask_long_covid_questions
+      assessmentCoordinator.assessmentData?.patientData?.patientInfo?.should_ask_long_covid_questions
     ) {
-      NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData.patientData });
+      NavigatorService.navigate('LongCovidStart', { patientData: assessmentCoordinator.assessmentData?.patientData });
       return;
     }
     const status = healthy ? 'healthy' : 'not_healthy';
@@ -78,7 +78,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
       if (isComplete) {
         await assessmentService.completeAssessment(
           assessment,
-          assessmentCoordinator.assessmentData.patientData.patientInfo!,
+          assessmentCoordinator.assessmentData?.patientData?.patientInfo!,
         );
       } else {
         assessmentService.saveAssessment(assessment);
@@ -112,8 +112,6 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     );
   }
 
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
-
   React.useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
@@ -122,7 +120,11 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     <>
       <USStudyInvite assessmentData={assessmentCoordinator.assessmentData} />
 
-      <Screen navigation={navigation} profile={currentPatient.profile}>
+      <Screen
+        navigation={navigation}
+        profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+        testID="how-you-feel-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
         </Header>
@@ -144,10 +146,12 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
         <View style={{ marginHorizontal: 16 }}>
           <SelectorButton
             onPress={() => handlePress(true)}
+            testID="button-status-healthy"
             text={i18n.t('how-you-feel.picker-health-status-healthy')}
           />
           <SelectorButton
             onPress={() => handlePress(false)}
+            testID="button-status-not-healthy"
             text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
           />
         </View>

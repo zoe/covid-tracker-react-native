@@ -16,8 +16,6 @@ type Props = {
 };
 
 export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { assessmentData } = route.params;
-
   // No case for SE, just GB and US atm (Feb 2021)
   let exampleSVG;
   if (isGBCountry()) {
@@ -28,7 +26,13 @@ export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) =>
   }
 
   return (
-    <Screen extendEdges showCloseButton navigation={navigation} profile={assessmentData.patientData.profile}>
+    <Screen
+      extendEdges
+      showCloseButton
+      navigation={navigation}
+      profile={route.params?.assessmentData?.patientData?.profile}
+      testID="vaccine-find-info-screen"
+    >
       <View style={{ padding: 16 }}>
         <Header>
           <HeaderText>{i18n.t('vaccines.find-info.title')}</HeaderText>

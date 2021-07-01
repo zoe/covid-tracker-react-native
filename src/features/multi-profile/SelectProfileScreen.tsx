@@ -3,14 +3,13 @@ import { BackButton } from '@covid/components/PatientHeader';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { localisationService } from '@covid/core/localisation/LocalisationService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { offlineService } from '@covid/Services';
+import { styling } from '@covid/themes';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
@@ -21,7 +20,7 @@ import { ProfileCard } from './components/ProfileCard';
 import { ProfileList } from './components/ProfileList';
 import { useProfileList } from './ProfileList.hooks';
 
-type RenderProps = {
+type TProps = {
   navigation: NavigationProp<ScreenParamList, 'SelectProfile'>;
   route: RouteProp<ScreenParamList, 'SelectProfile'>;
 };
@@ -30,13 +29,12 @@ export type SelectProfileCoordinator =
   | (Coordinator & ISelectProfile)
   | (Coordinator & ISelectProfile & IEditableProfile);
 
-const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
+export default function SelectProfileScreen({ navigation, route }: TProps) {
   const { status, error, isLoaded, isApiError, setIsApiError, setError, profiles, listProfiles, retryListProfiles } =
     useProfileList();
-  const { assessmentFlow } = route.params;
+  const assessmentFlow = route.params?.assessmentFlow;
   const coordinator: SelectProfileCoordinator = appCoordinator;
-  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
-  const showCreateProfile = localisationService.getConfig().enableMultiplePatients;
+  const config = localisationService.getConfig();
 
   React.useEffect(() => {
     return navigation.addListener('focus', listProfiles);
@@ -68,14 +66,24 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
     }
   };
 
+  function onProfileSelected(profile: Profile) {
+    getPatientThen(profile, (profile) => {
+      if (assessmentFlow) {
+        coordinator.profileSelected(profile);
+      } else {
+        (coordinator as IEditableProfile).startEditProfile(profile);
+      }
+    });
+  }
+
   return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+    <SafeAreaView style={styling.flex}>
+      <ScrollView contentContainerStyle={styles.scrollView} testID="scroll-view-select-profile-screen">
         <View style={styles.rootContainer}>
           <View style={styles.navContainer}>{navigation ? <BackButton navigation={navigation} /> : null}</View>
 
           <Header>
-            <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>
+            <HeaderText style={styles.headerText}>
               {assessmentFlow ? i18n.t('select-profile-title-assessment') : i18n.t('select-profile-title-edit')}
             </HeaderText>
             {assessmentFlow ? <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText> : null}
@@ -83,7 +91,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
 
           <ProfileList
             addProfile={
-              showCreateProfile
+              config?.enableMultiplePatients
                 ? () => {
                     gotoCreateProfile();
                   }
@@ -92,15 +100,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
             error={error}
             isApiError={isApiError}
             isLoaded={isLoaded}
-            onProfileSelected={(profile: Profile, i: number) => {
-              getPatientThen(profile, (profile) => {
-                if (assessmentFlow) {
-                  coordinator.profileSelected(profile);
-                } else {
-                  (coordinator as IEditableProfile).startEditProfile(profile);
-                }
-              });
-            }}
+            onProfileSelected={onProfileSelected}
             onRetry={() => retryListProfiles()}
             profiles={profiles}
             renderItem={(profile, i) => (
@@ -116,6 +116,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
                     : undefined
                 }
                 profile={profile}
+                testID={`profile-card-${i}`}
               />
             )}
             status={status}
@@ -124,27 +125,26 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
       </ScrollView>
     </SafeAreaView>
   );
-};
-
-export default SelectProfileScreen;
+}
 
 const styles = StyleSheet.create({
+  headerText: {
+    marginBottom: 12,
+    paddingRight: 24,
+  },
   menuToggle: {
-    marginTop: 22,
+    marginTop: 20,
     tintColor: colors.primary,
   },
-
   navContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingLeft: 8,
   },
-
   rootContainer: {
-    padding: 10,
+    padding: 12,
   },
-
   scrollView: {
     flexGrow: 1,
     justifyContent: 'space-between',

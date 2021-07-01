@@ -1,5 +1,6 @@
 import Screen, { Header } from '@covid/components/Screen';
 import { ClickableText, Header3Text, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
+import { ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -15,7 +16,7 @@ type Props = {
 };
 
 export const SchoolDashboardScreen: React.FC<Props> = (props) => {
-  const { school } = props.route.params;
+  const school = props.route.params?.school as ISubscribedSchoolStats | undefined;
 
   const infoBox = (
     statistic: string | number,
@@ -45,33 +46,37 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
     );
   };
 
-  const schoolConfirmedCases = school.groups
-    .map((group) => group.confirmed_cases)
-    .reduce((prev, curr) => prev + curr, 0);
-  const schoolReportedSymptoms = school.groups
-    .map((group) => group.daily_reported_symptoms)
-    .reduce((prev, curr) => prev + curr, 0);
-  const schoolRecoveredCases = school.groups
-    .map((group) => group.recovered_cases)
-    .reduce((prev, curr) => prev + curr, 0);
-  const schoolTotalPercentage =
-    school.groups.map((g) => g.daily_assessments).reduce((prev, curr) => prev + curr, 0) /
-    school.groups.map((g) => g.max_size).reduce((prev, curr) => prev + curr, 0);
-  const schoolUpdatedAt = new Date(
-    school.groups
-      .map((group) => group.report_updated_at)
-      .reduce((prev, curr) => {
-        return prev > curr ? prev : curr;
-      }),
-  );
+  let schoolConfirmedCases = 0;
+  let schoolReportedSymptoms = 0;
+  let schoolRecoveredCases = 0;
+  let schoolTotalPercentage = 0;
+  let schoolUpdatedAt = new Date();
+
+  if (school?.groups.length) {
+    schoolConfirmedCases = school.groups.map((group) => group.confirmed_cases).reduce((prev, curr) => prev + curr, 0);
+    schoolReportedSymptoms = school.groups
+      .map((group) => group.daily_reported_symptoms)
+      .reduce((prev, curr) => prev + curr, 0);
+    schoolRecoveredCases = school.groups.map((group) => group.recovered_cases).reduce((prev, curr) => prev + curr, 0);
+    schoolTotalPercentage =
+      school.groups.map((g) => g.daily_assessments).reduce((prev, curr) => prev + curr, 0) /
+      school.groups.map((g) => g.max_size).reduce((prev, curr) => prev + curr, 0);
+    schoolUpdatedAt = new Date(
+      school.groups
+        .map((group) => group.report_updated_at)
+        .reduce((prev, curr) => {
+          return prev > curr ? prev : curr;
+        }),
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <Screen showBackButton navigation={props.navigation} style={styles.container}>
+      <Screen showBackButton navigation={props.navigation} style={styles.container} testID="school-dashboard-screen">
         <View style={styles.container}>
           <Header>
             <HeaderText style={styles.header}>
-              <HeaderText>{`${school.name} `}</HeaderText>
+              <HeaderText>{`${school?.name} `}</HeaderText>
               <HeaderText>{i18n.t('school-networks.dashboard.title')}</HeaderText>
             </HeaderText>
           </Header>
@@ -108,7 +113,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
             </View>
           </View>
 
-          {school.groups.map((group) => {
+          {(school?.groups || []).map((group) => {
             return (
               <View key={group.name} style={styles.card}>
                 <Header3Text style={styles.cardTitle}>{group.name}</Header3Text>

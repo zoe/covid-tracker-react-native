@@ -2,7 +2,7 @@ import { BrandedButton } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features';
 import {
   GutStomachSymptomsData,
@@ -31,10 +31,12 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
   }
 
   const registerSchema = Yup.object().shape({}).concat(GutStomachSymptomsQuestions.schema());
-
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen
+      navigation={navigation}
+      profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      testID="gut-stomach-symptoms-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.gut-stomach-symptoms')}</HeaderText>
       </Header>
@@ -58,7 +60,12 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
               </View>
 
               <View style={{ flex: 1 }} />
-              <BrandedButton enable={!props.isSubmitting} loading={props.isSubmitting} onPress={props.handleSubmit}>
+              <BrandedButton
+                enable={!props.isSubmitting}
+                loading={props.isSubmitting}
+                onPress={props.handleSubmit}
+                testID="button-submit"
+              >
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>
             </Form>

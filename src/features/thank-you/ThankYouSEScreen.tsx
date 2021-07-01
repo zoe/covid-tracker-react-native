@@ -3,7 +3,7 @@ import { BrandedButton } from '@covid/components';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { ScreenParamList } from '@covid/features';
@@ -49,7 +49,7 @@ export default function ThankYouSEScreen({ navigation, route }: IProps) {
     <>
       {askForRating && <AppRating />}
       <SafeAreaView>
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView contentContainerStyle={styles.scrollView} testID="scroll-view-thank-you-screen">
           <View style={styles.rootContainer}>
             <Header>
               <HeaderText style={styles.headerText}>{i18n.t('thank-you-title')}</HeaderText>
@@ -78,7 +78,11 @@ export default function ThankYouSEScreen({ navigation, route }: IProps) {
 
             <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
-            <BrandedButton onPress={() => assessmentCoordinator.gotoNextScreen(route.name)} style={styles.done}>
+            <BrandedButton
+              onPress={() => assessmentCoordinator.gotoNextScreen(route.name)}
+              style={styles.done}
+              testID="button-complete"
+            >
               <RegularText>{i18n.t('thank-you-completed')}</RegularText>
             </BrandedButton>
           </View>
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   rootContainer: {
-    padding: 10,
+    padding: 12,
   },
   scrollView: {
     backgroundColor: colors.backgroundSecondary,
