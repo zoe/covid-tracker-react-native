@@ -15,7 +15,7 @@ export default function InfoBox(props: IProps) {
       <View style={styles.icon}>
         <InfoCircle color={colors.darkblue} />
       </View>
-      <Text rhythm={2} style={styles.text} textClass="pLight">
+      <Text style={styles.text} textClass="pLight">
         {props.text}
       </Text>
     </View>
@@ -37,5 +37,6 @@ const styles = StyleSheet.create({
     color: colors.darkblue,
     justifyContent: 'flex-start',
     marginLeft: grid.s,
+    paddingRight: grid.l,
   },
 });
