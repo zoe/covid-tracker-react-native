@@ -271,7 +271,7 @@ jobs:
             echo 'nvm alias default v10.2.0' >> $BASH_ENV
 
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
-      #- run: detox build --configuration ios.release
+      - run: detox build --configuration ios.release
       - run: detox test --configuration ios.release --cleanup
       - persist_to_workspace:
           root: *default_workspace
