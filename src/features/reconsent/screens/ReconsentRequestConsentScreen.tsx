@@ -30,6 +30,7 @@ export default function ReconsentRequestConsentScreen() {
     return [1, 2, 3].map((i) => (
       <Callout
         description={i18n.t(`reconsent.request-consent.use-${i}-description`)}
+        key={i}
         title={i18n.t(`reconsent.request-consent.use-${i}-title`)}
       />
     ));
@@ -39,6 +40,8 @@ export default function ReconsentRequestConsentScreen() {
     <ReconsentScreen
       buttonOnPress={() => NavigatorService.navigate('ReconsentNewsletterSignup')}
       buttonTitle={i18n.t('reconsent.request-consent.consent-yes')}
+      secondaryButtonOnPress={() => NavigatorService.navigate('ReconsentFeedback')}
+      secondaryButtonTitle={i18n.t('reconsent.request-consent.consent-no')}
     >
       <ReconsentHeader showBackIcon showDots />
       <Text rhythm={16} style={styles.center} textClass="h2Light">

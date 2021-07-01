@@ -1,6 +1,6 @@
-import { SafeLayout } from '@covid/components';
+import { SafeLayout, Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
-import { styling, useTheme } from '@covid/themes';
+import { grid, styling, useTheme } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
@@ -9,6 +9,8 @@ interface IProps {
   buttonTitle: string;
   buttonOnPress: () => void;
   children?: React.ReactNode;
+  secondaryButtonTitle?: string;
+  secondaryButtonOnPress?: () => void;
 }
 
 export default function ReconsentScreen(props: IProps) {
@@ -21,6 +23,9 @@ export default function ReconsentScreen(props: IProps) {
         <BrandedButton enable onPress={props.buttonOnPress} style={styles.button}>
           {props.buttonTitle}
         </BrandedButton>
+        <Text onPress={props.secondaryButtonOnPress} style={styles.secondaryButton} textClass="pLight">
+          {props.secondaryButtonTitle}
+        </Text>
       </ScrollView>
     </SafeLayout>
   );
@@ -33,5 +38,12 @@ const styles = StyleSheet.create({
   },
   safeLayout: {
     backgroundColor: colors.backgroundPrimary,
+  },
+  secondaryButton: {
+    color: colors.secondary,
+    marginTop: grid.xxxl,
+    paddingHorizontal: grid.xs,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
   },
 });
