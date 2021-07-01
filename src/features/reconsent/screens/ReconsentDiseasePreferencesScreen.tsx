@@ -9,7 +9,7 @@ import NavigatorService from '@covid/NavigatorService';
 import { grid, styling, useTheme } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 type TDiseaseType = {
   iconName: React.ElementType;
@@ -18,7 +18,7 @@ type TDiseaseType = {
 
 // TODO: Replace icons
 
-const initialDiseases = [
+const initialDiseases: TDiseaseType[] = [
   {
     iconName: Brain,
     name: 'dementia',
@@ -41,7 +41,7 @@ const initialDiseases = [
   },
 ];
 
-const extendedDiseases = [
+const extendedDiseases: TDiseaseType[] = [
   {
     iconName: Brain,
     name: 'womens-health',
@@ -75,18 +75,26 @@ export default function ReconsentDiseasePreferencesScreen() {
     console.log('hi');
   };
 
-  const renderDiseaseCards = (diseasesArray: TDiseaseType[]) => {
-    return diseasesArray.map((disease) => (
+  const renderItem = ({ item }: { item: TDiseaseType }) => {
+    return (
       <DiseaseCard
-        description={i18n.t(`disease-cards.${disease.name}.description`)}
-        iconName={disease.iconName}
-        key={disease.name}
-        name={i18n.t(`disease-cards.${disease.name}.name`)}
+        description={i18n.t(`disease-cards.${item.name}.description`)}
+        iconName={item.iconName}
+        key={item.name}
+        name={i18n.t(`disease-cards.${item.name}.name`)}
         onPressHandler={addToPreferences}
         style={{ marginBottom: grid.xxl }}
       />
-    ));
+    );
   };
+
+  const ShowMore = () => (
+    <Pressable onPress={() => setShowExtendedList(true)}>
+      <Text rhythm={16} style={styles.showMore} textClass="pMedium">
+        + Show more
+      </Text>
+    </Pressable>
+  );
 
   return (
     <SafeLayout style={styles.page}>
@@ -99,15 +107,14 @@ export default function ReconsentDiseasePreferencesScreen() {
           <Text rhythm={16} style={[styles.center, styles.subtitle]} textClass="pLight">
             Select as many as you like
           </Text>
-          {renderDiseaseCards(initialDiseases)}
-          {showExtendedList ? null : (
-            <Pressable onPress={() => setShowExtendedList(true)}>
-              <Text rhythm={16} style={styles.showMore} textClass="pMedium">
-                + Show more
-              </Text>
-            </Pressable>
-          )}
-          {showExtendedList ? renderDiseaseCards(extendedDiseases) : null}
+          <FlatList
+            data={showExtendedList ? initialDiseases.concat(extendedDiseases) : initialDiseases}
+            keyExtractor={(disease: TDiseaseType) => disease.name}
+            ListFooterComponent={ShowMore}
+            ListFooterComponentStyle={showExtendedList ? { display: 'none' } : null}
+            renderItem={renderItem}
+            style={{ overflow: 'visible' }}
+          />
           <View style={styles.infoBox}>
             <InfoBox text={i18n.t('reconsent.disease-preferences.how-data-used')} />
           </View>
