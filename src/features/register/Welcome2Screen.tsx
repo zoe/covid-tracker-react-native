@@ -6,6 +6,7 @@ import {
   isGBCountry,
   isSECountry,
   isUSCountry,
+  LocalisationService,
 } from '@covid/core/localisation/LocalisationService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -73,10 +74,14 @@ const Welcome2Screen: React.FC<PropsType> = ({ navigation }) => {
           <View style={styles.covidContainer}>
             <View style={styles.headerRow}>
               <ClickableText onPress={onLoginPress} style={styles.login} testID="login">
-                {i18n.t('welcome.sign-in')}
+                {i18n.t('log-in')}
               </ClickableText>
-              <TouchableOpacity onPress={() => navigation.navigate('CountrySelect')} testID="selectCountry">
-                <Image source={getFlagIcon()} style={styles.flagIcon} testID="flag" />
+              <TouchableOpacity onPress={() => navigation.navigate('CountrySelect')} testID="select-country">
+                <Image
+                  source={getFlagIcon()}
+                  style={styles.flagIcon}
+                  testID={`flag-${LocalisationService.userCountry}`}
+                />
               </TouchableOpacity>
             </View>
             <View>
@@ -128,11 +133,11 @@ const Welcome2Screen: React.FC<PropsType> = ({ navigation }) => {
         closeModal={onCloseModal}
         isModalVisible={ipModalVisible}
         navigation={navigation}
-        testID="countryIpModal"
+        testID="country-ip-modal"
       />
 
       <View style={styles.buttonContainer}>
-        <BrandedButton onPress={onCreateAccountPress} testID="createAccount">
+        <BrandedButton onPress={onCreateAccountPress} testID="create-account-2">
           {i18n.t('welcome.create-account')}
         </BrandedButton>
       </View>

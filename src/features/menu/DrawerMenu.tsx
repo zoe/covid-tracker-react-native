@@ -45,6 +45,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           onPress={() => {
             NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
           }}
+          testID="menu-item-edit-profile"
         />
 
         <MenuItem
@@ -54,6 +55,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
             const shareMessage = i18n.t('share-this-app.message');
             share(shareMessage);
           }}
+          testID="menu-item-share"
         />
 
         <LinksSection navigation={props.navigation} />
@@ -65,6 +67,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
               logout();
             }}
             smallLabel={user.username}
+            testID="menu-item-logout"
           />
         </View>
       </ScrollView>

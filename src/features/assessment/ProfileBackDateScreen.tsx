@@ -208,7 +208,7 @@ export default class ProfileBackDateScreen extends React.Component<BackDateProps
     const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
 
     return (
-      <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+      <Screen navigation={this.props.navigation} profile={currentPatient.profile} testID="profile-back-date-screen">
         <Header>
           <HeaderText>{i18n.t('back-date-profile-title')}</HeaderText>
         </Header>

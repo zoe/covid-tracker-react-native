@@ -110,7 +110,7 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
             status={this.state.status}
           />
         )}
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} testID="optional-info-screen">
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
             <Formik
               initialValues={{ name: '', phone: '' }}
@@ -135,6 +135,7 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
                           }}
                           placeholder={i18n.t('optional-info.name-placeholder')}
                           returnKeyType="next"
+                          testID="input-name"
                           value={props.values.name}
                         />
 
@@ -144,18 +145,17 @@ export class OptionalInfoScreen extends React.Component<PropsType, State> {
                           onChangeText={props.handleChange('phone')}
                           placeholder={i18n.t('optional-info.phone-placeholder')}
                           ref={(input) => (this.phoneComponent = input)}
+                          testID="input-phone"
                           value={props.values.phone}
                         />
                         {props.errors.phone ? <ErrorText>{props.errors.phone}</ErrorText> : null}
                       </Form>
                     </View>
-                    <View>
-                      <ErrorText>{this.state.errorMessage}</ErrorText>
-                    </View>
+                    <ErrorText>{this.state.errorMessage}</ErrorText>
 
-                    <View>
-                      <BrandedButton onPress={props.handleSubmit}>{i18n.t('optional-info.button')}</BrandedButton>
-                    </View>
+                    <BrandedButton onPress={props.handleSubmit} testID="button-submit">
+                      {i18n.t('optional-info.button')}
+                    </BrandedButton>
                   </View>
                 );
               }}

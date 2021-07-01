@@ -9,6 +9,7 @@ interface IProps extends ITest {
   loading?: boolean;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 export default function BrandedButton(props: IProps) {
@@ -20,7 +21,7 @@ export default function BrandedButton(props: IProps) {
       disabled={props.enable === false}
       onPress={props.enable === false ? undefined : props.onPress}
       style={[props.enable === false ? styles.buttonDisabled : styles.button, props.style]}
-      testID="buttonTestID"
+      testID={props.testID ?? 'button-test-ID'}
     >
       {props.loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}
       <Text style={[fontStyles.bodyLight, styles.text]}>{props.children}</Text>

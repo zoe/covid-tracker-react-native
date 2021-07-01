@@ -54,7 +54,7 @@ export function CountrySelectScreen(props: IProps) {
   }
 
   return (
-    <SafeLayout style={styles.safeLayout}>
+    <SafeLayout style={styles.safeLayout} testID="select-country-screen">
       <View style={styles.container}>
         <BasicNavHeader style={styles.navHeader} />
         <Text style={styles.text}>{i18n.t('select-country')}</Text>
@@ -64,6 +64,7 @@ export function CountrySelectScreen(props: IProps) {
               key={`country-${country.code}`}
               onPress={() => selectCountry(country.code)}
               style={index !== 0 ? [styling.flex, styling.marginLeft] : styling.flex}
+              testID={`select-country-${country.code}`}
             >
               <Image resizeMode="contain" source={country.source} style={styling.fullWidth} />
             </TouchableOpacity>

@@ -39,6 +39,7 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
           onSubmitEditing={() => {}}
           placeholder={i18n.t('placeholder-feet')}
           returnKeyType="next"
+          testID="input-height-feet"
           value={formikProps.values.feet}
         />
       </View>
@@ -51,6 +52,7 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
           onSubmitEditing={() => {}}
           placeholder={i18n.t('placeholder-inches')}
           returnKeyType="next"
+          testID="input-height-inches"
           value={formikProps.values.inches}
         />
       </View>
@@ -69,6 +71,7 @@ const HeightInCm: React.FC<Props> = ({ formikProps }) => {
         onSubmitEditing={() => {}}
         placeholder={i18n.t('placeholder-height')}
         returnKeyType="next"
+        testID="input-height-cm"
         value={formikProps.values.height}
       />
     </View>

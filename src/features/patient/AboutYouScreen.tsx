@@ -332,7 +332,11 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
     };
 
     return (
-      <Screen navigation={this.props.navigation} profile={this.coordinator.patientData?.patientState?.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={this.coordinator.patientData?.patientState?.profile}
+        testID="about-you-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('title-about-you')}</HeaderText>
         </Header>
@@ -363,6 +367,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                     label={i18n.t('what-year-were-you-born')}
                     name="yearOfBirth"
                     placeholder={i18n.t('placeholder-year-of-birth')}
+                    testID="input-year-of-birth"
                   />
 
                   <RadioInput
@@ -372,6 +377,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                     label={i18n.t('your-sex-at-birth')}
                     onValueChange={props.handleChange('sex')}
                     selectedValue={props.values.sex}
+                    testID="input-sex-at-birth"
                   />
 
                   <RadioInput
@@ -381,6 +387,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                     label={i18n.t('label-gender-identity')}
                     onValueChange={props.handleChange('genderIdentity')}
                     selectedValue={props.values.genderIdentity}
+                    testID="input-gender-identity"
                   />
 
                   {props.values.genderIdentity === 'other' ? (
@@ -407,10 +414,11 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                       required
                       showError
                       formikProps={props}
-                      inputProps={{ autoCompleteType: 'postal-code' }}
                       label={i18n.t('your-postcode')}
                       name="postcode"
                       placeholder={i18n.t('placeholder-postcode')}
+                      testID="input-postal-code"
+                      textInputProps={{ autoCompleteType: 'postal-code' }}
                     />
                   ) : null}
 
@@ -421,6 +429,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                     label={i18n.t('have-you-been-exposed')}
                     onValueChange={props.handleChange('everExposed')}
                     selectedValue={props.values.everExposed}
+                    testID="input-ever-exposed"
                   />
 
                   {!isMinor ? (
@@ -457,7 +466,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                   ) : null}
                 </View>
 
-                <BrandedButton enable={props.isValid && props.dirty} onPress={props.handleSubmit}>
+                <BrandedButton enable={props.isValid && props.dirty} onPress={props.handleSubmit} testID="button-submit">
                   {this.props.route.params?.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>
               </FormWrapper>

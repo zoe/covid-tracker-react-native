@@ -51,8 +51,6 @@ const getCurrentRouteName = (navigationState: NavigationState): string | null =>
 
   const route = navigationState.routes[navigationState.index];
   if (route.state) {
-    // Nested navigators
-    // @ts-ignore
     return getCurrentRouteName(route.state);
   }
   return route.name;

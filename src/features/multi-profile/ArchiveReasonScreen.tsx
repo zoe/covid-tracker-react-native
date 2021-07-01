@@ -58,7 +58,7 @@ export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
   }
 
   return (
-    <Screen navigation={props.navigation}>
+    <Screen navigation={props.navigation} testID="archive-reason-screen">
       <Header>
         <HeaderText style={{ marginBottom: 12 }}>{i18n.t('archive-reason.title')}</HeaderText>
         <SecondaryText>{i18n.t('archive-reason.text')}</SecondaryText>

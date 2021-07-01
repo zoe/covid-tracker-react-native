@@ -12,14 +12,14 @@ export interface ILocalisationService {
   shouldAskCountryConfirmation(): Promise<boolean>;
   defaultCountryFromLocale(): void;
   updateUserCountry(isLoggedIn: boolean): void;
-  getConfig(): ConfigType;
+  getConfig(): ConfigType | null;
 }
 
 @injectable()
 export class LocalisationService implements ILocalisationService {
   public static userCountry = 'US';
 
-  public static countryConfig: ConfigType;
+  public static countryConfig: ConfigType | null;
 
   public static ipCountry = '';
 
@@ -27,7 +27,7 @@ export class LocalisationService implements ILocalisationService {
     LocalisationService.countryConfig = getCountryConfig(countryCode);
   }
 
-  getConfig(): ConfigType {
+  getConfig(): ConfigType | null {
     return LocalisationService.countryConfig;
   }
 

@@ -53,7 +53,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
 
   return (
     <View style={styles.rootContainer}>
-      <Screen navigation={navigation} profile={route.params.patientData.profile}>
+      <Screen navigation={navigation} profile={route.params.patientData.profile} testID="school-group-list-screen">
         <Header>
           <HeaderText>{i18n.t('school-networks.groups-list.title')}</HeaderText>
         </Header>

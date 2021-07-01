@@ -12,8 +12,11 @@ interface IProps {
 }
 
 export default function BasicNavHeader(props: IProps) {
-  const { goBack } = useNavigation();
+  const navigation = useNavigation();
   const { colors, grid } = useTheme();
+  if (!navigation.canGoBack()) {
+    return null;
+  }
   return (
     <View
       style={[
@@ -33,7 +36,8 @@ export default function BasicNavHeader(props: IProps) {
             iconColor="black"
             iconName="arrow_back_ios"
             iconStyle={styles.icon}
-            onPress={() => goBack()}
+            onPress={() => navigation.goBack()}
+            testID="button-back-navigation"
           />
         </View>
         {props.children ? <View>{props.children}</View> : null}

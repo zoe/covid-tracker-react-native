@@ -66,6 +66,7 @@ export type ScreenProps = {
   showCloseButton?: boolean;
   extendEdges?: boolean;
   scrollEnabled?: boolean;
+  testID?: string;
 };
 
 export default class Screen extends React.Component<ScreenProps> {
@@ -76,7 +77,7 @@ export default class Screen extends React.Component<ScreenProps> {
   render() {
     const { profile } = this.props;
     const scrollEnabled = this.props.scrollEnabled === undefined ? true : this.props.scrollEnabled;
-    const header = () => {
+    const renderHeader = () => {
       if (profile && this.props.navigation) {
         return (
           <PatientHeader
@@ -113,8 +114,8 @@ export default class Screen extends React.Component<ScreenProps> {
     };
 
     return (
-      <SafeAreaView style={[styles.screen, this.props.style]}>
-        {header()}
+      <SafeAreaView style={[styles.screen, this.props.style]} testID={this.props.testID}>
+        {renderHeader()}
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
           {!scrollEnabled ? <View style={styles.pageBlock}>{this.props.children}</View> : null}
           {scrollEnabled ? (
@@ -123,6 +124,7 @@ export default class Screen extends React.Component<ScreenProps> {
                 flexGrow: 1,
                 justifyContent: 'space-between',
               }}
+              testID={`scroll-view-${this.props.testID || 'screen'}`}
             >
               {this.props.extendEdges ? (
                 <View style={styles.pageBlockExtendedEdges}>{this.props.children}</View>

@@ -9,8 +9,8 @@ import { View } from 'react-native';
 import { IVaccineDoseData } from './VaccineDoseQuestion';
 
 interface IProps {
-  formikProps: FormikProps<IVaccineDoseData>;
   firstDose?: boolean;
+  formikProps: FormikProps<IVaccineDoseData>;
 }
 
 export interface IVaccineNameQuestion<P, Data> extends React.FC<P> {
@@ -43,7 +43,6 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
   const nameOptions = isGBCountry() ? gbVaccineOptions : isSECountry() ? seVaccineOptions : usVaccineOptions;
 
   const descriptionOptions = [
-    // mRNA doesn't need translation
     { label: 'mRNA', value: 'mrna' },
     { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'not_sure' },
   ];
@@ -57,12 +56,12 @@ export const VaccineNameQuestion: IVaccineNameQuestion<IProps, IVaccineDoseData>
     return (
       <RadioInput
         required
-        error={brandTouched && brandError}
+        error={brandTouched ? brandError : ''}
         items={nameOptions}
         label={i18n.t('vaccines.your-vaccine.label-name')}
         onValueChange={props.formikProps.handleChange(brandString)}
-        placeholder={i18n.t('vaccines.your-vaccine.label-name')}
         selectedValue={brandField}
+        testID="input-your-vaccine"
       />
     );
   };

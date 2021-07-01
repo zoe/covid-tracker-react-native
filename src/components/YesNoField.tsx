@@ -4,11 +4,12 @@ import * as React from 'react';
 import { ButtonsGroup, ISingleButton } from './inputs/ButtonsGroup';
 
 interface IProps {
-  selectedValue: string;
-  onValueChange: any;
-  label?: string;
-  hideLabel?: boolean;
   error?: any;
+  hideLabel?: boolean;
+  label?: string;
+  onValueChange: any;
+  selectedValue: string;
+  testID?: string;
   required?: boolean;
 }
 

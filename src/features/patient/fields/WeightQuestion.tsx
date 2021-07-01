@@ -45,6 +45,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
           onSubmitEditing={() => {}}
           placeholder={i18n.t('placeholder-pounds')}
           returnKeyType="next"
+          testID="input-weight-pounds"
           value={formikProps.values.pounds}
         />
       ) : (
@@ -59,6 +60,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
                 onSubmitEditing={() => {}}
                 placeholder={i18n.t('placeholder-weight')}
                 returnKeyType="next"
+                testID="input-weight-kg"
                 value={formikProps.values.weight}
               />
             </View>
@@ -73,6 +75,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
                   onSubmitEditing={() => {}}
                   placeholder={i18n.t('placeholder-stones')}
                   returnKeyType="next"
+                  testID="input-weight-stones"
                   value={formikProps.values.stones}
                 />
               </View>
@@ -85,6 +88,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
                   onSubmitEditing={() => {}}
                   placeholder={i18n.t('placeholder-pounds')}
                   returnKeyType="next"
+                  testID="input-weight-pounds"
                   value={formikProps.values.pounds}
                 />
               </View>

@@ -31,7 +31,7 @@ export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={currentPatient.profile} testID="head-symptoms-screen">
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.head-symptoms')}</HeaderText>
       </Header>
@@ -54,7 +54,12 @@ export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
                 <HeadSymptomsQuestions formikProps={props} />
               </View>
               <View style={{ flex: 1 }} />
-              <BrandedButton enable={!props.isSubmitting} loading={props.isSubmitting} onPress={props.handleSubmit}>
+              <BrandedButton
+                enable={!props.isSubmitting}
+                loading={props.isSubmitting}
+                onPress={props.handleSubmit}
+                testID="button-submit"
+              >
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>
             </Form>

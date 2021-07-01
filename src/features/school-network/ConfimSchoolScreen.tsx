@@ -26,7 +26,7 @@ function ConfirmSchoolScreen({ route, navigation }: IProps) {
   };
 
   return (
-    <Screen navigation={navigation} profile={patientData.patientState.profile}>
+    <Screen navigation={navigation} profile={patientData.patientState.profile} testID="confirm-school-screen">
       <View style={styles.container}>
         <JoinHeader
           bodyText="school-networks.join-school.school-code-confirm-instructions"

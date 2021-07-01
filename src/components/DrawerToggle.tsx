@@ -8,6 +8,7 @@ import { Image, ImageStyle, StyleProp, StyleSheet, TouchableOpacity } from 'reac
 type Props = {
   navigation: DrawerNavigationProp<ScreenParamList, keyof ScreenParamList>;
   style?: StyleProp<ImageStyle>;
+  testID?: string;
 };
 
 export const DrawerToggle: React.FC<Props> = (props) => (
@@ -18,6 +19,7 @@ export const DrawerToggle: React.FC<Props> = (props) => (
     onPress={() => {
       props.navigation.toggleDrawer();
     }}
+    testID={props.testID}
   >
     <Image source={menuIcon} style={[styles.menuIcon, props.style]} />
   </TouchableOpacity>

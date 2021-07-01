@@ -175,7 +175,7 @@ platform :ios do
   end
   
   desc "Build"
-  lane :release do |options|
+  lane :build do |options|
 
     @match_mode = @ac_destination_type
     @export_method = nil
@@ -210,7 +210,7 @@ platform :ios do
       app_identifier: @ios_app_id,
       git_branch: "master",
       readonly: true,
-      keychain_name: @keychain_name,
+      # keychain_name: @keychain_name,
       force_for_new_devices: @match_mode.eql?('adhoc')
     )
     
@@ -223,6 +223,13 @@ platform :ios do
       workspace: "./ios/Covid.xcworkspace",
       xcargs: "EX_RELEASE_CHANNEL='#{@expo_release_channel}'"
     )
+
+  end
+
+  desc "Release"
+  lane :release do |options|
+
+    build(options)
 
     slack_payload = {
       'Build Date' => Time.new.to_s,

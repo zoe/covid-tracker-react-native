@@ -34,7 +34,7 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={currentPatient.profile} testID="gut-stomach-symptoms-screen">
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.gut-stomach-symptoms')}</HeaderText>
       </Header>
@@ -58,7 +58,12 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
               </View>
 
               <View style={{ flex: 1 }} />
-              <BrandedButton enable={!props.isSubmitting} loading={props.isSubmitting} onPress={props.handleSubmit}>
+              <BrandedButton
+                enable={!props.isSubmitting}
+                loading={props.isSubmitting}
+                onPress={props.handleSubmit}
+                testID="button-submit"
+              >
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>
             </Form>

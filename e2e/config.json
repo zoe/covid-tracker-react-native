@@ -1,0 +1,12 @@
+{
+  "preset": "jest-expo",
+  "reporters": ["detox/runners/jest/streamlineReporter"],
+  "setupFilesAfterEnv": ["./init.ts"],
+  "testEnvironment": "./environment",
+  "testRegex": "\\.e2e\\.ts$",
+  "testRunner": "jest-circus/runner",
+  "transformIgnorePatterns": [
+    "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*|@expo-google-fonts)"
+  ],
+  "verbose": true
+}

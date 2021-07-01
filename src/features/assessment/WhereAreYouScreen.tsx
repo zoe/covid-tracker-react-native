@@ -55,7 +55,7 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
   }, [isFocused]);
 
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile}>
+    <Screen navigation={navigation} profile={currentPatient.profile} testID="where-are-you-screen">
       <Header>
         <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
       </Header>
@@ -67,18 +67,22 @@ function WhereAreYouScreen({ navigation, route }: IProps) {
       <View style={styles.content}>
         <SelectorButton
           onPress={() => handleLocationSelection('home', true)}
+          testID="button-location-home"
           text={i18n.t('where-are-you.picker-location-home')}
         />
         <SelectorButton
           onPress={() => handleLocationSelection('hospital', false)}
+          testID="button-location-hospital"
           text={i18n.t('where-are-you.picker-location-hospital')}
         />
         <SelectorButton
           onPress={() => handleLocationSelection('back_from_hospital', false)}
+          testID="button-location-back-from-hospital"
           text={i18n.t('where-are-you.picker-location-back-from-hospital')}
         />
         <SelectorButton
           onPress={() => handleLocationSelection('back_from_hospital', true)}
+          testID="button-location-back-from-hospital-already-reported"
           text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
         />
       </View>

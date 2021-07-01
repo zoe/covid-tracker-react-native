@@ -122,7 +122,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     <>
       <USStudyInvite assessmentData={assessmentCoordinator.assessmentData} />
 
-      <Screen navigation={navigation} profile={currentPatient.profile}>
+      <Screen navigation={navigation} profile={currentPatient.profile} testID="how-you-feel-screen">
         <Header>
           <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
         </Header>
@@ -144,10 +144,12 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
         <View style={{ marginHorizontal: 16 }}>
           <SelectorButton
             onPress={() => handlePress(true)}
+            testID="button-status-healthy"
             text={i18n.t('how-you-feel.picker-health-status-healthy')}
           />
           <SelectorButton
             onPress={() => handlePress(false)}
+            testID="button-status-not-healthy"
             text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
           />
         </View>

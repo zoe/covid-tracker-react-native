@@ -12,6 +12,7 @@ interface IProps {
   iconStyle?: StyleProp<ViewStyle>;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 function RoundIconButton({
@@ -23,6 +24,7 @@ function RoundIconButton({
   iconStyle = {},
   onPress,
   style = {},
+  testID,
 }: IProps) {
   return (
     <TouchableOpacity
@@ -40,6 +42,7 @@ function RoundIconButton({
         },
         style,
       ]}
+      testID={testID}
     >
       <Icon color={iconColor} iconName={iconName} iconSize={iconSize} style={iconStyle} />
     </TouchableOpacity>

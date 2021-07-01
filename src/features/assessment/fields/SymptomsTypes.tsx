@@ -45,6 +45,7 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
           onChange={(checked: boolean) => {
             props.setFieldValue(checkBoxData.value, checked);
           }}
+          testID={`checkbox-item-${checkBoxData.value}`}
           value={props.values[checkBoxData.value]}
         >
           {checkBoxData.label}

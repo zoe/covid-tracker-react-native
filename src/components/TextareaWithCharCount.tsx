@@ -11,7 +11,8 @@ interface ITextareaWithCharCountProps {
   placeholder?: string;
   rowSpan?: number;
   style?: StyleProp<TextStyle>;
-  value: string | null;
+  value?: string;
+  testID?: string;
 }
 
 const DEFAULT_MAX_LENGTH = 1000;
@@ -34,6 +35,7 @@ export default function TextareaWithCharCount(props: ITextareaWithCharCountProps
         placeholder={props.placeholder}
         rowSpan={props.rowSpan || DEFAULT_ROW_SPAN}
         style={props.style}
+        testID={props.testID}
         underline={false}
         value={props.value}
       />

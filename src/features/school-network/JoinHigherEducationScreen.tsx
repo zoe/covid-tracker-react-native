@@ -34,7 +34,11 @@ export default function JoinHigherEducationScreen({ navigation, route }: IProps)
   }, []);
 
   return (
-    <Screen navigation={navigation} profile={route.params?.patientData?.patientState?.profile}>
+    <Screen
+      navigation={navigation}
+      profile={route.params?.patientData?.patientState?.profile}
+      testID="join-higher-education-screen"
+    >
       {currentJoinedGroup ? (
         <SelectedSchool
           currentJoinedGroup={currentJoinedGroup}

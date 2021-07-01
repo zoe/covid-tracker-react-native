@@ -82,7 +82,7 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
 
     return (
       <View style={styles.rootContainer}>
-        <Screen navigation={this.props.navigation} profile={currentPatient.profile}>
+        <Screen navigation={this.props.navigation} profile={currentPatient.profile} testID="covid-test-list-screen">
           <Header>
             <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
@@ -104,7 +104,7 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
             </View>
           )}
 
-          <BrandedButton onPress={this.gotoAddTest} style={styles.newButton}>
+          <BrandedButton onPress={this.gotoAddTest} style={styles.newButton} testID="button-add-test">
             <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
           </BrandedButton>
 
@@ -120,7 +120,11 @@ export default class CovidTestListScreen extends React.Component<Props, State> {
 
           <View style={{ flex: 1 }} />
 
-          <BrandedButton onPress={this.handleNextButton} style={styles.continueButton}>
+          <BrandedButton
+            onPress={this.handleNextButton}
+            style={styles.continueButton}
+            testID="button-covid-test-list-screen"
+          >
             <Text style={{ color: colors.white }}>
               {this.state.covidTests.length === 0
                 ? i18n.t('covid-test-list.never-had-test')

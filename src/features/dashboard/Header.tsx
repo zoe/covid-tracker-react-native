@@ -45,7 +45,11 @@ export function Header({ reportedCount, reportOnPress }: IProps) {
 
       <View style={styles.reportCard}>
         <Header3Text style={styles.dateLabel}>{content.todayDate}</Header3Text>
-        <BrandedButton onPress={onReport} style={[styles.reportButton, styles.reportButtonExpanded]}>
+        <BrandedButton
+          onPress={onReport}
+          style={[styles.reportButton, styles.reportButtonExpanded]}
+          testID="button-report-today"
+        >
           {i18n.t('dashboard.report-today')}
         </BrandedButton>
         {reportedCount ? (
