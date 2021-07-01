@@ -1,22 +1,16 @@
-import { IApiClient } from '@covid/core/api/ApiClient';
-import { ILongCovid } from '@covid/core/state/long-covid';
-import { Services } from '@covid/provider/services.types';
-import { inject, injectable } from 'inversify';
+import ApiClient from '@covid/core/api/ApiClient';
+import { ILongCovid } from '@covid/features/long-covid/types';
 
-const API_PATH = '/long_covid/';
+const apiClient = new ApiClient();
 
 export interface ILongCovidApiClient {
   get(patientId: string): Promise<ILongCovid[]>;
   add(patientId: string, LongCovid: ILongCovid): Promise<ILongCovid>;
-  dataContainsPatientId(longCovidList: ILongCovid[], patientId: string): boolean;
 }
 
-@injectable()
 export class LongCovidApiClient implements ILongCovidApiClient {
-  constructor(@inject(Services.Api) private apiClient: IApiClient) {}
-
   get(patientId: string): Promise<ILongCovid[]> {
-    return this.apiClient.get<ILongCovid[]>(API_PATH, { patient: patientId });
+    return apiClient.get<ILongCovid[]>('/long_covid/', { patient: patientId });
   }
 
   add(patientId: string, longCovid: ILongCovid): Promise<ILongCovid> {
@@ -24,6 +18,6 @@ export class LongCovidApiClient implements ILongCovidApiClient {
       ...longCovid,
       patient: patientId,
     };
-    return this.apiClient.post<ILongCovid, ILongCovid>(API_PATH, longCovid);
+    return apiClient.post<ILongCovid, ILongCovid>('/long_covid/', longCovid);
   }
 }

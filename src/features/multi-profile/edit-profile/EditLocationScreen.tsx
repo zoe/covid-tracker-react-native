@@ -8,7 +8,7 @@ import YesNoField from '@covid/components/YesNoField';
 import { fetchStartUpInfo } from '@covid/core/content/state/contentSlice';
 import { useAppDispatch } from '@covid/core/state/store';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';

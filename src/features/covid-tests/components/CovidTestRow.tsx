@@ -1,6 +1,6 @@
 import { chevronRight, pending, tick } from '@assets';
 import { RegularText } from '@covid/components/Text';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
@@ -62,7 +62,7 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
   };
 
   return (
-    <TouchableOpacity onPress={() => AssessmentCoordinator.goToAddEditTest(type, item)} style={styles.itemTouchable}>
+    <TouchableOpacity onPress={() => assessmentCoordinator.goToAddEditTest(type, item)} style={styles.itemTouchable}>
       <Image source={getRowIcon(item.result)} style={styles.tick} />
       <RegularText style={[item.result === 'waiting' && styles.pendingText]}>{formatTestDate(item)}</RegularText>
       {isNHSTest ? (

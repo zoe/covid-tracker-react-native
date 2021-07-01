@@ -30,6 +30,7 @@ storiesOf('RadioInput', module).add('multi lines items', () => (
 ));
 
 storiesOf('RadioInput', module).add('no default items', () => (
+  // @ts-expect-error
   <RadioInput error="Test error" label="Test Label" onValueChange={ValueChangeHandler()} selectedValue={null} />
 ));
 

@@ -1,15 +1,13 @@
 import { Coordinator, ISelectProfile, ScreenFlow } from '@covid/core/Coordinator';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { ISchoolGroupModel, ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups, schoolSlice } from '@covid/core/schools/Schools.slice';
-import { ISchoolService } from '@covid/core/schools/SchoolService';
+import { schoolService } from '@covid/core/schools/SchoolService';
 import store from '@covid/core/state/store';
 import NavigatorService from '@covid/NavigatorService';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 
 export class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
   patientData: PatientData;
@@ -17,12 +15,6 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   higherEducation: boolean;
 
   private selectedSchool?: ISchoolModel;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
-  @lazyInject(Services.SchoolService)
-  private readonly schoolService: ISchoolService;
 
   public screenFlow: Partial<ScreenFlow> = {
     JoinSchoolGroup: () => {
@@ -83,12 +75,12 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   }
 
   async profileSelected(profile: Profile): Promise<void> {
-    this.patientData = await this.patientService.getPatientDataByProfile(profile);
+    this.patientData = await patientService.getPatientDataByProfile(profile);
     NavigatorService.navigate('JoinSchool');
   }
 
   async removePatientFromGroup(groupId: string, patientId: string) {
-    return this.schoolService.leaveGroup(groupId, patientId).then(async (r) => {
+    return schoolService.leaveGroup(groupId, patientId).then(async (r) => {
       await store.dispatch(fetchSubscribedSchoolGroups()).then(() => {
         store.dispatch(schoolSlice.actions.removeGroup(groupId));
       });
@@ -100,7 +92,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
     for (const group of store.getState().school.joinedSchoolGroups) {
       if (group.school.id === schoolId && group.patient_id === patientId) {
         // eslint-disable-next-line no-await-in-loop
-        await this.schoolService.leaveGroup(group.id, patientId).then(() => {
+        await schoolService.leaveGroup(group.id, patientId).then(() => {
           store.dispatch(schoolSlice.actions.removeGroup(group.id));
         });
       }
@@ -108,14 +100,14 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   }
 
   async addPatientToGroup(groupId: string, patientId: string) {
-    return this.schoolService.joinGroup(groupId, patientId).then(async (r) => {
+    return schoolService.joinGroup(groupId, patientId).then(async (r) => {
       await store.dispatch(fetchSubscribedSchoolGroups());
       return r;
     });
   }
 
   async searchSchoolGroups(id: string) {
-    return this.schoolService.searchSchoolGroups(id).catch(() => {
+    return schoolService.searchSchoolGroups(id).catch(() => {
       return [];
     });
   }
@@ -125,5 +117,4 @@ export class SchoolNetworkCoordinator extends Coordinator implements ISelectProf
   }
 }
 
-const schoolNetworkCoordinator = new SchoolNetworkCoordinator();
-export default schoolNetworkCoordinator;
+export const schoolNetworkCoordinator = new SchoolNetworkCoordinator();

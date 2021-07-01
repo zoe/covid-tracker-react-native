@@ -1,7 +1,6 @@
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { Consent } from '@covid/core/user/dto/UserAPIContracts';
-import { injectable } from 'inversify';
 
 export interface IConsentService {
   postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
@@ -9,7 +8,6 @@ export interface IConsentService {
   setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
 }
 
-@injectable()
 export class ConsentService extends ApiClientBase implements IConsentService {
   protected client = ApiClientBase.client;
 
@@ -43,3 +41,5 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
   }
 }
+
+export const consentService = new ConsentService();

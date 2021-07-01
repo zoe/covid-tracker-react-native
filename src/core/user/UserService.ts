@@ -2,12 +2,10 @@ import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import { camelizeKeys, objectToQueryString } from '@covid/core/api/utils';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
+import { ConsentService, consentService } from '@covid/core/consent/ConsentService';
 import { UserNotFoundException } from '@covid/core/Exception';
-import { ILocalisationService, LocalisationService } from '@covid/core/localisation/LocalisationService';
-import { Services } from '@covid/provider/services.types';
+import { LocalisationService, localisationService } from '@covid/core/localisation/LocalisationService';
 import { AxiosResponse } from 'axios';
-import { inject, injectable, unmanaged } from 'inversify';
 
 import { LoginOrRegisterResponse, PiiRequest, UpdateCountryCodeRequest, UserResponse } from './dto/UserAPIContracts';
 
@@ -30,19 +28,8 @@ export interface IUserService {
   getFirstPatientId(): Promise<string | null>;
 }
 
-@injectable()
 export default class UserService extends ApiClientBase implements IUserService {
-  @inject(Services.Consent)
-  public consentService: IConsentService;
-
-  @inject(Services.Localisation)
-  public localisationService: ILocalisationService;
-
   public hasUser = false;
-
-  constructor(@unmanaged() private useAsyncStorage: boolean = true) {
-    super();
-  }
 
   configEncoded = {
     headers: {
@@ -77,7 +64,7 @@ export default class UserService extends ApiClientBase implements IUserService {
   private async deleteLocalUserData() {
     ApiClientBase.unsetToken();
     await AsyncStorageService.clearData();
-    await this.consentService.setConsentSigned('', '', '');
+    await consentService.setConsentSigned('', '', '');
   }
 
   public async resetPassword(email: string) {
@@ -99,7 +86,7 @@ export default class UserService extends ApiClientBase implements IUserService {
   async loadUser() {
     const user = await AsyncStorageService.GetStoredData();
     this.hasUser = !!user && !!user!.userToken && !!user!.userId;
-    this.localisationService.updateUserCountry(this.hasUser);
+    localisationService.updateUserCountry(this.hasUser);
     if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
     }
@@ -123,9 +110,7 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   private storeTokenInAsyncStorage = async (authToken: any, userId: string) => {
     ApiClientBase.userId = userId;
-    if (this.useAsyncStorage) {
-      await AsyncStorageService.storeData(authToken, userId);
-    }
+    await AsyncStorageService.storeData(authToken, userId);
   };
 
   public async register(email: string, password: string) {

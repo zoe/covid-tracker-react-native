@@ -9,7 +9,7 @@ import { RegularText } from './Text';
 
 type CalloutBoxProps = {
   content: ScreenContent;
-  onPress: () => void;
+  onPress?: () => void;
   image?: boolean;
   boxStyle?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;

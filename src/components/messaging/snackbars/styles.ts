@@ -1,7 +1,7 @@
 import { Text } from '@covid/components/typography';
 import { TColorPalette, TColorShade } from '@covid/themes';
-import styled from '@covid/themes/styled-components';
 import { Animated, View } from 'react-native';
+import styled from 'styled-components/native';
 
 export type TVariant = 'top' | 'bottom';
 

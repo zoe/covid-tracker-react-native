@@ -2,17 +2,15 @@ import { gbPartners, svPartners, usPartners } from '@assets';
 import { BrandedButton } from '@covid/components';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import {
-  ILocalisationService,
   isGBCountry,
   isSECountry,
   isUSCountry,
   LocalisationService,
+  localisationService,
 } from '@covid/core/localisation/LocalisationService';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -31,8 +29,6 @@ type PropsType = {
 };
 
 const Welcome2Screen: React.FC<PropsType> = ({ navigation }) => {
-  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
-
   const [ipModalVisible, setIpModalVisible] = React.useState(false);
 
   const onLoginPress = React.useCallback(() => navigation.navigate('Login'), [navigation.navigate]);

@@ -3,7 +3,7 @@ import { BrandedButton } from '@covid/components';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { ScreenParamList } from '@covid/features';

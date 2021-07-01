@@ -5,10 +5,8 @@ import { MessagingContainer } from '@covid/components';
 import { ErrorBoundary } from '@covid/core/ErrorBoundary';
 import store, { persistor } from '@covid/core/state/store';
 import CovidApp from '@covid/CovidApp';
-import { container } from '@covid/provider/services';
-import { Provider as ServiceProvider } from '@covid/provider/services.provider';
 import StorybookUIRoot from '@covid/storybook';
-import { Theme } from '@covid/themes';
+import { theme } from '@covid/themes';
 import { useFonts } from 'expo-font';
 import { LogBox } from 'react-native';
 import * as React from 'react';
@@ -18,7 +16,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import * as Sentry from 'sentry-expo';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components/native';
 
 const ENABLE_STORYBOOK = false;
 
@@ -45,10 +43,10 @@ export default function App() {
       <MessageProvider>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <ThemeProvider theme={Theme}>
+            <ThemeProvider theme={theme}>
               <SafeAreaProvider>
                 <MessagingContainer />
-                <ServiceProvider container={container}>{loaded ? <Root /> : null}</ServiceProvider>
+                {loaded ? <Root /> : null}
               </SafeAreaProvider>
             </ThemeProvider>
           </PersistGate>

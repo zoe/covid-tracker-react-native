@@ -7,16 +7,14 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
-import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { isUSCountry, localisationService } from '@covid/core/localisation/LocalisationService';
+import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
+import { patientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '@covid/features';
 import { AtopyQuestions, IAtopyData } from '@covid/features/patient/fields/AtopyQuestions';
 import { BloodGroupQuestion, IBloodGroupData } from '@covid/features/patient/fields/BloodGroupQuestion';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { stripAndRound } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -84,19 +82,13 @@ const initialState: State = {
 };
 
 export default class YourHealthScreen extends React.Component<HealthProps, State> {
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
-  @lazyInject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
-
   constructor(props: HealthProps) {
     super(props);
-    const features = this.localisationService.getConfig();
+    const config = localisationService.getConfig();
     this.state = {
       ...initialState,
       showDiabetesQuestion: false,
-      showPregnancyQuestion: features.showPregnancyQuestion && patientCoordinator.patientData?.patientState?.isFemale,
+      showPregnancyQuestion: !!config?.showPregnancyQuestion && patientCoordinator.patientData?.patientState?.isFemale,
     };
   }
 
@@ -141,7 +133,7 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
     const currentPatient = patientCoordinator.patientData?.patientState;
     const infos = this.createPatientInfos(formData);
 
-    this.patientService
+    patientService
       .updatePatientInfo(currentPatient.patientId, infos)
       .then((_) => {
         currentPatient.hasCompletedPatientDetails = true;
@@ -400,7 +392,11 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                     <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
                 </View>
-                <BrandedButton enable={props.isValid && props.dirty} onPress={props.handleSubmit} testID="button-submit">
+                <BrandedButton
+                  enable={props.isValid && props.dirty}
+                  onPress={props.handleSubmit}
+                  testID="button-submit"
+                >
                   {i18n.t('next-question')}
                 </BrandedButton>
               </FormWrapper>

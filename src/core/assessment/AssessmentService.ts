@@ -1,6 +1,6 @@
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
-import { IAssessmentRemoteClient } from './AssessmentApiClient';
+import { assessmentApiClient } from './AssessmentApiClient';
 import { IAssessmentState } from './AssessmentState';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { AssessmentResponse } from './dto/AssessmentInfosResponse';
@@ -15,21 +15,18 @@ export interface IAssessmentService {
 }
 
 export default class AssessmentService implements IAssessmentService {
-  apiClient: IAssessmentRemoteClient;
-
   state: IAssessmentState;
 
-  constructor(apiClient: IAssessmentRemoteClient, state: IAssessmentState) {
-    this.apiClient = apiClient;
+  constructor(state: IAssessmentState) {
     this.state = state;
   }
 
   private async saveToApi(assessment: Partial<AssessmentInfosRequest>): Promise<AssessmentResponse> {
     let response;
     if (assessment.id) {
-      response = await this.apiClient.updateAssessment(assessment.id, assessment as AssessmentInfosRequest);
+      response = await assessmentApiClient.updateAssessment(assessment.id, assessment as AssessmentInfosRequest);
     } else {
-      response = await this.apiClient.addAssessment(assessment as AssessmentInfosRequest);
+      response = await assessmentApiClient.addAssessment(assessment as AssessmentInfosRequest);
     }
     return response;
   }

@@ -24,7 +24,16 @@ interface IProps {
   required?: boolean;
 }
 
-export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, hideLabel, testID, required}: IProps) {
+export function ButtonsGroup({
+  label,
+  selectedValue,
+  items,
+  error,
+  onValueChange,
+  hideLabel,
+  testID,
+  required,
+}: IProps) {
   const [selected, setSelected] = React.useState<string>(selectedValue);
 
   const onSelect = (value: string) => {

@@ -7,8 +7,8 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
-import { IPatientService } from '@covid/core/patient/PatientService';
+import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
+import { patientService } from '@covid/core/patient/PatientService';
 import {
   AvailabilityAlwaysOptions,
   AvailabilityNeverOptions,
@@ -20,8 +20,6 @@ import {
 } from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
@@ -72,9 +70,6 @@ const initialState: State = {
 };
 
 export default class YourWorkScreen extends React.Component<YourWorkProps, State> {
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
-
   constructor(props: YourWorkProps) {
     super(props);
     this.state = initialState;
@@ -90,7 +85,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
     const currentPatient = patientCoordinator.patientData?.patientState;
     const infos = this.createPatientInfos(formData);
 
-    this.patientService
+    patientService
       .updatePatientInfo(currentPatient?.patientId, infos)
       .then(() => {
         currentPatient.isHealthWorker =

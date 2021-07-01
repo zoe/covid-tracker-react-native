@@ -1,4 +1,4 @@
-import { IApiClient } from '@covid/core/api/ApiClient';
+import ApiClient from '@covid/core/api/ApiClient';
 import {
   IMentalHealthChanges,
   IMentalHealthFrequency,
@@ -6,9 +6,7 @@ import {
   IMentalHealthLearning,
 } from '@covid/core/state';
 import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
-import { Services } from '@covid/provider/services.types';
 import { IMHInsights } from '@covid/types/mental-health-playback';
-import { inject, injectable } from 'inversify';
 
 import { MentalHealthInfosRequest } from './MentalHealthInfosRequest';
 
@@ -28,20 +26,19 @@ export interface IMentalHealthApiClientBuildRequest {
   mentalHealthSupport?: IMentalHealthSupport;
 }
 
-@injectable()
-export class MentalHealthApiClient implements IMentalHealthApiClient {
-  constructor(@inject(Services.Api) private apiClient: IApiClient) {}
+const apiClient = new ApiClient();
 
+export class MentalHealthApiClient implements IMentalHealthApiClient {
   get() {
-    return this.apiClient.get<MentalHealthInfosRequest[]>(PATH);
+    return apiClient.get<MentalHealthInfosRequest[]>(PATH);
   }
 
   getInsights() {
-    return this.apiClient.get<IMHInsights>('/mental_health_insight/');
+    return apiClient.get<IMHInsights>('/mental_health_insight/');
   }
 
   feedback(rating: number, comments: string) {
-    return this.apiClient.post('/feedback/', {
+    return apiClient.post('/feedback/', {
       comments,
       feature: 'mental_health_insights',
       rating,
@@ -53,12 +50,12 @@ export class MentalHealthApiClient implements IMentalHealthApiClient {
       patient: patientId,
       ...mentalHealth,
     };
-    return this.apiClient.post<MentalHealthInfosRequest, MentalHealthInfosRequest>(PATH, mentalHealth);
+    return apiClient.post<MentalHealthInfosRequest, MentalHealthInfosRequest>(PATH, mentalHealth);
   }
 
   update(mentalHealth: MentalHealthInfosRequest) {
     const url = `${PATH}${mentalHealth.id}/`;
-    return this.apiClient.patch<MentalHealthInfosRequest, MentalHealthInfosRequest>(url, mentalHealth);
+    return apiClient.patch<MentalHealthInfosRequest, MentalHealthInfosRequest>(url, mentalHealth);
   }
 
   buildRequestObject(existingMentalHealth: MentalHealthInfosRequest, data: IMentalHealthApiClientBuildRequest) {

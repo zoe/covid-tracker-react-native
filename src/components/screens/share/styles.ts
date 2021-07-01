@@ -1,6 +1,6 @@
 import { TColorPalette, TColorShade } from '@covid/themes';
-import styled from '@covid/themes/styled-components';
 import { Image, View } from 'react-native';
+import styled from 'styled-components/native';
 
 export interface IContainerViewProps {
   height: number;

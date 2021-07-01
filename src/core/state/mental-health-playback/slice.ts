@@ -5,7 +5,7 @@ import { mentalHealthApiClient } from '@covid/Services';
 import { IMHInsights } from '@covid/types/mental-health-playback';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IMentalHealthPlayback = {
+export const initialStateMentalHealthPlayback: IMentalHealthPlayback = {
   loading: false,
   mh_insights: {
     completed_feedback: false,
@@ -14,7 +14,7 @@ const initialState: IMentalHealthPlayback = {
 };
 
 const slice = createSlice({
-  initialState,
+  initialState: initialStateMentalHealthPlayback,
   name: 'MentalHealthPlayback',
   reducers: {
     isLoading: (state, action: PayloadAction<boolean>) => ({
@@ -33,8 +33,10 @@ export const isLoading = (state: RootState) => state.mentalHealthPlayback.loadin
 export function requestInsights() {
   return async (dispatch: typeof store.dispatch) => {
     dispatch(slice.actions.isLoading(true));
-    const insights = await mentalHealthApiClient.getInsights();
-    dispatch(slice.actions.setInsights(insights));
+    try {
+      const insights = await mentalHealthApiClient.getInsights();
+      dispatch(slice.actions.setInsights(insights));
+    } catch (_) {}
     dispatch(slice.actions.isLoading(false));
   };
 }

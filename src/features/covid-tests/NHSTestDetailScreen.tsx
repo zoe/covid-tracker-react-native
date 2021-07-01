@@ -5,8 +5,8 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { covidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import {
   CovidTestResultQuestion,
@@ -19,8 +19,6 @@ import {
 import { INHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
@@ -47,9 +45,6 @@ const initialState: State = {
 };
 
 export default class NHSTestDetailScreen extends React.Component<CovidProps, State> {
-  @lazyInject(Services.CovidTest)
-  private readonly covidTestService: ICovidTestService;
-
   constructor(props: CovidProps) {
     super(props);
     this.state = initialState;
@@ -62,20 +57,20 @@ export default class NHSTestDetailScreen extends React.Component<CovidProps, Sta
   // TODO: refactor this into a util function
   submitCovidTest(infos: Partial<CovidTest>) {
     if (this.props.route.params?.test?.id) {
-      this.covidTestService
+      covidTestService
         .updateTest(this.props.route.params?.test?.id, infos)
         .then(() => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+          assessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
           this.setState({ submitting: false });
         });
     } else {
-      this.covidTestService
+      covidTestService
         .addTest(infos)
         .then(() => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+          assessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -96,7 +91,7 @@ export default class NHSTestDetailScreen extends React.Component<CovidProps, Sta
 
       const infos = {
         invited_to_test: false,
-        patient: AssessmentCoordinator.assessmentData?.patientData?.patientId,
+        patient: assessmentCoordinator.assessmentData?.patientData?.patientId,
         type: CovidTestType.NHSStudy,
         ...NHSTestDateQuestion.createDTO(formData),
         ...CovidTestTimeQuestion.createDTO(formData),
@@ -130,7 +125,7 @@ export default class NHSTestDetailScreen extends React.Component<CovidProps, Sta
   }
 
   async deleteTest() {
-    await this.covidTestService.deleteTest(this.testId!);
+    await covidTestService.deleteTest(this.testId!);
     this.props.navigation.goBack();
     Analytics.track(events.DELETE_COVID_TEST);
   }
@@ -148,7 +143,7 @@ export default class NHSTestDetailScreen extends React.Component<CovidProps, Sta
     return (
       <Screen
         navigation={this.props.navigation}
-        profile={AssessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+        profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
       >
         <Header>
           <HeaderText>

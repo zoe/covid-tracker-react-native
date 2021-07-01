@@ -1,4 +1,5 @@
-import { Anniversary, ScreenParamList } from '@covid/features';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import * as screens from '@covid/features/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
@@ -13,5 +14,5 @@ const noHeader = {
 };
 
 export default function AnniversaryNavigator({ Stack }: IProps) {
-  return <Stack.Screen component={Anniversary} name="Anniversary" options={noHeader} />;
+  return <Stack.Screen component={screens.Anniversary} name="Anniversary" options={noHeader} />;
 }

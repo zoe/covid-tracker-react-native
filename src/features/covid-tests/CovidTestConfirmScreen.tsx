@@ -2,12 +2,10 @@ import { BrandedButton } from '@covid/components';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { covidTestService } from '@covid/core/user/CovidTestService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -22,7 +20,6 @@ interface IProps {
 
 export default function CovidTestConfirmScreen({ navigation, route }: IProps) {
   const [agreed, setAgreed] = React.useState(false);
-  const covidTestService = useInjection<ICovidTestService>(Services.CovidTest);
 
   const handleConsentClick = (checked: boolean) => {
     setAgreed(checked);
@@ -33,7 +30,7 @@ export default function CovidTestConfirmScreen({ navigation, route }: IProps) {
       return;
     }
 
-    const { test } = route.params;
+    const test = route.params?.test;
 
     if (test.id) {
       covidTestService.updateTest(test.id, test).then(() => {

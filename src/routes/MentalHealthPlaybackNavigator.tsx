@@ -1,11 +1,5 @@
-import {
-  MHPBlogPostScreen,
-  MHPGeneralScreen,
-  MHPIntroductionScreen,
-  MHPRatingScreen,
-  MHPThankYouScreen,
-} from '@covid/features/mental-health-playback/screens';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import * as screens from '@covid/features/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
@@ -22,11 +16,15 @@ const noHeader = {
 export default function MentalHealthPlaybackNavigator({ Stack }: IProps) {
   return (
     <>
-      <Stack.Screen component={MHPBlogPostScreen} name="MentalHealthPlaybackBlogPost" options={noHeader} />
-      <Stack.Screen component={MHPGeneralScreen} name="MentalHealthPlaybackGeneral" options={noHeader} />
-      <Stack.Screen component={MHPIntroductionScreen} name="MentalHealthPlaybackIntroduction" options={noHeader} />
-      <Stack.Screen component={MHPRatingScreen} name="MentalHealthPlaybackRating" options={noHeader} />
-      <Stack.Screen component={MHPThankYouScreen} name="MentalHealthPlaybackThankYou" options={noHeader} />
+      <Stack.Screen component={screens.MHPBlogPostScreen} name="MentalHealthPlaybackBlogPost" options={noHeader} />
+      <Stack.Screen component={screens.MHPGeneralScreen} name="MentalHealthPlaybackGeneral" options={noHeader} />
+      <Stack.Screen
+        component={screens.MHPIntroductionScreen}
+        name="MentalHealthPlaybackIntroduction"
+        options={noHeader}
+      />
+      <Stack.Screen component={screens.MHPRatingScreen} name="MentalHealthPlaybackRating" options={noHeader} />
+      <Stack.Screen component={screens.MHPThankYouScreen} name="MentalHealthPlaybackThankYou" options={noHeader} />
     </>
   );
 }

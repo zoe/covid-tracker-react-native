@@ -1,4 +1,4 @@
-export { default as Theme } from './theme';
+export { default as theme } from './theme';
 export { default as useTheme } from './useTheme';
 export * from './types';
 export { colors } from './theme/colors';

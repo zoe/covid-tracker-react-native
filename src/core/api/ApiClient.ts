@@ -1,5 +1,4 @@
 import { AxiosInstance } from 'axios';
-import { injectable } from 'inversify';
 
 import { ApiClientBase } from './ApiClientBase';
 import { handleServiceError } from './ApiServiceErrors';
@@ -14,7 +13,6 @@ export interface IApiClient {
   get<TResponse>(path: string, object?: any): Promise<TResponse>;
 }
 
-@injectable()
 export default class ApiClient extends ApiClientBase implements IApiClient {
   protected client = ApiClientBase.client;
 
@@ -68,3 +66,5 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
     return {} as TResponse;
   }
 }
+
+export const apiClient = new ApiClient();

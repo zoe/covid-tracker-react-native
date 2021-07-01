@@ -1,12 +1,10 @@
 import appConfig from '@covid/appConfig';
 import { BrandedButton } from '@covid/components';
-import { IConsentService } from '@covid/core/consent/ConsentService';
+import { consentService } from '@covid/core/consent/ConsentService';
 import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
-import appCoordinator from '@covid/features/AppCoordinator';
+import { appCoordinator } from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -24,8 +22,6 @@ type PropsType = {
 
 const ConsentScreen: React.FC<PropsType> = (props) => {
   const [agreed, setAgreed] = React.useState(false);
-
-  const consentService = useInjection<IConsentService>(Services.Consent);
 
   const handleAgreeClicked = React.useCallback(async () => {
     if (!agreed) {
@@ -60,7 +56,7 @@ const ConsentScreen: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.rootContainer}>
       {renderConsent()}
-      {!props.route.params.viewOnly ? (
+      {!props.route.params?.viewOnly ? (
         <BrandedButton enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="button-agree">
           {i18n.t('legal.i-agree')}
         </BrandedButton>

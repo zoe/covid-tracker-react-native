@@ -2,7 +2,7 @@ import { BrandedButton } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features';
 import { OtherSymptomsData, OtherSymptomsQuestions } from '@covid/features/assessment/fields/OtherSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
@@ -28,10 +28,12 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   }
 
   const registerSchema = Yup.object().shape({}).concat(OtherSymptomsQuestions.schema());
-
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
-    <Screen navigation={navigation} profile={currentPatient.profile} testID="other-symptoms-screen">
+    <Screen
+      navigation={navigation}
+      profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      testID="other-symptoms-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.other-symptoms')}</HeaderText>
       </Header>

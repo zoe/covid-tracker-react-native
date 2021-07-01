@@ -1,9 +1,7 @@
 import appConfig from '@covid/appConfig';
-import { IApiClient } from '@covid/core/api/ApiClient';
+import ApiClient from '@covid/core/api/ApiClient';
 import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { DoseSymptomsResponse, VaccineResponse } from '@covid/core/vaccine/dto/VaccineResponse';
-import { Services } from '@covid/provider/services.types';
-import { inject, injectable } from 'inversify';
 
 export interface IVaccineRemoteClient {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse>;
@@ -13,18 +11,16 @@ export interface IVaccineRemoteClient {
   deleteVaccine(vaccineId: string): Promise<void>;
 }
 
-@injectable()
-export class VaccineApiClient implements IVaccineRemoteClient {
-  @inject(Services.Api)
-  private readonly apiClient: IApiClient;
+const apiClient = new ApiClient();
 
+export class VaccineApiClient implements IVaccineRemoteClient {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse> {
     payload = {
       ...payload,
       patient: patientId,
       version: appConfig.vaccineVersion,
     };
-    return this.apiClient.post<VaccineRequest, VaccineResponse>('/vaccines/', payload as VaccineRequest);
+    return apiClient.post<VaccineRequest, VaccineResponse>('/vaccines/', payload as VaccineRequest);
   }
 
   updateVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse> {
@@ -33,7 +29,7 @@ export class VaccineApiClient implements IVaccineRemoteClient {
       patient: patientId,
       version: appConfig.vaccineVersion,
     };
-    return this.apiClient.patch<VaccineRequest, VaccineResponse>(`/vaccines/${payload.id}/`, payload as VaccineRequest);
+    return apiClient.patch<VaccineRequest, VaccineResponse>(`/vaccines/${payload.id}/`, payload as VaccineRequest);
   }
 
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse> {
@@ -41,18 +37,16 @@ export class VaccineApiClient implements IVaccineRemoteClient {
       ...payload,
       patient: patientId,
     };
-    return this.apiClient.post<DoseSymptomsRequest, DoseSymptomsResponse>(
-      '/dose_symptoms/',
-      payload as DoseSymptomsRequest,
-    );
+    return apiClient.post<DoseSymptomsRequest, DoseSymptomsResponse>('/dose_symptoms/', payload as DoseSymptomsRequest);
   }
 
   listVaccines(): Promise<VaccineRequest[]> {
-    return this.apiClient.get<VaccineRequest[]>(`/vaccines/`);
+    return apiClient.get<VaccineRequest[]>(`/vaccines/`);
   }
 
   deleteVaccine(vaccineId: string): Promise<void> {
-    // return this.apiClient.patch(`/vaccines/${vaccineId}/`, { deleted: true });
-    return this.apiClient.delete<object, void>(`/vaccines/${vaccineId}/`, {}); // TODO CHECK THIS
+    return apiClient.delete<object, void>(`/vaccines/${vaccineId}/`, {}); // TODO CHECK THIS
   }
 }
+
+export const vaccineApiClient = new VaccineApiClient();

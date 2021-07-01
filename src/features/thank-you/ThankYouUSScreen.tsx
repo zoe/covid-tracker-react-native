@@ -1,6 +1,6 @@
 import { ShareAppCardViral } from '@covid/components/cards/ShareAppViral';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import i18n from '@covid/locale/i18n';

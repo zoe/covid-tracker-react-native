@@ -16,9 +16,9 @@ type HowYouFeelProps = {
 export default class AdultOrChildScreen extends React.Component<HowYouFeelProps> {
   buildRouteParams = (consentType: ConsentType) => {
     return {
-      avatarName: this.props.route.params.avatarName,
+      avatarName: this.props.route.params?.avatarName,
       consentType,
-      profileName: this.props.route.params.profileName,
+      profileName: this.props.route.params?.profileName,
     };
   };
 

@@ -22,8 +22,8 @@ const ConsentScreenSE: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
   const onInfoLinkPress = React.useCallback(() => openWebLink('https://Covid19app.lu.se'), []);
 
   const onPrivacyPolicyPress = React.useCallback(
-    () => navigation.navigate('PrivacyPolicySV', { viewOnly: route.params.viewOnly }),
-    [navigation.navigate, route.params.viewOnly],
+    () => navigation.navigate('PrivacyPolicySV', { viewOnly: route.params?.viewOnly }),
+    [navigation.navigate, route.params?.viewOnly],
   );
 
   const toggleParticipateChecked = React.useCallback(() => {
@@ -178,7 +178,7 @@ const ConsentScreenSE: React.FC<PropsType> = ({ navigation, route, setAgreed }) 
         .
       </RegularText>
 
-      {!route.params.viewOnly ? (
+      {!route.params?.viewOnly ? (
         <CheckboxList>
           <CheckboxItem onChange={toggleParticipateChecked} testID="partecipate-check" value={participateChecked}>
             Jag är 18 år eller äldre och jag samtycker till att delta i studien ”Nationellt initiativ för att via en app

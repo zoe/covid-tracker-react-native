@@ -1,6 +1,5 @@
 import appConfig from '@covid/appConfig';
 import { AxiosResponse } from 'axios';
-import { injectable } from 'inversify';
 
 import { CovidTest, CovidTestResponse } from './dto/CovidTestContracts';
 import UserService, { IUserService } from './UserService';
@@ -13,7 +12,6 @@ export interface ICovidTestService extends IUserService {
   deleteTest(testId: string): Promise<AxiosResponse<CovidTestResponse>>;
 }
 
-@injectable()
 export default class CovidTestService extends UserService implements ICovidTestService {
   public async listTests() {
     return this.client.get<CovidTest[]>(`/covid_tests/`);
@@ -40,3 +38,5 @@ export default class CovidTestService extends UserService implements ICovidTestS
     return this.client.patch<CovidTestResponse>(`/covid_tests/${testId}/`, { deleted: true });
   }
 }
+
+export const covidTestService = new CovidTestService();

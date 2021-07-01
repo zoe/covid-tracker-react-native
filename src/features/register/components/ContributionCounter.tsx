@@ -1,9 +1,7 @@
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { localisationService } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
 import I18n from 'i18n-js';
 import * as React from 'react';
@@ -16,11 +14,9 @@ interface IProps extends ITest {
 }
 
 export function ContributionCounter(props: IProps) {
-  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
-
   if (props.count) {
-    const features = localisationService.getConfig();
-    const delimiter = features ? features.thousandSeparator : ',';
+    const config = localisationService.getConfig();
+    const delimiter = config?.thousandSeparator || ',';
 
     const countValue = I18n.toNumber(props.count, { delimiter, precision: 0 });
     return props.variant === 1 ? (

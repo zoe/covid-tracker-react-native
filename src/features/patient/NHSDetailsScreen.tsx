@@ -3,9 +3,9 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { Coordinator } from '@covid/core/Coordinator';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
 import { ScreenParamList } from '@covid/features';
-import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,7 +18,7 @@ type Props = {
 };
 
 export const NHSDetailsScreen: React.FC<Props> = (props: Props) => {
-  const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
+  const coordinator: Coordinator = props.route.params?.editing ? editProfileCoordinator : patientCoordinator;
 
   const goNext = () => {
     coordinator.gotoNextScreen(props.route.name);
@@ -28,10 +28,12 @@ export const NHSDetailsScreen: React.FC<Props> = (props: Props) => {
     Linking.openURL(link);
   };
 
-  const currentPatient = coordinator.patientData.patientState;
-
   return (
-    <Screen navigation={props.navigation} profile={currentPatient.profile} testID="nhs-details-screen">
+    <Screen
+      navigation={props.navigation}
+      profile={coordinator.patientData?.patientState?.profile}
+      testID="nhs-details-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('nhs-study-questions.title')}</HeaderText>
       </Header>
