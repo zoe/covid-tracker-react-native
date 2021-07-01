@@ -252,9 +252,6 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
 
   filterCohortsByCountry(allCohorts: CohortDefinition[], country: string) {
     return AllCohorts.filter((cohort) => {
-      if (cohort.key === 'is_in_uk_nhs_asymptomatic_study') {
-        return cohort.country === country && !this.coordinator.patientData?.patientState?.isReportedByAnother;
-      }
       return cohort.country === country;
     });
   }
@@ -270,7 +267,7 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
         clinicalStudyNctIds: patientInfo.clinical_study_nct_ids ?? '',
       };
       countrySpecificCohorts.forEach((cohort) => {
-        // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
+        // @ts-ignore - error due to cohort keys being in AllCohorts and not explicitly in the interface
         patientFormData[cohort.key] = !!patientInfo[cohort.key];
       });
       return patientFormData;
@@ -303,7 +300,6 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
     this.coordinator
       .updatePatientInfo(infos)
       .then((_) => {
-        this.coordinator.patientData.patientState.isNHSStudy = !!infos.is_in_uk_nhs_asymptomatic_study;
         this.coordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
@@ -342,10 +338,10 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
                       {countrySpecificCohorts.map((cohort) => (
                         <CheckboxItem
                           key={cohort.key}
-                          // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
+                          // @ts-ignore - error due to cohort keys being in AllCohorts and not explicitly in the interface
                           onChange={(value: boolean) => {
                             if (cohort.key === 'is_in_none_of_the_above') {
-                              // @ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
+                              // @ts-ignore - error due to cohort keys being in AllCohorts and not explicitly in the interface
                               props.setValues(this.buildInitCohortsValues(countrySpecificCohorts));
                             } else if (Object.keys(props.values).includes('is_in_none_of_the_above')) {
                               props.setFieldValue('is_in_none_of_the_above', false);
@@ -402,14 +398,7 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
                 ) : null}
 
                 <BrandedButton onPress={props.handleSubmit}>
-                  {
-                    // @ts-ignore - error due to cohort keys being in AllCohorts and not explicitly in the interface
-                    props.values.is_in_uk_nhs_asymptomatic_study
-                      ? i18n.t('edit-profile.next')
-                      : this.props.route.params?.editing
-                      ? i18n.t('edit-profile.done')
-                      : i18n.t('next-question')
-                  }
+                  {this.props.route.params?.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
                 </BrandedButton>
               </Form>
             );

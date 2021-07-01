@@ -154,7 +154,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const hasHayfever = patient.has_hayfever;
     const shouldShowUSStudyInvite = patient.contact_additional_studies === null;
     const hasBloodGroupAnswer = patient.blood_group != null;
-    const isNHSStudy = patient.is_in_uk_nhs_asymptomatic_study;
     const hasSchoolGroup = patient.has_school_group;
     const shouldShowVaccineList = patient.vaccine_status !== VaccineStatus.DO_NOT_ASK;
     const isMinor = isMinorAge(patient.year_of_birth);
@@ -173,7 +172,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       isFemale,
       isHealthWorker,
       isMinor,
-      isNHSStudy,
       isPeriodCapable,
       isReportedByAnother,
       isSameHousehold,

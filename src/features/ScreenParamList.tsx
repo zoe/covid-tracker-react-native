@@ -50,14 +50,11 @@ export type ScreenParamList = {
   AboutYou: { patientData: PatientData; editing: boolean };
   YourHealth: { patientData: PatientData };
   PreviousExposure: { patientData: PatientData };
-  NHSIntro: { editing: boolean };
-  NHSDetails: { editing: boolean };
 
   // Assessment screens
   HealthWorkerExposure: { assessmentData: AssessmentData };
   CovidTestList: { assessmentData: AssessmentData; tests?: CovidTest[] };
   CovidTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
-  NHSTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   CovidTestConfirm: { assessmentData: AssessmentData; test: CovidTest };
   HowYouFeel: { assessmentData: AssessmentData };
   WhereAreYou: { assessmentData: AssessmentData };
