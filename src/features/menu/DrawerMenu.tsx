@@ -34,7 +34,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
             {Constants.manifest.revisionId ? Constants.manifest.revisionId : Constants.manifest.version}
             {isDevChannel() ? ` (DEV)` : false}
           </CaptionText>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <TouchableOpacity onPress={props.navigation.goBack}>
             <Image source={closeIcon} style={styles.closeIcon} />
           </TouchableOpacity>
         </View>

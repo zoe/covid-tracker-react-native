@@ -2,9 +2,13 @@
   "app-name": "COVID Study",
   "company-name": "ZOE",
   "continue": "Continue",
+  "less": "Less",
   "loading": "Loading",
   "log-in": "Iniciar sesión",
+  "more": "More",
+  "no-change": "No change",
   "skip": "Omitir",
+  "you": "You",
 
   "create-account": {
     "title": "Crear nueva cuenta",
@@ -1469,11 +1473,7 @@
     "specify-other": "Please specify"
   },
   "mental-health-playback": {
-    "less": "Less",
-    "more": "More",
-    "no-change": "No change",
     "results-ready": "Insights on COVID & Mental Health are ready",
-    "you": "You",
 
     "modal": {
       "button-negative": "Skip for now",
@@ -1750,7 +1750,7 @@
     },
     "skin": {
       "name": "Skin Conditions",
-      "description": "Skin diseases kill approximately  4,000 people every year in the UK"
+      "description": "Skin diseases kill approximately 4,000 people every year in the UK"
     },
     "lung": {
       "name": "Lung Diseases",

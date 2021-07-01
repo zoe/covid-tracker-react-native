@@ -11,13 +11,13 @@ interface IProps {
 }
 
 function ReconsentHeader(props: IProps) {
-  const { goBack } = useNavigation();
+  const navigation = useNavigation();
   return (
     <View style={styles.headerBar}>
       <View style={styles.left}>
         {props.showBackIcon ? (
           <TouchableOpacity
-            onPress={() => goBack()}
+            onPress={navigation.goBack}
             style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center' }}
           >
             <Image source={chevronLeft} />

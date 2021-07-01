@@ -66,16 +66,17 @@ export default function MHPRatingScreen() {
             {i18n.t('mental-health-playback.rating.card')}
           </Text>
           <View style={styling.row}>
-            {ratings.map((rating) => (
+            {ratings.map((_, index) => (
               <TouchableOpacity
-                key={`touchable-star-${rating}`}
-                onPress={() => setSelectedRating(rating + 1)}
+                // eslint-disable-next-line react/no-array-index-key
+                key={`touchable-star-${index}`}
+                onPress={() => setSelectedRating(index + 1)}
                 style={{
                   paddingHorizontal: spacingSize,
                   paddingVertical: grid.xl,
                 }}
               >
-                <Star color={selectedRating - 1 >= rating ? '#0165B5' : '#E2E2E2'} height={starSize} width={starSize} />
+                <Star color={selectedRating - 1 >= index ? '#0165B5' : '#E2E2E2'} height={starSize} width={starSize} />
               </TouchableOpacity>
             ))}
           </View>

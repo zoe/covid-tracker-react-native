@@ -2,9 +2,13 @@
   "app-name": "COVID Study",
   "company-name": "ZOE",
   "continue": "Continue",
+  "less": "Less",
   "loading": "Loading",
   "log-in": "Logga in",
+  "more": "More",
+  "no-change": "No change",
   "skip": "Hoppa över",
+  "you": "You",
 
   "create-account": {
     "title": "Skapa nytt konto",
@@ -1452,11 +1456,7 @@
     "specify-other": "Please specify"
   },
   "mental-health-playback": {
-    "less": "Less",
-    "more": "More",
-    "no-change": "No change",
     "results-ready": "Insights on COVID & Mental Health are ready",
-    "you": "You",
 
     "modal": {
       "button-negative": "Skip for now",
@@ -1685,8 +1685,6 @@
     "cta": "Uppdatera nu"
   },
 
-  "required-field": "Obligatoriska fält",
-
   "reconsent": {
     "disease-preferences": {
       "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
@@ -1734,7 +1732,7 @@
     },
     "skin": {
       "name": "Skin Conditions",
-      "description": "Skin diseases kill approximately  4,000 people every year in the UK"
+      "description": "Skin diseases kill approximately 4,000 people every year in the UK"
     },
     "lung": {
       "name": "Lung Diseases",
