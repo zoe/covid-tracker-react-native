@@ -303,7 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F90451F5267A4B6D0055A8AB /* main.jsbundle in Resources */,
+				F74394A4253F286200708825 /* SofiaPro-UltraLight.otf in Resources */,
 				F74394A5253F286200708825 /* SofiaProRegular.otf in Resources */,
 				F74394A6253F286200708825 /* SofiaPro-Bold.otf in Resources */,
 				F74394A7253F286200708825 /* SofiaPro-Black.otf in Resources */,
