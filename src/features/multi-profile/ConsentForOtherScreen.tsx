@@ -47,24 +47,6 @@ export default class ConsentForOtherScreen extends React.Component<RenderProps, 
 
   headerText = this.isAdultConsent() ? i18n.t('adult-consent-title') : i18n.t('child-consent-title');
 
-  secondaryText = this.isAdultConsent() ? (
-    <RegularText>
-      {i18n.t('adult-consent-text-1')}{' '}
-      <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
-        {i18n.t('consent')}
-      </ClickableText>{' '}
-      {i18n.t('adult-consent-text-2')}
-    </RegularText>
-  ) : (
-    <RegularText>
-      {i18n.t('child-consent-text-1')}{' '}
-      <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
-        {i18n.t('consent-summary')}
-      </ClickableText>{' '}
-      {i18n.t('child-consent-text-2')}
-    </RegularText>
-  );
-
   consentLabel = this.isAdultConsent() ? i18n.t('adult-consent-confirm') : i18n.t('child-consent-confirm');
 
   createPatient = async (): Promise<string> => {
@@ -104,7 +86,7 @@ export default class ConsentForOtherScreen extends React.Component<RenderProps, 
 
   render() {
     return (
-      <Screen showBackButton navigation={this.props.navigation}>
+      <Screen showBackButton navigation={this.props.navigation} testID="consent-for-other-screen">
         {this.state.isApiError ? (
           <LoadingModal
             error={this.state.error}
@@ -115,18 +97,38 @@ export default class ConsentForOtherScreen extends React.Component<RenderProps, 
         ) : null}
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{this.headerText}</HeaderText>
-          {this.secondaryText}
+          {this.isAdultConsent() ? (
+            <RegularText>
+              {i18n.t('adult-consent-text-1')}{' '}
+              <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
+                {i18n.t('consent')}
+              </ClickableText>{' '}
+              {i18n.t('adult-consent-text-2')}
+            </RegularText>
+          ) : (
+            <RegularText>
+              {i18n.t('child-consent-text-1')}{' '}
+              <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
+                {i18n.t('consent-summary')}
+              </ClickableText>{' '}
+              {i18n.t('child-consent-text-2')}
+            </RegularText>
+          )}
         </Header>
 
         <View style={{ marginHorizontal: 16 }}>
-          <CheckboxItem onChange={this.handleConsentClick} value={this.state.consentChecked}>
+          <CheckboxItem onChange={this.handleConsentClick} testID="checkbox-consent" value={this.state.consentChecked}>
             {this.consentLabel}
           </CheckboxItem>
         </View>
 
         <ErrorText>{this.state.errorMessage}</ErrorText>
 
-        <BrandedButton enable={this.state.consentChecked} onPress={this.handleCreatePatient}>
+        <BrandedButton
+          enable={this.state.consentChecked}
+          onPress={this.handleCreatePatient}
+          testID="button-create-profile"
+        >
           {i18n.t('consent-create-profile')}
         </BrandedButton>
 

@@ -1,5 +1,5 @@
 export * from './CovidTestDateQuestion';
-export * from './CovidTestInvitedQuesetion';
+export * from './CovidTestInvitedQuestion';
 export * from './CovidTestLocation';
 export * from './CovidTestMechanismQuestion';
 export * from './CovidTestResultQuestion';

@@ -30,6 +30,7 @@ export const CovidTestInvitedQuestion: ICovidTestInvitedQuestion<IProps, ICovidT
       label={i18n.t('covid-test.question-invite-to-test')}
       onValueChange={formikProps.handleChange('invitedToTest')}
       selectedValue={formikProps.values.invitedToTest}
+      testID="covid-test-invited-question"
     />
   ) : (
     <></>

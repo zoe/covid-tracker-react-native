@@ -25,6 +25,7 @@ export const OtherSymptomsQuestions: ISymptomQuestions<Props, OtherSymptomsData>
         onChangeText={formikProps.handleChange('otherSymptoms')}
         placeholder={i18n.t('placeholder-optional-question')}
         style={{ borderRadius: 8 }}
+        testID="input-other-symptoms"
         value={formikProps.values.otherSymptoms}
       />
     </FieldWrapper>

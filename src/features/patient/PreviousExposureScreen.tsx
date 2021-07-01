@@ -154,7 +154,11 @@ export default class PreviousExposureScreen extends React.Component<HealthProps,
       { label: i18n.t('past-symptom-changed-much-worse'), value: 'much_worse' },
     ];
     return (
-      <Screen navigation={this.props.navigation} profile={patientCoordinator.patientData?.patientState?.profile}>
+      <Screen
+        navigation={this.props.navigation}
+        profile={patientCoordinator.patientData?.patientState?.profile}
+        testID="previous-exposure-screen"
+      >
         <Header>
           <HeaderText>{i18n.t('previous-exposure-title')}</HeaderText>
         </Header>
@@ -291,7 +295,7 @@ export default class PreviousExposureScreen extends React.Component<HealthProps,
                   ) : null}
                 </View>
 
-                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
+                <BrandedButton enable={props.isValid} onPress={props.handleSubmit} testID="button-submit">
                   {i18n.t('next-question')}
                 </BrandedButton>
               </FormWrapper>

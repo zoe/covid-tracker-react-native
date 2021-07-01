@@ -36,7 +36,7 @@ export default function ThankYouUSScreen({ navigation, route }: IProps) {
     <>
       {askForRating && <AppRating />}
       <SafeAreaView>
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView contentContainerStyle={styles.scrollView} testID="scroll-view-thank-you-screen">
           <View style={styles.rootContainer}>
             <AntDesign name="checkcircle" size={32} style={styles.checkIcon} />
             <HeaderText style={{ marginTop: 24, textAlign: 'center' }}>
@@ -66,6 +66,7 @@ export default function ThankYouUSScreen({ navigation, route }: IProps) {
                 assessmentCoordinator.gotoNextScreen(route.name);
               }}
               style={styles.done}
+              testID="button-complete"
             >
               {i18n.t('thank-you.done')}
             </ClickableText>

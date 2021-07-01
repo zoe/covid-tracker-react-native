@@ -31,6 +31,7 @@ export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) =>
       showCloseButton
       navigation={navigation}
       profile={route.params?.assessmentData?.patientData?.profile}
+      testID="vaccine-find-info-screen"
     >
       <View style={{ padding: 16 }}>
         <Header>

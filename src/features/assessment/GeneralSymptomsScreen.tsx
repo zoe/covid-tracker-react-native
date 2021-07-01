@@ -37,7 +37,7 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
   }
 
   return (
-    <Screen navigation={navigation} profile={patientState?.profile}>
+    <Screen navigation={navigation} profile={patientState?.profile} testID="general-symptoms-screen">
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.general-symptoms')}</HeaderText>
       </Header>
@@ -60,7 +60,12 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
                 <GeneralSymptomsQuestions formikProps={props} hasHayfever={patientState?.hasHayfever} />
               </View>
               <View style={{ flex: 1 }} />
-              <BrandedButton enable={!props.isSubmitting} loading={props.isSubmitting} onPress={props.handleSubmit}>
+              <BrandedButton
+                enable={!props.isSubmitting}
+                loading={props.isSubmitting}
+                onPress={props.handleSubmit}
+                testID="button-submit"
+              >
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>
             </Form>

@@ -23,7 +23,7 @@ function JoinSchoolScreen({ route, navigation }: IProps) {
   );
 
   return (
-    <Screen simpleCallout navigation={navigation} profile={currentPatient?.profile}>
+    <Screen simpleCallout navigation={navigation} profile={currentPatient?.profile} testID="join-school-screen">
       {currentJoinedGroup ? (
         <SelectedSchool
           hasBubbles

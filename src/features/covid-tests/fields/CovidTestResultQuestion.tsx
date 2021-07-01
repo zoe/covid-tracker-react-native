@@ -38,6 +38,7 @@ export const CovidTestResultQuestion: ICovidTestResultQuestion<IProps, ICovidTes
       label={i18n.t('covid-test.question-result')}
       onValueChange={formikProps.handleChange('result')}
       selectedValue={formikProps.values.result}
+      testID="covid-test-result-question"
     />
   );
 };

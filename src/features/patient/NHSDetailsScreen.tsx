@@ -29,7 +29,11 @@ export const NHSDetailsScreen: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <Screen navigation={props.navigation} profile={coordinator.patientData?.patientState?.profile}>
+    <Screen
+      navigation={props.navigation}
+      profile={coordinator.patientData?.patientState?.profile}
+      testID="nhs-details-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('nhs-study-questions.title')}</HeaderText>
       </Header>

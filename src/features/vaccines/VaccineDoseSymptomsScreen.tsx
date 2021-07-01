@@ -44,7 +44,11 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
   const registerSchema = Yup.object().shape({}).concat(DoseSymptomsQuestions.schema());
   return (
     <View style={styles.rootContainer}>
-      <Screen navigation={navigation} profile={route.params?.assessmentData?.patientData?.patientState?.profile}>
+      <Screen
+        navigation={navigation}
+        profile={route.params?.assessmentData?.patientData?.patientState?.profile}
+        testID="vaccine-dose-symptoms-screen"
+      >
         <Header>
           <View style={{ alignItems: 'center', flexDirection: 'row' }}>
             <InlineNeedle />

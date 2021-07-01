@@ -271,41 +271,45 @@ export default function LongCovidQuestionScreen({ route }: IProps) {
     ) : null;
 
   return (
-    <Formik
-      initialValues={{
-        ...LongCovidQuestionScreen.initialFormValues(),
-      }}
-      onSubmit={(values: ILongCovid) => handleSubmit(values)}
-      style={{ padding: 16 }}
-      validationSchema={LongCovidQuestionScreen.schema}
-    >
-      {(props: FormikProps<ILongCovid>) => {
-        return (
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
-            <ScrollView>
-              <Form style={{ flexGrow: 1 }}>
-                <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
-                <RadioInput
-                  error={props.touched.had_covid && props.errors.had_covid}
-                  items={dropdownItemsQ1}
-                  onValueChange={props.handleChange('had_covid')}
-                  selectedValue={props.values.had_covid}
-                />
-                {renderExtendedForm(props)}
-                <View style={{ marginVertical: 64 }}>
-                  <BrandedButton
-                    enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
-                    onPress={() => handleSubmit(props.values)}
-                  >
-                    <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
-                  </BrandedButton>
-                </View>
-              </Form>
-            </ScrollView>
-          </KeyboardAvoidingView>
-        );
-      }}
-    </Formik>
+    <View style={{ flex: 1 }} testID="long-covid-question-screen">
+      <Formik
+        initialValues={{
+          ...LongCovidQuestionScreen.initialFormValues(),
+        }}
+        onSubmit={(values: ILongCovid) => handleSubmit(values)}
+        style={{ padding: 16 }}
+        validationSchema={LongCovidQuestionScreen.schema}
+      >
+        {(props: FormikProps<ILongCovid>) => {
+          return (
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.rootContainer}>
+              <ScrollView>
+                <Form style={{ flexGrow: 1 }}>
+                  <HeaderText>{i18n.t('long-covid.q1')}</HeaderText>
+                  <RadioInput
+                    error={props.touched.had_covid && props.errors.had_covid}
+                    items={dropdownItemsQ1}
+                    onValueChange={props.handleChange('had_covid')}
+                    selectedValue={props.values.had_covid}
+                    testID="input-had-covid"
+                  />
+                  {renderExtendedForm(props)}
+                  <View style={{ marginVertical: 64 }}>
+                    <BrandedButton
+                      enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
+                      onPress={() => handleSubmit(props.values)}
+                      testID="button-submit"
+                    >
+                      <RegularText style={{ color: colors.white }}>{i18n.t('long-covid.finish')}</RegularText>
+                    </BrandedButton>
+                  </View>
+                </Form>
+              </ScrollView>
+            </KeyboardAvoidingView>
+          );
+        }}
+      </Formik>
+    </View>
   );
 }
 

@@ -16,6 +16,7 @@ interface Props {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
   passProps?: any;
+  testID?: string;
   highlightColor?: any;
 }
 
@@ -87,8 +88,8 @@ export const RegularBoldText = ({ style, children }: Props) => (
   <Text style={[styles.regularBoldText, style]}>{children}</Text>
 );
 
-export const ClickableText = ({ style, children, onPress }: IClickableTextProps) => (
-  <Text onPress={onPress} style={[styles.clickableText, style]}>
+export const ClickableText = ({ style, children, onPress, testID }: IClickableTextProps) => (
+  <Text onPress={onPress} style={[styles.clickableText, style]} testID={testID}>
     {children}
   </Text>
 );

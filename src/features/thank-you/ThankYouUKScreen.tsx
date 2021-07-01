@@ -45,7 +45,7 @@ export default function ThankYouUKScreen({ navigation, route }: IProps) {
     <>
       {askForRating && <AppRating />}
       <SafeAreaView>
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView contentContainerStyle={styles.scrollView} testID="scroll-view-thank-you-screen">
           <View style={styles.rootContainer}>
             <View style={{ marginTop: 24 }}>
               <BigGreenTickFilled />
@@ -76,6 +76,7 @@ export default function ThankYouUKScreen({ navigation, route }: IProps) {
             <BrandedButton
               onPress={() => assessmentCoordinator.gotoNextScreen(route.name)}
               style={styles.ctaSingleProfile}
+              testID="button-complete"
             >
               <RegularText style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</RegularText>
             </BrandedButton>

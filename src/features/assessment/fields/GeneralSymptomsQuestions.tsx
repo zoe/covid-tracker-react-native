@@ -99,7 +99,7 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<Props, GeneralSymptomsD
           <View style={styles.fieldRow}>
             <View style={styles.primaryField}>
               <ValidatedTextInput
-                error={formikProps.touched.temperature && formikProps.errors.temperature}
+                error={formikProps.touched.temperature && !!formikProps.errors.temperature}
                 keyboardType="numeric"
                 onBlur={formikProps.handleBlur('temperature')}
                 onChangeText={formikProps.handleChange('temperature')}

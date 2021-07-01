@@ -48,7 +48,11 @@ function TreatmentSelectionScreen({ navigation, route }: IProps) {
   }, [isFocused]);
 
   return (
-    <Screen navigation={navigation} profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}>
+    <Screen
+      navigation={navigation}
+      profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      testID="treatment-selection-screen"
+    >
       <Header>
         <HeaderText>{title}</HeaderText>
       </Header>

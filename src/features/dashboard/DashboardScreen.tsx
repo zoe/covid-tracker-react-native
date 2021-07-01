@@ -42,6 +42,11 @@ interface IProps {
 
 const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
+const headerConfig = {
+  compact: HEADER_COLLAPSED_HEIGHT,
+  expanded: HEADER_EXPANDED_HEIGHT,
+};
+
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
@@ -52,11 +57,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
   const [mentalHealthPlaybackModalVisible, setMentalHealthPlaybackModalVisible] = React.useState(false);
-
-  const headerConfig = {
-    compact: HEADER_COLLAPSED_HEIGHT,
-    expanded: HEADER_EXPANDED_HEIGHT,
-  };
 
   const onReport = async () => {
     await appCoordinator.gotoNextScreen(route.name);

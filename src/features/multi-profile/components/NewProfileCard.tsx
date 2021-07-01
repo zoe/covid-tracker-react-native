@@ -8,7 +8,7 @@ import { Image, StyleSheet } from 'react-native';
 
 export const NewProfileCard: React.FC = () => {
   return (
-    <Card transparent style={styles.card}>
+    <Card transparent style={styles.card} testID="button-new-profile">
       <Image resizeMode="contain" source={addProfile} style={styles.addImage} />
       <RegularText>{i18n.t('select-profile-button')}</RegularText>
     </Card>

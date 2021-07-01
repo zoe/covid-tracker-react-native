@@ -29,6 +29,7 @@ export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion<IProps, ICovidT
       label={i18n.t('covid-test.question-is-rapid-test')}
       onValueChange={formikProps.handleChange('isRapidTest')}
       selectedValue={formikProps.values.isRapidTest}
+      testID="covid-test-is-rapid-question"
     />
   );
 };

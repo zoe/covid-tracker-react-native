@@ -128,6 +128,20 @@ The git hook checks can be manually disabled calling git commit and git push wit
    npm test
    ```
 
+2. Run the Detox E2E tests (iOS only as of April 2021) 
+   [Set up Detox] (https://github.com/wix/Detox/blob/master/docs/Introduction.GettingStarted.md) (Pay attention to the iOS dependencies!)
+   
+   Build a binary with Detox - this will be used by the test suite to conduct your tests:
+   ```bash
+   detox build
+   ```
+
+   Then run the tests:
+   ```bash
+   detox test
+   ```
+
+
 2. Check the i18n strings for a locale are complete
 
    ```bash

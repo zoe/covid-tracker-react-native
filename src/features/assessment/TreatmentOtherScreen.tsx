@@ -63,6 +63,7 @@ export default class TreatmentOtherScreen extends React.Component<TreatmentOther
       <Screen
         navigation={this.props.navigation}
         profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+        testID="treatment-other-screen"
       >
         <Header>
           <HeaderText>{title}</HeaderText>

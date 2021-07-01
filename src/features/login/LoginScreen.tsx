@@ -92,6 +92,7 @@ function LoginScreen({ route }: IProps) {
               setIsValid(username, pass);
             }}
             returnKeyType="next"
+            testID="login-input-email"
           />
         </Item>
         <Item floatingLabel error={hasErrors} style={styles.item}>
@@ -105,11 +106,18 @@ function LoginScreen({ route }: IProps) {
             onSubmitEditing={handleLogin}
             ref={passwordInput}
             returnKeyType="go"
+            testID="login-input-password"
           />
         </Item>
 
-        <BrandedButton enable={isValid && !loading} loading={loading} onPress={handleLogin} style={styles.button}>
-          <Text>{i18n.t('login.button')}</Text>
+        <BrandedButton
+          enable={isValid && !loading}
+          loading={loading}
+          onPress={handleLogin}
+          style={styles.button}
+          testID="login-button"
+        >
+          <Text>{i18n.t('log-in')}</Text>
         </BrandedButton>
 
         <View style={styles.textWrapper}>

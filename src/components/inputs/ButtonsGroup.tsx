@@ -20,10 +20,20 @@ interface IProps {
   onValueChange: any;
   hideLabel?: boolean;
   error?: any;
+  testID?: string;
   required?: boolean;
 }
 
-export function ButtonsGroup({ label, selectedValue, items, error, onValueChange, hideLabel, required }: IProps) {
+export function ButtonsGroup({
+  label,
+  selectedValue,
+  items,
+  error,
+  onValueChange,
+  hideLabel,
+  testID,
+  required,
+}: IProps) {
   const [selected, setSelected] = React.useState<string>(selectedValue);
 
   const onSelect = (value: string) => {
@@ -51,6 +61,7 @@ export function ButtonsGroup({ label, selectedValue, items, error, onValueChange
             onPress={() => onSelect(item.value)}
             selected={selected === item.value}
             style={{ flex: 1, marginEnd: 8 }}
+            testID={`button-${item.value}${testID ? `-${testID}` : ''}`}
           >
             {item.label}
           </SelectableButton>

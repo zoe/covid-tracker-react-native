@@ -17,7 +17,7 @@ export interface ILocalisationService {
 export class LocalisationService implements ILocalisationService {
   public static userCountry = 'US';
 
-  public static countryConfig: ConfigType;
+  public static countryConfig: ConfigType | undefined;
 
   public static ipCountry = '';
 

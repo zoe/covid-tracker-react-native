@@ -317,6 +317,7 @@ export default class YourStudyScreen extends React.Component<YourStudyProps, Sta
         simpleCallout
         navigation={this.props.navigation}
         profile={this.coordinator.patientData?.patientState?.profile}
+        testID="your-study-screen"
       >
         <Header>
           <HeaderText>{i18n.t('your-study.title')}</HeaderText>

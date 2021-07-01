@@ -74,7 +74,11 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   };
 
   return (
-    <Screen navigation={navigation} profile={route.params?.patientData?.patientState?.profile}>
+    <Screen
+      navigation={navigation}
+      profile={route.params?.patientData?.patientState?.profile}
+      testID="join-school-group-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('school-networks.join-group.title')}</HeaderText>
         <RegularText style={styles.topText}>

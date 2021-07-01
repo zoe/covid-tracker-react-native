@@ -39,6 +39,7 @@ export function BloodGroupQuestion({ formikProps }: IProps) {
       label={i18n.t('blood-group.question')}
       onValueChange={formikProps.handleChange('bloodGroup')}
       selectedValue={formikProps.values.bloodGroup}
+      testID="input-blood-group"
     />
   );
 }

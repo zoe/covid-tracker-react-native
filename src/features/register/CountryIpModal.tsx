@@ -1,4 +1,5 @@
 import { closeIcon } from '@assets';
+import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
@@ -8,10 +9,8 @@ import i18n from '@covid/locale/i18n';
 import { isAndroid } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import { Form, Icon, Label, Picker } from 'native-base';
 import * as React from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
-import key from 'weak-key';
 
 enum CountryCode {
   NONE = '',
@@ -20,10 +19,10 @@ enum CountryCode {
   SV = 'SE',
 }
 
-interface PropsType extends ITest {
-  navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
-  isModalVisible: boolean;
+interface IProps extends ITest {
   closeModal: () => void;
+  isModalVisible: boolean;
+  navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
 }
 
 type Item = {
@@ -31,7 +30,7 @@ type Item = {
   value: CountryCode;
 };
 
-const CountryIpModal: React.FC<PropsType> = ({ navigation, isModalVisible, closeModal }) => {
+export default React.memo(function CountryIpModal({ navigation, isModalVisible, closeModal }: IProps) {
   const [countrySelected, setCountrySelected] = React.useState('');
 
   const selectCountry = React.useCallback(
@@ -70,13 +69,6 @@ const CountryIpModal: React.FC<PropsType> = ({ navigation, isModalVisible, close
     [closeModal, setCountrySelected, selectCountry],
   );
 
-  const renderItem = React.useCallback(
-    (i: Item) => (
-      <Picker.Item color={i.value ? undefined : colors.tertiary} key={key(i)} label={i.label} value={i.value} />
-    ),
-    [colors.tertiary],
-  );
-
   const items: Item[] = [
     { label: i18n.t('united-states'), value: CountryCode.US },
     { label: i18n.t('united-kingdom'), value: CountryCode.GB },
@@ -84,41 +76,33 @@ const CountryIpModal: React.FC<PropsType> = ({ navigation, isModalVisible, close
   ];
 
   if (isAndroid) {
-    items.unshift({ label: i18n.t('choose-one-of-these-options'), value: CountryCode.NONE });
+    items.unshift({ label: i18n.t('label-chose-an-option'), value: CountryCode.NONE });
   }
 
   return (
     <Modal transparent animationType="fade" visible={isModalVisible}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <TouchableOpacity onPress={closeModal} style={{ alignSelf: 'flex-end' }} testID="closeModal">
+          <TouchableOpacity onPress={closeModal} style={{ alignSelf: 'flex-end' }} testID="close-modal">
             <Image source={closeIcon} />
           </TouchableOpacity>
           <RegularText style={styles.titleText}>{i18n.t('your-country-title')}</RegularText>
-          <RegularText style={styles.bodyText}>{i18n.t('your-country-text')}</RegularText>
+          <RegularText>{i18n.t('your-country-text')}</RegularText>
 
-          <Form style={{ marginTop: 32, width: 300 }}>
-            <Label style={styles.labelStyle}>{i18n.t('select-country')}</Label>
-            <Picker
-              iosIcon={<Icon name="arrow-down" />}
-              onValueChange={onValueChange}
-              placeholder={i18n.t('choose-one-of-these-options')}
-              selectedValue={countrySelected}
-              testID="countryPicker"
-            >
-              {items.map(renderItem)}
-            </Picker>
-          </Form>
+          <RadioInput
+            items={items}
+            label={i18n.t('select-country')}
+            onValueChange={onValueChange}
+            selectedValue={countrySelected}
+            testID="input-select-country"
+          />
         </View>
       </View>
     </Modal>
   );
-};
+});
 
 const styles = StyleSheet.create({
-  bodyText: {
-    textAlign: 'center',
-  },
   centeredView: {
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -132,7 +116,6 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   modalView: {
-    alignItems: 'center',
     backgroundColor: colors.white,
     borderRadius: 8,
     elevation: 5,
@@ -152,5 +135,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default React.memo(CountryIpModal);

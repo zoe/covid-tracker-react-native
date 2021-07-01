@@ -29,7 +29,11 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const registerSchema = Yup.object().shape({}).concat(OtherSymptomsQuestions.schema());
   return (
-    <Screen navigation={navigation} profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}>
+    <Screen
+      navigation={navigation}
+      profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      testID="other-symptoms-screen"
+    >
       <Header>
         <HeaderText>{i18n.t('describe-symptoms.other-symptoms')}</HeaderText>
       </Header>
@@ -53,7 +57,12 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
               </View>
 
               <View style={{ flex: 1 }} />
-              <BrandedButton enable={!props.isSubmitting} loading={props.isSubmitting} onPress={props.handleSubmit}>
+              <BrandedButton
+                enable={!props.isSubmitting}
+                loading={props.isSubmitting}
+                onPress={props.handleSubmit}
+                testID="button-submit"
+              >
                 {i18n.t('describe-symptoms.next')}
               </BrandedButton>
             </Form>

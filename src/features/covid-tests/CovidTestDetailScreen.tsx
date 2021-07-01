@@ -183,6 +183,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
       <Screen
         navigation={this.props.navigation}
         profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+        testID="covid-test-detail-screen"
       >
         <Header>
           <HeaderText>
@@ -235,7 +236,11 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
                   ) : null}
                 </View>
 
-                <BrandedButton enable={!this.state.submitting && props.isValid} onPress={props.handleSubmit}>
+                <BrandedButton
+                  enable={!this.state.submitting && props.isValid}
+                  onPress={props.handleSubmit}
+                  testID="button-submit"
+                >
                   {i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}
                 </BrandedButton>
               </FormWrapper>
