@@ -55,9 +55,6 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.LoginScreen} name="Login" options={noHeader} />
       <Stack.Screen component={screens.LongCovidQuestionScreen} name="LongCovidQuestion" options={noHeader} />
       <Stack.Screen component={screens.LongCovidStartScreen} name="LongCovidStart" options={noHeader} />
-      <Stack.Screen component={screens.NHSDetailsScreen} name="NHSDetails" options={noHeader} />
-      <Stack.Screen component={screens.NHSIntroScreen} name="NHSIntro" options={noHeader} />
-      <Stack.Screen component={screens.NHSTestDetailScreen} name="NHSTestDetail" options={noHeader} />
       <Stack.Screen component={screens.NursesConsentUSScreen} name="NursesConsentUS" options={simpleHeader} />
       <Stack.Screen component={screens.OptionalInfoScreen} name="OptionalInfo" options={noHeader} />
       <Stack.Screen component={screens.OtherSymptomsScreen} name="OtherSymptoms" options={noHeader} />
@@ -97,9 +94,6 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.YourHealthScreen} name="YourHealth" options={noHeader} />
       <Stack.Screen component={screens.YourStudyScreen} name="YourStudy" options={noHeader} />
       <Stack.Screen component={screens.YourWorkScreen} name="YourWork" options={noHeader} />
-
-      {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
-      {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
 
       {AnniversaryNavigator({ Stack })}
       {DietStudyPlaybackNavigator({ Stack })}
