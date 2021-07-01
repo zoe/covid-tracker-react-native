@@ -60,13 +60,13 @@ references:
   develop_filter: &develop_filter
     branches:
       only:
-        - develop
+        - selvach/fix
 
   feature_filter: &feature_filter
     branches:
       ignore:
         - master
-        - develop
+        - selvach/fix
         - develop-legacy
         - release-0.x-legacy
         - stage
