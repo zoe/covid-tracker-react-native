@@ -55,9 +55,6 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.LoginScreen} name="Login" options={noHeader} />
       <Stack.Screen component={screens.LongCovidQuestionScreen} name="LongCovidQuestion" options={noHeader} />
       <Stack.Screen component={screens.LongCovidStartScreen} name="LongCovidStart" options={noHeader} />
-      <Stack.Screen component={screens.NHSDetailsScreen} name="NHSDetails" options={noHeader} />
-      <Stack.Screen component={screens.NHSIntroScreen} name="NHSIntro" options={noHeader} />
-      <Stack.Screen component={screens.NHSTestDetailScreen} name="NHSTestDetail" options={noHeader} />
       <Stack.Screen component={screens.NursesConsentUSScreen} name="NursesConsentUS" options={simpleHeader} />
       <Stack.Screen component={screens.OptionalInfoScreen} name="OptionalInfo" options={noHeader} />
       <Stack.Screen component={screens.OtherSymptomsScreen} name="OtherSymptoms" options={noHeader} />
