@@ -2,8 +2,8 @@ import { Brain } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
 import DiseaseCard from '@covid/features/reconsent/components/DiseaseCard';
 import InfoBox from '@covid/features/reconsent/components/InfoBox';
-import ReconsentHeader from '@covid/features/reconsent/components/ReconsentHeader';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
+import { TDiseasePreference } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { grid } from '@covid/themes';
@@ -11,59 +11,54 @@ import { colors } from '@theme';
 import * as React from 'react';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
 
-type TDiseaseType = {
-  iconName: React.ElementType;
-  name: string;
-};
-
 // TODO: Replace icons
 
-const initialDiseases: TDiseaseType[] = [
+const initialDiseases: TDiseasePreference[] = [
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'dementia',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'cvd',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'cancer',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'joint-bone',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'mental-health',
   },
 ];
 
-const extendedDiseases: TDiseaseType[] = [
+const extendedDiseases: TDiseasePreference[] = [
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'womens-health',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'vision-hearing',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'autoimmune',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'skin',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'lung',
   },
   {
-    iconName: Brain,
+    IconComponent: Brain,
     name: 'neurological',
   },
 ];
@@ -71,11 +66,11 @@ const extendedDiseases: TDiseaseType[] = [
 export default function ReconsentDiseasePreferencesScreen() {
   const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
 
-  const renderItem = ({ item }: { item: TDiseaseType }) => {
+  const renderItem = ({ item }: { item: TDiseasePreference }) => {
     return (
       <DiseaseCard
         description={i18n.t(`disease-cards.${item.name}.description`)}
-        iconName={item.iconName}
+        IconComponent={item.IconComponent}
         key={item.name}
         name={i18n.t(`disease-cards.${item.name}.name`)}
         style={{ marginBottom: grid.xxl }}
@@ -93,19 +88,19 @@ export default function ReconsentDiseasePreferencesScreen() {
 
   return (
     <ReconsentScreen
-      buttonOnPress={() => NavigatorService.navigate('ReconsentDiseaseConfirmation')}
+      activeDot={1}
+      buttonOnPress={() => NavigatorService.navigate('ReconsentDiseaseSummary')}
       buttonTitle={i18n.t('navigation.next')}
     >
-      <ReconsentHeader showBackIcon showDots />
-      <Text rhythm={24} style={styles.center} textClass="h2Light">
+      <Text rhythm={24} textAlign="center" textClass="h2Light">
         {i18n.t('reconsent.disease-preferences.title')}
       </Text>
-      <Text rhythm={16} style={[styles.center, styles.subtitle]} textClass="pLight">
+      <Text rhythm={16} style={styles.subtitle} textAlign="center" textClass="pLight">
         {i18n.t('reconsent.disease-preferences.subtitle')}
       </Text>
       <FlatList
         data={showExtendedList ? initialDiseases.concat(extendedDiseases) : initialDiseases}
-        keyExtractor={(disease: TDiseaseType) => disease.name}
+        keyExtractor={(disease: TDiseasePreference) => disease.name}
         ListFooterComponent={ShowMore}
         ListFooterComponentStyle={showExtendedList ? { display: 'none' } : null}
         renderItem={renderItem}

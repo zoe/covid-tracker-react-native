@@ -132,7 +132,7 @@ export class PrivacyPolicyUSScreen extends React.Component<PropsType, object> {
           </RegularText>
         </ScrollView>
 
-        <BrandedButton onPress={() => this.props.navigation.goBack()} style={styles.button}>
+        <BrandedButton onPress={this.props.navigation.goBack} style={styles.button}>
           {i18n.t('privacy-policy-us.back')}
         </BrandedButton>
       </View>

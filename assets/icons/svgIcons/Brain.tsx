@@ -6,7 +6,7 @@ interface IProps {
   color?: string;
 }
 
-function Brain({ color = colors.darkblue }: IProps) {
+export default function Brain({ color = colors.darkblue }: IProps) {
   return (
     <Svg fill="none" height="32" viewBox="0 0 31 32" width="31">
       <Path
@@ -34,5 +34,3 @@ function Brain({ color = colors.darkblue }: IProps) {
     </Svg>
   );
 }
-
-export default Brain;

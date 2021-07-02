@@ -4,9 +4,9 @@ import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import BarChart from '@covid/features/mental-health-playback/components/BarChart';
 import InsightIllustration from '@covid/features/mental-health-playback/components/InsightIllustration';
+import { IInsight } from '@covid/features/mental-health-playback/types';
 import i18n from '@covid/locale/i18n';
 import { colors, grid, styling } from '@covid/themes';
-import { IInsight } from '@covid/types/mental-health-playback';
 import * as React from 'react';
 import { LayoutChangeEvent, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -77,11 +77,7 @@ export default React.memo(function Insights(props: IProps) {
           <View style={styles.contentWrapper}>
             <TextHighlight
               color={colors.accentBlue.main.bgColor}
-              query={
-                insight.activity_name.includes('less')
-                  ? i18n.t('mental-health-playback.less')
-                  : i18n.t('mental-health-playback.more')
-              }
+              query={insight.activity_name.includes('less') ? i18n.t('less') : i18n.t('more')}
               textClass="h3Regular"
             >
               {i18n.t(`mental-health-playback.insights.${insight.activity_name}.title`, {

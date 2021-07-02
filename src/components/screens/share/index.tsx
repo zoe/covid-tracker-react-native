@@ -12,7 +12,7 @@ import ShareLabel from './Label';
 import { SButtonView, SCloseContainerView, SContainerView, SContentView, SInnerContentView } from './styles';
 
 function ShareScreen() {
-  const Navigation = useNavigation();
+  const navigation = useNavigation();
   const { height, width } = Dimensions.get('window');
   const { bottom, top } = useSafeAreaInsets();
   const viewRef = React.useRef<View>(null);
@@ -31,7 +31,7 @@ function ShareScreen() {
   return (
     <SContainerView bottom={bottom} height={height} top={top} width={width}>
       <SCloseContainerView>
-        <IconButton imgSrc={closeIcon} onPress={() => Navigation.goBack()} />
+        <IconButton imgSrc={closeIcon} onPress={navigation.goBack} />
       </SCloseContainerView>
       <SContentView>
         <SInnerContentView collapsable={false} ref={viewRef}>

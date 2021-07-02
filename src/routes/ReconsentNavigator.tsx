@@ -1,6 +1,6 @@
 import {
-  ReconsentDiseaseConfirmationScreen,
   ReconsentDiseasePreferencesScreen,
+  ReconsentDiseaseSummaryScreen,
   ReconsentFeedbackScreen,
   ReconsentIntroductionScreen,
   ReconsentNewsletterSignupScreen,
@@ -30,11 +30,7 @@ export default function ReconsentNavigator({ Stack }: IProps) {
         name="ReconsentDiseasePreferences"
         options={noHeader}
       />
-      <Stack.Screen
-        component={ReconsentDiseaseConfirmationScreen}
-        name="ReconsentDiseaseConfirmation"
-        options={noHeader}
-      />
+      <Stack.Screen component={ReconsentDiseaseSummaryScreen} name="ReconsentDiseaseSummary" options={noHeader} />
       <Stack.Screen component={ReconsentRequestConsentScreen} name="ReconsentRequestConsent" options={noHeader} />
       <Stack.Screen component={ReconsentNewsletterSignupScreen} name="ReconsentNewsletterSignup" options={noHeader} />
       <Stack.Screen component={ReconsentFeedbackScreen} name="ReconsentFeedback" options={noHeader} />

@@ -11,7 +11,7 @@ import {
   fetchStartUpInfo,
   fetchUKMetrics,
 } from '@covid/core/content/state/contentSlice';
-import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
+import { Coordinator, IEditableProfile, ISelectProfile, ScreenFlow } from '@covid/core/Coordinator';
 import { dietScoreApiClient } from '@covid/core/diet-score/DietScoreApiClient';
 import {
   homeScreenName,
@@ -33,11 +33,6 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
 import { assessmentService } from '@covid/Services';
 import { StackNavigationProp } from '@react-navigation/stack';
-
-type ScreenName = keyof ScreenParamList;
-type ScreenFlow = {
-  [key in ScreenName]: () => void;
-};
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 

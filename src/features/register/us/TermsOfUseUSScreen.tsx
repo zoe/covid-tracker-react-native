@@ -226,7 +226,7 @@ export default class TermsOfUseUSScreen extends React.Component<PropsType> {
           </RegularText>
         </ScrollView>
 
-        <BrandedButton onPress={() => this.props.navigation.goBack()} style={styles.button}>
+        <BrandedButton onPress={this.props.navigation.goBack} style={styles.button}>
           {i18n.t('terms-of-use-us.back')}
         </BrandedButton>
       </View>

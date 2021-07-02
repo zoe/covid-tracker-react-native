@@ -1,5 +1,4 @@
 import { Text } from '@covid/components';
-import ReconsentHeader from '@covid/features/reconsent/components/ReconsentHeader';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -38,12 +37,12 @@ export default function ReconsentRequestConsentScreen() {
 
   return (
     <ReconsentScreen
+      activeDot={3}
       buttonOnPress={() => NavigatorService.navigate('ReconsentNewsletterSignup')}
       buttonTitle={i18n.t('reconsent.request-consent.consent-yes')}
       secondaryButtonOnPress={() => NavigatorService.navigate('ReconsentFeedback')}
       secondaryButtonTitle={i18n.t('reconsent.request-consent.consent-no')}
     >
-      <ReconsentHeader showBackIcon showDots />
       <Text rhythm={16} style={styles.center} textClass="h2Light">
         {i18n.t('reconsent.request-consent.title')}
       </Text>

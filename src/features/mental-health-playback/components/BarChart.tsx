@@ -24,9 +24,9 @@ const MIN_OPACITY = 0.4;
 export default React.memo(function BarChart({ items = [], ...props }: IProps) {
   const totalValue = items.reduce((previousValue, item) => previousValue + item.value, 0);
   const translationDict: { [key: string]: string } = {
-    LESS: i18n.t('mental-health-playback.less'),
-    MORE: i18n.t('mental-health-playback.more'),
-    NO_CHANGE: i18n.t('mental-health-playback.no-change'),
+    LESS: i18n.t('less'),
+    MORE: i18n.t('more'),
+    NO_CHANGE: i18n.t('no-change'),
   };
   const answerIndex = items.findIndex((item) => item.title === props.userAnswer);
   return (
@@ -37,7 +37,7 @@ export default React.memo(function BarChart({ items = [], ...props }: IProps) {
           {answerIndex === index ? (
             <Mention color="#A10056">
               <Text inverted colorPalette="ui" colorShade="lighter" style={styles.text} textClass="h6Regular">
-                {i18n.t('mental-health-playback.you')}
+                {i18n.t('you')}
               </Text>
             </Mention>
           ) : null}
