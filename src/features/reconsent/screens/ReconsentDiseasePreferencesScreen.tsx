@@ -70,9 +70,6 @@ const extendedDiseases: TDiseaseType[] = [
 
 export default function ReconsentDiseasePreferencesScreen() {
   const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
-  const addToPreferences = () => {
-    console.log('hi');
-  };
 
   const renderItem = ({ item }: { item: TDiseaseType }) => {
     return (
@@ -81,7 +78,6 @@ export default function ReconsentDiseasePreferencesScreen() {
         iconName={item.iconName}
         key={item.name}
         name={i18n.t(`disease-cards.${item.name}.name`)}
-        onPressHandler={addToPreferences}
         style={{ marginBottom: grid.xxl }}
       />
     );

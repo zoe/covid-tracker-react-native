@@ -312,7 +312,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
   goToReconsent() {
     // NavigatorService.navigate('ReconsentIntroduction');
-    NavigatorService.navigate('ReconsentRequestConsent');
+    NavigatorService.navigate('ReconsentDiseasePreferences');
   }
 }
 

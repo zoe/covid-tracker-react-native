@@ -1,26 +1,26 @@
 import { Text } from '@covid/components';
 import { grid } from '@covid/themes';
 import { colors } from '@theme/colors';
+import { useFormikContext } from 'formik';
 import * as React from 'react';
 import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {
-  name: string;
+  name: string; // TODO: stricter typing
   iconName: React.ElementType;
   description: string;
-  onPressHandler: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
 export default function DiseaseCard(props: IProps) {
+  const formik = useFormikContext();
   const [active, setActive] = React.useState<boolean>(false);
   const onPress = () => {
     setActive((currentState) => !currentState);
-    props.onPressHandler();
+    formik.setValues({ [props.name]: true });
   };
 
   // TODO: Can't get vertical align center on description
-  // TODO: Do we use the lighter font? Go by font name or typography name in Figma?
 
   const IconName = props.iconName;
   return (
