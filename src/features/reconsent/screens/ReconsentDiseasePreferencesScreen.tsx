@@ -16,50 +16,50 @@ import { FlatList, Pressable, ScrollView, StyleSheet, View } from 'react-native'
 
 const initialDiseases: TDiseasePreference[] = [
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'dementia',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'cvd',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'cancer',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'joint-bone',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'mental-health',
   },
 ];
 
 const extendedDiseases: TDiseasePreference[] = [
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'womens-health',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'vision-hearing',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'autoimmune',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'skin',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'lung',
   },
   {
-    IconElement: Brain,
+    IconComponent: Brain,
     name: 'neurological',
   },
 ];
@@ -67,15 +67,13 @@ const extendedDiseases: TDiseasePreference[] = [
 export default function ReconsentDiseasePreferencesScreen() {
   const theme = useTheme();
   const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
-  const addToPreferences = () => {
-    console.log('hi');
-  };
+  const addToPreferences = () => {};
 
   const renderItem = ({ item }: { item: TDiseasePreference }) => {
     return (
       <DiseaseCard
         description={i18n.t(`disease-cards.${item.name}.description`)}
-        IconElement={item.IconElement}
+        IconComponent={item.IconComponent}
         key={item.name}
         name={i18n.t(`disease-cards.${item.name}.name`)}
         onPressHandler={addToPreferences}

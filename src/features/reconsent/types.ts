@@ -1,4 +1,4 @@
 export type TDiseasePreference = {
-  IconElement?: React.ElementType;
+  IconComponent?: React.ComponentType<any>;
   name: string;
 };

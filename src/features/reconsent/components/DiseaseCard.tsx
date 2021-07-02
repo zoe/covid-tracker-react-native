@@ -6,7 +6,7 @@ import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 
 interface IProps {
   name: string;
-  IconElement?: React.ElementType;
+  IconComponent?: React.ComponentType<any>;
   description: string;
   onPressHandler: () => void;
   style?: StyleProp<ViewStyle>;
@@ -31,7 +31,7 @@ export default function DiseaseCard(props: IProps) {
         onPress={onPress}
         style={styles.pressable}
       >
-        {props.IconElement ? <props.IconElement color={active ? colors.white : colors.darkblue} /> : null}
+        {props.IconComponent ? <props.IconComponent color={active ? colors.white : colors.darkblue} /> : null}
         <View style={styles.textSection}>
           <Text rhythm={2} style={[styles.name, active ? styles.activeName : null]} textClass="pSmallMedium">
             {props.name}
