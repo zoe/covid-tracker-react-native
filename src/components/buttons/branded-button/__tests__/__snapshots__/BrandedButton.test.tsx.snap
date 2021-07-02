@@ -37,6 +37,7 @@ exports[`branded-button tests renders correctly 1`] = `
         Object {
           "color": "#FFFFFF",
         },
+        undefined,
       ]
     }
   >
