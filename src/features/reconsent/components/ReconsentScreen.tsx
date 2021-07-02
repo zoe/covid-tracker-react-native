@@ -10,8 +10,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface IProps {
   activeDot?: number;
-  buttonTitle: string;
-  buttonOnPress: () => void;
+  buttonTitle?: string;
+  buttonOnPress?: () => void;
   children?: React.ReactNode;
 }
 
@@ -55,11 +55,13 @@ export default function ReconsentScreen(props: IProps) {
           </View>
         ) : null}
       </View>
-      <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
+      <ScrollView contentContainerStyle={styling.flexGrow} style={{ padding: theme.grid.gutter }}>
         {props.children}
-        <BrandedButton enable onPress={props.buttonOnPress} style={styles.button}>
-          {props.buttonTitle}
-        </BrandedButton>
+        {props.buttonOnPress || props.buttonTitle ? (
+          <BrandedButton enable onPress={props.buttonOnPress} style={styles.button}>
+            {props.buttonTitle}
+          </BrandedButton>
+        ) : null}
       </ScrollView>
     </SafeLayout>
   );
