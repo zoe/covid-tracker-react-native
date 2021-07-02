@@ -1,31 +1,100 @@
-import { SafeLayout, Text } from '@covid/components';
-import ReconsentFooter from '@covid/features/reconsent/components/ReconsentFooter';
-import ReconsentHeader from '@covid/features/reconsent/components/ReconsentHeader';
+import { BrandedButton, Text } from '@covid/components';
+import Card from '@covid/components/cards/Card';
+import IllustrationSignup from '@covid/features/reconsent/components/IllustrationSignup';
+import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
+import Tick from '@covid/features/reconsent/components/Tick';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { styling, useTheme } from '@covid/themes';
-import { colors } from '@theme';
+import { colors } from '@theme/colors';
 import * as React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
+
+const hitSlop = {
+  bottom: 24,
+  left: 24,
+  right: 24,
+  top: 24,
+};
 
 export default function ReconsentNewsletterSignupScreen() {
-  const theme = useTheme();
+  const [loading, setLoading] = React.useState(false);
+  const [signedUp, setSignedUp] = React.useState(false);
+
+  function toggleNewsletterSignup() {
+    setSignedUp(!signedUp);
+  }
 
   return (
-    <SafeLayout style={styles.page}>
-      <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
-        <ReconsentHeader />
-        <View>
-          <Text>Newsletter</Text>
-        </View>
-      </ScrollView>
-      <ReconsentFooter onPress={() => NavigatorService.navigate('Splash')} title={i18n.t('navigation.next')} />
-    </SafeLayout>
+    <ReconsentScreen
+      buttonOnPress={() => NavigatorService.navigate('Splash')}
+      buttonTitle={i18n.t('reconsent.newsletter-signup.button')}
+    >
+      <Text rhythm={24} textAlign="center" textClass="h2Light">
+        {i18n.t('reconsent.newsletter-signup.title')}
+      </Text>
+      <Text rhythm={24} textAlign="center" textClass="pLight">
+        {i18n.t('reconsent.newsletter-signup.description-1')}
+      </Text>
+      <Text textAlign="center" textClass="pLight">
+        {i18n.t('reconsent.newsletter-signup.description-2')}
+      </Text>
+      <Card useShadow style={styles.card}>
+        <IllustrationSignup style={styles.illustration} />
+        <Text rhythm={24} textClass="h4">
+          {i18n.t('reconsent.newsletter-signup.card-title')}
+        </Text>
+        <Text rhythm={24} textClass="pLight">
+          {i18n.t('reconsent.newsletter-signup.card-description')}
+        </Text>
+        {signedUp ? (
+          <>
+            <View style={styles.messageWrapper}>
+              <Tick />
+              <Text style={styles.marginLeft} textClass="p">
+                {i18n.t('reconsent.newsletter-signup.card-message')}
+              </Text>
+            </View>
+            <Pressable hitSlop={hitSlop} onPress={toggleNewsletterSignup} style={styles.buttonNoPressable}>
+              <Text style={styles.buttonNoText} textClass="p">
+                {i18n.t('reconsent.newsletter-signup.card-button-no')}
+              </Text>
+            </Pressable>
+          </>
+        ) : (
+          <BrandedButton loading={loading} onPress={toggleNewsletterSignup} style={styles.buttonYes}>
+            {i18n.t('reconsent.newsletter-signup.card-button-yes')}
+          </BrandedButton>
+        )}
+      </Card>
+    </ReconsentScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {
-    backgroundColor: colors.backgroundPrimary,
+  buttonNoPressable: {
+    alignSelf: 'center',
+    marginTop: 24,
+  },
+  buttonNoText: {
+    color: colors.purple,
+  },
+  buttonYes: {
+    backgroundColor: colors.darkblue,
+  },
+  card: {
+    marginBottom: 16,
+    marginTop: 40,
+  },
+  illustration: {
+    alignSelf: 'center',
+    marginBottom: 8,
+  },
+  marginLeft: {
+    marginLeft: 8,
+  },
+  messageWrapper: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    flexDirection: 'row',
   },
 });
