@@ -1,4 +1,5 @@
 import Analytics from '@covid/core/Analytics';
+import { ScreenName } from '@covid/core/Coordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { CommonActions, NavigationContainerRef, NavigationState, Route, StackActions } from '@react-navigation/native';
 
@@ -9,7 +10,7 @@ function setContainer(navigationRef: NavigationContainerRef) {
   navigation = navigationRef;
 }
 
-function reset<RouteName extends keyof ScreenParamList>(routeList: Omit<Route<RouteName>, 'key'>[], index?: number) {
+function reset<RouteName extends ScreenName>(routeList: Omit<Route<RouteName>, 'key'>[], index?: number) {
   const value = index ?? 0;
   navigation?.dispatch(
     CommonActions.reset({
@@ -19,11 +20,11 @@ function reset<RouteName extends keyof ScreenParamList>(routeList: Omit<Route<Ro
   );
 }
 
-function navigate<RouteName extends keyof ScreenParamList>(routeName: RouteName, params?: ScreenParamList[RouteName]) {
+function navigate<RouteName extends ScreenName>(routeName: RouteName, params?: ScreenParamList[RouteName]) {
   navigation?.navigate(routeName, params);
 }
 
-function replace<RouteName extends keyof ScreenParamList>(routeName: RouteName, params?: ScreenParamList[RouteName]) {
+function replace<RouteName extends ScreenName>(routeName: RouteName, params?: ScreenParamList[RouteName]) {
   navigation?.dispatch(StackActions.replace(routeName, params));
 }
 
