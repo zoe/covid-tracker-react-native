@@ -1664,6 +1664,10 @@
   },
 
   "reconsent": {
+    "disease-summary": {
+      "button": "next",
+      "title": "We’ll invite you to answer additional questions occasionally and send you insights about"
+    },
     "disease-preferences": {
       "title": "What matters most to you?",
       "subtitle": "Select as many as you like",
