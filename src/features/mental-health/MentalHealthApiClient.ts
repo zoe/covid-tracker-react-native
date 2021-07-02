@@ -6,7 +6,7 @@ import {
   IMentalHealthLearning,
 } from '@covid/core/state';
 import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
-import { IMHInsights } from '@covid/types/mental-health-playback';
+import { IMHInsights } from '@covid/features/mental-health-playback/types';
 
 import { MentalHealthInfosRequest } from './MentalHealthInfosRequest';
 
