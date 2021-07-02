@@ -1042,46 +1042,6 @@
       "callout-text": false,
       "callout-link-text": false,
       "menu-item": false
-    },
-
-    "nhs-study-intro": {
-      "title": false,
-      "text-1": false,
-      "text-2": false,
-      "nhsID-placeholder": false,
-      "text-3": false,
-      "text-cancel": false,
-      "consent": false,
-      "next": false
-    },
-
-    "nhs-study-questions": {
-      "title": false,
-      "text-1": false,
-      "text-2": false,
-      "text-3": false,
-      "text-link": false
-    },
-
-    "nhs-test-detail": {
-      "title": false,
-      "date-label": false,
-      "date-required": false,
-      "mechanism-label": false,
-      "mechanism-required": false,
-      "mechanism-saliva": false,
-      "mechanism-swab": false,
-      "fridge-label": false,
-      "fridge-required": false,
-      "days-label": false,
-      "days-required": false,
-      "days-placeholder": false,
-      "cta-add": false
-    },
-
-    "covid-test-list": {
-      "nhs-text": false,
-      "nhs-text-link": false
     }
   },
 
@@ -1687,6 +1647,9 @@
 
   "reconsent": {
     "disease-preferences": {
+      "title": "What matters most to you?",
+      "subtitle": "Select as many as you like",
+      "show-more": "+ Show more",
       "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
     },
     "introduction": {
@@ -1694,6 +1657,19 @@
       "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",
       "sidenote": "This study has ethical approval from King's College London",
       "title": "Help us fight major diseases beyond COVID-19"
+    },
+    "request-consent": {
+      "title": "Are you in?",
+      "subtitle": "To fight other diseases, we need your consent to:",
+      "use-1-title": "1. Advance human health science",
+      "use-1-description": "ZOE and King's College London will use your data to improve the world’s understanding of human health, including but not limited to COVID-19. We may invite you to join third party research studies that you are eligible for.",
+      "use-2-title": "2. Help others improve human health ",
+      "use-2-description": "We may share your data with other bonafide research organisations to help them carry out scientific research into human health too. The full list of organisations will be shown in our Privacy Notice. We will only share your data in an anonymised or aggregated form, unless you permit us to do otherwise.",
+      "use-3-title": "3. Build health products",
+      "use-3-description": "ZOE may build health products based on this research to be sold commercially. This is needed to sustain the technology and team that maintain this app for the long-term. We will never sell your data.",
+      "learn-more": "Learn more in our Privacy Notice",
+      "consent-yes": "Yes, I'm in",
+      "consent-no": "No, I do not consent to fight other major diseases, only COVID-19"
     }
   },
 

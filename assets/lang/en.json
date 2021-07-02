@@ -720,8 +720,6 @@
   "covid-test-list": {
     "title": "Your COVID-19 tests",
     "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
-    "nhs-text": "Once you start day 1 of your study, please add test details daily over the 21-day period. If any of your results are positive, please update the relevant test result below. For more information and instructions, read our ",
-    "nhs-text-link": "NHS Asymptomatic Staff Testing Pilot Guide",
     "add-new-test": "Add new test",
     "positive": "Positive",
     "negative": "Negative",
@@ -1194,41 +1192,6 @@
     "share": "Share your map",
     "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"
-  },
-
-  "nhs-study-intro": {
-    "title": "NHS Asymptomatic Staff Testing Pilot",
-    "text-1": "Thank you for agreeing to participate in this pilot to enable the NHS to evaluate the service for asymptomatic testing of staff. In doing this you consent to share your data and provide samples for a 21-day period in line with the protocol.",
-    "text-2": "Please enter your Unique Identifier:",
-    "nhsID-placeholder": "Unique Identifier",
-    "text-3": "This number is provided as part of enrolment by the research nurse on site. If you are not part of this study please ",
-    "text-cancel": "click here.",
-    "consent": "I consent to the COVID Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
-    "next": "Next"
-  },
-
-  "nhs-study-questions": {
-    "title": "About this study",
-    "text-1": "You need to log your test samples and health daily over the 21-day period in this app. Please note that you will not be able to retrospectively add health information for missed days.",
-    "text-2": "If you develop any symptoms before you start providing test samples as part of this study, please get in touch with your local contact. (Contact details can be found on your instruction sheet).",
-    "text-3": "Full instructions about sample collection and returns can be found in our ",
-    "text-link": "Asymptomatic Staff Testing Pilot Guide"
-  },
-
-  "nhs-test-detail": {
-    "title": "Add COVID test",
-    "date-label": "Select the date you had this test",
-    "date-required": "Please indicate the date this test occurred",
-    "mechanism-label": "What test have you taken?",
-    "mechanism-required": "This is required",
-    "mechanism-saliva": "Saliva",
-    "mechanism-swab": "Swab",
-    "fridge-label": "Has the saliva sample been stored in a fridge?",
-    "fridge-required": "This is required",
-    "days-label": "How many days has the saliva sample been stored in a fridge before drop off?",
-    "days-required": "This is required",
-    "days-placeholder": "Select days",
-    "cta-add": "Add test"
   },
 
   "school-networks": {
@@ -1705,6 +1668,9 @@
       "title": "We’ll invite you to answer additional questions occasionally and send you insights about"
     },
     "disease-preferences": {
+      "title": "What matters most to you?",
+      "subtitle": "Select as many as you like",
+      "show-more": "+ Show more",
       "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
     },
     "introduction": {
@@ -1712,6 +1678,19 @@
       "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",
       "sidenote": "This study has ethical approval from King's College London",
       "title": "Help us fight major diseases beyond COVID-19"
+    },
+    "request-consent": {
+      "title": "Are you in?",
+      "subtitle": "To fight other diseases, we need your consent to:",
+      "use-1-title": "1. Advance human health science",
+      "use-1-description": "ZOE and King's College London will use your data to improve the world’s understanding of human health, including but not limited to COVID-19. We may invite you to join third party research studies that you are eligible for.",
+      "use-2-title": "2. Help others improve human health ",
+      "use-2-description": "We may share your data with other bonafide research organisations to help them carry out scientific research into human health too. The full list of organisations will be shown in our Privacy Notice. We will only share your data in an anonymised or aggregated form, unless you permit us to do otherwise.",
+      "use-3-title": "3. Build health products",
+      "use-3-description": "ZOE may build health products based on this research to be sold commercially. This is needed to sustain the technology and team that maintain this app for the long-term. We will never sell your data.",
+      "learn-more": "Learn more in our Privacy Notice",
+      "consent-yes": "Yes, I'm in",
+      "consent-no": "No, I do not consent to fight other major diseases, only COVID-19"
     }
   },
 
