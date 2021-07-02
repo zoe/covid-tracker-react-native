@@ -1,4 +1,5 @@
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
+import { ScreenName } from '@covid/core/Coordinator';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import { setPatients, setUsername } from '@covid/core/state/user';
 import { userService } from '@covid/core/user/UserService';
@@ -42,7 +43,7 @@ class SplashScreen extends React.Component<Props, SplashState> {
 
   async componentDidMount() {
     Linking.getInitialURL().then(async (url) => {
-      const screenName: keyof ScreenParamList = this.props.route.name; // change to let when implemented
+      const screenName: ScreenName = this.props.route.name; // change to let when implemented
       if (url) {
         // TODO - set screenName to url deeplink
       }
@@ -54,7 +55,7 @@ class SplashScreen extends React.Component<Props, SplashState> {
     });
   }
 
-  async initAppState(screenName: keyof ScreenParamList) {
+  async initAppState(screenName: ScreenName) {
     await appCoordinator.init(this.props.setUsername, this.props.setPatients);
     RNSplashScreen.hide();
     // reset router if deeplinking this ensures the dashboard is loaded as the default route
