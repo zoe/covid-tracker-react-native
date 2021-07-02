@@ -120,7 +120,7 @@ export type ScreenParamList = {
   ReconsentIntroduction: undefined;
   ReconsentDiseasePreferences: undefined;
   ReconsentDiseaseSummary: undefined;
-  ReconsentRequestConsent: undefined;
+  ReconsentRequestConsent: { secondTime: boolean };
   ReconsentFeedback: undefined;
   ReconsentReconsider: undefined;
   ReconsentNewsletterSignup: undefined;

@@ -1,18 +1,18 @@
 import { BrandedButton, Text } from '@covid/components';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme/colors';
 import * as React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-export default function ReconsentReconsiderScreen() {
-  function onPressPositive() {
-    NavigatorService.navigate('Splash');
-  }
-  function onPressNegative() {
-    NavigatorService.navigate('Splash');
-  }
+interface IProps {
+  navigation: StackNavigationProp<ScreenParamList, 'ReconsentReconsider'>;
+}
+
+export default function ReconsentReconsiderScreen(props: IProps) {
   return (
     <ReconsentScreen>
       <Text rhythm={24} textAlign="center" textClass="h2Light">
@@ -24,10 +24,17 @@ export default function ReconsentReconsiderScreen() {
       <Text textAlign="center" textClass="pLight">
         {i18n.t('reconsent.reconsider.description-2')}
       </Text>
-      <BrandedButton onPress={onPressPositive} style={styles.buttonPositive}>
+      <BrandedButton
+        onPress={() => props.navigation.push('ReconsentRequestConsent', { secondTime: true })}
+        style={styles.buttonPositive}
+      >
         {i18n.t('reconsent.reconsider.button-positive')}
       </BrandedButton>
-      <BrandedButton onPress={onPressNegative} style={styles.buttonNegative} textStyle={styles.buttonNegativeText}>
+      <BrandedButton
+        onPress={() => NavigatorService.navigate('Dashboard')}
+        style={styles.buttonNegative}
+        textStyle={styles.buttonNegativeText}
+      >
         {i18n.t('reconsent.reconsider.button-negative')}
       </BrandedButton>
     </ReconsentScreen>

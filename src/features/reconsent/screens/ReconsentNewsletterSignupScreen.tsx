@@ -26,7 +26,7 @@ export default function ReconsentNewsletterSignupScreen() {
 
   return (
     <ReconsentScreen
-      buttonOnPress={() => NavigatorService.navigate('Splash')}
+      buttonOnPress={() => NavigatorService.navigate('Dashboard')}
       buttonTitle={i18n.t('reconsent.newsletter-signup.button')}
     >
       <Text rhythm={24} textAlign="center" textClass="h2Light">

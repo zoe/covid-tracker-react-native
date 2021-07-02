@@ -2,7 +2,6 @@ import { Brain } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
 import DiseaseCard from '@covid/features/reconsent/components/DiseaseCard';
 import InfoBox from '@covid/features/reconsent/components/InfoBox';
-import ReconsentHeader from '@covid/features/reconsent/components/ReconsentHeader';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import { TDiseasePreference } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
@@ -91,10 +90,10 @@ export default function ReconsentDiseasePreferencesScreen() {
 
   return (
     <ReconsentScreen
-      buttonOnPress={() => NavigatorService.navigate('ReconsentDiseaseConfirmation')}
+      activeDot={1}
+      buttonOnPress={() => NavigatorService.navigate('ReconsentDiseaseSummary')}
       buttonTitle={i18n.t('navigation.next')}
     >
-      <ReconsentHeader showBackIcon showDots />
       <Text rhythm={24} textAlign="center" textClass="h2Light">
         {i18n.t('reconsent.disease-preferences.title')}
       </Text>
