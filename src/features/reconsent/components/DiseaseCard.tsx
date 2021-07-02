@@ -19,20 +19,13 @@ export default function DiseaseCard(props: IProps) {
   const [active, setActive] = React.useState<boolean>(false);
   const onPress = async () => {
     setActive((currentState) => !currentState);
-    formik.setFieldValue(props.databaseField, true, true);
-    // formik.setValues({ ...(formik.values as any), [props.databaseField]: active });
-    // await formik.validateForm({
-    //   ...(formik.values as any),
-    //   [props.databaseField]: true, // ensures validation with the new value
-    // });
+    formik.setFieldValue(props.databaseField, !active, true);
   };
 
   // TODO: Can't get vertical align center on description
 
   return (
     <View style={[styles.container, styles.shadow, active ? styles.activeCard : null, props.style]}>
-      {/* <Text>Hi m{formik.values.dementia}</Text> */}
-      {/* <Text>Hi {props.databaseField}</Text> */}
       <Pressable
         accessible
         accessibilityLabel={`Select ${props.title}`}

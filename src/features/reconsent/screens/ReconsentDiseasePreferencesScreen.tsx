@@ -5,6 +5,7 @@ import InfoBox from '@covid/features/reconsent/components/InfoBox';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import { TDiseasePreference } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 import { grid } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
@@ -89,6 +90,7 @@ export default function ReconsentDiseasePreferencesScreen() {
   const onNextClick = (values) => {
     console.log('disease preferences on next click');
     console.log(values);
+    NavigatorService.navigate('ReconsentDiseaseSummary', values);
   };
 
   return (

@@ -31,20 +31,6 @@ const dots = Array(AMOUNT_DOTS)
   .fill(null)
   .map((_, i) => i);
 
-const initialFormValues = {
-  autoimmune_conditions: false,
-  cancer: false,
-  cardiovascular_diseases: false,
-  dementia: false,
-  joint_and_bone_diseases: false,
-  lung_diseases: false,
-  mental_health: false,
-  neurological_conditions: false,
-  skin_conditions: false,
-  vision_and_hearing_conditions: false,
-  womens_health: false,
-};
-
 export default function ReconsentScreen(props: IProps) {
   const navigation = useNavigation();
   const theme = useTheme();
@@ -81,7 +67,7 @@ export default function ReconsentScreen(props: IProps) {
       <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
         <Formik
           validateOnChange
-          initialValues={initialFormValues}
+          initialValues={{}}
           onSubmit={(formData: TDiseasePreferencesData) => props.buttonOnPress(formData)}
         >
           {(formProps: FormikProps<TDiseasePreferencesData>) => (
