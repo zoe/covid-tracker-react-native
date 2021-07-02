@@ -22,13 +22,6 @@ const dots = Array(AMOUNT_DOTS)
   .fill(null)
   .map((_, i) => i);
 
-const hitSlop = {
-  bottom: 12,
-  left: 12,
-  right: 12,
-  top: 12,
-};
-
 export default function ReconsentScreen(props: IProps) {
   const navigation = useNavigation();
   const theme = useTheme();
@@ -36,7 +29,15 @@ export default function ReconsentScreen(props: IProps) {
   return (
     <SafeLayout style={styles.safeLayout}>
       <View style={styles.headerWrapper}>
-        <TouchableOpacity hitSlop={hitSlop} onPress={navigation.goBack}>
+        <TouchableOpacity
+          hitSlop={{
+            bottom: 10,
+            left: 10,
+            right: 10,
+            top: 10,
+          }}
+          onPress={navigation.goBack}
+        >
           <ChevronLeft />
         </TouchableOpacity>
         {props.activeDot ? (
