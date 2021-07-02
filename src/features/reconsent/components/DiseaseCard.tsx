@@ -6,7 +6,7 @@ import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 
 interface IProps {
   name: string;
-  iconName: React.ElementType;
+  IconComponent?: React.ComponentType<any>;
   description: string;
   onPressHandler: () => void;
   style?: StyleProp<ViewStyle>;
@@ -22,7 +22,6 @@ export default function DiseaseCard(props: IProps) {
   // TODO: Can't get vertical align center on description
   // TODO: Do we use the lighter font? Go by font name or typography name in Figma?
 
-  const IconName = props.iconName;
   return (
     <View style={[styles.container, styles.shadow, active ? styles.activeCard : null, props.style]}>
       <Pressable
@@ -32,7 +31,7 @@ export default function DiseaseCard(props: IProps) {
         onPress={onPress}
         style={styles.pressable}
       >
-        <IconName color={active ? colors.white : colors.darkblue} />
+        {props.IconComponent ? <props.IconComponent color={active ? colors.white : colors.darkblue} /> : null}
         <View style={styles.textSection}>
           <Text rhythm={2} style={[styles.name, active ? styles.activeName : null]} textClass="pSmallMedium">
             {props.name}

@@ -1,5 +1,5 @@
 export { default as ReconsentIntroductionScreen } from './ReconsentIntroductionScreen';
-export { default as ReconsentDiseaseConfirmationScreen } from './ReconsentDiseaseConfirmationScreen';
+export { default as ReconsentDiseaseSummaryScreen } from './ReconsentDiseaseSummaryScreen';
 export { default as ReconsentFeedbackScreen } from './ReconsentFeedbackScreen';
 export { default as ReconsentDiseasePreferencesScreen } from './ReconsentDiseasePreferencesScreen';
 export { default as ReconsentNewsletterSignupScreen } from './ReconsentNewsletterSignupScreen';
