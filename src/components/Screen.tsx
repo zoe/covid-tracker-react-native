@@ -1,3 +1,4 @@
+import { ScreenName } from '@covid/core/Coordinator';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -57,7 +58,7 @@ export const FieldWrapper = (props: FieldWrapperType) => {
 export type ScreenProps = {
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
-  navigation?: StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
+  navigation?: StackNavigationProp<ScreenParamList, ScreenName>;
   profile?: Profile;
   simpleCallout?: boolean;
   calloutType?: CallOutType;
