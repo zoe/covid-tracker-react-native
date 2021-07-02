@@ -1,4 +1,5 @@
 import { Text } from '@covid/components';
+import { TDisease } from '@covid/features/reconsent/types';
 import { grid } from '@covid/themes';
 import { colors } from '@theme/colors';
 import { useFormikContext } from 'formik';
@@ -6,27 +7,35 @@ import * as React from 'react';
 import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {
-  name: string; // TODO: stricter typing
-  IconComponent?: React.ComponentType<any>;
   description: string;
   style?: StyleProp<ViewStyle>;
+  IconComponent?: React.ComponentType<any>;
+  title: string;
+  databaseField: TDisease;
 }
 
 export default function DiseaseCard(props: IProps) {
   const formik = useFormikContext();
   const [active, setActive] = React.useState<boolean>(false);
-  const onPress = () => {
+  const onPress = async () => {
     setActive((currentState) => !currentState);
-    formik.setValues({ [props.name]: true });
+    formik.setFieldValue(props.databaseField, true, true);
+    // formik.setValues({ ...(formik.values as any), [props.databaseField]: active });
+    // await formik.validateForm({
+    //   ...(formik.values as any),
+    //   [props.databaseField]: true, // ensures validation with the new value
+    // });
   };
 
   // TODO: Can't get vertical align center on description
 
   return (
     <View style={[styles.container, styles.shadow, active ? styles.activeCard : null, props.style]}>
+      {/* <Text>Hi m{formik.values.dementia}</Text> */}
+      {/* <Text>Hi {props.databaseField}</Text> */}
       <Pressable
         accessible
-        accessibilityLabel={`Select ${props.name}`}
+        accessibilityLabel={`Select ${props.title}`}
         accessibilityRole="checkbox"
         onPress={onPress}
         style={styles.pressable}
@@ -34,7 +43,7 @@ export default function DiseaseCard(props: IProps) {
         {props.IconComponent ? <props.IconComponent color={active ? colors.white : colors.darkblue} /> : null}
         <View style={styles.textSection}>
           <Text rhythm={2} style={[styles.name, active ? styles.activeName : null]} textClass="pSmallMedium">
-            {props.name}
+            {props.title}
           </Text>
           <Text
             style={[styles.description, active ? styles.activeDescription : styles.inactiveDescription]}

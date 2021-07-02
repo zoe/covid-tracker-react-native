@@ -5,7 +5,6 @@ import InfoBox from '@covid/features/reconsent/components/InfoBox';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import { TDiseasePreference } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
-import NavigatorService from '@covid/NavigatorService';
 import { grid } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
@@ -20,7 +19,7 @@ const initialDiseases: TDiseasePreference[] = [
   },
   {
     IconComponent: Brain,
-    name: 'cvd',
+    name: 'cardiovascular_diseases',
   },
   {
     IconComponent: Brain,
@@ -28,38 +27,38 @@ const initialDiseases: TDiseasePreference[] = [
   },
   {
     IconComponent: Brain,
-    name: 'joint-bone',
+    name: 'joint_and_bone_diseases',
   },
   {
     IconComponent: Brain,
-    name: 'mental-health',
+    name: 'mental_health',
   },
 ];
 
 const extendedDiseases: TDiseasePreference[] = [
   {
     IconComponent: Brain,
-    name: 'womens-health',
+    name: 'womens_health',
   },
   {
     IconComponent: Brain,
-    name: 'vision-hearing',
+    name: 'vision_and_hearing_conditions',
   },
   {
     IconComponent: Brain,
-    name: 'autoimmune',
+    name: 'autoimmune_conditions',
   },
   {
     IconComponent: Brain,
-    name: 'skin',
+    name: 'skin_conditions',
   },
   {
     IconComponent: Brain,
-    name: 'lung',
+    name: 'lung_diseases',
   },
   {
     IconComponent: Brain,
-    name: 'neurological',
+    name: 'neurological_conditions',
   },
 ];
 
@@ -69,11 +68,12 @@ export default function ReconsentDiseasePreferencesScreen() {
   const renderItem = ({ item }: { item: TDiseasePreference }) => {
     return (
       <DiseaseCard
+        databaseField={item.name}
         description={i18n.t(`disease-cards.${item.name}.description`)}
         IconComponent={item.IconComponent}
         key={item.name}
-        name={i18n.t(`disease-cards.${item.name}.name`)}
         style={{ marginBottom: grid.xxl }}
+        title={i18n.t(`disease-cards.${item.name}.name`)}
       />
     );
   };
@@ -86,10 +86,16 @@ export default function ReconsentDiseasePreferencesScreen() {
     </Pressable>
   );
 
+  const onNextClick = (values) => {
+    console.log('disease preferences on next click');
+    console.log(values);
+  };
+
   return (
     <ReconsentScreen
       activeDot={1}
-      buttonOnPress={() => NavigatorService.navigate('ReconsentDiseaseSummary')}
+      buttonOnPress={onNextClick}
+      // buttonOnPress={() => NavigatorService.navigate('ReconsentDiseaseSummary')}
       buttonTitle={i18n.t('navigation.next')}
     >
       <Text rhythm={24} textAlign="center" textClass="h2Light">

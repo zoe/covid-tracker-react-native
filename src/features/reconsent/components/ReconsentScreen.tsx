@@ -2,7 +2,7 @@ import { SafeLayout, Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
 import { FormWrapper } from '@covid/components/Forms';
 import ChevronLeft from '@covid/features/reconsent/components/ChevronLeft';
-import { IDiseasePreferencesData } from '@covid/features/reconsent/types';
+import { TDiseasePreferencesData } from '@covid/features/reconsent/types';
 import { styling, useTheme } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 type onNextClickedType = OnFormSubmitCallback | OnNextClickedCallback;
-type OnFormSubmitCallback = (arg1?: IDiseasePreferencesData) => void;
+type OnFormSubmitCallback = (arg1?: TDiseasePreferencesData) => void;
 type OnNextClickedCallback = () => void;
 
 const DOT_SIZE = 8;
@@ -31,10 +31,23 @@ const dots = Array(AMOUNT_DOTS)
   .fill(null)
   .map((_, i) => i);
 
+const initialFormValues = {
+  autoimmune_conditions: false,
+  cancer: false,
+  cardiovascular_diseases: false,
+  dementia: false,
+  joint_and_bone_diseases: false,
+  lung_diseases: false,
+  mental_health: false,
+  neurological_conditions: false,
+  skin_conditions: false,
+  vision_and_hearing_conditions: false,
+  womens_health: false,
+};
+
 export default function ReconsentScreen(props: IProps) {
   const navigation = useNavigation();
   const theme = useTheme();
-  // TODO: Do we need any validation?
 
   return (
     <SafeLayout style={styles.safeLayout}>
@@ -68,10 +81,10 @@ export default function ReconsentScreen(props: IProps) {
       <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
         <Formik
           validateOnChange
-          initialValues={{ cvd: false, diabetes: false }}
-          onSubmit={(formData: IDiseasePreferencesData) => props.buttonOnPress(formData)}
+          initialValues={initialFormValues}
+          onSubmit={(formData: TDiseasePreferencesData) => props.buttonOnPress(formData)}
         >
-          {(formProps: FormikProps<IDiseasePreferencesData>) => (
+          {(formProps: FormikProps<TDiseasePreferencesData>) => (
             <FormWrapper>
               {props.children}
               <BrandedButton enable onPress={formProps.handleSubmit} style={styles.button}>

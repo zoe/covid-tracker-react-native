@@ -35,10 +35,16 @@ export default function ReconsentRequestConsentScreen() {
     ));
   };
 
+  const onConfirmYes = (values) => {
+    console.log('hi');
+    console.log(values);
+    // NavigatorService.navigate('ReconsentNewsletterSignup');
+  };
+
   return (
     <ReconsentScreen
       activeDot={3}
-      buttonOnPress={() => NavigatorService.navigate('ReconsentNewsletterSignup')}
+      buttonOnPress={onConfirmYes}
       buttonTitle={i18n.t('reconsent.request-consent.consent-yes')}
       secondaryButtonOnPress={() => NavigatorService.navigate('ReconsentFeedback')}
       secondaryButtonTitle={i18n.t('reconsent.request-consent.consent-no')}

@@ -3,17 +3,16 @@ import IllustrationConfirmation from '@covid/features/reconsent/components/Illus
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import { TDiseasePreference } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
-import NavigatorService from '@covid/NavigatorService';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 // This is dummy, should be replaced in the future by dynamic global managed data.
 const diseases: TDiseasePreference[] = [
   {
-    name: 'joint-bone',
+    name: 'joint_and_bone_diseases',
   },
   {
-    name: 'mental-health',
+    name: 'mental_health',
   },
   {
     name: 'dementia',
@@ -33,10 +32,16 @@ export default function ReconsentDiseaseSummaryScreen() {
       `disease-cards.${diseases[1].name}.name`,
     )} & ${i18n.t('more')}`;
   }
+
+  const test = (values) => {
+    console.log('summary');
+    console.log(values);
+  };
   return (
     <ReconsentScreen
       activeDot={1}
-      buttonOnPress={() => NavigatorService.navigate('ReconsentRequestConsent')}
+      buttonOnPress={test}
+      // buttonOnPress={() => NavigatorService.navigate('ReconsentRequestConsent')}
       buttonTitle={i18n.t('reconsent.disease-summary.button')}
     >
       <Text textAlign="center" textClass="h2Light">
