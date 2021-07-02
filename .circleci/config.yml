@@ -178,7 +178,7 @@ commands:
     steps:
       - run: brew update
       - run: brew install watchman
-      - run: yarn add detox-cli
+      - run: npm i -g detox-cli
       - run: brew tap wix/brew
       - run: brew install applesimutils
 
@@ -259,16 +259,7 @@ jobs:
     steps:
       - build
       - prepare_e2e
-      #- run: yarn build:ios
-      # - run:
-      #     name: Force specific nodejs version
-      #     command: |
-      #       export NODE_VERSION=$(cat .nvmrc)
-      #       curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.1/install.sh | bash -s -- --no-use
-      #       echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
-      #       echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-      #       echo 'nvm install v10.2.0' >> $BASH_ENV
-      #       echo 'nvm alias default v10.2.0' >> $BASH_ENV
+      - run: yarn build:ios
       - run: detox build --configuration ios.release
       - run: detox test --configuration ios.release --cleanup
 
