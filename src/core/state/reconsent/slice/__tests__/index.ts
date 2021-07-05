@@ -1,24 +1,25 @@
-import { setDietStudyConsent } from '@covid/core/state/diet-study/slice';
+import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
 import store from '@covid/core/state/store';
 
-describe('\n** redux diet study state **\n', () => {
-  let state = store.getState().dietStudy;
-  it('should initially set consent to undefined', () => {
-    expect(state.consent).toBe(undefined);
+describe('\n** redux reconsent state **\n', () => {
+  let state = store.getState().reconsent;
+  it('should initially set disease preferences to empty object', () => {
+    expect(state).toEqual({});
   });
-  it('should be able to set consent to YES', () => {
-    store.dispatch(setDietStudyConsent('YES'));
-    state = store.getState().dietStudy;
-    expect(state.consent).toBe('YES');
+  it('should be able to set dementia to true', () => {
+    store.dispatch(updateDiseasePreferences({ dementia: true }));
+    state = store.getState().reconsent;
+    expect(state.dementia).toBe(true);
   });
-  it('should be able to set consent to NO', () => {
-    store.dispatch(setDietStudyConsent('NO'));
-    state = store.getState().dietStudy;
-    expect(state.consent).toBe('NO');
+  it('should be able to set mental health to true', () => {
+    store.dispatch(updateDiseasePreferences({ mental_health: true }));
+    state = store.getState().reconsent;
+    expect(state.mental_health).toBe(true);
   });
-  it('should be able to set consent to undefined', () => {
-    store.dispatch(setDietStudyConsent());
-    state = store.getState().dietStudy;
-    expect(state.consent).toBe(undefined);
+  it('should be able to set dementia to false', () => {
+    store.dispatch(updateDiseasePreferences({ dementia: false, mental_health: true }));
+    state = store.getState().reconsent;
+    expect(state.mental_health).toBe(true);
+    expect(state.dementia).toBe(false);
   });
 });
