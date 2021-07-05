@@ -1,7 +1,7 @@
 import { SafeLayout, Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
+import { TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
 import ChevronLeft from '@covid/features/reconsent/components/ChevronLeft';
-import { TDiseasePreferencesData } from '@covid/features/reconsent/types';
 import { styling, useTheme } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';

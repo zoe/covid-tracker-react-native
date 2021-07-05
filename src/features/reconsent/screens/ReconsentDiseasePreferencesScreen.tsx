@@ -1,15 +1,18 @@
 import { Brain } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
+import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
+import { TDisease, TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
 import DiseaseCard from '@covid/features/reconsent/components/DiseaseCard';
 import InfoBox from '@covid/features/reconsent/components/InfoBox';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
-import { TDisease, TDiseasePreference, TDiseasePreferencesData } from '@covid/features/reconsent/types';
+import { TDiseasePreference } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { grid } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 // TODO: Replace icons
 
@@ -67,11 +70,14 @@ export default function ReconsentDiseasePreferencesScreen() {
   const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
   const [diseasePreferences, setDiseasePreferences] = React.useState<TDiseasePreferencesData>({});
 
+  const dispatch = useDispatch();
+
   const toggleDisease = (disease: TDisease) => {
     setDiseasePreferences((prevState) => ({ ...prevState, [disease]: !prevState[disease] }));
   };
 
   const onNextClick = () => {
+    dispatch(updateDiseasePreferences(diseasePreferences));
     NavigatorService.navigate('ReconsentDiseaseSummary', { diseasePreferences });
   };
 

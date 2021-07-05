@@ -1,4 +1,7 @@
 import { Text } from '@covid/components';
+import { TDiseasePreferencesData } from '@covid/core/state/reconsent';
+import { saveDiseasePreferences } from '@covid/core/state/reconsent/slice';
+import { RootState } from '@covid/core/state/root';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -6,6 +9,7 @@ import { grid } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Callout = (props: { title: string; description: string }) => {
   return (
@@ -21,6 +25,9 @@ const Callout = (props: { title: string; description: string }) => {
 };
 
 export default function ReconsentRequestConsentScreen() {
+  const dispatch = useDispatch();
+  const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
+
   const onPrivacyPolicyPress = () => {
     NavigatorService.navigate('PrivacyPolicyUK', { viewOnly: true });
   };
@@ -35,9 +42,9 @@ export default function ReconsentRequestConsentScreen() {
     ));
   };
 
-  const onConfirmYes = (values) => {
-    console.log('hi');
-    console.log(values);
+  const onConfirmYes = () => {
+    console.log({ diseasePreferences });
+    dispatch(saveDiseasePreferences(diseasePreferences));
     // NavigatorService.navigate('ReconsentNewsletterSignup');
   };
 

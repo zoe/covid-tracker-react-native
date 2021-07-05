@@ -1,4 +1,5 @@
 import { Text } from '@covid/components';
+import { TDisease, TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
 import { ScreenParamList } from '@covid/features';
 import IllustrationConfirmation from '@covid/features/reconsent/components/IllustrationSummary';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
@@ -8,8 +9,6 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-
-import { TDisease, TDiseasePreferencesData } from '../types';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'ReconsentDiseaseSummary'>;
