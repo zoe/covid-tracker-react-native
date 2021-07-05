@@ -11,7 +11,8 @@ import { useSelector } from 'react-redux';
 
 export default function ReconsentDiseaseSummaryScreen() {
   const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
-  const diseasesChosen = Object.keys(diseasePreferences) as TDisease[];
+  const identifiers = Object.keys(diseasePreferences) as TDisease[];
+  const diseasesChosen = identifiers.filter((key: keyof TDiseasePreferencesData) => diseasePreferences[key] === true);
   const numberDiseases = diseasesChosen.length;
 
   let diseasesTitle = '';

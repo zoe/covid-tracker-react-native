@@ -68,11 +68,12 @@ const extendedDiseases: TDiseasePreference[] = [
 ];
 
 export default function ReconsentDiseasePreferencesScreen() {
-  const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
-  const [diseasePreferences, setDiseasePreferences] = React.useState<TDiseasePreferencesData>({});
-
   const dispatch = useDispatch();
   const diseasePreferencesPersisted = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
+
+  const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
+  const [diseasePreferences, setDiseasePreferences] =
+    React.useState<TDiseasePreferencesData>(diseasePreferencesPersisted);
 
   const toggleDisease = (disease: TDisease) => {
     setDiseasePreferences((prevState) => ({ ...prevState, [disease]: !prevState[disease] }));

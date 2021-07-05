@@ -37,7 +37,6 @@ const reconsentSlice = createSlice({
     updateDiseasePreferences: (state, action: PayloadAction<TDiseasePreferencesData>) => {
       console.log('redux set disease preferences:', action);
       return {
-        ...state,
         ...action.payload,
       };
     },
