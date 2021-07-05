@@ -3,7 +3,7 @@ import { Text } from '@covid/components';
 import DiseaseCard from '@covid/features/reconsent/components/DiseaseCard';
 import InfoBox from '@covid/features/reconsent/components/InfoBox';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
-import { TDiseasePreference } from '@covid/features/reconsent/types';
+import { TDisease, TDiseasePreference, TDiseasePreferencesData } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { grid } from '@covid/themes';
@@ -65,14 +65,23 @@ const extendedDiseases: TDiseasePreference[] = [
 
 export default function ReconsentDiseasePreferencesScreen() {
   const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
+  const [diseasePreferences, setDiseasePreferences] = React.useState<TDiseasePreferencesData>({});
+
+  const toggleDisease = (disease: TDisease) => {
+    setDiseasePreferences((prevState) => ({ ...prevState, [disease]: !prevState[disease] }));
+  };
+
+  const onNextClick = () => {
+    NavigatorService.navigate('ReconsentDiseaseSummary', { diseasePreferences });
+  };
 
   const renderItem = ({ item }: { item: TDiseasePreference }) => {
     return (
       <DiseaseCard
-        databaseField={item.name}
         description={i18n.t(`disease-cards.${item.name}.description`)}
         IconComponent={item.IconComponent}
         key={item.name}
+        onPressHandler={() => toggleDisease(item.name)}
         style={{ marginBottom: grid.xxl }}
         title={i18n.t(`disease-cards.${item.name}.name`)}
       />
@@ -86,12 +95,6 @@ export default function ReconsentDiseasePreferencesScreen() {
       </Text>
     </Pressable>
   );
-
-  const onNextClick = (values) => {
-    console.log('disease preferences on next click');
-    console.log(values);
-    NavigatorService.navigate('ReconsentDiseaseSummary', values);
-  };
 
   return (
     <ReconsentScreen

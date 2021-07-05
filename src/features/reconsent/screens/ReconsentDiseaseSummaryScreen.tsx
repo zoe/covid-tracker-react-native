@@ -6,7 +6,6 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useFormikContext } from 'formik';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -17,16 +16,8 @@ interface IProps {
   route: RouteProp<ScreenParamList, 'ReconsentDiseaseSummary'>;
 }
 
-// TODO: delete this Test component
-const Test = () => {
-  // this doesn't work - just gives us initial props because Formik is reloaded for each stack screen
-  const formik = useFormikContext();
-  console.log(formik.values);
-  return <Text>{formik.values.dementia}</Text>;
-};
-
 export default function ReconsentDiseaseSummaryScreen(props: IProps) {
-  const diseases: TDiseasePreferencesData = props.route.params || {};
+  const diseases: TDiseasePreferencesData = props.route.params.diseasePreferences || {};
   const diseasesChosen = Object.keys(diseases) as TDisease[];
   const numberDiseases = diseasesChosen.length;
 
@@ -59,7 +50,6 @@ export default function ReconsentDiseaseSummaryScreen(props: IProps) {
       <Text inverted colorPalette="actionSecondary" colorShade="main" textAlign="center" textClass="h2">
         {diseasesTitle}
       </Text>
-      <Test />
       <IllustrationConfirmation style={styles.illustration} />
     </ReconsentScreen>
   );

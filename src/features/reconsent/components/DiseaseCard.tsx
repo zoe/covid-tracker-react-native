@@ -1,8 +1,6 @@
 import { Text } from '@covid/components';
-import { TDisease } from '@covid/features/reconsent/types';
 import { grid } from '@covid/themes';
 import { colors } from '@theme/colors';
-import { useFormikContext } from 'formik';
 import * as React from 'react';
 import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
@@ -11,15 +9,14 @@ interface IProps {
   style?: StyleProp<ViewStyle>;
   IconComponent?: React.ComponentType<any>;
   title: string;
-  databaseField: TDisease;
+  onPressHandler: () => void;
 }
 
 export default function DiseaseCard(props: IProps) {
-  const formik = useFormikContext();
   const [active, setActive] = React.useState<boolean>(false);
   const onPress = async () => {
     setActive((currentState) => !currentState);
-    formik.setFieldValue(props.databaseField, !active, true);
+    props.onPressHandler();
   };
 
   // TODO: Can't get vertical align center on description

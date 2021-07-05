@@ -1,12 +1,10 @@
 import { SafeLayout, Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
-import { FormWrapper } from '@covid/components/Forms';
 import ChevronLeft from '@covid/features/reconsent/components/ChevronLeft';
 import { TDiseasePreferencesData } from '@covid/features/reconsent/types';
 import { styling, useTheme } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
-import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -64,23 +62,13 @@ export default function ReconsentScreen(props: IProps) {
         ) : null}
       </View>
       <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
-        <Formik
-          validateOnChange
-          initialValues={{}}
-          onSubmit={(formData: TDiseasePreferencesData) => props.buttonOnPress(formData)}
-        >
-          {(formProps: FormikProps<TDiseasePreferencesData>) => (
-            <FormWrapper>
-              {props.children}
-              <BrandedButton enable onPress={formProps.handleSubmit} style={styles.button}>
-                {props.buttonTitle}
-              </BrandedButton>
-              <Text onPress={props.secondaryButtonOnPress} style={styles.secondaryButton} textClass="pLight">
-                {props.secondaryButtonTitle}
-              </Text>
-            </FormWrapper>
-          )}
-        </Formik>
+        {props.children}
+        <BrandedButton enable onPress={props.buttonOnPress} style={styles.button}>
+          {props.buttonTitle}
+        </BrandedButton>
+        <Text onPress={props.secondaryButtonOnPress} style={styles.secondaryButton} textClass="pLight">
+          {props.secondaryButtonTitle}
+        </Text>
       </ScrollView>
     </SafeLayout>
   );
