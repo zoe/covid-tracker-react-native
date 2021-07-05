@@ -1,4 +1,7 @@
 import { Text } from '@covid/components';
+import { TDiseasePreferencesData } from '@covid/core/state/reconsent';
+import { saveDiseasePreferences } from '@covid/core/state/reconsent/slice';
+import { RootState } from '@covid/core/state/root';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -8,6 +11,7 @@ import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'ReconsentRequestConsent'>;
@@ -27,6 +31,9 @@ const Callout = (props: { title: string; description: string }) => {
 };
 
 export default function ReconsentRequestConsentScreen(props: IProps) {
+  const dispatch = useDispatch();
+  const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
+
   const onPrivacyPolicyPress = () => {
     NavigatorService.navigate('PrivacyPolicyUK', { viewOnly: true });
   };
@@ -41,10 +48,15 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
     ));
   };
 
+  const onConfirmYes = () => {
+    dispatch(saveDiseasePreferences(diseasePreferences));
+    NavigatorService.navigate('ReconsentNewsletterSignup');
+  };
+
   return (
     <ReconsentScreen
       activeDot={3}
-      buttonOnPress={() => NavigatorService.navigate('ReconsentNewsletterSignup')}
+      buttonOnPress={onConfirmYes}
       buttonTitle={i18n.t('reconsent.request-consent.consent-yes')}
       secondaryButtonOnPress={
         props.route.params?.secondTime ? undefined : () => NavigatorService.navigate('ReconsentFeedback')
