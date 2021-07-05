@@ -15,12 +15,10 @@ interface IProps {
 
 export default function DiseaseCard(props: IProps) {
   const [active, setActive] = React.useState<boolean>(props.initialStateIsActive);
-  const onPress = async () => {
+  const onPress = () => {
     setActive((currentState) => !currentState);
     props.onPressHandler();
   };
-
-  // TODO: Can't get vertical align center on description
 
   return (
     <View style={[styles.container, styles.shadow, active ? styles.activeCard : null, props.style]}>
