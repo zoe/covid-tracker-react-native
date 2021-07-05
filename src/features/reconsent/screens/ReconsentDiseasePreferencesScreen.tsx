@@ -71,7 +71,16 @@ export default function ReconsentDiseasePreferencesScreen() {
   const dispatch = useDispatch();
   const diseasePreferencesPersisted = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
 
-  const [showExtendedList, setShowExtendedList] = React.useState<boolean>(false);
+  const extendedListDiseaseNames: TDisease[] = extendedDiseases.map((item) => item.name);
+  const identifiers = Object.keys(diseasePreferencesPersisted) as TDisease[];
+
+  const initialStateShowExtendedList = identifiers
+    .filter((key) => extendedListDiseaseNames.includes(key))
+    .some((key) => diseasePreferencesPersisted[key] === true);
+
+  console.log(initialStateShowExtendedList);
+
+  const [showExtendedList, setShowExtendedList] = React.useState<boolean>(initialStateShowExtendedList);
   const [diseasePreferences, setDiseasePreferences] =
     React.useState<TDiseasePreferencesData>(diseasePreferencesPersisted);
 
@@ -81,7 +90,7 @@ export default function ReconsentDiseasePreferencesScreen() {
 
   const onNextClick = () => {
     dispatch(updateDiseasePreferences(diseasePreferences));
-    NavigatorService.navigate('ReconsentDiseaseSummary', { diseasePreferences });
+    NavigatorService.navigate('ReconsentDiseaseSummary');
   };
 
   const renderItem = ({ item }: { item: TDiseasePreference }) => {
@@ -107,12 +116,7 @@ export default function ReconsentDiseasePreferencesScreen() {
   );
 
   return (
-    <ReconsentScreen
-      activeDot={1}
-      buttonOnPress={onNextClick}
-      // buttonOnPress={() => NavigatorService.navigate('ReconsentDiseaseSummary')}
-      buttonTitle={i18n.t('navigation.next')}
-    >
+    <ReconsentScreen activeDot={1} buttonOnPress={onNextClick} buttonTitle={i18n.t('navigation.next')}>
       <Text rhythm={24} textAlign="center" textClass="h2Light">
         {i18n.t('reconsent.disease-preferences.title')}
       </Text>
