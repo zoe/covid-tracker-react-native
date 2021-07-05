@@ -1,38 +1,37 @@
 import { Text } from '@covid/components';
+import { TDisease, TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
+import { RootState } from '@covid/core/state/root';
 import IllustrationConfirmation from '@covid/features/reconsent/components/IllustrationSummary';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
-import { TDiseasePreference } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-
-// This is dummy, should be replaced in the future by dynamic global managed data.
-const diseases: TDiseasePreference[] = [
-  {
-    name: 'joint-bone',
-  },
-  {
-    name: 'mental-health',
-  },
-  {
-    name: 'dementia',
-  },
-];
+import { useSelector } from 'react-redux';
 
 export default function ReconsentDiseaseSummaryScreen() {
+  const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
+  const identifiers = Object.keys(diseasePreferences) as TDisease[];
+  const diseasesChosen = identifiers.filter((key: keyof TDiseasePreferencesData) => diseasePreferences[key] === true);
+  const numberDiseases = diseasesChosen.length;
+
   let diseasesTitle = '';
-  if (diseases.length === 1) {
-    diseasesTitle = i18n.t(`disease-cards.${diseases[0].name}.name`);
-  } else if (diseases.length === 2) {
-    diseasesTitle = `${i18n.t(`disease-cards.${diseases[0].name}.name`)} & ${i18n.t(
-      `disease-cards.${diseases[1].name}.name`,
+  // TODO: Copy in the event of no choices being made
+
+  if (numberDiseases === 0) {
+    diseasesTitle = 'Sol to provide';
+  } else if (numberDiseases === 1) {
+    diseasesTitle = i18n.t(`disease-cards.${diseasesChosen[0]}.name`);
+  } else if (numberDiseases === 2) {
+    diseasesTitle = `${i18n.t(`disease-cards.${diseasesChosen[0]}.name`)} & ${i18n.t(
+      `disease-cards.${diseasesChosen[1]}.name`,
     )}`;
-  } else if (diseases.length > 2) {
-    diseasesTitle = `${i18n.t(`disease-cards.${diseases[0].name}.name`)}, ${i18n.t(
-      `disease-cards.${diseases[1].name}.name`,
+  } else if (numberDiseases > 2) {
+    diseasesTitle = `${i18n.t(`disease-cards.${diseasesChosen[0]}.name`)}, ${i18n.t(
+      `disease-cards.${diseasesChosen[1]}.name`,
     )} & ${i18n.t('more')}`;
   }
+
   return (
     <ReconsentScreen
       activeDot={2}

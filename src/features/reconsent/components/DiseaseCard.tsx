@@ -5,28 +5,26 @@ import * as React from 'react';
 import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {
-  name: string;
-  IconComponent?: React.ComponentType<any>;
   description: string;
-  onPressHandler: () => void;
   style?: StyleProp<ViewStyle>;
+  IconComponent?: React.ComponentType<any>;
+  title: string;
+  onPressHandler: () => void;
+  initialStateIsActive: boolean;
 }
 
 export default function DiseaseCard(props: IProps) {
-  const [active, setActive] = React.useState<boolean>(false);
+  const [active, setActive] = React.useState<boolean>(props.initialStateIsActive);
   const onPress = () => {
     setActive((currentState) => !currentState);
     props.onPressHandler();
   };
 
-  // TODO: Can't get vertical align center on description
-  // TODO: Do we use the lighter font? Go by font name or typography name in Figma?
-
   return (
     <View style={[styles.container, styles.shadow, active ? styles.activeCard : null, props.style]}>
       <Pressable
         accessible
-        accessibilityLabel={`Select ${props.name}`}
+        accessibilityLabel={`Select ${props.title}`}
         accessibilityRole="checkbox"
         onPress={onPress}
         style={styles.pressable}
@@ -34,7 +32,7 @@ export default function DiseaseCard(props: IProps) {
         {props.IconComponent ? <props.IconComponent color={active ? colors.white : colors.darkblue} /> : null}
         <View style={styles.textSection}>
           <Text rhythm={2} style={[styles.name, active ? styles.activeName : null]} textClass="pSmallMedium">
-            {props.name}
+            {props.title}
           </Text>
           <Text
             style={[styles.description, active ? styles.activeDescription : styles.inactiveDescription]}
