@@ -31,7 +31,7 @@ import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playbac
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import NavigatorService from '@covid/NavigatorService';
-import { assessmentService } from '@covid/Services';
+import { assessmentService } from '@covid/services';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;

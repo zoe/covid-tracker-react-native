@@ -61,7 +61,7 @@ function ResetPasswordForm({
       </View>
 
       <View>
-        <BrandedButton enable={values.email.length > 0 && isValid && !errors.email} onPress={handleSubmit}>
+        <BrandedButton enabled={values.email.length > 0 && isValid && !errors.email} onPress={handleSubmit}>
           {i18n.t('reset-password.button')}
         </BrandedButton>
       </View>

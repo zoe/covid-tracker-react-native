@@ -5,9 +5,9 @@ import { ActivityIndicator, StyleProp, StyleSheet, Text, TextStyle, TouchableOpa
 
 interface IProps extends ITest {
   children: React.ReactNode;
-  enable?: boolean;
+  enabled?: boolean;
   loading?: boolean;
-  onPress: () => void;
+  onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   testID?: string;
@@ -19,9 +19,9 @@ export default function BrandedButton(props: IProps) {
       accessible
       accessibilityRole="button"
       activeOpacity={0.6}
-      disabled={props.enable === false}
-      onPress={props.enable === false ? undefined : props.onPress}
-      style={[props.enable === false ? styles.buttonDisabled : styles.button, props.style]}
+      disabled={props.enabled === false}
+      onPress={props.enabled === false ? undefined : props.onPress}
+      style={[props.enabled === false ? styles.buttonDisabled : styles.button, props.style]}
       testID={props.testID ?? 'button-test-ID'}
     >
       {props.loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}

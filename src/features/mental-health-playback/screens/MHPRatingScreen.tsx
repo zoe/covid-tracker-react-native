@@ -4,7 +4,7 @@ import Card from '@covid/components/cards/Card';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { mentalHealthApiClient } from '@covid/Services';
+import { mentalHealthApiClient } from '@covid/services';
 import { grid, styling } from '@covid/themes';
 import lodash from 'lodash';
 import * as React from 'react';

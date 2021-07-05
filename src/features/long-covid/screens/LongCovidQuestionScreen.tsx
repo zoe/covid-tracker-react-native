@@ -16,7 +16,7 @@ import { ILongCovid } from '@covid/features/long-covid/types';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { longCovidApiClient } from '@covid/Services';
+import { longCovidApiClient } from '@covid/services';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import { Formik, FormikProps } from 'formik';
@@ -296,7 +296,7 @@ export default function LongCovidQuestionScreen({ route }: IProps) {
                   {renderExtendedForm(props)}
                   <View style={{ marginVertical: 64 }}>
                     <BrandedButton
-                      enable={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
+                      enabled={props.values.had_covid !== null && Object.keys(props.errors).length < 1}
                       onPress={() => handleSubmit(props.values)}
                       testID="button-submit"
                     >

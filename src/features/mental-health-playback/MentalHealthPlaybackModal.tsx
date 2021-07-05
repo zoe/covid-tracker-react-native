@@ -6,7 +6,7 @@ import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
-import { generalApiClient } from '@covid/Services';
+import { generalApiClient } from '@covid/services';
 import { colors, styling } from '@covid/themes';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';

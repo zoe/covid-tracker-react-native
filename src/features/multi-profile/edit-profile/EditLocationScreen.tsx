@@ -183,7 +183,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                   {i18n.t('edit-profile.location.disclaimer')}
                 </SecondaryText>
                 <ErrorText>{errorMessage}</ErrorText>
-                <BrandedButton enable={props.isValid} loading={props.isSubmitting} onPress={props.handleSubmit}>
+                <BrandedButton enabled={props.isValid} loading={props.isSubmitting} onPress={props.handleSubmit}>
                   {i18n.t('edit-profile.done')}
                 </BrandedButton>
               </View>

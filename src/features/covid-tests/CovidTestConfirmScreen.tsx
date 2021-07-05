@@ -59,7 +59,7 @@ export default function CovidTestConfirmScreen({ navigation, route }: IProps) {
         </CheckboxItem>
       </ListItem>
 
-      <BrandedButton enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="confirm">
+      <BrandedButton enabled={agreed} onPress={handleAgreeClicked} style={styles.button} testID="confirm">
         {i18n.t('legal.confirm')}
       </BrandedButton>
     </Screen>

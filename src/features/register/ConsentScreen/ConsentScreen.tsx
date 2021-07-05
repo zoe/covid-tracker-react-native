@@ -57,7 +57,7 @@ const ConsentScreen: React.FC<PropsType> = (props) => {
     <View style={styles.rootContainer}>
       {renderConsent()}
       {!props.route.params?.viewOnly ? (
-        <BrandedButton enable={agreed} onPress={handleAgreeClicked} style={styles.button} testID="button-agree">
+        <BrandedButton enabled={agreed} onPress={handleAgreeClicked} style={styles.button} testID="button-agree">
           {i18n.t('legal.i-agree')}
         </BrandedButton>
       ) : null}

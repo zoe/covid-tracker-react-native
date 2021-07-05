@@ -1656,6 +1656,11 @@
       "show-more": "+ Show more",
       "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
     },
+    "feedback": {
+      "button": "Next",
+      "subtitle": "Select as many as you like",
+      "title": "We'd love to know why this didn't feel right for you"
+    },
     "introduction": {
       "button": "Next",
       "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",

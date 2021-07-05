@@ -10,7 +10,7 @@ import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordina
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
+import { assessmentService } from '@covid/services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
@@ -222,7 +222,7 @@ export default class HealthWorkerExposureScreen extends React.Component<HealthWo
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
 
-                <BrandedButton enable={props.isValid} onPress={props.handleSubmit}>
+                <BrandedButton enabled={props.isValid} onPress={props.handleSubmit}>
                   {i18n.t('next-question')}
                 </BrandedButton>
               </FormWrapper>

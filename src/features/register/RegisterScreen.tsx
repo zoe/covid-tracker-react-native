@@ -227,7 +227,7 @@ class RegisterScreen extends React.Component<PropsType, State> {
                     ) : null}
                     <View>
                       <BrandedButton
-                        enable={this.state.enableSubmit}
+                        enabled={this.state.enableSubmit}
                         loading={props.isSubmitting}
                         onPress={props.handleSubmit}
                         testID="button-submit"

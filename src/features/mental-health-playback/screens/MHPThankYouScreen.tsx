@@ -27,7 +27,7 @@ export default function MHPThankYouScreen() {
             {i18n.t('mental-health-playback.thank-you.description')}
           </Text>
         </View>
-        <BrandedButton enable onPress={onPress} style={styles.button}>
+        <BrandedButton enabled onPress={onPress} style={styles.button}>
           {i18n.t('mental-health-playback.thank-you.button')}
         </BrandedButton>
       </View>

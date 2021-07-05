@@ -9,7 +9,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { ConsentType, ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { offlineService } from '@covid/Services';
+import { offlineService } from '@covid/services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
@@ -125,7 +125,7 @@ export default class ConsentForOtherScreen extends React.Component<RenderProps, 
         <ErrorText>{this.state.errorMessage}</ErrorText>
 
         <BrandedButton
-          enable={this.state.consentChecked}
+          enabled={this.state.consentChecked}
           onPress={this.handleCreatePatient}
           testID="button-create-profile"
         >

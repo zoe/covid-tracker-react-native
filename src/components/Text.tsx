@@ -8,7 +8,7 @@ interface IClickableTextProps extends ITest {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
-  enable?: boolean;
+  enabled?: boolean;
   hideLoading?: boolean;
 }
 
