@@ -44,7 +44,7 @@ export default function ReconsentIntroductionScreen() {
       <Text
         inverted
         colorPalette="uiDark"
-        colorShade="main"
+        colorShade="darker"
         style={styles.sidenote}
         textAlign="center"
         textClass="h5Light"

@@ -47,6 +47,8 @@ const headerConfig = {
   expanded: HEADER_EXPANDED_HEIGHT,
 };
 
+let userNeedsToReconsent = true;
+
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
@@ -117,13 +119,13 @@ export function DashboardScreen({ navigation, route }: IProps) {
   }, []);
 
   React.useEffect(() => {
-    const userNeedsToReconsent = true;
     if (userNeedsToReconsent) {
+      userNeedsToReconsent = false;
       setTimeout(() => {
         appCoordinator.goToReconsent();
       }, 500);
     }
-  });
+  }, []);
 
   return (
     <CollapsibleHeaderScrollView

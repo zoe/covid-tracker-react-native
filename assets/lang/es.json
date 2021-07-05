@@ -1665,7 +1665,7 @@
 
   "reconsent": {
     "disease-summary": {
-      "button": "next",
+      "button": "Next",
       "title": "We’ll invite you to answer additional questions occasionally and send you insights about"
     },
     "disease-preferences": {
@@ -1679,6 +1679,13 @@
       "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",
       "sidenote": "This study has ethical approval from King's College London",
       "title": "Help us fight major diseases beyond COVID-19"
+    },
+    "reconsider": {
+      "description-1": "We'll continue to use your data to fight COVID-19 only",
+      "description-2": "Please keep reporting your health as usual",
+      "button-positive": "I'd like to reconsider",
+      "button-negative": "Close",
+      "title": "Thank you!"
     },
     "newsletter-signup": {
       "button": "Close",

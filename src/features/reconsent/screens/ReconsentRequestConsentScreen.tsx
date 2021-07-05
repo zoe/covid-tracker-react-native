@@ -1,12 +1,17 @@
 import { Text } from '@covid/components';
-import ReconsentHeader from '@covid/features/reconsent/components/ReconsentHeader';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { grid } from '@covid/themes';
+import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
+
+interface IProps {
+  route: RouteProp<ScreenParamList, 'ReconsentRequestConsent'>;
+}
 
 const Callout = (props: { title: string; description: string }) => {
   return (
@@ -21,7 +26,7 @@ const Callout = (props: { title: string; description: string }) => {
   );
 };
 
-export default function ReconsentRequestConsentScreen() {
+export default function ReconsentRequestConsentScreen(props: IProps) {
   const onPrivacyPolicyPress = () => {
     NavigatorService.navigate('PrivacyPolicyUK', { viewOnly: true });
   };
@@ -38,12 +43,14 @@ export default function ReconsentRequestConsentScreen() {
 
   return (
     <ReconsentScreen
+      activeDot={3}
       buttonOnPress={() => NavigatorService.navigate('ReconsentNewsletterSignup')}
       buttonTitle={i18n.t('reconsent.request-consent.consent-yes')}
-      secondaryButtonOnPress={() => NavigatorService.navigate('ReconsentFeedback')}
-      secondaryButtonTitle={i18n.t('reconsent.request-consent.consent-no')}
+      secondaryButtonOnPress={
+        props.route.params?.secondTime ? undefined : () => NavigatorService.navigate('ReconsentFeedback')
+      }
+      secondaryButtonTitle={props.route.params?.secondTime ? undefined : i18n.t('reconsent.request-consent.consent-no')}
     >
-      <ReconsentHeader showBackIcon showDots />
       <Text rhythm={16} style={styles.center} textClass="h2Light">
         {i18n.t('reconsent.request-consent.title')}
       </Text>
