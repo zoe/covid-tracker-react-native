@@ -69,7 +69,9 @@ const extendedDiseases: TDiseasePreference[] = [
 
 export default function ReconsentDiseasePreferencesScreen() {
   const dispatch = useDispatch();
-  const diseasePreferencesPersisted = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
+  const diseasePreferencesPersisted = useSelector<RootState, TDiseasePreferencesData>(
+    (state) => state.reconsent.diseasePreferences,
+  );
 
   const extendedListDiseaseNames: TDisease[] = extendedDiseases.map((item) => item.name);
   const identifiers = Object.keys(diseasePreferencesPersisted) as TDisease[];

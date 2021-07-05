@@ -21,7 +21,7 @@ import {
   mentalHealthSupportSlice,
 } from './mental-health';
 import { IMentalHealthPlayback, mentalHealthPlaybackSlice } from './mental-health-playback';
-import { reconsentSlice, TDiseasePreferencesData } from './reconsent';
+import { IReconsent, reconsentSlice } from './reconsent';
 import { ISettings, settingsSlice } from './settings';
 import { IUser, userSlice } from './user';
 import { IVaccineState, vaccinesSlice } from './vaccines';
@@ -38,7 +38,7 @@ export type RootState = {
   mentalHealthPlayback: IMentalHealthPlayback;
   mentalHealthState: IMentalHealthState;
   mentalHealthSupport: IMentalHealthSupport;
-  reconsent: TDiseasePreferencesData;
+  reconsent: IReconsent;
   school: SchoolState;
   settings: ISettings;
   user: IUser;
