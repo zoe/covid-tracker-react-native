@@ -78,8 +78,6 @@ export default function ReconsentDiseasePreferencesScreen() {
     .filter((key) => extendedListDiseaseNames.includes(key))
     .some((key) => diseasePreferencesPersisted[key] === true);
 
-  console.log(initialStateShowExtendedList);
-
   const [showExtendedList, setShowExtendedList] = React.useState<boolean>(initialStateShowExtendedList);
   const [diseasePreferences, setDiseasePreferences] =
     React.useState<TDiseasePreferencesData>(diseasePreferencesPersisted);

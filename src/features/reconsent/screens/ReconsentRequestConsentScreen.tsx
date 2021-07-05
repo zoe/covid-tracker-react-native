@@ -3,13 +3,19 @@ import { TDiseasePreferencesData } from '@covid/core/state/reconsent';
 import { saveDiseasePreferences } from '@covid/core/state/reconsent/slice';
 import { RootState } from '@covid/core/state/root';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { grid } from '@covid/themes';
+import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+interface IProps {
+  route: RouteProp<ScreenParamList, 'ReconsentRequestConsent'>;
+}
 
 const Callout = (props: { title: string; description: string }) => {
   return (
@@ -24,7 +30,7 @@ const Callout = (props: { title: string; description: string }) => {
   );
 };
 
-export default function ReconsentRequestConsentScreen() {
+export default function ReconsentRequestConsentScreen(props: IProps) {
   const dispatch = useDispatch();
   const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
 
@@ -43,9 +49,8 @@ export default function ReconsentRequestConsentScreen() {
   };
 
   const onConfirmYes = () => {
-    console.log({ diseasePreferences });
     dispatch(saveDiseasePreferences(diseasePreferences));
-    // NavigatorService.navigate('ReconsentNewsletterSignup');
+    NavigatorService.navigate('ReconsentNewsletterSignup');
   };
 
   return (
@@ -53,8 +58,10 @@ export default function ReconsentRequestConsentScreen() {
       activeDot={3}
       buttonOnPress={onConfirmYes}
       buttonTitle={i18n.t('reconsent.request-consent.consent-yes')}
-      secondaryButtonOnPress={() => NavigatorService.navigate('ReconsentFeedback')}
-      secondaryButtonTitle={i18n.t('reconsent.request-consent.consent-no')}
+      secondaryButtonOnPress={
+        props.route.params?.secondTime ? undefined : () => NavigatorService.navigate('ReconsentFeedback')
+      }
+      secondaryButtonTitle={props.route.params?.secondTime ? undefined : i18n.t('reconsent.request-consent.consent-no')}
     >
       <Text rhythm={16} style={styles.center} textClass="h2Light">
         {i18n.t('reconsent.request-consent.title')}

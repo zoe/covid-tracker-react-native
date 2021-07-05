@@ -34,7 +34,7 @@ export default function ReconsentDiseaseSummaryScreen() {
 
   return (
     <ReconsentScreen
-      activeDot={1}
+      activeDot={2}
       buttonOnPress={() => NavigatorService.navigate('ReconsentRequestConsent')}
       buttonTitle={i18n.t('reconsent.disease-summary.button')}
     >

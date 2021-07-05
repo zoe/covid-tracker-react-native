@@ -1664,7 +1664,7 @@
 
   "reconsent": {
     "disease-summary": {
-      "button": "next",
+      "button": "Next",
       "title": "We’ll invite you to answer additional questions occasionally and send you insights about"
     },
     "disease-preferences": {
@@ -1678,6 +1678,24 @@
       "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",
       "sidenote": "This study has ethical approval from King's College London",
       "title": "Help us fight major diseases beyond COVID-19"
+    },
+    "reconsider": {
+      "description-1": "We'll continue to use your data to fight COVID-19 only",
+      "description-2": "Please keep reporting your health as usual",
+      "button-positive": "I'd like to reconsider",
+      "button-negative": "Close",
+      "title": "Thank you!"
+    },
+    "newsletter-signup": {
+      "button": "Close",
+      "card-button-no": "Opt-out of email updates",
+      "card-button-yes": "Yes, sign me up",
+      "card-description": "You can opt-out at any time, and will only receive science updates.",
+      "card-message": "Great, keep an eye on your inbox!",
+      "card-title": "Get ZOE's latest science direct to your inbox",
+      "description-1": "Your preferences have been saved and we’ll update you soon.",
+      "description-2": "You don’t need to do anything yet, just keep reporting as usual.",
+      "title": "Thank you!"
     },
     "request-consent": {
       "title": "Are you in?",

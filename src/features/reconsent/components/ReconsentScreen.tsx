@@ -1,8 +1,7 @@
 import { SafeLayout, Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
-import { TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
 import ChevronLeft from '@covid/features/reconsent/components/ChevronLeft';
-import { styling, useTheme } from '@covid/themes';
+import { grid } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
@@ -11,16 +10,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface IProps {
   activeDot?: number;
-  buttonTitle: string;
-  buttonOnPress: onNextClickedType;
+  buttonOnPress?: () => void;
+  buttonTitle?: string;
   children?: React.ReactNode;
-  secondaryButtonTitle?: string;
   secondaryButtonOnPress?: () => void;
+  secondaryButtonTitle?: string;
 }
-
-type onNextClickedType = OnFormSubmitCallback | OnNextClickedCallback;
-type OnFormSubmitCallback = (arg1?: TDiseasePreferencesData) => void;
-type OnNextClickedCallback = () => void;
 
 const DOT_SIZE = 8;
 const AMOUNT_DOTS = 3;
@@ -38,7 +33,6 @@ const hitSlop = {
 
 export default function ReconsentScreen(props: IProps) {
   const navigation = useNavigation();
-  const theme = useTheme();
 
   return (
     <SafeLayout style={styles.safeLayout}>
@@ -61,14 +55,19 @@ export default function ReconsentScreen(props: IProps) {
           </View>
         ) : null}
       </View>
-      <ScrollView contentContainerStyle={styling.flexGrow} style={{ paddingHorizontal: theme.grid.gutter }}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         {props.children}
-        <BrandedButton enable onPress={props.buttonOnPress} style={styles.button}>
-          {props.buttonTitle}
-        </BrandedButton>
-        <Text onPress={props.secondaryButtonOnPress} style={styles.secondaryButton} textClass="pLight">
-          {props.secondaryButtonTitle}
-        </Text>
+
+        {props.buttonOnPress && props.buttonTitle ? (
+          <BrandedButton enable onPress={props.buttonOnPress} style={styles.button}>
+            {props.buttonTitle}
+          </BrandedButton>
+        ) : null}
+        {props.secondaryButtonOnPress && props.secondaryButtonTitle ? (
+          <Text onPress={props.secondaryButtonOnPress} style={styles.secondaryButton} textClass="pLight">
+            {props.secondaryButtonTitle}
+          </Text>
+        ) : null}
       </ScrollView>
     </SafeLayout>
   );
@@ -84,6 +83,10 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.purple,
     marginTop: 'auto',
+  },
+  contentContainer: {
+    flexGrow: 1,
+    padding: 16,
   },
   dotActive: {
     ...dotStyle,
@@ -115,8 +118,8 @@ const styles = StyleSheet.create({
   },
   secondaryButton: {
     color: colors.secondary,
-    marginTop: 32,
-    paddingHorizontal: 4,
+    marginTop: grid.xxxl,
+    paddingHorizontal: grid.xs,
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
