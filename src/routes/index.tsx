@@ -30,7 +30,7 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.AboutYourVaccineScreen} name="AboutYourVaccine" options={noHeader} />
       <Stack.Screen component={screens.AdultOrChildScreen} name="AdultOrChild" options={noHeader} />
       <Stack.Screen component={screens.ArchiveReasonScreen} name="ArchiveReason" options={noHeader} />
-      <Stack.Screen component={screens.BeforeWeStartUS} name="BeforeWeStartUS" options={noHeader} />
+      <Stack.Screen component={screens.BeforeWeStartUSScreen} name="BeforeWeStartUS" options={noHeader} />
       <Stack.Screen component={screens.ConfirmSchoolScreen} name="ConfirmSchool" options={noHeader} />
       <Stack.Screen component={screens.ConsentScreen} name="Consent" options={simpleHeader} />
       <Stack.Screen component={screens.ConsentForOtherScreen} name="ConsentForOther" options={noHeader} />

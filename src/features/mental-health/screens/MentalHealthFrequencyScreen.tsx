@@ -16,7 +16,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-function MentalHealthFrequency() {
+export default function MentalHealthFrequencyScreen() {
   const [canSubmit, setCanSubmit] = React.useState(false);
   const [curQuestion, setCurQuestion] = React.useState(0);
   const MentalHealthFrequency = useSelector(selectMentalHealthFrequency);
@@ -88,5 +88,3 @@ function MentalHealthFrequency() {
     </BasicPage>
   );
 }
-
-export default MentalHealthFrequency;

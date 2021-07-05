@@ -1,1 +1,1 @@
-export { default as Anniversary } from './Anniversary';
+export { default as AnniversaryScreen } from './AnniversaryScreen';

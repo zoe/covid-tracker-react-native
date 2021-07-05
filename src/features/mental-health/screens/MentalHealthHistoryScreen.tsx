@@ -20,7 +20,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function MentalHealthHistory() {
+export default function MentalHealthHistoryScreen() {
   const MentalHealthHistory = useSelector(selectMentalHealthHistory);
   const [canSubmit, setCanSubmit] = React.useState(false);
   const dispatch = useDispatch();

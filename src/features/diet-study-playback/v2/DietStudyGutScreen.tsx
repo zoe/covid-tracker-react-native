@@ -8,7 +8,7 @@ import { styling } from '@covid/themes';
 import * as React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
-function DietStudyGut() {
+export default function DietStudyGutScreen() {
   const { dietScore } = dietStudyPlaybackCoordinator;
   const beforeScore = dietScore ? dietScore?.pre_gut_friendly_score : 0;
   const duringScore = dietScore ? dietScore.post_gut_friendly_score : 0;
@@ -82,5 +82,3 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-export default DietStudyGut;
