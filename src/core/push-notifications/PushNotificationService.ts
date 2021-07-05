@@ -2,7 +2,6 @@ import Analytics from '@covid/core/Analytics';
 import { IStorageService } from '@covid/core/LocalStorageService';
 import { pushNotificationApiClient } from '@covid/core/push-notifications/PushNotificationApiClient';
 import { isDateBefore, now, yesterday } from '@covid/utils/datetime';
-import { isAndroid } from '@covid/utils/platform';
 import * as IntentLauncher from 'expo-intent-launcher';
 import { Linking, Platform } from 'react-native';
 
@@ -17,14 +16,10 @@ export interface IPushTokenEnvironment {
   getPushToken(): Promise<string | null>;
 }
 
-const getPlatform = () => {
-  return isAndroid ? PLATFORM_ANDROID : PLATFORM_IOS;
-};
-
 const createTokenDoc = (token: string): PushToken => {
   return {
     lastUpdated: now(),
-    platform: getPlatform(),
+    platform: Platform.OS === 'android' ? PLATFORM_ANDROID : PLATFORM_IOS,
     token,
   };
 };

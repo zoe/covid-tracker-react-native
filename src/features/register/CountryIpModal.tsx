@@ -6,7 +6,6 @@ import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { localisationService } from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { isAndroid } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as React from 'react';
@@ -74,10 +73,6 @@ export default React.memo(function CountryIpModal({ navigation, isModalVisible, 
     { label: i18n.t('united-kingdom'), value: CountryCode.GB },
     { label: i18n.t('sweden'), value: CountryCode.SV },
   ];
-
-  if (isAndroid) {
-    items.unshift({ label: i18n.t('label-chose-an-option'), value: CountryCode.NONE });
-  }
 
   return (
     <Modal transparent animationType="fade" visible={isModalVisible}>
