@@ -452,7 +452,7 @@ export default class YourWorkScreen extends React.Component<YourWorkProps, State
                   ) : null}
 
                   <BrandedButton
-                    enable={this.checkFormFilled(props)}
+                    enabled={this.checkFormFilled(props)}
                     loading={props.isSubmitting}
                     onPress={handleSubmit}
                     testID="button-submit"

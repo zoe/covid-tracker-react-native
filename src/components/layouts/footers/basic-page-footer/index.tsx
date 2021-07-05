@@ -21,7 +21,7 @@ function BasicPageFooter(props: IProps) {
         paddingHorizontal: props.paddingHorizontal ?? theme.grid.gutter,
       }}
     >
-      <BrandedButton enable={props.active} loading={props.loading} onPress={props.onPress} testID="button-footer">
+      <BrandedButton enabled={props.active} loading={props.loading} onPress={props.onPress} testID="button-footer">
         {props.title}
       </BrandedButton>
     </View>

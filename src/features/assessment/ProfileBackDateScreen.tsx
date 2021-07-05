@@ -262,7 +262,7 @@ export default class ProfileBackDateScreen extends React.Component<BackDateProps
                   <ValidationError error={i18n.t('validation-error-text')} />
                 ) : null}
 
-                <BrandedButton enable={!props.isSubmitting} onPress={props.handleSubmit}>
+                <BrandedButton enabled={!props.isSubmitting} onPress={props.handleSubmit}>
                   {i18n.t('update-profile')}
                 </BrandedButton>
               </Form>

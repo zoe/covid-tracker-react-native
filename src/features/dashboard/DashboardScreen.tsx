@@ -19,7 +19,7 @@ import { appCoordinator } from '@covid/features/AppCoordinator';
 import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { pushNotificationService } from '@covid/Services';
+import { pushNotificationService } from '@covid/services';
 import { colors, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { DrawerNavigationProp } from '@react-navigation/drawer';

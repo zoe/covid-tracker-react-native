@@ -9,7 +9,7 @@ import {
   ThroatChestSymptomsQuestions,
 } from '@covid/features/assessment/fields/ThroatChestSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
+import { assessmentService } from '@covid/services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikHelpers } from 'formik';
@@ -61,7 +61,7 @@ export const ThroatChestSymptomsScreen: React.FC<Props> = ({ route, navigation }
 
               <View style={{ flex: 1 }} />
               <BrandedButton
-                enable={!props.isSubmitting}
+                enabled={!props.isSubmitting}
                 loading={props.isSubmitting}
                 onPress={props.handleSubmit}
                 testID="button-submit"

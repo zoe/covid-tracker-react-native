@@ -111,7 +111,7 @@ function LoginScreen({ route }: IProps) {
         </Item>
 
         <BrandedButton
-          enable={isValid && !loading}
+          enabled={isValid && !loading}
           loading={loading}
           onPress={handleLogin}
           style={styles.button}

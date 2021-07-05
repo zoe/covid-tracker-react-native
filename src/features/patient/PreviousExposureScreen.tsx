@@ -295,7 +295,7 @@ export default class PreviousExposureScreen extends React.Component<HealthProps,
                   ) : null}
                 </View>
 
-                <BrandedButton enable={props.isValid} onPress={props.handleSubmit} testID="button-submit">
+                <BrandedButton enabled={props.isValid} onPress={props.handleSubmit} testID="button-submit">
                   {i18n.t('next-question')}
                 </BrandedButton>
               </FormWrapper>

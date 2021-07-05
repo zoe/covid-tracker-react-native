@@ -6,7 +6,7 @@ import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordina
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
+import { assessmentService } from '@covid/services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';

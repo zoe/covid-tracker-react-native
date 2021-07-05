@@ -6,7 +6,7 @@ import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordina
 import { ScreenParamList } from '@covid/features';
 import { OtherSymptomsData, OtherSymptomsQuestions } from '@covid/features/assessment/fields/OtherSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
+import { assessmentService } from '@covid/services';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikHelpers } from 'formik';
@@ -58,7 +58,7 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
 
               <View style={{ flex: 1 }} />
               <BrandedButton
-                enable={!props.isSubmitting}
+                enabled={!props.isSubmitting}
                 loading={props.isSubmitting}
                 onPress={props.handleSubmit}
                 testID="button-submit"

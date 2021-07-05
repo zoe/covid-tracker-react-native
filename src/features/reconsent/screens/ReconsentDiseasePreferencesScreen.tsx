@@ -97,7 +97,7 @@ export default function ReconsentDiseasePreferencesScreen() {
       <Text rhythm={24} textAlign="center" textClass="h2Light">
         {i18n.t('reconsent.disease-preferences.title')}
       </Text>
-      <Text rhythm={16} style={styles.subtitle} textAlign="center" textClass="pLight">
+      <Text inverted colorPalette="uiDark" colorShade="dark" rhythm={16} textAlign="center" textClass="pLight">
         {i18n.t('reconsent.disease-preferences.subtitle')}
       </Text>
       <FlatList
@@ -131,8 +131,5 @@ const styles = StyleSheet.create({
     marginTop: grid.m,
     textAlign: 'center',
     textDecorationLine: 'underline',
-  },
-  subtitle: {
-    color: colors.secondary,
   },
 });

@@ -14,7 +14,7 @@ import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/Collapsib
 import { CompactHeader, Header } from '@covid/features/dashboard/Header';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { pushNotificationService } from '@covid/Services';
+import { pushNotificationService } from '@covid/services';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import * as React from 'react';
