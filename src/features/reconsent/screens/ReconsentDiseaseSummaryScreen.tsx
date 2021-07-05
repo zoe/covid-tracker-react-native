@@ -1,23 +1,17 @@
 import { Text } from '@covid/components';
 import { TDisease, TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
-import { ScreenParamList } from '@covid/features';
+import { RootState } from '@covid/core/state/root';
 import IllustrationConfirmation from '@covid/features/reconsent/components/IllustrationSummary';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
-interface IProps {
-  navigation: StackNavigationProp<ScreenParamList, 'ReconsentDiseaseSummary'>;
-  route: RouteProp<ScreenParamList, 'ReconsentDiseaseSummary'>;
-}
-
-export default function ReconsentDiseaseSummaryScreen(props: IProps) {
-  const diseases: TDiseasePreferencesData = props.route.params.diseasePreferences || {};
-  const diseasesChosen = Object.keys(diseases) as TDisease[];
+export default function ReconsentDiseaseSummaryScreen() {
+  const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
+  const diseasesChosen = Object.keys(diseasePreferences) as TDisease[];
   const numberDiseases = diseasesChosen.length;
 
   let diseasesTitle = '';

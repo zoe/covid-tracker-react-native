@@ -10,10 +10,11 @@ interface IProps {
   IconComponent?: React.ComponentType<any>;
   title: string;
   onPressHandler: () => void;
+  initialStateIsActive: boolean;
 }
 
 export default function DiseaseCard(props: IProps) {
-  const [active, setActive] = React.useState<boolean>(false);
+  const [active, setActive] = React.useState<boolean>(props.initialStateIsActive);
   const onPress = async () => {
     setActive((currentState) => !currentState);
     props.onPressHandler();

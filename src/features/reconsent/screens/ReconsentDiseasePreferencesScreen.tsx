@@ -2,6 +2,7 @@ import { Brain } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
 import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
 import { TDisease, TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
+import { RootState } from '@covid/core/state/root';
 import DiseaseCard from '@covid/features/reconsent/components/DiseaseCard';
 import InfoBox from '@covid/features/reconsent/components/InfoBox';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
@@ -12,7 +13,7 @@ import { grid } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
 import { FlatList, Pressable, StyleSheet, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // TODO: Replace icons
 
@@ -71,6 +72,7 @@ export default function ReconsentDiseasePreferencesScreen() {
   const [diseasePreferences, setDiseasePreferences] = React.useState<TDiseasePreferencesData>({});
 
   const dispatch = useDispatch();
+  const diseasePreferencesPersisted = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
 
   const toggleDisease = (disease: TDisease) => {
     setDiseasePreferences((prevState) => ({ ...prevState, [disease]: !prevState[disease] }));
@@ -86,6 +88,7 @@ export default function ReconsentDiseasePreferencesScreen() {
       <DiseaseCard
         description={i18n.t(`disease-cards.${item.name}.description`)}
         IconComponent={item.IconComponent}
+        initialStateIsActive={diseasePreferencesPersisted[item.name] || false}
         key={item.name}
         onPressHandler={() => toggleDisease(item.name)}
         style={{ marginBottom: grid.xxl }}

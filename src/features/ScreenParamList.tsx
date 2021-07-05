@@ -4,8 +4,6 @@ import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/School
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
-import { TDiseasePreferencesData } from './reconsent/types';
-
 export enum ConsentType {
   Adult = 'adult',
   Child = 'child',
@@ -121,7 +119,7 @@ export type ScreenParamList = {
   // Reconsent
   ReconsentIntroduction: undefined;
   ReconsentDiseasePreferences: undefined;
-  ReconsentDiseaseSummary: { diseasePreferences: TDiseasePreferencesData };
+  ReconsentDiseaseSummary: undefined;
   ReconsentRequestConsent: undefined;
   ReconsentFeedback: undefined;
   ReconsentReconsider: undefined;
