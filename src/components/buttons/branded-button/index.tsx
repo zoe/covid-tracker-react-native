@@ -7,7 +7,7 @@ interface IProps extends ITest {
   children: React.ReactNode;
   enable?: boolean;
   loading?: boolean;
-  onPress?: () => void;
+  onPress: () => void;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   testID?: string;

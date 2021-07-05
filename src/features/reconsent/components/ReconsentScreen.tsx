@@ -58,12 +58,12 @@ export default function ReconsentScreen(props: IProps) {
       </View>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         {props.children}
-        {props.buttonOnPress || props.buttonTitle ? (
+        {props.buttonOnPress && props.buttonTitle ? (
           <BrandedButton enable onPress={props.buttonOnPress} style={styles.button}>
             {props.buttonTitle}
           </BrandedButton>
         ) : null}
-        {props.secondaryButtonOnPress || props.secondaryButtonTitle ? (
+        {props.secondaryButtonOnPress && props.secondaryButtonTitle ? (
           <Text onPress={props.secondaryButtonOnPress} style={styles.secondaryButton} textClass="pLight">
             {props.secondaryButtonTitle}
           </Text>
