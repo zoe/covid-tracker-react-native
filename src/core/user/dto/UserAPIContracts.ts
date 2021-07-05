@@ -258,6 +258,19 @@ export type PatientInfosRequest = {
   should_ask_vaccine_questions: boolean;
   vaccine_status: VaccineStatus;
   should_ask_long_covid_questions: boolean;
+
+  // Reconsent
+  dementia: boolean;
+  cardiovascular_diseases: boolean;
+  cancer: boolean;
+  joint_and_bone_diseases: boolean;
+  mental_health: boolean;
+  womens_health: boolean;
+  vision_and_hearing_conditions: boolean;
+  autoimmune_conditions: boolean;
+  skin_conditions: boolean;
+  lung_diseases: boolean;
+  neurological_conditions: boolean;
 };
 
 export enum VaccineStatus {
