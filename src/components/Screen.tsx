@@ -1,3 +1,4 @@
+import { ScreenName } from '@covid/core/Coordinator';
 import { Profile } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -15,11 +16,9 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import PatientHeader, { CallOutType, NavHeader } from './PatientHeader';
-import { RegularText } from './Text';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
 export const screenHeight = Math.round(Dimensions.get('window').height);
@@ -50,14 +49,10 @@ export const FieldWrapper = (props: FieldWrapperType) => {
   return <View style={[styles.fieldWrapper, props.style]}>{props.children}</View>;
 };
 
-/*
- * A component to wrap all screens in a common wrapper.
- * For permanent page fixtures
- */
-export type ScreenProps = {
+type TProps = {
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
-  navigation?: StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
+  navigation?: StackNavigationProp<ScreenParamList, ScreenName>;
   profile?: Profile;
   simpleCallout?: boolean;
   calloutType?: CallOutType;
@@ -69,114 +64,97 @@ export type ScreenProps = {
   testID?: string;
 };
 
-export default class Screen extends React.Component<ScreenProps> {
-  screenWidth: number = screenWidth;
-
-  screenHeight: number = screenHeight;
-
-  render() {
-    const { profile } = this.props;
-    const scrollEnabled = this.props.scrollEnabled === undefined ? true : this.props.scrollEnabled;
-    const renderHeader = () => {
-      if (profile && this.props.navigation) {
-        return (
-          <PatientHeader
-            calloutTitle={this.props.calloutTitle}
-            navigation={this.props.navigation}
-            profile={profile}
-            showCloseButton={this.props.showCloseButton}
-            simpleCallout={this.props.simpleCallout}
-            type={this.props.calloutType}
-          />
-        );
-      }
-      if (profile && !this.props.navigation) {
-        return (
-          <PatientHeader
-            calloutTitle={this.props.calloutTitle}
-            profile={profile}
-            showCloseButton={this.props.showCloseButton}
-            simpleCallout={this.props.simpleCallout}
-            type={this.props.calloutType}
-          />
-        );
-      }
-      if (this.props.navigation && this.props.showBackButton) {
-        return <NavHeader navigation={this.props.navigation} showCloseButton={this.props.showCloseButton} />;
-      }
-      if (this.props.navigation && this.props.showCloseButton) {
-        return <NavHeader navigation={this.props.navigation} showCloseButton={this.props.showCloseButton} />;
-      }
-      if (this.props.extendEdges) {
-        return <View />;
-      }
-      return <View style={styles.statusBarBlock} />;
-    };
-
+function renderHeader(props: TProps) {
+  if (props.profile && props.navigation) {
     return (
-      <SafeAreaView style={[styles.screen, this.props.style]} testID={this.props.testID}>
-        {renderHeader()}
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-          {!scrollEnabled ? <View style={styles.pageBlock}>{this.props.children}</View> : null}
-          {scrollEnabled ? (
-            <ScrollView
-              contentContainerStyle={{
-                flexGrow: 1,
-                justifyContent: 'space-between',
-              }}
-              testID={`scroll-view-${this.props.testID || 'screen'}`}
-            >
-              {this.props.extendEdges ? (
-                <View style={styles.pageBlockExtendedEdges}>{this.props.children}</View>
-              ) : (
-                <View style={styles.pageBlock}>{this.props.children}</View>
-              )}
-            </ScrollView>
-          ) : null}
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+      <PatientHeader
+        calloutTitle={props.calloutTitle}
+        navigation={props.navigation}
+        profile={props.profile}
+        showCloseButton={props.showCloseButton}
+        simpleCallout={props.simpleCallout}
+        type={props.calloutType}
+      />
     );
   }
+  if (props.profile && !props.navigation) {
+    return (
+      <PatientHeader
+        calloutTitle={props.calloutTitle}
+        profile={props.profile}
+        showCloseButton={props.showCloseButton}
+        simpleCallout={props.simpleCallout}
+        type={props.calloutType}
+      />
+    );
+  }
+  if (props.navigation && props.showBackButton) {
+    return <NavHeader navigation={props.navigation} showCloseButton={props.showCloseButton} />;
+  }
+  if (props.navigation && props.showCloseButton) {
+    return <NavHeader navigation={props.navigation} showCloseButton={props.showCloseButton} />;
+  }
+  if (props.extendEdges) {
+    return <View />;
+  }
+  return <View style={styles.statusBarBlock} />;
 }
 
-export const StickyBottomButton: React.FC<{
-  label: string;
-  onPress: VoidFunction;
-}> = ({ label, onPress }) => (
-  <TouchableOpacity onPress={onPress} style={{ marginBottom: 64 }}>
-    <RegularText style={[{ textAlign: 'center' }]}>{label}</RegularText>
-  </TouchableOpacity>
-);
+export default function Screen(props: TProps) {
+  const scrollEnabled = props.scrollEnabled === undefined ? true : props.scrollEnabled;
+
+  return (
+    <SafeAreaView style={[styles.screen, props.style]} testID={props.testID}>
+      {renderHeader(props)}
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
+        {!scrollEnabled ? <View style={styles.pageBlock}>{props.children}</View> : null}
+        {scrollEnabled ? (
+          <ScrollView
+            contentContainerStyle={styles.contentContainer}
+            testID={`scroll-view-${props.testID || 'screen'}`}
+          >
+            {props.extendEdges ? (
+              <View style={styles.pageBlockExtendedEdges}>{props.children}</View>
+            ) : (
+              <View style={styles.pageBlock}>{props.children}</View>
+            )}
+          </ScrollView>
+        ) : null}
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
+  },
   fieldWrapper: {
     marginVertical: 16,
   },
-
+  flex: {
+    flex: 1,
+  },
   headerBlock: {
     marginHorizontal: 16,
     marginVertical: 16,
   },
-
   pageBlock: {
     flexGrow: 1,
     marginBottom: 16,
     marginHorizontal: 16,
   },
-
   pageBlockExtendedEdges: {
     marginHorizontal: 0,
   },
-
   progressBlock: {
     marginHorizontal: 16,
   },
-
   screen: {
     backgroundColor: colors.backgroundPrimary,
     flex: 1,
   },
-
   statusBarBlock: {
     marginVertical: 32,
   },

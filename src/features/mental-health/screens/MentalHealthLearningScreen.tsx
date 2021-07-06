@@ -20,7 +20,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-function MentalHealthLearning() {
+export default function MentalHealthLearningScreen() {
   const MentalHealthLearning = useSelector(selectMentalHealthLearning);
   const [canSubmit, setCanSubmit] = React.useState(false);
   const dispatch = useDispatch();
@@ -120,5 +120,3 @@ function MentalHealthLearning() {
     </BasicPage>
   );
 }
-
-export default MentalHealthLearning;

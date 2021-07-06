@@ -1,5 +1,5 @@
 import { Coordinator, IUpdatePatient, ScreenFlow } from '@covid/core/Coordinator';
-import { homeScreenName, isGBCountry, localisationService } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, localisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -19,31 +19,8 @@ export class EditProfileCoordinator extends Coordinator implements IUpdatePatien
     EditLocation: () => {
       NavigatorService.goBack();
     },
-    NHSDetails: () => {
-      NavigatorService.reset(
-        [
-          { name: homeScreenName(), params: {} },
-          {
-            name: 'SelectProfile',
-            params: {
-              assessmentFlow: false,
-              patientData: this.patientData,
-            },
-          },
-          { name: 'EditProfile', params: { patientData: this.patientData } },
-        ],
-        2,
-      );
-    },
-    NHSIntro: () => {
-      NavigatorService.navigate('NHSDetails', { editing: true });
-    },
     YourStudy: () => {
-      if (this.patientData.patientState.isNHSStudy) {
-        NavigatorService.navigate('NHSIntro', { editing: true });
-      } else {
-        NavigatorService.goBack();
-      }
+      NavigatorService.goBack();
     },
   };
 

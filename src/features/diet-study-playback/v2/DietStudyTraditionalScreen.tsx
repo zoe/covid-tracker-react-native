@@ -6,7 +6,7 @@ import { styling } from '@covid/themes';
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
 
-function DietStudyTraditional() {
+export default function DietStudyTraditionalScreen() {
   const { dietScore } = dietStudyPlaybackCoordinator;
   const beforeScore = dietScore ? dietScore?.pre_diet_score : 5;
   const duringScore = dietScore ? dietScore.post_diet_score : 5;
@@ -39,5 +39,3 @@ function DietStudyTraditional() {
     </SafeLayout>
   );
 }
-
-export default DietStudyTraditional;

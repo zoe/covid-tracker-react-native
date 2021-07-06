@@ -2,20 +2,23 @@ import { BrandedButton, HeaderText, ModalZoe, Text } from '@covid/components';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
-import { getPlatformStoreLinkDeep } from '@covid/utils/platform';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'VersionUpdateModal'>;
 }
 
-export default function VersionUpdateModal({ navigation }: IProps) {
-  const goToAppStore = () => {
-    openWebLink(getPlatformStoreLinkDeep);
-  };
+function goToStore() {
+  openWebLink(
+    Platform.OS === 'android'
+      ? 'market://details?id=com.joinzoe.covid_zoe'
+      : 'itms-apps://apps.apple.com/id/app/covid-symptom-study/id1503529611',
+  );
+}
 
+export default function VersionUpdateModal({ navigation }: IProps) {
   React.useEffect(() => {
     return navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
@@ -24,10 +27,10 @@ export default function VersionUpdateModal({ navigation }: IProps) {
   }, [navigation]);
 
   return (
-    <ModalZoe showModal closeModalHandler={goToAppStore}>
+    <ModalZoe showModal closeModalHandler={goToStore}>
       <HeaderText style={styles.text}>{i18n.t('version-update.title')}</HeaderText>
       <Text style={styles.text}>{i18n.t('version-update.body')}</Text>
-      <BrandedButton onPress={goToAppStore} style={styles.button}>
+      <BrandedButton onPress={goToStore} style={styles.button}>
         {i18n.t('version-update.cta')}
       </BrandedButton>
     </ModalZoe>

@@ -1,5 +1,5 @@
 import { ActionCard, BasicNavHeader, BasicProfile, Link, SafeLayout, SpeechCard, Text } from '@covid/components';
-import { ScreenParamList } from '@covid/features';
+import { ScreenName } from '@covid/core/Coordinator';
 import { DietStudyActionCard } from '@covid/features/diet-study-playback/components';
 import { getDietStudyInfoUrl } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
@@ -9,9 +9,8 @@ import { openWebLink } from '@covid/utils/links';
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
 
-function DietStudy() {
-  type route = keyof ScreenParamList;
-  const routes: route[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
+export default function DietStudyScreen() {
+  const routes: ScreenName[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
 
   return (
@@ -80,5 +79,3 @@ function DietStudy() {
     </SafeLayout>
   );
 }
-
-export default DietStudy;

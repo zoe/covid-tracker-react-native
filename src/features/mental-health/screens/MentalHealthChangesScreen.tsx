@@ -28,7 +28,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-function MentalHealthChanges() {
+export default function MentalHealthChangesScreen() {
   const user: IUser = useSelector(selectUser);
   const [canSubmit, setCanSubmit] = React.useState(false);
   const [curQuestion, setCurQuestion] = React.useState(0);
@@ -166,5 +166,3 @@ function MentalHealthChanges() {
     </BasicPage>
   );
 }
-
-export default MentalHealthChanges;

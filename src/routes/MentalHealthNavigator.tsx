@@ -16,12 +16,12 @@ const noHeader = {
 export default function MentalHealthNavigator({ Stack }: IProps) {
   return (
     <>
-      <Stack.Screen component={screens.MentalHealthChanges} name="MentalHealthChanges" options={noHeader} />
-      <Stack.Screen component={screens.MentalHealthFrequency} name="MentalHealthFrequency" options={noHeader} />
-      <Stack.Screen component={screens.MentalHealthHistory} name="MentalHealthHistory" options={noHeader} />
-      <Stack.Screen component={screens.MentalHealthSupport} name="MentalHealthSupport" options={noHeader} />
-      <Stack.Screen component={screens.MentalHealthLearning} name="MentalHealthLearning" options={noHeader} />
-      <Stack.Screen component={screens.MentalHealthEnd} name="MentalHealthEnd" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthChangesScreen} name="MentalHealthChanges" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthFrequencyScreen} name="MentalHealthFrequency" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthHistoryScreen} name="MentalHealthHistory" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthSupportScreen} name="MentalHealthSupport" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthLearningScreen} name="MentalHealthLearning" options={noHeader} />
+      <Stack.Screen component={screens.MentalHealthEndScreen} name="MentalHealthEnd" options={noHeader} />
     </>
   );
 }

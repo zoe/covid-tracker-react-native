@@ -58,7 +58,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     }
     setIsSubmitting(true);
     if (
-      startupInfo.show_long_covid &&
+      startupInfo?.show_long_covid &&
       healthy &&
       assessmentCoordinator.assessmentData?.patientData?.patientInfo?.should_ask_long_covid_questions
     ) {
