@@ -14,3 +14,7 @@ export type TDisease =
 export type TDiseasePreferencesData = {
   [key in TDisease]?: boolean;
 };
+
+export interface IReconsent {
+  diseasePreferences: TDiseasePreferencesData;
+}

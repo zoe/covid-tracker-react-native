@@ -1,6 +1,7 @@
 import { Text } from '@covid/components';
+import { ErrorText } from '@covid/components/Text';
+import { patientService } from '@covid/core/patient/PatientService';
 import { TDiseasePreferencesData } from '@covid/core/state/reconsent';
-import { saveDiseasePreferences } from '@covid/core/state/reconsent/slice';
 import { RootState } from '@covid/core/state/root';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -11,7 +12,7 @@ import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 interface IProps {
   route: RouteProp<ScreenParamList, 'ReconsentRequestConsent'>;
@@ -31,8 +32,12 @@ const Callout = (props: { title: string; description: string }) => {
 };
 
 export default function ReconsentRequestConsentScreen(props: IProps) {
-  const dispatch = useDispatch();
-  const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>((state) => state.reconsent);
+  const [error, setError] = React.useState<string | null>(null);
+  const patientId = useSelector<RootState, string>((state) => state.user.patients[0]);
+
+  const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>(
+    (state) => state.reconsent.diseasePreferences,
+  );
 
   const onPrivacyPolicyPress = () => {
     NavigatorService.navigate('PrivacyPolicyUK', { viewOnly: true });
@@ -48,9 +53,13 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
     ));
   };
 
-  const onConfirmYes = () => {
-    dispatch(saveDiseasePreferences(diseasePreferences));
-    NavigatorService.navigate('ReconsentNewsletterSignup');
+  const onConfirmYes = async () => {
+    try {
+      await patientService.updatePatientInfo(patientId, diseasePreferences);
+      NavigatorService.navigate('ReconsentNewsletterSignup');
+    } catch {
+      setError(i18n.t('something-went-wrong'));
+    }
   };
 
   return (
@@ -74,6 +83,7 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
         {i18n.t('reconsent.request-consent.learn-more')}{' '}
       </Text>
       <View style={styles.hr} />
+      {error ? <ErrorText style={{ marginBottom: 8, textAlign: 'center' }}>{error}</ErrorText> : null}
     </ReconsentScreen>
   );
 }
