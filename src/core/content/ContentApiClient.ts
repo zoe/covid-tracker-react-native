@@ -8,6 +8,7 @@ export interface IContentApiClient {
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   getFeaturedContent(): Promise<FeaturedContentResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
+  signUpForDiseaseResearchNewsletter(signup: boolean): Promise<void>;
 }
 
 const apiClient = new ApiClient();
@@ -29,6 +30,13 @@ export class ContentApiClient implements IContentApiClient {
   signUpForDietNewsletter(signup: boolean): Promise<void> {
     const infos = {
       nutrition_newsletter: signup,
+    };
+    return apiClient.patch(`/users/email_preference/`, infos);
+  }
+
+  signUpForDiseaseResearchNewsletter(signup: boolean): Promise<void> {
+    const infos = {
+      disease_research_newsletter: signup,
     };
     return apiClient.patch(`/users/email_preference/`, infos);
   }

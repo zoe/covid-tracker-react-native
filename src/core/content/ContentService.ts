@@ -21,6 +21,7 @@ export interface IContentService {
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   getFeaturedContent(): Promise<FeaturedContentResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
+  signUpForDiseaseResearchNewsletter(signup: boolean): Promise<void>;
 }
 
 export default class ContentService implements IContentService {
@@ -126,6 +127,10 @@ export default class ContentService implements IContentService {
 
   public signUpForDietNewsletter(signup: boolean): Promise<void> {
     return contentApiClient.signUpForDietNewsletter(signup);
+  }
+
+  public signUpForDiseaseResearchNewsletter(signup: boolean): Promise<void> {
+    return contentApiClient.signUpForDiseaseResearchNewsletter(signup);
   }
 }
 
