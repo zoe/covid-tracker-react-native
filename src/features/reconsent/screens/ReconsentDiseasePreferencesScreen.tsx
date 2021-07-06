@@ -20,50 +20,50 @@ import { useDispatch, useSelector } from 'react-redux';
 const initialDiseases: TDiseasePreference[] = [
   {
     IconComponent: Brain,
-    name: 'dementia',
+    name: 'research_consent_dementia',
   },
   {
     IconComponent: Brain,
-    name: 'cardiovascular_diseases',
+    name: 'research_consent_cardiovascular_diseases',
   },
   {
     IconComponent: Brain,
-    name: 'cancer',
+    name: 'research_consent_cancer',
   },
   {
     IconComponent: Brain,
-    name: 'joint_and_bone_diseases',
+    name: 'research_consent_joint_and_bone_diseases',
   },
   {
     IconComponent: Brain,
-    name: 'mental_health',
+    name: 'research_consent_mental_health',
   },
 ];
 
 const extendedDiseases: TDiseasePreference[] = [
   {
     IconComponent: Brain,
-    name: 'womens_health',
+    name: 'research_consent_womens_health',
   },
   {
     IconComponent: Brain,
-    name: 'vision_and_hearing_conditions',
+    name: 'research_consent_vision_and_hearing_conditions',
   },
   {
     IconComponent: Brain,
-    name: 'autoimmune_conditions',
+    name: 'research_consent_autoimmune_conditions',
   },
   {
     IconComponent: Brain,
-    name: 'skin_conditions',
+    name: 'research_consent_skin_conditions',
   },
   {
     IconComponent: Brain,
-    name: 'lung_diseases',
+    name: 'research_consent_lung_diseases',
   },
   {
     IconComponent: Brain,
-    name: 'neurological_conditions',
+    name: 'research_consent_neurological_conditions',
   },
 ];
 

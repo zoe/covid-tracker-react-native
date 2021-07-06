@@ -260,17 +260,17 @@ export type PatientInfosRequest = {
   should_ask_long_covid_questions: boolean;
 
   // Reconsent
-  dementia: boolean;
-  cardiovascular_diseases: boolean;
-  cancer: boolean;
-  joint_and_bone_diseases: boolean;
-  mental_health: boolean;
-  womens_health: boolean;
-  vision_and_hearing_conditions: boolean;
-  autoimmune_conditions: boolean;
-  skin_conditions: boolean;
-  lung_diseases: boolean;
-  neurological_conditions: boolean;
+  research_consent_dementia: boolean;
+  research_consent_cardiovascular_diseases: boolean;
+  research_consent_cancer: boolean;
+  research_consent_joint_and_bone_diseases: boolean;
+  research_consent_mental_health: boolean;
+  research_consent_womens_health: boolean;
+  research_consent_vision_and_hearing_conditions: boolean;
+  research_consent_autoimmune_conditions: boolean;
+  research_consent_skin_conditions: boolean;
+  research_consent_lung_diseases: boolean;
+  research_consent_neurological_conditions: boolean;
 };
 
 export enum VaccineStatus {
