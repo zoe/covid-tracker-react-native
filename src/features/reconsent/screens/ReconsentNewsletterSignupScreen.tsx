@@ -1,5 +1,6 @@
-import { BrandedButton, Text } from '@covid/components';
+import { BrandedButton, ErrorText, Text } from '@covid/components';
 import Card from '@covid/components/cards/Card';
+import { contentService } from '@covid/core/content/ContentService';
 import IllustrationSignup from '@covid/features/reconsent/components/IllustrationSignup';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import Tick from '@covid/features/reconsent/components/Tick';
@@ -17,11 +18,17 @@ const hitSlop = {
 };
 
 export default function ReconsentNewsletterSignupScreen() {
-  const [loading, setLoading] = React.useState(false);
-  const [signedUp, setSignedUp] = React.useState(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [signedUp, setSignedUp] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<string | null>(null);
 
-  function toggleNewsletterSignup() {
-    setSignedUp(!signedUp);
+  async function toggleNewsletterSignup() {
+    try {
+      await contentService.signUpForDiseaseResearchNewsletter(signedUp);
+      setSignedUp((prevState) => !prevState);
+    } catch {
+      setError(i18n.t('something-went-wrong'));
+    }
   }
 
   return (
@@ -47,6 +54,7 @@ export default function ReconsentNewsletterSignupScreen() {
         <Text rhythm={24} textClass="pLight">
           {i18n.t('reconsent.newsletter-signup.card-description')}
         </Text>
+        {error ? <ErrorText style={{ marginBottom: 8, textAlign: 'center' }}>{error}</ErrorText> : null}
         {signedUp ? (
           <>
             <View style={styles.messageWrapper}>
