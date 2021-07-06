@@ -1,6 +1,6 @@
-export { default as MentalHealthChanges } from './MentalHealthChanges';
-export { default as MentalHealthEnd } from './MentalHealthEnd';
-export { default as MentalHealthFrequency } from './MentalHealthFrequency';
-export { default as MentalHealthHistory } from './MentalHealthHistory';
-export { default as MentalHealthLearning } from './MentalHealthLearning';
-export { default as MentalHealthSupport } from './MentalHealthSupport';
+export { default as MentalHealthChangesScreen } from './MentalHealthChangesScreen';
+export { default as MentalHealthEndScreen } from './MentalHealthEndScreen';
+export { default as MentalHealthFrequencyScreen } from './MentalHealthFrequencyScreen';
+export { default as MentalHealthHistoryScreen } from './MentalHealthHistoryScreen';
+export { default as MentalHealthLearningScreen } from './MentalHealthLearningScreen';
+export { default as MentalHealthSupportScreen } from './MentalHealthSupportScreen';

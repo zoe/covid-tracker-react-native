@@ -1,4 +1,4 @@
-export { default as DietStudy } from './DietStudy';
-export { default as DietStudyGlobal } from './DietStudyGlobal';
-export { default as DietStudyGut } from './DietStudyGut';
-export { default as DietStudyTraditional } from './DietStudyTraditional';
+export { default as DietStudyScreen } from './DietStudyScreen';
+export { default as DietStudyGlobalScreen } from './DietStudyGlobalScreen';
+export { default as DietStudyGutScreen } from './DietStudyGutScreen';
+export { default as DietStudyTraditionalScreen } from './DietStudyTraditionalScreen';

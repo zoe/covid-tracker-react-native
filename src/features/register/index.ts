@@ -3,7 +3,7 @@ export { OptionalInfoScreen } from './OptionalInfoScreen';
 export { PrivacyPolicyUKScreen } from './gb/PrivacyPolicyUKScreen';
 export { default as RegisterScreen } from './RegisterScreen';
 export { default as PrivacyPolicySVScreen } from './sv/PrivacyPolicySVScreen';
-export { default as BeforeWeStartUS } from './us/BeforeWeStartUS';
+export { default as BeforeWeStartUSScreen } from './us/BeforeWeStartUSScreen';
 export { NursesConsentUSScreen } from './us/NursesConsentUS';
 export { PrivacyPolicyUSScreen } from './us/PrivacyPolicyUSScreen';
 export { default as TermsOfUseUSScreen } from './us/TermsOfUseUSScreen';

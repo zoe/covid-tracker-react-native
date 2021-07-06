@@ -5,6 +5,7 @@ module.exports = {
     '^@covid/(.*)$': '<rootDir>/src/$1',
   },
   preset: 'jest-expo',
+  reporters: ['default', 'jest-junit'],
   setupFiles: ['dotenv/config', './node_modules/reflect-metadata/Reflect.js'],
   transform: {
     '^.+\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
@@ -15,5 +16,4 @@ module.exports = {
     '@sentry/.*',
     'sentry-expo',
   ],
-  reporters: ['default', 'jest-junit'],
 };

@@ -3,10 +3,9 @@ import { BrandedButton } from '@covid/components/buttons';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
-import { isAndroid } from '@covid/utils/platform';
 import { colors } from '@theme';
 import * as React from 'react';
-import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
+import { Image, Platform, Share, ShareAction, StyleSheet, View } from 'react-native';
 
 export interface ICommonShareProps {
   onSharePress?: VoidFunction;
@@ -21,7 +20,11 @@ interface IProps {
 
 const extractSharedOn = (shareAction: ShareAction): string | null => {
   if (shareAction.action === Share.sharedAction) {
-    return isAndroid ? 'Android: no data' : shareAction.activityType ? shareAction.activityType : 'unknown';
+    return Platform.OS === 'android'
+      ? 'Android: no data'
+      : shareAction.activityType
+      ? shareAction.activityType
+      : 'unknown';
   }
 
   if (shareAction.action === Share.dismissedAction) {
@@ -46,7 +49,7 @@ export const shareApp = async (message: string) => {
 };
 
 export const share = async (prefix: string) => {
-  const message = prefix + (isAndroid ? ` ${shareUrl()}` : ''); // On Android add link to end of message
+  const message = prefix + (Platform.OS === 'android' ? ` ${shareUrl()}` : ''); // On Android add link to end of message
   shareApp(message);
 };
 

@@ -1,20 +1,20 @@
 {
-  "testRunner": "jest",
-  "runnerConfig": "e2e/config.json",
   "configurations": {
-    "ios.sim.release": {
-      "binaryPath": "./build/covid-zoe Debug.app",
-      "build": "fastlane ios build env:stage",
-      "type": "ios.simulator",
-      "device": {
-        "type": "iPhone 11"
-      }
-    },
     "ios.release": {
       "binaryPath": "./ios/build/Build/Products/Release-iphonesimulator/covid-zoe Stage.app",
       "build": "xcodebuild -workspace ios/Covid.xcworkspace -configuration release -scheme 'Covid Release' -sdk iphonesimulator -derivedDataPath ios/build",
-      "type": "ios.simulator",
-      "name": "iPhone X"
-   }
-  }
+      "name": "iPhone X",
+      "type": "ios.simulator"
+    },
+    "ios.sim.release": {
+      "binaryPath": "./build/covid-zoe Debug.app",
+      "build": "fastlane ios build env:stage",
+      "device": {
+        "type": "iPhone 11"
+      },
+      "type": "ios.simulator"
+    }
+  },
+  "runnerConfig": "e2e/config.json",
+  "testRunner": "jest"
 }

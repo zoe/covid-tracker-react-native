@@ -2,15 +2,15 @@ import { BasicPage, CheckBoxButton, GenericSelectableList, Text } from '@covid/c
 import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import {
-  addHistoryCondition,
-  removeHistoryCondition,
-  selectMentalHealthHistory,
-  setHasHistoryDiagnosis,
-  setHistoryOtherText,
-  THasDiagnosis,
-  TMentalHealthCondition,
+  addLearningCondition,
+  removeLearningCondition,
+  selectMentalHealthLearning,
+  setHasLearningDisability,
+  setLearningOtherText,
+  THasDisability,
+  TMentalHealthLearning,
 } from '@covid/core/state/mental-health';
-import { initialOptions, questions, TQuestion } from '@covid/features/mental-health/data';
+import { learningInitialOptions, learningQuestions, TLearningQuestion } from '@covid/features/mental-health/data';
 import { MentalHealthInfosRequest } from '@covid/features/mental-health/MentalHealthInfosRequest';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -20,29 +20,29 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function MentalHealthHistory() {
-  const MentalHealthHistory = useSelector(selectMentalHealthHistory);
+export default function MentalHealthLearningScreen() {
+  const MentalHealthLearning = useSelector(selectMentalHealthLearning);
   const [canSubmit, setCanSubmit] = React.useState(false);
   const dispatch = useDispatch();
   const { grid } = useTheme();
 
-  const handleSetHasHistoryDiagnosis = (value: THasDiagnosis) => {
-    dispatch(setHasHistoryDiagnosis(value));
+  const handleSetHasLearningDisability = (value: THasDisability) => {
+    dispatch(setHasLearningDisability(value));
   };
 
-  const getHasExistingCondition = (condition: TMentalHealthCondition) =>
-    Object.values(MentalHealthHistory.conditions).includes(condition);
+  const getHasExistingCondition = (condition: TMentalHealthLearning) =>
+    Object.values(MentalHealthLearning.conditions).includes(condition);
 
-  const handleAddRemoveCondition = (condition: TMentalHealthCondition) => {
+  const handleAddRemoveCondition = (condition: TMentalHealthLearning) => {
     const exists = getHasExistingCondition(condition);
     if (exists) {
-      dispatch(removeHistoryCondition(condition));
+      dispatch(removeLearningCondition(condition));
       return;
     }
-    dispatch(addHistoryCondition(condition));
+    dispatch(addLearningCondition(condition));
   };
 
-  const renderRow = (data: TQuestion) => {
+  const renderRow = (data: TLearningQuestion) => {
     return (
       <View style={{ alignItems: 'center', flexDirection: 'row' }}>
         <View style={{ marginRight: grid.l }}>
@@ -51,7 +51,6 @@ export default function MentalHealthHistory() {
             onPress={() => handleAddRemoveCondition(data.value)}
           />
         </View>
-
         <View style={{ flex: 1, paddingRight: grid.s }}>
           <Text>{data.key}</Text>
         </View>
@@ -59,40 +58,36 @@ export default function MentalHealthHistory() {
     );
   };
 
-  const next = () => {
-    NavigatorService.navigate('MentalHealthSupport', undefined);
-  };
-
   React.useEffect(() => {
-    if (MentalHealthHistory.hasDiagnosis === 'NO' || MentalHealthHistory.hasDiagnosis === 'DECLINE_TO_SAY') {
+    if (MentalHealthLearning.hasDisability === 'NO' || MentalHealthLearning.hasDisability === 'DECLINE_TO_SAY') {
       setCanSubmit(true);
       return;
     }
-    if (MentalHealthHistory.hasDiagnosis === 'YES' && MentalHealthHistory.conditions.length) {
+    if (MentalHealthLearning.hasDisability === 'YES' && MentalHealthLearning.conditions.length) {
       setCanSubmit(true);
       return;
     }
     setCanSubmit(false);
-  }, [MentalHealthHistory]);
+  }, [MentalHealthLearning]);
 
   const saveStateAndNavigate = async () => {
     const existingMentalHealthListForUser = await mentalHealthApiClient.get();
     const existingMentalHealth = existingMentalHealthListForUser[0];
     const updatedMentalHealth: MentalHealthInfosRequest = mentalHealthApiClient.buildRequestObject(
       existingMentalHealth,
-      { mentalHealthHistory: MentalHealthHistory },
+      { mentalHealthLearning: MentalHealthLearning },
     );
     await mentalHealthApiClient.update(updatedMentalHealth);
-    next();
+    NavigatorService.navigate('MentalHealthEnd', undefined);
   };
 
-  const renderOtherTextInput = MentalHealthHistory.conditions.includes('OTHER') ? (
+  const renderOtherTextInput = MentalHealthLearning.conditions.includes('OTHER') ? (
     <ValidatedTextInput
       onChangeText={(text: string) => {
-        dispatch(setHistoryOtherText(text));
+        dispatch(setLearningOtherText(text));
       }}
       placeholder={i18n.t('mental-health.specify-other')}
-      value={MentalHealthHistory.otherText}
+      value={MentalHealthLearning.otherText}
     />
   ) : null;
 
@@ -100,18 +95,20 @@ export default function MentalHealthHistory() {
     <BasicPage active={canSubmit} footerTitle={i18n.t('navigation.next')} onPress={saveStateAndNavigate}>
       <View style={{ paddingHorizontal: grid.gutter }}>
         <Text rhythm={16} textClass="h3">
-          {i18n.t('mental-health.question-history-title')}
+          {i18n.t('mental-health.question-learning-title')}
         </Text>
-        <RadioInput
-          items={initialOptions}
-          label={i18n.t('mental-health.question-history')}
-          onValueChange={handleSetHasHistoryDiagnosis}
-          selectedValue={MentalHealthHistory.hasDiagnosis}
-        />
-        {MentalHealthHistory.hasDiagnosis === 'YES' ? (
+        <View>
+          <RadioInput
+            items={learningInitialOptions}
+            label={i18n.t('mental-health.question-learning')}
+            onValueChange={handleSetHasLearningDisability}
+            selectedValue={MentalHealthLearning.hasDisability}
+          />
+        </View>
+        {MentalHealthLearning.hasDisability === 'YES' ? (
           <>
             <GenericSelectableList
-              collection={questions}
+              collection={learningQuestions}
               onPress={(data) => handleAddRemoveCondition(data.value)}
               renderRow={(data) => renderRow(data)}
               style={{ paddingBottom: grid.s, paddingTop: grid.s }}
