@@ -83,7 +83,7 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
         {i18n.t('reconsent.request-consent.learn-more')}{' '}
       </Text>
       <View style={styles.hr} />
-      {error ? <ErrorText style={{ marginBottom: 8, textAlign: 'center' }}>{error}</ErrorText> : null}
+      {error ? <ErrorText style={styles.errorText}>{error}</ErrorText> : null}
     </ReconsentScreen>
   );
 }
@@ -103,6 +103,10 @@ const styles = StyleSheet.create({
     color: colors.darkblue,
   },
   center: {
+    textAlign: 'center',
+  },
+  errorText: {
+    marginBottom: 8,
     textAlign: 'center',
   },
   hr: {

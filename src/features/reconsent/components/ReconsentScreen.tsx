@@ -5,8 +5,7 @@ import { grid } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
-import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 interface IProps {
   activeDot?: number;
@@ -67,9 +66,18 @@ export default function ReconsentScreen(props: IProps) {
           </BrandedButton>
         ) : null}
         {props.secondaryButtonOnPress && props.secondaryButtonTitle ? (
-          <Text onPress={props.secondaryButtonOnPress} style={styles.secondaryButton} textClass="pLight">
-            {props.secondaryButtonTitle}
-          </Text>
+          <TouchableOpacity onPress={props.secondaryButtonOnPress} style={styles.secondaryButton}>
+            <Text
+              inverted
+              colorPalette="uiDark"
+              colorShade="dark"
+              textAlign="center"
+              textClass="pLight"
+              textDecorationLine="underline"
+            >
+              {props.secondaryButtonTitle}
+            </Text>
+          </TouchableOpacity>
         ) : null}
       </ScrollView>
     </SafeLayout>
@@ -120,10 +128,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundPrimary,
   },
   secondaryButton: {
-    color: colors.secondary,
     marginTop: grid.xxxl,
     paddingHorizontal: grid.xs,
-    textAlign: 'center',
-    textDecorationLine: 'underline',
   },
 });
