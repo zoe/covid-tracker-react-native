@@ -6,6 +6,7 @@ import { ActivityIndicator, StyleProp, StyleSheet, Text, TextStyle, TouchableOpa
 interface IProps extends ITest {
   children: React.ReactNode;
   enabled?: boolean;
+  indicatorColor?: string;
   loading?: boolean;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -13,7 +14,7 @@ interface IProps extends ITest {
   testID?: string;
 }
 
-export default function BrandedButton(props: IProps) {
+export default function BrandedButton({ indicatorColor = colors.white, ...props }: IProps) {
   return (
     <TouchableOpacity
       accessible
@@ -24,7 +25,7 @@ export default function BrandedButton(props: IProps) {
       style={[props.enabled === false ? styles.buttonDisabled : styles.button, props.style]}
       testID={props.testID ?? 'button-test-ID'}
     >
-      {props.loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}
+      {props.loading ? <ActivityIndicator color={indicatorColor} style={styles.activityIndicator} /> : null}
       <Text style={[fontStyles.bodyLight, styles.text, props.textStyle]}>{props.children}</Text>
     </TouchableOpacity>
   );
