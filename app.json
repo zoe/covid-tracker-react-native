@@ -1,46 +1,63 @@
 {
   "expo": {
-    "scheme": "zoe-covid-study",
-    "name": "COVID Symptom Study",
-    "slug": "covid-zoe",
-    "owner": "julien.lavigne",
-    "privacy": "public",
-    "platforms": ["ios", "android"],
-    "version": "2.5.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#082A5D"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 10000
-    },
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.joinzoe.covid-zoe",
-      "buildNumber": "0.0.32"
-    },
     "android": {
-      "package": "com.joinzoe.covid_zoe",
-      "versionCode": 32,
-      "permissions": [],
-      "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyCg1tzO4IgL_b6JTZaQauPk7P-5Z8cPEnA"
         }
-      }
+      },
+      "googleServicesFile": "./google-services.json",
+      "package": "com.joinzoe.covid_zoe",
+      "permissions": [],
+      "versionCode": 32
     },
     "androidStatusBar": {
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "description": "COVID Symptom Study lets anyone healthy or with symptoms share valuable information with researchers and the NHS. By reporting if you are well or have any symptoms, we can better understand the progress of COVID-19 (Coronavirus) around the UK. \n\nThis app allows you to help others, but does not give health advice. If you need health advice please visit the NHS website at: [https://www.nhs.uk/conditions/coronavirus-covid-19/](https://www.nhs.uk/conditions/coronavirus-covid-19/)\n\nThis app is designed by doctors and scientists at King's College London, Guys and St Thomas’ Hospitals and Zoe Global Limited, a health technology company. \n\nIf you would like to help out in this difficult time, then you can. Download the app and share daily your own status, even if you are well. With your help we can understand much better the situation up and down the country, how the disease presents itself to different people, and how it progresses. \n\nThis is a new virus in the UK and has never been seen before. There are a wide range of symptoms, which differ between people. With your help we can understand better how the disease presents itself depending upon individual factors such as health and age.\n\nNo information you share will be used for commercial purposes. \n\nThere are two parts to the app:\n\nHEALTH INFORMATION\n\nYou will be asked to share some general information, such as your age and some health information, such as whether you have certain diseases.\n\nSYMPTOM TRACKING\n\nWe will ask you every day to let us know how you feel, so you can share your symptoms. We will also ask whether you have visited the hospital, what treatment you received there, and whether you have been tested for COVID-19 (Coronavirus).",
+    "icon": "./assets/icon.png",
+    "ios": {
+      "buildNumber": "0.0.32",
+      "bundleIdentifier": "com.joinzoe.covid-zoe",
+      "supportsTablet": true
+    },
+    "name": "COVID Symptom Study",
+    "orientation": "portrait",
+    "owner": "julien.lavigne",
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": ["expo.ts", "expo.tsx", "expo.js", "expo.jsx", "ts", "tsx", "js", "jsx", "json", "wasm", "svg"]
-    }
+      "sourceExts": [
+        "expo.js",
+        "expo.jsx",
+        "expo.ts",
+        "expo.tsx",
+        "js",
+        "json",
+        "jsx",
+        "svg",
+        "ts",
+        "tsx",
+        "wasm"
+      ]
+    },
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "privacy": "public",
+    "scheme": "zoe-covid-study",
+    "slug": "covid-zoe",
+    "splash": {
+      "backgroundColor": "#082A5D",
+      "image": "./assets/splash.png",
+      "resizeMode": "contain"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 10000
+    },
+    "version": "2.5.0"
   }
 }
