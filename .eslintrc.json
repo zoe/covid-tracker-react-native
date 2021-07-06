@@ -1,26 +1,26 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "ecmaVersion": 2020,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
   "extends": [
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:prettier/recommended"
   ],
+  "globals": {
+    "__DEV__": false
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
   "plugins": [
     "simple-import-sort",
     "sort-keys-fix",
     "unused-imports"
   ],
-  "globals": {
-    "__DEV__": false
-  },
   "rules": {
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-shadow": "off",
@@ -40,26 +40,37 @@
     "no-empty": "off",
     "no-nested-ternary": "off",
     "no-param-reassign": "off",
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
     "no-restricted-syntax": [
       "error",
       {
-        "selector": "JSXElement > JSXExpressionContainer > LogicalExpression[operator!='??']",
-        "message": "Use a ternary operator instead"
+        "message": "Use a ternary operator instead",
+        "selector": "JSXElement > JSXExpressionContainer > LogicalExpression[operator!='??']"
       }
     ],
-    "no-return-assign": ["error", "except-parens"],
+    "no-return-assign": [
+      "error",
+      "except-parens"
+    ],
     "prefer-destructuring": "off",
     "react-hooks/exhaustive-deps": "off",
     "react/destructuring-assignment": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/jsx-sort-props": ["error", {
-      "callbacksLast": false,
-      "shorthandFirst": true,
-      "shorthandLast": false,
-      "reservedFirst": false,
-      "ignoreCase": true
-    }],
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "callbacksLast": false,
+        "ignoreCase": true,
+        "reservedFirst": false,
+        "shorthandFirst": true,
+        "shorthandLast": false
+      }
+    ],
     "react/no-unescaped-entities": "off",
     "react/no-unused-prop-types": "off",
     "react/prefer-stateless-function": "off",
