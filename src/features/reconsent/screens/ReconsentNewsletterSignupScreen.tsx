@@ -24,7 +24,7 @@ export default function ReconsentNewsletterSignupScreen() {
 
   async function toggleNewsletterSignup() {
     try {
-      await contentService.signUpForDiseaseResearchNewsletter(signedUp);
+      await contentService.signUpForDiseaseResearchNewsletter(!signedUp);
       setSignedUp((prevState) => !prevState);
     } catch {
       setError(i18n.t('something-went-wrong'));
