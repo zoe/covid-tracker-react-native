@@ -12,6 +12,7 @@ const reconsentSlice = createSlice({
   reducers: {
     updateDiseasePreferences: (state, action: PayloadAction<TDiseasePreferencesData>) => {
       return {
+        ...state,
         diseasePreferences: action.payload,
       };
     },
