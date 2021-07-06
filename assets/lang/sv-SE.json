@@ -1701,47 +1701,47 @@
   },
 
   "disease-cards": {
-    "dementia": {
+    "research_consent_dementia": {
       "name": "Dementia",
       "description": "1 in 3 people born in the UK this year will develop dementia in their lifetime"
     },
-    "cardiovascular_diseases": {
+    "research_consent_cardiovascular_diseases": {
       "name": "Cardiovascular Diseases",
       "description": "Responsible for 1 in 4 deaths in the UK"
     },
-    "cancer": {
+    "research_consent_cancer": {
       "name": "Cancer",
       "description": "Someone in the UK is diagnosed with cancer every 2 mins"
     },
-    "joint_and_bone_diseases": {
+    "research_consent_joint_and_bone_diseases": {
       "name": "Joint and Bone Diseases",
       "description": "Musculoskeletal conditions affect 1 in 4 UK adults"
     },
-    "mental_health": {
+    "research_consent_mental_health": {
       "name": "Mental Health",
       "description": "Up to 10% of people in the UK will experience depression"
     },
-    "womens_health": {
+    "research_consent_womens_health": {
       "name": "Women's Health",
       "description": "In the UK, a woman is diagnosed with breast cancer every 10 minutes"
     },
-    "vision_and_hearing_conditions": {
+    "research_consent_vision_and_hearing_conditions": {
       "name": "Vision & Hearing Conditions",
       "description": "1 in 5 UK adults live with hearing loss"
     },
-    "autoimmune_conditions": {
+    "research_consent_autoimmune_conditions": {
       "name": "Autoimmune Conditions",
       "description": "Around 4 million people are living with an autoimmune condition in the UK"
     },
-    "skin_conditions": {
+    "research_consent_skin_conditions": {
       "name": "Skin Conditions",
       "description": "Skin diseases kill approximately 4,000 people every year in the UK"
     },
-    "lung_diseases": {
+    "research_consent_lung_diseases": {
       "name": "Lung Diseases",
       "description": "About 10,000 people in the UK are diagnosed with lung disease every week"
     },
-    "neurological_conditions": {
+    "research_consent_neurological_conditions": {
       "name": "Neurological Conditions",
       "description": "600,000 people are diagnosed with a brain disorder every year in the UK"
     }

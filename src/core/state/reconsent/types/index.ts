@@ -1,15 +1,15 @@
 export type TDisease =
-  | 'dementia'
-  | 'cardiovascular_diseases'
-  | 'cancer'
-  | 'joint_and_bone_diseases'
-  | 'mental_health'
-  | 'womens_health'
-  | 'vision_and_hearing_conditions'
-  | 'autoimmune_conditions'
-  | 'skin_conditions'
-  | 'lung_diseases'
-  | 'neurological_conditions';
+  | 'research_consent_dementia'
+  | 'research_consent_cardiovascular_diseases'
+  | 'research_consent_cancer'
+  | 'research_consent_joint_and_bone_diseases'
+  | 'research_consent_mental_health'
+  | 'research_consent_womens_health'
+  | 'research_consent_vision_and_hearing_conditions'
+  | 'research_consent_autoimmune_conditions'
+  | 'research_consent_skin_conditions'
+  | 'research_consent_lung_diseases'
+  | 'research_consent_neurological_conditions';
 
 export type TDiseasePreferencesData = {
   [key in TDisease]?: boolean;
