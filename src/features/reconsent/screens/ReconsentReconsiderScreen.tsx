@@ -14,7 +14,7 @@ interface IProps {
 
 export default function ReconsentReconsiderScreen(props: IProps) {
   return (
-    <ReconsentScreen>
+    <ReconsentScreen hideBackButton>
       <Text rhythm={24} textAlign="center" textClass="h2Light">
         {i18n.t('reconsent.reconsider.title')}
       </Text>

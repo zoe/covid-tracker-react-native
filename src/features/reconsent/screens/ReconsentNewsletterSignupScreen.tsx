@@ -26,6 +26,7 @@ export default function ReconsentNewsletterSignupScreen() {
 
   return (
     <ReconsentScreen
+      hideBackButton
       buttonOnPress={() => NavigatorService.navigate('Dashboard')}
       buttonTitle={i18n.t('reconsent.newsletter-signup.button')}
     >

@@ -15,6 +15,7 @@ interface IProps {
   buttonOnPress?: () => void;
   buttonTitle?: string;
   children?: React.ReactNode;
+  hideBackButton?: boolean;
   secondaryButtonOnPress?: () => void;
   secondaryButtonTitle?: string;
 }
@@ -39,9 +40,11 @@ export default function ReconsentScreen(props: IProps) {
   return (
     <SafeLayout style={styles.safeLayout}>
       <View style={styles.headerWrapper}>
-        <TouchableOpacity hitSlop={hitSlop} onPress={navigation.goBack}>
-          <ChevronLeft />
-        </TouchableOpacity>
+        {props.hideBackButton ? null : (
+          <TouchableOpacity hitSlop={hitSlop} onPress={navigation.goBack}>
+            <ChevronLeft />
+          </TouchableOpacity>
+        )}
         {props.activeDot ? (
           <View pointerEvents="none" style={styles.dotsWrapper}>
             {dots.map((_, index) => (
