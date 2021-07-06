@@ -21,7 +21,7 @@ interface IProps {
   testID?: string;
 }
 
-export function CheckboxTextInputList(props: IProps) {
+export default React.memo(function CheckboxTextInputList(props: IProps) {
   return (
     <View>
       {props.required || props.label ? (
@@ -35,6 +35,8 @@ export function CheckboxTextInputList(props: IProps) {
           <TouchableOpacity
             accessible
             accessibilityRole="checkbox"
+            // eslint-disable-next-line react/no-array-index-key
+            key={`checkbox-touchable-${index}`}
             onPress={() => props.onChange(option.value === undefined ? '' : undefined, index)}
             style={styles.touchable}
             testID={`${props.testID}-${option.value}`}
@@ -62,7 +64,7 @@ export function CheckboxTextInputList(props: IProps) {
       ))}
     </View>
   );
-}
+});
 
 const checkBoxStyle: ViewStyle = {
   alignItems: 'center',
