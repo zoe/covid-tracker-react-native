@@ -7,7 +7,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-function MentalHealthSupport() {
+export default function MentalHealthEndScreen() {
   const MentalHealthState = useSelector(selectMentalHealthState);
   const dispatch = useDispatch();
 
@@ -56,5 +56,3 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
 });
-
-export default MentalHealthSupport;

@@ -14,5 +14,5 @@ const noHeader = {
 };
 
 export default function AnniversaryNavigator({ Stack }: IProps) {
-  return <Stack.Screen component={screens.Anniversary} name="Anniversary" options={noHeader} />;
+  return <Stack.Screen component={screens.AnniversaryScreen} name="Anniversary" options={noHeader} />;
 }

@@ -9,7 +9,7 @@ import { openWebLink } from '@covid/utils/links';
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
 
-function DietStudy() {
+export default function DietStudyScreen() {
   const routes: ScreenName[] = ['DietStudyTraditional', 'DietStudyGut', 'DietStudyGlobal'];
   const { colors } = useTheme();
 
@@ -79,5 +79,3 @@ function DietStudy() {
     </SafeLayout>
   );
 }
-
-export default DietStudy;

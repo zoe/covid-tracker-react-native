@@ -17,7 +17,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-function MentalHealthSupport() {
+export default function MentalHealthSupportScreen() {
   const [canSubmit, setCanSubmit] = React.useState(false);
   const { grid } = useTheme();
   const MentalHealthSupport: IMentalHealthSupport = useSelector(selectMentalHealthSupport);
@@ -78,5 +78,3 @@ function MentalHealthSupport() {
     </BasicPage>
   );
 }
-
-export default MentalHealthSupport;

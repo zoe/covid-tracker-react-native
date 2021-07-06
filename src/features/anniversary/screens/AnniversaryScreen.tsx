@@ -19,7 +19,7 @@ type TRowItem = {
   id: TRowType;
 };
 
-function Anniversary() {
+export default function AnniversaryScreen() {
   const [timeline, setTimeline] = React.useState<ITimeline>();
   const [hasError, setHasError] = React.useState(false);
 
@@ -96,5 +96,3 @@ function Anniversary() {
     </SafeAreaView>
   );
 }
-
-export default Anniversary;

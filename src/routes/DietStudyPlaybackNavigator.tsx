@@ -16,10 +16,10 @@ const noHeader = {
 export default function DietStudyPlaybackNavigator({ Stack }: IProps) {
   return (
     <>
-      <Stack.Screen component={screens.DietStudy} name="DietStudy" options={noHeader} />
-      <Stack.Screen component={screens.DietStudyGlobal} name="DietStudyGlobal" options={noHeader} />
-      <Stack.Screen component={screens.DietStudyGut} name="DietStudyGut" options={noHeader} />
-      <Stack.Screen component={screens.DietStudyTraditional} name="DietStudyTraditional" options={noHeader} />
+      <Stack.Screen component={screens.DietStudyScreen} name="DietStudy" options={noHeader} />
+      <Stack.Screen component={screens.DietStudyGlobalScreen} name="DietStudyGlobal" options={noHeader} />
+      <Stack.Screen component={screens.DietStudyGutScreen} name="DietStudyGut" options={noHeader} />
+      <Stack.Screen component={screens.DietStudyTraditionalScreen} name="DietStudyTraditional" options={noHeader} />
     </>
   );
 }

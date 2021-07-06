@@ -5,7 +5,7 @@ import { styling } from '@covid/themes';
 import * as React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
-function DietStudyGlobal() {
+export default function DietStudyGlobalScreen() {
   return (
     <SafeLayout style={styling.backgroundWhite}>
       <ScrollView>
@@ -48,5 +48,3 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-export default DietStudyGlobal;
