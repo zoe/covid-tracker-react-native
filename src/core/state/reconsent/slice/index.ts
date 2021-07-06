@@ -31,4 +31,5 @@ const reconsentSlice = createSlice({
 
 export const { resetFeedback, updateDiseasePreferences, updateFeedback } = reconsentSlice.actions;
 export const selectFeedbackData = (state: RootState) => state.reconsent.feedbackData;
+export const selectDiseasePreferences = (state: RootState) => state.reconsent.diseasePreferences;
 export default reconsentSlice.reducer;
