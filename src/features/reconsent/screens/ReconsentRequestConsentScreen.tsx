@@ -1,7 +1,7 @@
 import { Text } from '@covid/components';
 import { ErrorText } from '@covid/components/Text';
 import { patientService } from '@covid/core/patient/PatientService';
-import { TDiseasePreferencesData } from '@covid/core/state/reconsent';
+import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { RootState } from '@covid/core/state/root';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -35,9 +35,7 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
   const [error, setError] = React.useState<string | null>(null);
   const patientId = useSelector<RootState, string>((state) => state.user.patients[0]);
 
-  const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>(
-    (state) => state.reconsent.diseasePreferences,
-  );
+  const diseasePreferences = useSelector(selectDiseasePreferences);
 
   const onPrivacyPolicyPress = () => {
     NavigatorService.navigate('PrivacyPolicyUK', { viewOnly: true });

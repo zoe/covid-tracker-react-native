@@ -1,8 +1,8 @@
 import { Brain } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
+import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
 import { TDisease, TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
-import { RootState } from '@covid/core/state/root';
 import DiseaseCard from '@covid/features/reconsent/components/DiseaseCard';
 import InfoBox from '@covid/features/reconsent/components/InfoBox';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
@@ -69,9 +69,7 @@ const extendedDiseases: TDiseasePreference[] = [
 
 export default function ReconsentDiseasePreferencesScreen() {
   const dispatch = useDispatch();
-  const diseasePreferencesPersisted = useSelector<RootState, TDiseasePreferencesData>(
-    (state) => state.reconsent.diseasePreferences,
-  );
+  const diseasePreferencesPersisted = useSelector(selectDiseasePreferences);
 
   const extendedListDiseaseNames: TDisease[] = extendedDiseases.map((item) => item.name);
   const identifiers = Object.keys(diseasePreferencesPersisted) as TDisease[];

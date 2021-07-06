@@ -1,6 +1,6 @@
 import { Text } from '@covid/components';
+import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { TDisease, TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
-import { RootState } from '@covid/core/state/root';
 import IllustrationConfirmation from '@covid/features/reconsent/components/IllustrationSummary';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import i18n from '@covid/locale/i18n';
@@ -10,9 +10,7 @@ import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 export default function ReconsentDiseaseSummaryScreen() {
-  const diseasePreferences = useSelector<RootState, TDiseasePreferencesData>(
-    (state) => state.reconsent.diseasePreferences,
-  );
+  const diseasePreferences = useSelector(selectDiseasePreferences);
   const identifiers = Object.keys(diseasePreferences) as TDisease[];
   const diseasesChosen = identifiers.filter((key: keyof TDiseasePreferencesData) => diseasePreferences[key] === true);
   const numberDiseases = diseasesChosen.length;
