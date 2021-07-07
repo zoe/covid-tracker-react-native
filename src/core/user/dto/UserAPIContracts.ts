@@ -271,6 +271,7 @@ export type PatientInfosRequest = {
   research_consent_skin_conditions: boolean;
   research_consent_lung_diseases: boolean;
   research_consent_neurological_conditions: boolean;
+  research_consent_asked: boolean;
 };
 
 export enum VaccineStatus {

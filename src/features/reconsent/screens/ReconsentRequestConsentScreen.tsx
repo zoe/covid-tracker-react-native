@@ -52,8 +52,9 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
   };
 
   const onConfirmYes = async () => {
+    const diseasePreferencesPayload = { ...diseasePreferences, research_consent_asked: true };
     try {
-      await patientService.updatePatientInfo(patientId, diseasePreferences);
+      await patientService.updatePatientInfo(patientId, diseasePreferencesPayload);
       NavigatorService.navigate('ReconsentNewsletterSignup');
     } catch {
       setError(i18n.t('something-went-wrong'));
