@@ -19,7 +19,7 @@ export default function ReconsentDiseaseSummaryScreen() {
   // TODO: Copy in the event of no choices being made
 
   if (numberDiseases === 0) {
-    diseasesTitle = 'various diseases';
+    diseasesTitle = i18n.t('reconsent.disease-summary.various-diseases');
   } else if (numberDiseases === 1) {
     diseasesTitle = i18n.t(`disease-cards.${diseasesChosen[0]}.name`);
   } else if (numberDiseases === 2) {
