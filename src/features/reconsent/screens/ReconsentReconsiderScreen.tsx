@@ -26,8 +26,9 @@ export default function ReconsentReconsiderScreen(props: IProps) {
 
   async function onPressNegative() {
     setLoading(true);
+    const feedbackPayload = { ...feedbackData, research_consent_asked: true };
     try {
-      await generalApiClient.postUserEvent('feedback_reconsent', feedbackData);
+      await generalApiClient.postUserEvent('feedback_reconsent', feedbackPayload);
     } catch (_) {}
     setLoading(false);
     dispatch(resetFeedback());
