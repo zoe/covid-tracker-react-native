@@ -265,6 +265,7 @@ export type PatientInfosRequest = {
   research_consent_cancer: boolean;
   research_consent_joint_and_bone_diseases: boolean;
   research_consent_mental_health: boolean;
+  research_consent_nutrition_and_gut_health: boolean;
   research_consent_womens_health: boolean;
   research_consent_vision_and_hearing_conditions: boolean;
   research_consent_autoimmune_conditions: boolean;
