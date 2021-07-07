@@ -7,3 +7,6 @@ export { default as StandardArrowRight } from './StandardArrowRight';
 export { default as Tick } from './Tick';
 export { default as ClockIcon } from './ClockIcon';
 export { default as Brain } from './Brain';
+export { default as LightBulb } from './LightBulb';
+export { default as Neuron } from './Neuron';
+export { default as Gut } from './Gut';
