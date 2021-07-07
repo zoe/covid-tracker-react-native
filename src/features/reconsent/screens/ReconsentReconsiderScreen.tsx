@@ -1,5 +1,7 @@
 import { BrandedButton, Text } from '@covid/components';
+import { patientService } from '@covid/core/patient/PatientService';
 import { resetFeedback, selectFeedbackData } from '@covid/core/state/reconsent';
+import { RootState } from '@covid/core/state/root';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -19,6 +21,7 @@ export default function ReconsentReconsiderScreen(props: IProps) {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
   const feedbackData = useSelector(selectFeedbackData);
+  const patientId = useSelector<RootState, string>((state) => state.user.patients[0]);
 
   function onPressPositive() {
     props.navigation.push('ReconsentRequestConsent', { secondTime: true });
@@ -26,9 +29,9 @@ export default function ReconsentReconsiderScreen(props: IProps) {
 
   async function onPressNegative() {
     setLoading(true);
-    const feedbackPayload = { ...feedbackData, research_consent_asked: true };
     try {
-      await generalApiClient.postUserEvent('feedback_reconsent', feedbackPayload);
+      await generalApiClient.postUserEvent('feedback_reconsent', feedbackData);
+      await patientService.updatePatientInfo(patientId, { research_consent_asked: true });
     } catch (_) {}
     setLoading(false);
     dispatch(resetFeedback());
