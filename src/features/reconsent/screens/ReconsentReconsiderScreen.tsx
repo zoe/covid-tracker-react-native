@@ -16,9 +16,23 @@ interface IProps {
 }
 
 export default function ReconsentReconsiderScreen(props: IProps) {
+  const [config, setConfig] = React.useState(undefined);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
   const feedbackData = useSelector(selectFeedbackData);
+
+  React.useEffect(() => {
+    const VIMEO_ID = '571660625';
+    fetch(`https://player.vimeo.com/video/${VIMEO_ID}/config`)
+      .then(res => res.json())
+      .then(res => setConfig(res));
+  }, []);
+
+  console.warn({
+    thumbnailUrl: config?.video.thumbs['640'],
+    video: config?.video,
+    videoUrl: config?.request.files.hls.cdns[config?.request.files.hls.default_cdn].url,
+  });
 
   function onPressPositive() {
     props.navigation.push('ReconsentRequestConsent', { secondTime: true });
