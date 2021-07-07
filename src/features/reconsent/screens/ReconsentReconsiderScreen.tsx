@@ -9,6 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme/colors';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
+import Video from 'react-native-video';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface IProps {
@@ -24,11 +25,13 @@ export default function ReconsentReconsiderScreen(props: IProps) {
   React.useEffect(() => {
     const VIMEO_ID = '571660625';
     fetch(`https://player.vimeo.com/video/${VIMEO_ID}/config`)
-      .then(res => res.json())
-      .then(res => setConfig(res));
+      .then((res) => res.json())
+      .then((res) => setConfig(res));
   }, []);
+  
+  console.log(config);
 
-  console.warn({
+  console.log({
     thumbnailUrl: config?.video.thumbs['640'],
     video: config?.video,
     videoUrl: config?.request.files.hls.cdns[config?.request.files.hls.default_cdn].url,
@@ -48,6 +51,8 @@ export default function ReconsentReconsiderScreen(props: IProps) {
     NavigatorService.navigate('Dashboard');
   }
 
+  const videoUrl = config?.request.files.hls.cdns[config?.request.files.hls.default_cdn].url;
+
   return (
     <ReconsentScreen hideBackButton>
       <Text rhythm={24} textAlign="center" textClass="h2Light">
@@ -59,6 +64,21 @@ export default function ReconsentReconsiderScreen(props: IProps) {
       <Text textAlign="center" textClass="pLight">
         {i18n.t('reconsent.reconsider.description-2')}
       </Text>
+      {
+        videoUrl ? (
+          <Video
+            onError={(error) => console.log('error', error)}
+            source={{ uri: videoUrl }}
+            style={{
+              bottom: 0,
+              left: 0,
+              position: 'absolute',
+              right: 0,
+              top: 0,
+            }}
+          />
+        ) : null
+      }
       <BrandedButton onPress={onPressPositive} style={styles.buttonPositive}>
         {i18n.t('reconsent.reconsider.button-positive')}
       </BrandedButton>
