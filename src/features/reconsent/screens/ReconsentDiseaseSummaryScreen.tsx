@@ -19,7 +19,7 @@ export default function ReconsentDiseaseSummaryScreen() {
   // TODO: Copy in the event of no choices being made
 
   if (numberDiseases === 0) {
-    diseasesTitle = 'Sol to provide';
+    diseasesTitle = 'various diseases';
   } else if (numberDiseases === 1) {
     diseasesTitle = i18n.t(`disease-cards.${diseasesChosen[0]}.name`);
   } else if (numberDiseases === 2) {
@@ -41,9 +41,15 @@ export default function ReconsentDiseaseSummaryScreen() {
       <Text textAlign="center" textClass="h2Light">
         {i18n.t('reconsent.disease-summary.title')}
       </Text>
-      <Text inverted colorPalette="actionSecondary" colorShade="main" textAlign="center" textClass="h2">
-        {diseasesTitle}
-      </Text>
+      {numberDiseases === 0 ? (
+        <Text textAlign="center" textClass="h2Light">
+          {diseasesTitle}
+        </Text>
+      ) : (
+        <Text inverted colorPalette="actionSecondary" colorShade="main" textAlign="center" textClass="h2">
+          {diseasesTitle}
+        </Text>
+      )}
       <IllustrationConfirmation style={styles.illustration} />
     </ReconsentScreen>
   );
