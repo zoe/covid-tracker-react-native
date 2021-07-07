@@ -1,4 +1,17 @@
-import { Brain } from '@assets/icons/svgIcons';
+import {
+  Brain,
+  Cancer,
+  Cell,
+  EyeEar,
+  Female,
+  Gut,
+  Heart,
+  Immune,
+  Joint,
+  LightBulb,
+  Lungs,
+  Neuron,
+} from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
 import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
@@ -23,46 +36,50 @@ const initialDiseases: TDiseasePreference[] = [
     name: 'research_consent_dementia',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Heart,
     name: 'research_consent_cardiovascular_diseases',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Cancer,
     name: 'research_consent_cancer',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Joint,
     name: 'research_consent_joint_and_bone_diseases',
   },
   {
-    IconComponent: Brain,
+    IconComponent: LightBulb,
     name: 'research_consent_mental_health',
+  },
+  {
+    IconComponent: Gut,
+    name: 'research_consent_nutrition_and_gut_health',
   },
 ];
 
 const extendedDiseases: TDiseasePreference[] = [
   {
-    IconComponent: Brain,
+    IconComponent: Female,
     name: 'research_consent_womens_health',
   },
   {
-    IconComponent: Brain,
+    IconComponent: EyeEar,
     name: 'research_consent_vision_and_hearing_conditions',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Immune,
     name: 'research_consent_autoimmune_conditions',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Cell,
     name: 'research_consent_skin_conditions',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Lungs,
     name: 'research_consent_lung_diseases',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Neuron,
     name: 'research_consent_neurological_conditions',
   },
 ];

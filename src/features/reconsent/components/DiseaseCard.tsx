@@ -7,7 +7,7 @@ import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 interface IProps {
   description: string;
   style?: StyleProp<ViewStyle>;
-  IconComponent?: React.ComponentType<any>;
+  IconComponent: React.ComponentType<any>;
   title: string;
   onPressHandler: () => void;
   initialStateIsActive: boolean;
@@ -29,7 +29,9 @@ export default function DiseaseCard(props: IProps) {
         onPress={onPress}
         style={styles.pressable}
       >
-        {props.IconComponent ? <props.IconComponent color={active ? colors.white : colors.darkblue} /> : null}
+        <View style={styles.icon}>
+          <props.IconComponent color={active ? colors.white : colors.darkblue} />
+        </View>
         <View style={styles.textSection}>
           <Text rhythm={2} style={[styles.name, active ? styles.activeName : null]} textClass="pSmallMedium">
             {props.title}
@@ -64,6 +66,10 @@ const styles = StyleSheet.create({
     minHeight: grid.xxxl,
     paddingRight: grid.l,
   },
+  icon: {
+    maxWidth: 40,
+    width: 40,
+  },
   inactiveDescription: {
     color: colors.secondary,
   },
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
   textSection: {
     flex: 1,
     justifyContent: 'center',
-    marginLeft: grid.xl,
+    marginLeft: grid.l,
     paddingRight: grid.l,
   },
 });

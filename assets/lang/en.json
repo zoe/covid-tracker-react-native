@@ -1738,6 +1738,10 @@
       "name": "Mental Health",
       "description": "Up to 10% of people in the UK will experience depression"
     },
+    "research_consent_nutrition_and_gut_health": {
+      "name": "Nutrition & Gut Health",
+      "description": "86% of Brits have suffered from a gastrointestinal problem in the past year"
+    },
     "research_consent_womens_health": {
       "name": "Women's Health",
       "description": "In the UK, a woman is diagnosed with breast cancer every 10 minutes"
