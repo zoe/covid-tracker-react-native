@@ -12,3 +12,5 @@ export { default as Neuron } from './Neuron';
 export { default as Gut } from './Gut';
 export { default as Lungs } from './Lungs';
 export { default as Cell } from './Cell';
+export { default as Immune } from './Immune';
+export { default as EyeEar } from './EyeEar';

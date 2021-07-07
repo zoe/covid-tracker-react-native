@@ -1,4 +1,4 @@
-import { Brain, Cell, Gut, LightBulb, Lungs, Neuron } from '@assets/icons/svgIcons';
+import { Brain, Cell, EyeEar, Gut, Immune, LightBulb, Lungs, Neuron } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
 import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
@@ -50,11 +50,11 @@ const extendedDiseases: TDiseasePreference[] = [
     name: 'research_consent_womens_health',
   },
   {
-    IconComponent: Brain,
+    IconComponent: EyeEar,
     name: 'research_consent_vision_and_hearing_conditions',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Immune,
     name: 'research_consent_autoimmune_conditions',
   },
   {
