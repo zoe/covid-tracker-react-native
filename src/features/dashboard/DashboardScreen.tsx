@@ -47,8 +47,6 @@ const headerConfig = {
   expanded: HEADER_EXPANDED_HEIGHT,
 };
 
-let userNeedsToReconsent = true;
-
 export function DashboardScreen({ navigation, route }: IProps) {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
@@ -119,8 +117,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
   }, []);
 
   React.useEffect(() => {
-    if (userNeedsToReconsent) {
-      userNeedsToReconsent = false;
+    if (startupInfo?.show_research_consent) {
       setTimeout(() => {
         appCoordinator.goToReconsent();
       }, 500);
