@@ -13,6 +13,7 @@ interface IProps {
   buttonTitle?: string;
   children?: React.ReactNode;
   hideBackButton?: boolean;
+  noPadding?: boolean;
   secondaryButtonOnPress?: () => void;
   secondaryButtonTitle?: string;
 }
@@ -57,7 +58,7 @@ export default function ReconsentScreen(props: IProps) {
           </View>
         ) : null}
       </View>
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <ScrollView contentContainerStyle={props.noPadding ? styles.contentContainer : styles.contentContainerPadding}>
         {props.children}
 
         {props.buttonOnPress && props.buttonTitle ? (
@@ -96,6 +97,9 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
   },
   contentContainer: {
+    flexGrow: 1,
+  },
+  contentContainerPadding: {
     flexGrow: 1,
     padding: 16,
   },
