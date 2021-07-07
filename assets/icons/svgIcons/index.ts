@@ -10,3 +10,5 @@ export { default as Brain } from './Brain';
 export { default as LightBulb } from './LightBulb';
 export { default as Neuron } from './Neuron';
 export { default as Gut } from './Gut';
+export { default as Lungs } from './Lungs';
+export { default as Cell } from './Cell';

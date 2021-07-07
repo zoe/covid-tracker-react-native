@@ -1,4 +1,4 @@
-import { Brain, Gut, LightBulb, Neuron } from '@assets/icons/svgIcons';
+import { Brain, Cell, Gut, LightBulb, Lungs, Neuron } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
 import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
@@ -58,11 +58,11 @@ const extendedDiseases: TDiseasePreference[] = [
     name: 'research_consent_autoimmune_conditions',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Cell,
     name: 'research_consent_skin_conditions',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Lungs,
     name: 'research_consent_lung_diseases',
   },
   {
