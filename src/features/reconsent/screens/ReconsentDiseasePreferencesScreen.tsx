@@ -1,4 +1,4 @@
-import { Brain, Cell, EyeEar, Gut, Immune, LightBulb, Lungs, Neuron } from '@assets/icons/svgIcons';
+import { Brain, Cell, EyeEar, Female, Gut, Immune, Joint, LightBulb, Lungs, Neuron } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
 import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
@@ -31,7 +31,7 @@ const initialDiseases: TDiseasePreference[] = [
     name: 'research_consent_cancer',
   },
   {
-    IconComponent: Brain,
+    IconComponent: Joint,
     name: 'research_consent_joint_and_bone_diseases',
   },
   {
@@ -46,7 +46,7 @@ const initialDiseases: TDiseasePreference[] = [
 
 const extendedDiseases: TDiseasePreference[] = [
   {
-    IconComponent: Brain,
+    IconComponent: Female,
     name: 'research_consent_womens_health',
   },
   {
