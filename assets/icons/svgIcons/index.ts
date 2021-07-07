@@ -16,3 +16,5 @@ export { default as Immune } from './Immune';
 export { default as EyeEar } from './EyeEar';
 export { default as Female } from './Female';
 export { default as Joint } from './Joint';
+export { default as Cancer } from './Cancer';
+export { default as Heart } from './Heart';
