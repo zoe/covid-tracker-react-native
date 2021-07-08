@@ -73,7 +73,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
 
   const runCurrentFeature = () => {
-    if (startupInfo?.show_modal === 'mental-health-playback') {
+    if (startupInfo?.show_research_consent) {
+      appCoordinator.goToReconsent();
+    } else if (startupInfo?.show_modal === 'mental-health-playback') {
       setMentalHealthPlaybackModalVisible(true);
     }
   };
@@ -114,14 +116,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   React.useEffect(() => {
     Linking.addEventListener('url', () => {});
-  }, []);
-
-  React.useEffect(() => {
-    if (startupInfo?.show_research_consent) {
-      setTimeout(() => {
-        appCoordinator.goToReconsent();
-      }, 500);
-    }
   }, []);
 
   return (
