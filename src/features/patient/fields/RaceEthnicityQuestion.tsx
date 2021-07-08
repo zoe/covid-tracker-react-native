@@ -25,31 +25,29 @@ type RaceCheckBoxData = {
   value: string;
 };
 
-const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<IRaceEthnicityData>) => {
-  return data.map((checkBoxData) => {
-    return (
-      <CheckboxItem
-        key={checkBoxData.value}
-        onChange={(checked: boolean) => {
-          let raceArray = props.values.race;
-          if (checkBoxData.value === 'prefer_not_to_say') {
-            raceArray = ['prefer_not_to_say'];
-          } else if (checked) {
-            raceArray.push(checkBoxData.value);
-            raceArray = raceArray.filter((val) => val !== 'prefer_not_to_say');
-          } else {
-            raceArray = raceArray.filter((val) => val !== checkBoxData.value);
-          }
-          props.setFieldValue('race', raceArray);
-        }}
-        testID={`checkbox-race-ethnicity-${checkBoxData.value}`}
-        value={props.values.race.includes(checkBoxData.value)}
-      >
-        {checkBoxData.label}
-      </CheckboxItem>
-    );
-  });
-};
+function renderRaceCheckboxes(data: RaceCheckBoxData[], props: FormikProps<IRaceEthnicityData>) {
+  return data.map((checkBoxData) => (
+    <CheckboxItem
+      key={checkBoxData.value}
+      onChange={(checked: boolean) => {
+        let raceArray = props.values.race;
+        if (checkBoxData.value === 'prefer_not_to_say') {
+          raceArray = ['prefer_not_to_say'];
+        } else if (checked) {
+          raceArray.push(checkBoxData.value);
+          raceArray = raceArray.filter((val) => val !== 'prefer_not_to_say');
+        } else {
+          raceArray = raceArray.filter((val) => val !== checkBoxData.value);
+        }
+        props.setFieldValue('race', raceArray);
+      }}
+      testID={`checkbox-race-ethnicity-${checkBoxData.value}`}
+      value={props.values.race.includes(checkBoxData.value)}
+    >
+      {checkBoxData.label}
+    </CheckboxItem>
+  ));
+}
 
 export class RaceEthnicityQuestion extends React.Component<RaceEthnicityQuestionProps, object> {
   UKRaceCheckboxes = [
@@ -89,7 +87,7 @@ export class RaceEthnicityQuestion extends React.Component<RaceEthnicityQuestion
           <FieldWrapper>
             <View style={styles.textItemStyle}>
               <CheckboxList required label={i18n.t('race-question')}>
-                {createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}
+                {renderRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}
               </CheckboxList>
             </View>
           </FieldWrapper>
@@ -99,7 +97,7 @@ export class RaceEthnicityQuestion extends React.Component<RaceEthnicityQuestion
           <FieldWrapper>
             <View style={styles.textItemStyle}>
               <CheckboxList required label={i18n.t('race-question')}>
-                {createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}
+                {renderRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}
               </CheckboxList>
             </View>
           </FieldWrapper>

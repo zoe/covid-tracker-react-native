@@ -8,6 +8,7 @@ import AnniversaryNavigator from './AnniversaryNavigator';
 import DietStudyPlaybackNavigator from './DietStudyPlaybackNavigator';
 import MentalHealthNavigator from './MentalHealthNavigator';
 import MentalHealthPlaybackNavigator from './MentalHealthPlaybackNavigator';
+import ReconsentNavigator from './ReconsentNavigator';
 
 const Stack = createStackNavigator<ScreenParamList>();
 
@@ -99,6 +100,7 @@ export default function MainNavigator() {
       {DietStudyPlaybackNavigator({ Stack })}
       {MentalHealthNavigator({ Stack })}
       {MentalHealthPlaybackNavigator({ Stack })}
+      {ReconsentNavigator({ Stack })}
     </Stack.Navigator>
   );
 }

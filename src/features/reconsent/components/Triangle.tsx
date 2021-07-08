@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface IProps {
   color: string;
   direction: 'up' | 'right' | 'down' | 'left';
   height: number;
+  style?: StyleProp<ViewStyle>;
   width: number;
 }
 
@@ -57,7 +58,7 @@ export default function Triangle(props: IProps) {
     };
   }
 
-  return <View style={[styles.basic, borderStyle]} />;
+  return <View style={[styles.basic, borderStyle, props.style]} />;
 }
 
 const styles = StyleSheet.create({

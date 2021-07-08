@@ -77,11 +77,7 @@ export default React.memo(function Insights(props: IProps) {
           <View style={styles.contentWrapper}>
             <TextHighlight
               color={colors.accentBlue.main.bgColor}
-              query={
-                insight.activity_name.includes('less')
-                  ? i18n.t('mental-health-playback.less')
-                  : i18n.t('mental-health-playback.more')
-              }
+              query={insight.activity_name.includes('less') ? i18n.t('less') : i18n.t('more')}
               textClass="h3Regular"
             >
               {i18n.t(`mental-health-playback.insights.${insight.activity_name}.title`, {

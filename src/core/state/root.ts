@@ -21,6 +21,7 @@ import {
   mentalHealthSupportSlice,
 } from './mental-health';
 import { IMentalHealthPlayback, mentalHealthPlaybackSlice } from './mental-health-playback';
+import { reconsentSlice, TReconsentState } from './reconsent';
 import { ISettings, settingsSlice } from './settings';
 import { IUser, userSlice } from './user';
 import { IVaccineState, vaccinesSlice } from './vaccines';
@@ -37,6 +38,7 @@ export type RootState = {
   mentalHealthPlayback: IMentalHealthPlayback;
   mentalHealthState: IMentalHealthState;
   mentalHealthSupport: IMentalHealthSupport;
+  reconsent: TReconsentState;
   school: SchoolState;
   settings: ISettings;
   user: IUser;
@@ -55,6 +57,7 @@ export default combineReducers({
   mentalHealthPlayback: mentalHealthPlaybackSlice,
   mentalHealthState: mentalHealthStateSlice,
   mentalHealthSupport: mentalHealthSupportSlice,
+  reconsent: reconsentSlice,
   school: schoolSlice.reducer,
   settings: settingsSlice,
   user: userSlice,

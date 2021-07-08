@@ -116,6 +116,15 @@ export type ScreenParamList = {
   MentalHealthLearning: undefined;
   MentalHealthEnd: undefined;
 
+  // Reconsent
+  ReconsentIntroduction: undefined;
+  ReconsentDiseasePreferences: undefined;
+  ReconsentDiseaseSummary: undefined;
+  ReconsentRequestConsent: { secondTime: boolean };
+  ReconsentFeedback: undefined;
+  ReconsentReconsider: undefined;
+  ReconsentNewsletterSignup: undefined;
+
   // Others
   Modal: undefined;
   Main: undefined;

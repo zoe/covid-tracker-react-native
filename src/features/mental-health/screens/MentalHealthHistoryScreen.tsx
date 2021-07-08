@@ -14,7 +14,7 @@ import { initialOptions, questions, TQuestion } from '@covid/features/mental-hea
 import { MentalHealthInfosRequest } from '@covid/features/mental-health/MentalHealthInfosRequest';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { mentalHealthApiClient } from '@covid/Services';
+import { mentalHealthApiClient } from '@covid/services';
 import { useTheme } from '@covid/themes';
 import * as React from 'react';
 import { View } from 'react-native';

@@ -237,7 +237,7 @@ export default class CovidTestDetailScreen extends React.Component<CovidProps, S
                 </View>
 
                 <BrandedButton
-                  enable={!this.state.submitting && props.isValid}
+                  enabled={!this.state.submitting && props.isValid}
                   onPress={props.handleSubmit}
                   testID="button-submit"
                 >

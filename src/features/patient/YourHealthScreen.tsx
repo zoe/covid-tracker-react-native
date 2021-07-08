@@ -393,7 +393,7 @@ export default class YourHealthScreen extends React.Component<HealthProps, State
                   ) : null}
                 </View>
                 <BrandedButton
-                  enable={props.isValid && props.dirty}
+                  enabled={props.isValid && props.dirty}
                   onPress={props.handleSubmit}
                   testID="button-submit"
                 >

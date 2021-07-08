@@ -67,7 +67,7 @@ export default class CreateProfileScreen extends React.Component<RenderProps> {
                     testID="input-profile-name"
                   />
                 </View>
-                <BrandedButton enable={props.isValid} onPress={props.handleSubmit} testID="button-submit">
+                <BrandedButton enabled={props.isValid} onPress={props.handleSubmit} testID="button-submit">
                   {i18n.t('create-profile-button')}
                 </BrandedButton>
               </FormWrapper>

@@ -13,7 +13,7 @@ import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationS
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { offlineService, pushNotificationService } from '@covid/Services';
+import { offlineService, pushNotificationService } from '@covid/services';
 import { openWebLink } from '@covid/utils/links';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { DrawerNavigationProp } from '@react-navigation/drawer';

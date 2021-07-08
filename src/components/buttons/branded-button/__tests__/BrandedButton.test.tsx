@@ -22,7 +22,7 @@ describe('branded-button tests', () => {
   it('Does not fire press events when disabled', () => {
     const onPress = jest.fn();
     const { getByTestId } = render(
-      <BrandedButton enable={false} onPress={onPress}>
+      <BrandedButton enabled={false} onPress={onPress}>
         This is a branded button
       </BrandedButton>,
     );
@@ -37,7 +37,7 @@ describe('branded-button tests', () => {
     const onPress = jest.fn();
     const style = { background: 'red' };
     const { getByTestId } = render(
-      <BrandedButton enable={false} onPress={onPress} style={style}>
+      <BrandedButton enabled={false} onPress={onPress} style={style}>
         This is a branded button
       </BrandedButton>,
     );

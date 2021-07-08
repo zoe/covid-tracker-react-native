@@ -318,7 +318,7 @@ export class PrivacyPolicyUKScreen extends React.Component<PropsType, object> {
         </ScrollView>
 
         {!this.viewOnly ? (
-          <BrandedButton onPress={() => this.props.navigation.goBack()} style={styles.button}>
+          <BrandedButton onPress={this.props.navigation.goBack} style={styles.button}>
             Back
           </BrandedButton>
         ) : null}

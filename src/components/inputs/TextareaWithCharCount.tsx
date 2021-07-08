@@ -1,8 +1,7 @@
+import { CaptionText } from '@covid/components/Text';
 import { Textarea } from 'native-base';
 import * as React from 'react';
 import { StyleProp, TextStyle } from 'react-native';
-
-import { CaptionText } from './Text';
 
 interface ITextareaWithCharCountProps {
   bordered?: boolean;

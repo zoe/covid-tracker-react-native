@@ -8,7 +8,7 @@ import { Profile } from '@covid/core/profile/ProfileService';
 import { ScreenParamList } from '@covid/features';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
-import { offlineService } from '@covid/Services';
+import { offlineService } from '@covid/services';
 import { styling } from '@covid/themes';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { NavigationProp, RouteProp } from '@react-navigation/native';

@@ -1,8 +1,14 @@
 {
+  "app-name": "COVID Study",
+  "company-name": "ZOE",
   "continue": "Continue",
+  "less": "Less",
   "loading": "Loading",
   "log-in": "Logga in",
+  "more": "More",
+  "no-change": "No change",
   "skip": "Hoppa över",
+  "you": "You",
 
   "create-account": {
     "title": "Skapa nytt konto",
@@ -1410,11 +1416,7 @@
     "specify-other": "Please specify"
   },
   "mental-health-playback": {
-    "less": "Less",
-    "more": "More",
-    "no-change": "No change",
     "results-ready": "Insights on COVID & Mental Health are ready",
-    "you": "You",
 
     "modal": {
       "button-negative": "Skip for now",
@@ -1641,6 +1643,112 @@
     "title": "Din appversion behöver uppdateras!",
     "body": "Uppdatera din app för att fortsätta använda den. Vid uppdateringen får du tillgång till de senaste funktionerna.",
     "cta": "Uppdatera nu"
+  },
+
+  "reconsent": {
+    "disease-summary": {
+      "button": "Next",
+      "title": "We’ll invite you to answer additional questions occasionally and send you insights about",
+      "various-diseases": "various diseases"
+    },
+    "disease-preferences": {
+      "title": "What matters most to you?",
+      "subtitle": "Select as many as you like",
+      "show-more": "+ Show more",
+      "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
+    },
+    "feedback": {
+      "button": "Next",
+      "subtitle": "Select as many as you like",
+      "title": "We'd love to know why this didn't feel right for you"
+    },
+    "introduction": {
+      "button": "Next",
+      "description": "Help detect early symptoms and uncover the role of nutrition and lifestyle in disease risk.",
+      "title": "Help us fight major diseases beyond COVID-19"
+    },
+    "reconsider": {
+      "description-1": "We'll continue to use your data to fight COVID-19 only",
+      "description-2": "Please keep reporting your health as usual",
+      "button-positive": "I'd like to reconsider",
+      "button-negative": "Close",
+      "title": "Thank you!"
+    },
+    "newsletter-signup": {
+      "button": "Close",
+      "card-button-no": "Opt-out of email updates",
+      "card-button-yes": "Yes, sign me up",
+      "card-description": "You can opt-out at any time, and will only receive science updates.",
+      "card-message": "Great, keep an eye on your inbox!",
+      "card-title": "Get ZOE's latest science direct to your inbox",
+      "description-1": "Your preferences have been saved and we’ll update you soon.",
+      "description-2": "You don’t need to do anything yet, just keep reporting as usual.",
+      "title": "Thank you!"
+    },
+    "request-consent": {
+      "title": "Are you in?",
+      "subtitle": "To fight other diseases, we need your consent to:",
+      "use-1-title": "1. Advance human health science",
+      "use-1-description": "ZOE and King's College London will use your data to improve the world’s understanding of human health, including but not limited to COVID-19. We may invite you to join third party research studies that you are eligible for.",
+      "use-2-title": "2. Help others improve human health ",
+      "use-2-description": "We may share your data with other bonafide research organisations to help them carry out scientific research into human health too. The full list of organisations will be shown in our Privacy Notice. We will only share your data in an anonymised or aggregated form, unless you permit us to do otherwise.",
+      "use-3-title": "3. Build health products",
+      "use-3-description": "ZOE may build health products based on this research to be sold commercially. This is needed to sustain the technology and team that maintain this app for the long-term. We will never sell your data.",
+      "learn-more": "Learn more in our Privacy Notice",
+      "consent-yes": "Yes, I'm in",
+      "consent-no": "No, I do not consent"
+    }
+  },
+
+  "disease-cards": {
+    "research_consent_dementia": {
+      "name": "Dementia",
+      "description": "1 in 3 people born in the UK this year will develop dementia in their lifetime"
+    },
+    "research_consent_cardiovascular_diseases": {
+      "name": "Cardiovascular Diseases",
+      "description": "Responsible for 1 in 4 deaths in the UK"
+    },
+    "research_consent_cancer": {
+      "name": "Cancer",
+      "description": "Someone in the UK is diagnosed with cancer every 2 mins"
+    },
+    "research_consent_joint_and_bone_diseases": {
+      "name": "Joint and Bone Diseases",
+      "description": "Musculoskeletal conditions affect 1 in 4 UK adults"
+    },
+    "research_consent_mental_health": {
+      "name": "Mental Health",
+      "description": "Up to 10% of people in the UK will experience depression"
+    },
+    "research_consent_nutrition_and_gut_health": {
+      "name": "Nutrition & Gut Health",
+      "description": "86% of Brits have suffered from a gastrointestinal problem in the past year"
+    },
+    "research_consent_womens_health": {
+      "name": "Women's Health",
+      "description": "In the UK, a woman is diagnosed with breast cancer every 10 minutes"
+    },
+    "research_consent_vision_and_hearing_conditions": {
+      "name": "Vision & Hearing Conditions",
+      "description": "1 in 5 UK adults live with hearing loss"
+    },
+    "research_consent_autoimmune_conditions": {
+      "name": "Autoimmune Conditions",
+      "description": "Around 4 million people are living with an autoimmune condition in the UK"
+    },
+    "research_consent_skin_conditions": {
+      "name": "Skin Conditions",
+      "description": "Skin diseases kill approximately 4,000 people every year in the UK"
+    },
+    "research_consent_lung_diseases": {
+      "name": "Lung Diseases",
+      "description": "About 10,000 people in the UK are diagnosed with lung disease every week"
+    },
+    "research_consent_neurological_conditions": {
+      "name": "Neurological Conditions",
+      "description": "600,000 people are diagnosed with a brain disorder every year in the UK"
+    }
   },
 
   "required-field": "Obligatoriska fält"

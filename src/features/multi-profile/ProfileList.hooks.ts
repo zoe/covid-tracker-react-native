@@ -2,7 +2,7 @@ import { AppException } from '@covid/core/api/ApiServiceErrors';
 import { patientService } from '@covid/core/patient/PatientService';
 import { Profile } from '@covid/core/profile/ProfileService';
 import i18n from '@covid/locale/i18n';
-import { offlineService } from '@covid/Services';
+import { offlineService } from '@covid/services';
 import * as React from 'react';
 
 export const useProfileList = () => {

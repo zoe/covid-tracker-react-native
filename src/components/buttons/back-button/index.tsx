@@ -10,10 +10,10 @@ interface IProps {
 }
 
 function BackButton({ style }: IProps) {
-  const { goBack } = useNavigation();
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => goBack()}
+      onPress={navigation.goBack}
       style={[{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center' }, style]}
     >
       <Icon iconName="big-arrow-left" style={{ marginRight: 8 }} />

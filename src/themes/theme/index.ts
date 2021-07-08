@@ -3,7 +3,7 @@ import { DefaultTheme } from 'styled-components';
 
 import { colors } from './colors';
 import { grid } from './grid';
-import { text } from './typography';
+import { styles } from './typography';
 
 declare module 'styled-components' {
   export interface DefaultTheme extends IThemeVars {}
@@ -12,7 +12,7 @@ declare module 'styled-components' {
 const theme: DefaultTheme = {
   colors,
   grid,
-  text,
+  text: styles,
 };
 
 export default theme;

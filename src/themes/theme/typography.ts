@@ -16,7 +16,7 @@ const getTextProperties = (
   };
 };
 
-export const text: ITextClass = {
+export const styles: ITextClass = {
   button: {
     fontFamily: 'SofiaPro-Bold',
     fontSize: 16,
@@ -31,6 +31,7 @@ export const text: ITextClass = {
   h1: getTextProperties(32, 48, 'SofiaPro-Light'),
   h1Regular: getTextProperties(32, 48),
   h2: getTextProperties(28, 40),
+  h2Light: getTextProperties(28, 40, 'SofiaPro-Light'),
   h3: getTextProperties(24, 32, 'SofiaPro-Medium'),
   h3Bold: getTextProperties(24, 32, 'SofiaPro-SemiBold'),
   h3Regular: getTextProperties(24, 32),
@@ -53,6 +54,7 @@ export const text: ITextClass = {
   pSmall: getTextProperties(14, 20),
   pSmallBold: getTextProperties(14, 20, 'SofiaPro-SemiBold'),
   pSmallLight: getTextProperties(14, 20, 'SofiaPro-Light'),
+  pSmallMedium: getTextProperties(14, 20, 'SofiaPro-Medium'),
   pXSmall: getTextProperties(12, 16),
   pXSmallMedium: getTextProperties(12, 16, 'SofiaPro-Medium'),
 };

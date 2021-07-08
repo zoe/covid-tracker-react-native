@@ -1,30 +1,32 @@
 import { ITest } from '@covid/components/types';
 import { colors, fontStyles } from '@theme';
 import * as React from 'react';
-import { ActivityIndicator, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { ActivityIndicator, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface IProps extends ITest {
   children: React.ReactNode;
-  enable?: boolean;
+  enabled?: boolean;
+  indicatorColor?: string;
   loading?: boolean;
-  onPress: () => void;
+  onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   testID?: string;
 }
 
-export default function BrandedButton(props: IProps) {
+export default function BrandedButton({ indicatorColor = colors.white, ...props }: IProps) {
   return (
     <TouchableOpacity
       accessible
       accessibilityRole="button"
       activeOpacity={0.6}
-      disabled={props.enable === false}
-      onPress={props.enable === false ? undefined : props.onPress}
-      style={[props.enable === false ? styles.buttonDisabled : styles.button, props.style]}
+      disabled={props.enabled === false}
+      onPress={props.enabled === false ? undefined : props.onPress}
+      style={[props.enabled === false ? styles.buttonDisabled : styles.button, props.style]}
       testID={props.testID ?? 'button-test-ID'}
     >
-      {props.loading ? <ActivityIndicator color={colors.white} style={styles.activityIndicator} /> : null}
-      <Text style={[fontStyles.bodyLight, styles.text]}>{props.children}</Text>
+      {props.loading ? <ActivityIndicator color={indicatorColor} style={styles.activityIndicator} /> : null}
+      <Text style={[fontStyles.bodyLight, styles.text, props.textStyle]}>{props.children}</Text>
     </TouchableOpacity>
   );
 }

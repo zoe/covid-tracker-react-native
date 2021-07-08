@@ -462,7 +462,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
                 </View>
 
                 <BrandedButton
-                  enable={props.isValid && props.dirty}
+                  enabled={props.isValid && props.dirty}
                   onPress={props.handleSubmit}
                   testID="button-submit"
                 >
