@@ -41,16 +41,6 @@ export default function ReconsentIntroductionScreen() {
       >
         {i18n.t('reconsent.introduction.description')}
       </Text>
-      <Text
-        inverted
-        colorPalette="uiDark"
-        colorShade="darker"
-        style={styles.sidenote}
-        textAlign="center"
-        textClass="h5Light"
-      >
-        {i18n.t('reconsent.introduction.sidenote')}
-      </Text>
     </ReconsentScreen>
   );
 }
@@ -63,8 +53,5 @@ const styles = StyleSheet.create({
   illustration: {
     alignSelf: 'center',
     marginTop: 12,
-  },
-  sidenote: {
-    marginBottom: 32,
   },
 });
