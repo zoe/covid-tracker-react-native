@@ -54,7 +54,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 12,
   },
-  sidenote: {
-    marginBottom: 32,
-  },
 });
