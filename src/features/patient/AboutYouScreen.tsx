@@ -4,6 +4,7 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { RadioInput } from '@covid/components/inputs/RadioInput';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import Page from '@covid/components/Page';
 import { ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import YesNoField from '@covid/components/YesNoField';
@@ -327,7 +328,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
     };
 
     return (
-      <Screen
+      <Page
         navigation={this.props.navigation}
         profile={this.coordinator.patientData?.patientState?.profile}
         testID="about-you-screen"
@@ -472,7 +473,7 @@ export default class AboutYouScreen extends React.Component<AboutYouProps, State
             );
           }}
         </Formik>
-      </Screen>
+      </Page>
     );
   }
 }

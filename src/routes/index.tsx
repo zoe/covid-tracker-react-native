@@ -39,7 +39,7 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.CovidTestDetailScreen} name="CovidTestDetail" options={noHeader} />
       <Stack.Screen component={screens.CovidTestListScreen} name="CovidTestList" options={noHeader} />
       <Stack.Screen component={screens.CreateProfileScreen} name="CreateProfile" options={noHeader} />
-      <Stack.Screen component={screens.DashboardScreen} name="Dashboard" options={noHeader} />
+      <Stack.Screen component={screens.AboutYouScreen} name="Dashboard" options={noHeader} />
       <Stack.Screen component={screens.DashboardUSScreen} name="DashboardUS" options={noHeader} />
       <Stack.Screen component={screens.EditLocationScreen} name="EditLocation" options={noHeader} />
       <Stack.Screen component={screens.EditProfileScreen} name="EditProfile" options={noHeader} />
