@@ -327,6 +327,7 @@ export type StartupInfo = {
   show_new_dashboard: boolean;
   show_timeline: boolean;
   show_trendline: boolean;
+  show_research_consent: boolean;
   users_count: number;
   local_data: {
     app_users: number;
