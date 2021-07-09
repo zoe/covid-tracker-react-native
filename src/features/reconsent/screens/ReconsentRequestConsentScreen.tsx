@@ -57,7 +57,7 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
     const diseasePreferencesPayload = { ...diseasePreferences, research_consent_asked: true };
     try {
       await consentService.postConsent(
-        'UK',
+        'UK Disease Research Consent',
         appConfig.diseaseResearchConsentVersionUK,
         appConfig.diseaseResearchPrivacyPolicyVersionUK,
       );
