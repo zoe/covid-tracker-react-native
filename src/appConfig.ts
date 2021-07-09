@@ -11,7 +11,7 @@ export default {
 
   covidTestVersion: '1.2.0',
 
-  // TODO: Update!
+  // TODO: Update! https://www.notion.so/joinzoe/Product-Eng-Board-ca9e8b1b8926481f8c94cb01a88d567d?p=c301ee89dee24511b87acef8e36b0879
   diseaseResearchConsentVersionUK: 'TBD',
   diseaseResearchPrivacyPolicyVersionUK: 'TBD',
 
