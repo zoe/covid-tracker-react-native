@@ -10,17 +10,25 @@ export default {
   consentVersionUS: 'v1',
 
   covidTestVersion: '1.2.0',
+
+  // TODO: Update!
+  diseaseResearchConsentVersionUK: 'TBD',
+  diseaseResearchPrivacyPolicyVersionUK: 'TBD',
+
   nursesConsentVersionUS: 'v2',
+
   patientVersion: '1.6.0',
+
   privacyPolicyVersionSE: 'v3.0',
 
   privacyPolicyVersionUK: 'v3.0',
   privacyPolicyVersionUS: 'v1.3',
+
   ukValidationStudyAdVersion: 'v2',
-
   ukValidationStudyConsentVersion: 'v3',
-  vaccineRegistryAdVersion: 'v2',
 
+  vaccineRegistryAdVersion: 'v2',
   vaccineRegistryVersion: 'v1',
+
   vaccineVersion: '1.0.0',
 };

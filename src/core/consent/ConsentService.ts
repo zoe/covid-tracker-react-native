@@ -20,10 +20,11 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   public async postConsent(document: string, version: string, privacy_policy_version: string) {
     const payload = {
       document,
-      privacy_policy_version,
       version,
+      // eslint-disable-next-line sort-keys-fix/sort-keys-fix
+      privacy_policy_version,
     };
-    return this.client.patch(`/consent/`, payload);
+    return this.client.post(`/consent/`, payload);
   }
 
   async getConsentSigned(): Promise<Consent | null> {
