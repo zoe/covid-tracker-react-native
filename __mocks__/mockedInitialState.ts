@@ -10,6 +10,7 @@ import { initialStateMentalHealthLearning } from '@covid/core/state/mental-healt
 import { initialStateMentalHealth } from '@covid/core/state/mental-health/state/slice';
 import { initialStateMentalHealthSupport } from '@covid/core/state/mental-health/support/slice';
 import { initialStateMentalHealthPlayback } from '@covid/core/state/mental-health-playback/slice';
+import { initialStateReconsent } from '@covid/core/state/reconsent';
 import { initialStateSettings } from '@covid/core/state/settings/slice';
 import { initialStateUser } from '@covid/core/state/user/slice';
 import { initialStateVaccine } from '@covid/core/state/vaccines/slice';
@@ -26,6 +27,7 @@ export const initialState = {
   mentalHealthPlayback: initialStateMentalHealthPlayback,
   mentalHealthState: initialStateMentalHealth,
   mentalHealthSupport: initialStateMentalHealthSupport,
+  reconsent: initialStateReconsent,
   school: initialStateSchools,
   settings: initialStateSettings,
   user: initialStateUser,
