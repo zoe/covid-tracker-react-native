@@ -10,7 +10,7 @@ import { generalApiClient } from '@covid/services';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme/colors';
 import * as React from 'react';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,14 +23,14 @@ const VIDEO_RATIO = 640 / 480;
 
 const source = {
   html: `
-  <html style="padding: 0; margin: 0">
-    <body style="padding: 0; margin: 0">
+  <html style="padding: 0; margin: 0; background-color: transparent;">
+    <body style="padding: 0; margin: 0; background-color: transparent;">
       <iframe
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen
+        allow="autoplay; picture-in-picture"
         frameborder="0"
         height="100%"
         src="https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&loop=0"
+        style="background-color: transparent;"
         width="100%"
       ></iframe>
       <script src="https://player.vimeo.com/api/player.js"></script>
@@ -77,19 +77,32 @@ export default function ReconsentReconsiderScreen(props: IProps) {
           {i18n.t('reconsent.reconsider.description-2')}
         </Text>
       </View>
-      {videoHeight > 0 ? (
-        <WebView
-          allowsFullscreenVideo
-          allowsInlineMediaPlayback
-          automaticallyAdjustContentInsets
-          scrollEnabled={false}
-          source={source}
-          style={{
-            height: videoHeight,
-            width: videoWidth,
-          }}
-        />
-      ) : null}
+      <View style={styles.videoWrapper}>
+        <View style={styles.activityIndicatorWrapper}>
+          <ActivityIndicator color={colors.brand} size="large" />
+        </View>
+        {videoHeight > 0 ? (
+          <WebView
+            allowsInlineMediaPlayback
+            automaticallyAdjustContentInsets
+            allowsFullscreenVideo={false}
+            containerStyle={{
+              backgroundColor: 'transparent',
+              flex: 0,
+              height: videoHeight,
+              width: videoWidth,
+            }}
+            scrollEnabled={false}
+            source={source}
+            style={{
+              backgroundColor: 'transparent',
+              flex: 0,
+              height: videoHeight,
+              width: videoWidth,
+            }}
+          />
+        ) : null}
+      </View>
       <View style={styles.padding}>
         <BrandedButton onPress={onPressPositive} style={styles.buttonPositive}>
           {i18n.t('reconsent.reconsider.button-positive')}
@@ -110,6 +123,13 @@ export default function ReconsentReconsiderScreen(props: IProps) {
 }
 
 const styles = StyleSheet.create({
+  activityIndicatorWrapper: {
+    alignItems: 'center',
+    aspectRatio: VIDEO_RATIO,
+    justifyContent: 'center',
+    position: 'absolute',
+    width: '100%',
+  },
   buttonNegative: {
     backgroundColor: colors.white,
     borderColor: colors.brand,
@@ -124,5 +144,9 @@ const styles = StyleSheet.create({
   },
   padding: {
     padding: 16,
+  },
+  videoWrapper: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
