@@ -1,5 +1,6 @@
 import { Text } from '@covid/components';
 import { ErrorText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
 import { patientService } from '@covid/core/patient/PatientService';
 import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { RootState } from '@covid/core/state/root';
@@ -38,6 +39,7 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
   const diseasePreferences = useSelector(selectDiseasePreferences);
 
   const onPrivacyPolicyPress = () => {
+    Analytics.track(events.RECONSENT_PRIVACY_POLICY_CLICKED);
     NavigatorService.navigate('PrivacyPolicyUK', { viewOnly: true });
   };
 
@@ -52,6 +54,8 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
   };
 
   const onConfirmYes = async () => {
+    Analytics.track(events.RECONSENT_YES_CLICKED);
+
     const diseasePreferencesPayload = { ...diseasePreferences, research_consent_asked: true };
     try {
       await patientService.updatePatientInfo(patientId, diseasePreferencesPayload);
