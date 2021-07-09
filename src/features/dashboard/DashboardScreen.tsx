@@ -73,8 +73,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
   const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
 
   const runCurrentFeature = () => {
-    appCoordinator.goToReconsent();
-    return;
     if (startupInfo?.show_research_consent) {
       appCoordinator.goToReconsent();
     } else if (startupInfo?.show_modal === 'mental-health-playback') {
