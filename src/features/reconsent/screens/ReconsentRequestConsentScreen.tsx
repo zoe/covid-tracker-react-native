@@ -65,14 +65,17 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
     }
   };
 
+  const onNoClick = () => {
+    Analytics.track(events.RECONSENT_FIRST_NO_CLICKED);
+    NavigatorService.navigate('ReconsentFeedback');
+  };
+
   return (
     <ReconsentScreen
       activeDot={3}
       buttonOnPress={onConfirmYes}
       buttonTitle={i18n.t('reconsent.request-consent.consent-yes')}
-      secondaryButtonOnPress={
-        props.route.params?.secondTime ? undefined : () => NavigatorService.navigate('ReconsentFeedback')
-      }
+      secondaryButtonOnPress={props.route.params?.secondTime ? undefined : onNoClick}
       secondaryButtonTitle={props.route.params?.secondTime ? undefined : i18n.t('reconsent.request-consent.consent-no')}
     >
       <Text rhythm={16} style={styles.center} textClass="h2Light">

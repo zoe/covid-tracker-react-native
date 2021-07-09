@@ -57,7 +57,7 @@ export default function ReconsentReconsiderScreen(props: IProps) {
 
   async function onPressNegative() {
     setLoading(true);
-    Analytics.track(events.RECONSENT_NO_CLICKED);
+    Analytics.track(events.RECONSENT_CONFIRMED_NO_CLICKED);
 
     try {
       await generalApiClient.postUserEvent('feedback_reconsent', feedbackData);
