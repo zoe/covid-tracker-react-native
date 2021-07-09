@@ -2,10 +2,12 @@ import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { Consent } from '@covid/core/user/dto/UserAPIContracts';
 
+type TConsentDocument = 'US' | 'UK' | 'SE' | '' | 'US Nurses' | 'UK Disease Research Consent';
+
 export interface IConsentService {
-  postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
+  postConsent(document: TConsentDocument, version: string, privacy_policy_version: string): void; // TODO: define return object
   getConsentSigned(): Promise<Consent | null>;
-  setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
+  setConsentSigned(document: TConsentDocument, version: string, privacy_policy_version: string): void;
 }
 
 export class ConsentService extends ApiClientBase implements IConsentService {
@@ -17,13 +19,13 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     version: '',
   };
 
-  public async postConsent(document: string, version: string, privacy_policy_version: string) {
+  public async postConsent(document: TConsentDocument, version: string, privacy_policy_version: string) {
     const payload = {
       document,
       privacy_policy_version,
       version,
     };
-    return this.client.patch(`/consent/`, payload);
+    return this.client.post(`/consent/`, payload);
   }
 
   async getConsentSigned(): Promise<Consent | null> {
@@ -31,7 +33,7 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     return consent ? JSON.parse(consent) : null;
   }
 
-  async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
+  async setConsentSigned(document: TConsentDocument, version: string, privacy_policy_version: string) {
     const consent = {
       document,
       privacy_policy_version,
