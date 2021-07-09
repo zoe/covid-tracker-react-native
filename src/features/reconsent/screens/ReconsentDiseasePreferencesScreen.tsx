@@ -13,19 +13,21 @@ import {
   Neuron,
 } from '@assets/icons/svgIcons';
 import { Text } from '@covid/components';
+import { BrandedButton } from '@covid/components/buttons';
 import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { updateDiseasePreferences } from '@covid/core/state/reconsent/slice';
 import { TDisease, TDiseasePreferencesData } from '@covid/core/state/reconsent/types';
 import DiseaseCard from '@covid/features/reconsent/components/DiseaseCard';
 import InfoBox from '@covid/features/reconsent/components/InfoBox';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
+import ShowMore from '@covid/features/reconsent/components/ShowMore';
 import { TDiseasePreference } from '@covid/features/reconsent/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { grid } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { FlatList, Pressable, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 // TODO: Replace icons
@@ -103,7 +105,7 @@ export default function ReconsentDiseasePreferencesScreen() {
     setDiseasePreferences((prevState) => ({ ...prevState, [disease]: !prevState[disease] }));
   };
 
-  const onNextClick = () => {
+  const onPress = () => {
     dispatch(updateDiseasePreferences(diseasePreferences));
     NavigatorService.navigate('ReconsentDiseaseSummary');
   };
@@ -122,52 +124,45 @@ export default function ReconsentDiseasePreferencesScreen() {
     );
   };
 
-  const ShowMore = () => (
-    <Pressable onPress={() => setShowExtendedList(true)}>
-      <Text rhythm={16} style={styles.showMore} textClass="pMedium">
-        {i18n.t('reconsent.disease-preferences.show-more')}
-      </Text>
-    </Pressable>
-  );
-
   return (
-    <ReconsentScreen activeDot={1} buttonOnPress={onNextClick} buttonTitle={i18n.t('navigation.next')}>
-      <Text rhythm={24} textAlign="center" textClass="h2Light">
-        {i18n.t('reconsent.disease-preferences.title')}
-      </Text>
-      <Text inverted colorPalette="uiDark" colorShade="dark" rhythm={16} textAlign="center" textClass="pLight">
-        {i18n.t('reconsent.disease-preferences.subtitle')}
-      </Text>
+    <ReconsentScreen noPadding activeDot={1}>
+      <View style={styles.padding}>
+        <Text rhythm={24} textAlign="center" textClass="h2Light">
+          {i18n.t('reconsent.disease-preferences.title')}
+        </Text>
+        <Text inverted colorPalette="uiDark" colorShade="dark" textAlign="center" textClass="pLight">
+          {i18n.t('reconsent.disease-preferences.subtitle')}
+        </Text>
+      </View>
       <FlatList
+        contentContainerStyle={styles.padding}
         data={showExtendedList ? initialDiseases.concat(extendedDiseases) : initialDiseases}
         keyExtractor={(disease: TDiseasePreference) => disease.name}
-        ListFooterComponent={ShowMore}
+        ListFooterComponent={<ShowMore onPress={() => setShowExtendedList(true)} style={styles.padding} />}
         ListFooterComponentStyle={showExtendedList ? { display: 'none' } : null}
         renderItem={renderItem}
         style={{ overflow: 'visible' }}
       />
-      <View style={styles.infoBox}>
+      <View style={styles.padding}>
         <InfoBox text={i18n.t('reconsent.disease-preferences.how-data-used')} />
+
+        <BrandedButton onPress={onPress} style={styles.button}>
+          {i18n.t('navigation.next')}
+        </BrandedButton>
       </View>
     </ReconsentScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  center: {
-    textAlign: 'center',
+  button: {
+    backgroundColor: colors.purple,
+    marginTop: 16,
   },
-  infoBox: {
-    marginBottom: grid.xl,
-    marginTop: grid.s,
+  padding: {
+    padding: 16,
   },
   page: {
     backgroundColor: colors.backgroundPrimary,
-  },
-  showMore: {
-    color: colors.purple,
-    marginTop: grid.m,
-    textAlign: 'center',
-    textDecorationLine: 'underline',
   },
 });

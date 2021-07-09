@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     paddingVertical: grid.s,
   },
   shadow: {
+    elevation: 4,
     shadowColor: colors.hrColor,
     shadowOffset: { height: 2, width: 2 },
     shadowOpacity: 2,
