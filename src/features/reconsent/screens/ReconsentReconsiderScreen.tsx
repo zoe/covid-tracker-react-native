@@ -81,7 +81,7 @@ export default function ReconsentReconsiderScreen(props: IProps) {
         <View style={styles.activityIndicatorWrapper}>
           <ActivityIndicator color={colors.brand} size="large" />
         </View>
-        {true && videoHeight > 0 ? (
+        {videoHeight > 0 ? (
           <WebView
             allowsInlineMediaPlayback
             automaticallyAdjustContentInsets
