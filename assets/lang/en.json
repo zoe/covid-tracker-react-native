@@ -956,7 +956,7 @@
 
   "archive-reason": {
     "title": "Profile archived",
-    "text": "Help us understand why you archived this profile. This will help to more accurately predict levels of COVID.",
+    "text": "Help us understand why you archived this profile.",
     "text2": "This question is optional.",
     "choice-duplicate-account": "It's a duplicate account",
     "choice-no-report": "I don't want to report for them",
