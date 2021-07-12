@@ -1,5 +1,6 @@
 import { Text } from '@covid/components';
 import { ErrorText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
 import { patientService } from '@covid/core/patient/PatientService';
 import { selectDiseasePreferences } from '@covid/core/state/reconsent';
 import { RootState } from '@covid/core/state/root';
@@ -38,6 +39,7 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
   const diseasePreferences = useSelector(selectDiseasePreferences);
 
   const onPrivacyPolicyPress = () => {
+    Analytics.track(events.RECONSENT_PRIVACY_POLICY_CLICKED);
     NavigatorService.navigate('PrivacyPolicyUK', { viewOnly: true });
   };
 
@@ -52,6 +54,8 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
   };
 
   const onConfirmYes = async () => {
+    Analytics.track(events.RECONSENT_YES_CLICKED);
+
     const diseasePreferencesPayload = { ...diseasePreferences, research_consent_asked: true };
     try {
       await patientService.updatePatientInfo(patientId, diseasePreferencesPayload);
@@ -61,14 +65,17 @@ export default function ReconsentRequestConsentScreen(props: IProps) {
     }
   };
 
+  const onNoClick = () => {
+    Analytics.track(events.RECONSENT_FIRST_NO_CLICKED);
+    NavigatorService.navigate('ReconsentFeedback');
+  };
+
   return (
     <ReconsentScreen
       activeDot={3}
       buttonOnPress={onConfirmYes}
       buttonTitle={i18n.t('reconsent.request-consent.consent-yes')}
-      secondaryButtonOnPress={
-        props.route.params?.secondTime ? undefined : () => NavigatorService.navigate('ReconsentFeedback')
-      }
+      secondaryButtonOnPress={props.route.params?.secondTime ? undefined : onNoClick}
       secondaryButtonTitle={props.route.params?.secondTime ? undefined : i18n.t('reconsent.request-consent.consent-no')}
     >
       <Text rhythm={16} style={styles.center} textClass="h2Light">
