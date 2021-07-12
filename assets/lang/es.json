@@ -940,7 +940,7 @@
 
   "archive-reason": {
     "title": "Perfil archivado",
-    "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
+    "text": "Nos ayuda entender porque archivas este perfil.",
     "text2": "Esta pregunta es opcional",
     "choice-duplicate-account": "Es una cuenta duplicada",
     "choice-no-report": "No quiero reportar para ellos",

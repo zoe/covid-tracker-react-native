@@ -1,6 +1,6 @@
-import { BigButton } from '@covid/components';
-import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
-import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
+import Screen, { Header } from '@covid/components/Screen';
+import { SelectorButton } from '@covid/components/SelectorButton';
+import { HeaderText, SecondaryText } from '@covid/components/Text';
 import { patientService } from '@covid/core/patient/PatientService';
 import { ScreenParamList } from '@covid/features';
 import { appCoordinator } from '@covid/features/AppCoordinator';
@@ -63,11 +63,7 @@ export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
       {reasons.map((reason, i) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
-          <FieldWrapper key={`field-wrapper-${i}`}>
-            <BigButton onPress={() => submitReason(reason.value)}>
-              <RegularText>{reason.text}</RegularText>
-            </BigButton>
-          </FieldWrapper>
+          <SelectorButton key={`archive-reason-${i}`} onPress={() => submitReason(reason.value)} text={reason.text} />
         );
       })}
     </Screen>
