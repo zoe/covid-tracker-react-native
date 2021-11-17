@@ -1,4 +1,4 @@
-fastlane_version "2.182.0"
+fastlane_version "2.198.0"
 
 @keychain_name = "fastlane_tmp_keychain-db"
 
