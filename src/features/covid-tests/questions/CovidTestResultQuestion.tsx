@@ -15,6 +15,7 @@ export interface ICovidTestResultData {
 }
 
 export interface ICovidTestResultFormikData extends ICovidTestResultData {
+  bookedViaGov?: string;
   invitedToTest?: string;
   mechanism?: ECovidTestMechanismOptions;
   antibody?: string;
@@ -65,10 +66,18 @@ export const CovidTestResultQuestion: ICovidTestResultQuestion<IProps, ICovidTes
     if (props.test) {
       return (
         isPostDHSCRevisedVersion(props.test.version) &&
-        showDualAntibodyTestUI(formikProps.values.mechanism, formikProps.values.invitedToTest)
+        showDualAntibodyTestUI(
+          formikProps.values.mechanism,
+          formikProps.values.invitedToTest,
+          formikProps.values.bookedViaGov,
+        )
       );
     }
-    return showDualAntibodyTestUI(formikProps.values.mechanism, formikProps.values.invitedToTest);
+    return showDualAntibodyTestUI(
+      formikProps.values.mechanism,
+      formikProps.values.invitedToTest,
+      formikProps.values.bookedViaGov,
+    );
   };
 
   return (
@@ -151,10 +160,12 @@ CovidTestResultQuestion.initialFormValues = (test?: TCovidTest): ICovidTestResul
 CovidTestResultQuestion.schema = () => {
   return Yup.object().shape(
     {
-      dualAntibodyResult: Yup.string().when(['result', 'mechanism', 'invitedToTest', 'version'], {
-        is: (result, mechanism, invitedToTest, version) => {
+      dualAntibodyResult: Yup.string().when(['result', 'mechanism', 'invitedToTest', 'version', 'bookedViaGov'], {
+        is: (result, mechanism, invitedToTest, version, bookedViaGov) => {
           return (
-            (showDualAntibodyTestUI(mechanism, invitedToTest) && version ? isPostDHSCRevisedVersion(version) : false) ||
+            (showDualAntibodyTestUI(mechanism, invitedToTest, bookedViaGov) && version
+              ? isPostDHSCRevisedVersion(version)
+              : false) ||
             !result ||
             result.length === 0
           );
@@ -162,9 +173,11 @@ CovidTestResultQuestion.schema = () => {
         otherwise: Yup.string(),
         then: Yup.string().required(i18n.t('covid-test.required-result')),
       }),
-      result: Yup.string().when(['dualAntibodyResult', 'mechanism', 'invitedToTest'], {
-        is: (dualAntibodyResult, mechanism, invitedToTest) =>
-          !showDualAntibodyTestUI(mechanism, invitedToTest) || !dualAntibodyResult || dualAntibodyResult.length === 0,
+      result: Yup.string().when(['dualAntibodyResult', 'mechanism', 'invitedToTest', 'bookedViaGov'], {
+        is: (dualAntibodyResult, mechanism, invitedToTest, bookedViaGov) =>
+          !showDualAntibodyTestUI(mechanism, invitedToTest, bookedViaGov) ||
+          !dualAntibodyResult ||
+          dualAntibodyResult.length === 0,
         otherwise: Yup.string(),
         then: Yup.string().required(i18n.t('covid-test.required-result')),
       }),
@@ -175,7 +188,7 @@ CovidTestResultQuestion.schema = () => {
 };
 
 CovidTestResultQuestion.createDTO = (formData: ICovidTestResultFormikData): Partial<TCovidTest> => {
-  return showDualAntibodyTestUI(formData.mechanism, formData.invitedToTest) &&
+  return showDualAntibodyTestUI(formData.mechanism, formData.invitedToTest, formData.bookedViaGov) &&
     (formData.version ? isPostDHSCRevisedVersion(formData.version) : true)
     ? {
         ...(!!formData.dualAntibodyResult && dualAntibodyResultsMapping(formData.dualAntibodyResult)),

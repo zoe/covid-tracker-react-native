@@ -18,8 +18,6 @@ const ANTIBODY_MECHANISMS = [
 
 const ALL_MECHANISMS_EXCEPT_OTHER = PCR_LATERAL_FLOW_MECHANISMS.concat(ANTIBODY_MECHANISMS);
 
-const ZOE_INVITE_MECHANISMS = [ECovidTestMechanismOptions.BLOOD_FINGER_PRICK, ECovidTestMechanismOptions.PCR];
-
 export function isPcrTest(mechanism: ECovidTestMechanismOptions, isRapidTest: boolean) {
   return PCR_LATERAL_FLOW_MECHANISMS.includes(mechanism) && !isRapidTest;
 }
@@ -34,10 +32,6 @@ export function isAntibodyTest(mechanism: ECovidTestMechanismOptions) {
 
 export function isOtherTest(mechanism: ECovidTestMechanismOptions) {
   return !ALL_MECHANISMS_EXCEPT_OTHER.includes(mechanism);
-}
-
-export function isZoeInviteOfferTest(mechanism: ECovidTestMechanismOptions) {
-  return ZOE_INVITE_MECHANISMS.includes(mechanism);
 }
 
 export function getInitialRouteName(
@@ -67,12 +61,15 @@ export function getInitialRouteName(
 export function showDualAntibodyTestUI(
   mechanism: ECovidTestMechanismOptions | undefined,
   invitedToTest: string | undefined,
+  bookedViaGov: string | undefined,
 ) {
-  if (!mechanism || !invitedToTest) {
+  if (!mechanism || (!invitedToTest && !bookedViaGov)) {
     return false;
   }
 
-  return mechanism === ECovidTestMechanismOptions.BLOOD_FINGER_PRICK && invitedToTest === 'yes';
+  return (
+    mechanism === ECovidTestMechanismOptions.BLOOD_FINGER_PRICK && (invitedToTest === 'yes' || bookedViaGov === 'yes')
+  );
 }
 
 export function isPostDHSCRevisedVersion(version: string) {
@@ -82,4 +79,8 @@ export function isPostDHSCRevisedVersion(version: string) {
 
 export function isOldVersionAntibodyInviteTest(test: TCovidTest) {
   return !!test.antibody_type_check && !isPostDHSCRevisedVersion(test.version);
+}
+
+export function isZoeInviteWithDualResultTest(test: TCovidTest) {
+  return test.invited_to_test && isPostDHSCRevisedVersion(test.version);
 }

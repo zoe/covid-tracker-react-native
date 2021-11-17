@@ -263,6 +263,7 @@
     },
     "question-is-rapid-test": "Did you wait less than 2 hours to get the results (i.e. was it a rapid test such as lateral flow test)?",
     "question-invite-to-test": "Did we invite you to perform this test?",
+    "question-booked-via-gov": "Did you order this antibody test via gov.uk or opt-in during registering for a COVID-19 test?",
     "question-result": "What was the result of the test?",
     "picker-positive": "Positive",
     "picker-negative": "Negative",
@@ -1089,7 +1090,7 @@
       "share-cta": "Share your graph"
     }
   },
-  "explore-trend-line": {
+  "trendline": {
     "title": "Estimated COVID cases in",
     "cta": "Share",
     "active-covid-cases": "Active COVID cases in {{location}}",

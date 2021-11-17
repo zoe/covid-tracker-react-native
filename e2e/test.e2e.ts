@@ -51,9 +51,10 @@ testCreateNewProfileFeature({
 });
 testReportTodayFeature({
   addAndUpdateZoeInviteTest: false,
-  addTest: true,
-  addVaccines: true,
-  healthy: true,
-  updateTest: true,
+  addTest: false,
+  addVaccines: false,
+  healthy: false,
+  updateTest: false,
+  addAndUpdateGovUKTest: true,
 });
 testLogoutFeature();

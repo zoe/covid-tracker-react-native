@@ -7,7 +7,7 @@ import { testCovidTestListOnboardingModal } from './testModals';
 
 type TReportTodayConfig = {
   addTest: boolean;
-  addAndUpdateZoeInviteTest?: boolean;
+  addAndUpdateGovUKTest?: boolean;
   addVaccines: boolean;
   healthy: boolean;
   updateTest: boolean;
@@ -72,15 +72,15 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
       testUpdateTest();
     }
 
-    function testAddAndUpdateZoeInviteTest() {
-      it('should be able to add and update a ZOE-invited finger prick antibody test', async () => {
+    function testAddAndUpdateGovUKTest() {
+      it('should be able to add and update a gov.uk finger prick antibody test', async () => {
         await element(by.id('button-add-test')).tap();
 
         await scrollDownToId('scroll-view-covid-test-detail-screen', 'covid-test-mechanism-question');
         await element(by.id('covid-test-mechanism-question-item-blood_sample_finger_prick')).tap();
 
-        await scrollDownToId('scroll-view-covid-test-detail-screen', 'button-yes-covid-test-invited-question');
-        await element(by.id('button-yes-covid-test-invited-question')).tap();
+        await scrollDownToId('scroll-view-covid-test-detail-screen', 'button-yes-covid-test-booked-via-gov-question');
+        await element(by.id('button-yes-covid-test-booked-via-gov-question')).tap();
 
         await element(by.id('scroll-view-covid-test-detail-screen')).scroll(300, 'down');
 
@@ -96,8 +96,8 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
 
         await element(by.id('covid-test-row-blood_sample_finger_prick-0')).atIndex(0).tap();
 
-        await scrollDownToId('scroll-view-covid-test-detail-screen', 'button-no-covid-test-invited-question');
-        await element(by.id('button-no-covid-test-invited-question')).tap();
+        await scrollDownToId('scroll-view-covid-test-detail-screen', 'button-no-covid-test-booked-via-gov-question');
+        await element(by.id('button-no-covid-test-booked-via-gov-question')).tap();
 
         await scrollDownToId('scroll-view-covid-test-detail-screen', 'covid-test-antibody-question');
         await element(by.id('covid-test-antibody-question-item-anti_s')).tap();
@@ -110,8 +110,8 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
         await submitForm('covid-test-detail-screen', 'scroll-view-covid-test-detail-screen', 'button-submit');
       });
     }
-    if (config.addAndUpdateZoeInviteTest) {
-      testAddAndUpdateZoeInviteTest();
+    if (config.addAndUpdateGovUKTest) {
+      testAddAndUpdateGovUKTest();
     }
 
     it('should open the vaccine list screen', async () => {

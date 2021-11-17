@@ -233,6 +233,7 @@
     "required-result": "Ange testresultatet",
     "question-is-rapid-test": "Var det ett snabbtest för pågående infektion (s.k. lateral flow test)? Dessa test tas vanligtvis med en testpinne i näsa/svalg och svaret kommer inom minuter/timmar.",
     "question-invite-to-test": "Har vi bjudit in dig att utföra detta test?",
+    "question-booked-via-gov": false,
     "confirm-test": {
       "title": false,
       "body": false,
@@ -1093,7 +1094,7 @@
       "share-cta": false
     }
   },
-  "explore-trend-line": {
+  "trendline": {
     "title": false,
     "cta": false,
     "active-covid-cases": false,

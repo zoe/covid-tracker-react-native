@@ -41,6 +41,7 @@ export interface ICovidTestMechanismData {
 
 export interface ICovidTestMechanismFormikData extends ICovidTestMechanismData {
   invitedToTest: string;
+  bookedViaGov: string;
 }
 
 interface IProps {
@@ -198,7 +199,9 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
       ) : null}
 
       {(formikProps.values.mechanism === ECovidTestMechanismOptions.BLOOD_FINGER_PRICK &&
-        (isGBCountry() ? formikProps.values.invitedToTest === 'no' : true)) ||
+        (isGBCountry()
+          ? formikProps.values.invitedToTest === 'no' || formikProps.values.bookedViaGov === 'no'
+          : true)) ||
       formikProps.values.mechanism === ECovidTestMechanismOptions.BLOOD_NEEDLE_DRAW ||
       (props.test && isOldVersionAntibodyInviteTest(props.test)) ? (
         <RadioInput
@@ -247,11 +250,13 @@ CovidTestMechanismQuestion.initialFormValues = (test?: TCovidTest): ICovidTestMe
 
 CovidTestMechanismQuestion.schema = () => {
   return Yup.object().shape({
-    antibody: Yup.string().when(['mechanism', 'dualAntibodyResult', 'invitedToTest'], {
-      is: (mechanism, dualAntibodyResult, invitedToTest) => {
+    antibody: Yup.string().when(['mechanism', 'dualAntibodyResult', 'invitedToTest', 'bookedViaGov'], {
+      is: (mechanism, dualAntibodyResult, invitedToTest, bookedViaGov) => {
         return (
           isAntibodyTest(mechanism) &&
-          (!showDualAntibodyTestUI(mechanism, invitedToTest) || !dualAntibodyResult || dualAntibodyResult.length === 0)
+          (!showDualAntibodyTestUI(mechanism, invitedToTest, bookedViaGov) ||
+            !dualAntibodyResult ||
+            dualAntibodyResult.length === 0)
         );
       },
       then: Yup.string().required(i18n.t('please-select-option')),

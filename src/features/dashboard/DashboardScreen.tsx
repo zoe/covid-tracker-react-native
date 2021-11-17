@@ -9,7 +9,7 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { fetchLocalTrendLine, updateTodayDate } from '@covid/core/state/contentSlice';
+import { fetchLocalTrendline, updateTodayDate } from '@covid/core/state/contentSlice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -71,8 +71,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
   }, []);
 
   React.useEffect(() => {
-    if (appCoordinator.shouldShowTrendLine()) {
-      dispatch(fetchLocalTrendLine());
+    if (appCoordinator.shouldShowTrendline()) {
+      dispatch(fetchLocalTrendline());
       setShowTrendline(true);
     }
   }, []);

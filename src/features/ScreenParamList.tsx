@@ -154,7 +154,7 @@ export type TScreenParamList = {
   Modal: undefined;
   Share: { sharable: TSharable | undefined; hideLabel: boolean; label: string };
   Splash: undefined;
-  Trendline: { lad?: string };
+  Trendline: undefined;
   VaccineListMissingModal: { vaccine: TVaccineRequest | undefined };
   VersionUpdateModal: undefined;
 };
