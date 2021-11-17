@@ -3,7 +3,6 @@ import { ContentLoadingView } from '@covid/components/content/ContentLoadingView
 import Analytics, { events } from '@covid/core/Analytics';
 import { addDismissCallout } from '@covid/core/state/contentSlice';
 import { TRootState } from '@covid/core/state/root';
-import { useAppDispatch } from '@covid/core/state/store';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
@@ -19,7 +18,7 @@ import {
   View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 type TProps = {
   aspectRatio: number;
@@ -40,7 +39,7 @@ export const ExternalCallout: React.FC<TProps> = (props) => {
   const [dismissed, setDismissed] = React.useState<boolean>(false);
   const [imageLoading, setImageLoading] = React.useState<boolean>(false);
   const [imageLoadError, setImageLoadError] = React.useState<string | undefined>(undefined);
-  const appDispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const imageProps = {
     onError: () => {
@@ -87,7 +86,7 @@ export const ExternalCallout: React.FC<TProps> = (props) => {
       orderIndex: props.orderIndex,
       screenName: props.screenName,
     });
-    appDispatch(addDismissCallout(props.calloutID));
+    dispatch(addDismissCallout(props.calloutID));
   }
 
   return (

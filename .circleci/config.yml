@@ -55,6 +55,7 @@ references:
   master_filter: &master_filter
     branches:
       only: master
+      
 
   develop_filter: &develop_filter
     branches:
@@ -103,7 +104,6 @@ commands:
           environment:
             BUNDLE_JOBS: '4'
             BUNDLE_RETRY: '3'
-      - run: bundle update fastlane
       - save_cache:
           key: *gem_cache_key
           paths:
@@ -143,6 +143,8 @@ commands:
 
   prepare_deploy_env:
     steps:
+      - run: bundle update fastlane
+      - run: bundle exec fastlane update_plugins
       - run: bash .circleci/make_deploy_env.sh
 
   # Should prepare code, install deps & bundle assets
@@ -294,6 +296,8 @@ jobs:
           at: *default_workspace
       - prepare_deploy_env
       - run: bundle install --path vendor/bundle --clean
+      # Required to set xcode to v 13
+      - run: gem install xcode-install
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build

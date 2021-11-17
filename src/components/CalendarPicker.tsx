@@ -41,8 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightBlueBrand,
   },
   today: {
-    color: colors.purple,
-    fontFamily: 'SofiaPro-Bold',
+    color: colors.primary,
   },
 });
 

@@ -297,6 +297,9 @@ export type TPatientInfosRequest = {
   // Notifications
   menu_notifications_onboarding_seen: boolean;
   notifications_wider_health_studies: boolean;
+
+  // Vaccines
+  has_seen_flu_vaccine_onboarding: boolean;
 };
 
 export enum EVaccineStatus {
@@ -363,4 +366,5 @@ export type TStartupInfo = {
   show_trendline: boolean;
   users_count: number;
   wider_health_studies_consent?: boolean;
+  show_flu_vaccine_onboarding: boolean;
 };

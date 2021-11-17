@@ -5,6 +5,4 @@ import * as React from 'react';
 
 const ValueChangeHandler = (): HandlerFunction => action('cta on press');
 
-storiesOf('EstimatedCaseCard', module).add('uk', () => (
-  <UKEstimatedCaseCard leftMertric="0" onPress={ValueChangeHandler} rightMetric="0" />
-));
+storiesOf('EstimatedCaseCard', module).add('uk', () => <UKEstimatedCaseCard onPress={ValueChangeHandler} />);

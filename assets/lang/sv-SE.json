@@ -231,14 +231,9 @@
     "required-dates": "Ange mellan vilka två datum testet utfördes",
     "required-mechanism": "Ange hur testet utfördes",
     "required-result": "Ange testresultatet",
-    "required-thr-number": false,
-    "required-thr-format": false,
-    "required-thr-length": false,
     "question-is-rapid-test": "Var det ett snabbtest för pågående infektion (s.k. lateral flow test)? Dessa test tas vanligtvis med en testpinne i näsa/svalg och svaret kommer inom minuter/timmar.",
     "question-invite-to-test": "Har vi bjudit in dig att utföra detta test?",
-    "question-thr-number": false,
-    "question-thr-number-description": false,
-    "picker-dont-know-thr": false,
+    "question-booked-via-gov": false,
     "confirm-test": {
       "title": false,
       "body": false,
@@ -261,10 +256,6 @@
       "anti-n-description": "Upptäcker förekomsten av antikroppar riktade mot det så kallade N-proteinet mot covid-19. Antikroppar mot N-proteinet produceras inte i respons till något av de vaccinen som finns på marknaden i dag. Dessa antikroppar ses dock hos de flesta personer som har genomgått en covid-19-infektion och avtar med tiden.",
       "anti-s-title": "Test för antikroppar mot S-proteinet",
       "anti-s-description": "Upptäcker förekomsten av antikroppar riktade mot det så kallade S-proteinet i viruset. Antikroppar mot S-proteinet kan återfinnas både hos personer som har vaccinerats mot covid-19 och hos personer som har genomgått en covid-19-infektion."
-    },
-    "thr-number-modal": {
-      "title": false,
-      "description": false
     }
   },
   "how-you-feel": {
@@ -548,6 +539,7 @@
   },
   "menu": {
     "item-edit-profile": "Min profil",
+    "item-media-centre": false,
     "item-share-this-app": "Dela appen",
     "item-wider-health-studies": false,
     "opt-in": false,
@@ -1080,10 +1072,16 @@
       "name-missing": "Redigera för att lägga till typ",
       "not-logged": "Inte rapporterad än",
       "edit-vaccine": "Redigera vaccin"
+    },
+    "flu-onboarding": {
+      "title": "Logga ditt influensavaccin",
+      "description": "Logga eventuella influensavaccin när du rapporterar hur du mår. Klicka på ”Lägg till dos” och välj ”Influensa” som typ av vaccin.",
+      "new": "Ny"
     }
   },
   "dashboard": {
     "report-today": "Rapportera idag, även om du har det bra",
+    "report-today-large-font": "Rapportera idag",
     "report-now": "Rapportera nu",
     "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
     "contributors-so-far": "Bidragsgivare hittills:",
@@ -1096,7 +1094,7 @@
       "share-cta": false
     }
   },
-  "explore-trend-line": {
+  "trendline": {
     "title": false,
     "cta": false,
     "active-covid-cases": false,
@@ -1523,7 +1521,6 @@
     "disease-preferences": {
       "title": "What matters most to you?",
       "subtitle": "Select as many as you like (optional)",
-      "show-more": "+ Show more",
       "how-data-used": "Your data will help scientists research a wide range of disorders, not just the ones you’ve selected"
     },
     "feedback": {
@@ -1656,6 +1653,13 @@
       "name": "Neurological Conditions",
       "description": "600,000 people are diagnosed with a brain disorder every year in the UK"
     }
+  },
+  "media-centre": {
+    "results": false,
+    "search-placeholder": false,
+    "tab-all": false,
+    "tab-bookmarked": false,
+    "title": false
   },
   "required-field": "Obligatoriska fält",
   "modal-close": "Stänga"

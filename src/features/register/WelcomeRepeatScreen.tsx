@@ -15,6 +15,7 @@ import { appCoordinator } from '@covid/features/AppCoordinator';
 import { ContributionCounter } from '@covid/features/register/components/ContributionCounter';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 import { offlineService, pushNotificationService } from '@covid/services';
 import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
@@ -83,8 +84,8 @@ export class WelcomeRepeatScreen extends React.Component<TProps, TState> {
   };
 
   renderHeader = () => (
-    <View style={styles.wrapper}>
-      <DrawerToggle navigation={this.props.navigation as DrawerNavigationProp<TScreenParamList>} />
+    <View style={styles.header}>
+      <DrawerToggle onPress={NavigatorService.openDrawer} testID="drawer-toggle" />
     </View>
   );
 
@@ -112,7 +113,7 @@ export class WelcomeRepeatScreen extends React.Component<TProps, TState> {
           />
         ) : null}
         <Screen
-          noHeader
+          noPadding
           backgroundColor={colors.brand}
           renderFooter={this.renderFooter}
           renderHeader={this.renderHeader}
@@ -157,6 +158,12 @@ const styles = StyleSheet.create({
     marginBottom: sizes.l,
     padding: sizes.xs,
   },
+  header: {
+    alignItems: 'flex-end',
+    height: sizes.headerCompactHeight,
+    justifyContent: 'center',
+    paddingHorizontal: sizes.m,
+  },
   reportButton: {
     alignSelf: 'center',
     backgroundColor: colors.purple,
@@ -167,6 +174,8 @@ const styles = StyleSheet.create({
   rootContainer: {
     alignItems: 'center',
     flex: 1,
+    paddingBottom: sizes.screenVerticalPadding,
+    paddingHorizontal: sizes.screenHorizontalPadding,
   },
   subtitle: {
     color: colors.white,

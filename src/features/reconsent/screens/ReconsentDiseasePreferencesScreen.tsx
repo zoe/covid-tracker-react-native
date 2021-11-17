@@ -13,17 +13,24 @@ function onPressNext() {
 }
 
 export default function ReconsentDiseasePreferencesScreen() {
+  const topChildren = (
+    <View style={styles.paddingHorizontal}>
+      <Text rhythm={24} textAlign="center" textClass="h2Light">
+        {i18n.t('reconsent.disease-preferences.title')}
+      </Text>
+      <Text inverted colorPalette="uiDark" colorShade="dark" textAlign="center" textClass="pLight">
+        {i18n.t('reconsent.disease-preferences.subtitle')}
+      </Text>
+    </View>
+  );
+
   return (
-    <ReconsentScreen noPadding activeDot={1} testID="reconsent-disease-preferences-screen">
-      <View style={styles.paddingHorizontal}>
-        <Text rhythm={24} textAlign="center" textClass="h2Light">
-          {i18n.t('reconsent.disease-preferences.title')}
-        </Text>
-        <Text inverted colorPalette="uiDark" colorShade="dark" textAlign="center" textClass="pLight">
-          {i18n.t('reconsent.disease-preferences.subtitle')}
-        </Text>
-      </View>
-      <DiseasePreferencesList buttonTitle={i18n.t('navigation.next')} onSubmit={onPressNext} />
+    <ReconsentScreen noPadding noScrollView activeDot={1} testID="reconsent-disease-preferences-screen">
+      <DiseasePreferencesList
+        buttonTitle={i18n.t('navigation.next')}
+        onSubmit={onPressNext}
+        topChildren={topChildren}
+      />
     </ReconsentScreen>
   );
 }

@@ -14,7 +14,7 @@ import {
 } from '@assets/icons/svgIcons';
 import { TDiseasePreference } from '@covid/features/reconsent/types';
 
-export const initialDiseases: TDiseasePreference[] = [
+export const diseasePreferences: TDiseasePreference[] = [
   {
     IconComponent: Brain,
     name: 'research_consent_dementia',
@@ -39,9 +39,6 @@ export const initialDiseases: TDiseasePreference[] = [
     IconComponent: Gut,
     name: 'research_consent_nutrition_and_gut_health',
   },
-];
-
-export const extendedDiseases: TDiseasePreference[] = [
   {
     IconComponent: Female,
     name: 'research_consent_womens_health',

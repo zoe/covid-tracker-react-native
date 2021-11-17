@@ -292,7 +292,7 @@ export default class AboutYouScreen extends React.Component<TProps, TState> {
       .required(i18n.t('required-year-of-birth'))
       .integer(i18n.t('correct-year-of-birth'))
       .min(1900, i18n.t('correct-year-of-birth'))
-      .max(2020, i18n.t('correct-year-of-birth')),
+      .max(new Date().getFullYear(), i18n.t('correct-year-of-birth')),
   });
 
   render() {

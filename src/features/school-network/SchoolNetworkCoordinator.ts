@@ -10,8 +10,6 @@ import store from '@covid/core/state/store';
 import NavigatorService from '@covid/NavigatorService';
 
 class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
-  patientData: TPatientData;
-
   higherEducation: boolean;
 
   private selectedSchool?: ISchoolModel;
@@ -81,9 +79,9 @@ class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
 
   removePatientFromGroup = async (groupId: string, patientId: string) => {
     return schoolService.leaveGroup(groupId, patientId).then(async () => {
-      await store.dispatch(fetchSubscribedSchoolGroups()).then(() => {
-        store.dispatch(schoolSlice.actions.removeGroup(groupId));
-      });
+      // @ts-expect-error
+      await store.dispatch(fetchSubscribedSchoolGroups());
+      await store.dispatch(schoolSlice.actions.removeGroup(groupId));
     });
   };
 
@@ -101,6 +99,7 @@ class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
 
   addPatientToGroup = async (groupId: string, patientId: string) => {
     return schoolService.joinGroup(groupId, patientId).then(async (r) => {
+      // @ts-expect-error
       await store.dispatch(fetchSubscribedSchoolGroups());
       return r;
     });

@@ -1,9 +1,10 @@
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import moment from 'moment';
+import uuid from 'uuid';
+
 import mockDb from './mockDb';
 import { IAssessment, IDietStudy, IPatient } from './types';
-import bodyParser = require('body-parser');
-import express = require('express');
-import moment = require('moment');
-import uuid = require('uuid');
 
 const db = mockDb();
 

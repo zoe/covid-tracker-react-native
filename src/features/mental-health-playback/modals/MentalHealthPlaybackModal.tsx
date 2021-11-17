@@ -35,6 +35,7 @@ export default function MentalHealthPlaybackModal(props: IProps) {
 
   return (
     <Modal
+      enableBackdropDismiss
       modalName="MentalHealthPlayback"
       onRequestClose={onRequestClose}
       testID="mental-health-playback-modal"
@@ -43,7 +44,7 @@ export default function MentalHealthPlaybackModal(props: IProps) {
       <Tag
         color={colors.coral.main.bgColor}
         style={styling.selfCenter}
-        text={i18n.t('mental-health-playback.modal.tag').toUpperCase()}
+        text={i18n.t('mental-health-playback.modal.tag')}
       />
       <Text
         inverted

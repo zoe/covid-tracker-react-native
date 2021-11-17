@@ -1,7 +1,9 @@
 const childProcess = require('child_process');
 const cleanDeep = require('clean-deep');
 const deepDiff = require('deep-diff');
+// @ts-expect-error
 const fs = require('fs');
+// @ts-expect-error
 const path = require('path');
 
 childProcess.execSync("yarn i18next 'src/**/*.{ts,tsx}'");

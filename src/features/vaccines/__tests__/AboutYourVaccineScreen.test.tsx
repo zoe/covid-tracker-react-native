@@ -27,6 +27,7 @@ const ROUTE_PARAM_PATIENT_ID: Object = {
 
 describe('AboutYourVaccineScreen tests', () => {
   it('renders AboutYourVaccineScreen', async () => {
+    // @ts-expect-error
     const elementBase = <MockedNavigator Component={AboutYourVaccineScreen} />;
     const elementWithRedux = <ReduxProvider store={store}>{elementBase}</ReduxProvider>;
     const element = <ThemeProvider theme={theme}>{elementWithRedux}</ThemeProvider>;
@@ -36,6 +37,7 @@ describe('AboutYourVaccineScreen tests', () => {
 
   it('shows add mode if edit index not passed', async () => {
     const elementBase = (
+      // @ts-expect-error
       <MockedNavigator Component={AboutYourVaccineScreen} initialParams={{ ...ROUTE_PARAM_PATIENT_ID }} />
     );
     const elementWithRedux = <ReduxProvider store={store}>{elementBase}</ReduxProvider>;
@@ -52,6 +54,7 @@ describe('AboutYourVaccineScreen tests', () => {
   it('shows edit mode if edit dose id passed', async () => {
     const elementBase = (
       <MockedNavigator
+        // @ts-expect-error
         Component={AboutYourVaccineScreen}
         initialParams={{ ...ROUTE_PARAM_EDIT_DOSE_ID, ...ROUTE_PARAM_PATIENT_ID }}
       />
@@ -71,6 +74,7 @@ describe('AboutYourVaccineScreen tests', () => {
 
   it('only renders vaccine type question on load', () => {
     const elementBase = (
+      // @ts-expect-error
       <MockedNavigator Component={AboutYourVaccineScreen} initialParams={{ ...ROUTE_PARAM_PATIENT_ID }} />
     );
     const elementWithRedux = <ReduxProvider store={store}>{elementBase}</ReduxProvider>;

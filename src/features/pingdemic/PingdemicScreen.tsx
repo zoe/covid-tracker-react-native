@@ -5,6 +5,9 @@ import { Screen } from '@covid/components/Screen';
 import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features';
+import { CovidTestDateQuestion, ICovidTestDateData } from '@covid/features/covid-tests/questions';
+import { PingdemicApiClient } from '@covid/features/pingdemic/PingdemicApiClient';
+import { TPingdemicRequest } from '@covid/features/pingdemic/PingdemicRequest';
 import i18n from '@covid/locale/i18n';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
@@ -13,10 +16,6 @@ import moment from 'moment';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
-
-import { CovidTestDateQuestion, ICovidTestDateData } from '../covid-tests/fields';
-import { PingdemicApiClient } from './PingdemicApiClient';
-import { TPingdemicRequest } from './PingdemicRequest';
 
 const pingdemicApiClient = new PingdemicApiClient();
 
@@ -105,14 +104,14 @@ export const PingdemicScreen: React.FC<TProps> = ({ route }) => {
   const onSubmit = async (values: IPingdemicData) => {
     setIsSubmitting(true);
     const patientId = assessmentCoordinator.assessmentData?.patientData.patientId;
-    const formatDateToPost = (date: Date | undefined) => (date ? moment(date).format('YYYY-MM-DD') : null);
+    const dateToString = (date: Date | undefined) => (date ? moment(date).format('YYYY-MM-DD') : null);
     const pingdemicRequestData = {
       app_bluetooth: values.appActiveWithBluetooth,
       app_installed: values.haveApp,
       asked_to_isolate: values.askedByApp,
-      isolate_date_between_end: formatDateToPost(values.dateTakenBetweenEnd),
-      isolate_date_between_start: formatDateToPost(values.dateTakenBetweenStart),
-      isolate_date_specific: formatDateToPost(values.dateTakenSpecific),
+      isolate_date_between_end: dateToString(values.dateTakenBetweenEnd),
+      isolate_date_between_start: dateToString(values.dateTakenBetweenStart),
+      isolate_date_specific: dateToString(values.dateTakenSpecific),
       other_text: values.otherText,
       patient: patientId,
     } as TPingdemicRequest;
@@ -183,7 +182,9 @@ export const PingdemicScreen: React.FC<TProps> = ({ route }) => {
     >
       <HeaderText>{i18n.t('pingdemic.title')}</HeaderText>
 
-      <SecondaryText style={{ marginBottom: sizes.xl }}>{`${i18n.t('pingdemic.body')} `}</SecondaryText>
+      <SecondaryText style={{ marginBottom: sizes.m, marginTop: sizes.xl }}>{`${i18n.t(
+        'pingdemic.body',
+      )} `}</SecondaryText>
 
       <Formik
         validateOnChange

@@ -90,7 +90,7 @@ class RegisterScreen extends React.Component<TProps, TState> {
           } else {
             this.setState({
               accountExists: false,
-              errorMessage: i18n.t('create-account.something-went-wrong', { msg: err.response?.status }),
+              errorMessage: i18n.t('create-account.something-went-wrong'),
             });
           }
         })

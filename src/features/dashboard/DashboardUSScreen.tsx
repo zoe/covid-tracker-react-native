@@ -8,7 +8,6 @@ import AnalyticsService, { events } from '@covid/core/Analytics';
 import { updateTodayDate } from '@covid/core/state/contentSlice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
-import { useAppDispatch } from '@covid/core/state/store';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
@@ -22,7 +21,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import * as React from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const headerConfig = {
   compact: sizes.headerCompactHeight,
@@ -35,7 +34,7 @@ interface IProps {
 }
 
 export function DashboardUSScreen({ route, navigation }: IProps) {
-  const appDispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const [showDietStudyPlayback] = React.useState<boolean | undefined>(startupInfo?.show_diet_score);
 
@@ -45,7 +44,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 
   React.useEffect(() => {
     return navigation.addListener('focus', async () => {
-      appDispatch(updateTodayDate());
+      dispatch(updateTodayDate());
     });
   }, []);
 

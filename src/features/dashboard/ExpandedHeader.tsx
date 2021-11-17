@@ -12,7 +12,7 @@ import { sizes } from '@covid/themes';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { PixelRatio, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 interface IProps {
@@ -49,7 +49,9 @@ export function ExpandedHeader(props: IProps) {
         <Header3Text style={styles.textToday}>{content.todayDate}</Header3Text>
 
         <BrandedButton onPress={onReport} style={styles.button} testID="button-report-today">
-          {i18n.t('dashboard.report-today')}
+          {PixelRatio.getFontScale() < 1.1
+            ? i18n.t('dashboard.report-today')
+            : i18n.t('dashboard.report-today-large-font')}
         </BrandedButton>
 
         {props.reportedCount ? (

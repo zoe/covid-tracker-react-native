@@ -58,4 +58,5 @@ export const styles: TTextStyles = {
   pSmallMedium: getTextProperties(14, 20, 'SofiaPro-Medium'),
   pXSmall: getTextProperties(12, 16),
   pXSmallMedium: getTextProperties(12, 16, 'SofiaPro-Medium'),
+  tag: getTextProperties(10, 16),
 };

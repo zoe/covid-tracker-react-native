@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "content_type": "blog",
+    "date_added": "2021-10-15T11:22:04+00:00",
+    "date_published": "2021-10-15T11:22:04+00:00",
+    "description": "Dr. Tim Spector talks about the differences between COVID and the flu.",
+    "tags": ["covid", "flu"],
+    "url": "https://covid.joinzoe.com/post/covid-or-flu",
+    "title": "Do I have COVID or the flu? How to tell the difference"
+  },
+  {
+    "id": "2",
+    "content_type": "blog",
+    "date_added": "2021-10-14T11:22:04+00:00",
+    "date_published": "2021-10-14T11:22:04+00:00",
+    "description": "Brand new feature update on logging flu vaccines. Find out how here.",
+    "tags": ["seasonal", "flu", "vaccine", "zoe"],
+    "url": "https://covid.joinzoe.com/post/had-a-seasonal-flu-vaccine-you-can-log-it-with-zoe",
+    "title": "Had a seasonal flu vaccine? You can log it with ZOE"
+  },
+  {
+    "id": "3",
+    "content_type": "blog",
+    "date_added": "2021-10-13T11:22:04+00:00",
+    "date_published": "2021-10-13T11:22:04+00:00",
+    "description": "We get a lot of questions about the need for getting vaccinated.",
+    "tags": ["covid", "vaccines"],
+    "url": "https://covid.joinzoe.com/post/do-i-need-a-covid-vaccine-if-ive-had-covid",
+    "title": "Do I need a COVID vaccine if I’ve had COVID?"
+  },
+  {
+    "id": "4",
+    "content_type": "blog",
+    "date_added": "2021-10-12T11:22:04+00:00",
+    "date_published": "2021-10-12T11:22:04+00:00",
+    "description": "Brand new research just in. How is male fertility affected by COVID vaccines?",
+    "tags": ["covid", "vaccines", "male", "fertility"],
+    "url": "https://covid.joinzoe.com/post/can-covid-19-vaccines-affect-male-fertility",
+    "title": "Can COVID-19 vaccines affect male fertility?"
+  }
+]

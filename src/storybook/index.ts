@@ -12,7 +12,6 @@ configure(() => {
   require('./stories/PersonalisedDataCard.stories');
   require('./stories/PoweredByZoe.stories');
   require('./stories/RadioInput.stories');
-  require('./stories/SchoolNetworks.stories');
   require('./stories/Selectable.stories');
   require('./stories/ShareApp.stories');
   require('./stories/Spinner.stories');

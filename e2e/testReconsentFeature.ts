@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 
-import { extendedDiseases, initialDiseases } from '@covid/features/wider-health-studies/data/diseases';
 import { feedback } from '@covid/features/reconsent/data/feedback';
+import { diseasePreferences } from '@covid/features/wider-health-studies/data/diseases';
 import { by, element, expect } from 'detox';
 
 import { scrollDownToId, submitForm } from './helpers';
@@ -45,18 +45,7 @@ export function testReconsentFeature(config: TReconsentConfig) {
   if (config.selectAllDiseases || config.selectDiseases) {
     it(`should be able to select ${config.selectAllDiseases ? 'all' : 'some'} diseases`, async () => {
       await element(by.id('scroll-view-reconsent-disease-preferences-screen')).scrollTo('top');
-      for (const disease of initialDiseases) {
-        if (config.selectDiseases && !config.selectDiseases.includes(disease.name)) {
-          // eslint-disable-next-line no-continue
-          continue;
-        }
-        await scrollDownToId('scroll-view-reconsent-disease-preferences-screen', `disease-card-${disease.name}`);
-        await element(by.id(`disease-card-${disease.name}`)).tap();
-      }
-      try {
-        await element(by.id('show-more')).tap();
-      } catch (_) {}
-      for (const disease of extendedDiseases) {
+      for (const disease of diseasePreferences) {
         if (config.selectDiseases && !config.selectDiseases.includes(disease.name)) {
           // eslint-disable-next-line no-continue
           continue;

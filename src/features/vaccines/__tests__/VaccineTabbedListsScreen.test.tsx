@@ -3,13 +3,14 @@
 import { EVaccineBrands, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { VaccineTabbedListsScreen } from '@covid/features';
 import { VaccineDoseRow } from '@covid/features/vaccines/components/VaccineDoseRow';
+import { ETabScreen } from '@covid/features/vaccines/screens/VaccineTabbedListsScreen';
 import * as React from 'react';
 import { TabBarItem } from 'react-native-tab-view';
 import renderer from 'react-test-renderer';
 
 import MockedNavigator from '../../../../__mocks__/MockedNavigator';
 
-function createComponent(vaccineDoses: TDose[], vaccineRecord: TVaccineRequest, showTab: string) {
+function createComponent(vaccineDoses: TDose[], vaccineRecord: TVaccineRequest, initialRouteName: ETabScreen) {
   const minTabViewHeight = 240;
   const tabViewHeight = 500;
 
@@ -17,8 +18,8 @@ function createComponent(vaccineDoses: TDose[], vaccineRecord: TVaccineRequest, 
     <MockedNavigator
       Component={() => (
         <VaccineTabbedListsScreen
+          initialRouteName={initialRouteName}
           minTabViewHeight={minTabViewHeight}
-          showTab={showTab}
           tabViewHeight={tabViewHeight}
           vaccineDoses={vaccineDoses}
           vaccineRecord={vaccineRecord}
@@ -78,36 +79,32 @@ describe('VaccineTabbedListsScreen tests', () => {
   it('renders without crashing', () => {
     const vaccineDoses = EMPTY_VACCINES_DOSES;
     const vaccineRecord = generateVaccineRecord(vaccineDoses);
-    const showTab = 'COVID';
 
-    const instance = createComponent(vaccineDoses, vaccineRecord, showTab).instance;
+    const instance = createComponent(vaccineDoses, vaccineRecord, ETabScreen.COVID).instance;
     expect(instance).toBeDefined();
   });
 
   it('renders 2 tabs as default', () => {
     const vaccineDoses = EMPTY_VACCINES_DOSES;
     const vaccineRecord = generateVaccineRecord(vaccineDoses);
-    const showTab = 'COVID';
 
-    const instance = createComponent(vaccineDoses, vaccineRecord, showTab).instance;
+    const instance = createComponent(vaccineDoses, vaccineRecord, ETabScreen.COVID).instance;
     return expect(instance.findAllByType(TabBarItem).length).toBe(2);
   });
 
   it('renders the right number of vaccines in each tab - COVID', () => {
     const vaccineDoses = VACCINES_DOSES;
     const vaccineRecord = generateVaccineRecord(vaccineDoses);
-    const showTab = 'COVID';
 
-    const instance = createComponent(vaccineDoses, vaccineRecord, showTab).instance;
+    const instance = createComponent(vaccineDoses, vaccineRecord, ETabScreen.COVID).instance;
     return expect(instance.findAllByType(VaccineDoseRow).length).toBe(2);
   });
 
   it('renders the right number of vaccines in each tab - Flu', () => {
     const vaccineDoses = VACCINES_DOSES;
     const vaccineRecord = generateVaccineRecord(vaccineDoses);
-    const showTab = 'Flu';
 
-    const instance = createComponent(vaccineDoses, vaccineRecord, showTab).instance;
+    const instance = createComponent(vaccineDoses, vaccineRecord, ETabScreen.FLU).instance;
     return expect(instance.findAllByType(VaccineDoseRow).length).toBe(1);
   });
 });

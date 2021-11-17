@@ -65,9 +65,11 @@ export type TTextStyles = {
   pXSmallMedium: TText;
   pSmallBold: TText;
   pSmallLight: TText;
-  default: TText;
+  //
   button: TText;
+  default: TText;
   label: TText;
+  tag: TText;
 };
 
 export type TTextClass = keyof TTextStyles;

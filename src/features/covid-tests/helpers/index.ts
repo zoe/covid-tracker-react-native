@@ -1,5 +1,6 @@
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
+import { ETabScreen } from '@covid/features/covid-tests/screens/CovidTestTabbedListsScreen';
 
 const PCR_LATERAL_FLOW_MECHANISMS = [
   ECovidTestMechanismOptions.NOSE_OR_THROAT_SWAB,
@@ -17,8 +18,6 @@ const ANTIBODY_MECHANISMS = [
 
 const ALL_MECHANISMS_EXCEPT_OTHER = PCR_LATERAL_FLOW_MECHANISMS.concat(ANTIBODY_MECHANISMS);
 
-const ZOE_INVITE_MECHANISMS = [ECovidTestMechanismOptions.BLOOD_FINGER_PRICK, ECovidTestMechanismOptions.PCR];
-
 export function isPcrTest(mechanism: ECovidTestMechanismOptions, isRapidTest: boolean) {
   return PCR_LATERAL_FLOW_MECHANISMS.includes(mechanism) && !isRapidTest;
 }
@@ -35,38 +34,42 @@ export function isOtherTest(mechanism: ECovidTestMechanismOptions) {
   return !ALL_MECHANISMS_EXCEPT_OTHER.includes(mechanism);
 }
 
-export function isZoeInviteOfferTest(mechanism: ECovidTestMechanismOptions) {
-  return ZOE_INVITE_MECHANISMS.includes(mechanism);
-}
-
-export function getTestType(mechanism: ECovidTestMechanismOptions, isRapidTest: boolean | undefined) {
-  if (isRapidTest !== undefined) {
-    if (isPcrTest(mechanism, isRapidTest)) {
-      return 'PCR';
+export function getInitialRouteName(
+  mechanism: ECovidTestMechanismOptions | undefined,
+  isRapidTest: boolean | undefined,
+): ETabScreen {
+  if (mechanism) {
+    if (isRapidTest !== undefined) {
+      if (isPcrTest(mechanism, isRapidTest)) {
+        return ETabScreen.PCR;
+      }
+      if (isLateralFlowTest(mechanism, isRapidTest)) {
+        return ETabScreen.LATERAL;
+      }
     }
-    if (isLateralFlowTest(mechanism, isRapidTest)) {
-      return 'Lateral';
+
+    if (isAntibodyTest(mechanism)) {
+      return ETabScreen.ANTIBODY;
+    }
+    if (isOtherTest(mechanism)) {
+      return ETabScreen.OTHER;
     }
   }
-
-  if (isAntibodyTest(mechanism)) {
-    return 'Antibody';
-  }
-  if (isOtherTest(mechanism)) {
-    return 'Other';
-  }
-  return null;
+  return ETabScreen.LATERAL;
 }
 
 export function showDualAntibodyTestUI(
   mechanism: ECovidTestMechanismOptions | undefined,
   invitedToTest: string | undefined,
+  bookedViaGov: string | undefined,
 ) {
-  if (!mechanism || !invitedToTest) {
+  if (!mechanism || (!invitedToTest && !bookedViaGov)) {
     return false;
   }
 
-  return mechanism === ECovidTestMechanismOptions.BLOOD_FINGER_PRICK && invitedToTest === 'yes';
+  return (
+    mechanism === ECovidTestMechanismOptions.BLOOD_FINGER_PRICK && (invitedToTest === 'yes' || bookedViaGov === 'yes')
+  );
 }
 
 export function isPostDHSCRevisedVersion(version: string) {
@@ -76,4 +79,8 @@ export function isPostDHSCRevisedVersion(version: string) {
 
 export function isOldVersionAntibodyInviteTest(test: TCovidTest) {
   return !!test.antibody_type_check && !isPostDHSCRevisedVersion(test.version);
+}
+
+export function isZoeInviteWithDualResultTest(test: TCovidTest) {
+  return test.invited_to_test && isPostDHSCRevisedVersion(test.version);
 }

@@ -25,4 +25,4 @@ export const isDateBefore = (date: TDateTypes, compDate: TDateTypes): boolean =>
   return moment(date).isBefore(compDate);
 };
 
-export const formatDateToPost = (date: Date) => moment(date).format('YYYY-MM-DD');
+export const dateToString = (date: Date) => moment(date).format('YYYY-MM-DD');

@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     borderRadius: sizes.m,
     borderWidth: 1,
     justifyContent: 'space-between',
-    marginBottom: sizes.xl,
     paddingVertical: sizes.m,
     width: '100%',
   },

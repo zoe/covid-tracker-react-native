@@ -3,8 +3,12 @@ import { colors, fontStyles } from '@theme';
 import * as React from 'react';
 import { ActivityIndicator, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
-interface IProps extends ITest {
+// @todo: replace the 'enabled' prop with the 'disabled' prop. Reason is because then it matches
+// with the property from the TouchableOpacity.
+
+export interface IBrandedButtonProps extends ITest {
   children: React.ReactNode;
+  disabled?: boolean;
   enabled?: boolean;
   indicatorColor?: string;
   loading?: boolean;
@@ -14,7 +18,7 @@ interface IProps extends ITest {
   testID?: string;
 }
 
-export default function BrandedButton({ indicatorColor = colors.white, ...props }: IProps) {
+export default function BrandedButton({ indicatorColor = colors.white, ...props }: IBrandedButtonProps) {
   return (
     <TouchableOpacity
       accessible

@@ -1,5 +1,6 @@
 import { styling } from '@covid/themes';
 import { colors } from '@theme';
+import moment from 'moment';
 import * as React from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
@@ -31,6 +32,11 @@ const yAxisTickStepSizes = Array(10)
   .fill(null)
   .map((_, i) => [10, 20, 25, 50].map((step) => step * 10 ** i))
   .flat(1);
+
+function tickFormat(tick: string) {
+  const momentTick = moment(tick);
+  return momentTick.dayOfYear() === 1 ? momentTick.year() : momentTick.format('MMM');
+}
 
 export function LineChart(props: IProps) {
   const [viewWidth, setViewWidth] = React.useState(0);
@@ -72,7 +78,7 @@ export function LineChart(props: IProps) {
           width={chartWidth}
         >
           <VictoryAxis dependentAxis tickValues={tickValues} />
-          <VictoryAxis />
+          <VictoryAxis fixLabelOverlap tickFormat={tickFormat} />
           <VictoryLine data={props.data} height={chartHeight} style={style} width={chartWidth} />
         </VictoryChart>
       ) : null}

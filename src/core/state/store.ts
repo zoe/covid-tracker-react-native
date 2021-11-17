@@ -2,7 +2,6 @@ import rootReducer from '@covid/core/state/root';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { LogBox } from 'react-native';
-import { useDispatch } from 'react-redux';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 
 const persistConfig = {
@@ -27,9 +26,5 @@ const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-type TAppDispatch = typeof store.dispatch;
-
-export const useAppDispatch = () => useDispatch<TAppDispatch>();
 
 export default store;

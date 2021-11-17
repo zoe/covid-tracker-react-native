@@ -1,3 +1,4 @@
+// @ts-expect-error
 const fs = require('fs');
 
 fs.readFile('src/components/icons/icon/selection.json', (error: any, data: string) => {

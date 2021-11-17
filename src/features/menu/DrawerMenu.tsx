@@ -1,6 +1,7 @@
 import { closeIcon } from '@assets';
 import { EditProfilesIcon } from '@assets/icons/navigation/EditProfilesIcon';
 import { HeartIcon } from '@assets/icons/navigation/HeartIcon';
+import { MediaIcon } from '@assets/icons/navigation/MediaIcon';
 import { ShareIcon } from '@assets/icons/navigation/ShareIcon';
 import { Text } from '@covid/components';
 import { share } from '@covid/components/cards/BaseShareApp';
@@ -34,6 +35,8 @@ const isDevChannel = Constants.manifest.releaseChannel === '0-dev';
 const onPressShare = () => share(i18n.t('share-this-app.message'));
 
 const onPressProfile = () => NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
+
+const onPressMediaCentre = () => NavigatorService.navigate('MediaCentre');
 
 const hitSlop = {
   bottom: 12,
@@ -120,6 +123,17 @@ export const DrawerMenu: React.FC<TProps> = (props: TProps) => {
             sidenote={sidenote}
             sidenoteColor={startupInfo?.wider_health_studies_consent ? 'gray' : 'blue'}
             testID="menu-item-wider-health-studies"
+          />
+        ) : null}
+
+        {startupInfo?.is_tester ? (
+          <MenuItem
+            showDot
+            analyticsName="MEDIA_CENTRE"
+            IconComponent={MediaIcon}
+            label={i18n.t('menu.item-media-centre')}
+            onPress={onPressMediaCentre}
+            testID="menu-media-centre"
           />
         ) : null}
 

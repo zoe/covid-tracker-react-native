@@ -5,8 +5,7 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { YesNoField } from '@covid/components/inputs/YesNoField';
 import { Screen } from '@covid/components/Screen';
 import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
-import { fetchStartUpInfo } from '@covid/core/state/contentSlice';
-import { useAppDispatch } from '@covid/core/state/store';
+import { fetchLocalTrendline, fetchStartUpInfo } from '@covid/core/state/contentSlice';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
@@ -16,6 +15,7 @@ import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
 import * as React from 'react';
 import { PickerItemProps, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 type TProps = {
@@ -38,7 +38,7 @@ type TEditLocationData = {
 export const EditLocationScreen: React.FC<TProps> = (props) => {
   const [errorMessage, setErrorMessage] = React.useState('');
 
-  const appDispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const initialFormValues: TEditLocationData = {
     currentCountry: props.route.params?.patientData?.patientInfo!.current_country_code ?? '',
@@ -73,7 +73,7 @@ export const EditLocationScreen: React.FC<TProps> = (props) => {
     }),
   });
 
-  const onSubmit = (values: TEditLocationData) => {
+  const onSubmit = async (values: TEditLocationData) => {
     const infos: Partial<TPatientInfosRequest> = {};
 
     if (values.differentAddress === 'no') {
@@ -90,15 +90,16 @@ export const EditLocationScreen: React.FC<TProps> = (props) => {
       infos.current_country_code = values.currentCountry;
     }
 
-    editProfileCoordinator
-      .updatePatientInfo(infos)
-      .then(() => {
-        appDispatch(fetchStartUpInfo());
-        editProfileCoordinator.gotoNextScreen(props.route.name);
-      })
-      .catch(() => {
-        setErrorMessage(i18n.t('something-went-wrong'));
-      });
+    try {
+      await editProfileCoordinator.updatePatientInfo(infos);
+      // Refresh the trend line data because a new postcode corresponds to different trend line data.
+      await dispatch(fetchLocalTrendline());
+      // Refresh the startup info because a new postcode corresponds to changes in the local data.
+      await dispatch(fetchStartUpInfo());
+      editProfileCoordinator.gotoNextScreen(props.route.name);
+    } catch (_) {
+      setErrorMessage(i18n.t('something-went-wrong'));
+    }
   };
 
   const countryList: PickerItemProps[] = require('country-list')

@@ -244,11 +244,11 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     NavigatorService.navigate('CreateProfile', { avatarName });
   };
 
-  goToTrendline = (lad?: string) => {
-    NavigatorService.navigate('Trendline', { lad });
+  goToTrendline = () => {
+    NavigatorService.navigate('Trendline');
   };
 
-  shouldShowTrendLine(): boolean {
+  shouldShowTrendline(): boolean {
     const { startupInfo } = store.getState().content;
 
     return !!(startupInfo?.show_trendline && startupInfo?.local_data?.lad);

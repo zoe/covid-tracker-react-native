@@ -28,7 +28,7 @@ export function MenuItem(props: IProps) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.touchable} testID={props.testID}>
       <WithNotificationDot showDot={!!props.showDot}>
-        <props.IconComponent maxDimension={20} />
+        <props.IconComponent maxDimension={30} />
       </WithNotificationDot>
       <Text style={styles.label} textClass="h4Medium">
         {props.label}

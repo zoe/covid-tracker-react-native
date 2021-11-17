@@ -5,7 +5,7 @@ import VersionUpdateModal from '@covid/core/VersionUpdateModal';
 import MentalHealthPlaybackModal from '@covid/features/mental-health-playback/modals/MentalHealthPlaybackModal';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
-import { VaccineListMissingModal } from '@covid/features/vaccines/VaccineListMissingModal';
+import { VaccineListMissingModal } from '@covid/features/vaccines/modals/VaccineListMissingModal';
 import NavigatorService from '@covid/NavigatorService';
 import MainNavigator from '@covid/routes';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
@@ -34,7 +34,12 @@ const optionsMainScreen = { headerShown: false };
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator drawerContent={drawerContent} drawerStyle={drawerStyle} screenOptions={screenOptions}>
+    <Drawer.Navigator
+      drawerContent={drawerContent}
+      drawerPosition="right"
+      drawerStyle={drawerStyle}
+      screenOptions={screenOptions}
+    >
       <Drawer.Screen component={MainNavigator} name="Main" options={optionsMainScreen} />
     </Drawer.Navigator>
   );

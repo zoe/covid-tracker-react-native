@@ -9,6 +9,7 @@ describe('branded-button tests', () => {
   it('renders correctly', () => {
     const onPress = jest.fn();
     const tree = renderer.create(<BrandedButton onPress={onPress}>This is a branded button</BrandedButton>).toJSON();
+    // @ts-expect-error
     expect(tree).toMatchSnapshot();
   });
 

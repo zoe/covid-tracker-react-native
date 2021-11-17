@@ -53,14 +53,16 @@ class SplashScreen extends React.Component<TProps, TState> {
     });
   }
 
-  async initAppState(screenName: TScreenName) {
+  async initAppState(screenName?: TScreenName) {
     await appCoordinator.init(this.props.setUsername, this.props.setPatients);
     RNSplashScreen.hide();
     // reset router if deeplinking this ensures the dashboard is loaded as the default route
     if (screenName !== this.props.route.name) {
       NavigatorService.reset([{ name: homeScreenName() }]);
     }
-    appCoordinator.gotoNextScreen(screenName);
+    if (screenName) {
+      appCoordinator.gotoNextScreen(screenName);
+    }
   }
 
   private reloadAppState = async () => {

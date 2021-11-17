@@ -14,16 +14,16 @@ export default (dbPath: string) => {
   return {
     bootstrap: (config: IDbConfig) => {
       // Bootstrap: creates the db folder and files
-      fs.access(dbPath, fs.constants.F_OK, (err: ErrnoException | null) => {
-        if (err) {
+      fs.access(dbPath, fs.constants.F_OK, (error1: ErrnoException | null) => {
+        if (error1) {
           console.log(`~~ mockDb: create folder ${dbPath}`);
           fs.mkdirSync(dbPath);
         }
 
         Object.values(config).forEach((dbObject) => {
           const { path, defaultData } = dbObject;
-          fs.access(`${dbPath}/${path}`, fs.constants.F_OK, (err: ErrnoException | null) => {
-            if (!err) {
+          fs.access(`${dbPath}/${path}`, fs.constants.F_OK, (error2: ErrnoException | null) => {
+            if (!error2) {
               return;
             }
 

@@ -1,19 +1,19 @@
-export type TTrendLineResponse = {
+export type TTrendlineResponse = {
   lad: string;
   name: string;
   today: number;
-  timeseries: ITrendLineTimeSeriesData[];
+  timeseries: ITrendlineTimeSeriesData[];
 };
 
-export interface ITrendLineData {
+export interface ITrendlineData {
   lad?: string;
   name?: string;
   delta?: number;
   today?: number;
-  timeseries?: ITrendLineTimeSeriesData[];
+  timeseries?: ITrendlineTimeSeriesData[];
 }
 
-export interface ITrendLineTimeSeriesData {
+export interface ITrendlineTimeSeriesData {
   LAD: string;
   value: number;
   lower_CI: number;

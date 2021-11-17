@@ -13,6 +13,7 @@ interface IProps {
   children?: React.ReactNode;
   noHeader?: boolean;
   noPadding?: boolean;
+  noScrollView?: boolean;
   testID: string;
 }
 
@@ -50,6 +51,7 @@ export default function ReconsentScreen(props: IProps) {
     <Screen
       backgroundColor={colors.backgroundPrimary}
       noPadding={props.noPadding}
+      noScrollView={props.noScrollView}
       renderHeader={renderHeader}
       testID={props.testID}
     >

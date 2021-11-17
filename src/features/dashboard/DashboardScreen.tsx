@@ -9,10 +9,9 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { fetchLocalTrendLine, updateTodayDate } from '@covid/core/state/contentSlice';
+import { fetchLocalTrendline, updateTodayDate } from '@covid/core/state/contentSlice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
-import { useAppDispatch } from '@covid/core/state/store';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
@@ -48,7 +47,6 @@ const onMoreDetails = () => openWebLink('https://covid.joinzoe.com/data');
 
 export function DashboardScreen({ navigation, route }: IProps) {
   const dispatch = useDispatch();
-  const appDispatch = useAppDispatch();
   const schoolGroups = useSelector<TRootState, ISubscribedSchoolGroupStats[]>(
     (state) => state.school.joinedSchoolGroups,
   );
@@ -67,14 +65,14 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   React.useEffect(() => {
     return navigation.addListener('focus', async () => {
-      appDispatch(updateTodayDate());
-      appDispatch(fetchSubscribedSchoolGroups());
+      dispatch(updateTodayDate());
+      dispatch(fetchSubscribedSchoolGroups());
     });
   }, []);
 
   React.useEffect(() => {
-    if (appCoordinator.shouldShowTrendLine()) {
-      dispatch(fetchLocalTrendLine());
+    if (appCoordinator.shouldShowTrendline()) {
+      dispatch(fetchLocalTrendline());
       setShowTrendline(true);
     }
   }, []);

@@ -10,15 +10,13 @@ import { TDiseaseId } from '@covid/core/state/reconsent/types';
 import { TDiseasePreference } from '@covid/features/reconsent/types';
 import DiseaseCard from '@covid/features/wider-health-studies/components/DiseaseCard';
 import InfoBox from '@covid/features/wider-health-studies/components/InfoBox';
-import { extendedDiseases, initialDiseases } from '@covid/features/wider-health-studies/data/diseases';
+import { diseasePreferences } from '@covid/features/wider-health-studies/data/diseases';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, ScrollView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
-const allDiseases = initialDiseases.concat(extendedDiseases);
 
 function keyExtractor(disease: TDiseasePreference) {
   return disease.name;
@@ -28,7 +26,7 @@ type TProps = {
   buttonTitle: string;
   onSubmit: () => void;
   showActiveText?: boolean;
-  showExtendedList?: boolean;
+  topChildren?: React.ReactNode;
 };
 
 export const DiseasePreferencesList: React.FC<TProps> = React.memo((props: TProps) => {
@@ -37,13 +35,6 @@ export const DiseasePreferencesList: React.FC<TProps> = React.memo((props: TProp
   const dispatchGlobal = useDispatch();
 
   const diseasesActivated = useSelector(() => selectDiseasesActivated(reconsentLocalState));
-  const initialShowExtendedList = React.useMemo(
-    () => extendedDiseases.some((disease) => reconsentLocalState.diseasePreferences[disease.name]),
-    [],
-  );
-  const [showExtendedList, setShowExtendedList] = React.useState(props.showExtendedList || initialShowExtendedList);
-
-  const data = showExtendedList ? allDiseases : initialDiseases;
 
   const onPressCard = (diseaseId: TDiseaseId) => {
     if (diseaseId === 'prefer_not_to_say' && !reconsentLocalState.diseasePreferences[diseaseId]) {
@@ -83,24 +74,6 @@ export const DiseasePreferencesList: React.FC<TProps> = React.memo((props: TProp
     );
   };
 
-  const ListFooterComponent = React.useMemo(
-    () => (
-      <TouchableOpacity onPress={() => setShowExtendedList(true)} style={styles.marginTop} testID="show-more">
-        <Text
-          inverted
-          colorPalette="actionSecondary"
-          colorShade="main"
-          textAlign="center"
-          textClass="pMedium"
-          textDecorationLine="underline"
-        >
-          {i18n.t('reconsent.disease-preferences.show-more')}
-        </Text>
-      </TouchableOpacity>
-    ),
-    [setShowExtendedList],
-  );
-
   function onPress() {
     props.onSubmit();
     dispatchGlobal(setDiseasePreferences({ diseasePreferences: reconsentLocalState.diseasePreferences }));
@@ -108,25 +81,28 @@ export const DiseasePreferencesList: React.FC<TProps> = React.memo((props: TProp
 
   return (
     <>
-      {props.showActiveText ? (
-        <Text style={styles.selfCenter}>
-          <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pMedium">
-            {diseasesActivated.length}{' '}
+      <ScrollView style={styles.flex}>
+        {props.topChildren}
+        {props.showActiveText ? (
+          <Text style={styles.selfCenter}>
+            <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pMedium">
+              {diseasesActivated.length}{' '}
+            </Text>
+            <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pLight">
+              {i18n.t('wider-health-studies.disease-preferences.description', { count: diseasesActivated.length })}
+            </Text>
           </Text>
-          <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pLight">
-            {i18n.t('wider-health-studies.disease-preferences.description', { count: diseasesActivated.length })}
-          </Text>
-        </Text>
-      ) : null}
-      <FlatList
-        contentContainerStyle={styles.contentContainer}
-        data={data}
-        keyExtractor={keyExtractor}
-        ListFooterComponent={showExtendedList ? undefined : ListFooterComponent}
-        renderItem={renderItem}
-        scrollEnabled={false}
-      />
-      <InfoBox style={styles.marginHorizontal} text={i18n.t('reconsent.disease-preferences.how-data-used')} />
+        ) : null}
+        <FlatList
+          contentContainerStyle={styles.contentContainer}
+          data={diseasePreferences}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+          scrollEnabled={false}
+          style={styles.flex}
+        />
+        <InfoBox style={styles.marginHorizontal} text={i18n.t('reconsent.disease-preferences.how-data-used')} />
+      </ScrollView>
       <BrandedButton onPress={onPress} style={styles.button} testID="button-cta-disease-preferences-submit">
         {props.buttonTitle}
       </BrandedButton>
@@ -141,6 +117,9 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: sizes.l,
+  },
+  flex: {
+    flex: 1,
   },
   marginHorizontal: {
     marginHorizontal: sizes.l,

@@ -39,7 +39,7 @@ export default function StudyCard(props: IProps) {
         </View>
       </View>
       <View style={styles.containerLower}>
-        <Tag color={props.tagColor} text={i18n.t('navigation.insights').toUpperCase()} />
+        <Tag color={props.tagColor} text={i18n.t('navigation.insights')} />
         <RoundIconButton
           iconName="arrow_forward_ios"
           onPress={props.onPress}

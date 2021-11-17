@@ -50,6 +50,6 @@ function testComponent(name: string, Component: React.ComponentType, config: TCo
 }
 
 describe('Test if the screens render without error', () =>
-  Object.entries(screens).forEach(([key, value]) =>
+  Object.entries(screens).forEach(([key, value]: [string, any]) =>
     testComponent(key, value, { mockNavigator: true, mockRedux: true, mockTheme: true }),
   ));

@@ -12,16 +12,19 @@ function onSubmit() {
 }
 
 export default function DiseasePreferencesScreen() {
+  const topChildren = (
+    <Text rhythm={24} textAlign="center" textClass="h2Light">
+      {i18n.t('wider-health-studies.disease-preferences.title')}
+    </Text>
+  );
+
   return (
-    <Screen noPadding testID="disease-preferences-screen">
-      <Text rhythm={24} textAlign="center" textClass="h2Light">
-        {i18n.t('wider-health-studies.disease-preferences.title')}
-      </Text>
+    <Screen noPadding noScrollView testID="disease-preferences-screen">
       <DiseasePreferencesList
         showActiveText
-        showExtendedList
         buttonTitle={i18n.t('wider-health-studies.disease-preferences.button')}
         onSubmit={onSubmit}
+        topChildren={topChildren}
       />
     </Screen>
   );

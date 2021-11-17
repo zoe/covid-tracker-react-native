@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 // Please keep these in alphabetical order ^_^
 
 export const covidIcon = require('./icon_transparent.png');
@@ -110,5 +109,8 @@ export * from './avatars';
 // cards
 export * from './cards';
 
-// Covid Tests
-export const thrNumberInstructions = require('./covid-tests/thr-number-instructions-updated.png');
+// Media Centre dummy cards
+export const mediaContentItem1 = require('./media-centre/media-content-item-1.png');
+export const mediaContentItem2 = require('./media-centre/media-content-item-2.png');
+export const mediaContentItem3 = require('./media-centre/media-content-item-3.png');
+export const mediaContentItem4 = require('./media-centre/media-content-item-4.png');

@@ -65,6 +65,7 @@ const DUMMY_VACCINE_WITH_TWO_DOSES: TVaccineRequest = {
 
 describe('VaccineListScreen tests', () => {
   it('renders VaccineListScreen', async () => {
+    // @ts-expect-error
     const elementBase = <MockedNavigator Component={VaccineListScreen} />;
     const elementWithRedux = <ReduxProvider store={store}>{elementBase}</ReduxProvider>;
     const element = <ThemeProvider theme={theme}>{elementWithRedux}</ThemeProvider>;
@@ -74,6 +75,7 @@ describe('VaccineListScreen tests', () => {
 
   it('renders 2 doses in the COVID tab when 2 doses exist', async () => {
     jest.spyOn(vaccineService, 'listVaccines').mockReturnValue(Promise.resolve([DUMMY_VACCINE_WITH_TWO_DOSES]));
+    // @ts-expect-error
     const elementBase = <MockedNavigator Component={VaccineListScreen} initialParams={ROUTE_PARAM_PATIENT_ID} />;
     const elementWithRedux = <ReduxProvider store={store}>{elementBase}</ReduxProvider>;
     const element = <ThemeProvider theme={theme}>{elementWithRedux}</ThemeProvider>;
@@ -86,6 +88,7 @@ describe('VaccineListScreen tests', () => {
 
   it('renders 0 doses when 0 doses exist', async () => {
     jest.spyOn(vaccineService, 'listVaccines').mockReturnValue(Promise.resolve([]));
+    // @ts-expect-error
     const elementBase = <MockedNavigator Component={VaccineListScreen} />;
     const elementWithRedux = <ReduxProvider store={store}>{elementBase}</ReduxProvider>;
     const element = <ThemeProvider theme={theme}>{elementWithRedux}</ThemeProvider>;
