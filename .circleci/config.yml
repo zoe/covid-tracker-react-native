@@ -60,6 +60,7 @@ references:
     branches:
       only:
         - develop
+        - julia/v63-v64
 
   feature_filter: &feature_filter
     branches:
