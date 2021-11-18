@@ -304,6 +304,7 @@ jobs:
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: /Users/distiller/Library/Logs/
+      - store_artifacts:
           path: ~/covid-react/build
 
   # Uses android-api docker image to build android app
