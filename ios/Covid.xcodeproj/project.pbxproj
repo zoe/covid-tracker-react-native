@@ -16,6 +16,7 @@
 		2109C585AD574A2DA19091D4 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A35E878AE6E466F8B9D4634 /* Entypo.ttf */; };
 		301B131F8802424EAFD21B6A /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D987CEEA4F54564B275B288 /* FontAwesome5_Solid.ttf */; };
 		30FA879087044B8C9CE1F10F /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6C91EB57640FEAAE489F0 /* icomoon.ttf */; };
+		52DAA73301B63A2F68EC6E31 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD378D02F17D25886C1CF8C6 /* ExpoModulesProvider.swift */; };
 		5E73E9549D3B43CD99F4CA6F /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 617C704A533A453BA07330C7 /* Feather.ttf */; };
 		64A18536D723448EB69C0619 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0072139D332B47EF8F51BDF4 /* Fontisto.ttf */; };
 		6AC7ED32BB8AE76D1736E94E /* libPods-Covid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDF4BA42D7FB9428DA31746 /* libPods-Covid.a */; };
@@ -103,6 +104,7 @@
 		F778D8F9252644E800CB635B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F7E2425125125F3700D03296 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "../configs/stage/ios/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		FA798D290ADB8215D1F0427E /* Pods-Covid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug.xcconfig"; sourceTree = "<group>"; };
+		FD378D02F17D25886C1CF8C6 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Covid/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		71D3371B050055A4E476BDEB /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				7451B5593391997333288B57 /* Covid */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
+		7451B5593391997333288B57 /* Covid */ = {
+			isa = PBXGroup;
+			children = (
+				FD378D02F17D25886C1CF8C6 /* ExpoModulesProvider.swift */,
+			);
+			name = Covid;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +185,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				C5066F09DEE8452AAC6B9B9E /* Resources */,
+				71D3371B050055A4E476BDEB /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -385,11 +404,15 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Covid/Pods-Covid-resources.sh",
 				"${PODS_ROOT}/Amplitude/Sources/Amplitude/ComodoRsaDomainValidationCA.der",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXUpdates/EXUpdates.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ComodoRsaDomainValidationCA.der",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXUpdates.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,6 +448,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				52DAA73301B63A2F68EC6E31 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
