@@ -158,7 +158,7 @@ end
 platform :ios do
 
   before_all do
-    xcversion(version: "13")
+    xcversion(version: "13.1")
     get_version_no
     setup_circle_ci
     app_identifier = @ios_app_id
