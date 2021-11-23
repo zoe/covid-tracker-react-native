@@ -271,7 +271,6 @@ jobs:
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
             echo 'nvm install v10.2.0' >> $BASH_ENV
             echo 'nvm alias default v10.2.0' >> $BASH_ENV
-
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       #- run: detox build --configuration ios.release
       - run: detox test --configuration ios.release --cleanup
@@ -300,6 +299,7 @@ jobs:
           at: *default_workspace
       - prepare_deploy_env
       - run: bundle install --path vendor/bundle --clean
+      - run: security find-identity -v -p codesigning
       # Required to set xcode to v 13
       - run: gem install xcode-install
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
