@@ -14,8 +14,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.3'
-        classpath("com.android.tools.build:gradle:4.2.1")
-
+        //classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:7.0.0'
         // OCT 2021 build error fix
         // https://stackoverflow.com/questions/57606462/a-failure-occurred-while-executing-com-android-build-gradle-internal-tasks
         //classpath 'com.google.gms:google-services:4.3.10'
