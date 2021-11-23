@@ -110,6 +110,7 @@ platform :android do
   JS_PACKAGE = load_json(json_path: "./package.json")
 
   before_all do
+    setup_circle_ci
     get_version_no
     inc_ver_android
     @ac_notify_group = "Android"
@@ -158,9 +159,9 @@ end
 platform :ios do
 
   before_all do
+    setup_circle_ci
     xcversion(version: "13.1")
     get_version_no
-    setup_circle_ci
     app_identifier = @ios_app_id
     @ac_notify_group = "iOS"
     @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
