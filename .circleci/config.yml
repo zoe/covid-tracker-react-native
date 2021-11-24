@@ -462,7 +462,7 @@ workflows:
           project_path: ios/Covid.xcodeproj
           requires:
             - analyse_js
-          scheme: 'Covid Release'
+          scheme: "'Covid Release'"
           
       - fastlane_ios_release:
           name: 'RN Orb Fastlane IOS Release'
