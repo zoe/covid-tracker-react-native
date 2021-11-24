@@ -380,6 +380,21 @@ jobs:
   ########
   # Debugging rn orb
   
+  analyse_js:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: .
+      - rn/yarn_install
+      # - run:
+      #     command: yarn eslint
+      #     name: Run ESLint
+      # - run:
+      #     command: yarn flow
+      #     name: Flow
+      # - run:
+      #     command: yarn jest
+      #     name: Jest
   checkout_code:
     executor:
       name: rn/linux_js
@@ -436,9 +451,9 @@ workflows:
   circleci_orb_build:
     jobs:
       - checkout_code
-      # - analyse_js:
-      #     requires:
-      #       - checkout_code
+      - analyse_js:
+          requires:
+            - checkout_code
       # - rn/android_build:
       #     build_type: debug
       #     name: build_android_debug
@@ -461,8 +476,8 @@ workflows:
           name: build_ios_release
           node_version: '12'
           project_path: ios/Covid.xcodeproj
-          # requires:
-          #   - analyse_js
+          requires:
+            - analyse_js
           scheme: 'Covid Release'
       # - rn/ios_build_and_test:
       #     build_configuration: Release
