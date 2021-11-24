@@ -394,6 +394,7 @@ jobs:
   #     command: yarn jest
   #     name: Jest
   checkout_code:
+    yarn_cache_folder: ~/.cache/yarn
     executor:
       name: rn/linux_js
       node_version: '12'
