@@ -462,6 +462,7 @@ workflows:
           requires:
             - analyse_js
           scheme: 'Covid Release'
+          yarn_cache_folder: ~/.cache/yarn
       - fastlane_ios_release:
           name: 'RN Orb Fastlane IOS Release'
           requires:
