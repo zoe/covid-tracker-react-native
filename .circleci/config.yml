@@ -402,17 +402,8 @@ workflows:
         executor: rn/linux_js
         steps:
           - attach_workspace:
-              at: .
+              at: *default_workspace
           - rn/yarn_install
-      # - run:
-      #     command: yarn eslint
-      #     name: Run ESLint
-      # - run:
-      #     command: yarn flow
-      #     name: Flow
-      # - run:
-      #     command: yarn jest
-      #     name: Jest
       - checkout_code:
         executor:
           name: rn/linux_js
@@ -421,22 +412,13 @@ workflows:
           #- checkout
           - prepare_code
           - persist_to_workspace:
-              paths: .
-              root: .
-      # fastlane_android_release:
-      #   executor: rn/linux_js
-      #   steps:
-      #     - attach_workspace:
-      #         at: .
-      #     - rn/yarn_install
-      #     - run:
-      #         command: echo
-      #         name: Run Fastlane
+              paths: *default_workspace
+              root: *default_workspace
       - fastlane_ios_release:
         executor: rn/linux_js
         steps:
           - attach_workspace:
-              at: .
+              at: *default_workspace
           - rn/yarn_install
           - run:
               command: echo 1
@@ -444,23 +426,7 @@ workflows:
       - checkout_code
       - analyse_js:
           requires:
-            - checkout_code
-      # - rn/android_build:
-      #     build_type: debug
-      #     name: build_android_debug
-      #     project_path: android
-      #     requires:
-      #       - analyse_js
-      # - rn/android_build:
-      #     build_type: release
-      #     name: build_android_release
-      #     project_path: android
-      #     requires:
-      #       - analyse_js
-      # - rn/android_test:
-      #     detox_configuration: android.emu.release
-      #     requires:
-      #       - build_android_release
+              - checkout_code
       - rn/ios_build:
           build_configuration: 'Stage'
           #@build_configuration = 'Stage'
@@ -469,25 +435,13 @@ workflows:
           node_version: '12'
           project_path: ios/Covid.xcodeproj
           requires:
-            - analyse_js
+              - analyse_js
           scheme: 'Covid Release'
-      # - rn/ios_build_and_test:
-      #     build_configuration: Release
-      #     detox_configuration: ios.sim.release
-      #     device: iPhone X
-      #     node_version: '12'
-      #     project_path: ios/Covid.xcodeproj
-      #     requires:
-      #       - analyse_js
-      #     scheme: Example
-      # - fastlane_android_release:
-      #     requires:
-      #       - rn/android_test
       - fastlane_ios_release:
           name: 'RN Orb Fastlane IOS Release'
           requires:
-            - rn/ios_build
-            #- rn/ios_build_and_test
+              - rn/ios_build
+              #- rn/ios_build_and_test
 
   
   # END Debugging rn orb
