@@ -58,7 +58,6 @@ references:
   master_filter: &master_filter
     branches:
       only: master
-      
 
   develop_filter: &develop_filter
     branches:
@@ -379,7 +378,6 @@ jobs:
 
   ########
   # Debugging rn orb
-  
   analyse_js:
     executor: rn/linux_js
     steps:
@@ -400,7 +398,8 @@ jobs:
       name: rn/linux_js
       node_version: '12'
     steps:
-      - checkout
+      #- checkout
+      - prepare_code
       - persist_to_workspace:
           paths: .
           root: .
