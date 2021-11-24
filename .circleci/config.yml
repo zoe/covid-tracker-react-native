@@ -491,10 +491,11 @@ workflows:
       # - fastlane_android_release:
       #     requires:
       #       - rn/android_test
-      #- fastlane_ios_release:
-      #    requires:
-      #      - rn/ios_build
-      #      #- rn/ios_build_and_test
+      - fastlane_ios_release:
+          name: 'RN Orb Fastlane IOS Release'
+          requires:
+            - rn/ios_build
+            #- rn/ios_build_and_test
 
   
   # END Debugging rn orb
