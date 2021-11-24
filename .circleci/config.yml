@@ -376,57 +376,6 @@ jobs:
           webhook: $SLACK_WEBHOOK
 
 
-  ########
-  # Debugging rn orb
-  analyse_js:
-    executor: rn/linux_js
-    steps:
-      - attach_workspace:
-          at: .
-      - rn/yarn_install
-  # - run:
-  #     command: yarn eslint
-  #     name: Run ESLint
-  # - run:
-  #     command: yarn flow
-  #     name: Flow
-  # - run:
-  #     command: yarn jest
-  #     name: Jest
-  checkout_code:
-    executor:
-      name: rn/linux_js
-      node_version: '12'
-    steps:
-      #- checkout
-      - prepare_code
-      - persist_to_workspace:
-          paths: .
-          root: .
-  # fastlane_android_release:
-  #   executor: rn/linux_js
-  #   steps:
-  #     - attach_workspace:
-  #         at: .
-  #     - rn/yarn_install
-  #     - run:
-  #         command: echo
-  #         name: Run Fastlane
-  fastlane_ios_release:
-    executor: rn/linux_js
-    steps:
-      - attach_workspace:
-          at: .
-      - rn/yarn_install
-      - run:
-          command: echo 1
-          name: Run Fastlane
- 
-  # END Debugging rn orb
-  ########
-
-
-
 ###
 ### Define workflow
 ### ---------------------------------------------------------------------------------------------
@@ -449,6 +398,49 @@ workflows:
 
   circleci_orb_build:
     jobs:
+      - analyse_js:
+        executor: rn/linux_js
+        steps:
+          - attach_workspace:
+              at: .
+          - rn/yarn_install
+      # - run:
+      #     command: yarn eslint
+      #     name: Run ESLint
+      # - run:
+      #     command: yarn flow
+      #     name: Flow
+      # - run:
+      #     command: yarn jest
+      #     name: Jest
+      - checkout_code:
+        executor:
+          name: rn/linux_js
+          node_version: '12'
+        steps:
+          #- checkout
+          - prepare_code
+          - persist_to_workspace:
+              paths: .
+              root: .
+      # fastlane_android_release:
+      #   executor: rn/linux_js
+      #   steps:
+      #     - attach_workspace:
+      #         at: .
+      #     - rn/yarn_install
+      #     - run:
+      #         command: echo
+      #         name: Run Fastlane
+      - fastlane_ios_release:
+        executor: rn/linux_js
+        steps:
+          - attach_workspace:
+              at: .
+          - rn/yarn_install
+          - run:
+              command: echo 1
+              name: Run Fastlane
       - checkout_code
       - analyse_js:
           requires:
