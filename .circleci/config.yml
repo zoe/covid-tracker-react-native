@@ -453,25 +453,8 @@ workflows:
       - analyse_js:
           requires:
             - checkout_code
-      # - rn/android_build:
-      #     build_type: debug
-      #     name: build_android_debug
-      #     project_path: android
-      #     requires:
-      #       - analyse_js
-      # - rn/android_build:
-      #     build_type: release
-      #     name: build_android_release
-      #     project_path: android
-      #     requires:
-      #       - analyse_js
-      # - rn/android_test:
-      #     detox_configuration: android.emu.release
-      #     requires:
-      #       - build_android_release
       - rn/ios_build:
           build_configuration: 'Stage'
-          #@build_configuration = 'Stage'
           device: iPhone X
           name: build_ios_release
           node_version: '12'
@@ -479,23 +462,10 @@ workflows:
           requires:
             - analyse_js
           scheme: 'Covid Release'
-      # - rn/ios_build_and_test:
-      #     build_configuration: Release
-      #     detox_configuration: ios.sim.release
-      #     device: iPhone X
-      #     node_version: '12'
-      #     project_path: ios/Covid.xcodeproj
-      #     requires:
-      #       - analyse_js
-      #     scheme: Example
-      # - fastlane_android_release:
-      #     requires:
-      #       - rn/android_test
       - fastlane_ios_release:
           name: 'RN Orb Fastlane IOS Release'
           requires:
-            - rn/ios_build
-            #- rn/ios_build_and_test
+            - build_ios_release
 
   
   # END Debugging rn orb
