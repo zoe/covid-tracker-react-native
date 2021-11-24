@@ -470,7 +470,8 @@ workflows:
       #     requires:
       #       - build_android_release
       - rn/ios_build:
-          build_configuration: Release
+          build_configuration: 'Stage'
+          #@build_configuration = 'Stage'
           device: iPhone X
           name: build_ios_release
           node_version: '12'
