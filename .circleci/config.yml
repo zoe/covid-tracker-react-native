@@ -386,15 +386,15 @@ jobs:
       - attach_workspace:
           at: .
       - rn/yarn_install
-      # - run:
-      #     command: yarn eslint
-      #     name: Run ESLint
-      # - run:
-      #     command: yarn flow
-      #     name: Flow
-      # - run:
-      #     command: yarn jest
-      #     name: Jest
+  # - run:
+  #     command: yarn eslint
+  #     name: Run ESLint
+  # - run:
+  #     command: yarn flow
+  #     name: Flow
+  # - run:
+  #     command: yarn jest
+  #     name: Jest
   checkout_code:
     executor:
       name: rn/linux_js
@@ -491,10 +491,10 @@ workflows:
       # - fastlane_android_release:
       #     requires:
       #       - rn/android_test
-      - fastlane_ios_release:
-          requires:
-            - rn/ios_build
-            #- rn/ios_build_and_test
+      #- fastlane_ios_release:
+      #    requires:
+      #      - rn/ios_build
+      #      #- rn/ios_build_and_test
 
   
   # END Debugging rn orb
