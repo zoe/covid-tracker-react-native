@@ -994,6 +994,8 @@
       "itch": "Klåda",
       "tenderness": "Ömhet",
       "bruising": "Blåmärke",
+      "bleeding": "Blöder från injektionsplatsen",
+      "metallic": "Metallsmak i munnen",
       "other": "Annat",
       "other-info": "Ange endast symtom i närheten av injektionsplatsen (förmodligen din arm). Vi frågar om allmäna symtom i nästa avsnitt.",
       "other-placeholder": "Beskriv dina symtom här...",
