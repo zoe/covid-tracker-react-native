@@ -394,7 +394,6 @@ jobs:
   #     command: yarn jest
   #     name: Jest
   checkout_code:
-    yarn_cache_folder: ~/.cache/yarn
     executor:
       name: rn/linux_js
       node_version: '12'
@@ -455,6 +454,7 @@ workflows:
           requires:
             - checkout_code
       - rn/ios_build:
+          yarn_cache_folder: ~/.cache/yarn_cache
           build_configuration: 'Stage'
           device: iPhone X
           name: build_ios_release
@@ -463,7 +463,7 @@ workflows:
           requires:
             - analyse_js
           scheme: 'Covid Release'
-          yarn_cache_folder: ~/.cache/yarn
+          
       - fastlane_ios_release:
           name: 'RN Orb Fastlane IOS Release'
           requires:
