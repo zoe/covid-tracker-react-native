@@ -397,6 +397,9 @@ jobs:
     steps:
       #- checkout
       - prepare_code
+      - attach_workspace:
+          at: .
+      - rn/yarn_install
       # - cocoapods
       - rn/pod_install:
           cache: false
