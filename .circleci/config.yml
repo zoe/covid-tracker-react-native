@@ -401,6 +401,7 @@ jobs:
     steps:
       #- checkout
       - prepare_code
+      - bundler-install
       - rn/pod_install:
           cache: false
           #pod_install_directory: ios/pods
