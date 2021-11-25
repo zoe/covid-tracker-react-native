@@ -465,8 +465,6 @@ workflows:
           requires:
             - checkout_code
       - rn/ios_build:
-          # yarn_cache: false
-          # yarn_cache_folder: ~/.cache/yarn_cache
           build_configuration: Stage
           device: iPhone 11
           name: build_ios_release
@@ -475,6 +473,10 @@ workflows:
           requires:
             - analyse_js
           scheme: "'Covid Release'"
+          # disable all caches to see if build fixes
+          homebrew_cache: false
+          yarn_cache: false
+          xcodebuild_cache: false
           
       - fastlane_ios_release:
           name: 'RN Orb Fastlane IOS Release'
