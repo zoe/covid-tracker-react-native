@@ -465,7 +465,7 @@ workflows:
           device: iPhone 11
           name: build_ios_release
           node_version: '12'
-          project_path: ios/Covid.xcodeproj
+          project_path: ios/Covid.xcworkspace
           requires:
             - analyse_js
           scheme: "'Covid Release'"
