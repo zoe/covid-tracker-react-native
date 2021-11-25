@@ -381,7 +381,9 @@ jobs:
     steps:
       - attach_workspace:
           at: *default_workspace
-      - rn/yarn_install
+      - rn/yarn_install:
+          cache: false
+          cache_folder: /tmp/yarn_cache
 
   # - run:
   #     command: yarn eslint
@@ -424,7 +426,9 @@ jobs:
     steps:
       - attach_workspace:
           at: *default_workspace
-      - rn/yarn_install
+      - rn/yarn_install:
+          cache: false
+          cache_folder: /tmp/yarn_cache
       - run:
           command: echo 1
           name: Run Fastlane
