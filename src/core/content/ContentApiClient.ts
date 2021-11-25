@@ -1,11 +1,11 @@
 import ApiClient from '@covid/core/api/ApiClient';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
-import { TFeaturedContentResponse, TTrendLineResponse } from './dto/ContentAPIContracts';
+import { TFeaturedContentResponse, TTrendlineResponse } from './dto/ContentAPIContracts';
 
 interface IContentApiClient {
   getStartupInfo(): Promise<TStartupInfo>;
-  getTrendLines(): Promise<TTrendLineResponse>;
+  getTrendlines(): Promise<TTrendlineResponse>;
   getFeaturedContent(): Promise<TFeaturedContentResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
   signUpForDiseaseResearchNewsletter(signup: boolean): Promise<void>;
@@ -18,8 +18,8 @@ class ContentApiClient implements IContentApiClient {
     return apiClient.get<TStartupInfo>('/users/startup_info/');
   }
 
-  getTrendLines(): Promise<TTrendLineResponse> {
-    return apiClient.get<TTrendLineResponse>('/trendlines/');
+  getTrendlines(): Promise<TTrendlineResponse> {
+    return apiClient.get<TTrendlineResponse>('/trendlines/');
   }
 
   getFeaturedContent(): Promise<TFeaturedContentResponse> {

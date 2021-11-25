@@ -1,9 +1,9 @@
 import ChevronRight from '@assets/icons/ChevronRight';
 import { ShareButton } from '@covid/components/buttons';
-import { TrendLineChart } from '@covid/components/charts/TrendLineChart';
+import { TrendlineChart } from '@covid/components/charts/TrendlineChart';
 import { Text } from '@covid/components/typography';
 import Analytics, { events } from '@covid/core/Analytics';
-import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -29,7 +29,7 @@ const endDate = moment().toDate();
 export function TrendlineCard(props: IProps) {
   const navigation = useNavigation();
 
-  const localTrendline = useSelector<TRootState, ITrendLineData | undefined>((state) => state.content.localTrendline);
+  const localTrendline = useSelector<TRootState, ITrendlineData | undefined>((state) => state.content.localTrendline);
 
   const onPress = React.useCallback(() => {
     if (props.onPress) {
@@ -43,10 +43,10 @@ export function TrendlineCard(props: IProps) {
   return (
     <View style={styles.view}>
       <Text rhythm={8} textClass="h4">
-        {i18n.t('explore-trend-line.active-covid-cases', { location: localTrendline?.name })}
+        {i18n.t('trendline.active-covid-cases', { location: localTrendline?.name })}
       </Text>
       <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
-        {i18n.t('explore-trend-line.active-covid-cases-subheader')}
+        {i18n.t('trendline.active-covid-cases-subheader')}
       </Text>
 
       <TouchableOpacity
@@ -55,7 +55,7 @@ export function TrendlineCard(props: IProps) {
         style={styles.touchableChart}
       >
         <View pointerEvents="none">
-          <TrendLineChart beginDate={beginDate} endDate={endDate} height={200} />
+          <TrendlineChart beginDate={beginDate} endDate={endDate} height={200} />
         </View>
       </TouchableOpacity>
 
@@ -71,7 +71,7 @@ export function TrendlineCard(props: IProps) {
         ) : null}
 
         <Text inverted colorPalette="uiDark" colorShade="dark" style={styles.flex} textClass="pSmallLight">
-          {i18n.t('explore-trend-line.active-cases-in-your-area')}
+          {i18n.t('trendline.active-cases-in-your-area')}
         </Text>
 
         <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={32} width={32} />

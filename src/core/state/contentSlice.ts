@@ -2,8 +2,8 @@ import { AsyncStorageService, DISMISSED_CALLOUTS, TPersonalisedLocalData } from 
 import { contentService } from '@covid/core/content/ContentService';
 import {
   IFeaturedContent,
-  ITrendLineData,
-  ITrendLineTimeSeriesData,
+  ITrendlineData,
+  ITrendlineTimeSeriesData,
 } from '@covid/core/content/dto/ContentAPIContracts';
 import { predictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { TRootState } from '@covid/core/state/root';
@@ -20,7 +20,7 @@ export type TContentState = {
   infoApiState: TApiState;
   startupInfo?: TStartupInfo;
   personalizedLocalData?: TPersonalisedLocalData;
-  localTrendline?: ITrendLineData;
+  localTrendline?: ITrendlineData;
 
   // Featured content
   featuredHome: IFeaturedContent[];
@@ -49,7 +49,7 @@ export const initialStateContent: TContentState = {
   ukMetricsApiState: 'ready',
 };
 
-const getTrendLineDelta = (timeseries: ITrendLineTimeSeriesData[], from: number): number | undefined => {
+const getTrendlineDelta = (timeseries: ITrendlineTimeSeriesData[], from: number): number | undefined => {
   if (!timeseries || timeseries.length === 0) {
     return undefined;
   }
@@ -86,16 +86,16 @@ export const fetchUKMetrics = createAsyncThunk('content/uk_metrics', async (): P
 });
 
 export type TFetchLocalTrendlinePayload = {
-  localTrendline: ITrendLineData;
+  localTrendline: ITrendlineData;
 };
 
-export const fetchLocalTrendLine = createAsyncThunk<Promise<Partial<TContentState>>>(
+export const fetchLocalTrendline = createAsyncThunk<Promise<Partial<TContentState>>>(
   'content/fetch_local_trend_line',
   async (): Promise<Partial<TContentState>> => {
-    const { timeseries, ...trendline } = await contentService.getTrendLines();
+    const { timeseries, ...trendline } = await contentService.getTrendlines();
     return {
       localTrendline: {
-        delta: getTrendLineDelta(timeseries, 7),
+        delta: getTrendlineDelta(timeseries, 7),
         timeseries,
         ...trendline,
       },
@@ -199,7 +199,7 @@ export const contentSlice = createSlice({
     },
 
     // Trendline data
-    [fetchLocalTrendLine.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
+    [fetchLocalTrendline.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
       current.localTrendline = action.payload?.localTrendline;
     },
   },

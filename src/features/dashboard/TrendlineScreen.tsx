@@ -1,11 +1,11 @@
 import { BrandedButton } from '@covid/components';
 import { DeltaTag } from '@covid/components/cards/estimated-case/DeltaTag';
-import { TrendLineChart } from '@covid/components/charts/TrendLineChart';
+import { TrendlineChart } from '@covid/components/charts/TrendlineChart';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { Screen } from '@covid/components/Screen';
 import { Header3Text, RegularText } from '@covid/components/Text';
-import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
-import { fetchLocalTrendLine } from '@covid/core/state/contentSlice';
+import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { fetchLocalTrendline } from '@covid/core/state/contentSlice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export const TrendlineScreen: React.FC = () => {
   const dispatch = useDispatch();
   const viewRef = React.useRef<View>(null);
-  const localTrendline = useSelector<TRootState, ITrendLineData | undefined>((state) => state.content.localTrendline);
+  const localTrendline = useSelector<TRootState, ITrendlineData | undefined>((state) => state.content.localTrendline);
 
   const share = async () => {
     try {
@@ -29,13 +29,13 @@ export const TrendlineScreen: React.FC = () => {
   };
 
   React.useEffect(() => {
-    dispatch(fetchLocalTrendLine());
+    dispatch(fetchLocalTrendline());
   }, []);
 
   return (
     <Screen noScrollView backgroundColor="white" testID="trendline-screen">
       <View collapsable={false} ref={viewRef} style={styles.flex}>
-        <RegularText style={{ textAlign: 'center' }}>{i18n.t('explore-trend-line.title')}</RegularText>
+        <RegularText style={{ textAlign: 'center' }}>{i18n.t('trendline.title')}</RegularText>
 
         <RegularText style={styles.district}>{localTrendline?.name}</RegularText>
 
@@ -44,11 +44,11 @@ export const TrendlineScreen: React.FC = () => {
         {localTrendline?.delta ? <DeltaTag change={localTrendline.delta} style={styles.deltaTag} /> : null}
 
         <View style={styles.chartWrapper}>
-          <TrendLineChart />
+          <TrendlineChart />
         </View>
 
         <BrandedButton onPress={share} style={styles.shareButton}>
-          <Text style={[fontStyles.bodyLight, styles.shareButtonText]}>{i18n.t('explore-trend-line.cta')}</Text>
+          <Text style={[fontStyles.bodyLight, styles.shareButtonText]}>{i18n.t('trendline.cta')}</Text>
         </BrandedButton>
 
         <PoweredByZoeSmall />

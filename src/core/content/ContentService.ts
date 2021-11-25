@@ -8,7 +8,7 @@ import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import Constants from '@covid/utils/Constants';
 
-import { TFeaturedContentResponse, TTrendLineResponse } from './dto/ContentAPIContracts';
+import { TFeaturedContentResponse, TTrendlineResponse } from './dto/ContentAPIContracts';
 
 export interface IContentService {
   localData?: TPersonalisedLocalData;
@@ -18,7 +18,7 @@ export interface IContentService {
   setAskedToRateStatus(status: string): void;
   getUserCount(): Promise<string | null>;
   getStartupInfo(): Promise<TStartupInfo | undefined>;
-  getTrendLines(): Promise<TTrendLineResponse>;
+  getTrendlines(): Promise<TTrendlineResponse>;
   getFeaturedContent(): Promise<TFeaturedContentResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
   signUpForDiseaseResearchNewsletter(signup: boolean): Promise<void>;
@@ -115,8 +115,8 @@ class ContentService implements IContentService {
     AsyncStorageService.setAskedToRateStatus(status);
   }
 
-  public async getTrendLines(): Promise<TTrendLineResponse> {
-    return contentApiClient.getTrendLines();
+  public async getTrendlines(): Promise<TTrendlineResponse> {
+    return contentApiClient.getTrendlines();
   }
 
   public async getFeaturedContent(): Promise<TFeaturedContentResponse> {

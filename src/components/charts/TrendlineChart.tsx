@@ -11,7 +11,7 @@ interface IProps {
   height?: number;
 }
 
-export function TrendLineChart(props: IProps) {
+export function TrendlineChart(props: IProps) {
   const content = useSelector<TRootState, TContentState>(selectContent);
 
   const data = React.useMemo(() => {
