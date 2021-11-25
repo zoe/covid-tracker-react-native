@@ -384,9 +384,6 @@ jobs:
       - attach_workspace:
           at: .
       - rn/yarn_install
-      - rn/pod_install:
-          cache: false
-          #pod_install_directory: ios/pods
 
   # - run:
   #     command: yarn eslint
@@ -404,6 +401,9 @@ jobs:
     steps:
       #- checkout
       - prepare_code
+      - rn/pod_install:
+          cache: false
+          #pod_install_directory: ios/pods
       - persist_to_workspace:
           paths: .
           root: .
