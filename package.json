@@ -155,7 +155,7 @@
     "child_process": "1.0.2",
     "clean-deep": "3.4.0",
     "deep-diff": "1.0.2",
-    "detox": "18.16.0",
+    "detox": "19.1.0",
     "eslint": "7.26.0",
     "eslint-config-airbnb-typescript": "12.3.1",
     "eslint-config-prettier": "8.3.0",
