@@ -407,8 +407,8 @@ jobs:
           cache: false
           #pod_install_directory: ios/pods
       - persist_to_workspace:
-          paths: *default_workspace
-          root: *default_workspace
+          paths: . #*default_workspace
+          root: . #*default_workspace
   # fastlane_android_release:
   #   executor: rn/linux_js
   #   steps:
