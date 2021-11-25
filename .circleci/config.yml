@@ -450,7 +450,7 @@ workflows:
   circleci_orb_build:
     jobs:
       - checkout_code
-      - yarn install:pod
+      - run: yarn install:pod
       - analyse_js:
           requires:
             - checkout_code
