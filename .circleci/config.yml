@@ -384,6 +384,10 @@ jobs:
       - attach_workspace:
           at: .
       - rn/yarn_install
+      - rn/pod_install:
+          cache: false
+          pod_install_directory: ios/pods
+
   # - run:
   #     command: yarn eslint
   #     name: Run ESLint
@@ -450,10 +454,7 @@ workflows:
 
   circleci_orb_build:
     jobs:
-      - checkout_code
-      - rn/pod_install:
-          cache: false
-          pod_install_directory: ios/pods
+      - checkout_code      
       - analyse_js:
           requires:
             - checkout_code
