@@ -399,14 +399,16 @@ jobs:
       - prepare_code
       - attach_workspace:
           at: *default_workspace
-      - rn/yarn_install
+      - rn/yarn_install:
+        cache: false
+        cache_folder: /tmp/yarn_cache
       # - cocoapods
       - rn/pod_install:
           cache: false
           #pod_install_directory: ios/pods
       - persist_to_workspace:
-          paths: .
-          root: .
+          paths: *default_workspace
+          root: *default_workspace
   # fastlane_android_release:
   #   executor: rn/linux_js
   #   steps:
