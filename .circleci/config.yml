@@ -380,7 +380,7 @@ jobs:
     executor: mobile-build-box
     steps:
       - attach_workspace:
-          at: .
+          at: *default_workspace
       - rn/yarn_install
 
   # - run:
@@ -398,7 +398,7 @@ jobs:
       #- checkout
       - prepare_code
       - attach_workspace:
-          at: .
+          at: *default_workspace
       - rn/yarn_install
       # - cocoapods
       - rn/pod_install:
@@ -411,7 +411,7 @@ jobs:
   #   executor: rn/linux_js
   #   steps:
   #     - attach_workspace:
-  #         at: .
+  #         at: *default_workspace
   #     - rn/yarn_install
   #     - run:
   #         command: echo
@@ -421,7 +421,7 @@ jobs:
     executor: mobile-build-box
     steps:
       - attach_workspace:
-          at: .
+          at: *default_workspace
       - rn/yarn_install
       - run:
           command: echo 1
