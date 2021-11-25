@@ -386,7 +386,7 @@ jobs:
       - rn/yarn_install
       - rn/pod_install:
           cache: false
-          pod_install_directory: ios/pods
+          #pod_install_directory: ios/pods
 
   # - run:
   #     command: yarn eslint
