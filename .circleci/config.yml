@@ -400,7 +400,7 @@ jobs:
       # - cocoapods
       - rn/pod_install:
           cache: false
-          #pod_install_directory: ios/pods
+          pod_install_directory: ios/pods
       - persist_to_workspace:
           paths: .
           root: .
