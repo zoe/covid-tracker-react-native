@@ -459,8 +459,8 @@ workflows:
           requires:
             - checkout_code
       - rn/ios_build:
-          yarn_cache: false
-          yarn_cache_folder: ~/.cache/yarn_cache
+          # yarn_cache: false
+          # yarn_cache_folder: ~/.cache/yarn_cache
           build_configuration: Stage
           device: iPhone 11
           name: build_ios_release
