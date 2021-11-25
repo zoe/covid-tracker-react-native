@@ -377,7 +377,7 @@ jobs:
   ########
   # Debugging rn orb
   analyse_js:
-    executor: rn/linux_js
+    executor: mobile-build-box
     steps:
       - attach_workspace:
           at: .
@@ -418,7 +418,7 @@ jobs:
   #         name: Run Fastlane
 
   fastlane_ios_release:
-    executor: rn/linux_js
+    executor: mobile-build-box
     steps:
       - attach_workspace:
           at: .
