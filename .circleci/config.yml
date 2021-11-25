@@ -412,10 +412,7 @@ jobs:
   #     - run:
   #         command: echo
   #         name: Run Fastlane
-  install_pods:
-    executor: rn/linux_js
-    steps:
-      - run: yarn install:pod
+
   fastlane_ios_release:
     executor: rn/linux_js
     steps:
@@ -454,7 +451,9 @@ workflows:
   circleci_orb_build:
     jobs:
       - checkout_code
-      - install_pods
+      - rn/pod_install:
+          cache: false
+          pod_install_directory: ios/pods
       - analyse_js:
           requires:
             - checkout_code
