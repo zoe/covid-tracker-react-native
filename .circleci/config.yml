@@ -400,8 +400,8 @@ jobs:
       - attach_workspace:
           at: *default_workspace
       - rn/yarn_install:
-        cache: false
-        cache_folder: /tmp/yarn_cache
+          cache: false
+          cache_folder: /tmp/yarn_cache
       # - cocoapods
       - rn/pod_install:
           cache: false
