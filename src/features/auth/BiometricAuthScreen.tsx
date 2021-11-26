@@ -49,9 +49,9 @@ export function BiometricAuthScreen() {
         // This mostly happens after the user tried too many times.
         setResult(EResult.DISABLED);
       } else if (
-        results.error !== 'user_cancel' &&
-        results.error !== 'system_cancel' &&
-        results.error !== 'app_cancel'
+        results.error === 'user_cancel' ||
+        results.error === 'system_cancel' ||
+        results.error === 'app_cancel'
       ) {
         setResult(EResult.CANCELLED);
       }
