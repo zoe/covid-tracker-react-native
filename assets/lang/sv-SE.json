@@ -537,6 +537,7 @@
     "thank-you-for-rating": "Tack för din feedback.\nVi jobbar hela tiden på att förbättra appen"
   },
   "menu": {
+    "item-biometric-auth": false,
     "item-edit-profile": "Min profil",
     "item-media-centre": false,
     "item-share-this-app": "Dela appen",

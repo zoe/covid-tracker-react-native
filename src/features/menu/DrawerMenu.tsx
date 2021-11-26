@@ -38,6 +38,8 @@ const onPressProfile = () => NavigatorService.navigate('SelectProfile', { assess
 
 const onPressMediaCentre = () => NavigatorService.navigate('MediaCentre');
 
+const onPressBiometricAuth = () => NavigatorService.navigate('BiometricAuth');
+
 const hitSlop = {
   bottom: 12,
   left: 12,
@@ -134,6 +136,16 @@ export const DrawerMenu: React.FC<TProps> = (props: TProps) => {
             label={i18n.t('menu.item-media-centre')}
             onPress={onPressMediaCentre}
             testID="menu-media-centre"
+          />
+        ) : null}
+
+        {startupInfo?.is_tester ? (
+          <MenuItem
+            analyticsName="BIOMETRIC_AUTH"
+            IconComponent={MediaIcon}
+            label={i18n.t('menu.item-biometric-auth')}
+            onPress={onPressBiometricAuth}
+            testID="menu-biometric-auth"
           />
         ) : null}
 

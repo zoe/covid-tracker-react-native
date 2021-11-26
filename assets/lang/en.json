@@ -574,6 +574,7 @@
     "thank-you-for-rating": "Thank you for your feedback.\nWe're working hard to improve things"
   },
   "menu": {
+    "item-biometric-auth": "Biometric authentication",
     "item-edit-profile": "Edit profile",
     "item-media-centre": "Read & Watch",
     "item-share-this-app": "Share this app",
