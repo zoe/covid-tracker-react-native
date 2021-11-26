@@ -429,7 +429,7 @@ jobs:
       # - attach_workspace:
       #     at: *default_workspace
       - run:
-          command: echo 'RELEASE_TYPE:' >> $RELEASE_TYPE
+          command: echo 'RELEASE_TYPE:' $RELEASE_TYPE
           name: "Echo release type"
       - run:
           command: bundle install --path vendor/bundle --clean
