@@ -430,8 +430,8 @@ jobs:
           cache: false
           cache_folder: /tmp/yarn_cache
       - run:
-          command: echo 1
-          name: Run Fastlane
+          command: yarn fastlane:ios:release env:$RELEASE_TYPE
+          name: Run Fastlane IOS env:$RELEASE_TYPE
  
   # END Debugging rn orb
   ########
@@ -489,123 +489,131 @@ workflows:
   ########
 
 
-  tests:
-    jobs:
-      - lint:
-          filters: *feature_filter
-      - i18n:
-          filters: *feature_filter
-      - test:
-          filters: *feature_filter
+  
+  
+  
+  
+  
+  
+  
+  #Commented out for now - old config
+  # tests:
+  #   jobs:
+  #     - lint:
+  #         filters: *feature_filter
+  #     - i18n:
+  #         filters: *feature_filter
+  #     - test:
+  #         filters: *feature_filter
 
-      # DISABLED FOR MERGE TO MASTER
-      # - e2etest:
-      #     # This should be the e2e_filter to avoid running on every push
-      #     # filters: *e2e_filter
-      #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
+  #     # DISABLED FOR MERGE TO MASTER
+  #     # - e2etest:
+  #     #     # This should be the e2e_filter to avoid running on every push
+  #     #     # filters: *e2e_filter
+  #     #     filters: *feature_filter
+  #     #     context: react-covid-tracker-stage
 
-  ota:
-    jobs:
-      # Staging OTA deploy
-      - ota-release:
-          name: 'Stage OTA'
-          filters: *develop_filter
-          context: react-covid-tracker-stage
-      - deployed-ota:
-          name: 'Stage OTA Deployed'
-          context: slack-ci-covid-mobile
-          requires:
-            - Stage OTA
+  # ota:
+  #   jobs:
+  #     # Staging OTA deploy
+  #     - ota-release:
+  #         name: 'Stage OTA'
+  #         filters: *develop_filter
+  #         context: react-covid-tracker-stage
+  #     - deployed-ota:
+  #         name: 'Stage OTA Deployed'
+  #         context: slack-ci-covid-mobile
+  #         requires:
+  #           - Stage OTA
 
-      # Production OTA deploy
-      - ota-release-approval:
-          name: 'Prod OTA approval'
-          filters: *master_filter
-          type: approval
-      - ota-release:
-          name: 'Prod OTA'
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-            - Prod OTA approval
-      - deployed-ota:
-          name: 'Prod OTA Deployed'
-          context: slack-ci-covid-mobile
-          requires:
-            - Prod OTA
+  #     # Production OTA deploy
+  #     - ota-release-approval:
+  #         name: 'Prod OTA approval'
+  #         filters: *master_filter
+  #         type: approval
+  #     - ota-release:
+  #         name: 'Prod OTA'
+  #         filters: *master_filter
+  #         context: react-covid-tracker-prod
+  #         requires:
+  #           - Prod OTA approval
+  #     - deployed-ota:
+  #         name: 'Prod OTA Deployed'
+  #         context: slack-ci-covid-mobile
+  #         requires:
+  #           - Prod OTA
 
-  release:
-    jobs:
-      # Publish app for internal testing
-      # - App Center distribution (with approval)
-      # |-- iOS / Android Release to App Center
-      # |-- Message slack message on App Center upload successful
-      - slack/approval-notification:
-          filters: *develop_filter
-          message: 'Awaiting manual approval to deploy native apps to staging'
-          context: slack-ci-covid-mobile
-      - adhoc-release-approval:
-          name: 'Adhoc approval'
-          filters: *develop_filter
-          type: approval
-      - build:
-          name: 'Adhoc build'
-          filters: *develop_filter
-          requires:
-            - Adhoc approval
-      - deploy-ios:
-          name: 'Adhoc iOS'
-          filters: *develop_filter
-          context: react-covid-tracker-stage
-          requires:
-            - Adhoc build
-      - deploy-android:
-          name: 'Adhoc Android'
-          filters: *develop_filter
-          context: react-covid-tracker-stage
-          requires:
-            - Adhoc build
-      - deployed-stage:
-          name: 'Stage apps published'
-          context: slack-ci-covid-mobile
-          requires:
-            - Adhoc iOS
-            - Adhoc Android
+  # release:
+  #   jobs:
+  #     # Publish app for internal testing
+  #     # - App Center distribution (with approval)
+  #     # |-- iOS / Android Release to App Center
+  #     # |-- Message slack message on App Center upload successful
+  #     - slack/approval-notification:
+  #         filters: *develop_filter
+  #         message: 'Awaiting manual approval to deploy native apps to staging'
+  #         context: slack-ci-covid-mobile
+  #     - adhoc-release-approval:
+  #         name: 'Adhoc approval'
+  #         filters: *develop_filter
+  #         type: approval
+  #     - build:
+  #         name: 'Adhoc build'
+  #         filters: *develop_filter
+  #         requires:
+  #           - Adhoc approval
+  #     - deploy-ios:
+  #         name: 'Adhoc iOS'
+  #         filters: *develop_filter
+  #         context: react-covid-tracker-stage
+  #         requires:
+  #           - Adhoc build
+  #     - deploy-android:
+  #         name: 'Adhoc Android'
+  #         filters: *develop_filter
+  #         context: react-covid-tracker-stage
+  #         requires:
+  #           - Adhoc build
+  #     - deployed-stage:
+  #         name: 'Stage apps published'
+  #         context: slack-ci-covid-mobile
+  #         requires:
+  #           - Adhoc iOS
+  #           - Adhoc Android
 
-      # Publish app to store
-      # # - App / Store release through AppCenter (with approval)
-      # # |-- iOS Release to app store (through AppCenter)
-      # # |-- Android Release to play store (through AppCenter)
-      # # |-- Message slack message on iOS & Android upload successful
-      - slack/approval-notification:
-          filters: *master_filter
-          message: 'Awaiting manual approval to deploy to production (Options: OTA, Store)'
-          context: slack-ci-covid-mobile
-      - store-release-approval:
-          name: 'Store approval'
-          filters: *master_filter
-          type: approval
-      - build:
-          filters: *master_filter
-          name: 'Store build'
-          requires:
-            - Store approval
-      - deploy-ios:
-          name: 'Store iOS'
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-            - Store build
-      - deploy-android:
-          name: 'Store Android'
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-            - Store build
-      - deployed-prod:
-          name: 'Prod apps published'
-          context: slack-ci-covid-mobile
-          requires:
-            - Store iOS
-            - Store Android
+  #     # Publish app to store
+  #     # # - App / Store release through AppCenter (with approval)
+  #     # # |-- iOS Release to app store (through AppCenter)
+  #     # # |-- Android Release to play store (through AppCenter)
+  #     # # |-- Message slack message on iOS & Android upload successful
+  #     - slack/approval-notification:
+  #         filters: *master_filter
+  #         message: 'Awaiting manual approval to deploy to production (Options: OTA, Store)'
+  #         context: slack-ci-covid-mobile
+  #     - store-release-approval:
+  #         name: 'Store approval'
+  #         filters: *master_filter
+  #         type: approval
+  #     - build:
+  #         filters: *master_filter
+  #         name: 'Store build'
+  #         requires:
+  #           - Store approval
+  #     - deploy-ios:
+  #         name: 'Store iOS'
+  #         filters: *master_filter
+  #         context: react-covid-tracker-prod
+  #         requires:
+  #           - Store build
+  #     - deploy-android:
+  #         name: 'Store Android'
+  #         filters: *master_filter
+  #         context: react-covid-tracker-prod
+  #         requires:
+  #           - Store build
+  #     - deployed-prod:
+  #         name: 'Prod apps published'
+  #         context: slack-ci-covid-mobile
+  #         requires:
+  #           - Store iOS
+  #           - Store Android
