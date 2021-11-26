@@ -470,6 +470,7 @@ workflows:
           name: build_ios_release
           node_version: '12'
           project_path: ios/Covid.xcworkspace
+          project_type: workspace
           requires:
             - analyse_js
           scheme: "'Covid Release'"
