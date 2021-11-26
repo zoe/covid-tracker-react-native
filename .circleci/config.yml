@@ -429,13 +429,17 @@ jobs:
       # - attach_workspace:
       #     at: *default_workspace
       - run:
+          command: echo 'RELEASE_TYPE:' >> $RELEASE_TYPE
+          name: "Echo release type"
+      - run:
           command: bundle install --path vendor/bundle --clean
           name: Install Gems
       - rn/yarn_install:
           cache: false
           cache_folder: /tmp/yarn_cache
       - run:
-          command: yarn fastlane:ios:release env:$RELEASE_TYPE
+          # TOD use $RELEASE_TYPE
+          command: yarn fastlane:ios:release env:Stage
           name: Run Fastlane IOS env:$RELEASE_TYPE
  
   # END Debugging rn orb
