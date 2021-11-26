@@ -425,7 +425,9 @@ jobs:
     executor: mobile-build-box
     steps:
       - attach_workspace:
-          at: *default_workspace
+          at: .
+      # - attach_workspace:
+      #     at: *default_workspace
       - rn/yarn_install:
           cache: false
           cache_folder: /tmp/yarn_cache
