@@ -445,8 +445,8 @@ workflows:
           filters: *develop_filter
           type: approval
       - build:
-          name: 'Adhoc build AUTO RUN FOR DEBUG'
-          
+          name: 'Adhoc build'
+          # DEBUG
           #filters: *develop_filter
           # requires:
           #   - Adhoc approval
