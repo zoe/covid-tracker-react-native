@@ -424,10 +424,10 @@ jobs:
   fastlane_ios_release:
     executor: mobile-build-box
     steps:
-      - attach_workspace:
-          at: .
       # - attach_workspace:
-      #     at: *default_workspace
+      #     at: .
+      - attach_workspace:
+          at: *default_workspace
       - prepare_deploy_env
       - run:
           command: echo 'RELEASE_TYPE:' $RELEASE_TYPE
