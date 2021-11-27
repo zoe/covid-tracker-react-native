@@ -303,6 +303,9 @@ jobs:
       - run: bundle install --path vendor/bundle --clean
       # Required to set xcode to v 13
       - run: gem install xcode-install
+      - run: security find-identity -v -p codesigning
+      - run: yarn fastlane:ios:certificates
+      - run: security find-identity -v -p codesigning
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
