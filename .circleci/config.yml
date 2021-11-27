@@ -6,11 +6,10 @@ version: 2.1
 ###
 
 orbs:
-  # node: circleci/node@2.0.1
-  node: circleci/node@4.2.1
+  node: circleci/node@2.0.1
   slack: circleci/slack@3.2.0
   jq: circleci/jq@2.0.1
-  rn: react-native-community/react-native@6.0.1
+  rn: react-native-community/react-native@2.0.1
 
 ###
 ### Define executors:
@@ -33,7 +32,7 @@ executors:
   # Xcode / iOS builds
   mobile-build-box:
     macos:
-      xcode: 13.1.0
+      xcode: 13.0.0
 
 ###
 ### Define references:
@@ -47,21 +46,21 @@ references:
   default_workspace: &default_workspace ~/covid-react
 
   # Cache keys
-  yarn_cache_key: &yarn_cache_key yarn-v7-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-  node_cache_key: &node_cache_key node-v7-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
-  pod_cache_key: &pod_cache_key pod-v7-{{ arch }}-{{ .Branch }}-{{ checksum "ios/Podfile.lock" }}
-  gem_cache_key: &gem_cache_key gems-v7-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+  yarn_cache_key: &yarn_cache_key yarn-v6-{{ checksum "yarn.lock" }}-{{ arch }}
+  node_cache_key: &node_cache_key node-v6-{{ checksum "package.json" }}-{{ arch }}
+  pod_cache_key: &pod_cache_key pod-v6-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+  gem_cache_key: &gem_cache_key gems-v6-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
   # Branch filter
   master_filter: &master_filter
     branches:
       only: master
+      
 
   develop_filter: &develop_filter
     branches:
       only:
         - develop
-        - julia/v63-v64
 
   feature_filter: &feature_filter
     branches:
@@ -167,7 +166,6 @@ commands:
           name: Set expo release channel
           command: |
             echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
-
   # Publish OTA releases through Expo
   expo_ota_publish:
     steps:
@@ -292,20 +290,18 @@ jobs:
     steps:
       - prepare_code
       - run: yarn
-      - run: yarn install:pod
       - attach_workspace:
           at: *default_workspace
       - prepare_deploy_env
+      # DEBUG
+      - run:
+          command: echo 'RELEASE_TYPE:' $RELEASE_TYPE
+          name: "Echo release type"
+
       - run: bundle install --path vendor/bundle --clean
-      
       # Required to set xcode to v 13
       - run: gem install xcode-install
-      - run: security find-identity -v -p codesigning
-      - run: yarn fastlane:ios:certificates
-      - run: security find-identity -v -p codesigning
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
-      - store_artifacts:
-          path: /Users/distiller/Library/Logs/
       - store_artifacts:
           path: ~/covid-react/build
 
@@ -373,81 +369,6 @@ jobs:
           message: 'Deployed OTA release for iOS & Android $RELEASE_CHANNEL'
           webhook: $SLACK_WEBHOOK
 
-
-  ########
-  # Debugging rn orb
-  analyse_js:
-    executor: mobile-build-box
-    steps:
-      - attach_workspace:
-          at: *default_workspace
-      - rn/yarn_install:
-          cache: false
-          cache_folder: /tmp/yarn_cache
-
-  # - run:
-  #     command: yarn eslint
-  #     name: Run ESLint
-  # - run:
-  #     command: yarn flow
-  #     name: Flow
-  # - run:
-  #     command: yarn jest
-  #     name: Jest
-  checkout_code:
-    executor: mobile-build-box
-    steps:
-      #- checkout
-      - prepare_code
-      - attach_workspace:
-          at: *default_workspace
-      - rn/yarn_install:
-          cache: false
-          cache_folder: /tmp/yarn_cache
-      # - cocoapods
-      - rn/pod_install:
-          cache: false
-          #pod_install_directory: ios/pods
-      - persist_to_workspace:
-          paths: . #*default_workspace
-          root: . #*default_workspace
-  # fastlane_android_release:
-  #   executor: rn/linux_js
-  #   steps:
-  #     - attach_workspace:
-  #         at: *default_workspace
-  #     - rn/yarn_install
-  #     - run:
-  #         command: echo
-  #         name: Run Fastlane
-
-  fastlane_ios_release:
-    executor: mobile-build-box
-    steps:
-      # - attach_workspace:
-      #     at: .
-      - attach_workspace:
-          at: *default_workspace
-      - prepare_deploy_env
-      - run:
-          command: echo 'RELEASE_TYPE:' $RELEASE_TYPE
-          name: "Echo release type"
-      - run:
-          command: bundle install --path vendor/bundle --clean
-          name: Install Gems
-      - rn/yarn_install:
-          cache: false
-          cache_folder: /tmp/yarn_cache
-      - run:
-          # TOD use $RELEASE_TYPE
-          command: yarn fastlane:ios:release env:Stage
-          name: Run Fastlane IOS env:$RELEASE_TYPE
- 
-  # END Debugging rn orb
-  ########
-
-
-
 ###
 ### Define workflow
 ### ---------------------------------------------------------------------------------------------
@@ -463,167 +384,124 @@ workflows:
   # |-- Run Detox E2E Tests
   #
 
-  
-  
-  ########
-  # Debugging rn orb
-
-  circleci_orb_build:
+  tests:
     jobs:
-      - checkout_code      
-      - analyse_js:
+      - lint:
+          filters: *feature_filter
+      - i18n:
+          filters: *feature_filter
+      - test:
+          filters: *feature_filter
+
+      # DISABLED FOR MERGE TO MASTER
+      # - e2etest:
+      #     # This should be the e2e_filter to avoid running on every push
+      #     # filters: *e2e_filter
+      #     filters: *feature_filter
+      #     context: react-covid-tracker-stage
+
+  ota:
+    jobs:
+      # Staging OTA deploy
+      - ota-release:
+          name: 'Stage OTA'
+          filters: *develop_filter
+          context: react-covid-tracker-stage
+      - deployed-ota:
+          name: 'Stage OTA Deployed'
+          context: slack-ci-covid-mobile
           requires:
-            - checkout_code
-      - rn/ios_build:
-          build_configuration: Stage
-          device: iPhone 11
-          name: build_ios_release
-          node_version: '12'
-          project_path: ios/Covid.xcworkspace
-          project_type: workspace
+            - Stage OTA
+
+      # Production OTA deploy
+      - ota-release-approval:
+          name: 'Prod OTA approval'
+          filters: *master_filter
+          type: approval
+      - ota-release:
+          name: 'Prod OTA'
+          filters: *master_filter
+          context: react-covid-tracker-prod
           requires:
-            - analyse_js
-          scheme: "'Covid Release'"
-          # disable all caches to see if build fixes
-          homebrew_cache: false
-          yarn_cache: false
-          xcodebuild_cache: false
+            - Prod OTA approval
+      - deployed-ota:
+          name: 'Prod OTA Deployed'
+          context: slack-ci-covid-mobile
+          requires:
+            - Prod OTA
+
+  release:
+    jobs:
+      # Publish app for internal testing
+      # - App Center distribution (with approval)
+      # |-- iOS / Android Release to App Center
+      # |-- Message slack message on App Center upload successful
+      - slack/approval-notification:
+          filters: *develop_filter
+          message: 'Awaiting manual approval to deploy native apps to staging'
+          context: slack-ci-covid-mobile
+      - adhoc-release-approval:
+          name: 'Adhoc approval'
+          filters: *develop_filter
+          type: approval
+      - build:
+          name: 'Adhoc build AUTO RUN FOR DEBUG'
           
-      - fastlane_ios_release:
-          name: 'RN Orb Fastlane IOS Release'
+          #filters: *develop_filter
+          # requires:
+          #   - Adhoc approval
+      - deploy-ios:
+          name: 'Adhoc iOS'
+          filters: *develop_filter
+          context: react-covid-tracker-stage
           requires:
-            - build_ios_release
+            - Adhoc build
+      - deploy-android:
+          name: 'Adhoc Android'
+          filters: *develop_filter
+          context: react-covid-tracker-stage
+          requires:
+            - Adhoc build
+      - deployed-stage:
+          name: 'Stage apps published'
+          context: slack-ci-covid-mobile
+          requires:
+            - Adhoc iOS
+            - Adhoc Android
 
-  
-  # END Debugging rn orb
-  ########
-
-
-  
-  
-  
-  
-  
-  
-  
-  #Commented out for now - old config
-  # tests:
-  #   jobs:
-  #     - lint:
-  #         filters: *feature_filter
-  #     - i18n:
-  #         filters: *feature_filter
-  #     - test:
-  #         filters: *feature_filter
-
-  #     # DISABLED FOR MERGE TO MASTER
-  #     # - e2etest:
-  #     #     # This should be the e2e_filter to avoid running on every push
-  #     #     # filters: *e2e_filter
-  #     #     filters: *feature_filter
-  #     #     context: react-covid-tracker-stage
-
-  # ota:
-  #   jobs:
-  #     # Staging OTA deploy
-  #     - ota-release:
-  #         name: 'Stage OTA'
-  #         filters: *develop_filter
-  #         context: react-covid-tracker-stage
-  #     - deployed-ota:
-  #         name: 'Stage OTA Deployed'
-  #         context: slack-ci-covid-mobile
-  #         requires:
-  #           - Stage OTA
-
-  #     # Production OTA deploy
-  #     - ota-release-approval:
-  #         name: 'Prod OTA approval'
-  #         filters: *master_filter
-  #         type: approval
-  #     - ota-release:
-  #         name: 'Prod OTA'
-  #         filters: *master_filter
-  #         context: react-covid-tracker-prod
-  #         requires:
-  #           - Prod OTA approval
-  #     - deployed-ota:
-  #         name: 'Prod OTA Deployed'
-  #         context: slack-ci-covid-mobile
-  #         requires:
-  #           - Prod OTA
-
-  # release:
-  #   jobs:
-  #     # Publish app for internal testing
-  #     # - App Center distribution (with approval)
-  #     # |-- iOS / Android Release to App Center
-  #     # |-- Message slack message on App Center upload successful
-  #     - slack/approval-notification:
-  #         filters: *develop_filter
-  #         message: 'Awaiting manual approval to deploy native apps to staging'
-  #         context: slack-ci-covid-mobile
-  #     - adhoc-release-approval:
-  #         name: 'Adhoc approval'
-  #         filters: *develop_filter
-  #         type: approval
-  #     - build:
-  #         name: 'Adhoc build'
-  #         filters: *develop_filter
-  #         requires:
-  #           - Adhoc approval
-  #     - deploy-ios:
-  #         name: 'Adhoc iOS'
-  #         filters: *develop_filter
-  #         context: react-covid-tracker-stage
-  #         requires:
-  #           - Adhoc build
-  #     - deploy-android:
-  #         name: 'Adhoc Android'
-  #         filters: *develop_filter
-  #         context: react-covid-tracker-stage
-  #         requires:
-  #           - Adhoc build
-  #     - deployed-stage:
-  #         name: 'Stage apps published'
-  #         context: slack-ci-covid-mobile
-  #         requires:
-  #           - Adhoc iOS
-  #           - Adhoc Android
-
-  #     # Publish app to store
-  #     # # - App / Store release through AppCenter (with approval)
-  #     # # |-- iOS Release to app store (through AppCenter)
-  #     # # |-- Android Release to play store (through AppCenter)
-  #     # # |-- Message slack message on iOS & Android upload successful
-  #     - slack/approval-notification:
-  #         filters: *master_filter
-  #         message: 'Awaiting manual approval to deploy to production (Options: OTA, Store)'
-  #         context: slack-ci-covid-mobile
-  #     - store-release-approval:
-  #         name: 'Store approval'
-  #         filters: *master_filter
-  #         type: approval
-  #     - build:
-  #         filters: *master_filter
-  #         name: 'Store build'
-  #         requires:
-  #           - Store approval
-  #     - deploy-ios:
-  #         name: 'Store iOS'
-  #         filters: *master_filter
-  #         context: react-covid-tracker-prod
-  #         requires:
-  #           - Store build
-  #     - deploy-android:
-  #         name: 'Store Android'
-  #         filters: *master_filter
-  #         context: react-covid-tracker-prod
-  #         requires:
-  #           - Store build
-  #     - deployed-prod:
-  #         name: 'Prod apps published'
-  #         context: slack-ci-covid-mobile
-  #         requires:
-  #           - Store iOS
-  #           - Store Android
+      # Publish app to store
+      # # - App / Store release through AppCenter (with approval)
+      # # |-- iOS Release to app store (through AppCenter)
+      # # |-- Android Release to play store (through AppCenter)
+      # # |-- Message slack message on iOS & Android upload successful
+      - slack/approval-notification:
+          filters: *master_filter
+          message: 'Awaiting manual approval to deploy to production (Options: OTA, Store)'
+          context: slack-ci-covid-mobile
+      - store-release-approval:
+          name: 'Store approval'
+          filters: *master_filter
+          type: approval
+      - build:
+          filters: *master_filter
+          name: 'Store build'
+          requires:
+            - Store approval
+      - deploy-ios:
+          name: 'Store iOS'
+          filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+            - Store build
+      - deploy-android:
+          name: 'Store Android'
+          filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+            - Store build
+      - deployed-prod:
+          name: 'Prod apps published'
+          context: slack-ci-covid-mobile
+          requires:
+            - Store iOS
+            - Store Android
