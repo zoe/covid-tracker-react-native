@@ -43,7 +43,7 @@ export default function Welcome1Screen({ navigation }: TProps) {
 
   const getFlagIcon = React.useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
 
-  const onLoginPress = React.useCallback(() => navigation.navigate('Login', { terms: '' }), [navigation.navigate]);
+  const onLoginPress = React.useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
 
   const onSelectCountryPress = React.useCallback(() => navigation.navigate('CountrySelect', {}), [navigation.navigate]);
 

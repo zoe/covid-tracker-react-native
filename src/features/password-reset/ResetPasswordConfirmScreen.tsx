@@ -28,7 +28,7 @@ export class ResetPasswordConfirmScreen extends React.Component<TProps, TState> 
 
         <View style={styling.flex} />
 
-        <BrandedButton onPress={() => this.props.navigation.navigate('Login', { terms: '' })}>
+        <BrandedButton onPress={() => this.props.navigation.navigate('Login')}>
           {i18n.t('reset-password-confirm.button')}
         </BrandedButton>
       </Screen>

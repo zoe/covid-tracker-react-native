@@ -35,7 +35,7 @@ type TProps = {
 const Welcome2Screen: React.FC<TProps> = ({ navigation }) => {
   const [ipModalVisible, setIpModalVisible] = React.useState(false);
 
-  const onLoginPress = React.useCallback(() => navigation.navigate('Login', { terms: '' }), [navigation.navigate]);
+  const onLoginPress = React.useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
 
   const onCloseModal = React.useCallback(() => setIpModalVisible(false), [setIpModalVisible]);
 
