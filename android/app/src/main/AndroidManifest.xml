@@ -11,7 +11,8 @@
     android:icon="@drawable/ic_launcher"
     android:roundIcon="@drawable/ic_launcher_round"
     android:allowBackup="false"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    tools:replace="android:value">
     <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@julien.lavigne/covid-zoe"/>
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="39.0.0"/>
     <meta-data android:name="expo.modules.updates.EXPO_RELEASE_CHANNEL" android:value="dev-v1.0.0"/>
