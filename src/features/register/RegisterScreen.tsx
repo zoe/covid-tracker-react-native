@@ -101,7 +101,7 @@ class RegisterScreen extends React.Component<TProps, TState> {
   };
 
   gotoLogin = () => {
-    this.props.navigation.replace('Login', { terms: '' });
+    this.props.navigation.replace('Login');
   };
 
   registerSchema = Yup.object().shape({
@@ -116,7 +116,7 @@ class RegisterScreen extends React.Component<TProps, TState> {
     this.setState({ enableSubmit });
   };
 
-  onPressLogin = () => this.props.navigation.navigate('Login', { terms: '' });
+  onPressLogin = () => this.props.navigation.navigate('Login');
 
   render() {
     return (

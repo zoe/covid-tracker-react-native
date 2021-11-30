@@ -538,6 +538,7 @@
     "thank-you-for-rating": "Tack för din feedback.\nVi jobbar hela tiden på att förbättra appen"
   },
   "menu": {
+    "item-biometric-auth": false,
     "item-edit-profile": "Min profil",
     "item-media-centre": false,
     "item-share-this-app": "Dela appen",
@@ -1662,5 +1663,20 @@
     "title": false
   },
   "required-field": "Obligatoriska fält",
-  "modal-close": "Stänga"
+  "modal-close": "Stänga",
+  "biometric-auth": {
+    "button": false,
+    "description-facial": false,
+    "description-facial-finger": false,
+    "description-facial-finger-iris": false,
+    "description-facial-iris": false,
+    "description-finger": false,
+    "description-finger-iris": false,
+    "description-iris": false,
+    "description-nothing": false,
+    "result-cancelled": false,
+    "result-disabled": false,
+    "result-error": false,
+    "result-success": false
+  }
 }

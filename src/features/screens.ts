@@ -8,6 +8,7 @@ export {
   AnniversaryScreen,
   ArchiveReasonScreen,
   BeforeWeStartUSScreen,
+  BiometricAuthScreen,
   ConfirmSchoolScreen,
   ConsentForOtherScreen,
   ConsentScreen,

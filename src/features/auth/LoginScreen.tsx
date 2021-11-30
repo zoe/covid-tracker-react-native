@@ -20,7 +20,7 @@ interface IProps {
   route: RouteProp<ScreenParamList, 'Login'>;
 }
 
-export default function LoginScreen({ route }: IProps) {
+export function LoginScreen({ route }: IProps) {
   const [hasErrors, setHasErrors] = React.useState(false);
   const [isValid, setIsValid] = React.useState(false);
   const [loading, setLoading] = React.useState(false);

@@ -46,6 +46,8 @@ PODS:
     - UMCore
   - EXKeepAwake (9.2.0):
     - UMCore
+  - EXLocalAuthentication (11.1.1):
+    - UMCore
   - EXLocalization (10.2.0):
     - UMCore
   - EXNotifications (0.12.3):
@@ -446,6 +448,7 @@ DEPENDENCIES:
   - EXFont (from `../node_modules/expo-font/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
   - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
+  - EXLocalAuthentication (from `../node_modules/expo-local-authentication/ios`)
   - EXLocalization (from `../node_modules/expo-localization/ios`)
   - EXNotifications (from `../node_modules/expo-notifications/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
@@ -543,6 +546,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-image-loader/ios"
   EXKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
+  EXLocalAuthentication:
+    :path: "../node_modules/expo-local-authentication/ios"
   EXLocalization:
     :path: "../node_modules/expo-localization/ios"
   EXNotifications:
@@ -669,6 +674,7 @@ SPEC CHECKSUMS:
   EXFont: 9846ba1bb6f5f5aed44e20eea3ac70693323832d
   EXImageLoader: d3531a3fe530b22925c19977cb53bb43e3821fe6
   EXKeepAwake: f4105ef469be7b283f66ce2d7234bb71ac80cd26
+  EXLocalAuthentication: 88a1a69ea66c4934387d1eb503628170c853caef
   EXLocalization: 356f4e16a606cec21a77d6250528fde526152b45
   EXNotifications: 171ccaf17643811673c78f4c4830560d6e5a92aa
   ExpoModulesCore: 2734852616127a6c1fc23012197890a6f3763dc7

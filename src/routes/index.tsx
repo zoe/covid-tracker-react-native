@@ -23,6 +23,7 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.AdultOrChildScreen} name="AdultOrChild" options={options} />
       <Stack.Screen component={screens.ArchiveReasonScreen} name="ArchiveReason" options={options} />
       <Stack.Screen component={screens.BeforeWeStartUSScreen} name="BeforeWeStartUS" options={options} />
+      <Stack.Screen component={screens.BiometricAuthScreen} name="BiometricAuth" options={options} />
       <Stack.Screen component={screens.ConfirmSchoolScreen} name="ConfirmSchool" options={options} />
       <Stack.Screen component={screens.ConsentForOtherScreen} name="ConsentForOther" options={options} />
       <Stack.Screen component={screens.ConsentScreen} name="Consent" options={options} />

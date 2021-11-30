@@ -28,11 +28,14 @@ export type TScreenParamList = {
 
   // User profile screens
   CountrySelect: { onComplete?: VoidFunction };
-  Login: { terms: string };
   OptionalInfo: undefined;
   Register: undefined;
   ResetPassword: undefined;
   ResetPasswordConfirm: undefined;
+
+  // Authentication
+  BiometricAuth: undefined;
+  Login: undefined;
 
   // Profile screens
   AdultOrChild: { profileName: string; avatarName?: string };
