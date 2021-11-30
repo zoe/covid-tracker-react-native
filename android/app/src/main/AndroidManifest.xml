@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.joinzoe.covid_zoe">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.joinzoe.covid_zoe"
+    xmlns:tools="http://schemas.android.com/tools" tools:replace="android:value">
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
@@ -12,7 +13,7 @@
     android:roundIcon="@drawable/ic_launcher_round"
     android:allowBackup="false"
     android:theme="@style/AppTheme"
-    tools:replace="android:value">
+    >
     <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@julien.lavigne/covid-zoe"/>
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="39.0.0"/>
     <meta-data android:name="expo.modules.updates.EXPO_RELEASE_CHANNEL" android:value="dev-v1.0.0"/>
