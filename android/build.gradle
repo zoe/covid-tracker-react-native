@@ -7,7 +7,6 @@ buildscript {
         compileSdkVersion = 30
         targetSdkVersion = 30
         ndkVersion = "20.1.5948944"
-        multiDexEnabled true
     }
     repositories {
         google()
