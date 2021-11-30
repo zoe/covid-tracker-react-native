@@ -159,7 +159,7 @@ android {
         applicationId 'com.joinzoe.covid_zoe'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2012171271
+        versionCode 2012171272
         versionName "2.7.0"
     }
     splits {
