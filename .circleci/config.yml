@@ -136,6 +136,17 @@ commands:
           paths:
             - ios/Pods
             - ~/Library/Caches/CocoaPods/Pods
+            
+  pod-install:
+    steps:
+      - restore_cache:
+          key: *pod_cache_key
+      - run: cd ios && pod install
+      - save_cache:
+          key: *pod_cache_key
+          paths:
+            - ios/Pods
+            - ~/Library/Caches/CocoaPods/Pods
 
   # Prepare blank env for testing
   prepare_blank_env:
@@ -291,6 +302,7 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
+      - install-dependencies
       - run: yarn
       - attach_workspace:
           at: *default_workspace
@@ -303,9 +315,8 @@ jobs:
       - run: bundle install --path vendor/bundle --clean
       # Required to set xcode to v 13
       - run: gem install xcode-install
-      - run: security find-identity -v -p codesigning
+      - pod-install
       - run: yarn fastlane:ios:certificates
-      - run: security find-identity -v -p codesigning
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
