@@ -136,7 +136,12 @@ commands:
           paths:
             - ios/Pods
             - ~/Library/Caches/CocoaPods/Pods
-            
+  pod-clean-install:
+    steps:
+        - run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
+        - run: cd ios && rm -rf Pods
+        - run: pod install --clean-install         
+  
   pod-install:
     steps:
       - restore_cache:
@@ -315,7 +320,7 @@ jobs:
       - run: bundle install --path vendor/bundle --clean
       # Required to set xcode to v 13
       - run: gem install xcode-install
-      - pod-install
+      - pod-clean-install
       - run: yarn fastlane:ios:certificates
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
