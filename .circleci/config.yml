@@ -140,7 +140,7 @@ commands:
     steps:
         - run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
         - run: cd ios && rm -rf Pods
-        - run: pod install --clean-install         
+        - run: cd ios && pod install --clean-install         
   
   pod-install:
     steps:
