@@ -31,6 +31,7 @@ target 'Covid' do
     # Note: not sure we really need this, but if you see an error to do with RCT-Folly, try to build with this uncommented
     # https://github.com/facebook/flipper/issues/834
     `sed -i -e  $'s/__IPHONE_10_0/__IPHONE_12_0/' Pods/RCT-Folly/folly/portability/Time.h`
+    `sed -i -e $'s/__IPHONE_10_0/__IPHONE_12_0/' Pods/Flipper-Folly/folly/portability/Time.h`
 
   end
 end
