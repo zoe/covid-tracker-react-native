@@ -20,6 +20,7 @@
     "clear:metro": "rm -rf $TMPDIR/metro-*",
     "fastlane": "ENVFILE=.env bundle exec fastlane",
     "fastlane:android:release": "yarn fastlane android release",
+    "fastlane:ios:certificates": "yarn fastlane ios certificates",
     "fastlane:ios:register": "bundle exec fastlane register && bundle exec fastlane match adhoc -a com.joinzoe.covid-zoe.qa --force_for_new_devices",
     "fastlane:ios:release": "yarn fastlane ios release",
     "generate:git-hash": "ts-node --transpile-only ./scripts/generate-git-hash.ts",
