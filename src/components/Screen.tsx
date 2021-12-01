@@ -19,6 +19,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 interface IProps {
   backgroundColor?: string;
   children?: React.ReactNode;
+  customBackButtonColor?: string;
   footerEnabled?: boolean;
   footerLoading?: boolean;
   footerOnPress?: () => void;
@@ -44,7 +45,7 @@ function renderHeader(props: IProps) {
   if (props.profile) {
     return <PatientHeader profile={props.profile} simpleCallout={props.simpleCallout} />;
   }
-  return <NavHeader />;
+  return <NavHeader backButtonColor={props.customBackButtonColor || colors.secondary} />;
 }
 
 function renderBody(props: IProps) {
