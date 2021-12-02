@@ -484,10 +484,9 @@ workflows:
           type: approval
       - build:
           name: 'Adhoc build'
-          # DEBUG
-          #filters: *develop_filter
-          # requires:
-          #   - Adhoc approval
+          filters: *develop_filter
+          requires:
+            - Adhoc approval
       - deploy-ios:
           name: 'Adhoc iOS'
           filters: *develop_filter
