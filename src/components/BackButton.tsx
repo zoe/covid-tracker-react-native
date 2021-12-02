@@ -1,11 +1,11 @@
 import NavigatorService from '@covid/NavigatorService';
-import { colors } from '@theme';
 import { Icon } from 'native-base';
 import * as React from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 
 type TProps = {
   style?: StyleProp<ViewStyle>;
+  iconColor: string;
 };
 
 const HIT_SLOP = {
@@ -23,14 +23,13 @@ export function BackButton(props: TProps) {
       style={props.style}
       testID="button-back-navigation"
     >
-      <Icon name="chevron-thin-left" style={styles.icon} type="Entypo" />
+      <Icon name="chevron-thin-left" style={[styles.icon, { color: props.iconColor }]} type="Entypo" />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   icon: {
-    color: colors.secondary,
     fontSize: 16,
   },
 });

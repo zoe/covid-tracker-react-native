@@ -359,7 +359,6 @@ export type TStartupInfo = {
   show_mh_insight?: boolean;
   show_modal?: 'mental-health-playback';
   show_new_dashboard: boolean;
-  show_new_vaccines_ui?: boolean;
   show_pingdemic: boolean;
   show_research_consent: boolean;
   show_timeline: boolean;

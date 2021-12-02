@@ -1,8 +1,9 @@
 import { BrandedButton, HeaderText, Text } from '@covid/components';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { TDose } from '@covid/core/vaccine/dto/VaccineRequest';
+import { EVaccineTypes, TDose } from '@covid/core/vaccine/dto/VaccineRequest';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
@@ -10,21 +11,25 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 type TProps = {
-  route: RouteProp<TScreenParamList, 'VaccineList'>;
+  route: RouteProp<TScreenParamList, 'VaccineListMissingModal'>;
 };
 
 export const VaccineListMissingModal: React.FC<TProps> = ({ route }) => {
   const coordinator = assessmentCoordinator;
 
-  // @julia: It looks like this is not working anymore. The params doesn't contain the vaccine
-  // attribute anymore so the findIndex function always return -1.
   const close = () => {
     // Get the edit index of the first dose that has missing data
-    const doses: TDose[] = route.params?.vaccine.doses ?? [];
+    const doses: TDose[] = route.params?.vaccine?.doses ?? [];
     const incompleteDoseIndex: number = doses.findIndex((dose: TDose) => {
-      return dose.date_taken_specific == null || dose.brand === null;
+      return (
+        (dose.date_taken_specific == null || dose.brand === null) && dose.vaccine_type !== EVaccineTypes.SEASONAL_FLU
+      );
     });
-    coordinator.goToAddEditVaccine(route.params?.vaccine, incompleteDoseIndex);
+    if (incompleteDoseIndex > -1) {
+      coordinator.goToAddEditVaccine(route.params?.vaccine, doses[incompleteDoseIndex].id);
+    } else {
+      NavigatorService.goBack();
+    }
   };
 
   return (
