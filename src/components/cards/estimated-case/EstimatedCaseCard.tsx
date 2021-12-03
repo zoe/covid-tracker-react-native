@@ -69,7 +69,7 @@ export function EstimatedCaseCard({
           <RightArrow />
           <Text
             inverted
-            colorPalette="burgundy"
+            colorPalette="actionSecondary"
             colorShade="main"
             style={{ marginHorizontal: sizes.xs }}
             textClass="pMedium"

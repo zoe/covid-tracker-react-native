@@ -7,10 +7,13 @@
   "loading": "Loading",
   "log-in": "Logga in",
   "more": "More",
+  "more-details": "More details",
+  "new": "Ny",
   "no-change": "No change",
+  "ok": "OK",
+  "read-more": "Read more",
   "skip": "Hoppa över",
   "you": "You",
-  "ok": "OK",
   "create-account": {
     "title": "Skapa nytt konto",
     "btn": "Skapa konto",
@@ -1076,8 +1079,7 @@
     },
     "flu-onboarding": {
       "title": "Logga ditt influensavaccin",
-      "description": "Logga eventuella influensavaccin när du rapporterar hur du mår. Klicka på ”Lägg till dos” och välj ”Influensa” som typ av vaccin.",
-      "new": "Ny"
+      "description": "Logga eventuella influensavaccin när du rapporterar hur du mår. Klicka på ”Lägg till dos” och välj ”Influensa” som typ av vaccin."
     }
   },
   "dashboard": {
@@ -1661,6 +1663,47 @@
     "tab-all": false,
     "tab-bookmarked": false,
     "title": false
+  },
+  "study-hub": {
+    "consented": {
+      "description": false,
+      "title": false
+    },
+    "interest-shown-modal": {
+      "button": false,
+      "description": false,
+      "title": false
+    },
+    "study-details": {
+      "commitment": false,
+      "the-bigger-picture": false,
+      "lead-scientist": false,
+      "research-focus": false,
+      "what-do-i-need": false,
+      "whats-involved": false,
+      "who-can-join": false
+    },
+    "feedback": {
+      "title": false,
+      "placeholder": false,
+      "button": false
+    },
+    "onboarding-overlay": {
+      "description": false
+    },
+    "reconsent-modal": {
+      "button": false,
+      "description": false,
+      "title": false,
+      "return": false
+    }
+  },
+  "tab-navigation": {
+    "home-tab": "Home",
+    "study-hub-tab": "Studies",
+    "study-hub-tab-overlay": {
+      "description": "From the Studies tab, you can manage Studies you're interested in"
+    }
   },
   "required-field": "Obligatoriska fält",
   "modal-close": "Stänga",

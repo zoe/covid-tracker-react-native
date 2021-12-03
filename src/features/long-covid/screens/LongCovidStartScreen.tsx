@@ -2,9 +2,9 @@ import InfoCircle from '@assets/icons/InfoCircle';
 import { ClockIcon } from '@assets/icons/svgIcons';
 import { HeaderText, RegularText, Spacer, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
-import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
@@ -12,7 +12,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface IProps {
-  route: RouteProp<ScreenParamList, 'LongCovidStart'>;
+  route: RouteProp<TScreenParamList, 'LongCovidStart'>;
 }
 
 export default function LongCovidStartScreen({ route }: IProps) {

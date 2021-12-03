@@ -6,6 +6,7 @@ import * as Amplitude from 'expo-analytics-amplitude';
 let isInitialized = false;
 
 type TUserProperties = {
+  hasConsented?: boolean;
   isTester?: boolean;
   Experiment_mhip?: string;
   Experiment_mhip_2?: string;
@@ -87,6 +88,16 @@ enum EVaccineEvents {
   VACCINE_SUBMIT = 'VACCINE_SUBMIT',
 }
 
+enum EStudyHubEvents {
+  STUDY_HUB_FEEDBACK = 'STUDY_HUB_FEEDBACK',
+  STUDY_HUB_FEEDBACK_CLOSE_MODAL = 'STUDY_HUB_FEEDBACK_CLOSE_MODAL',
+  STUDY_HUB_INTEREST_OFF = 'STUDY_HUB_INTEREST_OFF',
+  STUDY_HUB_INTEREST_ON = 'STUDY_HUB_INTEREST_ON',
+  STUDY_HUB_OVERLAY_SHOWN = 'STUDY_HUB_OVERLAY_SHOWN',
+  STUDY_HUB_READ_MORE = 'STUDY_HUB_READ_MORE',
+  STUDY_HUB_RECONSENT_CLICKED = 'STUDY_HUB_RECONSENT_CLICKED',
+}
+
 enum EOtherEvents {
   ACCEPT_STUDY_CONTACT = 'ACCEPT_STUDY_CONTACT',
   CLICK_CALLOUT = 'CLICK_CALLOUT',
@@ -109,6 +120,7 @@ enum EOtherEvents {
   NOTIFICATION_ENABLED = 'NOTIFICATION_ENABLED',
   NOTIFICATION_REFRESHED = 'NOTIFICATION_REFRESHED',
   OPEN_FROM_NOTIFICATION = 'OPEN_FROM_NOTIFICATION',
+  SHARE = 'SHARE',
   SHARE_THIS_APP = 'SHARE_THIS_APP',
   SIGNUP = 'SIGNUP',
   VIEW_MODAL = 'VIEW_MODAL',
@@ -124,12 +136,13 @@ export const events = {
   ...EMentalHealthStudyEvents,
   ...EOtherEvents,
   ...EReconsentEvents,
+  ...EStudyHubEvents,
   ...ETimelineEvents,
   ...EVaccineEvents,
   ...EWiderHealthStudiesEvents,
 };
 
-type TEventName = keyof typeof events;
+export type TEventName = keyof typeof events;
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
 // https://docs.expo.io/versions/latest/sdk/amplitude/#amplitudeinitializeapikey

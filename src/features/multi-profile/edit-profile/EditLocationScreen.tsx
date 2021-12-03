@@ -5,11 +5,11 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { YesNoField } from '@covid/components/inputs/YesNoField';
 import { Screen } from '@covid/components/Screen';
 import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
-import { fetchLocalTrendline, fetchStartUpInfo } from '@covid/core/state/contentSlice';
+import { fetchLocalTrendline, fetchStartupInfo } from '@covid/core/state/contentSlice';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -95,7 +95,7 @@ export const EditLocationScreen: React.FC<TProps> = (props) => {
       // Refresh the trend line data because a new postcode corresponds to different trend line data.
       await dispatch(fetchLocalTrendline());
       // Refresh the startup info because a new postcode corresponds to changes in the local data.
-      await dispatch(fetchStartUpInfo());
+      await dispatch(fetchStartupInfo());
       editProfileCoordinator.gotoNextScreen(props.route.name);
     } catch (_) {
       setErrorMessage(i18n.t('something-went-wrong'));

@@ -12,22 +12,18 @@ export {
   ConfirmSchoolScreen,
   ConsentForOtherScreen,
   ConsentScreen,
-  CountrySelectScreen,
   CovidTestConfirmScreen,
   CovidTestDetailScreen,
   CovidTestListScreen,
   CreateProfileScreen,
   DashboardScreen,
   DashboardUSScreen,
-  DataConsentScreen,
   DietStudyGlobalScreen,
   DietStudyGutScreen,
   DietStudyScreen,
   DietStudyTraditionalScreen,
-  DiseasePreferencesScreen,
   EditLocationScreen,
   EditProfileScreen,
-  EstimatedCasesScreen,
   GeneralSymptomsScreen,
   GutStomachSymptomsScreen,
   HeadSymptomsScreen,
@@ -36,7 +32,6 @@ export {
   JoinHigherEducationScreen,
   JoinSchoolGroupScreen,
   JoinSchoolScreen,
-  LoginScreen,
   LongCovidQuestionScreen,
   LongCovidStartScreen,
   MHPGeneralScreen,
@@ -76,7 +71,6 @@ export {
   SelectProfileScreen,
   SplashScreen,
   TermsOfUseUSScreen,
-  TestingModeScreen,
   ThankYouSEScreen,
   ThankYouUKScreen,
   ThankYouUSScreen,
@@ -92,8 +86,17 @@ export {
   Welcome2Screen,
   WelcomeRepeatScreen,
   WhereAreYouScreen,
-  WiderHealthStudiesScreen,
   YourHealthScreen,
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
+
+export { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
+export { DataConsentScreen } from '@covid/features/wider-health-studies/screens/DataConsentScreen';
+export { DiseasePreferencesScreen } from '@covid/features/wider-health-studies/screens/DiseasePreferencesScreen';
+export { EstimatedCasesScreen } from '@covid/features/EstimatedCasesScreen';
+export { LoginScreen } from '@covid/features/auth/LoginScreen';
+export { StudiesListScreen } from '@covid/features/study-hub/screens/StudiesListScreen';
+export { StudyDetailsScreen } from '@covid/features/study-hub/screens/StudyDetailsScreen';
+export { TestingModeScreen } from '@covid/features/testing-mode/TestingModeScreen';
+export { WiderHealthStudiesScreen } from '@covid/features/wider-health-studies/screens/WiderHealthStudiesScreen';

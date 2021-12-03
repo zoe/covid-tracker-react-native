@@ -7,8 +7,8 @@ import { initialErrorState, TApiErrorState } from '@covid/core/api/ApiServiceErr
 import { patientService } from '@covid/core/patient/PatientService';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
-import { EConsentType, TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { EConsentType, TScreenParamList } from '@covid/routes/types';
 import { offlineService } from '@covid/services';
 import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';

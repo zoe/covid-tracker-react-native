@@ -1,8 +1,8 @@
 import { BrandedButton, HeaderText, Text } from '@covid/components';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TDose } from '@covid/core/vaccine/dto/VaccineRequest';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';

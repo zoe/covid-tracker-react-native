@@ -7,10 +7,13 @@
   "loading": "Loading",
   "log-in": "Log in",
   "more": "More",
+  "more-details": "More details",
+  "new": "New",
   "no-change": "No change",
+  "ok": "OK",
+  "read-more": "Read more",
   "skip": "Skip",
   "you": "You",
-  "ok": "OK",
   "create-account": {
     "title": "Create new account",
     "btn": "Create account",
@@ -590,7 +593,7 @@
   "delete-data-alert-title": "Are you sure?",
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
   "push-notifications": "Turn on reminders",
-  "testing-mode": "Testing mode",
+  "testing-mode": "Testing mode / debug",
   "cancel": "Cancel",
   "confirm": "Confirm",
   "delete": "Delete",
@@ -1072,8 +1075,7 @@
     },
     "flu-onboarding": {
       "title": "Log your flu vaccine",
-      "description": "Log any *flu vaccine* during your health report. Tap 'Add a vaccine dose' and select 'Flu' when asked for vaccine type.",
-      "new": "New"
+      "description": "Log any *flu vaccine* during your health report. Tap 'Add a vaccine dose' and select 'Flu' when asked for vaccine type."
     }
   },
   "dashboard": {
@@ -1657,6 +1659,47 @@
     "tab-all": "All",
     "tab-bookmarked": "Bookmarked",
     "title": "Read & Watch"
+  },
+  "study-hub": {
+    "consented": {
+      "description": "Thanks for joining our Wider Health Studies. Help us decide which studies to run next by expressing your interest here. We'll keep updating the list, so please check back often.",
+      "title": "Studies you're eligible for"
+    },
+    "interest-shown-modal": {
+      "button": "Close",
+      "description": "You tapped the heart on your very first study!\n\nTap more to grow your scientific contribution! We’ll keep you posted on studies you’re interested in.",
+      "title": "Congrats!"
+    },
+    "study-details": {
+      "commitment": "Commitment",
+      "lead-scientist": "Lead scientist",
+      "research-focus": "Research focus",
+      "the-bigger-picture": "The bigger picture",
+      "what-do-i-need": "What do I need?",
+      "whats-involved": "What's involved",
+      "who-can-join": "Who can join?"
+    },
+    "feedback": {
+      "title": "Enjoying our new Studies?",
+      "placeholder": "Please add any comments (optional)",
+      "button": "Send feedback"
+    },
+    "onboarding-overlay": {
+      "description": "Interested in a study?\nTap the ‘heart’ and we’ll keep you posted when the study has enough support to go live"
+    },
+    "reconsent-modal": {
+      "button": "Take me to opt in",
+      "description": "We need your consent to take part in Wider Health Studies before you can express interest in new studies on this page.",
+      "title": "Opt in to access new studies",
+      "return": "Return to Home"
+    }
+  },
+  "tab-navigation": {
+    "home-tab": "Home",
+    "study-hub-tab": "Studies",
+    "study-hub-tab-overlay": {
+      "description": "From the Studies tab, you can manage Studies you're interested in"
+    }
   },
   "required-field": "Required field",
   "modal-close": "Close",

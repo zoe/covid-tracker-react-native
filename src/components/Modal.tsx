@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import Analytics from '@covid/core/Analytics';
 import { sizes } from '@covid/themes';
 import * as React from 'react';
@@ -47,6 +49,11 @@ const INSETS = {
 const COLORS = ['#ffffff00', 'white'];
 
 export default React.memo(function Modal(props: IProps) {
+  // Don't call the hooks to prevent analytics from tracking without the modal being visible to the user.
+  if (!props.visible) {
+    return null;
+  }
+
   const safeAreaInsets = useSafeAreaInsets();
 
   React.useEffect(() => {

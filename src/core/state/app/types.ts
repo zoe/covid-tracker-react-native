@@ -1,4 +1,4 @@
-export interface IApp {
+export type TStateApp = {
   mentalHealthStudyActive: boolean;
   modalMentalHealthPlaybackVisible: boolean;
-}
+};

@@ -7,8 +7,8 @@ import { ISchoolGroupModel, ISubscribedSchoolGroupStats } from '@covid/core/scho
 import { TRootState } from '@covid/core/state/root';
 import { SchoolGroupRow } from '@covid/features/school-network/SchoolGroupRow';
 import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';

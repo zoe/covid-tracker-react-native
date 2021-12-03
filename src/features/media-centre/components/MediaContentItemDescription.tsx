@@ -1,4 +1,5 @@
 import { RegularText } from '@covid/components';
+import i18n from '@covid/locale/i18n';
 import * as React from 'react';
 import { Pressable } from 'react-native';
 
@@ -8,7 +9,7 @@ type TProps = {
 
 const truncatedString = (str: string, maxLength: number) => {
   if (str.length > maxLength) {
-    return str.substring(0, maxLength) + '... Read more';
+    return str.substring(0, maxLength) + '... ' + i18n.t('read-more');
   }
   return str;
 };

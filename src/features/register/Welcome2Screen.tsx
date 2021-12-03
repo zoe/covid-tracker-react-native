@@ -12,8 +12,8 @@ import {
   localisationService,
 } from '@covid/core/localisation/LocalisationService';
 import { appCoordinator } from '@covid/features/AppCoordinator';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';

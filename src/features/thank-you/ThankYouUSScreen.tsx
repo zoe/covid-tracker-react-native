@@ -3,9 +3,9 @@ import { ShareAppCardViral } from '@covid/components/cards/ShareAppViral';
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { ScreenParamList } from '@covid/features';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
@@ -14,7 +14,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 interface IProps {
-  route: RouteProp<ScreenParamList, 'ThankYouUS'>;
+  route: RouteProp<TScreenParamList, 'ThankYouUS'>;
 }
 
 export default function ThankYouUSScreen({ route }: IProps) {

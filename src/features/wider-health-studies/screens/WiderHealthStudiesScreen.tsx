@@ -30,7 +30,7 @@ function onPressInformationSheet() {
   openWebLink('https://covid.joinzoe.com/wider-health-studies-infosheet');
 }
 
-export default function WiderHealthStudiesScreen() {
+export function WiderHealthStudiesScreen() {
   const canOptOutOfWiderHealthStudies = useSelector(selectCanOptOutOfWiderHealthStudies);
   const [modalVisible, setModalVisible] = React.useState(false);
   const closeModal = React.useCallback(() => setModalVisible(false), [setModalVisible]);

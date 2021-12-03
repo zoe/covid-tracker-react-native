@@ -12,9 +12,9 @@ import { isUSCountry, localisationService } from '@covid/core/localisation/Local
 import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
 import { isMinorAge } from '@covid/core/patient/PatientState';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { ScreenParamList } from '@covid/features';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { styling } from '@covid/themes';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
@@ -53,7 +53,7 @@ interface IAboutYouData extends IRaceEthnicityData, IHeightData, IWeightData {
 }
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'AboutYou'>;
+  route: RouteProp<TScreenParamList, 'AboutYou'>;
 };
 
 type TState = {

@@ -1,8 +1,8 @@
 import { TRootState } from '@covid/core/state/root';
-import { IUser } from '@covid/core/state/user/types';
+import { TStateUser } from '@covid/core/state/user/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialStateUser: IUser = {
+export const initialStateUser: TStateUser = {
   ask_for_rating: false,
   authorizations: [],
   country_code: '',
@@ -24,7 +24,7 @@ const userSlice = createSlice({
     setPatients: (state, action: PayloadAction<string[]>) => {
       state.patients = action.payload;
     },
-    setProfile: (state, action: PayloadAction<IUser>) => {
+    setProfile: (state, action: PayloadAction<TStateUser>) => {
       state = action.payload;
     },
     setUsername: (state, action: PayloadAction<string>) => {

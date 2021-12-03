@@ -322,7 +322,17 @@ jobs:
       - run: gem install xcode-install
       - pod-clean-install
       - run: yarn fastlane:ios:certificates
-      - run: yarn fastlane:ios:release env:$RELEASE_TYPE
+      - run:
+          name: Fastlane ios release WITH NODE v14.16.1
+          command: |
+            set +e
+            # if you need to install it, uncomment the following
+            # wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash &&  sudo /opt/circleci/.nvm/nvm.sh
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install v14.16.1            
+            npm install -g yarn 
+            yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
 
@@ -345,9 +355,16 @@ jobs:
           key: *gem_cache_key
       - run: bundle install --path vendor/bundle --clean && cat android/gradle.properties
       - run:
-          name: fastlane android release
+          name: Fastlane android release WITH NODE v14.16.1
           no_output_timeout: 60m
           command: |
+            set +e
+            # if you need to install it, uncomment the following
+            # wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash &&  sudo /opt/circleci/.nvm/nvm.sh
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install v14.16.1            
+            npm install -g yarn 
             ENVFILE=.env bundle exec fastlane android release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/android/app/build/outputs
@@ -467,10 +484,9 @@ workflows:
           type: approval
       - build:
           name: 'Adhoc build'
-          # DEBUG
-          #filters: *develop_filter
-          # requires:
-          #   - Adhoc approval
+          filters: *develop_filter
+          requires:
+            - Adhoc approval
       - deploy-ios:
           name: 'Adhoc iOS'
           filters: *develop_filter

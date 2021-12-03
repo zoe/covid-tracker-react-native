@@ -49,7 +49,7 @@ const renderCustomisableSettings = (startupInfo: TStartupInfo, dispatch: Dispatc
     );
   });
 
-export default function TestingModeScreen() {
+export function TestingModeScreen() {
   const dispatch = useDispatch();
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 

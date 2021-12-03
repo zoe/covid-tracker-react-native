@@ -26,13 +26,14 @@ export interface IProps {
   inverted?: boolean;
   letterSpacing?: number | undefined;
   lineHeight?: number | undefined;
+  numberOfLines?: number;
   onPress?: () => void | undefined;
   rhythm?: TGridSize;
   style?: StyleProp<TextStyle>;
+  testID?: string;
   textAlign?: TTextAlign | undefined;
-  textDecorationLine?: TTtextDecorationLine | undefined;
   textClass?: TTextClass;
-  numberOfLines?: number;
+  textDecorationLine?: TTtextDecorationLine | undefined;
 }
 
 export default function Text({
@@ -45,13 +46,14 @@ export default function Text({
   inverted = false,
   letterSpacing = undefined,
   lineHeight = undefined,
-  textDecorationLine = undefined,
+  numberOfLines = undefined,
   onPress = undefined,
   rhythm = 0,
   style = {},
+  testID,
   textAlign = undefined,
   textClass = 'default',
-  numberOfLines = undefined,
+  textDecorationLine = undefined,
 }: IProps) {
   const theme: ITheme = useTheme();
   const fFamily = fontFamily || theme.text[textClass].fontFamily;
@@ -75,6 +77,7 @@ export default function Text({
       onPress={onPress}
       rhythm={rhythm}
       style={style}
+      testID={testID}
       textAlign={tAlign}
       textDecorationLine={tDecorationLine}
     >

@@ -1,13 +1,5 @@
 import InfoCircle from '@assets/icons/InfoCircle';
-import {
-  BrandedButton,
-  ErrorText,
-  HeaderText,
-  LightText,
-  Modal,
-  RegularTextWithBoldInserts,
-  Text,
-} from '@covid/components';
+import { BrandedButton, ErrorText, RegularTextWithBoldInserts, Text } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
 import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
@@ -18,12 +10,13 @@ import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineMechanisms, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import { getInitialRouteName } from '@covid/features/vaccines/helpers';
 import { VaccineFluOnboardingModal } from '@covid/features/vaccines/modals/VaccineFluOnboardingModal';
+import { VaccineListNewFeatureModal } from '@covid/features/vaccines/modals/VaccineListNewFeatureModal';
 import { VaccineTabbedListsScreen } from '@covid/features/vaccines/screens/VaccineTabbedListsScreen';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { colors } from '@theme';
@@ -49,13 +42,13 @@ const isNotInjectionFluVaccine = (dose: TDose) =>
   dose.mechanism === EVaccineMechanisms.NASAL_SPRAY || dose.mechanism === EVaccineMechanisms.DONT_KNOW;
 
 export const VaccineListScreen: React.FC<TProps> = (props) => {
+  const [showNewFeatureModal, setShowNewFeatureModal] = React.useState<boolean>(false);
+  const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
+  const [vaccine, setVaccine] = React.useState<TVaccineRequest | undefined>();
+
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = props.route.params?.assessmentData?.patientData?.patientId;
   const initialRouteName = getInitialRouteName(props.route.params?.vaccineType);
-
-  const [vaccine, setVaccine] = React.useState<TVaccineRequest | undefined>();
-  const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
-  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const { data, isError, isLoading } = useListVaccinesQuery();
 
@@ -152,26 +145,10 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
       renderFooter={renderFooter}
       testID="vaccine-list-screen"
     >
-      <Modal
-        enableBackdropDismiss
-        modalName="VaccineListInfo"
-        onRequestClose={() => setModalVisible(false)}
-        testID="vaccine-list-modal"
-        visible={modalVisible}
-      >
-        <View style={styles.modalWrapper}>
-          <HeaderText style={styles.modalTitle}>{i18n.t('vaccines.vaccine-list.modal-title')}</HeaderText>
-          <LightText style={styles.modalBody}>{i18n.t('vaccines.vaccine-list.modal-body')}</LightText>
-          <BrandedButton onPress={() => setModalVisible(false)}>
-            {i18n.t('vaccines.vaccine-list.modal-button')}
-          </BrandedButton>
-        </View>
-      </Modal>
+      <VaccineListNewFeatureModal onRequestClose={() => setShowNewFeatureModal(false)} visible={showNewFeatureModal} />
 
       <VaccineFluOnboardingModal
-        onRequestClose={() => {
-          setShowOnboardingModal(false);
-        }}
+        onRequestClose={() => setShowOnboardingModal(false)}
         patientId={assessmentCoordinator.assessmentData?.patientData?.patientId}
         visible={showOnboardingModal}
       />
@@ -181,7 +158,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
         <Text>
           <RegularTextWithBoldInserts text={i18n.t('vaccines.vaccine-list.description')} />
           {isSECountry() ? null : (
-            <TouchableOpacity hitSlop={HIT_SLOP} onPress={() => setModalVisible(true)}>
+            <TouchableOpacity hitSlop={HIT_SLOP} onPress={() => setShowNewFeatureModal(true)}>
               <View style={styles.paddingLeft}>
                 <InfoCircle color={colors.primary} />
               </View>
@@ -225,17 +202,6 @@ const styles = StyleSheet.create({
   },
   introduction: {
     marginVertical: sizes.m,
-  },
-  modalBody: {
-    marginBottom: sizes.xl,
-  },
-  modalTitle: {
-    marginBottom: sizes.l,
-    textAlign: 'center',
-  },
-  modalWrapper: {
-    padding: sizes.xxs,
-    paddingBottom: sizes.xs,
   },
   newButton: {
     backgroundColor: colors.backgroundTertiary,

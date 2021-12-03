@@ -9,6 +9,6 @@ export type TMediaContentItem = {
   title: string;
 };
 
-export interface IMediaCentreState {
+export type TStateMediaCentre = {
   contentItems: TMediaContentItem[];
-}
+};

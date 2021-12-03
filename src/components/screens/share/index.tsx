@@ -1,6 +1,6 @@
 import { closeIcon } from '@assets';
 import { IconButton, ThemeButton } from '@covid/components/buttons';
-import { ScreenParamList } from '@covid/features';
+import { TScreenParamList } from '@covid/routes/types';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import * as Sharing from 'expo-sharing';
 import * as React from 'react';
@@ -17,7 +17,7 @@ function ShareScreen() {
   const { height, width } = Dimensions.get('window');
   const { bottom, top } = useSafeAreaInsets();
   const viewRef = React.useRef<View>(null);
-  const route: RouteProp<ScreenParamList, 'Share'> = useRoute();
+  const route: RouteProp<TScreenParamList, 'Share'> = useRoute();
   const sharable = route?.params?.sharable;
   const hideLabel = route?.params?.hideLabel;
   const label = route?.params?.label;

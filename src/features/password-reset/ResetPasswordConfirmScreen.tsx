@@ -1,8 +1,8 @@
 import { BrandedButton } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -10,7 +10,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 type TProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'ResetPasswordConfirm'>;
+  navigation: StackNavigationProp<TScreenParamList, 'ResetPasswordConfirm'>;
 };
 
 type TState = {

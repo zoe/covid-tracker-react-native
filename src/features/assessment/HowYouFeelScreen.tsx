@@ -7,8 +7,8 @@ import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TRootState } from '@covid/core/state/root';
 import { TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
@@ -21,8 +21,8 @@ import { useSelector } from 'react-redux';
 import { USStudyInvite } from './partials/USStudyInvite';
 
 type TProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
-  route: RouteProp<ScreenParamList, 'HowYouFeel'>;
+  navigation: StackNavigationProp<TScreenParamList, 'HowYouFeel'>;
+  route: RouteProp<TScreenParamList, 'HowYouFeel'>;
 };
 
 export const HowYouFeelScreen: React.FC<TProps> = ({ route, navigation }) => {

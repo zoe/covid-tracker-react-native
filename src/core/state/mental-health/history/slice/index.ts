@@ -1,12 +1,12 @@
 import {
-  IMentalHealthHistory,
   THasDiagnosis,
   TMentalHealthCondition,
+  TStateMentalHealthHistory,
 } from '@covid/core/state/mental-health/history/types';
 import { TRootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialStateMentalHealthHistory: IMentalHealthHistory = {
+export const initialStateMentalHealthHistory: TStateMentalHealthHistory = {
   conditions: [],
   hasDiagnosis: undefined,
 };

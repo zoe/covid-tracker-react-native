@@ -11,11 +11,9 @@ import { TActiveNotifications, TStartupInfo } from '@covid/core/user/dto/UserAPI
 import { createAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 
-// State interface
-
 type TApiState = 'ready' | 'loading' | 'finished' | 'error';
 
-export type TContentState = {
+export type TStateContent = {
   // Startup info
   infoApiState: TApiState;
   startupInfo?: TStartupInfo;
@@ -40,7 +38,7 @@ export type TContentState = {
 
 const todaysDate = (): string => moment().format('dddd Do MMMM');
 
-export const initialStateContent: TContentState = {
+export const initialStateContent: TStateContent = {
   dismissedCallouts: [],
   featuredHome: [],
   featuredThankyou: [],
@@ -60,7 +58,7 @@ const getTrendlineDelta = (timeseries: ITrendlineTimeSeriesData[], from: number)
 // Async Actions
 
 export const fetchDismissedCallouts = createAsyncThunk('content/dismissed_callouts', async (): Promise<
-  Partial<TContentState>
+  Partial<TStateContent>
 > => {
   const arrayString = await AsyncStorageService.getItem<string>(DISMISSED_CALLOUTS);
   return {
@@ -68,7 +66,7 @@ export const fetchDismissedCallouts = createAsyncThunk('content/dismissed_callou
   };
 });
 
-export const fetchStartUpInfo = createAsyncThunk('content/startup_info', async (): Promise<Partial<TContentState>> => {
+export const fetchStartupInfo = createAsyncThunk('content/startup_info', async (): Promise<Partial<TStateContent>> => {
   // TODO: refactor the ContentService - localData is a property set async on the class within getStartupInfo() (line 107)
   // TICKET: https://www.notion.so/joinzoe/Refactor-ContentService-7ea01969fff54f8299d53f95f05dcb6d
   const startupInfo = await contentService.getStartupInfo();
@@ -78,7 +76,7 @@ export const fetchStartUpInfo = createAsyncThunk('content/startup_info', async (
   };
 });
 
-export const fetchUKMetrics = createAsyncThunk('content/uk_metrics', async (): Promise<Partial<TContentState>> => {
+export const fetchUKMetrics = createAsyncThunk('content/uk_metrics', async (): Promise<Partial<TStateContent>> => {
   return {
     ukActive: (await predictiveMetricsClient.getActiveCases()) ?? undefined,
     ukDaily: (await predictiveMetricsClient.getDailyCases()) ?? undefined,
@@ -89,9 +87,9 @@ export type TFetchLocalTrendlinePayload = {
   localTrendline: ITrendlineData;
 };
 
-export const fetchLocalTrendline = createAsyncThunk<Promise<Partial<TContentState>>>(
+export const fetchLocalTrendline = createAsyncThunk<Promise<Partial<TStateContent>>>(
   'content/fetch_local_trend_line',
-  async (): Promise<Partial<TContentState>> => {
+  async (): Promise<Partial<TStateContent>> => {
     const { timeseries, ...trendline } = await contentService.getTrendlines();
     return {
       localTrendline: {
@@ -99,12 +97,12 @@ export const fetchLocalTrendline = createAsyncThunk<Promise<Partial<TContentStat
         timeseries,
         ...trendline,
       },
-    } as Partial<TContentState>;
+    } as Partial<TStateContent>;
   },
 );
 
 export const fetchFeaturedContent = createAsyncThunk('content/featured_content', async (): Promise<
-  Partial<TContentState>
+  Partial<TStateContent>
 > => {
   try {
     const content = await contentService.getFeaturedContent();
@@ -135,71 +133,97 @@ export const updateActiveNotification = createAction<TUpdateActiveNotificationAc
 export const updateMenuNotificationsOnboardingSeen = createAction<boolean>(
   'content/menu_notifications_onboarding_seen',
 );
+export const updateStudiesTabOnboardingSeen = createAction<boolean>('content/studies_tab_onboarding_seen');
+export const updateShowStudyHubFeedback = createAction<boolean>('content/show_study_hub_feedback');
+export const updateShowStudyHubInterestOnboarding = createAction<boolean>('content/show_study_hub_interest_onboarding');
+export const updateShowStudyHubInterestFirstTimeModal = createAction<boolean>(
+  'content/show_study_hub_interest_first_time_modal',
+);
 
 export const contentSlice = createSlice({
   extraReducers: {
-    [updateMenuNotificationsOnboardingSeen.type]: (current, action: PayloadAction<boolean>) => {
-      if (current.startupInfo) {
-        current.startupInfo!.menu_notifications_onboarding_seen = action.payload;
+    [updateMenuNotificationsOnboardingSeen.type]: (state, action: PayloadAction<boolean>) => {
+      if (state.startupInfo) {
+        state.startupInfo.menu_notifications_onboarding_seen = action.payload;
       }
     },
-    [updateActiveNotification.type]: (current, action: PayloadAction<TUpdateActiveNotificationAction>) => {
-      if (current.startupInfo) {
-        current.startupInfo!.active_notifications = {
-          ...current.startupInfo!.active_notifications,
+    [updateShowStudyHubFeedback.type]: (state, action: PayloadAction<boolean>) => {
+      if (state.startupInfo) {
+        state.startupInfo.show_study_hub_feedback = action.payload;
+      }
+    },
+    [updateShowStudyHubInterestOnboarding.type]: (state, action: PayloadAction<boolean>) => {
+      if (state.startupInfo) {
+        state.startupInfo.show_study_hub_interest_onboarding = action.payload;
+      }
+    },
+    [updateShowStudyHubInterestFirstTimeModal.type]: (state, action: PayloadAction<boolean>) => {
+      if (state.startupInfo) {
+        state.startupInfo.show_study_hub_interest_first_time_modal = action.payload;
+      }
+    },
+    [updateActiveNotification.type]: (state, action: PayloadAction<TUpdateActiveNotificationAction>) => {
+      if (state.startupInfo) {
+        state.startupInfo.active_notifications = {
+          ...state.startupInfo.active_notifications,
           [action.payload.notification]: action.payload.value,
         };
       }
     },
-    [updateTodayDate.type]: (current) => {
-      current.todayDate = todaysDate();
-    },
-    [addDismissCallout.type]: (current, action: PayloadAction<string>) => {
-      if (!current.dismissedCallouts.includes(action.payload)) {
-        current.dismissedCallouts = [...current.dismissedCallouts, action.payload];
-        AsyncStorageService.setItem(JSON.stringify(current.dismissedCallouts), DISMISSED_CALLOUTS);
+    [updateStudiesTabOnboardingSeen.type]: (state, action: PayloadAction<boolean>) => {
+      if (state.startupInfo) {
+        state.startupInfo.studies_tab_onboarding_seen = action.payload;
       }
     },
-    // StartUpInfo reducers
-    [fetchStartUpInfo.pending.type]: (current) => {
-      current.infoApiState = 'loading';
+    [updateTodayDate.type]: (state) => {
+      state.todayDate = todaysDate();
     },
-    [fetchStartUpInfo.rejected.type]: (current) => {
-      current.infoApiState = 'error';
+    [addDismissCallout.type]: (state, action: PayloadAction<string>) => {
+      if (!state.dismissedCallouts.includes(action.payload)) {
+        state.dismissedCallouts = [...state.dismissedCallouts, action.payload];
+        AsyncStorageService.setItem(JSON.stringify(state.dismissedCallouts), DISMISSED_CALLOUTS);
+      }
     },
-    [fetchStartUpInfo.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
-      current.infoApiState = !action.payload ? 'error' : 'finished';
-      current.startupInfo = action.payload.startupInfo;
-      current.personalizedLocalData = action.payload.personalizedLocalData;
+    // StartupInfo reducers
+    [fetchStartupInfo.pending.type]: (state) => {
+      state.infoApiState = 'loading';
+    },
+    [fetchStartupInfo.rejected.type]: (state) => {
+      state.infoApiState = 'error';
+    },
+    [fetchStartupInfo.fulfilled.type]: (state, action: { payload: Partial<TStateContent> }) => {
+      state.infoApiState = !action.payload ? 'error' : 'finished';
+      state.startupInfo = action.payload.startupInfo;
+      state.personalizedLocalData = action.payload.personalizedLocalData;
     },
 
     // DismissedCallouts reducer
-    [fetchDismissedCallouts.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
-      current.dismissedCallouts = action.payload.dismissedCallouts ?? [];
+    [fetchDismissedCallouts.fulfilled.type]: (state, action: { payload: Partial<TStateContent> }) => {
+      state.dismissedCallouts = action.payload.dismissedCallouts ?? [];
     },
 
     // UK Predictive Metrics reducers
-    [fetchUKMetrics.pending.type]: (current) => {
-      current.ukMetricsApiState = 'loading';
+    [fetchUKMetrics.pending.type]: (state) => {
+      state.ukMetricsApiState = 'loading';
     },
-    [fetchUKMetrics.rejected.type]: (current) => {
-      current.ukMetricsApiState = 'error';
+    [fetchUKMetrics.rejected.type]: (state) => {
+      state.ukMetricsApiState = 'error';
     },
-    [fetchUKMetrics.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
-      current.ukMetricsApiState = !action.payload ? 'error' : 'finished';
+    [fetchUKMetrics.fulfilled.type]: (state, action: { payload: Partial<TStateContent> }) => {
+      state.ukMetricsApiState = !action.payload ? 'error' : 'finished';
       const { ukActive, ukDaily } = action.payload;
-      current.ukActive = ukActive;
-      current.ukDaily = ukDaily;
+      state.ukActive = ukActive;
+      state.ukDaily = ukDaily;
     },
 
     // Featured content
-    [fetchFeaturedContent.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
-      current.featuredHome = action.payload?.featuredHome ?? [];
-      current.featuredThankyou = action.payload?.featuredThankyou ?? [];
+    [fetchFeaturedContent.fulfilled.type]: (state, action: { payload: Partial<TStateContent> }) => {
+      state.featuredHome = action.payload?.featuredHome ?? [];
+      state.featuredThankyou = action.payload?.featuredThankyou ?? [];
     },
 
     // Trendline data
-    [fetchLocalTrendline.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
+    [fetchLocalTrendline.fulfilled.type]: (current, action: { payload: Partial<TStateContent> }) => {
       current.localTrendline = action.payload?.localTrendline;
     },
   },

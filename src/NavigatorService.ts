@@ -1,6 +1,6 @@
 import Analytics from '@covid/core/Analytics';
 import { TScreenName } from '@covid/core/Coordinator';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
+import { TScreenParamList } from '@covid/routes/types';
 import {
   CommonActions,
   DrawerActions,

@@ -5,9 +5,9 @@ import Analytics from '@covid/core/Analytics';
 import { UserNotFoundException } from '@covid/core/Exception';
 import { setPatients, setUsername } from '@covid/core/state/user';
 import { userService } from '@covid/core/user/UserService';
-import { ScreenParamList } from '@covid/features';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
@@ -17,7 +17,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 interface IProps {
-  route: RouteProp<ScreenParamList, 'Login'>;
+  route: RouteProp<TScreenParamList, 'Login'>;
 }
 
 export function LoginScreen({ route }: IProps) {
