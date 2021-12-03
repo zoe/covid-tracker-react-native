@@ -11,13 +11,13 @@ import {
 import { Loading } from '@covid/components/Loading';
 import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
+import { useListVaccinesQuery } from '@covid/core/api/RTKApi';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineMechanisms, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import { getInitialRouteName } from '@covid/features/vaccines/helpers';
 import { VaccineFluOnboardingModal } from '@covid/features/vaccines/modals/VaccineFluOnboardingModal';
@@ -27,6 +27,7 @@ import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { colors } from '@theme';
+import lodash from 'lodash';
 import moment from 'moment';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -48,51 +49,30 @@ const isNotInjectionFluVaccine = (dose: TDose) =>
   dose.mechanism === EVaccineMechanisms.NASAL_SPRAY || dose.mechanism === EVaccineMechanisms.DONT_KNOW;
 
 export const VaccineListScreen: React.FC<TProps> = (props) => {
-  const [vaccine, setVaccine] = React.useState<TVaccineRequest | undefined>();
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<string>();
-  const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
-
-  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-
   const patientId = props.route.params?.assessmentData?.patientData?.patientId;
-
   const initialRouteName = getInitialRouteName(props.route.params?.vaccineType);
 
-  let isActive = false;
+  const [vaccine, setVaccine] = React.useState<TVaccineRequest | undefined>();
+  const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
-  const fetchVaccineList = async () => {
-    isActive = true;
-    setLoading(true);
-    try {
-      const response = await vaccineService.listVaccines();
-      const patientVaccines = response.filter((patientVaccine) => patientVaccine.patient === patientId);
-      // Set the "patientVaccine" to be the first item returned, in order to maintain backwards compatibility with older versions that may have multiple
-      const patientVaccine: TVaccineRequest | undefined = patientVaccines.length ? patientVaccines[0] : undefined;
-
-      if (isActive) {
-        setVaccine(patientVaccine);
-        setLoading(false);
-      }
-    } catch (_) {
-      setError(i18n.t('something-went-wrong'));
-      setLoading(false);
-    }
-  };
+  const { data, isError, isLoading } = useListVaccinesQuery();
 
   useFocusEffect(
     React.useCallback(() => {
-      fetchVaccineList();
+      if (data) {
+        const response = lodash.cloneDeep(data); // Is this really what we want to do? Will otherwise get a warning about modifying the data object
+        const patientVaccines = response.filter((patientVaccine) => patientVaccine.patient === patientId);
+        // Set the "patientVaccine" to be the first item returned, in order to maintain backwards compatibility with older versions that may have multiple vaccines
+        const patientVaccine: TVaccineRequest | undefined = patientVaccines.length ? patientVaccines[0] : undefined;
+        setVaccine(patientVaccine);
+      }
+
       if (startupInfo?.show_flu_vaccine_onboarding && !assessmentCoordinator.isReportedByOther()) {
         setShowOnboardingModal(true);
       }
-
-      return () => {
-        isActive = false;
-      };
-    }, [startupInfo?.show_flu_vaccine_onboarding]),
+    }, [startupInfo?.show_flu_vaccine_onboarding, data, patientId]),
   );
 
   const navigateToNextPage = async () => {
@@ -223,7 +203,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
         </Text>
       ) : null}
 
-      {loading ? (
+      {isLoading ? (
         <Loading error={null} status="" />
       ) : vaccine ? (
         <VaccineTabbedListsScreen
@@ -233,7 +213,8 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
         />
       ) : null}
 
-      {error ? <ErrorText style={{ textAlign: 'center' }}>{error}</ErrorText> : null}
+      {/* TODO: make generic component and merge with loading component? */}
+      {isError ? <ErrorText style={{ textAlign: 'center' }}>{i18n.t('something-went-wrong')}</ErrorText> : null}
     </Screen>
   );
 };

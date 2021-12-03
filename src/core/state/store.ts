@@ -1,6 +1,8 @@
+import { api } from '@covid/core/api/RTKApi';
 import rootReducer from '@covid/core/state/root';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
 import { LogBox } from 'react-native';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 
@@ -21,10 +23,11 @@ const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }),
+  }).concat(api.middleware),
   reducer: persistedReducer,
 });
 
 export const persistor = persistStore(store);
+setupListeners(store.dispatch);
 
 export default store;

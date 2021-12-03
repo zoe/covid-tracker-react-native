@@ -5,6 +5,7 @@ import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
+import { useAddVaccineAndDosesMutation, useUpdateVaccineAndDosesMutation } from '@covid/core/api/RTKApi';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { EVaccineMechanisms, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { vaccineService } from '@covid/core/vaccine/VaccineService';
@@ -69,7 +70,6 @@ const setBatch = (formValues: IAboutYourVaccineData) => {
 };
 
 export function AboutYourVaccineScreen({ route }: TProps) {
-  const [submitting, setSubmitting] = React.useState<boolean>(false);
   const navigation = useNavigation();
 
   const assessmentData = route.params?.assessmentData;
@@ -83,9 +83,12 @@ export function AboutYourVaccineScreen({ route }: TProps) {
       ? assessmentData.vaccineData?.doses.find((dose) => dose.id === doseIdBeingEdited)
       : undefined;
 
+  // TODO: Use isSuccess and isError values to improve UX
+  const [addVaccineAndDoses, { isLoading: addRequestSubmitting }] = useAddVaccineAndDosesMutation();
+  const [updateVaccineAndDoses, { isLoading: updateRequestSubmitting }] = useUpdateVaccineAndDosesMutation();
+
   const onSubmit = async (values: IAboutYourVaccineData) => {
-    if (!submitting) {
-      setSubmitting(true);
+    if (!addRequestSubmitting && !updateRequestSubmitting) {
       const vaccine: Partial<TVaccineRequest> = {
         ...assessmentData?.vaccineData,
         patient: assessmentData?.patientData.patientId,
@@ -117,7 +120,17 @@ export function AboutYourVaccineScreen({ route }: TProps) {
       assignDoseSequence(fluDoses);
       assignDoseSequence(covidDoses);
 
-      await vaccineService.saveVaccineAndDoses(assessmentData?.patientData.patientId, vaccine);
+      if (vaccine.id) {
+        await updateVaccineAndDoses({
+          patientId: assessmentData?.patientData.patientId,
+          payload: vaccine,
+        });
+      } else {
+        await addVaccineAndDoses({
+          patientId: assessmentData?.patientData.patientId,
+          payload: vaccine,
+        });
+      }
 
       returnToListView(values.vaccineType);
 
