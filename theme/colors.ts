@@ -11,12 +11,13 @@ export const colors = {
   secondary: '#565A5C',
   tertiary: '#888B8C',
   quaternary: '#AAACAD',
+  quinary: '#979797',
 
   backgroundPrimary: '#FFFFFF',
   backgroundSecondary: '#F7F7F7',
   backgroundTertiary: '#EEEEEF',
   backgroundFour: '#E2E2E2',
-  backgroundFive: '#E5E5E5',
+  backgroundFive: '#C4C4C4',
 
   feedbackBad: '#FF9600',
   feedbackPoor: '#FFD519',
@@ -39,11 +40,14 @@ export const colors = {
   lightBlueBackground: '#F0F6FB',
   transparentDarkBlue: '#0165B516',
 
-  backgroundWhiteBlue: '#F3F8FB',
   backgroundBrandDisabled: '#7C9CAD',
   actionButtonBorder: 'rgba(240, 240, 240, 1)',
 
   facebook: '#0165B5',
 
   hrColor: '#D8D8D8',
+
+  studyYellow: '#B7B25A',
+  studyPurple: '#C685C3',
+  studyTurquoise: '#9DDEE0',
 };

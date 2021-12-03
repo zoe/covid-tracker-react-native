@@ -4,10 +4,11 @@ import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
 import MentalHealthPlaybackModal from '@covid/features/mental-health-playback/modals/MentalHealthPlaybackModal';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
+import { OnboardingOverlay } from '@covid/features/onboarding/components/OnboardingOverlay';
 import { VaccineListMissingModal } from '@covid/features/vaccines/modals/VaccineListMissingModal';
 import NavigatorService from '@covid/NavigatorService';
 import MainNavigator from '@covid/routes';
+import { TScreenParamList } from '@covid/routes/types';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -72,6 +73,7 @@ export default function CovidApp() {
         onRequestClose={() => dispatch(appActions.setModalMentalHealthPlaybackVisible(false))}
         visible={app.modalMentalHealthPlaybackVisible}
       />
+      <OnboardingOverlay />
       <NavigationContainer linking={linking} onStateChange={NavigatorService.handleStateChange} ref={ref}>
         <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false, presentation: 'modal' }}>
           <Stack.Screen component={DrawerNavigator} name="Main" />

@@ -57,9 +57,10 @@ export default function MentalHealthPlaybackModal(props: IProps) {
         {i18n.t('mental-health-playback.modal.title-new-personal')}
       </Text>
       <DoctorProfile
-        image={getMentalHealthStudyDoctorImage()}
+        imageNode={getMentalHealthStudyDoctorImage()}
         location={i18n.t('mental-health.doctor-location')}
         name={i18n.t('mental-health.doctor-name')}
+        style={styles.marginBottom}
         title={i18n.t('mental-health.doctor-title')}
       />
       <QuoteMarks />
@@ -87,6 +88,9 @@ const styles = StyleSheet.create({
     paddingBottom: sizes.l,
     paddingHorizontal: sizes.m,
     paddingTop: sizes.xs,
+  },
+  marginBottom: {
+    marginBottom: sizes.m,
   },
   title: {
     marginBottom: sizes.m,

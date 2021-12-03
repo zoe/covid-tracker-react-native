@@ -1,8 +1,8 @@
-import { IMentalHealthChanges, TMentalHealthChange } from '@covid/core/state/mental-health/changes/types';
+import { TMentalHealthChange, TStateMentalHealthChanges } from '@covid/core/state/mental-health/changes/types';
 import { TRootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialStateMentalHealthChanges: IMentalHealthChanges = {
+export const initialStateMentalHealthChanges: TStateMentalHealthChanges = {
   devicesWithScreen: undefined,
   drinkingAlcohol: undefined,
   engagingWithOrganisations: undefined,

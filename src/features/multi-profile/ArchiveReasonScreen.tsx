@@ -2,15 +2,15 @@ import { Screen } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import { patientService } from '@covid/core/patient/PatientService';
-import { ScreenParamList } from '@covid/features';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import * as React from 'react';
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'ArchiveReason'>;
+  route: RouteProp<TScreenParamList, 'ArchiveReason'>;
 };
 
 export const ArchiveReasonScreen: React.FC<TProps> = (props) => {

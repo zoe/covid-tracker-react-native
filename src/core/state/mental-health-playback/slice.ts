@@ -1,11 +1,11 @@
-import { IMentalHealthPlayback } from '@covid/core/state/mental-health-playback/types';
+import { TStateMentalHealthPlayback } from '@covid/core/state/mental-health-playback/types';
 import { TRootState } from '@covid/core/state/root';
 import store from '@covid/core/state/store';
 import { mentalHealthApiClient } from '@covid/features/mental-health/MentalHealthApiClient';
 import { IMHInsights } from '@covid/features/mental-health-playback/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialStateMentalHealthPlayback: IMentalHealthPlayback = {
+export const initialStateMentalHealthPlayback: TStateMentalHealthPlayback = {
   loading: false,
   mh_insights: {
     completed_feedback: false,
@@ -13,7 +13,7 @@ export const initialStateMentalHealthPlayback: IMentalHealthPlayback = {
   },
 };
 
-const slice = createSlice({
+export const mentalHealthPlaybackSlice = createSlice({
   initialState: initialStateMentalHealthPlayback,
   name: 'MentalHealthPlayback',
   reducers: {
@@ -32,13 +32,13 @@ export const selectInsights = (state: TRootState) => state.mentalHealthPlayback.
 export const isLoading = (state: TRootState) => state.mentalHealthPlayback.loading;
 export function requestInsights() {
   return async (dispatch: typeof store.dispatch) => {
-    dispatch(slice.actions.isLoading(true));
+    dispatch(mentalHealthPlaybackSlice.actions.isLoading(true));
     try {
       const insights = await mentalHealthApiClient.getInsights();
-      dispatch(slice.actions.setInsights(insights));
+      dispatch(mentalHealthPlaybackSlice.actions.setInsights(insights));
     } catch (_) {}
-    dispatch(slice.actions.isLoading(false));
+    dispatch(mentalHealthPlaybackSlice.actions.isLoading(false));
   };
 }
 
-export default slice.reducer;
+export default mentalHealthPlaybackSlice.reducer;

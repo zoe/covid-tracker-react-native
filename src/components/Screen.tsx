@@ -14,7 +14,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 
 interface IProps {
   backgroundColor?: string;
@@ -23,6 +23,7 @@ interface IProps {
   footerLoading?: boolean;
   footerOnPress?: () => void;
   footerTitle?: string;
+  isInsideTabBar?: boolean;
   noHeader?: boolean;
   noKeyboardDismiss?: boolean;
   noPadding?: boolean;
@@ -90,9 +91,12 @@ function renderFooter(props: IProps) {
 // Keep in mind that certain styling properties don't work on the SafeAreaView.
 // For example setting a padding is ignored.
 
+const edgesTabBar: Edge[] = ['right', 'top', 'left'];
+
 export function Screen(props: IProps) {
   return (
     <SafeAreaView
+      edges={props.isInsideTabBar ? edgesTabBar : undefined}
       style={[styling.flex, { backgroundColor: props.backgroundColor || colors.backgroundPrimary }]}
       testID={props.testID}
     >

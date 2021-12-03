@@ -1,11 +1,11 @@
 import ApiClient from '@covid/core/api/ApiClient';
 import {
-  IMentalHealthChanges,
-  IMentalHealthFrequency,
-  IMentalHealthHistory,
-  IMentalHealthLearning,
+  TStateMentalHealthChanges,
+  TStateMentalHealthFrequency,
+  TStateMentalHealthHistory,
+  TStateMentalHealthLearning,
 } from '@covid/core/state';
-import { IMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
+import { TStateMentalHealthSupport } from '@covid/core/state/mental-health/support/types';
 import { IMHInsights } from '@covid/features/mental-health-playback/types';
 
 import { TMentalHealthInfosRequest } from './MentalHealthInfosRequest';
@@ -19,11 +19,11 @@ interface IMentalHealthApiClient {
 }
 
 interface IMentalHealthApiClientBuildRequest {
-  mentalHealthChanges?: IMentalHealthChanges;
-  mentalHealthFrequency?: IMentalHealthFrequency;
-  mentalHealthHistory?: IMentalHealthHistory;
-  mentalHealthLearning?: IMentalHealthLearning;
-  mentalHealthSupport?: IMentalHealthSupport;
+  mentalHealthChanges?: TStateMentalHealthChanges;
+  mentalHealthFrequency?: TStateMentalHealthFrequency;
+  mentalHealthHistory?: TStateMentalHealthHistory;
+  mentalHealthLearning?: TStateMentalHealthLearning;
+  mentalHealthSupport?: TStateMentalHealthSupport;
 }
 
 const apiClient = new ApiClient();

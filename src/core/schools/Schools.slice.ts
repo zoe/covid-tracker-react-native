@@ -3,11 +3,11 @@ import { schoolService } from '@covid/core/schools/SchoolService';
 import { TRootState } from '@covid/core/state/root';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type TSchoolState = {
+export type TStateSchool = {
   joinedSchoolGroups: ISubscribedSchoolGroupStats[]; // TODO Rename
 };
 
-export const initialStateSchools: TSchoolState = {
+export const initialStateSchools: TStateSchool = {
   joinedSchoolGroups: [],
 };
 

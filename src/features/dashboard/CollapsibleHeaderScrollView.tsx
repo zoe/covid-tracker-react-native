@@ -2,7 +2,7 @@ import { Text } from '@covid/components';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { patientService } from '@covid/core/patient/PatientService';
 import { updateMenuNotificationsOnboardingSeen } from '@covid/core/state';
-import { fetchStartUpInfo } from '@covid/core/state/contentSlice';
+import { fetchStartupInfo } from '@covid/core/state/contentSlice';
 import { TRootState } from '@covid/core/state/root';
 import { selectCanOptInOfWiderHealthStudies, selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -26,6 +26,7 @@ interface Iprops {
   compactHeader: React.ReactNode;
   config: TConfig;
   expandedHeader: React.ReactNode;
+  isInsideTabBar?: boolean;
 }
 
 export const CollapsibleHeaderScrollView: React.FC<Iprops> = (props) => {
@@ -81,7 +82,7 @@ export const CollapsibleHeaderScrollView: React.FC<Iprops> = (props) => {
     await patientService.updatePatientInfo(patientId, {
       menu_notifications_onboarding_seen: true,
     });
-    dispatch(fetchStartUpInfo());
+    dispatch(fetchStartupInfo());
   }, [patientId]);
 
   const onPressDrawerToggle = React.useCallback(() => {
@@ -163,7 +164,7 @@ export const CollapsibleHeaderScrollView: React.FC<Iprops> = (props) => {
         </Animated.View>
         <Animated.ScrollView
           contentContainerStyle={{
-            paddingBottom: safeAreaInsets.bottom,
+            paddingBottom: props.isInsideTabBar ? 0 : safeAreaInsets.bottom,
             paddingLeft: safeAreaInsets.left,
             paddingRight: safeAreaInsets.right,
             paddingTop: props.config.expanded,

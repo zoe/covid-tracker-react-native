@@ -5,8 +5,8 @@ import { localisationService } from '@covid/core/localisation/LocalisationServic
 import { TSupportedCountryCodes } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
 import { appCoordinator } from '@covid/features/AppCoordinator';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

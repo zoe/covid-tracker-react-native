@@ -8,8 +8,8 @@ import { ErrorText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TAssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
 import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
@@ -37,7 +37,7 @@ interface IHealthWorkerExposureData {
 }
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'HealthWorkerExposure'>;
+  route: RouteProp<TScreenParamList, 'HealthWorkerExposure'>;
 };
 
 type TState = {

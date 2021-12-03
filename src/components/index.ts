@@ -1,4 +1,4 @@
-export { default as Avatar } from './avatar';
+export { Avatar } from './Avatar';
 export * from './animations';
 export * from './bars';
 export * from './buttons';

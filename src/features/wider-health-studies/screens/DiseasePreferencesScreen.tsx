@@ -11,7 +11,7 @@ function onSubmit() {
   NavigatorService.goBack();
 }
 
-export default function DiseasePreferencesScreen() {
+export function DiseasePreferencesScreen() {
   const topChildren = (
     <Text rhythm={24} textAlign="center" textClass="h2Light">
       {i18n.t('wider-health-studies.disease-preferences.title')}

@@ -1,5 +1,5 @@
 export type TDietStudyConsent = 'YES' | 'NO' | undefined;
 
-export interface IDietStudy {
+export type TStateDietStudy = {
   consent: TDietStudyConsent;
-}
+};

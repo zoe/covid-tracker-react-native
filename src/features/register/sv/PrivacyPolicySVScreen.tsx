@@ -1,8 +1,8 @@
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { ScreenParamList } from '@covid/features';
 import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '@covid/features/register/components/LegalComponents';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -10,8 +10,8 @@ import { colors } from '@theme';
 import * as React from 'react';
 
 type TProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicySV'>;
-  route: RouteProp<ScreenParamList, 'PrivacyPolicySV'>;
+  navigation: StackNavigationProp<TScreenParamList, 'PrivacyPolicySV'>;
+  route: RouteProp<TScreenParamList, 'PrivacyPolicySV'>;
 };
 
 export default class PrivacyPolicySVScreen extends React.Component<TProps, object> {

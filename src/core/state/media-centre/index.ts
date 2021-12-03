@@ -1,11 +1,11 @@
-import { IMediaCentreState, TMediaContentItem } from '@covid/core/state/media-centre/types';
+import { TMediaContentItem, TStateMediaCentre } from '@covid/core/state/media-centre/types';
 import { TRootState } from '@covid/core/state/root';
 // import { TRootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import contentItemsHardcoded from './data.json';
 
-export const initialStateMediaCentre: IMediaCentreState = {
+export const initialStateMediaCentre: TStateMediaCentre = {
   // @todo: when backend is ready swap the below two lines of code.
   // contentItems: [],
   contentItems: contentItemsHardcoded as TMediaContentItem[],

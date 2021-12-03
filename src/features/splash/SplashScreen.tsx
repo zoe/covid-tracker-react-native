@@ -3,11 +3,11 @@ import { TScreenName } from '@covid/core/Coordinator';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 import { setPatients, setUsername } from '@covid/core/state/user';
 import { userService } from '@covid/core/user/UserService';
-import { ScreenParamList } from '@covid/features';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import Splash from '@covid/features/splash/components/Splash';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as Linking from 'expo-linking';
@@ -17,7 +17,7 @@ import RNSplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'Splash'>;
+  route: RouteProp<TScreenParamList, 'Splash'>;
   setUsername: (username: string) => void;
   setPatients: (patients: string[]) => void;
 };

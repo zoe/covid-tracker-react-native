@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   view: {
     alignSelf: 'center',
-    backgroundColor: colors.backgroundWhiteBlue,
+    backgroundColor: colors.lightBlueBackground,
     borderRadius: 90 * scale,
     height: 180 * scale,
     marginBottom: 'auto',

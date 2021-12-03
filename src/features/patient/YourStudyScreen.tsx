@@ -10,9 +10,9 @@ import { Coordinator, IUpdatePatient } from '@covid/core/Coordinator';
 import { isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { ScreenParamList } from '@covid/features';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -21,7 +21,7 @@ import { View } from 'react-native';
 import * as Yup from 'yup';
 
 type TYourStudyProps = {
-  route: RouteProp<ScreenParamList, 'YourStudy'>;
+  route: RouteProp<TScreenParamList, 'YourStudy'>;
 };
 
 type TCohortDefinition = {

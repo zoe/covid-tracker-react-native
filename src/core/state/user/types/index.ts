@@ -1,4 +1,4 @@
-export interface IUser {
+export type TStateUser = {
   ask_for_rating: boolean;
   authorizations: string[];
   country_code: string;
@@ -8,4 +8,4 @@ export interface IUser {
   pii: string;
   push_tokens: string[];
   username: string;
-}
+};

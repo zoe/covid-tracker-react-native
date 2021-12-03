@@ -2,10 +2,10 @@ import rootReducer from '@covid/core/state/root';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { LogBox } from 'react-native';
-import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
+import { persistReducer, persistStore } from 'redux-persist';
 
 const persistConfig = {
-  blacklist: ['app'],
+  blacklist: ['app', 'onboarding'],
   key: 'root',
   storage: AsyncStorage,
 };
@@ -18,9 +18,11 @@ LogBox.ignoreLogs(['ImmutableStateInvariantMiddleware took']);
 const store = configureStore({
   devTools: __DEV__,
   middleware: getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
+    // @todo: Add the onboarding actions to this
+    // serializableCheck: {
+    //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    // },
+    serializableCheck: false,
   }),
   reducer: persistedReducer,
 });

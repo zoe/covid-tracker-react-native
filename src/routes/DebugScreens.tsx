@@ -51,7 +51,6 @@ export default function DebugScreens(props: any) {
 
   return (
     <>
-      {/* @ts-expect-error */}
       <Screen {...props} />
       <View pointerEvents="box-none" style={styles.view}>
         <TouchableOpacity onLongPress={onLongPress} style={styles.touchableOpacity}>

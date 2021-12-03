@@ -18,8 +18,8 @@ import {
   EPatientInteractions,
   TPatientInfosRequest,
 } from '@covid/core/user/dto/UserAPIContracts';
-import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { Formik, FormikHelpers, FormikProps } from 'formik';
@@ -38,7 +38,7 @@ interface IYourWorkData {
 }
 
 type TYourWorkProps = {
-  route: RouteProp<ScreenParamList, 'YourWork'>;
+  route: RouteProp<TScreenParamList, 'YourWork'>;
 };
 
 type TState = {

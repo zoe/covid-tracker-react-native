@@ -1,3 +1,3 @@
-export interface ISettings {
+export type TStateSettings = {
   hasEmailSubscription: boolean;
-}
+};

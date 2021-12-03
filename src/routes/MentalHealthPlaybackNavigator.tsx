@@ -1,5 +1,5 @@
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import * as screens from '@covid/features/screens';
+import { TScreenParamList } from '@covid/routes/types';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 

@@ -298,8 +298,16 @@ export type TPatientInfosRequest = {
   menu_notifications_onboarding_seen: boolean;
   notifications_wider_health_studies: boolean;
 
+  // Onboarding
+  studies_tab_onboarding_seen: boolean;
+
   // Vaccines
   has_seen_flu_vaccine_onboarding: boolean;
+
+  // Study hub
+  has_seen_study_hub_feedback: boolean;
+  has_seen_study_hub_interest_first_time_modal: boolean;
+  has_seen_study_hub_interest_onboarding: boolean;
 };
 
 export enum EVaccineStatus {
@@ -343,11 +351,11 @@ export type TStartupInfo = {
     cases: number;
     lad: string;
     map_url: string;
-    name: string;
     map_config?: {
       lat: number;
       lng: number;
     };
+    name: string;
   };
   menu_notifications_onboarding_seen: boolean;
   min_supported_app_version?: string;
@@ -355,6 +363,7 @@ export type TStartupInfo = {
   show_covid_test_onboarding: boolean;
   show_diet_score: boolean;
   show_edit_location: boolean;
+  show_flu_vaccine_onboarding: boolean;
   show_long_covid: boolean;
   show_mh_insight?: boolean;
   show_modal?: 'mental-health-playback';
@@ -362,9 +371,12 @@ export type TStartupInfo = {
   show_new_vaccines_ui?: boolean;
   show_pingdemic: boolean;
   show_research_consent: boolean;
+  show_study_hub_feedback: boolean;
+  show_study_hub_interest_first_time_modal: boolean;
+  show_study_hub_interest_onboarding: boolean;
   show_timeline: boolean;
   show_trendline: boolean;
+  studies_tab_onboarding_seen: boolean;
   users_count: number;
   wider_health_studies_consent?: boolean;
-  show_flu_vaccine_onboarding: boolean;
 };

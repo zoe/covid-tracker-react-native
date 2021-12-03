@@ -6,9 +6,9 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import Analytics, { events } from '@covid/core/Analytics';
 import { setUsername } from '@covid/core/state/user';
 import { userService } from '@covid/core/user/UserService';
-import { ScreenParamList } from '@covid/features';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -21,8 +21,8 @@ import { connect } from 'react-redux';
 import * as Yup from 'yup';
 
 type TProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'Register'>;
-  route: RouteProp<ScreenParamList, 'Register'>;
+  navigation: StackNavigationProp<TScreenParamList, 'Register'>;
+  route: RouteProp<TScreenParamList, 'Register'>;
   setUsername: (username: string) => void;
 };
 
