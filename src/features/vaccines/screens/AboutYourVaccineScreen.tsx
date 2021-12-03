@@ -8,7 +8,6 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { useAddVaccineAndDosesMutation, useUpdateVaccineAndDosesMutation } from '@covid/core/api/vaccineApi';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { EVaccineMechanisms, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import { showVaccineWarningAlert } from '@covid/features/vaccines/helpers';
 import { IVaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/questions/VaccineDoseQuestion';
@@ -170,13 +169,13 @@ export function AboutYourVaccineScreen({ route }: TProps) {
           text: i18n.t('cancel'),
         },
         {
-          onPress: () => {
-            vaccineService
-              .saveVaccineAndDoses(assessmentData?.patientData.patientId, vaccineWithoutDeletedDose)
-              .then(() => {
-                assessmentCoordinator.resetVaccine();
-                returnToListView();
-              });
+          onPress: async () => {
+            await updateVaccineAndDoses({
+              patientId: assessmentData?.patientData.patientId,
+              payload: vaccineWithoutDeletedDose,
+            });
+            assessmentCoordinator.resetVaccine();
+            returnToListView();
           },
           style: 'destructive',
           text: i18n.t('delete'),

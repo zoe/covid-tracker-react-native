@@ -2,9 +2,9 @@ import { BrandedButton } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { Screen } from '@covid/components/Screen';
-import { HeaderText, RegularText } from '@covid/components/Text';
+import { ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { useAddDoseSymptomsMutation } from '@covid/core/api/vaccineApi';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { ScreenParamList } from '@covid/features';
 import { DoseSymptomsQuestions, TDoseSymptomsData } from '@covid/features/vaccines/questions/DoseSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
@@ -21,16 +21,18 @@ type TProps = {
 };
 
 export const VaccineDoseSymptomsScreen: React.FC<TProps> = ({ route }) => {
-  const [isSubmitting, setSubmitting] = React.useState(false);
+  const [addDoseSymptoms, { isLoading: isSubmitting, isError }] = useAddDoseSymptomsMutation();
 
   const onSubmit = async (values: TDoseSymptomsData) => {
     if (!isSubmitting) {
-      setSubmitting(true);
-      try {
-        const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(values);
-        dosePayload.dose = route.params?.dose;
-        await vaccineService.saveDoseSymptoms(route.params?.assessmentData?.patientData?.patientId, dosePayload);
-      } catch (e) {}
+      const dosePayload = DoseSymptomsQuestions.createDoseSymptoms(values);
+      dosePayload.dose = route.params?.dose;
+
+      await addDoseSymptoms({
+        patientId: route.params?.assessmentData?.patientData?.patientId,
+        payload: dosePayload,
+      });
+
       assessmentCoordinator.gotoNextScreen(route.name);
     }
   };
@@ -66,6 +68,8 @@ export const VaccineDoseSymptomsScreen: React.FC<TProps> = ({ route }) => {
               <DoseSymptomsQuestions formikProps={formikProps} />
 
               <View style={{ flex: 1 }} />
+
+              {isError ? <ErrorText style={{ textAlign: 'center' }}>{i18n.t('something-went-wrong')}</ErrorText> : null}
 
               <BrandedButton
                 enabled={!isSubmitting}

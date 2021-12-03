@@ -1,10 +1,20 @@
 import appConfig from '@covid/appConfig';
 import { api } from '@covid/core/api/rtkApi';
-import { TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { TDoseSymptomsRequest, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 const vaccineApi = api.injectEndpoints({
   endpoints: (build) => ({
-    addVaccineAndDoses: build.mutation<boolean, { payload: Partial<TVaccineRequest>; patientId: string }>({
+    addDoseSymptoms: build.mutation<string, { payload: Partial<TDoseSymptomsRequest>; patientId: string }>({
+      query: ({ patientId, payload }) => ({
+        body: {
+          patient: patientId,
+          ...payload,
+        },
+        method: 'POST',
+        url: '/dose_symptoms/',
+      }),
+    }),
+    addVaccineAndDoses: build.mutation<string, { payload: Partial<TVaccineRequest>; patientId: string }>({
       invalidatesTags: ['Vaccine'],
       query: ({ patientId, payload }) => ({
         body: {
@@ -20,7 +30,7 @@ const vaccineApi = api.injectEndpoints({
       providesTags: ['Vaccine'],
       query: () => '/vaccines/',
     }),
-    updateVaccineAndDoses: build.mutation<boolean, { payload: Partial<TVaccineRequest>; patientId: string }>({
+    updateVaccineAndDoses: build.mutation<string, { payload: Partial<TVaccineRequest>; patientId: string }>({
       invalidatesTags: ['Vaccine'],
       query: ({ patientId, payload }) => ({
         body: {
@@ -36,4 +46,9 @@ const vaccineApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useListVaccinesQuery, useAddVaccineAndDosesMutation, useUpdateVaccineAndDosesMutation } = vaccineApi;
+export const {
+  useListVaccinesQuery,
+  useAddVaccineAndDosesMutation,
+  useUpdateVaccineAndDosesMutation,
+  useAddDoseSymptomsMutation,
+} = vaccineApi;
