@@ -1,6 +1,5 @@
 import appConfig from '@covid/appConfig';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
@@ -18,38 +17,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  endpoints: (build) => ({
-    addVaccineAndDoses: build.mutation<boolean, { payload: Partial<TVaccineRequest>; patientId: string }>({
-      invalidatesTags: ['Vaccine'],
-      query: ({ patientId, payload }) => ({
-        body: {
-          patient: patientId,
-          ...payload,
-          version: appConfig.vaccineVersion,
-        },
-        method: 'POST',
-        url: '/vaccines/',
-      }),
-    }),
-    listVaccines: build.query<TVaccineRequest[], void>({
-      providesTags: ['Vaccine'],
-      query: () => '/vaccines/',
-    }),
-    updateVaccineAndDoses: build.mutation<boolean, { payload: Partial<TVaccineRequest>; patientId: string }>({
-      invalidatesTags: ['Vaccine'],
-      query: ({ patientId, payload }) => ({
-        body: {
-          patient: patientId,
-          ...payload,
-          version: appConfig.vaccineVersion,
-        },
-        method: 'PATCH',
-        url: `/vaccines/${payload.id}/`,
-      }),
-    }),
-  }),
-  reducerPath: 'covidApi',
+  endpoints: () => ({}),
+  reducerPath: 'api',
   tagTypes: ['Vaccine'],
 });
-
-export const { useListVaccinesQuery, useAddVaccineAndDosesMutation, useUpdateVaccineAndDosesMutation } = api;

@@ -1,4 +1,4 @@
-import { api } from '@covid/core/api/RTKApi';
+import { api } from '@covid/core/api/rtkApi';
 import rootReducer from '@covid/core/state/root';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';

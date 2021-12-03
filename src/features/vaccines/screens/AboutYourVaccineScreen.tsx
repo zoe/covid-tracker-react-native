@@ -5,7 +5,7 @@ import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
-import { useAddVaccineAndDosesMutation, useUpdateVaccineAndDosesMutation } from '@covid/core/api/RTKApi';
+import { useAddVaccineAndDosesMutation, useUpdateVaccineAndDosesMutation } from '@covid/core/api/vaccineApi';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { EVaccineMechanisms, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { vaccineService } from '@covid/core/vaccine/VaccineService';

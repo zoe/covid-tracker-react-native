@@ -1,4 +1,4 @@
-import { api } from '@covid/core/api/RTKApi';
+import { api } from '@covid/core/api/rtkApi';
 import { TAssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import assessment from '@covid/core/assessment/state/reducers';
 import { schoolSlice, TSchoolState } from '@covid/core/schools/Schools.slice';
@@ -53,6 +53,7 @@ export type TRootState = {
 };
 
 export default combineReducers({
+  [api.reducerPath]: api.reducer,
   app: appSlice.reducer,
   assessment,
   content: contentSlice.reducer,
@@ -71,5 +72,4 @@ export default combineReducers({
   testingMode: testingModeSlice.reducer,
   user: userSlice,
   vaccines: vaccinesSlice.reducer,
-  [api.reducerPath]: api.reducer,
 });
