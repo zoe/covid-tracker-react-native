@@ -114,3 +114,6 @@ export const mediaContentItem1 = require('./media-centre/media-content-item-1.pn
 export const mediaContentItem2 = require('./media-centre/media-content-item-2.png');
 export const mediaContentItem3 = require('./media-centre/media-content-item-3.png');
 export const mediaContentItem4 = require('./media-centre/media-content-item-4.png');
+
+// Study Hub
+export const externalResourcesPlaceholder = require('./study-hub/external-resources-placeholder.png');

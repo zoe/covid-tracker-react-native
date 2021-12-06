@@ -1,3 +1,4 @@
+import { externalResourcesPlaceholder } from '@assets';
 import { Text } from '@covid/components';
 import { IconArrowRight } from '@covid/features/study-hub/components/IconArrowRight';
 import i18n from '@covid/locale/i18n';
@@ -27,7 +28,11 @@ export function CardExternalResource(props: TProps) {
           </Text>
         </View>
       </View>
-      {props.imageSource ? <Image source={props.imageSource} style={styles.image} /> : <View style={styles.image} />}
+      {props.imageSource ? (
+        <Image source={props.imageSource} style={styles.image} />
+      ) : (
+        <Image source={externalResourcesPlaceholder} style={styles.image} />
+      )}
     </TouchableOpacity>
   );
 }
