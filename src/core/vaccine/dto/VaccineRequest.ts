@@ -50,6 +50,8 @@ export type TDoseSymptomsRequest = {
   itch: boolean;
   tenderness: boolean;
   bruising: boolean;
+  bleeding_injection_site: boolean;
+  metallic_taste: boolean;
   other: string;
 };
 

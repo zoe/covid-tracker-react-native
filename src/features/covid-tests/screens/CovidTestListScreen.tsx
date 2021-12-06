@@ -64,7 +64,7 @@ export default function CovidTestListScreen(props: IProps) {
       return () => {
         isActive = false;
       };
-    }, [startupInfo]),
+    }, [startupInfo?.show_covid_test_onboarding]),
   );
 
   function gotoAddTest() {

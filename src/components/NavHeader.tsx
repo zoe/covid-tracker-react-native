@@ -1,18 +1,20 @@
 import { BackButton } from '@covid/components/BackButton';
 import { sizes } from '@covid/themes';
+import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 type TProps = {
   backgroundColor?: string;
   rightElement?: React.ReactNode;
+  backButtonColor?: string;
 };
 
 export function NavHeader(props: TProps) {
   return (
     <View style={[styles.view, props.backgroundColor ? { backgroundColor: props.backgroundColor } : undefined]}>
       <View style={styles.left}>
-        <BackButton />
+        <BackButton iconColor={props.backButtonColor || colors.secondary} />
       </View>
       <View style={styles.flex} />
       <View style={styles.right}>{props.rightElement}</View>

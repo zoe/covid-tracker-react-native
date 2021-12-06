@@ -21,7 +21,7 @@ try {
 }
 
 // Added show_research_consent flag for illustrative purposes - feel free to remove forRedux & final version
-const CUSTOMISABLE_SETTINGS: Array<keyof TStartupInfo> = ['show_new_vaccines_ui', 'show_research_consent'];
+const CUSTOMISABLE_SETTINGS: Array<keyof TStartupInfo> = ['show_research_consent'];
 
 const renderStartupInfo = (startupInfo: TStartupInfo) =>
   Object.keys(startupInfo)

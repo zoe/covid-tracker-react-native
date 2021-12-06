@@ -5,7 +5,7 @@ const imageSourceWorldHearthDay = require('../assets/world_hearth_day_illustrati
 
 export const studies = {
   gut_microbiome_cancer_development: {
-    blog: 'Our bodies are home to trillions of microbes (mainly bacteria), - most of which are found in the gut.\n\nMany of these microbes are key to keeping our bodies healthy via the immune system which prevents new cancers from forming and  responds to cancer treatment.\n\nBy giving us a view of your gut health, habits and transit time over an extended period, you can help us to formulate the best diets to prevent and beat cancer.',
+    blog: 'Our bodies are home to trillions of microbes (mainly bacteria), most of which are found in the gut.\n\nMany of these microbes are key to keeping our bodies healthy via the immune system which prevents new cancers from forming and responds to cancer treatment.\n\nBy giving us a view of your gut health, habits and transit time over an extended period, you can help us to formulate the best diets to prevent and beat cancer.',
     cardColor: colors.studyYellow,
     commitment: '15 mins, every 3 months',
     externalResources: [
@@ -73,7 +73,7 @@ export const studies = {
     ],
     orderIndex: 2,
     organiser: 'ZOE & King’s College London',
-    researchFocus: 'Can you change your diet to help your gut microbes fight cancer?',
+    researchFocus: 'Can you prevent dementia by pinpointing early signs?',
     scientist: {
       imageSource: drClaireSteves,
       location: "King's College London",

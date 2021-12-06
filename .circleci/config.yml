@@ -54,8 +54,10 @@ references:
   # Branch filter
   master_filter: &master_filter
     branches:
-      only: master
-      
+      only: 
+        - master
+        # DEBUG
+        - julia/v63-v64
 
   develop_filter: &develop_filter
     branches:

@@ -27,6 +27,8 @@ type TDoseSymptomsCheckBoxData = {
   itch: boolean;
   tenderness: boolean;
   bruising: boolean;
+  bleeding: boolean;
+  metallic_taste: boolean;
   other: boolean;
 };
 
@@ -50,6 +52,8 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<TProps, TDoseSymptomsD
     { label: i18n.t('vaccines.dose-symptoms.itch'), value: 'itch' },
     { label: i18n.t('vaccines.dose-symptoms.tenderness'), value: 'tenderness' },
     { label: i18n.t('vaccines.dose-symptoms.bruising'), value: 'bruising' },
+    { label: i18n.t('vaccines.dose-symptoms.bleeding'), value: 'bleeding' },
+    { label: i18n.t('vaccines.dose-symptoms.metallic'), value: 'metallic_taste' },
     { label: i18n.t('vaccines.dose-symptoms.other'), value: 'other' },
   ];
 
@@ -90,9 +94,11 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<TProps, TDoseSymptomsD
 
 DoseSymptomsQuestions.initialFormValues = (): TDoseSymptomsData => {
   return {
+    bleeding: false,
     bruising: false,
     glands: false,
     itch: false,
+    metallic_taste: false,
     other: false,
     otherSymptoms: '',
     pain: false,
@@ -109,8 +115,10 @@ DoseSymptomsQuestions.schema = () => {
 
 DoseSymptomsQuestions.createDoseSymptoms = (formData: TDoseSymptomsData): Partial<TDoseSymptomsRequest> => {
   return {
+    bleeding_injection_site: formData.bleeding,
     bruising: formData.bruising,
     itch: formData.itch,
+    metallic_taste: formData.metallic_taste,
     pain: formData.pain,
     redness: formData.redness,
     swelling: formData.swelling,
