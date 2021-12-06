@@ -47,28 +47,42 @@ export const CollapsibleHeaderScrollView: React.FC<Iprops> = (props) => {
     outputRange: [props.config.expanded, props.config.compact],
   });
 
-  // Fade in Compact header as user scroll down
+  // Increase zIndex for Compact header as user scrolls down
+  const compactHeaderZIndex = scrollY.interpolate({
+    extrapolate: 'clamp',
+    inputRange: [props.config.compact, props.config.expanded - props.config.compact],
+    outputRange: [1, 10],
+  });
+
+  // Decrease zIndex for Compact header as user scrolls down
+  const expandedHeaderZIndex = scrollY.interpolate({
+    extrapolate: 'clamp',
+    inputRange: [0, props.config.expanded - props.config.compact - 75],
+    outputRange: [10, 1],
+  });
+
+  // Fade in Compact header as user scrolls down
   const compactHeaderOpacity = scrollY.interpolate({
     extrapolate: 'clamp',
     inputRange: [props.config.compact, props.config.expanded - props.config.compact],
     outputRange: [0, 1],
   });
 
-  // Fade out Expanded header as user scroll down
+  // Fade out Expanded header as user scrolls down
   const expandedHeaderOpacity = scrollY.interpolate({
     extrapolate: 'clamp',
     inputRange: [0, props.config.expanded - props.config.compact - 75],
     outputRange: [1, 0],
   });
 
-  // Slide up Compact header as user scroll down
+  // Slide up Compact header as user scrolls down
   const compactHeaderY = scrollY.interpolate({
     extrapolate: 'clamp',
     inputRange: [0, props.config.expanded - props.config.compact],
     outputRange: [50, 0],
   });
 
-  // Slide up Expanded header as user scroll down
+  // Slide up Expanded header as user scrolls down
   const expandedHeaderY = scrollY.interpolate({
     extrapolate: 'clamp',
     inputRange: [0, props.config.expanded - props.config.compact],
@@ -147,6 +161,7 @@ export const CollapsibleHeaderScrollView: React.FC<Iprops> = (props) => {
               {
                 opacity: expandedHeaderOpacity,
                 top: expandedHeaderY,
+                zIndex: expandedHeaderZIndex,
               },
               styles.expandedHeaderContainer,
             ]}
@@ -157,6 +172,7 @@ export const CollapsibleHeaderScrollView: React.FC<Iprops> = (props) => {
             style={{
               opacity: compactHeaderOpacity,
               paddingTop: compactHeaderY,
+              zIndex: compactHeaderZIndex,
             }}
           >
             {props.compactHeader}

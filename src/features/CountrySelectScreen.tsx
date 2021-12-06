@@ -55,7 +55,7 @@ export function CountrySelectScreen(props: IProps) {
   }
 
   return (
-    <Screen backgroundColor={colors.predict} testID="select-country-screen">
+    <Screen backgroundColor={colors.predict} customBackButtonColor={colors.white} testID="select-country-screen">
       <View style={styles.container}>
         <RegularText style={styles.text}>{i18n.t('select-country')}</RegularText>
         <View style={styles.flagRow}>

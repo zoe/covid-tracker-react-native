@@ -46,7 +46,9 @@ export function ExpandedHeader(props: IProps) {
       </View>
 
       <View style={styles.card}>
-        <Header3Text style={styles.textToday}>{content.todayDate}</Header3Text>
+        {PixelRatio.getFontScale() < 2.5 ? (
+          <Header3Text style={styles.textToday}>{content.todayDate}</Header3Text>
+        ) : null}
 
         <BrandedButton onPress={onReport} style={styles.button} testID="button-report-today">
           {PixelRatio.getFontScale() < 1.1
@@ -61,7 +63,7 @@ export function ExpandedHeader(props: IProps) {
         ) : null}
       </View>
 
-      {contributors ? (
+      {contributors && PixelRatio.getFontScale() < 1.5 ? (
         <View style={styles.contributorsWrapper}>
           <RegularText style={[styles.textContributors, styles.marginBottom]}>
             {i18n.t('dashboard.contributors-so-far')}
