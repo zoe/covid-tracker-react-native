@@ -8,6 +8,7 @@ export const api = createApi({
     prepareHeaders: async (headers) => {
       const user = await AsyncStorageService.getStoredData();
       const hasUser = !!user && !!user!.userToken && !!user!.userId;
+
       if (hasUser) {
         headers.set('Authorization', `Token ${user.userToken}`);
       }

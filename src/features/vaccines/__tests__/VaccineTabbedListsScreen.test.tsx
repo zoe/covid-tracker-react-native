@@ -11,16 +11,11 @@ import renderer from 'react-test-renderer';
 import MockedNavigator from '../../../../__mocks__/MockedNavigator';
 
 function createComponent(vaccineDoses: TDose[], vaccineRecord: TVaccineRequest, initialRouteName: ETabScreen) {
-  const minTabViewHeight = 240;
-  const tabViewHeight = 500;
-
   const element = (
     <MockedNavigator
       Component={() => (
         <VaccineTabbedListsScreen
           initialRouteName={initialRouteName}
-          minTabViewHeight={minTabViewHeight}
-          tabViewHeight={tabViewHeight}
           vaccineDoses={vaccineDoses}
           vaccineRecord={vaccineRecord}
         />

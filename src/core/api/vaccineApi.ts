@@ -2,7 +2,7 @@ import appConfig from '@covid/appConfig';
 import { api } from '@covid/core/api/rtkApi';
 import { TDoseSymptomsRequest, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
-const vaccineApi = api.injectEndpoints({
+export const vaccineApi = api.injectEndpoints({
   endpoints: (build) => ({
     addDoseSymptoms: build.mutation<string, { payload: Partial<TDoseSymptomsRequest>; patientId: string }>({
       query: ({ patientId, payload }) => ({

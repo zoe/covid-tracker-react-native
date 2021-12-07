@@ -1,5 +1,9 @@
 /* eslint-env jest */
 import 'react-native-gesture-handler/jestSetup';
+// Needed to make RTK Query fetch tests work - https://github.com/reduxjs/redux-toolkit/issues/1271#issuecomment-913110582
+import 'whatwg-fetch';
+
+require('jest-fetch-mock').enableMocks();
 
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock');

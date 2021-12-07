@@ -178,6 +178,7 @@
     "jest": "27.3.1",
     "jest-circus": "27.3.1",
     "jest-expo": "43.0.1",
+    "jest-fetch-mock": "^3.0.3",
     "jest-junit": "11.1.0",
     "prettier": "2.3.0",
     "react-native-codegen": "0.0.9",
