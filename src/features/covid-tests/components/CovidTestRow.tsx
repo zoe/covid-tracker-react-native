@@ -67,7 +67,7 @@ export const CovidTestRow: React.FC<TProps> = (props: TProps) => {
     props.item.is_rapid_test,
     props.item.result,
     new Date(props.item.date_taken_specific),
-    new Date(props.item.date_taken_between_start),
+    new Date(props.item.date_taken_between_end),
   );
 
   return (

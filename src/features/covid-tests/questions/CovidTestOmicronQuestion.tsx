@@ -24,7 +24,7 @@ export interface ICovidTestOmicronData {
 }
 
 export interface ICovidTestOmicronFormikData extends ICovidTestOmicronData {
-  dateTakenBetweenStart: Date | undefined;
+  dateTakenBetweenEnd: Date | undefined;
   dateTakenSpecific: Date | undefined;
   isRapidTest: EYesNoFieldOptions;
   mechanism: ECovidTestMechanismOptions;
@@ -53,13 +53,13 @@ export const isOmicronQuestionEnabled = (
   isRapidTest: boolean,
   result: ECovidTestResultOptions | null,
   dateTakenSpecific: Date | undefined,
-  dateTakenBetweenStart: Date | undefined,
+  dateTakenBetweenEnd: Date | undefined,
 ) =>
   isPcrTest(mechanism, isRapidTest) &&
   result === ECovidTestResultOptions.POSITIVE &&
   isGBCountry() &&
   ((dateTakenSpecific && dateTakenSpecific >= START_OMICRON_DATE) ||
-    (dateTakenBetweenStart && dateTakenBetweenStart >= START_OMICRON_DATE));
+    (dateTakenBetweenEnd && dateTakenBetweenEnd >= START_OMICRON_DATE));
 
 export const CovidTestOmicronQuestion: ICovidTestOmicronQuestion = (props: IProps) => {
   if (
@@ -68,7 +68,7 @@ export const CovidTestOmicronQuestion: ICovidTestOmicronQuestion = (props: IProp
       props.formikProps.values.isRapidTest === EYesNoFieldOptions.YES,
       props.formikProps.values.result,
       props.formikProps.values.dateTakenSpecific,
-      props.formikProps.values.dateTakenBetweenStart,
+      props.formikProps.values.dateTakenBetweenEnd,
     )
   ) {
     return null;
@@ -103,7 +103,7 @@ CovidTestOmicronQuestion.createValidationSchema = () => {
     ? Yup.object().shape({
         omicronStatus: Yup.string()
           .nullable()
-          .when(['mechanism', 'isRapidTest', 'result', 'dateTakenSpecific', 'dateTakenBetweenStart'], {
+          .when(['mechanism', 'isRapidTest', 'result', 'dateTakenSpecific', 'dateTakenBetweenEnd'], {
             is: isOmicronQuestionEnabled,
             then: Yup.string().required(i18n.t('please-select-option')),
           }),
@@ -118,7 +118,7 @@ CovidTestOmicronQuestion.createDTO = (formData: ICovidTestOmicronFormikData): Pa
       formData.isRapidTest === EYesNoFieldOptions.YES,
       formData.result,
       formData.dateTakenSpecific,
-      formData.dateTakenBetweenStart,
+      formData.dateTakenBetweenEnd,
     )
       ? formData.omicronStatus
       : null,
