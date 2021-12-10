@@ -1,5 +1,6 @@
 import { Tag } from '@covid/components';
 import { RadioInput } from '@covid/components/inputs/RadioInput';
+import { EYesNoFieldOptions } from '@covid/components/inputs/YesNoField';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import {
@@ -7,6 +8,7 @@ import {
   ECovidTestOmicronStatusOptions,
   ECovidTestResultOptions,
 } from '@covid/core/user/dto/UserAPIContracts';
+import { isPcrTest } from '@covid/features/covid-tests/helpers';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
@@ -24,6 +26,7 @@ export interface ICovidTestOmicronData {
 export interface ICovidTestOmicronFormikData extends ICovidTestOmicronData {
   dateTakenBetweenStart: Date | undefined;
   dateTakenSpecific: Date | undefined;
+  isRapidTest: EYesNoFieldOptions;
   mechanism: ECovidTestMechanismOptions;
   result: ECovidTestResultOptions | null;
 }
@@ -47,23 +50,22 @@ const items = [
 
 export const isOmicronQuestionEnabled = (
   mechanism: ECovidTestMechanismOptions,
+  isRapidTest: boolean,
   result: ECovidTestResultOptions | null,
   dateTakenSpecific: Date | undefined,
   dateTakenBetweenStart: Date | undefined,
-) => {
-  return (
-    mechanism === ECovidTestMechanismOptions.PCR &&
-    result === ECovidTestResultOptions.POSITIVE &&
-    isGBCountry() &&
-    ((dateTakenSpecific && dateTakenSpecific >= START_OMICRON_DATE) ||
-      (dateTakenBetweenStart && dateTakenBetweenStart >= START_OMICRON_DATE))
-  );
-};
+) =>
+  isPcrTest(mechanism, isRapidTest) &&
+  result === ECovidTestResultOptions.POSITIVE &&
+  isGBCountry() &&
+  ((dateTakenSpecific && dateTakenSpecific >= START_OMICRON_DATE) ||
+    (dateTakenBetweenStart && dateTakenBetweenStart >= START_OMICRON_DATE));
 
 export const CovidTestOmicronQuestion: ICovidTestOmicronQuestion = (props: IProps) => {
   if (
     !isOmicronQuestionEnabled(
       props.formikProps.values.mechanism,
+      props.formikProps.values.isRapidTest === EYesNoFieldOptions.YES,
       props.formikProps.values.result,
       props.formikProps.values.dateTakenSpecific,
       props.formikProps.values.dateTakenBetweenStart,
@@ -101,7 +103,7 @@ CovidTestOmicronQuestion.createValidationSchema = () => {
     ? Yup.object().shape({
         omicronStatus: Yup.string()
           .nullable()
-          .when(['mechanism', 'result', 'dateTakenSpecific', 'dateTakenBetweenStart'], {
+          .when(['mechanism', 'isRapidTest', 'result', 'dateTakenSpecific', 'dateTakenBetweenStart'], {
             is: isOmicronQuestionEnabled,
             then: Yup.string().required(i18n.t('please-select-option')),
           }),
@@ -113,6 +115,7 @@ CovidTestOmicronQuestion.createDTO = (formData: ICovidTestOmicronFormikData): Pa
   return {
     omicron_status: isOmicronQuestionEnabled(
       formData.mechanism,
+      formData.isRapidTest === EYesNoFieldOptions.YES,
       formData.result,
       formData.dateTakenSpecific,
       formData.dateTakenBetweenStart,
