@@ -31,7 +31,7 @@ interface IProps {
   patientId: string;
 }
 
-export default function CovidTestListOnboardingModal(props: IProps) {
+export function CovidTestListOnboardingModal(props: IProps) {
   const dispatch = useDispatch();
   const [tracked, setTracked] = React.useState(false);
   const [onboardingModalScreenIndex, setOboardingModalScreenIndex] = React.useState<number>(0);

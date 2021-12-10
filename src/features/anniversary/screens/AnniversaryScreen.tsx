@@ -21,6 +21,8 @@ type TRowItem = {
   id: TRowType;
 };
 
+const keyExtractor = (item: TRowItem) => item.id;
+
 export default function AnniversaryScreen() {
   const [timeline, setTimeline] = React.useState<ITimeline>();
   const [hasError, setHasError] = React.useState(false);
@@ -94,7 +96,7 @@ export default function AnniversaryScreen() {
     <Screen backgroundColor={colors.backgroundTertiary} renderHeader={renderHeader} testID="anniversary-screen">
       <FlatList
         data={data}
-        keyExtractor={(item: TRowItem) => item.id}
+        keyExtractor={keyExtractor}
         renderItem={renderItem}
         style={{ backgroundColor: colors.backgroundTertiary }}
       />

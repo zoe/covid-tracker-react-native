@@ -35,7 +35,8 @@ export const VaccineDoseSymptomsScreen: React.FC<TProps> = ({ route }) => {
     }
   };
 
-  const registerSchema = Yup.object().shape({}).concat(DoseSymptomsQuestions.schema());
+  const validationSchema = Yup.object().shape({}).concat(DoseSymptomsQuestions.createValidationSchema());
+
   return (
     <Screen
       backgroundColor={colors.backgroundPrimary}
@@ -55,10 +56,10 @@ export const VaccineDoseSymptomsScreen: React.FC<TProps> = ({ route }) => {
 
       <Formik
         initialValues={{
-          ...DoseSymptomsQuestions.initialFormValues(),
+          ...DoseSymptomsQuestions.getInitialFormValues(),
         }}
         onSubmit={onSubmit}
-        validationSchema={registerSchema}
+        validationSchema={validationSchema}
       >
         {(formikProps) => {
           return (

@@ -104,7 +104,7 @@ class RegisterScreen extends React.Component<TProps, TState> {
     this.props.navigation.replace('Login', { terms: '' });
   };
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     email: Yup.string().required(i18n.t('create-account.email-required')).email(i18n.t('create-account.email-error')),
     password: Yup.string()
       .required(i18n.t('create-account.password-required'))
@@ -121,7 +121,7 @@ class RegisterScreen extends React.Component<TProps, TState> {
   render() {
     return (
       <Screen backgroundColor={colors.backgroundPrimary} testID="register-screen">
-        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
+        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
           {(formikProps) => {
             return (
               <Form>

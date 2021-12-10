@@ -14,10 +14,10 @@ storiesOf('DiabetesQuestions', module).add('default view', () => {
     <ScrollView>
       <Formik
         initialValues={{
-          ...DiabetesQuestions.initialFormValues(),
+          ...DiabetesQuestions.getInitialFormValues(),
         }}
         onSubmit={onSubmit}
-        validationSchema={DiabetesQuestions.schema()}
+        validationSchema={DiabetesQuestions.createValidationSchema()}
       >
         {(props) => (
           <View style={{ marginHorizontal: sizes.m }}>

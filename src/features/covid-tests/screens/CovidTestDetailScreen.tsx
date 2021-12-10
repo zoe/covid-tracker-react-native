@@ -14,16 +14,17 @@ import {
   CovidTestIsRapidQuestion,
   CovidTestLocationQuestion,
   CovidTestMechanismQuestion,
+  CovidTestOmicronQuestion,
   CovidTestResultQuestion,
   ICovidTestDateData,
-  ICovidTestInvitedData,
   ICovidTestInvitedFormikData,
   ICovidTestIsRapidData,
   ICovidTestLocationData,
-  ICovidTestMechanismData,
   ICovidTestMechanismFormikData,
+  ICovidTestOmicronFormikData,
   ICovidTestResultData,
 } from '@covid/features/covid-tests/questions';
+import { ICovidTestData } from '@covid/features/covid-tests/types';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -32,16 +33,8 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
-import { Alert } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
-
-interface ICovidTestData
-  extends ICovidTestDateData,
-    ICovidTestMechanismData,
-    ICovidTestResultData,
-    ICovidTestLocationData,
-    ICovidTestInvitedData,
-    ICovidTestIsRapidData {}
 
 type TCovidProps = {
   navigation: StackNavigationProp<TScreenParamList, 'CovidTestDetail'>;
@@ -52,58 +45,17 @@ export default function CovidTestDetailScreen(props: TCovidProps) {
   const [errorMessage, setErrorMessage] = React.useState<string>('');
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const testId = props.route.params?.test?.id;
+  const test = props.route.params?.test;
+  const patientId = assessmentCoordinator.assessmentData?.patientData?.patientId;
 
-  function submitCovidTest(infos: Partial<TCovidTest>) {
-    if (testId) {
-      if (
-        (props.route.params?.test?.result !== 'positive' || props.route.params?.test?.anti_n !== 'positive') &&
-        (infos.result === 'positive' || infos.anti_n === 'positive') &&
-        props.route.params?.assessmentData?.patientData?.patientState?.hasSchoolGroup
-      ) {
-        setSubmitting(false);
-        infos.id = testId;
-        assessmentCoordinator.goToTestConfirm(infos as TCovidTest);
-      } else {
-        covidTestService
-          .updateTest(testId, infos)
-          .then(() => {
-            NavigatorService.navigate('CovidTestList', {
-              assessmentData: props.route.params?.assessmentData,
-              is_rapid_test: infos.is_rapid_test,
-              mechanism: infos.mechanism,
-            });
-          })
-          .catch(() => {
-            setErrorMessage(i18n.t('something-went-wrong'));
-            setSubmitting(false);
-          });
+  const onSubmit = React.useCallback(
+    async (values: ICovidTestData) => {
+      if (submitting) {
+        return;
       }
-    } else if (
-      (infos.result === 'positive' || infos.anti_n === 'positive') &&
-      props.route.params?.assessmentData?.patientData?.patientState?.hasSchoolGroup
-    ) {
-      setSubmitting(false);
-      assessmentCoordinator.goToTestConfirm(infos as TCovidTest);
-    } else {
-      covidTestService
-        .addTest(infos)
-        .then(() => {
-          NavigatorService.navigate('CovidTestList', {
-            assessmentData: props.route.params?.assessmentData,
-            is_rapid_test: infos.is_rapid_test,
-            mechanism: infos.mechanism,
-          });
-        })
-        .catch(() => {
-          setErrorMessage(i18n.t('something-went-wrong'));
-          setSubmitting(false);
-        });
-    }
-  }
 
-  function onSubmit(values: ICovidTestData) {
-    if (!submitting) {
       setSubmitting(true);
+
       if (!values.useApproximateDate && !values.dateTakenSpecific) {
         setErrorMessage(i18n.t('covid-test.required-date'));
         setSubmitting(false);
@@ -120,27 +72,72 @@ export default function CovidTestDetailScreen(props: TCovidProps) {
       }
 
       const infos = {
-        patient: assessmentCoordinator.assessmentData?.patientData?.patientId,
+        patient: patientId,
         type: ECovidTestType.Generic,
         ...CovidTestDateQuestion.createDTO(values),
         ...CovidTestIsRapidQuestion.createDTO(values),
         ...CovidTestMechanismQuestion.createDTO(values),
+        ...CovidTestOmicronQuestion.createDTO(values),
         ...CovidTestInvitedQuestion.createDTO(values),
         ...CovidTestLocationQuestion.createDTO(values),
         ...CovidTestResultQuestion.createDTO(values), // Leave as last due to conditional overwriting depending on antibody test type
       } as Partial<TCovidTest>;
 
-      submitCovidTest(infos);
-    }
-  }
+      if (testId) {
+        if (
+          (props.route.params?.test?.result !== 'positive' || props.route.params?.test?.anti_n !== 'positive') &&
+          (infos.result === 'positive' || infos.anti_n === 'positive') &&
+          props.route.params?.assessmentData?.patientData?.patientState?.hasSchoolGroup
+        ) {
+          setSubmitting(false);
+          infos.id = testId;
+          assessmentCoordinator.goToTestConfirm(infos as TCovidTest);
+        } else {
+          try {
+            await covidTestService.updateTest(testId, infos);
 
-  async function deleteTest() {
-    await covidTestService.deleteTest(testId!);
-    props.navigation.goBack();
-    Analytics.track(events.DELETE_COVID_TEST);
-  }
+            NavigatorService.navigate('CovidTestList', {
+              assessmentData: props.route.params?.assessmentData,
+              is_rapid_test: infos.is_rapid_test,
+              mechanism: infos.mechanism,
+            });
+          } catch (_) {
+            setErrorMessage(i18n.t('something-went-wrong'));
+          }
+          setSubmitting(false);
+        }
+      } else if (
+        (infos.result === 'positive' || infos.anti_n === 'positive') &&
+        props.route.params?.assessmentData?.patientData?.patientState?.hasSchoolGroup
+      ) {
+        setSubmitting(false);
+        assessmentCoordinator.goToTestConfirm(infos as TCovidTest);
+      } else {
+        try {
+          await covidTestService.addTest(infos);
 
-  async function promptDeleteTest() {
+          NavigatorService.navigate('CovidTestList', {
+            assessmentData: props.route.params?.assessmentData,
+            is_rapid_test: infos.is_rapid_test,
+            mechanism: infos.mechanism,
+          });
+        } catch (_) {
+          setErrorMessage(i18n.t('something-went-wrong'));
+        }
+        setSubmitting(false);
+      }
+    },
+    [
+      patientId,
+      props.route.params?.assessmentData,
+      props.route.params?.test?.anti_n,
+      props.route.params?.test?.result,
+      submitting,
+      testId,
+    ],
+  );
+
+  const promptDeleteTest = React.useCallback(() => {
     Alert.alert(
       i18n.t('covid-test.delete-test-alert-title'),
       i18n.t('covid-test.delete-test-alert-text'),
@@ -151,7 +148,9 @@ export default function CovidTestDetailScreen(props: TCovidProps) {
         },
         {
           onPress: async () => {
-            await deleteTest();
+            await covidTestService.deleteTest(testId!);
+            props.navigation.goBack();
+            Analytics.track(events.DELETE_COVID_TEST);
           },
           style: 'destructive',
           text: i18n.t('delete'),
@@ -159,98 +158,120 @@ export default function CovidTestDetailScreen(props: TCovidProps) {
       ],
       { cancelable: false },
     );
-  }
+  }, [testId, props.navigation]);
 
-  const test = props.route.params?.test;
-  const isV1Test = test?.version[0] === '1';
+  const validationSchema = React.useMemo(
+    () =>
+      Yup.object()
+        .shape({})
+        .concat(CovidTestDateQuestion.createValidationSchema())
+        .concat(CovidTestMechanismQuestion.createValidationSchema())
+        .concat(CovidTestResultQuestion.createValidationSchema())
+        .concat(CovidTestOmicronQuestion.createValidationSchema())
+        .concat(CovidTestInvitedQuestion.createValidationSchema())
+        .concat(CovidTestLocationQuestion.createValidationSchema())
+        .concat(CovidTestIsRapidQuestion.createValidationSchema()),
+    [],
+  );
 
-  const registerSchema = Yup.object()
-    .shape({})
-    .concat(CovidTestDateQuestion.schema())
-    .concat(CovidTestMechanismQuestion.schema())
-    .concat(CovidTestResultQuestion.schema())
-    .concat(CovidTestInvitedQuestion.schema())
-    .concat(CovidTestLocationQuestion.schema())
-    .concat(CovidTestIsRapidQuestion.schema());
+  const initialValues = React.useMemo(
+    () => ({
+      ...CovidTestDateQuestion.getInitialFormValues(test),
+      ...CovidTestMechanismQuestion.getInitialFormValues(test),
+      ...CovidTestResultQuestion.getInitialFormValues(test),
+      ...CovidTestOmicronQuestion.getInitialFormValues(test),
+      ...CovidTestInvitedQuestion.getInitialFormValues(test),
+      ...CovidTestLocationQuestion.getInitialFormValues(test),
+      ...CovidTestIsRapidQuestion.getInitialFormValues(test),
+    }),
+    [test],
+  );
+
+  const renderFormik = React.useCallback(
+    (formikProps) => {
+      return (
+        <Form hasRequiredFields>
+          <CovidTestMechanismQuestion
+            formikProps={formikProps as unknown as FormikProps<ICovidTestMechanismFormikData>}
+            test={test}
+          />
+
+          <CovidTestDateQuestion
+            dateChangeCallback={formikProps.validateForm}
+            formikProps={formikProps as unknown as FormikProps<ICovidTestDateData>}
+            test={test}
+          />
+          {test !== undefined && test?.location ? (
+            <CovidTestLocationQuestion
+              formikProps={formikProps as unknown as FormikProps<ICovidTestLocationData>}
+              test={test}
+            />
+          ) : null}
+
+          <CovidTestResultQuestion
+            formikProps={formikProps as unknown as FormikProps<ICovidTestResultData>}
+            test={test}
+          />
+
+          {test !== undefined && test?.is_rapid_test !== null && test?.version[0] === '1' ? (
+            <CovidTestIsRapidQuestion
+              formikProps={formikProps as unknown as FormikProps<ICovidTestIsRapidData>}
+              test={test}
+            />
+          ) : null}
+
+          <CovidTestOmicronQuestion
+            formikProps={formikProps as unknown as FormikProps<ICovidTestOmicronFormikData>}
+            test={test}
+          />
+
+          {formikProps.values.mechanism === ECovidTestMechanismOptions.PCR ? (
+            <CovidTestInvitedQuestion
+              formikProps={formikProps as unknown as FormikProps<ICovidTestInvitedFormikData>}
+              test={test}
+            />
+          ) : null}
+
+          <ErrorText>{errorMessage}</ErrorText>
+
+          {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+            <ValidationError error={i18n.t('validation-error-text')} />
+          ) : null}
+
+          {testId ? <DeleteButton onPress={promptDeleteTest} /> : null}
+
+          <BrandedButton
+            enabled={!submitting && formikProps.isValid}
+            onPress={formikProps.handleSubmit}
+            style={styling.marginTop}
+            testID="button-submit"
+          >
+            {testId ? i18n.t('covid-test.update-test') : i18n.t('covid-test.add-test')}
+          </BrandedButton>
+        </Form>
+      );
+    },
+    [errorMessage, promptDeleteTest, submitting, test, testId],
+  );
 
   return (
     <Screen
       profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
       testID="covid-test-detail-screen"
     >
-      <HeaderText style={{ marginBottom: sizes.xs }}>
+      <HeaderText style={styles.marginBottom}>
         {testId ? i18n.t('covid-test.page-title-detail-update') : i18n.t('covid-test.page-title-detail-add')}
       </HeaderText>
 
-      <Formik
-        validateOnMount
-        initialValues={{
-          ...CovidTestDateQuestion.initialFormValues(test),
-          ...CovidTestMechanismQuestion.initialFormValues(test),
-          ...CovidTestResultQuestion.initialFormValues(test),
-          ...CovidTestInvitedQuestion.initialFormValues(test),
-          ...CovidTestLocationQuestion.initialFormValues(test),
-          ...CovidTestIsRapidQuestion.initialFormValues(test),
-        }}
-        onSubmit={onSubmit}
-        validationSchema={registerSchema}
-      >
-        {(formikProps) => {
-          return (
-            <Form hasRequiredFields>
-              <CovidTestMechanismQuestion
-                formikProps={formikProps as unknown as FormikProps<ICovidTestMechanismFormikData>}
-                test={test}
-              />
-
-              <CovidTestDateQuestion
-                formikProps={formikProps as unknown as FormikProps<ICovidTestDateData>}
-                test={test}
-              />
-              {test !== undefined && test?.location ? (
-                <CovidTestLocationQuestion
-                  formikProps={formikProps as unknown as FormikProps<ICovidTestLocationData>}
-                  test={test}
-                />
-              ) : null}
-              <CovidTestResultQuestion
-                formikProps={formikProps as unknown as FormikProps<ICovidTestResultData>}
-                test={test}
-              />
-              {test !== undefined && test?.is_rapid_test !== null && isV1Test ? (
-                <CovidTestIsRapidQuestion
-                  formikProps={formikProps as unknown as FormikProps<ICovidTestIsRapidData>}
-                  test={test}
-                />
-              ) : null}
-
-              {formikProps.values.mechanism === ECovidTestMechanismOptions.PCR ? (
-                <CovidTestInvitedQuestion
-                  formikProps={formikProps as unknown as FormikProps<ICovidTestInvitedFormikData>}
-                  test={test}
-                />
-              ) : null}
-
-              <ErrorText>{errorMessage}</ErrorText>
-
-              {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
-                <ValidationError error={i18n.t('validation-error-text')} />
-              ) : null}
-
-              {testId ? <DeleteButton onPress={promptDeleteTest} /> : null}
-
-              <BrandedButton
-                enabled={!submitting && formikProps.isValid}
-                onPress={formikProps.handleSubmit}
-                style={styling.marginTop}
-                testID="button-submit"
-              >
-                {testId ? i18n.t('covid-test.update-test') : i18n.t('covid-test.add-test')}
-              </BrandedButton>
-            </Form>
-          );
-        }}
+      <Formik validateOnMount initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+        {renderFormik}
       </Formik>
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  marginBottom: {
+    marginBottom: sizes.xs,
+  },
+});

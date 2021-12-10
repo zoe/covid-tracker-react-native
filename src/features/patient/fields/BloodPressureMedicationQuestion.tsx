@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export class BloodPressureMedicationQuestion extends React.Component<IProps, object> {
-  static initialFormValues = () => {
+  static getInitialFormValues = () => {
     return {
       takesAnyBloodPressureMedications: 'no',
       takesBloodPressureMedications: 'no',

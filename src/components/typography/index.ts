@@ -1,3 +1,3 @@
-export { default as Text } from './text';
-export { default as TextHighlight } from './text-highlight';
-export * from './headers';
+export { Text } from './Text';
+export { TextWithBoldInserts } from './TextWithBoldInserts';
+export { TextWithHighlight } from './TextWithHighlight';

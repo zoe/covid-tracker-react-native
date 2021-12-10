@@ -75,7 +75,7 @@ export function AboutYourVaccineScreen({ route }: TProps) {
   const assessmentData = route.params?.assessmentData;
   const isChild = route.params?.assessmentData.patientData.patientState.isChild || false;
 
-  const registerSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema(isChild));
+  const validationSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.createValidationSchema(isChild));
 
   const doseIdBeingEdited = route.params?.editDoseId;
   const doseBeingEdited =
@@ -194,7 +194,7 @@ export function AboutYourVaccineScreen({ route }: TProps) {
         validateOnMount
         initialValues={{ ...buildInitialValues() }}
         onSubmit={onSubmit}
-        validationSchema={registerSchema}
+        validationSchema={validationSchema}
       >
         {(formikProps: FormikProps<IAboutYourVaccineData>) => {
           return (

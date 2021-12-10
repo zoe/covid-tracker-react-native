@@ -140,14 +140,14 @@ export const DiabetesTreatmentsQuestion: IFormikDiabetesInputFC<IProps, IDiabete
   );
 };
 
-DiabetesTreatmentsQuestion.initialFormValues = (): IDiabetesTreatmentsData => {
+DiabetesTreatmentsQuestion.getInitialFormValues = (): IDiabetesTreatmentsData => {
   return {
     diabetesTreatmentOtherOral: false,
     diabetesTreatments: [],
   };
 };
 
-DiabetesTreatmentsQuestion.schema = () => {
+DiabetesTreatmentsQuestion.createValidationSchema = () => {
   return Yup.object().shape({
     diabetesTreatments: Yup.array<string>().min(1, i18n.t('diabetes.please-select-diabetes-treatment')),
   });

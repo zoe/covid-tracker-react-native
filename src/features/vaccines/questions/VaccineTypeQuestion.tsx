@@ -10,7 +10,7 @@ interface IProps {
 }
 
 interface IVaccineTypeQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (vaccine?: TVaccineRequest) => Partial<Data>;
+  getInitialFormValues: (vaccine?: TVaccineRequest) => Partial<Data>;
 }
 
 export const VaccineTypeQuestion: IVaccineTypeQuestion<IProps, IVaccineDoseData> = (props: IProps) => {
@@ -33,7 +33,7 @@ export const VaccineTypeQuestion: IVaccineTypeQuestion<IProps, IVaccineDoseData>
   );
 };
 
-VaccineTypeQuestion.initialFormValues = (vaccine?: TVaccineRequest): Partial<IVaccineDoseData> => {
+VaccineTypeQuestion.getInitialFormValues = (vaccine?: TVaccineRequest): Partial<IVaccineDoseData> => {
   return {
     vaccineType: vaccine?.vaccine_type,
   };

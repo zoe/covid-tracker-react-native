@@ -14,13 +14,13 @@ interface IProps {
   test?: TCovidTest;
 }
 
-interface ICovidTestIsRapidQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (test?: TCovidTest) => Data;
-  schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<TCovidTest>;
+interface ICovidTestIsRapidQuestion extends React.FC<IProps> {
+  createDTO: (data: ICovidTestIsRapidData) => Partial<TCovidTest>;
+  createValidationSchema: () => Yup.ObjectSchema;
+  getInitialFormValues: (test?: TCovidTest) => ICovidTestIsRapidData;
 }
 
-export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion<IProps, ICovidTestIsRapidData> = (props: IProps) => {
+export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion = (props: IProps) => {
   const { formikProps } = props;
   return (
     <YesNoField
@@ -34,7 +34,7 @@ export const CovidTestIsRapidQuestion: ICovidTestIsRapidQuestion<IProps, ICovidT
   );
 };
 
-CovidTestIsRapidQuestion.initialFormValues = (test?: TCovidTest): ICovidTestIsRapidData => {
+CovidTestIsRapidQuestion.getInitialFormValues = (test?: TCovidTest): ICovidTestIsRapidData => {
   let isRapidTest = '';
   if (test?.id && test.is_rapid_test !== null) {
     isRapidTest = test.is_rapid_test ? 'yes' : 'no';
@@ -45,7 +45,7 @@ CovidTestIsRapidQuestion.initialFormValues = (test?: TCovidTest): ICovidTestIsRa
   };
 };
 
-CovidTestIsRapidQuestion.schema = () => {
+CovidTestIsRapidQuestion.createValidationSchema = () => {
   return Yup.object().shape({});
 };
 

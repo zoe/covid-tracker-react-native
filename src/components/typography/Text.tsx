@@ -35,7 +35,7 @@ export interface IProps {
   numberOfLines?: number;
 }
 
-export default function Text({
+export function Text({
   children,
   colorPalette = 'ui',
   colorShade = 'lighter',

@@ -74,7 +74,7 @@ export const HeadSymptomsQuestions: ISymptomQuestions<TProps, THeadSymptomsData>
   );
 };
 
-HeadSymptomsQuestions.initialFormValues = (): THeadSymptomsData => {
+HeadSymptomsQuestions.getInitialFormValues = (): THeadSymptomsData => {
   return {
     alteredTasteSmell: false,
     dizzy: false,
@@ -91,7 +91,7 @@ HeadSymptomsQuestions.initialFormValues = (): THeadSymptomsData => {
   };
 };
 
-HeadSymptomsQuestions.schema = () => {
+HeadSymptomsQuestions.createValidationSchema = () => {
   return Yup.object().shape({
     headacheFollowUp: Yup.string().when('headache', {
       is: true,

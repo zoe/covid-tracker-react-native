@@ -135,12 +135,18 @@ export const updateActiveNotification = createAction<TUpdateActiveNotificationAc
 export const updateMenuNotificationsOnboardingSeen = createAction<boolean>(
   'content/menu_notifications_onboarding_seen',
 );
+export const updateShowOmicronModal = createAction<boolean>('content/show_omicron_modal');
 
 export const contentSlice = createSlice({
   extraReducers: {
     [updateMenuNotificationsOnboardingSeen.type]: (current, action: PayloadAction<boolean>) => {
       if (current.startupInfo) {
         current.startupInfo!.menu_notifications_onboarding_seen = action.payload;
+      }
+    },
+    [updateShowOmicronModal.type]: (current, action: PayloadAction<boolean>) => {
+      if (current.startupInfo) {
+        current.startupInfo!.show_omicron_modal = action.payload;
       }
     },
     [updateActiveNotification.type]: (current, action: PayloadAction<TUpdateActiveNotificationAction>) => {

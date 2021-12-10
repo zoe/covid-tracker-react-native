@@ -92,7 +92,7 @@ export const DoseSymptomsQuestions: IDoseSymptomQuestions<TProps, TDoseSymptomsD
   );
 };
 
-DoseSymptomsQuestions.initialFormValues = (): TDoseSymptomsData => {
+DoseSymptomsQuestions.getInitialFormValues = (): TDoseSymptomsData => {
   return {
     bleeding: false,
     bruising: false,
@@ -109,7 +109,7 @@ DoseSymptomsQuestions.initialFormValues = (): TDoseSymptomsData => {
   };
 };
 
-DoseSymptomsQuestions.schema = () => {
+DoseSymptomsQuestions.createValidationSchema = () => {
   return Yup.object();
 };
 

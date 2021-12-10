@@ -234,7 +234,7 @@ export default class AboutYouScreen extends React.Component<TProps, TState> {
     return patientFormData;
   };
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     ethnicity: Yup.string().when([], {
       is: () => isUSCountry(),
       then: Yup.string().required(),
@@ -318,9 +318,9 @@ export default class AboutYouScreen extends React.Component<TProps, TState> {
     const getInitialFormValues = (): IAboutYouData => {
       return {
         ...initialFormValues,
-        ...RaceEthnicityQuestion.initialFormValues(),
-        ...HeightQuestion.initialFormValues(),
-        ...WeightQuestion.initialFormValues(),
+        ...RaceEthnicityQuestion.getInitialFormValues(),
+        ...HeightQuestion.getInitialFormValues(),
+        ...WeightQuestion.getInitialFormValues(),
       };
     };
 
@@ -332,7 +332,7 @@ export default class AboutYouScreen extends React.Component<TProps, TState> {
           validateOnChange
           initialValues={this.props.route.params?.editing ? this.getPatientFormValues() : getInitialFormValues()}
           onSubmit={this.onSubmit}
-          validationSchema={this.registerSchema}
+          validationSchema={this.validationSchema}
         >
           {(formikProps) => {
             const isMinor = isMinorAge(cleanIntegerVal(formikProps.values.yearOfBirth));

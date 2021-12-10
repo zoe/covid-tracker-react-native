@@ -79,7 +79,7 @@ export default class HealthWorkerExposureScreen extends React.Component<TProps, 
     } as Partial<TAssessmentInfosRequest>;
   }
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     hasUsedPPEEquipment: Yup.string().when('interactedAnyPatients', {
       is: 'yes',
       then: Yup.string().required(i18n.t('required-has-used-ppe-equipment')),
@@ -148,7 +148,7 @@ export default class HealthWorkerExposureScreen extends React.Component<TProps, 
           title={i18n.t('title-health-worker-exposure')}
         />
 
-        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
+        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
           {(formikProps) => {
             return (
               <Form hasRequiredFields>

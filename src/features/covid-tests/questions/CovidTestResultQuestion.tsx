@@ -1,7 +1,6 @@
 import { RadioInput } from '@covid/components/inputs/RadioInput';
-import { RegularTextWithBoldInserts } from '@covid/components/Text';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
+import { ECovidTestMechanismOptions, ECovidTestResultOptions } from '@covid/core/user/dto/UserAPIContracts';
 import { isPostDHSCRevisedVersion, showDualAntibodyTestUI } from '@covid/features/covid-tests/helpers';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
@@ -9,7 +8,7 @@ import * as React from 'react';
 import * as Yup from 'yup';
 
 export interface ICovidTestResultData {
-  result: string;
+  result: ECovidTestResultOptions | null;
   dualAntibodyResult: string;
   version: string | null;
 }
@@ -26,15 +25,13 @@ interface IProps {
   test?: TCovidTest;
 }
 
-interface ICovidTestResultQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (test?: TCovidTest) => Data;
-  schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<TCovidTest>;
+interface ICovidTestResultQuestion extends React.FC<IProps> {
+  createDTO: (data: ICovidTestResultFormikData) => Partial<TCovidTest>;
+  createValidationSchema: () => Yup.ObjectSchema;
+  getInitialFormValues: (test?: TCovidTest) => ICovidTestResultData;
 }
 
-export const CovidTestResultQuestion: ICovidTestResultQuestion<IProps, ICovidTestResultFormikData> = (
-  props: IProps,
-) => {
+export const CovidTestResultQuestion: ICovidTestResultQuestion = (props: IProps) => {
   const { formikProps } = props;
 
   const resultItems = [
@@ -49,15 +46,15 @@ export const CovidTestResultQuestion: ICovidTestResultQuestion<IProps, ICovidTes
     { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
     { label: i18n.t('covid-test.picker-test-failed'), value: 'failed' },
     {
-      label: <RegularTextWithBoldInserts text={i18n.t('covid-test.picker-test-positive-infection-and-vaccine')} />,
+      label: i18n.t('covid-test.picker-test-positive-infection-and-vaccine'),
       value: 'positive-infection-and-vaccine',
     },
     {
-      label: <RegularTextWithBoldInserts text={i18n.t('covid-test.picker-test-positive-infection-or-vaccine')} />,
+      label: i18n.t('covid-test.picker-test-positive-infection-or-vaccine'),
       value: 'positive-infection-or-vaccine',
     },
     {
-      label: <RegularTextWithBoldInserts text={i18n.t('covid-test.picker-test-positive-infection-only')} />,
+      label: i18n.t('covid-test.picker-test-positive-infection-only'),
       value: 'positive-infection-only',
     },
   ];
@@ -149,15 +146,15 @@ const dualAntibodyResultsReverseMapping = (antiN: string | null | undefined, ant
   return '';
 };
 
-CovidTestResultQuestion.initialFormValues = (test?: TCovidTest): ICovidTestResultData => {
+CovidTestResultQuestion.getInitialFormValues = (test?: TCovidTest): ICovidTestResultData => {
   return {
     dualAntibodyResult: dualAntibodyResultsReverseMapping(test?.anti_n, test?.anti_s),
-    result: test?.result ? test.result : '',
+    result: test?.result ? test.result : null,
     version: test?.version ? test.version : null,
   };
 };
 
-CovidTestResultQuestion.schema = () => {
+CovidTestResultQuestion.createValidationSchema = () => {
   return Yup.object().shape(
     {
       dualAntibodyResult: Yup.string().when(['result', 'mechanism', 'invitedToTest', 'version', 'bookedViaGov'], {
@@ -173,14 +170,16 @@ CovidTestResultQuestion.schema = () => {
         otherwise: Yup.string(),
         then: Yup.string().required(i18n.t('covid-test.required-result')),
       }),
-      result: Yup.string().when(['dualAntibodyResult', 'mechanism', 'invitedToTest', 'bookedViaGov'], {
-        is: (dualAntibodyResult, mechanism, invitedToTest, bookedViaGov) =>
-          !showDualAntibodyTestUI(mechanism, invitedToTest, bookedViaGov) ||
-          !dualAntibodyResult ||
-          dualAntibodyResult.length === 0,
-        otherwise: Yup.string(),
-        then: Yup.string().required(i18n.t('covid-test.required-result')),
-      }),
+      result: Yup.string()
+        .nullable()
+        .when(['dualAntibodyResult', 'mechanism', 'invitedToTest', 'bookedViaGov'], {
+          is: (dualAntibodyResult, mechanism, invitedToTest, bookedViaGov) =>
+            !showDualAntibodyTestUI(mechanism, invitedToTest, bookedViaGov) ||
+            !dualAntibodyResult ||
+            dualAntibodyResult.length === 0,
+          otherwise: Yup.string(),
+          then: Yup.string().required(i18n.t('covid-test.required-result')),
+        }),
     },
     // needed to prevent circular calculation error
     [['result', 'dualAntibodyResult']],

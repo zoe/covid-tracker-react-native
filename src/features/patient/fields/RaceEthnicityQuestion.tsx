@@ -72,7 +72,7 @@ export class RaceEthnicityQuestion extends React.Component<IRaceEthnicityQuestio
     { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
   ];
 
-  static initialFormValues = () => {
+  static getInitialFormValues = () => {
     return {
       ethnicity: '',
       race: [] as string[],

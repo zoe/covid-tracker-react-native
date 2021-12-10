@@ -1,6 +1,7 @@
 import { requiredFormMarker } from '@covid/components/Form';
 import { RadioButton } from '@covid/components/RadioButton';
-import { CaptionText, ErrorText, LabelText, SecondaryText } from '@covid/components/Text';
+import { CaptionText, ErrorText, LabelText } from '@covid/components/Text';
+import { TextWithBoldInserts } from '@covid/components/typography/TextWithBoldInserts';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
@@ -18,7 +19,7 @@ import {
 
 interface IItem extends Omit<PickerItemProps, 'label'> {
   iconSource?: ImageSourcePropType;
-  label: string | JSX.Element;
+  label: string;
 }
 
 interface IProps<V = any> {
@@ -73,7 +74,9 @@ export function RadioInput(props: IProps) {
         >
           <RadioButton selected={props.selectedValue === item.value} />
           {item.iconSource ? <Image source={item.iconSource} style={styles.image} /> : null}
-          <SecondaryText style={[styles.marginLeft, styles.textWrap]}>{item.label}</SecondaryText>
+          <TextWithBoldInserts inverted colorPalette="uiDark" colorShade="dark" style={styles.label} textClass="p">
+            {item.label}
+          </TextWithBoldInserts>
         </TouchableOpacity>
       ))}
       {props.error ? <ErrorText style={styles.marginTop}>{props.error}</ErrorText> : null}
@@ -102,15 +105,17 @@ const styles = StyleSheet.create({
     marginLeft: sizes.s,
     width: 24,
   },
+  label: {
+    flex: 1,
+    flexWrap: 'wrap',
+    marginLeft: sizes.s,
+  },
   lastItem: {
     ...itemStyle,
     paddingTop: sizes.s,
   },
   marginBottom: {
     marginBottom: sizes.s,
-  },
-  marginLeft: {
-    marginLeft: sizes.s,
   },
   marginTop: {
     marginTop: sizes.s,
@@ -121,9 +126,5 @@ const styles = StyleSheet.create({
   middleItem: {
     ...itemStyle,
     paddingVertical: sizes.s,
-  },
-  textWrap: {
-    flex: 1,
-    flexWrap: 'wrap',
   },
 });

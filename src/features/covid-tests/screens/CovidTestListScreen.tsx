@@ -4,6 +4,8 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { ErrorText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { patientService } from '@covid/core/patient/PatientService';
+import { updateShowOmicronModal } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { covidTestService } from '@covid/core/user/CovidTestService';
@@ -11,7 +13,8 @@ import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { CovidTestTabbedListsScreen } from '@covid/features/covid-tests';
 import { getInitialRouteName } from '@covid/features/covid-tests/helpers';
-import CovidTestListOnboardingModal from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
+import { CovidTestListOnboardingModal } from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
+import { CovidTestTrackingOmicronModal } from '@covid/features/covid-tests/modals/CovidTestTrackingOmicronModal';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -20,7 +23,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface IProps {
   navigation: StackNavigationProp<TScreenParamList, 'CovidTestList'>;
@@ -32,14 +35,28 @@ const HEIGHT_OF_STATIC_CONTENT = 500;
 
 export default function CovidTestListScreen(props: IProps) {
   const [covidTests, setCovidTests] = React.useState<TCovidTest[]>([]);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
+  const dispatch = useDispatch();
+  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const windowDimensions = useWindowDimensions();
 
   const minTabViewHeight = SINGLE_TEST_ROW_HEIGHT * 5;
   const tabViewHeight = windowDimensions.height - HEIGHT_OF_STATIC_CONTENT;
+
+  const closeListOnboardingModal = React.useCallback(() => {
+    setShowOnboardingModal(false);
+  }, []);
+
+  const closeTrackingOmicronModal = React.useCallback(async () => {
+    // Update the Redux state immediately because the api calls could take a long time to finish.
+    dispatch(updateShowOmicronModal(false));
+    await patientService.updatePatientInfo(patientId, {
+      has_seen_omicron_modal: true,
+    });
+  }, [patientId]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -74,35 +91,35 @@ export default function CovidTestListScreen(props: IProps) {
     }, [startupInfo?.show_covid_test_onboarding]),
   );
 
-  function gotoAddTest() {
-    assessmentCoordinator.goToAddEditTest();
-  }
+  const gotoAddTest = React.useCallback(() => assessmentCoordinator.goToAddEditTest(), []);
 
-  function handleNextButton() {
-    assessmentCoordinator.gotoNextScreen(props.route.name);
-  }
-
-  const currentPatient = assessmentCoordinator.assessmentData?.patientData?.patientState;
+  const handleNextButton = React.useCallback(
+    () => assessmentCoordinator.gotoNextScreen(props.route.name),
+    [props.route.name],
+  );
 
   const initialRouteName = getInitialRouteName(props.route.params?.mechanism, props.route.params?.is_rapid_test);
 
   return (
     <Screen
       backgroundColor={colors.backgroundPrimary}
-      profile={currentPatient?.profile}
+      profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
       testID="covid-test-list-screen"
     >
-      <ProgressHeader currentStep={0} maxSteps={1} title={i18n.t('covid-test-list.title')} />
-
       {!showOnboardingModal ? null : (
         <CovidTestListOnboardingModal
-          onRequestClose={() => {
-            setShowOnboardingModal(false);
-          }}
+          onRequestClose={closeListOnboardingModal}
           patientId={assessmentCoordinator.assessmentData?.patientData?.patientId}
           visible={showOnboardingModal}
         />
       )}
+
+      <CovidTestTrackingOmicronModal
+        onRequestClose={closeTrackingOmicronModal}
+        visible={!!startupInfo?.show_omicron_modal}
+      />
+
+      <ProgressHeader currentStep={0} maxSteps={1} title={i18n.t('covid-test-list.title')} />
 
       {covidTests.length ? null : (
         <RegularText style={styles.marginTop} testID="covid-test-list-introduction">

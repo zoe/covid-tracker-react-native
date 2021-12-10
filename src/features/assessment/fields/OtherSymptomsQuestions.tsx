@@ -34,13 +34,13 @@ export const OtherSymptomsQuestions: ISymptomQuestions<TProps, TOtherSymptomsDat
   );
 };
 
-OtherSymptomsQuestions.initialFormValues = (): TOtherSymptomsData => {
+OtherSymptomsQuestions.getInitialFormValues = (): TOtherSymptomsData => {
   return {
     otherSymptoms: '',
   };
 };
 
-OtherSymptomsQuestions.schema = () => {
+OtherSymptomsQuestions.createValidationSchema = () => {
   return Yup.object();
 };
 

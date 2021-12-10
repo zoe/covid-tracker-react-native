@@ -26,7 +26,7 @@ type TJoinGroupData = {
   groupId: string;
 };
 
-const ValidationSchema = () => {
+const createValidationSchema = () => {
   return Yup.object().shape({
     groupId: Yup.string().required(i18n.t('validation-error-text-required')),
   });
@@ -87,7 +87,7 @@ export const JoinSchoolGroupScreen: React.FC<TProps> = ({ route }) => {
 
       <ProgressStatus color={colors.brand} currentStep={3} maxSteps={4} style={styling.marginVertical} />
 
-      <Formik initialValues={initialFormValues} onSubmit={onSubmit} validationSchema={ValidationSchema()}>
+      <Formik initialValues={initialFormValues} onSubmit={onSubmit} validationSchema={createValidationSchema()}>
         {(formikProps) => {
           return (
             <Form>

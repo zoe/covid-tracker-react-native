@@ -1,11 +1,11 @@
-import { BrandedButton, HeaderText, Modal, RegularText, RegularTextWithBoldInserts } from '@covid/components';
+import { BrandedButton, HeaderText, Modal, RegularText } from '@covid/components';
+import { TextWithBoldInserts } from '@covid/components/typography/TextWithBoldInserts';
 import { patientService } from '@covid/core/patient/PatientService';
 import { fetchStartUpInfo } from '@covid/core/state/contentSlice';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme/colors';
-import { fontStyles } from '@theme/fontStyles';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -47,10 +47,9 @@ export const VaccineFluOnboardingModal: React.FC<IProps> = (props) => {
         <RegularText style={styles.tagText}>{i18n.t('vaccines.flu-onboarding.new')}</RegularText>
       </View>
       <HeaderText style={styles.modalTitle}>{i18n.t('vaccines.flu-onboarding.title')}</HeaderText>
-      <RegularTextWithBoldInserts
-        style={[fontStyles.bodyLight, styles.modalDescription]}
-        text={i18n.t('vaccines.flu-onboarding.description')}
-      />
+      <TextWithBoldInserts inverted colorPalette="uiDark" colorShade="darker" textClass="pLight">
+        {i18n.t('vaccines.flu-onboarding.description')}
+      </TextWithBoldInserts>
     </Modal>
   );
 };

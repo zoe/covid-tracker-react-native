@@ -52,7 +52,7 @@ export const EditLocationScreen: React.FC<TProps> = (props) => {
     stillInUK: props.route.params?.patientData?.patientInfo!.current_country_code ? 'no' : 'yes',
   };
 
-  const validation = Yup.object().shape({
+  const validationSchema = Yup.object().shape({
     currentCountry: Yup.string().when(['stillInUK', 'differentAddress'], {
       is: (stillInUK: string, differentAddress: string) => {
         return stillInUK === 'no' && differentAddress === 'yes';
@@ -116,7 +116,7 @@ export const EditLocationScreen: React.FC<TProps> = (props) => {
     <Screen simpleCallout profile={props.route.params?.patientData?.profile} testID="edit-location-screen">
       <HeaderText style={{ marginBottom: sizes.s }}>{i18n.t('edit-profile.location.title')}</HeaderText>
 
-      <Formik initialValues={initialFormValues} onSubmit={onSubmit} validationSchema={validation}>
+      <Formik initialValues={initialFormValues} onSubmit={onSubmit} validationSchema={validationSchema}>
         {(formikProps) => {
           return (
             <Form>

@@ -60,7 +60,7 @@ export default class ProfileBackDateScreen extends React.Component<TProps, TStat
     this.state = initialState;
   }
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     ethnicity: Yup.string().when([], {
       is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
       then: Yup.string().required(),
@@ -214,22 +214,22 @@ export default class ProfileBackDateScreen extends React.Component<TProps, TStat
 
         <Formik
           initialValues={{
-            ...RaceEthnicityQuestion.initialFormValues(),
-            ...BloodPressureMedicationQuestion.initialFormValues(),
-            ...AtopyQuestions.initialFormValues(),
-            ...DiabetesQuestions.initialFormValues(),
-            ...BloodGroupQuestion.initialFormValues(),
+            ...RaceEthnicityQuestion.getInitialFormValues(),
+            ...BloodPressureMedicationQuestion.getInitialFormValues(),
+            ...AtopyQuestions.getInitialFormValues(),
+            ...DiabetesQuestions.getInitialFormValues(),
+            ...BloodGroupQuestion.getInitialFormValues(),
           }}
           onSubmit={this.onSubmit}
           validationSchema={() => {
-            let schema = this.registerSchema;
+            let validationSchema = this.validationSchema;
             if (this.state.needDiabetesAnswers) {
-              schema = schema.concat(DiabetesQuestions.schema());
+              validationSchema = validationSchema.concat(DiabetesQuestions.createValidationSchema());
             }
             if (this.state.needBloodGroupAnswer) {
-              schema = schema.concat(BloodGroupQuestion.schema());
+              validationSchema = validationSchema.concat(BloodGroupQuestion.createValidationSchema());
             }
-            return schema;
+            return validationSchema;
           }}
         >
           {(formikProps) => {

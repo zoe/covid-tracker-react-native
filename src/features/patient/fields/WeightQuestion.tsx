@@ -18,8 +18,8 @@ export interface IWeightData {
 }
 
 interface IFCWithStatic<P> extends React.FC<P> {
-  initialFormValues: () => IWeightData;
-  schema: () => Yup.ObjectSchema;
+  getInitialFormValues: () => IWeightData;
+  createValidationSchema: () => Yup.ObjectSchema;
 }
 
 interface IProps {
@@ -109,7 +109,7 @@ export const WeightQuestion: IFCWithStatic<IProps> = ({ formikProps, label }) =>
   );
 };
 
-WeightQuestion.initialFormValues = () => {
+WeightQuestion.getInitialFormValues = () => {
   const config = localisationService.getConfig();
   return {
     pounds: '',
@@ -119,7 +119,7 @@ WeightQuestion.initialFormValues = () => {
   };
 };
 
-WeightQuestion.schema = () => {
+WeightQuestion.createValidationSchema = () => {
   return Yup.object().shape({
     pounds: Yup.number().min(0),
     stones: Yup.number().min(0),

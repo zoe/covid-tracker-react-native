@@ -242,7 +242,7 @@ export default class YourStudyScreen extends React.Component<TYourStudyProps, TS
     ? editProfileCoordinator
     : patientCoordinator;
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     clinicalStudyContact: Yup.string(),
     clinicalStudyInstitution: Yup.string(),
     clinicalStudyNames: Yup.string(),
@@ -331,7 +331,7 @@ export default class YourStudyScreen extends React.Component<TYourStudyProps, TS
         <Formik
           initialValues={this.getInitialFormValues()}
           onSubmit={this.onSubmit}
-          validationSchema={this.registerSchema}
+          validationSchema={this.validationSchema}
         >
           {(formikProps) => {
             return (

@@ -23,7 +23,7 @@ type TProps = {
 
 export const GeneralSymptomsScreen: React.FC<TProps> = ({ route }) => {
   const config = localisationService.getConfig();
-  const registerSchema = Yup.object().shape({}).concat(GeneralSymptomsQuestions.schema());
+  const validationSchema = Yup.object().shape({}).concat(GeneralSymptomsQuestions.createValidationSchema());
 
   const patientState = route.params?.assessmentData?.patientData?.patientState;
 
@@ -37,10 +37,10 @@ export const GeneralSymptomsScreen: React.FC<TProps> = ({ route }) => {
     <Screen profile={patientState?.profile} testID="general-symptoms-screen">
       <Formik
         initialValues={{
-          ...GeneralSymptomsQuestions.initialFormValues(config?.defaultTemperatureUnit),
+          ...GeneralSymptomsQuestions.getInitialFormValues(config?.defaultTemperatureUnit),
         }}
         onSubmit={onSubmit}
-        validationSchema={registerSchema}
+        validationSchema={validationSchema}
       >
         {(formikProps) => {
           return (

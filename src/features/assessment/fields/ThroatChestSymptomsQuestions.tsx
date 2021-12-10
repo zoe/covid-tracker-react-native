@@ -66,7 +66,7 @@ export const ThroatChestSymptomsQuestions: ISymptomQuestions<TProps, TThroatChes
   );
 };
 
-ThroatChestSymptomsQuestions.initialFormValues = (): TThroatChestSymptomsData => {
+ThroatChestSymptomsQuestions.getInitialFormValues = (): TThroatChestSymptomsData => {
   return {
     chestPain: false,
     heartbeat: false,
@@ -79,7 +79,7 @@ ThroatChestSymptomsQuestions.initialFormValues = (): TThroatChestSymptomsData =>
   };
 };
 
-ThroatChestSymptomsQuestions.schema = () => {
+ThroatChestSymptomsQuestions.createValidationSchema = () => {
   return Yup.object().shape({
     shortBreathFollowUp: Yup.string().when('shortBreath', {
       is: true,

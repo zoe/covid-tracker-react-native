@@ -2,16 +2,18 @@
 
 import { Text } from '@covid/components';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import CovidTestListOnboardingModal from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
+import { CovidTestListOnboardingModal } from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
 import CovidTestListScreen from '@covid/features/covid-tests/screens/CovidTestListScreen';
 import { theme } from '@covid/themes';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
+import lodash from 'lodash';
 import * as React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createMockStore from 'redux-mock-store';
 import { ThemeProvider } from 'styled-components/native';
 
+import { initialState } from '../../../../../__mocks__/mockedInitialState';
 import MockedNavigator from '../../../../../__mocks__/MockedNavigator';
 
 const middlewares = getDefaultMiddleware();
@@ -21,7 +23,9 @@ describe('CovidTestListScreen tests', () => {
   it('renders conditional introductory copy', () => {
     jest.spyOn(assessmentCoordinator, 'isReportedByOther').mockReturnValue(false);
 
-    const store = mockStore({ content: { startupInfo: { show_covid_test_onboarding: true } } });
+    const partlyMockedState = { content: { startupInfo: { show_covid_test_onboarding: true } } };
+    const mockedState = lodash.merge(partlyMockedState, initialState);
+    const store = mockStore(mockedState);
 
     const instance = renderer.create(
       <ThemeProvider theme={theme}>
@@ -43,7 +47,9 @@ describe('CovidTestListScreen tests', () => {
   it('shows onboarding modal for primary user', () => {
     jest.spyOn(assessmentCoordinator, 'isReportedByOther').mockReturnValue(false);
 
-    const store = mockStore({ content: { startupInfo: { show_covid_test_onboarding: true } } });
+    const partlyMockedState = { content: { startupInfo: { show_covid_test_onboarding: true } } };
+    const mockedState = lodash.merge(partlyMockedState, initialState);
+    const store = mockStore(mockedState);
 
     const instance = renderer.create(
       <ThemeProvider theme={theme}>
@@ -61,7 +67,9 @@ describe('CovidTestListScreen tests', () => {
   it('does not show onboarding modal when flag is false', () => {
     jest.spyOn(assessmentCoordinator, 'isReportedByOther').mockReturnValue(false);
 
-    const store = mockStore({ content: { startupInfo: { show_covid_test_onboarding: false } } });
+    const partlyMockedState = { content: { startupInfo: { show_covid_test_onboarding: false } } };
+    const mockedState = lodash.merge(partlyMockedState, initialState);
+    const store = mockStore(mockedState);
 
     const instance = renderer.create(
       <ThemeProvider theme={theme}>
@@ -79,7 +87,9 @@ describe('CovidTestListScreen tests', () => {
   it('does not show onboarding modal for none primary user (reported_by_another: true)', () => {
     jest.spyOn(assessmentCoordinator, 'isReportedByOther').mockReturnValue(true);
 
-    const store = mockStore({ content: { startupInfo: { show_covid_test_onboarding: true } } });
+    const partlyMockedState = { content: { startupInfo: { show_covid_test_onboarding: true } } };
+    const mockedState = lodash.merge(partlyMockedState, initialState);
+    const store = mockStore(mockedState);
 
     const instance = renderer.create(
       <ThemeProvider theme={theme}>

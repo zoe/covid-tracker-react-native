@@ -17,15 +17,13 @@ interface IProps {
   test?: TCovidTest;
 }
 
-interface ICovidTestLocationQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (test?: TCovidTest) => Data;
-  schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<TCovidTest>;
+interface ICovidTestLocationQuestion extends React.FC<IProps> {
+  createDTO: (data: ICovidTestLocationData) => Partial<TCovidTest>;
+  createValidationSchema: () => Yup.ObjectSchema;
+  getInitialFormValues: (test?: TCovidTest) => ICovidTestLocationData;
 }
 
-export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovidTestLocationData> = (
-  props: IProps,
-) => {
+export const CovidTestLocationQuestion: ICovidTestLocationQuestion = (props: IProps) => {
   const { formikProps } = props;
 
   const ukLocationItems = [
@@ -85,14 +83,14 @@ export const CovidTestLocationQuestion: ICovidTestLocationQuestion<IProps, ICovi
   );
 };
 
-CovidTestLocationQuestion.initialFormValues = (test?: TCovidTest): ICovidTestLocationData => {
+CovidTestLocationQuestion.getInitialFormValues = (test?: TCovidTest): ICovidTestLocationData => {
   return {
     location: test?.location ? test.location : '',
     locationOther: test?.location_other ? test.location_other : '',
   };
 };
 
-CovidTestLocationQuestion.schema = () => {
+CovidTestLocationQuestion.createValidationSchema = () => {
   return Yup.object().shape({
     location: Yup.string(),
   });

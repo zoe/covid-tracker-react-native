@@ -46,8 +46,8 @@ interface IProps {
 }
 
 export interface IFormikDiabetesInputFC<P, Data> extends React.FC<P> {
-  initialFormValues: () => Data;
-  schema: () => Yup.ObjectSchema;
+  getInitialFormValues: () => Data;
+  createValidationSchema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<TPatientInfosRequest>;
 }
 
@@ -145,7 +145,7 @@ export const DiabetesQuestions: IFormikDiabetesInputFC<IProps, IDiabetesData> = 
   );
 };
 
-DiabetesQuestions.initialFormValues = () => {
+DiabetesQuestions.getInitialFormValues = () => {
   // Default Hemoglobin Measure Unit to mmol/mol for Sweden.
   const defaultUnitKey = isSECountry() === true ? 'mol' : 'percent';
   return {
@@ -156,12 +156,12 @@ DiabetesQuestions.initialFormValues = () => {
     diabetesTypeOther: undefined,
     diabetesUsesCGM: '',
     hemoglobinMeasureUnit: i18n.t(`diabetes.hemoglobin-measurement-unit-${defaultUnitKey}`),
-    ...DiabetesTreatmentsQuestion.initialFormValues(),
-    ...DiabetesOralMedsQuestion.initialFormValues(),
+    ...DiabetesTreatmentsQuestion.getInitialFormValues(),
+    ...DiabetesOralMedsQuestion.getInitialFormValues(),
   };
 };
 
-DiabetesQuestions.schema = () => {
+DiabetesQuestions.createValidationSchema = () => {
   return Yup.object()
     .shape({
       a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
@@ -185,8 +185,8 @@ DiabetesQuestions.schema = () => {
 
       diabetesUsesCGM: Yup.string(),
     })
-    .concat(DiabetesTreatmentsQuestion.schema())
-    .concat(DiabetesOralMedsQuestion.schema());
+    .concat(DiabetesTreatmentsQuestion.createValidationSchema())
+    .concat(DiabetesOralMedsQuestion.createValidationSchema());
 };
 
 DiabetesQuestions.createDTO = (data) => {

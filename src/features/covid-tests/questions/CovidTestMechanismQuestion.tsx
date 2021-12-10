@@ -1,5 +1,5 @@
 import { fingerPrickX3, noseSwabX3, otherTestX3, syringeX3 } from '@assets';
-import { RegularTextWithBoldInserts, TextareaWithCharCount } from '@covid/components';
+import { TextareaWithCharCount } from '@covid/components';
 import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -46,15 +46,13 @@ interface IProps {
   test?: TCovidTest;
 }
 
-interface ICovidTestMechanismQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (test?: TCovidTest) => Data;
-  schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<TCovidTest>;
+interface ICovidTestMechanismQuestion extends React.FC<IProps> {
+  createDTO: (data: ICovidTestMechanismData) => Partial<TCovidTest>;
+  createValidationSchema: () => Yup.ObjectSchema;
+  getInitialFormValues: (test?: TCovidTest) => ICovidTestMechanismData;
 }
 
-export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICovidTestMechanismData> = (
-  props: IProps,
-) => {
+export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion = (props: IProps) => {
   const { formikProps, test } = props;
   const isV1Test = test?.version[0] === '1';
 
@@ -110,15 +108,15 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
 
   const antibodyItems = [
     {
-      label: <RegularTextWithBoldInserts text={i18n.t('covid-test.picker-anti-n')} />,
+      label: i18n.t('covid-test.picker-anti-n'),
       value: ECovidTestAntibodyOptions.ANTI_N,
     },
     {
-      label: <RegularTextWithBoldInserts text={i18n.t('covid-test.picker-anti-s')} />,
+      label: i18n.t('covid-test.picker-anti-s'),
       value: ECovidTestAntibodyOptions.ANTI_S,
     },
     {
-      label: <RegularTextWithBoldInserts text={i18n.t('covid-test.picker-dont-know')} />,
+      label: i18n.t('covid-test.picker-dont-know'),
       value: ECovidTestAntibodyOptions.DONT_KNOW,
     },
   ];
@@ -217,7 +215,7 @@ export const CovidTestMechanismQuestion: ICovidTestMechanismQuestion<IProps, ICo
   );
 };
 
-CovidTestMechanismQuestion.initialFormValues = (test?: TCovidTest): ICovidTestMechanismData => {
+CovidTestMechanismQuestion.getInitialFormValues = (test?: TCovidTest): ICovidTestMechanismData => {
   let mechanism = '' as ECovidTestMechanismOptions;
   let mechanismSpecify = '';
 
@@ -245,7 +243,7 @@ CovidTestMechanismQuestion.initialFormValues = (test?: TCovidTest): ICovidTestMe
   };
 };
 
-CovidTestMechanismQuestion.schema = () => {
+CovidTestMechanismQuestion.createValidationSchema = () => {
   return Yup.object().shape({
     antibody: Yup.string().when(['mechanism', 'dualAntibodyResult', 'invitedToTest', 'bookedViaGov'], {
       is: (mechanism, dualAntibodyResult, invitedToTest, bookedViaGov) => {
@@ -282,6 +280,7 @@ CovidTestMechanismQuestion.createDTO = (formData: ICovidTestMechanismData): Part
       is_rapid_test: true,
       mechanism: ECovidTestMechanismOptions.NOSE_OR_THROAT_SWAB,
     }),
+    // @todo: why is the mechanism overwritten here?!
     ...(formData.mechanism === 'pcr' && {
       is_rapid_test: false,
       mechanism: ECovidTestMechanismOptions.NOSE_OR_THROAT_SWAB,

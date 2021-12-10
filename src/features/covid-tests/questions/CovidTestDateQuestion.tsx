@@ -5,6 +5,7 @@ import { RegularText } from '@covid/components/Text';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
+import { dateToString } from '@covid/utils/datetime';
 import { colors, fontStyles } from '@theme';
 import { FormikProps } from 'formik';
 import moment, { Moment } from 'moment';
@@ -13,10 +14,10 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 export interface ICovidTestDateData {
-  useApproximateDate: boolean; // only for ux logic
-  dateTakenBetweenStart: Date | undefined;
   dateTakenBetweenEnd: Date | undefined;
+  dateTakenBetweenStart: Date | undefined;
   dateTakenSpecific: Date | undefined;
+  useApproximateDate: boolean; // Only for ux logic
 }
 
 interface IProps {
@@ -26,13 +27,13 @@ interface IProps {
   label?: string;
 }
 
-interface ICovidTestDateQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (test?: TCovidTest) => Data;
-  schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<TCovidTest>;
+interface ICovidTestDateQuestion extends React.FC<IProps> {
+  createDTO: (data: ICovidTestDateData) => Partial<TCovidTest>;
+  createValidationSchema: () => Yup.ObjectSchema;
+  getInitialFormValues: (test?: TCovidTest) => ICovidTestDateData;
 }
 
-export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDateData> = (props: IProps) => {
+export const CovidTestDateQuestion: ICovidTestDateQuestion = (props: IProps) => {
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 
@@ -52,7 +53,9 @@ export const CovidTestDateQuestion: ICovidTestDateQuestion<IProps, ICovidTestDat
 
   function setRangeTestDates(selectedDate: Moment, type?: string): void {
     // BUG: calendarPicker firing twice and sending null object on second event
-    if (!selectedDate) return;
+    if (!selectedDate) {
+      return;
+    }
     if (type === 'END_DATE') {
       formikProps.values.dateTakenBetweenEnd = convertToDate(selectedDate);
     } else {
@@ -130,7 +133,7 @@ const styles = StyleSheet.create({
   },
 });
 
-CovidTestDateQuestion.initialFormValues = (test?: TCovidTest): ICovidTestDateData => {
+CovidTestDateQuestion.getInitialFormValues = (test?: TCovidTest): ICovidTestDateData => {
   return {
     dateTakenBetweenEnd: test?.date_taken_between_end ? moment(test.date_taken_between_end).toDate() : undefined,
     dateTakenBetweenStart: test?.date_taken_between_start ? moment(test.date_taken_between_start).toDate() : undefined,
@@ -139,20 +142,16 @@ CovidTestDateQuestion.initialFormValues = (test?: TCovidTest): ICovidTestDateDat
   };
 };
 
-CovidTestDateQuestion.schema = () => {
+CovidTestDateQuestion.createValidationSchema = () => {
   return Yup.object().shape({
     useApproximateDate: Yup.string().required(),
   });
 };
 
-function dateToString(date: Date | undefined) {
-  return date ? moment(date).format('YYYY-MM-DD') : null;
-}
-
 CovidTestDateQuestion.createDTO = (formData: ICovidTestDateData): Partial<TCovidTest> => {
   return {
-    date_taken_between_end: dateToString(formData.dateTakenBetweenEnd),
-    date_taken_between_start: dateToString(formData.dateTakenBetweenStart),
-    date_taken_specific: dateToString(formData.dateTakenSpecific),
+    date_taken_between_end: formData.dateTakenBetweenEnd ? dateToString(formData.dateTakenBetweenEnd) : null,
+    date_taken_between_start: formData.dateTakenBetweenStart ? dateToString(formData.dateTakenBetweenStart) : null,
+    date_taken_specific: formData.dateTakenSpecific ? dateToString(formData.dateTakenSpecific) : null,
   } as Partial<TCovidTest>;
 };

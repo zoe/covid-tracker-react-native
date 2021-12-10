@@ -1,16 +1,9 @@
 import InfoCircle from '@assets/icons/InfoCircle';
-import {
-  BrandedButton,
-  ErrorText,
-  HeaderText,
-  LightText,
-  Modal,
-  RegularTextWithBoldInserts,
-  Text,
-} from '@covid/components';
+import { BrandedButton, ErrorText, HeaderText, LightText, Modal, Text } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
 import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
+import { TextWithBoldInserts } from '@covid/components/typography';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { TRootState } from '@covid/core/state/root';
@@ -206,7 +199,9 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
       <ProgressHeader currentStep={0} maxSteps={1} title={i18n.t('vaccines.vaccine-list.title')} />
       <View style={styles.introduction} testID="vaccine-list-introduction">
         <Text>
-          <RegularTextWithBoldInserts text={i18n.t('vaccines.vaccine-list.description')} />
+          <TextWithBoldInserts inverted colorPalette="uiDark" colorShade="darker" textClass="p">
+            {i18n.t('vaccines.vaccine-list.description')}
+          </TextWithBoldInserts>
           {isSECountry() ? null : (
             <TouchableOpacity hitSlop={HIT_SLOP} onPress={() => setModalVisible(true)}>
               <View style={styles.paddingLeft}>
