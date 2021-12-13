@@ -306,7 +306,7 @@
       "picker-yes-confirmed": "Yes, I was told it was *confirmed* Omicron",
       "picker-yes-suspected": "Yes, I was told it was *suspected* Omicron",
       "tag": "New",
-      "title": "Have you been informed by NHS Test & Trace app that it was the Omicron variant?"
+      "title": "Have you been informed by NHS Test & Trace that it was the Omicron variant?"
     },
     "tracking-omicron-modal": {
       "description": "Help track the new *Omicron variant* by telling us if you were contacted by *NHS Test & Trace* about Omicron with your *recent positive PCR test logged*.\n\nIf you know anyone who has/had *suspected or confirmed Omicron infection*, please also ask them to log it in this app",
