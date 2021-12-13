@@ -27,7 +27,7 @@ type TTreatmentOtherProps = {
 };
 
 export default class TreatmentOtherScreen extends React.Component<TTreatmentOtherProps> {
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     description: Yup.string(),
   });
 
@@ -64,7 +64,7 @@ export default class TreatmentOtherScreen extends React.Component<TTreatmentOthe
       >
         <ProgressHeader currentStep={5} maxSteps={5} title={title} />
 
-        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
+        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
           {(formikProps) => {
             return (
               <Form>

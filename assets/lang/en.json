@@ -300,6 +300,18 @@
       "anti-n-description": "Detects the presence of antibodies targeted against the so-called (N) protein of COVID-19. Anti-N antibodies are not produced in response to any of the current vaccines on the market. They are, however, seen in most people who have recovered from COVID-19 but do drop over time.",
       "anti-s-title": "Anti-S antibody test",
       "anti-s-description": "Detects the presence of antibodies targeted against the so-called spike (S) protein of the virus. Anti-S antibodies might be found in both people who have been vaccinated against COVID-19 and people who have recovered from COVID-19."
+    },
+    "omicron": {
+      "picker-no": "No, I was not contacted by NHS Test & Trace about Omicron",
+      "picker-yes-confirmed": "Yes, I was told it was *confirmed* Omicron",
+      "picker-yes-suspected": "Yes, I was told it was *suspected* Omicron",
+      "tag": "New",
+      "title": "Have you been informed by NHS Test & Trace that it was the Omicron variant?"
+    },
+    "tracking-omicron-modal": {
+      "description": "Help track the new *Omicron variant* by telling us if you were contacted by *NHS Test & Trace* about Omicron with your *recent positive PCR test logged*.\n\nIf you know anyone who has/had *suspected or confirmed Omicron infection*, please also ask them to log it in this app",
+      "tag": "Tracking omicron",
+      "title": "Update your recent positive PCR test"
     }
   },
   "describe-symptoms": {
@@ -659,20 +671,21 @@
   "total-people-contributing": "%{total} people contributing",
   "join-total-people-contributing": "Join %{total} people contributing worldwide",
   "covid-test-list": {
-    "title": "Your COVID-19 tests",
-    "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
-    "add-new-test": "Add a new test",
-    "positive": "Positive",
-    "negative": "Negative",
-    "failed": "Failed",
-    "update": "Update",
-    "never-had-test": "I have never had a COVID test",
     "above-list-correct": "This information is correct",
-    "tabs-title": "Test type",
-    "tab-lateral": "Lateral",
-    "tab-pcr": "PCR",
+    "add-new-test": "Add a new test",
+    "failed": "Failed",
+    "negative": "Negative",
+    "never-had-test": "I have never had a COVID test",
+    "positive": "Positive",
+    "positive-omicron": "Positive, Omicron",
     "tab-antibody": "Antibody",
-    "tab-other": "Other"
+    "tab-lateral": "Lateral",
+    "tab-other": "Other",
+    "tab-pcr": "PCR",
+    "tabs-title": "Test type",
+    "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
+    "title": "Your COVID-19 tests",
+    "update": "Update"
   },
   "covid-test-modal": {
     "screen-0": {

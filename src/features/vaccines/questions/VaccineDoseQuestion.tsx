@@ -53,7 +53,7 @@ interface IProps {
 }
 
 interface IVaccineDoseQuestion<P> extends React.FC<P> {
-  schema: (isChild: boolean) => Yup.ObjectSchema;
+  createValidationSchema: (isChild: boolean) => Yup.ObjectSchema;
 }
 
 export const VaccineDoseQuestion: IVaccineDoseQuestion<IProps> = (props: IProps) => {
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
 });
 
-VaccineDoseQuestion.schema = (isChild) => {
+VaccineDoseQuestion.createValidationSchema = (isChild) => {
   return Yup.object().shape({
     batchNumber: Yup.string().nullable(),
     brand: Yup.string().when('vaccineType', {

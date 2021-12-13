@@ -126,7 +126,7 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<TProps, TGeneralSymptom
   );
 };
 
-GeneralSymptomsQuestions.initialFormValues = (defaultTemperatureUnit = 'C'): TGeneralSymptomsData => {
+GeneralSymptomsQuestions.getInitialFormValues = (defaultTemperatureUnit = 'C'): TGeneralSymptomsData => {
   return {
     blisters: false,
     brainFog: false,
@@ -148,7 +148,7 @@ GeneralSymptomsQuestions.initialFormValues = (defaultTemperatureUnit = 'C'): TGe
   };
 };
 
-GeneralSymptomsQuestions.schema = () => {
+GeneralSymptomsQuestions.createValidationSchema = () => {
   return Yup.object().shape({
     fatigueFollowUp: Yup.string().when('fatigue', {
       is: true,

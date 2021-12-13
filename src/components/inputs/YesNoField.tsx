@@ -12,17 +12,23 @@ interface IProps {
   required?: boolean;
 }
 
-const getItems = (): ISingleButton[] => [
+export enum EYesNoFieldOptions {
+  EMPTY = '',
+  NO = 'no',
+  YES = 'yes',
+}
+
+const items: ISingleButton[] = [
   {
     label: i18n.t('picker-no'),
-    value: 'no',
+    value: EYesNoFieldOptions.NO,
   },
   {
     label: i18n.t('picker-yes'),
-    value: 'yes',
+    value: EYesNoFieldOptions.YES,
   },
 ];
 
-export function YesNoField({ label, onValueChange, ...props }: IProps) {
-  return <ButtonsGroup items={getItems()} label={label} onValueChange={onValueChange} {...props} />;
+export function YesNoField(props: IProps) {
+  return <ButtonsGroup items={items} {...props} />;
 }

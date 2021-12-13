@@ -1,6 +1,6 @@
 import { poweredByZoeSmall, zoe } from '@assets';
-import { InlineFormatting } from '@covid/components/InlineFormatting';
 import { RegularText } from '@covid/components/Text';
+import { TextWithBoldInserts } from '@covid/components/typography/TextWithBoldInserts';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
@@ -18,7 +18,9 @@ export const PoweredByZoe = (props: Iprops) => {
         <RegularText style={styles.whiteRegularText}>{i18n.t('partners.powered-by')}</RegularText>
         <Image source={zoe} style={styles.zoeLogo} />
       </View>
-      <InlineFormatting text={i18n.t('partners.data-analysis')} textAlign="center" />
+      <TextWithBoldInserts inverted colorPalette="ui" colorShade="lighter" textClass="p">
+        {i18n.t('partners.data-analysis')}
+      </TextWithBoldInserts>
     </View>
   );
 };

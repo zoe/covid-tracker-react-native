@@ -60,6 +60,23 @@ export default function SelectProfileScreen(props: TProps) {
     }
   };
 
+  const renderItem = (profile: TProfile, index: number) => (
+    <ProfileCard
+      index={index}
+      onEditPressed={
+        assessmentFlow
+          ? () => {
+              getPatientThen(profile, (pressedProfile) => {
+                (coordinator as IEditableProfile).startEditProfile(pressedProfile);
+              });
+            }
+          : undefined
+      }
+      profile={profile}
+      testID={`profile-card-${index}`}
+    />
+  );
+
   function onProfileSelected(profile: TProfile) {
     getPatientThen(profile, (selectedProfile) => {
       if (assessmentFlow) {
@@ -91,22 +108,7 @@ export default function SelectProfileScreen(props: TProps) {
         onProfileSelected={onProfileSelected}
         onRetry={() => profileList.retryListProfiles()}
         profiles={profileList.profiles}
-        renderItem={(profile, i) => (
-          <ProfileCard
-            index={i}
-            onEditPressed={
-              assessmentFlow
-                ? () => {
-                    getPatientThen(profile, (pressedProfile) => {
-                      (coordinator as IEditableProfile).startEditProfile(pressedProfile);
-                    });
-                  }
-                : undefined
-            }
-            profile={profile}
-            testID={`profile-card-${i}`}
-          />
-        )}
+        renderItem={renderItem}
         status={profileList.status}
       />
     </Screen>

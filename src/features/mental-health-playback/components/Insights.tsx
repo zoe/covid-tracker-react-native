@@ -1,5 +1,5 @@
 import Background from '@assets/mental-health-playback/Background';
-import { Card, Text, TextHighlight } from '@covid/components';
+import { Card, Text, TextWithHighlight } from '@covid/components';
 import BarChart from '@covid/features/mental-health-playback/components/BarChart';
 import InsightIllustration from '@covid/features/mental-health-playback/components/InsightIllustration';
 import { IInsight } from '@covid/features/mental-health-playback/types';
@@ -73,7 +73,7 @@ export default React.memo(function Insights(props: IProps) {
           )}
 
           <View style={styles.contentWrapper}>
-            <TextHighlight
+            <TextWithHighlight
               color={colors.accentBlue.main.bgColor}
               query={insight.activity_name.includes('less') ? i18n.t('less') : i18n.t('more')}
               textClass="h3Regular"
@@ -81,8 +81,8 @@ export default React.memo(function Insights(props: IProps) {
               {i18n.t(`mental-health-playback.insights.${insight.activity_name}.title`, {
                 defaultValue: i18n.t('mental-health-playback.general.default-title'),
               })}
-            </TextHighlight>
-            <TextHighlight
+            </TextWithHighlight>
+            <TextWithHighlight
               inverted
               color={colors.accentBlue.main.bgColor}
               colorPalette="uiDark"
@@ -95,7 +95,7 @@ export default React.memo(function Insights(props: IProps) {
                 anxiety: insight.anxiety,
                 level_of_association: insight.level_of_association,
               })}
-            </TextHighlight>
+            </TextWithHighlight>
             {windowDimensions.height > HEIGHT_SMALL_DEVICES ? (
               <Text inverted colorPalette="uiDark" colorShade="main" style={styles.label} textClass="pSmall">
                 {i18n.t('mental-health-playback.general.chart-label')}

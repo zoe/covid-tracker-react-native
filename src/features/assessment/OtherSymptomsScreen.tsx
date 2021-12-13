@@ -24,7 +24,8 @@ export const OtherSymptomsScreen: React.FC<TProps> = ({ route }) => {
     formikHelpers.setSubmitting(false);
   }
 
-  const registerSchema = Yup.object().shape({}).concat(OtherSymptomsQuestions.schema());
+  const validationSchema = Yup.object().shape({}).concat(OtherSymptomsQuestions.createValidationSchema());
+
   return (
     <Screen
       profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
@@ -32,10 +33,10 @@ export const OtherSymptomsScreen: React.FC<TProps> = ({ route }) => {
     >
       <Formik
         initialValues={{
-          ...OtherSymptomsQuestions.initialFormValues(),
+          ...OtherSymptomsQuestions.getInitialFormValues(),
         }}
         onSubmit={onSubmit}
-        validationSchema={registerSchema}
+        validationSchema={validationSchema}
       >
         {(formikProps) => {
           return (

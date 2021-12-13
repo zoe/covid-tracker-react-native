@@ -90,7 +90,7 @@ export class OptionalInfoScreen extends React.Component<TProps, TState> {
   };
 
   // see http://regexlib.com/(X(1)A(TahywDmnNCw0iyuu7jNEB2AWTPaTyZQd-r8XZECVzmio5oP08fV7JoAWrNnIoyH3vysaiCJYtQO_FfuRAXJRSwB8zqAr_L9ddGD5V0eCJcVBJ65SiOnOt1tLVw4pd_Q3Q0FoUOPG5fXsbR6DHK6jqtBaIxnP0NL5oevVH6y0uSXhYgbCrrRx1DeE-59F0s5i0))/UserPatterns.aspx?authorid=d95177b0-6014-4e73-a959-73f1663ae814&AspxAutoDetectCookieSupport=1
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     name: Yup.string(),
     phone: Yup.string(),
   });
@@ -107,7 +107,7 @@ export class OptionalInfoScreen extends React.Component<TProps, TState> {
           />
         )}
         <Screen testID="optional-info-screen">
-          <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
+          <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
             {(formikProps) => {
               return (
                 <Form>

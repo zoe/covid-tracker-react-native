@@ -4,9 +4,10 @@ import { ETabScreen } from '@covid/features/covid-tests/screens/CovidTestTabbedL
 
 const PCR_LATERAL_FLOW_MECHANISMS = [
   ECovidTestMechanismOptions.NOSE_OR_THROAT_SWAB,
-  ECovidTestMechanismOptions.SPIT_TUBE,
   ECovidTestMechanismOptions.NOSE_OR_THROAT_SWAB_AND_SALIVA,
   ECovidTestMechanismOptions.NOSE_SWAB,
+  ECovidTestMechanismOptions.PCR,
+  ECovidTestMechanismOptions.SPIT_TUBE,
   ECovidTestMechanismOptions.THROAT_SWAB,
 ];
 

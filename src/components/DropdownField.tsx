@@ -107,14 +107,7 @@ function DropdownField(props: IProps) {
     else if (index === lastIndex) borderRadiusStyle = styles.bottomBorderRadiusStyle;
 
     return (
-      <View
-        style={[
-          styles.picker,
-          styles.dropdownTextStyle,
-          borderRadiusStyle,
-          isSelected && styles.dropdownTextHighlightStyle,
-        ]}
-      >
+      <View style={[styles.picker, styles.dropdownTextStyle, borderRadiusStyle, isSelected && styles.selected]}>
         {props.itemIcons?.length ? (
           <Image source={props.itemIcons[index]} style={{ height: 24, marginRight: sizes.xxs, width: 24 }} />
         ) : null}
@@ -224,10 +217,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 20,
   },
-  dropdownTextHighlightStyle: {
-    backgroundColor: colors.backgroundTertiary,
-    color: colors.primary,
-  },
   dropdownTextStyle: {
     backgroundColor: 'transparent',
     color: colors.secondary,
@@ -253,6 +242,10 @@ const styles = StyleSheet.create({
     minHeight: 48,
     padding: sizes.s,
     width: '100%',
+  },
+  selected: {
+    backgroundColor: colors.backgroundTertiary,
+    color: colors.primary,
   },
   topBorderRadiusStyle: {
     borderTopEndRadius: 8,

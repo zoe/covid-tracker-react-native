@@ -1,4 +1,4 @@
-import Text, { IProps as ITextProps } from '@covid/components/typography/text';
+import { IProps as ITextProps, Text } from '@covid/components/typography/Text';
 import * as React from 'react';
 
 interface IProps extends ITextProps {
@@ -6,7 +6,7 @@ interface IProps extends ITextProps {
   query: string;
 }
 
-export default function TextHighlight({ color, children, query, ...props }: IProps) {
+export function TextWithHighlight({ color, children, query, ...props }: IProps) {
   if (query && typeof children === 'string') {
     const index = children.toLowerCase().indexOf(query.toLowerCase());
     if (index > -1) {

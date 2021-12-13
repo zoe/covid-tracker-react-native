@@ -27,7 +27,7 @@ export const ThroatChestSymptomsScreen: React.FC<TProps> = ({ route }) => {
     formikHelpers.setSubmitting(false);
   }
 
-  const registerSchema = Yup.object().shape({}).concat(ThroatChestSymptomsQuestions.schema());
+  const validationSchema = Yup.object().shape({}).concat(ThroatChestSymptomsQuestions.createValidationSchema());
 
   return (
     <Screen
@@ -36,10 +36,10 @@ export const ThroatChestSymptomsScreen: React.FC<TProps> = ({ route }) => {
     >
       <Formik
         initialValues={{
-          ...ThroatChestSymptomsQuestions.initialFormValues(),
+          ...ThroatChestSymptomsQuestions.getInitialFormValues(),
         }}
         onSubmit={onSubmit}
-        validationSchema={registerSchema}
+        validationSchema={validationSchema}
       >
         {(formikProps) => {
           return (

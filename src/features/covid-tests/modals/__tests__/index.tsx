@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import CovidTestListOnboardingModal from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
+import { CovidTestListOnboardingModal } from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import { fireEvent, render } from '@testing-library/react-native';
 import * as React from 'react';

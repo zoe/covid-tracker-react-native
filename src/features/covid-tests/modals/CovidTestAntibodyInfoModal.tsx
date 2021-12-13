@@ -29,7 +29,7 @@ const AntibodyInformation = ({ antibody }: IAntibodyInformationProps) => {
 export const CovidTestAntibodyInfoModal: React.FC<IProps> = (props) => {
   const footerChildren = React.useMemo(
     () => <BrandedButton onPress={props.onRequestClose}>{i18n.t('ok')}</BrandedButton>,
-    [props.onRequestClose, i18n.t('ok')],
+    [props.onRequestClose],
   );
 
   return (

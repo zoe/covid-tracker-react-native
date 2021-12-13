@@ -277,10 +277,10 @@ export default function LongCovidQuestionScreen({ route }: IProps) {
     <Screen backgroundColor={colors.backgroundSecondary} testID="long-covid-question-screen">
       <Formik
         initialValues={{
-          ...LongCovidQuestionScreen.initialFormValues(),
+          ...LongCovidQuestionScreen.getInitialFormValues(),
         }}
         onSubmit={onSubmit}
-        validationSchema={LongCovidQuestionScreen.schema}
+        validationSchema={LongCovidQuestionScreen.createValidationSchema}
       >
         {(props: FormikProps<ILongCovid>) => {
           return (
@@ -311,9 +311,9 @@ export default function LongCovidQuestionScreen({ route }: IProps) {
   );
 }
 
-LongCovidQuestionScreen.initialFormValues = (): ILongCovid => longCovidQuestionPageOneDataInitialState;
+LongCovidQuestionScreen.getInitialFormValues = (): ILongCovid => longCovidQuestionPageOneDataInitialState;
 
-LongCovidQuestionScreen.schema = () => validations;
+LongCovidQuestionScreen.createValidationSchema = () => validations;
 
 const styles = StyleSheet.create({
   bullet: {

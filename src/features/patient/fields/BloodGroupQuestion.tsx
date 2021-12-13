@@ -44,13 +44,13 @@ export function BloodGroupQuestion({ formikProps }: IProps) {
   );
 }
 
-BloodGroupQuestion.initialFormValues = (): IBloodGroupData => {
+BloodGroupQuestion.getInitialFormValues = (): IBloodGroupData => {
   return {
     bloodGroup: '',
   };
 };
 
-BloodGroupQuestion.schema = () => {
+BloodGroupQuestion.createValidationSchema = () => {
   return Yup.object().shape({
     bloodGroup: Yup.string().required(),
   });

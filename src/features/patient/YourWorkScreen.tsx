@@ -144,7 +144,7 @@ export default class YourWorkScreen extends React.Component<TYourWorkProps, TSta
     return infos;
   };
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     hasPatientInteraction: Yup.string().when(['isHealthcareStaff', 'isCarer'], {
       is: (isHealthcareStaff, isCarer) =>
         isHealthcareStaff === EHealthCareStaffOptions.DOES_INTERACT || isCarer === 'yes',
@@ -257,7 +257,7 @@ export default class YourWorkScreen extends React.Component<TYourWorkProps, TSta
 
     return (
       <Screen profile={patientCoordinator.patientData?.patientState?.profile} testID="your-work-screen">
-        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.registerSchema}>
+        <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
           {(formikProps) => {
             const {
               isHealthcareStaff,

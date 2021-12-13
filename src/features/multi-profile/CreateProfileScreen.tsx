@@ -26,7 +26,7 @@ type TProps = {
 };
 
 export default class CreateProfileScreen extends React.Component<TProps> {
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     name: Yup.string().required().max(20, i18n.t('profile-name-too-long')),
   });
 
@@ -50,7 +50,7 @@ export default class CreateProfileScreen extends React.Component<TProps> {
           validateOnMount
           initialValues={initialFormValues}
           onSubmit={this.onSubmit}
-          validationSchema={this.registerSchema}
+          validationSchema={this.validationSchema}
         >
           {(formikProps) => {
             return (

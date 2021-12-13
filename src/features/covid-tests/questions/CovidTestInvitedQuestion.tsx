@@ -22,13 +22,13 @@ interface IProps {
   test?: TCovidTest;
 }
 
-interface ICovidTestInvitedQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (test?: TCovidTest) => Data;
-  schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<TCovidTest>;
+interface ICovidTestInvitedQuestion extends React.FC<IProps> {
+  createDTO: (data: ICovidTestInvitedData) => Partial<TCovidTest>;
+  createValidationSchema: () => Yup.ObjectSchema;
+  getInitialFormValues: (test?: TCovidTest) => ICovidTestInvitedData;
 }
 
-export const CovidTestInvitedQuestion: ICovidTestInvitedQuestion<IProps, ICovidTestInvitedData> = (props: IProps) => {
+export const CovidTestInvitedQuestion: ICovidTestInvitedQuestion = (props: IProps) => {
   const { formikProps } = props;
 
   return isGBCountry() ? (
@@ -58,7 +58,7 @@ export const CovidTestInvitedQuestion: ICovidTestInvitedQuestion<IProps, ICovidT
   );
 };
 
-CovidTestInvitedQuestion.initialFormValues = (test?: TCovidTest): ICovidTestInvitedData => {
+CovidTestInvitedQuestion.getInitialFormValues = (test?: TCovidTest): ICovidTestInvitedData => {
   function getInvitedToTest() {
     if (test?.id) {
       if (test.invited_to_test === null) {
@@ -85,7 +85,7 @@ CovidTestInvitedQuestion.initialFormValues = (test?: TCovidTest): ICovidTestInvi
   };
 };
 
-CovidTestInvitedQuestion.schema = () => {
+CovidTestInvitedQuestion.createValidationSchema = () => {
   return isGBCountry()
     ? Yup.object().shape({
         bookedViaGov: Yup.string().when(['mechanism', 'invitedToTest'], {

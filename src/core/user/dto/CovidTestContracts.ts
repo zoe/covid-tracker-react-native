@@ -1,30 +1,33 @@
-import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
+import {
+  ECovidTestMechanismOptions,
+  ECovidTestOmicronStatusOptions,
+  ECovidTestResultOptions,
+} from '@covid/core/user/dto/UserAPIContracts';
 
 export type TCovidTest = {
-  id: string;
-  version: string;
-  patient: string;
-  type: ECovidTestType;
-
-  result: string | null;
-  dualAntibodyResult: string;
-  mechanism: ECovidTestMechanismOptions;
-
-  invited_to_test: boolean;
-  booked_via_gov: boolean;
-  trained_worker: string;
-  test_performed_by: string;
-  antibody_type_check: string | null;
   anti_n: string | null;
   anti_s: string | null;
+  antibody_type_check: string | null;
+  booked_via_gov: boolean;
+  date_taken_between_end: string;
+  date_taken_between_start: string;
+  date_taken_specific: string;
+  days_in_fridge: number | null;
+  dualAntibodyResult: string;
+  id: string;
+  invited_to_test: boolean;
+  is_rapid_test: boolean;
   location: string;
   location_other: string;
-  date_taken_specific: string;
-  date_taken_between_start: string;
-  date_taken_between_end: string;
-  days_in_fridge: number | null;
+  mechanism: ECovidTestMechanismOptions;
+  omicron_status: ECovidTestOmicronStatusOptions | null;
+  patient: string;
+  result: ECovidTestResultOptions | null;
+  test_performed_by: string;
   time_of_test: string;
-  is_rapid_test: boolean;
+  trained_worker: string;
+  type: ECovidTestType;
+  version: string;
 };
 
 export enum ECovidTestType {

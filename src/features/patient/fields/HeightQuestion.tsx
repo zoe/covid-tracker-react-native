@@ -18,7 +18,7 @@ export interface IHeightData {
 }
 
 interface IFCWithStatic<P> extends React.FC<P> {
-  initialFormValues: () => IHeightData;
+  getInitialFormValues: () => IHeightData;
 }
 
 interface IProps {
@@ -119,7 +119,7 @@ export const HeightQuestion: IFCWithStatic<IProps> = ({ formikProps }) => {
   );
 };
 
-HeightQuestion.initialFormValues = () => {
+HeightQuestion.getInitialFormValues = () => {
   const config = localisationService.getConfig();
   return {
     feet: '',

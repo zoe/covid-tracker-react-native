@@ -9,14 +9,14 @@ import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';
 
 export interface ISymptomQuestions<P, Data> extends React.FC<P> {
-  initialFormValues: (defaultTemperatureUnit?: string) => Data;
-  schema: () => Yup.ObjectSchema;
+  getInitialFormValues: (defaultTemperatureUnit?: string) => Data;
+  createValidationSchema: () => Yup.ObjectSchema;
   createAssessment: (data: Data, param?: any) => Partial<TAssessmentInfosRequest>;
 }
 
 export interface IDoseSymptomQuestions<P, Data> extends React.FC<P> {
-  initialFormValues: () => Data;
-  schema: () => Yup.ObjectSchema;
+  getInitialFormValues: () => Data;
+  createValidationSchema: () => Yup.ObjectSchema;
   createDoseSymptoms: (data: Data, param?: any) => Partial<TDoseSymptomsRequest>;
 }
 

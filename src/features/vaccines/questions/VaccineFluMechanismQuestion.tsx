@@ -11,7 +11,7 @@ interface IProps {
 }
 
 interface IVaccineFluMechanismQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (vaccine?: TVaccineRequest) => Partial<Data>;
+  getInitialFormValues: (vaccine?: TVaccineRequest) => Partial<Data>;
 }
 
 const mechanismOptions = [
@@ -34,7 +34,7 @@ export const VaccineFluMechanismQuestion: IVaccineFluMechanismQuestion<IProps, I
   );
 };
 
-VaccineFluMechanismQuestion.initialFormValues = (vaccine?: TVaccineRequest): Partial<IVaccineDoseData> => {
+VaccineFluMechanismQuestion.getInitialFormValues = (vaccine?: TVaccineRequest): Partial<IVaccineDoseData> => {
   return {
     vaccineMechanism: vaccine?.mechanism,
   };

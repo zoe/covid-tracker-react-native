@@ -131,14 +131,14 @@ export const DiabetesOralMedsQuestion: IFormikDiabetesInputFC<IProps, IDiabetesO
   );
 };
 
-DiabetesOralMedsQuestion.initialFormValues = (): IDiabetesOralMedsData => {
+DiabetesOralMedsQuestion.getInitialFormValues = (): IDiabetesOralMedsData => {
   return {
     diabetesOralMeds: [],
     diabetesOralOtherMedicationNotListed: false,
   };
 };
 
-DiabetesOralMedsQuestion.schema = () => {
+DiabetesOralMedsQuestion.createValidationSchema = () => {
   return Yup.object().shape({
     diabetesOralMeds: Yup.array<string>().when('diabetesTreatmentOtherOral', {
       is: (val: boolean) => val,

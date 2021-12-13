@@ -45,7 +45,7 @@ const initialFormValues = {
   useApproximateDate: undefined,
 } as IPingdemicData;
 
-const ValidationSchema = () => {
+const createValidationSchema = () => {
   return Yup.object().shape({
     appActiveWithBluetooth: Yup.string().when('haveApp', {
       is: 'yes',
@@ -132,7 +132,7 @@ export const PingdemicScreen: React.FC<TProps> = ({ route }) => {
   const renderDate = (formikProps: FormikProps<IPingdemicData>) =>
     formikProps.values.askedByApp === 'yes' ? (
       <CovidTestDateQuestion
-        dateChangeCallback={() => formikProps.validateForm()}
+        dateChangeCallback={formikProps.validateForm}
         formikProps={formikProps as FormikProps<ICovidTestDateData>}
         label={i18n.t('pingdemic.dates')}
       />
@@ -191,7 +191,7 @@ export const PingdemicScreen: React.FC<TProps> = ({ route }) => {
         validateOnMount
         initialValues={initialFormValues}
         onSubmit={onSubmit}
-        validationSchema={ValidationSchema()}
+        validationSchema={createValidationSchema()}
       >
         {(formikProps: FormikProps<IPingdemicData>) => {
           return (

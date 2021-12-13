@@ -1,7 +1,9 @@
 import { chevronRight, pending, tick } from '@assets';
+import { Tag } from '@covid/components';
 import { RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { isOmicronQuestionEnabled } from '@covid/features/covid-tests/questions';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
@@ -14,21 +16,23 @@ type TProps = {
   testID: string;
 };
 
-export const CovidTestRow: React.FC<TProps> = ({ item, testID }) => {
+export const CovidTestRow: React.FC<TProps> = (props: TProps) => {
   const testResult = React.useMemo(() => {
-    if (item.result) {
-      return item.result;
+    if (props.item.result) {
+      return props.item.result;
     }
-    if (item.anti_n) {
-      return item.anti_n === 'positive' || item.anti_s === 'positive' ? 'positive' : item.anti_n;
+    if (props.item.anti_n) {
+      return props.item.anti_n === 'positive' || props.item.anti_s === 'positive' ? 'positive' : props.item.anti_n;
     }
     return 'waiting';
-  }, [item.result, item.anti_n, item.anti_s]);
+  }, [props.item.result, props.item.anti_n, props.item.anti_s]);
 
   const formatTestResult = (result: string) => {
     switch (result) {
       case 'positive':
-        return i18n.t('covid-test-list.positive');
+        return props.item.omicron_status === 'yes_suspected' || props.item.omicron_status === 'yes_confirmed'
+          ? i18n.t('covid-test-list.positive-omicron')
+          : i18n.t('covid-test-list.positive');
       case 'negative':
         return i18n.t('covid-test-list.negative');
       case 'failed':
@@ -58,16 +62,27 @@ export const CovidTestRow: React.FC<TProps> = ({ item, testID }) => {
     )} - ${formatDateString(test.date_taken_between_end)}`;
   };
 
+  const omicronQuestionEnabled = isOmicronQuestionEnabled(
+    props.item.mechanism,
+    props.item.is_rapid_test,
+    props.item.result,
+    new Date(props.item.date_taken_specific),
+    new Date(props.item.date_taken_between_end),
+  );
+
   return (
     <TouchableOpacity
-      onPress={() => assessmentCoordinator.goToAddEditTest(item)}
-      style={styles.itemTouchable}
-      testID={testID}
+      onPress={() => assessmentCoordinator.goToAddEditTest(props.item)}
+      style={styles.item}
+      testID={props.testID}
     >
       <Image source={getRowIcon(testResult)} style={styles.tick} />
-      <RegularText style={[testResult === 'waiting' && styles.pendingText]}>{formatTestDate(item)}</RegularText>
-      <View style={{ flex: 1 }} />
-      <RegularText style={[testResult === 'waiting' && styles.pendingText]}>{formatTestResult(testResult)}</RegularText>
+      <RegularText style={testResult === 'waiting' && styles.pendingText}>{formatTestDate(props.item)}</RegularText>
+      {omicronQuestionEnabled && !props.item.omicron_status ? (
+        <Tag color={colors.accent} style={styles.marginLeft} text={i18n.t('covid-test-list.update')} />
+      ) : null}
+      <View style={styles.flex} />
+      <RegularText style={testResult === 'waiting' && styles.pendingText}>{formatTestResult(testResult)}</RegularText>
       <Image source={chevronRight} style={styles.chevron} />
     </TouchableOpacity>
   );
@@ -79,10 +94,16 @@ const styles = StyleSheet.create({
     marginLeft: sizes.xxs,
     width: 12,
   },
-  itemTouchable: {
+  flex: {
+    flex: 1,
+  },
+  item: {
     alignItems: 'center',
     flexDirection: 'row',
     paddingVertical: sizes.s,
+  },
+  marginLeft: {
+    marginLeft: sizes.s,
   },
   pendingText: {
     color: colors.secondary,

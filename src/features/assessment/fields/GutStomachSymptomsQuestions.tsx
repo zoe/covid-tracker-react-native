@@ -46,7 +46,7 @@ export const GutStomachSymptomsQuestions: ISymptomQuestions<TProps, TGutStomachS
   );
 };
 
-GutStomachSymptomsQuestions.initialFormValues = (): TGutStomachSymptomsData => {
+GutStomachSymptomsQuestions.getInitialFormValues = (): TGutStomachSymptomsData => {
   return {
     abdominalPain: false,
     diarrhoea: false,
@@ -55,7 +55,7 @@ GutStomachSymptomsQuestions.initialFormValues = (): TGutStomachSymptomsData => {
   };
 };
 
-GutStomachSymptomsQuestions.schema = () => {
+GutStomachSymptomsQuestions.createValidationSchema = () => {
   return Yup.object();
 };
 

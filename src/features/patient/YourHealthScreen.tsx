@@ -90,7 +90,7 @@ export default class YourHealthScreen extends React.Component<TProps, TState> {
     };
   }
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     cancerType: Yup.string().when('hasCancer', {
       is: (value) => isUSCountry() && value && value === 'yes',
       then: Yup.string().required(),
@@ -237,19 +237,19 @@ export default class YourHealthScreen extends React.Component<TProps, TState> {
         <Formik
           initialValues={{
             ...initialFormValues,
-            ...BloodPressureMedicationQuestion.initialFormValues(),
-            ...AtopyQuestions.initialFormValues(),
-            ...DiabetesQuestions.initialFormValues(),
-            ...BloodGroupQuestion.initialFormValues(),
+            ...BloodPressureMedicationQuestion.getInitialFormValues(),
+            ...AtopyQuestions.getInitialFormValues(),
+            ...DiabetesQuestions.getInitialFormValues(),
+            ...BloodGroupQuestion.getInitialFormValues(),
           }}
           onSubmit={this.onSubmit}
           validationSchema={() => {
-            let schema = this.registerSchema;
-            schema = schema.concat(BloodGroupQuestion.schema());
+            let validationSchema = this.validationSchema;
+            validationSchema = validationSchema.concat(BloodGroupQuestion.createValidationSchema());
             if (this.state.showDiabetesQuestion) {
-              schema = schema.concat(DiabetesQuestions.schema());
+              validationSchema = validationSchema.concat(DiabetesQuestions.createValidationSchema());
             }
-            return schema;
+            return validationSchema;
           }}
         >
           {(formikProps) => {

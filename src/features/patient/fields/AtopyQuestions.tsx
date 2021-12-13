@@ -16,7 +16,7 @@ interface IProps {
 }
 
 export class AtopyQuestions extends React.Component<IProps, object> {
-  static initialFormValues = () => {
+  static getInitialFormValues = () => {
     return {
       hasAsthma: 'no',
       hasEczema: 'no',

@@ -78,7 +78,7 @@ export default class PreviousExposureScreen extends React.Component<TProps, TSta
     this.state = initialState;
   }
 
-  registerSchema = Yup.object().shape({
+  validationSchema = Yup.object().shape({
     pastSymptomsChanged: Yup.string().when('stillHavePastSymptoms', {
       is: 'yes',
       then: Yup.string().required(),
@@ -158,7 +158,7 @@ export default class PreviousExposureScreen extends React.Component<TProps, TSta
           validateOnChange
           initialValues={initialFormValues}
           onSubmit={this.onSubmit}
-          validationSchema={this.registerSchema}
+          validationSchema={this.validationSchema}
         >
           {(formikProps) => {
             return (
