@@ -1,5 +1,5 @@
 import { notificationReminders } from '@assets';
-import { EFeaturedContentType, FeaturedContentList, SchoolNetworks, StudyCard } from '@covid/components';
+import { EFeaturedContentType, FeaturedContentList, SchoolNetworks } from '@covid/components';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
@@ -17,12 +17,10 @@ import { appCoordinator } from '@covid/features/AppCoordinator';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { CompactHeader } from '@covid/features/dashboard/CompactHeader';
 import { ExpandedHeader } from '@covid/features/dashboard/ExpandedHeader';
-import { getDietStudyDoctorImage, getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import { useStartReconsent } from '@covid/features/wider-health-studies/hooks/useStartReconsent';
-import i18n from '@covid/locale/i18n';
 import { pushNotificationService } from '@covid/services';
-import { colors, sizes, styling } from '@covid/themes';
+import { sizes, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
@@ -111,7 +109,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
         <UKEstimatedCaseCard onPress={onMoreDetails} />
 
-        {startupInfo?.show_mh_insight ? (
+        {/* {startupInfo?.show_mh_insight ? (
           <StudyCard
             doctorLocation={i18n.t('mental-health.doctor-location')}
             doctorName={i18n.t('mental-health.doctor-name')}
@@ -122,11 +120,11 @@ export function DashboardScreen({ navigation, route }: IProps) {
             tagColor={colors.coral.main.bgColor}
             title={i18n.t('mental-health-playback.results-ready')}
           />
-        ) : null}
+        ) : null} */}
 
         <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
 
-        {startupInfo?.show_diet_score ? (
+        {/* {startupInfo?.show_diet_score ? (
           <StudyCard
             showQuotes
             doctorLocation={i18n.t('diet-study.doctor-location')}
@@ -138,7 +136,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
             tagColor="blue"
             title={i18n.t('diet-study.results-ready')}
           />
-        ) : null}
+        ) : null} */}
 
         <ShareVaccineCard screenName="Dashboard" />
 
