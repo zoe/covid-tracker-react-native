@@ -92,9 +92,9 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   return (
     <CollapsibleHeaderScrollView compactHeader={compactHeader} config={headerConfig} expandedHeader={expandedHeader}>
-      <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
-
       <View style={styles.calloutContainer}>
+        <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
+
         {shouldShowReminders ? (
           <ExternalCallout
             aspectRatio={1244.0 / 368.0}
