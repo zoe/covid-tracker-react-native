@@ -92,6 +92,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   return (
     <CollapsibleHeaderScrollView compactHeader={compactHeader} config={headerConfig} expandedHeader={expandedHeader}>
+      <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
+
       <View style={styles.calloutContainer}>
         {shouldShowReminders ? (
           <ExternalCallout
@@ -121,8 +123,6 @@ export function DashboardScreen({ navigation, route }: IProps) {
             title={i18n.t('mental-health-playback.results-ready')}
           />
         ) : null} */}
-
-        <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
 
         {/* {startupInfo?.show_diet_score ? (
           <StudyCard
