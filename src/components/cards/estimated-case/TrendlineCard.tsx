@@ -81,6 +81,16 @@ export function TrendlineCard(props: IProps) {
         <DeltaTag change={localTrendline.delta} style={!props.isSharing ? styles.alignCenter : styles.deltaTag} />
       ) : null}
 
+      <Text
+        inverted
+        colorPalette="uiDark"
+        colorShade="dark"
+        style={[styles.flex, styles.marginTop]}
+        textClass="pSmallLight"
+      >
+        {i18n.t('trendline.data-timeframe')}
+      </Text>
+
       {!props.isSharing ? (
         <ShareButton label={i18n.t('dashboard.trendline-card.share-cta')} onPress={onPressShare} />
       ) : null}
@@ -104,6 +114,9 @@ const styles = StyleSheet.create({
   },
   marginRight: {
     marginRight: sizes.s,
+  },
+  marginTop: {
+    marginTop: sizes.m,
   },
   touchableChart: {
     marginTop: sizes.m,

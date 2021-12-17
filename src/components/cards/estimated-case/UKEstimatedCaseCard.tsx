@@ -28,6 +28,7 @@ export function UKEstimatedCaseCard({ onPress }: IProps) {
     <EstimatedCaseCard
       ctaLabel={i18n.t('estimated-cases-card.cta')}
       ctaOnPress={onPress}
+      description={i18n.t('estimated-cases-card.description')}
       leftMetric={dailyCases}
       leftMetricLabel={i18n.t('estimated-cases-card.daily')}
       primaryLabel={i18n.t('estimated-cases-card.covid-in-the-uk')}
