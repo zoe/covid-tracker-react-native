@@ -1114,14 +1114,16 @@
     "cta": false,
     "active-covid-cases": false,
     "active-covid-cases-subheader": false,
-    "active-cases-in-your-area": false
+    "active-cases-in-your-area": false,
+    "data-timeframe": false
   },
   "estimated-cases-card": {
     "covid-in-the-uk": false,
     "estimated-cases": "Casos estimados",
     "daily": "Nuevos casos diarios",
     "active": "Casos activos",
-    "cta": "Más detalles"
+    "cta": "Más detalles",
+    "description": false
   },
   "covid-cases-map": {
     "covid-in-x": "covid på {{location}}",

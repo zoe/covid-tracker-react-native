@@ -107,9 +107,8 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
         {showTrendline ? <TrendlineCard onPress={appCoordinator.goToTrendline} /> : null}
 
-        <EstimatedCasesMapCard />
-
         <UKEstimatedCaseCard onPress={onMoreDetails} />
+        <EstimatedCasesMapCard />
 
         {/* {startupInfo?.show_mh_insight ? (
           <StudyCard

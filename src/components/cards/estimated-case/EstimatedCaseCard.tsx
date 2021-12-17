@@ -15,6 +15,7 @@ interface IProps {
   rightMetricLabel: string;
   ctaLabel: string;
   ctaOnPress: VoidFunction;
+  description: string;
 }
 
 export function EstimatedCaseCard({
@@ -26,6 +27,7 @@ export function EstimatedCaseCard({
   rightMetricLabel,
   ctaLabel,
   ctaOnPress,
+  description,
 }: IProps) {
   const onPress = () => {
     Analytics.track(events.ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED);
@@ -63,6 +65,11 @@ export function EstimatedCaseCard({
           </Text>
         </View>
       </View>
+      <View style={styles.description}>
+        <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
+          {description}
+        </Text>
+      </View>
 
       <View>
         <TouchableOpacity onPress={onPress} style={{ alignItems: 'center', flexDirection: 'row' }}>
@@ -83,6 +90,10 @@ export function EstimatedCaseCard({
 }
 
 const styles = StyleSheet.create({
+  description: {
+    marginBottom: sizes.xl,
+  },
+
   detailsButton: {
     backgroundColor: 'transparent',
     borderColor: colors.purple,
@@ -114,7 +125,7 @@ const styles = StyleSheet.create({
 
   metricRow: {
     flexDirection: 'row',
-    marginBottom: sizes.xl,
+    marginBottom: sizes.xs,
     marginVertical: sizes.l,
     width: '100%',
   },

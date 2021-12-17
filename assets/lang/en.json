@@ -1110,17 +1110,19 @@
     "cta": "Share",
     "active-covid-cases": "Active COVID cases in {{location}}",
     "active-covid-cases-subheader": "This graph shows you daily cases smoothed over 14 days",
-    "active-cases-in-your-area": "Active cases in your area"
+    "active-cases-in-your-area": "Active cases in your area",
+    "data-timeframe": "These are daily symptomatic COVID cases, based on PCR and LFT test data from up to 2 days ago"
   },
   "estimated-cases-card": {
     "covid-in-the-uk": "COVID in the UK",
-    "estimated-cases": "Estimated cases",
+    "estimated-cases": "Estimated symptomatic cases",
     "daily": "Daily new cases",
     "active": "Active cases",
-    "cta": "More details"
+    "cta": "More details",
+    "description": "based on PCR and LFT test data from up to 2 days ago"
   },
   "covid-cases-map": {
-    "covid-in-x": "Proportion of cases in {{location}}",
+    "covid-in-x": "Case rate in {{location}}",
     "current-estimates": "Colours in this map represent daily cases per million people smoothed over 14 days",
     "share": "Share your map",
     "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
