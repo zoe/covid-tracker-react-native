@@ -16,6 +16,7 @@ import { Root } from 'native-base';
 import * as React from 'react';
 import { Dimensions, LogBox } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { ErrorBoundaryCatcher } from './core/ErrorBoundaryCatcher';
 
 const Stack = createStackNavigator<TScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -77,19 +78,21 @@ export default function CovidApp() {
   }, []);
 
   return (
-    <Root>
-      <MentalHealthPlaybackModal
-        onRequestClose={() => dispatch(appActions.setModalMentalHealthPlaybackVisible(false))}
-        visible={app.modalMentalHealthPlaybackVisible}
-      />
-      <NavigationContainer linking={linking} onStateChange={NavigatorService.handleStateChange} ref={ref}>
-        <Stack.Navigator headerMode="none" initialRouteName="Main" mode="modal">
-          <Stack.Screen component={DrawerNavigator} name="Main" />
-          <Stack.Screen component={VaccineListMissingModal} name="VaccineListMissingModal" options={optionsModal} />
-          <Stack.Screen component={VersionUpdateModal} name="VersionUpdateModal" options={optionsModal} />
-          <Stack.Screen component={ShareScreen} name="Share" options={optionsShareScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Root>
+    <ErrorBoundaryCatcher>
+      <Root>
+        <MentalHealthPlaybackModal
+          onRequestClose={() => dispatch(appActions.setModalMentalHealthPlaybackVisible(false))}
+          visible={app.modalMentalHealthPlaybackVisible}
+        />
+        <NavigationContainer linking={linking} onStateChange={NavigatorService.handleStateChange} ref={ref}>
+          <Stack.Navigator headerMode="none" initialRouteName="Main" mode="modal">
+            <Stack.Screen component={DrawerNavigator} name="Main" />
+            <Stack.Screen component={VaccineListMissingModal} name="VaccineListMissingModal" options={optionsModal} />
+            <Stack.Screen component={VersionUpdateModal} name="VersionUpdateModal" options={optionsModal} />
+            <Stack.Screen component={ShareScreen} name="Share" options={optionsShareScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Root>
+    </ErrorBoundaryCatcher>
   );
 }
