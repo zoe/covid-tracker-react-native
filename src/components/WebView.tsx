@@ -9,7 +9,18 @@ export class WebView extends React.Component<IProps, object> {
   private webview: NativeWebView | null;
 
   render() {
-    return <NativeWebView {...this.props} onMessage={this.onMessage} ref={this.refWebView} />;
+    // 19 Dec 2021: Set the minHeight, Opacity, and androidLayerType to avoid WebView crash:
+    // https://github.com/react-native-webview/react-native-webview/issues/1069
+    return (
+      <NativeWebView
+        {...this.props}
+        androidLayerType="software"
+        automaticallyAdjustContentInsets={false}
+        onMessage={this.onMessage}
+        ref={this.refWebView}
+        style={{ minHeight: 1, opacity: 0.99 }}
+      />
+    );
   }
 
   refWebView = (webview: NativeWebView) => {

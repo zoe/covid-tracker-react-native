@@ -5,13 +5,18 @@ import DietStudyPlaybackNavigator from '@covid/routes/DietStudyPlaybackNavigator
 import MentalHealthNavigator from '@covid/routes/MentalHealthNavigator';
 import MentalHealthPlaybackNavigator from '@covid/routes/MentalHealthPlaybackNavigator';
 import ReconsentNavigator from '@covid/routes/ReconsentNavigator';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import * as React from 'react';
+import { Platform } from 'react-native';
 
+// Fix Android bug where stack navigation during http load can cause error:
+// https://github.com/react-navigation/react-navigation/issues/9067
 const Stack = createStackNavigator<TScreenParamList>();
+const transitionPresets = Platform.OS === 'android' ? TransitionPresets.FadeFromBottomAndroid : {};
 
 const options = {
   headerShown: false,
+  transitionPresets,
 };
 
 export default function MainNavigator() {
