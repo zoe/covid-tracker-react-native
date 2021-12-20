@@ -71,13 +71,13 @@ export class LocalisationService implements ILocalisationService {
 
   async defaultCountryFromLocale() {
     const country = () => {
-      if (Localization.locale === 'en-GB') {
-        return 'GB';
+      if (Localization.locale === 'en-US') {
+        return 'US';
       }
       if (Localization.locale === 'sv-SE') {
         return 'SE';
       }
-      return 'US';
+      return 'GB';
     };
 
     await this.setUserCountry(country());

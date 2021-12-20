@@ -41,8 +41,6 @@ export default function Welcome1Screen({ navigation }: TProps) {
     return usMap;
   }, [isGBCountry, isSECountry, gbMap, svMap, usMap]);
 
-  const getFlagIcon = React.useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
-
   const onLoginPress = React.useCallback(() => navigation.navigate('Login', { terms: '' }), [navigation.navigate]);
 
   const onSelectCountryPress = React.useCallback(() => navigation.navigate('CountrySelect', {}), [navigation.navigate]);
@@ -59,7 +57,11 @@ export default function Welcome1Screen({ navigation }: TProps) {
         </ClickableText>
         <View style={styles.pipe} />
         <TouchableOpacity onPress={onSelectCountryPress} testID="select-country">
-          <Image source={getFlagIcon()} style={styles.flagIcon} testID={`flag-${LocalisationService.userCountry}`} />
+          <Image
+            source={getLocaleFlagIcon()}
+            style={styles.flagIcon}
+            testID={`flag-${LocalisationService.userCountry}`}
+          />
         </TouchableOpacity>
       </View>
 
