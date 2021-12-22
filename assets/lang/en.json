@@ -1113,6 +1113,13 @@
     "active-cases-in-your-area": "Active cases in your area",
     "data-timeframe": "These are daily symptomatic COVID cases, based on PCR and LFT test data from up to 2 days ago"
   },
+  "newly-symptomatic": {
+    "active-covid-cases": "Newly symptomatic contributors in {{location}}",
+    "active-covid-cases-subheader": "Daily percentage of contributors who report new symptoms, with or without a positive COVID test result",
+    "baseline-explanation": "Lowest recorded newly symptomatic rate (June 2021)",
+    "change-region": "Change region",
+    "current-explanation": "Newly symptomatic rate in {{location}}"
+  },
   "estimated-cases-card": {
     "covid-in-the-uk": "COVID in the UK",
     "estimated-cases": "Estimated symptomatic cases",

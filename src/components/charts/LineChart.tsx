@@ -5,9 +5,20 @@ import * as React from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
 
-interface IProps {
+type TDataSet = {
   data: any[];
+  strokeColor?: string;
+};
+
+interface IProps {
+  children?: React.ReactNode;
+  data?: any[];
+  datasets?: TDataSet[];
   height?: number;
+  strokeColor?: string;
+  tickValues?: number[];
+  useDefaultXTicks?: boolean;
+  useDefaulYTicks?: boolean;
   width?: number;
 }
 
@@ -21,11 +32,6 @@ const padding = {
 type TScale = 'linear' | 'time' | 'log' | 'sqrt';
 
 const scale: { x: TScale; y: TScale } = { x: 'time', y: 'linear' };
-
-const style = {
-  data: { stroke: colors.darkblue },
-};
-
 const yAxisTicksAmount = 5;
 
 const yAxisTickStepSizes = Array(10)
@@ -42,15 +48,21 @@ export function LineChart(props: IProps) {
   const [viewWidth, setViewWidth] = React.useState(0);
   const [viewHeight, setViewHeight] = React.useState(0);
 
-  const maxValue = React.useMemo(() => Math.max(...props.data.map((dataPoint) => dataPoint.y)), [props.data]);
+  const maxYValue = React.useMemo(() => {
+    const data = props.data || (props.datasets && props.datasets[0].data) || [];
+    return Math.max(...data.map((dataPoint) => dataPoint.y));
+  }, []);
 
   const tickValues = React.useMemo(() => {
-    const roughStepSize = maxValue / (yAxisTicksAmount - 1);
+    if (props.tickValues) {
+      return props.tickValues;
+    }
+    const roughStepSize = maxYValue / (yAxisTicksAmount - 1);
     const stepSize = yAxisTickStepSizes.find((number) => number > roughStepSize) || 1;
     return Array(yAxisTicksAmount)
       .fill(null)
       .map((_, i) => i * stepSize);
-  }, [maxValue]);
+  }, [props.tickValues, maxYValue]);
 
   const onLayoutWidth = React.useCallback(
     (event: LayoutChangeEvent) => setViewWidth(event.nativeEvent.layout.width),
@@ -65,6 +77,15 @@ export function LineChart(props: IProps) {
   const chartWidth = props.width || viewWidth;
   const chartHeight = props.height || viewHeight;
 
+  const datasets = props.data
+    ? [
+        {
+          data: props.data,
+          strokeColor: props.strokeColor,
+        },
+      ]
+    : props.datasets;
+
   return (
     <>
       {props.width ? null : <View onLayout={onLayoutWidth} style={styling.measureWidth} />}
@@ -77,9 +98,18 @@ export function LineChart(props: IProps) {
           theme={VictoryTheme.material}
           width={chartWidth}
         >
-          <VictoryAxis dependentAxis tickValues={tickValues} />
-          <VictoryAxis fixLabelOverlap tickFormat={tickFormat} />
-          <VictoryLine data={props.data} height={chartHeight} style={style} width={chartWidth} />
+          <VictoryAxis dependentAxis tickValues={props.useDefaulYTicks ? undefined : tickValues} />
+          <VictoryAxis fixLabelOverlap tickFormat={props.useDefaultXTicks ? undefined : tickFormat} />
+          {datasets?.map((dataset) => (
+            <VictoryLine
+              data={dataset.data}
+              height={chartHeight}
+              style={{
+                data: { stroke: dataset.strokeColor ?? colors.darkblue },
+              }}
+              width={chartWidth}
+            />
+          ))}
         </VictoryChart>
       ) : null}
     </>

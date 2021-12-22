@@ -4,6 +4,7 @@ import {
   IFeaturedContent,
   ITrendlineData,
   ITrendlineTimeSeriesData,
+  TNewlySymptomaticDataPoint,
 } from '@covid/core/content/dto/ContentAPIContracts';
 import { predictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { TRootState } from '@covid/core/state/root';
@@ -18,9 +19,10 @@ type TApiState = 'ready' | 'loading' | 'finished' | 'error';
 export type TContentState = {
   // Startup info
   infoApiState: TApiState;
-  startupInfo?: TStartupInfo;
-  personalizedLocalData?: TPersonalisedLocalData;
   localTrendline?: ITrendlineData;
+  newlySymptomaticChartData?: TNewlySymptomaticDataPoint[];
+  personalizedLocalData?: TPersonalisedLocalData;
+  startupInfo?: TStartupInfo;
 
   // Featured content
   featuredHome: IFeaturedContent[];
@@ -45,6 +47,7 @@ export const initialStateContent: TContentState = {
   featuredHome: [],
   featuredThankyou: [],
   infoApiState: 'ready',
+  newlySymptomaticChartData: [],
   todayDate: todaysDate(),
   ukMetricsApiState: 'ready',
 };
@@ -102,6 +105,12 @@ export const fetchLocalTrendline = createAsyncThunk<Promise<Partial<TContentStat
     } as Partial<TContentState>;
   },
 );
+
+export const fetchNewlySymptomaticData = createAsyncThunk('content/fetch_local_trend_line_omicron', async (): Promise<
+  TNewlySymptomaticDataPoint[]
+> => {
+  return contentService.getnewlySymptomaticChartData();
+});
 
 export const fetchFeaturedContent = createAsyncThunk('content/featured_content', async (): Promise<
   Partial<TContentState>
@@ -207,6 +216,11 @@ export const contentSlice = createSlice({
     // Trendline data
     [fetchLocalTrendline.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
       current.localTrendline = action.payload?.localTrendline;
+    },
+
+    // Omicron newly symptomatic data
+    [fetchNewlySymptomaticData.fulfilled.type]: (current, action: { payload: TNewlySymptomaticDataPoint[] }) => {
+      current.newlySymptomaticChartData = action.payload;
     },
   },
   initialState: initialStateContent,

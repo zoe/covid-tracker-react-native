@@ -1,4 +1,6 @@
+import { Text } from '@covid/components/typography';
 import Analytics from '@covid/core/Analytics';
+import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import * as React from 'react';
 import {
@@ -6,6 +8,7 @@ import {
   PanResponderGestureState,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -20,8 +23,8 @@ interface IProps {
   children?: React.ReactNode;
   enableBackdropDismiss?: boolean;
   footerChildren?: React.ReactNode;
-  headerChildren?: React.ReactNode;
   modalName: string;
+  onPressClose?: () => void;
   onRequestClose: () => void;
   showsVerticalScrollIndicator?: boolean;
   swipeDown?: TSwipeFunction;
@@ -42,6 +45,13 @@ const INSETS = {
   left: 0,
   right: -3,
   top: -3,
+};
+
+const hitSlop = {
+  bottom: 12,
+  left: 12,
+  right: 12,
+  top: 12,
 };
 
 const COLORS = ['#ffffff00', 'white'];
@@ -74,7 +84,18 @@ export default React.memo(function Modal(props: IProps) {
             <View style={[styles.view2, paddingStyle]}>
               <TouchableWithoutFeedback disabled={!props.enableBackdropDismiss}>
                 <View style={styles.view3}>
-                  {props.headerChildren ? <View style={styles.headerWrapper}>{props.headerChildren}</View> : null}
+                  {props.onPressClose ? (
+                    <TouchableOpacity
+                      hitSlop={hitSlop}
+                      onPress={props.onPressClose}
+                      style={styles.closeWrapper}
+                      testID="button-close-modal"
+                    >
+                      <Text inverted colorPalette="uiDark" colorShade="darker" style={styles.alignEnd} textClass="p">
+                        {i18n.t(`modal-close`)}
+                      </Text>
+                    </TouchableOpacity>
+                  ) : null}
                   <ScrollView
                     alwaysBounceVertical={false}
                     contentContainerStyle={styles.contentContainer}
@@ -120,15 +141,19 @@ export default React.memo(function Modal(props: IProps) {
 });
 
 const styles = StyleSheet.create({
+  alignEnd: {
+    alignSelf: 'flex-end',
+  },
+  closeWrapper: {
+    padding: CONTENT_SPACING,
+    paddingBottom: 0,
+  },
   contentContainer: {
     padding: CONTENT_SPACING - SCROLL_INDICATOR_OFFSET,
   },
   footerWrapper: {
     paddingBottom: CONTENT_SPACING,
     paddingHorizontal: CONTENT_SPACING,
-  },
-  headerWrapper: {
-    padding: CONTENT_SPACING / 2,
   },
   linearGradient: {
     backgroundColor: '#ffffff00',

@@ -1110,12 +1110,19 @@
     }
   },
   "trendline": {
-    "title": false,
-    "cta": false,
+    "active-cases-in-your-area": false,
     "active-covid-cases": false,
     "active-covid-cases-subheader": false,
-    "active-cases-in-your-area": false,
-    "data-timeframe": false
+    "cta": false,
+    "data-timeframe": false,
+    "title": false
+  },
+  "newly-symptomatic": {
+    "active-covid-cases": false,
+    "active-covid-cases-subheader": false,
+    "baseline-explanation": false,
+    "change-region": false,
+    "current-explanation": false
   },
   "estimated-cases-card": {
     "covid-in-the-uk": false,
