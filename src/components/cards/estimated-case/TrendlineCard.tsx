@@ -1,6 +1,7 @@
 import ChevronRight from '@assets/icons/ChevronRight';
 import { ShareButton } from '@covid/components/buttons';
 import { TrendlineChart } from '@covid/components/charts/TrendlineChart';
+import { ESharable } from '@covid/components/screens/share/types';
 import { Text } from '@covid/components/typography';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
@@ -38,7 +39,7 @@ export function TrendlineCard(props: IProps) {
     }
   }, []);
 
-  const onPressShare = React.useCallback(() => navigation.navigate('Share', { sharable: 'TRENDLINE' }), []);
+  const onPressShare = React.useCallback(() => navigation.navigate('Share', { sharable: ESharable.TRENDLINE }), []);
 
   return (
     <View style={styles.view}>

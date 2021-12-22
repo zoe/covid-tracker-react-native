@@ -79,11 +79,11 @@ export const ChangeRegionNewlySymptomaticModal = (props: TProps) => (
     {REGION_ITEMS.map((item: TRegionItem) => (
       <TouchableOpacity onPress={() => props.onChangeItem(item)} style={styles.touchable}>
         {item.key === props.selectedItem.key ? (
-          <Text inverted colorPalette="actionSecondary" colorShade="main" textClass="h4">
+          <Text inverted colorPalette="actionSecondary" colorShade="main" textClass="h5Regular">
             {item.label}
           </Text>
         ) : (
-          <Text inverted colorPalette="uiDark" colorShade="dark" textClass="h4">
+          <Text inverted colorPalette="uiDark" colorShade="dark" textClass="h5Regular">
             {item.label}
           </Text>
         )}

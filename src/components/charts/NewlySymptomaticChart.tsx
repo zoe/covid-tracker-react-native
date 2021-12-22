@@ -54,6 +54,7 @@ export function NewlySymptomaticChart(props: IProps) {
       datasets={datasets}
       height={props.height}
       strokeColor={CURRENT_COLOR}
+      tickFormatY={(tick: any) => `${tick}%`}
       tickValues={TICK_VALUES}
     />
   );

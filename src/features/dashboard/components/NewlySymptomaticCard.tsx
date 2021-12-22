@@ -1,5 +1,7 @@
 import { BrandedButton } from '@covid/components';
+import { ShareButton } from '@covid/components/buttons';
 import { BASELINE_COLOR, CURRENT_COLOR, NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomaticChart';
+import { ESharable } from '@covid/components/screens/share/types';
 import { Text, TextWithHighlight } from '@covid/components/typography';
 import {
   ChangeRegionNewlySymptomaticModal,
@@ -8,13 +10,24 @@ import {
 } from '@covid/features/dashboard/modals/ChangeRegionNewlySymptomaticModal';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 
-export function NewlySymptomaticCard() {
+type TProps = {
+  isSharing?: boolean;
+};
+
+export function NewlySymptomaticCard(props: TProps) {
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [selectedItem, setSelectedItem] = React.useState<TRegionItem>(LONDON_ITEM);
+
+  const onPressShare = React.useCallback(
+    () => navigation.navigate('Share', { sharable: ESharable.NEWLY_SYMPTOMATIC }),
+    [],
+  );
 
   const openModal = React.useCallback(() => {
     // Analytics.track(events.TRENDLINE_MORE_DETAILS_CLICKED);
@@ -56,7 +69,7 @@ export function NewlySymptomaticCard() {
         </Text>
       </View>
 
-      <BrandedButton onPress={openModal} style={styles.margin}>
+      <BrandedButton onPress={openModal} style={styles.marginTop}>
         {i18n.t('newly-symptomatic.change-region')}
       </BrandedButton>
 
@@ -66,6 +79,10 @@ export function NewlySymptomaticCard() {
         selectedItem={selectedItem}
         visible={modalVisible}
       />
+
+      {!props.isSharing ? (
+        <ShareButton label={i18n.t('dashboard.trendline-card.share-cta')} onPress={onPressShare} />
+      ) : null}
     </View>
   );
 }
@@ -74,11 +91,12 @@ const thickLineStyle: ViewStyle = {
   borderRadius: 4,
   height: 6,
   marginRight: sizes.xs,
+  // Can't use the sizes util as this doesn't contain the value 6
+  marginTop: 6,
   width: 16,
 };
 
 const explanationWrapper: ViewStyle = {
-  alignItems: 'center',
   flexDirection: 'row',
   paddingHorizontal: sizes.l,
 };
@@ -106,9 +124,6 @@ const styles = StyleSheet.create({
   },
   flex: {
     flex: 1,
-  },
-  margin: {
-    margin: sizes.l,
   },
   marginBottom: {
     marginBottom: sizes.m,

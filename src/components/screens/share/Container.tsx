@@ -2,45 +2,45 @@ import { TrendlineCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import ShareTimelineCard from '@covid/components/cards/ShareTimelineCard';
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
+import { NewlySymptomaticCard } from '@covid/features/dashboard/components/NewlySymptomaticCard';
 import * as React from 'react';
 
 import { SShareContainerView } from './styles';
-
-export type TSharable = 'MAP' | 'TRENDLINE' | 'VACCINES' | 'TIMELINE';
+import { ESharable } from './types';
 
 interface IProps {
-  sharable?: TSharable;
+  sharable: ESharable;
 }
 
-function ShareContainer({ sharable = 'MAP' }: IProps) {
-  const getSharable = () => {
-    switch (sharable) {
-      case 'MAP':
-        return (
-          <SShareContainerView>
-            <EstimatedCasesMapCard isSharing />
-          </SShareContainerView>
-        );
-      case 'TIMELINE':
-        return (
-          <SShareContainerView>
-            <ShareTimelineCard />
-          </SShareContainerView>
-        );
-      case 'TRENDLINE':
-        return (
-          <SShareContainerView>
-            <TrendlineCard isSharing />
-          </SShareContainerView>
-        );
-      case 'VACCINES':
-        return <ShareVaccineCard isSharing screenName="Share" />;
-      default:
-        return null;
-    }
-  };
-
-  return getSharable();
+export default function ShareContainer(props: IProps) {
+  switch (props.sharable) {
+    case ESharable.MAP:
+      return (
+        <SShareContainerView>
+          <EstimatedCasesMapCard isSharing />
+        </SShareContainerView>
+      );
+    case ESharable.TIMELINE:
+      return (
+        <SShareContainerView>
+          <ShareTimelineCard />
+        </SShareContainerView>
+      );
+    case ESharable.TRENDLINE:
+      return (
+        <SShareContainerView>
+          <TrendlineCard isSharing />
+        </SShareContainerView>
+      );
+    case ESharable.VACCINES:
+      return <ShareVaccineCard isSharing screenName="Share" />;
+    case ESharable.NEWLY_SYMPTOMATIC:
+      return (
+        <SShareContainerView>
+          <NewlySymptomaticCard isSharing />
+        </SShareContainerView>
+      );
+    default:
+      return null;
+  }
 }
-
-export default ShareContainer;

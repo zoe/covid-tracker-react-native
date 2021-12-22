@@ -62,7 +62,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 
   return (
     <CollapsibleHeaderScrollView compactHeader={compactHeader} config={headerConfig} expandedHeader={expandedHeader}>
-      <View style={styles.calloutContainer}>
+      <View style={styles.marginHorizontal}>
         <ShareVaccineCard screenName="DashboardUS" />
 
         {showDietStudyPlayback ? (
@@ -88,15 +88,15 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  calloutContainer: {
-    marginHorizontal: sizes.m,
-  },
   dietStudyImage: {
     aspectRatio: 1200 / 1266,
     height: undefined,
     marginVertical: sizes.xs,
     resizeMode: 'contain',
     width: '100%',
+  },
+  marginHorizontal: {
+    marginHorizontal: sizes.screenHorizontalPadding,
   },
   schoolModuleContainer: {
     height: 200,

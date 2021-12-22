@@ -3,6 +3,8 @@ import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 
+import { ESharable } from '../screens/share/types';
+
 interface IProps {
   screenName: string;
   isSharing?: boolean;
@@ -17,7 +19,7 @@ export function ShareVaccineCard({ screenName, isSharing = false }: IProps) {
       aspectRatio={1125 / 877}
       calloutID="shareVaccine"
       imageSource={shareVaccine}
-      postClicked={() => navigate('Share', { hideLabel: true, sharable: 'VACCINES' })}
+      postClicked={() => navigate('Share', { hideLabel: true, sharable: ESharable.VACCINES })}
       screenName={screenName}
     />
   ) : (
@@ -25,7 +27,7 @@ export function ShareVaccineCard({ screenName, isSharing = false }: IProps) {
       aspectRatio={311 / 135}
       calloutID="shareVaccineBanner"
       imageSource={shareVaccineBanner}
-      postClicked={() => navigate('Share', { hideLabel: true, sharable: 'VACCINES' })}
+      postClicked={() => navigate('Share', { hideLabel: true, sharable: ESharable.VACCINES })}
       screenName={screenName}
     />
   );

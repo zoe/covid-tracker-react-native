@@ -16,16 +16,17 @@ interface IProps {
   datasets?: TDataSet[];
   height?: number;
   strokeColor?: string;
+  tickFormatY?: any[] | ((tick: any, index: number, ticks: any[]) => string | number) | undefined;
   tickValues?: number[];
   useDefaultXTicks?: boolean;
-  useDefaulYTicks?: boolean;
+  useDefaultYTicks?: boolean;
   width?: number;
 }
 
 const padding = {
   bottom: 26,
   left: 48,
-  right: 0,
+  right: 6,
   top: 6,
 };
 
@@ -98,7 +99,11 @@ export function LineChart(props: IProps) {
           theme={VictoryTheme.material}
           width={chartWidth}
         >
-          <VictoryAxis dependentAxis tickValues={props.useDefaulYTicks ? undefined : tickValues} />
+          <VictoryAxis
+            dependentAxis
+            tickFormat={props.tickFormatY}
+            tickValues={props.useDefaultYTicks ? undefined : tickValues}
+          />
           <VictoryAxis fixLabelOverlap tickFormat={props.useDefaultXTicks ? undefined : tickFormat} />
           {datasets?.map((dataset) => (
             <VictoryLine
