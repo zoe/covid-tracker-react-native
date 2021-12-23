@@ -99,6 +99,7 @@ export default React.memo(function Modal(props: IProps) {
                   <ScrollView
                     alwaysBounceVertical={false}
                     contentContainerStyle={styles.contentContainer}
+                    overScrollMode="never"
                     scrollIndicatorInsets={INSETS}
                     showsVerticalScrollIndicator={props.showsVerticalScrollIndicator || false}
                     style={styles.scrollView}

@@ -61,6 +61,7 @@ export default function MHPGeneralScreen() {
             <ScrollView
               decelerationRate="fast"
               onScroll={onScroll}
+              overScrollMode="never"
               ref={scrollViewRef}
               scrollEventThrottle={80}
               snapToInterval={height}

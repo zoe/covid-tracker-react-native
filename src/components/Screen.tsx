@@ -57,6 +57,7 @@ function renderBody(props: IProps) {
     <ScrollView
       alwaysBounceVertical={false}
       contentContainerStyle={props.noPadding ? styling.flexGrow : styles.contentContainer}
+      overScrollMode="never"
       testID={`scroll-view-${props.testID || 'screen'}`}
     >
       {props.noKeyboardDismiss ? (

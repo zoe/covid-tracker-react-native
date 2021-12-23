@@ -10,7 +10,7 @@ import { ScrollView, Text, View } from 'react-native';
 const onSubmit = () => {};
 
 storiesOf('Text input', module).add('default', () => (
-  <ScrollView>
+  <ScrollView overScrollMode="never">
     <Formik
       initialValues={{
         input: '',
@@ -38,7 +38,7 @@ storiesOf('Text input', module).add('default', () => (
 ));
 
 storiesOf('Text input', module).add('multi-line', () => (
-  <ScrollView>
+  <ScrollView overScrollMode="never">
     <Formik
       initialValues={{
         input: '',
