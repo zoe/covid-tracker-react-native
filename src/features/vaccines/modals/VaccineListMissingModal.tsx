@@ -22,7 +22,7 @@ export const VaccineListMissingModal: React.FC<TProps> = ({ route }) => {
     const doses: TDose[] = route.params?.vaccine?.doses ?? [];
     const incompleteDoseIndex: number = doses.findIndex((dose: TDose) => {
       return (
-        (dose.date_taken_specific == null || dose.brand === null) && dose.vaccine_type !== EVaccineTypes.SEASONAL_FLU
+        (dose?.date_taken_specific == null || dose?.brand === null) && dose?.vaccine_type !== EVaccineTypes.SEASONAL_FLU
       );
     });
     if (incompleteDoseIndex > -1) {
