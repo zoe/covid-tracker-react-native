@@ -4,10 +4,12 @@ import {
   IFeaturedContent,
   ITrendlineData,
   ITrendlineTimeSeriesData,
+  TNewlySymptomaticDataPoint,
 } from '@covid/core/content/dto/ContentAPIContracts';
 import { predictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { TRootState } from '@covid/core/state/root';
 import { TActiveNotifications, TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { TRegionItem } from '@covid/features/dashboard/modals/ChangeRegionNewlySymptomaticModal';
 import { createAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 
@@ -18,9 +20,11 @@ type TApiState = 'ready' | 'loading' | 'finished' | 'error';
 export type TContentState = {
   // Startup info
   infoApiState: TApiState;
-  startupInfo?: TStartupInfo;
-  personalizedLocalData?: TPersonalisedLocalData;
   localTrendline?: ITrendlineData;
+  newlySymptomaticChartData?: TNewlySymptomaticDataPoint[];
+  personalizedLocalData?: TPersonalisedLocalData;
+  selectedRegionItem?: TRegionItem;
+  startupInfo?: TStartupInfo;
 
   // Featured content
   featuredHome: IFeaturedContent[];
@@ -45,6 +49,7 @@ export const initialStateContent: TContentState = {
   featuredHome: [],
   featuredThankyou: [],
   infoApiState: 'ready',
+  newlySymptomaticChartData: [],
   todayDate: todaysDate(),
   ukMetricsApiState: 'ready',
 };
@@ -103,6 +108,12 @@ export const fetchLocalTrendline = createAsyncThunk<Promise<Partial<TContentStat
   },
 );
 
+export const fetchNewlySymptomaticData = createAsyncThunk('content/fetch_local_trend_line_omicron', async (): Promise<
+  TNewlySymptomaticDataPoint[]
+> => {
+  return contentService.getnewlySymptomaticChartData();
+});
+
 export const fetchFeaturedContent = createAsyncThunk('content/featured_content', async (): Promise<
   Partial<TContentState>
 > => {
@@ -136,9 +147,13 @@ export const updateMenuNotificationsOnboardingSeen = createAction<boolean>(
   'content/menu_notifications_onboarding_seen',
 );
 export const updateShowOmicronModal = createAction<boolean>('content/show_omicron_modal');
+export const updateSelectedRegionItem = createAction<TRegionItem>('content/selected_region_item');
 
 export const contentSlice = createSlice({
   extraReducers: {
+    [updateSelectedRegionItem.type]: (current, action: PayloadAction<TRegionItem>) => {
+      current.selectedRegionItem = action.payload;
+    },
     [updateMenuNotificationsOnboardingSeen.type]: (current, action: PayloadAction<boolean>) => {
       if (current.startupInfo) {
         current.startupInfo!.menu_notifications_onboarding_seen = action.payload;
@@ -207,6 +222,11 @@ export const contentSlice = createSlice({
     // Trendline data
     [fetchLocalTrendline.fulfilled.type]: (current, action: { payload: Partial<TContentState> }) => {
       current.localTrendline = action.payload?.localTrendline;
+    },
+
+    // Omicron newly symptomatic data
+    [fetchNewlySymptomaticData.fulfilled.type]: (current, action: { payload: TNewlySymptomaticDataPoint[] }) => {
+      current.newlySymptomaticChartData = action.payload;
     },
   },
   initialState: initialStateContent,

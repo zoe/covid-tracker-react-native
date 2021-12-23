@@ -49,6 +49,9 @@ const setMechanism = (formValues: IAboutYourVaccineData, isChild: boolean) => {
 };
 
 const setBrand = (formValues: IAboutYourVaccineData) => {
+  if (!formValues) {
+    return null;
+  }
   if (formValues.vaccineType === EVaccineTypes.SEASONAL_FLU) {
     return null;
   }

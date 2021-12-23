@@ -7,8 +7,9 @@ import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/local
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import Constants from '@covid/utils/Constants';
+import csvtojson from 'csvtojson';
 
-import { TFeaturedContentResponse, TTrendlineResponse } from './dto/ContentAPIContracts';
+import { TFeaturedContentResponse, TNewlySymptomaticDataPoint, TTrendlineResponse } from './dto/ContentAPIContracts';
 
 export interface IContentService {
   localData?: TPersonalisedLocalData;
@@ -22,6 +23,7 @@ export interface IContentService {
   getFeaturedContent(): Promise<TFeaturedContentResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
   signUpForDiseaseResearchNewsletter(signup: boolean): Promise<void>;
+  getnewlySymptomaticChartData(): Promise<TNewlySymptomaticDataPoint[]>;
 }
 
 class ContentService implements IContentService {
@@ -117,6 +119,24 @@ class ContentService implements IContentService {
 
   public async getTrendlines(): Promise<TTrendlineResponse> {
     return contentApiClient.getTrendlines();
+  }
+
+  public async getnewlySymptomaticChartData(): Promise<TNewlySymptomaticDataPoint[]> {
+    // @todo: Change the part of the url from 'terraform-covid-website-data-stage' to 'terraform-covid-website-data'
+    const url =
+      'https://storage.googleapis.com/terraform-covid-website-data-stage/personalized_assets/latest_newly_sick_table.csv';
+    const result = await fetch(url);
+    const text = await result.text();
+    const json = await csvtojson({
+      noheader: false,
+      output: 'json',
+    }).fromString(text);
+    const chartData = json.map((item) => {
+      item.value = item.perc_users;
+      delete item.perc_users;
+      return item;
+    });
+    return chartData as TNewlySymptomaticDataPoint[];
   }
 
   public async getFeaturedContent(): Promise<TFeaturedContentResponse> {

@@ -26,12 +26,12 @@ type TCountry = {
 
 const countries: TCountry[] = [
   {
-    code: 'US',
-    source: usFlag,
-  },
-  {
     code: 'GB',
     source: gbFlag,
+  },
+  {
+    code: 'US',
+    source: usFlag,
   },
   {
     code: 'SE',

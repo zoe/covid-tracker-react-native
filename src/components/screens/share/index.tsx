@@ -12,14 +12,14 @@ import ShareContainer from './Container';
 import ShareLabel from './Label';
 import { SButtonView, SCloseContainerView, SContainerView, SContentView, SInnerContentView } from './styles';
 
-function ShareScreen() {
+export default function ShareScreen() {
   const navigation = useNavigation();
   const { height, width } = Dimensions.get('window');
   const { bottom, top } = useSafeAreaInsets();
   const viewRef = React.useRef<View>(null);
   const route: RouteProp<ScreenParamList, 'Share'> = useRoute();
-  const sharable = route?.params?.sharable;
-  const hideLabel = route?.params?.hideLabel;
+  const sharable = route.params.sharable;
+  const hideLabel = route.params.hideLabel;
   const label = route?.params?.label;
 
   const share = async () => {
@@ -46,5 +46,3 @@ function ShareScreen() {
     </SContainerView>
   );
 }
-
-export default ShareScreen;

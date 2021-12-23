@@ -230,7 +230,7 @@
     "delete-test-alert-text": "This information will be lost. Do you want to continue?",
     "question-mechanism": "What test did you have?",
     "picker-lateral": "Lateral flow test (Antigen)",
-    "picker-pcr": "PCR test (Antigen)",
+    "picker-pcr": "PCR test",
     "picker-finger-prick": "Finger-prick blood test (Antibody)",
     "picker-blood-draw": "Blood test, done using a needle (Antibody)",
     "picker-other": "Other, please specify",
@@ -287,7 +287,7 @@
       "title": "Types of tests",
       "lateral-flow-title": "Lateral flow test (Antigen)",
       "lateral-flow-description": "These are often referred to as rapid tests as they generally show results within 30 minutes.",
-      "pcr-title": "PCR test (Antigen)",
+      "pcr-title": "PCR test",
       "pcr-description": "These are sent away to a lab and often take between 24 hours to three days to return a result. PCR tests are able to detect an infected person even before they become infectious.",
       "finger-prick-title": "Finger-prick blood test (Antibody)",
       "finger-prick-description": "These are quick tests for detection of protective antibodies against COVID-19. In general, antibody testing is not recommended until at least 14 days after the onset of symptoms.",
@@ -1112,6 +1112,13 @@
     "active-covid-cases-subheader": "This graph shows you daily cases smoothed over 14 days",
     "active-cases-in-your-area": "Active cases in your area",
     "data-timeframe": "These are daily symptomatic COVID cases, based on PCR and LFT test data from up to 2 days ago"
+  },
+  "newly-symptomatic": {
+    "active-covid-cases": "Newly symptomatic contributors in {{location}}",
+    "active-covid-cases-subheader": "Daily percentage of contributors who report new symptoms, with or without a positive COVID test result",
+    "baseline-explanation": "Lowest recorded newly symptomatic rate (June 2021)",
+    "change-region": "Change region",
+    "current-explanation": "Newly symptomatic rate in {{location}}"
   },
   "estimated-cases-card": {
     "covid-in-the-uk": "COVID in the UK",

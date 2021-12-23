@@ -9,14 +9,15 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { fetchLocalTrendline, updateTodayDate } from '@covid/core/state/contentSlice';
+import { fetchLocalTrendline, fetchNewlySymptomaticData, updateTodayDate } from '@covid/core/state/contentSlice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
-import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
-import { CompactHeader } from '@covid/features/dashboard/CompactHeader';
-import { ExpandedHeader } from '@covid/features/dashboard/ExpandedHeader';
+import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/components/CollapsibleHeaderScrollView';
+import { CompactHeader } from '@covid/features/dashboard/components/CompactHeader';
+import { ExpandedHeader } from '@covid/features/dashboard/components/ExpandedHeader';
+import { NewlySymptomaticCard } from '@covid/features/dashboard/components/NewlySymptomaticCard';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import { useStartReconsent } from '@covid/features/wider-health-studies/hooks/useStartReconsent';
 import { pushNotificationService } from '@covid/services';
@@ -70,6 +71,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   React.useEffect(() => {
     if (appCoordinator.shouldShowTrendline()) {
+      dispatch(fetchNewlySymptomaticData());
       dispatch(fetchLocalTrendline());
       setShowTrendline(true);
     }
@@ -92,7 +94,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
 
   return (
     <CollapsibleHeaderScrollView compactHeader={compactHeader} config={headerConfig} expandedHeader={expandedHeader}>
-      <View style={styles.calloutContainer}>
+      <View style={styles.marginHorizontal}>
         <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
 
         {shouldShowReminders ? (
@@ -105,6 +107,7 @@ export function DashboardScreen({ navigation, route }: IProps) {
           />
         ) : null}
 
+        {showTrendline ? <NewlySymptomaticCard /> : null}
         {showTrendline ? <TrendlineCard onPress={appCoordinator.goToTrendline} /> : null}
 
         <UKEstimatedCaseCard onPress={onMoreDetails} />
@@ -148,15 +151,15 @@ export function DashboardScreen({ navigation, route }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  calloutContainer: {
-    marginHorizontal: sizes.m,
-  },
   dietStudyImage: {
     aspectRatio: 1200 / 1266,
     height: undefined,
     marginVertical: sizes.xs,
     resizeMode: 'contain',
     width: '100%',
+  },
+  marginHorizontal: {
+    marginHorizontal: sizes.screenHorizontalPadding,
   },
   marginVertical: {
     marginVertical: sizes.xs,

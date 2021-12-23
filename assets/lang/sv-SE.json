@@ -243,7 +243,7 @@
       "title": "Typer av test",
       "lateral-flow-title": "Snabbtest (lateral flow test)",
       "lateral-flow-description": "Dessa tester är antigentester och visar vanligtvis resultatet inom 30 minuter.",
-      "pcr-title": "PCR-test (antigen)",
+      "pcr-title": "PCR-test",
       "pcr-description": "Dessa skickas iväg till ett laboratorium för analys och det tar vanligtvis mellan ett och tre dygn att få resultatet. PCR-tester kan upptäcka att en person är infekterad även innan hen blir smittsam.",
       "finger-prick-title": "Fingerstick, blodtest (antikroppar)",
       "finger-prick-description": "Dessa är snabbtester som upptäcker skyddande antikroppar mot covid-19. I allmänhet rekommenderas inte antikroppstester förrän det gått minst 14 dagar efter påvisande av de första symtomen",
@@ -1110,12 +1110,19 @@
     }
   },
   "trendline": {
-    "title": false,
-    "cta": false,
+    "active-cases-in-your-area": false,
     "active-covid-cases": false,
     "active-covid-cases-subheader": false,
-    "active-cases-in-your-area": false,
-    "data-timeframe": false
+    "cta": false,
+    "data-timeframe": false,
+    "title": false
+  },
+  "newly-symptomatic": {
+    "active-covid-cases": false,
+    "active-covid-cases-subheader": false,
+    "baseline-explanation": false,
+    "change-region": false,
+    "current-explanation": false
   },
   "estimated-cases-card": {
     "covid-in-the-uk": false,

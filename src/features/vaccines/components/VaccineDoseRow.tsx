@@ -16,17 +16,23 @@ type TProps = {
   id: string;
 };
 
+const DOSE_UNKNOWN_LABEL = 'Unknown';
+
 export const VaccineDoseRow: React.FC<TProps> = (props) => {
   const formatVaccineDate = (dose: TDose) => {
     return moment(dose.date_taken_specific).format('MMM D, Y');
   };
 
-  const brand = (dose: TDose) => {
+  const displayBrand = (dose: TDose): string => {
+    // Error checking - dose should always be set here, but better to check.
+    if (!dose || !dose.brand) {
+      return DOSE_UNKNOWN_LABEL;
+    }
     if (dose.vaccine_type === EVaccineTypes.SEASONAL_FLU) {
       return i18n.t('vaccines.vaccine-list.flu-dose-row-name');
     }
 
-    return dose.brand ? vaccineBrandDisplayName[dose.brand] : 'Unknown';
+    return dose.brand ? vaccineBrandDisplayName[dose.brand] : DOSE_UNKNOWN_LABEL;
   };
 
   return (
@@ -36,7 +42,7 @@ export const VaccineDoseRow: React.FC<TProps> = (props) => {
       testID={props.testID}
     >
       <Image source={tick} style={styles.tick} />
-      <RegularText>{brand(props.dose)}</RegularText>
+      <RegularText>{displayBrand(props.dose)}</RegularText>
       <View style={{ flex: 1 }} />
       <RegularText>{formatVaccineDate(props.dose)}</RegularText>
       <Image source={chevronRight} style={styles.chevron} />

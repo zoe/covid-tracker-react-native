@@ -8,7 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 const ONBOARDING_SCREENS = [
@@ -18,17 +18,11 @@ const ONBOARDING_SCREENS = [
   require('@covid/features/covid-tests/assets/screen_4.gif'),
 ];
 
-const hitSlop = {
-  bottom: 12,
-  left: 12,
-  right: 12,
-  top: 12,
-};
-
 interface IProps {
+  onPressClose?: () => void;
   onRequestClose: () => void;
-  visible: boolean;
   patientId: string;
+  visible: boolean;
 }
 
 export function CovidTestListOnboardingModal(props: IProps) {
@@ -76,20 +70,6 @@ export function CovidTestListOnboardingModal(props: IProps) {
     setIndexAndGif(selectedIndex);
   }
 
-  const headerChildren = React.useMemo(
-    () => (
-      <TouchableOpacity
-        hitSlop={hitSlop}
-        onPress={closeAndUpdateStartupInfo}
-        style={styles.closeTouchable}
-        testID="button-close-modal"
-      >
-        <RegularText style={styles.closeText}>{i18n.t(`modal-close`)}</RegularText>
-      </TouchableOpacity>
-    ),
-    [closeAndUpdateStartupInfo],
-  );
-
   const footerChildren = React.useMemo(
     () => (
       <BrandedButton onPress={nextModalOrComplete} style={styles.button} testID="covid-test-modal-button">
@@ -104,8 +84,8 @@ export function CovidTestListOnboardingModal(props: IProps) {
   return (
     <Modal
       footerChildren={footerChildren}
-      headerChildren={headerChildren}
       modalName="CovidTestListOnboarding"
+      onPressClose={props.onPressClose || closeAndUpdateStartupInfo}
       onRequestClose={closeAndUpdateStartupInfo}
       swipeLeft={nextModalOrComplete}
       swipeRight={previousModal}
@@ -131,13 +111,6 @@ export function CovidTestListOnboardingModal(props: IProps) {
 const styles = StyleSheet.create({
   button: {
     paddingHorizontal: sizes.m,
-  },
-  closeText: {
-    color: colors.lightBrand,
-    fontWeight: '600',
-  },
-  closeTouchable: {
-    alignSelf: 'flex-end',
   },
   gif: {
     flex: 1,

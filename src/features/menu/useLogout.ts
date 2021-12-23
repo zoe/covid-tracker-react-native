@@ -13,6 +13,7 @@ export function useLogout(navigation: DrawerNavigationHelpers) {
   return function logout() {
     Analytics.track(events.LOGOUT);
     userService.logout();
+    // @todo: Reset more parts of the redux state
     dispatch(appActions.reset());
     dispatch(resetUser());
     dispatch(resetDiseasePreferences());

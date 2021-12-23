@@ -10,9 +10,9 @@ import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
-import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
-import { CompactHeader } from '@covid/features/dashboard/CompactHeader';
-import { ExpandedHeader } from '@covid/features/dashboard/ExpandedHeader';
+import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/components/CollapsibleHeaderScrollView';
+import { CompactHeader } from '@covid/features/dashboard/components/CompactHeader';
+import { ExpandedHeader } from '@covid/features/dashboard/components/ExpandedHeader';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { pushNotificationService } from '@covid/services';
@@ -62,7 +62,7 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 
   return (
     <CollapsibleHeaderScrollView compactHeader={compactHeader} config={headerConfig} expandedHeader={expandedHeader}>
-      <View style={styles.calloutContainer}>
+      <View style={styles.marginHorizontal}>
         <ShareVaccineCard screenName="DashboardUS" />
 
         {showDietStudyPlayback ? (
@@ -88,15 +88,15 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  calloutContainer: {
-    marginHorizontal: sizes.m,
-  },
   dietStudyImage: {
     aspectRatio: 1200 / 1266,
     height: undefined,
     marginVertical: sizes.xs,
     resizeMode: 'contain',
     width: '100%',
+  },
+  marginHorizontal: {
+    marginHorizontal: sizes.screenHorizontalPadding,
   },
   schoolModuleContainer: {
     height: 200,

@@ -1,12 +1,14 @@
 /* eslint-env jest */
 
 import { CovidTestListOnboardingModal } from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
+import { theme } from '@covid/themes';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import { fireEvent, render } from '@testing-library/react-native';
 import * as React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
 import createMockStore from 'redux-mock-store';
+import { ThemeProvider } from 'styled-components/native';
 
 import { initialState } from '../../../../../__mocks__/mockedInitialState';
 
@@ -35,17 +37,19 @@ describe('Covid tests onboarding modal tests', () => {
   it('calls onRequestClose when out of slides', async () => {
     const onRequestClose = jest.fn();
     const { getByTestId } = render(
-      <ReduxProvider store={store}>
-        <SafeAreaProvider initialMetrics={initialMetrics}>
-          <CovidTestListOnboardingModal
-            visible
-            onRequestClose={() => {
-              onRequestClose();
-            }}
-            patientId={DUMMY_PATIENT_ID}
-          />
-        </SafeAreaProvider>
-      </ReduxProvider>,
+      <ThemeProvider theme={theme}>
+        <ReduxProvider store={store}>
+          <SafeAreaProvider initialMetrics={initialMetrics}>
+            <CovidTestListOnboardingModal
+              visible
+              onRequestClose={() => {
+                onRequestClose();
+              }}
+              patientId={DUMMY_PATIENT_ID}
+            />
+          </SafeAreaProvider>
+        </ReduxProvider>
+      </ThemeProvider>,
     );
     expect(onRequestClose).toHaveBeenCalledTimes(0);
     const button = getByTestId('covid-test-modal-button');
@@ -62,17 +66,19 @@ describe('Covid tests onboarding modal tests', () => {
   it('moves to next slide on tap of button', async () => {
     const onRequestClose = jest.fn();
     const { getByTestId, queryByTestId } = render(
-      <ReduxProvider store={store}>
-        <SafeAreaProvider initialMetrics={initialMetrics}>
-          <CovidTestListOnboardingModal
-            visible
-            onRequestClose={() => {
-              onRequestClose();
-            }}
-            patientId={DUMMY_PATIENT_ID}
-          />
-        </SafeAreaProvider>
-      </ReduxProvider>,
+      <ThemeProvider theme={theme}>
+        <ReduxProvider store={store}>
+          <SafeAreaProvider initialMetrics={initialMetrics}>
+            <CovidTestListOnboardingModal
+              visible
+              onRequestClose={() => {
+                onRequestClose();
+              }}
+              patientId={DUMMY_PATIENT_ID}
+            />
+          </SafeAreaProvider>
+        </ReduxProvider>
+      </ThemeProvider>,
     );
     const button = getByTestId('covid-test-modal-button');
 
@@ -117,24 +123,25 @@ describe('Covid tests onboarding modal tests', () => {
     expect(screen3).toBeTruthy();
   });
 
-  it('displays close button and calls onRequestClose on tap', async () => {
-    const onRequestClose = jest.fn();
+  it('displays close button and calls onPressClose on tap', async () => {
+    const onPress = jest.fn();
     const { getByTestId } = render(
-      <ReduxProvider store={store}>
-        <SafeAreaProvider initialMetrics={initialMetrics}>
-          <CovidTestListOnboardingModal
-            visible
-            onRequestClose={() => {
-              onRequestClose();
-            }}
-            patientId={DUMMY_PATIENT_ID}
-          />
-        </SafeAreaProvider>
-      </ReduxProvider>,
+      <ThemeProvider theme={theme}>
+        <ReduxProvider store={store}>
+          <SafeAreaProvider initialMetrics={initialMetrics}>
+            <CovidTestListOnboardingModal
+              visible
+              onPressClose={onPress}
+              onRequestClose={onPress}
+              patientId={DUMMY_PATIENT_ID}
+            />
+          </SafeAreaProvider>
+        </ReduxProvider>
+      </ThemeProvider>,
     );
-    expect(onRequestClose).toHaveBeenCalledTimes(0);
+    expect(onPress).toHaveBeenCalledTimes(0);
     const closeButton = getByTestId('button-close-modal');
     await fireEvent.press(closeButton);
-    expect(onRequestClose).toHaveBeenCalledTimes(1);
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

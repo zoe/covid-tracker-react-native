@@ -19,6 +19,8 @@ import * as React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import { ESharable } from '../screens/share/types';
+
 const MAP_HEIGHT = 246;
 
 interface IEmptyViewProps {
@@ -236,7 +238,7 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
 
   const share = async () => {
     Analytics.track(events.ESTIMATED_CASES_MAP_SHARE_CLICKED);
-    navigate('Share', { sharable: 'MAP' });
+    navigate('Share', { sharable: ESharable.MAP });
   };
 
   const onMapTapped = () => {

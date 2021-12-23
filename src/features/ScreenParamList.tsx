@@ -1,4 +1,4 @@
-import { TSharable } from '@covid/components/screens/share/Container';
+import { ESharable } from '@covid/components/screens/share/types';
 import { TAssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
@@ -152,7 +152,7 @@ export type TScreenParamList = {
   EstimatedCases: undefined;
   Main: undefined;
   Modal: undefined;
-  Share: { sharable: TSharable | undefined; hideLabel: boolean; label: string };
+  Share: { sharable: ESharable; hideLabel: boolean; label: string };
   Splash: undefined;
   Trendline: undefined;
   VaccineListMissingModal: { vaccine: TVaccineRequest | undefined };

@@ -13,7 +13,7 @@ interface IProps {
   text: string;
 }
 
-function Link(props: IProps) {
+export default function Link(props: IProps) {
   const linkColor = props.color || 'purple';
   return (
     <TouchableOpacity
@@ -32,5 +32,3 @@ function Link(props: IProps) {
     </TouchableOpacity>
   );
 }
-
-export default Link;
