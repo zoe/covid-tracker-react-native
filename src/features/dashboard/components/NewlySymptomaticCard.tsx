@@ -3,6 +3,8 @@ import { ShareButton } from '@covid/components/buttons';
 import { BASELINE_COLOR, CURRENT_COLOR, NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomaticChart';
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text, TextWithHighlight } from '@covid/components/typography';
+import Analytics, { events } from '@covid/core/Analytics';
+import { selectContent, updateSelectedRegionItem } from '@covid/core/state';
 import {
   ChangeRegionNewlySymptomaticModal,
   LONDON_ITEM,
@@ -14,29 +16,32 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 type TProps = {
   isSharing?: boolean;
 };
 
 export function NewlySymptomaticCard(props: TProps) {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const content = useSelector(selectContent);
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [selectedItem, setSelectedItem] = React.useState<TRegionItem>(LONDON_ITEM);
 
-  const onPressShare = React.useCallback(
-    () => navigation.navigate('Share', { sharable: ESharable.NEWLY_SYMPTOMATIC }),
-    [],
-  );
+  const selectedRegionItem = content.selectedRegionItem || LONDON_ITEM;
+
+  const onPressShare = React.useCallback(() => {
+    Analytics.track(events.NEWLY_SYMPTOMATIC_SHARE_CLICKED);
+    navigation.navigate('Share', { sharable: ESharable.NEWLY_SYMPTOMATIC });
+  }, []);
 
   const openModal = React.useCallback(() => {
-    // Analytics.track(events.TRENDLINE_MORE_DETAILS_CLICKED);
     setModalVisible(true);
   }, []);
 
-  const onChangeItem = React.useCallback((region: TRegionItem) => {
-    // Analytics.track(events.TRENDLINE_MORE_DETAILS_CLICKED);
-    setSelectedItem(region);
+  const onChangeItem = React.useCallback((item: TRegionItem) => {
+    Analytics.track(events.NEWLY_SYMPTOMATIC_REGION_CHANGED, { region: item.key });
+    dispatch(updateSelectedRegionItem(item));
     setModalVisible(false);
   }, []);
 
@@ -46,19 +51,19 @@ export function NewlySymptomaticCard(props: TProps) {
 
   return (
     <View style={styles.view}>
-      <TextWithHighlight color={colors.purple} query={selectedItem.label} rhythm={8} textClass="h4">
-        {i18n.t('newly-symptomatic.active-covid-cases', { location: selectedItem.label })}
+      <TextWithHighlight color={colors.purple} query={selectedRegionItem.label} rhythm={8} textClass="h4">
+        {i18n.t('newly-symptomatic.active-covid-cases', { location: selectedRegionItem.label })}
       </TextWithHighlight>
       <Text inverted colorPalette="uiDark" colorShade="dark" style={styles.marginBottom} textClass="pSmallLight">
         {i18n.t('newly-symptomatic.active-covid-cases-subheader')}
       </Text>
 
-      <NewlySymptomaticChart height={200} region={selectedItem.key} />
+      <NewlySymptomaticChart height={200} region={selectedRegionItem.key} />
 
       <View style={styles.explanationWrapperTop}>
         <View style={styles.thickLineCurrent} />
         <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
-          {i18n.t('newly-symptomatic.current-explanation', { location: selectedItem.label })}
+          {i18n.t('newly-symptomatic.current-explanation', { location: selectedRegionItem.label })}
         </Text>
       </View>
 
@@ -76,7 +81,7 @@ export function NewlySymptomaticCard(props: TProps) {
       <ChangeRegionNewlySymptomaticModal
         onChangeItem={onChangeItem}
         onRequestClose={onRequestClose}
-        selectedItem={selectedItem}
+        selectedItem={selectedRegionItem}
         visible={modalVisible}
       />
 

@@ -9,6 +9,7 @@ import {
 import { predictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { TRootState } from '@covid/core/state/root';
 import { TActiveNotifications, TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { TRegionItem } from '@covid/features/dashboard/modals/ChangeRegionNewlySymptomaticModal';
 import { createAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 
@@ -22,6 +23,7 @@ export type TContentState = {
   localTrendline?: ITrendlineData;
   newlySymptomaticChartData?: TNewlySymptomaticDataPoint[];
   personalizedLocalData?: TPersonalisedLocalData;
+  selectedRegionItem?: TRegionItem;
   startupInfo?: TStartupInfo;
 
   // Featured content
@@ -145,9 +147,13 @@ export const updateMenuNotificationsOnboardingSeen = createAction<boolean>(
   'content/menu_notifications_onboarding_seen',
 );
 export const updateShowOmicronModal = createAction<boolean>('content/show_omicron_modal');
+export const updateSelectedRegionItem = createAction<TRegionItem>('content/selected_region_item');
 
 export const contentSlice = createSlice({
   extraReducers: {
+    [updateSelectedRegionItem.type]: (current, action: PayloadAction<TRegionItem>) => {
+      current.selectedRegionItem = action.payload;
+    },
     [updateMenuNotificationsOnboardingSeen.type]: (current, action: PayloadAction<boolean>) => {
       if (current.startupInfo) {
         current.startupInfo!.menu_notifications_onboarding_seen = action.payload;
