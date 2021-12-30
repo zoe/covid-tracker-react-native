@@ -1092,6 +1092,11 @@
       "title": "Logga ditt influensavaccin",
       "description": "Logga eventuella influensavaccin när du rapporterar hur du mår. Klicka på ”Lägg till dos” och välj ”Influensa” som typ av vaccin.",
       "new": "Ny"
+    },
+    "booster-modal": {
+      "button": "",
+      "description": "",
+      "title": ""
     }
   },
   "dashboard": {

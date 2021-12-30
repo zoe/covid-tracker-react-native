@@ -5,14 +5,16 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { TextWithBoldInserts } from '@covid/components/typography';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
+import { IVaccineState, selectVaccineState, setHasSeenBoosterModal } from '@covid/core/state/vaccines';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineMechanisms, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { TScreenParamList } from '@covid/features/ScreenParamList';
 import { getInitialRouteName } from '@covid/features/vaccines/helpers';
+import { VaccineBoosterModal } from '@covid/features/vaccines/modals/VaccineBoosterModal';
 import { VaccineFluOnboardingModal } from '@covid/features/vaccines/modals/VaccineFluOnboardingModal';
 import { VaccineTabbedListsScreen } from '@covid/features/vaccines/screens/VaccineTabbedListsScreen';
 import i18n from '@covid/locale/i18n';
@@ -23,7 +25,7 @@ import { colors } from '@theme';
 import moment from 'moment';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 type TProps = {
   route: RouteProp<TScreenParamList, 'VaccineList'>;
@@ -44,10 +46,13 @@ const isNotInjectionFluVaccine = (dose: TDose) =>
   dose.mechanism === EVaccineMechanisms.NASAL_SPRAY || dose.mechanism === EVaccineMechanisms.DONT_KNOW;
 
 export const VaccineListScreen: React.FC<TProps> = (props) => {
+  const dispatch = useDispatch();
   const [vaccine, setVaccine] = React.useState<TVaccineRequest | undefined>();
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string>();
+  const [showBoosterModal, setShowBoosterModal] = React.useState<boolean>(true);
   const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
+  const vaccineState = useSelector<TRootState, IVaccineState>(selectVaccineState);
 
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
@@ -85,8 +90,14 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
   useFocusEffect(
     React.useCallback(() => {
       fetchVaccineList();
-      if (startupInfo?.show_flu_vaccine_onboarding && !assessmentCoordinator.isReportedByOther()) {
-        setShowOnboardingModal(true);
+
+      if (!assessmentCoordinator.isReportedByOther()) {
+        if (startupInfo?.show_flu_vaccine_onboarding) {
+          setShowOnboardingModal(true);
+          // @todo: remove the GB check when the Swedish translations are available.
+        } else if (!vaccineState.hasSeenBoosterModal && isGBCountry()) {
+          setShowBoosterModal(true);
+        }
       }
 
       return () => {
@@ -166,26 +177,32 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     </View>
   );
 
+  const onRequestCloseBoosterModal = React.useCallback(() => {
+    dispatch(setHasSeenBoosterModal(true));
+    setShowBoosterModal(false);
+  }, []);
+
   return (
     <Screen
       profile={props.route.params?.assessmentData?.patientData?.patientState?.profile}
       renderFooter={renderFooter}
       testID="vaccine-list-screen"
     >
+      <VaccineBoosterModal onRequestClose={onRequestCloseBoosterModal} visible={showBoosterModal} />
+
+      {/* @todo: extract to its own component file. */}
       <Modal
         enableBackdropDismiss
-        modalName="VaccineListInfo"
+        modalName="VaccineListTrial"
         onRequestClose={() => setModalVisible(false)}
-        testID="vaccine-list-modal"
+        testID="vaccine-list-trial-modal"
         visible={modalVisible}
       >
-        <View style={styles.modalWrapper}>
-          <HeaderText style={styles.modalTitle}>{i18n.t('vaccines.vaccine-list.modal-title')}</HeaderText>
-          <LightText style={styles.modalBody}>{i18n.t('vaccines.vaccine-list.modal-body')}</LightText>
-          <BrandedButton onPress={() => setModalVisible(false)}>
-            {i18n.t('vaccines.vaccine-list.modal-button')}
-          </BrandedButton>
-        </View>
+        <HeaderText style={styles.modalTitle}>{i18n.t('vaccines.vaccine-list.modal-title')}</HeaderText>
+        <LightText style={styles.modalBody}>{i18n.t('vaccines.vaccine-list.modal-body')}</LightText>
+        <BrandedButton onPress={() => setModalVisible(false)}>
+          {i18n.t('vaccines.vaccine-list.modal-button')}
+        </BrandedButton>
       </Modal>
 
       <VaccineFluOnboardingModal
@@ -249,7 +266,7 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   introduction: {
-    marginBottom: sizes.xxl,
+    marginBottom: sizes.l,
     marginTop: sizes.l,
   },
   modalBody: {
@@ -258,10 +275,6 @@ const styles = StyleSheet.create({
   modalTitle: {
     marginBottom: sizes.l,
     textAlign: 'center',
-  },
-  modalWrapper: {
-    padding: sizes.xxs,
-    paddingBottom: sizes.xs,
   },
   newButton: {
     backgroundColor: colors.backgroundTertiary,

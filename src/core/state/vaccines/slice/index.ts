@@ -1,8 +1,10 @@
+import { TRootState } from '@covid/core/state/root';
 import { IVaccineState } from '@covid/core/state/vaccines/types';
 import { TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const initialStateVaccine: IVaccineState = {
+  hasSeenBoosterModal: false,
   vaccines: [],
 };
 
@@ -14,6 +16,10 @@ const vaccinesSlice = createSlice({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       state = initialStateVaccine;
     },
+
+    setHasSeenBoosterModal: (state, action: PayloadAction<boolean>) => {
+      state.hasSeenBoosterModal = action.payload;
+    },
     // Added 14.01.2021. Not currently used but should be useful for setting and saving vaccine
     setVaccine: (state, action: PayloadAction<TVaccineRequest[]>) => {
       state.vaccines = action.payload;
@@ -21,6 +27,6 @@ const vaccinesSlice = createSlice({
   },
 });
 
-export const { setVaccine, reset } = vaccinesSlice.actions;
-export const selectApp = (state: IVaccineState) => state.vaccines;
+export const { setHasSeenBoosterModal, setVaccine, reset } = vaccinesSlice.actions;
+export const selectVaccineState = (state: TRootState) => state.vaccines;
 export default vaccinesSlice;

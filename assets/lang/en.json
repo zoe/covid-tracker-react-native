@@ -1088,6 +1088,11 @@
       "title": "Log your flu vaccine",
       "description": "Log any *flu vaccine* during your health report. Tap 'Add a vaccine dose' and select 'Flu' when asked for vaccine type.",
       "new": "New"
+    },
+    "booster-modal": {
+      "button": "OK",
+      "description": "If you haven't done so already, please log your booster vaccine. Tap 'Add a vaccine dose' and select 'COVID' to log it.",
+      "title": "Remember to log your booster vaccine"
     }
   },
   "dashboard": {
