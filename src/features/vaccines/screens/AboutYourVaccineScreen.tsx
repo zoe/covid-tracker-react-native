@@ -160,13 +160,15 @@ export function AboutYourVaccineScreen({ route }: TProps) {
           text: i18n.t('cancel'),
         },
         {
-          onPress: () => {
-            vaccineService
-              .saveVaccineAndDoses(assessmentData?.patientData.patientId, vaccineWithoutDeletedDose)
-              .then(() => {
-                assessmentCoordinator.resetVaccine();
-                returnToListView();
-              });
+          onPress: async () => {
+            try {
+              await vaccineService.saveVaccineAndDoses(
+                assessmentData?.patientData.patientId,
+                vaccineWithoutDeletedDose,
+              );
+              assessmentCoordinator.resetVaccine();
+              returnToListView();
+            } catch (_) {}
           },
           style: 'destructive',
           text: i18n.t('delete'),

@@ -41,15 +41,16 @@ export const ArchiveReasonScreen: React.FC<TProps> = (props) => {
     },
   ];
 
-  function submitReason(reason: string) {
+  async function submitReason(reason: string) {
     const infos = {
       archived: true,
       archived_reason: reason,
     };
 
-    patientService.updatePatientInfo(props.route.params?.patientId, infos).then(() => {
+    try {
+      await patientService.updatePatientInfo(props.route.params?.patientId, infos);
       appCoordinator.gotoNextScreen(props.route.name);
-    });
+    } catch (_) {}
   }
 
   return (

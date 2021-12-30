@@ -127,9 +127,10 @@ export default function LongCovidQuestionScreen({ route }: IProps) {
     }
     delete values.other_checkbox;
     setSubmitting(true);
-    longCovidApiClient.add(route.params?.patientData?.patientId, values).then(() => {
+    try {
+      await longCovidApiClient.add(route.params?.patientData?.patientId, values);
       NavigatorService.reset([{ name: homeScreenName() }, { name: thankYouScreenName() }], 1);
-    });
+    } catch (_) {}
   };
 
   const renderFormCheckboxes = (props: FormikProps<ILongCovid>) => (

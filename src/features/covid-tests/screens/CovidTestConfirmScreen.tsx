@@ -29,15 +29,14 @@ export default function CovidTestConfirmScreen({ route }: IProps) {
 
     const test = route.params?.test;
 
-    if (test.id) {
-      covidTestService.updateTest(test.id, test).then(() => {
-        assessmentCoordinator.gotoNextScreen(route.name);
-      });
-    } else {
-      covidTestService.addTest(test).then(() => {
-        assessmentCoordinator.gotoNextScreen(route.name);
-      });
-    }
+    try {
+      if (test.id) {
+        await covidTestService.updateTest(test.id, test);
+      } else {
+        await covidTestService.addTest(test);
+      }
+      assessmentCoordinator.gotoNextScreen(route.name);
+    } catch (_) {}
   };
 
   return (
