@@ -1,5 +1,5 @@
-import { BrandedButton, LightText, Modal } from '@covid/components';
-import { Text } from '@covid/components/typography';
+import { BrandedButton, Modal } from '@covid/components';
+import { Text, TextWithBoldInserts } from '@covid/components/typography';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import * as React from 'react';
@@ -22,14 +22,22 @@ export const VaccineBoosterModal = React.memo((props: TProps) => {
       <Text inverted colorPalette="uiDark" colorShade="darker" style={styles.title} textClass="h3Regular">
         {i18n.t('vaccines.booster-modal.title')}
       </Text>
-      <LightText style={styles.body}>{i18n.t('vaccines.booster-modal.description')}</LightText>
+      <TextWithBoldInserts
+        inverted
+        colorPalette="uiDark"
+        colorShade="darker"
+        style={styles.marginBottom}
+        textClass="pLight"
+      >
+        {i18n.t('vaccines.booster-modal.description')}
+      </TextWithBoldInserts>
       <BrandedButton onPress={props.onRequestClose}>{i18n.t('vaccines.booster-modal.button')}</BrandedButton>
     </Modal>
   );
 });
 
 const styles = StyleSheet.create({
-  body: {
+  marginBottom: {
     marginBottom: sizes.xl,
   },
   title: {

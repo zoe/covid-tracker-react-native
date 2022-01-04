@@ -1,5 +1,6 @@
 import { IProps as ITextProps, Text } from '@covid/components/typography/Text';
 import * as React from 'react';
+import { StyleSheet } from 'react-native';
 
 interface IProps extends ITextProps {
   children: string;
@@ -16,7 +17,7 @@ export function TextWithBoldInserts(props: IProps) {
         .map((text: string, index: number) => {
           const key = `bold-text-${index}`;
           const node: React.ReactNode = boldText ? (
-            <Text key={key} {...props} style={[props.style, { fontWeight: '700' }]}>
+            <Text key={key} {...props} style={[props.style, styles.fontWeight700]}>
               {text}
             </Text>
           ) : (
@@ -30,3 +31,9 @@ export function TextWithBoldInserts(props: IProps) {
     </Text>
   );
 }
+
+const styles = StyleSheet.create({
+  fontWeight700: {
+    fontWeight: '700',
+  },
+});

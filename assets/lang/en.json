@@ -1091,7 +1091,7 @@
     },
     "booster-modal": {
       "button": "OK",
-      "description": "If you haven't done so already, please log your booster vaccine. Tap 'Add a vaccine dose' and select 'COVID' to log it.",
+      "description": "If you haven't done so already, please log your *booster vaccine*. Tap 'Add a vaccine dose' and select 'COVID' to log it.",
       "title": "Remember to log your booster vaccine"
     }
   },
