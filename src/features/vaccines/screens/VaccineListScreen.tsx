@@ -5,7 +5,7 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { TextWithBoldInserts } from '@covid/components/typography';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { IVaccineState, selectVaccineState, setHasSeenBoosterModal } from '@covid/core/state/vaccines';
@@ -50,7 +50,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
   const [vaccine, setVaccine] = React.useState<TVaccineRequest | undefined>();
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string>();
-  const [showBoosterModal, setShowBoosterModal] = React.useState<boolean>(true);
+  const [showBoosterModal, setShowBoosterModal] = React.useState<boolean>(false);
   const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
   const vaccineState = useSelector<TRootState, IVaccineState>(selectVaccineState);
 
@@ -94,8 +94,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
       if (!assessmentCoordinator.isReportedByOther()) {
         if (startupInfo?.show_flu_vaccine_onboarding) {
           setShowOnboardingModal(true);
-          // @todo: remove the GB check when the Swedish translations are available.
-        } else if (!vaccineState.hasSeenBoosterModal && isGBCountry()) {
+        } else if (!vaccineState.hasSeenBoosterModal) {
           setShowBoosterModal(true);
         }
       }
