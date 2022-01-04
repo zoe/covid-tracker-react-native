@@ -19,6 +19,9 @@ export const CURRENT_COLOR = colors.purple;
 
 const TICK_VALUES = [0, 2, 4, 6, 8, 10];
 
+const tickFormatX = (tick: Date) => moment(tick).format('DD MMM');
+const tickFormatY = (tick: any) => `${tick}%`;
+
 export function NewlySymptomaticChart(props: IProps) {
   const content = useSelector<TRootState, TContentState>(selectContent);
 
@@ -50,11 +53,11 @@ export function NewlySymptomaticChart(props: IProps) {
 
   return (
     <LineChart
-      useDefaultXTicks
       datasets={datasets}
       height={props.height}
       strokeColor={CURRENT_COLOR}
-      tickFormatY={(tick: any) => `${tick}%`}
+      tickFormatX={tickFormatX}
+      tickFormatY={tickFormatY}
       tickValues={TICK_VALUES}
     />
   );

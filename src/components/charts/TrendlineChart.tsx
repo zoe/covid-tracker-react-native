@@ -11,6 +11,11 @@ interface IProps {
   height?: number;
 }
 
+const tickFormatX = (tick: string) => {
+  const momentTick = moment(tick);
+  return momentTick.dayOfYear() === 1 ? momentTick.year() : momentTick.format('MMM');
+};
+
 export function TrendlineChart(props: IProps) {
   const content = useSelector<TRootState, TContentState>(selectContent);
 
@@ -40,5 +45,5 @@ export function TrendlineChart(props: IProps) {
       }));
   }, [props.beginDate, props.endDate, content.localTrendline]);
 
-  return <LineChart data={data} height={props.height} />;
+  return <LineChart data={data} height={props.height} tickFormatX={tickFormatX} />;
 }
