@@ -1,10 +1,11 @@
-import { BrandedButton } from '@covid/components';
+import { BrandedButtonAnalytics } from '@covid/components/analytics/BrandedButtonAnalytics';
 import DropdownField from '@covid/components/DropdownField';
 import { Form } from '@covid/components/Form';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { YesNoField } from '@covid/components/inputs/YesNoField';
 import { Screen } from '@covid/components/Screen';
 import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
+import { events } from '@covid/core/Analytics';
 import { fetchLocalTrendline, fetchStartUpInfo } from '@covid/core/state/contentSlice';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
@@ -169,13 +170,16 @@ export const EditLocationScreen: React.FC<TProps> = (props) => {
                 {i18n.t('edit-profile.location.disclaimer')}
               </SecondaryText>
               <ErrorText>{errorMessage}</ErrorText>
-              <BrandedButton
+              <BrandedButtonAnalytics
+                disabled={!formikProps.isValid}
                 enabled={formikProps.isValid}
+                eventName={events.EDIT_LOCATION}
                 loading={formikProps.isSubmitting}
                 onPress={formikProps.handleSubmit}
+                testID="button-submit"
               >
                 {i18n.t('edit-profile.done')}
-              </BrandedButton>
+              </BrandedButtonAnalytics>
             </Form>
           );
         }}
