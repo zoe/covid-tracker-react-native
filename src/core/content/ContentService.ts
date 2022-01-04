@@ -23,7 +23,7 @@ export interface IContentService {
   getFeaturedContent(): Promise<TFeaturedContentResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
   signUpForDiseaseResearchNewsletter(signup: boolean): Promise<void>;
-  getnewlySymptomaticChartData(): Promise<TNewlySymptomaticDataPoint[]>;
+  getNewlySymptomaticChartData(): Promise<TNewlySymptomaticDataPoint[]>;
 }
 
 class ContentService implements IContentService {
@@ -121,10 +121,9 @@ class ContentService implements IContentService {
     return contentApiClient.getTrendlines();
   }
 
-  public async getnewlySymptomaticChartData(): Promise<TNewlySymptomaticDataPoint[]> {
-    // @todo: Change the part of the url from 'terraform-covid-website-data-stage' to 'terraform-covid-website-data'
+  public async getNewlySymptomaticChartData(): Promise<TNewlySymptomaticDataPoint[]> {
     const url =
-      'https://storage.googleapis.com/terraform-covid-website-data-stage/personalized_assets/latest_newly_sick_table.csv';
+      'https://storage.googleapis.com/terraform-covid-website-data-prod/personalized_assets/latest_newly_sick_table.csv';
     const result = await fetch(url);
     const text = await result.text();
     const json = await csvtojson({

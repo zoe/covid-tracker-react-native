@@ -111,7 +111,7 @@ export const fetchLocalTrendline = createAsyncThunk<Promise<Partial<TContentStat
 export const fetchNewlySymptomaticData = createAsyncThunk('content/fetch_local_trend_line_omicron', async (): Promise<
   TNewlySymptomaticDataPoint[]
 > => {
-  return contentService.getnewlySymptomaticChartData();
+  return contentService.getNewlySymptomaticChartData();
 });
 
 export const fetchFeaturedContent = createAsyncThunk('content/featured_content', async (): Promise<
