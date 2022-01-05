@@ -17,7 +17,7 @@ interface IProps {
 export const BASELINE_COLOR = colors.darkblue;
 export const CURRENT_COLOR = colors.purple;
 
-const TICK_VALUES = [0, 2, 4, 6, 8, 10];
+const TICK_VALUES = [0, 2, 4, 6];
 
 const tickFormatX = (tick: Date) => moment(tick).format('DD MMM');
 const tickFormatY = (tick: any) => `${tick}%`;
