@@ -102,7 +102,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
       return () => {
         isActive = false;
       };
-    }, [startupInfo?.show_flu_vaccine_onboarding]),
+    }, [startupInfo?.show_flu_vaccine_onboarding, startupInfo?.show_booster_modal]),
   );
 
   const navigateToNextPage = async () => {
