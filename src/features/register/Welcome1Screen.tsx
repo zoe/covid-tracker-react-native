@@ -23,13 +23,18 @@ type TProps = {
 export default function Welcome1Screen({ navigation }: TProps) {
   const [userCount, setUserCount] = React.useState<number>(0);
 
-  React.useEffect(() => {
-    contentService.getUserCount().then((response) => {
+  const getUserCount = React.useCallback(async () => {
+    try {
+      const response = await contentService.getUserCount();
       if (response) {
         setUserCount(cleanIntegerVal(response));
       }
-    });
+    } catch (_) {}
   }, [contentService.getUserCount, cleanIntegerVal, setUserCount]);
+
+  React.useEffect(() => {
+    getUserCount();
+  }, []);
 
   const getMapImage = React.useCallback(() => {
     if (isGBCountry()) {

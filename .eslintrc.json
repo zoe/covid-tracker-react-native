@@ -19,7 +19,8 @@
   "plugins": [
     "simple-import-sort",
     "sort-keys-fix",
-    "unused-imports"
+    "unused-imports",
+    "promise"
   ],
   "rules": {
     "@typescript-eslint/no-use-before-define": ["error", { "variables": false }],
@@ -55,6 +56,7 @@
     ],
     "prefer-destructuring": "off",
     "prefer-template": "off",
+    "promise/catch-or-return": "error",
     "react-hooks/exhaustive-deps": "off",
     "react/destructuring-assignment": "off",
     "react/jsx-props-no-spreading": "off",

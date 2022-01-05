@@ -11,7 +11,7 @@ const onSubmit = () => {};
 
 storiesOf('DiabetesQuestions', module).add('default view', () => {
   return (
-    <ScrollView>
+    <ScrollView overScrollMode="never">
       <Formik
         initialValues={{
           ...DiabetesQuestions.getInitialFormValues(),

@@ -313,6 +313,7 @@ export type TPatientInfosRequest = {
   notifications_wider_health_studies: boolean;
 
   // Vaccines
+  has_seen_booster_modal: boolean;
   has_seen_flu_vaccine_onboarding: boolean;
 };
 
@@ -366,6 +367,7 @@ export type TStartupInfo = {
   menu_notifications_onboarding_seen: boolean;
   min_supported_app_version?: string;
   primary_patient_date_joined?: string;
+  show_booster_modal?: boolean;
   show_covid_test_onboarding: boolean;
   show_diet_score: boolean;
   show_edit_location: boolean;

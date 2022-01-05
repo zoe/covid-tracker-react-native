@@ -1,6 +1,5 @@
 import { styling } from '@covid/themes';
 import { colors } from '@theme';
-import moment from 'moment';
 import * as React from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
@@ -10,23 +9,24 @@ type TDataSet = {
   strokeColor?: string;
 };
 
+type TTickFormat = any[] | ((tick: any, index: number, ticks: any[]) => string | number) | undefined;
+
 interface IProps {
   children?: React.ReactNode;
   data?: any[];
   datasets?: TDataSet[];
   height?: number;
   strokeColor?: string;
-  tickFormatY?: any[] | ((tick: any, index: number, ticks: any[]) => string | number) | undefined;
+  tickFormatX?: TTickFormat;
+  tickFormatY?: TTickFormat;
   tickValues?: number[];
-  useDefaultXTicks?: boolean;
-  useDefaultYTicks?: boolean;
   width?: number;
 }
 
 const padding = {
   bottom: 26,
   left: 48,
-  right: 6,
+  right: 20,
   top: 6,
 };
 
@@ -40,11 +40,6 @@ const yAxisTickStepSizes = Array(10)
   .map((_, i) => [10, 20, 25, 50].map((step) => step * 10 ** i))
   .flat(1);
 
-function tickFormat(tick: string) {
-  const momentTick = moment(tick);
-  return momentTick.dayOfYear() === 1 ? momentTick.year() : momentTick.format('MMM');
-}
-
 export function LineChart(props: IProps) {
   const [viewWidth, setViewWidth] = React.useState(0);
   const [viewHeight, setViewHeight] = React.useState(0);
@@ -54,7 +49,7 @@ export function LineChart(props: IProps) {
     return Math.max(...data.map((dataPoint) => dataPoint.y));
   }, []);
 
-  const tickValues = React.useMemo(() => {
+  const tickValuesY = React.useMemo(() => {
     if (props.tickValues) {
       return props.tickValues;
     }
@@ -99,12 +94,8 @@ export function LineChart(props: IProps) {
           theme={VictoryTheme.material}
           width={chartWidth}
         >
-          <VictoryAxis
-            dependentAxis
-            tickFormat={props.tickFormatY}
-            tickValues={props.useDefaultYTicks ? undefined : tickValues}
-          />
-          <VictoryAxis fixLabelOverlap tickFormat={props.useDefaultXTicks ? undefined : tickFormat} />
+          <VictoryAxis dependentAxis tickFormat={props.tickFormatY} tickValues={tickValuesY} />
+          <VictoryAxis fixLabelOverlap tickFormat={props.tickFormatX} />
           {datasets?.map((dataset) => (
             <VictoryLine
               data={dataset.data}

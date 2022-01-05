@@ -48,7 +48,7 @@ export const USStudyInvite: React.FC<TProps> = (props: TProps) => {
               <TouchableOpacity onPress={handleClose} style={{ alignSelf: 'flex-end' }}>
                 <Image source={closeIcon} style={{ height: 24, width: 24 }} />
               </TouchableOpacity>
-              <ScrollView>
+              <ScrollView overScrollMode="never">
                 <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
                 <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
               </ScrollView>

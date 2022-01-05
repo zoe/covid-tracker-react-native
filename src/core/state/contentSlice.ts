@@ -111,7 +111,7 @@ export const fetchLocalTrendline = createAsyncThunk<Promise<Partial<TContentStat
 export const fetchNewlySymptomaticData = createAsyncThunk('content/fetch_local_trend_line_omicron', async (): Promise<
   TNewlySymptomaticDataPoint[]
 > => {
-  return contentService.getnewlySymptomaticChartData();
+  return contentService.getNewlySymptomaticChartData();
 });
 
 export const fetchFeaturedContent = createAsyncThunk('content/featured_content', async (): Promise<
@@ -146,6 +146,7 @@ export const updateActiveNotification = createAction<TUpdateActiveNotificationAc
 export const updateMenuNotificationsOnboardingSeen = createAction<boolean>(
   'content/menu_notifications_onboarding_seen',
 );
+export const updateShowBoosterModal = createAction<boolean>('content/show_booster_modal');
 export const updateShowOmicronModal = createAction<boolean>('content/show_omicron_modal');
 export const updateSelectedRegionItem = createAction<TRegionItem>('content/selected_region_item');
 
@@ -156,18 +157,23 @@ export const contentSlice = createSlice({
     },
     [updateMenuNotificationsOnboardingSeen.type]: (current, action: PayloadAction<boolean>) => {
       if (current.startupInfo) {
-        current.startupInfo!.menu_notifications_onboarding_seen = action.payload;
+        current.startupInfo.menu_notifications_onboarding_seen = action.payload;
+      }
+    },
+    [updateShowBoosterModal.type]: (current, action: PayloadAction<boolean>) => {
+      if (current.startupInfo) {
+        current.startupInfo.show_booster_modal = action.payload;
       }
     },
     [updateShowOmicronModal.type]: (current, action: PayloadAction<boolean>) => {
       if (current.startupInfo) {
-        current.startupInfo!.show_omicron_modal = action.payload;
+        current.startupInfo.show_omicron_modal = action.payload;
       }
     },
     [updateActiveNotification.type]: (current, action: PayloadAction<TUpdateActiveNotificationAction>) => {
       if (current.startupInfo) {
-        current.startupInfo!.active_notifications = {
-          ...current.startupInfo!.active_notifications,
+        current.startupInfo.active_notifications = {
+          ...current.startupInfo.active_notifications,
           [action.payload.notification]: action.payload.value,
         };
       }

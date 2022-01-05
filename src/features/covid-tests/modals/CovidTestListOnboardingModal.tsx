@@ -38,14 +38,15 @@ export function CovidTestListOnboardingModal(props: IProps) {
     }
   });
 
-  const closeAndUpdateStartupInfo = React.useCallback(() => {
+  const closeAndUpdateStartupInfo = React.useCallback(async () => {
     const infos: Partial<TPatientInfosRequest> = {
       has_seen_covid_test_onboarding: true,
     };
-    patientService.updatePatientInfo(props.patientId, infos).then(() => {
+    try {
+      await patientService.updatePatientInfo(props.patientId, infos);
       props.onRequestClose();
       dispatch(fetchStartUpInfo());
-    });
+    } catch (_) {}
   }, [props.patientId, props.onRequestClose]);
 
   function setIndexAndGif(selectedIndex: number) {

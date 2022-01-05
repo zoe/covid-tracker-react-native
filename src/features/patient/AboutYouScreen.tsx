@@ -90,29 +90,27 @@ export default class AboutYouScreen extends React.Component<TProps, TState> {
     });
   }
 
-  onSubmit = (values: IAboutYouData) => {
+  onSubmit = async (values: IAboutYouData) => {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
       const currentPatient = this.coordinator.patientData?.patientState;
       const infos = this.createPatientInfos(values);
 
-      this.coordinator
-        .updatePatientInfo(infos)
-        .then(() => {
-          currentPatient.hasRaceEthnicityAnswer = values.race.length > 0;
-          currentPatient.isFemale = values.sex !== 'male';
-          currentPatient.isPeriodCapable =
-            !['', 'male', 'pfnts'].includes(values.sex) || !['', 'male', 'pfnts'].includes(values.genderIdentity);
-          currentPatient.isMinor = isMinorAge(cleanIntegerVal(values.yearOfBirth));
-          this.coordinator.gotoNextScreen(this.props.route.name);
-        })
-        .catch(() => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        })
-        .then(() => {
-          this.setState({ enableSubmit: true });
-        });
+      try {
+        await this.coordinator.updatePatientInfo(infos);
+
+        currentPatient.hasRaceEthnicityAnswer = values.race.length > 0;
+        currentPatient.isFemale = values.sex !== 'male';
+        currentPatient.isPeriodCapable =
+          !['', 'male', 'pfnts'].includes(values.sex) || !['', 'male', 'pfnts'].includes(values.genderIdentity);
+        currentPatient.isMinor = isMinorAge(cleanIntegerVal(values.yearOfBirth));
+        this.coordinator.gotoNextScreen(this.props.route.name);
+      } catch (_) {
+        this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      }
+
+      this.setState({ enableSubmit: true });
     }
   };
 

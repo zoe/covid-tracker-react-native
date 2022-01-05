@@ -1,3 +1,4 @@
+import { TRootState } from '@covid/core/state/root';
 import { IVaccineState } from '@covid/core/state/vaccines/types';
 import { TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -22,5 +23,5 @@ const vaccinesSlice = createSlice({
 });
 
 export const { setVaccine, reset } = vaccinesSlice.actions;
-export const selectApp = (state: IVaccineState) => state.vaccines;
+export const selectVaccineState = (state: TRootState) => state.vaccines;
 export default vaccinesSlice;

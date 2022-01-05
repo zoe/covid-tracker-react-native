@@ -18,14 +18,15 @@ interface IProps {
 
 export const VaccineFluOnboardingModal: React.FC<IProps> = (props) => {
   const dispatch = useDispatch();
-  const closeAndUpdateStartupInfo = () => {
+  const closeAndUpdateStartupInfo = async () => {
     const infos: Partial<TPatientInfosRequest> = {
       has_seen_flu_vaccine_onboarding: true,
     };
-    patientService.updatePatientInfo(props.patientId, infos).then(() => {
+    try {
+      await patientService.updatePatientInfo(props.patientId, infos);
       dispatch(fetchStartUpInfo());
       props.onRequestClose();
-    });
+    } catch (_) {}
   };
 
   const footerChildren = React.useMemo(

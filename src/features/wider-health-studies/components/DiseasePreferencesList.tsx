@@ -81,7 +81,7 @@ export const DiseasePreferencesList: React.FC<TProps> = React.memo((props: TProp
 
   return (
     <>
-      <ScrollView style={styles.flex}>
+      <ScrollView overScrollMode="never" style={styles.flex}>
         {props.topChildren}
         {props.showActiveText ? (
           <Text style={styles.selfCenter}>

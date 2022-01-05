@@ -40,17 +40,16 @@ class SplashScreen extends React.Component<TProps, TState> {
   }
 
   async componentDidMount() {
-    Linking.getInitialURL().then(async (url) => {
-      const screenName: TScreenName = this.props.route.name; // change to let when implemented
+    try {
+      const url = await Linking.getInitialURL();
+      const screenName: TScreenName = this.props.route.name;
       if (url) {
         // TODO - set screenName to url deeplink
       }
-      try {
-        await this.initAppState(screenName);
-      } catch (error) {
-        this.handleBootstrapError(error);
-      }
-    });
+      await this.initAppState(screenName);
+    } catch (error) {
+      this.handleBootstrapError(error);
+    }
   }
 
   async initAppState(screenName?: TScreenName) {

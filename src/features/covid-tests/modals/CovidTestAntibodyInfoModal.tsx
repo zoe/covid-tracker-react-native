@@ -1,4 +1,5 @@
-import { BrandedButton, HeaderText, LabelSecondaryText, LightText, Modal } from '@covid/components';
+import { BrandedButton, LabelSecondaryText, LightText, Modal } from '@covid/components';
+import { Text } from '@covid/components/typography';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import * as React from 'react';
@@ -41,7 +42,9 @@ export const CovidTestAntibodyInfoModal: React.FC<IProps> = (props) => {
       testID="covid-test-antibody-info-modal"
       visible={props.visible}
     >
-      <HeaderText style={styles.modalTitle}>{i18n.t('covid-test.antibody-modal.title')}</HeaderText>
+      <Text inverted colorPalette="uiDark" colorShade="darker" style={styles.title} textClass="h3Regular">
+        {i18n.t('covid-test.antibody-modal.title')}
+      </Text>
 
       {ANTIBODIES.map((antibody) => (
         <AntibodyInformation antibody={antibody.name} key={antibody.name} />
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
   marginTop: {
     marginTop: sizes.l,
   },
-  modalTitle: {
+  title: {
     marginTop: sizes.s,
     textAlign: 'center',
   },
