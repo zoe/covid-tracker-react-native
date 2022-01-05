@@ -6,9 +6,10 @@ import { Screen } from '@covid/components/Screen';
 import { TextWithBoldInserts } from '@covid/components/typography';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { patientService } from '@covid/core/patient/PatientService';
+import { updateShowBoosterModal } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
-import { IVaccineState, selectVaccineState, setHasSeenBoosterModal } from '@covid/core/state/vaccines';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineMechanisms, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { vaccineService } from '@covid/core/vaccine/VaccineService';
@@ -52,7 +53,6 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
   const [error, setError] = React.useState<string>();
   const [showBoosterModal, setShowBoosterModal] = React.useState<boolean>(false);
   const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
-  const vaccineState = useSelector<TRootState, IVaccineState>(selectVaccineState);
 
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
@@ -94,7 +94,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
       if (!assessmentCoordinator.isReportedByOther()) {
         if (startupInfo?.show_flu_vaccine_onboarding) {
           setShowOnboardingModal(true);
-        } else if (!vaccineState.hasSeenBoosterModal) {
+        } else if (startupInfo?.show_booster_modal) {
           setShowBoosterModal(true);
         }
       }
@@ -176,10 +176,16 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     </View>
   );
 
-  const onRequestCloseBoosterModal = React.useCallback(() => {
-    dispatch(setHasSeenBoosterModal(true));
+  const onRequestCloseBoosterModal = React.useCallback(async () => {
+    // Update the local state to hide the modal
     setShowBoosterModal(false);
-  }, []);
+
+    // Update the Redux state immediately because the api call could take a long time to finish.
+    dispatch(updateShowBoosterModal(false));
+    await patientService.updatePatientInfo(patientId, {
+      has_seen_booster_modal: true,
+    });
+  }, [patientId]);
 
   return (
     <Screen
