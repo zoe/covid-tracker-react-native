@@ -1095,8 +1095,8 @@
     },
     "booster-modal": {
       "button": "OK",
-      "description": "Om du inte redan har gjort det, ber vi dig lägga in dina *boosterdoser*. Klicka på Lägg till vaccindos och välj Covid-19.",
-      "title": "Kom ihåg att logga boosterdoser av covid-19-vaccin!"
+      "description": "Om du inte redan har gjort det, ber vi dig lägga in alla *vaccindoser*. Klicka på Lägg till vaccindos och välj Covid-19.",
+      "title": "Kom ihåg att logga dina senaste doser av covid-19-vaccin!"
     }
   },
   "dashboard": {
