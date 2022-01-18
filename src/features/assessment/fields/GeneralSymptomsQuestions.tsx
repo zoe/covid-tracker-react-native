@@ -27,6 +27,7 @@ type TGeneralSymptomsCheckBoxData = {
   welts: boolean;
   skinBurning: boolean;
   hairLoss: boolean;
+  lowerBackPain: boolean;
   musclePains: boolean;
   jointPains: boolean;
   feelingDown: boolean;
@@ -70,6 +71,7 @@ export const GeneralSymptomsQuestions: ISymptomQuestions<TProps, TGeneralSymptom
     { label: i18n.t('describe-symptoms.general-face-welts'), value: 'welts' },
     { label: i18n.t('describe-symptoms.general-skin-burning'), value: 'skinBurning' },
     { label: i18n.t('describe-symptoms.general-hair-loss'), value: 'hairLoss' },
+    { label: i18n.t('describe-symptoms.general-lower-back-pain'), value: 'lowerBackPain' },
     { label: i18n.t('describe-symptoms.general-muscle-pain'), value: 'musclePains' },
     { label: i18n.t('describe-symptoms.general-joint-pain'), value: 'jointPains' },
     { label: i18n.t('describe-symptoms.general-feeling-down'), value: 'feelingDown' },
@@ -138,6 +140,7 @@ GeneralSymptomsQuestions.getInitialFormValues = (defaultTemperatureUnit = 'C'): 
     fever: false,
     hairLoss: false,
     jointPains: false,
+    lowerBackPain: false,
     musclePains: false,
     rash: false,
     skinBurning: false,
@@ -170,6 +173,7 @@ GeneralSymptomsQuestions.createAssessment = (
     feeling_down: formData.feelingDown,
     fever: formData.fever,
     hair_loss: formData.hairLoss,
+    lower_back_pain: formData.lowerBackPain,
     rash: formData.rash,
     red_welts_on_face_or_lips: formData.welts,
     skin_burning: formData.skinBurning,
