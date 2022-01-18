@@ -56,6 +56,7 @@ export type TAssessmentInfosRequest = {
   rash: boolean;
   skin_burning: boolean;
   hair_loss: boolean;
+  lower_back_pain: boolean;
   feeling_down: boolean;
   brain_fog: boolean;
   altered_smell: boolean;
