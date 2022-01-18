@@ -2,7 +2,9 @@ import { TAssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentIn
 
 import { EActionTypes, TAssessmentActions, TPayloadActionType } from './types';
 
-export const initialStateAssessment: Partial<TAssessmentInfosRequest> = {};
+export type TStateAssessment = Partial<TAssessmentInfosRequest>;
+
+export const initialStateAssessment: TStateAssessment = {};
 
 const reducer = (state = initialStateAssessment, action: TAssessmentActions): Partial<TAssessmentInfosRequest> => {
   switch (action.type) {

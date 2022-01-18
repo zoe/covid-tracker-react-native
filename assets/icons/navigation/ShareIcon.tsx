@@ -1,4 +1,4 @@
-import { determineDimensions, TIconDimensionConfig } from '@assets/utils';
+import { determineDimensions, TIconDimensionConfig } from '@assets/icons/utils';
 import { colors } from '@theme';
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';

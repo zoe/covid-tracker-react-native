@@ -11,10 +11,10 @@ import { isUSCountry, localisationService } from '@covid/core/localisation/Local
 import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
 import { patientService } from '@covid/core/patient/PatientService';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { ScreenParamList } from '@covid/features';
 import { AtopyQuestions, IAtopyData } from '@covid/features/patient/fields/AtopyQuestions';
 import { BloodGroupQuestion, IBloodGroupData } from '@covid/features/patient/fields/BloodGroupQuestion';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { stripAndRound } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
 import { Formik, FormikProps } from 'formik';
@@ -64,7 +64,7 @@ const initialFormValues = {
 };
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'YourHealth'>;
+  route: RouteProp<TScreenParamList, 'YourHealth'>;
 };
 
 type TState = {

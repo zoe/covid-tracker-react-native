@@ -1,5 +1,5 @@
 import { doctorsAvatars, drEllenThompsonUK, drSarahBerry } from '@assets';
-import Avatar from '@covid/components/avatar';
+import { Avatar } from '@covid/components/Avatar';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import * as React from 'react';
 import { Image } from 'react-native';
@@ -22,7 +22,7 @@ export function getDietStudyDoctorImage() {
       }}
     />
   ) : (
-    <Avatar imgsrc={drSarahBerry} />
+    <Avatar source={drSarahBerry} />
   );
 }
 
@@ -38,6 +38,6 @@ export function getMentalHealthStudyDoctorImage() {
       }}
     />
   ) : (
-    <Avatar imgsrc={drEllenThompsonUK} />
+    <Avatar source={drEllenThompsonUK} />
   );
 }

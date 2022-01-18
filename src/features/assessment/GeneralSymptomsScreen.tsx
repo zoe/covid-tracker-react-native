@@ -4,12 +4,12 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { localisationService } from '@covid/core/localisation/LocalisationService';
-import { ScreenParamList } from '@covid/features';
 import {
   GeneralSymptomsQuestions,
   TGeneralSymptomsData,
 } from '@covid/features/assessment/fields/GeneralSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
 import { RouteProp } from '@react-navigation/native';
 import { Formik, FormikHelpers } from 'formik';
@@ -18,7 +18,7 @@ import { View } from 'react-native';
 import * as Yup from 'yup';
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'GeneralSymptoms'>;
+  route: RouteProp<TScreenParamList, 'GeneralSymptoms'>;
 };
 
 export const GeneralSymptomsScreen: React.FC<TProps> = ({ route }) => {

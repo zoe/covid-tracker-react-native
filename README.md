@@ -82,6 +82,9 @@ echo "AMPLITUDE_KEY=test_key" >> .env
 
 # Setup an empty google-services.json
 echo "{}" > google-services.json
+
+# Setup a debug keystore
+keytool -genkey -v -keystore android/app/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
 ```
 
 ### Run the Mock Server (External Contributors)
@@ -133,14 +136,6 @@ detox test
 ## Style guide
 
 Please refer to the [contributing guidelines](CONTRIBUTING.md).
-
-## Storybook
-
-We are trying to embrace Component Driven Design. To develop
-
-1. Set `ENABLE_STORYBOOK=true` in `App.tsx`
-
-1. Start the storybook server with `npm run storybook`. This will open a webpage where you can flip through the stories in this project, after you've connected a iOS or Android device via `expo start`.
 
 ## Git usage
 

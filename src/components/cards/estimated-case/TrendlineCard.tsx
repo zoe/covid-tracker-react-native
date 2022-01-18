@@ -42,11 +42,11 @@ export function TrendlineCard(props: IProps) {
   const onPressShare = React.useCallback(() => navigation.navigate('Share', { sharable: ESharable.TRENDLINE }), []);
 
   return (
-    <View style={styles.view}>
-      <Text rhythm={8} textClass="h4">
+    <View style={[styles.view, props.isSharing ? styles.minimisePadding : null]}>
+      <Text rhythm={8} textClass={props.isSharing ? 'h5' : 'h4'}>
         {i18n.t('trendline.active-covid-cases', { location: localTrendline?.name })}
       </Text>
-      <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
+      <Text inverted colorPalette="uiDark" colorShade="dark" textClass={props.isSharing ? 'pXSmall' : 'pSmallLight'}>
         {i18n.t('trendline.active-covid-cases-subheader')}
       </Text>
 
@@ -56,17 +56,17 @@ export function TrendlineCard(props: IProps) {
         style={styles.touchableChart}
       >
         <View pointerEvents="none">
-          <TrendlineChart beginDate={beginDate} endDate={endDate} height={200} />
+          <TrendlineChart beginDate={beginDate} endDate={endDate} height={props.isSharing ? 150 : 200} />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity
         activeOpacity={props.isSharing ? 1 : undefined}
         onPress={props.isSharing ? undefined : onPress}
-        style={styles.touchableText}
+        style={[styles.touchableText, props.isSharing ? styles.minimisePadding : null]}
       >
         {localTrendline?.today || localTrendline?.today === 0 ? (
-          <Text style={styles.marginRight} textClass="h0">
+          <Text style={styles.marginRight} textClass={props.isSharing ? 'h1' : 'h0'}>
             {localTrendline?.today}
           </Text>
         ) : null}
@@ -86,7 +86,7 @@ export function TrendlineCard(props: IProps) {
         inverted
         colorPalette="uiDark"
         colorShade="dark"
-        style={[styles.flex, styles.marginTop]}
+        style={[styles.flex, props.isSharing ? styles.minimiseMargin : styles.marginTop]}
         textClass="pSmallLight"
       >
         {i18n.t('trendline.data-timeframe')}
@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
   },
   deltaTag: {
     alignSelf: 'center',
-    marginBottom: 24,
   },
   flex: {
     flex: 1,
@@ -118,6 +117,13 @@ const styles = StyleSheet.create({
   },
   marginTop: {
     marginTop: sizes.m,
+  },
+  minimiseMargin: {
+    marginTop: sizes.xxs,
+  },
+  minimisePadding: {
+    paddingBottom: sizes.xxs,
+    paddingTop: sizes.xxs,
   },
   touchableChart: {
     marginTop: sizes.m,

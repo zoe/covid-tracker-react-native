@@ -25,9 +25,9 @@ import {
   ICovidTestResultData,
 } from '@covid/features/covid-tests/questions';
 import { ICovidTestData } from '@covid/features/covid-tests/types';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

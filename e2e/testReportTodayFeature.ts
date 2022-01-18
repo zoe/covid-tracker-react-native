@@ -30,19 +30,13 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
         await element(by.id('button-add-test')).tap();
 
         await scrollDownToId('scroll-view-covid-test-detail-screen', 'covid-test-mechanism-question');
-        await element(by.id('covid-test-mechanism-question-item-pcr')).tap();
-
-        await scrollDownToId('scroll-view-covid-test-detail-screen', 'covid-test-performed-by-question');
-        await element(by.id('covid-test-performed-by-question-item-trained')).tap();
+        await element(by.id('covid-test-mechanism-question-item-lateral_flow')).tap();
 
         await element(by.id('scroll-view-covid-test-detail-screen')).scroll(150, 'down');
         await element(by.text('1')).tap();
 
         await scrollDownToId('scroll-view-covid-test-detail-screen', 'covid-test-result-question');
         await element(by.id('covid-test-result-question-item-negative')).tap();
-
-        await scrollDownToId('scroll-view-covid-test-detail-screen', 'button-no-covid-test-invited-question');
-        await element(by.id('button-no-covid-test-invited-question')).tap();
 
         await expect(element(by.id('covid-test-dual-result-question'))).not.toExist();
 
@@ -89,6 +83,7 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
         await element(by.id('button-yes-covid-test-booked-via-gov-question')).tap();
 
         await element(by.id('scroll-view-covid-test-detail-screen')).scroll(300, 'down');
+
         await element(by.text('1')).tap();
 
         await expect(element(by.id('covid-test-antibody-question'))).not.toExist();
@@ -125,6 +120,11 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
 
     function testAddCovidVaccine() {
       it(`should be able to add a COVID-19 vaccine`, async () => {
+        // Dismiss flu vaccine onboarding modal if present
+        try {
+          await element(by.text('OK')).tap();
+        } catch (_) {}
+
         await element(by.id('button-add-vaccine')).tap();
 
         await element(by.id(`input-your-vaccine-type-item-covid_vaccine`)).tap();
@@ -165,8 +165,14 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
       } catch (_) {}
     });
 
-    it('should open the healthy screen', async () => {
+    it('should open the healthy screen (or vaccine adverse effects screen if present)', async () => {
       await element(by.id('button-vaccine-list-screen')).tap();
+    });
+
+    it('should fill in the vaccine adverse effects form (if present)', async () => {
+      try {
+        await submitForm('vaccine-dose-symptoms-screen', 'scroll-view-vaccine-dose-symptoms-screen', 'button-test-ID');
+      } catch (_) {}
     });
 
     if (config.healthy) {
@@ -262,6 +268,14 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
         await element(by.id('button-location-home').withAncestor(by.id('where-are-you-screen'))).tap();
       });
     }
+
+    it('should complete the anti-pingdemic form (if present)', async () => {
+      try {
+        await scrollDownToId('scroll-view-pingdemic-screen', 'input-radio-asked-by-app-item-pfnts');
+        await element(by.id('input-radio-asked-by-app-item-pfnts')).tap();
+        await submitForm('pingdemic-screen', 'scroll-view-pingdemic-screen', 'button-submit');
+      } catch (_) {}
+    });
 
     it('should dismiss the rating modal (if present)', async () => {
       try {

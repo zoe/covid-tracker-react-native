@@ -1,4 +1,4 @@
-import { TContentState } from '@covid/core/state/contentSlice';
+import { TStateContent } from '@covid/core/state/content/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import * as React from 'react';
@@ -11,7 +11,7 @@ interface IProps {
 }
 
 export function UKEstimatedCaseCard({ onPress }: IProps) {
-  const metrics = useSelector<TRootState, Partial<TContentState>>((state) => ({
+  const metrics = useSelector<TRootState, Partial<TStateContent>>((state) => ({
     ukActive: state.content.ukActive,
     ukDaily: state.content.ukDaily,
   }));

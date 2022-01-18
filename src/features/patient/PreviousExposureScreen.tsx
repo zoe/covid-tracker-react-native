@@ -11,8 +11,8 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { patientCoordinator } from '@covid/core/patient/PatientCoordinator';
 import { patientService } from '@covid/core/patient/PatientService';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { styling } from '@covid/themes';
 import { stripAndRound } from '@covid/utils/number';
 import { RouteProp } from '@react-navigation/native';
@@ -39,7 +39,7 @@ const initialFormValues = {
 };
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'PreviousExposure'>;
+  route: RouteProp<TScreenParamList, 'PreviousExposure'>;
 };
 
 type TState = {

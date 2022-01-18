@@ -6,12 +6,11 @@ import {
   TVaccineRequest,
   vaccineBrandDisplayName,
 } from '@covid/core/vaccine/dto/VaccineRequest';
+import { IVaccineDoseData } from '@covid/features/vaccines/questions/VaccineDoseQuestion';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import * as React from 'react';
 import { View } from 'react-native';
-
-import { IVaccineDoseData } from './VaccineDoseQuestion';
 
 interface IProps {
   formikProps: FormikProps<IVaccineDoseData>;

@@ -41,22 +41,6 @@ testRegisterFeature({
   password: defaultPassword,
   phoneNumber: tempPhoneNumber,
 });
-// This isn't needed anymore + causes an error based on the new signup consent process.
-// Should be reimplemented as part of drawer menu navigation testing.
-// testReconsentFeature({
-//   consent: false,
-//   fillInAllFeedback: false,
-//   fillInFeedback: ['im_only_interested_in_fighting_covid_19_right_now', 'other'],
-//   privacyPolicyView: true,
-//   reconsider: false,
-//   selectAllDiseases: false,
-//   selectDiseases: [
-//     'research_consent_dementia',
-//     'research_consent_nutrition_and_gut_health',
-//     'research_consent_womens_health',
-//     'research_consent_autoimmune_conditions',
-//   ],
-// });
 testLogoutFeature();
 testLoginScreen({
   emailAddress: defaultEmailAddress,
@@ -66,16 +50,11 @@ testCreateNewProfileFeature({
   profileName,
 });
 testReportTodayFeature({
+  addAndUpdateZoeInviteTest: false,
   addTest: false,
   addVaccines: false,
   healthy: false,
   updateTest: false,
-});
-testReportTodayFeature({
   addAndUpdateGovUKTest: true,
-  addTest: true,
-  addVaccines: true,
-  healthy: true,
-  updateTest: true,
 });
 testLogoutFeature();

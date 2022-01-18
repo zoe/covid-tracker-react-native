@@ -1,8 +1,8 @@
 import { Screen } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { HeaderText } from '@covid/components/Text';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { styling } from '@covid/themes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';

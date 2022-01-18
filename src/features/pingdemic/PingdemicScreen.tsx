@@ -4,11 +4,11 @@ import { RadioInput } from '@covid/components/inputs/RadioInput';
 import { Screen } from '@covid/components/Screen';
 import { ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { ScreenParamList } from '@covid/features';
 import { CovidTestDateQuestion, ICovidTestDateData } from '@covid/features/covid-tests/questions';
 import { PingdemicApiClient } from '@covid/features/pingdemic/PingdemicApiClient';
 import { TPingdemicRequest } from '@covid/features/pingdemic/PingdemicRequest';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { Formik, FormikProps } from 'formik';
@@ -32,7 +32,7 @@ interface IPingdemicData extends ICovidTestDateData {
 }
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'Pingdemic'>;
+  route: RouteProp<TScreenParamList, 'Pingdemic'>;
 };
 
 const initialFormValues = {

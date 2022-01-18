@@ -1,5 +1,5 @@
 import { IIconProps } from '@assets/icons/svgIcons/types';
-import { determineDimensions } from '@assets/utils';
+import { determineDimensions } from '@assets/icons/utils';
 import { colors } from '@theme/colors';
 import * as React from 'react';
 import { Path, Svg } from 'react-native-svg';
@@ -7,7 +7,7 @@ import { Path, Svg } from 'react-native-svg';
 const defaultWidth = 37;
 const defaultHeight = 40;
 
-export default function Neuron({ color = colors.darkblue, ...props }: IIconProps) {
+export default function Neuron({ color = colors.darkBlue, ...props }: IIconProps) {
   const { width, height } = determineDimensions(props, defaultWidth, defaultHeight);
   return (
     <Svg fill="none" height={height} viewBox="0 0 37 40" width={width}>

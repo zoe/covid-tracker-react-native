@@ -1,7 +1,7 @@
 import { Screen } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import * as React from 'react';

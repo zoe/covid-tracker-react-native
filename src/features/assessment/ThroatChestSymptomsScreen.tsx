@@ -3,12 +3,12 @@ import { Form } from '@covid/components/Form';
 import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { ScreenParamList } from '@covid/features';
 import {
   ThroatChestSymptomsQuestions,
   TThroatChestSymptomsData,
 } from '@covid/features/assessment/fields/ThroatChestSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
 import { RouteProp } from '@react-navigation/native';
 import { Formik, FormikHelpers } from 'formik';
@@ -17,7 +17,7 @@ import { View } from 'react-native';
 import * as Yup from 'yup';
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'ThroatChestSymptoms'>;
+  route: RouteProp<TScreenParamList, 'ThroatChestSymptoms'>;
 };
 
 export const ThroatChestSymptomsScreen: React.FC<TProps> = ({ route }) => {

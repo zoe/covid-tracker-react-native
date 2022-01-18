@@ -1,6 +1,7 @@
 import InfoCircle from '@assets/icons/InfoCircle';
-import { BrandedButton, ErrorText, HeaderText, LightText, Modal, Text } from '@covid/components';
+import { BrandedButton, ErrorText, HeaderText, LightText, Text } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
+import { Modal } from '@covid/components/Modal';
 import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { TextWithBoldInserts } from '@covid/components/typography';
@@ -13,19 +14,19 @@ import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineMechanisms, EVaccineTypes, TDose, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { vaccineService } from '@covid/core/vaccine/VaccineService';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import { getInitialRouteName } from '@covid/features/vaccines/helpers';
 import { VaccineBoosterModal } from '@covid/features/vaccines/modals/VaccineBoosterModal';
 import { VaccineFluOnboardingModal } from '@covid/features/vaccines/modals/VaccineFluOnboardingModal';
 import { VaccineTabbedListsScreen } from '@covid/features/vaccines/screens/VaccineTabbedListsScreen';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { colors } from '@theme';
 import moment from 'moment';
 import * as React from 'react';
-import { StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 type TProps = {
@@ -38,9 +39,6 @@ const HIT_SLOP = {
   right: 12,
   top: 12,
 };
-
-const SINGLE_DOSE_ROW_HEIGHT = 48;
-const HEIGHT_OF_STATIC_CONTENT = 500;
 
 // Local adverse effects screen should only be shown for flu vaccines via injection OR all COVID vaccines
 const isNotInjectionFluVaccine = (dose: TDose) =>
@@ -57,10 +55,6 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-
-  const windowDimensions = useWindowDimensions();
-  const minTabViewHeight = SINGLE_DOSE_ROW_HEIGHT * 5;
-  const tabViewHeight = windowDimensions.height - HEIGHT_OF_STATIC_CONTENT;
 
   const patientId = props.route.params?.assessmentData?.patientData?.patientId;
 
@@ -168,9 +162,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
         textStyle={styles.continueButton}
       >
         <Text style={{ color: colors.white }}>
-          {!vaccine?.doses.length
-            ? i18n.t('vaccines.vaccine-list.no-vaccine')
-            : i18n.t('vaccines.vaccine-list.correct-info')}
+          {!vaccine?.doses.length ? i18n.t('vaccines.vaccine-list.no-vaccine') : i18n.t('information-correct')}
         </Text>
       </BrandedButton>
     </View>
@@ -211,9 +203,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
       </Modal>
 
       <VaccineFluOnboardingModal
-        onRequestClose={() => {
-          setShowOnboardingModal(false);
-        }}
+        onRequestClose={() => setShowOnboardingModal(false)}
         patientId={assessmentCoordinator.assessmentData?.patientData?.patientId}
         visible={showOnboardingModal}
       />
@@ -234,34 +224,30 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
         </Text>
       </View>
 
-      <View>
-        <BrandedButton
-          onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
-          style={styles.newButton}
-          testID="button-add-vaccine"
-        >
-          <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
-        </BrandedButton>
-        {vaccine ? (
-          <Text style={styles.tabTitle} textAlign="center" textClass="h4Medium">
-            {i18n.t('vaccines.vaccine-list.tabs-title')}
-          </Text>
-        ) : null}
+      <BrandedButton
+        onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
+        style={styles.newButton}
+        testID="button-add-vaccine"
+      >
+        <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
+      </BrandedButton>
+      {vaccine ? (
+        <Text style={styles.tabTitle} textAlign="center" textClass="h4Medium">
+          {i18n.t('vaccines.vaccine-list.tabs-title')}
+        </Text>
+      ) : null}
 
-        {loading ? (
-          <Loading error={null} status="" />
-        ) : vaccine ? (
-          <VaccineTabbedListsScreen
-            initialRouteName={initialRouteName}
-            minTabViewHeight={minTabViewHeight}
-            tabViewHeight={tabViewHeight}
-            vaccineDoses={vaccine.doses}
-            vaccineRecord={vaccine}
-          />
-        ) : null}
+      {loading ? (
+        <Loading error={null} status="" />
+      ) : vaccine ? (
+        <VaccineTabbedListsScreen
+          initialRouteName={initialRouteName}
+          vaccineDoses={vaccine.doses}
+          vaccineRecord={vaccine}
+        />
+      ) : null}
 
-        {error ? <ErrorText style={{ textAlign: 'center' }}>{error}</ErrorText> : null}
-      </View>
+      {error ? <ErrorText style={{ textAlign: 'center' }}>{error}</ErrorText> : null}
     </Screen>
   );
 };
@@ -283,7 +269,7 @@ const styles = StyleSheet.create({
   },
   newButton: {
     backgroundColor: colors.backgroundTertiary,
-    marginBottom: sizes.xl,
+    marginBottom: sizes.m,
   },
   newText: {
     color: colors.primary,

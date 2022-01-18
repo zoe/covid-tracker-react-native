@@ -15,7 +15,7 @@ export default function MockedNavigator(props: TProps) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen component={props.Component} name="MockedScreen" initialParams={props.initialParams} />
+        <Stack.Screen component={props.Component} initialParams={props.initialParams} name="MockedScreen" />
       </Stack.Navigator>
     </NavigationContainer>
   );

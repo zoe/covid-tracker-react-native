@@ -8,20 +8,16 @@ import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 interface IProps {
   enableSearch?: boolean;
 }
 
-function keyExtractor(mediaItem: TMediaContentItem) {
-  return `media-content-item-${mediaItem.id}`;
-}
-
-function renderItem({ item }: { item: TMediaContentItem }) {
-  return <MediaContentItem item={item} key={keyExtractor(item)} testID={keyExtractor(item)} />;
-}
+const renderItem = (item: TMediaContentItem) => {
+  return <MediaContentItem item={item} key={item.id} testID={`media-content-item-${item.id}`} />;
+};
 
 export function MediaContentList(props: IProps) {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -49,14 +45,7 @@ export function MediaContentList(props: IProps) {
           ))}
         </View>
       ) : null}
-      <FlatList
-        nestedScrollEnabled
-        scrollEnabled
-        contentContainerStyle={styles.contentContainer}
-        data={searchedItems}
-        keyExtractor={keyExtractor}
-        renderItem={renderItem}
-      />
+      <ScrollView>{searchedItems.map(renderItem)}</ScrollView>
     </>
   );
 }

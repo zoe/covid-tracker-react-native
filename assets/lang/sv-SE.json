@@ -1,16 +1,22 @@
 {
   "and": "and",
   "app-name": "COVID Study",
+  "coming-soon": false,
   "company-name": "ZOE",
   "continue": "Continue",
+  "information-correct": "Informationen är korrekt",
   "less": "Less",
   "loading": "Loading",
   "log-in": "Logga in",
   "more": "More",
+  "more-details": "More details",
+  "new": "Ny",
+  "next": false,
   "no-change": "No change",
+  "ok": "OK",
+  "read-more": "Read more",
   "skip": "Hoppa över",
   "you": "You",
-  "ok": "OK",
   "create-account": {
     "title": "Skapa nytt konto",
     "btn": "Skapa konto",
@@ -551,6 +557,7 @@
     "thank-you-for-rating": "Tack för din feedback.\nVi jobbar hela tiden på att förbättra appen"
   },
   "menu": {
+    "item-biometric-auth": false,
     "item-edit-profile": "Min profil",
     "item-media-centre": false,
     "item-share-this-app": "Dela appen",
@@ -690,7 +697,7 @@
     "answer-daily-injections": "Långverkande insulin/basinsulin eller mixinsulin (t.ex. Lantus®, Toujeo®, Levemir®, Tresiba®, Insulatard® eller Novomix®)",
     "answer-rapid-injections": "Snabbverkande insulin (t.ex. Novorapid®, Humalog®, Fiasp®, Actrapid® eller Apidra®) som ges som måltidsinuslin och/eller hyperglykemi",
     "answer-insulin-pump": "Kontinuerlig infusion med en insulinpump",
-    "answer-non-insulin-injections": "Injektioner med GLP-1-analog (t.ex. Victoza®, Xultophy®, Ozempic® eller Trulicity®) ",
+    "answer-non-insulin-injections": "Injektioner med GLP-1-analog (t.ex. Victoza®, Xultophy®, Ozempic® eller Trulicity®) ",
     "answer-other-oral-meds": "Tablettbehandling",
     "which-oral-treatment": "Vilka läkemedel som tas oralt tar du för din diabetes? Markera alla alternativ som stämmer för dig",
     "answer-oral-biguanide": "Metformin (t.ex. Metformin®, Janumet® eller Glucophage®)",
@@ -1033,7 +1040,6 @@
       "modal-body": "We can now record COVID-19 vaccines taken as part of a trial. Please select \"I received my vaccine via a vaccine trial\" when asked for the name of your vaccine.",
       "modal-button": "OK",
       "add-button": "Lägg till vaccindos",
-      "correct-info": "Informationen är korrekt",
       "no-vaccine": "Jag har inte vaccinerats",
       "no-2nd": "Jag har inte fått en andra dos",
       "delete-vaccine-title": "Ta bort vaccin",
@@ -1691,6 +1697,104 @@
     "tab-bookmarked": false,
     "title": false
   },
+  "study-hub": {
+    "consented": {
+      "description": false,
+      "title": false
+    },
+    "interest-shown-modal": {
+      "button": false,
+      "description": false,
+      "title": false
+    },
+    "study-details": {
+      "commitment": false,
+      "the-bigger-picture": false,
+      "lead-scientist": false,
+      "research-focus": false,
+      "what-do-i-need": false,
+      "whats-involved": false,
+      "who-can-join": false
+    },
+    "feedback": {
+      "title": false,
+      "placeholder": false,
+      "button": false
+    },
+    "onboarding": {
+      "button": false,
+      "button-last": false,
+      "slide-1": {
+        "title-begin": false,
+        "title-end": false
+      },
+      "slide-2": {
+        "title-begin": false,
+        "title-end": false
+      },
+      "slide-3": {
+        "card-1": {
+          "description": false,
+          "title": false
+        },
+        "card-2": {
+          "description": false,
+          "title": false
+        },
+        "card-3": {
+          "description": false,
+          "title": false
+        },
+        "title": false
+      },
+      "slide-4": {
+        "card-1": {
+          "description": false,
+          "title": false
+        },
+        "card-2": {
+          "description": false,
+          "title": false
+        },
+        "card-3": {
+          "description": false,
+          "title": false
+        },
+        "title": false
+      }
+    },
+    "onboarding-overlay": {
+      "description": false
+    },
+    "reconsent-modal": {
+      "button": false,
+      "description": false,
+      "title": false,
+      "return": false
+    }
+  },
+  "tab-navigation": {
+    "home-tab": "Home",
+    "study-hub-tab": "Studies",
+    "study-hub-tab-overlay": {
+      "description": "From the Studies tab, you can manage Studies you're interested in"
+    }
+  },
   "required-field": "Obligatoriska fält",
-  "modal-close": "Stänga"
+  "modal-close": "Stänga",
+  "biometric-auth": {
+    "button": false,
+    "description-facial": false,
+    "description-facial-finger": false,
+    "description-facial-finger-iris": false,
+    "description-facial-iris": false,
+    "description-finger": false,
+    "description-finger-iris": false,
+    "description-iris": false,
+    "description-nothing": false,
+    "result-cancelled": false,
+    "result-disabled": false,
+    "result-error": false,
+    "result-success": false
+  }
 }

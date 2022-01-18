@@ -30,7 +30,7 @@ export default function DiseaseCard(props: IProps) {
     >
       {props.IconComponent ? (
         <View style={styles.iconWrapper}>
-          <props.IconComponent color={props.selected ? colors.white : colors.darkblue} maxDimension={maxDimension} />
+          <props.IconComponent color={props.selected ? colors.white : colors.darkBlue} maxDimension={maxDimension} />
         </View>
       ) : null}
       <View style={styles.flex}>
@@ -54,15 +54,15 @@ const cardStyle: ViewStyle = {
 
 const styles = StyleSheet.create({
   activeCard: {
-    backgroundColor: colors.darkblue,
+    backgroundColor: colors.darkBlue,
   },
   card: cardStyle,
   cardSelected: {
     ...cardStyle,
-    backgroundColor: colors.darkblue,
+    backgroundColor: colors.darkBlue,
   },
   colorDarkBlue: {
-    color: colors.darkblue,
+    color: colors.darkBlue,
   },
   colorSecondary: {
     color: colors.secondary,

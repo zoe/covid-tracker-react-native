@@ -1,8 +1,9 @@
-import { BrandedButton, HeaderText, Modal, RegularText } from '@covid/components';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components';
+import { Modal } from '@covid/components/Modal';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { events, track } from '@covid/core/Analytics';
 import { patientService } from '@covid/core/patient/PatientService';
-import { fetchStartUpInfo } from '@covid/core/state/contentSlice';
+import { fetchStartupInfo } from '@covid/core/state/content/slice';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -45,7 +46,7 @@ export function CovidTestListOnboardingModal(props: IProps) {
     try {
       await patientService.updatePatientInfo(props.patientId, infos);
       props.onRequestClose();
-      dispatch(fetchStartUpInfo());
+      dispatch(fetchStartupInfo());
     } catch (_) {}
   }, [props.patientId, props.onRequestClose]);
 

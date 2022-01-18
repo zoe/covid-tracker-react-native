@@ -1,12 +1,12 @@
 import {
-  IMentalHealthState,
   TMentalHealthConsent,
   TMentalHealthSection,
+  TStateMentalHealth,
 } from '@covid/core/state/mental-health/state/types';
 import { TRootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialStateMentalHealth: IMentalHealthState = {
+export const initialStateMentalHealth: TStateMentalHealth = {
   completed: false,
   consent: undefined,
   currentSection: undefined,

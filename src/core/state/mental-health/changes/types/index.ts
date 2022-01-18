@@ -1,6 +1,6 @@
 export type TMentalHealthChange = 'MORE' | 'LESS' | 'NO_CHANGE' | 'NOT_APPLICABLE';
 
-export interface IMentalHealthChanges {
+export type TStateMentalHealthChanges = {
   devicesWithScreen: TMentalHealthChange | undefined;
   drinkingAlcohol: TMentalHealthChange | undefined;
   engagingWithOrganisations: TMentalHealthChange | undefined;
@@ -16,4 +16,4 @@ export interface IMentalHealthChanges {
   snacks: TMentalHealthChange | undefined;
   timeWithPets: TMentalHealthChange | undefined;
   working: TMentalHealthChange | undefined;
-}
+};

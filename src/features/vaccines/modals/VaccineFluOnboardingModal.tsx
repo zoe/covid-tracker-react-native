@@ -1,7 +1,8 @@
-import { BrandedButton, HeaderText, Modal, RegularText } from '@covid/components';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components';
+import { Modal } from '@covid/components/Modal';
 import { TextWithBoldInserts } from '@covid/components/typography/TextWithBoldInserts';
 import { patientService } from '@covid/core/patient/PatientService';
-import { fetchStartUpInfo } from '@covid/core/state/contentSlice';
+import { fetchStartupInfo } from '@covid/core/state/content/slice';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -24,7 +25,7 @@ export const VaccineFluOnboardingModal: React.FC<IProps> = (props) => {
     };
     try {
       await patientService.updatePatientInfo(props.patientId, infos);
-      dispatch(fetchStartUpInfo());
+      dispatch(fetchStartupInfo());
       props.onRequestClose();
     } catch (_) {}
   };
@@ -45,7 +46,7 @@ export const VaccineFluOnboardingModal: React.FC<IProps> = (props) => {
       visible={props.visible}
     >
       <View style={styles.tag}>
-        <RegularText style={styles.tagText}>{i18n.t('vaccines.flu-onboarding.new')}</RegularText>
+        <RegularText style={styles.tagText}>{i18n.t('new')}</RegularText>
       </View>
       <HeaderText style={styles.modalTitle}>{i18n.t('vaccines.flu-onboarding.title')}</HeaderText>
       <TextWithBoldInserts inverted colorPalette="uiDark" colorShade="darker" textClass="pLight">

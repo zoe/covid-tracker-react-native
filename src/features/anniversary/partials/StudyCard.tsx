@@ -1,4 +1,5 @@
-import { Icon, Text } from '@covid/components';
+import Icon from '@covid/components/icons/Icon';
+import { Text } from '@covid/components/typography';
 import { TProgress, TTimelineEvent } from '@covid/features/anniversary/types';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme/colors';

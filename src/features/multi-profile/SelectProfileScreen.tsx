@@ -4,9 +4,9 @@ import { HeaderText, SecondaryText } from '@covid/components/Text';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
 import { localisationService } from '@covid/core/localisation/LocalisationService';
 import { TProfile } from '@covid/core/profile/ProfileService';
-import { ScreenParamList } from '@covid/features';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { offlineService } from '@covid/services';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
@@ -18,8 +18,8 @@ import { ProfileList } from './components/ProfileList';
 import { useProfileList } from './useProfileList';
 
 type TProps = {
-  navigation: NavigationProp<ScreenParamList, 'SelectProfile'>;
-  route: RouteProp<ScreenParamList, 'SelectProfile'>;
+  navigation: NavigationProp<TScreenParamList, 'SelectProfile'>;
+  route: RouteProp<TScreenParamList, 'SelectProfile'>;
 };
 
 type TSelectProfileCoordinator = (Coordinator & ISelectProfile) | (Coordinator & ISelectProfile & IEditableProfile);

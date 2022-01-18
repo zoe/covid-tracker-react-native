@@ -5,9 +5,9 @@ export type TMentalHealthFrequency =
   | 'NEARLY_EVERY_DAY'
   | 'DECLINE_TO_SAY';
 
-export interface IMentalHealthFrequency {
+export type TStateMentalHealthFrequency = {
   pleasureInDoingThings: TMentalHealthFrequency | undefined;
   feelingDown: TMentalHealthFrequency | undefined;
   feelingNervous: TMentalHealthFrequency | undefined;
   stopWorrying: TMentalHealthFrequency | undefined;
-}
+};

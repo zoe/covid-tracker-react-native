@@ -5,13 +5,14 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 type TProps = {
+  backgroundColor?: string;
   rightElement?: React.ReactNode;
   backButtonColor?: string;
 };
 
 export function NavHeader(props: TProps) {
   return (
-    <View style={styles.headerBar}>
+    <View style={[styles.view, props.backgroundColor ? { backgroundColor: props.backgroundColor } : undefined]}>
       <View style={styles.left}>
         <BackButton iconColor={props.backButtonColor || colors.secondary} />
       </View>
@@ -25,14 +26,6 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
-  headerBar: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    overflow: 'visible',
-    paddingHorizontal: sizes.screenHorizontalPadding,
-    paddingVertical: sizes.screenVerticalPadding / 2,
-  },
   left: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -42,5 +35,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  view: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    overflow: 'visible',
+    paddingHorizontal: sizes.screenHorizontalPadding,
+    paddingVertical: sizes.screenVerticalPadding / 2,
   },
 });

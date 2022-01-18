@@ -46,7 +46,6 @@ export function testRegisterFeature(config: TRegisterConfig) {
       await element(by.id('input-password')).typeText(config.password);
 
       await element(by.id('button-submit').withAncestor(by.id('register-screen'))).tap();
-      await element(by.id('button-submit').withAncestor(by.id('register-screen'))).tap();
     });
 
     it('should fill in the optional info form', async () => {
@@ -57,7 +56,6 @@ export function testRegisterFeature(config: TRegisterConfig) {
         await element(by.id('input-phone')).typeText(config.phoneNumber);
       }
 
-      await element(by.id('button-submit').withAncestor(by.id('optional-info-screen'))).tap();
       await element(by.id('button-submit').withAncestor(by.id('optional-info-screen'))).tap();
     });
 

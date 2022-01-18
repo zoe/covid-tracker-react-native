@@ -9,6 +9,9 @@ import {
   EVaccineMechanisms,
   EVaccineTypes,
 } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineFluMechanismQuestion } from '@covid/features/vaccines/questions/VaccineFluMechanismQuestion';
+import { VaccineNameQuestion } from '@covid/features/vaccines/questions/VaccineNameQuestion';
+import { VaccineTypeQuestion } from '@covid/features/vaccines/questions/VaccineTypeQuestion';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
@@ -17,10 +20,6 @@ import { Moment } from 'moment';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
-
-import { VaccineFluMechanismQuestion } from './VaccineFluMechanismQuestion';
-import { VaccineNameQuestion } from './VaccineNameQuestion';
-import { VaccineTypeQuestion } from './VaccineTypeQuestion';
 
 const MIN_DATE_TRIAL = new Date('2020-01-01');
 const MIN_DATE_NOT_TRIAL_US = new Date('2020-12-11');

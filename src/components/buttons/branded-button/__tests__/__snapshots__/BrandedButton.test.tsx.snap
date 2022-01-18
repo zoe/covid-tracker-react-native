@@ -4,7 +4,9 @@ exports[`branded-button tests renders correctly 1`] = `
 <View
   accessibilityRole="button"
   accessible={true}
+  collapsable={false}
   focusable={true}
+  nativeID="animatedComponent"
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}

@@ -1,13 +1,12 @@
 import Constants from '@covid/utils/Constants';
 import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
 
 import { IPushTokenEnvironment } from './PushNotificationService';
 
 export default class ExpoPushTokenEnvironment implements IPushTokenEnvironment {
   async isGranted(): Promise<boolean> {
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    return status === Permissions.PermissionStatus.GRANTED;
+    const { status } = await Notifications.requestPermissionsAsync();
+    return status === 'granted';
   }
 
   async getPushToken(): Promise<string | null> {

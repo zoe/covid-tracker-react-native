@@ -11,27 +11,24 @@ import { selectStartupInfo } from '@covid/core/state/selectors';
 import { covidTestService } from '@covid/core/user/CovidTestService';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { CovidTestTabbedListsScreen } from '@covid/features/covid-tests';
 import { getInitialRouteName } from '@covid/features/covid-tests/helpers';
 import { CovidTestListOnboardingModal } from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
 import { CovidTestTrackingOmicronModal } from '@covid/features/covid-tests/modals/CovidTestTrackingOmicronModal';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
+import CovidTestTabbedListsScreen from '@covid/features/covid-tests/screens/CovidTestTabbedListsScreen';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as React from 'react';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface IProps {
   navigation: StackNavigationProp<TScreenParamList, 'CovidTestList'>;
   route: RouteProp<TScreenParamList, 'CovidTestList'>;
 }
-
-const SINGLE_TEST_ROW_HEIGHT = 48;
-const HEIGHT_OF_STATIC_CONTENT = 500;
 
 export default function CovidTestListScreen(props: IProps) {
   const [covidTests, setCovidTests] = React.useState<TCovidTest[]>([]);
@@ -41,10 +38,6 @@ export default function CovidTestListScreen(props: IProps) {
   const dispatch = useDispatch();
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-  const windowDimensions = useWindowDimensions();
-
-  const minTabViewHeight = SINGLE_TEST_ROW_HEIGHT * 5;
-  const tabViewHeight = windowDimensions.height - HEIGHT_OF_STATIC_CONTENT;
 
   const closeListOnboardingModal = React.useCallback(() => {
     setShowOnboardingModal(false);
@@ -140,12 +133,7 @@ export default function CovidTestListScreen(props: IProps) {
       {isLoading ? (
         <Loading error={null} status="" />
       ) : covidTests.length ? (
-        <CovidTestTabbedListsScreen
-          covidTests={covidTests}
-          initialRouteName={initialRouteName}
-          minTabViewHeight={minTabViewHeight}
-          tabViewHeight={tabViewHeight}
-        />
+        <CovidTestTabbedListsScreen covidTests={covidTests} initialRouteName={initialRouteName} />
       ) : null}
 
       {error ? <ErrorText style={{ textAlign: 'center' }}>{error}</ErrorText> : null}
@@ -154,9 +142,7 @@ export default function CovidTestListScreen(props: IProps) {
 
       <BrandedButton onPress={handleNextButton} testID="button-covid-test-list-screen">
         <Text style={{ color: colors.white }}>
-          {covidTests.length === 0
-            ? i18n.t('covid-test-list.never-had-test')
-            : i18n.t('covid-test-list.above-list-correct')}
+          {covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
         </Text>
       </BrandedButton>
     </Screen>

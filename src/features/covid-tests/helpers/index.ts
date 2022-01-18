@@ -1,6 +1,6 @@
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
-import { ETabScreen } from '@covid/features/covid-tests/screens/CovidTestTabbedListsScreen';
+import { ETabScreen } from '@covid/features/covid-tests/types';
 
 const PCR_LATERAL_FLOW_MECHANISMS = [
   ECovidTestMechanismOptions.NOSE_OR_THROAT_SWAB,

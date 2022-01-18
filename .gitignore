@@ -1,6 +1,6 @@
 node_modules/**/*
-.env
-.env.staging
+.env*
+!.env.template
 .expo/*
 .bin/*
 npm-debug.*

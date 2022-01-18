@@ -18,17 +18,17 @@ import {
   setTimeWithPets,
   setWorking,
 } from '@covid/core/state/mental-health';
-import { IUser, selectUser } from '@covid/core/state/user';
+import { selectUser, TStateUser } from '@covid/core/state/user';
+import { mentalHealthApiClient } from '@covid/features/mental-health/MentalHealthApiClient';
 import { TMentalHealthInfosRequest } from '@covid/features/mental-health/MentalHealthInfosRequest';
 import { ChangesQuestion } from '@covid/features/mental-health/partials';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { mentalHealthApiClient } from '@covid/services';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function MentalHealthChangesScreen() {
-  const user: IUser = useSelector(selectUser);
+  const user: TStateUser = useSelector(selectUser);
   const [canSubmit, setCanSubmit] = React.useState(false);
   const [curQuestion, setCurQuestion] = React.useState(0);
   const mentalHealthChanges = useSelector(selectMentalHealthChanges);

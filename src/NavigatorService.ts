@@ -1,6 +1,6 @@
 import Analytics from '@covid/core/Analytics';
 import { TScreenName } from '@covid/core/Coordinator';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
+import { TScreenParamList } from '@covid/routes/types';
 import {
   CommonActions,
   DrawerActions,
@@ -8,16 +8,21 @@ import {
   NavigationState,
   Route,
   StackActions,
+  TabActions,
 } from '@react-navigation/native';
 
-let navigation: NavigationContainerRef;
+let navigation: NavigationContainerRef<ReactNavigation.RootParamList> | undefined;
 let currentRouteName = '';
 
-function setContainer(navigationRef: NavigationContainerRef) {
-  navigation = navigationRef;
+function jumpTo(routeName: TScreenName) {
+  navigation?.dispatch(TabActions.jumpTo(routeName));
 }
 
-function reset<RouteName extends TScreenName>(routeList: Omit<Route<RouteName>, 'key'>[], index?: number) {
+function setup(navigationContainerRef: NavigationContainerRef<ReactNavigation.RootParamList>) {
+  navigation = navigationContainerRef;
+}
+
+function reset(routeList: Omit<Route<TScreenName>, 'key'>[], index?: number) {
   const value = index ?? 0;
   navigation?.dispatch(
     CommonActions.reset({
@@ -27,11 +32,11 @@ function reset<RouteName extends TScreenName>(routeList: Omit<Route<RouteName>, 
   );
 }
 
-function navigate<RouteName extends TScreenName>(routeName: RouteName, params?: TScreenParamList[RouteName]) {
+function navigate(routeName: TScreenName, params?: TScreenParamList[TScreenName]) {
   navigation?.navigate(routeName, params);
 }
 
-function replace<RouteName extends TScreenName>(routeName: RouteName, params?: TScreenParamList[RouteName]) {
+function replace(routeName: TScreenName, params?: TScreenParamList[TScreenName]) {
   navigation?.dispatch(StackActions.replace(routeName, params));
 }
 
@@ -39,7 +44,7 @@ function goBack() {
   navigation?.goBack();
 }
 
-function push<RouteName extends TScreenName>(routeName: RouteName, params?: TScreenParamList[RouteName]) {
+function push(routeName: TScreenName, params?: TScreenParamList[TScreenName]) {
   navigation?.dispatch(StackActions.push(routeName, params));
 }
 
@@ -84,10 +89,11 @@ export default {
   closeDrawer,
   goBack,
   handleStateChange,
+  jumpTo,
   navigate,
   openDrawer,
   push,
   replace,
   reset,
-  setContainer,
+  setup,
 };

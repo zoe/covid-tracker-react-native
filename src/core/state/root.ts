@@ -1,54 +1,59 @@
-import { TAssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import assessment from '@covid/core/assessment/state/reducers';
-import { schoolSlice, TSchoolState } from '@covid/core/schools/Schools.slice';
-import { contentSlice, TContentState } from '@covid/core/state/contentSlice';
+import assessment, { TStateAssessment } from '@covid/core/assessment/state/reducers';
+import { schoolSlice, TStateSchool } from '@covid/core/schools/Schools.slice';
+import { contentSlice, TStateContent } from '@covid/core/state/content/slice';
 import { combineReducers } from 'redux';
 
 import { appSlice } from './app/slice';
-import { IApp } from './app/types';
-import { dietStudySlice, IDietStudy } from './diet-study';
+import { TStateApp } from './app/types';
+import { dietStudySlice, TStateDietStudy } from './diet-study';
 import mediaCentre from './media-centre';
-import { IMediaCentreState } from './media-centre/types';
+import { TStateMediaCentre } from './media-centre/types';
 import {
-  IMentalHealthChanges,
-  IMentalHealthFrequency,
-  IMentalHealthHistory,
-  IMentalHealthLearning,
-  IMentalHealthState,
-  IMentalHealthSupport,
   mentalHealthChangesSlice,
   mentalHealthFrequencySlice,
   mentalHealthHistorySlice,
   mentalHealthLearningSlice,
   mentalHealthStateSlice,
   mentalHealthSupportSlice,
+  TStateMentalHealth,
+  TStateMentalHealthChanges,
+  TStateMentalHealthFrequency,
+  TStateMentalHealthHistory,
+  TStateMentalHealthLearning,
+  TStateMentalHealthSupport,
 } from './mental-health';
-import { IMentalHealthPlayback, mentalHealthPlaybackSlice } from './mental-health-playback';
-import { reconsentSlice, TReconsentState } from './reconsent';
-import { ISettings, settingsSlice } from './settings';
-import { ITestingModeState, testingModeSlice } from './testingMode';
-import { IUser, userSlice } from './user';
-import { IVaccineState, vaccinesSlice } from './vaccines';
+import { mentalHealthPlaybackSlice, TStateMentalHealthPlayback } from './mental-health-playback';
+import { onboardingSlice } from './onboarding/slice';
+import { TStateOnboarding } from './onboarding/types';
+import { reconsentSlice, TStateReconsent } from './reconsent';
+import { settingsSlice, TStateSettings } from './settings';
+import { studyHubSlice } from './study-hub/slice';
+import { TStateStudyHub } from './study-hub/types';
+import { testingModeSlice, TStateTestingMode } from './testingMode';
+import { TStateUser, userSlice } from './user';
+import { TStateVaccine, vaccinesSlice } from './vaccines';
 
 export type TRootState = {
-  app: IApp;
-  assessment: TAssessmentInfosRequest;
-  content: TContentState;
-  dietStudy: IDietStudy;
-  mentalHealthChanges: IMentalHealthChanges;
-  mentalHealthFrequency: IMentalHealthFrequency;
-  mentalHealthHistory: IMentalHealthHistory;
-  mentalHealthLearning: IMentalHealthLearning;
-  mentalHealthPlayback: IMentalHealthPlayback;
-  mentalHealthState: IMentalHealthState;
-  mentalHealthSupport: IMentalHealthSupport;
-  mediaCentre: IMediaCentreState;
-  reconsent: TReconsentState;
-  school: TSchoolState;
-  settings: ISettings;
-  testingMode: ITestingModeState;
-  user: IUser;
-  vaccines: IVaccineState;
+  app: TStateApp;
+  assessment: TStateAssessment;
+  content: TStateContent;
+  dietStudy: TStateDietStudy;
+  mediaCentre: TStateMediaCentre;
+  mentalHealthChanges: TStateMentalHealthChanges;
+  mentalHealthFrequency: TStateMentalHealthFrequency;
+  mentalHealthHistory: TStateMentalHealthHistory;
+  mentalHealthLearning: TStateMentalHealthLearning;
+  mentalHealthPlayback: TStateMentalHealthPlayback;
+  mentalHealthState: TStateMentalHealth;
+  mentalHealthSupport: TStateMentalHealthSupport;
+  onboarding: TStateOnboarding;
+  reconsent: TStateReconsent;
+  school: TStateSchool;
+  settings: TStateSettings;
+  studyHub: TStateStudyHub;
+  testingMode: TStateTestingMode;
+  user: TStateUser;
+  vaccines: TStateVaccine;
 };
 
 export default combineReducers({
@@ -64,9 +69,11 @@ export default combineReducers({
   mentalHealthPlayback: mentalHealthPlaybackSlice,
   mentalHealthState: mentalHealthStateSlice,
   mentalHealthSupport: mentalHealthSupportSlice,
+  onboarding: onboardingSlice.reducer,
   reconsent: reconsentSlice.reducer,
   school: schoolSlice.reducer,
   settings: settingsSlice,
+  studyHub: studyHubSlice.reducer,
   testingMode: testingModeSlice.reducer,
   user: userSlice,
   vaccines: vaccinesSlice.reducer,

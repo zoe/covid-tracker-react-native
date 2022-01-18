@@ -1,7 +1,7 @@
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { TProfile } from '@covid/core/profile/ProfileService';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
+import { TScreenParamList } from '@covid/routes/types';
 
 export type TScreenName = keyof TScreenParamList;
 export type TScreenFlow = {

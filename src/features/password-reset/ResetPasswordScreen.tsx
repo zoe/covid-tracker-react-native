@@ -1,8 +1,8 @@
 import { Screen } from '@covid/components/Screen';
 import { userService } from '@covid/core/user/UserService';
-import { ScreenParamList } from '@covid/features';
 import ResetPasswordForm, { IResetPasswordForm } from '@covid/features/password-reset/fields/ResetPasswordForm';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import { AxiosError } from 'axios';
@@ -11,7 +11,7 @@ import * as React from 'react';
 import * as Yup from 'yup';
 
 type TProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'ResetPassword'>;
+  navigation: StackNavigationProp<TScreenParamList, 'ResetPassword'>;
 };
 
 type TState = {

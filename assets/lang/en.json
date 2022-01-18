@@ -1,16 +1,22 @@
 {
   "and": "and",
   "app-name": "COVID Study",
+  "coming-soon": "Coming soon",
   "company-name": "ZOE",
   "continue": "Continue",
+  "information-correct": "This information is correct",
   "less": "Less",
   "loading": "Loading",
   "log-in": "Log in",
   "more": "More",
+  "more-details": "More details",
+  "new": "New",
+  "next": "Next",
   "no-change": "No change",
+  "ok": "OK",
+  "read-more": "Read more",
   "skip": "Skip",
   "you": "You",
-  "ok": "OK",
   "create-account": {
     "title": "Create new account",
     "btn": "Create account",
@@ -475,11 +481,11 @@
     "q18": "Have you had at least one COVID-19 vaccine dose?",
     "q18-a1": "Yes",
     "q18-a2": "No",
-    "q19": "Did you have ongoing COVID-19 symptoms in the week *before* your first COVID-19 vaccine injection?",
+    "q19": "Did you have ongoing COVID-19 symptoms in the week *before* your first COVID-19 vaccine injection?",
     "q19-a1": "Yes",
     "q19-a2": "No",
     "q19-a3": "Not sure",
-    "q20": "Did your symptoms change 2 weeks (or more) *after* your first COVID-19 vaccine injection?",
+    "q20": "Did your symptoms change 2 weeks (or more) *after* your first COVID-19 vaccine injection?",
     "q21": "Have your symptoms changed in the week *after* your vaccination (excluding the first 2 days)?",
     "q21-symptom_change_headache": "Headache",
     "q21-symptom_change_smell": "Loss of smell",
@@ -588,6 +594,7 @@
     "thank-you-for-rating": "Thank you for your feedback.\nWe're working hard to improve things"
   },
   "menu": {
+    "item-biometric-auth": "Biometric authentication",
     "item-edit-profile": "Edit profile",
     "item-media-centre": "Read & Watch",
     "item-share-this-app": "Share this app",
@@ -602,7 +609,7 @@
   "delete-data-alert-title": "Are you sure?",
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
   "push-notifications": "Turn on reminders",
-  "testing-mode": "Testing mode",
+  "testing-mode": "Testing mode / debug",
   "cancel": "Cancel",
   "confirm": "Confirm",
   "delete": "Delete",
@@ -1029,7 +1036,6 @@
       "modal-body": "We can now record COVID-19 vaccines taken as part of a trial. Please select \"I received my vaccine via a vaccine trial\" when asked for the name of your vaccine.",
       "modal-button": "OK",
       "add-button": "Add a vaccine dose",
-      "correct-info": "This information is correct",
       "no-vaccine": "I haven't had a vaccine",
       "no-2nd": "I haven't had a second dose",
       "delete-vaccine-title": "Delete Vaccine?",
@@ -1687,6 +1693,104 @@
     "tab-bookmarked": "Bookmarked",
     "title": "Read & Watch"
   },
+  "study-hub": {
+    "consented": {
+      "description": "Thanks for joining our Wider Health Studies. Help us decide which studies to run next by expressing your interest here. We'll keep updating the list, so please check back often.",
+      "title": "Studies you're eligible for"
+    },
+    "interest-shown-modal": {
+      "button": "Close",
+      "description": "You tapped the heart on your very first study!\n\nTap more to grow your scientific contribution! We’ll keep you posted on studies you’re interested in.",
+      "title": "Congrats!"
+    },
+    "study-details": {
+      "commitment": "Commitment",
+      "lead-scientist": "Lead scientist",
+      "research-focus": "Research focus",
+      "the-bigger-picture": "The bigger picture",
+      "what-do-i-need": "What do I need?",
+      "whats-involved": "What's involved",
+      "who-can-join": "Who can join?"
+    },
+    "feedback": {
+      "title": "Enjoying our new Studies?",
+      "placeholder": "Please add any comments (optional)",
+      "button": "Send feedback"
+    },
+    "onboarding": {
+      "button": "Next",
+      "button-last": "Launch Studies Hub",
+      "slide-1": {
+        "title-begin": "We’ve got an update on the mission you joined to",
+        "title-end": "fight major diseases beyond COVID-19"
+      },
+      "slide-2": {
+        "title-begin": "Immune health",
+        "title-end": "lies at the core of almost all major diseases and is shaped by your habits & behaviours"
+      },
+      "slide-3": {
+        "card-1": {
+          "description": "Frequently logging your symptoms, tests and vaccines builds a detailed picture of your immune health",
+          "title": "Immune health"
+        },
+        "card-2": {
+          "description": "We'll map the impact of your sleep, diet and exercise habits on immune health at an unprecedented scale",
+          "title": "Habits & behaviours"
+        },
+        "card-3": {
+          "description": "Discover novel ways to improve your immune health and lower risk of diseases like cancer, heart disease and more",
+          "title": "Future disease risk"
+        },
+        "title": "How it will work"
+      },
+      "slide-4": {
+        "card-1": {
+          "description": "Express your interest in new studies before they go live",
+          "title": "Studies Hub"
+        },
+        "card-2": {
+          "description": "Keep track of changes in your symptoms, conditions and medications over time",
+          "title": "Health Profile"
+        },
+        "card-3": {
+          "description": "Daily symptom reporting will go from 1 min a day to 1 tap a day on average",
+          "title": "Simplified reporting"
+        },
+        "title": "Look out for new features in the app!"
+      }
+    },
+    "onboarding-overlay": {
+      "description": "Interested in a study?\nTap the ‘heart’ and we’ll keep you posted when the study has enough support to go live"
+    },
+    "reconsent-modal": {
+      "button": "Take me to opt in",
+      "description": "We need your consent to take part in Wider Health Studies before you can express interest in new studies on this page.",
+      "title": "Opt in to access new studies",
+      "return": "Return to Home"
+    }
+  },
+  "tab-navigation": {
+    "home-tab": "Home",
+    "study-hub-tab": "Studies",
+    "study-hub-tab-overlay": {
+      "description": "From the Studies tab, you can manage Studies you're interested in"
+    }
+  },
   "required-field": "Required field",
-  "modal-close": "Close"
+  "modal-close": "Close",
+  "biometric-auth": {
+    "button": "Authenticate",
+    "description-facial": "Use facial recognition",
+    "description-facial-finger": "Use facial recognition or fingerprint",
+    "description-facial-finger-iris": "Use facial recognition or fingerprint or iris recognition",
+    "description-facial-iris": "Use facial recognition or iris recognition",
+    "description-finger": "Use fingerprint",
+    "description-finger-iris": "Use fingerprint or iris recognition",
+    "description-iris": "Use iris recognition",
+    "description-nothing": "Your device doesn't support biometric authentication",
+    "result-cancelled": "The authentication was cancelled",
+    "result-disabled": "You can't use biometric authentication for now, you probably tried it too many times",
+    "result-error": "Something went wrong while authenticating",
+    "result-success": "Successfully authenticated"
+  }
 }
