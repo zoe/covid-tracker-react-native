@@ -14,7 +14,7 @@ export default function InfoBox(props: IProps) {
   return (
     <View style={[styles.card, props.style]}>
       <View style={styles.icon}>
-        <InfoCircle color={colors.darkblue} />
+        <InfoCircle color={colors.darkBlue} />
       </View>
       <Text style={styles.text} textClass="pLight">
         {props.text}
@@ -25,7 +25,7 @@ export default function InfoBox(props: IProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.lightBlueBackground,
+    backgroundColor: colors.lighterBlueBackground,
     borderRadius: sizes.m,
     flexDirection: 'row',
     paddingHorizontal: sizes.m,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     marginTop: sizes.xxs,
   },
   text: {
-    color: colors.darkblue,
+    color: colors.darkBlue,
     justifyContent: 'flex-start',
     marginLeft: sizes.xs,
     paddingRight: sizes.m,

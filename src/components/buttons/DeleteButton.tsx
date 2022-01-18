@@ -1,4 +1,4 @@
-import { DeleteText } from '@covid/components';
+import { DeleteText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { styling } from '@covid/themes';
 import * as React from 'react';

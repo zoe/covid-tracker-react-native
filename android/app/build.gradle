@@ -106,7 +106,10 @@ project.ext.react = [
     bundleInDebug: false,
     bundleInStaging: true,
     devDisabledInStaging: true,
-    enableHermes: false
+    enableHermes: false,
+    // 7 dec 2021: Fix prod build error
+    // https://stackoverflow.com/questions/69484326/react-native-error-unable-to-extract-native-debug-metadata
+    bundleInRelease: true,
 ]
 
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
@@ -151,20 +154,17 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
+    ndkVersion rootProject.ext.ndkVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
     defaultConfig {
         resValue "string", "build_config_package", "com.joinzoe.covid_zoe"
         applicationId 'com.joinzoe.covid_zoe'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2012171250
-        versionName "1.0.6"
+        // Be carefull that the value doesn't exceed the maximum signed integer value of 2147483647!
+        versionCode 2022011300
+        versionName "2.7.1"
     }
     splits {
         abi {
@@ -213,6 +213,10 @@ android {
         }
     }
 
+    buildFeatures {
+       viewBinding true
+   }
+
     packagingOptions {
         pickFirst "lib/armeabi-v7a/libc++_shared.so"
         pickFirst "lib/arm64-v8a/libc++_shared.so"
@@ -229,10 +233,31 @@ android {
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
-                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
         }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '25.3.0'
+                }
+            }
+        }
+    }
+
+    // Memory issues for build
+    // https://stackoverflow.com/questions/59044161/expiring-daemon-because-jvm-heap-space-is-exhausted
+    dexOptions {
+      javaMaxHeapSize "4g"
     }
 }
 
@@ -240,13 +265,16 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     apply plugin: 'com.google.gms.google-services'
-
+   
     // For animated GIF support
-    implementation 'com.facebook.fresco:animated-gif:2.0.0'
+    implementation 'com.facebook.fresco:animated-gif:2.5.0'
 
     // For WebP support, including animated WebP
-    implementation 'com.facebook.fresco:animated-webp:2.1.0'
-    implementation 'com.facebook.fresco:webpsupport:2.0.0'
+    implementation 'com.facebook.fresco:animated-webp:2.5.0'
+    implementation 'com.facebook.fresco:webpsupport:2.5.0'
+
+    // For WebP support, without animations
+    implementation 'com.facebook.fresco:webpsupport:2.5.0'
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

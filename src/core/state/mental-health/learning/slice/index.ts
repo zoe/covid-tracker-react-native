@@ -1,12 +1,12 @@
 import {
-  IMentalHealthLearning,
   THasDisability,
   TMentalHealthLearning,
+  TStateMentalHealthLearning,
 } from '@covid/core/state/mental-health/learning/types';
 import { TRootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialStateMentalHealthLearning: IMentalHealthLearning = {
+export const initialStateMentalHealthLearning: TStateMentalHealthLearning = {
   conditions: [],
   hasDisability: undefined,
 };

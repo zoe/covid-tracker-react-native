@@ -2,7 +2,7 @@ import { BrandedButton, ErrorText, Text } from '@covid/components';
 import Card from '@covid/components/cards/Card';
 import Analytics, { events } from '@covid/core/Analytics';
 import { contentService } from '@covid/core/content/ContentService';
-import { fetchStartUpInfo } from '@covid/core/state/contentSlice';
+import { fetchStartupInfo } from '@covid/core/state/content/slice';
 import { resetFeedback, selectReturnScreenName } from '@covid/core/state/reconsent';
 import IllustrationSignup from '@covid/features/reconsent/components/IllustrationSignup';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
@@ -52,10 +52,14 @@ export default function ReconsentNewsletterSignupScreen() {
     }
     // Update the startup info (as research consent has changed and app needs to be aware)
     // This requires async await to make sure!
-    await dispatch(fetchStartUpInfo());
+    await dispatch(fetchStartupInfo());
     NavigatorService.navigate('Dashboard');
     if (returnScreenName === 'Menu') {
       NavigatorService.openDrawer();
+    }
+
+    if (returnScreenName === 'Studies') {
+      NavigatorService.navigate('Dashboard', { screen: 'StudiesList' });
     }
     dispatch(resetFeedback());
   }
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
     color: colors.purple,
   },
   buttonYes: {
-    backgroundColor: colors.darkblue,
+    backgroundColor: colors.darkBlue,
   },
   card: {
     marginBottom: sizes.m,

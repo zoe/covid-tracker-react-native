@@ -1,5 +1,6 @@
 import { QuoteMarks } from '@assets';
-import { BrandedButton, DoctorProfile, Modal, Tag, Text } from '@covid/components';
+import { BrandedButton, DoctorProfile, Tag, Text } from '@covid/components';
+import { Modal } from '@covid/components/Modal';
 import Analytics from '@covid/core/Analytics';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
@@ -57,9 +58,10 @@ export default function MentalHealthPlaybackModal(props: IProps) {
         {i18n.t('mental-health-playback.modal.title-new-personal')}
       </Text>
       <DoctorProfile
-        image={getMentalHealthStudyDoctorImage()}
+        imageNode={getMentalHealthStudyDoctorImage()}
         location={i18n.t('mental-health.doctor-location')}
         name={i18n.t('mental-health.doctor-name')}
+        style={styles.marginBottom}
         title={i18n.t('mental-health.doctor-title')}
       />
       <QuoteMarks />
@@ -87,6 +89,9 @@ const styles = StyleSheet.create({
     paddingBottom: sizes.l,
     paddingHorizontal: sizes.m,
     paddingTop: sizes.xs,
+  },
+  marginBottom: {
+    marginBottom: sizes.m,
   },
   title: {
     marginBottom: sizes.m,

@@ -15,12 +15,17 @@ interface IProps {
   style?: StyleProp<ViewStyle>;
 }
 
-function Icon({ color = 'black', iconName, iconSize = 16, iconStyle = {}, inverted = false, style = {} }: IProps) {
+export default function Icon({
+  color = 'black',
+  iconName,
+  iconSize = 16,
+  iconStyle = {},
+  inverted = false,
+  style = {},
+}: IProps) {
   return (
     <SIconView accessibilityRole="none" size={iconSize} style={style}>
       <SIconSet color={color} inverted={inverted} name={iconName} size={iconSize} style={iconStyle} />
     </SIconView>
   );
 }
-
-export default Icon;

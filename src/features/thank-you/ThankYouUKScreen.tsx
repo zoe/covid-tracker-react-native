@@ -9,10 +9,12 @@ import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { ImpactTimelineCard } from '@covid/features/anniversary';
 import { appCoordinator } from '@covid/features/AppCoordinator';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
+import { BigGreenTickFilled } from '@covid/features/thank-you/components/BigGreenTick';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
@@ -20,11 +22,11 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { BigGreenTickFilled } from './components/BigGreenTick';
-
 interface IProps {
   route: RouteProp<TScreenParamList, 'ThankYouUK'>;
 }
+
+const SHOW_ONBOARDING_DELAY_MS = 750;
 
 export default function ThankYouUKScreen(props: IProps) {
   const dispatch = useDispatch();
@@ -35,6 +37,13 @@ export default function ThankYouUKScreen(props: IProps) {
     (async () => {
       if (startupInfo?.show_modal === 'mental-health-playback') {
         dispatch(appActions.setModalMentalHealthPlaybackVisible(true));
+        return;
+      }
+      if (startupInfo?.show_study_hub_onboarding) {
+        setTimeout(() => {
+          NavigatorService.goBack();
+          NavigatorService.jumpTo('StudiesList');
+        }, SHOW_ONBOARDING_DELAY_MS);
         return;
       }
       try {

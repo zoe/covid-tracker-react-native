@@ -1,5 +1,6 @@
 import { fingerPrickX3, noseSwabX3, syringeX3 } from '@assets';
-import { BrandedButton, HeaderText, LabelSecondaryText, LightText, Modal } from '@covid/components';
+import { BrandedButton, HeaderText, LabelSecondaryText, LightText } from '@covid/components';
+import { Modal } from '@covid/components/Modal';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import * as React from 'react';

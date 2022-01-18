@@ -6,11 +6,11 @@ import { HeaderText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
-import { ScreenParamList } from '@covid/features';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { FacebookSECard } from '@covid/features/thank-you/components/FacebookSE';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors, fontStyles } from '@theme';
@@ -20,7 +20,7 @@ import { StyleSheet } from 'react-native';
 import VisitWebsite from './components/VisitWebsite';
 
 interface IProps {
-  route: RouteProp<ScreenParamList, 'ThankYouSE'>;
+  route: RouteProp<TScreenParamList, 'ThankYouSE'>;
 }
 
 const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();

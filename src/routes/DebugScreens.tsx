@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const screenEntries = Object.entries(screens);
 
-const timeInterval = 2000; // milliseconds
+const TIME_INTERVAL_MS = 2000;
 
 export default function DebugScreens(props: any) {
   const [runSlideshow, setRunSlideshow] = React.useState(false);
@@ -27,7 +27,7 @@ export default function DebugScreens(props: any) {
         }
         return previousIndex + 1;
       });
-    }, timeInterval);
+    }, TIME_INTERVAL_MS);
     return () => clearInterval(interval);
   }, [runSlideshow]);
 
@@ -51,7 +51,6 @@ export default function DebugScreens(props: any) {
 
   return (
     <>
-      {/* @ts-expect-error */}
       <Screen {...props} />
       <View pointerEvents="box-none" style={styles.view}>
         <TouchableOpacity onLongPress={onLongPress} style={styles.touchableOpacity}>

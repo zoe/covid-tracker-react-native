@@ -59,6 +59,7 @@ export default function MHPGeneralScreen() {
         ) : (
           <>
             <ScrollView
+              alwaysBounceVertical={false}
               decelerationRate="fast"
               onScroll={onScroll}
               overScrollMode="never"

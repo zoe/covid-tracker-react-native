@@ -1,4 +1,5 @@
-import { BrandedButton, LabelSecondaryText, LightText, Modal } from '@covid/components';
+import { BrandedButton, LabelSecondaryText, LightText } from '@covid/components';
+import { Modal } from '@covid/components/Modal';
 import { Text } from '@covid/components/typography';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';

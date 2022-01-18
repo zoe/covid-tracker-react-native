@@ -1,4 +1,3 @@
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import * as screens from '@covid/features/screens';
 import AnniversaryNavigator from '@covid/routes/AnniversaryNavigator';
 import DietStudyPlaybackNavigator from '@covid/routes/DietStudyPlaybackNavigator';
@@ -8,6 +7,9 @@ import ReconsentNavigator from '@covid/routes/ReconsentNavigator';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import * as React from 'react';
 import { Platform } from 'react-native';
+
+import StudyHubNavigator from './StudyHubNavigator';
+import { TScreenParamList } from './types';
 
 // Fix Android bug where stack navigation during http load can cause error:
 // https://github.com/react-navigation/react-navigation/issues/9067
@@ -28,6 +30,7 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.AdultOrChildScreen} name="AdultOrChild" options={options} />
       <Stack.Screen component={screens.ArchiveReasonScreen} name="ArchiveReason" options={options} />
       <Stack.Screen component={screens.BeforeWeStartUSScreen} name="BeforeWeStartUS" options={options} />
+      <Stack.Screen component={screens.BiometricAuthScreen} name="BiometricAuth" options={options} />
       <Stack.Screen component={screens.ConfirmSchoolScreen} name="ConfirmSchool" options={options} />
       <Stack.Screen component={screens.ConsentForOtherScreen} name="ConsentForOther" options={options} />
       <Stack.Screen component={screens.ConsentScreen} name="Consent" options={options} />
@@ -103,6 +106,7 @@ export default function MainNavigator() {
       {MentalHealthNavigator({ Stack })}
       {MentalHealthPlaybackNavigator({ Stack })}
       {ReconsentNavigator({ Stack })}
+      {StudyHubNavigator({ Stack })}
 
       {/* Uncomment this line to replace the Dashboard with DebugScreens to allow quick debugging */}
       {/* <Stack.Screen component={DebugScreens} name="Dashboard" options={options} /> */}

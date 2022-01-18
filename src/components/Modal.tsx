@@ -1,3 +1,8 @@
+/* eslint-disable */
+
+// TODO: investigate lint error:
+// React Hook "React.useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render    react-hooks/rules-of-hooks
+
 import { Text } from '@covid/components/typography';
 import Analytics from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
@@ -14,7 +19,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import GestureRecognizer from 'react-native-swipe-gestures';
+import GestureRecognizer from 'rn-swipe-gestures';
 
 type TSwipeFunction = (gestureState: PanResponderGestureState) => void;
 
@@ -27,10 +32,8 @@ interface IProps {
   onPressClose?: () => void;
   onRequestClose: () => void;
   showsVerticalScrollIndicator?: boolean;
-  swipeDown?: TSwipeFunction;
   swipeLeft?: TSwipeFunction;
   swipeRight?: TSwipeFunction;
-  swipeUp?: TSwipeFunction;
   testID: string;
   visible: boolean;
 }
@@ -56,15 +59,26 @@ const hitSlop = {
 
 const COLORS = ['#ffffff00', 'white'];
 
-export default React.memo(function Modal(props: IProps) {
-  const safeAreaInsets = useSafeAreaInsets();
+const gestureConfig = {
+  detectSwipeDown: false,
+  detectSwipeLeft: true,
+  detectSwipeRight: true,
+  detectSwipeUp: false,
+};
+
+export const Modal = React.memo(function Modal(props: IProps) {
+  // Don't call the hooks to prevent analytics from tracking without the modal being visible to the user.
+  if (!props.visible) {
+    return null;
+  }
 
   React.useEffect(() => {
     if (props.modalName) {
       Analytics.trackModalView(props.modalName);
     }
   }, [props.modalName]);
-
+  // @ts-ignore
+  const safeAreaInsets = useSafeAreaInsets();
   function renderContent() {
     const paddingStyle = {
       paddingBottom: sizes.screenVerticalPadding + safeAreaInsets.bottom,
@@ -121,19 +135,10 @@ export default React.memo(function Modal(props: IProps) {
     );
   }
 
-  const hasSwipe =
-    props.swipeUp !== undefined ||
-    props.swipeDown !== undefined ||
-    props.swipeLeft !== undefined ||
-    props.swipeRight !== undefined;
+  const hasSwipe = props.swipeLeft !== undefined || props.swipeRight !== undefined;
 
   return hasSwipe ? (
-    <GestureRecognizer
-      onSwipeDown={props.swipeDown}
-      onSwipeLeft={props.swipeLeft}
-      onSwipeRight={props.swipeRight}
-      onSwipeUp={props.swipeUp}
-    >
+    <GestureRecognizer config={gestureConfig} onSwipeLeft={props.swipeLeft} onSwipeRight={props.swipeRight}>
       {renderContent()}
     </GestureRecognizer>
   ) : (

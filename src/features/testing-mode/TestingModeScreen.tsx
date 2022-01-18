@@ -12,9 +12,9 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-let hash = '';
+let gitHash = '';
 try {
-  hash = require('../../../.git-hash.json');
+  gitHash = require('../../../.git-hash.json');
 } catch (error) {
   // eslint-disable-next-line no-console
   console.warn(error);
@@ -49,7 +49,7 @@ const renderCustomisableSettings = (startupInfo: TStartupInfo, dispatch: Dispatc
     );
   });
 
-export default function TestingModeScreen() {
+export function TestingModeScreen() {
   const dispatch = useDispatch();
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
@@ -59,7 +59,7 @@ export default function TestingModeScreen() {
         Welcome Tester. Choose your experience.
       </Text>
       <Text rhythm={24} textClass="h5Medium">
-        Git hash: {hash.substring(0, 10)}
+        Git hash: {gitHash.substring(0, 10)}
       </Text>
       <Text rhythm={12} textClass="h5Medium">
         Customisable settings

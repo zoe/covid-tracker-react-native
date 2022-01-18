@@ -1,5 +1,4 @@
-import { BrandedButton } from '@covid/components';
-import { ShareButton } from '@covid/components/buttons';
+import { BrandedButton, ShareButton } from '@covid/components/buttons';
 import { Text } from '@covid/components/typography';
 import { WebView } from '@covid/components/WebView';
 import Analytics, { events } from '@covid/core/Analytics';

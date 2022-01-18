@@ -6,7 +6,7 @@ import * as React from 'react';
 
 const cards = [ELegalCardType.AdvanceScience, ELegalCardType.ImproveHealth, ELegalCardType.BuildProducts];
 
-export default function DataConsentScreen() {
+export function DataConsentScreen() {
   return (
     <Screen testID="data-consent-screen">
       <Text rhythm={24} textAlign="center" textClass="h2Light">

@@ -2,27 +2,18 @@
 
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { CovidTestRow } from '@covid/features/covid-tests/components/CovidTestRow';
-import CovidTestTabbedListsScreen, { ETabScreen } from '@covid/features/covid-tests/screens/CovidTestTabbedListsScreen';
+import CovidTestTabbedListsScreen from '@covid/features/covid-tests/screens/CovidTestTabbedListsScreen';
+import { ETabScreen } from '@covid/features/covid-tests/types';
 import * as React from 'react';
 import { TabBarItem } from 'react-native-tab-view';
 import renderer from 'react-test-renderer';
 
 import MockedNavigator from '../../../../../__mocks__/MockedNavigator';
 
-function createComponent(covidTests: TCovidTest[], initialRouteName: string) {
-  const minTabViewHeight = 240;
-  const tabViewHeight = 500;
-
+function createComponent(covidTests: TCovidTest[], initialRouteName: ETabScreen) {
   const element = (
     <MockedNavigator
-      Component={() => (
-        <CovidTestTabbedListsScreen
-          covidTests={covidTests}
-          initialRouteName={initialRouteName}
-          minTabViewHeight={minTabViewHeight}
-          tabViewHeight={tabViewHeight}
-        />
-      )}
+      Component={() => <CovidTestTabbedListsScreen covidTests={covidTests} initialRouteName={initialRouteName} />}
     />
   );
 

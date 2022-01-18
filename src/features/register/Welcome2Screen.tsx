@@ -12,8 +12,8 @@ import {
   localisationService,
 } from '@covid/core/localisation/LocalisationService';
 import { appCoordinator } from '@covid/features/AppCoordinator';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
@@ -35,7 +35,7 @@ type TProps = {
 const Welcome2Screen: React.FC<TProps> = ({ navigation }) => {
   const [ipModalVisible, setIpModalVisible] = React.useState(false);
 
-  const onLoginPress = React.useCallback(() => navigation.navigate('Login', { terms: '' }), [navigation.navigate]);
+  const onLoginPress = React.useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
 
   const onCloseModal = React.useCallback(() => setIpModalVisible(false), [setIpModalVisible]);
 

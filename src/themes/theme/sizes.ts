@@ -22,4 +22,5 @@ export const sizes = {
   maxScreenWidth: 600,
   screenHorizontalPadding: grid.l,
   screenVerticalPadding: grid.l,
+  tabIconOverlay: 80,
 };

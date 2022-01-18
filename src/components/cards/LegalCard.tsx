@@ -33,7 +33,7 @@ export function LegalCard(props: TProps) {
 }
 
 const cardStyle: ViewStyle = {
-  backgroundColor: colors.transparentDarkBlue,
+  backgroundColor: colors.darkBlue16,
   borderRadius: sizes.m,
   paddingHorizontal: sizes.l,
   paddingVertical: sizes.l,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginTop: sizes.m,
   },
   darkBlue: {
-    color: colors.darkblue,
+    color: colors.darkBlue,
   },
   firstCard: cardStyle,
 });

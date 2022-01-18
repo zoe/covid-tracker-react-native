@@ -1,7 +1,8 @@
-import { BrandedButton, Modal } from '@covid/components';
+import { BrandedButton } from '@covid/components';
+import { Modal } from '@covid/components/Modal';
 import { Text } from '@covid/components/typography';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { StackNavigationProp } from '@react-navigation/stack';

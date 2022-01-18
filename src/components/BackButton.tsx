@@ -4,8 +4,8 @@ import * as React from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 
 type TProps = {
+  iconColor?: string;
   style?: StyleProp<ViewStyle>;
-  iconColor: string;
 };
 
 const HIT_SLOP = {
@@ -23,7 +23,11 @@ export function BackButton(props: TProps) {
       style={props.style}
       testID="button-back-navigation"
     >
-      <Icon name="chevron-thin-left" style={[styles.icon, { color: props.iconColor }]} type="Entypo" />
+      <Icon
+        name="chevron-thin-left"
+        style={[styles.icon, props.iconColor && { color: props.iconColor }]}
+        type="Entypo"
+      />
     </TouchableOpacity>
   );
 }

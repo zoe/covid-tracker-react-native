@@ -16,17 +16,17 @@ export default function DietStudyGlobalScreen() {
       <Text rhythm={16} textClass="pMedium">
         {i18n.t('diet-study.global-section-0-title')}
       </Text>
-      <ScalableImage fullWidth source={dietStudyPlaybackGlobal1} style={styles.image} />
+      <ScalableImage fullWidth source={{ uri: dietStudyPlaybackGlobal1 }} style={styles.image} />
       <Spacer space={24} />
       <Text rhythm={16} textClass="pMedium">
         {i18n.t('diet-study.global-section-1-title')}
       </Text>
-      <ScalableImage fullWidth source={dietStudyPlaybackGlobal2} style={styles.image} />
+      <ScalableImage fullWidth source={{ uri: dietStudyPlaybackGlobal2 }} style={styles.image} />
       <Spacer space={24} />
       <Text rhythm={16} textClass="pMedium">
         {i18n.t('diet-study.global-section-2-title')}
       </Text>
-      <ScalableImage fullWidth source={dietStudyPlaybackGlobal3} style={styles.image} />
+      <ScalableImage fullWidth source={{ uri: dietStudyPlaybackGlobal3 }} style={styles.image} />
     </Screen>
   );
 }

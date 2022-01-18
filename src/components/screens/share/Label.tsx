@@ -14,7 +14,7 @@ interface IProps {
 function ShareLabel({
   colorPalette = 'teal',
   colorShade = 'main',
-  label = 'Explore the state of the pandemic in your area via the COVID Symptom Study App',
+  label = 'Explore the state of the pandemic in your area via the ZOE COVID Study',
 }: IProps) {
   return (
     <SShareLabelView colorPalette={colorPalette} colorShade={colorShade}>

@@ -11,6 +11,7 @@ import {
   TimelineIntroduction,
 } from '@covid/features/anniversary/partials';
 import { ITimeline } from '@covid/features/anniversary/types';
+import { sizes } from '@covid/themes';
 import { colors } from '@theme/colors';
 import * as React from 'react';
 import { Alert, FlatList, Image, StyleSheet } from 'react-native';
@@ -21,7 +22,34 @@ type TRowItem = {
   id: TRowType;
 };
 
-const keyExtractor = (item: TRowItem) => item.id;
+function keyExtractor(item: TRowItem) {
+  return item.id;
+}
+
+const data: TRowItem[] = [
+  {
+    id: 'INTRODUCTION',
+  },
+  {
+    id: 'LOADER',
+  },
+  {
+    id: 'ERROR',
+  },
+  {
+    id: 'REPORT_CARD',
+  },
+  {
+    id: 'TIMELINE',
+  },
+  {
+    id: 'FOOTER',
+  },
+];
+
+function renderHeader() {
+  return <NavHeader rightElement={<Image source={covidByZoeIconDark} style={styles.image} />} />;
+}
 
 export default function AnniversaryScreen() {
   const [timeline, setTimeline] = React.useState<ITimeline>();
@@ -67,44 +95,32 @@ export default function AnniversaryScreen() {
     }
   };
 
-  const data: TRowItem[] = [
-    {
-      id: 'INTRODUCTION',
-    },
-    {
-      id: 'LOADER',
-    },
-    {
-      id: 'ERROR',
-    },
-    {
-      id: 'REPORT_CARD',
-    },
-    {
-      id: 'TIMELINE',
-    },
-    {
-      id: 'FOOTER',
-    },
-  ];
-
-  function renderHeader() {
-    return <NavHeader rightElement={<Image source={covidByZoeIconDark} style={styles.image} />} />;
-  }
-
   return (
-    <Screen backgroundColor={colors.backgroundTertiary} renderHeader={renderHeader} testID="anniversary-screen">
+    <Screen
+      noScrollView
+      backgroundColor={colors.backgroundTertiary}
+      renderHeader={renderHeader}
+      testID="anniversary-screen"
+    >
       <FlatList
+        contentContainerStyle={styles.contentContainer}
         data={data}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
-        style={{ backgroundColor: colors.backgroundTertiary }}
+        style={styles.backgroundColor}
       />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundColor: {
+    backgroundColor: colors.backgroundTertiary,
+  },
+  contentContainer: {
+    paddingBottom: sizes.screenVerticalPadding,
+    paddingHorizontal: sizes.screenHorizontalPadding,
+  },
   image: {
     aspectRatio: 2.25,
     height: undefined,

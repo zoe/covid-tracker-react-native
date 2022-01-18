@@ -1,7 +1,7 @@
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { HeaderText, SimpleTextBlock } from '@covid/features/register/components/LegalComponents';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
+import { TScreenParamList } from '@covid/routes/types';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

@@ -33,6 +33,11 @@ export const fontStyles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
+  bodyXXSmall: {
+    color: colors.quinary,
+    fontSize: 10,
+    lineHeight: 10,
+  },
   h0Reg: {
     color: colors.primary,
     fontFamily: 'SofiaPro-Light',

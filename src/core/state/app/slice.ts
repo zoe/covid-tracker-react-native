@@ -1,8 +1,8 @@
-import { IApp } from '@covid/core/state/app/types';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialStateApp: IApp = {
+export const initialStateApp: TStateApp = {
   mentalHealthStudyActive: true,
   modalMentalHealthPlaybackVisible: false,
 };

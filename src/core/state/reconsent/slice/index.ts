@@ -1,7 +1,7 @@
 import {
   TDiseaseId,
-  TReconsentState,
   TSetDiseasePreferencesAction,
+  TStateReconsent,
   TUpdateDiseasePreferenceAction,
   TUpdateFeedbackAction,
   TUpdateReturnScreenNameAction,
@@ -12,7 +12,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialDiseasePreferences = {};
 const initialFeedbackData = {};
 
-export const initialStateReconsent: TReconsentState = {
+export const initialStateReconsent: TStateReconsent = {
   diseasePreferences: initialDiseasePreferences,
   feedbackData: initialFeedbackData,
   returnScreenName: undefined,
@@ -66,7 +66,7 @@ export const {
 export const selectFeedbackData = (state: TRootState) => state.reconsent.feedbackData || initialFeedbackData;
 export const selectDiseasePreferences = (state: TRootState) =>
   state.reconsent.diseasePreferences || initialDiseasePreferences;
-export const selectDiseasesActivated = (reconsentState: TReconsentState) =>
+export const selectDiseasesActivated = (reconsentState: TStateReconsent) =>
   reconsentState.diseasePreferences
     ? (Object.keys(reconsentState.diseasePreferences) as TDiseaseId[]).filter(
         (diseaseId) => reconsentState.diseasePreferences[diseaseId] === true && diseaseId !== 'prefer_not_to_say',

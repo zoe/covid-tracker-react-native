@@ -2,14 +2,13 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { IFormikDiabetesInputFC } from '@covid/features/patient/fields/DiabetesQuestions';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { FormikProps } from 'formik';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
-
-import { IFormikDiabetesInputFC } from './DiabetesQuestions';
 
 enum EDiabetesTreatmentsFieldnames {
   NONE = 'diabetes_treatment_none',

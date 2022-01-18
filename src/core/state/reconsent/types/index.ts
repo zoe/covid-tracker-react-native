@@ -30,9 +30,9 @@ export type TFeedbackData = {
   [key in TFeedbackId]?: string;
 };
 
-export type TReturnScreenName = 'Dashboard' | 'Menu';
+export type TReturnScreenName = 'Dashboard' | 'Menu' | 'Studies';
 
-export type TReconsentState = {
+export type TStateReconsent = {
   diseasePreferences: TDiseasePreferencesData;
   feedbackData: TFeedbackData;
   returnScreenName?: TReturnScreenName;

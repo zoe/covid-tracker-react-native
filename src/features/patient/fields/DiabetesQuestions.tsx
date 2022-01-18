@@ -6,6 +6,12 @@ import { RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { DiabetesOralMedsQuestion } from '@covid/features/patient/fields/DiabetesOralMedsQuestion';
+import {
+  DiabetesTreatmentsQuestion,
+  IDiabetesTreatmentsData,
+} from '@covid/features/patient/fields/DiabetesTreatmentsQuestion';
+import { IDiabetesOralMedsData } from '@covid/features/patient/fields/types';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
@@ -13,9 +19,6 @@ import { FormikProps } from 'formik';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
-
-import { DiabetesOralMedsQuestion, IDiabetesOralMedsData } from './DiabetesOralMedsQuestion';
-import { DiabetesTreatmentsQuestion, IDiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 
 export interface IDiabetesData extends IDiabetesTreatmentsData, IDiabetesOralMedsData {
   diabetesType: string;

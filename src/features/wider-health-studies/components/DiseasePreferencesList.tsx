@@ -1,5 +1,6 @@
 import { Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
+import { ScrollView } from '@covid/components/ScrollView';
 import { reconsentReducer, selectDiseasesActivated, selectReconsentState } from '@covid/core/state/reconsent';
 import {
   resetDiseasePreferences,
@@ -15,7 +16,7 @@ import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { FlatList, ScrollView, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 function keyExtractor(disease: TDiseasePreference) {
@@ -116,16 +117,24 @@ const styles = StyleSheet.create({
     margin: sizes.l,
   },
   contentContainer: {
-    padding: sizes.l,
+    flexGrow: 1,
+    paddingHorizontal: sizes.screenHorizontalPadding,
+    paddingVertical: sizes.screenVerticalPadding,
   },
   flex: {
     flex: 1,
   },
+  marginBottom: {
+    marginBottom: sizes.l,
+  },
   marginHorizontal: {
-    marginHorizontal: sizes.l,
+    marginHorizontal: sizes.screenHorizontalPadding,
   },
   marginTop: {
     marginTop: sizes.l,
+  },
+  paddingHorizontal: {
+    paddingHorizontal: sizes.l,
   },
   selfCenter: {
     alignSelf: 'center',

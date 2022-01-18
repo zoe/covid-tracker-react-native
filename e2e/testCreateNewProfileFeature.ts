@@ -24,7 +24,6 @@ export function testCreateNewProfileFeature(config: TCreateNewProfileConfig) {
       await element(by.id('button-new-profile')).tap();
       await element(by.id('input-profile-name')).typeText(config.profileName);
       await element(by.id('button-submit').withAncestor(by.id('create-profile-screen'))).tap();
-      await element(by.id('button-submit').withAncestor(by.id('create-profile-screen'))).tap();
 
       // @todo: Also test button-under-18
       await element(by.id('button-over-18')).tap();

@@ -1,6 +1,6 @@
 import { LineChart } from '@covid/components/charts/LineChart';
 import { ENewlySymptomaticRegion } from '@covid/core/content/dto/ContentAPIContracts';
-import { selectContent, TContentState } from '@covid/core/state';
+import { selectContent, TStateContent } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
 import { colors } from '@theme';
 import moment from 'moment';
@@ -14,7 +14,7 @@ interface IProps {
   region: ENewlySymptomaticRegion;
 }
 
-export const BASELINE_COLOR = colors.darkblue;
+export const BASELINE_COLOR = colors.darkBlue;
 export const CURRENT_COLOR = colors.purple;
 
 const TICK_VALUES = [0, 2, 4, 6];
@@ -23,7 +23,7 @@ const tickFormatX = (tick: Date) => moment(tick).format('DD MMM');
 const tickFormatY = (tick: any) => `${tick}%`;
 
 export function NewlySymptomaticChart(props: IProps) {
-  const content = useSelector<TRootState, TContentState>(selectContent);
+  const content = useSelector<TRootState, TStateContent>(selectContent);
 
   const datasets = React.useMemo(() => {
     const newlySymptomaticChartData = (content.newlySymptomaticChartData || [])
@@ -42,10 +42,12 @@ export function NewlySymptomaticChart(props: IProps) {
     return [
       {
         data: newlySymptomaticChartData,
+        id: 'current-data',
         strokeColor: CURRENT_COLOR,
       },
       {
         data: baselineData,
+        id: 'baseline-data',
         strokeColor: BASELINE_COLOR,
       },
     ];
@@ -56,6 +58,7 @@ export function NewlySymptomaticChart(props: IProps) {
       datasets={datasets}
       height={props.height}
       strokeColor={CURRENT_COLOR}
+      testID="newly-symptomatic-chart"
       tickFormatX={tickFormatX}
       tickFormatY={tickFormatY}
       tickValues={TICK_VALUES}

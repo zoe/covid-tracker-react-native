@@ -1,5 +1,5 @@
 import { LineChart } from '@covid/components/charts/LineChart';
-import { selectContent, TContentState } from '@covid/core/state';
+import { selectContent, TStateContent } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
 import moment from 'moment';
 import * as React from 'react';
@@ -17,7 +17,7 @@ const tickFormatX = (tick: string) => {
 };
 
 export function TrendlineChart(props: IProps) {
-  const content = useSelector<TRootState, TContentState>(selectContent);
+  const content = useSelector<TRootState, TStateContent>(selectContent);
 
   const data = React.useMemo(() => {
     const beginMoment = moment(props.beginDate);
@@ -45,5 +45,5 @@ export function TrendlineChart(props: IProps) {
       }));
   }, [props.beginDate, props.endDate, content.localTrendline]);
 
-  return <LineChart data={data} height={props.height} tickFormatX={tickFormatX} />;
+  return <LineChart data={data} height={props.height} testID="trendline-chart" tickFormatX={tickFormatX} />;
 }

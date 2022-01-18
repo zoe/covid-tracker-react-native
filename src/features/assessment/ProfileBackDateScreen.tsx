@@ -17,8 +17,8 @@ import {
 } from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
 import { DiabetesQuestions, IDiabetesData } from '@covid/features/patient/fields/DiabetesQuestions';
 import { IRaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { Formik, FormikProps } from 'formik';

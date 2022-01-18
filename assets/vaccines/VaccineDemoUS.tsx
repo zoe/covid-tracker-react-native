@@ -1,4 +1,4 @@
-import { TSvgProps } from '@assets/Svg';
+import { TSvgProps } from '@assets/types';
 import * as React from 'react';
 import { Image as SvgImage, Path, Svg } from 'react-native-svg';
 

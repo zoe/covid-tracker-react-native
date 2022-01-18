@@ -1,5 +1,7 @@
 import { QuoteMarks } from '@assets';
-import { RoundIconButton, Tag, Text } from '@covid/components';
+import RoundIconButton from '@covid/components/buttons/round-icon-button';
+import Tag from '@covid/components/Tag';
+import { Text } from '@covid/components/typography';
 import i18n from '@covid/locale/i18n';
 import { colors, sizes, styling } from '@covid/themes';
 import * as React from 'react';

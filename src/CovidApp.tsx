@@ -4,17 +4,18 @@ import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
 import MentalHealthPlaybackModal from '@covid/features/mental-health-playback/modals/MentalHealthPlaybackModal';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
+import { OnboardingOverlay } from '@covid/features/onboarding/components/OnboardingOverlay';
 import { VaccineListMissingModal } from '@covid/features/vaccines/modals/VaccineListMissingModal';
 import NavigatorService from '@covid/NavigatorService';
 import MainNavigator from '@covid/routes';
+import { TScreenParamList } from '@covid/routes/types';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Notifications from 'expo-notifications';
 import { Root } from 'native-base';
 import * as React from 'react';
-import { Dimensions, LogBox } from 'react-native';
+import { Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Stack = createStackNavigator<TScreenParamList>();
@@ -27,6 +28,8 @@ const drawerStyle = {
 };
 
 const screenOptions = {
+  drawerPosition: 'right',
+  drawerStyle,
   swipeEnabled: false,
 };
 
@@ -34,13 +37,8 @@ const optionsMainScreen = { headerShown: false };
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator
-      drawerContent={drawerContent}
-      drawerPosition="right"
-      drawerStyle={drawerStyle}
-      screenOptions={screenOptions}
-    >
-      <Drawer.Screen component={MainNavigator} name="Main" options={optionsMainScreen} />
+    <Drawer.Navigator drawerContent={drawerContent} drawerStyle={drawerStyle} screenOptions={screenOptions}>
+      <Drawer.Screen component={MainNavigator} name="MainNavigator" options={optionsMainScreen} />
     </Drawer.Navigator>
   );
 }
@@ -51,7 +49,16 @@ const linking = {
 
 const optionsModal = { cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' }, gestureEnabled: false };
 
-const optionsShareScreen = { cardStyle: { backgroundColor: 'rgba(0,0,0,0.85)' } };
+const optionsShareScreen = {
+  cardStyle: { backgroundColor: 'rgba(0,0,0,0.85)' },
+  presentation: 'card',
+};
+
+const ref = (navigationContainerRef: NavigationContainerRef<ReactNavigation.RootParamList>) => {
+  if (navigationContainerRef) {
+    NavigatorService.setup(navigationContainerRef);
+  }
+};
 
 export default function CovidApp() {
   const app = useSelector(appSelectors.selectApp);
@@ -63,27 +70,15 @@ export default function CovidApp() {
     });
   });
 
-  // This ignores warnings that pop up wherever we nest FlatList within a ScrollView.
-  // The issue is that our custom Screen component (which wraps all our screens) contains a ScrollView.
-  // https://stackoverflow.com/questions/58243680/react-native-another-virtualizedlist-backed-container/58283632
-  React.useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-  }, []);
-
-  const ref = React.useCallback((navigatorRef) => {
-    if (navigatorRef) {
-      NavigatorService.setContainer(navigatorRef);
-    }
-  }, []);
-
   return (
     <Root>
       <MentalHealthPlaybackModal
         onRequestClose={() => dispatch(appActions.setModalMentalHealthPlaybackVisible(false))}
         visible={app.modalMentalHealthPlaybackVisible}
       />
+      <OnboardingOverlay />
       <NavigationContainer linking={linking} onStateChange={NavigatorService.handleStateChange} ref={ref}>
-        <Stack.Navigator headerMode="none" initialRouteName="Main" mode="modal">
+        <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false, presentation: 'modal' }}>
           <Stack.Screen component={DrawerNavigator} name="Main" />
           <Stack.Screen component={VaccineListMissingModal} name="VaccineListMissingModal" options={optionsModal} />
           <Stack.Screen component={VersionUpdateModal} name="VersionUpdateModal" options={optionsModal} />

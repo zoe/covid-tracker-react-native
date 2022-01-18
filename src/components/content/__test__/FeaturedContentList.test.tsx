@@ -3,7 +3,7 @@
 import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
 import { EFeaturedContentType, FeaturedContentList } from '@covid/components/Content/FeaturedContentList';
 import ApiClient from '@covid/core/api/ApiClient';
-import { fetchFeaturedContent } from '@covid/core/state/contentSlice';
+import { fetchFeaturedContent } from '@covid/core/state/content/slice';
 import MockAdapter from 'axios-mock-adapter';
 import * as React from 'react';
 import { Provider } from 'react-redux';

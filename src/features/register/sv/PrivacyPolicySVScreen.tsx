@@ -1,8 +1,8 @@
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { ScreenParamList } from '@covid/features';
 import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '@covid/features/register/components/LegalComponents';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -10,8 +10,8 @@ import { colors } from '@theme';
 import * as React from 'react';
 
 type TProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicySV'>;
-  route: RouteProp<ScreenParamList, 'PrivacyPolicySV'>;
+  navigation: StackNavigationProp<TScreenParamList, 'PrivacyPolicySV'>;
+  route: RouteProp<TScreenParamList, 'PrivacyPolicySV'>;
 };
 
 export default class PrivacyPolicySVScreen extends React.Component<TProps, object> {
@@ -34,7 +34,7 @@ export default class PrivacyPolicySVScreen extends React.Component<TProps, objec
           ]}
         />
 
-        <HeaderText text="Den allmänna dataskyddsförordningen (GDPR)" />
+        <HeaderText text="Den allmänna dataskyddsförordningen (GDPR)" />
         <SimpleTextBlock
           text={[
             'Både den Europeiska unionens allmänna dataskyddsförordning (GDPR) och Storbritanniens motsvarighet som kallas för “UK GDPR”, är tillämpliga på vår behandling av personuppgifter, oavsett om du bor i Sverige, Storbritannien eller någon annanstans. I dagsläget skyddar både GDPR och UK GDPR uppgifter som rör dig på nästan exakt samma sätt.',

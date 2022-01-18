@@ -5,7 +5,7 @@ import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { Screen } from '@covid/components/Screen';
 import { Header3Text, RegularText } from '@covid/components/Text';
 import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
-import { fetchLocalTrendline } from '@covid/core/state/contentSlice';
+import { fetchLocalTrendline } from '@covid/core/state/content/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';

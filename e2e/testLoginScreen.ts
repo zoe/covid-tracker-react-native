@@ -24,7 +24,6 @@ export function testLoginScreen(config: TLoginConfig) {
 
     it('should login the user', async () => {
       await element(by.id('login-button')).tap();
-      await element(by.id('login-button')).tap();
       await expect(element(by.id('login-button'))).not.toBeVisible();
     });
 

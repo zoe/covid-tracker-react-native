@@ -2,7 +2,7 @@ import { CovidAppByZOE } from '@assets/logos/CovidAppByZOE';
 import { BrandedButton } from '@covid/components';
 import { CaptionText, Header3Text, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import { TContentState } from '@covid/core/state/contentSlice';
+import { TStateContent } from '@covid/core/state/content/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 export function ExpandedHeader(props: IProps) {
-  const content = useSelector<TRootState, TContentState>((state) => state.content);
+  const content = useSelector<TRootState, TStateContent>((state) => state.content);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const [contributors, setContributors] = React.useState<string | null>(null);
 

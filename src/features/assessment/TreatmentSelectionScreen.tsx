@@ -3,8 +3,8 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { CaptionText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
 import { sizes } from '@covid/themes';
 import { RouteProp, useIsFocused } from '@react-navigation/native';
@@ -13,7 +13,7 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 interface IProps {
-  route: RouteProp<ScreenParamList, 'TreatmentSelection'>;
+  route: RouteProp<TScreenParamList, 'TreatmentSelection'>;
 }
 
 function TreatmentSelectionScreen({ route }: IProps) {

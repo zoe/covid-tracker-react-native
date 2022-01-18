@@ -20,8 +20,8 @@ export type TMentalHealthCondition =
 
 export type THasDiagnosis = 'YES' | 'NO' | 'DECLINE_TO_SAY' | undefined;
 
-export interface IMentalHealthHistory {
+export type TStateMentalHealthHistory = {
   hasDiagnosis: THasDiagnosis;
   conditions: TMentalHealthCondition[];
   otherText?: string;
-}
+};

@@ -1,9 +1,10 @@
-import { BrandedButton, Modal, Text } from '@covid/components';
+import { BrandedButton, Text } from '@covid/components';
+import { Modal } from '@covid/components/Modal';
 import { ErrorText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { consentService } from '@covid/core/consent/ConsentService';
 import { patientService } from '@covid/core/patient/PatientService';
-import { fetchStartUpInfo } from '@covid/core/state/contentSlice';
+import { fetchStartupInfo } from '@covid/core/state/content/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -35,7 +36,7 @@ export const OptOutModal = React.memo((props: TProps) => {
       await patientService.updatePatientInfo(patientId, {
         menu_notifications_onboarding_seen: true,
       });
-      await dispatch(fetchStartUpInfo());
+      await dispatch(fetchStartupInfo());
       props.onRequestClose();
       NavigatorService.goBack();
     } catch (error) {
@@ -47,7 +48,12 @@ export const OptOutModal = React.memo((props: TProps) => {
   }, [props.onRequestClose]);
 
   return (
-    <Modal onRequestClose={props.onRequestClose} testID="opt-out-modal" visible={props.visible}>
+    <Modal
+      modalName="ReconsentOptOut"
+      onRequestClose={props.onRequestClose}
+      testID="wider-health-studies-opt-out-modal"
+      visible={props.visible}
+    >
       <Text inverted colorPalette="uiDark" colorShade="darker" textAlign="center" textClass="h3Regular">
         {i18n.t('wider-health-studies.opt-out-modal.title')}
       </Text>

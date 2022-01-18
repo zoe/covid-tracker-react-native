@@ -1,10 +1,11 @@
 import { BackButton } from '@covid/components/BackButton';
 import { BrandedButton } from '@covid/components/buttons';
+import { Dots } from '@covid/components/Dots';
 import { Screen } from '@covid/components/Screen';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 interface IProps {
   activeDot?: number;
@@ -17,30 +18,14 @@ interface IProps {
   testID: string;
 }
 
-const DOT_SIZE = 8;
-const AMOUNT_DOTS = 3;
-
-const dots = Array(AMOUNT_DOTS)
-  .fill(null)
-  .map((_, i) => i);
-
 export default function ReconsentScreen(props: IProps) {
   function renderHeader() {
     return !props.noHeader || props.activeDot ? (
       <View style={styles.headerWrapper}>
         {props.noHeader ? null : <BackButton />}
         {props.activeDot ? (
-          <View pointerEvents="none" style={styles.dotsWrapper}>
-            {dots.map((_, index) => (
-              <View
-                // eslint-disable-next-line react/no-array-index-key
-                key={`dot-${index}`}
-                style={[
-                  index > 0 && styles.marginLeft,
-                  index + 1 === props.activeDot ? styles.dotActive : styles.dotInactive,
-                ]}
-              />
-            ))}
+          <View style={styles.dotWrapper}>
+            <Dots activeDot={props.activeDot} amount={3} />
           </View>
         ) : null}
       </View>
@@ -70,39 +55,18 @@ export default function ReconsentScreen(props: IProps) {
   );
 }
 
-const dotStyle: ViewStyle = {
-  borderRadius: DOT_SIZE / 2,
-  height: DOT_SIZE,
-  width: DOT_SIZE,
-};
-
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.purple,
     marginTop: 'auto',
   },
-  dotActive: {
-    ...dotStyle,
-    backgroundColor: colors.brand,
-  },
-  dotInactive: {
-    ...dotStyle,
-    backgroundColor: colors.backgroundFour,
-  },
-  dotsWrapper: {
+  dotWrapper: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
-    flexDirection: 'row',
     justifyContent: 'center',
   },
   headerWrapper: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingBottom: sizes.m,
     paddingHorizontal: sizes.screenHorizontalPadding,
-    paddingTop: sizes.screenVerticalPadding,
-  },
-  marginLeft: {
-    marginLeft: DOT_SIZE / 2,
+    paddingVertical: sizes.screenVerticalPadding,
   },
 });

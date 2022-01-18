@@ -4,8 +4,8 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TAssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import { ScreenParamList } from '@covid/features';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
 import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
@@ -23,7 +23,7 @@ interface ITreatmentData {
 }
 
 type TTreatmentOtherProps = {
-  route: RouteProp<ScreenParamList, 'TreatmentOther'>;
+  route: RouteProp<TScreenParamList, 'TreatmentOther'>;
 };
 
 export default class TreatmentOtherScreen extends React.Component<TTreatmentOtherProps> {

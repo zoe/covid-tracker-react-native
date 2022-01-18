@@ -19,7 +19,10 @@ import {
 } from '@covid/features/covid-tests/helpers';
 import { CovidTestAntibodyInfoModal } from '@covid/features/covid-tests/modals/CovidTestAntibodyInfoModal';
 import { CovidTestMechanismInfoModal } from '@covid/features/covid-tests/modals/CovidTestMechanismInfoModal';
-import { CovidTestInvitedQuestion, ICovidTestInvitedFormikData } from '@covid/features/covid-tests/questions';
+import {
+  CovidTestInvitedQuestion,
+  ICovidTestInvitedFormikData,
+} from '@covid/features/covid-tests/questions/CovidTestInvitedQuestion';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';

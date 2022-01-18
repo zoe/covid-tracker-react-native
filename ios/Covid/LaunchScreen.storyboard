@@ -23,8 +23,6 @@
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="0.039515320210000003" green="0.15953227880000001" blue="0.36472517250000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="3Bw-a9-wd0" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="7kG-8T-K1l"/>
-                            <constraint firstAttribute="bottom" secondItem="3Bw-a9-wd0" secondAttribute="bottom" id="AgN-9s-acx"/>
                             <constraint firstItem="3Bw-a9-wd0" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="DXY-1C-uuj"/>
                             <constraint firstItem="3Bw-a9-wd0" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="eRa-5T-yic"/>
                         </constraints>

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   shareButton: {
-    backgroundColor: colors.facebook,
+    backgroundColor: colors.darkBlue,
     height: 42,
     marginHorizontal: sizes.xxl,
     marginVertical: sizes.l,

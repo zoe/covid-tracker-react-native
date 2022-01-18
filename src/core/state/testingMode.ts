@@ -1,11 +1,11 @@
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ITestingModeState = {
+export type TStateTestingMode = {
   startupInfo: Partial<TStartupInfo>;
 };
 
-export const initialStateTestingMode: ITestingModeState = {
+export const initialStateTestingMode: TStateTestingMode = {
   startupInfo: {},
 };
 

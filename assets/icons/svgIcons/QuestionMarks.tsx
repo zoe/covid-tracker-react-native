@@ -1,5 +1,5 @@
 import { IIconProps } from '@assets/icons/svgIcons/types';
-import { determineDimensions } from '@assets/utils';
+import { determineDimensions } from '@assets/icons/utils';
 import { colors } from '@theme/colors';
 import * as React from 'react';
 import { G, Path, Svg } from 'react-native-svg';

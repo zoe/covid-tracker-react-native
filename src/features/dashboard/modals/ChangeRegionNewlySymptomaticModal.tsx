@@ -1,6 +1,8 @@
-import { HeaderText, Modal } from '@covid/components';
+import { Modal } from '@covid/components/Modal';
+import { HeaderText } from '@covid/components/Text';
 import { Text } from '@covid/components/typography';
 import { ENewlySymptomaticRegion } from '@covid/core/content/dto/ContentAPIContracts';
+import { TRegionItem } from '@covid/core/state/content/types';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import * as React from 'react';
@@ -12,8 +14,6 @@ type TProps = {
   selectedItem: TRegionItem;
   visible: boolean;
 };
-
-export type TRegionItem = { label: string; key: ENewlySymptomaticRegion };
 
 export const LONDON_ITEM = {
   key: ENewlySymptomaticRegion.LONDON,
@@ -77,7 +77,11 @@ export const ChangeRegionNewlySymptomaticModal = (props: TProps) => (
     <View style={styles.fullWidth} />
     <HeaderText style={styles.marginBottom}>{i18n.t('newly-symptomatic.change-region')}</HeaderText>
     {REGION_ITEMS.map((item: TRegionItem) => (
-      <TouchableOpacity onPress={() => props.onChangeItem(item)} style={styles.touchable}>
+      <TouchableOpacity
+        key={`region-item-${item.key}`}
+        onPress={() => props.onChangeItem(item)}
+        style={styles.touchable}
+      >
         {item.key === props.selectedItem.key ? (
           <Text inverted colorPalette="actionSecondary" colorShade="main" textClass="h5Regular">
             {item.label}

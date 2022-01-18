@@ -1,3 +1,4 @@
+// @ts-expect-error
 const childProcess = require('child_process');
 const cleanDeep = require('clean-deep');
 const deepDiff = require('deep-diff');

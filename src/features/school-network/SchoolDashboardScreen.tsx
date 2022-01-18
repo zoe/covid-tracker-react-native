@@ -1,8 +1,8 @@
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, Header3Text, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import { ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

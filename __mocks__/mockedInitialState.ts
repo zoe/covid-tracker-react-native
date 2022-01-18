@@ -1,8 +1,9 @@
 import { initialStateAssessment } from '@covid/core/assessment/state/reducers';
 import { initialStateSchools } from '@covid/core/schools/Schools.slice';
 import { initialStateApp } from '@covid/core/state/app/slice';
-import { initialStateContent } from '@covid/core/state/contentSlice';
+import { initialStateContent } from '@covid/core/state/content/slice';
 import { initialStateDietStudy } from '@covid/core/state/diet-study/slice';
+import { initialStateMediaCentre } from '@covid/core/state/media-centre';
 import { initialStateMentalHealthChanges } from '@covid/core/state/mental-health/changes/slice';
 import { initialStateMentalHealthFrequency } from '@covid/core/state/mental-health/frequency/slice';
 import { initialStateMentalHealthHistory } from '@covid/core/state/mental-health/history/slice';
@@ -10,9 +11,11 @@ import { initialStateMentalHealthLearning } from '@covid/core/state/mental-healt
 import { initialStateMentalHealth } from '@covid/core/state/mental-health/state/slice';
 import { initialStateMentalHealthSupport } from '@covid/core/state/mental-health/support/slice';
 import { initialStateMentalHealthPlayback } from '@covid/core/state/mental-health-playback/slice';
+import { initialStateOnboarding } from '@covid/core/state/onboarding/slice';
 import { initialStateReconsent } from '@covid/core/state/reconsent';
 import { TRootState } from '@covid/core/state/root';
 import { initialStateSettings } from '@covid/core/state/settings/slice';
+import { initialStateStudyHub } from '@covid/core/state/study-hub/slice';
 import { initialStateTestingMode } from '@covid/core/state/testingMode';
 import { initialStateUser } from '@covid/core/state/user/slice';
 import { initialStateVaccine } from '@covid/core/state/vaccines/slice';
@@ -22,6 +25,7 @@ export const initialState: TRootState = {
   assessment: initialStateAssessment,
   content: initialStateContent,
   dietStudy: initialStateDietStudy,
+  mediaCentre: initialStateMediaCentre,
   mentalHealthChanges: initialStateMentalHealthChanges,
   mentalHealthFrequency: initialStateMentalHealthFrequency,
   mentalHealthHistory: initialStateMentalHealthHistory,
@@ -29,9 +33,11 @@ export const initialState: TRootState = {
   mentalHealthPlayback: initialStateMentalHealthPlayback,
   mentalHealthState: initialStateMentalHealth,
   mentalHealthSupport: initialStateMentalHealthSupport,
+  onboarding: initialStateOnboarding,
   reconsent: initialStateReconsent,
   school: initialStateSchools,
   settings: initialStateSettings,
+  studyHub: initialStateStudyHub,
   testingMode: initialStateTestingMode,
   user: initialStateUser,
   vaccines: initialStateVaccine,

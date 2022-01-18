@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   externalLink: {
-    color: colors.darkblue,
+    color: colors.darkBlue,
     textAlign: 'center',
     textDecorationLine: 'underline',
   },

@@ -1,9 +1,6 @@
-import 'reflect-metadata';
-
 import { ErrorBoundary } from '@covid/core/ErrorBoundary';
 import store, { persistor } from '@covid/core/state/store';
 import CovidApp from '@covid/CovidApp';
-import StorybookUIRoot from '@covid/storybook';
 import { theme } from '@covid/themes';
 import { useFonts } from 'expo-font';
 import * as React from 'react';
@@ -15,8 +12,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import * as Sentry from 'sentry-expo';
 import { ThemeProvider } from 'styled-components/native';
-
-const ENABLE_STORYBOOK = false;
 
 Sentry.init({
   debug: false,
@@ -35,13 +30,12 @@ export default function App() {
     LogBox.ignoreAllLogs();
   }, []);
   SplashScreen.hide();
-  const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
   return (
     <ErrorBoundary>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={theme}>
-            <SafeAreaProvider>{loaded ? <Root /> : null}</SafeAreaProvider>
+            <SafeAreaProvider>{loaded ? <CovidApp /> : null}</SafeAreaProvider>
           </ThemeProvider>
         </PersistGate>
       </Provider>

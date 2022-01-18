@@ -1,14 +1,14 @@
 import { BrandedButton, Text } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
 import { patientService } from '@covid/core/patient/PatientService';
-import { fetchStartUpInfo } from '@covid/core/state/contentSlice';
+import { fetchStartupInfo } from '@covid/core/state/content/slice';
 import { resetFeedback, selectFeedbackData, selectReturnScreenName } from '@covid/core/state/reconsent';
 import { TRootState } from '@covid/core/state/root';
 import VimeoVideo from '@covid/features/reconsent//components/VimeoVideo';
 import ReconsentScreen from '@covid/features/reconsent/components/ReconsentScreen';
-import { TScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
 import { generalApiClient } from '@covid/services';
 import { sizes } from '@covid/themes';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -51,7 +51,7 @@ export default function ReconsentReconsiderScreen(props: IProps) {
       await patientService.updatePatientInfo(patientId, { research_consent_asked: true });
       // Update the startup info (as research consent has changed and app needs to be aware)
       // This requires async await to make sure!
-      await dispatch(fetchStartUpInfo());
+      await dispatch(fetchStartupInfo());
     } catch (_) {}
     dispatch(resetFeedback());
     setLoading(false);

@@ -1,14 +1,13 @@
-import { BrandedButton } from '@covid/components';
-import { ShareButton } from '@covid/components/buttons';
+import { BrandedButton, ShareButton } from '@covid/components/buttons';
 import { BASELINE_COLOR, CURRENT_COLOR, NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomaticChart';
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text, TextWithHighlight } from '@covid/components/typography';
 import Analytics, { events } from '@covid/core/Analytics';
 import { selectContent, updateSelectedRegionItem } from '@covid/core/state';
+import { TRegionItem } from '@covid/core/state/content/types';
 import {
   ChangeRegionNewlySymptomaticModal,
   LONDON_ITEM,
-  TRegionItem,
 } from '@covid/features/dashboard/modals/ChangeRegionNewlySymptomaticModal';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -50,40 +49,55 @@ export function NewlySymptomaticCard(props: TProps) {
   }, []);
 
   return (
-    <View style={styles.view}>
-      <TextWithHighlight color={colors.purple} query={selectedRegionItem.label} rhythm={8} textClass="h4">
+    <View style={[styles.view, props.isSharing ? styles.minimisePadding : null]}>
+      <TextWithHighlight
+        color={colors.purple}
+        query={selectedRegionItem.label}
+        rhythm={8}
+        textClass={props.isSharing ? 'h5' : 'h4'}
+      >
         {i18n.t('newly-symptomatic.active-covid-cases', { location: selectedRegionItem.label })}
       </TextWithHighlight>
-      <Text inverted colorPalette="uiDark" colorShade="dark" style={styles.marginBottom} textClass="pSmallLight">
+      <Text
+        inverted
+        colorPalette="uiDark"
+        colorShade="dark"
+        style={styles.marginBottom}
+        textClass={props.isSharing ? 'pXSmall' : 'pSmallLight'}
+      >
         {i18n.t('newly-symptomatic.active-covid-cases-subheader')}
       </Text>
 
-      <NewlySymptomaticChart height={200} region={selectedRegionItem.key} />
+      <NewlySymptomaticChart height={props.isSharing ? 150 : 200} region={selectedRegionItem.key} />
 
-      <View style={styles.explanationWrapperTop}>
+      <View style={[styles.explanationWrapperTop, props.isSharing ? styles.minimiseMargin : null]}>
         <View style={styles.thickLineCurrent} />
-        <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
+        <Text inverted colorPalette="uiDark" colorShade="dark" textClass={props.isSharing ? 'pXSmall' : 'pSmallLight'}>
           {i18n.t('newly-symptomatic.current-explanation', { location: selectedRegionItem.label })}
         </Text>
       </View>
 
-      <View style={styles.explanationWrapperBottom}>
+      <View style={[styles.explanationWrapperBottom, props.isSharing ? styles.minimiseMargin : null]}>
         <View style={styles.thickLineBaseline} />
-        <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pSmallLight">
+        <Text inverted colorPalette="uiDark" colorShade="dark" textClass={props.isSharing ? 'pXSmall' : 'pSmallLight'}>
           {i18n.t('newly-symptomatic.baseline-explanation')}
         </Text>
       </View>
 
-      <BrandedButton onPress={openModal} style={styles.marginTop}>
-        {i18n.t('newly-symptomatic.change-region')}
-      </BrandedButton>
+      {!props.isSharing ? (
+        <BrandedButton onPress={openModal} style={styles.marginTop}>
+          {i18n.t('newly-symptomatic.change-region')}
+        </BrandedButton>
+      ) : null}
 
-      <ChangeRegionNewlySymptomaticModal
-        onChangeItem={onChangeItem}
-        onRequestClose={onRequestClose}
-        selectedItem={selectedRegionItem}
-        visible={modalVisible}
-      />
+      {!props.isSharing ? (
+        <ChangeRegionNewlySymptomaticModal
+          onChangeItem={onChangeItem}
+          onRequestClose={onRequestClose}
+          selectedItem={selectedRegionItem}
+          visible={modalVisible}
+        />
+      ) : null}
 
       {!props.isSharing ? (
         <ShareButton label={i18n.t('dashboard.trendline-card.share-cta')} onPress={onPressShare} />
@@ -107,18 +121,6 @@ const explanationWrapper: ViewStyle = {
 };
 
 const styles = StyleSheet.create({
-  alignCenter: {
-    alignSelf: 'center',
-  },
-  antibodyTitle: {
-    flex: 1,
-    flexWrap: 'wrap',
-    marginBottom: sizes.xs,
-  },
-  deltaTag: {
-    alignSelf: 'center',
-    marginBottom: 24,
-  },
   explanationWrapperBottom: {
     ...explanationWrapper,
     marginTop: sizes.s,
@@ -127,17 +129,17 @@ const styles = StyleSheet.create({
     ...explanationWrapper,
     marginTop: sizes.l,
   },
-  flex: {
-    flex: 1,
-  },
   marginBottom: {
     marginBottom: sizes.m,
   },
-  marginRight: {
-    marginRight: sizes.s,
-  },
   marginTop: {
     marginTop: sizes.l,
+  },
+  minimiseMargin: {
+    marginTop: sizes.xs,
+  },
+  minimisePadding: {
+    paddingTop: sizes.xxs,
   },
   thickLineBaseline: {
     ...thickLineStyle,
@@ -146,15 +148,6 @@ const styles = StyleSheet.create({
   thickLineCurrent: {
     ...thickLineStyle,
     backgroundColor: CURRENT_COLOR,
-  },
-  touchableChart: {
-    marginTop: sizes.m,
-    width: '100%',
-  },
-  touchableText: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingVertical: sizes.m,
   },
   view: {
     backgroundColor: colors.white,

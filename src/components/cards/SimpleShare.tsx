@@ -1,6 +1,6 @@
 import { social } from '@assets';
 import { BrandedButton } from '@covid/components/buttons';
-import Analytics from '@covid/core/Analytics';
+import Analytics, { TEventName } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import * as React from 'react';
@@ -11,15 +11,14 @@ import { share } from './BaseShareApp';
 interface IProps {
   shareMessage?: string | undefined;
   title: string;
-  trackEvent?: string;
+  trackEvent?: TEventName;
 }
 
 function SimpleShare({ shareMessage = undefined, title, trackEvent }: IProps) {
-  const tEvent = trackEvent || 'SHARE';
   const message = shareMessage || i18n.t('share-this-app.message');
 
   const handleOnShare = async () => {
-    Analytics.track(tEvent);
+    Analytics.track(trackEvent || 'SHARE');
     await share(message);
   };
 

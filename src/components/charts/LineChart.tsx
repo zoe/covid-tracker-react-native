@@ -6,6 +6,7 @@ import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-na
 
 type TDataSet = {
   data: any[];
+  id: string;
   strokeColor?: string;
 };
 
@@ -17,6 +18,7 @@ interface IProps {
   datasets?: TDataSet[];
   height?: number;
   strokeColor?: string;
+  testID: string;
   tickFormatX?: TTickFormat;
   tickFormatY?: TTickFormat;
   tickValues?: number[];
@@ -33,6 +35,7 @@ const padding = {
 type TScale = 'linear' | 'time' | 'log' | 'sqrt';
 
 const scale: { x: TScale; y: TScale } = { x: 'time', y: 'linear' };
+
 const yAxisTicksAmount = 5;
 
 const yAxisTickStepSizes = Array(10)
@@ -77,6 +80,7 @@ export function LineChart(props: IProps) {
     ? [
         {
           data: props.data,
+          id: 'props-data',
           strokeColor: props.strokeColor,
         },
       ]
@@ -96,12 +100,13 @@ export function LineChart(props: IProps) {
         >
           <VictoryAxis dependentAxis tickFormat={props.tickFormatY} tickValues={tickValuesY} />
           <VictoryAxis fixLabelOverlap tickFormat={props.tickFormatX} />
-          {datasets?.map((dataset) => (
+          {datasets?.map((dataset: TDataSet) => (
             <VictoryLine
               data={dataset.data}
               height={chartHeight}
+              key={`victory-line-${dataset.id}-${props.testID}`}
               style={{
-                data: { stroke: dataset.strokeColor ?? colors.darkblue },
+                data: { stroke: dataset.strokeColor ?? colors.darkBlue },
               }}
               width={chartWidth}
             />

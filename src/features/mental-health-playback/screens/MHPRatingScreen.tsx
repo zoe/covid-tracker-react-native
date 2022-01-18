@@ -4,9 +4,9 @@ import Card from '@covid/components/cards/Card';
 import { Screen } from '@covid/components/Screen';
 import Analytics from '@covid/core/Analytics';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
+import { mentalHealthApiClient } from '@covid/features/mental-health/MentalHealthApiClient';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { mentalHealthApiClient } from '@covid/services';
 import { sizes, styling } from '@covid/themes';
 import { colors } from '@theme';
 import lodash from 'lodash';
@@ -14,13 +14,13 @@ import * as React from 'react';
 import { LayoutChangeEvent, TouchableOpacity, View } from 'react-native';
 
 const AMOUNT_STARS = 5;
-const THROTTLE_TIME = 250; // Milliseconds
+const THROTTLE_TIME_MS = 250;
 
 const ratings = Array(AMOUNT_STARS)
   .fill(null)
   .map((_, i) => i);
 
-const throttledFunction = lodash.throttle((func) => func(), THROTTLE_TIME);
+const throttledFunction = lodash.throttle((func) => func(), THROTTLE_TIME_MS);
 
 export default function MHPRatingScreen() {
   const [cardWidth, setCardWidth] = React.useState(0);

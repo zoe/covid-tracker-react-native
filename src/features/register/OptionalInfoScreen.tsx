@@ -7,9 +7,9 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { initialErrorState, TApiErrorState } from '@covid/core/api/ApiServiceErrors';
 import { TPiiRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
-import { ScreenParamList } from '@covid/features';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
+import { TScreenParamList } from '@covid/routes/types';
 import { offlineService, pushNotificationService } from '@covid/services';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
@@ -20,7 +20,7 @@ import { View } from 'react-native';
 import * as Yup from 'yup';
 
 type TProps = {
-  route: RouteProp<ScreenParamList, 'OptionalInfo'>;
+  route: RouteProp<TScreenParamList, 'OptionalInfo'>;
 };
 
 type TState = {
