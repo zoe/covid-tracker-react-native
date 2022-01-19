@@ -2,6 +2,7 @@ import { notificationReminders } from '@assets';
 import { EFeaturedContentType, FeaturedContentList, SchoolNetworks } from '@covid/components';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
+import HealthProfileReminderCard from '@covid/components/cards/HealthProfileReminderCard';
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
@@ -127,6 +128,9 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
               screenName={route.name}
             />
           ) : null}
+
+          {/* TODO: Fix show logic once backend completed */}
+          {startupInfo?.is_tester ? <HealthProfileReminderCard /> : null}
 
           <NewlySymptomaticCard />
 

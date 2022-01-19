@@ -1,6 +1,6 @@
 import DropdownField from '@covid/components/DropdownField';
 import { requiredFormMarker } from '@covid/components/Form';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabelRedesigned, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { isUSCountry, localisationService } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
@@ -25,15 +25,23 @@ interface IFCWithStatic<P> extends React.FC<P> {
 interface IProps {
   formikProps: FormikProps<IWeightData>;
   label: string;
+  redesign?: boolean; // TODO: Remove once we merge design
 }
 
-export const WeightQuestion: IFCWithStatic<IProps> = ({ formikProps, label }) => {
+export const WeightQuestion: IFCWithStatic<IProps> = ({ formikProps, label, redesign }) => {
   return (
-    <View style={styles.view}>
-      <RegularText>
-        {label}
-        {requiredFormMarker}
-      </RegularText>
+    <View style={redesign ? styles.viewRedesign : styles.view}>
+      {redesign ? (
+        <FieldLabelRedesigned>
+          {label}
+          {requiredFormMarker}
+        </FieldLabelRedesigned>
+      ) : (
+        <RegularText>
+          {label}
+          {requiredFormMarker}
+        </RegularText>
+      )}
       {isUSCountry() ? (
         <ValidatedTextInput
           error={formikProps.touched.pounds && !!formikProps.errors.pounds}
@@ -101,6 +109,7 @@ export const WeightQuestion: IFCWithStatic<IProps> = ({ formikProps, label }) =>
               ]}
               onValueChange={formikProps.handleChange('weightUnit')}
               selectedValue={formikProps.values.weightUnit}
+              style={redesign ? styles.noMarginBottom : null}
             />
           </View>
         </View>
@@ -131,6 +140,10 @@ WeightQuestion.createValidationSchema = () => {
 const styles = StyleSheet.create({
   fieldRow: {
     flexDirection: 'row',
+    paddingBottom: 0,
+  },
+  noMarginBottom: {
+    marginBottom: 0,
   },
   poundsField: {
     flex: 5,
@@ -160,5 +173,8 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     marginVertical: sizes.m,
+  },
+  viewRedesign: {
+    flex: 1,
   },
 });

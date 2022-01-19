@@ -31,6 +31,7 @@ export type TTextStyles = {
   h0: TText;
   //
   h1: TText;
+  h1Medium: TText;
   h1Regular: TText;
   //
   h2: TText;

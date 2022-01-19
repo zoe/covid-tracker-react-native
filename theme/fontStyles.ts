@@ -38,6 +38,12 @@ export const fontStyles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 10,
   },
+  fieldLabel: {
+    color: colors.secondary,
+    fontFamily: 'SofiaPro-Medium',
+    fontSize: 14,
+    lineHeight: 20,
+  },
   h0Reg: {
     color: colors.primary,
     fontFamily: 'SofiaPro-Light',

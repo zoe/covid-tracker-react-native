@@ -4,6 +4,7 @@
   "coming-soon": false,
   "company-name": "ZOE",
   "continue": "Continue",
+  "done": "Klar",
   "information-correct": "Informationen är korrekt",
   "less": "Less",
   "loading": "Loading",
@@ -1796,5 +1797,34 @@
     "result-disabled": false,
     "result-error": false,
     "result-success": false
+  },
+  "health-profile": {
+    "save-exit": false,
+    "why-we-ask-this": false,
+    "intro-modal": {
+      "tim-spector": false,
+      "title": false,
+      "description": false,
+      "time": false,
+      "button": false,
+      "remind-me": false
+    },
+    "about-you": {
+      "title": false,
+      "description": false,
+      "button": false
+    },
+    "thank-you": {
+      "title": false,
+      "description": false,
+      "coming-soon": false,
+      "return": false
+    },
+    "reminder-card": {
+      "title": false,
+      "tag": false,
+      "completion-percent": false,
+      "continue": false
+    }
   }
 }

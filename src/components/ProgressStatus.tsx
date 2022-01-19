@@ -5,10 +5,12 @@ import { LayoutChangeEvent, StyleProp, View, ViewStyle } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 type TProps = {
+  borderRadius?: number;
   currentStep: number;
   maxSteps: number;
   color?: string;
   style?: StyleProp<ViewStyle>;
+  height?: number;
 };
 
 const ProgressStatus: React.FC<TProps> = (props) => {
@@ -22,9 +24,10 @@ const ProgressStatus: React.FC<TProps> = (props) => {
     <View style={props.style}>
       <View onLayout={onLayout} style={styling.measureWidth} />
       <Progress.Bar
+        borderRadius={props.borderRadius || 4}
         borderWidth={0}
         color={color}
-        height={2}
+        height={props.height || 2}
         progress={progress / 100}
         unfilledColor={colors.backgroundFour}
         width={Math.min(width, sizes.maxScreenWidth)}

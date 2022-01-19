@@ -157,6 +157,11 @@ export type TScreenParamList = {
   StudyDetails: { study: TStudy };
   StudyHubOnboarding: undefined;
 
+  // Health profile
+  HPAboutYou: undefined;
+  HPThankYou: undefined;
+  HPWomensHealth: undefined;
+
   // Others
   Anniversary: undefined;
   EstimatedCases: undefined;

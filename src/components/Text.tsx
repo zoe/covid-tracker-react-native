@@ -1,3 +1,4 @@
+import { sizes } from '@covid/themes';
 import { colors, fontStyles } from '@theme';
 import * as React from 'react';
 import { ImageStyle, StyleProp, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native';
@@ -66,8 +67,13 @@ export const RegularText = ({ style, children, testID }: IProps) => (
   </Text>
 );
 
+// TODO: Phase this out and replace with FieldLabelRedesigned
 export const FieldLabel = ({ style, children }: IProps) => (
   <Text style={[fontStyles.bodyReg, styles.fieldLabel, style]}>{children}</Text>
+);
+
+export const FieldLabelRedesigned = ({ style, children }: IProps) => (
+  <Text style={[fontStyles.fieldLabel, styles.fieldLabelRedesigned, style]}>{children}</Text>
 );
 
 export const ClippedText = ({ style, children }: IProps) => (
@@ -123,6 +129,9 @@ const styles = StyleSheet.create({
   },
   fieldLabel: {
     marginBottom: -16,
+  },
+  fieldLabelRedesigned: {
+    marginBottom: sizes.m,
   },
   regularBoldText: {
     ...fontStyles.bodyReg,

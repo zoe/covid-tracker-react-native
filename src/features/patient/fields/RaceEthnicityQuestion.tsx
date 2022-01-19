@@ -1,5 +1,10 @@
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import {
+  CheckboxItem as CheckboxItemRedesign,
+  CheckboxList as CheckboxListRedesign,
+} from '@covid/components/inputsRedesigned/Checkbox';
+import { GenericTextField as GenericTextFieldRedesign } from '@covid/components/inputsRedesigned/GenericTextField';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -18,6 +23,7 @@ interface IRaceEthnicityQuestionProps {
   showRaceQuestion: boolean | undefined;
   showEthnicityQuestion: boolean | undefined;
   formikProps: FormikProps<IRaceEthnicityData>;
+  redesign?: boolean; // TODO: remove redesign concept once old component is replaced
 }
 
 type TRaceCheckBoxData = {
@@ -49,29 +55,53 @@ function renderRaceCheckboxes(data: TRaceCheckBoxData[], props: FormikProps<IRac
   ));
 }
 
+function renderRaceCheckboxesRedesign(data: TRaceCheckBoxData[], props: FormikProps<IRaceEthnicityData>) {
+  return data.map((checkBoxData) => (
+    <CheckboxItemRedesign
+      key={checkBoxData.value}
+      onChange={(checked: boolean) => {
+        let raceArray = props.values.race;
+        if (checkBoxData.value === 'prefer_not_to_say') {
+          raceArray = ['prefer_not_to_say'];
+        } else if (checked) {
+          raceArray.push(checkBoxData.value);
+          raceArray = raceArray.filter((val) => val !== 'prefer_not_to_say');
+        } else {
+          raceArray = raceArray.filter((val) => val !== checkBoxData.value);
+        }
+        props.setFieldValue('race', raceArray);
+      }}
+      testID={`checkbox-race-ethnicity-${checkBoxData.value}`}
+      value={props.values.race.includes(checkBoxData.value)}
+    >
+      {checkBoxData.label}
+    </CheckboxItemRedesign>
+  ));
+}
+
+export const UKRaceCheckboxes = [
+  { label: i18n.t('uk-asian'), value: 'uk_asian' },
+  { label: i18n.t('uk-black'), value: 'uk_black' },
+  { label: i18n.t('uk-mixed-white-black'), value: 'uk_mixed_white_black' },
+  { label: i18n.t('uk-mixed-other'), value: 'uk_mixed_other' },
+  { label: i18n.t('uk-white'), value: 'uk_white' },
+  { label: i18n.t('uk-chinese'), value: 'uk_chinese' },
+  { label: i18n.t('uk-middle-eastern'), value: 'uk_middle_eastern' },
+  { label: i18n.t('uk-other'), value: 'other' },
+  { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
+];
+
+export const USRaceCheckboxes = [
+  { label: i18n.t('us-indian_native'), value: 'us_indian_native' },
+  { label: i18n.t('us-asian'), value: 'us_asian' },
+  { label: i18n.t('us-black'), value: 'us_black' },
+  { label: i18n.t('us-hawaiian_pacific'), value: 'us_hawaiian_pacific' },
+  { label: i18n.t('us-white'), value: 'us_white' },
+  { label: i18n.t('us-other'), value: 'other' },
+  { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
+];
+
 export class RaceEthnicityQuestion extends React.Component<IRaceEthnicityQuestionProps, object> {
-  UKRaceCheckboxes = [
-    { label: i18n.t('uk-asian'), value: 'uk_asian' },
-    { label: i18n.t('uk-black'), value: 'uk_black' },
-    { label: i18n.t('uk-mixed-white-black'), value: 'uk_mixed_white_black' },
-    { label: i18n.t('uk-mixed-other'), value: 'uk_mixed_other' },
-    { label: i18n.t('uk-white'), value: 'uk_white' },
-    { label: i18n.t('uk-chinese'), value: 'uk_chinese' },
-    { label: i18n.t('uk-middle-eastern'), value: 'uk_middle_eastern' },
-    { label: i18n.t('uk-other'), value: 'other' },
-    { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
-  ];
-
-  USRaceCheckboxes = [
-    { label: i18n.t('us-indian_native'), value: 'us_indian_native' },
-    { label: i18n.t('us-asian'), value: 'us_asian' },
-    { label: i18n.t('us-black'), value: 'us_black' },
-    { label: i18n.t('us-hawaiian_pacific'), value: 'us_hawaiian_pacific' },
-    { label: i18n.t('us-white'), value: 'us_white' },
-    { label: i18n.t('us-other'), value: 'other' },
-    { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
-  ];
-
   static getInitialFormValues = () => {
     return {
       ethnicity: '',
@@ -84,30 +114,57 @@ export class RaceEthnicityQuestion extends React.Component<IRaceEthnicityQuestio
     return (
       <View>
         {this.props.showRaceQuestion ? (
-          <View style={styles.view}>
-            <CheckboxList required label={i18n.t('race-question')}>
-              {renderRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}
-            </CheckboxList>
-          </View>
+          this.props.redesign ? (
+            <View style={styles.viewRedesign}>
+              <CheckboxListRedesign required label={i18n.t('race-question')}>
+                {renderRaceCheckboxesRedesign(UKRaceCheckboxes, this.props.formikProps)}
+              </CheckboxListRedesign>
+            </View>
+          ) : (
+            <View style={styles.view}>
+              <CheckboxList required label={i18n.t('race-question')}>
+                {renderRaceCheckboxes(UKRaceCheckboxes, this.props.formikProps)}
+              </CheckboxList>
+            </View>
+          )
         ) : null}
 
         {this.props.showEthnicityQuestion ? (
-          <View style={styles.view}>
-            <CheckboxList required label={i18n.t('race-question')}>
-              {renderRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}
-            </CheckboxList>
-          </View>
+          this.props.redesign ? (
+            <View style={styles.viewRedesign}>
+              <CheckboxList required label={i18n.t('race-question')}>
+                {renderRaceCheckboxesRedesign(USRaceCheckboxes, this.props.formikProps)}
+              </CheckboxList>
+            </View>
+          ) : (
+            <View style={styles.view}>
+              <CheckboxList required label={i18n.t('race-question')}>
+                {renderRaceCheckboxes(USRaceCheckboxes, this.props.formikProps)}
+              </CheckboxList>
+            </View>
+          )
         ) : null}
 
         {this.props.formikProps.values.race.includes('other') ? (
-          <GenericTextField
-            required
-            formikProps={this.props.formikProps}
-            label={i18n.t('race-other-question')}
-            name="raceOther"
-          />
+          this.props.redesign ? (
+            <GenericTextFieldRedesign
+              required
+              formikProps={this.props.formikProps}
+              label={i18n.t('race-other-question')}
+              name="raceOther"
+              style={{ marginTop: sizes.m }}
+            />
+          ) : (
+            <GenericTextField
+              required
+              formikProps={this.props.formikProps}
+              label={i18n.t('race-other-question')}
+              name="raceOther"
+            />
+          )
         ) : null}
 
+        {/* NOTE: not needed for Health Profile currently hence no redesign prop */}
         {isUSCountry() ? (
           <View style={styles.view}>
             <CheckboxList required label={i18n.t('ethnicity-question')}>
@@ -151,5 +208,8 @@ const styles = StyleSheet.create({
   },
   view: {
     marginVertical: sizes.m,
+  },
+  viewRedesign: {
+    marginVertical: 0,
   },
 });

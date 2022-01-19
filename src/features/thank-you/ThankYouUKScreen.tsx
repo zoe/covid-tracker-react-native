@@ -46,6 +46,11 @@ export default function ThankYouUKScreen(props: IProps) {
         }, SHOW_ONBOARDING_DELAY_MS);
         return;
       }
+      if (startupInfo?.show_modal === 'health-profile-intro') {
+        dispatch(appActions.setModalHealthProfileIntroVisible(true));
+        return;
+      }
+
       try {
         const ratingAskResponse = await shouldAskForRating();
         setAskForRating(ratingAskResponse);

@@ -1,0 +1,122 @@
+import { ClickableText, Text } from '@covid/components';
+import { BrandedButtonAnalytics } from '@covid/components/analytics/BrandedButtonAnalytics';
+import { Modal } from '@covid/components/Modal';
+import Analytics, { events } from '@covid/core/Analytics';
+import { updateShowModal } from '@covid/core/state';
+import HealthProfileIntroModalBgImage from '@covid/features/health-profile/components/HealthProfileIntroModalBgImage';
+import HealthProfileLogo from '@covid/features/health-profile/components/HealthProfileLogo';
+import ImageTimSpector from '@covid/features/health-profile/components/ImageTimSpector';
+import { IconTime } from '@covid/features/study-hub/components/IconTime';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import { generalApiClient } from '@covid/services';
+import { sizes, styling } from '@covid/themes';
+import { colors } from '@theme';
+import * as React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+
+type TProps = {
+  onRequestClose: () => void;
+  visible: boolean;
+};
+
+export default function HealthProfileIntroModal(props: TProps) {
+  const dispatch = useDispatch();
+
+  const closeModal = () => {
+    Analytics.track(events.HEALTH_PROFILE_INTRO_MODAL_REMIND_LATER_CLICKED);
+    dispatch(updateShowModal(null));
+    generalApiClient.postUserEvent('remind-later-health-profile-intro');
+    props.onRequestClose();
+  };
+
+  const closeModalAndUpdateHealthProfile = () => {
+    props.onRequestClose();
+    Analytics.track(events.HEALTH_PROFILE_INTRO_MODAL_REMIND_LATER_CLICKED);
+    NavigatorService.navigate('HPAboutYou');
+  };
+
+  return (
+    <Modal
+      backgroundImage={<HealthProfileIntroModalBgImage />}
+      modalName="HealthProfileIntro"
+      onRequestClose={closeModal}
+      testID="health-profile-intro-modal"
+      visible={props.visible}
+    >
+      <HealthProfileLogo style={styles.logo} />
+      <ImageTimSpector />
+      <Text inverted style={[styles.black, styles.marginTop]} textAlign="center" textClass="h3Light">
+        {i18n.t('health-profile.intro-modal.title')}
+      </Text>
+      <Text
+        inverted
+        colorPalette="uiDark"
+        colorShade="darker"
+        style={styles.marginVertical}
+        textAlign="center"
+        textClass="h5Light"
+      >
+        {i18n.t('health-profile.intro-modal.description')}
+      </Text>
+      <View style={styles.rowWrapper}>
+        <IconTime color={colors.primary} />
+        <Text style={styles.time} textClass="labelMedium">
+          {i18n.t('health-profile.intro-modal.time')}
+        </Text>
+      </View>
+      <BrandedButtonAnalytics
+        eventName={events.HEALTH_PROFILE_INTRO_MODAL_UPDATE_NOW_CLICKED}
+        onPress={closeModalAndUpdateHealthProfile}
+        style={styles.button}
+        testID="health-profile-intro-modal-update-now-button"
+      >
+        {i18n.t('health-profile.intro-modal.button')}
+      </BrandedButtonAnalytics>
+      <TouchableOpacity
+        onPress={closeModal}
+        style={styling.paddingVertical}
+        testID="health-profile-intro-modal-remind-me"
+      >
+        <ClickableText style={[styling.textCenter, styles.darkBlue]}>
+          {i18n.t('health-profile.intro-modal.remind-me')}
+        </ClickableText>
+      </TouchableOpacity>
+    </Modal>
+  );
+}
+
+const styles = StyleSheet.create({
+  black: {
+    color: colors.black,
+  },
+  button: {
+    backgroundColor: colors.purple,
+  },
+  darkBlue: {
+    color: colors.purple,
+  },
+  logo: {
+    alignSelf: 'center',
+    marginBottom: 20,
+    marginTop: sizes.l,
+  },
+  marginTop: {
+    marginTop: sizes.l,
+  },
+  marginVertical: {
+    marginBottom: sizes.xl,
+    marginTop: sizes.m,
+  },
+  rowWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: sizes.m,
+  },
+  time: {
+    marginLeft: sizes.xs,
+    textTransform: 'uppercase',
+  },
+});
