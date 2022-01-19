@@ -61,8 +61,6 @@ references:
     branches:
       only:
         - develop
-        # DEBUG
-        #- julia/v63-v64
 
   feature_filter: &feature_filter
     branches:
