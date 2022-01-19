@@ -25,6 +25,7 @@ type TSwipeFunction = (gestureState: PanResponderGestureState) => void;
 
 interface IProps {
   animationType?: 'fade' | 'none' | 'slide';
+  backgroundImage?: React.ReactNode;
   children?: React.ReactNode;
   enableBackdropDismiss?: boolean;
   footerChildren?: React.ReactNode;
@@ -116,8 +117,9 @@ export const Modal = React.memo(function Modal(props: IProps) {
                     overScrollMode="never"
                     scrollIndicatorInsets={INSETS}
                     showsVerticalScrollIndicator={props.showsVerticalScrollIndicator || false}
-                    style={styles.scrollView}
+                    style={props.backgroundImage ? null : styles.scrollView}
                   >
+                    {props.backgroundImage ? props.backgroundImage : null}
                     {props.children}
                   </ScrollView>
                   {props.footerChildren ? (

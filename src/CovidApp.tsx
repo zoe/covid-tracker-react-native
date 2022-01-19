@@ -2,6 +2,7 @@ import { ShareScreen } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
 import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
+import { HealthProfileIntroModal } from '@covid/features';
 import MentalHealthPlaybackModal from '@covid/features/mental-health-playback/modals/MentalHealthPlaybackModal';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { OnboardingOverlay } from '@covid/features/onboarding/components/OnboardingOverlay';
@@ -75,6 +76,10 @@ export default function CovidApp() {
       <MentalHealthPlaybackModal
         onRequestClose={() => dispatch(appActions.setModalMentalHealthPlaybackVisible(false))}
         visible={app.modalMentalHealthPlaybackVisible}
+      />
+      <HealthProfileIntroModal
+        onRequestClose={() => dispatch(appActions.setModalHealthProfileIntroVisible(false))}
+        visible={app.modalHealthProfileIntroVisible}
       />
       <OnboardingOverlay />
       <NavigationContainer linking={linking} onStateChange={NavigatorService.handleStateChange} ref={ref}>

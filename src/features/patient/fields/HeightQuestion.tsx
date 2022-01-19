@@ -1,6 +1,6 @@
 import DropdownField from '@covid/components/DropdownField';
 import { requiredFormMarker } from '@covid/components/Form';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabelRedesigned, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
 import { isUSCountry, localisationService } from '@covid/core/localisation/LocalisationService';
@@ -23,6 +23,8 @@ interface IFCWithStatic<P> extends React.FC<P> {
 
 interface IProps {
   formikProps: FormikProps<IHeightData>;
+  label?: string;
+  redesign?: boolean;
 }
 
 const HeightInInches: React.FC<IProps> = ({ formikProps }) => {
@@ -76,13 +78,21 @@ const HeightInCm: React.FC<IProps> = ({ formikProps }) => {
   );
 };
 
-export const HeightQuestion: IFCWithStatic<IProps> = ({ formikProps }) => {
+export const HeightQuestion: IFCWithStatic<IProps> = ({ formikProps, label, redesign }) => {
   return (
-    <View style={styles.view}>
-      <RegularText>
-        {i18n.t('your-height')}
-        {requiredFormMarker}
-      </RegularText>
+    <View style={redesign ? styles.viewRedesign : styles.view}>
+      {redesign ? (
+        <FieldLabelRedesigned>
+          {label}
+          {requiredFormMarker}
+        </FieldLabelRedesigned>
+      ) : (
+        <RegularText>
+          {i18n.t('your-height')}
+          {requiredFormMarker}
+        </RegularText>
+      )}
+
       {isUSCountry() ? (
         <HeightInInches formikProps={formikProps} />
       ) : (
@@ -101,6 +111,7 @@ export const HeightQuestion: IFCWithStatic<IProps> = ({ formikProps }) => {
               ]}
               onValueChange={formikProps.handleChange('heightUnit')}
               selectedValue={formikProps.values.heightUnit}
+              style={redesign ? styles.noMarginBottom : null}
             />
           </View>
         </View>
@@ -145,6 +156,9 @@ const styles = StyleSheet.create({
     flex: 5,
     marginHorizontal: sizes.xxs,
   },
+  noMarginBottom: {
+    marginBottom: 0,
+  },
   primaryFieldRow: {
     flex: 6,
     flexDirection: 'row',
@@ -160,5 +174,8 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     marginVertical: sizes.m,
+  },
+  viewRedesign: {
+    flex: 1,
   },
 });

@@ -29,6 +29,7 @@ export const styles: TTextStyles = {
   default: getTextProperties(16, 24),
   h0: getTextProperties(40, 48),
   h1: getTextProperties(32, 48, 'SofiaPro-Light'),
+  h1Medium: getTextProperties(32, 48, 'SofiaPro-Medium'),
   h1Regular: getTextProperties(32, 48),
   h2: getTextProperties(28, 40),
   h2Light: getTextProperties(28, 40, 'SofiaPro-Light'),

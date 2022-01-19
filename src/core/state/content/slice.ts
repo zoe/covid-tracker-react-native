@@ -9,7 +9,7 @@ import {
 import { predictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { TRegionItem } from '@covid/core/state/content/types';
 import { TRootState } from '@covid/core/state/root';
-import { TActiveNotifications, TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { TActiveNotifications, TShowModal, TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { createAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 
@@ -154,6 +154,7 @@ export const updateShowStudyHubInterestFirstTimeModal = createAction<boolean>(
 export const updateShowBoosterModal = createAction<boolean>('content/show_booster_modal');
 export const updateShowOmicronModal = createAction<boolean>('content/show_omicron_modal');
 export const updateSelectedRegionItem = createAction<TRegionItem>('content/selected_region_item');
+export const updateShowModal = createAction<TShowModal>('content/show_modal');
 
 export const contentSlice = createSlice({
   extraReducers: {
@@ -168,6 +169,11 @@ export const contentSlice = createSlice({
     [updateShowBoosterModal.type]: (current, action: PayloadAction<boolean>) => {
       if (current.startupInfo) {
         current.startupInfo.show_booster_modal = action.payload;
+      }
+    },
+    [updateShowModal.type]: (current, action: PayloadAction<TShowModal>) => {
+      if (current.startupInfo) {
+        current.startupInfo.show_modal = action.payload;
       }
     },
     [updateShowStudyHubFeedback.type]: (state, action: PayloadAction<boolean>) => {

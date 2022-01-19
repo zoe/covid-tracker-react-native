@@ -324,6 +324,11 @@ export type TPatientInfosRequest = {
   has_seen_study_hub_interest_first_time_modal: boolean;
   has_seen_study_hub_interest_onboarding: boolean;
   has_seen_study_hub_onboarding: boolean;
+
+  // Health profile
+  twin: boolean;
+  twin_type: string;
+  vape: string;
 };
 
 export enum EVaccineStatus {
@@ -357,6 +362,8 @@ export type TActiveNotifications = {
   notifications_wider_health_studies: boolean;
 };
 
+export type TShowModal = 'mental-health-playback' | 'health-profile-intro' | null;
+
 export type TStartupInfo = {
   active_notifications?: TActiveNotifications;
   app_requires_update?: boolean;
@@ -383,7 +390,7 @@ export type TStartupInfo = {
   show_flu_vaccine_onboarding: boolean;
   show_long_covid: boolean;
   show_mh_insight?: boolean;
-  show_modal?: 'mental-health-playback';
+  show_modal?: TShowModal;
   show_new_dashboard: boolean;
   show_omicron_modal?: boolean;
   show_pingdemic: boolean;

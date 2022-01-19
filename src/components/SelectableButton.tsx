@@ -8,13 +8,14 @@ import { StyleSheet } from 'react-native';
 interface IProps {
   children: React.ReactNode;
   onPress: () => void;
+  redesign?: boolean; // TODO: remove in future once redesign is complete
   selected: boolean;
   style?: any;
   testID?: string;
 }
 
-export function SelectableButton({ style, children, onPress, selected, testID }: IProps) {
-  const backgroundColor = selected ? colors.brand : colors.backgroundTertiary;
+export function SelectableButton({ style, children, onPress, redesign, selected, testID }: IProps) {
+  const backgroundColor = selected ? (redesign ? colors.darkBlue : colors.brand) : colors.backgroundTertiary;
   const textColor = selected ? colors.white : colors.primary;
   const btnStyle = [styles.button, style, { backgroundColor }];
 

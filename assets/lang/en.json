@@ -4,6 +4,7 @@
   "coming-soon": "Coming soon",
   "company-name": "ZOE",
   "continue": "Continue",
+  "done": "Done",
   "information-correct": "This information is correct",
   "less": "Less",
   "loading": "Loading",
@@ -1792,5 +1793,34 @@
     "result-disabled": "You can't use biometric authentication for now, you probably tried it too many times",
     "result-error": "Something went wrong while authenticating",
     "result-success": "Successfully authenticated"
+  },
+  "health-profile": {
+    "save-exit": "Save & Exit",
+    "why-we-ask-this": "Why are we asking this",
+    "intro-modal": {
+      "tim-spector": "Prof. Tim Spector",
+      "title": "Is your health information correct?",
+      "description": "Build your personal Health Profile, a powerful new tool coming soon to the app.",
+      "time": "Approx 5 mins",
+      "button": "Update now",
+      "remind-me": "Remind me later"
+    },
+    "about-you": {
+      "title": "About you",
+      "description": "These are the details you shared with us when you joined the study. Are they still correct?",
+      "button": "Next: Family History"
+    },
+    "thank-you": {
+      "title": "Thank you!",
+      "description": "For updating your health information",
+      "coming-soon": "Your data supports important research into a wide range of diseases and is the first step in building your unique health profile, coming soon to the app.",
+      "return": "Return to Home"
+    },
+    "reminder-card": {
+      "title": "Finish where you left off",
+      "tag": "Health profile",
+      "completion-percent": "{{percent}}%",
+      "continue": "Continue"
+    }
   }
 }
