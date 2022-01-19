@@ -64,7 +64,7 @@ export default function TabNavigator({ navigation }: IProps) {
 
   React.useEffect(() => {
     setTimeout(() => {
-      if (startupInfo?.menu_notifications_onboarding_seen && !startupInfo?.studies_tab_onboarding_seen) {
+      if (!startupInfo?.studies_tab_onboarding_seen) {
         setShowOnboarding(true);
         track(events.STUDY_HUB_OVERLAY_SHOWN);
       }
