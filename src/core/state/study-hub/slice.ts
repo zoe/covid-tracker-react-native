@@ -1,10 +1,5 @@
 import { TRootState } from '@covid/core/state/root';
-import {
-  EInteraction,
-  TAddStudyHubInteraction,
-  TStateStudyHub,
-  TUpdateStudyInterestAction,
-} from '@covid/core/state/study-hub/types';
+import { TAddStudyHubInteraction, TStateStudyHub, TUpdateStudyInterestAction } from '@covid/core/state/study-hub/types';
 import { studyInterestService } from '@covid/core/study-interest/StudyInterestService';
 // We have hardcoded the studies data on the frontend because at this stage it's
 // not clear how the future of the study hub will look like. For example, how many
@@ -14,7 +9,6 @@ import { studyInterestService } from '@covid/core/study-interest/StudyInterestSe
 import { studies as studiesFrontend } from '@covid/features/study-hub/data/studies';
 import { EStudyKey } from '@covid/features/study-hub/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import moment from 'moment';
 
 export const initialStateStudyHub: TStateStudyHub = {
   studies: {},
@@ -60,30 +54,13 @@ export const studyHubSlice = createSlice({
 export const selectShouldShowFeedbackModal = (state: TRootState) => {
   if (state.content.startupInfo?.show_study_hub_feedback) {
     // The modal should be shown to the user if one of the following criteria is met:
-    // - User has shown interest to two studies or more
-    // - User has interacted with the study hub for 10 times or more
-    // - Between the first and last interaction there is 1 month difference or more
+    // - User has interacted with the study hub more than twice
 
     const userInteractions = state.studyHub.studyHubInteractions.filter(
       (studyHubInteraction) => studyHubInteraction.username === state.user.username,
     );
-    if (userInteractions.length >= 10) {
+    if (userInteractions.length > 2) {
       return true;
-    }
-
-    const shownInterestTwoStudies = userInteractions.filter(
-      (studyHubInteraction) => studyHubInteraction.interaction === EInteraction.SHOW_INTEREST,
-    );
-    if (shownInterestTwoStudies.length >= 2) {
-      return true;
-    }
-
-    if (userInteractions.length >= 2) {
-      const startMoment = moment(userInteractions[0].timestamp);
-      const endMoment = moment(userInteractions[userInteractions.length - 1].timestamp);
-      if (startMoment.diff(endMoment, 'months') >= 1) {
-        return true;
-      }
     }
 
     return false;
