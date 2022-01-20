@@ -41,8 +41,14 @@ export function StudyCard(props: TProps) {
           </Text>
         </View>
         <View style={styles.rowWrapper}>
-          <IconArrowRight />
-          <Text inverted colorPalette="uiDark" colorShade="main" style={styles.marginLeft} textClass="pXSmall">
+          <IconArrowRight color={colors.purple} />
+          <Text
+            inverted
+            colorPalette="actionSecondary"
+            colorShade="main"
+            style={styles.marginLeft}
+            textClass="pSmallMedium"
+          >
             {i18n.t('more-details')}
           </Text>
         </View>
@@ -104,6 +110,7 @@ const styles = StyleSheet.create({
     paddingVertical: sizes.xs,
   },
   rowWrapper: {
+    alignItems: 'center',
     flexDirection: 'row',
     marginBottom: sizes.xs,
   },

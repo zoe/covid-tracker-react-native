@@ -20,6 +20,7 @@ import lodash from 'lodash';
 import * as React from 'react';
 import {
   ActivityIndicator,
+  Platform,
   StyleProp,
   StyleSheet,
   TouchableOpacity,
@@ -131,6 +132,14 @@ export function RowInterested(props: TProps) {
     [loading, props.study.patient_is_interested, props.study.key, onPressHeart],
   );
 
+  const formatInterestCount = () => {
+    if (Platform.OS === 'ios') {
+      return props.study.interest_count.toLocaleString();
+    }
+    // Add thousands comma separator
+    return props.study.interest_count.toString().replace(/(.)(?=(\d{3})+$)/g, '$1,');
+  };
+
   React.useEffect(() => {
     if (!startupInfo?.show_study_hub_onboarding && showOnboardingOverlay && heartRef.current) {
       setTimeout(() => {
@@ -176,7 +185,7 @@ export function RowInterested(props: TProps) {
             </>
           ) : null}
           <Text inverted colorPalette="uiDark" colorShade="darker" textClass="pMedium">
-            {props.study.interest_count.toLocaleString()}
+            {formatInterestCount()}
           </Text>
           <View style={styles.lineVertical} />
         </>
