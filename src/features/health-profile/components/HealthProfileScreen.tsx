@@ -15,15 +15,13 @@ interface IProps {
   buttonTitle: string;
   children?: React.ReactNode;
   currentStep: number;
-  description?: string;
+  description: string | null;
+  maxSteps: number;
   noBackButton?: boolean;
   hideWhyWeAskLink?: boolean;
   testID: string;
   title: string;
 }
-
-// TODO: Make max steps dynamic depending on sex
-const MAX_STEPS = 16;
 
 export default function HealthProfileScreen(props: IProps) {
   function renderHeader() {
@@ -33,7 +31,7 @@ export default function HealthProfileScreen(props: IProps) {
           <View style={styles.flex}>{props.noBackButton ? null : <BackButton />}</View>
           <View style={styles.flex}>
             <LabelText style={styles.center}>
-              {props.currentStep} / {MAX_STEPS}
+              {props.currentStep} / {props.maxSteps}
             </LabelText>
           </View>
           <View style={styles.flex}>
@@ -45,7 +43,6 @@ export default function HealthProfileScreen(props: IProps) {
     );
   }
 
-  // TODO: Check disabled button style
   function renderFooter() {
     return (
       <View style={styles.topDropShadow}>
@@ -72,7 +69,7 @@ export default function HealthProfileScreen(props: IProps) {
       testID={props.testID}
     >
       <View style={styles.screenPadding}>
-        <ProgressStatus currentStep={props.currentStep} height={8} maxSteps={MAX_STEPS} />
+        <ProgressStatus currentStep={props.currentStep} height={8} maxSteps={props.maxSteps} />
 
         <Text style={styles.title} textClass="h3Light">
           {props.title}

@@ -218,7 +218,7 @@ export type TPatientInfosRequest = {
   sometimes_used_shortage: string;
 
   ethnicity: string;
-  race: string[];
+  race: string[] | string; // Health Profile has moved from multiselect to single choice
   race_other: string;
 
   // period fields

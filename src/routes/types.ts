@@ -5,6 +5,7 @@ import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/School
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineTypes, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
 import { TStudy } from '@covid/features/study-hub/types';
 
 export enum EConsentType {
@@ -160,7 +161,7 @@ export type TScreenParamList = {
   // Health profile
   HPAboutYou: undefined;
   HPThankYou: undefined;
-  HPWomensHealth: undefined;
+  HPFormScreen: { screenName: THPScreenName | 'HPThankYou' };
 
   // Others
   Anniversary: undefined;

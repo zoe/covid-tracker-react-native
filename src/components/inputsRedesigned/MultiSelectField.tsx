@@ -17,8 +17,10 @@ interface IProps {
   label?: string;
   required?: boolean;
   dark?: boolean;
+  propertyName?: string;
   style?: StyleProp<ViewStyle>;
   testID?: string;
+  selectedValue?: string;
 }
 
 export function MultiSelectField(props: IProps) {
@@ -28,7 +30,18 @@ export function MultiSelectField(props: IProps) {
         <CheckboxItem
           key={item.name}
           onChange={(checked: boolean) => {
+            let answersArray =
+              props.selectedValue === '' || props.selectedValue === undefined ? [] : props.selectedValue.split(','); // TODO: need to manage this in Redux
+            if (checked) {
+              answersArray.push(item.name);
+            } else {
+              answersArray = answersArray.filter((val) => val !== item.name);
+            }
             props.formikProps.setFieldValue(item.name, checked);
+
+            if (props.propertyName) {
+              props.formikProps.setFieldValue(props.propertyName, answersArray.join(','));
+            }
           }}
           testID={`checkbox-${item.testID}`}
           value={props.formikProps.values[item.name]}

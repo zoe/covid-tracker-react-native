@@ -40,7 +40,7 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.CovidTestListScreen} name="CovidTestList" options={options} />
       <Stack.Screen component={screens.CreateProfileScreen} name="CreateProfile" options={options} />
       <Stack.Screen component={screens.HPAboutYouScreen} name="HPAboutYou" options={options} />
-      <Stack.Screen component={screens.HPWomensHealthScreen} name="HPWomensHealth" options={options} />
+      <Stack.Screen component={screens.HPFormScreen} name="HPFormScreen" options={options} />
       <Stack.Screen component={screens.HPThankYouScreen} name="HPThankYou" options={options} />
       <Stack.Screen component={screens.DashboardScreen} name="Dashboard" options={options} />
       <Stack.Screen component={screens.DashboardUSScreen} name="DashboardUS" options={options} />

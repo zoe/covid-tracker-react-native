@@ -26,7 +26,7 @@ export default function BrandedButton({ indicatorColor = colors.white, ...props 
       activeOpacity={0.6}
       disabled={props.enabled === false}
       onPress={props.enabled === false ? undefined : props.onPress}
-      style={[props.enabled === false ? styles.buttonDisabled : styles.button, props.style]}
+      style={[styles.button, props.style, props.enabled === false ? styles.buttonDisabled : null]}
       testID={props.testID ?? 'button-test-ID'}
     >
       {props.loading ? <ActivityIndicator color={indicatorColor} style={styles.activityIndicator} /> : null}

@@ -4,129 +4,130 @@ import { GenericTextField } from '@covid/components/inputsRedesigned/GenericText
 import { MultiSelectField, TItemCheckbox } from '@covid/components/inputsRedesigned/MultiSelectField';
 import { RadioInput } from '@covid/components/inputsRedesigned/RadioInput';
 import { YesNoField } from '@covid/components/inputsRedesigned/YesNoField';
+import { HeightQuestion, IHeightData } from '@covid/features/patient/fields/HeightQuestion';
+import { IWeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import { FormikProps } from 'formik';
 import * as React from 'react';
-import { KeyboardType, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
+import { KeyboardType, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 export enum EFieldType {
-  YesNo = 'YesNo',
-  Text = 'Text',
-  MultiSelect = 'MultiSelect',
-  Radio = 'Radio',
-  Custom = 'Custom',
+  YESNO = 'YesNo',
+  TEXT = 'Text',
+  MULTISELECT = 'MultiSelect',
+  RADIO = 'Radio',
+  WEIGHT = 'Weight',
+  HEIGHT = 'Height',
+  POSTCODE = 'Postcode',
 }
 
-type TItemRadio = {
+export type TItemRadio = {
   label: string;
   value: string;
 };
 
-interface ICommonProps {
-  description?: string;
+type TCommonProps = {
+  description: string | null;
+  editOnPress: () => void;
+  formikProps: FormikProps<any>;
   isEditing: boolean;
+  keyboardType: KeyboardType | null;
   label: string;
-  new?: boolean;
-  testID?: string;
+  new: boolean;
+  placeholder: string | null;
   style?: StyleProp<ViewStyle>;
-}
+  testID?: string;
+};
 
 type TFieldTypeProps =
   | {
-      fieldType: EFieldType.Radio;
-      error?: string;
+      fieldType: EFieldType.RADIO;
       items: TItemRadio[];
-      onValueChange: (value: any) => void;
-      selectedValue: string;
-      playbackValue: string;
+      propertyName: string;
     }
   | {
-      fieldType: EFieldType.YesNo;
-      error?: string;
-      items?: never;
-      onValueChange: (value: any) => void;
-      selectedValue: string;
+      fieldType: EFieldType.YESNO;
+      items: null;
+      propertyName: string;
     }
   | {
-      fieldType: EFieldType.Text;
-      formikProps: FormikProps<any>;
-      inputProps?: TextInputProps;
-      items?: never;
-      keyboardType?: KeyboardType;
-      name: string;
-      placeholder?: string;
-      showError?: boolean;
+      fieldType: EFieldType.TEXT;
+      items: null;
+      propertyName: string;
     }
   | {
-      fieldType: EFieldType.MultiSelect;
-      error?: string;
-      formikProps: FormikProps<any>;
+      fieldType: EFieldType.MULTISELECT;
       items: TItemCheckbox[];
-      placeholder?: string;
-      playbackValues: string[];
+      propertyName: string;
     }
   | {
-      fieldType: EFieldType.Custom;
-      component: React.ReactElement;
-      playbackMultipleSelect: true;
-      playbackValues: string[];
+      fieldType: EFieldType.WEIGHT;
+      items: null;
+      propertyName: null;
     }
   | {
-      fieldType: EFieldType.Custom;
-      component: React.ReactElement;
-      playbackMultipleSelect?: false;
-      playbackValue: string;
+      fieldType: EFieldType.HEIGHT;
+      items: null;
+      propertyName: null;
+    }
+  | {
+      fieldType: EFieldType.POSTCODE;
+      items: null;
+      propertyName: string;
     };
 
-type TProps = ICommonProps & TFieldTypeProps;
+type TProps = TCommonProps & TFieldTypeProps;
 
 export default function HealthProfileQuestionCard(props: TProps) {
   function renderField() {
     switch (props.fieldType) {
-      case EFieldType.YesNo:
+      case EFieldType.YESNO:
         return (
           <YesNoField
             required
             description={props.description}
-            error={props.error}
+            // If we want to show errors immediately, uncomment below
+            // error={(props.formikProps.errors[props.propertyName] as string) || ''}
             label={props.label}
-            onValueChange={props.onValueChange}
-            selectedValue={props.selectedValue}
+            onValueChange={props.formikProps.handleChange(props.propertyName)}
+            selectedValue={props.formikProps.values[props.propertyName]}
             testID={props.testID}
           />
         );
-      case EFieldType.Text:
+      case EFieldType.TEXT:
         return props.isEditing ? (
           <GenericTextField
             required
             showError
             formikProps={props.formikProps}
-            inputProps={props.inputProps}
             keyboardType={props.keyboardType || 'default'}
             label={props.label}
-            name={props.name}
-            placeholder={props.placeholder}
+            name={props.propertyName}
+            placeholder={props.placeholder || ''}
             testID={props.testID}
           />
         ) : (
           <FormFieldPlayback
             required
             description={props.description}
+            editOnPress={props.editOnPress}
             label={props.label}
-            playbackValue={props.formikProps.values[props.name]}
+            playbackValue={props.formikProps.values[props.propertyName]}
             testID={props.testID}
           />
         );
-      case EFieldType.MultiSelect:
+      case EFieldType.MULTISELECT:
         return props.isEditing ? (
           <MultiSelectField
             required
-            error={props.error}
+            // error={(props.formikProps.errors[props.propertyName] as string) || ''}
             formikProps={props.formikProps}
             items={props.items}
             label={props.label}
+            propertyName={props.propertyName}
+            selectedValue={props.formikProps.values[props.propertyName]}
             testID={props.testID}
           />
         ) : (
@@ -134,45 +135,99 @@ export default function HealthProfileQuestionCard(props: TProps) {
             multiSelect
             required
             description={props.description}
+            editOnPress={props.editOnPress}
             label={props.label}
-            playbackValues={props.playbackValues}
+            playbackValues={
+              props.items
+                .filter((item) => props.formikProps.values[item.name] === true)
+                .map((answer) => answer.label) || ''
+            }
             testID={props.testID}
           />
         );
-      case EFieldType.Radio:
+      case EFieldType.RADIO:
         return props.isEditing ? (
           <RadioInput
             required
             description={props.description}
-            error={props.error}
+            // error={(props.formikProps.errors[props.propertyName] as string) || ''}
             items={props.items}
             label={props.label}
-            onValueChange={props.onValueChange}
-            selectedValue={props.selectedValue}
+            onValueChange={props.formikProps.handleChange(props.propertyName)}
+            selectedValue={props.formikProps.values[props.propertyName]}
             testID={props.testID}
           />
         ) : (
           <FormFieldPlayback
             required
             description={props.description}
+            editOnPress={props.editOnPress}
             label={props.label}
-            playbackValue={props.playbackValue}
+            playbackValue={
+              props.items.find((item) => item.value === props.formikProps.values[props.propertyName])?.label || ''
+            }
             testID={props.testID}
           />
         );
-      case EFieldType.Custom:
+      case EFieldType.WEIGHT:
         return props.isEditing ? (
-          props.component
-        ) : props.playbackMultipleSelect ? (
-          <FormFieldPlayback
-            multiSelect
-            required
+          <WeightQuestion
+            redesign
+            formikProps={props.formikProps as unknown as FormikProps<IWeightData>}
             label={props.label}
-            playbackValues={props.playbackValues}
+          />
+        ) : (
+          <FormFieldPlayback
+            editOnPress={props.editOnPress}
+            label={props.label}
+            playbackValue={
+              props.formikProps.values.weightUnit === 'kg'
+                ? props.formikProps.values.weight + props.formikProps.values.weightUnit
+                : props.formikProps.values.stones + 'st ' + props.formikProps.values.pounds + 'lbs'
+            }
+            testID={props.testID}
+          />
+        );
+      case EFieldType.HEIGHT:
+        return props.isEditing ? (
+          <HeightQuestion
+            redesign
+            formikProps={props.formikProps as unknown as FormikProps<IHeightData>}
+            label={props.label}
+          />
+        ) : (
+          <FormFieldPlayback
+            editOnPress={props.editOnPress}
+            label={props.label}
+            playbackValue={
+              props.formikProps.values.heightUnit === 'cm'
+                ? props.formikProps.values.height + props.formikProps.values.heightUnit
+                : props.formikProps.values.feet + 'ft ' + props.formikProps.values.inches + 'in'
+            }
+            testID={props.testID}
+          />
+        );
+      case EFieldType.POSTCODE:
+        return props.isEditing ? (
+          <GenericTextField
+            required
+            showError
+            formikProps={props.formikProps}
+            inputProps={{ autoCompleteType: 'postal-code' }}
+            keyboardType="default"
+            label={props.label}
+            name={props.propertyName}
+            placeholder={props.placeholder || ''}
             testID={props.testID}
           />
         ) : (
-          <FormFieldPlayback label={props.label} playbackValue={props.playbackValue} testID={props.testID} />
+          <FormFieldPlayback
+            required
+            editOnPress={props.editOnPress}
+            label={props.label}
+            playbackValue={props.formikProps.values[props.propertyName]}
+            testID={props.testID}
+          />
         );
 
       default:

@@ -1805,11 +1805,6 @@
       "button": "Update now",
       "remind-me": "Remind me later"
     },
-    "about-you": {
-      "title": "About you",
-      "description": "These are the details you shared with us when you joined the study. Are they still correct?",
-      "button": "Next: Family History"
-    },
     "thank-you": {
       "title": "Thank you!",
       "description": "For updating your health information",

@@ -7,12 +7,11 @@ import React from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 interface ICommonProps {
-  description?: string;
+  description?: string | null;
   label: string;
   required?: boolean;
   testID?: string;
-  IconComponent?: React.ComponentType<any>;
-  iconOnPress?: () => void;
+  editOnPress?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -42,11 +41,6 @@ export function FormFieldPlayback(props: TProps) {
       <FieldLabelRedesigned>
         {props.label}
         {props.required ? requiredFormMarker : null}
-        {props.IconComponent ? (
-          <TouchableOpacity onPress={props.iconOnPress} style={styles.icon}>
-            <props.IconComponent />
-          </TouchableOpacity>
-        ) : null}
       </FieldLabelRedesigned>
 
       {props.description ? (
@@ -64,19 +58,29 @@ export function FormFieldPlayback(props: TProps) {
           </View>
 
           {/* TODO need to add onPress handler for edit */}
-          <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pSmallMedium">
-            Edit
-          </Text>
+          <TouchableOpacity onPress={props.editOnPress}>
+            <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pSmallMedium">
+              Edit
+            </Text>
+          </TouchableOpacity>
         </>
       ) : (
         <View style={styles.row}>
-          <Text inverted colorPalette="uiDark" colorShade="dark" textClass="pMedium">
+          <Text inverted colorPalette="uiDark" colorShade="dark" style={styles.maxWidth} textClass="pMedium">
             {props.playbackValue}
           </Text>
           {/* TODO need to add onPress handler for edit */}
-          <Text inverted colorPalette="accentBlue" colorShade="main" style={styles.marginLeft} textClass="pSmallMedium">
-            Edit
-          </Text>
+          <TouchableOpacity onPress={props.editOnPress}>
+            <Text
+              inverted
+              colorPalette="accentBlue"
+              colorShade="main"
+              style={styles.marginLeft}
+              textClass="pSmallMedium"
+            >
+              Edit
+            </Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -84,17 +88,14 @@ export function FormFieldPlayback(props: TProps) {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingBottom: 2,
-    paddingLeft: sizes.xxs,
-  },
   marginBottom: {
     marginBottom: sizes.m,
   },
   marginLeft: {
     marginLeft: sizes.m,
+  },
+  maxWidth: {
+    maxWidth: '90%',
   },
   row: {
     alignItems: 'center',

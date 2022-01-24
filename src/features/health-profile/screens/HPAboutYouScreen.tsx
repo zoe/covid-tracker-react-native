@@ -1,150 +1,43 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { ValidationError } from '@covid/components/ValidationError';
-import { localisationService } from '@covid/core/localisation/LocalisationService';
-import { patientService } from '@covid/core/patient/PatientService';
 import { TRootState } from '@covid/core/state/root';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import HealthProfileQuestionCard, {
   EFieldType,
 } from '@covid/features/health-profile/components/HealthProfileQuestionCard';
 import HealthProfileScreen from '@covid/features/health-profile/components/HealthProfileScreen';
-import { HeightQuestion, IHeightData } from '@covid/features/patient/fields/HeightQuestion';
+import { MAX_STEPS_MALE } from '@covid/features/health-profile/data/healthProfileNavigator';
 import {
-  IRaceEthnicityData,
-  RaceEthnicityQuestion,
-  UKRaceCheckboxes,
-} from '@covid/features/patient/fields/RaceEthnicityQuestion';
+  healthProfileScreens,
+  THealthProfilePropertyName,
+} from '@covid/features/health-profile/data/healthProfileQuestions';
+import { HeightQuestion, IHeightData } from '@covid/features/patient/fields/HeightQuestion';
 import { IWeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
-import { Formik, FormikProps } from 'formik';
+import { Formik } from 'formik';
 import * as React from 'react';
+import { Dispatch } from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import * as Yup from 'yup';
 
-interface IAboutYouData extends IRaceEthnicityData, IHeightData, IWeightData {
-  yearOfBirth: string;
-  sex: string;
-  genderIdentity: string;
-  postcode: string;
-  twin: string;
-  twinType: string;
-  vape: string;
+// Next steps
+// - complete the isEditing logic
 
-  // Test example for multiselect field
-  field_name_1: boolean;
-  field_name_2: boolean;
-
-  // Other fields to be added
-  // genderIdentityDescription: string;
-  // houseboundProblems: string;
-  // needsHelp: string;
-  // helpAvailable: string;
-  // mobilityAid: string;
-}
-
-const initialFormValues = {
-  feet: '',
-  field_name_1: false,
-  field_name_2: false,
-  genderIdentity: '',
-  inches: '',
-  postcode: '',
-  sex: '',
-  twin: '',
-  twinType: '',
-  vape: '',
-  yearOfBirth: '',
-};
-
-const getInitialFormValues = (): IAboutYouData => {
-  return {
-    ...initialFormValues,
-    ...RaceEthnicityQuestion.getInitialFormValues(),
-    ...HeightQuestion.getInitialFormValues(),
-    ...WeightQuestion.getInitialFormValues(),
-  };
-};
-
-const sexAtBirthItems = [
-  { label: i18n.t('sex-at-birth-male'), value: 'male' },
-  { label: i18n.t('sex-at-birth-female'), value: 'female' },
-  { label: i18n.t('sex-at-birth-intersex'), value: 'intersex' },
-  { label: i18n.t('sex-at-birth-pfnts'), value: 'pfnts' },
-];
-
-const genderIdentityItems = [
-  { label: i18n.t('gender-identity-male'), value: 'male' },
-  { label: i18n.t('gender-identity-female'), value: 'female' },
-  { label: i18n.t('gender-identity-pfnts'), value: 'pfnts' },
-  { label: i18n.t('gender-identity-other'), value: 'other' }, // TODO: how to show input field? Checking with Product if needed.
-];
-
-const twinTypeItems = [
-  { label: 'Identical', value: 'identical' },
-  { label: 'Non-identical', value: 'non_identical' },
-];
-
-const vapeItems = [
-  { label: 'No, I’ve never vaped', value: 'no_never' },
-  { label: 'No, I previously vaped', value: 'no_previously' },
-  { label: 'Yes, I currently vaped', value: 'yes' },
-];
-
-const testItems = [
-  { label: 'Field Label 1', name: 'field_name_1' },
-  { label: 'Field Label 2', name: 'field_name_2' },
-];
+type TFormData = { [key in THealthProfilePropertyName]: string | boolean | null };
+interface IAboutYouData extends TFormData, IHeightData, IWeightData {}
 
 const createPatientDTO = (formData: IAboutYouData) => {
   let infos = {
-    // test example for multiselect
-    field_1: formData.field_name_1,
-    field_2: formData.field_name_2,
-
-    gender: formData.sex === 'male' ? 1 : formData.sex === 'female' ? 0 : formData.sex === 'pfnts' ? 2 : 3,
-    gender_identity: formData.genderIdentity,
-    postcode: formData.postcode,
-    // help_available: formData.helpAvailable === 'yes',
-    // housebound_problems: formData.houseboundProblems === 'yes',
-    // mobility_aid: formData.mobilityAid === 'yes',
-    // needs_help: formData.needsHelp === 'yes',
-    twin: formData.twin === 'yes',
-    twin_type: formData.twinType,
-    vape: formData.vape,
-    year_of_birth: cleanIntegerVal(formData.yearOfBirth),
+    ...formData,
+    // is_twin: formData.is_twin === 'yes', --> don't convert to boolean because of pnts option?
+    gender: formData.gender === '1' ? 1 : formData.gender === '0' ? 0 : formData.gender === '2' ? 2 : 3,
+    year_of_birth: cleanIntegerVal(formData.year_of_birth as string),
   } as Partial<TPatientInfosRequest>;
-
-  if (formData.race) {
-    infos = {
-      ...infos,
-      race: formData.race,
-    };
-  }
-
-  if (formData.ethnicity) {
-    infos = {
-      ...infos,
-      ethnicity: formData.ethnicity,
-    };
-  }
-
-  if (formData.raceOther) {
-    infos = {
-      ...infos,
-      race_other: formData.raceOther,
-    };
-  }
-
-  // Waiting for product confirmation if needed. If so, need to redo gender identity question into custom card
-  // if (formData.genderIdentity === 'other' && formData.genderIdentityDescription) {
-  //   infos = { ...infos, gender_identity: formData.genderIdentityDescription };
-  // } else {
-  //   infos = { ...infos, gender_identity: formData.genderIdentity };
-  // }
 
   if (formData.heightUnit === 'ft') {
     let inches = cleanFloatVal(formData.inches);
@@ -171,23 +64,117 @@ const createPatientDTO = (formData: IAboutYouData) => {
   return infos;
 };
 
-export default function HPAboutYouScreen() {
-  const config = localisationService.getConfig();
-  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
+const validationSchema = Yup.object().shape({
+  // TODO: Add remaining field validations
+  feet: Yup.number().when('heightUnit', {
+    is: 'ft',
+    then: Yup.number().required(),
+  }),
+  gender: Yup.string().required(i18n.t('required-sex-at-birth')),
+  gender_identity: Yup.string()
+    .required(i18n.t('required-gender-identity'))
+    .test('len', i18n.t('error-gender-identity-length'), (val) => (val && val.length < 30) || !val),
+  height: Yup.number().when('heightUnit', {
+    is: 'cm',
+    then: Yup.number().required(i18n.t('required-height-in-cm')),
+  }),
+  heightUnit: Yup.string().required(),
+  inches: Yup.number().when('heightUnit', {
+    is: 'ft',
+    then: Yup.number().required(i18n.t('required-height-in-ft-in')),
+  }),
+  is_twin: Yup.string().required(),
+  pcos: Yup.string().required(), // TODO: delete - this is just for testing multiselect validation
+  postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+  pounds: Yup.number().when('weightUnit', {
+    is: 'lbs',
+    then: Yup.number().required(i18n.t('required-weight-in-lb')),
+  }),
+  race: Yup.string().required(),
+  stones: Yup.number().when('weightUnit', {
+    is: 'lbs',
+    then: Yup.number().required(),
+  }),
+  twin_type: Yup.string().when('is_twin', {
+    is: 'yes',
+    then: Yup.string().required(),
+  }),
+  weight: Yup.number().when('weightUnit', {
+    is: 'kg',
+    then: Yup.number().required(i18n.t('required-weight-in-kg')),
+  }),
+  weightUnit: Yup.string().required(),
+  year_of_birth: Yup.number()
+    .typeError(i18n.t('correct-year-of-birth'))
+    .required(i18n.t('required-year-of-birth'))
+    .integer(i18n.t('correct-year-of-birth'))
+    .min(1900, i18n.t('correct-year-of-birth'))
+    .max(new Date().getFullYear(), i18n.t('correct-year-of-birth')),
+});
 
-  const [showEthnicityQuestion, setShowEthnicityQuestion] = React.useState(false);
-  const [showRaceQuestion, setShowRaceQuestion] = React.useState(false);
+export default function HPAboutYouScreen() {
+  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
 
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
 
-  React.useEffect(() => {
-    setShowEthnicityQuestion(!!config?.showEthnicityQuestion);
-    setShowRaceQuestion(!!config?.showRaceQuestion);
-  }, []);
+  // set up overall object to track each question's state and setState
+  const questionsState: { [key: string]: boolean } = {};
+  const setQuestionsState: { [key: string]: Dispatch<boolean> } = {};
+
+  // set up each question's states to editing initially
+  for (let i = 0; i < healthProfileScreens.ABOUT_YOU.questions.length; i++) {
+    // set up state for single question
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [questionIsEditing, setQuestionIsEditing] = React.useState(true);
+    // TODO: need to sort out the null property name for multiselect and custom fields
+    questionsState[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName] =
+      questionIsEditing;
+    setQuestionsState[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName] =
+      setQuestionIsEditing;
+
+    // TODO: add logic, that if user selects edit, then it shows isEditing state, even if formik value is not empty
+    // Makes sense to do this when Redux is completed
+    // questionsState[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName] =
+    //   formikProps.values[
+    //     healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName
+    //   ] === '';
+    // setQuestionsState[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName] =
+    //   setQuestionIsEditing;
+  }
+
+  const getInitialFormValues = () => {
+    const initialFormValues = {} as TFormData;
+    const initialFormValuesWithCustomFields = {
+      ...initialFormValues,
+      ...HeightQuestion.getInitialFormValues(),
+      ...WeightQuestion.getInitialFormValues(),
+    };
+
+    healthProfileScreens.ABOUT_YOU.questions.forEach((question) => {
+      if (question.fieldType === EFieldType.MULTISELECT) {
+        initialFormValuesWithCustomFields[question.propertyName as THealthProfilePropertyName] = question.value || '';
+        question.items.forEach((item) => {
+          initialFormValuesWithCustomFields[item.name as THealthProfilePropertyName] = false;
+        });
+      } else if (question.fieldType === EFieldType.WEIGHT || question.fieldType === EFieldType.HEIGHT) {
+        initialFormValuesWithCustomFields[question.propertyName1] = question.value1;
+        initialFormValuesWithCustomFields[question.propertyName2] = question.value2;
+        initialFormValuesWithCustomFields[question.propertyName3] = question.value3;
+        initialFormValuesWithCustomFields[question.propertyName4] = question.value4;
+      } else {
+        // Must initialise to at least an empty string for Yup to work
+        initialFormValuesWithCustomFields[question.propertyName] = question.value || '';
+      }
+    });
+
+    // eslint-disable-next-line no-console
+    console.log('initialFormValuesWithCustomFields', initialFormValuesWithCustomFields);
+    return initialFormValuesWithCustomFields;
+  };
 
   const onSubmit = React.useCallback(
-    async (formData: IAboutYouData) => {
+    async (formData) => {
       if (submitting) {
         return;
       }
@@ -196,13 +183,11 @@ export default function HPAboutYouScreen() {
       const infos = createPatientDTO(formData);
 
       try {
-        await patientService.updatePatientInfo(patientId, infos);
-
-        if (formData.sex === 'female' || formData.genderIdentity === 'female') {
-          NavigatorService.navigate('HPThankYou');
-        } else {
-          // TODO: complete
-        }
+        // TODO: uncomment when ready
+        // await patientService.updatePatientInfo(patientId, infos);
+        // eslint-disable-next-line no-console
+        console.log('infos', infos);
+        NavigatorService.navigate('HPFormScreen', { screenName: 'HPFamilyHistory' });
       } catch (error) {
         setErrorMessage(i18n.t('something-went-wrong'));
       }
@@ -216,180 +201,54 @@ export default function HPAboutYouScreen() {
       validateOnChange
       initialValues={getInitialFormValues()}
       onSubmit={onSubmit}
-      // validationSchema={validationSchema} TODO: add validation
+      validationSchema={validationSchema}
     >
       {(formikProps) => {
         return (
           <HealthProfileScreen
-            hideWhyWeAskLink
             buttonEnabled={formikProps.isValid && formikProps.dirty}
             buttonOnPress={formikProps.handleSubmit}
-            buttonTitle={i18n.t('health-profile.about-you.button')}
+            buttonTitle="Next: Family History"
             currentStep={1}
-            description={i18n.t('health-profile.about-you.description')}
-            testID="health-profile-about-you-screen"
-            title={i18n.t('health-profile.about-you.title')}
+            description={healthProfileScreens.ABOUT_YOU.description}
+            hideWhyWeAskLink={healthProfileScreens.ABOUT_YOU.hideWhyWeAskLink}
+            maxSteps={MAX_STEPS_MALE}
+            testID={healthProfileScreens.ABOUT_YOU.testID}
+            title={healthProfileScreens.ABOUT_YOU.title}
           >
             <Form hasRequiredFields redesign>
-              <HealthProfileQuestionCard
-                isEditing
-                description="Note the playback values function. Assumes each answer option is a separate column in the database."
-                fieldType={EFieldType.MultiSelect}
-                formikProps={formikProps}
-                items={testItems}
-                label="This is a multiselect question example for illustrative purposes."
-                playbackValues={
-                  testItems.filter((item) => formikProps.values[item.name] === true).map((answer) => answer.label) || ''
-                }
-                style={styles.cardMargin}
-                testID="test"
-              />
-              <HealthProfileQuestionCard
-                isEditing
-                showError
-                fieldType={EFieldType.Text}
-                formikProps={formikProps}
-                keyboardType="numeric"
-                label={i18n.t('what-year-were-you-born')}
-                name="yearOfBirth"
-                placeholder={i18n.t('placeholder-year-of-birth')}
-                style={styles.cardMargin}
-                testID="input-year-of-birth"
-              />
+              {healthProfileScreens.ABOUT_YOU.questions.map((question, index) => {
+                const conditionalCriteriaMet = () => {
+                  if (
+                    question.dependsOnProperty &&
+                    formikProps.values[question.dependsOnProperty] &&
+                    question.dependsOnPropertyValue?.includes(formikProps.values[question.dependsOnProperty])
+                  ) {
+                    return true;
+                  }
+                  return false;
+                };
 
-              <HealthProfileQuestionCard
-                isEditing
-                error={formikProps.touched.sex ? formikProps.errors.sex : ''}
-                fieldType={EFieldType.Radio}
-                items={sexAtBirthItems}
-                label={i18n.t('your-sex-at-birth')}
-                onValueChange={formikProps.handleChange('sex')}
-                playbackValue={sexAtBirthItems.find((item) => item.value === formikProps.values.sex)?.label || ''}
-                selectedValue={formikProps.values.sex}
-                style={styles.cardMargin}
-                testID="input-sex-at-birth"
-              />
-
-              {/* TODO: Checking with Product to see if we need to show "Other" and text input option */}
-              <HealthProfileQuestionCard
-                isEditing
-                error={formikProps.touched.genderIdentity ? formikProps.errors.genderIdentity : ''}
-                fieldType={EFieldType.Radio}
-                items={genderIdentityItems}
-                label={i18n.t('label-gender-identity')}
-                onValueChange={formikProps.handleChange('genderIdentity')}
-                playbackValue={
-                  genderIdentityItems.find((item) => item.value === formikProps.values.genderIdentity)?.label || ''
-                }
-                selectedValue={formikProps.values.genderIdentity}
-                style={styles.cardMargin}
-                testID="input-gender-identity"
-              />
-
-              <HealthProfileQuestionCard
-                isEditing
-                playbackMultipleSelect
-                component={
-                  <RaceEthnicityQuestion
-                    redesign
-                    formikProps={formikProps as unknown as FormikProps<IRaceEthnicityData>}
-                    showEthnicityQuestion={showEthnicityQuestion}
-                    showRaceQuestion={showRaceQuestion}
+                return !question.dependsOnProperty || conditionalCriteriaMet() ? (
+                  <HealthProfileQuestionCard
+                    description={question.description}
+                    editOnPress={() => setQuestionsState[question.propertyName](true)}
+                    fieldType={question.fieldType}
+                    formikProps={formikProps}
+                    isEditing={questionsState[question.propertyName]}
+                    items={question.items}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={`${question.propertyName}-${index}`}
+                    keyboardType={question.keyboardType}
+                    label={question.question}
+                    new={question.showNewTag}
+                    placeholder={question.placeholder}
+                    propertyName={question.propertyName}
+                    style={styles.cardMargin}
+                    testID={`health-profile-about-you-screen-${question.propertyName}`}
                   />
-                }
-                fieldType={EFieldType.Custom}
-                label={i18n.t('race-question')}
-                playbackValues={formikProps.values.race.map(
-                  (r: string) => UKRaceCheckboxes.find((item) => item.value === r)?.label || '',
-                )}
-                style={styles.cardMargin}
-              />
-
-              <HealthProfileQuestionCard
-                isEditing
-                component={
-                  <WeightQuestion
-                    redesign
-                    formikProps={formikProps as unknown as FormikProps<IWeightData>}
-                    label="What is your current body weight?"
-                  />
-                }
-                fieldType={EFieldType.Custom}
-                label="What is your current body weight?"
-                playbackValue={formikProps.values.weight + formikProps.values.weightUnit}
-                style={styles.cardMargin}
-              />
-
-              <HealthProfileQuestionCard
-                isEditing
-                component={
-                  <HeightQuestion
-                    redesign
-                    formikProps={formikProps as unknown as FormikProps<IHeightData>}
-                    label="What is your current height?"
-                  />
-                }
-                fieldType={EFieldType.Custom}
-                label="What is your current height?"
-                playbackValue={
-                  formikProps.values.heightUnit === 'cm'
-                    ? formikProps.values.height + formikProps.values.heightUnit
-                    : formikProps.values.feet + 'ft ' + formikProps.values.inches + 'in'
-                }
-                style={styles.cardMargin}
-              />
-
-              <HealthProfileQuestionCard
-                isEditing
-                error={formikProps.touched.twin ? formikProps.errors.twin : ''}
-                fieldType={EFieldType.YesNo}
-                label="Are you a twin?"
-                onValueChange={formikProps.handleChange('twin')}
-                selectedValue={formikProps.values.twin}
-                style={styles.cardMargin}
-                testID="input-twin"
-              />
-
-              {/* TODO: How to make this card conditional on previous answer? */}
-              <HealthProfileQuestionCard
-                isEditing
-                error={formikProps.touched.twinType ? formikProps.errors.twinType : ''}
-                fieldType={EFieldType.Radio}
-                items={twinTypeItems}
-                label="Which type of twin?"
-                onValueChange={formikProps.handleChange('twinType')}
-                playbackValue={twinTypeItems.find((item) => item.value === formikProps.values.twinType)?.label || ''}
-                selectedValue={formikProps.values.twinType}
-                style={styles.cardMargin}
-                testID="input-twin-type"
-              />
-
-              <HealthProfileQuestionCard
-                isEditing
-                showError
-                fieldType={EFieldType.Text}
-                formikProps={formikProps}
-                inputProps={{ autoCompleteType: 'postal-code' }}
-                label={i18n.t('your-postcode')}
-                name="postcode"
-                placeholder={i18n.t('placeholder-postcode')}
-                style={styles.cardMargin}
-                testID="input-postal-code"
-              />
-
-              <HealthProfileQuestionCard
-                isEditing
-                new
-                error={formikProps.touched.vape ? formikProps.errors.vape : ''}
-                fieldType={EFieldType.Radio}
-                items={vapeItems}
-                label="Do you vape/use e-cigarettes?"
-                onValueChange={formikProps.handleChange('vape')}
-                playbackValue={vapeItems.find((item) => item.value === formikProps.values.vape)?.label || ''}
-                selectedValue={formikProps.values.vape}
-                style={styles.cardMargin}
-                testID="input-vape"
-              />
+                ) : null;
+              })}
 
               <ErrorText>{errorMessage}</ErrorText>
               {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
