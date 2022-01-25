@@ -1768,6 +1768,10 @@
       "description": "We need your consent to take part in Wider Health Studies before you can express interest in new studies on this page.",
       "title": "Opt in to access new studies",
       "return": "Return to Home"
+    },
+    "video-modal": {
+      "description": "It's hiding behind this pop-up, simply tap it to play it.",
+      "title": "Have you seen our video on the future of this Study?"
     }
   },
   "tab-navigation": {

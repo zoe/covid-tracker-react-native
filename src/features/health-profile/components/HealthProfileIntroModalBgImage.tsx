@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { Image, Platform, StyleSheet, useWindowDimensions } from 'react-native';
 
+const backgroundTop = require('../assets/background_top.png');
+const backgroundBottom = require('../assets/background_bottom.png');
+
 export default function HealthProfileIntroModalBgImage() {
   const windowDimensions = useWindowDimensions();
   const height = windowDimensions.height;
@@ -9,9 +12,6 @@ export default function HealthProfileIntroModalBgImage() {
   const IMAGE_WIDTH_TO_SCREEN_WIDTH_RATIO = 0.75;
   const TOP_IMAGE_HEIGHT_TO_SCREEN_HEIGHT_RATIO = 0.3;
   const BOTTOM_IMAGE_HEIGHT_TO_SCREEN_HEIGHT_RATIO = 0.32;
-
-  const backgroundTop = require('../assets/background_top.png');
-  const backgroundBottom = require('../assets/background_bottom.png');
 
   return (
     <>
@@ -44,7 +44,5 @@ export default function HealthProfileIntroModalBgImage() {
 }
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    ...StyleSheet.absoluteFillObject,
-  },
+  backgroundImage: StyleSheet.absoluteFillObject,
 });

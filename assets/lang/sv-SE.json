@@ -1772,6 +1772,10 @@
       "description": false,
       "title": false,
       "return": false
+    },
+    "video-modal": {
+      "description": false,
+      "title": false
     }
   },
   "tab-navigation": {
