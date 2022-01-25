@@ -30,6 +30,7 @@ interface IProps {
   enableBackdropDismiss?: boolean;
   footerChildren?: React.ReactNode;
   modalName: string;
+  noPadding?: boolean;
   onPressClose?: () => void;
   onRequestClose: () => void;
   showsVerticalScrollIndicator?: boolean;
@@ -40,7 +41,7 @@ interface IProps {
 }
 
 const BORDER_RADIUS = 16;
-const CONTENT_SPACING = 24;
+export const CONTENT_SPACING = 24;
 const SCROLL_INDICATOR_OFFSET = BORDER_RADIUS / 4 + 2;
 
 // These magic numbers make sure the scroll indicator aligns pixel perfect to the edge on iOS.
@@ -113,11 +114,11 @@ export const Modal = React.memo(function Modal(props: IProps) {
                   ) : null}
                   <ScrollView
                     alwaysBounceVertical={false}
-                    contentContainerStyle={styles.contentContainer}
+                    contentContainerStyle={!props.noPadding && styles.contentContainer}
                     overScrollMode="never"
                     scrollIndicatorInsets={INSETS}
                     showsVerticalScrollIndicator={props.showsVerticalScrollIndicator || false}
-                    style={props.backgroundImage ? null : styles.scrollView}
+                    style={props.noPadding || props.backgroundImage ? null : styles.scrollView}
                   >
                     {props.backgroundImage ? props.backgroundImage : null}
                     {props.children}
@@ -195,5 +196,6 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     flexShrink: 1,
     maxWidth: sizes.maxScreenWidth,
+    overflow: 'hidden',
   },
 });

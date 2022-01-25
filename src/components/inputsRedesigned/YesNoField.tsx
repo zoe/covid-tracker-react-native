@@ -10,7 +10,7 @@ interface IProps {
   selectedValue: string;
   testID?: string;
   required?: boolean;
-  description?: string;
+  description?: string | null;
 }
 
 export enum EYesNoFieldOptions {

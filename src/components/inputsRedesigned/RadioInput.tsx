@@ -35,7 +35,7 @@ interface IProps<V = any> {
   IconComponent?: React.ComponentType<any>;
   iconOnPress?: () => void;
   style?: StyleProp<ViewStyle>;
-  description?: string;
+  description?: string | null;
 }
 
 const defaultItems: IItem[] = [
@@ -70,7 +70,7 @@ export function RadioInput(props: IProps) {
         <TouchableOpacity
           accessible
           accessibilityRole="radio"
-          key={`item-${item.value}`}
+          key={`item-${item.label}-${item.value}`}
           onPress={() => props.onValueChange(item.value)}
           style={
             index === 0 ? styles.firstItem : index + 1 === props.items?.length ? styles.lastItem : styles.middleItem

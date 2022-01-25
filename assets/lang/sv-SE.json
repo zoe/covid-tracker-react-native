@@ -1772,6 +1772,10 @@
       "description": false,
       "title": false,
       "return": false
+    },
+    "video-modal": {
+      "description": false,
+      "title": false
     }
   },
   "tab-navigation": {
@@ -1808,11 +1812,6 @@
       "time": false,
       "button": false,
       "remind-me": false
-    },
-    "about-you": {
-      "title": false,
-      "description": false,
-      "button": false
     },
     "thank-you": {
       "title": false,

@@ -15,7 +15,7 @@ export interface ISingleButton {
 }
 
 interface IProps {
-  description?: string;
+  description?: string | null;
   error?: any;
   hideLabel?: boolean;
   items: ISingleButton[];

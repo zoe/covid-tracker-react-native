@@ -9,6 +9,7 @@ import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { ImpactTimelineCard } from '@covid/features/anniversary';
 import { appCoordinator } from '@covid/features/AppCoordinator';
+import { StudyHubVideoModal } from '@covid/features/study-hub/modals/StudyHubVideoModal';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { BigGreenTickFilled } from '@covid/features/thank-you/components/BigGreenTick';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
@@ -32,6 +33,7 @@ export default function ThankYouUKScreen(props: IProps) {
   const dispatch = useDispatch();
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const [askForRating, setAskForRating] = React.useState<boolean>(false);
+  const [showVideoModal, setShowVideoModal] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     (async () => {
@@ -50,7 +52,10 @@ export default function ThankYouUKScreen(props: IProps) {
         dispatch(appActions.setModalHealthProfileIntroVisible(true));
         return;
       }
-
+      if (startupInfo?.show_study_hub_video_modal) {
+        setShowVideoModal(true);
+        return;
+      }
       try {
         const ratingAskResponse = await shouldAskForRating();
         setAskForRating(ratingAskResponse);
@@ -61,9 +66,17 @@ export default function ThankYouUKScreen(props: IProps) {
     })();
   }, []);
 
+  const onRequestClose = React.useCallback(() => {
+    setShowVideoModal(false);
+  }, []);
+
   return (
     <>
       {askForRating && <AppRating />}
+      {/* Only show the modal to the primary patient */}
+      {showVideoModal && !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another && (
+        <StudyHubVideoModal onRequestClose={onRequestClose} visible={showVideoModal} />
+      )}
       <Screen backgroundColor={colors.backgroundSecondary} testID="thank-you-screen">
         <BigGreenTickFilled />
 

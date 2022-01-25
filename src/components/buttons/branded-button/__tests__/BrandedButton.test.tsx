@@ -40,7 +40,7 @@ describe('branded-button tests', () => {
     const onPress = jest.fn();
     const style = { backgroundColor: 'red' };
     const { getByTestId } = render(
-      <BrandedButton enabled={false} onPress={onPress} style={style}>
+      <BrandedButton enabled onPress={onPress} style={style}>
         This is a branded button
       </BrandedButton>,
     );

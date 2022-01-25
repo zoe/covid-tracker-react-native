@@ -151,6 +151,7 @@ export const updateStudiesTabOnboardingSeen = createAction<boolean>('content/stu
 export const updateShowStudyHubInterestFirstTimeModal = createAction<boolean>(
   'content/show_study_hub_interest_first_time_modal',
 );
+export const updateShowStudyHubVideoModal = createAction<boolean>('content/show_study_hub_video_modal');
 export const updateShowBoosterModal = createAction<boolean>('content/show_booster_modal');
 export const updateShowOmicronModal = createAction<boolean>('content/show_omicron_modal');
 export const updateSelectedRegionItem = createAction<TRegionItem>('content/selected_region_item');
@@ -194,6 +195,11 @@ export const contentSlice = createSlice({
     [updateShowStudyHubInterestFirstTimeModal.type]: (state, action: PayloadAction<boolean>) => {
       if (state.startupInfo) {
         state.startupInfo.show_study_hub_interest_first_time_modal = action.payload;
+      }
+    },
+    [updateShowStudyHubVideoModal.type]: (state, action: PayloadAction<boolean>) => {
+      if (state.startupInfo) {
+        state.startupInfo.show_study_hub_video_modal = action.payload;
       }
     },
     [updateShowOmicronModal.type]: (current, action: PayloadAction<boolean>) => {

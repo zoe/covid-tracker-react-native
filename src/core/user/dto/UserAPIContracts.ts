@@ -218,7 +218,7 @@ export type TPatientInfosRequest = {
   sometimes_used_shortage: string;
 
   ethnicity: string;
-  race: string[];
+  race: string[] | string; // Health Profile has moved from multiselect to single choice
   race_other: string;
 
   // period fields
@@ -324,6 +324,7 @@ export type TPatientInfosRequest = {
   has_seen_study_hub_interest_first_time_modal: boolean;
   has_seen_study_hub_interest_onboarding: boolean;
   has_seen_study_hub_onboarding: boolean;
+  has_seen_study_hub_video_modal: boolean;
 
   // Health profile
   twin: boolean;
@@ -399,6 +400,7 @@ export type TStartupInfo = {
   show_study_hub_interest_first_time_modal: boolean;
   show_study_hub_interest_onboarding: boolean;
   show_study_hub_onboarding: boolean;
+  show_study_hub_video_modal: boolean;
   show_timeline: boolean;
   show_trendline: boolean;
   studies_tab_onboarding_seen: boolean;
