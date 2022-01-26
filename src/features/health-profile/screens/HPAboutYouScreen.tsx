@@ -1,6 +1,8 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { ValidationError } from '@covid/components/ValidationError';
+import { fetchExistingHealthProfile } from '@covid/core/state/health-profile/slice';
+import { THealthProfileData } from '@covid/core/state/health-profile/types';
 import { TRootState } from '@covid/core/state/root';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import HealthProfileQuestionCard, {
@@ -22,14 +24,10 @@ import { Formik } from 'formik';
 import * as React from 'react';
 import { Dispatch } from 'react';
 import { StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
-// Next steps
-// - complete the isEditing logic
-
-type TFormData = { [key in THealthProfilePropertyName]: string | boolean | null };
-interface IAboutYouData extends TFormData, IHeightData, IWeightData {}
+interface IAboutYouData extends THealthProfileData, IHeightData, IWeightData {}
 
 const createPatientDTO = (formData: IAboutYouData) => {
   let infos = {
@@ -114,6 +112,12 @@ const validationSchema = Yup.object().shape({
 
 export default function HPAboutYouScreen() {
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
+  const dispatch = useDispatch();
+  const savedAnswers = useSelector<TRootState, THealthProfileData>((state) => state.healthProfile.answers);
+
+  React.useEffect(() => {
+    dispatch(fetchExistingHealthProfile(patientId)); // TODO: Should we move this to onAppStartup? Otherwise would be called on every screen change.
+  }, []);
 
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
@@ -143,28 +147,59 @@ export default function HPAboutYouScreen() {
     //   setQuestionIsEditing;
   }
 
+  const getSavedHeightWeightValues = () => {
+    const savedData = {
+      feet: savedAnswers.height_feet ? Math.floor(savedAnswers.height_feet).toString() : '',
+      height: savedAnswers.height_cm?.toString() || '',
+      heightUnit: savedAnswers.height_feet ? 'ft' : 'cm',
+      inches: savedAnswers.height_feet
+        ? ((savedAnswers.height_feet - Math.floor(savedAnswers.height_feet)) * 12).toFixed(0)
+        : '',
+      pounds: savedAnswers.weight_pounds ? (savedAnswers.weight_pounds % 14).toString() : '',
+      stones: savedAnswers.weight_pounds ? Math.floor(savedAnswers.weight_pounds / 14).toString() : '',
+      weight: savedAnswers.weight_kg?.toString() || '',
+      weightUnit: savedAnswers.weight_kg ? 'kg' : 'lbs',
+    };
+
+    return savedData;
+  };
+
   const getInitialFormValues = () => {
-    const initialFormValues = {} as TFormData;
-    const initialFormValuesWithCustomFields = {
+    const initialFormValues = {} as THealthProfileData;
+    let initialFormValuesWithCustomFields = {
       ...initialFormValues,
       ...HeightQuestion.getInitialFormValues(),
       ...WeightQuestion.getInitialFormValues(),
     };
 
+    // Get saved values from Redux state if they exist
     healthProfileScreens.ABOUT_YOU.questions.forEach((question) => {
       if (question.fieldType === EFieldType.MULTISELECT) {
-        initialFormValuesWithCustomFields[question.propertyName as THealthProfilePropertyName] = question.value || '';
+        // For tracking all selections in a multiselect question, first initialise the empty array to track answers...
+        const answersSelected: string[] = [];
+
+        // Then for each choice, get saved answer from Redux for displaying in the form screen. Additionally, if true, add to array of answers.
         question.items.forEach((item) => {
-          initialFormValuesWithCustomFields[item.name as THealthProfilePropertyName] = false;
+          initialFormValuesWithCustomFields[item.name as THealthProfilePropertyName] = savedAnswers[item.name];
+          if (savedAnswers[item.name] === true) {
+            answersSelected.push(item.name);
+          }
         });
+
+        initialFormValuesWithCustomFields[question.propertyName as THealthProfilePropertyName] =
+          answersSelected.join(',');
       } else if (question.fieldType === EFieldType.WEIGHT || question.fieldType === EFieldType.HEIGHT) {
-        initialFormValuesWithCustomFields[question.propertyName1] = question.value1;
-        initialFormValuesWithCustomFields[question.propertyName2] = question.value2;
-        initialFormValuesWithCustomFields[question.propertyName3] = question.value3;
-        initialFormValuesWithCustomFields[question.propertyName4] = question.value4;
+        initialFormValuesWithCustomFields = { ...initialFormValuesWithCustomFields, ...getSavedHeightWeightValues() };
+      } else if (question.fieldType === EFieldType.YESNO) {
+        if (typeof savedAnswers[question.propertyName] === 'boolean') {
+          initialFormValuesWithCustomFields[question.propertyName] = savedAnswers[question.propertyName] ? 'yes' : 'no';
+        } else {
+          initialFormValuesWithCustomFields[question.propertyName] = savedAnswers[question.propertyName];
+        }
       } else {
         // Must initialise to at least an empty string for Yup to work
-        initialFormValuesWithCustomFields[question.propertyName] = question.value || '';
+        initialFormValuesWithCustomFields[question.propertyName] =
+          savedAnswers[question.propertyName]?.toString() || '';
       }
     });
 

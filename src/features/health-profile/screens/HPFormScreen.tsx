@@ -1,6 +1,8 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { ValidationError } from '@covid/components/ValidationError';
+import { fetchExistingHealthProfile } from '@covid/core/state/health-profile/slice';
+import { THealthProfileData } from '@covid/core/state/health-profile/types';
 import { TRootState } from '@covid/core/state/root';
 import HealthProfileQuestionCard, {
   EFieldType,
@@ -26,23 +28,22 @@ import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-
-// Next steps
-// - Save form data to redux and read data from Redux to populate form initial values
-// - make isediting variable
-// - Solve time dropdown menu and create custom component
-// - fix swipe backwords since we now just have a single screen
 
 type TProps = {
   route: RouteProp<TScreenParamList, 'HPFormScreen'>;
 };
 
-type TFormData = { [key in THealthProfilePropertyName]: string | boolean | null };
-
 export default function HPFormScreen({ route }: TProps) {
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
+  const dispatch = useDispatch();
+  const savedAnswers = useSelector<TRootState, THealthProfileData>((state) => state.healthProfile.answers);
+
+  React.useEffect(() => {
+    dispatch(fetchExistingHealthProfile(patientId)); // TODO: Should we move this to onAppStartup? Otherwise would be calling this on every screen change.
+  }, []);
+
   const screenName = route.params?.screenName as THPScreenName;
   const sectionName = screenMappings[screenName];
 
@@ -54,19 +55,35 @@ export default function HPFormScreen({ route }: TProps) {
   const [errorMessage, setErrorMessage] = React.useState<string>('');
 
   const getInitialFormValues = () => {
-    const initialFormValues = {} as TFormData;
+    const initialFormValues = {} as THealthProfileData;
     if (healthProfileScreens[sectionName] === undefined) {
       return initialFormValues;
     }
 
+    // Get saved values from Redux state if they exist
     healthProfileScreens[sectionName].questions.forEach((question) => {
       if (question.fieldType === EFieldType.MULTISELECT) {
-        initialFormValues[question.propertyName] = question.value || '';
+        // For tracking all selections in a multiselect question, first initialise the empty array to track answers...
+        const answersSelected: string[] = [];
 
+        // Then for each choice, get saved answer from Redux for displaying in the form screen. Additionally, if true, add to array of answers.
         question.items.forEach((item) => {
-          initialFormValues[item.name as THealthProfilePropertyName] = false;
+          initialFormValues[item.name as THealthProfilePropertyName] = savedAnswers[item.name];
+          if (savedAnswers[item.name] === true) {
+            answersSelected.push(item.name);
+          }
         });
-      } else if (question.propertyName) initialFormValues[question.propertyName] = question.value || '';
+
+        initialFormValues[question.propertyName as THealthProfilePropertyName] = answersSelected.join(',');
+      } else if (question.fieldType === EFieldType.YESNO) {
+        if (typeof savedAnswers[question.propertyName] === 'boolean') {
+          initialFormValues[question.propertyName] = savedAnswers[question.propertyName] ? 'yes' : 'no';
+        } else {
+          initialFormValues[question.propertyName] = savedAnswers[question.propertyName];
+        }
+      } else if (question.propertyName) {
+        initialFormValues[question.propertyName] = savedAnswers[question.propertyName]?.toString() || '';
+      }
     });
 
     return initialFormValues;

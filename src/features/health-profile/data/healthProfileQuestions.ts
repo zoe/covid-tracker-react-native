@@ -1,6 +1,4 @@
 import { TItemCheckbox } from '@covid/components/inputsRedesigned/MultiSelectField';
-import { IHeightData } from '@covid/features/patient/fields/HeightQuestion';
-import { IWeightData } from '@covid/features/patient/fields/WeightQuestion';
 import { KeyboardType } from 'react-native';
 
 import { EFieldType, TItemRadio } from '../components/HealthProfileQuestionCard';
@@ -54,7 +52,6 @@ interface ICommonProps {
   showNewTag: boolean;
   keyboardType: KeyboardType | null;
   placeholder: string | null;
-  value: string | null;
 }
 
 type TFieldTypeProps =
@@ -82,27 +79,11 @@ type TFieldTypeProps =
       fieldType: EFieldType.WEIGHT;
       items: null;
       propertyName: null;
-      propertyName1: keyof IWeightData;
-      propertyName2: keyof IWeightData;
-      propertyName3: keyof IWeightData;
-      propertyName4: keyof IWeightData;
-      value1: string;
-      value2: string;
-      value3: string;
-      value4: string;
     }
   | {
       fieldType: EFieldType.HEIGHT;
       items: null;
       propertyName: null;
-      propertyName1: keyof IHeightData;
-      propertyName2: keyof IHeightData;
-      propertyName3: keyof IHeightData;
-      propertyName4: keyof IHeightData;
-      value1: string;
-      value2: string;
-      value3: string;
-      value4: string;
     };
 
 type THealthProfileQuestion = TFieldTypeProps & ICommonProps;
@@ -124,6 +105,7 @@ export type THealthProfilePropertyName =
   | 'gender_identity'
   | 'is_twin'
   | 'parents_or_siblings_had_cardiovascular_disease'
+  | 'has_cancer'
   | 'parents_or_siblings_had_diabetes'
   | 'postcode'
   | 'race'
@@ -152,7 +134,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'What year were you born?',
         required: true,
         showNewTag: false,
-        value: '1985', // TODO: Link to redux
       },
 
       {
@@ -165,18 +146,9 @@ export const healthProfileScreens: THealthProfileScreens = {
         placeholder: null,
         pnts: false,
         propertyName: null,
-        propertyName1: 'weight',
-        propertyName2: 'pounds',
-        propertyName3: 'stones',
-        propertyName4: 'weightUnit',
         question: 'What is your current body weight?',
         required: true,
         showNewTag: false,
-        value: null,
-        value1: '', // TODO: Link to redux
-        value2: '5', // TODO: Link to redux
-        value3: '5', // TODO: Link to redux
-        value4: 'lbs', // TODO: Link to redux
       },
 
       {
@@ -189,18 +161,9 @@ export const healthProfileScreens: THealthProfileScreens = {
         placeholder: null,
         pnts: false,
         propertyName: null,
-        propertyName1: 'feet',
-        propertyName2: 'inches',
-        propertyName3: 'height',
-        propertyName4: 'heightUnit',
         question: 'What is your current height?',
         required: true,
         showNewTag: false,
-        value: null,
-        value1: '6', // TODO: Link to redux
-        value2: '6', // TODO: Link to redux
-        value3: '0', // TODO: Link to redux
-        value4: 'ft', // TODO: Link to redux
       },
 
       {
@@ -216,7 +179,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'Your postcode?',
         required: true,
         showNewTag: false,
-        value: 'SE1', // TODO: Link to redux
       },
 
       {
@@ -237,7 +199,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'What sex were you assigned at birth?',
         required: true,
         showNewTag: false,
-        value: '0',
       },
 
       {
@@ -258,7 +219,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'What gender do you most identify with?',
         required: true,
         showNewTag: false,
-        value: 'female',
       },
 
       {
@@ -279,7 +239,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'Which of the following best describes your ethnicity?',
         required: true,
         showNewTag: false,
-        value: null,
       },
 
       {
@@ -295,7 +254,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'Are you a twin?',
         required: true,
         showNewTag: false,
-        value: null,
       },
 
       {
@@ -314,7 +272,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'Which type of twin?',
         required: true,
         showNewTag: false,
-        value: null,
       },
 
       {
@@ -333,7 +290,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'PCOS?',
         required: true,
         showNewTag: false,
-        value: null,
       },
     ],
     testID: 'health-profile-about-you-screen',
@@ -352,12 +308,11 @@ export const healthProfileScreens: THealthProfileScreens = {
         keyboardType: null,
         placeholder: null,
         pnts: true,
-        propertyName: 'parents_or_siblings_had_cardiovascular_disease',
+        propertyName: 'has_cancer',
         question:
           'Have any of your parents or siblings had cardiovascular disease? Examples of cardiovascular disease include stroke, heart attack, heart disease, or angina.',
         required: true,
         showNewTag: false,
-        value: null,
       },
       {
         dependsOnProperty: 'parents_or_siblings_had_cardiovascular_disease',
@@ -372,7 +327,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'Have any of your parents or siblings had diabetes?',
         required: true,
         showNewTag: false,
-        value: null,
       },
     ],
     screenName: 'HPFamilyHistory',
@@ -415,7 +369,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         question: 'Which PCOS symptoms do you have?',
         required: true,
         showNewTag: false,
-        value: null,
       },
     ],
     screenName: 'HPWomensHealth',
@@ -443,7 +396,6 @@ export const healthProfileScreens: THealthProfileScreens = {
           'How frequently have you typically engaged in physical activity that raises your heart rate and lasts for 20 minutes at a time?',
         required: true,
         showNewTag: false,
-        value: null,
       },
     ],
     screenName: 'HPYourBehaviours',
