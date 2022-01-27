@@ -7,7 +7,7 @@ import i18n from '@covid/locale/i18n';
 import { sizes, styling } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface IProps {
   buttonEnabled: boolean;
@@ -16,9 +16,10 @@ interface IProps {
   children?: React.ReactNode;
   currentStep: number;
   description: string | null;
+  hideWhyWeAskLink?: boolean;
   maxSteps: number;
   noBackButton?: boolean;
-  hideWhyWeAskLink?: boolean;
+  saveExitOnPress: () => void;
   testID: string;
   title: string;
 }
@@ -35,8 +36,9 @@ export default function HealthProfileScreen(props: IProps) {
             </LabelText>
           </View>
           <View style={styles.flex}>
-            {/* TODO: Add onPress handler */}
-            <LightText style={styles.right}>{i18n.t('health-profile.save-exit')}</LightText>
+            <TouchableOpacity onPress={props.saveExitOnPress}>
+              <LightText style={styles.right}>{i18n.t('health-profile.save-exit')}</LightText>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

@@ -1,11 +1,12 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { ValidationError } from '@covid/components/ValidationError';
-import { fetchExistingHealthProfile } from '@covid/core/state/health-profile/slice';
+import { updateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { THealthProfileData } from '@covid/core/state/health-profile/types';
 import { TRootState } from '@covid/core/state/root';
 import HealthProfileQuestionCard, {
   EFieldType,
+  EHealthProfileQuestionCardStatus,
 } from '@covid/features/health-profile/components/HealthProfileQuestionCard';
 import HealthProfileScreen from '@covid/features/health-profile/components/HealthProfileScreen';
 import {
@@ -15,18 +16,21 @@ import {
   NAVIGATOR_MALE,
 } from '@covid/features/health-profile/data/healthProfileNavigator';
 import {
+  EHealthProfileSection,
   healthProfileScreens,
   screenMappings,
   THealthProfilePropertyName,
   THPScreenName,
 } from '@covid/features/health-profile/data/healthProfileQuestions';
+import { isEditing } from '@covid/features/health-profile/utils/healthProfileUtils';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
+import { Dispatch } from 'react';
 import { StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -36,23 +40,69 @@ type TProps = {
 };
 
 export default function HPFormScreen({ route }: TProps) {
-  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
+  // const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]); TODO: uncomment when we call backend API
   const dispatch = useDispatch();
   const savedAnswers = useSelector<TRootState, THealthProfileData>((state) => state.healthProfile.answers);
 
-  React.useEffect(() => {
-    dispatch(fetchExistingHealthProfile(patientId)); // TODO: Should we move this to onAppStartup? Otherwise would be calling this on every screen change.
-  }, []);
+  const [submitting, setSubmitting] = React.useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = React.useState<string>('');
 
   const screenName = route.params?.screenName as THPScreenName;
   const sectionName = screenMappings[screenName];
 
-  const gender = 'female'; // TODO: read from redux state whether gender = '1' or genderIdentity = 'female'
-  const navigator = gender === 'female' ? NAVIGATOR_FEMALE : NAVIGATOR_MALE;
-  const maxSteps = gender === 'female' ? MAX_STEPS_FEMALE : MAX_STEPS_MALE;
+  const isFemale = savedAnswers.gender === 0 || savedAnswers.gender_identity === 'female';
+  const navigator = isFemale ? NAVIGATOR_FEMALE : NAVIGATOR_MALE;
+  const maxSteps = isFemale ? MAX_STEPS_FEMALE : MAX_STEPS_MALE;
 
-  const [submitting, setSubmitting] = React.useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = React.useState<string>('');
+  // set up overall object to track each question's state and setState
+  const questionsState: { [key: string]: EHealthProfileQuestionCardStatus } = {};
+  const setQuestionsState: { [key: string]: Dispatch<EHealthProfileQuestionCardStatus> } = {};
+
+  if (healthProfileScreens[sectionName]) {
+    // set up each question's states to editing initially
+    for (let i = 0; i < healthProfileScreens[sectionName].questions.length; i++) {
+      // set up state for single question
+
+      const initialState = () => {
+        if (
+          savedAnswers[healthProfileScreens[sectionName].questions[i].propertyName as THealthProfilePropertyName] !==
+            '' &&
+          savedAnswers[healthProfileScreens[sectionName].questions[i].propertyName as THealthProfilePropertyName] !==
+            undefined
+        ) {
+          return EHealthProfileQuestionCardStatus.PLAYBACK;
+        }
+        return EHealthProfileQuestionCardStatus.NOT_ANSWERED;
+      };
+
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const [questionStatus, setQuestionStatus] = React.useState(initialState());
+
+      questionsState[healthProfileScreens[sectionName].questions[i].propertyName as THealthProfilePropertyName] =
+        questionStatus;
+      setQuestionsState[healthProfileScreens[sectionName].questions[i].propertyName as THealthProfilePropertyName] =
+        setQuestionStatus;
+    }
+  }
+
+  const updateQuestionsState = (formikProps: FormikProps<THealthProfileData>) => {
+    if (healthProfileScreens[sectionName]) {
+      for (let i = 0; i < healthProfileScreens[sectionName].questions.length; i++) {
+        const currentQuestion = healthProfileScreens[sectionName].questions[i]?.propertyName;
+        const nextQuestion = healthProfileScreens[sectionName].questions[i + 1]?.propertyName;
+
+        // If user specifically edits the current question then the question should be in editing mode
+        if (questionsState[currentQuestion] === EHealthProfileQuestionCardStatus.EDIT_ANSWER) {
+          return;
+        }
+
+        // If current question and next question is answered, current question should be in playback mode
+        if (!!formikProps.values[nextQuestion] && !!formikProps.values[currentQuestion]) {
+          setQuestionsState[currentQuestion](EHealthProfileQuestionCardStatus.PLAYBACK);
+        }
+      }
+    }
+  };
 
   const getInitialFormValues = () => {
     const initialFormValues = {} as THealthProfileData;
@@ -91,72 +141,90 @@ export default function HPFormScreen({ route }: TProps) {
 
   const validationSchema = () => {
     const validationObject: { [key: string]: Yup.StringSchema } = {};
-    if (healthProfileScreens[sectionName] === undefined) {
-      return validationObject;
+    if (healthProfileScreens[sectionName]) {
+      healthProfileScreens[sectionName].questions.forEach((question) => {
+        if (question.propertyName && question.dependsOnProperty && question.dependsOnPropertyValue) {
+          validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
+            is: (answer) => question.dependsOnPropertyValue!.includes(answer),
+            then: Yup.string().required(),
+          });
+        } else if (question.propertyName) {
+          validationObject[question.propertyName] = Yup.string().required();
+        }
+      });
     }
-    // TODO: confirm YesNo fields are not converted to boolean, otherwise need to fix validation logic
-    healthProfileScreens[sectionName].questions.forEach((question) => {
-      if (question.propertyName && question.dependsOnProperty && question.dependsOnPropertyValue) {
-        validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
-          is: (answer) => question.dependsOnPropertyValue!.includes(answer),
-          then: Yup.string().required(),
-        });
-      } else if (question.propertyName) {
-        validationObject[question.propertyName] = Yup.string().required();
-      }
-    });
 
     return Yup.object(validationObject);
   };
 
+  const saveToRedux = async (formData: THealthProfileData) => {
+    if (submitting) {
+      return;
+    }
+    setSubmitting(true);
+    try {
+      dispatch(updateHealthProfile(formData));
+    } catch {
+      setErrorMessage(i18n.t('something-went-wrong'));
+    }
+  };
+
   const onSubmit = React.useCallback(
     async (formData) => {
-      if (submitting) {
-        return;
-      }
-      setSubmitting(true);
-
-      const infos = formData; // assumes we don't convert yes/no questions to boolean
-
-      try {
-        // TODO: send data to Redux
-        // TODO: on last screen, also save to backend
-        // await patientService.updatePatientInfo(patientId, infos); TODO: uncomment when ready
-
-        // eslint-disable-next-line no-console
-        console.log('infos', infos);
-        NavigatorService.navigate('HPFormScreen', { screenName: navigator[sectionName].nextScreenName });
-      } catch (error) {
-        setErrorMessage(i18n.t('something-went-wrong'));
+      saveToRedux(formData);
+      if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
+        // TODO: replace with proper endpoint when ready
+        // await patientService.updatePatientInfo(patientId, infos)
       }
       setSubmitting(false);
+      NavigatorService.push('HPFormScreen', { screenName: navigator[sectionName].nextScreenName });
     },
-    [patientId, submitting],
+    [saveToRedux],
   );
+
+  const saveExitOnPress = (formData: THealthProfileData) => {
+    saveToRedux(formData);
+    if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
+      try {
+        // TODO: replace with proper endpoint when ready
+        // await patientService.updatePatientInfo(patientId, infos)
+      } catch {
+        setErrorMessage(i18n.t('something-went-wrong'));
+      }
+    }
+    setSubmitting(false);
+    NavigatorService.navigate('DashboardUK');
+  };
 
   return (
     <Formik
       validateOnChange
+      validateOnMount
       initialValues={getInitialFormValues()}
       onSubmit={onSubmit}
       validationSchema={validationSchema()}
     >
-      {(formikProps) => {
+      {/* Cannot use arrow function notation with useEffect */}
+      {function FormWithUseEffect(formikProps: FormikProps<THealthProfileData>) {
+        React.useEffect(() => {
+          updateQuestionsState(formikProps);
+        });
         return (
           navigator[sectionName] && (
             <HealthProfileScreen
-              buttonEnabled={formikProps.isValid && formikProps.dirty}
+              buttonEnabled={formikProps.isValid}
               buttonOnPress={formikProps.handleSubmit}
               buttonTitle={navigator[sectionName].buttonText}
               currentStep={navigator[sectionName].currentStep}
               description={healthProfileScreens[sectionName].description}
               hideWhyWeAskLink={healthProfileScreens[sectionName].hideWhyWeAskLink}
-              maxSteps={maxSteps || 16}
+              maxSteps={maxSteps}
+              saveExitOnPress={() => saveExitOnPress(formikProps.values)}
               testID={healthProfileScreens[sectionName].testID}
               title={healthProfileScreens[sectionName].title}
             >
               <Form hasRequiredFields redesign>
-                {healthProfileScreens[sectionName].questions.map((question, index) => {
+                {healthProfileScreens[sectionName].questions.map((question) => {
                   const conditionalCriteriaMet = () => {
                     if (
                       question.dependsOnProperty &&
@@ -170,13 +238,15 @@ export default function HPFormScreen({ route }: TProps) {
 
                   return !question.dependsOnProperty || conditionalCriteriaMet() ? (
                     <HealthProfileQuestionCard
-                      isEditing
                       description={question.description}
+                      editOnPress={() =>
+                        setQuestionsState[question.propertyName](EHealthProfileQuestionCardStatus.EDIT_ANSWER)
+                      }
                       fieldType={question.fieldType}
                       formikProps={formikProps}
+                      isEditing={isEditing(questionsState[question.propertyName])}
                       items={question.items}
-                      // eslint-disable-next-line react/no-array-index-key
-                      key={`${question.propertyName}-${index}`}
+                      key={question.propertyName}
                       keyboardType={question.keyboardType}
                       label={question.question}
                       new={question.showNewTag}
@@ -189,7 +259,7 @@ export default function HPFormScreen({ route }: TProps) {
                 })}
 
                 <ErrorText>{errorMessage}</ErrorText>
-                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 ? (
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && formikProps.dirty ? (
                   <ValidationError error={i18n.t('validation-error-text')} />
                 ) : null}
               </Form>

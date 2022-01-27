@@ -23,6 +23,12 @@ export enum EFieldType {
   POSTCODE = 'Postcode',
 }
 
+export enum EHealthProfileQuestionCardStatus {
+  NOT_ANSWERED = 'notAnswered',
+  PLAYBACK = 'playback',
+  EDIT_ANSWER = 'editAnswer',
+}
+
 export type TItemRadio = {
   label: string;
   value: string;

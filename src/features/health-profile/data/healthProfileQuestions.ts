@@ -78,12 +78,12 @@ type TFieldTypeProps =
   | {
       fieldType: EFieldType.WEIGHT;
       items: null;
-      propertyName: null;
+      propertyName: THeightWeightPropertyName;
     }
   | {
       fieldType: EFieldType.HEIGHT;
       items: null;
-      propertyName: null;
+      propertyName: THeightWeightPropertyName;
     };
 
 type THealthProfileQuestion = TFieldTypeProps & ICommonProps;
@@ -98,6 +98,9 @@ type THealthProfileScreens = {
     title: string;
   };
 };
+
+// only used for isEditing logic
+type THeightWeightPropertyName = 'height_field' | 'weight_field';
 
 // TODO: get list from Thomas
 export type THealthProfilePropertyName =
@@ -145,7 +148,7 @@ export const healthProfileScreens: THealthProfileScreens = {
         keyboardType: null,
         placeholder: null,
         pnts: false,
-        propertyName: null,
+        propertyName: 'weight_field',
         question: 'What is your current body weight?',
         required: true,
         showNewTag: false,
@@ -160,7 +163,7 @@ export const healthProfileScreens: THealthProfileScreens = {
         keyboardType: null,
         placeholder: null,
         pnts: false,
-        propertyName: null,
+        propertyName: 'height_field',
         question: 'What is your current height?',
         required: true,
         showNewTag: false,
@@ -315,7 +318,7 @@ export const healthProfileScreens: THealthProfileScreens = {
         showNewTag: false,
       },
       {
-        dependsOnProperty: 'parents_or_siblings_had_cardiovascular_disease',
+        dependsOnProperty: 'has_cancer',
         dependsOnPropertyValue: ['yes'],
         description: null,
         fieldType: EFieldType.YESNO,
