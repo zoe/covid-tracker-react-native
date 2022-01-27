@@ -1809,6 +1809,16 @@
       "button": "Update now",
       "remind-me": "Remind me later"
     },
+    "confirm-save-exit-modal": {
+      "title": "Are you sure you want to exit?",
+      "description": "Your answers will be saved. You can return at any time from the *Home* screen and finish where you left off.",
+      "button": "Yes, save and exit",
+      "dismiss": "Dismiss"
+    },
+    "why-we-ask-modal": {
+      "title": "Support science and build a unique health profile",
+      "description": "These questions are designed to build your unique health profile, an upcoming feature that will empower you to understand and improve your personal health. \n\nWe ask detailed questions to uncover any factors we need to consider when building your profile."
+    },
     "thank-you": {
       "title": "Thank you!",
       "description": "For updating your health information",

@@ -3,6 +3,7 @@ import { BackButton } from '@covid/components/BackButton';
 import { BrandedButton } from '@covid/components/buttons';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Screen } from '@covid/components/Screen';
+import { HealthProfileWhyWeAskModal } from '@covid/features/health-profile/modals/HealthProfileWhyWeAskModal';
 import i18n from '@covid/locale/i18n';
 import { sizes, styling } from '@covid/themes';
 import { colors } from '@theme';
@@ -25,6 +26,8 @@ interface IProps {
 }
 
 export default function HealthProfileScreen(props: IProps) {
+  const [showWhyWeAskModal, setShowWhyWeAskModal] = React.useState<boolean>(false);
+
   function renderHeader() {
     return (
       <View style={styles.bottomDropShadow}>
@@ -63,37 +66,42 @@ export default function HealthProfileScreen(props: IProps) {
   }
 
   return (
-    <Screen
-      noPadding
-      backgroundColor={colors.backgroundPrimary}
-      renderFooter={renderFooter}
-      renderHeader={renderHeader}
-      testID={props.testID}
-    >
-      <View style={styles.screenPadding}>
-        <ProgressStatus currentStep={props.currentStep} height={8} maxSteps={props.maxSteps} />
+    <>
+      <HealthProfileWhyWeAskModal onRequestClose={() => setShowWhyWeAskModal(false)} visible={showWhyWeAskModal} />
+      <Screen
+        noPadding
+        backgroundColor={colors.backgroundPrimary}
+        renderFooter={renderFooter}
+        renderHeader={renderHeader}
+        testID={props.testID}
+      >
+        <View style={styles.screenPadding}>
+          <ProgressStatus currentStep={props.currentStep} height={8} maxSteps={props.maxSteps} />
 
-        <Text style={styles.title} textClass="h3Light">
-          {props.title}
-        </Text>
+          <Text style={styles.title} textClass="h3Light">
+            {props.title}
+          </Text>
 
-        <View style={styles.marginBottom}>
-          {props.description ? (
-            <Text style={styles.fontSecondary} textClass="pSmall">
-              {props.description}
-            </Text>
-          ) : null}
+          <View style={styles.marginBottom}>
+            {props.description ? (
+              <Text style={styles.fontSecondary} textClass="pSmall">
+                {props.description}
+              </Text>
+            ) : null}
 
-          {props.hideWhyWeAskLink ? null : (
-            <Text style={styles.fontSecondary} textClass="pSmall" textDecorationLine="underline">
-              {i18n.t('health-profile.why-we-ask-this')}
-            </Text>
-          )}
+            {props.hideWhyWeAskLink ? null : (
+              <TouchableOpacity onPress={() => setShowWhyWeAskModal(true)}>
+                <Text style={styles.fontSecondary} textClass="pSmall" textDecorationLine="underline">
+                  {i18n.t('health-profile.why-we-ask-this')}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+
+          {props.children}
         </View>
-
-        {props.children}
-      </View>
-    </Screen>
+      </Screen>
+    </>
   );
 }
 

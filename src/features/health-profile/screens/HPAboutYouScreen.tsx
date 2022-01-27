@@ -2,6 +2,7 @@ import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { Loading } from '@covid/components/Loading';
 import { ValidationError } from '@covid/components/ValidationError';
+import Analytics, { events } from '@covid/core/Analytics';
 import { fetchExistingHealthProfile, updateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { THealthProfileData } from '@covid/core/state/health-profile/types';
 import { TRootState } from '@covid/core/state/root';
@@ -31,6 +32,8 @@ import { Dispatch } from 'react';
 import { StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { HealthProfileConfirmExitModal } from '../modals/HealthProfileConfirmExitModal';
+
 export interface IAboutYouData extends THealthProfileData, IHeightData, IWeightData {}
 
 export default function HPAboutYouScreen() {
@@ -42,6 +45,7 @@ export default function HPAboutYouScreen() {
   const [errorMessage, setErrorMessage] = React.useState<string>('');
   const [loadingData, setLoadingData] = React.useState<boolean>(false);
   const [loadingDataError, setLoadingDataError] = React.useState<string>('Loading your existing profile');
+  const [showConfirmExitModal, setShowConfirmExitModal] = React.useState<boolean>(false);
 
   const isFemale = savedAnswers.gender === 0 || savedAnswers.gender_identity === 'female';
   const maxSteps = isFemale ? MAX_STEPS_FEMALE : MAX_STEPS_MALE;
@@ -195,82 +199,89 @@ export default function HPAboutYouScreen() {
   );
 
   const saveExitOnPress = (formData: THealthProfileData) => {
+    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
     saveToRedux(formData);
-    NavigatorService.navigate('DashboardUK');
+    setShowConfirmExitModal(true);
   };
 
   return loadingData ? (
     <Loading error={null} status={loadingDataError} style={styles.loadingError} />
   ) : (
-    <Formik
-      validateOnChange
-      validateOnMount
-      initialValues={getInitialFormValues()}
-      onSubmit={onSubmit}
-      validationSchema={validationSchemaHPAboutYou}
-    >
-      {/* Cannot use arrow function notation with useEffect */}
-      {function FormWithUseEffect(formikProps: FormikProps<THealthProfileData>) {
-        React.useEffect(() => {
-          updateQuestionsState(formikProps);
-        });
-        return (
-          <HealthProfileScreen
-            buttonEnabled={formikProps.isValid}
-            buttonOnPress={formikProps.handleSubmit}
-            buttonTitle="Next: Family History"
-            currentStep={1}
-            description={healthProfileScreens.ABOUT_YOU.description}
-            hideWhyWeAskLink={healthProfileScreens.ABOUT_YOU.hideWhyWeAskLink}
-            maxSteps={maxSteps}
-            saveExitOnPress={() => saveExitOnPress(formikProps.values)}
-            testID={healthProfileScreens.ABOUT_YOU.testID}
-            title={healthProfileScreens.ABOUT_YOU.title}
-          >
-            <Form hasRequiredFields redesign>
-              {healthProfileScreens.ABOUT_YOU.questions.map((question) => {
-                const conditionalCriteriaMet = () => {
-                  if (
-                    question.dependsOnProperty &&
-                    formikProps.values[question.dependsOnProperty] &&
-                    question.dependsOnPropertyValue?.includes(formikProps.values[question.dependsOnProperty])
-                  ) {
-                    return true;
-                  }
-                  return false;
-                };
-
-                return !question.dependsOnProperty || conditionalCriteriaMet() ? (
-                  <HealthProfileQuestionCard
-                    description={question.description}
-                    editOnPress={() =>
-                      setQuestionsState[question.propertyName](EHealthProfileQuestionCardStatus.EDIT_ANSWER)
+    <>
+      <HealthProfileConfirmExitModal
+        onRequestClose={() => setShowConfirmExitModal(false)}
+        visible={showConfirmExitModal}
+      />
+      <Formik
+        validateOnChange
+        validateOnMount
+        initialValues={getInitialFormValues()}
+        onSubmit={onSubmit}
+        validationSchema={validationSchemaHPAboutYou}
+      >
+        {/* Cannot use arrow function notation with useEffect */}
+        {function FormWithUseEffect(formikProps: FormikProps<THealthProfileData>) {
+          React.useEffect(() => {
+            updateQuestionsState(formikProps);
+          });
+          return (
+            <HealthProfileScreen
+              buttonEnabled={formikProps.isValid}
+              buttonOnPress={formikProps.handleSubmit}
+              buttonTitle="Next: Family History"
+              currentStep={1}
+              description={healthProfileScreens.ABOUT_YOU.description}
+              hideWhyWeAskLink={healthProfileScreens.ABOUT_YOU.hideWhyWeAskLink}
+              maxSteps={maxSteps}
+              saveExitOnPress={() => saveExitOnPress(formikProps.values)}
+              testID={healthProfileScreens.ABOUT_YOU.testID}
+              title={healthProfileScreens.ABOUT_YOU.title}
+            >
+              <Form hasRequiredFields redesign>
+                {healthProfileScreens.ABOUT_YOU.questions.map((question) => {
+                  const conditionalCriteriaMet = () => {
+                    if (
+                      question.dependsOnProperty &&
+                      formikProps.values[question.dependsOnProperty] &&
+                      question.dependsOnPropertyValue?.includes(formikProps.values[question.dependsOnProperty])
+                    ) {
+                      return true;
                     }
-                    fieldType={question.fieldType}
-                    formikProps={formikProps}
-                    isEditing={isEditing(questionsState[question.propertyName])}
-                    items={question.items}
-                    key={question.propertyName}
-                    keyboardType={question.keyboardType}
-                    label={question.question}
-                    new={question.showNewTag}
-                    placeholder={question.placeholder}
-                    propertyName={question.propertyName}
-                    style={styles.cardMargin}
-                    testID={`health-profile-about-you-screen-${question.propertyName}`}
-                  />
-                ) : null;
-              })}
+                    return false;
+                  };
 
-              <ErrorText>{errorMessage}</ErrorText>
-              {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && formikProps.dirty ? (
-                <ValidationError error={i18n.t('validation-error-text')} />
-              ) : null}
-            </Form>
-          </HealthProfileScreen>
-        );
-      }}
-    </Formik>
+                  return !question.dependsOnProperty || conditionalCriteriaMet() ? (
+                    <HealthProfileQuestionCard
+                      description={question.description}
+                      editOnPress={() =>
+                        setQuestionsState[question.propertyName](EHealthProfileQuestionCardStatus.EDIT_ANSWER)
+                      }
+                      fieldType={question.fieldType}
+                      formikProps={formikProps}
+                      isEditing={isEditing(questionsState[question.propertyName])}
+                      items={question.items}
+                      key={question.propertyName}
+                      keyboardType={question.keyboardType}
+                      label={question.question}
+                      new={question.showNewTag}
+                      placeholder={question.placeholder}
+                      propertyName={question.propertyName}
+                      style={styles.cardMargin}
+                      testID={`health-profile-about-you-screen-${question.propertyName}`}
+                    />
+                  ) : null;
+                })}
+
+                <ErrorText>{errorMessage}</ErrorText>
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && formikProps.dirty ? (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                ) : null}
+              </Form>
+            </HealthProfileScreen>
+          );
+        }}
+      </Formik>
+    </>
   );
 }
 

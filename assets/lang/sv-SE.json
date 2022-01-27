@@ -1813,6 +1813,16 @@
       "button": false,
       "remind-me": false
     },
+    "confirm-save-exit-modal": {
+      "title": false,
+      "description": false,
+      "button": false,
+      "dismiss": false
+    },
+    "why-we-ask-modal": {
+      "title": false,
+      "description": false
+    },
     "thank-you": {
       "title": false,
       "description": false,
