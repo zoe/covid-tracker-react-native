@@ -1,12 +1,18 @@
 import { patientService } from '@covid/core/patient/PatientService';
-import { THealthProfileData, TStateHealthProfile } from '@covid/core/state/health-profile/types';
+import { THealthProfileRequest, TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+export type TStateHealthProfile = {
+  answers: {};
+};
+
+type TExistingHealthProfileFields = keyof THealthProfileRequest;
 
 export const initialStateHealthProfile: TStateHealthProfile = {
   answers: {},
 };
 
-const EXISTING_HEALTH_PROFILE_FIELDS = [
+const EXISTING_HEALTH_PROFILE_FIELDS: TExistingHealthProfileFields[] = [
   'year_of_birth',
   'gender',
   'gender_identity',
@@ -22,14 +28,15 @@ const EXISTING_HEALTH_PROFILE_FIELDS = [
   'mobility_aid',
   'healthcare_professional',
   'is_carer_for_community',
-  'has_kidney_disease',
-  'has_cancer',
-  'has_heart_disease',
+  // TODO: uncomment when we have the full JSON
+  // 'has_kidney_disease',
+  // 'has_cancer',
+  // 'has_heart_disease',
 ];
 
 export const fetchExistingHealthProfile = createAsyncThunk(
   'health_profile/fetch_health_profile',
-  async (patientId: string): Promise<THealthProfileData> => {
+  async (patientId: string): Promise<Partial<THealthProfileRequest>> => {
     const response = await patientService.getPatientDataById(patientId);
     const patientInfo = response?.patientInfo;
 
@@ -37,12 +44,12 @@ export const fetchExistingHealthProfile = createAsyncThunk(
       return {};
     }
 
-    const healthProfile: THealthProfileData = Object.keys(patientInfo)
-      .filter((key) => EXISTING_HEALTH_PROFILE_FIELDS.includes(key))
+    const healthProfile: Partial<THealthProfileRequest> = Object.keys(patientInfo)
+      .filter((key) => EXISTING_HEALTH_PROFILE_FIELDS.includes(key as TExistingHealthProfileFields))
       .reduce((obj, key) => {
         return {
           ...obj,
-          [key]: patientInfo[key],
+          [key]: patientInfo[key as keyof TPatientInfosRequest],
         };
       }, {});
 
@@ -63,7 +70,7 @@ export const healthProfileSlice = createSlice({
     resetHealthProfile: (state) => {
       state.answers = {};
     },
-    updateHealthProfile: (state, action: PayloadAction<THealthProfileData>) => ({
+    updateHealthProfile: (state, action: PayloadAction<Partial<THealthProfileRequest>>) => ({
       ...state,
       answers: {
         ...state.answers,

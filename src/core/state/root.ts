@@ -6,8 +6,7 @@ import { combineReducers } from 'redux';
 import { appSlice } from './app/slice';
 import { TStateApp } from './app/types';
 import { dietStudySlice, TStateDietStudy } from './diet-study';
-import { healthProfileSlice } from './health-profile/slice';
-import { TStateHealthProfile } from './health-profile/types';
+import { healthProfileSlice, TStateHealthProfile } from './health-profile/slice';
 import mediaCentre from './media-centre';
 import { TStateMediaCentre } from './media-centre/types';
 import {

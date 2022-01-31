@@ -1,8 +1,5 @@
 /* eslint-disable */
 
-// TODO: investigate lint error:
-// React Hook "React.useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render    react-hooks/rules-of-hooks
-
 import { Text } from '@covid/components/typography';
 import Analytics from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';

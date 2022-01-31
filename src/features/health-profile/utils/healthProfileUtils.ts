@@ -1,10 +1,13 @@
-import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { IAboutYouData } from '@covid/features/health-profile/screens/HPAboutYouScreen';
+import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { EHealthProfileQuestionCardStatus } from '@covid/features/health-profile/components/HealthProfileQuestionCard';
+import {
+  IHealthProfileFormData,
+  MULTI_SELECT_PROPERTY_NAMES,
+  THealthProfilePropertyName,
+} from '@covid/features/health-profile/data/healthProfileQuestions';
 import i18n from '@covid/locale/i18n';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import * as Yup from 'yup';
-
-import { EHealthProfileQuestionCardStatus } from '../components/HealthProfileQuestionCard';
 
 export const isEditing = (status: EHealthProfileQuestionCardStatus) => {
   return [EHealthProfileQuestionCardStatus.EDIT_ANSWER, EHealthProfileQuestionCardStatus.NOT_ANSWERED].includes(status);
@@ -30,12 +33,13 @@ export const validationSchemaHPAboutYou = Yup.object().shape({
     then: Yup.number().required(i18n.t('required-height-in-ft-in')),
   }),
   is_twin: Yup.string().required(),
-  pcos: Yup.string().required(), // TODO: delete - this is just for testing multiselect validation
   postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
   pounds: Yup.number().when('weightUnit', {
     is: 'lbs',
     then: Yup.number().required(i18n.t('required-weight-in-lb')),
   }),
+  // TODO: delete - this is just for testing multiselect validation
+  prior_allergy_diagnosis: Yup.string().required(),
   race: Yup.string().required(),
   stones: Yup.number().when('weightUnit', {
     is: 'lbs',
@@ -58,12 +62,12 @@ export const validationSchemaHPAboutYou = Yup.object().shape({
     .max(new Date().getFullYear(), i18n.t('correct-year-of-birth')),
 });
 
-export const createHPAboutYouDTO = (formData: IAboutYouData) => {
+export const createHPAboutYouDTO = (formData: IHealthProfileFormData) => {
   let infos = {
     ...formData,
     gender: formData.gender === '1' ? 1 : formData.gender === '0' ? 0 : formData.gender === '2' ? 2 : 3,
     year_of_birth: cleanIntegerVal(formData.year_of_birth as string),
-  } as Partial<TPatientInfosRequest>;
+  } as Partial<THealthProfileRequest>;
 
   if (formData.heightUnit === 'ft') {
     let inches = cleanFloatVal(formData.inches);
@@ -86,6 +90,26 @@ export const createHPAboutYouDTO = (formData: IAboutYouData) => {
   } else {
     infos = { ...infos, weight_kg: cleanFloatVal(formData.weight) };
   }
+
+  // NOTE: YesNo fields are submitted as strings, but no need to convert to boolean as Django backend automatically deduces it as boolean
+  return infos;
+};
+
+export const createCompletedHealthProfileDTO = (formData: Partial<IHealthProfileFormData>): THealthProfileRequest => {
+  Object.keys(formData).forEach((key) => {
+    // Multi select property names are only used to track all selected choices so we can play it back - it's not saved in the backend
+    if (MULTI_SELECT_PROPERTY_NAMES.includes(key)) {
+      delete formData[key as THealthProfilePropertyName];
+    }
+
+    // This is for condiditional fields that are initialised to empty string, but ultimately not required
+    if (formData[key as THealthProfilePropertyName] === '') {
+      formData[key as keyof IHealthProfileFormData] = undefined;
+    }
+  });
+
+  // NOTE: YesNo fields are submitted as strings, but no need to convert to boolean as Django backend automatically deduces it as boolean
+  const infos = { ...formData };
 
   return infos;
 };

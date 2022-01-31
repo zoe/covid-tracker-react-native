@@ -57,7 +57,6 @@ export function FormFieldPlayback(props: TProps) {
               : null}
           </View>
 
-          {/* TODO need to add onPress handler for edit */}
           <TouchableOpacity onPress={props.editOnPress}>
             <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pSmallMedium">
               Edit
@@ -69,7 +68,6 @@ export function FormFieldPlayback(props: TProps) {
           <Text inverted colorPalette="uiDark" colorShade="dark" style={styles.maxWidth} textClass="pMedium">
             {props.playbackValue}
           </Text>
-          {/* TODO need to add onPress handler for edit */}
           <TouchableOpacity onPress={props.editOnPress}>
             <Text
               inverted

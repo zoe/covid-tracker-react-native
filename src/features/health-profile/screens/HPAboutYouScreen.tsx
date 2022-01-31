@@ -4,8 +4,8 @@ import { Loading } from '@covid/components/Loading';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
 import { fetchExistingHealthProfile, updateHealthProfile } from '@covid/core/state/health-profile/slice';
-import { THealthProfileData } from '@covid/core/state/health-profile/types';
 import { TRootState } from '@covid/core/state/root';
+import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
 import HealthProfileQuestionCard, {
   EFieldType,
   EHealthProfileQuestionCardStatus,
@@ -14,6 +14,7 @@ import HealthProfileScreen from '@covid/features/health-profile/components/Healt
 import { MAX_STEPS_FEMALE, MAX_STEPS_MALE } from '@covid/features/health-profile/data/healthProfileNavigator';
 import {
   healthProfileScreens,
+  IHealthProfileFormData,
   THealthProfilePropertyName,
 } from '@covid/features/health-profile/data/healthProfileQuestions';
 import {
@@ -21,11 +22,12 @@ import {
   isEditing,
   validationSchemaHPAboutYou,
 } from '@covid/features/health-profile/utils/healthProfileUtils';
-import { HeightQuestion, IHeightData } from '@covid/features/patient/fields/HeightQuestion';
-import { IWeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
+import { HeightQuestion } from '@covid/features/patient/fields/HeightQuestion';
+import { WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
+import { useFocusEffect } from '@react-navigation/native';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { Dispatch } from 'react';
@@ -34,12 +36,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { HealthProfileConfirmExitModal } from '../modals/HealthProfileConfirmExitModal';
 
-export interface IAboutYouData extends THealthProfileData, IHeightData, IWeightData {}
-
 export default function HPAboutYouScreen() {
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const dispatch = useDispatch();
-  const savedAnswers = useSelector<TRootState, THealthProfileData>((state) => state.healthProfile.answers);
+
+  const savedAnswers = useSelector<TRootState, Partial<THealthProfileRequest>>((state) => state.healthProfile.answers);
 
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
@@ -82,8 +83,8 @@ export default function HPAboutYouScreen() {
         return EHealthProfileQuestionCardStatus.PLAYBACK;
       }
       if (
-        savedAnswers[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName] !== '' &&
-        savedAnswers[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName] !==
+        savedAnswers[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as keyof THealthProfileRequest] !== '' &&
+        savedAnswers[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as keyof THealthProfileRequest] !==
           undefined
       ) {
         return EHealthProfileQuestionCardStatus.PLAYBACK;
@@ -94,13 +95,11 @@ export default function HPAboutYouScreen() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [questionStatus, setQuestionStatus] = React.useState(initialState());
 
-    questionsState[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName] =
-      questionStatus;
-    setQuestionsState[healthProfileScreens.ABOUT_YOU.questions[i].propertyName as THealthProfilePropertyName] =
-      setQuestionStatus;
+    questionsState[healthProfileScreens.ABOUT_YOU.questions[i].propertyName] = questionStatus;
+    setQuestionsState[healthProfileScreens.ABOUT_YOU.questions[i].propertyName] = setQuestionStatus;
   }
 
-  const updateQuestionsState = (formikProps: FormikProps<THealthProfileData>) => {
+  const updateQuestionsState = (formikProps: FormikProps<IHealthProfileFormData>) => {
     for (let i = 0; i < healthProfileScreens.ABOUT_YOU.questions.length; i++) {
       const currentQuestion = healthProfileScreens.ABOUT_YOU.questions[i]?.propertyName;
       const nextQuestion = healthProfileScreens.ABOUT_YOU.questions[i + 1]?.propertyName;
@@ -135,7 +134,7 @@ export default function HPAboutYouScreen() {
   };
 
   const getInitialFormValues = () => {
-    const initialFormValues = {} as THealthProfileData;
+    const initialFormValues = {} as IHealthProfileFormData;
     let initialFormValuesWithCustomFields = {
       ...initialFormValues,
       ...HeightQuestion.getInitialFormValues(),
@@ -150,8 +149,9 @@ export default function HPAboutYouScreen() {
 
         // Then for each choice, get saved answer from Redux for displaying in the form screen. Additionally, if true, add to array of answers.
         question.items.forEach((item) => {
-          initialFormValuesWithCustomFields[item.name as THealthProfilePropertyName] = savedAnswers[item.name];
-          if (savedAnswers[item.name] === true) {
+          initialFormValuesWithCustomFields[item.name as keyof IHealthProfileFormData] =
+            savedAnswers[item.name as keyof THealthProfileRequest];
+          if (savedAnswers[item.name as keyof THealthProfileRequest] === true) {
             answersSelected.push(item.name);
           }
         });
@@ -161,22 +161,27 @@ export default function HPAboutYouScreen() {
       } else if (question.fieldType === EFieldType.WEIGHT || question.fieldType === EFieldType.HEIGHT) {
         initialFormValuesWithCustomFields = { ...initialFormValuesWithCustomFields, ...getSavedHeightWeightValues() };
       } else if (question.fieldType === EFieldType.YESNO) {
-        if (typeof savedAnswers[question.propertyName] === 'boolean') {
-          initialFormValuesWithCustomFields[question.propertyName] = savedAnswers[question.propertyName] ? 'yes' : 'no';
+        if (typeof savedAnswers[question.propertyName as keyof THealthProfileRequest] === 'boolean') {
+          initialFormValuesWithCustomFields[question.propertyName as keyof IHealthProfileFormData] = savedAnswers[
+            question.propertyName as keyof THealthProfileRequest
+          ]
+            ? 'yes'
+            : 'no';
         } else {
-          initialFormValuesWithCustomFields[question.propertyName] = savedAnswers[question.propertyName];
+          initialFormValuesWithCustomFields[question.propertyName as keyof IHealthProfileFormData] =
+            savedAnswers[question.propertyName as keyof THealthProfileRequest];
         }
       } else {
         // Must initialise to at least an empty string for Yup to work
         initialFormValuesWithCustomFields[question.propertyName] =
-          savedAnswers[question.propertyName]?.toString() || '';
+          savedAnswers[question.propertyName as keyof THealthProfileRequest]?.toString() || '';
       }
     });
 
     return initialFormValuesWithCustomFields;
   };
 
-  const saveToRedux = async (formData: THealthProfileData) => {
+  const saveToRedux = async (formData: IHealthProfileFormData) => {
     if (submitting) {
       return;
     }
@@ -198,7 +203,7 @@ export default function HPAboutYouScreen() {
     [saveToRedux],
   );
 
-  const saveExitOnPress = (formData: THealthProfileData) => {
+  const saveExitOnPress = (formData: IHealthProfileFormData) => {
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
     saveToRedux(formData);
     setShowConfirmExitModal(true);
@@ -220,10 +225,18 @@ export default function HPAboutYouScreen() {
         validationSchema={validationSchemaHPAboutYou}
       >
         {/* Cannot use arrow function notation with useEffect */}
-        {function FormWithUseEffect(formikProps: FormikProps<THealthProfileData>) {
+        {function FormWithUseEffect(formikProps: FormikProps<IHealthProfileFormData>) {
           React.useEffect(() => {
             updateQuestionsState(formikProps);
           });
+
+          // needed to ensure button is enabled if user goes back to this screen from other form screens
+          useFocusEffect(
+            React.useCallback(() => {
+              formikProps.validateForm();
+            }, []),
+          );
+
           return (
             <HealthProfileScreen
               buttonEnabled={formikProps.isValid}

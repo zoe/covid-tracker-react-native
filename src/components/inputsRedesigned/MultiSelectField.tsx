@@ -31,7 +31,7 @@ export function MultiSelectField(props: IProps) {
           key={item.name}
           onChange={(checked: boolean) => {
             let answersArray =
-              props.selectedValue === '' || props.selectedValue === undefined ? [] : props.selectedValue.split(','); // TODO: need to manage this in Redux
+              props.selectedValue === '' || props.selectedValue === undefined ? [] : props.selectedValue.split(',');
             if (checked) {
               answersArray.push(item.name);
             } else {

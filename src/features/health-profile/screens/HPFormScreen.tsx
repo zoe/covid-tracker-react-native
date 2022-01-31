@@ -2,9 +2,10 @@ import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
+import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
 import { updateHealthProfile } from '@covid/core/state/health-profile/slice';
-import { THealthProfileData } from '@covid/core/state/health-profile/types';
 import { TRootState } from '@covid/core/state/root';
+import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
 import HealthProfileQuestionCard, {
   EFieldType,
   EHealthProfileQuestionCardStatus,
@@ -19,16 +20,17 @@ import {
 import {
   EHealthProfileSection,
   healthProfileScreens,
+  IHealthProfileFormData,
   screenMappings,
   THealthProfilePropertyName,
   THPScreenName,
 } from '@covid/features/health-profile/data/healthProfileQuestions';
-import { isEditing } from '@covid/features/health-profile/utils/healthProfileUtils';
+import { createCompletedHealthProfileDTO, isEditing } from '@covid/features/health-profile/utils/healthProfileUtils';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { Dispatch } from 'react';
@@ -43,9 +45,9 @@ type TProps = {
 };
 
 export default function HPFormScreen({ route }: TProps) {
-  // const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]); TODO: uncomment when we call backend API
+  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const dispatch = useDispatch();
-  const savedAnswers = useSelector<TRootState, THealthProfileData>((state) => state.healthProfile.answers);
+  const savedAnswers = useSelector<TRootState, Partial<THealthProfileRequest>>((state) => state.healthProfile.answers);
 
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
@@ -69,9 +71,9 @@ export default function HPFormScreen({ route }: TProps) {
 
       const initialState = () => {
         if (
-          savedAnswers[healthProfileScreens[sectionName].questions[i].propertyName as THealthProfilePropertyName] !==
+          savedAnswers[healthProfileScreens[sectionName].questions[i].propertyName as keyof THealthProfileRequest] !==
             '' &&
-          savedAnswers[healthProfileScreens[sectionName].questions[i].propertyName as THealthProfilePropertyName] !==
+          savedAnswers[healthProfileScreens[sectionName].questions[i].propertyName as keyof THealthProfileRequest] !==
             undefined
         ) {
           return EHealthProfileQuestionCardStatus.PLAYBACK;
@@ -82,14 +84,12 @@ export default function HPFormScreen({ route }: TProps) {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [questionStatus, setQuestionStatus] = React.useState(initialState());
 
-      questionsState[healthProfileScreens[sectionName].questions[i].propertyName as THealthProfilePropertyName] =
-        questionStatus;
-      setQuestionsState[healthProfileScreens[sectionName].questions[i].propertyName as THealthProfilePropertyName] =
-        setQuestionStatus;
+      questionsState[healthProfileScreens[sectionName].questions[i].propertyName] = questionStatus;
+      setQuestionsState[healthProfileScreens[sectionName].questions[i].propertyName] = setQuestionStatus;
     }
   }
 
-  const updateQuestionsState = (formikProps: FormikProps<THealthProfileData>) => {
+  const updateQuestionsState = (formikProps: FormikProps<IHealthProfileFormData>) => {
     if (healthProfileScreens[sectionName]) {
       for (let i = 0; i < healthProfileScreens[sectionName].questions.length; i++) {
         const currentQuestion = healthProfileScreens[sectionName].questions[i]?.propertyName;
@@ -109,7 +109,7 @@ export default function HPFormScreen({ route }: TProps) {
   };
 
   const getInitialFormValues = () => {
-    const initialFormValues = {} as THealthProfileData;
+    const initialFormValues = {} as IHealthProfileFormData;
     if (healthProfileScreens[sectionName] === undefined) {
       return initialFormValues;
     }
@@ -122,21 +122,25 @@ export default function HPFormScreen({ route }: TProps) {
 
         // Then for each choice, get saved answer from Redux for displaying in the form screen. Additionally, if true, add to array of answers.
         question.items.forEach((item) => {
-          initialFormValues[item.name as THealthProfilePropertyName] = savedAnswers[item.name];
-          if (savedAnswers[item.name] === true) {
+          initialFormValues[item.name as keyof IHealthProfileFormData] =
+            savedAnswers[item.name as keyof THealthProfileRequest];
+          if (savedAnswers[item.name as keyof THealthProfileRequest] === true) {
             answersSelected.push(item.name);
           }
         });
 
         initialFormValues[question.propertyName as THealthProfilePropertyName] = answersSelected.join(',');
       } else if (question.fieldType === EFieldType.YESNO) {
-        if (typeof savedAnswers[question.propertyName] === 'boolean') {
-          initialFormValues[question.propertyName] = savedAnswers[question.propertyName] ? 'yes' : 'no';
+        if (typeof savedAnswers[question.propertyName as keyof THealthProfileRequest] === 'boolean') {
+          initialFormValues[question.propertyName] = savedAnswers[question.propertyName as keyof THealthProfileRequest]
+            ? 'yes'
+            : 'no';
         } else {
-          initialFormValues[question.propertyName] = savedAnswers[question.propertyName];
+          initialFormValues[question.propertyName] = savedAnswers[question.propertyName as keyof THealthProfileRequest];
         }
       } else if (question.propertyName) {
-        initialFormValues[question.propertyName] = savedAnswers[question.propertyName]?.toString() || '';
+        initialFormValues[question.propertyName] =
+          savedAnswers[question.propertyName as keyof THealthProfileRequest]?.toString() || '';
       }
     });
 
@@ -161,24 +165,32 @@ export default function HPFormScreen({ route }: TProps) {
     return Yup.object(validationObject);
   };
 
-  const saveToRedux = async (formData: THealthProfileData) => {
+  const saveToRedux = async (formData: IHealthProfileFormData) => {
     if (submitting) {
       return;
     }
     setSubmitting(true);
+    const infos = createCompletedHealthProfileDTO(formData);
     try {
-      dispatch(updateHealthProfile(formData));
+      dispatch(updateHealthProfile(infos));
     } catch {
       setErrorMessage(i18n.t('something-went-wrong'));
     }
+    setSubmitting(false);
   };
 
   const onSubmit = React.useCallback(
     async (formData) => {
       saveToRedux(formData);
       if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
-        // TODO: replace with proper endpoint when ready
-        // await patientService.updatePatientInfo(patientId, infos)
+        // Might take a while for last screen's form data to be updated to Redux
+        const completeForm = { ...savedAnswers, ...formData };
+        const infos = createCompletedHealthProfileDTO(completeForm);
+        try {
+          await healthProfileService.createHealthProfile(patientId, infos);
+        } catch {
+          setErrorMessage(i18n.t('something-went-wrong'));
+        }
       }
       setSubmitting(false);
       NavigatorService.push('HPFormScreen', { screenName: navigator[sectionName].nextScreenName });
@@ -186,15 +198,14 @@ export default function HPFormScreen({ route }: TProps) {
     [saveToRedux],
   );
 
-  const saveExitOnPress = (formData: THealthProfileData) => {
+  const saveExitOnPress = async (formData: IHealthProfileFormData) => {
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
     saveToRedux(formData);
     setShowConfirmExitModal(true);
 
     if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
       try {
-        // TODO: replace with proper endpoint when ready
-        // await patientService.updatePatientInfo(patientId, infos)
+        await healthProfileService.createHealthProfile(patientId, formData);
       } catch {
         setErrorMessage(i18n.t('something-went-wrong'));
       }
@@ -216,10 +227,17 @@ export default function HPFormScreen({ route }: TProps) {
         validationSchema={validationSchema()}
       >
         {/* Cannot use arrow function notation with useEffect */}
-        {function FormWithUseEffect(formikProps: FormikProps<THealthProfileData>) {
+        {function FormWithUseEffect(formikProps: FormikProps<IHealthProfileFormData>) {
           React.useEffect(() => {
             updateQuestionsState(formikProps);
           });
+
+          // needed to ensure button is enabled if user goes back to previous screen
+          useFocusEffect(
+            React.useCallback(() => {
+              formikProps.validateForm();
+            }, []),
+          );
           return (
             navigator[sectionName] && (
               <HealthProfileScreen

@@ -1,4 +1,7 @@
 import { TItemCheckbox } from '@covid/components/inputsRedesigned/MultiSelectField';
+import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { IHeightData } from '@covid/features/patient/fields/HeightQuestion';
+import { IWeightData } from '@covid/features/patient/fields/WeightQuestion';
 import { KeyboardType } from 'react-native';
 
 import { EFieldType, TItemRadio } from '../components/HealthProfileQuestionCard';
@@ -102,22 +105,17 @@ type THealthProfileScreens = {
 // only used for isEditing logic
 type THeightWeightPropertyName = 'height_field' | 'weight_field';
 
-// TODO: get list from Thomas
-export type THealthProfilePropertyName =
-  | 'gender'
-  | 'gender_identity'
-  | 'is_twin'
-  | 'parents_or_siblings_had_cardiovascular_disease'
-  | 'has_cancer'
-  | 'parents_or_siblings_had_diabetes'
-  | 'postcode'
-  | 'race'
-  | 'twin_type'
-  | 'yb_physical_activity_frequency'
-  | 'year_of_birth'
-  | 'pcos'
-  | 'pcos_1'
-  | 'pcos_2';
+// TODO: add all multiselect property names
+export const MULTI_SELECT_PROPERTY_NAMES = ['prior_allergy_diagnosis'] as const;
+
+type TMultiSelectPropertyName = typeof MULTI_SELECT_PROPERTY_NAMES[number];
+type THealthProfileFields = {
+  [key in (TMultiSelectPropertyName | THeightWeightPropertyName) | keyof THealthProfileRequest]: string;
+};
+
+export type THealthProfilePropertyName = keyof THealthProfileRequest | TMultiSelectPropertyName;
+
+export interface IHealthProfileFormData extends IHeightData, IWeightData, THealthProfileFields {}
 
 export const healthProfileScreens: THealthProfileScreens = {
   ABOUT_YOU: {
@@ -230,10 +228,8 @@ export const healthProfileScreens: THealthProfileScreens = {
         description: null,
         fieldType: EFieldType.RADIO,
         items: [
-          { label: 'English, Welsh, Scottish, Northern Irish, Irish', value: 'english_welsh_etc' },
+          { label: 'English, Welsh, Scottish, Northern Irish, Irish', value: 'british_irish' },
           { label: 'Other white background', value: 'other_white' },
-          { label: 'Indian', value: 'indian' },
-          { label: 'Pakistani', value: 'pakistani' },
         ],
         keyboardType: null,
         placeholder: null,
@@ -266,7 +262,7 @@ export const healthProfileScreens: THealthProfileScreens = {
         fieldType: EFieldType.RADIO,
         items: [
           { label: 'Identical', value: 'identical' },
-          { label: 'Non-identical', value: 'non-identical' },
+          { label: 'Non-identical', value: 'non_identical' },
         ],
         keyboardType: null,
         placeholder: null,
@@ -283,14 +279,23 @@ export const healthProfileScreens: THealthProfileScreens = {
         description: null,
         fieldType: EFieldType.MULTISELECT,
         items: [
-          { label: 'pcos 1', name: 'pcos_1', testID: 'pcos_1' },
-          { label: 'pcos 2', name: 'pcos_2', testID: 'pcos_1' },
+          {
+            label: 'Hayfever',
+            name: 'has_prior_allergy_diagnosis_hayfever',
+            testID: 'has_prior_allergy_diagnosis_hayfever',
+          },
+          { label: 'Other', name: 'has_prior_allergy_diagnosis_other', testID: 'has_prior_allergy_diagnosis_other' },
+          {
+            label: 'Prefer not to say',
+            name: 'has_prior_allergy_diagnosis_pfnts',
+            testID: 'has_prior_allergy_diagnosis_pfnts',
+          },
         ],
         keyboardType: null,
         placeholder: null,
         pnts: false,
-        propertyName: 'pcos',
-        question: 'PCOS?',
+        propertyName: 'prior_allergy_diagnosis',
+        question: 'Which of the following allergic conditions were you diagnosed with?',
         required: true,
         showNewTag: false,
       },
@@ -311,14 +316,14 @@ export const healthProfileScreens: THealthProfileScreens = {
         keyboardType: null,
         placeholder: null,
         pnts: true,
-        propertyName: 'has_cancer',
+        propertyName: 'parents_or_siblings_had_cardiovascular_disease',
         question:
           'Have any of your parents or siblings had cardiovascular disease? Examples of cardiovascular disease include stroke, heart attack, heart disease, or angina.',
         required: true,
         showNewTag: false,
       },
       {
-        dependsOnProperty: 'has_cancer',
+        dependsOnProperty: 'parents_or_siblings_had_cardiovascular_disease',
         dependsOnPropertyValue: ['yes'],
         description: null,
         fieldType: EFieldType.YESNO,
