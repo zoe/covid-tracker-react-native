@@ -9,6 +9,9 @@ import i18n from '@covid/locale/i18n';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import * as Yup from 'yup';
 
+export const TEXT_INPUT_PNTS_LABEL = 'Prefer not to say';
+export const PNTS_VALUE_TO_SAVE_IN_DB = 'pfnts';
+
 export const isEditing = (status: EHealthProfileQuestionCardStatus) => {
   return [EHealthProfileQuestionCardStatus.EDIT_ANSWER, EHealthProfileQuestionCardStatus.NOT_ANSWERED].includes(status);
 };
@@ -96,20 +99,23 @@ export const createHPAboutYouDTO = (formData: IHealthProfileFormData) => {
 };
 
 export const createCompletedHealthProfileDTO = (formData: Partial<IHealthProfileFormData>): THealthProfileRequest => {
-  Object.keys(formData).forEach((key) => {
+  const infos = { ...formData };
+
+  Object.keys(infos).forEach((key) => {
     // Multi select property names are only used to track all selected choices so we can play it back - it's not saved in the backend
     if (MULTI_SELECT_PROPERTY_NAMES.includes(key)) {
-      delete formData[key as THealthProfilePropertyName];
+      delete infos[key as THealthProfilePropertyName];
     }
 
     // This is for condiditional fields that are initialised to empty string, but ultimately not required
-    if (formData[key as THealthProfilePropertyName] === '') {
-      formData[key as keyof IHealthProfileFormData] = undefined;
+    if (infos[key as THealthProfilePropertyName] === '') {
+      infos[key as keyof IHealthProfileFormData] = undefined;
+      // This is for text fields where pnts is an option
+    } else if (infos[key as THealthProfilePropertyName] === TEXT_INPUT_PNTS_LABEL) {
+      infos[key as keyof IHealthProfileFormData] = PNTS_VALUE_TO_SAVE_IN_DB;
     }
   });
 
   // NOTE: YesNo fields are submitted as strings, but no need to convert to boolean as Django backend automatically deduces it as boolean
-  const infos = { ...formData };
-
   return infos;
 };

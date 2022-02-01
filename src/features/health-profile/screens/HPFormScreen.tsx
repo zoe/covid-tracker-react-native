@@ -25,7 +25,12 @@ import {
   THealthProfilePropertyName,
   THPScreenName,
 } from '@covid/features/health-profile/data/healthProfileQuestions';
-import { createCompletedHealthProfileDTO, isEditing } from '@covid/features/health-profile/utils/healthProfileUtils';
+import {
+  createCompletedHealthProfileDTO,
+  isEditing,
+  PNTS_VALUE_TO_SAVE_IN_DB,
+  TEXT_INPUT_PNTS_LABEL,
+} from '@covid/features/health-profile/utils/healthProfileUtils';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
@@ -116,7 +121,7 @@ export default function HPFormScreen({ route }: TProps) {
 
     // Get saved values from Redux state if they exist
     healthProfileScreens[sectionName].questions.forEach((question) => {
-      if (question.fieldType === EFieldType.MULTISELECT) {
+      if (question.fieldType === EFieldType.MULTISELECT || question.fieldType === EFieldType.IMMUNODEFICIENCY) {
         // For tracking all selections in a multiselect question, first initialise the empty array to track answers...
         const answersSelected: string[] = [];
 
@@ -130,6 +135,11 @@ export default function HPFormScreen({ route }: TProps) {
         });
 
         initialFormValues[question.propertyName as THealthProfilePropertyName] = answersSelected.join(',');
+
+        if (question.fieldType === EFieldType.IMMUNODEFICIENCY) {
+          initialFormValues.has_prior_immunodeficiency_diagnosis_other_connective_tissue =
+            savedAnswers.has_prior_immunodeficiency_diagnosis_other_connective_tissue || '';
+        }
       } else if (question.fieldType === EFieldType.YESNO) {
         if (typeof savedAnswers[question.propertyName as keyof THealthProfileRequest] === 'boolean') {
           initialFormValues[question.propertyName] = savedAnswers[question.propertyName as keyof THealthProfileRequest]
@@ -137,6 +147,17 @@ export default function HPFormScreen({ route }: TProps) {
             : 'no';
         } else {
           initialFormValues[question.propertyName] = savedAnswers[question.propertyName as keyof THealthProfileRequest];
+        }
+      } else if (question.fieldType === EFieldType.TEXT) {
+        if (
+          question.pnts &&
+          savedAnswers[question.propertyName as keyof THealthProfileRequest] === PNTS_VALUE_TO_SAVE_IN_DB
+        ) {
+          // convert pfnts to "Prefer not to say" in user interface
+          initialFormValues[question.propertyName] = TEXT_INPUT_PNTS_LABEL;
+        } else {
+          initialFormValues[question.propertyName] =
+            savedAnswers[question.propertyName as keyof THealthProfileRequest] || '';
         }
       } else if (question.propertyName) {
         initialFormValues[question.propertyName] =
@@ -159,6 +180,15 @@ export default function HPFormScreen({ route }: TProps) {
         } else if (question.propertyName) {
           validationObject[question.propertyName] = Yup.string().required();
         }
+
+        // Custom field validations
+        validationObject.has_prior_immunodeficiency_diagnosis_other_connective_tissue = Yup.string().when(
+          'prior_immunodeficiency_diagnosis',
+          {
+            is: (answer) => !!answer && answer.includes('other'),
+            then: Yup.string().required(),
+          },
+        );
       });
     }
 
@@ -205,7 +235,10 @@ export default function HPFormScreen({ route }: TProps) {
 
     if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
       try {
-        await healthProfileService.createHealthProfile(patientId, formData);
+        await healthProfileService.createHealthProfile(
+          patientId,
+          formData as unknown as Partial<THealthProfileRequest>,
+        );
       } catch {
         setErrorMessage(i18n.t('something-went-wrong'));
       }
@@ -281,6 +314,7 @@ export default function HPFormScreen({ route }: TProps) {
                         new={question.showNewTag}
                         placeholder={question.placeholder}
                         propertyName={question.propertyName}
+                        showPnts={question.pnts}
                         style={styles.cardMargin}
                         testID={`health-profile-${sectionName}-screen-${question.propertyName}`}
                       />

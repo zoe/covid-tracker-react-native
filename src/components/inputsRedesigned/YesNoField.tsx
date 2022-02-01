@@ -8,6 +8,7 @@ interface IProps {
   label?: string;
   onValueChange: any;
   selectedValue: string;
+  showPnts?: boolean;
   testID?: string;
   required?: boolean;
   description?: string | null;

@@ -521,8 +521,7 @@ export type THealthProfileRequest = {
   has_prior_cancer_diagnosis_none: boolean;
   has_prior_cancer_diagnosis_pfnts: boolean;
 
-  first_cancer_diagnosis_year: number;
-  first_cancer_diagnosis_year_pfnts: boolean;
+  first_cancer_diagnosis_year: string;
 
   has_cancer: string;
 
@@ -571,8 +570,7 @@ export type THealthProfileRequest = {
   has_prior_cardiovascular_diagnosis_none: boolean;
   has_prior_cardiovascular_diagnosis_pfnts: boolean;
 
-  first_heart_attack_year: number;
-  first_heart_attack_year_pfnts: boolean;
+  first_heart_attack_year: string;
 
   // Hormones & Metabolism
   has_prior_diabetes_or_prediabetes_diagnosis: string;
@@ -583,8 +581,7 @@ export type THealthProfileRequest = {
   has_prior_diabetes_other: boolean;
   has_prior_diabetes_pfnts: boolean;
 
-  diabetes_diagnosis_year: number;
-  diabetes_diagnosis_year_pfnts: boolean;
+  diabetes_diagnosis_year: string;
 
   has_prior_familial_hypercholesterol_hyperlipid_diagnosis: string;
 
@@ -690,11 +687,9 @@ export type THealthProfileRequest = {
   pcos_symptom_polycystic_ovaries_scan: boolean;
   pcos_symptom_pfnts: boolean;
 
-  period_started_age: number;
-  period_started_age_pfnts: boolean;
+  period_started_age: string;
 
-  number_births: number;
-  number_births_pfnts: boolean;
+  number_births: string;
 
   period_status: string;
 
@@ -713,8 +708,7 @@ export type THealthProfileRequest = {
   menopausal_symptom_none: boolean;
   monopausal_symptom_pfnts: boolean;
 
-  post_menopausal_age: number;
-  post_menopausal_age_pfnts: boolean;
+  post_menopausal_age: string;
 
   taking_hormone_treatment_oral_or_implant_contraceptive: boolean;
   taking_hormone_treatment_hrt: boolean;
@@ -723,8 +717,7 @@ export type THealthProfileRequest = {
   taking_hormone_treatment_none: boolean;
   taking_hormone_treatment_pfnts: boolean;
 
-  years_taken_hormone_based_contraception: number;
-  years_taken_hormone_based_contraception_pfnts: boolean;
+  years_taken_hormone_based_contraception: string;
 
   taken_hrt_more_than_year: string;
 

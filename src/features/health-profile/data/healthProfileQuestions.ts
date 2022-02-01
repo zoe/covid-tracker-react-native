@@ -87,6 +87,16 @@ type TFieldTypeProps =
       fieldType: EFieldType.HEIGHT;
       items: null;
       propertyName: THeightWeightPropertyName;
+    }
+  | {
+      fieldType: EFieldType.POSTCODE;
+      items: null;
+      propertyName: THealthProfilePropertyName;
+    }
+  | {
+      fieldType: EFieldType.IMMUNODEFICIENCY;
+      items: TItemCheckbox[];
+      propertyName: THealthProfilePropertyName;
     };
 
 type THealthProfileQuestion = TFieldTypeProps & ICommonProps;
@@ -106,7 +116,11 @@ type THealthProfileScreens = {
 type THeightWeightPropertyName = 'height_field' | 'weight_field';
 
 // TODO: add all multiselect property names
-export const MULTI_SELECT_PROPERTY_NAMES = ['prior_allergy_diagnosis'] as const;
+export const MULTI_SELECT_PROPERTY_NAMES = [
+  'prior_allergy_diagnosis',
+  'prior_immunodeficiency_diagnosis',
+  'prior_diabetes',
+] as const;
 
 type TMultiSelectPropertyName = typeof MULTI_SELECT_PROPERTY_NAMES[number];
 type THealthProfileFields = {
@@ -171,7 +185,7 @@ export const healthProfileScreens: THealthProfileScreens = {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
         description: null,
-        fieldType: EFieldType.TEXT,
+        fieldType: EFieldType.POSTCODE,
         items: null,
         keyboardType: null,
         placeholder: 'Postcode',
@@ -315,7 +329,7 @@ export const healthProfileScreens: THealthProfileScreens = {
         items: null,
         keyboardType: null,
         placeholder: null,
-        pnts: true,
+        pnts: false,
         propertyName: 'parents_or_siblings_had_cardiovascular_disease',
         question:
           'Have any of your parents or siblings had cardiovascular disease? Examples of cardiovascular disease include stroke, heart attack, heart disease, or angina.',
@@ -330,9 +344,108 @@ export const healthProfileScreens: THealthProfileScreens = {
         items: null,
         keyboardType: null,
         placeholder: null,
-        pnts: true,
+        pnts: false,
         propertyName: 'parents_or_siblings_had_diabetes',
         question: 'Have any of your parents or siblings had diabetes?',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.IMMUNODEFICIENCY,
+        items: [
+          {
+            label: 'Primary immunodeficiency (from birth)',
+            name: 'has_prior_immunodeficiency_diagnosis_primary',
+            testID: 'has_prior_immunodeficiency_diagnosis_primary',
+          },
+          {
+            label: 'Immunodeficiency due to medication',
+            name: 'has_prior_immunodeficiency_diagnosis_due_to_medication',
+            testID: 'has_prior_immunodeficiency_diagnosis_due_to_medication',
+          },
+          {
+            label: 'Acquired immunodeficiency (e.g. HIV)',
+            name: 'has_prior_immunodeficiency_diagnosis_acquired',
+            testID: 'has_prior_immunodeficiency_diagnosis_acquired',
+          },
+          {
+            label: 'Other connective tissue disease',
+            name: 'has_prior_immunodeficiency_diagnosis_other_connective_tissue_boolean', // NOTE: boolean in name - not saved to backend, but text field used instead
+            testID: 'has_prior_immunodeficiency_diagnosis_other_connective_tissue_boolean',
+          },
+          {
+            label: 'Prefer not to say',
+            name: 'has_prior_immunodeficiency_diagnosis_pfnts',
+            testID: 'has_prior_immunodeficiency_diagnosis_pfnts',
+          },
+        ],
+        keyboardType: null,
+        placeholder: null,
+        pnts: false,
+        propertyName: 'prior_immunodeficiency_diagnosis',
+        question: 'Have you ever been diagnosed with an immunodeficiency?',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.MULTISELECT,
+        items: [
+          {
+            label: 'Type 1 diabetes (insulin requiring)',
+            name: 'has_prior_diabetes_type_one',
+            testID: 'has_prior_diabetes_type_one',
+          },
+          {
+            label: 'Type 2 diabetes',
+            name: 'has_prior_diabetes_type_two',
+            testID: 'has_prior_diabetes_type_two',
+          },
+          {
+            label: 'Diabetes during pregnancy (gestational diabetes)',
+            name: 'has_prior_diabetes_gestational',
+            testID: 'has_prior_diabetes_gestational',
+          },
+          {
+            label: 'Prediabetes',
+            name: 'has_prior_diabetes_prediabetes',
+            testID: 'has_prior_diabetes_prediabetes',
+          },
+          {
+            label: 'Other',
+            name: 'has_prior_diabetes_other',
+            testID: 'has_prior_diabetes_other',
+          },
+          {
+            label: 'Prefer not to say',
+            name: 'has_prior_diabetes_pfnts',
+            testID: 'has_prior_diabetes_pfnts',
+          },
+        ],
+        keyboardType: null,
+        placeholder: null,
+        pnts: false,
+        propertyName: 'prior_diabetes',
+        question: 'What type of diabetes have you had?',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.TEXT,
+        items: null,
+        keyboardType: 'numeric',
+        placeholder: 'Year',
+        pnts: true,
+        propertyName: 'first_cancer_diagnosis_year',
+        question: 'What year were you first diagnosed with a cancer?',
         required: true,
         showNewTag: false,
       },

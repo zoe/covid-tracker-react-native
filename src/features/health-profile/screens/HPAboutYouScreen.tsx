@@ -20,6 +20,8 @@ import {
 import {
   createHPAboutYouDTO,
   isEditing,
+  PNTS_VALUE_TO_SAVE_IN_DB,
+  TEXT_INPUT_PNTS_LABEL,
   validationSchemaHPAboutYou,
 } from '@covid/features/health-profile/utils/healthProfileUtils';
 import { HeightQuestion } from '@covid/features/patient/fields/HeightQuestion';
@@ -171,6 +173,17 @@ export default function HPAboutYouScreen() {
           initialFormValuesWithCustomFields[question.propertyName as keyof IHealthProfileFormData] =
             savedAnswers[question.propertyName as keyof THealthProfileRequest];
         }
+      } else if (question.fieldType === EFieldType.TEXT) {
+        if (
+          question.pnts &&
+          savedAnswers[question.propertyName as keyof THealthProfileRequest] === PNTS_VALUE_TO_SAVE_IN_DB
+        ) {
+          // convert pfnts to "Prefer not to say" in user interface
+          initialFormValuesWithCustomFields[question.propertyName] = TEXT_INPUT_PNTS_LABEL;
+        } else {
+          initialFormValuesWithCustomFields[question.propertyName] =
+            savedAnswers[question.propertyName as keyof THealthProfileRequest] || '';
+        }
       } else {
         // Must initialise to at least an empty string for Yup to work
         initialFormValuesWithCustomFields[question.propertyName] =
@@ -279,6 +292,7 @@ export default function HPAboutYouScreen() {
                       new={question.showNewTag}
                       placeholder={question.placeholder}
                       propertyName={question.propertyName}
+                      showPnts={question.pnts}
                       style={styles.cardMargin}
                       testID={`health-profile-about-you-screen-${question.propertyName}`}
                     />

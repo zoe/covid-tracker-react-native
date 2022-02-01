@@ -5,6 +5,7 @@ import { MultiSelectField, TItemCheckbox } from '@covid/components/inputsRedesig
 import { RadioInput } from '@covid/components/inputsRedesigned/RadioInput';
 import { YesNoField } from '@covid/components/inputsRedesigned/YesNoField';
 import { HeightQuestion, IHeightData } from '@covid/features/patient/fields/HeightQuestion';
+import { ImmunodeficiencyQuestion } from '@covid/features/patient/fields/ImmunodeficiencyQuestion';
 import { IWeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -21,6 +22,7 @@ export enum EFieldType {
   WEIGHT = 'Weight',
   HEIGHT = 'Height',
   POSTCODE = 'Postcode',
+  IMMUNODEFICIENCY = 'Immunodeficiency',
 }
 
 export enum EHealthProfileQuestionCardStatus {
@@ -52,36 +54,49 @@ type TFieldTypeProps =
       fieldType: EFieldType.RADIO;
       items: TItemRadio[];
       propertyName: string;
+      showPnts: null;
     }
   | {
       fieldType: EFieldType.YESNO;
       items: null;
       propertyName: string;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.TEXT;
       items: null;
       propertyName: string;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.MULTISELECT;
       items: TItemCheckbox[];
       propertyName: string;
+      showPnts: null;
     }
   | {
       fieldType: EFieldType.WEIGHT;
       items: null;
       propertyName: null;
+      showPnts: null;
     }
   | {
       fieldType: EFieldType.HEIGHT;
       items: null;
       propertyName: null;
+      showPnts: null;
     }
   | {
       fieldType: EFieldType.POSTCODE;
       items: null;
       propertyName: string;
+      showPnts: null;
+    }
+  | {
+      fieldType: EFieldType.IMMUNODEFICIENCY;
+      items: TItemCheckbox[];
+      propertyName: string;
+      showPnts: null;
     };
 
 type TProps = TCommonProps & TFieldTypeProps;
@@ -99,6 +114,7 @@ export default function HealthProfileQuestionCard(props: TProps) {
             label={props.label}
             onValueChange={props.formikProps.handleChange(props.propertyName)}
             selectedValue={props.formikProps.values[props.propertyName]}
+            showPnts={props.showPnts}
             testID={props.testID}
           />
         );
@@ -106,12 +122,14 @@ export default function HealthProfileQuestionCard(props: TProps) {
         return props.isEditing ? (
           <GenericTextField
             required
-            showError
+            // If we want to show errors immediately, uncomment below
+            // showError
             formikProps={props.formikProps}
             keyboardType={props.keyboardType || 'default'}
             label={props.label}
             name={props.propertyName}
             placeholder={props.placeholder || ''}
+            showPnts={props.showPnts}
             testID={props.testID}
           />
         ) : (
@@ -232,6 +250,30 @@ export default function HealthProfileQuestionCard(props: TProps) {
             editOnPress={props.editOnPress}
             label={props.label}
             playbackValue={props.formikProps.values[props.propertyName]}
+            testID={props.testID}
+          />
+        );
+      case EFieldType.IMMUNODEFICIENCY:
+        return props.isEditing ? (
+          <ImmunodeficiencyQuestion
+            formikProps={props.formikProps}
+            items={props.items}
+            label={props.label}
+            propertyName={props.propertyName}
+            selectedValue={props.formikProps.values[props.propertyName]}
+          />
+        ) : (
+          <FormFieldPlayback
+            multiSelect
+            required
+            description={props.description}
+            editOnPress={props.editOnPress}
+            label={props.label}
+            playbackValues={
+              props.items
+                .filter((item) => props.formikProps.values[item.name] === true)
+                .map((answer) => answer.label) || ''
+            }
             testID={props.testID}
           />
         );
