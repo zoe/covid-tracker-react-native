@@ -324,6 +324,7 @@ export default function HPFormScreen({ route }: TProps) {
                 description={healthProfileScreens[sectionName].description}
                 hideWhyWeAskLink={healthProfileScreens[sectionName].hideWhyWeAskLink}
                 maxSteps={maxSteps}
+                previousScreen={navigator[sectionName].previousScreenName}
                 saveExitOnPress={() => saveExitOnPress(formikProps.values)}
                 testID={healthProfileScreens[sectionName].testID}
                 title={healthProfileScreens[sectionName].title}

@@ -1,8 +1,9 @@
 import { LabelText, LightText, Text } from '@covid/components';
-import { BackButton } from '@covid/components/BackButton';
 import { BrandedButton } from '@covid/components/buttons';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Screen } from '@covid/components/Screen';
+import { HealthProfileFormBackButton } from '@covid/features/health-profile/components/HealthProfileFormBackButton';
+import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
 import { HealthProfileWhyWeAskModal } from '@covid/features/health-profile/modals/HealthProfileWhyWeAskModal';
 import i18n from '@covid/locale/i18n';
 import { sizes, styling } from '@covid/themes';
@@ -20,6 +21,7 @@ interface IProps {
   hideWhyWeAskLink?: boolean;
   maxSteps: number;
   noBackButton?: boolean;
+  previousScreen: THPScreenName | 'HPAboutYou' | 'DashboardUK';
   saveExitOnPress: () => void;
   testID: string;
   title: string;
@@ -32,7 +34,9 @@ export default function HealthProfileScreen(props: IProps) {
     return (
       <View style={styles.bottomDropShadow}>
         <View style={[styles.headerWrapper, styling.shadow]}>
-          <View style={styles.flex}>{props.noBackButton ? null : <BackButton />}</View>
+          <View style={styles.flex}>
+            {props.noBackButton ? null : <HealthProfileFormBackButton previousScreen={props.previousScreen} />}
+          </View>
           <View style={styles.flex}>
             <LabelText style={styles.center}>
               {props.currentStep} / {props.maxSteps}

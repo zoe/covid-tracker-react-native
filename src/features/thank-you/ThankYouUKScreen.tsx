@@ -62,7 +62,7 @@ export default function ThankYouUKScreen(props: IProps) {
       }
       if (
         healthProfileState.dateOfLastUpdate &&
-        healthProfileState.dateOfLastUpdate > sevenDaysAgo &&
+        healthProfileState.dateOfLastUpdate < sevenDaysAgo &&
         !healthProfileState.hasSeenReminderModal &&
         healthProfileState.progressPercent < 100 &&
         healthProfileState.screenToReturnTo !== 'HPThankYou'

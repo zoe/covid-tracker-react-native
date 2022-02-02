@@ -284,6 +284,7 @@ export default function HPAboutYouScreen() {
               description={healthProfileScreens.ABOUT_YOU.description}
               hideWhyWeAskLink={healthProfileScreens.ABOUT_YOU.hideWhyWeAskLink}
               maxSteps={maxSteps}
+              previousScreen="DashboardUK"
               saveExitOnPress={() => saveExitOnPress(formikProps.values)}
               testID={healthProfileScreens.ABOUT_YOU.testID}
               title={healthProfileScreens.ABOUT_YOU.title}

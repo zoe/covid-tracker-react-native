@@ -438,88 +438,88 @@ export type THealthProfileRequest = {
   poo_frequency: string;
 
   // Allergies & Intolerances
-  has_prior_allergic_condition_diagnosis: string;
-  has_prior_allergy_diagnosis_hayfever: boolean;
-  has_prior_allergy_diagnosis_other: boolean;
-  has_prior_allergy_diagnosis_none: boolean;
-  has_prior_allergy_diagnosis_pfnts: boolean;
+  prior_allergic_condition_diagnosis: string;
+  prior_allergy_diagnosis_hayfever: boolean;
+  prior_allergy_diagnosis_other: boolean;
+  prior_allergy_diagnosis_none: boolean;
+  prior_allergy_diagnosis_pfnts: boolean;
 
-  has_food_allergies: boolean;
-  has_nut_allergy: boolean;
-  has_seafood_allergy: boolean;
-  has_strawberry_allergy: boolean;
-  has_citrus_allergy: boolean;
-  has_egg_allergy: boolean;
-  has_dairy_allergy: boolean;
-  has_wheat_allergy: boolean;
-  has_alcohol_allergy: boolean;
-  has_other_allergy: boolean;
+  food_allergies: boolean;
+  nut_allergy: boolean;
+  seafood_allergy: boolean;
+  strawberry_allergy: boolean;
+  citrus_allergy: boolean;
+  egg_allergy: boolean;
+  dairy_allergy: boolean;
+  wheat_allergy: boolean;
+  alcohol_allergy: boolean;
+  other_allergy: boolean;
 
-  has_allergy_symptom_difficulty_breathing: boolean;
-  has_allergy_symptom_swollen_lips_tongure_throat: boolean;
-  has_allergy_symptom_faint_collapse: boolean;
-  has_allergy_symptom_rash: boolean;
-  has_allergy_symptom_hayfever: boolean;
-  has_allergy_symptom_abdominal_pain_bloating: boolean;
-  has_allergy_symptom_diarrhoea: boolean;
-  has_allergy_symptom_constipation: boolean;
-  has_allergy_symptom_mood_disturbance: boolean;
-  has_allergy_symptom_snoring: boolean;
-  has_allergy_symptom_other: boolean;
+  allergy_symptom_difficulty_breathing: boolean;
+  allergy_symptom_swollen_lips_tongure_throat: boolean;
+  allergy_symptom_faint_collapse: boolean;
+  allergy_symptom_rash: boolean;
+  allergy_symptom_hayfever: boolean;
+  allergy_symptom_abdominal_pain_bloating: boolean;
+  allergy_symptom_diarrhoea: boolean;
+  allergy_symptom_constipation: boolean;
+  allergy_symptom_mood_disturbance: boolean;
+  allergy_symptom_snoring: boolean;
+  allergy_symptom_other: boolean;
 
-  has_food_intolerances: boolean;
-  has_gluten_intolerance: boolean;
-  has_lactose_intolerance: boolean;
-  has_other_intolerance: boolean;
+  food_intolerances: boolean;
+  gluten_intolerance: boolean;
+  lactose_intolerance: boolean;
+  other_intolerance: boolean;
 
   // Bladder & Kidneys
   has_kidney_disease: string;
-  has_prior_kidney_or_urinary_diagnosis_ckd: boolean;
-  has_prior_kidney_or_urinary_diagnosis_kidney_stones: boolean;
-  has_prior_kidney_or_urinary_diagnosis_aki: boolean;
-  has_prior_kidney_or_urinary_diagnosis_uti: boolean;
-  has_prior_kidney_or_urinary_diagnosis_other: boolean;
-  has_prior_kidney_or_urinary_diagnosis_pfnts: boolean;
+  prior_kidney_or_urinary_diagnosis_ckd: boolean;
+  prior_kidney_or_urinary_diagnosis_kidney_stones: boolean;
+  prior_kidney_or_urinary_diagnosis_aki: boolean;
+  prior_kidney_or_urinary_diagnosis_uti: boolean;
+  prior_kidney_or_urinary_diagnosis_other: boolean;
+  prior_kidney_or_urinary_diagnosis_pfnts: boolean;
 
   // Brain & Nervous System
-  has_prior_neurological_condition_diagnosis: string;
-  has_prior_neurological_diagnosis_als: boolean;
-  has_prior_neurological_diagnosis_parkinsons: boolean;
-  has_prior_neurological_diagnosis_ms: boolean;
-  has_prior_neurological_diagnosis_epilepsy: boolean;
-  has_prior_neurological_diagnosis_alzheimers_dementia: boolean;
-  has_prior_neurological_diagnosis_lewy_body_dementia: boolean;
-  has_prior_neurological_diagnosis_vascular_dementia: boolean;
-  has_prior_neurological_diagnosis_mixed_dementia: boolean;
-  has_prior_neurological_diagnosis_mild_cognitive_impairment: boolean;
-  has_prior_neurological_diagnosis_other: boolean;
-  has_prior_neurological_diagnosis_none: boolean;
-  has_prior_neurological_diagnosis_pfnts: boolean;
+  prior_neurological_condition_diagnosis: string;
+  prior_neurological_diagnosis_als: boolean;
+  prior_neurological_diagnosis_parkinsons: boolean;
+  prior_neurological_diagnosis_ms: boolean;
+  prior_neurological_diagnosis_epilepsy: boolean;
+  prior_neurological_diagnosis_alzheimers_dementia: boolean;
+  prior_neurological_diagnosis_lewy_body_dementia: boolean;
+  prior_neurological_diagnosis_vascular_dementia: boolean;
+  prior_neurological_diagnosis_mixed_dementia: boolean;
+  prior_neurological_diagnosis_mild_cognitive_impairment: boolean;
+  prior_neurological_diagnosis_other: boolean;
+  prior_neurological_diagnosis_none: boolean;
+  prior_neurological_diagnosis_pfnts: boolean;
 
-  has_increasing_confusion_or_memory_loss_over_last_year: boolean;
+  increasing_confusion_or_memory_loss_over_last_year: boolean;
   memory_loss_day_to_day_affect: string;
 
   // Cancer
-  has_prior_cancer_or_growth_diagnosis: string;
-  has_prior_cancer_diagnosis_fibrocystic_or_other_benign_breast: boolean;
-  has_prior_cancer_diagnosis_breast_cancer: boolean;
-  has_prior_cancer_diagnosis_ovary_cancer: boolean;
-  has_prior_cancer_diagnosis_leukemia_lymphoma: boolean;
-  has_prior_cancer_diagnosis_melanoma: boolean;
-  has_prior_cancer_diagnosis_basal_cell_skin_cancer: boolean;
-  has_prior_cancer_diagnosis_squamous_cell_skin_cancer: boolean;
-  has_prior_cancer_diagnosis_benign_colon_or_rectal_polyp: boolean;
-  has_prior_cancer_diagnosis_colon_or_rectum_cancer: boolean;
-  has_prior_cancer_diagnosis_prostate_cancer: boolean;
-  has_prior_cancer_diagnosis_lung_cancer: boolean;
-  has_prior_cancer_diagnosis_meningioma: boolean;
-  has_prior_cancer_diagnosis_kidney_cancer: boolean;
-  has_prior_cancer_diagnosis_brain_cancer: boolean;
-  has_prior_cancer_diagnosis_pancreas_cancer: boolean;
-  has_prior_cancer_diagnosis_thyroid_cancer: boolean;
-  has_prior_cancer_diagnosis_other: boolean;
-  has_prior_cancer_diagnosis_none: boolean;
-  has_prior_cancer_diagnosis_pfnts: boolean;
+  prior_cancer_or_growth_diagnosis: string;
+  prior_cancer_diagnosis_fibrocystic_or_other_benign_breast: boolean;
+  prior_cancer_diagnosis_breast_cancer: boolean;
+  prior_cancer_diagnosis_ovary_cancer: boolean;
+  prior_cancer_diagnosis_leukemia_lymphoma: boolean;
+  prior_cancer_diagnosis_melanoma: boolean;
+  prior_cancer_diagnosis_basal_cell_skin_cancer: boolean;
+  prior_cancer_diagnosis_squamous_cell_skin_cancer: boolean;
+  prior_cancer_diagnosis_benign_colon_or_rectal_polyp: boolean;
+  prior_cancer_diagnosis_colon_or_rectum_cancer: boolean;
+  prior_cancer_diagnosis_prostate_cancer: boolean;
+  prior_cancer_diagnosis_lung_cancer: boolean;
+  prior_cancer_diagnosis_meningioma: boolean;
+  prior_cancer_diagnosis_kidney_cancer: boolean;
+  prior_cancer_diagnosis_brain_cancer: boolean;
+  prior_cancer_diagnosis_pancreas_cancer: boolean;
+  prior_cancer_diagnosis_thyroid_cancer: boolean;
+  prior_cancer_diagnosis_other: boolean;
+  prior_cancer_diagnosis_none: boolean;
+  prior_cancer_diagnosis_pfnts: boolean;
 
   first_cancer_diagnosis_year: string;
 
@@ -531,84 +531,84 @@ export type THealthProfileRequest = {
   parents_or_siblings_had_cancer: string;
 
   // Gut & Digestion
-  has_prior_gut_condition_treatment_diagnosis: string;
-  has_prior_gut_diagnosis_ibs: boolean;
-  has_prior_gut_diagnosis_chronic_diarrhea: boolean;
-  has_prior_gut_diagnosis_chronic_constipation: boolean;
-  has_prior_gut_diagnosis_food_intolerance: boolean;
-  has_prior_gut_diagnosis_celiac_disease: boolean;
-  has_prior_gut_diagnosis_acid_reflux: boolean;
-  has_prior_gut_diagnosis_crohns_disease: boolean;
-  has_prior_gut_diagnosis_ulcerative_colitis: boolean;
-  has_prior_gut_diagnosis_gastic_duodenal_ulcer: boolean;
-  has_prior_gut_diagnosis_diverticulitis_or_diverticulosis: boolean;
-  has_prior_gut_diagnosis_chronic_liver_disease_or_cirrhosis: boolean;
-  has_prior_gut_diagnosis_abdominal_bloating_and_distension: boolean;
-  has_prior_gut_diagnosis_other: boolean;
-  has_prior_gut_diagnosis_none: boolean;
-  has_prior_gut_diagnosis_pfnts: boolean;
+  prior_gut_condition_treatment_diagnosis: string;
+  prior_gut_diagnosis_ibs: boolean;
+  prior_gut_diagnosis_chronic_diarrhea: boolean;
+  prior_gut_diagnosis_chronic_constipation: boolean;
+  prior_gut_diagnosis_food_intolerance: boolean;
+  prior_gut_diagnosis_celiac_disease: boolean;
+  prior_gut_diagnosis_acid_reflux: boolean;
+  prior_gut_diagnosis_crohns_disease: boolean;
+  prior_gut_diagnosis_ulcerative_colitis: boolean;
+  prior_gut_diagnosis_gastic_duodenal_ulcer: boolean;
+  prior_gut_diagnosis_diverticulitis_or_diverticulosis: boolean;
+  prior_gut_diagnosis_chronic_liver_disease_or_cirrhosis: boolean;
+  prior_gut_diagnosis_abdominal_bloating_and_distension: boolean;
+  prior_gut_diagnosis_other: boolean;
+  prior_gut_diagnosis_none: boolean;
+  prior_gut_diagnosis_pfnts: boolean;
 
   // Heart & Circulation
-  has_prior_high_blood_pressure_diagnosis: boolean;
+  prior_high_blood_pressure_diagnosis: boolean;
 
   has_heart_disease: string;
-  has_prior_cardiovascular_diagnosis_stroke: boolean;
-  has_prior_cardiovascular_diagnosis_heart_attack: boolean;
-  has_prior_cardiovascular_diagnosis_angina: boolean;
-  has_prior_cardiovascular_diagnosis_peripheral_vascular_dis: boolean;
-  has_prior_cardiovascular_diagnosis_coronary_heart_disease: boolean;
-  has_prior_cardiovascular_diagnosis_cogenital_heart_disease: boolean;
-  has_prior_cardiovascular_diagnosis_heart_murmur: boolean;
-  has_prior_cardiovascular_diagnosis_atrial_fibrillation: boolean;
-  has_prior_cardiovascular_diagnosis_congestive_heart_failure: boolean;
-  has_prior_cardiovascular_diagnosis_hypertension: boolean;
-  has_prior_cardiovascular_diagnosis_high_cholesterol: boolean;
-  has_prior_cardiovascular_diagnosis_dvt: boolean;
-  has_prior_cardiovascular_diagnosis_varicose_veins: boolean;
-  has_prior_cardiovascular_diagnosis_pulmonary_embolism: boolean;
-  has_prior_cardiovascular_diagnosis_other: boolean;
-  has_prior_cardiovascular_diagnosis_none: boolean;
-  has_prior_cardiovascular_diagnosis_pfnts: boolean;
+  prior_cardiovascular_diagnosis_stroke: boolean;
+  prior_cardiovascular_diagnosis_heart_attack: boolean;
+  prior_cardiovascular_diagnosis_angina: boolean;
+  prior_cardiovascular_diagnosis_peripheral_vascular_dis: boolean;
+  prior_cardiovascular_diagnosis_coronary_heart_disease: boolean;
+  prior_cardiovascular_diagnosis_cogenital_heart_disease: boolean;
+  prior_cardiovascular_diagnosis_heart_murmur: boolean;
+  prior_cardiovascular_diagnosis_atrial_fibrillation: boolean;
+  prior_cardiovascular_diagnosis_congestive_heart_failure: boolean;
+  prior_cardiovascular_diagnosis_hypertension: boolean;
+  prior_cardiovascular_diagnosis_high_cholesterol: boolean;
+  prior_cardiovascular_diagnosis_dvt: boolean;
+  prior_cardiovascular_diagnosis_varicose_veins: boolean;
+  prior_cardiovascular_diagnosis_pulmonary_embolism: boolean;
+  prior_cardiovascular_diagnosis_other: boolean;
+  prior_cardiovascular_diagnosis_none: boolean;
+  prior_cardiovascular_diagnosis_pfnts: boolean;
 
   first_heart_attack_year: string;
 
   // Hormones & Metabolism
-  has_prior_diabetes_or_prediabetes_diagnosis: string;
-  has_prior_diabetes_type_one: boolean;
-  has_prior_diabetes_type_two: boolean;
-  has_prior_diabetes_gestational: boolean;
-  has_prior_diabetes_prediabetes: boolean;
-  has_prior_diabetes_other: boolean;
-  has_prior_diabetes_pfnts: boolean;
+  prior_diabetes_or_prediabetes_diagnosis: string;
+  prior_diabetes_type_one: boolean;
+  prior_diabetes_type_two: boolean;
+  prior_diabetes_gestational: boolean;
+  prior_diabetes_prediabetes: boolean;
+  prior_diabetes_other: boolean;
+  prior_diabetes_pfnts: boolean;
 
   diabetes_diagnosis_year: string;
 
-  has_prior_familial_hypercholesterol_hyperlipid_diagnosis: string;
+  prior_familial_hypercholesterol_hyperlipid_diagnosis: string;
 
-  has_prior_endocrine_condition_diagnosis: string;
-  has_prior_endocrine_diagnosis_hypothyroidism: boolean;
-  has_prior_endocrine_diagnosis_hyperparathyroidism: boolean;
-  has_prior_endocrine_diagnosis_other: boolean;
-  has_prior_endocrine_diagnosis_none: boolean;
-  has_prior_endocrine_diagnosis_pfnts: boolean;
+  prior_endocrine_condition_diagnosis: string;
+  prior_endocrine_diagnosis_hypothyroidism: boolean;
+  prior_endocrine_diagnosis_hyperparathyroidism: boolean;
+  prior_endocrine_diagnosis_other: boolean;
+  prior_endocrine_diagnosis_none: boolean;
+  prior_endocrine_diagnosis_pfnts: boolean;
 
   // Immune System
-  has_prior_immunodeficiency_condition_diagnosis: string;
-  has_prior_immunodeficiency_diagnosis_primary: boolean;
-  has_prior_immunodeficiency_diagnosis_due_to_medication: boolean;
-  has_prior_immunodeficiency_diagnosis_acquired: boolean;
-  has_prior_immunodeficiency_diagnosis_other_connective_tissue: string;
-  has_prior_immunodeficiency_diagnosis_pfnts: boolean;
+  prior_immunodeficiency_condition_diagnosis: string;
+  prior_immunodeficiency_diagnosis_primary: boolean;
+  prior_immunodeficiency_diagnosis_due_to_medication: boolean;
+  prior_immunodeficiency_diagnosis_acquired: boolean;
+  prior_immunodeficiency_diagnosis_other_connective_tissue: string;
+  prior_immunodeficiency_diagnosis_pfnts: boolean;
 
   // Lungs & Breathing
-  has_prior_breathing_and_lung_condition_diagnosis: string;
-  has_prior_breathing_and_lung_diagnosis_asthma: boolean;
-  has_prior_breathing_and_lung_diagnosis_sleep_apnea: boolean;
-  has_prior_breathing_and_lung_diagnosis_copd_ephysema_chronic_bronchitis: boolean;
-  has_prior_breathing_and_lung_diagnosis_lung_disease: boolean;
-  has_prior_breathing_and_lung_diagnosis_other: boolean;
-  has_prior_breathing_and_lung_diagnosis_none: boolean;
-  has_prior_breathing_and_lung_diagnosis_pfnts: boolean;
+  prior_breathing_and_lung_condition_diagnosis: string;
+  prior_breathing_and_lung_diagnosis_asthma: boolean;
+  prior_breathing_and_lung_diagnosis_sleep_apnea: boolean;
+  prior_breathing_and_lung_diagnosis_copd_ephysema_bronchitis: boolean;
+  prior_breathing_and_lung_diagnosis_lung_disease: boolean;
+  prior_breathing_and_lung_diagnosis_other: boolean;
+  prior_breathing_and_lung_diagnosis_none: boolean;
+  prior_breathing_and_lung_diagnosis_pfnts: boolean;
 
   // Mental Health & Mood
   recent_little_interest_or_pleasure_doing_things: string;
@@ -616,59 +616,59 @@ export type THealthProfileRequest = {
   recent_feeling_nervous_anxious_on_edge: string;
   recent_unable_to_stop_or_control_worry: string;
 
-  has_prior_psychiatric_condition_diagnosis: string;
-  has_prior_psychiatric_gad: boolean;
-  has_prior_psychiatric_panic_disorder: boolean;
-  has_prior_psychiatric_specific_phobia: boolean;
-  has_prior_psychiatric_ocd: boolean;
-  has_prior_psychiatric_ptsd: boolean;
-  has_prior_psychiatric_social_anxiety_disorder: boolean;
-  has_prior_psychiatric_Agoraphobia: boolean;
-  has_prior_psychiatric_Depression: boolean;
-  has_prior_psychiatric_add_or_adhd: boolean;
-  has_prior_psychiatric_eating_disorder: boolean;
-  has_prior_psychiatric_autism: boolean;
-  has_prior_psychiatric_personality_disorder: boolean;
-  has_prior_psychiatric_mania_hypomania_bipolar_manic_depression: boolean;
-  has_prior_psychiatric_schizophrenia: boolean;
-  has_prior_psychiatric_substance_use_disorder: boolean;
-  has_prior_psychiatric_other_psychosis_or_psychotic_illness: boolean;
-  has_prior_psychiatric_other: boolean;
-  has_prior_psychiatric_none: boolean;
-  has_prior_psychiatric_pfnts: boolean;
+  prior_psychiatric_condition_diagnosis: string;
+  prior_psychiatric_gad: boolean;
+  prior_psychiatric_panic_disorder: boolean;
+  prior_psychiatric_specific_phobia: boolean;
+  prior_psychiatric_ocd: boolean;
+  prior_psychiatric_ptsd: boolean;
+  prior_psychiatric_social_anxiety_disorder: boolean;
+  prior_psychiatric_agoraphobia: boolean;
+  prior_psychiatric_depression: boolean;
+  prior_psychiatric_add_or_adhd: boolean;
+  prior_psychiatric_eating_disorder: boolean;
+  prior_psychiatric_autism: boolean;
+  prior_psychiatric_personality_disorder: boolean;
+  prior_psychiatric_mania_hypomania_bipolar_manic_depression: boolean;
+  prior_psychiatric_schizophrenia: boolean;
+  prior_psychiatric_substance_use_disorder: boolean;
+  prior_psychiatric_other_psychosis_or_psychotic_illness: boolean;
+  prior_psychiatric_other: boolean;
+  prior_psychiatric_none: boolean;
+  prior_psychiatric_pfnts: boolean;
 
   // Muscle, bones and joints
-  has_prior_bone_or_joint_condition_diagnosis: string;
-  has_prior_bone_or_joint_diagnosis_rheumatoid_arthritis: boolean;
-  has_prior_bone_or_joint_diagnosis_osteoporosis: boolean;
-  has_prior_bone_or_joint_diagnosis_osteoarthritis: boolean;
-  has_prior_bone_or_joint_diagnosis_hip_fracture: boolean;
-  has_prior_bone_or_joint_diagnosis_ankylosing_spondylitis: boolean;
-  has_prior_bone_or_joint_diagnosis_tendonitis: boolean;
-  has_prior_bone_or_joint_diagnosis_hip_replacement: boolean;
-  has_prior_bone_or_joint_diagnosis_knee_replacement: boolean;
-  has_prior_bone_or_joint_diagnosis_vertebral_fracture: boolean;
-  has_prior_bone_or_joint_diagnosis_gout: boolean;
-  has_prior_bone_or_joint_diagnosis_other_connective_tissue: boolean;
-  has_prior_bone_or_joint_diagnosis_other: boolean;
-  has_prior_bone_or_joint_diagnosis_none: boolean;
-  has_prior_bone_or_joint_diagnosis_pfnts: boolean;
+  prior_bone_or_joint_condition_diagnosis: string;
+  prior_bone_or_joint_diagnosis_rheumatoid_arthritis: boolean;
+  prior_bone_or_joint_diagnosis_osteoporosis: boolean;
+  prior_bone_or_joint_diagnosis_osteoarthritis: boolean;
+  prior_bone_or_joint_diagnosis_hip_fracture: boolean;
+  prior_bone_or_joint_diagnosis_ankylosing_spondylitis: boolean;
+  prior_bone_or_joint_diagnosis_tendonitis: boolean;
+  prior_bone_or_joint_diagnosis_hip_replacement: boolean;
+  prior_bone_or_joint_diagnosis_knee_replacement: boolean;
+  prior_bone_or_joint_diagnosis_vertebral_fracture: boolean;
+  prior_bone_or_joint_diagnosis_gout: boolean;
+  prior_bone_or_joint_diagnosis_other_connective_tissue: boolean;
+  prior_bone_or_joint_diagnosis_other: boolean;
+  prior_bone_or_joint_diagnosis_none: boolean;
+  prior_bone_or_joint_diagnosis_pfnts: boolean;
 
   // Skin, hair and nails
-  has_prior_skin_condition_diagnosis: string;
-  has_prior_skin_diagnosis_venous_leg_ulcers: boolean;
-  has_prior_skin_diagnosis_arterial_leg_ulcers: boolean;
-  has_prior_skin_diagnosis_unknown_leg_ulcers: boolean;
-  has_prior_skin_diagnosis_eczema: boolean;
-  has_prior_skin_diagnosis_psoriasis: boolean;
-  has_prior_skin_diagnosis_acne: boolean;
-  has_prior_skin_diagnosis_thinning_hair_or_baldness: boolean;
-  has_prior_skin_diagnosis_cold_sores: boolean;
-  has_prior_skin_diagnosis_herpes_zosters: boolean;
-  has_prior_skin_diagnosis_alopecia: boolean;
-  has_prior_skin_diagnosis_other: boolean;
-  has_prior_skin_diagnosis_none: boolean;
-  has_prior_skin_diagnosis_pfnts: boolean;
+  prior_skin_condition_diagnosis: string;
+  prior_skin_diagnosis_venous_leg_ulcers: boolean;
+  prior_skin_diagnosis_arterial_leg_ulcers: boolean;
+  prior_skin_diagnosis_unknown_leg_ulcers: boolean;
+  prior_skin_diagnosis_eczema: boolean;
+  prior_skin_diagnosis_psoriasis: boolean;
+  prior_skin_diagnosis_acne: boolean;
+  prior_skin_diagnosis_thinning_hair_or_baldness: boolean;
+  prior_skin_diagnosis_cold_sores: boolean;
+  prior_skin_diagnosis_herpes_zosters: boolean;
+  prior_skin_diagnosis_alopecia: boolean;
+  prior_skin_diagnosis_other: boolean;
+  prior_skin_diagnosis_none: boolean;
+  prior_skin_diagnosis_pfnts: boolean;
 
   // Womens Health
   prior_ectopic_pregnancy: boolean;
