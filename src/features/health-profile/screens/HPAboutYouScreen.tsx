@@ -3,7 +3,12 @@ import { Form } from '@covid/components/Form';
 import { Loading } from '@covid/components/Loading';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
-import { fetchExistingHealthProfile, updateHealthProfile } from '@covid/core/state/health-profile/slice';
+import {
+  fetchExistingHealthProfile,
+  THealthProfileScreenNames,
+  updateHealthProfile,
+  updateHealthProfileProgress,
+} from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
 import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
 import HealthProfileQuestionCard, {
@@ -34,7 +39,7 @@ import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { Dispatch } from 'react';
 import { StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 
 import { HealthProfileConfirmExitModal } from '../modals/HealthProfileConfirmExitModal';
 
@@ -43,6 +48,7 @@ export default function HPAboutYouScreen() {
   const dispatch = useDispatch();
 
   const savedAnswers = useSelector<TRootState, Partial<THealthProfileRequest>>((state) => state.healthProfile.answers);
+  const savedProgressPercent = useSelector<TRootState, number>((state) => state.healthProfile.progressPercent);
 
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
@@ -182,7 +188,7 @@ export default function HPAboutYouScreen() {
           initialFormValuesWithCustomFields[question.propertyName] = TEXT_INPUT_PNTS_LABEL;
         } else {
           initialFormValuesWithCustomFields[question.propertyName] =
-            savedAnswers[question.propertyName as keyof THealthProfileRequest] || '';
+            savedAnswers[question.propertyName as keyof THealthProfileRequest]?.toString() || '';
         }
       } else {
         // Must initialise to at least an empty string for Yup to work
@@ -194,14 +200,33 @@ export default function HPAboutYouScreen() {
     return initialFormValuesWithCustomFields;
   };
 
-  const saveToRedux = async (formData: IHealthProfileFormData) => {
+  const saveToRedux = async (
+    formData: IHealthProfileFormData,
+    screenToReturnTo: THealthProfileScreenNames,
+    stepsCompleted: number,
+  ) => {
     if (submitting) {
       return;
     }
     setSubmitting(true);
     const infos = createHPAboutYouDTO(formData);
+    const currentScreenProgressPercent = Math.round((stepsCompleted * 100) / maxSteps);
+    const progressPercent = Math.max(savedProgressPercent, currentScreenProgressPercent);
+    const dateOfLastUpdate = new Date();
+
     try {
-      dispatch(updateHealthProfile(infos));
+      batch(() => {
+        dispatch(updateHealthProfile(infos));
+        dispatch(
+          updateHealthProfileProgress({
+            dateOfLastUpdate,
+            maxSteps,
+            progressPercent,
+            screenToReturnTo,
+            stepsCompleted,
+          }),
+        );
+      });
     } catch {
       setErrorMessage(i18n.t('something-went-wrong'));
     }
@@ -210,7 +235,7 @@ export default function HPAboutYouScreen() {
 
   const onSubmit = React.useCallback(
     async (formData) => {
-      saveToRedux(formData);
+      saveToRedux(formData, 'HPFamilyHistory', 1);
       NavigatorService.push('HPFormScreen', { screenName: 'HPFamilyHistory' });
     },
     [saveToRedux],
@@ -218,7 +243,7 @@ export default function HPAboutYouScreen() {
 
   const saveExitOnPress = (formData: IHealthProfileFormData) => {
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
-    saveToRedux(formData);
+    saveToRedux(formData, 'HPAboutYou', 0);
     setShowConfirmExitModal(true);
   };
 

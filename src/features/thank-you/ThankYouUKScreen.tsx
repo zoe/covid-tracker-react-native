@@ -52,6 +52,9 @@ export default function ThankYouUKScreen(props: IProps) {
         dispatch(appActions.setModalHealthProfileIntroVisible(true));
         return;
       }
+      // TODO: Add modal for showing reminder to complete Health Profile https://www.notion.so/joinzoe/Show-a-reminder-modal-if-user-does-not-interact-with-health-profile-after-1-week-108766e0b94a4d1db3aeea125b9b0fc6
+
+      // TODO: Delete this once we go live with health profile
       if (startupInfo?.show_study_hub_video_modal) {
         setShowVideoModal(true);
         return;

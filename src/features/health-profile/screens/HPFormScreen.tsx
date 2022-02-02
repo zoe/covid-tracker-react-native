@@ -3,7 +3,11 @@ import { Form } from '@covid/components/Form';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
 import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
-import { updateHealthProfile } from '@covid/core/state/health-profile/slice';
+import {
+  THealthProfileScreenNames,
+  updateHealthProfile,
+  updateHealthProfileProgress,
+} from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
 import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
 import HealthProfileQuestionCard, {
@@ -40,7 +44,7 @@ import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { Dispatch } from 'react';
 import { StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { HealthProfileConfirmExitModal } from '../modals/HealthProfileConfirmExitModal';
@@ -53,6 +57,7 @@ export default function HPFormScreen({ route }: TProps) {
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const dispatch = useDispatch();
   const savedAnswers = useSelector<TRootState, Partial<THealthProfileRequest>>((state) => state.healthProfile.answers);
+  const savedProgressPercent = useSelector<TRootState, number>((state) => state.healthProfile.progressPercent);
 
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
@@ -195,14 +200,33 @@ export default function HPFormScreen({ route }: TProps) {
     return Yup.object(validationObject);
   };
 
-  const saveToRedux = async (formData: IHealthProfileFormData) => {
+  const saveToRedux = async (
+    formData: IHealthProfileFormData,
+    screenToReturnTo: THealthProfileScreenNames,
+    stepsCompleted: number,
+  ) => {
     if (submitting) {
       return;
     }
     setSubmitting(true);
     const infos = createCompletedHealthProfileDTO(formData);
+    const currentScrrenProgressPercent = Math.round((stepsCompleted * 100) / maxSteps);
+    const progressPercent = Math.max(savedProgressPercent, currentScrrenProgressPercent);
+    const dateOfLastUpdate = new Date();
+
     try {
-      dispatch(updateHealthProfile(infos));
+      batch(() => {
+        dispatch(updateHealthProfile(infos));
+        dispatch(
+          updateHealthProfileProgress({
+            dateOfLastUpdate,
+            maxSteps,
+            progressPercent,
+            screenToReturnTo,
+            stepsCompleted,
+          }),
+        );
+      });
     } catch {
       setErrorMessage(i18n.t('something-went-wrong'));
     }
@@ -211,7 +235,7 @@ export default function HPFormScreen({ route }: TProps) {
 
   const onSubmit = React.useCallback(
     async (formData) => {
-      saveToRedux(formData);
+      saveToRedux(formData, navigator[sectionName].nextScreenName, navigator[sectionName].currentStep);
       if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
         // Might take a while for last screen's form data to be updated to Redux
         const completeForm = { ...savedAnswers, ...formData };
@@ -230,7 +254,7 @@ export default function HPFormScreen({ route }: TProps) {
 
   const saveExitOnPress = async (formData: IHealthProfileFormData) => {
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
-    saveToRedux(formData);
+    saveToRedux(formData, screenName, navigator[sectionName].currentStep - 1);
     setShowConfirmExitModal(true);
 
     if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {

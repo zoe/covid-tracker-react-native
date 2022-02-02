@@ -1,15 +1,37 @@
 import { patientService } from '@covid/core/patient/PatientService';
 import { THealthProfileRequest, TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { MAX_STEPS_FEMALE } from '@covid/features/health-profile/data/healthProfileNavigator';
+import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+export type THealthProfileScreenNames = THPScreenName | 'HPAboutYou' | 'HPThankYou';
 
 export type TStateHealthProfile = {
   answers: {};
+  dateOfLastUpdate: Date | null;
+  maxSteps: number;
+  progressPercent: number;
+  screenToReturnTo: THealthProfileScreenNames;
+  stepsCompleted: number;
+};
+
+type THealthProfileProgress = {
+  dateOfLastUpdate: Date;
+  maxSteps: number;
+  progressPercent: number;
+  screenToReturnTo: THealthProfileScreenNames;
+  stepsCompleted: number;
 };
 
 type TExistingHealthProfileFields = keyof THealthProfileRequest;
 
 export const initialStateHealthProfile: TStateHealthProfile = {
   answers: {},
+  dateOfLastUpdate: null,
+  maxSteps: MAX_STEPS_FEMALE,
+  progressPercent: 0,
+  screenToReturnTo: 'HPAboutYou',
+  stepsCompleted: 0,
 };
 
 const EXISTING_HEALTH_PROFILE_FIELDS: TExistingHealthProfileFields[] = [
@@ -66,9 +88,8 @@ export const healthProfileSlice = createSlice({
   initialState: initialStateHealthProfile,
   name: 'HealthProfile',
   reducers: {
-    // TODO: Delete once we finish testing implementation
-    resetHealthProfile: (state) => {
-      state.answers = {};
+    resetHealthProfile: () => {
+      return initialStateHealthProfile;
     },
     updateHealthProfile: (state, action: PayloadAction<Partial<THealthProfileRequest>>) => ({
       ...state,
@@ -77,7 +98,15 @@ export const healthProfileSlice = createSlice({
         ...action.payload,
       },
     }),
+    updateHealthProfileProgress: (state, action: PayloadAction<THealthProfileProgress>) => ({
+      ...state,
+      dateOfLastUpdate: action.payload.dateOfLastUpdate,
+      maxSteps: action.payload.maxSteps,
+      progressPercent: action.payload.progressPercent,
+      screenToReturnTo: action.payload.screenToReturnTo,
+      stepsCompleted: action.payload.stepsCompleted,
+    }),
   },
 });
 
-export const { updateHealthProfile, resetHealthProfile } = healthProfileSlice.actions;
+export const { updateHealthProfile, updateHealthProfileProgress, resetHealthProfile } = healthProfileSlice.actions;

@@ -34,11 +34,9 @@ export const NAVIGATOR_FEMALE: INavigatorProps = {
     nextScreenName: 'HPSkinHairAndNails',
   },
   FAMILY_HISTORY: {
-    // buttonText: 'Next: Womens Health',
     buttonText: 'Next: Your Behaviours',
     currentStep: 2,
     nextScreenName: 'HPYourBehaviours',
-    // nextScreenName: 'HPWomensHealth',
   },
   GUT_DIGESTION: {
     buttonText: 'Next: Bladder & Kidneys',
