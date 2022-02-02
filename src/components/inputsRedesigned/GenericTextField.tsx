@@ -73,6 +73,7 @@ export function GenericTextField(props: IProps) {
         <CaptionText style={{ color: colors.secondary, marginBottom: sizes.m }}>{description}</CaptionText>
       ) : null}
       <ValidatedTextInput
+        editable={!(showPnts && formikProps.values[name] === TEXT_INPUT_PNTS_LABEL)}
         error={formikProps.touched[name] && !!formikProps.errors[name]}
         keyboardType={keyboardType}
         onBlur={formikProps.handleBlur(name)}
@@ -86,7 +87,14 @@ export function GenericTextField(props: IProps) {
         {...otherProps}
       />
       {showPnts ? (
-        <TouchableOpacity onPress={() => formikProps.setFieldValue(name, TEXT_INPUT_PNTS_LABEL)}>
+        <TouchableOpacity
+          onPress={() =>
+            formikProps.setFieldValue(
+              name,
+              formikProps.values[name] === TEXT_INPUT_PNTS_LABEL ? '' : TEXT_INPUT_PNTS_LABEL,
+            )
+          }
+        >
           <Text
             style={[
               styles.center,

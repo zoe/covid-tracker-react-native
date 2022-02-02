@@ -1,4 +1,5 @@
 import { Card, Tag } from '@covid/components';
+import { TimeField } from '@covid/components/inputs/TimeField';
 import { FormFieldPlayback } from '@covid/components/inputsRedesigned/FormFieldPlayback';
 import { GenericTextField } from '@covid/components/inputsRedesigned/GenericTextField';
 import { MultiSelectField, TItemCheckbox } from '@covid/components/inputsRedesigned/MultiSelectField';
@@ -15,20 +16,21 @@ import * as React from 'react';
 import { KeyboardType, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 export enum EFieldType {
-  YESNO = 'YesNo',
-  TEXT = 'Text',
-  MULTISELECT = 'MultiSelect',
-  RADIO = 'Radio',
-  WEIGHT = 'Weight',
   HEIGHT = 'Height',
-  POSTCODE = 'Postcode',
   IMMUNODEFICIENCY = 'Immunodeficiency',
+  MULTISELECT = 'MultiSelect',
+  POSTCODE = 'Postcode',
+  RADIO = 'Radio',
+  TEXT = 'Text',
+  TIME = 'Time',
+  WEIGHT = 'Weight',
+  YESNO = 'YesNo',
 }
 
 export enum EHealthProfileQuestionCardStatus {
+  EDIT_ANSWER = 'editAnswer',
   NOT_ANSWERED = 'notAnswered',
   PLAYBACK = 'playback',
-  EDIT_ANSWER = 'editAnswer',
 }
 
 export type TItemRadio = {
@@ -81,6 +83,11 @@ type TFieldTypeProps =
       showPnts: null;
     }
   | {
+      fieldType: EFieldType.TIME;
+      items: null;
+      propertyName: string;
+    }
+  | {
       fieldType: EFieldType.HEIGHT;
       items: null;
       propertyName: null;
@@ -104,6 +111,34 @@ type TProps = TCommonProps & TFieldTypeProps;
 export default function HealthProfileQuestionCard(props: TProps) {
   function renderField() {
     switch (props.fieldType) {
+      case EFieldType.TIME:
+        if (props.isEditing) {
+          return (
+            <TimeField
+              required
+              label={props.label}
+              onValueChange={props.formikProps.handleChange(props.propertyName)}
+              testID={props.testID}
+              value={props.formikProps.values[props.propertyName]}
+            />
+          );
+        }
+        let value = Number.parseInt(props.formikProps.values[props.propertyName], 10);
+        if (Number.isNaN(value) || value < 0) {
+          value = 0;
+        }
+        const hours = Math.floor(value / 60);
+        const minutes = value % 60;
+        const playbackValue = `${hours}hrs ${minutes}min`;
+        return (
+          <FormFieldPlayback
+            required
+            editOnPress={props.editOnPress}
+            label={props.label}
+            playbackValue={playbackValue}
+            testID={props.testID}
+          />
+        );
       case EFieldType.YESNO:
         return (
           <YesNoField

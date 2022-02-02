@@ -177,7 +177,7 @@ DiabetesQuestions.createValidationSchema = () => {
         then: Yup.number(),
       }),
 
-      diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(2020),
+      diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(new Date().getFullYear()),
 
       diabetesType: Yup.string().required(i18n.t('diabetes.please-select-diabetes-type')),
 

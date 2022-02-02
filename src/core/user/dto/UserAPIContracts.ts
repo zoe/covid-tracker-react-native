@@ -724,9 +724,8 @@ export type THealthProfileRequest = {
   //  Your behaviour
   physical_activity_frequency: string;
 
-  hours_sleep_week_nights: number;
-
-  hours_sleep_weekend_nights: number;
+  minutes_sleep_week_nights: number;
+  minutes_sleep_weekend_nights: number;
 
   works_shifts_outside_regular_hours: boolean;
 };

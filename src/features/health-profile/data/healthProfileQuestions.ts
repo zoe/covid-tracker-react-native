@@ -46,15 +46,17 @@ export const screenMappings = {
 export type THPScreenName = keyof typeof screenMappings;
 
 interface ICommonProps {
-  question: string;
-  required: boolean;
-  pnts: boolean;
   dependsOnProperty: THealthProfilePropertyName | null;
   dependsOnPropertyValue: (string | boolean | null)[] | null;
   description: string | null;
-  showNewTag: boolean;
-  keyboardType: KeyboardType | null;
+  keyboardType?: KeyboardType;
+  maxValue?: number;
+  minValue?: number;
   placeholder: string | null;
+  pnts: boolean;
+  question: string;
+  required: boolean;
+  showNewTag: boolean;
 }
 
 type TFieldTypeProps =
@@ -82,6 +84,11 @@ type TFieldTypeProps =
       fieldType: EFieldType.WEIGHT;
       items: null;
       propertyName: THeightWeightPropertyName;
+    }
+  | {
+      fieldType: EFieldType.TIME;
+      items: null;
+      propertyName: THealthProfilePropertyName;
     }
   | {
       fieldType: EFieldType.HEIGHT;
@@ -143,6 +150,8 @@ export const healthProfileScreens: THealthProfileScreens = {
         fieldType: EFieldType.TEXT,
         items: null,
         keyboardType: 'numeric',
+        maxValue: new Date().getFullYear(),
+        minValue: 1900,
         placeholder: 'Year',
         pnts: false,
         propertyName: 'year_of_birth',
@@ -150,14 +159,12 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
         description: null,
         fieldType: EFieldType.WEIGHT,
         items: null,
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'weight_field',
@@ -165,14 +172,12 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
         description: null,
         fieldType: EFieldType.HEIGHT,
         items: null,
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'height_field',
@@ -180,14 +185,12 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
         description: null,
         fieldType: EFieldType.POSTCODE,
         items: null,
-        keyboardType: null,
         placeholder: 'Postcode',
         pnts: false,
         propertyName: 'postcode',
@@ -195,7 +198,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
@@ -207,7 +209,6 @@ export const healthProfileScreens: THealthProfileScreens = {
           { label: 'Intersex', value: '3' },
           { label: 'Prefer not to say', value: '2' },
         ],
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'gender',
@@ -215,7 +216,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
@@ -227,7 +227,6 @@ export const healthProfileScreens: THealthProfileScreens = {
           { label: 'Intersex', value: 'intersex' },
           { label: 'Prefer not to say', value: 'pnts' },
         ],
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'gender_identity',
@@ -235,7 +234,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
@@ -245,7 +243,6 @@ export const healthProfileScreens: THealthProfileScreens = {
           { label: 'English, Welsh, Scottish, Northern Irish, Irish', value: 'british_irish' },
           { label: 'Other white background', value: 'other_white' },
         ],
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'race',
@@ -253,14 +250,12 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
         description: null,
         fieldType: EFieldType.YESNO,
         items: null,
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'is_twin',
@@ -268,7 +263,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: 'is_twin',
         dependsOnPropertyValue: ['yes'],
@@ -278,7 +272,6 @@ export const healthProfileScreens: THealthProfileScreens = {
           { label: 'Identical', value: 'identical' },
           { label: 'Non-identical', value: 'non_identical' },
         ],
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'twin_type',
@@ -286,7 +279,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         required: true,
         showNewTag: false,
       },
-
       {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
@@ -305,7 +297,6 @@ export const healthProfileScreens: THealthProfileScreens = {
             testID: 'has_prior_allergy_diagnosis_pfnts',
           },
         ],
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'prior_allergy_diagnosis',
@@ -325,9 +316,53 @@ export const healthProfileScreens: THealthProfileScreens = {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
         description: null,
+        fieldType: EFieldType.TEXT,
+        items: null,
+        maxValue: 100,
+        minValue: 0,
+        placeholder: 'Years',
+        pnts: true,
+        propertyName: 'years_taken_hormone_based_contraception',
+        question: 'Altogether, about how long have you taken/did you take hormone-based contraception? (years)',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.TEXT,
+        items: null,
+        maxValue: new Date().getFullYear(),
+        minValue: 1900,
+        placeholder: 'Year',
+        pnts: true,
+        propertyName: 'diabetes_diagnosis_year',
+        question: 'What year were you diagnosed with diabetes?',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.TIME,
+        items: null,
+        maxValue: 19 * 60, // 19 hours is the max value
+        minValue: 0,
+        placeholder: null,
+        pnts: false,
+        propertyName: 'minutes_sleep_week_nights',
+        question: 'How long did you usually sleep for on week nights (Sunday to Thursday)?',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
         fieldType: EFieldType.YESNO,
         items: null,
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'parents_or_siblings_had_cardiovascular_disease',
@@ -342,7 +377,6 @@ export const healthProfileScreens: THealthProfileScreens = {
         description: null,
         fieldType: EFieldType.YESNO,
         items: null,
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'parents_or_siblings_had_diabetes',
@@ -442,6 +476,8 @@ export const healthProfileScreens: THealthProfileScreens = {
         fieldType: EFieldType.TEXT,
         items: null,
         keyboardType: 'numeric',
+        maxValue: new Date().getFullYear(),
+        minValue: 1900,
         placeholder: 'Year',
         pnts: true,
         propertyName: 'first_cancer_diagnosis_year',
@@ -483,7 +519,6 @@ export const healthProfileScreens: THealthProfileScreens = {
             testID: 'wh_pcos_symptom_pnts',
           },
         ],
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'pcos',
@@ -509,7 +544,6 @@ export const healthProfileScreens: THealthProfileScreens = {
           { label: 'Less than once a week', value: 'less_than_once_a_week' },
           { label: 'Once a week', value: 'once_a_week' },
         ],
-        keyboardType: null,
         placeholder: null,
         pnts: false,
         propertyName: 'yb_physical_activity_frequency',

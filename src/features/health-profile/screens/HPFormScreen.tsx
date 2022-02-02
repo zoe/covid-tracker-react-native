@@ -174,16 +174,35 @@ export default function HPFormScreen({ route }: TProps) {
   };
 
   const validationSchema = () => {
-    const validationObject: { [key: string]: Yup.StringSchema } = {};
+    const validationObject: { [key: string]: Yup.StringSchema | Yup.NumberSchema } = {};
     if (healthProfileScreens[sectionName]) {
       healthProfileScreens[sectionName].questions.forEach((question) => {
-        if (question.propertyName && question.dependsOnProperty && question.dependsOnPropertyValue) {
+        if (!question.propertyName) {
+          return;
+        }
+        if (question.dependsOnProperty && question.dependsOnPropertyValue) {
           validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
             is: (answer) => question.dependsOnPropertyValue!.includes(answer),
             then: Yup.string().required(),
           });
-        } else if (question.propertyName) {
-          validationObject[question.propertyName] = Yup.string().required();
+        } else {
+          validationObject[question.propertyName] = Yup.string()
+            .required()
+            .test(question.propertyName, 'The test is not valid', (value) => {
+              let valid = true;
+
+              if (value !== TEXT_INPUT_PNTS_LABEL) {
+                if (question.minValue || question.minValue === 0) {
+                  valid = valid && Number.parseInt(value, 10) >= question.minValue;
+                }
+
+                if (question.maxValue || question.maxValue === 0) {
+                  valid = valid && Number.parseInt(value, 10) <= question.maxValue;
+                }
+              }
+
+              return valid;
+            });
         }
 
         // Custom field validations

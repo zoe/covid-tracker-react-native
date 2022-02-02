@@ -99,7 +99,17 @@ export const createHPAboutYouDTO = (formData: IHealthProfileFormData) => {
 };
 
 export const createCompletedHealthProfileDTO = (formData: Partial<IHealthProfileFormData>): THealthProfileRequest => {
-  const infos = { ...formData };
+  const infos: THealthProfileRequest = {
+    ...formData,
+  };
+
+  // Convert the amount of minutes from a string to a number
+  if (formData.minutes_sleep_week_nights) {
+    infos.minutes_sleep_week_nights = Number.parseInt(formData.minutes_sleep_week_nights, 10);
+  }
+  if (formData.minutes_sleep_weekend_nights) {
+    infos.minutes_sleep_weekend_nights = Number.parseInt(formData.minutes_sleep_weekend_nights, 10);
+  }
 
   Object.keys(infos).forEach((key) => {
     // Multi select property names are only used to track all selected choices so we can play it back - it's not saved in the backend
