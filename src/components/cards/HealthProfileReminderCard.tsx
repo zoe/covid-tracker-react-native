@@ -108,7 +108,7 @@ export default function HealthProfileReminderCard(props: IProps) {
       <View style={[styles.continue, styles.row]}>
         <RightArrow />
         <Text inverted colorPalette="actionSecondary" colorShade="main" style={styles.marginLeft} textClass="pMedium">
-          {i18n.t('health-profile.reminder-card.continue')}
+          {i18n.t('health-profile.continue')}
         </Text>
       </View>
     </TouchableOpacity>

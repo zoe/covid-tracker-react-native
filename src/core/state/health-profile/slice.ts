@@ -9,6 +9,7 @@ export type THealthProfileScreenNames = THPScreenName | 'HPAboutYou' | 'HPThankY
 export type TStateHealthProfile = {
   answers: {};
   dateOfLastUpdate: Date | null;
+  hasSeenReminderModal: boolean;
   maxSteps: number;
   progressPercent: number;
   screenToReturnTo: THealthProfileScreenNames;
@@ -28,6 +29,7 @@ type TExistingHealthProfileFields = keyof THealthProfileRequest;
 export const initialStateHealthProfile: TStateHealthProfile = {
   answers: {},
   dateOfLastUpdate: null,
+  hasSeenReminderModal: false,
   maxSteps: MAX_STEPS_FEMALE,
   progressPercent: 0,
   screenToReturnTo: 'HPAboutYou',
@@ -91,6 +93,10 @@ export const healthProfileSlice = createSlice({
     resetHealthProfile: () => {
       return initialStateHealthProfile;
     },
+    updateHasSeenHealthProfileReminderModal: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      hasSeenReminderModal: action.payload,
+    }),
     updateHealthProfile: (state, action: PayloadAction<Partial<THealthProfileRequest>>) => ({
       ...state,
       answers: {
@@ -109,4 +115,9 @@ export const healthProfileSlice = createSlice({
   },
 });
 
-export const { updateHealthProfile, updateHealthProfileProgress, resetHealthProfile } = healthProfileSlice.actions;
+export const {
+  updateHasSeenHealthProfileReminderModal,
+  updateHealthProfile,
+  updateHealthProfileProgress,
+  resetHealthProfile,
+} = healthProfileSlice.actions;

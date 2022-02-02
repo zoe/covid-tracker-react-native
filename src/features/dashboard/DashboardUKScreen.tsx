@@ -133,7 +133,7 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
 
           {/* TODO: Fix show logic once backend completed */}
           {startupInfo?.is_tester &&
-          Object.keys(healthProfileState.answers).length !== 0 &&
+          healthProfileState.dateOfLastUpdate &&
           healthProfileState.screenToReturnTo !== 'HPThankYou' ? (
             <HealthProfileReminderCard
               maxSteps={healthProfileState.maxSteps}

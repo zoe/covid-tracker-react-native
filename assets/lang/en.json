@@ -1803,6 +1803,7 @@
   "health-profile": {
     "save-exit": "Save & Exit",
     "why-we-ask-this": "Why are we asking this",
+    "continue": "Continue",
     "intro-modal": {
       "tim-spector": "Prof. Tim Spector",
       "title": "Is your health information correct?",
@@ -1830,8 +1831,12 @@
     "reminder-card": {
       "title": "Finish where you left off",
       "tag": "Health profile",
-      "completion-percent": "{{percent}}%",
-      "continue": "Continue"
+      "completion-percent": "{{percent}}%"
+    },
+    "reminder-modal": {
+      "title": "Finish where you left off",
+      "tag": "Health profile",
+      "description": "You are only a few minutes away from completing your Health Profile questionnaire."
     }
   }
 }

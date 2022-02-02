@@ -1807,6 +1807,7 @@
   "health-profile": {
     "save-exit": false,
     "why-we-ask-this": false,
+    "continue": false,
     "intro-modal": {
       "tim-spector": false,
       "title": false,
@@ -1834,8 +1835,12 @@
     "reminder-card": {
       "title": false,
       "tag": false,
-      "completion-percent": false,
-      "continue": false
+      "completion-percent": false
+    },
+    "reminder-modal": {
+      "title": false,
+      "tag": false,
+      "description": false
     }
   }
 }
