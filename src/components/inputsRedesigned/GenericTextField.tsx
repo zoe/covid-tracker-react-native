@@ -73,7 +73,7 @@ export function GenericTextField(props: IProps) {
         <CaptionText style={{ color: colors.secondary, marginBottom: sizes.m }}>{description}</CaptionText>
       ) : null}
       <ValidatedTextInput
-        editable={!(showPnts && formikProps.values[name] === TEXT_INPUT_PNTS_LABEL)}
+        // editable={!(showPnts && formikProps.values[name] === TEXT_INPUT_PNTS_LABEL)}
         error={formikProps.touched[name] && !!formikProps.errors[name]}
         keyboardType={keyboardType}
         onBlur={formikProps.handleBlur(name)}

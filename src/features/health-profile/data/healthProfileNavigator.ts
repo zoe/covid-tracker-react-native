@@ -98,9 +98,9 @@ export const NAVIGATOR_FEMALE: INavigatorProps = {
     previousScreenName: 'HPCancer',
   },
   WOMENS_HEALTH: {
-    buttonText: 'Next: Your Behaviours',
+    buttonText: 'Next: Gut & Digestion',
     currentStep: 10,
-    nextScreenName: 'HPYourBehaviours',
+    nextScreenName: 'HPGutDigestion',
     previousScreenName: 'HPHeartCirculation',
   },
   YOUR_BEHAVIOURS: {

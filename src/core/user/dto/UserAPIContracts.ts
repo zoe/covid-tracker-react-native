@@ -416,6 +416,7 @@ export type THealthProfileRequest = {
   gender: number; // 0: female, 1: male, 2: pfnts 3: intersex
   gender_identity: string;
   race: string;
+  race_other: string;
   height_cm: number;
   height_feet: number;
   weight_kg: number;
@@ -441,7 +442,6 @@ export type THealthProfileRequest = {
   prior_allergic_condition_diagnosis: string;
   prior_allergy_diagnosis_hayfever: boolean;
   prior_allergy_diagnosis_other: boolean;
-  prior_allergy_diagnosis_none: boolean;
   prior_allergy_diagnosis_pfnts: boolean;
 
   food_allergies: boolean;
@@ -466,6 +466,7 @@ export type THealthProfileRequest = {
   allergy_symptom_mood_disturbance: boolean;
   allergy_symptom_snoring: boolean;
   allergy_symptom_other: boolean;
+  allergy_symptom_none: boolean;
 
   food_intolerances: boolean;
   gluten_intolerance: boolean;
@@ -476,6 +477,7 @@ export type THealthProfileRequest = {
   has_kidney_disease: string;
   prior_kidney_or_urinary_diagnosis_ckd: boolean;
   prior_kidney_or_urinary_diagnosis_kidney_stones: boolean;
+  prior_kidney_or_urinary_diagnosis_kidney_infection: boolean;
   prior_kidney_or_urinary_diagnosis_aki: boolean;
   prior_kidney_or_urinary_diagnosis_uti: boolean;
   prior_kidney_or_urinary_diagnosis_other: boolean;
@@ -493,7 +495,6 @@ export type THealthProfileRequest = {
   prior_neurological_diagnosis_mixed_dementia: boolean;
   prior_neurological_diagnosis_mild_cognitive_impairment: boolean;
   prior_neurological_diagnosis_other: boolean;
-  prior_neurological_diagnosis_none: boolean;
   prior_neurological_diagnosis_pfnts: boolean;
 
   increasing_confusion_or_memory_loss_over_last_year: boolean;
@@ -518,7 +519,6 @@ export type THealthProfileRequest = {
   prior_cancer_diagnosis_pancreas_cancer: boolean;
   prior_cancer_diagnosis_thyroid_cancer: boolean;
   prior_cancer_diagnosis_other: boolean;
-  prior_cancer_diagnosis_none: boolean;
   prior_cancer_diagnosis_pfnts: boolean;
 
   first_cancer_diagnosis_year: string;
@@ -540,12 +540,11 @@ export type THealthProfileRequest = {
   prior_gut_diagnosis_acid_reflux: boolean;
   prior_gut_diagnosis_crohns_disease: boolean;
   prior_gut_diagnosis_ulcerative_colitis: boolean;
-  prior_gut_diagnosis_gastic_duodenal_ulcer: boolean;
+  prior_gut_diagnosis_gastric_duodenal_ulcer: boolean;
   prior_gut_diagnosis_diverticulitis_or_diverticulosis: boolean;
   prior_gut_diagnosis_chronic_liver_disease_or_cirrhosis: boolean;
   prior_gut_diagnosis_abdominal_bloating_and_distension: boolean;
   prior_gut_diagnosis_other: boolean;
-  prior_gut_diagnosis_none: boolean;
   prior_gut_diagnosis_pfnts: boolean;
 
   // Heart & Circulation
@@ -567,7 +566,6 @@ export type THealthProfileRequest = {
   prior_cardiovascular_diagnosis_varicose_veins: boolean;
   prior_cardiovascular_diagnosis_pulmonary_embolism: boolean;
   prior_cardiovascular_diagnosis_other: boolean;
-  prior_cardiovascular_diagnosis_none: boolean;
   prior_cardiovascular_diagnosis_pfnts: boolean;
 
   first_heart_attack_year: string;
@@ -587,9 +585,9 @@ export type THealthProfileRequest = {
 
   prior_endocrine_condition_diagnosis: string;
   prior_endocrine_diagnosis_hypothyroidism: boolean;
+  prior_endocrine_diagnosis_hyperthyroidism: boolean;
   prior_endocrine_diagnosis_hyperparathyroidism: boolean;
   prior_endocrine_diagnosis_other: boolean;
-  prior_endocrine_diagnosis_none: boolean;
   prior_endocrine_diagnosis_pfnts: boolean;
 
   // Immune System
@@ -607,7 +605,6 @@ export type THealthProfileRequest = {
   prior_breathing_and_lung_diagnosis_copd_ephysema_bronchitis: boolean;
   prior_breathing_and_lung_diagnosis_lung_disease: boolean;
   prior_breathing_and_lung_diagnosis_other: boolean;
-  prior_breathing_and_lung_diagnosis_none: boolean;
   prior_breathing_and_lung_diagnosis_pfnts: boolean;
 
   // Mental Health & Mood
@@ -634,7 +631,6 @@ export type THealthProfileRequest = {
   prior_psychiatric_substance_use_disorder: boolean;
   prior_psychiatric_other_psychosis_or_psychotic_illness: boolean;
   prior_psychiatric_other: boolean;
-  prior_psychiatric_none: boolean;
   prior_psychiatric_pfnts: boolean;
 
   // Muscle, bones and joints
@@ -651,7 +647,6 @@ export type THealthProfileRequest = {
   prior_bone_or_joint_diagnosis_gout: boolean;
   prior_bone_or_joint_diagnosis_other_connective_tissue: boolean;
   prior_bone_or_joint_diagnosis_other: boolean;
-  prior_bone_or_joint_diagnosis_none: boolean;
   prior_bone_or_joint_diagnosis_pfnts: boolean;
 
   // Skin, hair and nails
@@ -667,24 +662,27 @@ export type THealthProfileRequest = {
   prior_skin_diagnosis_herpes_zosters: boolean;
   prior_skin_diagnosis_alopecia: boolean;
   prior_skin_diagnosis_other: boolean;
-  prior_skin_diagnosis_none: boolean;
   prior_skin_diagnosis_pfnts: boolean;
 
   // Womens Health
-  prior_ectopic_pregnancy: boolean;
-  prior_miscarriage: boolean;
-  prior_endometriosis: boolean;
-  prior_oophorectomy: boolean;
-  prior_salpingectomy: boolean;
-  prior_pcos: boolean;
-  prior_other: boolean;
-  prior_pfnts: boolean;
+  prior_wh_ectopic_pregnancy: boolean;
+  prior_wh_miscarriage: boolean;
+  prior_wh_hysterectomy: boolean;
+  prior_wh_endometriosis: boolean;
+  prior_wh_oophorectomy: boolean;
+  prior_wh_salpingectomy: boolean;
+  prior_wh_pcos: boolean;
+  prior_wh_other: boolean;
+  prior_wh_none: boolean;
+  prior_wh_pfnts: boolean;
 
   pcos_symptom_acne: boolean;
   pcos_symptom_irregular_periods: boolean;
   pcos_symptom_excessive_hair: boolean;
   pcos_symptom_hair_thinning: boolean;
   pcos_symptom_polycystic_ovaries_scan: boolean;
+  pcos_symptom_none: boolean;
+  pcos_symptom_other: boolean;
   pcos_symptom_pfnts: boolean;
 
   period_started_age: string;

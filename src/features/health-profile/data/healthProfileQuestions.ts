@@ -1,10 +1,26 @@
 import { TItemCheckbox } from '@covid/components/inputsRedesigned/MultiSelectField';
 import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { EFieldType, TItemRadio } from '@covid/features/health-profile/components/HealthProfileQuestionCard';
+import { healthProfileAboutYouQuestions } from '@covid/features/health-profile/data/healthProfileAboutYouQuestions';
+import { healthProfileAllergiesIntolerancesQuestions } from '@covid/features/health-profile/data/healthProfileAllergiesIntolerancesQuestions';
+import { healthProfileBrainNervousSystemQuestions } from '@covid/features/health-profile/data/healthProfileBrainNervousSystemQuestions';
+import { healthProfileFamilyHistoryQuestions } from '@covid/features/health-profile/data/healthProfileFamilyHistoryQuestions';
+import { healthProfileHeartCirculationQuestions } from '@covid/features/health-profile/data/healthProfileHeartCirculationQuestions';
+import { healthProfileImmuneSystemQuestions } from '@covid/features/health-profile/data/healthProfileImmuneSystemQuestions';
+import { healthProfileLungsBreathingQuestions } from '@covid/features/health-profile/data/healthProfileLungsBreathingQuestions';
+import { healthProfileMentalHealthMoodQuestions } from '@covid/features/health-profile/data/healthProfileMentalHealthMoodQuestions';
+import { healthProfileWomensHealthQuestions } from '@covid/features/health-profile/data/healthProfileWomensHealthQuestions';
+import { healthProfileYourBehavioursQuestions } from '@covid/features/health-profile/data/healthProfileYourBehavioursQuestions';
 import { IHeightData } from '@covid/features/patient/fields/HeightQuestion';
 import { IWeightData } from '@covid/features/patient/fields/WeightQuestion';
 import { KeyboardType } from 'react-native';
 
-import { EFieldType, TItemRadio } from '../components/HealthProfileQuestionCard';
+import { healthProfileBladderKidneysQuestions } from './healthProfileBladderKidneysQuestions';
+import { healthProfileCancerQuestions } from './healthProfileCancerQuestions';
+import { healthProfileGutDisgestionQuestions } from './healthProfileGutDigestionQuestions';
+import { healthProfileHormonesMetabolismQuestions } from './healthProfileHormonesMetabolismQuestions';
+import { healthProfileMusclesBonesJointsQuestions } from './healthProfileMusclesBonesJointsQuestions';
+import { healthProfileSkinHairNailsQuestions } from './healthProfileSkinHairNailsQuestions';
 
 export enum EHealthProfileSection {
   ABOUT_YOU = 'ABOUT_YOU',
@@ -108,7 +124,7 @@ type TFieldTypeProps =
 
 type THealthProfileQuestion = TFieldTypeProps & ICommonProps;
 
-type THealthProfileScreens = {
+export type THealthProfileScreens = {
   [key in EHealthProfileSection]: {
     description: string | null;
     hideWhyWeAskLink: boolean;
@@ -124,9 +140,26 @@ type THeightWeightPropertyName = 'height_field' | 'weight_field';
 
 // TODO: add all multiselect property names
 export const MULTI_SELECT_PROPERTY_NAMES = [
-  'prior_allergy_diagnosis',
-  'prior_immunodeficiency_diagnosis',
-  'prior_diabetes',
+  'prior_immunodeficiency_diagnosis_multiselect',
+  'prior_allergy_diagnosis_multiselect',
+  'food_allergies_multiselect',
+  'food_allergies_symptoms_multiselect',
+  'food_intolerances_multiselect',
+  'prior_psychiatric_condition_multiselect',
+  'prior_neurological_diagnosis_multiselect',
+  'prior_breathing_and_lung_diagnosis_multiselect',
+  'prior_cardiovascular_diagnosis_multiselect',
+  'prior_womens_health_diagnosis_multiselect',
+  'pcos_symptoms_multiselect',
+  'menopausal_symptoms_multiselect',
+  'hormone_treatment_multiselect',
+  'prior_gut_diagnosis_multiselect',
+  'prior_kidney_or_urinary_diagnosis_multiselect',
+  'prior_bone_or_joint_diagnosis_multiselect',
+  'prior_diabetes_multiselect',
+  'prior_endocrine_diagnosis_multiselect',
+  'prior_cancer_diagnosis_multiselect',
+  'prior_skin_diagnosis_multiselect',
 ] as const;
 
 type TMultiSelectPropertyName = typeof MULTI_SELECT_PROPERTY_NAMES[number];
@@ -139,422 +172,20 @@ export type THealthProfilePropertyName = keyof THealthProfileRequest | TMultiSel
 export interface IHealthProfileFormData extends IHeightData, IWeightData, THealthProfileFields {}
 
 export const healthProfileScreens: THealthProfileScreens = {
-  ABOUT_YOU: {
-    description: 'These are the details you shared with us when you joined the study. Are they still correct?',
-    hideWhyWeAskLink: true,
-    questions: [
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.TEXT,
-        items: null,
-        keyboardType: 'numeric',
-        maxValue: new Date().getFullYear(),
-        minValue: 1900,
-        placeholder: 'Year',
-        pnts: false,
-        propertyName: 'year_of_birth',
-        question: 'What year were you born?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.WEIGHT,
-        items: null,
-        placeholder: null,
-        pnts: false,
-        propertyName: 'weight_field',
-        question: 'What is your current body weight?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.HEIGHT,
-        items: null,
-        placeholder: null,
-        pnts: false,
-        propertyName: 'height_field',
-        question: 'What is your current height?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.POSTCODE,
-        items: null,
-        placeholder: 'Postcode',
-        pnts: false,
-        propertyName: 'postcode',
-        question: 'Your postcode?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.RADIO,
-        items: [
-          { label: 'Male', value: '1' },
-          { label: 'Female', value: '0' },
-          { label: 'Intersex', value: '3' },
-          { label: 'Prefer not to say', value: '2' },
-        ],
-        placeholder: null,
-        pnts: false,
-        propertyName: 'gender',
-        question: 'What sex were you assigned at birth?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.RADIO,
-        items: [
-          { label: 'Male', value: 'male' },
-          { label: 'Female', value: 'female' },
-          { label: 'Intersex', value: 'intersex' },
-          { label: 'Prefer not to say', value: 'pnts' },
-        ],
-        placeholder: null,
-        pnts: false,
-        propertyName: 'gender_identity',
-        question: 'What gender do you most identify with?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.RADIO,
-        items: [
-          { label: 'English, Welsh, Scottish, Northern Irish, Irish', value: 'british_irish' },
-          { label: 'Other white background', value: 'other_white' },
-        ],
-        placeholder: null,
-        pnts: false,
-        propertyName: 'race',
-        question: 'Which of the following best describes your ethnicity?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.YESNO,
-        items: null,
-        placeholder: null,
-        pnts: false,
-        propertyName: 'is_twin',
-        question: 'Are you a twin?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: 'is_twin',
-        dependsOnPropertyValue: ['yes'],
-        description: null,
-        fieldType: EFieldType.RADIO,
-        items: [
-          { label: 'Identical', value: 'identical' },
-          { label: 'Non-identical', value: 'non_identical' },
-        ],
-        placeholder: null,
-        pnts: false,
-        propertyName: 'twin_type',
-        question: 'Which type of twin?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.MULTISELECT,
-        items: [
-          {
-            label: 'Hayfever',
-            name: 'has_prior_allergy_diagnosis_hayfever',
-            testID: 'has_prior_allergy_diagnosis_hayfever',
-          },
-          { label: 'Other', name: 'has_prior_allergy_diagnosis_other', testID: 'has_prior_allergy_diagnosis_other' },
-          {
-            label: 'Prefer not to say',
-            name: 'has_prior_allergy_diagnosis_pfnts',
-            testID: 'has_prior_allergy_diagnosis_pfnts',
-          },
-        ],
-        placeholder: null,
-        pnts: false,
-        propertyName: 'prior_allergy_diagnosis',
-        question: 'Which of the following allergic conditions were you diagnosed with?',
-        required: true,
-        showNewTag: false,
-      },
-    ],
-    testID: 'health-profile-about-you-screen',
-    title: 'About You',
-  },
-  FAMILY_HISTORY: {
-    description: null,
-    hideWhyWeAskLink: false,
-    questions: [
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.TEXT,
-        items: null,
-        maxValue: 100,
-        minValue: 0,
-        placeholder: 'Years',
-        pnts: true,
-        propertyName: 'years_taken_hormone_based_contraception',
-        question: 'Altogether, about how long have you taken/did you take hormone-based contraception? (years)',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.TEXT,
-        items: null,
-        maxValue: new Date().getFullYear(),
-        minValue: 1900,
-        placeholder: 'Year',
-        pnts: true,
-        propertyName: 'diabetes_diagnosis_year',
-        question: 'What year were you diagnosed with diabetes?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.TIME,
-        items: null,
-        maxValue: 19 * 60, // 19 hours is the max value
-        minValue: 0,
-        placeholder: null,
-        pnts: false,
-        propertyName: 'minutes_sleep_week_nights',
-        question: 'How long did you usually sleep for on week nights (Sunday to Thursday)?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.YESNO,
-        items: null,
-        placeholder: null,
-        pnts: false,
-        propertyName: 'parents_or_siblings_had_cardiovascular_disease',
-        question:
-          'Have any of your parents or siblings had cardiovascular disease? Examples of cardiovascular disease include stroke, heart attack, heart disease, or angina.',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: 'parents_or_siblings_had_cardiovascular_disease',
-        dependsOnPropertyValue: ['yes'],
-        description: null,
-        fieldType: EFieldType.YESNO,
-        items: null,
-        placeholder: null,
-        pnts: false,
-        propertyName: 'parents_or_siblings_had_diabetes',
-        question: 'Have any of your parents or siblings had diabetes?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.IMMUNODEFICIENCY,
-        items: [
-          {
-            label: 'Primary immunodeficiency (from birth)',
-            name: 'has_prior_immunodeficiency_diagnosis_primary',
-            testID: 'has_prior_immunodeficiency_diagnosis_primary',
-          },
-          {
-            label: 'Immunodeficiency due to medication',
-            name: 'has_prior_immunodeficiency_diagnosis_due_to_medication',
-            testID: 'has_prior_immunodeficiency_diagnosis_due_to_medication',
-          },
-          {
-            label: 'Acquired immunodeficiency (e.g. HIV)',
-            name: 'has_prior_immunodeficiency_diagnosis_acquired',
-            testID: 'has_prior_immunodeficiency_diagnosis_acquired',
-          },
-          {
-            label: 'Other connective tissue disease',
-            name: 'has_prior_immunodeficiency_diagnosis_other_connective_tissue_boolean', // NOTE: boolean in name - not saved to backend, but text field used instead
-            testID: 'has_prior_immunodeficiency_diagnosis_other_connective_tissue_boolean',
-          },
-          {
-            label: 'Prefer not to say',
-            name: 'has_prior_immunodeficiency_diagnosis_pfnts',
-            testID: 'has_prior_immunodeficiency_diagnosis_pfnts',
-          },
-        ],
-        keyboardType: null,
-        placeholder: null,
-        pnts: false,
-        propertyName: 'prior_immunodeficiency_diagnosis',
-        question: 'Have you ever been diagnosed with an immunodeficiency?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.MULTISELECT,
-        items: [
-          {
-            label: 'Type 1 diabetes (insulin requiring)',
-            name: 'has_prior_diabetes_type_one',
-            testID: 'has_prior_diabetes_type_one',
-          },
-          {
-            label: 'Type 2 diabetes',
-            name: 'has_prior_diabetes_type_two',
-            testID: 'has_prior_diabetes_type_two',
-          },
-          {
-            label: 'Diabetes during pregnancy (gestational diabetes)',
-            name: 'has_prior_diabetes_gestational',
-            testID: 'has_prior_diabetes_gestational',
-          },
-          {
-            label: 'Prediabetes',
-            name: 'has_prior_diabetes_prediabetes',
-            testID: 'has_prior_diabetes_prediabetes',
-          },
-          {
-            label: 'Other',
-            name: 'has_prior_diabetes_other',
-            testID: 'has_prior_diabetes_other',
-          },
-          {
-            label: 'Prefer not to say',
-            name: 'has_prior_diabetes_pfnts',
-            testID: 'has_prior_diabetes_pfnts',
-          },
-        ],
-        keyboardType: null,
-        placeholder: null,
-        pnts: false,
-        propertyName: 'prior_diabetes',
-        question: 'What type of diabetes have you had?',
-        required: true,
-        showNewTag: false,
-      },
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.TEXT,
-        items: null,
-        keyboardType: 'numeric',
-        maxValue: new Date().getFullYear(),
-        minValue: 1900,
-        placeholder: 'Year',
-        pnts: true,
-        propertyName: 'first_cancer_diagnosis_year',
-        question: 'What year were you first diagnosed with a cancer?',
-        required: true,
-        showNewTag: false,
-      },
-    ],
-    screenName: 'HPFamilyHistory',
-    testID: 'health-profile-family-history-screen',
-    title: 'Family History',
-  },
-  WOMENS_HEALTH: {
-    description: null,
-    hideWhyWeAskLink: false,
-    questions: [
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.MULTISELECT,
-        items: [
-          { label: 'Acne that needs medical advice', name: 'wh_pcos_symptom_acne', testID: 'wh_pcos_symptom_acne' },
-          {
-            label: 'Irregular periods',
-            name: 'wh_pcos_symptom_irregular_periods',
-            testID: 'wh_pcos_symptom_irregular_periods',
-          },
-          { label: 'Excessive hair', name: 'wh_pcos_symptom_excessive_hair', testID: 'wh_pcos_symptom_excessive_hair' },
-          { label: 'Hair thinning', name: 'wh_pcos_symptom_hair_thinning', testID: 'wh_pcos_symptom_hair_thinning' },
-          {
-            label: 'Polycystic ovaries shown by a scan',
-            name: 'wh_pcos_symptom_polycystic_ovaries_scan',
-            testID: 'wh_pcos_symptom_polycystic_ovaries_scan',
-          },
-          {
-            label: 'Prefer not to say',
-            name: 'wh_pcos_symptom_pnts',
-            testID: 'wh_pcos_symptom_pnts',
-          },
-        ],
-        placeholder: null,
-        pnts: false,
-        propertyName: 'pcos',
-        question: 'Which PCOS symptoms do you have?',
-        required: true,
-        showNewTag: false,
-      },
-    ],
-    screenName: 'HPWomensHealth',
-    testID: 'health-profile-womens-health-screen',
-    title: "Women's Health",
-  },
-  YOUR_BEHAVIOURS: {
-    description: null,
-    hideWhyWeAskLink: false,
-    questions: [
-      {
-        dependsOnProperty: null,
-        dependsOnPropertyValue: null,
-        description: null,
-        fieldType: EFieldType.RADIO,
-        items: [
-          { label: 'Less than once a week', value: 'less_than_once_a_week' },
-          { label: 'Once a week', value: 'once_a_week' },
-        ],
-        placeholder: null,
-        pnts: false,
-        propertyName: 'yb_physical_activity_frequency',
-        question:
-          'How frequently have you typically engaged in physical activity that raises your heart rate and lasts for 20 minutes at a time?',
-        required: true,
-        showNewTag: false,
-      },
-    ],
-    screenName: 'HPYourBehaviours',
-    testID: 'health-profile-your-behaviours-screen',
-    title: 'Your Behaviours',
-  },
+  ...healthProfileAboutYouQuestions,
+  ...healthProfileFamilyHistoryQuestions,
+  ...healthProfileYourBehavioursQuestions,
+  ...healthProfileImmuneSystemQuestions,
+  ...healthProfileAllergiesIntolerancesQuestions,
+  ...healthProfileMentalHealthMoodQuestions,
+  ...healthProfileBrainNervousSystemQuestions,
+  ...healthProfileLungsBreathingQuestions,
+  ...healthProfileHeartCirculationQuestions,
+  ...healthProfileWomensHealthQuestions,
+  ...healthProfileGutDisgestionQuestions,
+  ...healthProfileBladderKidneysQuestions,
+  ...healthProfileMusclesBonesJointsQuestions,
+  ...healthProfileHormonesMetabolismQuestions,
+  ...healthProfileCancerQuestions,
+  ...healthProfileSkinHairNailsQuestions,
 };

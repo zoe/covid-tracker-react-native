@@ -32,11 +32,11 @@ export function ImmunodeficiencyQuestion(props: IProps) {
           onChange={(checked: boolean) => {
             let answersArray =
               props.selectedValue === '' || props.selectedValue === undefined ? [] : props.selectedValue.split(',');
-            if (checked && item.name.includes('has_prior_immunodeficiency_diagnosis_pfnts')) {
-              answersArray = ['has_prior_immunodeficiency_diagnosis_pfnts'];
+            if (checked && item.name.includes('prior_immunodeficiency_diagnosis_pfnts')) {
+              answersArray = ['prior_immunodeficiency_diagnosis_pfnts'];
             } else if (checked) {
               answersArray.push(item.name);
-              answersArray = answersArray.filter((val) => val !== 'has_prior_immunodeficiency_diagnosis_pfnts');
+              answersArray = answersArray.filter((val) => val !== 'prior_immunodeficiency_diagnosis_pfnts');
             } else {
               answersArray = answersArray.filter((val) => val !== item.name);
             }
@@ -61,7 +61,7 @@ export function ImmunodeficiencyQuestion(props: IProps) {
           required
           formikProps={props.formikProps}
           label="Please specify your other connective tissue disease"
-          name="has_prior_immunodeficiency_diagnosis_other_connective_tissue"
+          name="prior_immunodeficiency_diagnosis_other_connective_tissue"
           style={styles.marginTop}
         />
       ) : null}

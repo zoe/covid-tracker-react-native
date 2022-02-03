@@ -17,7 +17,6 @@ export const isEditing = (status: EHealthProfileQuestionCardStatus) => {
 };
 
 export const validationSchemaHPAboutYou = Yup.object().shape({
-  // TODO: Add remaining field validations
   feet: Yup.number().when('heightUnit', {
     is: 'ft',
     then: Yup.number().required(),
@@ -26,32 +25,49 @@ export const validationSchemaHPAboutYou = Yup.object().shape({
   gender_identity: Yup.string()
     .required(i18n.t('required-gender-identity'))
     .test('len', i18n.t('error-gender-identity-length'), (val) => (val && val.length < 30) || !val),
+  healthcare_professional: Yup.string().required(),
   height: Yup.number().when('heightUnit', {
     is: 'cm',
     then: Yup.number().required(i18n.t('required-height-in-cm')),
   }),
   heightUnit: Yup.string().required(),
+  help_available: Yup.string().required(),
+  highest_qualification: Yup.string().required(),
+  housebound_problems: Yup.string().required(),
   inches: Yup.number().when('heightUnit', {
     is: 'ft',
     then: Yup.number().required(i18n.t('required-height-in-ft-in')),
   }),
+  is_carer_for_community: Yup.string().required(),
   is_twin: Yup.string().required(),
+  limited_activity: Yup.string().required(),
+  mobility_aid: Yup.string().required(),
+  needs_help: Yup.string().required(),
+  poo_frequency: Yup.string().required(),
   postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
   pounds: Yup.number().when('weightUnit', {
     is: 'lbs',
     then: Yup.number().required(i18n.t('required-weight-in-lb')),
   }),
-  // TODO: delete - this is just for testing multiselect validation
-  prior_allergy_diagnosis: Yup.string().required(),
   race: Yup.string().required(),
+  smoker_quit: Yup.string().when('smoker_status', {
+    is: 'not_currently',
+    then: Yup.string().required(),
+  }),
+  smoker_status: Yup.string().required(),
   stones: Yup.number().when('weightUnit', {
     is: 'lbs',
     then: Yup.number().required(),
+  }),
+  twin_sex: Yup.string().when('twin_type', {
+    is: 'non-identical',
+    then: Yup.string().required(),
   }),
   twin_type: Yup.string().when('is_twin', {
     is: 'yes',
     then: Yup.string().required(),
   }),
+  vape_status: Yup.string().required(),
   weight: Yup.number().when('weightUnit', {
     is: 'kg',
     then: Yup.number().required(i18n.t('required-weight-in-kg')),

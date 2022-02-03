@@ -1,6 +1,5 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
-import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
 import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
 import {
@@ -261,12 +260,15 @@ export default function HPFormScreen({ route }: TProps) {
         const infos = createCompletedHealthProfileDTO(completeForm);
         try {
           await healthProfileService.createHealthProfile(patientId, infos);
+          setSubmitting(false);
+          NavigatorService.navigate('HPThankYou');
         } catch {
           setErrorMessage(i18n.t('something-went-wrong'));
         }
+      } else {
+        setSubmitting(false);
+        NavigatorService.push('HPFormScreen', { screenName: navigator[sectionName].nextScreenName });
       }
-      setSubmitting(false);
-      NavigatorService.push('HPFormScreen', { screenName: navigator[sectionName].nextScreenName });
     },
     [saveToRedux],
   );
@@ -367,7 +369,8 @@ export default function HPFormScreen({ route }: TProps) {
 
                   <ErrorText>{errorMessage}</ErrorText>
                   {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && formikProps.dirty ? (
-                    <ValidationError error={i18n.t('validation-error-text')} />
+                    // <ValidationError error={i18n.t('validation-error-text')} />
+                    <ErrorText>{Object.keys(formikProps.errors)}</ErrorText>
                   ) : null}
                 </Form>
               </HealthProfileScreen>

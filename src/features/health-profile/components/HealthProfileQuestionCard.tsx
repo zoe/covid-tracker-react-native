@@ -43,7 +43,7 @@ type TCommonProps = {
   editOnPress: () => void;
   formikProps: FormikProps<any>;
   isEditing: boolean;
-  keyboardType: KeyboardType | null;
+  keyboardType?: KeyboardType;
   label: string;
   new: boolean;
   placeholder: string | null;
@@ -56,7 +56,7 @@ type TFieldTypeProps =
       fieldType: EFieldType.RADIO;
       items: TItemRadio[];
       propertyName: string;
-      showPnts: null;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.YESNO;
@@ -74,13 +74,13 @@ type TFieldTypeProps =
       fieldType: EFieldType.MULTISELECT;
       items: TItemCheckbox[];
       propertyName: string;
-      showPnts: null;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.WEIGHT;
       items: null;
       propertyName: null;
-      showPnts: null;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.TIME;
@@ -91,19 +91,19 @@ type TFieldTypeProps =
       fieldType: EFieldType.HEIGHT;
       items: null;
       propertyName: null;
-      showPnts: null;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.POSTCODE;
       items: null;
       propertyName: string;
-      showPnts: null;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.IMMUNODEFICIENCY;
       items: TItemCheckbox[];
       propertyName: string;
-      showPnts: null;
+      showPnts: boolean;
     };
 
 type TProps = TCommonProps & TFieldTypeProps;
