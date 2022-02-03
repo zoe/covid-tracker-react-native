@@ -49,7 +49,7 @@ export default function ThankYouUKScreen(props: IProps) {
         dispatch(appActions.setModalMentalHealthPlaybackVisible(true));
         return;
       }
-      if (startupInfo?.show_study_hub_onboarding) {
+      if (startupInfo?.show_study_hub_onboarding && startupInfo?.wider_health_studies_consent) {
         setTimeout(() => {
           NavigatorService.goBack();
           NavigatorService.jumpTo('StudiesList');
