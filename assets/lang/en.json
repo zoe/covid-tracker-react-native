@@ -5,10 +5,12 @@
   "company-name": "ZOE",
   "continue": "Continue",
   "done": "Done",
+  "hours": "Hours",
   "information-correct": "This information is correct",
   "less": "Less",
   "loading": "Loading",
   "log-in": "Log in",
+  "minutes": "Minutes",
   "more": "More",
   "more-details": "More details",
   "new": "New",
@@ -1799,8 +1801,10 @@
     "result-success": "Successfully authenticated"
   },
   "health-profile": {
+    "tooltip": "Please make sure your answers are up to date before proceeding",
     "save-exit": "Save & Exit",
     "why-we-ask-this": "Why are we asking this",
+    "continue": "Continue",
     "intro-modal": {
       "tim-spector": "Prof. Tim Spector",
       "title": "Is your health information correct?",
@@ -1808,6 +1812,16 @@
       "time": "Approx 5 mins",
       "button": "Update now",
       "remind-me": "Remind me later"
+    },
+    "confirm-save-exit-modal": {
+      "title": "Are you sure you want to exit?",
+      "description": "Your answers will be saved. You can return at any time from the *Home* screen and finish where you left off.",
+      "button": "Yes, save and exit",
+      "dismiss": "Dismiss"
+    },
+    "why-we-ask-modal": {
+      "title": "Support science and build a unique Health Profile",
+      "description": "These questions are designed to build your unique health profile, an upcoming feature that will empower you to understand and improve your personal health. \n\nWe ask detailed questions to uncover any factors we need to consider when building your profile."
     },
     "thank-you": {
       "title": "Thank you!",
@@ -1818,8 +1832,12 @@
     "reminder-card": {
       "title": "Finish where you left off",
       "tag": "Health profile",
-      "completion-percent": "{{percent}}%",
-      "continue": "Continue"
+      "completion-percent": "{{percent}}%"
+    },
+    "reminder-modal": {
+      "title": "Finish where you left off",
+      "tag": "Health profile",
+      "description": "You are only a few minutes away from completing your Health Profile questionnaire."
     }
   }
 }

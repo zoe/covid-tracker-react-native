@@ -1,13 +1,16 @@
 import { LabelText, LightText, Text } from '@covid/components';
-import { BackButton } from '@covid/components/BackButton';
 import { BrandedButton } from '@covid/components/buttons';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Screen } from '@covid/components/Screen';
+import { HealthProfileFormBackButton } from '@covid/features/health-profile/components/HealthProfileFormBackButton';
+import { Tooltip } from '@covid/features/health-profile/components/Tooltip';
+import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
+import { HealthProfileWhyWeAskModal } from '@covid/features/health-profile/modals/HealthProfileWhyWeAskModal';
 import i18n from '@covid/locale/i18n';
 import { sizes, styling } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface IProps {
   buttonEnabled: boolean;
@@ -16,27 +19,35 @@ interface IProps {
   children?: React.ReactNode;
   currentStep: number;
   description: string | null;
+  hideWhyWeAskLink?: boolean;
   maxSteps: number;
   noBackButton?: boolean;
-  hideWhyWeAskLink?: boolean;
+  previousScreen: THPScreenName | 'HPAboutYou' | 'DashboardUK';
+  saveExitOnPress: () => void;
+  showTooltip?: boolean;
   testID: string;
   title: string;
 }
 
 export default function HealthProfileScreen(props: IProps) {
+  const [showWhyWeAskModal, setShowWhyWeAskModal] = React.useState<boolean>(false);
+
   function renderHeader() {
     return (
       <View style={styles.bottomDropShadow}>
         <View style={[styles.headerWrapper, styling.shadow]}>
-          <View style={styles.flex}>{props.noBackButton ? null : <BackButton />}</View>
+          <View style={styles.flex}>
+            {props.noBackButton ? null : <HealthProfileFormBackButton previousScreen={props.previousScreen} />}
+          </View>
           <View style={styles.flex}>
             <LabelText style={styles.center}>
               {props.currentStep} / {props.maxSteps}
             </LabelText>
           </View>
           <View style={styles.flex}>
-            {/* TODO: Add onPress handler */}
-            <LightText style={styles.right}>{i18n.t('health-profile.save-exit')}</LightText>
+            <TouchableOpacity onPress={props.saveExitOnPress}>
+              <LightText style={styles.right}>{i18n.t('health-profile.save-exit')}</LightText>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -47,6 +58,7 @@ export default function HealthProfileScreen(props: IProps) {
     return (
       <View style={styles.topDropShadow}>
         <View style={[styles.footerWrapper, styling.shadow]}>
+          {props.showTooltip ? <Tooltip /> : null}
           <BrandedButton
             enabled={props.buttonEnabled}
             onPress={props.buttonOnPress}
@@ -61,37 +73,42 @@ export default function HealthProfileScreen(props: IProps) {
   }
 
   return (
-    <Screen
-      noPadding
-      backgroundColor={colors.backgroundPrimary}
-      renderFooter={renderFooter}
-      renderHeader={renderHeader}
-      testID={props.testID}
-    >
-      <View style={styles.screenPadding}>
-        <ProgressStatus currentStep={props.currentStep} height={8} maxSteps={props.maxSteps} />
+    <>
+      <HealthProfileWhyWeAskModal onRequestClose={() => setShowWhyWeAskModal(false)} visible={showWhyWeAskModal} />
+      <Screen
+        noPadding
+        backgroundColor={colors.backgroundPrimary}
+        renderFooter={renderFooter}
+        renderHeader={renderHeader}
+        testID={props.testID}
+      >
+        <View style={styles.screenPadding}>
+          <ProgressStatus currentStep={props.currentStep} height={8} maxSteps={props.maxSteps} />
 
-        <Text style={styles.title} textClass="h3Light">
-          {props.title}
-        </Text>
+          <Text style={styles.title} textClass="h3Light">
+            {props.title}
+          </Text>
 
-        <View style={styles.marginBottom}>
-          {props.description ? (
-            <Text style={styles.fontSecondary} textClass="pSmall">
-              {props.description}
-            </Text>
-          ) : null}
+          <View style={styles.marginBottom}>
+            {props.description ? (
+              <Text style={styles.fontSecondary} textClass="pSmall">
+                {props.description}
+              </Text>
+            ) : null}
 
-          {props.hideWhyWeAskLink ? null : (
-            <Text style={styles.fontSecondary} textClass="pSmall" textDecorationLine="underline">
-              {i18n.t('health-profile.why-we-ask-this')}
-            </Text>
-          )}
+            {props.hideWhyWeAskLink ? null : (
+              <TouchableOpacity onPress={() => setShowWhyWeAskModal(true)}>
+                <Text style={styles.fontSecondary} textClass="pSmall" textDecorationLine="underline">
+                  {i18n.t('health-profile.why-we-ask-this')}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+
+          {props.children}
         </View>
-
-        {props.children}
-      </View>
-    </Screen>
+      </Screen>
+    </>
   );
 }
 
@@ -141,7 +158,6 @@ const styles = StyleSheet.create({
     marginTop: sizes.l,
   },
   topDropShadow: {
-    overflow: 'hidden',
     paddingTop: sizes.m,
   },
   underline: {

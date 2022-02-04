@@ -32,8 +32,8 @@ export default function HealthProfileIntroModal(props: TProps) {
   };
 
   const closeModalAndUpdateHealthProfile = () => {
+    Analytics.track(events.HEALTH_PROFILE_INTRO_MODAL_UPDATE_NOW_CLICKED);
     props.onRequestClose();
-    Analytics.track(events.HEALTH_PROFILE_INTRO_MODAL_REMIND_LATER_CLICKED);
     NavigatorService.navigate('HPAboutYou');
   };
 

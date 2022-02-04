@@ -31,19 +31,26 @@ export function MultiSelectField(props: IProps) {
           key={item.name}
           onChange={(checked: boolean) => {
             let answersArray =
-              props.selectedValue === '' || props.selectedValue === undefined ? [] : props.selectedValue.split(','); // TODO: need to manage this in Redux
-            if (checked) {
+              props.selectedValue === '' || props.selectedValue === undefined ? [] : props.selectedValue.split(',');
+
+            if (checked && item.name.includes('pfnts')) {
+              answersArray = [item.name];
+            } else if (checked) {
               answersArray.push(item.name);
+              answersArray = answersArray.filter((val) => !val.includes('pfnts'));
             } else {
               answersArray = answersArray.filter((val) => val !== item.name);
             }
-            props.formikProps.setFieldValue(item.name, checked);
+
+            props.items.forEach((option) => {
+              props.formikProps.setFieldValue(option.name, answersArray.includes(option.name));
+            });
 
             if (props.propertyName) {
               props.formikProps.setFieldValue(props.propertyName, answersArray.join(','));
             }
           }}
-          testID={`checkbox-${item.testID}`}
+          testID={`checkbox-${props.propertyName}-${item.testID}`}
           value={props.formikProps.values[item.name]}
         >
           {item.label}

@@ -11,6 +11,7 @@ import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { fetchLocalTrendline, fetchNewlySymptomaticData, updateTodayDate } from '@covid/core/state/content/slice';
+import { TStateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -53,6 +54,7 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     (state) => state.school.joinedSchoolGroups,
   );
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
+  const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
   const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
   const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
   const startReconsent = useStartReconsent();
@@ -129,8 +131,16 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
             />
           ) : null}
 
-          {/* TODO: Fix show logic once backend completed */}
-          {startupInfo?.is_tester ? <HealthProfileReminderCard /> : null}
+          {healthProfileState.dateOfLastUpdate &&
+          healthProfileState.progressPercent < 100 &&
+          healthProfileState.screenToReturnTo !== 'HPThankYou' ? (
+            <HealthProfileReminderCard
+              maxSteps={healthProfileState.maxSteps}
+              progressPercent={healthProfileState.progressPercent}
+              screenToReturnTo={healthProfileState.screenToReturnTo}
+              stepsCompleted={healthProfileState.stepsCompleted}
+            />
+          ) : null}
 
           <NewlySymptomaticCard />
 

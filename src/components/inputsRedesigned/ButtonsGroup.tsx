@@ -3,6 +3,10 @@ import { requiredFormMarker } from '@covid/components/Form';
 import { SelectableButton } from '@covid/components/SelectableButton';
 import { FieldLabelRedesigned } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
+import {
+  PNTS_VALUE_TO_SAVE_IN_DB,
+  TEXT_INPUT_PNTS_LABEL,
+} from '@covid/features/health-profile/utils/healthProfileUtils';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
@@ -77,12 +81,12 @@ export function ButtonsGroup({
         ))}
       </View>
       {showPnts ? (
-        <TouchableOpacity onPress={() => onSelect('pnts')}>
+        <TouchableOpacity onPress={() => onSelect(PNTS_VALUE_TO_SAVE_IN_DB)}>
           <Text
-            style={[styles.center, selected === 'pnts' ? styles.selected : styles.notSelected]}
+            style={[styles.center, selected === PNTS_VALUE_TO_SAVE_IN_DB ? styles.selected : styles.notSelected]}
             textClass="pSmallMedium"
           >
-            Prefer not to say
+            {TEXT_INPUT_PNTS_LABEL}
           </Text>
         </TouchableOpacity>
       ) : null}

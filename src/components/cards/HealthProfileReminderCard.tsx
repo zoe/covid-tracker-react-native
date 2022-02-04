@@ -3,6 +3,7 @@ import { Tag } from '@covid/components';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Text } from '@covid/components/typography';
 import Analytics, { events } from '@covid/core/Analytics';
+import { THealthProfileScreenNames } from '@covid/core/state/health-profile/slice';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { colors, sizes } from '@covid/themes';
@@ -64,11 +65,21 @@ const HealthProfileReminderIllustration = () => {
   );
 };
 
-export default function HealthProfileReminderCard() {
+interface IProps {
+  maxSteps: number;
+  progressPercent: number;
+  screenToReturnTo: THealthProfileScreenNames;
+  stepsCompleted: number;
+}
+
+export default function HealthProfileReminderCard(props: IProps) {
   const onPress = () => {
     Analytics.track(events.HEALTH_PROFILE_DASHBOARD_REMINDER_CARD_CLICKED);
-    // TODO: Send to right screen
-    NavigatorService.navigate('HPAboutYou');
+    if (props.screenToReturnTo === 'HPAboutYou') {
+      NavigatorService.navigate('HPAboutYou');
+    } else {
+      NavigatorService.navigate('HPFormScreen', { screenName: props.screenToReturnTo });
+    }
   };
 
   return (
@@ -80,26 +91,24 @@ export default function HealthProfileReminderCard() {
       <Text textClass="h4">{i18n.t('health-profile.reminder-card.title')}</Text>
       <View style={[styles.row, styles.completion]}>
         <Text inverted colorPalette="actionPrimary" colorShade="main" textClass="h1Medium">
-          {/* TODO: Substitute percentage */}
-          {i18n.t('health-profile.reminder-card.completion-percent', { percent: '65' })}
+          {i18n.t('health-profile.reminder-card.completion-percent', { percent: props.progressPercent })}
         </Text>
         <Text inverted colorPalette="uiDark" colorShade="dark" style={styles.done}>
           {i18n.t('done')}
         </Text>
       </View>
-      {/* TODO: Substitute percentage */}
       <ProgressStatus
         borderRadius={sizes.xs}
         color={brandColors.brand}
-        currentStep={1}
+        currentStep={props.stepsCompleted}
         height={12}
-        maxSteps={4}
+        maxSteps={props.maxSteps}
         style={styles.progress}
       />
       <View style={[styles.continue, styles.row]}>
         <RightArrow />
         <Text inverted colorPalette="actionSecondary" colorShade="main" style={styles.marginLeft} textClass="pMedium">
-          {i18n.t('health-profile.reminder-card.continue')}
+          {i18n.t('health-profile.continue')}
         </Text>
       </View>
     </TouchableOpacity>

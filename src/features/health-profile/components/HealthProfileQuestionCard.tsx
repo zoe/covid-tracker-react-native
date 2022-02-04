@@ -1,10 +1,12 @@
 import { Card, Tag } from '@covid/components';
+import { TimeField } from '@covid/components/inputs/TimeField';
 import { FormFieldPlayback } from '@covid/components/inputsRedesigned/FormFieldPlayback';
 import { GenericTextField } from '@covid/components/inputsRedesigned/GenericTextField';
 import { MultiSelectField, TItemCheckbox } from '@covid/components/inputsRedesigned/MultiSelectField';
 import { RadioInput } from '@covid/components/inputsRedesigned/RadioInput';
 import { YesNoField } from '@covid/components/inputsRedesigned/YesNoField';
 import { HeightQuestion, IHeightData } from '@covid/features/patient/fields/HeightQuestion';
+import { ImmunodeficiencyQuestion } from '@covid/features/patient/fields/ImmunodeficiencyQuestion';
 import { IWeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -14,13 +16,21 @@ import * as React from 'react';
 import { KeyboardType, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 export enum EFieldType {
-  YESNO = 'YesNo',
-  TEXT = 'Text',
-  MULTISELECT = 'MultiSelect',
-  RADIO = 'Radio',
-  WEIGHT = 'Weight',
   HEIGHT = 'Height',
+  IMMUNODEFICIENCY = 'Immunodeficiency',
+  MULTISELECT = 'MultiSelect',
   POSTCODE = 'Postcode',
+  RADIO = 'Radio',
+  TEXT = 'Text',
+  TIME = 'Time',
+  WEIGHT = 'Weight',
+  YESNO = 'YesNo',
+}
+
+export enum EHealthProfileQuestionCardStatus {
+  EDIT_ANSWER = 'editAnswer',
+  NOT_ANSWERED = 'notAnswered',
+  PLAYBACK = 'playback',
 }
 
 export type TItemRadio = {
@@ -33,7 +43,7 @@ type TCommonProps = {
   editOnPress: () => void;
   formikProps: FormikProps<any>;
   isEditing: boolean;
-  keyboardType: KeyboardType | null;
+  keyboardType?: KeyboardType;
   label: string;
   new: boolean;
   placeholder: string | null;
@@ -46,36 +56,54 @@ type TFieldTypeProps =
       fieldType: EFieldType.RADIO;
       items: TItemRadio[];
       propertyName: string;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.YESNO;
       items: null;
       propertyName: string;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.TEXT;
       items: null;
       propertyName: string;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.MULTISELECT;
       items: TItemCheckbox[];
       propertyName: string;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.WEIGHT;
       items: null;
       propertyName: null;
+      showPnts: boolean;
+    }
+  | {
+      fieldType: EFieldType.TIME;
+      items: null;
+      propertyName: string;
     }
   | {
       fieldType: EFieldType.HEIGHT;
       items: null;
       propertyName: null;
+      showPnts: boolean;
     }
   | {
       fieldType: EFieldType.POSTCODE;
       items: null;
       propertyName: string;
+      showPnts: boolean;
+    }
+  | {
+      fieldType: EFieldType.IMMUNODEFICIENCY;
+      items: TItemCheckbox[];
+      propertyName: string;
+      showPnts: boolean;
     };
 
 type TProps = TCommonProps & TFieldTypeProps;
@@ -83,6 +111,34 @@ type TProps = TCommonProps & TFieldTypeProps;
 export default function HealthProfileQuestionCard(props: TProps) {
   function renderField() {
     switch (props.fieldType) {
+      case EFieldType.TIME:
+        if (props.isEditing) {
+          return (
+            <TimeField
+              required
+              label={props.label}
+              onValueChange={props.formikProps.handleChange(props.propertyName)}
+              testID={props.testID}
+              value={props.formikProps.values[props.propertyName]}
+            />
+          );
+        }
+        let value = Number.parseInt(props.formikProps.values[props.propertyName], 10);
+        if (Number.isNaN(value) || value < 0) {
+          value = 0;
+        }
+        const hours = Math.floor(value / 60);
+        const minutes = value % 60;
+        const playbackValue = `${hours}hrs ${minutes}min`;
+        return (
+          <FormFieldPlayback
+            required
+            editOnPress={props.editOnPress}
+            label={props.label}
+            playbackValue={playbackValue}
+            testID={props.testID}
+          />
+        );
       case EFieldType.YESNO:
         return (
           <YesNoField
@@ -93,6 +149,7 @@ export default function HealthProfileQuestionCard(props: TProps) {
             label={props.label}
             onValueChange={props.formikProps.handleChange(props.propertyName)}
             selectedValue={props.formikProps.values[props.propertyName]}
+            showPnts={props.showPnts}
             testID={props.testID}
           />
         );
@@ -100,12 +157,14 @@ export default function HealthProfileQuestionCard(props: TProps) {
         return props.isEditing ? (
           <GenericTextField
             required
-            showError
+            // If we want to show errors immediately, uncomment below
+            // showError
             formikProps={props.formikProps}
             keyboardType={props.keyboardType || 'default'}
             label={props.label}
             name={props.propertyName}
             placeholder={props.placeholder || ''}
+            showPnts={props.showPnts}
             testID={props.testID}
           />
         ) : (
@@ -226,6 +285,30 @@ export default function HealthProfileQuestionCard(props: TProps) {
             editOnPress={props.editOnPress}
             label={props.label}
             playbackValue={props.formikProps.values[props.propertyName]}
+            testID={props.testID}
+          />
+        );
+      case EFieldType.IMMUNODEFICIENCY:
+        return props.isEditing ? (
+          <ImmunodeficiencyQuestion
+            formikProps={props.formikProps}
+            items={props.items}
+            label={props.label}
+            propertyName={props.propertyName}
+            selectedValue={props.formikProps.values[props.propertyName]}
+          />
+        ) : (
+          <FormFieldPlayback
+            multiSelect
+            required
+            description={props.description}
+            editOnPress={props.editOnPress}
+            label={props.label}
+            playbackValues={
+              props.items
+                .filter((item) => props.formikProps.values[item.name] === true)
+                .map((answer) => answer.label) || ''
+            }
             testID={props.testID}
           />
         );

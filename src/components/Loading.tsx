@@ -4,7 +4,7 @@ import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { ActivityIndicator, Modal, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Modal, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { ErrorText, RegularText } from './Text';
 
@@ -13,6 +13,7 @@ type TProps = {
   status?: string;
   onRetry?: () => void;
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
 const ErrorMessaging = ({ error, status, onRetry, onPress }: TProps) => {
@@ -46,7 +47,7 @@ const ErrorMessaging = ({ error, status, onRetry, onPress }: TProps) => {
 
 export const Loading = (props: TProps) => {
   return (
-    <View style={styles.loadingView}>
+    <View style={[styles.loadingView, props.style]}>
       {props.error ? (
         <ErrorMessaging {...props} />
       ) : (

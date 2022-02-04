@@ -8,6 +8,7 @@ export const colors = {
   transparentBrand: '#02436433',
 
   primary: '#24262B',
+  primaryTransparent: '#24262BCC',
   secondary: '#565A5C',
   tertiary: '#888B8C',
   quaternary: '#AAACAD',

@@ -5,10 +5,12 @@
   "company-name": "ZOE",
   "continue": "Continue",
   "done": "Klar",
+  "hours": false,
   "information-correct": "Informationen är korrekt",
   "less": "Less",
   "loading": "Loading",
   "log-in": "Logga in",
+  "minutes": false,
   "more": "More",
   "more-details": "More details",
   "new": "Ny",
@@ -1803,8 +1805,10 @@
     "result-success": false
   },
   "health-profile": {
+    "tooltip": false,
     "save-exit": false,
     "why-we-ask-this": false,
+    "continue": false,
     "intro-modal": {
       "tim-spector": false,
       "title": false,
@@ -1812,6 +1816,16 @@
       "time": false,
       "button": false,
       "remind-me": false
+    },
+    "confirm-save-exit-modal": {
+      "title": false,
+      "description": false,
+      "button": false,
+      "dismiss": false
+    },
+    "why-we-ask-modal": {
+      "title": false,
+      "description": false
     },
     "thank-you": {
       "title": false,
@@ -1822,8 +1836,12 @@
     "reminder-card": {
       "title": false,
       "tag": false,
-      "completion-percent": false,
-      "continue": false
+      "completion-percent": false
+    },
+    "reminder-modal": {
+      "title": false,
+      "tag": false,
+      "description": false
     }
   }
 }

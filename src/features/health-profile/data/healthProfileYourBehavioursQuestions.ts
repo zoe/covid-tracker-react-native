@@ -1,0 +1,77 @@
+import { EFieldType } from '@covid/features/health-profile/components/HealthProfileQuestionCard';
+import { THealthProfileScreens } from '@covid/features/health-profile/data/healthProfileQuestions';
+
+export const healthProfileYourBehavioursQuestions: Partial<THealthProfileScreens> = {
+  YOUR_BEHAVIOURS: {
+    description: null,
+    hideWhyWeAskLink: false,
+    questions: [
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.RADIO,
+        items: [
+          { label: 'Less than once a week', value: 'less_than_once' },
+          { label: 'Once a week', value: 'once' },
+          { label: 'Twice a week', value: 'twice' },
+          { label: 'Three to four times a week', value: 'three_or_four' },
+          { label: 'Five or more', value: 'five_or_more' },
+        ],
+        placeholder: null,
+        pnts: false,
+        propertyName: 'physical_activity_frequency',
+        question:
+          'How frequently have you typically engaged in physical activity that raises your heart rate and lasts for 20 minutes at a time?',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.TIME,
+        items: null,
+        maxValue: 19 * 60, // 19 hours is the max value
+        minValue: 0,
+        placeholder: null,
+        pnts: false,
+        propertyName: 'minutes_sleep_week_nights',
+        question: 'How long did you usually sleep for on week nights (Sunday to Thursday)?',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.TIME,
+        items: null,
+        maxValue: 19 * 60, // 19 hours is the max value
+        minValue: 0,
+        placeholder: null,
+        pnts: false,
+        propertyName: 'minutes_sleep_weekend_nights',
+        question: 'How long did you usually sleep for on weekend nights (Friday to Saturday)?',
+        required: true,
+        showNewTag: false,
+      },
+      {
+        dependsOnProperty: null,
+        dependsOnPropertyValue: null,
+        description: null,
+        fieldType: EFieldType.YESNO,
+        items: null,
+        placeholder: null,
+        pnts: false,
+        propertyName: 'works_shifts_outside_regular_hours',
+        question: 'Do you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?',
+        required: true,
+        showNewTag: false,
+      },
+    ],
+    screenName: 'HPYourBehaviours',
+    testID: 'health-profile-your-behaviours-screen',
+    title: 'Your Behaviours',
+  },
+};
