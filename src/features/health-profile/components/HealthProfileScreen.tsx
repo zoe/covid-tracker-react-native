@@ -3,6 +3,7 @@ import { BrandedButton } from '@covid/components/buttons';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Screen } from '@covid/components/Screen';
 import { HealthProfileFormBackButton } from '@covid/features/health-profile/components/HealthProfileFormBackButton';
+import { Tooltip } from '@covid/features/health-profile/components/Tooltip';
 import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
 import { HealthProfileWhyWeAskModal } from '@covid/features/health-profile/modals/HealthProfileWhyWeAskModal';
 import i18n from '@covid/locale/i18n';
@@ -23,6 +24,7 @@ interface IProps {
   noBackButton?: boolean;
   previousScreen: THPScreenName | 'HPAboutYou' | 'DashboardUK';
   saveExitOnPress: () => void;
+  showTooltip?: boolean;
   testID: string;
   title: string;
 }
@@ -56,6 +58,7 @@ export default function HealthProfileScreen(props: IProps) {
     return (
       <View style={styles.topDropShadow}>
         <View style={[styles.footerWrapper, styling.shadow]}>
+          {props.showTooltip ? <Tooltip /> : null}
           <BrandedButton
             enabled={props.buttonEnabled}
             onPress={props.buttonOnPress}
@@ -155,7 +158,6 @@ const styles = StyleSheet.create({
     marginTop: sizes.l,
   },
   topDropShadow: {
-    overflow: 'hidden',
     paddingTop: sizes.m,
   },
   underline: {

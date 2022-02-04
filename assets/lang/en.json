@@ -1801,6 +1801,7 @@
     "result-success": "Successfully authenticated"
   },
   "health-profile": {
+    "tooltip": "Please make sure your answers are up to date before proceeding",
     "save-exit": "Save & Exit",
     "why-we-ask-this": "Why are we asking this",
     "continue": "Continue",

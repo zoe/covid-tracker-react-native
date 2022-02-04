@@ -6,6 +6,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import {
   fetchExistingHealthProfile,
   THealthProfileScreenNames,
+  updateHasSeenAboutYouTooltip,
   updateHealthProfile,
   updateHealthProfileProgress,
 } from '@covid/core/state/health-profile/slice';
@@ -49,12 +50,16 @@ export default function HPAboutYouScreen() {
 
   const savedAnswers = useSelector<TRootState, Partial<THealthProfileRequest>>((state) => state.healthProfile.answers);
   const savedProgressPercent = useSelector<TRootState, number>((state) => state.healthProfile.progressPercent);
+  const hasSeenAboutYouTooltip = useSelector<TRootState, boolean>(
+    (state) => state.healthProfile.hasSeenAboutYouTooltip,
+  );
 
   const [submitting, setSubmitting] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
   const [loadingData, setLoadingData] = React.useState<boolean>(false);
   const [loadingDataError, setLoadingDataError] = React.useState<string>('Loading your existing profile');
   const [showConfirmExitModal, setShowConfirmExitModal] = React.useState<boolean>(false);
+  const [showTooltip, setShowTooltip] = React.useState<boolean>(false);
 
   const isFemale = savedAnswers.gender === 0 || savedAnswers.gender_identity === 'female';
   const maxSteps = isFemale ? MAX_STEPS_FEMALE : MAX_STEPS_MALE;
@@ -235,10 +240,16 @@ export default function HPAboutYouScreen() {
 
   const onSubmit = React.useCallback(
     async (formData) => {
-      saveToRedux(formData, 'HPFamilyHistory', 1);
-      NavigatorService.push('HPFormScreen', { screenName: 'HPFamilyHistory' });
+      if (!hasSeenAboutYouTooltip && !showTooltip) {
+        setShowTooltip(true);
+      } else {
+        setShowTooltip(false);
+        dispatch(updateHasSeenAboutYouTooltip(true));
+        saveToRedux(formData, 'HPFamilyHistory', 1);
+        NavigatorService.push('HPFormScreen', { screenName: 'HPFamilyHistory' });
+      }
     },
-    [saveToRedux],
+    [saveToRedux, hasSeenAboutYouTooltip, showTooltip],
   );
 
   const saveExitOnPress = (formData: IHealthProfileFormData) => {
@@ -286,6 +297,7 @@ export default function HPAboutYouScreen() {
               maxSteps={maxSteps}
               previousScreen="DashboardUK"
               saveExitOnPress={() => saveExitOnPress(formikProps.values)}
+              showTooltip={showTooltip}
               testID={healthProfileScreens.ABOUT_YOU.testID}
               title={healthProfileScreens.ABOUT_YOU.title}
             >

@@ -1805,6 +1805,7 @@
     "result-success": false
   },
   "health-profile": {
+    "tooltip": false,
     "save-exit": false,
     "why-we-ask-this": false,
     "continue": false,
