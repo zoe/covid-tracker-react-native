@@ -137,9 +137,10 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
         showNewTag: false,
       },
       {
-        dependsOnProperty: null,
+        dependsOnProperty: 'prior_womens_health_diagnosis_multiselect',
         dependsOnPropertyValue: null,
         description: null,
+        doesNotHavePropertyValue: ['prior_wh_hysterectomy'],
         fieldType: EFieldType.RADIO,
         items: [
           { label: "No, I've never had periods", value: 'never' },
@@ -197,7 +198,6 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
             testID: 'menopausal_symptom_vaginal_dryness',
           },
           { label: 'Hot flashes', name: 'menopausal_symptom_hot_flashes', testID: 'menopausal_symptom_hot_flashes' },
-          { label: 'Hair thinning', name: 'menopausal_symptom_chills', testID: 'menopausal_symptom_chills' },
           {
             label: 'Chills',
             name: 'menopausal_symptom_chills',
@@ -229,7 +229,7 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
             testID: 'menopausal_symptom_thinning_hair_and_dry_skin',
           },
           {
-            label: 'Lost of breast fullness',
+            label: 'Loss of breast fullness',
             name: 'menopausal_symptom_loss_of_breast_fullness',
             testID: 'menopausal_symptom_loss_of_breast_fullness',
           },
@@ -315,9 +315,10 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
         showNewTag: false,
       },
       {
-        dependsOnProperty: null,
+        dependsOnProperty: 'hormone_treatment_multiselect',
         dependsOnPropertyValue: null,
         description: null,
+        doesNotHavePropertyValue: ['taking_hormone_treatment_none', 'taking_hormone_treatment_pfnts'],
         fieldType: EFieldType.TEXT,
         items: null,
         keyboardType: 'numeric',

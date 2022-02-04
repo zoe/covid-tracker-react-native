@@ -179,10 +179,70 @@ export default function HPFormScreen({ route }: TProps) {
         if (!question.propertyName) {
           return;
         }
+
         if (question.dependsOnProperty && question.dependsOnPropertyValue) {
           validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
-            is: (answer) => question.dependsOnPropertyValue!.includes(answer),
-            then: Yup.string().required(),
+            is: (answer) => {
+              // This convoluted validation is needed to account for multiselect fields where we combine the answers into a comma separated string
+              if (answer) {
+                return (
+                  answer
+                    .split(',')
+                    .filter((singleAnswer: string) => question.dependsOnPropertyValue!.includes(singleAnswer)).length >
+                  0
+                );
+              }
+              return false;
+            },
+            then: Yup.string()
+              .required()
+              .test(question.propertyName, 'The test is not valid', (value) => {
+                let valid = true;
+
+                if (value !== TEXT_INPUT_PNTS_LABEL) {
+                  if (question.minValue || question.minValue === 0) {
+                    valid = valid && Number.parseInt(value, 10) >= question.minValue;
+                  }
+
+                  if (question.maxValue || question.maxValue === 0) {
+                    valid = valid && Number.parseInt(value, 10) <= question.maxValue;
+                  }
+                }
+
+                return valid;
+              }),
+          });
+        } else if (question.dependsOnProperty && question.doesNotHavePropertyValue) {
+          validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
+            is: (answer) => {
+              // This convoluted validation is needed to account for multiselect fields where we combine the answers into a comma separated string
+              if (answer) {
+                return (
+                  answer
+                    .split(',')
+                    .filter((singleAnswer: string) => question.doesNotHavePropertyValue!.includes(singleAnswer))
+                    .length === 0
+                );
+              }
+              return false;
+            },
+            then: Yup.string()
+              .required()
+              .test(question.propertyName, 'The test is not valid', (value) => {
+                let valid = true;
+
+                if (value !== TEXT_INPUT_PNTS_LABEL) {
+                  if (question.minValue || question.minValue === 0) {
+                    valid = valid && Number.parseInt(value, 10) >= question.minValue;
+                  }
+
+                  if (question.maxValue || question.maxValue === 0) {
+                    valid = valid && Number.parseInt(value, 10) <= question.maxValue;
+                  }
+                }
+
+                return valid;
+              }),
           });
         } else {
           validationObject[question.propertyName] = Yup.string()
@@ -205,7 +265,7 @@ export default function HPFormScreen({ route }: TProps) {
         }
 
         // Custom field validations
-        validationObject.has_prior_immunodeficiency_diagnosis_other = Yup.string().when(
+        validationObject.prior_immunodeficiency_diagnosis_other = Yup.string().when(
           'prior_immunodeficiency_diagnosis_multiselect',
           {
             is: (answer) => !!answer && answer.includes('other'),
@@ -337,7 +397,22 @@ export default function HPFormScreen({ route }: TProps) {
                       if (
                         question.dependsOnProperty &&
                         formikProps.values[question.dependsOnProperty] &&
-                        question.dependsOnPropertyValue?.includes(formikProps.values[question.dependsOnProperty])
+                        question.dependsOnPropertyValue &&
+                        // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                        formikProps.values[question.dependsOnProperty]
+                          .split(',')
+                          .filter((answer) => question.dependsOnPropertyValue!.includes(answer)).length > 0
+                      ) {
+                        return true;
+                      }
+                      if (
+                        question.dependsOnProperty &&
+                        formikProps.values[question.dependsOnProperty] &&
+                        question.doesNotHavePropertyValue &&
+                        // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                        formikProps.values[question.dependsOnProperty]
+                          .split(',')
+                          .filter((answer) => question.doesNotHavePropertyValue!.includes(answer)).length === 0
                       ) {
                         return true;
                       }

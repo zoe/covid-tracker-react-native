@@ -2,7 +2,6 @@ import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { EHealthProfileQuestionCardStatus } from '@covid/features/health-profile/components/HealthProfileQuestionCard';
 import {
   IHealthProfileFormData,
-  MULTI_SELECT_PROPERTY_NAMES,
   THealthProfilePropertyName,
 } from '@covid/features/health-profile/data/healthProfileQuestions';
 import i18n from '@covid/locale/i18n';
@@ -64,7 +63,7 @@ export const validationSchemaHPAboutYou = Yup.object().shape({
     then: Yup.number().required(),
   }),
   twin_sex: Yup.string().when('twin_type', {
-    is: 'non-identical',
+    is: 'non_identical',
     then: Yup.string().required(),
   }),
   twin_type: Yup.string().when('is_twin', {
@@ -132,11 +131,6 @@ export const createCompletedHealthProfileDTO = (formData: Partial<IHealthProfile
   }
 
   Object.keys(infos).forEach((key) => {
-    // Multi select property names are only used to track all selected choices so we can play it back - it's not saved in the backend
-    if (MULTI_SELECT_PROPERTY_NAMES.includes(key)) {
-      delete infos[key as THealthProfilePropertyName];
-    }
-
     // This is for condiditional fields that are initialised to empty string, but ultimately not required
     if (infos[key as THealthProfilePropertyName] === '') {
       infos[key as keyof IHealthProfileFormData] = undefined;

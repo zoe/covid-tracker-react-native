@@ -64,6 +64,7 @@ export type THPScreenName = keyof typeof screenMappings;
 interface ICommonProps {
   dependsOnProperty: THealthProfilePropertyName | null;
   dependsOnPropertyValue: (string | boolean | null)[] | null;
+  doesNotHavePropertyValue?: (string | boolean | null)[] | null;
   description: string | null;
   keyboardType?: KeyboardType;
   maxValue?: number;

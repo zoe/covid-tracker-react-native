@@ -333,7 +333,7 @@ export const healthProfileAboutYouQuestions: Partial<THealthProfileScreens> = {
         items: [
           { label: 'Yes, I currently vape', value: 'yes' },
           { label: 'No, I previously vaped', value: 'not_currently' },
-          { label: "No, I've never vaped", value: 'no' },
+          { label: "No, I've never vaped", value: 'never' },
         ],
         placeholder: null,
         pnts: false,

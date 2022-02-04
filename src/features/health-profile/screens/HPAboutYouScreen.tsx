@@ -310,10 +310,26 @@ export default function HPAboutYouScreen() {
                     if (
                       question.dependsOnProperty &&
                       formikProps.values[question.dependsOnProperty] &&
-                      question.dependsOnPropertyValue?.includes(formikProps.values[question.dependsOnProperty])
+                      question.dependsOnPropertyValue &&
+                      // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                      formikProps.values[question.dependsOnProperty]
+                        .split(',')
+                        .filter((answer) => question.dependsOnPropertyValue!.includes(answer)).length > 0
                     ) {
                       return true;
                     }
+                    if (
+                      question.dependsOnProperty &&
+                      formikProps.values[question.dependsOnProperty] &&
+                      question.doesNotHavePropertyValue &&
+                      // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                      formikProps.values[question.dependsOnProperty]
+                        .split(',')
+                        .filter((answer) => question.doesNotHavePropertyValue!.includes(answer)).length === 0
+                    ) {
+                      return true;
+                    }
+
                     return false;
                   };
 
