@@ -120,6 +120,11 @@ type TFieldTypeProps =
       fieldType: EFieldType.IMMUNODEFICIENCY;
       items: TItemCheckbox[];
       propertyName: THealthProfilePropertyName;
+    }
+  | {
+      fieldType: EFieldType.RACE;
+      items: TItemRadio[];
+      propertyName: THealthProfilePropertyName;
     };
 
 type THealthProfileQuestion = TFieldTypeProps & ICommonProps;

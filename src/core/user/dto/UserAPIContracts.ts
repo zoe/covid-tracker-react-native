@@ -595,7 +595,7 @@ export type THealthProfileRequest = {
   prior_immunodeficiency_diagnosis_primary: boolean;
   prior_immunodeficiency_diagnosis_due_to_medication: boolean;
   prior_immunodeficiency_diagnosis_acquired: boolean;
-  prior_immunodeficiency_diagnosis_other_connective_tissue: string;
+  prior_immunodeficiency_diagnosis_other: string;
   prior_immunodeficiency_diagnosis_pfnts: boolean;
 
   // Lungs & Breathing

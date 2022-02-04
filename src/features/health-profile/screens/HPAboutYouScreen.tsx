@@ -173,6 +173,9 @@ export default function HPAboutYouScreen() {
           answersSelected.join(',');
       } else if (question.fieldType === EFieldType.WEIGHT || question.fieldType === EFieldType.HEIGHT) {
         initialFormValuesWithCustomFields = { ...initialFormValuesWithCustomFields, ...getSavedHeightWeightValues() };
+      } else if (question.fieldType === EFieldType.RACE) {
+        initialFormValuesWithCustomFields.race = savedAnswers.race || '';
+        initialFormValuesWithCustomFields.race_other = savedAnswers.race_other || '';
       } else if (question.fieldType === EFieldType.YESNO) {
         if (typeof savedAnswers[question.propertyName as keyof THealthProfileRequest] === 'boolean') {
           initialFormValuesWithCustomFields[question.propertyName as keyof IHealthProfileFormData] = savedAnswers[

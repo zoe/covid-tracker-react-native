@@ -141,8 +141,8 @@ export default function HPFormScreen({ route }: TProps) {
         initialFormValues[question.propertyName as THealthProfilePropertyName] = answersSelected.join(',');
 
         if (question.fieldType === EFieldType.IMMUNODEFICIENCY) {
-          initialFormValues.has_prior_immunodeficiency_diagnosis_other_connective_tissue =
-            savedAnswers.has_prior_immunodeficiency_diagnosis_other_connective_tissue || '';
+          initialFormValues.prior_immunodeficiency_diagnosis_other =
+            savedAnswers.prior_immunodeficiency_diagnosis_other || '';
         }
       } else if (question.fieldType === EFieldType.YESNO) {
         if (typeof savedAnswers[question.propertyName as keyof THealthProfileRequest] === 'boolean') {
@@ -205,8 +205,8 @@ export default function HPFormScreen({ route }: TProps) {
         }
 
         // Custom field validations
-        validationObject.has_prior_immunodeficiency_diagnosis_other_connective_tissue = Yup.string().when(
-          'prior_immunodeficiency_diagnosis',
+        validationObject.has_prior_immunodeficiency_diagnosis_other = Yup.string().when(
+          'prior_immunodeficiency_diagnosis_multiselect',
           {
             is: (answer) => !!answer && answer.includes('other'),
             then: Yup.string().required(),

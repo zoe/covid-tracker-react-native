@@ -62,7 +62,7 @@ export const healthProfileAboutYouQuestions: Partial<THealthProfileScreens> = {
         dependsOnProperty: null,
         dependsOnPropertyValue: null,
         description: null,
-        fieldType: EFieldType.RADIO,
+        fieldType: EFieldType.RACE,
         items: [
           { label: 'English, Welsh, Scottish, Northern Irish, Irish', value: 'british_irish' },
           { label: 'Other white background', value: 'other_white' },

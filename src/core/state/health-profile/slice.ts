@@ -54,10 +54,10 @@ const EXISTING_HEALTH_PROFILE_FIELDS: TExistingHealthProfileFields[] = [
   'mobility_aid',
   'healthcare_professional',
   'is_carer_for_community',
-  // TODO: uncomment when we have the full JSON
-  // 'has_kidney_disease',
-  // 'has_cancer',
-  // 'has_heart_disease',
+  'smoker_status',
+  'has_kidney_disease',
+  'has_cancer',
+  'has_heart_disease',
 ];
 
 export const fetchExistingHealthProfile = createAsyncThunk(

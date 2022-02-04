@@ -50,6 +50,10 @@ export const validationSchemaHPAboutYou = Yup.object().shape({
     then: Yup.number().required(i18n.t('required-weight-in-lb')),
   }),
   race: Yup.string().required(),
+  race_other: Yup.string().when('race', {
+    is: 'other',
+    then: Yup.string().required(),
+  }),
   smoker_quit: Yup.string().when('smoker_status', {
     is: 'not_currently',
     then: Yup.string().required(),

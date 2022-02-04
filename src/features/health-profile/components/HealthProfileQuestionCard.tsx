@@ -7,6 +7,7 @@ import { RadioInput } from '@covid/components/inputsRedesigned/RadioInput';
 import { YesNoField } from '@covid/components/inputsRedesigned/YesNoField';
 import { HeightQuestion, IHeightData } from '@covid/features/patient/fields/HeightQuestion';
 import { ImmunodeficiencyQuestion } from '@covid/features/patient/fields/ImmunodeficiencyQuestion';
+import { RaceQuestion } from '@covid/features/patient/fields/RaceQuestion';
 import { IWeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
@@ -20,6 +21,7 @@ export enum EFieldType {
   IMMUNODEFICIENCY = 'Immunodeficiency',
   MULTISELECT = 'MultiSelect',
   POSTCODE = 'Postcode',
+  RACE = 'Race',
   RADIO = 'Radio',
   TEXT = 'Text',
   TIME = 'Time',
@@ -102,6 +104,12 @@ type TFieldTypeProps =
   | {
       fieldType: EFieldType.IMMUNODEFICIENCY;
       items: TItemCheckbox[];
+      propertyName: string;
+      showPnts: boolean;
+    }
+  | {
+      fieldType: EFieldType.RACE;
+      items: TItemRadio[];
       propertyName: string;
       showPnts: boolean;
     };
@@ -308,6 +316,31 @@ export default function HealthProfileQuestionCard(props: TProps) {
               props.items
                 .filter((item) => props.formikProps.values[item.name] === true)
                 .map((answer) => answer.label) || ''
+            }
+            testID={props.testID}
+          />
+        );
+      case EFieldType.RACE:
+        return props.isEditing ? (
+          <RaceQuestion
+            required
+            description={props.description}
+            // error={(props.formikProps.errors[props.propertyName] as string) || ''}
+            formikProps={props.formikProps}
+            items={props.items}
+            label={props.label}
+            onValueChange={props.formikProps.handleChange(props.propertyName)}
+            selectedValue={props.formikProps.values[props.propertyName]}
+            testID={props.testID}
+          />
+        ) : (
+          <FormFieldPlayback
+            required
+            description={props.description}
+            editOnPress={props.editOnPress}
+            label={props.label}
+            playbackValue={
+              props.items.find((item) => item.value === props.formikProps.values[props.propertyName])?.label || ''
             }
             testID={props.testID}
           />
