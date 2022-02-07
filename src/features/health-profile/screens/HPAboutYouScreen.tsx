@@ -245,9 +245,11 @@ export default function HPAboutYouScreen() {
     async (formData) => {
       if (!hasSeenAboutYouTooltip && !showTooltip) {
         setShowTooltip(true);
+        Analytics.track(events.HEALTH_PROFILE_ABOUT_YOU_BUTTON_TOOLTIP_SEEN);
       } else {
         setShowTooltip(false);
         dispatch(updateHasSeenAboutYouTooltip(true));
+        Analytics.track(events.HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED, { screenName: 'HPAboutYou' });
         saveToRedux(formData, 'HPFamilyHistory', 1);
         NavigatorService.push('HPFormScreen', { screenName: 'HPFamilyHistory' });
       }
@@ -256,7 +258,7 @@ export default function HPAboutYouScreen() {
   );
 
   const saveExitOnPress = (formData: IHealthProfileFormData) => {
-    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
+    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName: 'HPAboutYou' });
     saveToRedux(formData, 'HPAboutYou', 0);
     setShowConfirmExitModal(true);
   };

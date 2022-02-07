@@ -22,7 +22,7 @@ export const healthProfileMentalHealthMoodQuestions: Partial<THealthProfileScree
         pnts: false,
         propertyName: 'recent_little_interest_or_pleasure_doing_things',
         question:
-          'Over the last 2 weeks, how often have you been bothered by the following for: Little interest of pleasure in doing things',
+          'Over the last 2 weeks, how often have you been bothered by the following: Little interest of pleasure in doing things',
         required: true,
         showNewTag: false,
       },
@@ -42,7 +42,7 @@ export const healthProfileMentalHealthMoodQuestions: Partial<THealthProfileScree
         pnts: false,
         propertyName: 'recent_feeling_down_depressed_hopeless',
         question:
-          'Over the last 2 weeks, how often have you been bothered by the following for: Feeling down, depressed or hopeless',
+          'Over the last 2 weeks, how often have you been bothered by the following: Feeling down, depressed or hopeless',
         required: true,
         showNewTag: false,
       },
@@ -62,7 +62,7 @@ export const healthProfileMentalHealthMoodQuestions: Partial<THealthProfileScree
         pnts: false,
         propertyName: 'recent_feeling_nervous_anxious_on_edge',
         question:
-          'Over the last 2 weeks, how often have you been bothered by the following for: Feeling nervous, anxious or on edge',
+          'Over the last 2 weeks, how often have you been bothered by the following: Feeling nervous, anxious or on edge',
         required: true,
         showNewTag: false,
       },
@@ -82,7 +82,7 @@ export const healthProfileMentalHealthMoodQuestions: Partial<THealthProfileScree
         pnts: false,
         propertyName: 'recent_unable_to_stop_or_control_worry',
         question:
-          'Over the last 2 weeks, how often have you been bothered by the following for: Not being able to stop or control worrying',
+          'Over the last 2 weeks, how often have you been bothered by the following: Not being able to stop or control worrying',
         required: true,
         showNewTag: false,
       },

@@ -21,9 +21,9 @@ const HIT_SLOP = {
 export function HealthProfileFormBackButton(props: TProps) {
   const onBackPress = () => {
     if (props.previousScreen === 'HPAboutYou' || props.previousScreen === 'DashboardUK') {
-      NavigatorService.navigate(props.previousScreen);
+      NavigatorService.navigate(props.previousScreen, { navDirection: 'backwards' });
     } else {
-      NavigatorService.push('HPFormScreen', { screenName: props.previousScreen });
+      NavigatorService.push('HPFormScreen', { navDirection: 'backwards', screenName: props.previousScreen });
     }
   };
 

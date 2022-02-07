@@ -16,7 +16,7 @@ export const healthProfileHormonesMetabolismQuestions: Partial<THealthProfileScr
         pnts: true,
         propertyName: 'prior_diabetes_or_prediabetes_diagnosis',
         question:
-          'Has a doctor ever told you that you had/have diabetes or pre-diabetes?This includes diabetes during pregnancy.',
+          'Has a doctor ever told you that you had/have diabetes or pre-diabetes? This includes diabetes during pregnancy.',
         required: true,
         showNewTag: false,
       },

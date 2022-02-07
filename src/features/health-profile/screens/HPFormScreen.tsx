@@ -1,5 +1,6 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
+import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
 import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
 import {
@@ -110,7 +111,11 @@ export default function HPFormScreen({ route }: TProps) {
         }
 
         // If current question and next question is answered, current question should be in playback mode
-        if (!!formikProps.values[nextQuestion] && !!formikProps.values[currentQuestion]) {
+        if (
+          !!formikProps.values[nextQuestion] &&
+          !!formikProps.values[currentQuestion] &&
+          !formikProps.errors[currentQuestion]
+        ) {
           setQuestionsState[currentQuestion](EHealthProfileQuestionCardStatus.PLAYBACK);
         }
       }
@@ -314,6 +319,7 @@ export default function HPFormScreen({ route }: TProps) {
   const onSubmit = React.useCallback(
     async (formData) => {
       saveToRedux(formData, navigator[sectionName].nextScreenName, navigator[sectionName].currentStep);
+      Analytics.track(events.HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED, { screenName });
       if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
         // Might take a while for last screen's form data to be updated to Redux
         const completeForm = { ...savedAnswers, ...formData };
@@ -334,20 +340,9 @@ export default function HPFormScreen({ route }: TProps) {
   );
 
   const saveExitOnPress = async (formData: IHealthProfileFormData) => {
-    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
+    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName });
     saveToRedux(formData, screenName, navigator[sectionName].currentStep - 1);
     setShowConfirmExitModal(true);
-
-    if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
-      try {
-        await healthProfileService.createHealthProfile(
-          patientId,
-          formData as unknown as Partial<THealthProfileRequest>,
-        );
-      } catch {
-        setErrorMessage(i18n.t('something-went-wrong'));
-      }
-    }
     setSubmitting(false);
   };
 
@@ -444,8 +439,7 @@ export default function HPFormScreen({ route }: TProps) {
 
                   <ErrorText>{errorMessage}</ErrorText>
                   {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && formikProps.dirty ? (
-                    // <ValidationError error={i18n.t('validation-error-text')} />
-                    <ErrorText>{Object.keys(formikProps.errors)}</ErrorText>
+                    <ValidationError error={i18n.t('validation-error-text')} />
                   ) : null}
                 </Form>
               </HealthProfileScreen>

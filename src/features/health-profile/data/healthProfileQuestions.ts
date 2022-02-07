@@ -144,7 +144,6 @@ export type THealthProfileScreens = {
 // only used for isEditing logic
 type THeightWeightPropertyName = 'height_field' | 'weight_field';
 
-// TODO: add all multiselect property names
 export const MULTI_SELECT_PROPERTY_NAMES = [
   'prior_immunodeficiency_diagnosis_multiselect',
   'prior_allergy_diagnosis_multiselect',

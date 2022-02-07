@@ -1,14 +1,17 @@
-import { RegularText, Text } from '@covid/components';
+import { ClickableText, RegularText, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import Switch from '@covid/components/Switch';
+import { fetchStartupInfo } from '@covid/core/state';
+import { resetHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { testingModeActions } from '@covid/core/state/testingMode';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -53,6 +56,12 @@ export function TestingModeScreen() {
   const dispatch = useDispatch();
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
+  const onResetHealthProfilePress = () => {
+    dispatch(resetHealthProfile());
+    dispatch(fetchStartupInfo());
+    NavigatorService.navigate('Dashboard');
+  };
+
   return startupInfo ? (
     <Screen backgroundColor={colors.backgroundPrimary} testID="testing-mode-screen">
       <Text rhythm={24} textClass="h3Bold">
@@ -64,6 +73,10 @@ export function TestingModeScreen() {
       <Text rhythm={12} textClass="h5Medium">
         Customisable settings
       </Text>
+      <TouchableOpacity onPress={onResetHealthProfilePress}>
+        <ClickableText style={{ color: colors.brand, marginBottom: sizes.s }}>Clear Health Profile state</ClickableText>
+      </TouchableOpacity>
+
       <View style={{ marginBottom: sizes.xl }}>{renderCustomisableSettings(startupInfo, dispatch)}</View>
       <Text rhythm={12} textClass="h5Medium">
         All settings

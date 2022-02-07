@@ -4,6 +4,7 @@ import DietStudyPlaybackNavigator from '@covid/routes/DietStudyPlaybackNavigator
 import MentalHealthNavigator from '@covid/routes/MentalHealthNavigator';
 import MentalHealthPlaybackNavigator from '@covid/routes/MentalHealthPlaybackNavigator';
 import ReconsentNavigator from '@covid/routes/ReconsentNavigator';
+import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import * as React from 'react';
 import { Platform } from 'react-native';
@@ -19,6 +20,17 @@ const transitionPresets = Platform.OS === 'android' ? TransitionPresets.FadeFrom
 const options = {
   headerShown: false,
   transitionPresets,
+};
+
+const healthProfileFormScreenOptions = (
+  route: RouteProp<TScreenParamList, 'HPAboutYou'> | RouteProp<TScreenParamList, 'HPFormScreen'>,
+) => {
+  const goBackwards = route.params?.navDirection === 'backwards';
+
+  return {
+    ...options,
+    gestureDirection: goBackwards ? 'horizontal-inverted' : 'horizontal',
+  };
 };
 
 export default function MainNavigator() {
@@ -39,8 +51,16 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.CovidTestDetailScreen} name="CovidTestDetail" options={options} />
       <Stack.Screen component={screens.CovidTestListScreen} name="CovidTestList" options={options} />
       <Stack.Screen component={screens.CreateProfileScreen} name="CreateProfile" options={options} />
-      <Stack.Screen component={screens.HPAboutYouScreen} name="HPAboutYou" options={options} />
-      <Stack.Screen component={screens.HPFormScreen} name="HPFormScreen" options={options} />
+      <Stack.Screen
+        component={screens.HPAboutYouScreen}
+        name="HPAboutYou"
+        options={({ route }) => healthProfileFormScreenOptions(route)}
+      />
+      <Stack.Screen
+        component={screens.HPFormScreen}
+        name="HPFormScreen"
+        options={({ route }) => healthProfileFormScreenOptions(route)}
+      />
       <Stack.Screen component={screens.HPThankYouScreen} name="HPThankYou" options={options} />
       <Stack.Screen component={screens.DashboardScreen} name="Dashboard" options={options} />
       <Stack.Screen component={screens.DashboardUSScreen} name="DashboardUS" options={options} />

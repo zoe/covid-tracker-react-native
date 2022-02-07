@@ -159,9 +159,9 @@ export type TScreenParamList = {
   StudyHubOnboarding: undefined;
 
   // Health profile
-  HPAboutYou: undefined;
+  HPAboutYou: { navDirection?: 'backwards' };
   HPThankYou: undefined;
-  HPFormScreen: { screenName: THPScreenName | 'HPThankYou' };
+  HPFormScreen: { screenName: THPScreenName | 'HPThankYou'; navDirection?: 'backwards' };
 
   // Others
   Anniversary: undefined;
