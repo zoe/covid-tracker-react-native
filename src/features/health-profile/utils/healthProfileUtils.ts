@@ -62,8 +62,8 @@ export const validationSchemaHPAboutYou = Yup.object().shape({
     is: 'lbs',
     then: Yup.number().required(),
   }),
-  twin_sex: Yup.string().when('twin_type', {
-    is: 'non_identical',
+  twin_sex: Yup.string().when(['is_twin', 'twin_type'], {
+    is: (is_twin_answer, twin_type_answer) => is_twin_answer === 'yes' && twin_type_answer === 'non_identical',
     then: Yup.string().required(),
   }),
   twin_type: Yup.string().when('is_twin', {

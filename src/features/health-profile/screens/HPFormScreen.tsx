@@ -1,6 +1,5 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
-import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
 import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
 import {
@@ -188,14 +187,15 @@ export default function HPFormScreen({ route }: TProps) {
         if (question.dependsOnProperty && question.dependsOnPropertyValue) {
           validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
             is: (answer) => {
-              // This convoluted validation is needed to account for multiselect fields where we combine the answers into a comma separated string
               if (answer) {
-                return (
-                  answer
-                    .split(',')
-                    .filter((singleAnswer: string) => question.dependsOnPropertyValue!.includes(singleAnswer)).length >
-                  0
-                );
+                // For conditional questions based on a single multiselect option e.g. prior_cardiovascular_diagnosis_heart_attack
+                return typeof answer === 'boolean'
+                  ? question.dependsOnPropertyValue!.includes(answer)
+                  : answer
+                      // Needed to account for multiselect fields where we combine the answers into a comma separated string
+                      .split(',')
+                      .filter((singleAnswer: string) => question.dependsOnPropertyValue!.includes(singleAnswer))
+                      .length > 0;
               }
               return false;
             },
@@ -220,14 +220,15 @@ export default function HPFormScreen({ route }: TProps) {
         } else if (question.dependsOnProperty && question.doesNotHavePropertyValue) {
           validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
             is: (answer) => {
-              // This convoluted validation is needed to account for multiselect fields where we combine the answers into a comma separated string
               if (answer) {
-                return (
-                  answer
-                    .split(',')
-                    .filter((singleAnswer: string) => question.doesNotHavePropertyValue!.includes(singleAnswer))
-                    .length === 0
-                );
+                // For conditional questions based on a single multiselect option e.g. prior_cardiovascular_diagnosis_heart_attack
+                return typeof answer === 'boolean'
+                  ? !question.doesNotHavePropertyValue!.includes(answer)
+                  : answer
+                      // This convoluted validation is needed to account for multiselect fields where we combine the answers into a comma separated string
+                      .split(',')
+                      .filter((singleAnswer: string) => question.doesNotHavePropertyValue!.includes(singleAnswer))
+                      .length === 0;
               }
               return false;
             },
@@ -271,9 +272,10 @@ export default function HPFormScreen({ route }: TProps) {
 
         // Custom field validations
         validationObject.prior_immunodeficiency_diagnosis_other = Yup.string().when(
-          'prior_immunodeficiency_diagnosis_multiselect',
+          ['prior_immunodeficiency_diagnosis_multiselect', 'prior_immunodeficiency_condition_diagnosis'],
           {
-            is: (answer) => !!answer && answer.includes('other'),
+            is: (multiSelectAnswer, diagnosis) =>
+              !!multiSelectAnswer && multiSelectAnswer.includes('other') && diagnosis === 'yes',
             then: Yup.string().required(),
           },
         );
@@ -287,14 +289,17 @@ export default function HPFormScreen({ route }: TProps) {
     formData: IHealthProfileFormData,
     screenToReturnTo: THealthProfileScreenNames,
     stepsCompleted: number,
+    overwriteProgressPercent: boolean = false,
   ) => {
     if (submitting) {
       return;
     }
     setSubmitting(true);
     const infos = createCompletedHealthProfileDTO(formData);
-    const currentScrrenProgressPercent = Math.round((stepsCompleted * 100) / maxSteps);
-    const progressPercent = Math.max(savedProgressPercent, currentScrrenProgressPercent);
+    const currentScreenProgressPercent = Math.round((stepsCompleted * 100) / maxSteps);
+    const progressPercent = overwriteProgressPercent
+      ? currentScreenProgressPercent
+      : Math.max(savedProgressPercent, currentScreenProgressPercent);
     const dateOfLastUpdate = new Date();
 
     try {
@@ -317,19 +322,28 @@ export default function HPFormScreen({ route }: TProps) {
   };
 
   const onSubmit = React.useCallback(
-    async (formData) => {
+    async (formData, formikBag) => {
       saveToRedux(formData, navigator[sectionName].nextScreenName, navigator[sectionName].currentStep);
       Analytics.track(events.HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED, { screenName });
+
       if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
         // Might take a while for last screen's form data to be updated to Redux
         const completeForm = { ...savedAnswers, ...formData };
         const infos = createCompletedHealthProfileDTO(completeForm);
+
         try {
           await healthProfileService.createHealthProfile(patientId, infos);
-          setSubmitting(false);
           NavigatorService.navigate('HPThankYou');
-        } catch {
-          setErrorMessage(i18n.t('something-went-wrong'));
+        } catch (error) {
+          saveToRedux(formData, 'HPSkinHairAndNails', navigator.SKIN_HAIR_AND_NAILS.currentStep - 1, true); // reset progress so user returned to last screen
+          if (error.status.toString().startsWith('4')) {
+            setErrorMessage(i18n.t('form-data-not-valid'));
+          } else {
+            setErrorMessage(i18n.t('something-went-wrong'));
+            formikBag.validateForm(); // Needed to enable submit button again
+          }
+        } finally {
+          setSubmitting(false);
         }
       } else {
         setSubmitting(false);
@@ -392,24 +406,47 @@ export default function HPFormScreen({ route }: TProps) {
                       if (
                         question.dependsOnProperty &&
                         formikProps.values[question.dependsOnProperty] &&
-                        question.dependsOnPropertyValue &&
-                        // Split needed to account for multiselect fields where we combine the answers into a comma separated string
-                        formikProps.values[question.dependsOnProperty]
-                          .split(',')
-                          .filter((answer) => question.dependsOnPropertyValue!.includes(answer)).length > 0
+                        question.dependsOnPropertyValue
                       ) {
-                        return true;
+                        // For conditional questions based on a single multiselect option e.g. prior_cardiovascular_diagnosis_heart_attack
+                        if (
+                          typeof formikProps.values[question.dependsOnProperty] === 'boolean' &&
+                          question.dependsOnPropertyValue!.includes(formikProps.values[question.dependsOnProperty])
+                        ) {
+                          return true;
+                        }
+                        if (
+                          // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                          formikProps.values[question.dependsOnProperty]
+                            .split(',')
+                            .filter((answer) => question.dependsOnPropertyValue!.includes(answer)).length > 0
+                        ) {
+                          return true;
+                        }
+                        return false;
                       }
+
                       if (
                         question.dependsOnProperty &&
                         formikProps.values[question.dependsOnProperty] &&
-                        question.doesNotHavePropertyValue &&
-                        // Split needed to account for multiselect fields where we combine the answers into a comma separated string
-                        formikProps.values[question.dependsOnProperty]
-                          .split(',')
-                          .filter((answer) => question.doesNotHavePropertyValue!.includes(answer)).length === 0
+                        question.doesNotHavePropertyValue
                       ) {
-                        return true;
+                        // For conditional questions based on multiselect checkbox answers
+                        if (
+                          typeof formikProps.values[question.dependsOnProperty] === 'boolean' &&
+                          !question.doesNotHavePropertyValue!.includes(formikProps.values[question.dependsOnProperty])
+                        ) {
+                          return true;
+                        }
+
+                        // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                        if (
+                          formikProps.values[question.dependsOnProperty]
+                            .split(',')
+                            .filter((answer) => question.doesNotHavePropertyValue!.includes(answer)).length === 0
+                        ) {
+                          return true;
+                        }
                       }
                       return false;
                     };
@@ -438,9 +475,6 @@ export default function HPFormScreen({ route }: TProps) {
                   })}
 
                   <ErrorText>{errorMessage}</ErrorText>
-                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && formikProps.dirty ? (
-                    <ValidationError error={i18n.t('validation-error-text')} />
-                  ) : null}
                 </Form>
               </HealthProfileScreen>
             )

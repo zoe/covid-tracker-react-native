@@ -6,7 +6,7 @@ interface IHealthProfileApiClient {
   createHealthProfile(patientId: string, payload: Partial<THealthProfileRequest>): Promise<THealthProfileResponse>;
 }
 
-type THealthProfileResponse = {
+export type THealthProfileResponse = {
   id: string;
 };
 

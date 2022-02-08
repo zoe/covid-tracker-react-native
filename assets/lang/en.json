@@ -723,7 +723,8 @@
     "user-is-offline": "You are currently offline. Please check your connection.",
     "resource-not-found": "The server couldn't find your details",
     "server-is-busy": "Server is busy. Please wait, then try again",
-    "server-error": "Server couldn't respond at this time. Please wait, then try again."
+    "server-error": "Server couldn't respond at this time. Please wait, then try again.",
+    "form-data-not-valid": "There seems to be an error in your form data. Please try going back through the previous screens and checking your answers."
   },
   "back": "Back",
   "partners": {
@@ -1801,7 +1802,7 @@
     "result-success": "Successfully authenticated"
   },
   "health-profile": {
-    "tooltip": "Are you sure all your answers are up to date?",
+    "tooltip": "If you are sure all your answers are up to date, please tap ‘Next‘ again",
     "save-exit": "Save & Exit",
     "why-we-ask-this": "Why are we asking this",
     "continue": "Continue",
@@ -1821,7 +1822,7 @@
     },
     "why-we-ask-modal": {
       "title": "Support science and build a unique Health Profile",
-      "description": "These questions are designed to build your unique health profile, an upcoming feature that will empower you to understand and improve your personal health. \n\nWe ask detailed questions to uncover any factors we need to consider when building your profile."
+      "description": "These questions are designed to build your unique Health Profile, an upcoming feature that will empower you to understand and improve your personal health. \n\nWe ask detailed questions to uncover any factors we need to consider when building your profile."
     },
     "thank-you": {
       "title": "Thank you!",

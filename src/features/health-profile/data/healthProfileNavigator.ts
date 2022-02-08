@@ -92,7 +92,7 @@ export const NAVIGATOR_FEMALE: INavigatorProps = {
     previousScreenName: 'HPBladderKidneys',
   },
   SKIN_HAIR_AND_NAILS: {
-    buttonText: 'Submit',
+    buttonText: 'Save and Finish',
     currentStep: 16,
     nextScreenName: 'HPThankYou',
     previousScreenName: 'HPCancer',
@@ -191,7 +191,7 @@ export const NAVIGATOR_MALE: INavigatorProps = {
     previousScreenName: 'HPBladderKidneys',
   },
   SKIN_HAIR_AND_NAILS: {
-    buttonText: 'Submit',
+    buttonText: 'Save and Finish',
     currentStep: 15,
     nextScreenName: 'HPThankYou',
     previousScreenName: 'HPCancer',

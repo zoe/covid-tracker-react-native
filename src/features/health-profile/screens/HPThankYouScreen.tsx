@@ -89,9 +89,8 @@ export default function HPThankYouScreen() {
         <IconHeart style={styles.heart} />
         <ImageTimSpector />
         <Text
-          inverted
           colorPalette="uiDark"
-          colorShade="dark"
+          colorShade="lighter"
           style={styles.comingSoon}
           textAlign="center"
           textClass="h5Light"

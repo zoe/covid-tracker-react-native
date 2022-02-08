@@ -11,7 +11,6 @@ import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { ImpactTimelineCard } from '@covid/features/anniversary';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { HealthProfileReminderModal } from '@covid/features/health-profile/modals/HealthProfileReminderModal';
-import { StudyHubVideoModal } from '@covid/features/study-hub/modals/StudyHubVideoModal';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { BigGreenTickFilled } from '@covid/features/thank-you/components/BigGreenTick';
 import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
@@ -38,7 +37,6 @@ export default function ThankYouUKScreen(props: IProps) {
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
 
   const [askForRating, setAskForRating] = React.useState<boolean>(false);
-  const [showVideoModal, setShowVideoModal] = React.useState<boolean>(false);
   const [showHealthProfileReminderModal, setShowHealthProfileReminderModal] = React.useState<boolean>(false);
 
   const sevenDaysAgo = moment().add(moment().utcOffset(), 'minutes').subtract(7, 'days').toDate();
@@ -56,7 +54,11 @@ export default function ThankYouUKScreen(props: IProps) {
         }, SHOW_ONBOARDING_DELAY_MS);
         return;
       }
-      if (startupInfo?.show_modal === 'health-profile-intro' && !healthProfileState.dateOfLastUpdate) {
+      if (
+        startupInfo?.show_modal === 'health-profile-intro' &&
+        !healthProfileState.dateOfLastUpdate &&
+        !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another
+      ) {
         dispatch(appActions.setModalHealthProfileIntroVisible(true));
         return;
       }
@@ -71,11 +73,6 @@ export default function ThankYouUKScreen(props: IProps) {
         return;
       }
 
-      // TODO: Delete this once we go live with health profile
-      if (startupInfo?.show_study_hub_video_modal) {
-        setShowVideoModal(true);
-        return;
-      }
       try {
         const ratingAskResponse = await shouldAskForRating();
         setAskForRating(ratingAskResponse);
@@ -86,11 +83,6 @@ export default function ThankYouUKScreen(props: IProps) {
     })();
   }, []);
 
-  // TODO: Delete this once we go live with health profile
-  const onRequestClose = React.useCallback(() => {
-    setShowVideoModal(false);
-  }, []);
-
   const onHealthProfileReminderModalClose = React.useCallback(() => {
     dispatch(updateHasSeenHealthProfileReminderModal(true));
     setShowHealthProfileReminderModal(false);
@@ -99,13 +91,8 @@ export default function ThankYouUKScreen(props: IProps) {
   return (
     <>
       {askForRating && <AppRating />}
-      {/* Only show the modal to the primary patient */}
-      {/* TODO: Delete once we go live with health profile */}
-      {showVideoModal && !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another && (
-        <StudyHubVideoModal onRequestClose={onRequestClose} visible={showVideoModal} />
-      )}
+
       {showHealthProfileReminderModal &&
-        !showVideoModal &&
         !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another && (
           <HealthProfileReminderModal
             onRequestClose={onHealthProfileReminderModalClose}
