@@ -1826,7 +1826,8 @@
     },
     "why-we-ask-modal": {
       "title": false,
-      "description": false
+      "description": false,
+      "description-cont": false
     },
     "thank-you": {
       "title": false,

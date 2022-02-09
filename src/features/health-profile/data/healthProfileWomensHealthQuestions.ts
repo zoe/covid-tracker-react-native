@@ -105,7 +105,7 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
         showNewTag: false,
       },
       {
-        dependsOnProperty: null,
+        dependsOnProperty: 'gender', // Note - custom check in conditionalCriteriaMet method on HPFormScreen,
         dependsOnPropertyValue: null,
         description: null,
         fieldType: EFieldType.TEXT,
@@ -159,7 +159,7 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
         showNewTag: false,
       },
       {
-        dependsOnProperty: null,
+        dependsOnProperty: 'gender', // Note - custom check in conditionalCriteriaMet method on HPFormScreen
         dependsOnPropertyValue: null,
         description: null,
         fieldType: EFieldType.RADIO,
@@ -245,8 +245,8 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
           },
           {
             label: 'Prefer not to say',
-            name: 'monopausal_symptom_pfnts',
-            testID: 'monopausal_symptom_pfnts',
+            name: 'menopausal_symptom_pfnts',
+            testID: 'menopausal_symptom_pfnts',
           },
         ],
         placeholder: null,

@@ -56,7 +56,7 @@ export const HealthProfileConfirmExitModal: React.FC<IProps> = (props) => {
     >
       <HeaderText style={styles.title}>{i18n.t('health-profile.confirm-save-exit-modal.title')}</HeaderText>
 
-      <TextWithBoldInserts inverted colorPalette="uiDark" colorShade="dark" textClass="pLight">
+      <TextWithBoldInserts inverted colorPalette="uiDark" colorShade="darker" textClass="pLight">
         {i18n.t('health-profile.confirm-save-exit-modal.description')}
       </TextWithBoldInserts>
     </Modal>

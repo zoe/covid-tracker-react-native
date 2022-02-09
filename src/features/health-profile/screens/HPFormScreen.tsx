@@ -279,6 +279,18 @@ export default function HPFormScreen({ route }: TProps) {
             then: Yup.string().required(),
           },
         );
+
+        if (sectionName === EHealthProfileSection.WOMENS_HEALTH) {
+          validationObject.period_started_age = Yup.string().when([], {
+            is: () => savedAnswers.gender === 0,
+            then: Yup.string().required(),
+          });
+
+          validationObject.menopausal_status = Yup.string().when([], {
+            is: () => savedAnswers.gender === 0,
+            then: Yup.string().required(),
+          });
+        }
       });
     }
 
@@ -403,6 +415,14 @@ export default function HPFormScreen({ route }: TProps) {
                 <Form hasRequiredFields redesign>
                   {healthProfileScreens[sectionName].questions.map((question) => {
                     const conditionalCriteriaMet = () => {
+                      // Custom - only show these 2 questions if sex at birth is female
+                      if (
+                        question.propertyName === 'period_started_age' ||
+                        question.propertyName === 'menopausal_status'
+                      ) {
+                        return savedAnswers.gender === 0;
+                      }
+
                       if (
                         question.dependsOnProperty &&
                         formikProps.values[question.dependsOnProperty] &&

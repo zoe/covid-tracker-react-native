@@ -22,7 +22,7 @@ export const healthProfileMentalHealthMoodQuestions: Partial<THealthProfileScree
         pnts: false,
         propertyName: 'recent_little_interest_or_pleasure_doing_things',
         question:
-          'Over the last 2 weeks, how often have you been bothered by the following: Little interest of pleasure in doing things',
+          'Over the last 2 weeks, how often have you been bothered by the following: Little interest or pleasure in doing things',
         required: true,
         showNewTag: false,
       },
@@ -170,7 +170,7 @@ export const healthProfileMentalHealthMoodQuestions: Partial<THealthProfileScree
             testID: 'prior_psychiatric_substance_use_disorder',
           },
           {
-            label: 'Any other type of psychosys or psychotic illness',
+            label: 'Any other type of psychosis or psychotic illness',
             name: 'prior_psychiatric_other_psychosis_or_psychotic_illness',
             testID: 'prior_psychiatric_other_psychosis_or_psychotic_illness',
           },
