@@ -97,9 +97,9 @@ export const createHPAboutYouDTO = (formData: IHealthProfileFormData) => {
       const feet = cleanFloatVal(formData.feet) || 0;
       inches += feet * 12;
     }
-    infos = { ...infos, height_feet: inches / 12.0 };
+    infos = { ...infos, height_cm: undefined, height_feet: inches / 12.0 };
   } else {
-    infos = { ...infos, height_cm: cleanFloatVal(formData.height) };
+    infos = { ...infos, height_cm: cleanFloatVal(formData.height), height_feet: undefined };
   }
 
   if (formData.weightUnit === 'lbs') {
@@ -108,12 +108,13 @@ export const createHPAboutYouDTO = (formData: IHealthProfileFormData) => {
       const stones = cleanFloatVal(formData.stones) || 0;
       pounds += stones * 14;
     }
-    infos = { ...infos, weight_pounds: pounds };
+    infos = { ...infos, weight_kg: undefined, weight_pounds: pounds };
   } else {
-    infos = { ...infos, weight_kg: cleanFloatVal(formData.weight) };
+    infos = { ...infos, weight_kg: cleanFloatVal(formData.weight), weight_pounds: undefined };
   }
 
   // NOTE: YesNo fields are submitted as strings, but no need to convert to boolean as Django backend automatically deduces it as boolean
+  console.log('infos', infos);
   return infos;
 };
 
