@@ -49,7 +49,7 @@ export const healthProfileAboutYouQuestions: Partial<THealthProfileScreens> = {
           { label: 'Male', value: 'male' },
           { label: 'Female', value: 'female' },
           { label: 'Intersex', value: 'intersex' },
-          { label: 'Prefer not to say', value: 'pnts' },
+          { label: 'Prefer not to say', value: 'pfnts' },
         ],
         placeholder: null,
         pnts: false,
