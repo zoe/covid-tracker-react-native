@@ -101,8 +101,8 @@ export const healthProfileAllergiesIntolerancesQuestions: Partial<THealthProfile
           },
           {
             label: 'Swollen lips, tongue, throat',
-            name: 'allergy_symptom_swollen_lips_tongure_throat',
-            testID: 'allergy_symptom_swollen_lips_tongure_throat',
+            name: 'allergy_symptom_swollen_lips_tongue_throat',
+            testID: 'allergy_symptom_swollen_lips_tongue_throat',
           },
           { label: 'Faint/collapse', name: 'allergy_symptom_faint_collapse', testID: 'allergy_symptom_faint_collapse' },
           {

@@ -36,9 +36,9 @@ export const healthProfileLungsBreathingQuestions: Partial<THealthProfileScreens
             testID: 'prior_breathing_and_lung_diagnosis_sleep_apnea',
           },
           {
-            label: 'COPD/ephysema/chronic bronchitis',
-            name: 'prior_breathing_and_lung_diagnosis_copd_ephysema_bronchitis',
-            testID: 'prior_breathing_and_lung_diagnosis_copd_ephysema_bronchitis',
+            label: 'COPD/emphysema/chronic bronchitis',
+            name: 'prior_breathing_and_lung_diagnosis_copd_emphysema_bronchitis',
+            testID: 'prior_breathing_and_lung_diagnosis_copd_emphysema_bronchitis',
           },
           {
             label: 'Lung disease',

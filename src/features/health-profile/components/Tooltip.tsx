@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   triangle: {
     marginLeft: 'auto',
-    marginRight: sizes.xxl,
+    marginRight: 'auto',
   },
   wrapper: {
     bottom: 80 + 4,

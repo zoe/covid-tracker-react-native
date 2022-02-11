@@ -723,7 +723,8 @@
     "user-is-offline": "You are currently offline. Please check your connection.",
     "resource-not-found": "The server couldn't find your details",
     "server-is-busy": "Server is busy. Please wait, then try again",
-    "server-error": "Server couldn't respond at this time. Please wait, then try again."
+    "server-error": "Server couldn't respond at this time. Please wait, then try again.",
+    "form-data-not-valid": "There seems to be an error in your form data. Please try going back through the previous screens and checking your answers."
   },
   "back": "Back",
   "partners": {
@@ -1801,16 +1802,16 @@
     "result-success": "Successfully authenticated"
   },
   "health-profile": {
-    "tooltip": "Please make sure your answers are up to date before proceeding",
+    "tooltip": "If you are sure all your answers are up to date, please tap ‘Next‘ again",
     "save-exit": "Save & Exit",
-    "why-we-ask-this": "Why are we asking this",
+    "why-we-ask-this": "Why are we asking this?",
     "continue": "Continue",
     "intro-modal": {
       "tim-spector": "Prof. Tim Spector",
-      "title": "Is your health information correct?",
-      "description": "Build your personal Health Profile, a powerful new tool coming soon to the app.",
+      "title": "Build your Health Profile",
+      "description": "Power research into major diseases by answering questions about your health",
       "time": "Approx 5 mins",
-      "button": "Update now",
+      "button": "Build my Health Profile",
       "remind-me": "Remind me later"
     },
     "confirm-save-exit-modal": {
@@ -1820,13 +1821,14 @@
       "dismiss": "Dismiss"
     },
     "why-we-ask-modal": {
-      "title": "Support science and build a unique Health Profile",
-      "description": "These questions are designed to build your unique health profile, an upcoming feature that will empower you to understand and improve your personal health. \n\nWe ask detailed questions to uncover any factors we need to consider when building your profile."
+      "title": "Every answer helps disease research",
+      "description": "We use this information to better understand disease risk and influencing factors such as habits and behaviours. In the future, we plan to personalise insights to improve your health. \n\nFor information on how we keep your personal data secure, see our",
+      "description-cont": " Privacy Notice."
     },
     "thank-you": {
       "title": "Thank you!",
-      "description": "For updating your health information",
-      "coming-soon": "Your data supports important research into a wide range of diseases and is the first step in building your unique health profile, coming soon to the app.",
+      "description": "Your secure information is now available for health research",
+      "coming-soon": "We’re working on an update so you can access and manage your unique Health Profile whenever you need. Watch this space!",
       "return": "Return to Home"
     },
     "reminder-card": {

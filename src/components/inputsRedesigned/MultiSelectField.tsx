@@ -1,12 +1,13 @@
 import { CheckboxItem, CheckboxList } from '@covid/components/inputsRedesigned/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
+import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 export type TItemCheckbox = {
   label: string;
-  name: string;
+  name: keyof THealthProfileRequest;
   testID?: string;
 };
 
@@ -33,11 +34,11 @@ export function MultiSelectField(props: IProps) {
             let answersArray =
               props.selectedValue === '' || props.selectedValue === undefined ? [] : props.selectedValue.split(',');
 
-            if (checked && item.name.includes('pfnts')) {
+            if (checked && (item.name.includes('pfnts') || item.name.includes('none'))) {
               answersArray = [item.name];
             } else if (checked) {
               answersArray.push(item.name);
-              answersArray = answersArray.filter((val) => !val.includes('pfnts'));
+              answersArray = answersArray.filter((val) => !val.includes('pfnts') && !val.includes('none'));
             } else {
               answersArray = answersArray.filter((val) => val !== item.name);
             }

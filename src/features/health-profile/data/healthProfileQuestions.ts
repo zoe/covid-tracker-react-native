@@ -64,6 +64,7 @@ export type THPScreenName = keyof typeof screenMappings;
 interface ICommonProps {
   dependsOnProperty: THealthProfilePropertyName | null;
   dependsOnPropertyValue: (string | boolean | null)[] | null;
+  doesNotHavePropertyValue?: (string | boolean | null)[] | null;
   description: string | null;
   keyboardType?: KeyboardType;
   maxValue?: number;
@@ -120,6 +121,11 @@ type TFieldTypeProps =
       fieldType: EFieldType.IMMUNODEFICIENCY;
       items: TItemCheckbox[];
       propertyName: THealthProfilePropertyName;
+    }
+  | {
+      fieldType: EFieldType.RACE;
+      items: TItemRadio[];
+      propertyName: THealthProfilePropertyName;
     };
 
 type THealthProfileQuestion = TFieldTypeProps & ICommonProps;
@@ -138,7 +144,6 @@ export type THealthProfileScreens = {
 // only used for isEditing logic
 type THeightWeightPropertyName = 'height_field' | 'weight_field';
 
-// TODO: add all multiselect property names
 export const MULTI_SELECT_PROPERTY_NAMES = [
   'prior_immunodeficiency_diagnosis_multiselect',
   'prior_allergy_diagnosis_multiselect',

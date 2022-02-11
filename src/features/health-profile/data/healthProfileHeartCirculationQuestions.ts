@@ -65,8 +65,8 @@ export const healthProfileHeartCirculationQuestions: Partial<THealthProfileScree
           },
           {
             label: 'Congenital heart disease (heart valve problems)',
-            name: 'prior_cardiovascular_diagnosis_cogenital_heart_disease',
-            testID: 'prior_cardiovascular_diagnosis_cogenital_heart_disease',
+            name: 'prior_cardiovascular_diagnosis_congenital_heart_disease',
+            testID: 'prior_cardiovascular_diagnosis_congenital_heart_disease',
           },
           {
             label: 'A heart murmur',
@@ -107,6 +107,11 @@ export const healthProfileHeartCirculationQuestions: Partial<THealthProfileScree
             label: 'Pulmonary embolism (PE)',
             name: 'prior_cardiovascular_diagnosis_pulmonary_embolism',
             testID: 'prior_cardiovascular_diagnosis_pulmonary_embolism',
+          },
+          {
+            label: 'Other',
+            name: 'prior_cardiovascular_diagnosis_other',
+            testID: 'prior_cardiovascular_diagnosis_other',
           },
           {
             label: 'Prefer not to say',

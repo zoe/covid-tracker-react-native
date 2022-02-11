@@ -41,9 +41,9 @@ export const healthProfileImmuneSystemQuestions: Partial<THealthProfileScreens> 
             testID: 'prior_immunodeficiency_diagnosis_acquired',
           },
           {
-            label: 'Other connective tissue disease',
-            name: 'prior_immunodeficiency_diagnosis_other_connective_tissue_boolean', // NOTE: boolean in name - not saved to backend, but text field used instead within custom component
-            testID: 'prior_immunodeficiency_diagnosis_other_connective_tissue_boolean',
+            label: 'Other',
+            name: 'prior_immunodeficiency_diagnosis_other_boolean', // NOTE: boolean in name - not saved to backend, but text field used instead within custom component
+            testID: 'prior_immunodeficiency_diagnosis_other_boolean',
           },
           {
             label: 'Prefer not to say',

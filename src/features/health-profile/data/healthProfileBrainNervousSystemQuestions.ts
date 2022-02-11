@@ -32,7 +32,7 @@ export const healthProfileBrainNervousSystemQuestions: Partial<THealthProfileScr
             testID: 'prior_neurological_diagnosis_als',
           },
           {
-            label: 'Parkinsons',
+            label: "Parkinson's",
             name: 'prior_neurological_diagnosis_parkinsons',
             testID: 'prior_neurological_diagnosis_parkinsons',
           },

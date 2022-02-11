@@ -664,7 +664,8 @@
     "user-is-offline": "Du är för närvarande offline. Kontrollera din anslutning.",
     "resource-not-found": "Servern kunde inte hitta dina uppgifter",
     "server-is-busy": "Servern är upptagen. Vänta och försök sedan igen",
-    "server-error": "Servern kunde inte svara just nu. Vänta och försök sedan igen."
+    "server-error": "Servern kunde inte svara just nu. Vänta och försök sedan igen.",
+    "form-data-not-valid": false
   },
   "back": "Tillbaka",
   "edit-profile": {
@@ -1825,7 +1826,8 @@
     },
     "why-we-ask-modal": {
       "title": false,
-      "description": false
+      "description": false,
+      "description-cont": false
     },
     "thank-you": {
       "title": false,

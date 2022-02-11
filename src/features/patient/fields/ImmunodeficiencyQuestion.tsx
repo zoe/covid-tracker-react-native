@@ -60,8 +60,8 @@ export function ImmunodeficiencyQuestion(props: IProps) {
         <GenericTextField
           required
           formikProps={props.formikProps}
-          label="Please specify your other connective tissue disease"
-          name="prior_immunodeficiency_diagnosis_other_connective_tissue"
+          label="Please specify"
+          name="prior_immunodeficiency_diagnosis_other"
           style={styles.marginTop}
         />
       ) : null}

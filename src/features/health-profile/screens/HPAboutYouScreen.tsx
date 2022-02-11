@@ -173,6 +173,9 @@ export default function HPAboutYouScreen() {
           answersSelected.join(',');
       } else if (question.fieldType === EFieldType.WEIGHT || question.fieldType === EFieldType.HEIGHT) {
         initialFormValuesWithCustomFields = { ...initialFormValuesWithCustomFields, ...getSavedHeightWeightValues() };
+      } else if (question.fieldType === EFieldType.RACE) {
+        initialFormValuesWithCustomFields.race = savedAnswers.race || '';
+        initialFormValuesWithCustomFields.race_other = savedAnswers.race_other || '';
       } else if (question.fieldType === EFieldType.YESNO) {
         if (typeof savedAnswers[question.propertyName as keyof THealthProfileRequest] === 'boolean') {
           initialFormValuesWithCustomFields[question.propertyName as keyof IHealthProfileFormData] = savedAnswers[
@@ -242,9 +245,11 @@ export default function HPAboutYouScreen() {
     async (formData) => {
       if (!hasSeenAboutYouTooltip && !showTooltip) {
         setShowTooltip(true);
+        Analytics.track(events.HEALTH_PROFILE_ABOUT_YOU_BUTTON_TOOLTIP_SEEN);
       } else {
         setShowTooltip(false);
         dispatch(updateHasSeenAboutYouTooltip(true));
+        Analytics.track(events.HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED, { screenName: 'HPAboutYou' });
         saveToRedux(formData, 'HPFamilyHistory', 1);
         NavigatorService.push('HPFormScreen', { screenName: 'HPFamilyHistory' });
       }
@@ -253,7 +258,7 @@ export default function HPAboutYouScreen() {
   );
 
   const saveExitOnPress = (formData: IHealthProfileFormData) => {
-    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
+    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName: 'HPAboutYou' });
     saveToRedux(formData, 'HPAboutYou', 0);
     setShowConfirmExitModal(true);
   };
@@ -307,9 +312,51 @@ export default function HPAboutYouScreen() {
                     if (
                       question.dependsOnProperty &&
                       formikProps.values[question.dependsOnProperty] &&
-                      question.dependsOnPropertyValue?.includes(formikProps.values[question.dependsOnProperty])
+                      question.dependsOnPropertyValue
                     ) {
-                      return true;
+                      // Hide question in event user selects an answer for twin_type
+                      if (question.propertyName === 'twin_sex') {
+                        return formikProps.values.is_twin === 'yes';
+                      }
+                      // For conditional questions based on a single multiselect option e.g. prior_cardiovascular_diagnosis_heart_attack
+                      if (
+                        typeof formikProps.values[question.dependsOnProperty] === 'boolean' &&
+                        question.dependsOnPropertyValue!.includes(formikProps.values[question.dependsOnProperty])
+                      ) {
+                        return true;
+                      }
+                      if (
+                        // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                        formikProps.values[question.dependsOnProperty]
+                          .split(',')
+                          .filter((answer) => question.dependsOnPropertyValue!.includes(answer)).length > 0
+                      ) {
+                        return true;
+                      }
+                      return false;
+                    }
+
+                    if (
+                      question.dependsOnProperty &&
+                      formikProps.values[question.dependsOnProperty] &&
+                      question.doesNotHavePropertyValue
+                    ) {
+                      // For conditional questions based on multiselect checkbox answers
+                      if (
+                        typeof formikProps.values[question.dependsOnProperty] === 'boolean' &&
+                        !question.doesNotHavePropertyValue!.includes(formikProps.values[question.dependsOnProperty])
+                      ) {
+                        return true;
+                      }
+
+                      // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                      if (
+                        formikProps.values[question.dependsOnProperty]
+                          .split(',')
+                          .filter((answer) => question.doesNotHavePropertyValue!.includes(answer)).length === 0
+                      ) {
+                        return true;
+                      }
                     }
                     return false;
                   };

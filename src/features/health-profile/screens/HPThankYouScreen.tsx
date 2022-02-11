@@ -14,7 +14,7 @@ import { Image, Platform, StyleSheet, useWindowDimensions, View } from 'react-na
 const backgroundTop = require('../assets/background_top_inverted.png');
 const backgroundBottom = require('../assets/background_bottom_inverted.png');
 
-const TOP_SPACING_TO_SCREEN_HEIGHT_RATIO = 0.075;
+const TOP_SPACING_TO_SCREEN_HEIGHT_RATIO = 0.05;
 
 const ORIGINAL_IMAGE_BOTTOM_HEIGHT = 489;
 const ORIGINAL_IMAGE_TOP_HEIGHT = 471;
@@ -89,9 +89,8 @@ export default function HPThankYouScreen() {
         <IconHeart style={styles.heart} />
         <ImageTimSpector />
         <Text
-          inverted
           colorPalette="uiDark"
-          colorShade="dark"
+          colorShade="lighter"
           style={styles.comingSoon}
           textAlign="center"
           textClass="h5Light"

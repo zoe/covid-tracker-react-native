@@ -110,7 +110,11 @@ export default function HPFormScreen({ route }: TProps) {
         }
 
         // If current question and next question is answered, current question should be in playback mode
-        if (!!formikProps.values[nextQuestion] && !!formikProps.values[currentQuestion]) {
+        if (
+          !!formikProps.values[nextQuestion] &&
+          !!formikProps.values[currentQuestion] &&
+          !formikProps.errors[currentQuestion]
+        ) {
           setQuestionsState[currentQuestion](EHealthProfileQuestionCardStatus.PLAYBACK);
         }
       }
@@ -141,8 +145,8 @@ export default function HPFormScreen({ route }: TProps) {
         initialFormValues[question.propertyName as THealthProfilePropertyName] = answersSelected.join(',');
 
         if (question.fieldType === EFieldType.IMMUNODEFICIENCY) {
-          initialFormValues.has_prior_immunodeficiency_diagnosis_other_connective_tissue =
-            savedAnswers.has_prior_immunodeficiency_diagnosis_other_connective_tissue || '';
+          initialFormValues.prior_immunodeficiency_diagnosis_other =
+            savedAnswers.prior_immunodeficiency_diagnosis_other || '';
         }
       } else if (question.fieldType === EFieldType.YESNO) {
         if (typeof savedAnswers[question.propertyName as keyof THealthProfileRequest] === 'boolean') {
@@ -179,10 +183,72 @@ export default function HPFormScreen({ route }: TProps) {
         if (!question.propertyName) {
           return;
         }
+
         if (question.dependsOnProperty && question.dependsOnPropertyValue) {
           validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
-            is: (answer) => question.dependsOnPropertyValue!.includes(answer),
-            then: Yup.string().required(),
+            is: (answer) => {
+              if (answer) {
+                // For conditional questions based on a single multiselect option e.g. prior_cardiovascular_diagnosis_heart_attack
+                return typeof answer === 'boolean'
+                  ? question.dependsOnPropertyValue!.includes(answer)
+                  : answer
+                      // Needed to account for multiselect fields where we combine the answers into a comma separated string
+                      .split(',')
+                      .filter((singleAnswer: string) => question.dependsOnPropertyValue!.includes(singleAnswer))
+                      .length > 0;
+              }
+              return false;
+            },
+            then: Yup.string()
+              .required()
+              .test(question.propertyName, 'The test is not valid', (value) => {
+                let valid = true;
+
+                if (value !== TEXT_INPUT_PNTS_LABEL) {
+                  if (question.minValue || question.minValue === 0) {
+                    valid = valid && Number.parseInt(value, 10) >= question.minValue;
+                  }
+
+                  if (question.maxValue || question.maxValue === 0) {
+                    valid = valid && Number.parseInt(value, 10) <= question.maxValue;
+                  }
+                }
+
+                return valid;
+              }),
+          });
+        } else if (question.dependsOnProperty && question.doesNotHavePropertyValue) {
+          validationObject[question.propertyName] = Yup.string().when(question.dependsOnProperty, {
+            is: (answer) => {
+              if (answer) {
+                // For conditional questions based on a single multiselect option e.g. prior_cardiovascular_diagnosis_heart_attack
+                return typeof answer === 'boolean'
+                  ? !question.doesNotHavePropertyValue!.includes(answer)
+                  : answer
+                      // This convoluted validation is needed to account for multiselect fields where we combine the answers into a comma separated string
+                      .split(',')
+                      .filter((singleAnswer: string) => question.doesNotHavePropertyValue!.includes(singleAnswer))
+                      .length === 0;
+              }
+              return false;
+            },
+            then: Yup.string()
+              .required()
+              .test(question.propertyName, 'The test is not valid', (value) => {
+                let valid = true;
+
+                if (value !== TEXT_INPUT_PNTS_LABEL) {
+                  if (question.minValue || question.minValue === 0) {
+                    valid = valid && Number.parseInt(value, 10) >= question.minValue;
+                  }
+
+                  if (question.maxValue || question.maxValue === 0) {
+                    valid = valid && Number.parseInt(value, 10) <= question.maxValue;
+                  }
+                }
+
+                return valid;
+              }),
           });
         } else {
           validationObject[question.propertyName] = Yup.string()
@@ -205,13 +271,26 @@ export default function HPFormScreen({ route }: TProps) {
         }
 
         // Custom field validations
-        validationObject.has_prior_immunodeficiency_diagnosis_other_connective_tissue = Yup.string().when(
-          'prior_immunodeficiency_diagnosis',
+        validationObject.prior_immunodeficiency_diagnosis_other = Yup.string().when(
+          ['prior_immunodeficiency_diagnosis_multiselect', 'prior_immunodeficiency_condition_diagnosis'],
           {
-            is: (answer) => !!answer && answer.includes('other'),
+            is: (multiSelectAnswer, diagnosis) =>
+              !!multiSelectAnswer && multiSelectAnswer.includes('other') && diagnosis === 'yes',
             then: Yup.string().required(),
           },
         );
+
+        if (sectionName === EHealthProfileSection.WOMENS_HEALTH) {
+          validationObject.period_started_age = Yup.string().when([], {
+            is: () => savedAnswers.gender === 0,
+            then: Yup.string().required(),
+          });
+
+          validationObject.menopausal_status = Yup.string().when([], {
+            is: () => savedAnswers.gender === 0,
+            then: Yup.string().required(),
+          });
+        }
       });
     }
 
@@ -222,14 +301,17 @@ export default function HPFormScreen({ route }: TProps) {
     formData: IHealthProfileFormData,
     screenToReturnTo: THealthProfileScreenNames,
     stepsCompleted: number,
+    overwriteProgressPercent: boolean = false,
   ) => {
     if (submitting) {
       return;
     }
     setSubmitting(true);
     const infos = createCompletedHealthProfileDTO(formData);
-    const currentScrrenProgressPercent = Math.round((stepsCompleted * 100) / maxSteps);
-    const progressPercent = Math.max(savedProgressPercent, currentScrrenProgressPercent);
+    const currentScreenProgressPercent = Math.round((stepsCompleted * 100) / maxSteps);
+    const progressPercent = overwriteProgressPercent
+      ? currentScreenProgressPercent
+      : Math.max(savedProgressPercent, currentScreenProgressPercent);
     const dateOfLastUpdate = new Date();
 
     try {
@@ -252,18 +334,28 @@ export default function HPFormScreen({ route }: TProps) {
   };
 
   const onSubmit = React.useCallback(
-    async (formData) => {
+    async (formData, formikBag) => {
       saveToRedux(formData, navigator[sectionName].nextScreenName, navigator[sectionName].currentStep);
+      Analytics.track(events.HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED, { screenName });
+
       if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
         // Might take a while for last screen's form data to be updated to Redux
         const completeForm = { ...savedAnswers, ...formData };
         const infos = createCompletedHealthProfileDTO(completeForm);
+
         try {
           await healthProfileService.createHealthProfile(patientId, infos);
-          setSubmitting(false);
           NavigatorService.navigate('HPThankYou');
-        } catch {
-          setErrorMessage(i18n.t('something-went-wrong'));
+        } catch (error) {
+          saveToRedux(formData, 'HPSkinHairAndNails', navigator.SKIN_HAIR_AND_NAILS.currentStep - 1, true); // reset progress so user returned to last screen
+          if (error.status.toString().startsWith('4')) {
+            setErrorMessage(i18n.t('form-data-not-valid'));
+          } else {
+            setErrorMessage(i18n.t('something-went-wrong'));
+            formikBag.validateForm(); // Needed to enable submit button again
+          }
+        } finally {
+          setSubmitting(false);
         }
       } else {
         setSubmitting(false);
@@ -274,20 +366,9 @@ export default function HPFormScreen({ route }: TProps) {
   );
 
   const saveExitOnPress = async (formData: IHealthProfileFormData) => {
-    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED);
+    Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName });
     saveToRedux(formData, screenName, navigator[sectionName].currentStep - 1);
     setShowConfirmExitModal(true);
-
-    if (sectionName === EHealthProfileSection.SKIN_HAIR_AND_NAILS) {
-      try {
-        await healthProfileService.createHealthProfile(
-          patientId,
-          formData as unknown as Partial<THealthProfileRequest>,
-        );
-      } catch {
-        setErrorMessage(i18n.t('something-went-wrong'));
-      }
-    }
     setSubmitting(false);
   };
 
@@ -334,12 +415,58 @@ export default function HPFormScreen({ route }: TProps) {
                 <Form hasRequiredFields redesign>
                   {healthProfileScreens[sectionName].questions.map((question) => {
                     const conditionalCriteriaMet = () => {
+                      // Custom - only show these 2 questions if sex at birth is female
+                      if (
+                        question.propertyName === 'period_started_age' ||
+                        question.propertyName === 'menopausal_status'
+                      ) {
+                        return savedAnswers.gender === 0;
+                      }
+
                       if (
                         question.dependsOnProperty &&
                         formikProps.values[question.dependsOnProperty] &&
-                        question.dependsOnPropertyValue?.includes(formikProps.values[question.dependsOnProperty])
+                        question.dependsOnPropertyValue
                       ) {
-                        return true;
+                        // For conditional questions based on a single multiselect option e.g. prior_cardiovascular_diagnosis_heart_attack
+                        if (
+                          typeof formikProps.values[question.dependsOnProperty] === 'boolean' &&
+                          question.dependsOnPropertyValue!.includes(formikProps.values[question.dependsOnProperty])
+                        ) {
+                          return true;
+                        }
+                        if (
+                          // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                          formikProps.values[question.dependsOnProperty]
+                            .split(',')
+                            .filter((answer) => question.dependsOnPropertyValue!.includes(answer)).length > 0
+                        ) {
+                          return true;
+                        }
+                        return false;
+                      }
+
+                      if (
+                        question.dependsOnProperty &&
+                        formikProps.values[question.dependsOnProperty] &&
+                        question.doesNotHavePropertyValue
+                      ) {
+                        // For conditional questions based on multiselect checkbox answers
+                        if (
+                          typeof formikProps.values[question.dependsOnProperty] === 'boolean' &&
+                          !question.doesNotHavePropertyValue!.includes(formikProps.values[question.dependsOnProperty])
+                        ) {
+                          return true;
+                        }
+
+                        // Split needed to account for multiselect fields where we combine the answers into a comma separated string
+                        if (
+                          formikProps.values[question.dependsOnProperty]
+                            .split(',')
+                            .filter((answer) => question.doesNotHavePropertyValue!.includes(answer)).length === 0
+                        ) {
+                          return true;
+                        }
                       }
                       return false;
                     };
@@ -368,10 +495,6 @@ export default function HPFormScreen({ route }: TProps) {
                   })}
 
                   <ErrorText>{errorMessage}</ErrorText>
-                  {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && formikProps.dirty ? (
-                    // <ValidationError error={i18n.t('validation-error-text')} />
-                    <ErrorText>{Object.keys(formikProps.errors)}</ErrorText>
-                  ) : null}
                 </Form>
               </HealthProfileScreen>
             )

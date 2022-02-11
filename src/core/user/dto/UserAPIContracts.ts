@@ -456,7 +456,7 @@ export type THealthProfileRequest = {
   other_allergy: boolean;
 
   allergy_symptom_difficulty_breathing: boolean;
-  allergy_symptom_swollen_lips_tongure_throat: boolean;
+  allergy_symptom_swollen_lips_tongue_throat: boolean;
   allergy_symptom_faint_collapse: boolean;
   allergy_symptom_rash: boolean;
   allergy_symptom_hayfever: boolean;
@@ -533,7 +533,7 @@ export type THealthProfileRequest = {
   // Gut & Digestion
   prior_gut_condition_treatment_diagnosis: string;
   prior_gut_diagnosis_ibs: boolean;
-  prior_gut_diagnosis_chronic_diarrhea: boolean;
+  prior_gut_diagnosis_chronic_diarrhoea: boolean;
   prior_gut_diagnosis_chronic_constipation: boolean;
   prior_gut_diagnosis_food_intolerance: boolean;
   prior_gut_diagnosis_celiac_disease: boolean;
@@ -556,7 +556,7 @@ export type THealthProfileRequest = {
   prior_cardiovascular_diagnosis_angina: boolean;
   prior_cardiovascular_diagnosis_peripheral_vascular_dis: boolean;
   prior_cardiovascular_diagnosis_coronary_heart_disease: boolean;
-  prior_cardiovascular_diagnosis_cogenital_heart_disease: boolean;
+  prior_cardiovascular_diagnosis_congenital_heart_disease: boolean;
   prior_cardiovascular_diagnosis_heart_murmur: boolean;
   prior_cardiovascular_diagnosis_atrial_fibrillation: boolean;
   prior_cardiovascular_diagnosis_congestive_heart_failure: boolean;
@@ -581,7 +581,7 @@ export type THealthProfileRequest = {
 
   diabetes_diagnosis_year: string;
 
-  prior_familial_hypercholesterol_hyperlipid_diagnosis: string;
+  prior_familial_hypercholesterolemia_hyperlipidemia_diagnosis: string;
 
   prior_endocrine_condition_diagnosis: string;
   prior_endocrine_diagnosis_hypothyroidism: boolean;
@@ -595,14 +595,14 @@ export type THealthProfileRequest = {
   prior_immunodeficiency_diagnosis_primary: boolean;
   prior_immunodeficiency_diagnosis_due_to_medication: boolean;
   prior_immunodeficiency_diagnosis_acquired: boolean;
-  prior_immunodeficiency_diagnosis_other_connective_tissue: string;
+  prior_immunodeficiency_diagnosis_other: string;
   prior_immunodeficiency_diagnosis_pfnts: boolean;
 
   // Lungs & Breathing
   prior_breathing_and_lung_condition_diagnosis: string;
   prior_breathing_and_lung_diagnosis_asthma: boolean;
   prior_breathing_and_lung_diagnosis_sleep_apnea: boolean;
-  prior_breathing_and_lung_diagnosis_copd_ephysema_bronchitis: boolean;
+  prior_breathing_and_lung_diagnosis_copd_emphysema_bronchitis: boolean;
   prior_breathing_and_lung_diagnosis_lung_disease: boolean;
   prior_breathing_and_lung_diagnosis_other: boolean;
   prior_breathing_and_lung_diagnosis_pfnts: boolean;
@@ -704,7 +704,7 @@ export type THealthProfileRequest = {
   menopausal_symptom_loss_of_breast_fullness: boolean;
   menopausal_symptom_other: boolean;
   menopausal_symptom_none: boolean;
-  monopausal_symptom_pfnts: boolean;
+  menopausal_symptom_pfnts: boolean;
 
   post_menopausal_age: string;
 
