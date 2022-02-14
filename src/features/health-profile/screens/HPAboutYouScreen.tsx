@@ -3,6 +3,7 @@ import { Form } from '@covid/components/Form';
 import { Loading } from '@covid/components/Loading';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
+import Logging, { contextNames } from '@covid/core/Logging';
 import {
   fetchExistingHealthProfile,
   THealthProfileScreenNames,
@@ -23,6 +24,7 @@ import {
   IHealthProfileFormData,
   THealthProfilePropertyName,
 } from '@covid/features/health-profile/data/healthProfileQuestions';
+import { HealthProfileConfirmExitModal } from '@covid/features/health-profile/modals/HealthProfileConfirmExitModal';
 import {
   createHPAboutYouDTO,
   isEditing,
@@ -41,8 +43,6 @@ import * as React from 'react';
 import { Dispatch } from 'react';
 import { StyleSheet } from 'react-native';
 import { batch, useDispatch, useSelector } from 'react-redux';
-
-import { HealthProfileConfirmExitModal } from '../modals/HealthProfileConfirmExitModal';
 
 export default function HPAboutYouScreen() {
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
@@ -257,9 +257,17 @@ export default function HPAboutYouScreen() {
     [saveToRedux, hasSeenAboutYouTooltip, showTooltip],
   );
 
-  const saveExitOnPress = (formData: IHealthProfileFormData) => {
+  const saveExitOnPress = (formikProps: FormikProps<IHealthProfileFormData>) => {
+    const formData = formikProps.values;
+    const formikErrors = Object.keys(formikProps.errors);
+    const formIsValid = formikProps.isValid;
+    const contextProps = { formData, formIsValid, formikErrors, patientId, screenName: 'HPAboutYou' };
+
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName: 'HPAboutYou' });
     saveToRedux(formData, 'HPAboutYou', 0);
+
+    Logging.context(contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS, contextProps);
+
     setShowConfirmExitModal(true);
   };
 
@@ -301,7 +309,7 @@ export default function HPAboutYouScreen() {
               hideWhyWeAskLink={healthProfileScreens.ABOUT_YOU.hideWhyWeAskLink}
               maxSteps={maxSteps}
               previousScreen="DashboardUK"
-              saveExitOnPress={() => saveExitOnPress(formikProps.values)}
+              saveExitOnPress={() => saveExitOnPress(formikProps)}
               showTooltip={showTooltip}
               testID={healthProfileScreens.ABOUT_YOU.testID}
               title={healthProfileScreens.ABOUT_YOU.title}
