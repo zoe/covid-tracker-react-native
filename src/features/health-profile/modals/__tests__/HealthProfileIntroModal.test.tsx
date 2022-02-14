@@ -8,6 +8,17 @@ import { act } from 'react-test-renderer';
 import { createMockedElement } from '../../../../../__mocks__/createHelper';
 import HealthProfileIntroModal from '../HealthProfileIntroModal';
 
+jest.mock('@covid/NavigatorService', () => {
+  return {
+    navigate: jest.fn(),
+  };
+});
+const navigateMock = require('@covid/NavigatorService').navigate;
+
+beforeEach(() => {
+  navigateMock.mockClear();
+});
+
 describe('Health Profile intro modal tests', () => {
   it('Update Now button is enabled', async () => {
     const onRequestClose = jest.fn();
@@ -27,6 +38,7 @@ describe('Health Profile intro modal tests', () => {
       const button = renderAPI.getByTestId('health-profile-intro-modal-update-now-button');
       await fireEvent.press(button);
       expect(onRequestClose).toHaveBeenCalledTimes(1);
+      expect(navigateMock).toHaveBeenCalledWith('HPAboutYou');
     });
   });
 
@@ -48,6 +60,7 @@ describe('Health Profile intro modal tests', () => {
       const button = renderAPI.getByTestId('health-profile-intro-modal-remind-me');
       await fireEvent.press(button);
       expect(onRequestClose).toHaveBeenCalledTimes(1);
+      expect(navigateMock).toHaveBeenCalledTimes(0);
     });
   });
 

@@ -2,6 +2,7 @@ import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import Analytics, { events } from '@covid/core/Analytics';
 import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
+import Logging, { contextNames } from '@covid/core/Logging';
 import {
   THealthProfileScreenNames,
   updateHealthProfile,
@@ -28,6 +29,7 @@ import {
   THealthProfilePropertyName,
   THPScreenName,
 } from '@covid/features/health-profile/data/healthProfileQuestions';
+import { HealthProfileConfirmExitModal } from '@covid/features/health-profile/modals/HealthProfileConfirmExitModal';
 import {
   createCompletedHealthProfileDTO,
   isEditing,
@@ -45,8 +47,6 @@ import { Dispatch } from 'react';
 import { StyleSheet } from 'react-native';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-
-import { HealthProfileConfirmExitModal } from '../modals/HealthProfileConfirmExitModal';
 
 type TProps = {
   route: RouteProp<TScreenParamList, 'HPFormScreen'>;
@@ -365,9 +365,17 @@ export default function HPFormScreen({ route }: TProps) {
     [saveToRedux],
   );
 
-  const saveExitOnPress = async (formData: IHealthProfileFormData) => {
+  const saveExitOnPress = async (formikProps: FormikProps<IHealthProfileFormData>) => {
+    const formData = formikProps.values;
+    const formikErrors = Object.keys(formikProps.errors);
+    const formIsValid = formikProps.isValid;
+    const contextProps = { formData, formIsValid, formikErrors, patientId, screenName };
+
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName });
     saveToRedux(formData, screenName, navigator[sectionName].currentStep - 1);
+
+    Logging.context(contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS, contextProps);
+
     setShowConfirmExitModal(true);
     setSubmitting(false);
   };
@@ -408,7 +416,7 @@ export default function HPFormScreen({ route }: TProps) {
                 hideWhyWeAskLink={healthProfileScreens[sectionName].hideWhyWeAskLink}
                 maxSteps={maxSteps}
                 previousScreen={navigator[sectionName].previousScreenName}
-                saveExitOnPress={() => saveExitOnPress(formikProps.values)}
+                saveExitOnPress={() => saveExitOnPress(formikProps)}
                 testID={healthProfileScreens[sectionName].testID}
                 title={healthProfileScreens[sectionName].title}
               >
