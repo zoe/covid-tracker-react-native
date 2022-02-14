@@ -3,9 +3,8 @@
 import { mockedStudy } from '@covid/features/study-hub/components/__mocks__/mockedStudy';
 import { StudyCard } from '@covid/features/study-hub/components/StudyCard';
 import * as React from 'react';
-import renderer from 'react-test-renderer';
 
-import { createMockedElement } from '../../../../../__mocks__/createHelper';
+import { createReactTestInstance } from '../../../../../__mocks__/createHelper';
 
 const mockedInterestedStudy = {
   ...mockedStudy,
@@ -21,16 +20,9 @@ const mockedNotInterestedStudy = {
 
 describe('StudyCard tests', () => {
   it('renders correct version for users who shown interest', () => {
-    const instance = renderer.create(
-      createMockedElement(
-        <StudyCard
-          active
-          cardColor={mockedInterestedStudy.cardColor}
-          onPress={() => {}}
-          study={mockedInterestedStudy}
-        />,
-      ),
-    ).root;
+    const instance = createReactTestInstance(
+      <StudyCard active cardColor={mockedInterestedStudy.cardColor} onPress={() => {}} study={mockedInterestedStudy} />,
+    );
 
     expect(
       instance.findByProps({ full: true, testID: `row-interested-${mockedInterestedStudy.key}-icon-heart` }),
@@ -38,16 +30,14 @@ describe('StudyCard tests', () => {
   });
 
   it('renders correct version for users who have not shown interest', () => {
-    const instance = renderer.create(
-      createMockedElement(
-        <StudyCard
-          active={false}
-          cardColor={mockedNotInterestedStudy.cardColor}
-          onPress={() => {}}
-          study={mockedNotInterestedStudy}
-        />,
-      ),
-    ).root;
+    const instance = createReactTestInstance(
+      <StudyCard
+        active={false}
+        cardColor={mockedNotInterestedStudy.cardColor}
+        onPress={() => {}}
+        study={mockedNotInterestedStudy}
+      />,
+    );
 
     expect(
       instance.findByProps({ full: false, testID: `row-interested-${mockedNotInterestedStudy.key}-icon-heart` }),

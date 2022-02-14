@@ -83,7 +83,7 @@ export default function HealthProfileReminderCard(props: IProps) {
   };
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.touchable}>
+    <TouchableOpacity onPress={onPress} style={styles.touchable} testID="health-profile-reminder-card">
       <View style={styles.backgroundImage}>
         <HealthProfileReminderIllustration />
       </View>

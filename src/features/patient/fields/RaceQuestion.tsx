@@ -71,6 +71,7 @@ export function RaceQuestion(props: IProps) {
           label={i18n.t('race-other-question')}
           name="race_other"
           style={styles.marginTop}
+          testID="input-race-other"
         />
       ) : null}
       {props.error ? <ValidationError error={props.error} style={styles.error} /> : null}
