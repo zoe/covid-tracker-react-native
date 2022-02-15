@@ -9,11 +9,18 @@ export const contextNames = {
 };
 
 export type TContextName = keyof typeof contextNames;
+export type TFeatureName = 'health_profile';
 
-export function context(contextName: TContextName, properties: object): void {
+export function log(featureName: TFeatureName, errorMessage: string, contextName: TContextName, properties: object) {
   Sentry.setContext(contextName, properties);
+
+  Sentry.withScope((scope) => {
+    scope.setTag('feature', featureName);
+    scope.setLevel(Sentry.Severity.Info);
+    Sentry.captureException(new Error(errorMessage));
+  });
 }
 
 export default {
-  context,
+  log,
 };

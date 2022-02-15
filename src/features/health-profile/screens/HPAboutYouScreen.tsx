@@ -266,7 +266,7 @@ export default function HPAboutYouScreen() {
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName: 'HPAboutYou' });
     saveToRedux(formData, 'HPAboutYou', 0);
 
-    Logging.context(contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS, contextProps);
+    Logging.log('health_profile', 'save_exit_on_press', contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS, contextProps);
 
     setShowConfirmExitModal(true);
   };
