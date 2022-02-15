@@ -374,7 +374,7 @@ export default function HPFormScreen({ route }: TProps) {
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName });
     saveToRedux(formData, screenName, navigator[sectionName].currentStep - 1);
 
-    Logging.context(contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS, contextProps);
+    Logging.log('health_profile', 'save_exit_on_press', contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS, contextProps);
 
     setShowConfirmExitModal(true);
     setSubmitting(false);
