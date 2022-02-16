@@ -18,7 +18,7 @@ export function TextWithBoldInserts(props: IProps) {
         .map((text: string, index: number) => {
           const key = `bold-text-${index}`;
           const node: React.ReactNode = boldText ? (
-            <Text key={key} {...props} style={[props.style, styles.fontWeight700]}>
+            <Text key={key} {...props} style={[props.style, styles.mediumFontWeight]}>
               {text}
             </Text>
           ) : (
@@ -34,7 +34,7 @@ export function TextWithBoldInserts(props: IProps) {
 }
 
 const styles = StyleSheet.create({
-  fontWeight700: {
-    fontWeight: '700',
+  mediumFontWeight: {
+    fontWeight: '500',
   },
 });

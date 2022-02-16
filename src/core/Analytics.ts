@@ -117,6 +117,12 @@ enum EHealthProfileEvents {
   HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED = 'HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED',
 }
 
+enum ECovidTestLFTEvents {
+  COVID_TEST_LFT_RESULT_SELECTED = 'COVID_TEST_LFT_RESULT_SELECTED',
+  COVID_TEST_LFT_RESULT_CONFIRM_ADD = 'COVID_TEST_LFT_RESULT_CONFIRM_ADD',
+  COVID_TEST_LFT_RESULT_CANCEL_ADD = 'COVID_TEST_LFT_RESULT_CANCEL_ADD',
+}
+
 enum EOtherEvents {
   ACCEPT_STUDY_CONTACT = 'ACCEPT_STUDY_CONTACT',
   CLICK_CALLOUT = 'CLICK_CALLOUT',
@@ -161,6 +167,7 @@ export const events = {
   ...EVaccineEvents,
   ...EWiderHealthStudiesEvents,
   ...EHealthProfileEvents,
+  ...ECovidTestLFTEvents,
 };
 
 export type TEventName = keyof typeof events;

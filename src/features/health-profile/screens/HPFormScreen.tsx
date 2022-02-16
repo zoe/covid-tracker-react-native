@@ -2,7 +2,7 @@ import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import Analytics, { events } from '@covid/core/Analytics';
 import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
-import Logging, { contextNames } from '@covid/core/Logging';
+import Logging, { contextNames, logLevel } from '@covid/core/Logging';
 import {
   THealthProfileScreenNames,
   updateHealthProfile,
@@ -374,7 +374,13 @@ export default function HPFormScreen({ route }: TProps) {
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName });
     saveToRedux(formData, screenName, navigator[sectionName].currentStep - 1);
 
-    Logging.log('health_profile', 'save_exit_on_press', contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS, contextProps);
+    Logging.log(
+      'health_profile',
+      'save_exit_on_press',
+      contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS,
+      contextProps,
+      logLevel.Info,
+    );
 
     setShowConfirmExitModal(true);
     setSubmitting(false);

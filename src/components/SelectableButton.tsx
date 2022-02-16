@@ -12,11 +12,26 @@ interface IProps {
   selected: boolean;
   style?: any;
   testID?: string;
+  unselectedBgColor?: string;
+  unselectedTextColor?: string;
 }
 
-export function SelectableButton({ style, children, onPress, redesign, selected, testID }: IProps) {
-  const backgroundColor = selected ? (redesign ? colors.darkBlue : colors.brand) : colors.backgroundTertiary;
-  const textColor = selected ? colors.white : colors.primary;
+export function SelectableButton({
+  style,
+  children,
+  onPress,
+  redesign,
+  selected,
+  testID,
+  unselectedBgColor,
+  unselectedTextColor,
+}: IProps) {
+  const backgroundColor = selected
+    ? redesign
+      ? colors.darkBlue
+      : colors.brand
+    : unselectedBgColor || colors.backgroundTertiary;
+  const textColor = selected ? colors.white : unselectedTextColor || colors.primary;
   const btnStyle = [styles.button, style, { backgroundColor }];
 
   return (
