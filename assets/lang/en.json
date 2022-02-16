@@ -1823,11 +1823,10 @@
     "continue": "Continue",
     "intro-modal": {
       "tim-spector": "Prof. Tim Spector",
-      "title": "Build your Health Profile",
-      "description": "Power research into major diseases by answering questions about your health",
-      "time": "Approx 5 mins",
-      "button": "Build my Health Profile",
-      "remind-me": "Remind me later"
+      "title": "Update your Health Profile",
+      "description": "Will you help us with critical research into major diseases by answering some questions about your health?",
+      "time": "Approx 3 mins",
+      "button": "Update Health Profile"
     },
     "confirm-save-exit-modal": {
       "title": "Are you sure you want to exit?",

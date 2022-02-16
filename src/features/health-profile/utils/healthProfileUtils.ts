@@ -15,6 +15,28 @@ export const isEditing = (status: EHealthProfileQuestionCardStatus) => {
   return [EHealthProfileQuestionCardStatus.EDIT_ANSWER, EHealthProfileQuestionCardStatus.NOT_ANSWERED].includes(status);
 };
 
+export const isNumber = (value: string) => /^\d+$/.test(value);
+
+export const testIsValidNumberOrString = (
+  value: string,
+  minValue: number | undefined,
+  maxValue: number | undefined,
+) => {
+  let valid = true;
+
+  if (value !== TEXT_INPUT_PNTS_LABEL) {
+    if (minValue || minValue === 0) {
+      valid = valid && Number.parseInt(value, 10) >= minValue && isNumber(value);
+    }
+
+    if (maxValue || maxValue === 0) {
+      valid = valid && Number.parseInt(value, 10) <= maxValue && isNumber(value);
+    }
+  }
+
+  return valid;
+};
+
 export const validationSchemaHPAboutYou = Yup.object().shape({
   feet: Yup.number().when('heightUnit', {
     is: 'ft',
@@ -114,7 +136,6 @@ export const createHPAboutYouDTO = (formData: IHealthProfileFormData) => {
   }
 
   // NOTE: YesNo fields are submitted as strings, but no need to convert to boolean as Django backend automatically deduces it as boolean
-  console.log('infos', infos);
   return infos;
 };
 

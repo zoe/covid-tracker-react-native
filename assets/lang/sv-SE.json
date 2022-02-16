@@ -1830,8 +1830,7 @@
       "title": false,
       "description": false,
       "time": false,
-      "button": false,
-      "remind-me": false
+      "button": false
     },
     "confirm-save-exit-modal": {
       "title": false,

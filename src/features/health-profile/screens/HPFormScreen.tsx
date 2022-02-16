@@ -34,6 +34,7 @@ import {
   createCompletedHealthProfileDTO,
   isEditing,
   PNTS_VALUE_TO_SAVE_IN_DB,
+  testIsValidNumberOrString,
   TEXT_INPUT_PNTS_LABEL,
 } from '@covid/features/health-profile/utils/healthProfileUtils';
 import i18n from '@covid/locale/i18n';
@@ -202,19 +203,7 @@ export default function HPFormScreen({ route }: TProps) {
             then: Yup.string()
               .required()
               .test(question.propertyName, 'The test is not valid', (value) => {
-                let valid = true;
-
-                if (value !== TEXT_INPUT_PNTS_LABEL) {
-                  if (question.minValue || question.minValue === 0) {
-                    valid = valid && Number.parseInt(value, 10) >= question.minValue;
-                  }
-
-                  if (question.maxValue || question.maxValue === 0) {
-                    valid = valid && Number.parseInt(value, 10) <= question.maxValue;
-                  }
-                }
-
-                return valid;
+                return testIsValidNumberOrString(value, question.minValue, question.maxValue);
               }),
           });
         } else if (question.dependsOnProperty && question.doesNotHavePropertyValue) {
@@ -235,38 +224,14 @@ export default function HPFormScreen({ route }: TProps) {
             then: Yup.string()
               .required()
               .test(question.propertyName, 'The test is not valid', (value) => {
-                let valid = true;
-
-                if (value !== TEXT_INPUT_PNTS_LABEL) {
-                  if (question.minValue || question.minValue === 0) {
-                    valid = valid && Number.parseInt(value, 10) >= question.minValue;
-                  }
-
-                  if (question.maxValue || question.maxValue === 0) {
-                    valid = valid && Number.parseInt(value, 10) <= question.maxValue;
-                  }
-                }
-
-                return valid;
+                return testIsValidNumberOrString(value, question.minValue, question.maxValue);
               }),
           });
         } else {
           validationObject[question.propertyName] = Yup.string()
             .required()
             .test(question.propertyName, 'The test is not valid', (value) => {
-              let valid = true;
-
-              if (value !== TEXT_INPUT_PNTS_LABEL) {
-                if (question.minValue || question.minValue === 0) {
-                  valid = valid && Number.parseInt(value, 10) >= question.minValue;
-                }
-
-                if (question.maxValue || question.maxValue === 0) {
-                  valid = valid && Number.parseInt(value, 10) <= question.maxValue;
-                }
-              }
-
-              return valid;
+              return testIsValidNumberOrString(value, question.minValue, question.maxValue);
             });
         }
 
@@ -283,7 +248,11 @@ export default function HPFormScreen({ route }: TProps) {
         if (sectionName === EHealthProfileSection.WOMENS_HEALTH) {
           validationObject.period_started_age = Yup.string().when([], {
             is: () => savedAnswers.gender === 0,
-            then: Yup.string().required(),
+            then: Yup.string()
+              .required()
+              .test('period_started_age', 'Not a valid age', (value) => {
+                return testIsValidNumberOrString(value, 0, 50);
+              }),
           });
 
           validationObject.menopausal_status = Yup.string().when([], {
