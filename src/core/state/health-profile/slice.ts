@@ -55,9 +55,6 @@ const EXISTING_HEALTH_PROFILE_FIELDS: TExistingHealthProfileFields[] = [
   'healthcare_professional',
   'is_carer_for_community',
   'smoker_status',
-  'has_kidney_disease',
-  'has_cancer',
-  'has_heart_disease',
 ];
 
 export const fetchExistingHealthProfile = createAsyncThunk(
