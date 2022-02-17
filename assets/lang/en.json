@@ -176,6 +176,8 @@
   "postcode-too-long": "Please correct your postcode",
   "picker-yes": "Yes",
   "picker-no": "No",
+  "picker-positive": "Positive",
+  "picker-negative": "Negative",
   "picker-unsure": "Unsure",
   "please-select-option": "Please select an option",
   "placeholder-optional-question": "*Optional",
@@ -696,7 +698,20 @@
     "tabs-title": "Test type",
     "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
     "title": "Your COVID-19 tests",
-    "update": "Update"
+    "update": "Update",
+    "lft-quick-report": {
+      "tag-today": "Today's test",
+      "question": "What was the result of your *lateral flow test* today?",
+      "positive": "Positive",
+      "negative": "Negative",
+      "tag-confirm": "Confirm test",
+      "confirmation": "You're adding a *%{result}* lateral flow test for today",
+      "confirmation-positive": "That's correct, continue to add",
+      "confirmation-negative": "Don't add",
+      "todays-result": "You logged a *%{result}* lateral flow test today",
+      "todays-result-waiting": "You're still *waiting* for the result of your lateral flow test today",
+      "todays-result-failed": "You logged a *not clear / failed* lateral flow test today"
+    }
   },
   "covid-test-modal": {
     "screen-0": {
@@ -1808,11 +1823,10 @@
     "continue": "Continue",
     "intro-modal": {
       "tim-spector": "Prof. Tim Spector",
-      "title": "Build your Health Profile",
-      "description": "Power research into major diseases by answering questions about your health",
-      "time": "Approx 5 mins",
-      "button": "Build my Health Profile",
-      "remind-me": "Remind me later"
+      "title": "Update your Health Profile",
+      "description": "Will you help us with critical research into major diseases by answering some questions about your health?",
+      "time": "Approx 3 mins",
+      "button": "Update Health Profile"
     },
     "confirm-save-exit-modal": {
       "title": "Are you sure you want to exit?",

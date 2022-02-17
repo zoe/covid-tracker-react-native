@@ -1,4 +1,5 @@
-import { ClickableText, Text } from '@covid/components';
+import { closeIcon } from '@assets';
+import { Text } from '@covid/components';
 import { BrandedButtonAnalytics } from '@covid/components/analytics/BrandedButtonAnalytics';
 import { Modal } from '@covid/components/Modal';
 import Analytics, { events } from '@covid/core/Analytics';
@@ -10,15 +11,22 @@ import { IconTime } from '@covid/features/study-hub/components/IconTime';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { generalApiClient } from '@covid/services';
-import { sizes, styling } from '@covid/themes';
+import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 type TProps = {
   onRequestClose: () => void;
   visible: boolean;
+};
+
+const hitSlop = {
+  bottom: 12,
+  left: 12,
+  right: 12,
+  top: 12,
 };
 
 export default function HealthProfileIntroModal(props: TProps) {
@@ -45,6 +53,9 @@ export default function HealthProfileIntroModal(props: TProps) {
       testID="health-profile-intro-modal"
       visible={props.visible}
     >
+      <TouchableOpacity hitSlop={hitSlop} onPress={closeModal} style={styles.alignEnd} testID="button-close-modal">
+        <Image source={closeIcon} style={styles.closeCross} />
+      </TouchableOpacity>
       <HealthProfileLogo style={styles.logo} />
       <ImageTimSpector />
       <Text inverted style={[styles.black, styles.marginTop]} textAlign="center" textClass="h3Light">
@@ -69,30 +80,31 @@ export default function HealthProfileIntroModal(props: TProps) {
       <BrandedButtonAnalytics
         eventName={events.HEALTH_PROFILE_INTRO_MODAL_UPDATE_NOW_CLICKED}
         onPress={closeModalAndUpdateHealthProfile}
-        style={styles.button}
+        style={[styles.button]}
         testID="health-profile-intro-modal-update-now-button"
       >
         {i18n.t('health-profile.intro-modal.button')}
       </BrandedButtonAnalytics>
-      <TouchableOpacity
-        onPress={closeModal}
-        style={styling.paddingVertical}
-        testID="health-profile-intro-modal-remind-me"
-      >
-        <ClickableText style={[styling.textCenter, styles.darkBlue]}>
-          {i18n.t('health-profile.intro-modal.remind-me')}
-        </ClickableText>
-      </TouchableOpacity>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
+  alignEnd: {
+    alignSelf: 'flex-end',
+  },
   black: {
     color: colors.black,
   },
   button: {
     backgroundColor: colors.purple,
+    marginBottom: sizes.l,
+    marginHorizontal: sizes.s,
+  },
+  closeCross: {
+    height: 14,
+    tintColor: colors.tertiary,
+    width: 14,
   },
   darkBlue: {
     color: colors.purple,

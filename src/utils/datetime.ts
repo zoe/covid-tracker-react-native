@@ -26,3 +26,5 @@ export const isDateBefore = (date: TDateTypes, compDate: TDateTypes): boolean =>
 };
 
 export const dateToString = (date: Date) => moment(date).format('YYYY-MM-DD');
+
+export const dateIsToday = (dateString: string) => moment(dateString).isSame(moment(), 'day');

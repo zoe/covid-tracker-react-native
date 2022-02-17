@@ -111,8 +111,8 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
         fieldType: EFieldType.TEXT,
         items: null,
         keyboardType: 'numeric',
-        maxValue: 50,
-        minValue: 0,
+        maxValue: 50, // Note - custom validation
+        minValue: 0, // Note - custom validation
         placeholder: 'Age',
         pnts: true,
         propertyName: 'period_started_age',
@@ -263,8 +263,8 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
         fieldType: EFieldType.TEXT,
         items: null,
         keyboardType: 'numeric',
-        maxValue: 100,
-        minValue: 0,
+        maxValue: 100, // Note - custom validation
+        minValue: 0, // Note - custom validation
         placeholder: 'Age (years)',
         pnts: true,
         propertyName: 'post_menopausal_age',

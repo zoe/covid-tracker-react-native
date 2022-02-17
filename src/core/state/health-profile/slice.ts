@@ -67,12 +67,16 @@ export const fetchExistingHealthProfile = createAsyncThunk(
       return {};
     }
 
+    // Note: Added check for null values being returned by backend. Null values cause issues with Yup validation, so needs to be an empty string.
     const healthProfile: Partial<THealthProfileRequest> = Object.keys(patientInfo)
       .filter((key) => EXISTING_HEALTH_PROFILE_FIELDS.includes(key as TExistingHealthProfileFields))
       .reduce((obj, key) => {
         return {
           ...obj,
-          [key]: patientInfo[key as keyof TPatientInfosRequest],
+          [key]:
+            patientInfo[key as keyof TPatientInfosRequest] === null
+              ? ''
+              : patientInfo[key as keyof TPatientInfosRequest],
         };
       }, {});
 

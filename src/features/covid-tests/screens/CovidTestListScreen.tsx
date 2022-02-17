@@ -4,13 +4,15 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { ErrorText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { patientService } from '@covid/core/patient/PatientService';
 import { updateShowOmicronModal } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { covidTestService } from '@covid/core/user/CovidTestService';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { ECovidTestMechanismOptions, TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { CovidLFTQuickReport } from '@covid/features/covid-tests/components/CovidLFTQuickReport';
 import { getInitialRouteName } from '@covid/features/covid-tests/helpers';
 import { CovidTestListOnboardingModal } from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
 import { CovidTestTrackingOmicronModal } from '@covid/features/covid-tests/modals/CovidTestTrackingOmicronModal';
@@ -18,6 +20,7 @@ import CovidTestTabbedListsScreen from '@covid/features/covid-tests/screens/Covi
 import i18n from '@covid/locale/i18n';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
+import { dateIsToday } from '@covid/utils/datetime';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -30,11 +33,25 @@ interface IProps {
   route: RouteProp<TScreenParamList, 'CovidTestList'>;
 }
 
+const getTodaysLFT = (covidTests: TCovidTest[]) => {
+  // .find works because backend returns tests reverse chronologically, although only by date, not time.
+  // This means the first LFT result logged will be picked (if more than one done in the day).
+  const todaysTest = covidTests.find(
+    (test) =>
+      test.mechanism === ECovidTestMechanismOptions.NOSE_OR_THROAT_SWAB &&
+      test.is_rapid_test &&
+      dateIsToday(test.date_taken_specific),
+  );
+  return todaysTest;
+};
+
 export default function CovidTestListScreen(props: IProps) {
   const [covidTests, setCovidTests] = React.useState<TCovidTest[]>([]);
   const [error, setError] = React.useState<string>();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
+  const [todaysLFT, setTodaysLFT] = React.useState<TCovidTest>();
+
   const dispatch = useDispatch();
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
@@ -51,6 +68,22 @@ export default function CovidTestListScreen(props: IProps) {
     });
   }, [patientId]);
 
+  const fetchTestList = async () => {
+    setIsLoading(true);
+    try {
+      const tests = (await covidTestService.listTests()).data;
+      const patientTests = tests.filter(
+        (t) => t.patient === assessmentCoordinator.assessmentData?.patientData?.patientId,
+      );
+      setCovidTests(patientTests);
+      setTodaysLFT(getTodaysLFT(patientTests));
+    } catch (_) {
+      setError(i18n.t('something-went-wrong'));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       if (startupInfo?.show_covid_test_onboarding && !assessmentCoordinator.isReportedByOther()) {
@@ -59,24 +92,9 @@ export default function CovidTestListScreen(props: IProps) {
 
       let isActive = true;
 
-      const fetchTestList = async () => {
-        setIsLoading(true);
-        try {
-          const tests = (await covidTestService.listTests()).data;
-          const patientTests = tests.filter(
-            (t) => t.patient === assessmentCoordinator.assessmentData?.patientData?.patientId,
-          );
-          if (isActive) {
-            setCovidTests(patientTests);
-            setIsLoading(false);
-          }
-        } catch (_) {
-          setError(i18n.t('something-went-wrong'));
-          setIsLoading(false);
-        }
-      };
-
-      fetchTestList();
+      if (isActive) {
+        fetchTestList();
+      }
 
       return () => {
         isActive = false;
@@ -93,10 +111,21 @@ export default function CovidTestListScreen(props: IProps) {
 
   const initialRouteName = getInitialRouteName(props.route.params?.mechanism, props.route.params?.is_rapid_test);
 
+  const renderFooter = () => (
+    <View style={styles.wrapper}>
+      <BrandedButton onPress={handleNextButton} testID="button-covid-test-list-screen">
+        <Text style={{ color: colors.white }}>
+          {covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
+        </Text>
+      </BrandedButton>
+    </View>
+  );
+
   return (
     <Screen
       backgroundColor={colors.backgroundPrimary}
       profile={assessmentCoordinator.assessmentData?.patientData?.patientState?.profile}
+      renderFooter={renderFooter}
       testID="covid-test-list-screen"
     >
       {!showOnboardingModal ? null : (
@@ -107,6 +136,7 @@ export default function CovidTestListScreen(props: IProps) {
         />
       )}
 
+      {/* TODO: Delete */}
       <CovidTestTrackingOmicronModal
         onRequestClose={closeTrackingOmicronModal}
         visible={!!startupInfo?.show_omicron_modal}
@@ -114,7 +144,10 @@ export default function CovidTestListScreen(props: IProps) {
 
       <ProgressHeader currentStep={0} maxSteps={1} title={i18n.t('covid-test-list.title')} />
 
-      {covidTests.length ? null : (
+      {/* TODO: Only show to users with the right backend flag */}
+      {isGBCountry() && startupInfo?.is_tester ? (
+        <CovidLFTQuickReport onSuccessfulAdd={fetchTestList} todaysLFT={todaysLFT} />
+      ) : covidTests.length ? null : (
         <RegularText style={styles.marginTop} testID="covid-test-list-introduction">
           {i18n.t('covid-test-list.text')}
         </RegularText>
@@ -137,14 +170,6 @@ export default function CovidTestListScreen(props: IProps) {
       ) : null}
 
       {error ? <ErrorText style={{ textAlign: 'center' }}>{error}</ErrorText> : null}
-
-      <View style={{ flex: 1 }} />
-
-      <BrandedButton onPress={handleNextButton} testID="button-covid-test-list-screen">
-        <Text style={{ color: colors.white }}>
-          {covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
-        </Text>
-      </BrandedButton>
     </Screen>
   );
 }
@@ -163,5 +188,8 @@ const styles = StyleSheet.create({
   },
   tabTitle: {
     color: colors.secondary,
+  },
+  wrapper: {
+    padding: sizes.l,
   },
 });

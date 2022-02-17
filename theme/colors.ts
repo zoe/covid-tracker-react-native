@@ -32,6 +32,7 @@ export const colors = {
   pink: '#D28C90',
   red: '#DA675F',
   green: '#5ebd17',
+  teal: '#70D0DD',
 
   textDark: '#24262B',
 

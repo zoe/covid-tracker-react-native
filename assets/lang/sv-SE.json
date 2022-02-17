@@ -100,6 +100,8 @@
   "postcode-too-long": "Korrigera ditt postnummer",
   "picker-yes": "Ja",
   "picker-no": "Nej",
+  "picker-positive": false,
+  "picker-negative": false,
   "picker-unsure": "Osäker",
   "please-select-option": "Välj ett alternativ",
   "placeholder-optional-question": "*Valfritt",
@@ -637,7 +639,20 @@
     "tabs-title": "Testtyp",
     "text": "Lägg till dina eventuella covid-19-tester nedan. Detta innefattar tester för pågående infektion såsom PCR-tester och antigentester (näsa/svalg/saliv), samt tester för tidigare covid-19-infektion, såsom antikroppstester (blodprov). Du kan redigera listan när som helst i framtiden.",
     "title": "Dina covid-19-tester",
-    "update": "Uppdatera"
+    "update": "Uppdatera",
+    "lft-quick-report": {
+      "tag-today": false,
+      "question": false,
+      "positive": false,
+      "negative": false,
+      "tag-confirm": false,
+      "confirmation": false,
+      "confirmation-positive": false,
+      "confirmation-negative": false,
+      "todays-result": false,
+      "todays-result-waiting": false,
+      "todays-result-failed": false
+    }
   },
   "covid-test-modal": {
     "screen-0": {
@@ -1815,8 +1830,7 @@
       "title": false,
       "description": false,
       "time": false,
-      "button": false,
-      "remind-me": false
+      "button": false
     },
     "confirm-save-exit-modal": {
       "title": false,

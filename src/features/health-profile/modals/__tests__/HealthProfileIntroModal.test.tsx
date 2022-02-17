@@ -42,7 +42,7 @@ describe('Health Profile intro modal tests', () => {
     });
   });
 
-  it('Remind me later button is enabled', async () => {
+  it('Close button is enabled', async () => {
     const onRequestClose = jest.fn();
     const mockedElement = createMockedElement(
       <HealthProfileIntroModal
@@ -57,7 +57,7 @@ describe('Health Profile intro modal tests', () => {
 
     await act(async () => {
       expect(onRequestClose).toHaveBeenCalledTimes(0);
-      const button = renderAPI.getByTestId('health-profile-intro-modal-remind-me');
+      const button = renderAPI.getByTestId('button-close-modal');
       await fireEvent.press(button);
       expect(onRequestClose).toHaveBeenCalledTimes(1);
       expect(navigateMock).toHaveBeenCalledTimes(0);

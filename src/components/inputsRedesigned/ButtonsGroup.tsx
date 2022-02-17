@@ -10,7 +10,7 @@ import {
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export interface ISingleButton {
@@ -28,7 +28,10 @@ interface IProps {
   required?: boolean;
   selectedValue: string;
   showPnts?: boolean;
+  style?: StyleProp<ViewStyle>;
   testID?: string;
+  unselectedBgColor?: string;
+  unselectedTextColor?: string;
 }
 
 export function ButtonsGroup({
@@ -41,7 +44,10 @@ export function ButtonsGroup({
   required,
   selectedValue,
   showPnts,
+  style,
   testID,
+  unselectedBgColor,
+  unselectedTextColor,
 }: IProps) {
   const [selected, setSelected] = React.useState<string>(selectedValue);
 
@@ -73,8 +79,10 @@ export function ButtonsGroup({
             key={item.value}
             onPress={() => onSelect(item.value)}
             selected={selected === item.value}
-            style={{ flex: 1, marginLeft: index !== 0 ? sizes.xs : 0 }}
+            style={[{ flex: 1, marginLeft: index !== 0 ? sizes.xs : 0 }, style]}
             testID={`button-${item.value}${testID ? `-${testID}` : ''}`}
+            unselectedBgColor={unselectedBgColor}
+            unselectedTextColor={unselectedTextColor}
           >
             {item.label}
           </SelectableButton>

@@ -132,6 +132,7 @@ export const healthProfileHeartCirculationQuestions: Partial<THealthProfileScree
         description: null,
         fieldType: EFieldType.TEXT,
         items: null,
+        keyboardType: 'numeric',
         maxValue: new Date().getFullYear(),
         minValue: 1900,
         placeholder: 'Year',

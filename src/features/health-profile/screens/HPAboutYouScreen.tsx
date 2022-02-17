@@ -3,7 +3,7 @@ import { Form } from '@covid/components/Form';
 import { Loading } from '@covid/components/Loading';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
-import Logging, { contextNames } from '@covid/core/Logging';
+import Logging, { contextNames, logLevel } from '@covid/core/Logging';
 import {
   fetchExistingHealthProfile,
   THealthProfileScreenNames,
@@ -266,7 +266,13 @@ export default function HPAboutYouScreen() {
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName: 'HPAboutYou' });
     saveToRedux(formData, 'HPAboutYou', 0);
 
-    Logging.log('health_profile', 'save_exit_on_press', contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS, contextProps);
+    Logging.log(
+      'health_profile',
+      'save_exit_on_press',
+      contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS,
+      contextProps,
+      logLevel.Info,
+    );
 
     setShowConfirmExitModal(true);
   };
