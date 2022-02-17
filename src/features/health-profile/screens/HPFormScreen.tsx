@@ -33,6 +33,7 @@ import { HealthProfileConfirmExitModal } from '@covid/features/health-profile/mo
 import {
   createCompletedHealthProfileDTO,
   isEditing,
+  logDTOSentToServer,
   PNTS_VALUE_TO_SAVE_IN_DB,
   testIsValidNumberOrString,
   TEXT_INPUT_PNTS_LABEL,
@@ -311,6 +312,8 @@ export default function HPFormScreen({ route }: TProps) {
         // Might take a while for last screen's form data to be updated to Redux
         const completeForm = { ...savedAnswers, ...formData };
         const infos = createCompletedHealthProfileDTO(completeForm);
+
+        logDTOSentToServer(infos, patientId);
 
         try {
           await healthProfileService.createHealthProfile(patientId, infos);
