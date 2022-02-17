@@ -128,7 +128,7 @@
     "sentry-expo": "4.0.3",
     "string-natural-compare": "3.0.1",
     "styled-components": "5.2.1",
-    "url-parse": "1.5.2",
+    "url-parse": "1.5.6",
     "victory-native": "35.3.3",
     "yup": "0.28.5"
   },
