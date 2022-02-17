@@ -144,8 +144,7 @@ export default function CovidTestListScreen(props: IProps) {
 
       <ProgressHeader currentStep={0} maxSteps={1} title={i18n.t('covid-test-list.title')} />
 
-      {/* TODO: Only show to users with the right backend flag */}
-      {isGBCountry() && startupInfo?.is_tester ? (
+      {isGBCountry() && startupInfo?.show_lft_quick_reporting ? (
         <CovidLFTQuickReport onSuccessfulAdd={fetchTestList} todaysLFT={todaysLFT} />
       ) : covidTests.length ? null : (
         <RegularText style={styles.marginTop} testID="covid-test-list-introduction">
