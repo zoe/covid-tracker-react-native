@@ -389,6 +389,7 @@ export type TStartupInfo = {
   show_diet_score: boolean;
   show_edit_location: boolean;
   show_flu_vaccine_onboarding: boolean;
+  show_lft_quick_reporting: boolean;
   show_long_covid: boolean;
   show_mh_insight?: boolean;
   show_modal?: TShowModal;
