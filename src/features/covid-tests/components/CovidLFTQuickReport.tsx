@@ -134,7 +134,12 @@ export const CovidLFTQuickReport = (props: IProps) => {
               {i18n.t('covid-test-list.lft-quick-report.question')}
             </TextWithBoldInserts>
             {/* key prop used to ensure component resets if error or confirmation is dismissed */}
-            <NegativePositiveField key={LFTResult} onValueChange={onLFTResultButtonPress} selectedValue={LFTResult} />
+            <NegativePositiveField
+              key={LFTResult}
+              onValueChange={onLFTResultButtonPress}
+              selectedValue={LFTResult}
+              testID="covid-test-lft-quick-report"
+            />
             {LFTResultError ? <ErrorText style={styles.error}>{LFTResultError}</ErrorText> : null}
           </>
         )}
