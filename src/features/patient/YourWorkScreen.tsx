@@ -157,16 +157,19 @@ export default class YourWorkScreen extends React.Component<TYourWorkProps, TSta
     }),
     isCarer: Yup.string().required(i18n.t('required-is-carer')),
     isHealthcareStaff: Yup.string().required(i18n.t('required-is-healthcare-worker')),
-    ppeAvailabilityAlways: Yup.string().when('hasUsedPPEEquipment', {
-      is: 'always',
+    ppeAvailabilityAlways: Yup.string().when(['hasUsedPPEEquipment', 'isHealthcareStaff', 'isCarer'], {
+      is: (usedPPE, isHealthcareStaff, isCarer) =>
+        usedPPE === 'always' && (isHealthcareStaff === EHealthCareStaffOptions.DOES_INTERACT || isCarer === 'yes'),
       then: Yup.string().required(i18n.t('required-ppe-availability')),
     }),
-    ppeAvailabilityNever: Yup.string().when('hasUsedPPEEquipment', {
-      is: 'never',
+    ppeAvailabilityNever: Yup.string().when(['hasUsedPPEEquipment', 'isHealthcareStaff', 'isCarer'], {
+      is: (usedPPE, isHealthcareStaff, isCarer) =>
+        usedPPE === 'never' && (isHealthcareStaff === EHealthCareStaffOptions.DOES_INTERACT || isCarer === 'yes'),
       then: Yup.string().required(i18n.t('required-ppe-availability')),
     }),
-    ppeAvailabilitySometimes: Yup.string().when('hasUsedPPEEquipment', {
-      is: 'sometimes',
+    ppeAvailabilitySometimes: Yup.string().when(['hasUsedPPEEquipment', 'isHealthcareStaff', 'isCarer'], {
+      is: (usedPPE, isHealthcareStaff, isCarer) =>
+        usedPPE === 'sometimes' && (isHealthcareStaff === EHealthCareStaffOptions.DOES_INTERACT || isCarer === 'yes'),
       then: Yup.string().required(i18n.t('required-ppe-availability')),
     }),
   });
