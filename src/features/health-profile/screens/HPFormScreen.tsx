@@ -381,6 +381,7 @@ export default function HPFormScreen({ route }: TProps) {
           useFocusEffect(
             React.useCallback(() => {
               formikProps.validateForm();
+              Analytics.track(events.HEALTH_PROFILE_SCREEN_IN_FOCUS, { screenName });
             }, []),
           );
           return (

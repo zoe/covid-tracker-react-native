@@ -65,7 +65,6 @@ export const validationSchemaHPAboutYou = Yup.object().shape({
   limited_activity: Yup.string().required(),
   mobility_aid: Yup.string().required(),
   needs_help: Yup.string().required(),
-  poo_frequency: Yup.string().required(),
   postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
   pounds: Yup.number().when('weightUnit', {
     is: 'lbs',

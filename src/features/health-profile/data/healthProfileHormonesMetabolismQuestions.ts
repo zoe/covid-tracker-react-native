@@ -89,7 +89,8 @@ export const healthProfileHormonesMetabolismQuestions: Partial<THealthProfileScr
         placeholder: null,
         pnts: true,
         propertyName: 'prior_familial_hypercholesterolemia_hyperlipidemia_diagnosis',
-        question: 'Has a doctor told you that you have/had familial hypercholesterolemia or hyperlipidemia?',
+        question:
+          'Has a doctor told you that you have/had high blood cholesterol or high blood fat (hypercholesterolemia or hyperlipidemia)?',
         required: true,
         showNewTag: false,
       },

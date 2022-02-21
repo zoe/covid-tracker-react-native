@@ -15,7 +15,7 @@ export const healthProfileHeartCirculationQuestions: Partial<THealthProfileScree
         placeholder: null,
         pnts: false,
         propertyName: 'prior_high_blood_pressure_diagnosis',
-        question: 'Has a doctor ever told you that you have high blood pressure (hypertension)?',
+        question: 'Has a doctor ever told you that you have/had high blood pressure (hypertension)?',
         required: true,
         showNewTag: false,
       },
@@ -28,7 +28,8 @@ export const healthProfileHeartCirculationQuestions: Partial<THealthProfileScree
         placeholder: null,
         pnts: true,
         propertyName: 'has_heart_disease',
-        question: 'Have you ever been diagnosed with cardiovascular disease?',
+        question:
+          'Have you ever been diagnosed with cardiovascular disease (relating to the heart, heart rhythm, circulation)?',
         required: true,
         showNewTag: false,
       },
@@ -82,16 +83,6 @@ export const healthProfileHeartCirculationQuestions: Partial<THealthProfileScree
             label: 'Congestive heart failure',
             name: 'prior_cardiovascular_diagnosis_congestive_heart_failure',
             testID: 'prior_cardiovascular_diagnosis_congestive_heart_failure',
-          },
-          {
-            label: 'Hypertension',
-            name: 'prior_cardiovascular_diagnosis_hypertension',
-            testID: 'prior_cardiovascular_diagnosis_hypertension',
-          },
-          {
-            label: 'High cholesterol',
-            name: 'prior_cardiovascular_diagnosis_high_cholesterol',
-            testID: 'prior_cardiovascular_diagnosis_high_cholesterol',
           },
           {
             label: 'Deep vein thrombosis (DVT)',

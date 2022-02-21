@@ -561,8 +561,6 @@ export type THealthProfileRequest = {
   prior_cardiovascular_diagnosis_heart_murmur: boolean;
   prior_cardiovascular_diagnosis_atrial_fibrillation: boolean;
   prior_cardiovascular_diagnosis_congestive_heart_failure: boolean;
-  prior_cardiovascular_diagnosis_hypertension: boolean;
-  prior_cardiovascular_diagnosis_high_cholesterol: boolean;
   prior_cardiovascular_diagnosis_dvt: boolean;
   prior_cardiovascular_diagnosis_varicose_veins: boolean;
   prior_cardiovascular_diagnosis_pulmonary_embolism: boolean;
