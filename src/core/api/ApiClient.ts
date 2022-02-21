@@ -1,3 +1,4 @@
+import { showErrorToast } from '@covid/core/ErrorToast';
 import { AxiosInstance } from 'axios';
 
 import { ApiClientBase } from './ApiClientBase';
@@ -29,6 +30,7 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
       const response = await this.client.post<TResponse>(path, payload);
       return response.data;
     } catch (error) {
+      showErrorToast(error);
       handleServiceError(error);
     }
     return {} as TResponse;
@@ -39,6 +41,7 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
       const response = await this.client.patch<TResponse>(path, payload);
       return response.data;
     } catch (error) {
+      showErrorToast(error);
       handleServiceError(error);
     }
     return {} as TResponse;
@@ -49,6 +52,7 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
       const response = await this.client.delete<TResponse>(path, { data: payload });
       return response.data;
     } catch (error) {
+      showErrorToast(error);
       handleServiceError(error);
     }
     return {} as TResponse;
@@ -61,6 +65,10 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
       });
       return response.data;
     } catch (error) {
+      // needed to prevent showing toast on initial app load when user has not yet signed in, or if user changes postcode
+      if (!path.includes('content') && !path.includes('trendlines')) {
+        showErrorToast(error);
+      }
       handleServiceError(error);
     }
     return {} as TResponse;

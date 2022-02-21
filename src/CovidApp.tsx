@@ -1,4 +1,4 @@
-import { ShareScreen } from '@covid/components';
+import { Header3Text, RegularText, ShareScreen } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
 import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
@@ -10,13 +10,16 @@ import { VaccineListMissingModal } from '@covid/features/vaccines/modals/Vaccine
 import NavigatorService from '@covid/NavigatorService';
 import MainNavigator from '@covid/routes';
 import { TScreenParamList } from '@covid/routes/types';
+import { sizes } from '@covid/themes';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { colors } from '@theme';
 import * as Notifications from 'expo-notifications';
 import { Root } from 'native-base';
 import * as React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, View } from 'react-native';
+import Toast, { ToastConfig } from 'react-native-toast-message';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Stack = createStackNavigator<TScreenParamList>();
@@ -61,6 +64,23 @@ const ref = (navigationContainerRef: NavigationContainerRef<ReactNavigation.Root
   }
 };
 
+const toastConfig = {
+  // Note: For custom messaging, can pass in props arg - https://github.com/calintamas/react-native-toast-message/blob/main/docs/custom-layouts.md
+  customError: ({ text1, text2 }: ToastConfig) => (
+    <View
+      style={{
+        backgroundColor: colors.feedbackBad,
+        borderRadius: sizes.m,
+        padding: sizes.m,
+        width: '90%',
+      }}
+    >
+      <Header3Text style={{ marginBottom: sizes.xxs }}>{text1}</Header3Text>
+      <RegularText>{text2}</RegularText>
+    </View>
+  ),
+};
+
 export default function CovidApp() {
   const app = useSelector(appSelectors.selectApp);
   const dispatch = useDispatch();
@@ -90,6 +110,7 @@ export default function CovidApp() {
           <Stack.Screen component={ShareScreen} name="Share" options={optionsShareScreen} />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast config={toastConfig} />
     </Root>
   );
 }

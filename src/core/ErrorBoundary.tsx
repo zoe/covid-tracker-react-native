@@ -24,7 +24,7 @@ function ErrorFallback(errorData: {
         <Header3Text>{i18n.t('error-boundary.something-went-wrong')}</Header3Text>
         <RegularText>{`\n${i18n.t('error-boundary.encountered-error')}`}</RegularText>
         <RegularBoldText>'{errorData.error.message}'</RegularBoldText>
-        <RegularText>{`\n${i18n.t('error-boundary.notified')}`}</RegularText>
+        <RegularText>{`\n${i18n.t('error-boundary.try-again')}`}</RegularText>
       </View>
     </View>
   );

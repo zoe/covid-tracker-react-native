@@ -1,4 +1,6 @@
 import appConfig from '@covid/appConfig';
+import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
+import { showErrorToast } from '@covid/core/ErrorToast';
 import { AxiosResponse } from 'axios';
 
 import { TCovidTest, TCovidTestResponse } from './dto/CovidTestContracts';
@@ -14,7 +16,13 @@ interface ICovidTestService extends IUserService {
 
 class CovidTestService extends UserService implements ICovidTestService {
   public async listTests() {
-    return this.client.get<TCovidTest[]>(`/covid_tests/`);
+    try {
+      return await this.client.get<TCovidTest[]>(`/covid_tests/`);
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+    return {} as AxiosResponse<TCovidTest[]>;
   }
 
   public async addTest(test: Partial<TCovidTest>) {
@@ -22,20 +30,44 @@ class CovidTestService extends UserService implements ICovidTestService {
       ...test,
       version: appConfig.covidTestVersion,
     };
-    return this.client.post<TCovidTestResponse>(`/covid_tests/`, test);
+    try {
+      return await this.client.post<TCovidTestResponse>(`/covid_tests/`, test);
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+    return {} as AxiosResponse<TCovidTestResponse>;
   }
 
   public async getTest(testId: string): Promise<TCovidTest> {
-    const response = await this.client.get<TCovidTest>(`/covid_tests/${testId}/`);
-    return response.data;
+    try {
+      const response = await this.client.get<TCovidTest>(`/covid_tests/${testId}/`);
+      return response.data;
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+    return {} as TCovidTest;
   }
 
   public async updateTest(testId: string, test: Partial<TCovidTest>) {
-    return this.client.patch<TCovidTestResponse>(`/covid_tests/${testId}/`, test);
+    try {
+      return await this.client.patch<TCovidTestResponse>(`/covid_tests/${testId}/`, test);
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+    return {} as AxiosResponse<TCovidTestResponse>;
   }
 
   public async deleteTest(testId: string) {
-    return this.client.patch<TCovidTestResponse>(`/covid_tests/${testId}/`, { deleted: true });
+    try {
+      return await this.client.patch<TCovidTestResponse>(`/covid_tests/${testId}/`, { deleted: true });
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+    return {} as AxiosResponse<TCovidTestResponse>;
   }
 }
 

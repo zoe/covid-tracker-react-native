@@ -105,7 +105,7 @@
   },
   "next-question": "Next question",
   "completed": "Done",
-  "something-went-wrong": "Something went wrong, please try again later",
+  "something-went-wrong": "Oops, something went wrong. Please try again shortly.",
   "your-work": {
     "worked-hospital-inpatient": "Hospital inpatient",
     "worked-hospital-outpatient": "Hospital outpatient",
@@ -735,10 +735,13 @@
     "button-okay": "Ok",
     "status-loading": "Loading...",
     "status-retrying": "Retrying...",
-    "user-is-offline": "You are currently offline. Please check your connection.",
+    "something-went-wrong": "Oops! Something went wrong.",
     "resource-not-found": "The server couldn't find your details",
-    "server-is-busy": "Server is busy. Please wait, then try again",
-    "server-error": "Server couldn't respond at this time. Please wait, then try again.",
+    "user-is-offline": "You are currently offline. Please check your connection and try again.",
+    "404-error": "We couldn't find what you were looking for. Please email covidteam@joinzoe.com with a screenshot of this error.",
+    "server-is-busy": "Our server is experiencing a lot of traffic. Please wait for a few moments, then try again.",
+    "server-error": "Our server couldn't respond at this time. Please wait for a few moments, then try again.",
+    "try-again": "Please try restarting the app. If this persists, please email covidteam@joinzoe.com with a screenshot.",
     "form-data-not-valid": "There seems to be an error in your form data. Please try going back through the previous screens and checking your answers."
   },
   "back": "Back",
@@ -1271,7 +1274,7 @@
   "error-boundary": {
     "something-went-wrong": "Oops! Something went wrong.",
     "encountered-error": "The app has encountered an error:",
-    "notified": "The development team has been notified and will look into it as soon as possible. Try to restart the app to continue."
+    "try-again": "Please try restarting the app. If this persists, please email covidteam@joinzoe.com with a screenshot."
   },
   "mental-health": {
     "doctor-name": "Dr Ellen Jo Thompson",

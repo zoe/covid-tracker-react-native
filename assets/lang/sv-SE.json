@@ -676,10 +676,13 @@
     "button-okay": "Ok",
     "status-loading": "Hämtar...",
     "status-retrying": "Försöker igen...",
-    "user-is-offline": "Du är för närvarande offline. Kontrollera din anslutning.",
+    "something-went-wrong": "Hoppsan! Något gick fel.",
     "resource-not-found": "Servern kunde inte hitta dina uppgifter",
+    "user-is-offline": "Du är för närvarande offline. Kontrollera din anslutning.",
+    "404-error": "Servern kunde inte hitta dina uppgifter",
     "server-is-busy": "Servern är upptagen. Vänta och försök sedan igen",
     "server-error": "Servern kunde inte svara just nu. Vänta och försök sedan igen.",
+    "try-again": "Utvecklingsteamet har meddelats och förhoppningsvis bör problemet åtgärdas så fort! Försök att starta om appen för att fortsätta.",
     "form-data-not-valid": false
   },
   "back": "Tillbaka",
@@ -1275,7 +1278,7 @@
   "error-boundary": {
     "something-went-wrong": "Hoppsan! Något gick fel.",
     "encountered-error": "Tyvärr har appen stött på ett fel:",
-    "notified": "Utvecklingsteamet har meddelats och förhoppningsvis bör problemet åtgärdas så fort! Försök att starta om appen för att fortsätta."
+    "try-again": "Utvecklingsteamet har meddelats och förhoppningsvis bör problemet åtgärdas så fort! Försök att starta om appen för att fortsätta."
   },
   "mental-health": {
     "doctor-name": "Dr Ellen Jo Thompson",

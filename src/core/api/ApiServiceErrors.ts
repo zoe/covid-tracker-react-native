@@ -2,16 +2,16 @@
 import i18n from '@covid/locale/i18n';
 import { AxiosResponse } from 'axios';
 
-const NETWORK_ERROR = 'Network Error';
-const CONNECTION_ABORTED = 'ECONNABORTED';
-const TIMED_OUT = 'ETIMEDOUT';
+export const NETWORK_ERROR = 'Network Error';
+export const CONNECTION_ABORTED = 'ECONNABORTED';
+export const TIMED_OUT = 'ETIMEDOUT';
 
-const STATUS_NOT_FOUND = 404;
-const STATUS_UNAUTHORIZED = 401;
-const STATUS_SERVER_BUSY = 429;
-const STATUS_SERVER_ERROR = 500;
+export const STATUS_NOT_FOUND = 404;
+export const STATUS_UNAUTHORIZED = 401;
+export const STATUS_SERVER_BUSY = 429;
+export const STATUS_SERVER_ERROR = 500;
 
-type TReceivedError = {
+export type TReceivedError = {
   message: string;
   isAxiosError?: boolean;
   response?: AxiosResponse;
