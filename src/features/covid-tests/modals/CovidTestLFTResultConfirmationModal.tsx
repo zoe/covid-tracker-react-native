@@ -19,12 +19,17 @@ export const CovidTestLFTResultConfirmationModal: React.FC<IProps> = (props) => 
   const footerChildren = React.useMemo(
     () => (
       <>
-        <BrandedButton onPress={props.onPositiveConfirmation} style={styles.positiveButton}>
+        <BrandedButton
+          onPress={props.onPositiveConfirmation}
+          style={styles.positiveButton}
+          testID="lft-quick-report-confirm-add"
+        >
           {i18n.t('covid-test-list.lft-quick-report.confirmation-positive')}
         </BrandedButton>
         <BrandedButton
           onPress={props.onRequestClose}
           style={styles.negativeButton}
+          testID="lft-quick-report-confirm-cancel"
           textStyle={styles.negativeButtonText}
         >
           {i18n.t('covid-test-list.lft-quick-report.confirmation-negative')}
