@@ -12,13 +12,6 @@ import * as React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-const ONBOARDING_SCREENS = [
-  require('@covid/features/covid-tests/assets/screen_1.gif'),
-  require('@covid/features/covid-tests/assets/screen_2.gif'),
-  require('@covid/features/covid-tests/assets/screen_3.gif'),
-  require('@covid/features/covid-tests/assets/screen_4.gif'),
-];
-
 interface IProps {
   onPressClose?: () => void;
   onRequestClose: () => void;
@@ -30,6 +23,17 @@ export function CovidTestListOnboardingModal(props: IProps) {
   const dispatch = useDispatch();
   const [tracked, setTracked] = React.useState(false);
   const [onboardingModalScreenIndex, setOboardingModalScreenIndex] = React.useState<number>(0);
+
+  const ONBOARDING_SCREENS = React.useMemo(
+    () => [
+      require('@covid/features/covid-tests/assets/screen_1.gif'),
+      require('@covid/features/covid-tests/assets/screen_2.gif'),
+      require('@covid/features/covid-tests/assets/screen_3.gif'),
+      require('@covid/features/covid-tests/assets/screen_4.gif'),
+    ],
+    [],
+  );
+
   const [selectedGif, setSelectedGif] = React.useState<any>(ONBOARDING_SCREENS[0]);
 
   React.useEffect(() => {

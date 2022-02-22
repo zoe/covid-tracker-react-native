@@ -1,8 +1,8 @@
-import { timelineShare } from '@assets';
 import * as React from 'react';
 import { Image } from 'react-native';
 
 export default function ShareTimelineCard() {
+  const timelineShare = React.useMemo(() => require('@assets/cards/timeline-share.png'), []);
   return (
     <Image
       source={timelineShare}

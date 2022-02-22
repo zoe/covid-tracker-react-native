@@ -1,4 +1,3 @@
-import { timSpectorAvatar } from '@assets';
 import { colors } from '@theme/colors';
 import * as React from 'react';
 import { Image, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
@@ -11,6 +10,8 @@ interface IProps {
 const scale = 150 / 180;
 
 export default function IllustrationTim(props: IProps) {
+  const timSpectorAvatar = React.useMemo(() => require('@assets/reconsent/tim-spector.png'), []);
+
   return (
     <View style={props.style}>
       <Svg fill="none" height={243 * scale} viewBox="0 0 327 243" width={327 * scale}>

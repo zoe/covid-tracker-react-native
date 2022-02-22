@@ -10,13 +10,13 @@ import * as React from 'react';
 import { StyleSheet, useWindowDimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 
-const handAnimation = require('@covid/features/reconsent/data/hand-animation.gif');
-
 const GIF_RATIO = 750 / 550;
 
 export default function ReconsentDiseaseSummaryScreen() {
   const windowDimensions = useWindowDimensions();
   const diseasesActived = useSelector((state: TRootState) => selectDiseasesActivated(state.reconsent));
+
+  const handAnimation = React.useMemo(() => require('@covid/features/reconsent/data/hand-animation.gif'), []);
 
   const gifWidth = Math.min(sizes.maxScreenWidth, windowDimensions.width) - 32;
   const gifHeight = gifWidth / GIF_RATIO;
