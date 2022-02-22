@@ -1,4 +1,4 @@
-import { dietStudyPlaybackReadyUS, shareAppV3 } from '@assets';
+import { shareAppV3 } from '@assets';
 import { share } from '@covid/components/cards/BaseShareApp';
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -37,6 +37,8 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
   const dispatch = useDispatch();
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const [showDietStudyPlayback] = React.useState<boolean | undefined>(startupInfo?.show_diet_score);
+
+  const dietStudyPlaybackReadyUS = React.useMemo(() => require('@assets/diet-playback-ready-us.png'), []);
 
   React.useEffect(() => {
     pushNotificationService.subscribeForPushNotifications();

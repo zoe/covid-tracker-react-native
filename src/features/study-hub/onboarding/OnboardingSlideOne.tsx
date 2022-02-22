@@ -4,13 +4,16 @@ import { sizes } from '@covid/themes';
 import * as React from 'react';
 import { Image, StyleSheet, useWindowDimensions } from 'react-native';
 
-const sourceIllustration = require('@covid/features/study-hub/assets/illustration_slide_one.png');
-const sourceTim = require('@covid/features/study-hub/assets/profile_picture_tim.png');
-
 const imageRatio = 884 / 820;
 
 export function OnboardingSlideOne() {
   const windowDimensions = useWindowDimensions();
+
+  const sourceIllustration = React.useMemo(
+    () => require('@covid/features/study-hub/assets/illustration_slide_one.png'),
+    [],
+  );
+  const sourceTim = React.useMemo(() => require('@covid/features/study-hub/assets/profile_picture_tim.png'), []);
 
   const imageWidth = windowDimensions.width - sizes.screenVerticalPadding * 4;
 

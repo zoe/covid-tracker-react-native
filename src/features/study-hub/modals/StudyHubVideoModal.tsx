@@ -12,8 +12,6 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-const backgroundImage = require('../assets/background_video_modal.png');
-
 type TProps = {
   onRequestClose: () => void;
   visible: boolean;
@@ -22,6 +20,8 @@ type TProps = {
 export function StudyHubVideoModal(props: TProps) {
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const dispatch = useDispatch();
+
+  const backgroundImage = React.useMemo(() => require('../assets/background_video_modal.png'), []);
 
   React.useEffect(() => {
     if (props.visible) {

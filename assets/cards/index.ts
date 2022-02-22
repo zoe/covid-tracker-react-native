@@ -1,3 +1,2 @@
-export const impactTimeline = require('./impact-timeline.png');
-export const impactTimeline2 = require('./impact-timeline-2.png');
-export const timelineShare = require('./timeline-share.png');
+export const impactTimeline = require('@assets/cards/impact-timeline.png');
+export const impactTimeline2 = require('@assets/cards/impact-timeline-2.png');

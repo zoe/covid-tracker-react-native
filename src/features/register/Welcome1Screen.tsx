@@ -1,4 +1,3 @@
-import { gbMap, svMap, usMap } from '@assets';
 import { BrandedButton } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, RegularText } from '@covid/components/Text';
@@ -36,15 +35,18 @@ export default function Welcome1Screen({ navigation }: TProps) {
     getUserCount();
   }, []);
 
+  const isGB = isGBCountry();
+  const isSE = isSECountry();
+
   const getMapImage = React.useCallback(() => {
-    if (isGBCountry()) {
-      return gbMap;
+    if (isGB) {
+      return require('@assets/gbMap.png');
     }
-    if (isSECountry()) {
-      return svMap;
+    if (isSE) {
+      return require('@assets/svMap.png');
     }
-    return usMap;
-  }, [isGBCountry, isSECountry, gbMap, svMap, usMap]);
+    return require('@assets/usMap.png');
+  }, [isGB, isSE]);
 
   const onLoginPress = React.useCallback(() => navigation.navigate('Login', { terms: '' }), [navigation.navigate]);
 

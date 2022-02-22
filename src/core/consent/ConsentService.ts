@@ -1,5 +1,7 @@
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
+import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { showErrorToast } from '@covid/core/ErrorToast';
 import { TConsent } from '@covid/core/user/dto/UserAPIContracts';
 
 type TConsentDocument = 'US' | 'UK' | 'SE' | '' | 'US Nurses' | 'Health Study Consent';
@@ -25,7 +27,15 @@ export class ConsentService extends ApiClientBase implements IConsentService {
       privacy_policy_version,
       version,
     };
-    return this.client.post('/consent/', payload);
+
+    try {
+      return await this.client.post('/consent/', payload);
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+
+    return undefined;
   }
 
   async getConsentSigned(): Promise<TConsent | null> {
@@ -44,7 +54,13 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   }
 
   async revokeConsentWiderHealthStudies() {
-    return this.client.post('/revoke_wider_health_studies_consent/');
+    try {
+      return await this.client.post('/revoke_wider_health_studies_consent/');
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+    return undefined;
   }
 }
 

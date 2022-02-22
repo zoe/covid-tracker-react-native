@@ -2,6 +2,7 @@ import appConfig from '@covid/appConfig';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import { consentService } from '@covid/core/consent/ConsentService';
+import { showErrorToast } from '@covid/core/ErrorToast';
 import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { getInitialPatientState, isChildAge, isMinorAge, TPatientStateType } from '@covid/core/patient/PatientState';
@@ -32,6 +33,7 @@ class PatientService extends ApiClientBase implements IPatientService {
       const data = (await this.client.get(`/patient_list/?u=${ApiClientBase.userId}`)).data as TProfile[];
       return !!data && data.length > 0 ? data[0] : null;
     } catch (error) {
+      showErrorToast(error);
       handleServiceError(error);
     }
     return null;
@@ -42,6 +44,7 @@ class PatientService extends ApiClientBase implements IPatientService {
       const response = await this.client.get<TProfile[] | null>(`/patient_list/?u=${ApiClientBase.userId}`);
       return response.data;
     } catch (error) {
+      showErrorToast(error);
       handleServiceError(error);
     }
     return null;
@@ -52,7 +55,14 @@ class PatientService extends ApiClientBase implements IPatientService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return (await this.client.post<TPatientInfosRequest>(`/patients/`, infos)).data;
+
+    try {
+      return (await this.client.post<TPatientInfosRequest>(`/patients/`, infos)).data;
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+    return {} as TPatientInfosRequest;
   }
 
   public async updatePatientInfo(patientId: string, infos: Partial<TPatientInfosRequest>) {
@@ -60,7 +70,14 @@ class PatientService extends ApiClientBase implements IPatientService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return (await this.client.patch<TPatientInfosRequest>(`/patients/${patientId}/`, infos)).data;
+
+    try {
+      return (await this.client.patch<TPatientInfosRequest>(`/patients/${patientId}/`, infos)).data;
+    } catch (error) {
+      showErrorToast(error);
+      handleServiceError(error);
+    }
+    return {} as TPatientInfosRequest;
   }
 
   private getPatientVersion() {
@@ -104,6 +121,7 @@ class PatientService extends ApiClientBase implements IPatientService {
       const patientResponse = await this.client.get<TPatientInfosRequest>(`/patients/${patientId}/`);
       return patientResponse.data;
     } catch (error) {
+      showErrorToast(error);
       handleServiceError(error);
     }
     return null;
