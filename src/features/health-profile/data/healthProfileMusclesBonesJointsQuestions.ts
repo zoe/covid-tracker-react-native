@@ -27,6 +27,16 @@ export const healthProfileMusclesBonesJointsQuestions: Partial<THealthProfileScr
         fieldType: EFieldType.MULTISELECT,
         items: [
           {
+            label: 'Slipped disc',
+            name: 'prior_bone_or_joint_diagnosis_slipped_disc',
+            testID: 'prior_bone_or_joint_diagnosis_slipped_disc',
+          },
+          {
+            label: 'Chronic back pain',
+            name: 'prior_bone_or_joint_diagnosis_chronic_back_pain',
+            testID: 'prior_bone_or_joint_diagnosis_chronic_back_pain',
+          },
+          {
             label: 'Rheumatoid arthritis',
             name: 'prior_bone_or_joint_diagnosis_rheumatoid_arthritis',
             testID: 'prior_bone_or_joint_diagnosis_rheumatoid_arthritis',
@@ -82,7 +92,7 @@ export const healthProfileMusclesBonesJointsQuestions: Partial<THealthProfileScr
             testID: 'prior_bone_or_joint_diagnosis_other_connective_tissue',
           },
           {
-            label: 'Other',
+            label: 'Other bone or joint conditions',
             name: 'prior_bone_or_joint_diagnosis_other',
             testID: 'prior_bone_or_joint_diagnosis_other',
           },

@@ -66,7 +66,7 @@ export const healthProfileGutDisgestionQuestions: Partial<THealthProfileScreens>
             testID: 'prior_gut_diagnosis_ulcerative_colitis',
           },
           {
-            label: 'Gastric / duodenal ulcer',
+            label: 'Stomach/gastric/duodenal ulcer',
             name: 'prior_gut_diagnosis_gastric_duodenal_ulcer',
             testID: 'prior_gut_diagnosis_gastric_duodenal_ulcer',
           },
@@ -86,7 +86,37 @@ export const healthProfileGutDisgestionQuestions: Partial<THealthProfileScreens>
             testID: 'prior_gut_diagnosis_abdominal_bloating_and_distension',
           },
           {
-            label: 'Other',
+            label: 'Hiatus hernia',
+            name: 'prior_gut_diagnosis_hiatus_hernia',
+            testID: 'prior_gut_diagnosis_hiatus_hernia',
+          },
+          {
+            label: 'Gastritis',
+            name: 'prior_gut_diagnosis_gastritis',
+            testID: 'prior_gut_diagnosis_gastritis',
+          },
+          {
+            label: 'Inflammatory bowel disease',
+            name: 'prior_gut_diagnosis_inflammatory_bowel_disease',
+            testID: 'prior_gut_diagnosis_inflammatory_bowel_disease',
+          },
+          {
+            label: 'Gallstones',
+            name: 'prior_gut_diagnosis_gallstones',
+            testID: 'prior_gut_diagnosis_abdominal_gallstones',
+          },
+          {
+            label: 'Pancreatitis',
+            name: 'prior_gut_diagnosis_pancreatitis',
+            testID: 'prior_gut_diagnosis_pancreatitis',
+          },
+          {
+            label: 'Anal disease (e.g. haemorrhoids, anal fissure)',
+            name: 'prior_gut_diagnosis_anal_disease',
+            testID: 'prior_gut_diagnosis_anal_disease',
+          },
+          {
+            label: 'Other gut related conditions',
             name: 'prior_gut_diagnosis_other',
             testID: 'prior_gut_diagnosis_other',
           },

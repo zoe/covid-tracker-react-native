@@ -481,14 +481,20 @@ export type THealthProfileRequest = {
   prior_kidney_or_urinary_diagnosis_kidney_infection: boolean;
   prior_kidney_or_urinary_diagnosis_aki: boolean;
   prior_kidney_or_urinary_diagnosis_uti: boolean;
+  prior_kidney_or_urinary_diagnosis_overactive_bladder: boolean;
+  prior_kidney_or_urinary_diagnosis_benign_prostatic_hypertrophy: boolean;
   prior_kidney_or_urinary_diagnosis_other: boolean;
   prior_kidney_or_urinary_diagnosis_pfnts: boolean;
 
   // Brain & Nervous System
   prior_neurological_condition_diagnosis: string;
+  prior_neurological_diagnosis_migraine: boolean;
+  prior_neurological_diagnosis_cluster_headaches: boolean;
+  prior_neurological_diagnosis_tension_headaches: boolean;
   prior_neurological_diagnosis_als: boolean;
   prior_neurological_diagnosis_parkinsons: boolean;
   prior_neurological_diagnosis_ms: boolean;
+  prior_neurological_diagnosis_meningitis: boolean;
   prior_neurological_diagnosis_epilepsy: boolean;
   prior_neurological_diagnosis_alzheimers_dementia: boolean;
   prior_neurological_diagnosis_lewy_body_dementia: boolean;
@@ -511,14 +517,22 @@ export type THealthProfileRequest = {
   prior_cancer_diagnosis_basal_cell_skin_cancer: boolean;
   prior_cancer_diagnosis_squamous_cell_skin_cancer: boolean;
   prior_cancer_diagnosis_benign_colon_or_rectal_polyp: boolean;
+  prior_cancer_diagnosis_abnormal_cervical_smear: boolean;
   prior_cancer_diagnosis_colon_or_rectum_cancer: boolean;
   prior_cancer_diagnosis_prostate_cancer: boolean;
+  prior_cancer_diagnosis_liver_bile_duct_cancer: boolean;
+  prior_cancer_diagnosis_throat_cancer: boolean;
+  prior_cancer_diagnosis_tongue_cancer: boolean;
+  prior_cancer_diagnosis_bladder_cancer: boolean;
   prior_cancer_diagnosis_lung_cancer: boolean;
   prior_cancer_diagnosis_meningioma: boolean;
   prior_cancer_diagnosis_kidney_cancer: boolean;
   prior_cancer_diagnosis_brain_cancer: boolean;
   prior_cancer_diagnosis_pancreas_cancer: boolean;
   prior_cancer_diagnosis_thyroid_cancer: boolean;
+  prior_cancer_diagnosis_parathyroid_cancer: boolean;
+  prior_cancer_diagnosis_endometrial_cancer: boolean;
+  prior_cancer_diagnosis_cervical_cancer: boolean;
   prior_cancer_diagnosis_other: boolean;
   prior_cancer_diagnosis_pfnts: boolean;
 
@@ -545,6 +559,12 @@ export type THealthProfileRequest = {
   prior_gut_diagnosis_diverticulitis_or_diverticulosis: boolean;
   prior_gut_diagnosis_chronic_liver_disease_or_cirrhosis: boolean;
   prior_gut_diagnosis_abdominal_bloating_and_distension: boolean;
+  prior_gut_diagnosis_hiatus_hernia: boolean;
+  prior_gut_diagnosis_gastritis: boolean;
+  prior_gut_diagnosis_inflammatory_bowel_disease: boolean;
+  prior_gut_diagnosis_gallstones: boolean;
+  prior_gut_diagnosis_pancreatitis: boolean;
+  prior_gut_diagnosis_anal_disease: boolean;
   prior_gut_diagnosis_other: boolean;
   prior_gut_diagnosis_pfnts: boolean;
 
@@ -564,6 +584,7 @@ export type THealthProfileRequest = {
   prior_cardiovascular_diagnosis_dvt: boolean;
   prior_cardiovascular_diagnosis_varicose_veins: boolean;
   prior_cardiovascular_diagnosis_pulmonary_embolism: boolean;
+  prior_cardiovascular_diagnosis_raynauds: boolean;
   prior_cardiovascular_diagnosis_other: boolean;
   prior_cardiovascular_diagnosis_pfnts: boolean;
 
@@ -602,7 +623,7 @@ export type THealthProfileRequest = {
   prior_breathing_and_lung_diagnosis_asthma: boolean;
   prior_breathing_and_lung_diagnosis_sleep_apnea: boolean;
   prior_breathing_and_lung_diagnosis_copd_emphysema_bronchitis: boolean;
-  prior_breathing_and_lung_diagnosis_lung_disease: boolean;
+  prior_breathing_and_lung_diagnosis_lung_disease: boolean; // no longer shown
   prior_breathing_and_lung_diagnosis_other: boolean;
   prior_breathing_and_lung_diagnosis_pfnts: boolean;
 
@@ -634,6 +655,8 @@ export type THealthProfileRequest = {
 
   // Muscle, bones and joints
   prior_bone_or_joint_condition_diagnosis: string;
+  prior_bone_or_joint_diagnosis_slipped_disc: boolean;
+  prior_bone_or_joint_diagnosis_chronic_back_pain: boolean;
   prior_bone_or_joint_diagnosis_rheumatoid_arthritis: boolean;
   prior_bone_or_joint_diagnosis_osteoporosis: boolean;
   prior_bone_or_joint_diagnosis_osteoarthritis: boolean;

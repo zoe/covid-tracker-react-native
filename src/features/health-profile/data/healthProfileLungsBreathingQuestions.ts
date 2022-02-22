@@ -41,12 +41,7 @@ export const healthProfileLungsBreathingQuestions: Partial<THealthProfileScreens
             testID: 'prior_breathing_and_lung_diagnosis_copd_emphysema_bronchitis',
           },
           {
-            label: 'Lung disease',
-            name: 'prior_breathing_and_lung_diagnosis_lung_disease',
-            testID: 'prior_breathing_and_lung_diagnosis_lung_disease',
-          },
-          {
-            label: 'Other',
+            label: 'Other breathing and lung conditions',
             name: 'prior_breathing_and_lung_diagnosis_other',
             testID: 'prior_breathing_and_lung_diagnosis_other',
           },

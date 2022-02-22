@@ -76,7 +76,7 @@ export const healthProfileSkinHairNailsQuestions: Partial<THealthProfileScreens>
             testID: 'prior_skin_diagnosis_alopecia',
           },
           {
-            label: 'Other',
+            label: 'Other skin conditions',
             name: 'prior_skin_diagnosis_other',
             testID: 'prior_skin_diagnosis_other',
           },

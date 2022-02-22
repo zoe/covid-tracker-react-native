@@ -27,16 +27,40 @@ export const healthProfileBrainNervousSystemQuestions: Partial<THealthProfileScr
         fieldType: EFieldType.MULTISELECT,
         items: [
           {
-            label: 'ALS',
+            label: 'Migraine',
+            name: 'prior_neurological_diagnosis_migraine',
+            testID: 'prior_neurological_diagnosis_migraine',
+          },
+          {
+            label: 'Cluster headaches',
+            name: 'prior_neurological_diagnosis_cluster_headaches',
+            testID: 'prior_neurological_diagnosis_cluster_headaches',
+          },
+          {
+            label: 'Tension headaches',
+            name: 'prior_neurological_diagnosis_tension_headaches',
+            testID: 'prior_neurological_diagnosis_tension_headaches',
+          },
+          {
+            label: 'Amyotrophic Lateral Sclerosis (Motor Neurone disease)',
             name: 'prior_neurological_diagnosis_als',
             testID: 'prior_neurological_diagnosis_als',
           },
           {
-            label: "Parkinson's",
+            label: "Parkinson's Disease",
             name: 'prior_neurological_diagnosis_parkinsons',
             testID: 'prior_neurological_diagnosis_parkinsons',
           },
-          { label: 'MS', name: 'prior_neurological_diagnosis_ms', testID: 'prior_neurological_diagnosis_ms' },
+          {
+            label: 'Multiple sclerosis (MS)',
+            name: 'prior_neurological_diagnosis_ms',
+            testID: 'prior_neurological_diagnosis_ms',
+          },
+          {
+            label: 'Meningitis',
+            name: 'prior_neurological_diagnosis_meningitis',
+            testID: 'prior_neurological_diagnosis_meningitis',
+          },
           {
             label: 'Epilepsy',
             name: 'prior_neurological_diagnosis_epilepsy',
@@ -68,7 +92,7 @@ export const healthProfileBrainNervousSystemQuestions: Partial<THealthProfileScr
             testID: 'prior_neurological_diagnosis_mild_cognitive_impairment',
           },
           {
-            label: 'Other',
+            label: 'Other neurological conditions',
             name: 'prior_neurological_diagnosis_other',
             testID: 'prior_neurological_diagnosis_other',
           },

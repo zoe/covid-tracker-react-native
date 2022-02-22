@@ -66,7 +66,12 @@ export const healthProfileCancerQuestions: Partial<THealthProfileScreens> = {
             testID: 'prior_cancer_diagnosis_benign_colon_or_rectal_polyp',
           },
           {
-            label: 'Colon or rectum cancer',
+            label: 'Abnormal cervical smear',
+            name: 'prior_cancer_diagnosis_abnormal_cervical_smear',
+            testID: 'prior_cancer_diagnosis_abnormal_cervical_smear',
+          },
+          {
+            label: 'Bowel cancer (Colon or small bowel or rectal cancer)',
             name: 'prior_cancer_diagnosis_colon_or_rectum_cancer',
             testID: 'prior_cancer_diagnosis_colon_or_rectum_cancer',
           },
@@ -74,6 +79,26 @@ export const healthProfileCancerQuestions: Partial<THealthProfileScreens> = {
             label: 'Prostate cancer',
             name: 'prior_cancer_diagnosis_prostate_cancer',
             testID: 'prior_cancer_diagnosis_prostate_cancer',
+          },
+          {
+            label: 'Liver / bile duct cancer',
+            name: 'prior_cancer_diagnosis_liver_bile_duct_cancer',
+            testID: 'prior_cancer_diagnosis_liver_bile_duct_cancer',
+          },
+          {
+            label: 'Throat cancer',
+            name: 'prior_cancer_diagnosis_throat_cancer',
+            testID: 'prior_cancer_diagnosis_throat_cancer',
+          },
+          {
+            label: 'Tongue cancer',
+            name: 'prior_cancer_diagnosis_tongue_cancer',
+            testID: 'prior_cancer_diagnosis_tongue_cancer',
+          },
+          {
+            label: 'Bladder cancer',
+            name: 'prior_cancer_diagnosis_bladder_cancer',
+            testID: 'prior_cancer_diagnosis_bladder_cancer',
           },
           {
             label: 'Lung cancer',
@@ -106,7 +131,22 @@ export const healthProfileCancerQuestions: Partial<THealthProfileScreens> = {
             testID: 'prior_cancer_diagnosis_thyroid_cancer',
           },
           {
-            label: 'Other',
+            label: 'Parathyroid cancer',
+            name: 'prior_cancer_diagnosis_parathyroid_cancer',
+            testID: 'prior_cancer_diagnosis_parathyroid_cancer',
+          },
+          {
+            label: 'Endometrial cancer',
+            name: 'prior_cancer_diagnosis_endometrial_cancer',
+            testID: 'prior_cancer_diagnosis_endometrial_cancer',
+          },
+          {
+            label: 'Cervical cancer',
+            name: 'prior_cancer_diagnosis_cervical_cancer',
+            testID: 'prior_cancer_diagnosis_cervical_cancer',
+          },
+          {
+            label: 'Other cancer or benign growth',
             name: 'prior_cancer_diagnosis_other',
             testID: 'prior_cancer_diagnosis_other',
           },

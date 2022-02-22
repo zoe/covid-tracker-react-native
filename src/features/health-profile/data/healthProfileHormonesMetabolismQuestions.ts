@@ -47,7 +47,7 @@ export const healthProfileHormonesMetabolismQuestions: Partial<THealthProfileScr
             testID: 'prior_diabetes_prediabetes',
           },
           {
-            label: 'Other',
+            label: 'Other diabetes or pre-diabetes diagnosis',
             name: 'prior_diabetes_other',
             testID: 'prior_diabetes_other',
           },
@@ -130,7 +130,7 @@ export const healthProfileHormonesMetabolismQuestions: Partial<THealthProfileScr
             testID: 'prior_endocrine_diagnosis_hyperparathyroidism',
           },
           {
-            label: 'Other',
+            label: 'Other endocrine conditions',
             name: 'prior_endocrine_diagnosis_other',
             testID: 'prior_endocrine_diagnosis_other',
           },
