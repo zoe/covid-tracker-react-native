@@ -79,7 +79,7 @@ export const healthProfileYourBehavioursQuestions: Partial<THealthProfileScreens
           { label: 'Once a day', value: 'once_a_day' },
           { label: 'Alternate days', value: 'alternate_days' },
           { label: 'Irregularly', value: 'irregularly' },
-          { label: 'Other', value: 'other' },
+          { label: 'Other frequency', value: 'other' },
           { label: 'Prefer not to say', value: 'pfnts' },
         ],
         placeholder: null,

@@ -6,6 +6,7 @@ import store from '../../store';
 import {
   fetchExistingHealthProfile,
   resetHealthProfile,
+  showHealthProfileStartCard,
   THealthProfileScreenNames,
   TStateHealthProfile,
   updateHasSeenAboutYouTooltip,
@@ -26,6 +27,7 @@ const initialState: TStateHealthProfile = {
   maxSteps: MAX_STEPS_FEMALE,
   progressPercent: 0,
   screenToReturnTo: 'HPAboutYou',
+  showHealthProfileStartCard: false,
   stepsCompleted: 0,
 };
 
@@ -72,6 +74,13 @@ describe('Health Profile redux state tests', () => {
     const state = store.getState().healthProfile;
 
     expect(state).toEqual(initialState);
+  });
+
+  it('should be able to update the show Health Profile start card state', async () => {
+    store.dispatch(showHealthProfileStartCard(true));
+    const state = store.getState().healthProfile;
+
+    expect(state.showHealthProfileStartCard).toEqual(true);
   });
 
   it('should be able to update the Health Profile answers', () => {

@@ -4,7 +4,11 @@ import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { appActions } from '@covid/core/state/app/slice';
-import { TStateHealthProfile, updateHasSeenHealthProfileReminderModal } from '@covid/core/state/health-profile/slice';
+import {
+  showHealthProfileStartCard,
+  TStateHealthProfile,
+  updateHasSeenHealthProfileReminderModal,
+} from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -60,6 +64,7 @@ export default function ThankYouUKScreen(props: IProps) {
         !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another
       ) {
         dispatch(appActions.setModalHealthProfileIntroVisible(true));
+        dispatch(showHealthProfileStartCard(true));
         return;
       }
       if (

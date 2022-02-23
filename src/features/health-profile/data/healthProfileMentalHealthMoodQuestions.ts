@@ -174,7 +174,7 @@ export const healthProfileMentalHealthMoodQuestions: Partial<THealthProfileScree
             name: 'prior_psychiatric_other_psychosis_or_psychotic_illness',
             testID: 'prior_psychiatric_other_psychosis_or_psychotic_illness',
           },
-          { label: 'Other', name: 'prior_psychiatric_other', testID: 'prior_psychiatric_other' },
+          { label: 'Other psychiatric conditions', name: 'prior_psychiatric_other', testID: 'prior_psychiatric_other' },
           { label: 'Prefer not to say', name: 'prior_psychiatric_pfnts', testID: 'prior_psychiatric_pfnts' },
         ],
         placeholder: null,

@@ -40,7 +40,7 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
             testID: 'prior_wh_pcos',
           },
           {
-            label: 'Other',
+            label: "Other women's health conditions",
             name: 'prior_wh_other',
             testID: 'prior_wh_other',
           },
@@ -82,7 +82,7 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
             testID: 'pcos_symptom_polycystic_ovaries_scan',
           },
           {
-            label: 'Other',
+            label: 'Other PCOS symptoms',
             name: 'pcos_symptom_other',
             testID: 'pcos_symptom_other',
           },
@@ -234,7 +234,7 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
             testID: 'menopausal_symptom_loss_of_breast_fullness',
           },
           {
-            label: 'Other',
+            label: 'Other menopausal symptoms',
             name: 'menopausal_symptom_other',
             testID: 'menopausal_symptom_other',
           },
@@ -295,7 +295,11 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
             name: 'taking_hormone_treatment_phytoestrogen_or_alternatives',
             testID: 'taking_hormone_treatment_phytoestrogen_or_alternatives',
           },
-          { label: 'Other', name: 'taking_hormone_treatment_other', testID: 'taking_hormone_treatment_other' },
+          {
+            label: 'Other hormone treatments',
+            name: 'taking_hormone_treatment_other',
+            testID: 'taking_hormone_treatment_other',
+          },
           {
             label: 'None',
             name: 'taking_hormone_treatment_none',

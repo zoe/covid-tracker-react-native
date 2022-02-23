@@ -26,7 +26,7 @@ export const healthProfileBladderKidneysQuestions: Partial<THealthProfileScreens
         fieldType: EFieldType.MULTISELECT,
         items: [
           {
-            label: 'CKD (e.g. incl with diabetes and high blood pressure)',
+            label: 'Chronic Kidney Disease CKD (e.g. incl. with diabetes and high blood pressure)',
             name: 'prior_kidney_or_urinary_diagnosis_ckd',
             testID: 'prior_kidney_or_urinary_diagnosis_ckd',
           },
@@ -51,7 +51,17 @@ export const healthProfileBladderKidneysQuestions: Partial<THealthProfileScreens
             testID: 'prior_kidney_or_urinary_diagnosis_uti',
           },
           {
-            label: 'Other',
+            label: 'Overactive bladder',
+            name: 'prior_kidney_or_urinary_diagnosis_overactive_bladder',
+            testID: 'prior_kidney_or_urinary_diagnosis_overactive_bladder',
+          },
+          {
+            label: 'Benign prostatic hypertrophy',
+            name: 'prior_kidney_or_urinary_diagnosis_benign_prostatic_hypertrophy',
+            testID: 'prior_kidney_or_urinary_diagnosis_benign_prostatic_hypertrophy',
+          },
+          {
+            label: 'Other kidney or urinary diseases',
             name: 'prior_kidney_or_urinary_diagnosis_other',
             testID: 'prior_kidney_or_urinary_diagnosis_other',
           },

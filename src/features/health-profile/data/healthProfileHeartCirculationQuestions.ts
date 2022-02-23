@@ -65,7 +65,7 @@ export const healthProfileHeartCirculationQuestions: Partial<THealthProfileScree
             testID: 'prior_cardiovascular_diagnosis_coronary_heart_disease',
           },
           {
-            label: 'Congenital heart disease (heart valve problems)',
+            label: 'Congenital heart disease (heart problems you are born with)',
             name: 'prior_cardiovascular_diagnosis_congenital_heart_disease',
             testID: 'prior_cardiovascular_diagnosis_congenital_heart_disease',
           },
@@ -100,7 +100,12 @@ export const healthProfileHeartCirculationQuestions: Partial<THealthProfileScree
             testID: 'prior_cardiovascular_diagnosis_pulmonary_embolism',
           },
           {
-            label: 'Other',
+            label: 'Raynaud’s (circulation problems to fingers/toes)',
+            name: 'prior_cardiovascular_diagnosis_raynauds',
+            testID: 'prior_cardiovascular_diagnosis_raynauds',
+          },
+          {
+            label: 'Other cardiovascular diseases',
             name: 'prior_cardiovascular_diagnosis_other',
             testID: 'prior_cardiovascular_diagnosis_other',
           },
