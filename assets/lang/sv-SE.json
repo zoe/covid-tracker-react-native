@@ -1828,6 +1828,7 @@
     "save-exit": false,
     "why-we-ask-this": false,
     "continue": false,
+    "start": false,
     "intro-modal": {
       "tim-spector": false,
       "title": false,
@@ -1851,6 +1852,11 @@
       "description": false,
       "coming-soon": false,
       "return": false
+    },
+    "start-card": {
+      "title": false,
+      "tag": false,
+      "completion-percent": false
     },
     "reminder-card": {
       "title": false,

@@ -1824,6 +1824,7 @@
     "save-exit": "Save & Exit",
     "why-we-ask-this": "Why are we asking this?",
     "continue": "Continue",
+    "start": "Start",
     "intro-modal": {
       "tim-spector": "Prof. Tim Spector",
       "title": "Update your Health Profile",
@@ -1848,9 +1849,14 @@
       "coming-soon": "We’re working on an update so you can access and manage your unique Health Profile whenever you need. Watch this space!",
       "return": "Return to Home"
     },
+    "start-card": {
+      "title": "Update your Health Profile",
+      "tag": "ZOE Health profile",
+      "completion-percent": "0%"
+    },
     "reminder-card": {
       "title": "Finish where you left off",
-      "tag": "Health profile",
+      "tag": "ZOE Health profile",
       "completion-percent": "{{percent}}%"
     },
     "reminder-modal": {

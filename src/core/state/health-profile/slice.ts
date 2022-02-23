@@ -14,6 +14,7 @@ export type TStateHealthProfile = {
   maxSteps: number;
   progressPercent: number;
   screenToReturnTo: THealthProfileScreenNames;
+  showHealthProfileStartCard: boolean;
   stepsCompleted: number;
 };
 
@@ -35,6 +36,7 @@ export const initialStateHealthProfile: TStateHealthProfile = {
   maxSteps: MAX_STEPS_FEMALE,
   progressPercent: 0,
   screenToReturnTo: 'HPAboutYou',
+  showHealthProfileStartCard: false,
   stepsCompleted: 0,
 };
 
@@ -96,6 +98,10 @@ export const healthProfileSlice = createSlice({
     resetHealthProfile: () => {
       return initialStateHealthProfile;
     },
+    showHealthProfileStartCard: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      showHealthProfileStartCard: action.payload,
+    }),
     updateHasSeenAboutYouTooltip: (state, action: PayloadAction<boolean>) => ({
       ...state,
       hasSeenAboutYouTooltip: action.payload,
@@ -124,6 +130,7 @@ export const healthProfileSlice = createSlice({
 
 export const {
   resetHealthProfile,
+  showHealthProfileStartCard,
   updateHasSeenAboutYouTooltip,
   updateHasSeenHealthProfileReminderModal,
   updateHealthProfile,

@@ -3,6 +3,7 @@ import { EFeaturedContentType, FeaturedContentList, SchoolNetworks } from '@covi
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import HealthProfileReminderCard from '@covid/components/cards/HealthProfileReminderCard';
+import HealthProfileStartCard from '@covid/components/cards/HealthProfileStartCard';
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
@@ -140,6 +141,8 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
               screenToReturnTo={healthProfileState.screenToReturnTo}
               stepsCompleted={healthProfileState.stepsCompleted}
             />
+          ) : healthProfileState.showHealthProfileStartCard ? (
+            <HealthProfileStartCard />
           ) : null}
 
           <NewlySymptomaticCard />
