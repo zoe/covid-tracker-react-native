@@ -59,15 +59,6 @@ export default function ThankYouUKScreen(props: IProps) {
         return;
       }
       if (
-        startupInfo?.show_modal === 'health-profile-intro' &&
-        !healthProfileState.dateOfLastUpdate &&
-        !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another
-      ) {
-        dispatch(appActions.setModalHealthProfileIntroVisible(true));
-        dispatch(showHealthProfileStartCard(true));
-        return;
-      }
-      if (
         healthProfileState.dateOfLastUpdate &&
         healthProfileState.dateOfLastUpdate < sevenDaysAgo &&
         !healthProfileState.hasSeenReminderModal &&
@@ -75,6 +66,15 @@ export default function ThankYouUKScreen(props: IProps) {
         healthProfileState.screenToReturnTo !== 'HPThankYou'
       ) {
         setShowHealthProfileReminderModal(true);
+        return;
+      }
+      if (
+        startupInfo?.show_modal === 'health-profile-intro' &&
+        !healthProfileState.dateOfLastUpdate &&
+        !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another
+      ) {
+        dispatch(appActions.setModalHealthProfileIntroVisible(true));
+        dispatch(showHealthProfileStartCard(true));
         return;
       }
 

@@ -141,7 +141,7 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
               screenToReturnTo={healthProfileState.screenToReturnTo}
               stepsCompleted={healthProfileState.stepsCompleted}
             />
-          ) : healthProfileState.showHealthProfileStartCard ? (
+          ) : healthProfileState.showHealthProfileStartCard && !healthProfileState.dateOfLastUpdate ? (
             <HealthProfileStartCard />
           ) : null}
 
