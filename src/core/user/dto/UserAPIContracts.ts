@@ -332,7 +332,8 @@ export type TPatientInfosRequest = {
   twin_type: string;
   vape: string;
 
-  // Profile
+  // Profile tab
+  has_seen_assessment_flow_v0_onboarding: boolean;
   has_seen_profile_screen: boolean;
 };
 

@@ -730,6 +730,12 @@
     "button": "Next",
     "button-end": "OK"
   },
+  "profile-modal": {
+    "update": "Update",
+    "title": "New home for Vaccines",
+    "body": "Access and update your vaccine record from the new *Profile* tab",
+    "button-end": "OK"
+  },
   "errors": {
     "button-retry": "Retry",
     "button-okay": "Ok",

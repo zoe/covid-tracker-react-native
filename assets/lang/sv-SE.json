@@ -671,6 +671,12 @@
     "button": "Nästa",
     "button-end": "OK"
   },
+  "profile-modal": {
+    "update": false,
+    "title": false,
+    "body": false,
+    "button-end": false
+  },
   "errors": {
     "button-retry": "Försök igen",
     "button-okay": "Ok",

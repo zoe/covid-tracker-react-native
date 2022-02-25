@@ -41,6 +41,7 @@
     "postinstall": "ts-node --transpile-only ./scripts/postinstall.ts",
     "prettier": "prettier --check 'src/**/*.(js|jsx|ts|tsx)' --ignore-path .gitignore",
     "prettier:fix": "yarn prettier --write",
+    "lint-and-prettier-fix": "yarn lint:fix && yarn prettier:fix",
     "reset": "watchman watch-del-all && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-*",
     "start": "yarn generate:git-hash && react-native start",
     "start:reset": "yarn start --reset-cache",
