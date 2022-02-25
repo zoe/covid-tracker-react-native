@@ -2,8 +2,11 @@ import { NUMBER_OF_PROFILE_AVATARS } from '@assets';
 import { Screen } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import { Coordinator, IEditableProfile, ISelectProfile } from '@covid/core/Coordinator';
-import { localisationService } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, localisationService } from '@covid/core/localisation/LocalisationService';
 import { TProfile } from '@covid/core/profile/ProfileService';
+import { TRootState } from '@covid/core/state/root';
+import { selectStartupInfo } from '@covid/core/state/selectors';
+import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { TScreenParamList } from '@covid/routes/types';
@@ -12,6 +15,7 @@ import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 
 import { ProfileCard } from './components/ProfileCard';
 import { ProfileList } from './components/ProfileList';
@@ -28,6 +32,7 @@ export type TSelectProfileCoordinator =
 
 export default function SelectProfileScreen(props: TProps) {
   const profileList = useProfileList();
+  const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const assessmentFlow = props.route.params?.assessmentFlow;
   const coordinator: TSelectProfileCoordinator = appCoordinator;
   const config = localisationService.getConfig();
@@ -89,10 +94,22 @@ export default function SelectProfileScreen(props: TProps) {
     });
   }
 
+  const profileListToDisplay = () => {
+    if (isGBCountry() && !assessmentFlow && startupInfo?.show_assessment_flow_v0) {
+      return profileList.profiles.slice(1);
+    }
+
+    return profileList.profiles;
+  };
+
   return (
     <Screen backgroundColor={colors.backgroundSecondary} testID="select-profile-screen">
       <HeaderText>
-        {assessmentFlow ? i18n.t('select-profile-title-assessment') : i18n.t('select-profile-title-edit')}
+        {assessmentFlow
+          ? i18n.t('select-profile-title-assessment')
+          : isGBCountry() && !assessmentFlow && startupInfo?.show_assessment_flow_v0
+          ? i18n.t('select-secondary-profile-title-edit')
+          : i18n.t('select-profile-title-edit')}
       </HeaderText>
       {assessmentFlow ? <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText> : null}
 
@@ -109,7 +126,7 @@ export default function SelectProfileScreen(props: TProps) {
         isLoaded={profileList.isLoaded}
         onProfileSelected={onProfileSelected}
         onRetry={() => profileList.retryListProfiles()}
-        profiles={profileList.profiles}
+        profiles={profileListToDisplay()}
         renderItem={renderItem}
         status={profileList.status}
       />

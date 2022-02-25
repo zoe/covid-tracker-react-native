@@ -610,6 +610,7 @@
   "profile-name-too-long": "Ange ett profilnamn med färre än 32 tecken",
   "select-profile-title-assessment": "Välj den profil du vill rapportera åt",
   "select-profile-title-edit": "Välj den profil du vill redigera",
+  "select-secondary-profile-title-edit": false,
   "select-profile-text": "Eller lägg till fler profiler",
   "select-profile-button": "Ny profil",
   "select-profile-last-report": "Sista rapport:",

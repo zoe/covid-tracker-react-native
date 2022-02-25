@@ -650,6 +650,7 @@
   "create-profile-title": "Give new profile a name",
   "select-profile-title-assessment": "Select profile you want to report for",
   "select-profile-title-edit": "Select profile you want to edit",
+  "select-secondary-profile-title-edit": "Select secondary profile you want to edit",
   "select-profile-text": "Or add more profiles",
   "select-profile-button": "New profile",
   "select-profile-last-report": "Last report:",

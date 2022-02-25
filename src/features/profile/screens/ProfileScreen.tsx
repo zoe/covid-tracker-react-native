@@ -77,7 +77,6 @@ export const ProfileScreen: React.FC<IProps> = (props) => {
       },
       {
         icon: PeopleIcon,
-        // TODO: Fix on press
         onPress: () => NavigatorService.navigate('SelectProfile', { assessmentFlow: false }),
         text: i18n.t('profile.secondary-profiles'),
       },
@@ -94,9 +93,7 @@ export const ProfileScreen: React.FC<IProps> = (props) => {
 
   return (
     <Screen isInsideTabBar noHeader testID="profile-screen">
-      {/* TODO: update once backend completed */}
-      {startupInfo?.is_tester ? (
-        // {startupInfo?.show_profile_screen_new_tag ? (
+      {startupInfo?.show_profile_screen_new_tag ? (
         <Tag color={colors.accent} style={[styles.alignStart, styles.marginBottomMedium]} text={i18n.t('new')} />
       ) : null}
       <Text
