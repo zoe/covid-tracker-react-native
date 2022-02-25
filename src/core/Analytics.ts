@@ -125,6 +125,10 @@ enum ECovidTestLFTEvents {
   COVID_TEST_LFT_RESULT_CANCEL_ADD = 'COVID_TEST_LFT_RESULT_CANCEL_ADD',
 }
 
+enum EProfileTabEvents {
+  PROFILE_TAB_OVERLAY_SHOWN = 'PROFILE_TAB_OVERLAY_SHOWN',
+}
+
 enum EOtherEvents {
   ACCEPT_STUDY_CONTACT = 'ACCEPT_STUDY_CONTACT',
   CLICK_CALLOUT = 'CLICK_CALLOUT',
@@ -156,20 +160,21 @@ enum EOtherEvents {
 }
 
 export const events = {
+  ...ECovidTestLFTEvents,
   ...EDashboardEvents,
   ...EDietStudyEvents,
   ...EDiseasePreferencesEvents,
+  ...EHealthProfileEvents,
   ...EInsightEvents,
   ...EMentalHealthPlaybackEvents,
   ...EMentalHealthStudyEvents,
   ...EOtherEvents,
+  ...EProfileTabEvents,
   ...EReconsentEvents,
   ...EStudyHubEvents,
   ...ETimelineEvents,
   ...EVaccineEvents,
   ...EWiderHealthStudiesEvents,
-  ...EHealthProfileEvents,
-  ...ECovidTestLFTEvents,
 };
 
 export type TEventName = keyof typeof events;

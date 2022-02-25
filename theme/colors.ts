@@ -43,6 +43,7 @@ export const colors = {
   darkBlue: '#0165B5',
   lighterBlueBackground: '#F0F6FB',
   lightBlueBackground: '#E9EEF3',
+  vegan: '#467980',
 
   actionButtonBorder: 'rgba(240, 240, 240, 1)',
 

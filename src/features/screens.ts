@@ -99,6 +99,8 @@ export { DataConsentScreen } from '@covid/features/wider-health-studies/screens/
 export { DiseasePreferencesScreen } from '@covid/features/wider-health-studies/screens/DiseasePreferencesScreen';
 export { EstimatedCasesScreen } from '@covid/features/EstimatedCasesScreen';
 export { LoginScreen } from '@covid/features/auth/LoginScreen';
+export { ProfileScreen } from '@covid/features/profile/screens/ProfileScreen';
+export { ProfileOtherScreen } from '@covid/features/profile/screens/ProfileOtherScreen';
 export { StudiesListScreen } from '@covid/features/study-hub/screens/StudiesListScreen';
 export { StudyDetailsScreen } from '@covid/features/study-hub/screens/StudyDetailsScreen';
 export { StudyHubOnboardingScreen } from '@covid/features/study-hub/screens/StudyHubOnboardingScreen';

@@ -44,6 +44,11 @@ export class EditProfileCoordinator extends Coordinator implements IUpdatePatien
     NavigatorService.navigate('EditProfile', { patientData: this.patientData });
   };
 
+  // used for assessment v0
+  startEditProfileOther = () => {
+    NavigatorService.navigate('ProfileOther', { patientData: this.patientData });
+  };
+
   goToEditAboutYou = () => {
     NavigatorService.navigate('AboutYou', { editing: true, patientData: this.patientData });
   };

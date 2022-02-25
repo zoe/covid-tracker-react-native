@@ -1800,6 +1800,10 @@
     "study-hub-tab": "Studies",
     "study-hub-tab-overlay": {
       "description": "From the Studies tab, you can manage Studies you're interested in"
+    },
+    "profile-tab": "Profile",
+    "profile-tab-overlay": {
+      "description": "View and edit your vaccine record from the Profile tab"
     }
   },
   "required-field": "Required field",
@@ -1863,6 +1867,28 @@
       "title": "Finish where you left off",
       "tag": "Health profile",
       "description": "You are only a few minutes away from completing your Health Profile questionnaire."
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "name": "Me",
+    "date-joined": "Joined: *{{date}}*",
+    "daily-reports": "Contributed: *{{dailyReportsCount}} daily reports*",
+    "secondary-profiles": "View / edit secondary profiles",
+    "location": "Location",
+    "other": "Other",
+    "incorrect-email": "If your email does not look correct, please contact us on ",
+    "incorrect-email-address": "covidteam@joinzoe.com",
+    "test-card": {
+      "title": "COVID-19 tests",
+      "description": "View & add new"
+    },
+    "vaccine-card": {
+      "title": "Vaccines",
+      "description": "View & add new"
+    },
+    "other-screen": {
+      "title": "Other profile settings"
     }
   }
 }

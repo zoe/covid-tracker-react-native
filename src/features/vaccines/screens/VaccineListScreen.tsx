@@ -154,17 +154,63 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     }
   };
 
+  // Used for assessment v0
+  const backToProfileTabOrAdverseEffects = () => {
+    if (vaccine) {
+      let doseId = null;
+
+      // Loops over all the doses and return the first dose that has a date in the last 7 days.
+      const today = moment().add(moment().utcOffset(), 'minutes').toDate();
+      const sevenDaysAgo = moment().add(moment().utcOffset(), 'minutes').subtract(7, 'days').toDate();
+
+      for (let j = 0; j < vaccine.doses?.length; j++) {
+        const dose = vaccine.doses[j];
+        if (dose.date_taken_specific) {
+          const doseDate = moment(dose.date_taken_specific).toDate();
+          if (sevenDaysAgo <= doseDate && doseDate <= today && !isNotInjectionFluVaccine(dose)) {
+            doseId = dose.id;
+            break;
+          }
+        }
+      }
+
+      const shouldAskDoseSymptoms = !!doseId;
+      assessmentCoordinator.goToProfileTabOrAdverseEffects({ dose: doseId, shouldAskDoseSymptoms });
+    }
+  };
+
   const renderFooter = () => (
     <View style={styles.wrapper}>
-      <BrandedButton
-        onPress={navigateToNextPageOrShowPopup}
-        testID="button-vaccine-list-screen"
-        textStyle={styles.continueButton}
-      >
-        <Text style={{ color: colors.white }}>
-          {!vaccine?.doses.length ? i18n.t('vaccines.vaccine-list.no-vaccine') : i18n.t('information-correct')}
-        </Text>
-      </BrandedButton>
+      {/* TODO: remove istester flag */}
+      {startupInfo?.show_assessment_flow_v0 || startupInfo?.is_tester ? (
+        <>
+          <BrandedButton
+            onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
+            style={styles.newButtonBottom}
+            testID="button-add-vaccine"
+          >
+            <Text style={styles.whiteText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
+          </BrandedButton>
+          <BrandedButton
+            onPress={backToProfileTabOrAdverseEffects}
+            style={styles.transparentButton}
+            testID="button-covid-test-list-assessment-v0"
+            textStyle={styles.transparentButtonText}
+          >
+            {i18n.t('done')}
+          </BrandedButton>
+        </>
+      ) : (
+        <BrandedButton
+          onPress={navigateToNextPageOrShowPopup}
+          testID="button-vaccine-list-screen"
+          textStyle={styles.continueButton}
+        >
+          <Text style={styles.whiteText}>
+            {!vaccine?.doses.length ? i18n.t('vaccines.vaccine-list.no-vaccine') : i18n.t('information-correct')}
+          </Text>
+        </BrandedButton>
+      )}
     </View>
   );
 
@@ -224,13 +270,16 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
         </Text>
       </View>
 
-      <BrandedButton
-        onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
-        style={styles.newButton}
-        testID="button-add-vaccine"
-      >
-        <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
-      </BrandedButton>
+      {startupInfo?.show_assessment_flow_v0 ? null : (
+        <BrandedButton
+          onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
+          style={styles.newButton}
+          testID="button-add-vaccine"
+        >
+          <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
+        </BrandedButton>
+      )}
+
       {vaccine ? (
         <Text style={styles.tabTitle} textAlign="center" textClass="h4Medium">
           {i18n.t('vaccines.vaccine-list.tabs-title')}
@@ -271,6 +320,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundTertiary,
     marginBottom: sizes.m,
   },
+  newButtonBottom: {
+    backgroundColor: colors.brand,
+    marginBottom: sizes.m,
+  },
   newText: {
     color: colors.primary,
   },
@@ -283,6 +336,18 @@ const styles = StyleSheet.create({
   },
   tabTitle: {
     color: colors.secondary,
+  },
+  transparentButton: {
+    backgroundColor: 'transparent',
+    borderColor: colors.brand,
+    borderRadius: sizes.xl,
+    borderWidth: 1,
+  },
+  transparentButtonText: {
+    color: colors.brand,
+  },
+  whiteText: {
+    color: colors.white,
   },
   wrapper: {
     padding: sizes.l,

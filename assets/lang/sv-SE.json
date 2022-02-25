@@ -1804,6 +1804,10 @@
     "study-hub-tab": "Studies",
     "study-hub-tab-overlay": {
       "description": "From the Studies tab, you can manage Studies you're interested in"
+    },
+    "profile-tab": false,
+    "profile-tab-overlay": {
+      "description": false
     }
   },
   "required-field": "Obligatoriska fält",
@@ -1868,5 +1872,27 @@
       "tag": false,
       "description": false
     }
+  },
+  "profile": {
+    "title": false,
+    "name": false,
+    "date-joined": false,
+    "daily-reports": false,
+    "secondary-profiles": false,
+    "location": false,
+    "other": false,
+    "incorrect-email": false,
+    "incorrect-email-address": false,
+    "test-card": {
+      "title": false,
+      "description": false
+    },
+    "vaccine-card": {
+      "title": false,
+      "description": false
+    }
+  },
+  "other-screen": {
+    "title": false
   }
 }
