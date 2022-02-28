@@ -6,7 +6,7 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { TextWithBoldInserts } from '@covid/components/typography';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { patientService } from '@covid/core/patient/PatientService';
 import { updateShowBoosterModal } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
@@ -17,12 +17,14 @@ import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { getInitialRouteName } from '@covid/features/vaccines/helpers';
 import { VaccineBoosterModal } from '@covid/features/vaccines/modals/VaccineBoosterModal';
 import { VaccineFluOnboardingModal } from '@covid/features/vaccines/modals/VaccineFluOnboardingModal';
+import { VaccineProfileOnboardingModal } from '@covid/features/vaccines/modals/VaccineProfileOnboardingModal';
 import { VaccineTabbedListsScreen } from '@covid/features/vaccines/screens/VaccineTabbedListsScreen';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import moment from 'moment';
 import * as React from 'react';
@@ -31,6 +33,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 type TProps = {
   route: RouteProp<TScreenParamList, 'VaccineList'>;
+  navigation: StackNavigationProp<TScreenParamList, 'VaccineList'>;
 };
 
 const HIT_SLOP = {
@@ -51,6 +54,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
   const [error, setError] = React.useState<string>();
   const [showBoosterModal, setShowBoosterModal] = React.useState<boolean>(false);
   const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
+  const [showProfileOnboardingModal, setShowProfileOnboardingModal] = React.useState<boolean>(false);
 
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
@@ -85,6 +89,11 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     React.useCallback(() => {
       fetchVaccineList();
 
+      if (isPrimaryPatientAndAssessmentV0) {
+        setShowProfileOnboardingModal(true);
+      }
+
+      // TODO: Delete
       if (!assessmentCoordinator.isReportedByOther()) {
         if (startupInfo?.show_flu_vaccine_onboarding) {
           setShowOnboardingModal(true);
@@ -154,6 +163,11 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     }
   };
 
+  const onVaccineProfileModalClose = () => {
+    setShowProfileOnboardingModal(false);
+    navigateToNextPage();
+  };
+
   // Used for assessment v0
   const backToProfileTabOrAdverseEffects = () => {
     if (vaccine) {
@@ -179,10 +193,31 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     }
   };
 
+  const fromDailyAssessmentFlow = () => {
+    try {
+      const routes = props.navigation.getState().routes;
+      const prevRoute = routes[routes.length - 2];
+      return prevRoute.name === 'CovidTestList';
+    } catch {
+      return false;
+    }
+  };
+
+  // TODO: Remove is tester flag
+  const isPrimaryPatientAndAssessmentV0 =
+    (startupInfo?.use_assessment_flow_v0 || startupInfo?.is_tester) &&
+    !startupInfo?.show_assessment_flow_v0 &&
+    !assessmentCoordinator.isReportedByOther() &&
+    isGBCountry() &&
+    fromDailyAssessmentFlow();
+
   const renderFooter = () => (
     <View style={styles.wrapper}>
       {/* TODO: remove istester flag */}
-      {startupInfo?.show_assessment_flow_v0 || startupInfo?.is_tester ? (
+      {/* Note: primary patients in rollout will no longer see this entire screen */}
+      {(startupInfo?.show_assessment_flow_v0 || startupInfo?.is_tester) &&
+      !assessmentCoordinator.isReportedByOther() &&
+      isGBCountry() ? (
         <>
           <BrandedButton
             onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
@@ -233,6 +268,12 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     >
       <VaccineBoosterModal onRequestClose={onRequestCloseBoosterModal} visible={showBoosterModal} />
 
+      <VaccineProfileOnboardingModal
+        onRequestClose={onVaccineProfileModalClose}
+        patientId={assessmentCoordinator.assessmentData?.patientData?.patientId}
+        visible={showProfileOnboardingModal}
+      />
+
       {/* @todo: extract to its own component file. */}
       <Modal
         enableBackdropDismiss
@@ -270,7 +311,10 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
         </Text>
       </View>
 
-      {startupInfo?.show_assessment_flow_v0 ? null : (
+      {/* Primary patients who are part of rollout should not see this button */}
+      {/* TODO: Delete is_tester flag */}
+      {(startupInfo?.show_assessment_flow_v0 || startupInfo?.is_tester) &&
+      !assessmentCoordinator.isReportedByOther() ? null : (
         <BrandedButton
           onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
           style={styles.newButton}

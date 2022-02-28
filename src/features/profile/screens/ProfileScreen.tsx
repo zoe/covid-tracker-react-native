@@ -10,6 +10,7 @@ import {
 } from '@assets';
 import { CaptionText, Tag, Text, TextWithBoldInserts } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
+import Analytics, { events } from '@covid/core/Analytics';
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
 import { TRootState } from '@covid/core/state/root';
@@ -38,6 +39,7 @@ const updateHasSeenProfileScreen = async (patientId: string) => {
 };
 
 const contactUs = () => {
+  Analytics.track(events.PROFILE_CONTACT_EMAIL_CLICKED);
   Linking.openURL('mailto:covidteam@joinzoe.com');
 };
 
@@ -55,29 +57,45 @@ export const ProfileScreen: React.FC<IProps> = (props) => {
   const coordinator: AppCoordinator = appCoordinator;
 
   const initAssessmentCoordAndGoToCovidTests = React.useCallback(() => {
+    Analytics.track(events.PROFILE_COVID_TESTS_CARD_CLICKED);
     // Important: this kicks off the logic around backdating profiles etc.
     coordinator.startAssessmentFlow(currentPatient);
   }, [coordinator, currentPatient]);
 
   const initAssessmentCoordAndGoToVaccines = React.useCallback(() => {
+    Analytics.track(events.PROFILE_VACCINES_CARD_CLICKED);
     coordinator.startAssessmentFlowThroughVaccines(currentPatient);
   }, [coordinator, currentPatient]);
+
+  const logoutOnPress = React.useCallback(() => {
+    Analytics.track(events.PROFILE_LOGOUT_CLICKED);
+    logout();
+  }, []);
 
   const LINKS = React.useMemo(
     () => [
       {
         icon: LocationIcon,
-        onPress: () => editProfileCoordinator.goToEditLocation(),
+        onPress: () => {
+          Analytics.track(events.PROFILE_LOCATION_CLICKED);
+          editProfileCoordinator.goToEditLocation();
+        },
         text: i18n.t('profile.location'),
       },
       {
         icon: CogIcon,
-        onPress: () => editProfileCoordinator.startEditProfileOther(),
+        onPress: () => {
+          Analytics.track(events.PROFILE_OTHER_CLICKED);
+          editProfileCoordinator.startEditProfileOther();
+        },
         text: i18n.t('profile.other'),
       },
       {
         icon: PeopleIcon,
-        onPress: () => NavigatorService.navigate('SelectProfile', { assessmentFlow: false }),
+        onPress: () => {
+          Analytics.track(events.PROFILE_SECONDARY_PROFILES_CLICKED);
+          NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
+        },
         text: i18n.t('profile.secondary-profiles'),
       },
     ],
@@ -158,7 +176,12 @@ export const ProfileScreen: React.FC<IProps> = (props) => {
 
       <View style={styles.lineHorizontal} />
 
-      <TouchableOpacity accessibilityRole="button" onPress={logout} style={styles.logout} testID="profile-item-logout">
+      <TouchableOpacity
+        accessibilityRole="button"
+        onPress={logoutOnPress}
+        style={styles.logout}
+        testID="profile-item-logout"
+      >
         <Text inverted colorPalette="uiDark" colorShade="darker" textClass="h5Regular">
           {i18n.t('logout')}
         </Text>

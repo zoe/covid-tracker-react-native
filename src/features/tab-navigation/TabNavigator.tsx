@@ -1,5 +1,6 @@
 import { Text } from '@covid/components';
 import { events, track } from '@covid/core/Analytics';
+import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { patientService } from '@covid/core/patient/PatientService';
 import { fetchStartupInfo, updateShowProfileTabOnboarding, updateStudiesTabOnboardingSeen } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
@@ -68,7 +69,7 @@ export default function TabNavigator({ navigation }: IProps) {
   React.useEffect(() => {
     setTimeout(() => {
       // TODO: implement once backend completed
-      if (startupInfo?.show_profile_tab_onboarding) {
+      if (startupInfo?.show_profile_tab_onboarding && isGBCountry()) {
         // if (startupInfo?.is_tester) {
         setShowProfileTabOnboarding(true);
         track(events.PROFILE_TAB_OVERLAY_SHOWN);
@@ -95,6 +96,7 @@ export default function TabNavigator({ navigation }: IProps) {
 
   const closeProfileTabOnboarding = React.useCallback(async () => {
     setShowProfileTabOnboarding(false);
+    track(events.PROFILE_TAB_OVERLAY_DISMISSED);
     dispatch(updateShowProfileTabOnboarding(false));
     await patientService.updatePatientInfo(patientId, {
       has_seen_profile_tab_onboarding: false,

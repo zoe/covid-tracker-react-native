@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import { ProfileOnboardingModal } from '@covid/features/assessment/modals/ProfileOnboardingModal';
+import { VaccineProfileOnboardingModal } from '@covid/features/vaccines/modals/VaccineProfileOnboardingModal';
 import { theme } from '@covid/themes';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react-native';
@@ -40,7 +40,7 @@ describe('Profile onboarding modal tests', () => {
       <ThemeProvider theme={theme}>
         <ReduxProvider store={store}>
           <SafeAreaProvider initialMetrics={initialMetrics}>
-            <ProfileOnboardingModal visible onRequestClose={onPress} patientId={DUMMY_PATIENT_ID} />
+            <VaccineProfileOnboardingModal visible onRequestClose={onPress} patientId={DUMMY_PATIENT_ID} />
           </SafeAreaProvider>
         </ReduxProvider>
       </ThemeProvider>,

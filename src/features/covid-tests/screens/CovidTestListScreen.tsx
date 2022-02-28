@@ -114,9 +114,19 @@ export default function CovidTestListScreen(props: IProps) {
 
   const initialRouteName = getInitialRouteName(props.route.params?.mechanism, props.route.params?.is_rapid_test);
 
+  const fromDailyAssessmentFlow = () => {
+    try {
+      const routes = props.navigation.getState().routes;
+      const prevRoute = routes[routes.length - 2];
+      return prevRoute.name === 'SelectProfile';
+    } catch {
+      return false;
+    }
+  };
+
   const renderFooter = () => (
     <View style={styles.wrapper}>
-      {startupInfo?.show_assessment_flow_v0 ? (
+      {startupInfo?.show_assessment_flow_v0 && !fromDailyAssessmentFlow() && isGBCountry() ? (
         <BrandedButton
           onPress={backToProfileTab}
           style={styles.transparentButton}

@@ -39,8 +39,13 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
+      // If primary patient and has seen assessment v0 onboarding, skip the vaccines screen
+      const showAssessmentV0 =
+        !this.patientData.patientState.isReportedByAnother &&
+        this.patientData.patientInfo?.has_seen_assessment_flow_v0_onboarding;
+
       // After finishing with COVID Tests, we check to ask about Vaccines.
-      if (this.patientData.patientState.shouldShowVaccineList) {
+      if (this.patientData.patientState.shouldShowVaccineList && !showAssessmentV0) {
         NavigatorService.navigate('VaccineList', {
           assessmentData: this.assessmentData,
         });
