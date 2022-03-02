@@ -52,6 +52,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
   const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
   const coordinator: AppCoordinator = appCoordinator;
   const email = useSelector<TRootState, string>((state) => state.user.username);
+  const [showNewTag, setShowNewTag] = React.useState<boolean>(false);
 
   const initAssessmentCoordAndGoToCovidTests = React.useCallback(() => {
     Analytics.track(events.PROFILE_COVID_TESTS_CARD_CLICKED);
@@ -95,7 +96,10 @@ export const ProfileScreen: React.FC<IProps> = () => {
   );
 
   React.useEffect(() => {
-    updateHasSeenProfileScreen(patientId);
+    if (startupInfo?.show_profile_screen_new_tag) {
+      setShowNewTag(true);
+      updateHasSeenProfileScreen(patientId);
+    }
   }, []);
 
   useFocusEffect(
@@ -108,7 +112,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
 
   return (
     <Screen isInsideTabBar noHeader testID="profile-screen">
-      {startupInfo?.show_profile_screen_new_tag ? (
+      {showNewTag ? (
         <Tag color={colors.accent} style={[styles.alignStart, styles.marginBottomMedium]} text={i18n.t('new')} />
       ) : null}
       <Text

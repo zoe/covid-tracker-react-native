@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   img: {
     flex: 1,
-    height: 400,
+    height: 350,
     resizeMode: 'contain',
   },
   tag: {
