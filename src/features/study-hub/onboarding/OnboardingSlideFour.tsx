@@ -49,7 +49,7 @@ export function OnboardingSlideFour() {
         {i18n.t('study-hub.onboarding.slide-4.title')}
       </Text>
       {cards.map((card: TCard, index: number) => (
-        <Card style={index === 0 || index === 1 ? styles.completedCard : styles.card}>
+        <Card key={card.id} style={index === 0 || index === 1 ? styles.completedCard : styles.card}>
           {card.isNew ? <Tag color={colors.accent} style={styles.tag} text={i18n.t('new')} /> : null}
           {card.isComingSoon ? (
             <Text inverted colorPalette="accentMagenta" colorShade="main" style={styles.marginBottom} textClass="tag">

@@ -1,8 +1,4 @@
-import {
-  ECovidTestMechanismOptions,
-  ECovidTestOmicronStatusOptions,
-  ECovidTestResultOptions,
-} from '@covid/core/user/dto/UserAPIContracts';
+import { ECovidTestMechanismOptions, ECovidTestResultOptions } from '@covid/core/user/dto/UserAPIContracts';
 
 export type TCovidTest = {
   anti_n: string | null;
@@ -20,7 +16,6 @@ export type TCovidTest = {
   location: string;
   location_other: string;
   mechanism: ECovidTestMechanismOptions;
-  omicron_status: ECovidTestOmicronStatusOptions | null;
   patient: string;
   result: ECovidTestResultOptions | null;
   test_performed_by: string;

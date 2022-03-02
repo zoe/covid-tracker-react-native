@@ -75,9 +75,6 @@ export class AssessmentCoordinator extends Coordinator {
     OtherSymptoms: () => {
       NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
-    Pingdemic: () => {
-      this.goToThankYouScreen();
-    },
     ProfileBackDate: () => {
       this.startAssessment();
     },
@@ -168,11 +165,7 @@ export class AssessmentCoordinator extends Coordinator {
   };
 
   gotoEndAssessment = async () => {
-    if (this.assessmentData?.patientData?.patientInfo?.should_ask_pingdemic_questions) {
-      NavigatorService.navigate('Pingdemic', { assessmentData: this.assessmentData });
-    } else {
-      this.goToThankYouScreen();
-    }
+    this.goToThankYouScreen();
   };
 
   goToAddEditTest = (covidTest?: TCovidTest) => {

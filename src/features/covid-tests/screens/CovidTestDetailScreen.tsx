@@ -14,14 +14,12 @@ import {
   CovidTestIsRapidQuestion,
   CovidTestLocationQuestion,
   CovidTestMechanismQuestion,
-  CovidTestOmicronQuestion,
   CovidTestResultQuestion,
   ICovidTestDateData,
   ICovidTestInvitedFormikData,
   ICovidTestIsRapidData,
   ICovidTestLocationData,
   ICovidTestMechanismFormikData,
-  ICovidTestOmicronFormikData,
   ICovidTestResultData,
 } from '@covid/features/covid-tests/questions';
 import { ICovidTestData } from '@covid/features/covid-tests/types';
@@ -77,7 +75,6 @@ export default function CovidTestDetailScreen(props: TCovidProps) {
         ...CovidTestDateQuestion.createDTO(values),
         ...CovidTestIsRapidQuestion.createDTO(values),
         ...CovidTestMechanismQuestion.createDTO(values),
-        ...CovidTestOmicronQuestion.createDTO(values),
         ...CovidTestInvitedQuestion.createDTO(values),
         ...CovidTestLocationQuestion.createDTO(values),
         ...CovidTestResultQuestion.createDTO(values), // Leave as last due to conditional overwriting depending on antibody test type
@@ -167,7 +164,6 @@ export default function CovidTestDetailScreen(props: TCovidProps) {
         .concat(CovidTestDateQuestion.createValidationSchema())
         .concat(CovidTestMechanismQuestion.createValidationSchema())
         .concat(CovidTestResultQuestion.createValidationSchema())
-        .concat(CovidTestOmicronQuestion.createValidationSchema())
         .concat(CovidTestInvitedQuestion.createValidationSchema())
         .concat(CovidTestLocationQuestion.createValidationSchema())
         .concat(CovidTestIsRapidQuestion.createValidationSchema()),
@@ -179,7 +175,6 @@ export default function CovidTestDetailScreen(props: TCovidProps) {
       ...CovidTestDateQuestion.getInitialFormValues(test),
       ...CovidTestMechanismQuestion.getInitialFormValues(test),
       ...CovidTestResultQuestion.getInitialFormValues(test),
-      ...CovidTestOmicronQuestion.getInitialFormValues(test),
       ...CovidTestInvitedQuestion.getInitialFormValues(test),
       ...CovidTestLocationQuestion.getInitialFormValues(test),
       ...CovidTestIsRapidQuestion.getInitialFormValues(test),
@@ -219,11 +214,6 @@ export default function CovidTestDetailScreen(props: TCovidProps) {
               test={test}
             />
           ) : null}
-
-          <CovidTestOmicronQuestion
-            formikProps={formikProps as unknown as FormikProps<ICovidTestOmicronFormikData>}
-            test={test}
-          />
 
           {formikProps.values.mechanism === ECovidTestMechanismOptions.PCR ? (
             <CovidTestInvitedQuestion

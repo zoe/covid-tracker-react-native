@@ -56,12 +56,6 @@ export enum ECovidTestResultOptions {
   WAITING = 'waiting',
 }
 
-export enum ECovidTestOmicronStatusOptions {
-  NO = 'no',
-  YES_CONFIRMED = 'yes_confirmed',
-  YES_SUSPECTED = 'yes_suspected',
-}
-
 // Deprecated
 export enum ECovidTestTrainedWorkerOptions {
   TRAINED = 'trained',
@@ -286,9 +280,6 @@ export type TPatientInfosRequest = {
   should_ask_vaccine_questions: boolean;
   vaccine_status: EVaccineStatus;
 
-  // Pingdemic
-  should_ask_pingdemic_questions: boolean;
-
   // Reconsent
   research_consent_asked: boolean;
   research_consent_autoimmune_conditions: boolean;
@@ -303,8 +294,6 @@ export type TPatientInfosRequest = {
   research_consent_skin_conditions: boolean;
 
   // Covid tests
-  has_seen_covid_test_onboarding: boolean;
-  has_seen_omicron_modal: boolean;
   research_consent_vision_and_hearing_conditions: boolean;
   research_consent_womens_health: boolean;
 
@@ -317,7 +306,6 @@ export type TPatientInfosRequest = {
   has_seen_profile_tab_onboarding: boolean;
 
   // Vaccines
-  has_seen_booster_modal: boolean;
   has_seen_flu_vaccine_onboarding: boolean;
 
   // Study hub
@@ -325,7 +313,6 @@ export type TPatientInfosRequest = {
   has_seen_study_hub_interest_first_time_modal: boolean;
   has_seen_study_hub_interest_onboarding: boolean;
   has_seen_study_hub_onboarding: boolean;
-  has_seen_study_hub_video_modal: boolean;
 
   // Health profile
   twin: boolean;
@@ -390,18 +377,13 @@ export type TStartupInfo = {
   min_supported_app_version?: string;
   primary_patient_date_joined?: string;
   show_assessment_flow_v0?: boolean; // use_assessment_flow_v0 === true && has_seen_assessment_flow_v0_onboarding
-  show_booster_modal?: boolean;
-  show_covid_test_onboarding: boolean;
   show_diet_score: boolean;
   show_edit_location: boolean;
-  show_flu_vaccine_onboarding: boolean;
   show_lft_quick_reporting: boolean;
   show_long_covid: boolean;
   show_mh_insight?: boolean;
   show_modal?: TShowModal;
   show_new_dashboard: boolean;
-  show_omicron_modal?: boolean;
-  show_pingdemic: boolean;
   show_profile_screen_new_tag: boolean;
   show_profile_tab_onboarding: boolean;
   show_research_consent: boolean;
@@ -409,7 +391,6 @@ export type TStartupInfo = {
   show_study_hub_interest_first_time_modal: boolean;
   show_study_hub_interest_onboarding: boolean;
   show_study_hub_onboarding: boolean;
-  show_study_hub_video_modal: boolean;
   show_timeline: boolean;
   show_trendline: boolean;
   studies_tab_onboarding_seen: boolean;

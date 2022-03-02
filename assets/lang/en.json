@@ -311,18 +311,6 @@
       "anti-n-description": "Detects the presence of antibodies targeted against the so-called (N) protein of COVID-19. Anti-N antibodies are not produced in response to any of the current vaccines on the market. They are, however, seen in most people who have recovered from COVID-19 but do drop over time.",
       "anti-s-title": "Anti-S antibody test",
       "anti-s-description": "Detects the presence of antibodies targeted against the so-called spike (S) protein of the virus. Anti-S antibodies might be found in both people who have been vaccinated against COVID-19 and people who have recovered from COVID-19."
-    },
-    "omicron": {
-      "picker-no": "No, I was not contacted by NHS Test & Trace about Omicron",
-      "picker-yes-confirmed": "Yes, I was told it was *confirmed* Omicron",
-      "picker-yes-suspected": "Yes, I was told it was *suspected* Omicron",
-      "tag": "New",
-      "title": "Have you been informed by NHS Test & Trace that it was the Omicron variant?"
-    },
-    "tracking-omicron-modal": {
-      "description": "Help track the new *Omicron variant* by telling us if you were contacted by *NHS Test & Trace* about Omicron with your *recent positive PCR test logged*.\n\nIf you know anyone who has/had *suspected or confirmed Omicron infection*, please also ask them to log it in this app",
-      "tag": "Tracking omicron",
-      "title": "Update your recent positive PCR test"
     }
   },
   "describe-symptoms": {
@@ -413,25 +401,6 @@
     "update-location": "Update Location",
     "vaccine-reporting-message": "Please continue to provide daily health reports following your COVID-19 vaccination and log any general symptoms you might experience.",
     "vaccine-reporting-link": "Why is that important?"
-  },
-  "pingdemic": {
-    "title": "Understanding the effectiveness of UK contact tracing apps",
-    "body": "We’re asking you the following questions again to measure the continued effectiveness of the UK contact tracing apps and to understand any changes in behaviour over the last few months.",
-    "q1": "In the last few months, were you asked by the NHS COVID-19 app, the Protect Scotland app or the StopCOVID NI app to self-isolate?",
-    "q1-yes": "Yes",
-    "q1-no": "No",
-    "q1-other": "Other",
-    "q1-prefer-not-to-say": "Prefer not to say",
-    "dates": "What date were you asked to start self-isolating?",
-    "no-app": "Do you have the NHS COVID-19 app, the Protect Scotland app or the StopCOVID NI app?",
-    "no-app-yes": "Yes",
-    "no-app-never-had": "No, I never had it",
-    "no-app-used-to-have": "No, I used to have it",
-    "no-app-prefer-not-to-say": "Prefer not to say",
-    "active-bluetooth": "Is the app active and is your Bluetooth on?",
-    "active-yes": "Yes",
-    "active-no": "No",
-    "active-not-sure": "I’m not sure"
   },
   "long-covid": {
     "apology": "We kindly ask anyone who already completed this to do so once more as we made a mistake in our previous version - thank you!",
@@ -691,7 +660,6 @@
     "negative": "Negative",
     "never-had-test": "I have never had a COVID test",
     "positive": "Positive",
-    "positive-omicron": "Positive, Omicron",
     "tab-antibody": "Antibody",
     "tab-lateral": "Lateral",
     "tab-other": "Other",
@@ -713,23 +681,6 @@
       "todays-result-waiting": "You're still *waiting* for the result of your lateral flow test today",
       "todays-result-failed": "You logged a *not clear / failed* lateral flow test today"
     }
-  },
-  "covid-test-modal": {
-    "screen-0": {
-      "title": "Tap between your various logged tests"
-    },
-    "screen-1": {
-      "title": "Your most recent tests are now placed at the top"
-    },
-    "screen-2": {
-      "title": "Easily log new tests incl. Antibody tests"
-    },
-    "screen-3": {
-      "title": "Submit and continue to log your daily symptoms"
-    },
-    "new-design": "New design",
-    "button": "Next",
-    "button-end": "OK"
   },
   "profile-modal": {
     "update": "Update",
@@ -1061,9 +1012,6 @@
     "vaccine-list": {
       "title": "Your vaccines",
       "description": "Tell us if you've had a *flu* or *COVID-19* vaccine. For COVID-19 vaccines, you can now also log *boosters* and *vaccines taken as part of a trial*.",
-      "modal-title": "Logging your vaccines",
-      "modal-body": "We can now record COVID-19 vaccines taken as part of a trial. Please select \"I received my vaccine via a vaccine trial\" when asked for the name of your vaccine.",
-      "modal-button": "OK",
       "add-button": "Add a vaccine dose",
       "no-vaccine": "I haven't had a vaccine",
       "no-2nd": "I haven't had a second dose",
@@ -1119,16 +1067,6 @@
       "name-missing": "Edit to add vaccine name",
       "not-logged": "Not yet logged",
       "edit-vaccine": "Edit vaccine"
-    },
-    "flu-onboarding": {
-      "title": "Log your flu vaccine",
-      "description": "Log any *flu vaccine* during your health report. Tap 'Add a vaccine dose' and select 'Flu' when asked for vaccine type.",
-      "new": "New"
-    },
-    "booster-modal": {
-      "button": "OK",
-      "description": "If you haven't done so already, please log your *booster vaccine*. Tap 'Add a vaccine dose' and select 'COVID' to log it.",
-      "title": "Remember to log your booster vaccine"
     }
   },
   "dashboard": {
@@ -1796,10 +1734,6 @@
       "description": "We need your consent to take part in Wider Health Studies before you can express interest in new studies on this page.",
       "title": "Opt in to access new studies",
       "return": "Return to Home"
-    },
-    "video-modal": {
-      "description": "It's hiding behind this pop-up, simply tap it to play it.",
-      "title": "Have you seen our video on the future of this Study?"
     }
   },
   "tab-navigation": {

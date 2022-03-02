@@ -77,9 +77,6 @@ export type TScreenParamList = {
   TreatmentSelection: { assessmentData: TAssessmentData; location: string };
   WhereAreYou: { assessmentData: TAssessmentData };
 
-  // Pingdemic
-  Pingdemic: { assessmentData: TAssessmentData };
-
   // Vaccines
   AboutYourVaccine: { assessmentData: TAssessmentData; editDoseId?: string };
   VaccineDoseSymptoms: { assessmentData: TAssessmentData; dose: string; fromProfileTab?: boolean };
