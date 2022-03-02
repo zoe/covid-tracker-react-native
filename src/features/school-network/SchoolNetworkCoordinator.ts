@@ -43,7 +43,7 @@ class SchoolNetworkCoordinator extends Coordinator implements ISelectProfile {
   };
 
   closeFlow = () => {
-    NavigatorService.navigate('SelectProfile');
+    NavigatorService.goBack();
   };
 
   resetToHome = () => {

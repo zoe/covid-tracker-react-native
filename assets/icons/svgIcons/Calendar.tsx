@@ -1,31 +1,19 @@
 import { IIconProps } from '@assets/icons/svgIcons/types';
 import { determineDimensions } from '@assets/icons/utils';
 import * as React from 'react';
-import { G, Path, Svg } from 'react-native-svg';
+import { Path, Svg } from 'react-native-svg';
 
-const defaultWidth = 20;
-const defaultHeight = 20;
+const defaultWidth = 14;
+const defaultHeight = 14;
 
-export default function CalendarIcon({ color = '#565A5C', ...props }: IIconProps) {
+export default function CalendarIcon({ color = '#24262B', ...props }: IIconProps) {
   const { width, height } = determineDimensions(props, defaultWidth, defaultHeight);
   return (
-    <Svg fill="none" height={height} viewBox="0 0 20 20" width={width}>
-      <G
-        fill="none"
-        fillRule="evenodd"
-        id="Page-1"
-        stroke="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1"
-      >
-        <G id="Group" stroke={color} transform="translate(0.000000, 1.000000)">
-          <Path
-            d="M4.5 0.875C4.5 0.598858 4.27614 0.375 4 0.375C3.72386 0.375 3.5 0.598858 3.5 0.875H4.5ZM3.5 4.625C3.5 4.90114 3.72386 5.125 4 5.125C4.27614 5.125 4.5 4.90114 4.5 4.625H3.5ZM14.5 0.875C14.5 0.598858 14.2761 0.375 14 0.375C13.7239 0.375 13.5 0.598858 13.5 0.875H14.5ZM13.5 4.625C13.5 4.90114 13.7239 5.125 14 5.125C14.2761 5.125 14.5 4.90114 14.5 4.625H13.5ZM3.5 0.875V4.625H4.5V0.875H3.5ZM13.5 0.875V4.625H14.5V0.875H13.5ZM2.125 3.25H15.875V2.25H2.125V3.25ZM16.625 4V14.9375H17.625V4H16.625ZM15.875 15.6875H2.125V16.6875H15.875V15.6875ZM1.375 14.9375V4H0.375V14.9375H1.375ZM2.125 15.6875C1.71079 15.6875 1.375 15.3517 1.375 14.9375H0.375C0.375 15.904 1.1585 16.6875 2.125 16.6875V15.6875ZM16.625 14.9375C16.625 15.3517 16.2892 15.6875 15.875 15.6875V16.6875C16.8415 16.6875 17.625 15.904 17.625 14.9375H16.625ZM15.875 3.25C16.2892 3.25 16.625 3.58579 16.625 4H17.625C17.625 3.0335 16.8415 2.25 15.875 2.25V3.25ZM2.125 2.25C1.1585 2.25 0.375 3.0335 0.375 4H1.375C1.375 3.58579 1.71079 3.25 2.125 3.25V2.25ZM0.875 7.3125H17.125V6.3125H0.875V7.3125Z"
-            fill="#565A5C"
-          />
-        </G>
-      </G>
+    <Svg fill="none" height={height} width={width}>
+      <Path
+        d="M3.5 0.5C3.5 0.223858 3.27614 0 3 0C2.72386 0 2.5 0.223858 2.5 0.5H3.5ZM2.5 3.5C2.5 3.77614 2.72386 4 3 4C3.27614 4 3.5 3.77614 3.5 3.5H2.5ZM11.5 0.5C11.5 0.223858 11.2761 0 11 0C10.7239 0 10.5 0.223858 10.5 0.5H11.5ZM10.5 3.5C10.5 3.77614 10.7239 4 11 4C11.2761 4 11.5 3.77614 11.5 3.5H10.5ZM2.5 0.5V3.5H3.5V0.5H2.5ZM10.5 0.5V3.5H11.5V0.5H10.5ZM1.5 2.5H12.5V1.5H1.5V2.5ZM13 3V11.75H14V3H13ZM12.5 12.25H1.5V13.25H12.5V12.25ZM1 11.75V3H0V11.75H1ZM1.5 12.25C1.22386 12.25 1 12.0261 1 11.75H0C0 12.5784 0.671573 13.25 1.5 13.25V12.25ZM13 11.75C13 12.0261 12.7761 12.25 12.5 12.25V13.25C13.3284 13.25 14 12.5784 14 11.75H13ZM12.5 2.5C12.7761 2.5 13 2.72386 13 3H14C14 2.17157 13.3284 1.5 12.5 1.5V2.5ZM1.5 1.5C0.671573 1.5 0 2.17157 0 3H1C1 2.72386 1.22386 2.5 1.5 2.5V1.5ZM0.5 5.75H13.5V4.75H0.5V5.75Z"
+        fill={color}
+      />
     </Svg>
   );
 }

@@ -29,7 +29,7 @@ const getCardsData = (): TCard[] => [
     IllustrationComponent: IconHealthProfile,
     description: i18n.t('study-hub.onboarding.slide-4.card-2.description'),
     id: 'card-habits-behaviours',
-    isComingSoon: true,
+    isNew: true,
     title: i18n.t('study-hub.onboarding.slide-4.card-2.title'),
   },
   {
@@ -49,7 +49,7 @@ export function OnboardingSlideFour() {
         {i18n.t('study-hub.onboarding.slide-4.title')}
       </Text>
       {cards.map((card: TCard, index: number) => (
-        <Card style={index === 0 ? styles.firstCard : styles.card}>
+        <Card style={index === 0 || index === 1 ? styles.completedCard : styles.card}>
           {card.isNew ? <Tag color={colors.accent} style={styles.tag} text={i18n.t('new')} /> : null}
           {card.isComingSoon ? (
             <Text inverted colorPalette="accentMagenta" colorShade="main" style={styles.marginBottom} textClass="tag">
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: sizes.l,
   },
-  firstCard: {
+  completedCard: {
     backgroundColor: colors.lightBlueBackground,
     borderColor: colors.lightBlueBackground,
     borderWidth: 2,

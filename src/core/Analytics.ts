@@ -125,6 +125,19 @@ enum ECovidTestLFTEvents {
   COVID_TEST_LFT_RESULT_CANCEL_ADD = 'COVID_TEST_LFT_RESULT_CANCEL_ADD',
 }
 
+enum EProfileTabEvents {
+  PROFILE_TAB_OVERLAY_SHOWN = 'PROFILE_TAB_OVERLAY_SHOWN',
+  PROFILE_TAB_OVERLAY_DISMISSED = 'PROFILE_TAB_OVERLAY_DISMISSED',
+  VACCINE_PROFILE_ONBOARDING_MODAL = 'VACCINE_PROFILE_ONBOARDING_MODAL',
+  PROFILE_COVID_TESTS_CARD_CLICKED = 'PROFILE_COVID_TESTS_CARD_CLICKED',
+  PROFILE_VACCINES_CARD_CLICKED = 'PROFILE_VACCINES_CARD_CLICKED',
+  PROFILE_SECONDARY_PROFILES_CLICKED = 'PROFILE_SECONDARY_PROFILES_CLICKED',
+  PROFILE_LOCATION_CLICKED = 'PROFILE_LOCATION_CLICKED',
+  PROFILE_OTHER_CLICKED = 'PROFILE_OTHER_CLICKED',
+  PROFILE_LOGOUT_CLICKED = 'PROFILE_LOGOUT_CLICKED',
+  PROFILE_CONTACT_EMAIL_CLICKED = 'PROFILE_CONTACT_EMAIL_CLICKED',
+}
+
 enum EOtherEvents {
   ACCEPT_STUDY_CONTACT = 'ACCEPT_STUDY_CONTACT',
   CLICK_CALLOUT = 'CLICK_CALLOUT',
@@ -156,20 +169,21 @@ enum EOtherEvents {
 }
 
 export const events = {
+  ...ECovidTestLFTEvents,
   ...EDashboardEvents,
   ...EDietStudyEvents,
   ...EDiseasePreferencesEvents,
+  ...EHealthProfileEvents,
   ...EInsightEvents,
   ...EMentalHealthPlaybackEvents,
   ...EMentalHealthStudyEvents,
   ...EOtherEvents,
+  ...EProfileTabEvents,
   ...EReconsentEvents,
   ...EStudyHubEvents,
   ...ETimelineEvents,
   ...EVaccineEvents,
   ...EWiderHealthStudiesEvents,
-  ...EHealthProfileEvents,
-  ...ECovidTestLFTEvents,
 };
 
 export type TEventName = keyof typeof events;

@@ -1,3 +1,4 @@
+import { TPatientData } from '@covid/core/patient/PatientData';
 import { TRootState } from '@covid/core/state/root';
 import { TStateUser } from '@covid/core/state/user/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -6,6 +7,7 @@ export const initialStateUser: TStateUser = {
   ask_for_rating: false,
   authorizations: [],
   country_code: '',
+  currentPatient: {} as TPatientData,
   is_tester: false,
   language_code: '',
   patients: [],
@@ -21,6 +23,9 @@ const userSlice = createSlice({
     reset: () => {
       return initialStateUser;
     },
+    setCurrentPatient: (state, action: PayloadAction<TPatientData>) => {
+      state.currentPatient = action.payload;
+    },
     setPatients: (state, action: PayloadAction<string[]>) => {
       state.patients = action.payload;
     },
@@ -33,7 +38,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { reset, setProfile, setUsername, setPatients } = userSlice.actions;
+export const { reset, setProfile, setUsername, setCurrentPatient, setPatients } = userSlice.actions;
 export const selectUser = (state: TRootState) => state.user;
 
 export default userSlice.reducer;

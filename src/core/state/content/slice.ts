@@ -144,6 +144,7 @@ export const updateActiveNotification = createAction<TUpdateActiveNotificationAc
 export const updateMenuNotificationsOnboardingSeen = createAction<boolean>(
   'content/menu_notifications_onboarding_seen',
 );
+export const updateShowProfileTabOnboarding = createAction<boolean>('content/show_profile_tab_onboarding');
 export const updateShowStudyHubFeedback = createAction<boolean>('content/show_study_hub_feedback');
 export const updateShowStudyHubInterestOnboarding = createAction<boolean>('content/show_study_hub_interest_onboarding');
 export const updateShowStudyHubOnboarding = createAction<boolean>('content/show_study_hub_onboarding');
@@ -175,6 +176,11 @@ export const contentSlice = createSlice({
     [updateShowModal.type]: (current, action: PayloadAction<TShowModal>) => {
       if (current.startupInfo) {
         current.startupInfo.show_modal = action.payload;
+      }
+    },
+    [updateShowProfileTabOnboarding.type]: (state, action: PayloadAction<boolean>) => {
+      if (state.startupInfo) {
+        state.startupInfo.show_profile_tab_onboarding = action.payload;
       }
     },
     [updateShowStudyHubFeedback.type]: (state, action: PayloadAction<boolean>) => {

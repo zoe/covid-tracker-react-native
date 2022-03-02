@@ -23,7 +23,7 @@ export function VaccineDoseListByType(props: IVaccineDoseByTypeProps) {
     );
   };
 
-  return <ScrollView>{props.vaccineDoses.map(renderItem)}</ScrollView>;
+  return <ScrollView nestedScrollEnabled>{props.vaccineDoses.map(renderItem)}</ScrollView>;
 }
 
 const styles = StyleSheet.create({

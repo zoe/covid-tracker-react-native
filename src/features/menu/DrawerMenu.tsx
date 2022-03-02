@@ -99,13 +99,15 @@ export const DrawerMenu: React.FC<TProps> = (props: TProps) => {
           </TouchableOpacity>
         </View>
 
-        <MenuItem
-          analyticsName="EDIT_PROFILE"
-          IconComponent={EditProfilesIcon}
-          label={i18n.t('menu.item-edit-profile')}
-          onPress={onPressProfile}
-          testID="menu-item-edit-profile"
-        />
+        {isGBCountry() && startupInfo?.show_assessment_flow_v0 ? null : (
+          <MenuItem
+            analyticsName="EDIT_PROFILE"
+            IconComponent={EditProfilesIcon}
+            label={i18n.t('menu.item-edit-profile')}
+            onPress={onPressProfile}
+            testID="menu-item-edit-profile"
+          />
+        )}
 
         <MenuItem
           analyticsName="SHARE"

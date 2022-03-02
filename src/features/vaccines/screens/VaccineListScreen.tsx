@@ -6,7 +6,7 @@ import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { TextWithBoldInserts } from '@covid/components/typography';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { patientService } from '@covid/core/patient/PatientService';
 import { updateShowBoosterModal } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
@@ -17,12 +17,14 @@ import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { getInitialRouteName } from '@covid/features/vaccines/helpers';
 import { VaccineBoosterModal } from '@covid/features/vaccines/modals/VaccineBoosterModal';
 import { VaccineFluOnboardingModal } from '@covid/features/vaccines/modals/VaccineFluOnboardingModal';
+import { VaccineProfileOnboardingModal } from '@covid/features/vaccines/modals/VaccineProfileOnboardingModal';
 import { VaccineTabbedListsScreen } from '@covid/features/vaccines/screens/VaccineTabbedListsScreen';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import moment from 'moment';
 import * as React from 'react';
@@ -31,6 +33,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 type TProps = {
   route: RouteProp<TScreenParamList, 'VaccineList'>;
+  navigation: StackNavigationProp<TScreenParamList, 'VaccineList'>;
 };
 
 const HIT_SLOP = {
@@ -51,6 +54,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
   const [error, setError] = React.useState<string>();
   const [showBoosterModal, setShowBoosterModal] = React.useState<boolean>(false);
   const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
+  const [showProfileOnboardingModal, setShowProfileOnboardingModal] = React.useState<boolean>(false);
 
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
@@ -85,6 +89,11 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     React.useCallback(() => {
       fetchVaccineList();
 
+      if (isPrimaryPatientAndAssessmentV0) {
+        setShowProfileOnboardingModal(true);
+      }
+
+      // TODO: Delete
       if (!assessmentCoordinator.isReportedByOther()) {
         if (startupInfo?.show_flu_vaccine_onboarding) {
           setShowOnboardingModal(true);
@@ -154,17 +163,85 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     }
   };
 
+  const onVaccineProfileModalClose = () => {
+    setShowProfileOnboardingModal(false);
+    navigateToNextPage();
+  };
+
+  // Used for assessment v0
+  const backToProfileTabOrAdverseEffects = () => {
+    if (vaccine) {
+      let doseId = null;
+
+      // Loops over all the doses and return the first dose that has a date in the last 7 days.
+      const today = moment().add(moment().utcOffset(), 'minutes').toDate();
+      const sevenDaysAgo = moment().add(moment().utcOffset(), 'minutes').subtract(7, 'days').toDate();
+
+      for (let j = 0; j < vaccine.doses?.length; j++) {
+        const dose = vaccine.doses[j];
+        if (dose.date_taken_specific) {
+          const doseDate = moment(dose.date_taken_specific).toDate();
+          if (sevenDaysAgo <= doseDate && doseDate <= today && !isNotInjectionFluVaccine(dose)) {
+            doseId = dose.id;
+            break;
+          }
+        }
+      }
+
+      const shouldAskDoseSymptoms = !!doseId;
+      assessmentCoordinator.goToProfileTabOrAdverseEffects({ dose: doseId, shouldAskDoseSymptoms });
+    }
+  };
+
+  const fromDailyAssessmentFlow = () => {
+    try {
+      const routes = props.navigation.getState().routes;
+      const prevRoute = routes[routes.length - 2];
+      return prevRoute.name === 'CovidTestList';
+    } catch {
+      return false;
+    }
+  };
+
+  const isPrimaryPatientAndAssessmentV0 =
+    startupInfo?.use_assessment_flow_v0 &&
+    !startupInfo?.show_assessment_flow_v0 &&
+    !assessmentCoordinator.isReportedByOther() &&
+    isGBCountry() &&
+    fromDailyAssessmentFlow();
+
   const renderFooter = () => (
     <View style={styles.wrapper}>
-      <BrandedButton
-        onPress={navigateToNextPageOrShowPopup}
-        testID="button-vaccine-list-screen"
-        textStyle={styles.continueButton}
-      >
-        <Text style={{ color: colors.white }}>
-          {!vaccine?.doses.length ? i18n.t('vaccines.vaccine-list.no-vaccine') : i18n.t('information-correct')}
-        </Text>
-      </BrandedButton>
+      {/* Note: primary patients in rollout will no longer see this entire screen */}
+      {startupInfo?.show_assessment_flow_v0 && !assessmentCoordinator.isReportedByOther() && isGBCountry() ? (
+        <>
+          <BrandedButton
+            onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
+            style={styles.newButtonBottom}
+            testID="button-add-vaccine"
+          >
+            <Text style={styles.whiteText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
+          </BrandedButton>
+          <BrandedButton
+            onPress={backToProfileTabOrAdverseEffects}
+            style={styles.transparentButton}
+            testID="button-covid-test-list-assessment-v0"
+            textStyle={styles.transparentButtonText}
+          >
+            {i18n.t('done')}
+          </BrandedButton>
+        </>
+      ) : (
+        <BrandedButton
+          onPress={navigateToNextPageOrShowPopup}
+          testID="button-vaccine-list-screen"
+          textStyle={styles.continueButton}
+        >
+          <Text style={styles.whiteText}>
+            {!vaccine?.doses.length ? i18n.t('vaccines.vaccine-list.no-vaccine') : i18n.t('information-correct')}
+          </Text>
+        </BrandedButton>
+      )}
     </View>
   );
 
@@ -186,6 +263,12 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
       testID="vaccine-list-screen"
     >
       <VaccineBoosterModal onRequestClose={onRequestCloseBoosterModal} visible={showBoosterModal} />
+
+      <VaccineProfileOnboardingModal
+        onRequestClose={onVaccineProfileModalClose}
+        patientId={assessmentCoordinator.assessmentData?.patientData?.patientId}
+        visible={showProfileOnboardingModal}
+      />
 
       {/* @todo: extract to its own component file. */}
       <Modal
@@ -224,13 +307,17 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
         </Text>
       </View>
 
-      <BrandedButton
-        onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
-        style={styles.newButton}
-        testID="button-add-vaccine"
-      >
-        <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
-      </BrandedButton>
+      {/* Primary patients who are part of rollout should not see this button */}
+      {startupInfo?.show_assessment_flow_v0 && !assessmentCoordinator.isReportedByOther() ? null : (
+        <BrandedButton
+          onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
+          style={styles.newButton}
+          testID="button-add-vaccine"
+        >
+          <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
+        </BrandedButton>
+      )}
+
       {vaccine ? (
         <Text style={styles.tabTitle} textAlign="center" textClass="h4Medium">
           {i18n.t('vaccines.vaccine-list.tabs-title')}
@@ -271,6 +358,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundTertiary,
     marginBottom: sizes.m,
   },
+  newButtonBottom: {
+    backgroundColor: colors.brand,
+    marginBottom: sizes.m,
+  },
   newText: {
     color: colors.primary,
   },
@@ -283,6 +374,18 @@ const styles = StyleSheet.create({
   },
   tabTitle: {
     color: colors.secondary,
+  },
+  transparentButton: {
+    backgroundColor: 'transparent',
+    borderColor: colors.brand,
+    borderRadius: sizes.xl,
+    borderWidth: 1,
+  },
+  transparentButtonText: {
+    color: colors.brand,
+  },
+  whiteText: {
+    color: colors.white,
   },
   wrapper: {
     padding: sizes.l,

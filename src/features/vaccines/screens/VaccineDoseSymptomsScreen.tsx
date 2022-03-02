@@ -7,6 +7,7 @@ import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordina
 import { vaccineService } from '@covid/core/vaccine/VaccineService';
 import { DoseSymptomsQuestions, TDoseSymptomsData } from '@covid/features/vaccines/questions/DoseSymptomsQuestions';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
@@ -31,7 +32,12 @@ export const VaccineDoseSymptomsScreen: React.FC<TProps> = ({ route }) => {
         dosePayload.dose = route.params?.dose;
         await vaccineService.saveDoseSymptoms(route.params?.assessmentData?.patientData?.patientId, dosePayload);
       } catch (e) {}
-      assessmentCoordinator.gotoNextScreen(route.name);
+
+      if (route.params.fromProfileTab) {
+        NavigatorService.navigate('Profile');
+      } else {
+        assessmentCoordinator.gotoNextScreen(route.name);
+      }
     }
   };
 
@@ -74,7 +80,7 @@ export const VaccineDoseSymptomsScreen: React.FC<TProps> = ({ route }) => {
                 onPress={formikProps.handleSubmit}
                 style={styles.marginTop}
               >
-                {i18n.t('vaccines.dose-symptoms.next')}
+                {route.params?.fromProfileTab ? i18n.t('done') : i18n.t('vaccines.dose-symptoms.next')}
               </BrandedButton>
             </Form>
           );

@@ -39,8 +39,13 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
+      // If primary patient and has seen assessment v0 onboarding, skip the vaccines screen
+      const showAssessmentV0 =
+        !this.patientData.patientState.isReportedByAnother &&
+        this.patientData.patientInfo?.has_seen_assessment_flow_v0_onboarding;
+
       // After finishing with COVID Tests, we check to ask about Vaccines.
-      if (this.patientData.patientState.shouldShowVaccineList) {
+      if (this.patientData.patientState.shouldShowVaccineList && !showAssessmentV0) {
         NavigatorService.navigate('VaccineList', {
           assessmentData: this.assessmentData,
         });
@@ -150,6 +155,18 @@ export class AssessmentCoordinator extends Coordinator {
     }
   };
 
+  // only for assessment v0
+  startAssessmentFromVaccines = () => {
+    const currentPatient = this.patientData?.patientState;
+    this.assessmentService.initAssessment(this.patientData.patientState.patientId);
+
+    if (currentPatient.hasCompletedPatientDetails) {
+      NavigatorService.navigate('VaccineList', { assessmentData: this.assessmentData });
+    } else {
+      this.appCoordinator.startPatientFlow(this.patientData);
+    }
+  };
+
   gotoEndAssessment = async () => {
     if (this.assessmentData?.patientData?.patientInfo?.should_ask_pingdemic_questions) {
       NavigatorService.navigate('Pingdemic', { assessmentData: this.assessmentData });
@@ -182,6 +199,20 @@ export class AssessmentCoordinator extends Coordinator {
       assessmentData: this.assessmentData,
       editDoseId: id,
     });
+  };
+
+  // used for assessment v0
+  goToProfileTabOrAdverseEffects = (params: { shouldAskDoseSymptoms: boolean | null; dose: string | null }) => {
+    if (params.shouldAskDoseSymptoms && params.dose) {
+      // For 7 days after a dose, they'll have to log VaccineDoseSymptoms (shouldAskDoseSymptoms = True)
+      NavigatorService.navigate('VaccineDoseSymptoms', {
+        assessmentData: this.assessmentData,
+        dose: params.dose,
+        fromProfileTab: true,
+      });
+    } else {
+      NavigatorService.navigate('Profile');
+    }
   };
 
   static mustBackFillProfile(currentPatient: TPatientStateType, config: TConfigType | undefined) {

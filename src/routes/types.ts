@@ -82,7 +82,7 @@ export type TScreenParamList = {
 
   // Vaccines
   AboutYourVaccine: { assessmentData: TAssessmentData; editDoseId?: string };
-  VaccineDoseSymptoms: { assessmentData: TAssessmentData; dose: string };
+  VaccineDoseSymptoms: { assessmentData: TAssessmentData; dose: string; fromProfileTab?: boolean };
   VaccineFindInfo: { assessmentData: TAssessmentData };
   VaccineList: { assessmentData: TAssessmentData; vaccineType?: EVaccineTypes };
   VaccineLogSymptomsInfo: { assessmentData: TAssessmentData };
@@ -157,6 +157,10 @@ export type TScreenParamList = {
   StudiesList: undefined;
   StudyDetails: { study: TStudy };
   StudyHubOnboarding: undefined;
+
+  // Profile
+  Profile: undefined;
+  ProfileOther: { patientData: TPatientData };
 
   // Health profile
   HPAboutYou: { navDirection?: 'backwards' };

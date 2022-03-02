@@ -18,6 +18,7 @@ import { CovidTestListOnboardingModal } from '@covid/features/covid-tests/modals
 import { CovidTestTrackingOmicronModal } from '@covid/features/covid-tests/modals/CovidTestTrackingOmicronModal';
 import CovidTestTabbedListsScreen from '@covid/features/covid-tests/screens/CovidTestTabbedListsScreen';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { dateIsToday } from '@covid/utils/datetime';
@@ -109,15 +110,41 @@ export default function CovidTestListScreen(props: IProps) {
     [props.route.name],
   );
 
+  const backToProfileTab = React.useCallback(() => NavigatorService.goBack(), []);
+
   const initialRouteName = getInitialRouteName(props.route.params?.mechanism, props.route.params?.is_rapid_test);
+
+  const fromDailyAssessmentFlow = () => {
+    try {
+      const routes = props.navigation.getState().routes;
+      const prevRoute = routes[routes.length - 2];
+      return prevRoute.name === 'SelectProfile';
+    } catch {
+      return false;
+    }
+  };
 
   const renderFooter = () => (
     <View style={styles.wrapper}>
-      <BrandedButton onPress={handleNextButton} testID="button-covid-test-list-screen">
-        <Text style={{ color: colors.white }}>
-          {covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
-        </Text>
-      </BrandedButton>
+      {startupInfo?.show_assessment_flow_v0 &&
+      !fromDailyAssessmentFlow() &&
+      isGBCountry() &&
+      !assessmentCoordinator.isReportedByOther() ? (
+        <BrandedButton
+          onPress={backToProfileTab}
+          style={styles.transparentButton}
+          testID="button-covid-test-list-assessment-v0"
+          textStyle={styles.transparentButtonText}
+        >
+          {i18n.t('done')}
+        </BrandedButton>
+      ) : (
+        <BrandedButton onPress={handleNextButton} testID="button-covid-test-list-screen">
+          <Text style={{ color: colors.white }}>
+            {covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
+          </Text>
+        </BrandedButton>
+      )}
     </View>
   );
 
@@ -187,6 +214,15 @@ const styles = StyleSheet.create({
   },
   tabTitle: {
     color: colors.secondary,
+  },
+  transparentButton: {
+    backgroundColor: 'transparent',
+    borderColor: colors.brand,
+    borderRadius: sizes.xl,
+    borderWidth: 1,
+  },
+  transparentButtonText: {
+    color: colors.brand,
   },
   wrapper: {
     padding: sizes.l,

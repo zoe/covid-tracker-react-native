@@ -314,6 +314,7 @@ export type TPatientInfosRequest = {
 
   // Onboarding
   studies_tab_onboarding_seen: boolean;
+  has_seen_profile_tab_onboarding: boolean;
 
   // Vaccines
   has_seen_booster_modal: boolean;
@@ -330,6 +331,10 @@ export type TPatientInfosRequest = {
   twin: boolean;
   twin_type: string;
   vape: string;
+
+  // Profile tab
+  has_seen_assessment_flow_v0_onboarding: boolean;
+  has_seen_profile_screen: boolean;
 };
 
 export enum EVaccineStatus {
@@ -384,6 +389,7 @@ export type TStartupInfo = {
   menu_notifications_onboarding_seen: boolean;
   min_supported_app_version?: string;
   primary_patient_date_joined?: string;
+  show_assessment_flow_v0?: boolean; // use_assessment_flow_v0 === true && has_seen_assessment_flow_v0_onboarding
   show_booster_modal?: boolean;
   show_covid_test_onboarding: boolean;
   show_diet_score: boolean;
@@ -396,6 +402,8 @@ export type TStartupInfo = {
   show_new_dashboard: boolean;
   show_omicron_modal?: boolean;
   show_pingdemic: boolean;
+  show_profile_screen_new_tag: boolean;
+  show_profile_tab_onboarding: boolean;
   show_research_consent: boolean;
   show_study_hub_feedback: boolean;
   show_study_hub_interest_first_time_modal: boolean;
@@ -405,6 +413,7 @@ export type TStartupInfo = {
   show_timeline: boolean;
   show_trendline: boolean;
   studies_tab_onboarding_seen: boolean;
+  use_assessment_flow_v0: boolean; // i.e. part of rollout cohort
   users_count: number;
   wider_health_studies_consent?: boolean;
 };

@@ -94,6 +94,7 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.PrivacyPolicyUKScreen} name="PrivacyPolicyUK" options={options} />
       <Stack.Screen component={screens.PrivacyPolicyUSScreen} name="PrivacyPolicyUS" options={options} />
       <Stack.Screen component={screens.ProfileBackDateScreen} name="ProfileBackDate" options={options} />
+      <Stack.Screen component={screens.ProfileOtherScreen} name="ProfileOther" options={options} />
       <Stack.Screen component={screens.RegisterScreen} name="Register" options={options} />
       <Stack.Screen component={screens.ResetPasswordConfirmScreen} name="ResetPasswordConfirm" options={options} />
       <Stack.Screen component={screens.ResetPasswordScreen} name="ResetPassword" options={options} />

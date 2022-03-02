@@ -610,6 +610,7 @@
   "profile-name-too-long": "Ange ett profilnamn med färre än 32 tecken",
   "select-profile-title-assessment": "Välj den profil du vill rapportera åt",
   "select-profile-title-edit": "Välj den profil du vill redigera",
+  "select-secondary-profile-title-edit": false,
   "select-profile-text": "Eller lägg till fler profiler",
   "select-profile-button": "Ny profil",
   "select-profile-last-report": "Sista rapport:",
@@ -670,6 +671,12 @@
     "new-design": "Ny design",
     "button": "Nästa",
     "button-end": "OK"
+  },
+  "profile-modal": {
+    "update": false,
+    "title": false,
+    "body": false,
+    "button-end": false
   },
   "errors": {
     "button-retry": "Försök igen",
@@ -1804,6 +1811,10 @@
     "study-hub-tab": "Studies",
     "study-hub-tab-overlay": {
       "description": "From the Studies tab, you can manage Studies you're interested in"
+    },
+    "profile-tab": false,
+    "profile-tab-overlay": {
+      "description": false
     }
   },
   "required-field": "Obligatoriska fält",
@@ -1868,5 +1879,27 @@
       "tag": false,
       "description": false
     }
+  },
+  "profile": {
+    "title": false,
+    "name": false,
+    "date-joined": false,
+    "daily-reports": false,
+    "secondary-profiles": false,
+    "location": false,
+    "other": false,
+    "incorrect-email": false,
+    "incorrect-email-address": false,
+    "test-card": {
+      "title": false,
+      "description": false
+    },
+    "vaccine-card": {
+      "title": false,
+      "description": false
+    }
+  },
+  "other-screen": {
+    "title": false
   }
 }

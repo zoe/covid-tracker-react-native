@@ -1,3 +1,8 @@
 import * as React from 'react';
 
-export const OnboardingContext = React.createContext({ closeOnboarding: () => {}, showOnboarding: false });
+export const OnboardingContext = React.createContext({
+  closeProfileTabOnboarding: () => {},
+  closeStudyTabOnboarding: () => {},
+  showProfileTabOnboarding: false,
+  showStudyTabOnboarding: false,
+});
