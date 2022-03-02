@@ -1,4 +1,3 @@
-import Logging, { contextNames, logLevel } from '@covid/core/Logging';
 import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { EHealthProfileQuestionCardStatus } from '@covid/features/health-profile/components/HealthProfileQuestionCard';
 import {
@@ -164,25 +163,4 @@ export const createCompletedHealthProfileDTO = (formData: Partial<IHealthProfile
 
   // NOTE: YesNo fields are submitted as strings, but no need to convert to boolean as Django backend automatically deduces it as boolean
   return infos;
-};
-
-export const logDTOSentToServer = (infos: THealthProfileRequest, patientId: string) => {
-  const allfields = Object.keys(infos);
-  const fieldsWithNullValues = Object.keys(infos).filter((key) => infos[key] === null || infos[key] === undefined);
-
-  const context = {
-    fields_null_values: fieldsWithNullValues,
-    name_fields: allfields,
-    number_fields: allfields.length,
-    number_null_values: fieldsWithNullValues.length,
-    patientId,
-  };
-
-  Logging.log(
-    'health_profile',
-    'submit_post_request_dto',
-    contextNames.HEALTH_PROFILE_POST_DTO,
-    context,
-    logLevel.Info,
-  );
 };

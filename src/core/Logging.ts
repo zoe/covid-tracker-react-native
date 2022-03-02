@@ -1,10 +1,5 @@
 import * as Sentry from '@sentry/browser';
 
-enum EHealthProfileContext {
-  HEALTH_PROFILE_SAVE_EXIT_PRESS = 'HEALTH_PROFILE_SAVE_EXIT_PRESS',
-  HEALTH_PROFILE_POST_DTO = 'HEALTH_PROFILE_POST_DTO',
-}
-
 enum ECovidTestContext {
   COVID_TEST_LFT_QUICK_REPORT = 'COVID_TEST_LFT_QUICK_REPORT',
 }
@@ -14,13 +9,12 @@ enum EAssessmentV0 {
 }
 
 export const contextNames = {
-  ...EHealthProfileContext,
   ...ECovidTestContext,
   ...EAssessmentV0,
 };
 
 export type TContextName = keyof typeof contextNames;
-export type TFeatureName = 'covid_test' | 'health_profile' | 'assessment_v0';
+export type TFeatureName = 'covid_test' | 'assessment_v0';
 
 export const logLevel = Sentry.Severity;
 

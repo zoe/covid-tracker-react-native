@@ -2,7 +2,6 @@ import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import Analytics, { events } from '@covid/core/Analytics';
 import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
-import Logging, { contextNames, logLevel } from '@covid/core/Logging';
 import {
   THealthProfileScreenNames,
   updateHealthProfile,
@@ -33,7 +32,6 @@ import { HealthProfileConfirmExitModal } from '@covid/features/health-profile/mo
 import {
   createCompletedHealthProfileDTO,
   isEditing,
-  logDTOSentToServer,
   PNTS_VALUE_TO_SAVE_IN_DB,
   testIsValidNumberOrString,
   TEXT_INPUT_PNTS_LABEL,
@@ -313,8 +311,6 @@ export default function HPFormScreen({ route }: TProps) {
         const completeForm = { ...savedAnswers, ...formData };
         const infos = createCompletedHealthProfileDTO(completeForm);
 
-        logDTOSentToServer(infos, patientId);
-
         try {
           await healthProfileService.createHealthProfile(patientId, infos);
           NavigatorService.navigate('HPThankYou');
@@ -339,21 +335,9 @@ export default function HPFormScreen({ route }: TProps) {
 
   const saveExitOnPress = async (formikProps: FormikProps<IHealthProfileFormData>) => {
     const formData = formikProps.values;
-    const formikErrors = Object.keys(formikProps.errors);
-    const formIsValid = formikProps.isValid;
-    const contextProps = { formData, formIsValid, formikErrors, patientId, screenName };
 
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName });
     saveToRedux(formData, screenName, navigator[sectionName].currentStep - 1);
-
-    Logging.log(
-      'health_profile',
-      'save_exit_on_press',
-      contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS,
-      contextProps,
-      logLevel.Info,
-    );
-
     setShowConfirmExitModal(true);
     setSubmitting(false);
   };
