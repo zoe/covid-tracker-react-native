@@ -551,6 +551,7 @@
   "confirm": "Bekräfta",
   "delete": "Ta bort",
   "logout": "Logga ut",
+  "logged-in-with": false,
   "never-reported": "Aldrig rapporterat",
   "today": "I dag",
   "yesterday": "I går",

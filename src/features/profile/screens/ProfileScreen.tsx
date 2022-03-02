@@ -17,7 +17,6 @@ import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { AppCoordinator, appCoordinator } from '@covid/features/AppCoordinator';
-import { useLogout } from '@covid/features/menu/useLogout';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -47,14 +46,12 @@ interface IProps {
   navigation: NavigationContainerRef<ReactNavigation.RootParamList>;
 }
 
-export const ProfileScreen: React.FC<IProps> = (props) => {
+export const ProfileScreen: React.FC<IProps> = () => {
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
-  const email = useSelector<TRootState, string>((state) => state.user.username);
-  const logout = useLogout(props.navigation);
-
   const coordinator: AppCoordinator = appCoordinator;
+  const email = useSelector<TRootState, string>((state) => state.user.username);
 
   const initAssessmentCoordAndGoToCovidTests = React.useCallback(() => {
     Analytics.track(events.PROFILE_COVID_TESTS_CARD_CLICKED);
@@ -66,11 +63,6 @@ export const ProfileScreen: React.FC<IProps> = (props) => {
     Analytics.track(events.PROFILE_VACCINES_CARD_CLICKED);
     coordinator.startAssessmentFlowThroughVaccines(currentPatient);
   }, [coordinator, currentPatient]);
-
-  const logoutOnPress = React.useCallback(() => {
-    Analytics.track(events.PROFILE_LOGOUT_CLICKED);
-    logout();
-  }, []);
 
   const LINKS = React.useMemo(
     () => [
@@ -180,18 +172,10 @@ export const ProfileScreen: React.FC<IProps> = (props) => {
       ))}
 
       <View style={styles.lineHorizontal} />
-
-      <TouchableOpacity
-        accessibilityRole="button"
-        onPress={logoutOnPress}
-        style={styles.logout}
-        testID="profile-item-logout"
-      >
-        <Text inverted colorPalette="uiDark" colorShade="darker" textClass="h5Regular">
-          {i18n.t('logout')}
-        </Text>
-        <CaptionText style={styles.email}>{email}</CaptionText>
-      </TouchableOpacity>
+      <Text inverted colorPalette="uiDark" colorShade="darker" textClass="h5Regular">
+        {i18n.t('logged-in-with')}
+      </Text>
+      <CaptionText style={styles.email}>{email}</CaptionText>
 
       <TouchableOpacity accessibilityRole="link" onPress={contactUs} testID="profile-item-incorrect-email">
         <Text inverted colorPalette="uiDark" colorShade="darker" textClass="pSmallLight">
