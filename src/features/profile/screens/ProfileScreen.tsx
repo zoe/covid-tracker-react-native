@@ -22,7 +22,7 @@ import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profi
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
-import { NavigationContainerRef } from '@react-navigation/native';
+import { NavigationContainerRef, useFocusEffect } from '@react-navigation/native';
 import { colors } from '@theme';
 import moment from 'moment';
 import * as React from 'react';
@@ -104,10 +104,15 @@ export const ProfileScreen: React.FC<IProps> = (props) => {
 
   React.useEffect(() => {
     updateHasSeenProfileScreen(patientId);
-
-    // On screen load, immediately initialise the editProfileCoordinator
-    coordinator.startEditProfileNoRedirect(currentPatient.profile);
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // On screen load, immediately initialise the editProfileCoordinator
+      // On subsequent focus, also want to ensure we set to primary patient, otherwise will be set to secondary profile chosen
+      coordinator.startEditProfileNoRedirect(currentPatient.profile);
+    }, [currentPatient.profile]),
+  );
 
   return (
     <Screen isInsideTabBar noHeader testID="profile-screen">

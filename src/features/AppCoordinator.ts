@@ -23,7 +23,7 @@ import {
   fetchUKMetrics,
 } from '@covid/core/state/content/slice';
 import store from '@covid/core/state/store';
-import { setCurrentPatient } from '@covid/core/state/user';
+import { setCurrentPatient, setPatients as setPatientsUserAction } from '@covid/core/state/user';
 import { TUserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
 import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
@@ -159,9 +159,9 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     await store.dispatch(fetchFeaturedContent());
     if (isGBCountry()) {
       await store.dispatch(fetchUKMetrics());
+      await store.dispatch(setCurrentPatient({ ...this.patientData }));
     }
-
-    await store.dispatch(setCurrentPatient(this.patientData));
+    await store.dispatch(setPatientsUserAction([this.patientData?.patientId]));
   }
 
   getConfig(): TConfigType | undefined {

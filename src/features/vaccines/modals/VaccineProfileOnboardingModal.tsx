@@ -1,5 +1,6 @@
 import { BrandedButton, HeaderText, Tag, TextWithBoldInserts } from '@covid/components';
 import { Modal } from '@covid/components/Modal';
+import Logging, { contextNames, logLevel } from '@covid/core/Logging';
 import { patientService } from '@covid/core/patient/PatientService';
 import { fetchStartupInfo } from '@covid/core/state/content/slice';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -16,23 +17,33 @@ interface IProps {
   visible: boolean;
 }
 
-const ONBOARDING_IMAGE = require('@covid/features/vaccines/assets/vaccine-profile-modal.png');
-
 export function VaccineProfileOnboardingModal(props: IProps) {
+  const ONBOARDING_IMAGE = React.useMemo(
+    () => require('@covid/features/vaccines/assets/vaccine-profile-modal.png'),
+    [],
+  );
   const dispatch = useDispatch();
 
   const closeAndUpdateStartupInfo = React.useCallback(async () => {
-    // TODO: when BE / API is set up in https://www.notion.so/joinzoe/Assessment-v0-backend-flags-fbc306ef537d4526ab0ba1dab4103e76
-
     const infos: Partial<TPatientInfosRequest> = {
       has_seen_assessment_flow_v0_onboarding: true,
     };
     try {
       await patientService.updatePatientInfo(props.patientId, infos);
-      // TODO: Dispatch action to update state since API call might be too slow?
       dispatch(fetchStartupInfo());
+    } catch (e) {
+      Logging.log(
+        'assessment_v0',
+        'update_patient_vaccine_new_home_modal_seen_failed',
+        contextNames.VACCINE_NEW_HOME_MODAL,
+        {
+          error: e,
+        },
+        logLevel.Error,
+      );
+    } finally {
       props.onRequestClose();
-    } catch (_) {}
+    }
   }, [props.patientId, props.onRequestClose]);
 
   const footerChildren = (

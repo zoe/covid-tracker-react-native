@@ -12,5 +12,5 @@ export function CovidListByType(props: ICovidListByTypeProps) {
     return <CovidTestRow item={item} key={item.id} testID={`covid-test-row-${item.mechanism}-${index}`} />;
   };
 
-  return <ScrollView>{props.covidTests.map(renderItem)}</ScrollView>;
+  return <ScrollView nestedScrollEnabled>{props.covidTests.map(renderItem)}</ScrollView>;
 }

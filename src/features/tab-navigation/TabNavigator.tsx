@@ -68,9 +68,7 @@ export default function TabNavigator({ navigation }: IProps) {
 
   React.useEffect(() => {
     setTimeout(() => {
-      // TODO: implement once backend completed
       if (startupInfo?.show_profile_tab_onboarding && isGBCountry()) {
-        // if (startupInfo?.is_tester) {
         setShowProfileTabOnboarding(true);
         track(events.PROFILE_TAB_OVERLAY_SHOWN);
       } else if (!startupInfo?.studies_tab_onboarding_seen && !startupInfo?.use_assessment_flow_v0) {
@@ -99,7 +97,7 @@ export default function TabNavigator({ navigation }: IProps) {
     track(events.PROFILE_TAB_OVERLAY_DISMISSED);
     dispatch(updateShowProfileTabOnboarding(false));
     await patientService.updatePatientInfo(patientId, {
-      has_seen_profile_tab_onboarding: false,
+      has_seen_profile_tab_onboarding: true,
     });
     dispatch(fetchStartupInfo());
   }, [patientId]);
@@ -354,8 +352,7 @@ export default function TabNavigator({ navigation }: IProps) {
           name="StudiesList"
           options={{ ...tabScreenOptions, ...tabStudiesScreenOptions }}
         />
-        {/* TODO: remove is_tester flag */}
-        {startupInfo?.use_assessment_flow_v0 || startupInfo?.is_tester ? (
+        {startupInfo?.show_assessment_flow_v0 ? (
           <Tab.Screen
             component={ProfileScreen}
             name="Profile"

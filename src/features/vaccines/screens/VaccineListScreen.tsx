@@ -203,9 +203,8 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
     }
   };
 
-  // TODO: Remove is tester flag
   const isPrimaryPatientAndAssessmentV0 =
-    (startupInfo?.use_assessment_flow_v0 || startupInfo?.is_tester) &&
+    startupInfo?.use_assessment_flow_v0 &&
     !startupInfo?.show_assessment_flow_v0 &&
     !assessmentCoordinator.isReportedByOther() &&
     isGBCountry() &&
@@ -213,11 +212,8 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
 
   const renderFooter = () => (
     <View style={styles.wrapper}>
-      {/* TODO: remove istester flag */}
       {/* Note: primary patients in rollout will no longer see this entire screen */}
-      {(startupInfo?.show_assessment_flow_v0 || startupInfo?.is_tester) &&
-      !assessmentCoordinator.isReportedByOther() &&
-      isGBCountry() ? (
+      {startupInfo?.show_assessment_flow_v0 && !assessmentCoordinator.isReportedByOther() && isGBCountry() ? (
         <>
           <BrandedButton
             onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
@@ -312,9 +308,7 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
       </View>
 
       {/* Primary patients who are part of rollout should not see this button */}
-      {/* TODO: Delete is_tester flag */}
-      {(startupInfo?.show_assessment_flow_v0 || startupInfo?.is_tester) &&
-      !assessmentCoordinator.isReportedByOther() ? null : (
+      {startupInfo?.show_assessment_flow_v0 && !assessmentCoordinator.isReportedByOther() ? null : (
         <BrandedButton
           onPress={() => assessmentCoordinator.goToAddEditVaccine(vaccine)}
           style={styles.newButton}
