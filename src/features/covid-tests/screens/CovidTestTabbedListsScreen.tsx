@@ -75,7 +75,7 @@ export default function CovidTestTabbedListsScreen(props: IProps) {
           tabBarActiveTintColor: colors.primary,
           tabBarInactiveTintColor: colors.quaternary,
           tabBarIndicatorStyle: { backgroundColor: colors.accent },
-          tabBarItemStyle: { paddingHorizontal: sizes.xs, paddingVertical: sizes.s, width: tabWidth },
+          tabBarItemStyle: { paddingHorizontal: sizes.xxs, paddingVertical: sizes.s, width: tabWidth },
           tabBarLabelStyle: {
             fontFamily: 'SofiaPro-Medium',
             fontSize: 14,
