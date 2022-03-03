@@ -276,7 +276,6 @@ export type TPatientInfosRequest = {
   is_in_uk_nhs_asymptomatic_study: boolean;
 
   has_school_group: boolean;
-  should_ask_long_covid_questions: boolean;
   should_ask_vaccine_questions: boolean;
   vaccine_status: EVaccineStatus;
 

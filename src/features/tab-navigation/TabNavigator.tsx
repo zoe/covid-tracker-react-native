@@ -291,7 +291,7 @@ export default function TabNavigator({ navigation }: IProps) {
                 colorPalette="ui"
                 colorShade="lighter"
                 style={[styles.flex, styles.profileTabOverlayDescription]}
-                testID="study-hub-tab-overlay-description"
+                testID="profile-tab-overlay-description"
                 textClass="pSmallMedium"
               >
                 {i18n.t('tab-navigation.profile-tab-overlay.description')}

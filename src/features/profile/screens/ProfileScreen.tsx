@@ -156,7 +156,6 @@ export const ProfileScreen: React.FC<IProps> = () => {
         description={i18n.t('profile.test-card.description')}
         image={SpitTestIcon}
         onPress={initAssessmentCoordAndGoToCovidTests}
-        testID="covid-tests"
         title={i18n.t('profile.test-card.title')}
       />
 
@@ -166,7 +165,6 @@ export const ProfileScreen: React.FC<IProps> = () => {
           description={i18n.t('profile.vaccine-card.description')}
           image={SyringeIcon}
           onPress={initAssessmentCoordAndGoToVaccines}
-          testID="vaccines"
           title={i18n.t('profile.vaccine-card.title')}
         />
       ) : null}

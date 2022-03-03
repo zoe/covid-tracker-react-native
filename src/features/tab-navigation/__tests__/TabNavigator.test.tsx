@@ -1,60 +1,45 @@
 /* eslint-env jest */
 
 import { DashboardUKScreen } from '@covid/features/dashboard/DashboardUKScreen';
-import { StudiesListScreen } from '@covid/features/screens';
+import { ProfileScreen } from '@covid/features/profile/screens/ProfileScreen';
+import { StudiesListScreen } from '@covid/features/study-hub/screens/StudiesListScreen';
 import TabNavigator from '@covid/features/tab-navigation/TabNavigator';
-import { theme } from '@covid/themes';
-import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import * as React from 'react';
-import { Provider as ReduxProvider } from 'react-redux';
-import renderer from 'react-test-renderer';
-import createMockStore from 'redux-mock-store';
-import { ThemeProvider } from 'styled-components/native';
 
-import { initialState } from '../../../../__mocks__/mockedInitialState';
+import { createReactTestInstance } from '../../../../__mocks__/createHelper';
 import MockedNavigator from '../../../../__mocks__/MockedNavigator';
 
-const middlewares = getDefaultMiddleware();
-const mockStore = createMockStore(middlewares);
+// users_count state needed to render dashboard component
+const state = {
+  content: { startupInfo: { show_assessment_flow_v0: true, users_count: 1 } },
+};
 
-const store = mockStore({
-  ...initialState,
-});
-
-function createComponent() {
-  const element = (
-    <ReduxProvider store={store}>
-      <ThemeProvider theme={theme}>
-        <MockedNavigator Component={TabNavigator} />
-      </ThemeProvider>
-    </ReduxProvider>
-  );
-
-  const instance = renderer.create(element).root;
-  return { instance };
-}
+// @ts-expect-error
+const instance = createReactTestInstance(<MockedNavigator Component={TabNavigator} />, { state });
 
 describe('Tab Navigator tests', () => {
   it('renders without crashing', () => {
-    const instance = createComponent().instance;
     expect(instance).toBeDefined();
   });
 
-  it('renders the Home and Studies tabs', () => {
-    const instance = createComponent().instance;
+  it('renders the Home, Studies and Profile tabs', () => {
     expect(instance.findByProps({ testID: 'tab-home' })).toBeDefined();
     expect(instance.findByProps({ testID: 'tab-studies' })).toBeDefined();
+    expect(instance.findByProps({ testID: 'tab-profile' })).toBeDefined();
   });
 
   it('shows Home screen stack when selected', () => {
-    const instance = createComponent().instance;
     expect(instance.findAllByType(DashboardUKScreen).length).toBe(1);
     expect(instance.findAllByType(StudiesListScreen).length).toBe(0);
   });
 
   it('shows Studies screen stack when selected', () => {
-    const instance = createComponent().instance;
     instance.findByProps({ testID: 'tab-studies' }).props.onPress();
     expect(instance.findAllByType(StudiesListScreen).length).toBe(1);
+  });
+
+  it('shows Profile screen stack when selected', () => {
+    instance.findByProps({ testID: 'tab-profile' }).props.onPress();
+    expect(instance.findAllByType(ProfileScreen).length).toBe(1);
   });
 });
