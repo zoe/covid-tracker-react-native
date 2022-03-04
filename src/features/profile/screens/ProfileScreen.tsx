@@ -142,8 +142,9 @@ export const ProfileScreen: React.FC<IProps> = () => {
           <View style={styles.detailsRow}>
             <NotesIcon />
             <TextWithBoldInserts style={styles.detailsText} textClass="pSmallLight">
-              {/* TODO: Make dynamic */}
-              {i18n.t('profile.daily-reports', { dailyReportsCount: '1000' })}
+              {i18n.t('profile.daily-reports', {
+                dailyReportsCount: startupInfo?.primary_patient_assessments_count || 0,
+              })}
             </TextWithBoldInserts>
           </View>
         </View>

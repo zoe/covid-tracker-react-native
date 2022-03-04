@@ -375,6 +375,7 @@ export type TStartupInfo = {
   menu_notifications_onboarding_seen: boolean;
   min_supported_app_version?: string;
   primary_patient_date_joined?: string;
+  primary_patient_assessments_count: number;
   show_assessment_flow_v0?: boolean; // use_assessment_flow_v0 === true && has_seen_assessment_flow_v0_onboarding
   show_diet_score: boolean;
   show_edit_location: boolean;
