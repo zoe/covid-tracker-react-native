@@ -8,7 +8,6 @@ import {
   testAboutYourHealthForm,
   testAboutYourWorkForm,
   testLongCovidForm,
-  testPingdemicForm,
   testPreviousExposureForm,
 } from './testForms';
 import { testMentalHealthPlaybackModal } from './testModals';
@@ -77,7 +76,6 @@ export function testRegisterFeature(config: TRegisterConfig) {
     });
 
     testLongCovidForm();
-    testPingdemicForm();
 
     testMentalHealthPlaybackModal();
 

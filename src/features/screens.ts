@@ -51,7 +51,6 @@ export {
   NursesConsentUSScreen,
   OptionalInfoScreen,
   OtherSymptomsScreen,
-  PingdemicScreen,
   PreviousExposureScreen,
   PrivacyPolicySVScreen,
   PrivacyPolicyUKScreen,

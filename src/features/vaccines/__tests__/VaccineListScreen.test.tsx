@@ -1,5 +1,6 @@
 /* eslint-env jest */
 
+import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import {
   EVaccineBrands,
   EVaccineLocations,
@@ -14,6 +15,7 @@ import { act } from 'react-test-renderer';
 import { createReactTestInstance } from '../../../../__mocks__/createHelper';
 import MockedNavigator from '../../../../__mocks__/MockedNavigator';
 import { VaccineDoseRow } from '../components/VaccineDoseRow';
+import { VaccineProfileOnboardingModal } from '../modals/VaccineProfileOnboardingModal';
 
 jest.useFakeTimers();
 
@@ -82,5 +84,44 @@ describe('VaccineListScreen tests', () => {
     await act(async () => {
       expect(instance.findAllByType(VaccineDoseRow).length).toBe(0);
     });
+  });
+
+  it('displays the vaccine profile onboarding modal for primary patients, who should be shown assessment flow v0', () => {
+    jest.spyOn(assessmentCoordinator, 'isReportedByOther').mockReturnValue(false);
+
+    const partlyMockedState = {
+      content: { startupInfo: { show_assessment_flow_v0: false, use_assessment_flow_v0: true } },
+    };
+
+    // @ts-expect-error
+    const instance = createReactTestInstance(<MockedNavigator Component={VaccineListScreen} />, {
+      state: partlyMockedState,
+    });
+
+    const modal = instance.findByType(VaccineProfileOnboardingModal);
+    expect(modal).toBeTruthy();
+  });
+
+  it('does not display the vaccine profile onboarding modal for primary patients, who have already seen the modal', () => {
+    jest.spyOn(assessmentCoordinator, 'isReportedByOther').mockReturnValue(false);
+
+    const partlyMockedState = {
+      content: { startupInfo: { show_assessment_flow_v0: true, use_assessment_flow_v0: true } },
+    };
+
+    // @ts-expect-error
+    const instance = createReactTestInstance(<MockedNavigator Component={VaccineListScreen} />, {
+      state: partlyMockedState,
+    });
+
+    expect(instance.findByProps({ testID: 'profile-modal' }).props.visible).toBe(false);
+  });
+
+  it('does not display the vaccine profile onboarding modal for secondary patients', () => {
+    jest.spyOn(assessmentCoordinator, 'isReportedByOther').mockReturnValue(true);
+
+    // @ts-expect-error
+    const instance = createReactTestInstance(<MockedNavigator Component={VaccineListScreen} />);
+    expect(instance.findByProps({ testID: 'profile-modal' }).props.visible).toBe(false);
   });
 });

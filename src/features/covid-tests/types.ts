@@ -4,7 +4,6 @@ import {
   ICovidTestIsRapidData,
   ICovidTestLocationData,
   ICovidTestMechanismData,
-  ICovidTestOmicronData,
   ICovidTestResultData,
 } from '@covid/features/covid-tests/questions';
 
@@ -21,5 +20,4 @@ export interface ICovidTestData
     ICovidTestIsRapidData,
     ICovidTestLocationData,
     ICovidTestMechanismData,
-    ICovidTestOmicronData,
     ICovidTestResultData {}

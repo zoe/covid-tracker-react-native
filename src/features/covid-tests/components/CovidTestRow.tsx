@@ -1,9 +1,7 @@
 import { chevronRight, pending, tick } from '@assets';
-import { Tag } from '@covid/components';
 import { RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { isOmicronQuestionEnabled } from '@covid/features/covid-tests/questions';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
@@ -30,9 +28,7 @@ export const CovidTestRow: React.FC<TProps> = (props: TProps) => {
   const formatTestResult = (result: string) => {
     switch (result) {
       case 'positive':
-        return props.item.omicron_status === 'yes_suspected' || props.item.omicron_status === 'yes_confirmed'
-          ? i18n.t('covid-test-list.positive-omicron')
-          : i18n.t('covid-test-list.positive');
+        return i18n.t('covid-test-list.positive');
       case 'negative':
         return i18n.t('covid-test-list.negative');
       case 'failed':
@@ -62,14 +58,6 @@ export const CovidTestRow: React.FC<TProps> = (props: TProps) => {
     )} - ${formatDateString(test.date_taken_between_end)}`;
   };
 
-  const omicronQuestionEnabled = isOmicronQuestionEnabled(
-    props.item.mechanism,
-    props.item.is_rapid_test,
-    props.item.result,
-    new Date(props.item.date_taken_specific),
-    new Date(props.item.date_taken_between_end),
-  );
-
   return (
     <TouchableOpacity
       onPress={() => assessmentCoordinator.goToAddEditTest(props.item)}
@@ -78,9 +66,6 @@ export const CovidTestRow: React.FC<TProps> = (props: TProps) => {
     >
       <Image source={getRowIcon(testResult)} style={styles.tick} />
       <RegularText style={testResult === 'waiting' && styles.pendingText}>{formatTestDate(props.item)}</RegularText>
-      {omicronQuestionEnabled && !props.item.omicron_status ? (
-        <Tag color={colors.accent} style={styles.marginLeft} text={i18n.t('covid-test-list.update')} />
-      ) : null}
       <View style={styles.flex} />
       <RegularText style={testResult === 'waiting' && styles.pendingText}>{formatTestResult(testResult)}</RegularText>
       <Image source={chevronRight} style={styles.chevron} />
@@ -101,9 +86,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingVertical: sizes.s,
-  },
-  marginLeft: {
-    marginLeft: sizes.s,
   },
   pendingText: {
     color: colors.secondary,

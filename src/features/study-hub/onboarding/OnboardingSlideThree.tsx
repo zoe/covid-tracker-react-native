@@ -46,6 +46,7 @@ export function OnboardingSlideThree() {
       {cards.map((card: TCardContent) => (
         <Card
           backgroundColor={colors.lightBlueBackground}
+          key={card.id}
           style={{
             marginTop: sizes.l,
           }}

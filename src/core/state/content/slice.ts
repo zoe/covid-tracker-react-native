@@ -152,9 +152,6 @@ export const updateStudiesTabOnboardingSeen = createAction<boolean>('content/stu
 export const updateShowStudyHubInterestFirstTimeModal = createAction<boolean>(
   'content/show_study_hub_interest_first_time_modal',
 );
-export const updateShowStudyHubVideoModal = createAction<boolean>('content/show_study_hub_video_modal');
-export const updateShowBoosterModal = createAction<boolean>('content/show_booster_modal');
-export const updateShowOmicronModal = createAction<boolean>('content/show_omicron_modal');
 export const updateSelectedRegionItem = createAction<TRegionItem>('content/selected_region_item');
 export const updateShowModal = createAction<TShowModal>('content/show_modal');
 
@@ -166,11 +163,6 @@ export const contentSlice = createSlice({
     [updateMenuNotificationsOnboardingSeen.type]: (current, action: PayloadAction<boolean>) => {
       if (current.startupInfo) {
         current.startupInfo.menu_notifications_onboarding_seen = action.payload;
-      }
-    },
-    [updateShowBoosterModal.type]: (current, action: PayloadAction<boolean>) => {
-      if (current.startupInfo) {
-        current.startupInfo.show_booster_modal = action.payload;
       }
     },
     [updateShowModal.type]: (current, action: PayloadAction<TShowModal>) => {
@@ -201,16 +193,6 @@ export const contentSlice = createSlice({
     [updateShowStudyHubInterestFirstTimeModal.type]: (state, action: PayloadAction<boolean>) => {
       if (state.startupInfo) {
         state.startupInfo.show_study_hub_interest_first_time_modal = action.payload;
-      }
-    },
-    [updateShowStudyHubVideoModal.type]: (state, action: PayloadAction<boolean>) => {
-      if (state.startupInfo) {
-        state.startupInfo.show_study_hub_video_modal = action.payload;
-      }
-    },
-    [updateShowOmicronModal.type]: (current, action: PayloadAction<boolean>) => {
-      if (current.startupInfo) {
-        current.startupInfo.show_omicron_modal = action.payload;
       }
     },
     [updateActiveNotification.type]: (current, action: PayloadAction<TUpdateActiveNotificationAction>) => {

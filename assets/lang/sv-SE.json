@@ -267,18 +267,6 @@
       "anti-n-description": "Upptäcker förekomsten av antikroppar riktade mot det så kallade N-proteinet mot covid-19. Antikroppar mot N-proteinet produceras inte i respons till något av de vaccinen som finns på marknaden i dag. Dessa antikroppar ses dock hos de flesta personer som har genomgått en covid-19-infektion och avtar med tiden.",
       "anti-s-title": "Test för antikroppar mot S-proteinet",
       "anti-s-description": "Upptäcker förekomsten av antikroppar riktade mot det så kallade S-proteinet i viruset. Antikroppar mot S-proteinet kan återfinnas både hos personer som har vaccinerats mot covid-19 och hos personer som har genomgått en covid-19-infektion."
-    },
-    "omicron": {
-      "picker-no": false,
-      "picker-yes-confirmed": false,
-      "picker-yes-suspected": false,
-      "tag": false,
-      "title": false
-    },
-    "tracking-omicron-modal": {
-      "description": false,
-      "tag": false,
-      "title": false
     }
   },
   "how-you-feel": {
@@ -289,25 +277,6 @@
     "update-location": "Uppdatera plats",
     "vaccine-reporting-message": "Fortsätt gärna att rapportera hur du mår dagligen efter att du vaccinerats mot covid-19 och ange eventuella allmänna symtom som du upplever.",
     "vaccine-reporting-link": "Varför är detta viktigt?"
-  },
-  "pingdemic": {
-    "title": false,
-    "body": false,
-    "q1": false,
-    "q1-yes": false,
-    "q1-no": false,
-    "q1-other": false,
-    "q1-prefer-not-to-say": false,
-    "dates": false,
-    "no-app": false,
-    "no-app-yes": false,
-    "no-app-never-had": false,
-    "no-app-used-to-have": false,
-    "no-app-prefer-not-to-say": false,
-    "active-bluetooth": false,
-    "active-yes": false,
-    "active-no": false,
-    "active-not-sure": false
   },
   "long-covid": {
     "apology": "Vi ber alla som redan har fyllt i detta att göra det igen eftersom vi hade ett fel i våran tidigare version -tack så mycket!",
@@ -511,7 +480,7 @@
     "disclaimer-link": "1177.se",
     "tell-me-more": "Berätta mer",
     "visit-the-website": "Besök webbplatsen",
-    "see-how-your-area-is-affected": "Ditt deltagande är viktigare än någonsin i kampen mot covid-19. Se hur våra studiedeltagares data används av forskarna.",
+    "see-how-your-area-is-affected": "Ditt bidrag är viktigt för fortsatt covid-19-forskning. Besök studiens webbplats för nyheter och länk till aktuella symtom-, test- och vaccinationstrender.",
     "report-button": "Rapportera i dag, även om du är frisk",
     "how-you-can-help": {
       "title": "Så här kan du hjälpa till",
@@ -582,6 +551,7 @@
   "confirm": "Bekräfta",
   "delete": "Ta bort",
   "logout": "Logga ut",
+  "logged-in-with": false,
   "never-reported": "Aldrig rapporterat",
   "today": "I dag",
   "yesterday": "I går",
@@ -632,7 +602,6 @@
     "negative": "Negativt",
     "never-had-test": "Jag har aldrig testats för covid-19",
     "positive": "Positivt",
-    "positive-omicron": "Positivt, Omicron",
     "tab-antibody": "Antikropp",
     "tab-lateral": "Antigen",
     "tab-other": "Annat",
@@ -654,23 +623,6 @@
       "todays-result-waiting": false,
       "todays-result-failed": false
     }
-  },
-  "covid-test-modal": {
-    "screen-0": {
-      "title": "Växla mellan dina registrerade tester"
-    },
-    "screen-1": {
-      "title": "Du hittar nu dina senaste tester högst upp"
-    },
-    "screen-2": {
-      "title": "Registrera enkelt nya tester, bl.a. antikroppstester"
-    },
-    "screen-3": {
-      "title": "Skicka in och rapportera sedan hur du mår i dag"
-    },
-    "new-design": "Ny design",
-    "button": "Nästa",
-    "button-end": "OK"
   },
   "profile-modal": {
     "update": false,
@@ -1065,9 +1017,6 @@
     "vaccine-list": {
       "title": "Dina vaccin",
       "description": "Berätta om du har vaccinerats mot årets säsongsinfluensa eller covid-19. Du kan nu även registrera eventuella boosterdoser av covid-19-vaccin.",
-      "modal-title": "Logging your vaccines",
-      "modal-body": "We can now record COVID-19 vaccines taken as part of a trial. Please select \"I received my vaccine via a vaccine trial\" when asked for the name of your vaccine.",
-      "modal-button": "OK",
       "add-button": "Lägg till vaccindos",
       "no-vaccine": "Jag har inte vaccinerats",
       "no-2nd": "Jag har inte fått en andra dos",
@@ -1123,16 +1072,6 @@
       "name-missing": "Redigera för att lägga till typ",
       "not-logged": "Inte rapporterad än",
       "edit-vaccine": "Redigera vaccin"
-    },
-    "flu-onboarding": {
-      "title": "Logga ditt influensavaccin",
-      "description": "Logga eventuella influensavaccin när du rapporterar hur du mår. Klicka på ”Lägg till dos” och välj ”Influensa” som typ av vaccin.",
-      "new": "Ny"
-    },
-    "booster-modal": {
-      "button": "OK",
-      "description": "Om du inte redan har gjort det, ber vi dig lägga in alla *vaccindoser*. Klicka på Lägg till vaccindos och välj Covid-19.",
-      "title": "Kom ihåg att logga dina senaste doser av covid-19-vaccin!"
     }
   },
   "dashboard": {
@@ -1800,10 +1739,6 @@
       "description": false,
       "title": false,
       "return": false
-    },
-    "video-modal": {
-      "description": false,
-      "title": false
     }
   },
   "tab-navigation": {

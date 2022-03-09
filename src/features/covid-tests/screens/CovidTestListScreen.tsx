@@ -5,8 +5,6 @@ import { Screen } from '@covid/components/Screen';
 import { ErrorText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
-import { patientService } from '@covid/core/patient/PatientService';
-import { updateShowOmicronModal } from '@covid/core/state';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { covidTestService } from '@covid/core/user/CovidTestService';
@@ -14,8 +12,6 @@ import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions, TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { CovidLFTQuickReport } from '@covid/features/covid-tests/components/CovidLFTQuickReport';
 import { getInitialRouteName } from '@covid/features/covid-tests/helpers';
-import { CovidTestListOnboardingModal } from '@covid/features/covid-tests/modals/CovidTestListOnboardingModal';
-import { CovidTestTrackingOmicronModal } from '@covid/features/covid-tests/modals/CovidTestTrackingOmicronModal';
 import CovidTestTabbedListsScreen from '@covid/features/covid-tests/screens/CovidTestTabbedListsScreen';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -27,7 +23,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 interface IProps {
   navigation: StackNavigationProp<TScreenParamList, 'CovidTestList'>;
@@ -50,24 +46,9 @@ export default function CovidTestListScreen(props: IProps) {
   const [covidTests, setCovidTests] = React.useState<TCovidTest[]>([]);
   const [error, setError] = React.useState<string>();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [showOnboardingModal, setShowOnboardingModal] = React.useState<boolean>(false);
   const [todaysLFT, setTodaysLFT] = React.useState<TCovidTest>();
 
-  const dispatch = useDispatch();
-  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-
-  const closeListOnboardingModal = React.useCallback(() => {
-    setShowOnboardingModal(false);
-  }, []);
-
-  const closeTrackingOmicronModal = React.useCallback(async () => {
-    // Update the Redux state immediately because the api calls could take a long time to finish.
-    dispatch(updateShowOmicronModal(false));
-    await patientService.updatePatientInfo(patientId, {
-      has_seen_omicron_modal: true,
-    });
-  }, [patientId]);
 
   const fetchTestList = async () => {
     setIsLoading(true);
@@ -87,10 +68,6 @@ export default function CovidTestListScreen(props: IProps) {
 
   useFocusEffect(
     React.useCallback(() => {
-      if (startupInfo?.show_covid_test_onboarding && !assessmentCoordinator.isReportedByOther()) {
-        setShowOnboardingModal(true);
-      }
-
       let isActive = true;
 
       if (isActive) {
@@ -100,7 +77,7 @@ export default function CovidTestListScreen(props: IProps) {
       return () => {
         isActive = false;
       };
-    }, [startupInfo?.show_covid_test_onboarding]),
+    }, []),
   );
 
   const gotoAddTest = React.useCallback(() => assessmentCoordinator.goToAddEditTest(), []);
@@ -155,20 +132,6 @@ export default function CovidTestListScreen(props: IProps) {
       renderFooter={renderFooter}
       testID="covid-test-list-screen"
     >
-      {!showOnboardingModal ? null : (
-        <CovidTestListOnboardingModal
-          onRequestClose={closeListOnboardingModal}
-          patientId={assessmentCoordinator.assessmentData?.patientData?.patientId}
-          visible={showOnboardingModal}
-        />
-      )}
-
-      {/* TODO: Delete */}
-      <CovidTestTrackingOmicronModal
-        onRequestClose={closeTrackingOmicronModal}
-        visible={!!startupInfo?.show_omicron_modal}
-      />
-
       <ProgressHeader currentStep={0} maxSteps={1} title={i18n.t('covid-test-list.title')} />
 
       {isGBCountry() && startupInfo?.show_lft_quick_reporting ? (

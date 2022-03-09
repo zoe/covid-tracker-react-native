@@ -67,14 +67,3 @@ export function testLongCovidForm() {
     } catch (_) {}
   });
 }
-
-export function testPingdemicForm() {
-  it('should complete the anti-pingdemic form (if present)', async () => {
-    try {
-      await scrollDownToId('scroll-view-pingdemic-screen', 'input-radio-asked-by-app-item-pfnts');
-      await element(by.id('input-radio-asked-by-app-item-pfnts')).tap();
-
-      await submitForm('pingdemic-screen', 'scroll-view-pingdemic-screen', 'button-submit');
-    } catch (_) {}
-  });
-}
