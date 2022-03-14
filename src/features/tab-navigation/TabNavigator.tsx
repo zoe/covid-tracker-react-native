@@ -1,3 +1,4 @@
+import { NotesIcon } from '@assets';
 import { Text } from '@covid/components';
 import { events, track } from '@covid/core/Analytics';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
@@ -286,13 +287,25 @@ export default function TabNavigator({ navigation }: IProps) {
               <View
                 style={[styles.tabIconOverlay, { top: (windowDimensions.width * ratio - sizes.tabIconOverlay) / 1.65 }]}
               />
+              <View style={[styles.flex, styles.profileTabOverlayDescIcon]}>
+                <NotesIcon color="white" height={25} width={25} />
+                <Text
+                  inverted
+                  colorPalette="ui"
+                  colorShade="lighter"
+                  style={{ height: 30, marginLeft: sizes.xxs }}
+                  textClass="h3"
+                >
+                  ?
+                </Text>
+              </View>
               <Text
                 inverted
                 colorPalette="ui"
                 colorShade="lighter"
-                style={[styles.flex, styles.profileTabOverlayDescription]}
+                style={styles.profileTabOverlayDescription}
                 testID="profile-tab-overlay-description"
-                textClass="pSmallMedium"
+                textClass="pMedium"
               >
                 {i18n.t('tab-navigation.profile-tab-overlay.description')}
               </Text>
@@ -386,9 +399,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
+  profileTabOverlayDescIcon: {
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    bottom: 35,
+    flexDirection: 'row',
+    left: 30,
+  },
   profileTabOverlayDescription: {
-    right: 25,
-    top: 10,
+    bottom: 20,
+    right: 30,
   },
   quarterCircle: {
     aspectRatio: 1,

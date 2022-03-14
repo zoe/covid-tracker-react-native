@@ -1,6 +1,7 @@
 import {
   CalendarIcon,
   CogIcon,
+  HealthProfileIcon,
   LocationIcon,
   NotesIcon,
   PeopleIcon,
@@ -170,6 +171,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
         />
       ) : null}
 
+      <ProfileLinkRow inactive icon={HealthProfileIcon} key="HealthProfile" text="Health Profile - coming soon" />
       {LINKS.map((link) => (
         <ProfileLinkRow icon={link.icon} key={link.text} onPress={link.onPress} text={link.text} />
       ))}

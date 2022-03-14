@@ -8,6 +8,7 @@ export { default as CreatedByZoe } from './CreatedByZoe';
 export { default as EyeEar } from './EyeEar';
 export { default as Female } from './Female';
 export { default as Gut } from './Gut';
+export { default as HealthProfileIcon } from './HealthProfile';
 export { default as Heart } from './Heart';
 export { default as Immune } from './Immune';
 export { default as Joint } from './Joint';
