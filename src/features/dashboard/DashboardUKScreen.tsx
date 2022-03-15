@@ -108,10 +108,17 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
 
   return (
     <>
-      {Platform.OS === 'android' && onboardingContext.showOnboarding ? (
+      {Platform.OS === 'android' && onboardingContext.showProfileTabOnboarding ? (
         // Needed for Android. Doesn't recognise overlay in the TabNavigator because overlay there is bounded by the size of the TabNavigator.
         <Pressable
-          onPress={onboardingContext.closeOnboarding}
+          onPress={onboardingContext.closeProfileTabOnboarding}
+          style={[styles.overlay, { height: windowDimensions.height, width: windowDimensions.width }]}
+        />
+      ) : null}
+      {Platform.OS === 'android' && onboardingContext.showStudyTabOnboarding ? (
+        // Needed for Android. Doesn't recognise overlay in the TabNavigator because overlay there is bounded by the size of the TabNavigator.
+        <Pressable
+          onPress={onboardingContext.closeStudyTabOnboarding}
           style={[styles.overlay, { height: windowDimensions.height, width: windowDimensions.width }]}
         />
       ) : null}

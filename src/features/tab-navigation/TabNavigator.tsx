@@ -109,9 +109,15 @@ export default function TabNavigator({ navigation }: IProps) {
   }, [navigation]);
 
   const goToProfileTab = React.useCallback(() => {
+    track(events.PROFILE_TAB_ICON_CLICKED);
     closeProfileTabOnboarding();
     navigation.jumpTo('Profile');
   }, [navigation]);
+
+  const trackProfileIconPress = React.useCallback(() => {
+    track(events.PROFILE_TAB_ICON_CLICKED);
+    navigation.jumpTo('Profile');
+  }, []);
 
   const tabHomeScreenOptions = {
     tabBarAccessibilityLabel: `${i18n.t('tab-navigation.home-tab')} tab`,
@@ -314,7 +320,10 @@ export default function TabNavigator({ navigation }: IProps) {
               </TouchableOpacity>
             </Pressable>
           ) : (
-            <ProfileIcon color={focused ? null : color} testID="profile-tab-icon" />
+            // TouchableOpacity only needed because of analytics tracking - tab navigator otherwise automatically handles press event
+            <TouchableOpacity hitSlop={HIT_SLOP} onPress={trackProfileIconPress}>
+              <ProfileIcon color={focused ? null : color} testID="profile-tab-icon" />
+            </TouchableOpacity>
           )}
 
           {/* Background screen overlay - only works for iOS. Used React context for Android. */}
