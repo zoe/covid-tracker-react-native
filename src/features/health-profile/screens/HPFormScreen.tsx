@@ -317,9 +317,9 @@ export default function HPFormScreen({ route }: TProps) {
         } catch (error) {
           saveToRedux(formData, 'HPSkinHairAndNails', navigator.SKIN_HAIR_AND_NAILS.currentStep - 1, true); // reset progress so user returned to last screen
           if (error.status.toString().startsWith('4')) {
-            setErrorMessage(i18n.t('form-data-not-valid'));
+            setErrorMessage(i18n.t('errors.form-data-not-valid'));
           } else {
-            setErrorMessage(i18n.t('something-went-wrong'));
+            setErrorMessage(i18n.t('errors.something-went-wrong'));
             formikBag.validateForm(); // Needed to enable submit button again
           }
         } finally {

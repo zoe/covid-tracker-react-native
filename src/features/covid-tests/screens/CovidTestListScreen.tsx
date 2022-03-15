@@ -87,7 +87,7 @@ export default function CovidTestListScreen(props: IProps) {
     [props.route.name],
   );
 
-  const backToProfileTab = React.useCallback(() => NavigatorService.goBack(), []);
+  const backToProfileTab = React.useCallback(() => NavigatorService.navigate('Profile'), []);
 
   const initialRouteName = getInitialRouteName(props.route.params?.mechanism, props.route.params?.is_rapid_test);
 
@@ -95,7 +95,12 @@ export default function CovidTestListScreen(props: IProps) {
     try {
       const routes = props.navigation.getState().routes;
       const prevRoute = routes[routes.length - 2];
-      return prevRoute.name === 'SelectProfile';
+      const penultimateRoute = routes[routes.length - 3];
+
+      const dailyFlowHealthWorker =
+        penultimateRoute.name === 'SelectProfile' && prevRoute.name === 'HealthWorkerExposure';
+
+      return prevRoute.name === 'SelectProfile' || dailyFlowHealthWorker;
     } catch {
       return false;
     }

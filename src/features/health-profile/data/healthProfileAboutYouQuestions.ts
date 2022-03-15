@@ -48,7 +48,8 @@ export const healthProfileAboutYouQuestions: Partial<THealthProfileScreens> = {
         items: [
           { label: 'Male', value: 'male' },
           { label: 'Female', value: 'female' },
-          { label: 'Intersex', value: 'intersex' },
+          { label: 'Non-binary', value: 'non_binary' },
+          { label: 'Other', value: 'other' },
           { label: 'Prefer not to say', value: 'pfnts' },
         ],
         placeholder: null,
@@ -64,7 +65,7 @@ export const healthProfileAboutYouQuestions: Partial<THealthProfileScreens> = {
         description: null,
         fieldType: EFieldType.RACE,
         items: [
-          { label: 'English, Welsh, Scottish, Northern Irish, Irish', value: 'british_irish' },
+          { label: 'White - English, Welsh, Scottish, Northern Irish, Irish', value: 'british_irish' },
           { label: 'Other white background', value: 'other_white' },
           { label: 'Indian', value: 'indian' },
           { label: 'Pakistani', value: 'pakistani' },
