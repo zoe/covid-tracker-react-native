@@ -1,12 +1,12 @@
 /* eslint-env jest */
 
+import { TEXT_INPUT_PNTS_LABEL } from '@covid/components/inputsRedesigned/constants';
 import { fireEvent, render } from '@testing-library/react-native';
 import { FormikProps } from 'formik';
 import * as React from 'react';
 import { act } from 'react-test-renderer';
 
 import { createMockedElement } from '../../../../../__mocks__/createHelper';
-import { TEXT_INPUT_PNTS_LABEL } from '../../utils/healthProfileUtils';
 import HealthProfileQuestionCard, { EFieldType } from '../HealthProfileQuestionCard';
 
 const formikProps = {

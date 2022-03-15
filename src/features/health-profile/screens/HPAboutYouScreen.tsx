@@ -1,9 +1,9 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
+import { PNTS_VALUE_TO_SAVE_IN_DB, TEXT_INPUT_PNTS_LABEL } from '@covid/components/inputsRedesigned/constants';
 import { Loading } from '@covid/components/Loading';
 import { ValidationError } from '@covid/components/ValidationError';
 import Analytics, { events } from '@covid/core/Analytics';
-import Logging, { contextNames, logLevel } from '@covid/core/Logging';
 import {
   fetchExistingHealthProfile,
   THealthProfileScreenNames,
@@ -28,8 +28,6 @@ import { HealthProfileConfirmExitModal } from '@covid/features/health-profile/mo
 import {
   createHPAboutYouDTO,
   isEditing,
-  PNTS_VALUE_TO_SAVE_IN_DB,
-  TEXT_INPUT_PNTS_LABEL,
   validationSchemaHPAboutYou,
 } from '@covid/features/health-profile/utils/healthProfileUtils';
 import { HeightQuestion } from '@covid/features/patient/fields/HeightQuestion';
@@ -259,20 +257,9 @@ export default function HPAboutYouScreen() {
 
   const saveExitOnPress = (formikProps: FormikProps<IHealthProfileFormData>) => {
     const formData = formikProps.values;
-    const formikErrors = Object.keys(formikProps.errors);
-    const formIsValid = formikProps.isValid;
-    const contextProps = { formData, formIsValid, formikErrors, patientId, screenName: 'HPAboutYou' };
 
     Analytics.track(events.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED, { screenName: 'HPAboutYou' });
     saveToRedux(formData, 'HPAboutYou', 0);
-
-    Logging.log(
-      'health_profile',
-      'save_exit_on_press',
-      contextNames.HEALTH_PROFILE_SAVE_EXIT_PRESS,
-      contextProps,
-      logLevel.Info,
-    );
 
     setShowConfirmExitModal(true);
   };

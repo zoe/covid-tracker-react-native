@@ -1,12 +1,9 @@
 import { Text } from '@covid/components';
 import { requiredFormMarker } from '@covid/components/Form';
+import { PNTS_VALUE_TO_SAVE_IN_DB, TEXT_INPUT_PNTS_LABEL } from '@covid/components/inputsRedesigned/constants';
 import { SelectableButton } from '@covid/components/SelectableButton';
 import { FieldLabelRedesigned } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import {
-  PNTS_VALUE_TO_SAVE_IN_DB,
-  TEXT_INPUT_PNTS_LABEL,
-} from '@covid/features/health-profile/utils/healthProfileUtils';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';

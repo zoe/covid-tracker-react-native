@@ -1,9 +1,9 @@
 import { Text } from '@covid/components';
 import { requiredFormMarker } from '@covid/components/Form';
+import { TEXT_INPUT_PNTS_LABEL } from '@covid/components/inputsRedesigned/constants';
 import { CaptionText, FieldLabelRedesigned } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
-import { TEXT_INPUT_PNTS_LABEL } from '@covid/features/health-profile/utils/healthProfileUtils';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import { FormikErrors, FormikProps } from 'formik';
