@@ -331,7 +331,7 @@ export const healthProfileWomensHealthQuestions: Partial<THealthProfileScreens> 
         placeholder: 'Years',
         pnts: true,
         propertyName: 'years_taken_hormone_based_contraception',
-        question: 'Altogether, about how long have you taken/did you take hormone-based contraception?',
+        question: 'Altogether, about how long (in years) have you taken/did you take hormone-based contraception?',
         required: true,
         showNewTag: false,
       },
