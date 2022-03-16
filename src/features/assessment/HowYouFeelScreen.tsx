@@ -1,11 +1,16 @@
 import { RightArrow } from '@assets';
 import InfoCircle from '@assets/icons/InfoCircle';
+import InfoCircleFilled from '@assets/icons/InfoCircleFilled';
+import { Card, Text, TextWithBoldInserts } from '@covid/components';
 import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { TRootState } from '@covid/core/state/root';
+import { selectStartupInfo } from '@covid/core/state/selectors';
+import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import i18n from '@covid/locale/i18n';
 import { TScreenParamList } from '@covid/routes/types';
@@ -15,7 +20,7 @@ import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { USStudyInvite } from './partials/USStudyInvite';
@@ -29,6 +34,8 @@ export const HowYouFeelScreen: React.FC<TProps> = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [location, setLocation] = React.useState('');
   const currentProfileVaccines = useSelector<TRootState, TVaccineRequest[]>((state) => state.vaccines.vaccines);
+  const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
+
   const isFocused = useIsFocused();
 
   React.useEffect(() => {
@@ -135,7 +142,40 @@ export const HowYouFeelScreen: React.FC<TProps> = ({ route, navigation }) => {
           testID="button-status-not-healthy"
           text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
         />
+
+        {startupInfo?.show_assessment_flow_v0 && isGBCountry() && !assessmentCoordinator.isReportedByOther() ? (
+          <View style={styles.positionBottom}>
+            <Card padding={sizes.m} style={styles.card}>
+              <View style={styles.row}>
+                <InfoCircleFilled />
+                <View style={styles.cardText}>
+                  <Text textClass="pMedium">{i18n.t('how-you-feel.vaccine-record-moved-title')}</Text>
+                  <TextWithBoldInserts textClass="pLight">
+                    {i18n.t('how-you-feel.vaccine-record-moved-message')}
+                  </TextWithBoldInserts>
+                </View>
+              </View>
+            </Card>
+          </View>
+        ) : null}
       </Screen>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: colors.backgroundSix,
+  },
+  cardText: {
+    marginHorizontal: sizes.m,
+  },
+  positionBottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginTop: sizes.xl,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+});
