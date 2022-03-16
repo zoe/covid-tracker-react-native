@@ -1,3 +1,4 @@
+import { PNTS_VALUE_TO_SAVE_IN_DB, TEXT_INPUT_PNTS_LABEL } from '@covid/components/inputsRedesigned/constants';
 import { THealthProfileRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { EHealthProfileQuestionCardStatus } from '@covid/features/health-profile/components/HealthProfileQuestionCard';
 import {
@@ -7,9 +8,6 @@ import {
 import i18n from '@covid/locale/i18n';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import * as Yup from 'yup';
-
-export const TEXT_INPUT_PNTS_LABEL = 'Prefer not to say';
-export const PNTS_VALUE_TO_SAVE_IN_DB = 'pfnts';
 
 export const isEditing = (status: EHealthProfileQuestionCardStatus) => {
   return [EHealthProfileQuestionCardStatus.EDIT_ANSWER, EHealthProfileQuestionCardStatus.NOT_ANSWERED].includes(status);

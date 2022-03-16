@@ -1,5 +1,4 @@
-import { Text } from '@covid/components/typography';
-import { IProps as ITextProps } from '@covid/components/typography/Text';
+import { IProps as ITextProps, Text } from '@covid/components/typography/Text';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 

@@ -1,5 +1,5 @@
-import { Text } from '@covid/components';
 import { RegularText } from '@covid/components/Text';
+import { Text } from '@covid/components/typography/Text';
 import i18n from '@covid/locale/i18n';
 import { sizes, styling } from '@covid/themes';
 import { colors } from '@theme';

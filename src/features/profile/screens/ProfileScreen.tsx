@@ -97,6 +97,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
   );
 
   React.useEffect(() => {
+    Analytics.track(events.PROFILE_SCREEN_SHOWN);
     if (startupInfo?.show_profile_screen_new_tag) {
       setShowNewTag(true);
       updateHasSeenProfileScreen(patientId);

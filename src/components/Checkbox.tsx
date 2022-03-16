@@ -1,13 +1,12 @@
 import Check from '@assets/icons/Check';
 import { requiredFormMarker } from '@covid/components/Form';
+import { RegularText } from '@covid/components/Text';
+import { ITest } from '@covid/components/types';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme/colors';
 import { Item } from 'native-base';
 import * as React from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-
-import { RegularText } from './Text';
-import { ITest } from './types';
 
 interface ICheckboxProps extends ITest {
   value: boolean;
