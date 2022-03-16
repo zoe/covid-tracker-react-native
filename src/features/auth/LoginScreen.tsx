@@ -84,7 +84,9 @@ export function LoginScreen({ route }: IProps) {
   }
 
   return (
-    <Screen testID="login-screen">
+    // keyboardShouldPersistTaps='always' means login button will sign user in rather than dismissing keyboard on Android
+    // https://medium.com/fantageek/how-to-dismiss-keyboard-with-react-navigation-in-react-native-apps-4b987bbfdc48
+    <Screen keyboardShouldPersistTaps="always" testID="login-screen">
       <HeaderLightText>{i18n.t('login.title')}</HeaderLightText>
 
       <Item floatingLabel error={hasErrors} style={styles.marginTop}>

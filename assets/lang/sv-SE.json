@@ -276,7 +276,9 @@
     "current-location": "Du rapporterar just nu från:",
     "update-location": "Uppdatera plats",
     "vaccine-reporting-message": "Fortsätt gärna att rapportera hur du mår dagligen efter att du vaccinerats mot covid-19 och ange eventuella allmänna symtom som du upplever.",
-    "vaccine-reporting-link": "Varför är detta viktigt?"
+    "vaccine-reporting-link": "Varför är detta viktigt?",
+    "vaccine-record-moved-title": false,
+    "vaccine-record-moved-message": false
   },
   "long-covid": {
     "apology": "Vi ber alla som redan har fyllt i detta att göra det igen eftersom vi hade ett fel i våran tidigare version -tack så mycket!",

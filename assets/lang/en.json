@@ -400,7 +400,9 @@
     "current-location": "You are currently reporting from:",
     "update-location": "Update Location",
     "vaccine-reporting-message": "Please continue to provide daily health reports following your COVID-19 vaccination and log any general symptoms you might experience.",
-    "vaccine-reporting-link": "Why is that important?"
+    "vaccine-reporting-link": "Why is that important?",
+    "vaccine-record-moved-title": "Your vaccine record has moved",
+    "vaccine-record-moved-message": "It is stored in your *Profile* tab accessible from the bottom menu in the Home screen"
   },
   "long-covid": {
     "apology": "We kindly ask anyone who already completed this to do so once more as we made a mistake in our previous version - thank you!",
