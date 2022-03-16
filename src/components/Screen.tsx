@@ -25,6 +25,7 @@ interface IProps {
   footerOnPress?: () => void;
   footerTitle?: string;
   isInsideTabBar?: boolean;
+  keyboardShouldPersistTaps?: 'always' | 'never' | 'handled';
   noHeader?: boolean;
   noKeyboardDismiss?: boolean;
   noPadding?: boolean;
@@ -59,6 +60,7 @@ function renderBody(props: IProps) {
     <ScrollView
       alwaysBounceVertical={false}
       contentContainerStyle={props.noPadding ? styling.flexGrow : styles.contentContainer}
+      keyboardShouldPersistTaps={props.keyboardShouldPersistTaps || 'never'}
       overScrollMode="never"
       ref={props.scrollRef}
       testID={`scroll-view-${props.testID || 'screen'}`}
