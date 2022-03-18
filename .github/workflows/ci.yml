@@ -17,21 +17,21 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
-      - name: Install private assets
-        run: |-
-          bash .github/install_private_assets.sh
+      # - name: Install private assets
+      #   run: |
+      #     bash .github/install_private_assets.sh
       - name: Set up Node environment
         uses: actions/setup-node@master
       - name: Check cache
         uses: c-hive/gha-yarn-cache@v1
       - name: Install node modules
-        run: |-
+        run: |
           yarn install --immutable
       - name: Lint
-        run: |-
+        run: |
           yarn lint:ci
       - name: Prettier
-        run: |-
+        run: |
           yarn prettier
 
   # Prepare code and check i18n
@@ -41,16 +41,16 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
-      - name: Install private assets
-        run: |-
-          bash .circleci/install_private_assets.sh
+      # - name: Install private assets
+      #   run: |
+      #     bash .circleci/install_private_assets.sh
       - name: Set up Node environment
         uses: actions/setup-node@master
       - name: Check cache
         uses: c-hive/gha-yarn-cache@v1
       - name: Install node modules
-        run: |-
+        run: |
           yarn install --immutable
       - name: Check Swedish translations
-        run: |-
+        run: |
           yarn test:i18n 'sv-SE'
