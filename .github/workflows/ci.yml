@@ -52,5 +52,5 @@ jobs:
         run: |-
           yarn install --immutable
       - name: Check Swedish translations
-      - run: |-
+        run: |-
           yarn test:i18n 'sv-SE'
