@@ -5,7 +5,7 @@ name: Feature branch tests
 # |-- Lint project
 # |-- Check i18n string
 # |-- Run Tests
-#
+##
 
 on:
   push:
