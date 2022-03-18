@@ -1,0 +1,91 @@
+name: Feature branch tests
+#
+# Branch (Ignoring) [master, develop, stage, release-0.x-legacy]
+# - Build app assets
+# |-- Lint project
+# |-- Check i18n string
+# |-- Run Tests
+#
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
+      - '!develop'
+      - '!develop-legacy'
+      - '!release-0.x-legacy'
+      - '!stage'
+
+jobs:
+  # Prepare code and check linting
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Install private assets
+        shell: bash
+        run: .github/install_private_assets.sh
+      - name: Set up Node environment
+        uses: actions/setup-node@master
+      - name: Check cache
+        uses: c-hive/gha-yarn-cache@v1
+      - name: Install node modules
+        run: yarn install --immutable
+      - run: mkdir -p ~/reports
+      - name: Lint
+        run: yarn lint:ci
+      - name: Prettier
+        run: yarn prettier
+      - uses: actions/upload-artifact@v3
+        with:
+          name: lint-report
+          path: ~/reports
+
+  # Prepare code and check i18n
+  i18n:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Install private assets
+        shell: bash
+        run: .github/install_private_assets.sh
+      - name: Set up Node environment
+        uses: actions/setup-node@master
+      - name: Check cache
+        uses: c-hive/gha-yarn-cache@v1
+      - name: Install node modules
+        run: yarn install --immutable
+      - name: Check Swedish translations
+        run: yarn test:i18n 'sv-SE'
+
+  # Prepare code and run tests
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Install private assets
+        shell: bash
+        run: .github/install_private_assets.sh
+      - run: echo "API_URL=" > .env
+      - run: echo "AMPLITUDE_KEY=" >> .env
+      - name: Set up Node environment
+        uses: actions/setup-node@master
+      - name: Check cache
+        uses: c-hive/gha-yarn-cache@v1
+      - name: Install node modules
+        run: yarn install --immutable
+      - name: Run tests with JUnit as reporter
+        run: yarn test:coverage
+        env:
+          JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: JUnit
+          path: ./reports/junit
