@@ -16,6 +16,7 @@ on:
       - '!develop-legacy'
       - '!release-0.x-legacy'
       - '!stage'
+      - '!julia/gh-actions-staging-test'
 
 jobs:
   # Prepare code and check linting

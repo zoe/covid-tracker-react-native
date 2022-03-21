@@ -9,6 +9,7 @@ jobs:
   deploy-stage-ota:
     name: Deploy staging OTA
     runs-on: macos-latest
+    environment: Staging
     timeout-minutes: 30
     steps:
       - name: Check out Git repository
