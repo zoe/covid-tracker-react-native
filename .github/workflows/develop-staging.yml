@@ -68,14 +68,15 @@ jobs:
         run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
       # prepare_deploy_env
       - name: Prepare deploy environment
-        run: bundle update fastlane
-        run: bundle exec fastlane update_plugins
-        run: bash .github/make_deploy_env.sh
-        run: yarn generate:git-hash
+        run: |
+          bundle update fastlane
+          bundle exec fastlane update_plugins
+          bash .github/make_deploy_env.sh
+          yarn generate:git-hash
       # set_expo_release_channel and expo_ota_publish
       - name: Expo OTA publish
-        run: echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
-        run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target bare
+        run: |
+          echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
+          npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+          npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target bare
       # NOTE: have not included Slack integration
-      
