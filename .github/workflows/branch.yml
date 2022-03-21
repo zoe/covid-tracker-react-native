@@ -157,8 +157,8 @@ jobs:
         run: yarn test:coverage
         env:
           JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
-          JEST_JUNIT_OUTPUT_NAME: test-results.xml
-      - uses: actions/upload-artifact@v3
+      - name: Upload Jest JUnit test results
+        uses: actions/upload-artifact@v3
         with:
-          name: JUnit
-          path: ./reports/junit
+          name: jest-test-results
+          path: ./reports/junit/junit.xml
