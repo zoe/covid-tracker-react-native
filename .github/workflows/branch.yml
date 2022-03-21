@@ -19,97 +19,97 @@ on:
 
 jobs:
   # Prepare code and check linting
-  lint:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-      - uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
-      - name: Install private assets
-        shell: bash
-        run: .github/install_private_assets.sh
-      - name: Set up Node environment
-        uses: actions/setup-node@v2
-      - name: Restore packages from cache - yarn
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Restore packages from cache - node
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Restore packages from cache - pods
-        uses: actions/cache@v2
-        with:
-          path: |
-            ios/Pods
-            ~/Library/Caches/CocoaPods/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
-      - name: Install node modules
-        run: yarn install --immutable
-      - run: mkdir -p ~/reports
-      - name: Lint
-        run: yarn lint:ci
-      - name: Prettier
-        run: yarn prettier
-      - uses: actions/upload-artifact@v3
-        with:
-          name: lint-report
-          path: ~/reports
+  # lint:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 5
+  #   steps:
+  #     - name: Check out Git repository
+  #       uses: actions/checkout@v2
+  #     - uses: webfactory/ssh-agent@v0.5.4
+  #       with:
+  #         ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
+  #     - name: Install private assets
+  #       shell: bash
+  #       run: .github/install_private_assets.sh
+  #     - name: Set up Node environment
+  #       uses: actions/setup-node@v2
+  #     - name: Restore packages from cache - yarn
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ~/.cache/yarn
+  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-yarn-
+  #     - name: Restore packages from cache - node
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: node_modules
+  #         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-node-
+  #     - name: Restore packages from cache - pods
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: |
+  #           ios/Pods
+  #           ~/Library/Caches/CocoaPods/Pods
+  #         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-pods-
+  #     - name: Install node modules
+  #       run: yarn install --immutable
+  #     - run: mkdir -p ~/reports
+  #     - name: Lint
+  #       run: yarn lint:ci
+  #     - name: Prettier
+  #       run: yarn prettier
+  #     - uses: actions/upload-artifact@v3
+  #       with:
+  #         name: lint-report
+  #         path: ~/reports
 
-  # Prepare code and check i18n
-  i18n:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-      - uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
-      - name: Install private assets
-        shell: bash
-        run: .github/install_private_assets.sh
-      - name: Set up Node environment
-        uses: actions/setup-node@v2
-      - name: Restore packages from cache - yarn
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Restore packages from cache - node
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Restore packages from cache - pods
-        uses: actions/cache@v2
-        with:
-          path: |
-            ios/Pods
-            ~/Library/Caches/CocoaPods/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
-      - name: Install node modules
-        run: yarn install --immutable
-      - name: Check Swedish translations
-        run: yarn test:i18n 'sv-SE'
+  # # Prepare code and check i18n
+  # i18n:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 5
+  #   steps:
+  #     - name: Check out Git repository
+  #       uses: actions/checkout@v2
+  #     - uses: webfactory/ssh-agent@v0.5.4
+  #       with:
+  #         ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
+  #     - name: Install private assets
+  #       shell: bash
+  #       run: .github/install_private_assets.sh
+  #     - name: Set up Node environment
+  #       uses: actions/setup-node@v2
+  #     - name: Restore packages from cache - yarn
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ~/.cache/yarn
+  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-yarn-
+  #     - name: Restore packages from cache - node
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: node_modules
+  #         key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-node-
+  #     - name: Restore packages from cache - pods
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: |
+  #           ios/Pods
+  #           ~/Library/Caches/CocoaPods/Pods
+  #         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-pods-
+  #     - name: Install node modules
+  #       run: yarn install --immutable
+  #     - name: Check Swedish translations
+  #       run: yarn test:i18n 'sv-SE'
 
   # Prepare code and run tests
   test:
@@ -154,6 +154,7 @@ jobs:
       - name: Install node modules
         run: yarn install --immutable
       - name: Run tests with JUnit as reporter
+        working-directory: ~/covid-react
         run: yarn test:coverage
         env:
           JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
