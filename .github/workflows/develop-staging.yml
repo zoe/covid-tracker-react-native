@@ -77,7 +77,6 @@ jobs:
       # set_expo_release_channel and expo_ota_publish
       - name: Expo OTA publish
         run: |
-          echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
           npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
           npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target bare
       # NOTE: have not included Slack integration
