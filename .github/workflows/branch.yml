@@ -155,10 +155,10 @@ jobs:
         run: yarn install --immutable
       - name: Run tests with JUnit as reporter
         run: yarn test:coverage
-        env:
-          JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
-      - name: Upload Jest JUnit test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: jest-test-results
-          path: ./reports/junit/junit.xml
+        # env:
+        #   JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+      # - name: Upload Jest JUnit test results
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: jest-test-results
+      #     path: ./reports/junit/junit.xml
