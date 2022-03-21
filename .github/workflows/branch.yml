@@ -154,10 +154,10 @@ jobs:
       - name: Install node modules
         run: yarn install --immutable
       - name: Run tests with JUnit as reporter
-        working-directory: ~/covid-react
         run: yarn test:coverage
         env:
           JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+          JEST_JUNIT_OUTPUT_NAME: test-results.xml
       - uses: actions/upload-artifact@v3
         with:
           name: JUnit
