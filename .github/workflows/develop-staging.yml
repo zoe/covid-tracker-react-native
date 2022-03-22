@@ -75,6 +75,7 @@ jobs:
           bash .github/make_deploy_env.sh
           yarn generate:git-hash
       # set_expo_release_channel and expo_ota_publish
+      # Not working atm - echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
       - name: Expo OTA publish
         run: |
           npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
