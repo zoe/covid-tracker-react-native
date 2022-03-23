@@ -3,7 +3,6 @@ import { Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
 import { ELegalCardType, LegalCard } from '@covid/components/cards/LegalCard';
 import { ErrorText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
 import { consentService } from '@covid/core/consent/ConsentService';
 import { patientService } from '@covid/core/patient/PatientService';
 import { selectDiseasePreferences } from '@covid/core/state/reconsent';
@@ -33,17 +32,14 @@ export default function ReconsentRequestConsentScreen() {
   const diseasePreferences = useSelector(selectDiseasePreferences);
 
   const onPressPrivacyPolicy = () => {
-    Analytics.track(events.RECONSENT_PRIVACY_POLICY_CLICKED);
     NavigatorService.navigate('PrivacyPolicyUK');
   };
 
   const onPressInformationSheet = () => {
-    Analytics.track(events.RECONSENT_INFORMATION_SHEET_CLICKED);
     openWebLink('https://covid.joinzoe.com/wider-health-studies-infosheet');
   };
 
   async function onPressYes() {
-    Analytics.track(events.RECONSENT_YES_CLICKED);
     const diseasePreferencesPayload = { ...diseasePreferences, research_consent_asked: true };
     try {
       setLoading(true);
@@ -61,7 +57,6 @@ export default function ReconsentRequestConsentScreen() {
   }
 
   async function onPressNo() {
-    Analytics.track(events.RECONSENT_FIRST_NO_CLICKED);
     try {
       setLoading(true);
       await patientService.updatePatientInfo(patientId, diseasePreferences);

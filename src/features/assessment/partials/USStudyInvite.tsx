@@ -1,7 +1,6 @@
 import { blobs, closeIcon } from '@assets';
 import { BrandedButton } from '@covid/components/buttons';
 import { HeaderText, RegularText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
 import { TAssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { patientService } from '@covid/core/patient/PatientService';
@@ -27,14 +26,12 @@ export const USStudyInvite: React.FC<TProps> = (props: TProps) => {
 
   const handleAgree = () => {
     setModalVisible(false);
-    Analytics.track(events.ACCEPT_STUDY_CONTACT);
     patientService.setUSStudyInviteResponse(props.assessmentData?.patientData?.patientId, true);
     currentPatient.shouldShowUSStudyInvite = false;
   };
 
   const handleClose = () => {
     setModalVisible(false);
-    Analytics.track(events.DECLINE_STUDY_CONTACT);
     patientService.setUSStudyInviteResponse(props.assessmentData?.patientData?.patientId, false);
     currentPatient.shouldShowUSStudyInvite = false;
   };

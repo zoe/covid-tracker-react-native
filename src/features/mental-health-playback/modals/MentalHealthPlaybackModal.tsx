@@ -1,7 +1,6 @@
 import { QuoteMarks } from '@assets';
 import { BrandedButton, DoctorProfile, Tag, Text } from '@covid/components';
 import { Modal } from '@covid/components/Modal';
-import Analytics from '@covid/core/Analytics';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { getMentalHealthStudyDoctorImage } from '@covid/features/diet-study-playback/v2/utils';
 import i18n from '@covid/locale/i18n';
@@ -16,16 +15,13 @@ interface IProps {
 }
 
 export default function MentalHealthPlaybackModal(props: IProps) {
-  function onRequestClose(positive?: boolean) {
-    if (!positive) {
-      Analytics.track(Analytics.events.MENTAL_HEALTH_PLAYBACK_CLOSE_MODAL);
-    }
+  function onRequestClose() {
     props.onRequestClose();
   }
 
   function handlePositive() {
     generalApiClient.postUserEvent('view-mental-health-insights');
-    onRequestClose(true);
+    onRequestClose();
     appCoordinator.goToMentalHealthStudyPlayback();
   }
 
