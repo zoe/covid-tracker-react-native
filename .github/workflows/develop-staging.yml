@@ -85,7 +85,7 @@ jobs:
   # |-- iOS / Android Release to App Center
   # |-- Message slack message on App Center upload successful
   deploy-stage-release:
-    name: Deploy staging OTA
+    name: Staging app build and release
     runs-on: macos-latest
     environment: staging-release
     timeout-minutes: 30
@@ -163,6 +163,7 @@ jobs:
       - name: Pod clean and install
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData/*
+          mkdir ios
           cd ios && rm -rf Pods
           cd ios && pod install --clean-install
       - name: Generate fastlane certificates
