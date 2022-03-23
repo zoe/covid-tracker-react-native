@@ -89,6 +89,9 @@ jobs:
     runs-on: macos-latest
     environment: staging-release
     timeout-minutes: 30
+    defaults:
+      run:
+        working_directory: ~/covid-react
     steps:
       # -----> Adhoc build <-----
       - name: Check out Git repository
@@ -146,38 +149,6 @@ jobs:
         run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       - name: Clean up after bundling
         run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
-      - name: Zip packages for deployment
-        run: |
-          zip node.zip node_modules -r
-          zip bundle.zip vendor/bundle -r
-          zip pods.zip ios/Pods -r
-          zip android_bundle.zip android/app/src/main/assets/index.android.bundle -r
-          zip android_res.zip android/app/src/main/res -r
-      - name: Persist packages and dependencies
-        uses: actions/upload-artifact@v3
-        with:
-          name: node
-          path: node.zip
-      - name: Persist packages and dependencies
-        uses: actions/upload-artifact@v3
-        with:
-          name: bundle
-          path: bundle.zip
-      - name: Persist packages and dependencies
-        uses: actions/upload-artifact@v3
-        with:
-          name: pods
-          path: pods.zip
-      - name: Persist packages and dependencies
-        uses: actions/upload-artifact@v3
-        with:
-          name: android_bundle
-          path: android_bundle.zip
-      - name: Persist packages and dependencies
-        uses: actions/upload-artifact@v3
-        with:
-          name: android_res
-          path: android_res.zip
 
       # -----> Adhoc iOS <-----
       - name: Prepare deploy environment
@@ -192,25 +163,8 @@ jobs:
         run: bundle install --path vendor/bundle --clean
       - name: Install xcode - required to set xcode to v13
         run: gem install xcode-install
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: |
-            node
-            bundle
-            pods
-            android_bundle
-            android_res
-      - name: Unzip packages for deployment
-        run: |
-          unzip node.zip
-          unzip bundle.zip
-          unzip pods.zip
-          unzip android_bundle.zip
-          unzip android_res.zip
       - name: Pod clean and install
         # have to manually create ios directory?
-        # working_directory: ~/covid-react
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData/*
           cd ios && rm -rf Pods
