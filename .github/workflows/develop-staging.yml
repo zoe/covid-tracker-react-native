@@ -80,18 +80,17 @@ jobs:
           npx expo-cli login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
           npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target bare
 
-
   # Publish app for internal testing
   # - App Center distribution (with approval)
   # |-- iOS / Android Release to App Center
   # |-- Message slack message on App Center upload successful
-   deploy-stage-release:
+  deploy-stage-release:
     name: Deploy staging OTA
     runs-on: macos-latest
     environment: staging-release
     timeout-minutes: 30
     steps:
-    # -----> Adhoc build <-----
+      # -----> Adhoc build <-----
       - name: Check out Git repository
         uses: actions/checkout@v2
       - uses: webfactory/ssh-agent@v0.5.4
@@ -147,8 +146,8 @@ jobs:
         run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       - name: Clean up after bundling
         run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
-    
-    # -----> Adhoc iOS <-----
+
+      # -----> Adhoc iOS <-----
       - name: Prepare deploy environment
         run: |
           bundle update fastlane
@@ -170,12 +169,12 @@ jobs:
         run: yarn fastlane:ios:certificates
       - name: Fastlane ios release WITH NODE v14.17.0
         run: |
-            set +e
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install v14.17.0            
-            npm install -g yarn 
-            yarn fastlane:ios:release env:$RELEASE_TYPE
+          set +e
+          export NVM_DIR="/opt/circleci/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm install v14.17.0            
+          npm install -g yarn 
+          yarn fastlane:ios:release env:$RELEASE_TYPE
       - name: Upload build
         uses: actions/upload-artifact@v3
         with:
