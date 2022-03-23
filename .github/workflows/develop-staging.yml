@@ -91,7 +91,7 @@ jobs:
     timeout-minutes: 30
     defaults:
       run:
-        working_directory: ~/covid-react
+        working-directory: ~/covid-react
     steps:
       # -----> Adhoc build <-----
       - name: Check out Git repository
