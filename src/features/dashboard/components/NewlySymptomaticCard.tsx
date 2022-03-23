@@ -2,7 +2,6 @@ import { BrandedButton, ShareButton } from '@covid/components/buttons';
 import { BASELINE_COLOR, CURRENT_COLOR, NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomaticChart';
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text, TextWithHighlight } from '@covid/components/typography';
-import Analytics, { events } from '@covid/core/Analytics';
 import { selectContent, updateSelectedRegionItem } from '@covid/core/state';
 import { TRegionItem } from '@covid/core/state/content/types';
 import {
@@ -30,7 +29,6 @@ export function NewlySymptomaticCard(props: TProps) {
   const selectedRegionItem = content.selectedRegionItem || LONDON_ITEM;
 
   const onPressShare = React.useCallback(() => {
-    Analytics.track(events.NEWLY_SYMPTOMATIC_SHARE_CLICKED);
     navigation.navigate('Share', { sharable: ESharable.NEWLY_SYMPTOMATIC });
   }, []);
 
@@ -39,7 +37,6 @@ export function NewlySymptomaticCard(props: TProps) {
   }, []);
 
   const onChangeItem = React.useCallback((item: TRegionItem) => {
-    Analytics.track(events.NEWLY_SYMPTOMATIC_REGION_CHANGED, { region: item.key });
     dispatch(updateSelectedRegionItem(item));
     setModalVisible(false);
   }, []);

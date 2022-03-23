@@ -1,7 +1,6 @@
 import { BrandedButton, EFeaturedContentType, FeaturedContentList } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { appActions } from '@covid/core/state/app/slice';
 import {
@@ -116,7 +115,6 @@ export default function ThankYouUKScreen(props: IProps) {
         {startupInfo?.show_timeline ? (
           <ImpactTimelineCard
             onPress={() => {
-              Analytics.track(events.ANNIVERSARY_FROM_THANKYOU);
               appCoordinator.goToAnniversary();
             }}
             size="LARGE"

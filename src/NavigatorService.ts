@@ -65,14 +65,14 @@ function handleStateChange() {
 
     if (newRouteName) {
       if (previousRouteName !== newRouteName) {
-        Analytics.trackScreenView(newRouteName);
+        Analytics.trackApprovedScreenView(newRouteName);
       }
       currentRouteName = newRouteName;
     }
   }
 }
 
-const getCurrentRouteName = (navigationState: NavigationState): string | null => {
+const getCurrentRouteName = (navigationState: NavigationState<TScreenParamList>): TScreenName | null => {
   if (!navigationState) {
     return null;
   }

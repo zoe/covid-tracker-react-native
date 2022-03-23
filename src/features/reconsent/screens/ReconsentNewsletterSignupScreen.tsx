@@ -1,6 +1,5 @@
 import { BrandedButton, ErrorText, Text } from '@covid/components';
 import Card from '@covid/components/cards/Card';
-import Analytics, { events } from '@covid/core/Analytics';
 import { contentService } from '@covid/core/content/ContentService';
 import { fetchStartupInfo } from '@covid/core/state/content/slice';
 import { resetFeedback, selectReturnScreenName } from '@covid/core/state/reconsent';
@@ -32,11 +31,6 @@ export default function ReconsentNewsletterSignupScreen() {
   async function toggleNewsletterSignup() {
     setLoading(true);
     try {
-      if (signedUp) {
-        Analytics.track(events.RECONSENT_NEWSLETTER_UNSUBSCRIBE);
-      } else {
-        Analytics.track(events.RECONSENT_NEWSLETTER_SUBSCRIBE);
-      }
       await contentService.signUpForDiseaseResearchNewsletter(!signedUp);
       setSignedUp((prevState) => !prevState);
     } catch {
@@ -46,10 +40,6 @@ export default function ReconsentNewsletterSignupScreen() {
   }
 
   async function onPress() {
-    if (signedUp) {
-      // In Amplitude it's hard to filter people who subscribed but didn't unsubscribe.
-      Analytics.track(events.RECONSENT_NEWSLETTER_SUBSCRIBED_FINAL);
-    }
     // Update the startup info (as research consent has changed and app needs to be aware)
     // This requires async await to make sure!
     await dispatch(fetchStartupInfo());

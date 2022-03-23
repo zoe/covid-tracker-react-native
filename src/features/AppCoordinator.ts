@@ -1,4 +1,4 @@
-import Analytics, { events } from '@covid/core/Analytics';
+import Analytics from '@covid/core/Analytics';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TConfigType } from '@covid/core/Config';
 import { ConsentService } from '@covid/core/consent/ConsentService';
@@ -146,10 +146,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
       if (startupInfo.app_requires_update) {
         this.goToVersionUpdateModal();
       }
-    }
-
-    if (this.shouldShowCountryPicker) {
-      Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
     }
   }
 
