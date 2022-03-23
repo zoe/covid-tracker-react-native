@@ -89,9 +89,6 @@ jobs:
     runs-on: macos-latest
     environment: staging-release
     timeout-minutes: 30
-    defaults:
-      run:
-        working-directory: ~/covid-react
     steps:
       # -----> Adhoc build <-----
       - name: Check out Git repository
@@ -165,6 +162,7 @@ jobs:
         run: gem install xcode-install
       - name: Pod clean and install
         # have to manually create ios directory?
+        working-directory: ~/covid-react
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData/*
           cd ios && rm -rf Pods
