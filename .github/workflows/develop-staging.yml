@@ -164,7 +164,7 @@ jobs:
         # have to manually create ios directory?
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData/*
-          mkdir ios
+          mkdir -p ./ios
           cd ios && rm -rf Pods
           cd ios && pod install --clean-install
       - name: Generate fastlane certificates
@@ -172,7 +172,7 @@ jobs:
       - name: Fastlane ios release WITH NODE v14.17.0
         run: |
           set +e
-          export NVM_DIR="/opt/circleci/.nvm"
+          export NVM_DIR="/opt/github/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
           nvm install v14.17.0            
           npm install -g yarn 
