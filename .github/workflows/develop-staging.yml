@@ -14,13 +14,9 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
-      - name: Install bundler
-        run: gem install bundler
-      - name: Install gems
-        run: bundle check || bundle install --path vendor/bundle --clean
-        env:
-          BUNDLE_JOBS: "4"
-          BUNDLE_RETRY: "3"
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
       # Node install
       - name: Set up Node environment
         uses: actions/setup-node@v2
@@ -34,22 +30,22 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-      - name: Install node modules
-        run: yarn install --immutable
-      - name: Bundle RN Android assets
-        run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
-      - name: Clean up after bundling
-        run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
+      # - name: Install node modules
+      #   run: yarn install --immutable
+      # - name: Bundle RN Android assets
+      #   run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+      # - name: Clean up after bundling
+      #   run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
 
       # -----> Adhoc iOS <-----
-      - name: Prepare deploy environment
-        run: |
-          bundle update fastlane
-          bundle exec fastlane update_plugins
-          bash .circleci/make_deploy_env.sh
-          yarn generate:git-hash
-      - name: Debug - Echo release type
-        run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
+      # - name: Prepare deploy environment
+      #   run: |
+      #     bundle update fastlane
+      #     bundle exec fastlane update_plugins
+      #     bash .circleci/make_deploy_env.sh
+      #     yarn generate:git-hash
+      # - name: Debug - Echo release type
+      #   run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
       - name: Bundle clean and install
         run: bundle install --path vendor/bundle --clean
       - name: Install xcode - required to set xcode to v13
