@@ -146,6 +146,15 @@ jobs:
         run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       - name: Clean up after bundling
         run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
+      - name: Persist packages and dependencies
+        uses: actions/upload-artifact@v3
+        with:
+          path: |
+            node_modules
+            vendor/bundle
+            ios/Pods
+            android/app/src/main/assets/index.android.bundle
+            android/app/src/main/res
 
       # -----> Adhoc iOS <-----
       - name: Prepare deploy environment
@@ -162,9 +171,9 @@ jobs:
         run: gem install xcode-install
       - name: Pod clean and install
         # have to manually create ios directory?
+        # working_directory: ~/covid-react
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData/*
-          mkdir -p ./ios
           cd ios && rm -rf Pods
           cd ios && pod install --clean-install
       - name: Generate fastlane certificates
