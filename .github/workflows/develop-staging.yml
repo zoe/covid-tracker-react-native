@@ -162,7 +162,6 @@ jobs:
         run: gem install xcode-install
       - name: Pod clean and install
         run: |
-          rm -rf ~/Library/Developer/Xcode/DerivedData/*
           cd ios && rm -rf Pods
           cd ios && pod install --clean-install
       - name: Generate fastlane certificates
