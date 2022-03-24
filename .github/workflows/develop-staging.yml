@@ -24,7 +24,6 @@ jobs:
         with:
           ruby-version: 2.6
           bundler-cache: true
-      # Node install
       - name: Set up Node environment
         uses: actions/setup-node@v2
         with:
@@ -34,44 +33,16 @@ jobs:
         with:
           path: |
             ios/Pods
+            ~/Library/Caches/CocoaPods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Install node modules
         run: yarn install --immutable
-      #- name: Bundle RN Android assets
-      #   run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
-      # - name: Clean up after bundling
-      #   run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
-
-      # -----> Adhoc iOS <-----
-      # - name: Prepare deploy environment
-      #   run: |
-      #     bundle update fastlane
-      #     bundle exec fastlane update_plugins
-      #     bash .circleci/make_deploy_env.sh
-      #     yarn generate:git-hash
-      # - name: Debug - Echo release type
-      #   run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
       - name: Bundle clean and install
         run: bundle install --path vendor/bundle --clean
       - name: Install xcode - required to set xcode to v13
         run: gem install xcode-install
       - name: Pod clean and install
         run: |
-          cd ios && pod install --clean-install
-      # - name: Generate fastlane certificates
-      #   run: yarn fastlane:ios:certificates
-      # - name: Fastlane ios release WITH NODE v14.17.0
-      #   run: |
-      #     set +e
-      #     export NVM_DIR="/opt/github/.nvm"
-      #     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      #     nvm install v14.17.0
-      #     npm install -g yarn
-      #     yarn fastlane:ios:release env:$RELEASE_TYPE
-      # - name: Upload build
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: staging-ios-build
-      #     path: ~/covid-react/build
+          cd ios && pod install --clean-install && cd ..
