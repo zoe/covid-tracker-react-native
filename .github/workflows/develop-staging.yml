@@ -115,8 +115,8 @@ jobs:
         run: gem install bundler
       - name: Install gems
         run: |
-        bundle config path vendor/bundle
-        bundle check || bundle install --path vendor/bundle --clean
+          bundle config path vendor/bundle
+          bundle check || bundle install --path vendor/bundle --clean
         env:
           BUNDLE_JOBS: '4'
           BUNDLE_RETRY: '3'
