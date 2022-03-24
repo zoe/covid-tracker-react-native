@@ -157,12 +157,9 @@ export class AssessmentCoordinator extends Coordinator {
   // At some point, we want to break from this pattern and read from Redux state instead - will depend on what Assessment flow v1 looks like
   startAssessmentFromTestsInProfile = () => {
     const currentPatient = this.patientData?.patientState;
-    const config = localisationService.getConfig();
     this.assessmentService.initAssessment(this.patientData.patientState.patientId);
 
-    if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
-      NavigatorService.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
-    } else if (currentPatient.isHealthWorker) {
+    if (currentPatient.isHealthWorker) {
       NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
     } else {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
