@@ -100,20 +100,24 @@ jobs:
         shell: bash
         run: .github/install_private_assets.sh
       # Bundler install
-      - name: Restore packages from cache - bundler
-        uses: actions/cache@v2
+      - uses: ruby/setup-ruby@v1
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-bundler-
-      - name: Install bundler
-        run: gem install bundler
-      - name: Install gems
-        run: bundle check || bundle install --path vendor/bundle --clean
-        env:
-          BUNDLE_JOBS: '4'
-          BUNDLE_RETRY: '3'
+          ruby-version: 2.6
+          bundler-cache: true
+      # - name: Restore packages from cache - bundler
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: vendor/bundle
+      #     key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-bundler-
+      # - name: Install bundler
+      #   run: gem install bundler
+      # - name: Install gems
+      #   run: bundle check || bundle install --path vendor/bundle --clean
+      #   env:
+      #     BUNDLE_JOBS: '4'
+      #     BUNDLE_RETRY: '3'
       # Node install
       - name: Set up Node environment
         uses: actions/setup-node@v2
@@ -162,6 +166,7 @@ jobs:
         run: gem install xcode-install
       - name: Pod clean and install
         run: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData/*
           cd ios && rm -rf Pods
           cd ios && pod install --clean-install
       - name: Generate fastlane certificates
