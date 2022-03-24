@@ -14,6 +14,12 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
+      - name: Install private assets
+        shell: bash
+        run: .github/install_private_assets.sh
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6
