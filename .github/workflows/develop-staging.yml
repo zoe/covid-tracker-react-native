@@ -148,20 +148,20 @@ jobs:
             ${{ runner.os }}-pods-
       - name: Install node modules
         run: yarn install --immutable
-      # - name: Bundle RN Android assets
-      #   run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
-      # - name: Clean up after bundling
-      #   run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
+      - name: Bundle RN Android assets
+        run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+      - name: Clean up after bundling
+        run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
 
       # -----> Adhoc iOS <-----
-      # - name: Prepare deploy environment
-      #   run: |
-      #     bundle update fastlane
-      #     bundle exec fastlane update_plugins
-      #     bash .github/make_deploy_env.sh
-      #     yarn generate:git-hash
-      # - name: Debug - Echo release type
-      #   run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
+      - name: Prepare deploy environment
+        run: |
+          bundle update fastlane
+          bundle exec fastlane update_plugins
+          bash .github/make_deploy_env.sh
+          yarn generate:git-hash
+      - name: Debug - Echo release type
+        run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
       - name: Bundle clean and install
         run: bundle install --path vendor/bundle --clean
       - name: Install xcode - required to set xcode to v13
