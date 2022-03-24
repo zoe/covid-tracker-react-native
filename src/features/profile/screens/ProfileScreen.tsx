@@ -57,8 +57,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
 
   const initAssessmentCoordAndGoToCovidTests = React.useCallback(() => {
     Analytics.track(events.PROFILE_COVID_TESTS_CARD_CLICKED);
-    // Important: this kicks off the logic around backdating profiles etc.
-    coordinator.startAssessmentFlow(currentPatient);
+    coordinator.startAssessmentFlowThroughTestsInProfile(currentPatient);
   }, [coordinator, currentPatient]);
 
   const initAssessmentCoordAndGoToVaccines = React.useCallback(() => {

@@ -152,16 +152,27 @@ export class AssessmentCoordinator extends Coordinator {
     }
   };
 
-  // only for assessment v0
-  startAssessmentFromVaccines = () => {
+  // Only initiated from profile tab, not daily reporting flow
+  // Note: cannot use startAssessment method because the class instance is not updated in time for brand new user signups
+  // At some point, we want to break from this pattern and read from Redux state instead - will depend on what Assessment flow v1 looks like
+  startAssessmentFromTestsInProfile = () => {
     const currentPatient = this.patientData?.patientState;
+    const config = localisationService.getConfig();
     this.assessmentService.initAssessment(this.patientData.patientState.patientId);
 
-    if (currentPatient.hasCompletedPatientDetails) {
-      NavigatorService.navigate('VaccineList', { assessmentData: this.assessmentData });
+    if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
+      NavigatorService.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
+    } else if (currentPatient.isHealthWorker) {
+      NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
     } else {
-      this.appCoordinator.startPatientFlow(this.patientData);
+      NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     }
+  };
+
+  // Only initiated from profile tab, not daily reporting flow
+  startAssessmentFromVaccines = () => {
+    this.assessmentService.initAssessment(this.patientData.patientState.patientId);
+    NavigatorService.navigate('VaccineList', { assessmentData: this.assessmentData });
   };
 
   gotoEndAssessment = async () => {
