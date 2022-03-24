@@ -174,13 +174,20 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     patientCoordinator.startPatient();
   };
 
+  // Only initiated from daily reporting flow
   startAssessmentFlow = async (patientData: TPatientData) => {
     // TODO: Does not need to be async
     assessmentCoordinator.init(this, { patientData }, assessmentService);
     assessmentCoordinator.startAssessment();
   };
 
-  // only for assessment v0
+  // Only initiated from profile tab, not daily reporting flow
+  startAssessmentFlowThroughTestsInProfile = async (patientData: TPatientData) => {
+    assessmentCoordinator.init(this, { patientData }, assessmentService);
+    assessmentCoordinator.startAssessmentFromTestsInProfile();
+  };
+
+  // Only initiated from profile tab, not daily reporting flow
   startAssessmentFlowThroughVaccines = async (patientData: TPatientData) => {
     assessmentCoordinator.init(this, { patientData }, assessmentService);
     assessmentCoordinator.startAssessmentFromVaccines();

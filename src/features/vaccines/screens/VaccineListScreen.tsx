@@ -163,6 +163,8 @@ export const VaccineListScreen: React.FC<TProps> = (props) => {
 
       const shouldAskDoseSymptoms = !!doseId;
       assessmentCoordinator.goToProfileTabOrAdverseEffects({ dose: doseId, shouldAskDoseSymptoms });
+    } else {
+      NavigatorService.goBack();
     }
   };
 
