@@ -167,9 +167,9 @@ jobs:
       - name: Install xcode - required to set xcode to v13
         run: gem install xcode-install
       - name: Pod clean and install
+        # rm -rf ~/Library/Developer/Xcode/DerivedData/*
+        # cd ios && rm -rf Pods
         run: |
-          rm -rf ~/Library/Developer/Xcode/DerivedData/*
-          cd ios && rm -rf Pods
           cd ios && pod install --clean-install
       - name: Generate fastlane certificates
         run: yarn fastlane:ios:certificates
