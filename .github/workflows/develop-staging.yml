@@ -31,9 +31,9 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-      # - name: Install node modules
-      #   run: yarn install --immutable
-      # - name: Bundle RN Android assets
+      - name: Install node modules
+        run: yarn install --immutable
+      #- name: Bundle RN Android assets
       #   run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       # - name: Clean up after bundling
       #   run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
