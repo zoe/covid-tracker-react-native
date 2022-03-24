@@ -1,4 +1,5 @@
 import Analytics from '@covid/core/Analytics';
+import analytics from '@react-native-firebase/analytics';
 import { TScreenName } from '@covid/core/Coordinator';
 import { TScreenParamList } from '@covid/routes/types';
 import {
@@ -65,6 +66,15 @@ function handleStateChange() {
 
     if (newRouteName) {
       if (previousRouteName !== newRouteName) {
+        analytics()
+          .logScreenView({
+            screen_class: currentRouteName,
+            screen_name: currentRouteName,
+          })
+          .then(() => {})
+          .catch((e) => {
+            console.log(e);
+          });
         Analytics.trackScreenView(newRouteName);
       }
       currentRouteName = newRouteName;
