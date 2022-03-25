@@ -142,7 +142,7 @@ jobs:
         with:
           path: |
             ios/Pods
-            ~/Library/Caches/CocoaPods
+            ~/Library/Caches/CocoaPods/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
@@ -158,10 +158,16 @@ jobs:
         run: |
           bundle update fastlane
           bundle exec fastlane update_plugins
-          bash .github/make_deploy_env.sh
-          yarn generate:git-hash
+        - name: Make deploy environment
+          shell: bash
+          run: .github/make_deploy_env.sh
+        run: yarn generate:git-hash
+        env:
+          RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
       - name: Debug - Echo release type
         run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
+        env:
+          RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
       - name: Bundle clean and install
         run: bundle install --path vendor/bundle --clean
       - name: Install xcode - required to set xcode to v13
