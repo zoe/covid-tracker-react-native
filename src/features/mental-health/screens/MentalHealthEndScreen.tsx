@@ -1,6 +1,5 @@
 import { Done, SimpleShare, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
-import { events } from '@covid/core/Analytics';
 import { selectMentalHealthState, setCompleted } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -39,11 +38,7 @@ export default function MentalHealthEndScreen() {
       <Text rhythm={24} textAlign="center" textClass="pLight">
         {i18n.t('mental-health.end-1')}
       </Text>
-      <SimpleShare
-        shareMessage={i18n.t('mental-health.share-message')}
-        title={i18n.t('mental-health.share')}
-        trackEvent={events.MENTAL_HEALTH_SHARED}
-      />
+      <SimpleShare shareMessage={i18n.t('mental-health.share-message')} title={i18n.t('mental-health.share')} />
     </Screen>
   );
 }

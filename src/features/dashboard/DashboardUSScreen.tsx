@@ -4,7 +4,6 @@ import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PartnerLogoUSDash } from '@covid/components/logos/PartnerLogo';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import AnalyticsService, { events } from '@covid/core/Analytics';
 import { updateTodayDate } from '@covid/core/state/content/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
@@ -58,7 +57,6 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
   const expandedHeader = React.useMemo(() => <ExpandedHeader onPress={onPressReport} />, []);
 
   const onPressDietStudy = React.useCallback(() => {
-    AnalyticsService.track(events.DIET_STUDY_PLAYBACK_CLICKED);
     appCoordinator.goToDietStudy();
   }, []);
 

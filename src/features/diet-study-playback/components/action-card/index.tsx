@@ -1,5 +1,4 @@
 import { ActionCard, Icon, Text } from '@covid/components';
-import Analytics from '@covid/core/Analytics';
 import { selectSettings, setEmailSubscription } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { sizes, useTheme } from '@covid/themes';
@@ -20,11 +19,6 @@ function DietStudyActionCard() {
   };
 
   const handleOnPress = () => {
-    Analytics.track(
-      settings.hasEmailSubscription
-        ? Analytics.events.DIET_STUDY_EMAIL_UNSUBSCRIBED
-        : Analytics.events.DIET_STUDY_EMAIL_SUBSCRIBED,
-    );
     dispatch(setEmailSubscription(!settings.hasEmailSubscription));
   };
 
