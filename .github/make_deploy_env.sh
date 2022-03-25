@@ -24,6 +24,8 @@ EXPO_ANDROID_MANIFEST_TEMPLATE=$EXPO_ANDROID_MANIFEST_FOLDER/AndroidManifest.tem
 COVID_IOS_APP_ID=com.joinzoe.covid-zoe
 COVID_ANDROID_APP_ID=com.joinzoe.covid_zoe
 
+echo 'RELEASE_TYPE_in_script:' $RELEASE_TYPE
+
 echo "NAME=$NAME" > .env
 echo "API_URL=$API_URL" >> .env
 echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
