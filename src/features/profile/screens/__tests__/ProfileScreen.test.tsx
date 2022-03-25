@@ -11,7 +11,7 @@ import { ProfileScreen } from '../ProfileScreen';
 jest.mock('@covid/features/AppCoordinator', () => {
   return {
     appCoordinator: {
-      startAssessmentFlow: jest.fn(),
+      startAssessmentFlowThroughTestsInProfile: jest.fn(),
       startAssessmentFlowThroughVaccines: jest.fn(),
       startEditProfileNoRedirect: jest.fn(),
     },
@@ -33,7 +33,8 @@ jest.mock('@covid/NavigatorService', () => {
   };
 });
 
-const startAssessmentFlowMock = require('@covid/features/AppCoordinator').appCoordinator.startAssessmentFlow;
+const startAssessmentFlowTestsFromProfileMock = require('@covid/features/AppCoordinator').appCoordinator
+  .startAssessmentFlowThroughTestsInProfile;
 const startAssessmentFlowVaccinesMock = require('@covid/features/AppCoordinator').appCoordinator
   .startAssessmentFlowThroughVaccines;
 const editLocationMock = require('@covid/features/multi-profile/edit-profile/EditProfileCoordinator')
@@ -43,7 +44,7 @@ const editProfileOtherMock = require('@covid/features/multi-profile/edit-profile
 const navigateMock = require('@covid/NavigatorService').navigate;
 
 beforeEach(() => {
-  startAssessmentFlowMock.mockClear();
+  startAssessmentFlowTestsFromProfileMock.mockClear();
   startAssessmentFlowVaccinesMock.mockClear();
   editLocationMock.mockClear();
   editProfileOtherMock.mockClear();
@@ -87,7 +88,7 @@ describe('Profile Screen tests', () => {
     await act(async () => {
       const card = renderAPI.getByText('COVID-19 tests');
       await fireEvent.press(card);
-      expect(startAssessmentFlowMock).toHaveBeenCalledWith(currentPatient);
+      expect(startAssessmentFlowTestsFromProfileMock).toHaveBeenCalledWith(currentPatient);
     });
   });
 

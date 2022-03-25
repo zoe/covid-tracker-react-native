@@ -1,6 +1,5 @@
 import { Text } from '@covid/components';
 import { ESharable } from '@covid/components/screens/share/types';
-import Analytics, { events } from '@covid/core/Analytics';
 import { sizes } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
@@ -18,7 +17,6 @@ export default function TimelineFooter() {
         accessible
         accessibilityRole="button"
         onPress={() => {
-          Analytics.track(events.ANNIVERSARY_SHARE);
           navigate('Share', { label, sharable: ESharable.TIMELINE });
         }}
         style={styles.button}

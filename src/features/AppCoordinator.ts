@@ -1,4 +1,4 @@
-import Analytics, { events } from '@covid/core/Analytics';
+import Analytics from '@covid/core/Analytics';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TConfigType } from '@covid/core/Config';
 import { ConsentService } from '@covid/core/consent/ConsentService';
@@ -147,10 +147,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
         this.goToVersionUpdateModal();
       }
     }
-
-    if (this.shouldShowCountryPicker) {
-      Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
-    }
   }
 
   async fetchInitialData(): Promise<void> {
@@ -178,13 +174,20 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     patientCoordinator.startPatient();
   };
 
+  // Only initiated from daily reporting flow
   startAssessmentFlow = async (patientData: TPatientData) => {
     // TODO: Does not need to be async
     assessmentCoordinator.init(this, { patientData }, assessmentService);
     assessmentCoordinator.startAssessment();
   };
 
-  // only for assessment v0
+  // Only initiated from profile tab, not daily reporting flow
+  startAssessmentFlowThroughTestsInProfile = async (patientData: TPatientData) => {
+    assessmentCoordinator.init(this, { patientData }, assessmentService);
+    assessmentCoordinator.startAssessmentFromTestsInProfile();
+  };
+
+  // Only initiated from profile tab, not daily reporting flow
   startAssessmentFlowThroughVaccines = async (patientData: TPatientData) => {
     assessmentCoordinator.init(this, { patientData }, assessmentService);
     assessmentCoordinator.startAssessmentFromVaccines();

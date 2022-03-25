@@ -1,5 +1,4 @@
 import { BrandedButton, Text } from '@covid/components';
-import Analytics, { events } from '@covid/core/Analytics';
 import { patientService } from '@covid/core/patient/PatientService';
 import { fetchStartupInfo } from '@covid/core/state/content/slice';
 import { resetFeedback, selectFeedbackData, selectReturnScreenName } from '@covid/core/state/reconsent';
@@ -37,14 +36,12 @@ export default function ReconsentReconsiderScreen(props: IProps) {
   const videoHeight = videoWidth / VIDEO_RATIO;
 
   function onPressPositive() {
-    Analytics.track(events.RECONSENT_RECONSIDER_CLICKED);
     props.navigation.navigate('ReconsentRequestConsent');
     setHideVideo(true);
   }
 
   async function onPressNegative() {
     setLoading(true);
-    Analytics.track(events.RECONSENT_CONFIRMED_NO_CLICKED);
 
     try {
       await generalApiClient.postUserEvent('feedback_reconsent', feedbackData);
