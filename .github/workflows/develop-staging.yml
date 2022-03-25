@@ -162,7 +162,27 @@ jobs:
         shell: bash
         run: .github/make_deploy_env.sh
         env:
+          GOOGLE_SERVICE_JSON: ${{ secrets.GOOGLE_SERVICE_JSON }}
+          KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
           RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
+          NAME: ${{ secrets.NAME }}
+          API_URL: ${{ secrets.API_URL }}
+          AMPLITUDE_KEY: ${{ secrets.AMPLITUDE_KEY }}
+          SENTRY_DSN_URL: ${{ secrets.SENTRY_DSN_URL }}
+          SENTRY_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+          SENTRY_PROPERTIES: ${{ secrets.SENTRY_PROPERTIES }}
+          APPCENTER_API_TOKEN: ${{ secrets.APPCENTER_API_TOKEN }}
+          APPCENTER_ANDROID_TOKEN: ${{ secrets.APPCENTER_ANDROID_TOKEN }}
+          APPCENTER_IOS_PROJECT_NAME: ${{ secrets.APPCENTER_IOS_PROJECT_NAME }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+          iOS_SCHEME: ${{ secrets.iOS_SCHEME }}
+          iOS_APP_ID: ${{ secrets.iOS_APP_ID }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+
       - run: yarn generate:git-hash
       - name: Debug - Echo release type
         run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
