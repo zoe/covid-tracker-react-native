@@ -194,4 +194,4 @@ jobs:
           name: staging-ios-build
           path: ./build
 
-      # -----> Adhoc Android <-----
+      # -----> Adhoc Android - doing this sequentially for now <-----
