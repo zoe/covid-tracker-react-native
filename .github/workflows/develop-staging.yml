@@ -158,6 +158,9 @@ jobs:
         run: |
           bundle update fastlane
           bundle exec fastlane update_plugins
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.IOS_CERTS_SSH_PRIVATE_KEY }}
       - name: Make deploy environment
         shell: bash
         run: .github/make_deploy_env.sh
@@ -204,9 +207,11 @@ jobs:
           set +e
           export NVM_DIR="/opt/github/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm install v14.17.0            
-          npm install -g yarn 
+          nvm install v14.17.0
+          npm install -g yarn
           yarn fastlane:ios:release env:$RELEASE_TYPE
+        env:
+          RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
       - name: Upload build
         uses: actions/upload-artifact@v3
         with:
