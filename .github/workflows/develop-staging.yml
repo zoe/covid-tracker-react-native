@@ -158,12 +158,12 @@ jobs:
         run: |
           bundle update fastlane
           bundle exec fastlane update_plugins
-        - name: Make deploy environment
-          shell: bash
-          run: .github/make_deploy_env.sh
-        run: yarn generate:git-hash
+      - name: Make deploy environment
+        shell: bash
+        run: .github/make_deploy_env.sh
         env:
           RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
+      - run: yarn generate:git-hash
       - name: Debug - Echo release type
         run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
         env:
