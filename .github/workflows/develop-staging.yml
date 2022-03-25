@@ -100,17 +100,17 @@ jobs:
         shell: bash
         run: .github/install_private_assets.sh
       # Ruby setup
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.6
-          bundler-cache: true
-      # - name: Restore packages from cache - bundler
-      #   uses: actions/cache@v2
+      # - uses: ruby/setup-ruby@v1
       #   with:
-      #     path: vendor/bundle
-      #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-gems-
+      #     ruby-version: 2.6
+      # bundler-cache: true
+      - name: Restore packages from cache - bundler
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
       - name: Install bundler
         run: gem install bundler
       - name: Install gems
@@ -193,8 +193,8 @@ jobs:
         run: echo 'RELEASE_TYPE:' $RELEASE_TYPE
         env:
           RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
-      # - name: Bundle clean and install
-      #   run: bundle install --path vendor/bundle --clean
+      - name: Bundle clean and install
+        run: bundle install --path vendor/bundle --clean
       - name: Install xcode - required to set xcode to v13
         run: gem install xcode-install
       - name: Pod clean and install
