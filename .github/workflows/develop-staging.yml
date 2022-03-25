@@ -111,15 +111,15 @@ jobs:
       #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
       #     restore-keys: |
       #       ${{ runner.os }}-gems-
-      # - name: Install bundler
-      #   run: gem install bundler
-      # - name: Install gems
-      #   run: |
-      #     bundle config path vendor/bundle
-      #     bundle check || bundle install --path vendor/bundle --clean
-      #   env:
-      #     BUNDLE_JOBS: '4'
-      #     BUNDLE_RETRY: '3'
+      - name: Install bundler
+        run: gem install bundler
+      - name: Install gems
+        run: |
+          bundle config path vendor/bundle
+          bundle check || bundle install --path vendor/bundle --clean
+        env:
+          BUNDLE_JOBS: '4'
+          BUNDLE_RETRY: '3'
       # Node install
       - name: Set up Node environment
         uses: actions/setup-node@v2
