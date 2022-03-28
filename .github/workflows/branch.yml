@@ -52,17 +52,7 @@ jobs:
       - name: Install node modules if cache not present
         run: yarn install --immutable
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-      # - name: Restore packages from cache - pods
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: |
-      #       ios/Pods
-      #       ~/Library/Caches/CocoaPods/Pods
-      #     key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pods-
 
-  # Prepare code and check linting
   lint:
     runs-on: ubuntu-latest
     needs: setup
@@ -92,7 +82,6 @@ jobs:
           name: lint-report
           path: ./reports
 
-  # # Prepare code and check i18n
   i18n:
     runs-on: ubuntu-latest
     needs: setup
@@ -112,19 +101,9 @@ jobs:
         with:
           path: node_modules
           key: yarn-${{ hashFiles('yarn.lock') }}
-      # - name: Restore packages from cache - pods
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: |
-      #       ios/Pods
-      #       ~/Library/Caches/CocoaPods/Pods
-      #     key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pods-
       - name: Check Swedish translations
         run: yarn test:i18n 'sv-SE'
 
-  # Prepare code and run tests
   test:
     runs-on: macos-latest
     needs: setup
@@ -139,23 +118,11 @@ jobs:
             .private-assets
             assets/fonts
           key: private-assets
-
-      # - run: echo "API_URL=" > .env
-      # - run: echo "AMPLITUDE_KEY=" >> .env
       - name: Restore node modules from cache
         uses: actions/cache@v3
         with:
           path: node_modules
           key: yarn-${{ hashFiles('yarn.lock') }}
-      # - name: Restore packages from cache - pods
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: |
-      #       ios/Pods
-      #       ~/Library/Caches/CocoaPods/Pods
-      #     key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pods-
       - name: Run tests with JUnit as reporter
         run: yarn test:coverage
         env:
