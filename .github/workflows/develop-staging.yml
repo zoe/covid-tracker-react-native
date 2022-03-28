@@ -261,10 +261,12 @@ jobs:
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
       - run: yarn generate:git-hash
       - run: bundle install --path vendor/bundle --clean && cat android/gradle.properties
-      - run:
-          name: Fastlane android release
-          no_output_timeout: 60m
-          command: |
-            ENVFILE=.env bundle exec fastlane android release env:$RELEASE_TYPE
-      - store_artifacts:
+      - name: Fastlane android release
+        run: ENVFILE=.env bundle exec fastlane android release env:$RELEASE_TYPE
+        env:
+          RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: staging-ios-build
           path: ./android/app/build/outputs
