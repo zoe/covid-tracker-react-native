@@ -198,8 +198,8 @@ jobs:
 
   deploy-stage-android-release:
     name: Staging Android app build and release
-    needs: deploy-stage-release
-    # runs-on: ubuntu-latest
+    # needs: deploy-stage-release
+    runs-on: ubuntu-latest
     container:
       image: docker://fabernovel/android:api-29-v1.1.0
     environment: staging-release
