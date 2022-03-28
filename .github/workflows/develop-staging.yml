@@ -105,12 +105,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
       - name: Install private assets
-        if: steps.cache-private-assets.outputs.cache-hit != 'true'
         shell: bash
         run: .github/install_private_assets.sh
+        if: steps.cache-private-assets.outputs.cache-hit != 'true'
       - name: Restore packages from cache - bundler
         id: cache-gems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -126,12 +126,15 @@ jobs:
           BUNDLE_JOBS: '4'
           BUNDLE_RETRY: '3'
       - name: Set up Node environment
-        id: cache-node
         uses: actions/setup-node@v2
+      - uses: actions/cache@v3
+        id: cache-node
         with:
-          cache: 'yarn'
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
       - name: Install node modules
         run: yarn install --immutable
+        if: steps.cache-node.outputs.cache-hit != 'true'
       # - name: Restore packages from cache - pods
       #   uses: actions/cache@v2
       #   with:
@@ -223,18 +226,30 @@ jobs:
       # - name: Install private assets
       #   shell: bash
       #   run: .github/install_private_assets.sh
+      - name: Cache private assets
+        uses: actions/cache@v3
+        with:
+          path: |
+            .private-assets
+            assets/fonts
+          key: ${{ runner.os }}-private-assets
       - name: Restore packages from cache - gems
-        if: steps.cache-gems.outputs.cache-hit != 'true'
         run: |
           gem install bundler
           bundle config path vendor/bundle clean 'true'
           bundle check || bundle install
+        if: steps.cache-gems.outputs.cache-hit != 'true'
         env:
           BUNDLE_JOBS: '4'
           BUNDLE_RETRY: '3'
       - name: Restore packages from cache - node
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: yarn install --immutable
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+      # - name: Install node modules
+      #   run: yarn install --immutable
+      #   if: steps.cache-node.outputs.cache-hit != 'true'
       - name: Bundle RN Android assets
         run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       - name: Clean up after bundling
