@@ -1,6 +1,5 @@
 import { RightArrow } from '@assets';
 import { Text } from '@covid/components/typography';
-import Analytics, { events } from '@covid/core/Analytics';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
@@ -30,7 +29,6 @@ export function EstimatedCaseCard({
   description,
 }: IProps) {
   const onPress = () => {
-    Analytics.track(events.ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED);
     ctaOnPress();
   };
 
