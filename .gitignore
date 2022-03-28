@@ -1,6 +1,7 @@
 node_modules/**/*
 .env*
 !.env.template
+!.env.storybook
 .expo/*
 .bin/*
 npm-debug.*

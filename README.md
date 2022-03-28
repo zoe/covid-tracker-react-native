@@ -109,6 +109,14 @@ yarn ios
 yarn android
 ```
 
+### Build & Run with Storybook
+
+```sh
+yarn storybook-ui
+```
+
+NOTE: if the storybook screen or web UI does not appear correctly on the simulator/web, please try reload the app.
+
 ## Tests
 
 Run unit & integration tests
