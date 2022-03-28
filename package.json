@@ -51,7 +51,9 @@
     "test:i18n": "ts-node --transpile-only ./scripts/i18n-check-locale.ts",
     "test:updateSnapshots": "jest -u",
     "test:watch": "jest --watch",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "storybook": "start-storybook -p 7007",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.15.0",
@@ -102,7 +104,7 @@
     "react-dom": "16.13.1",
     "react-native": "0.65.1",
     "react-native-calendar-picker": "7.1.2",
-    "react-native-config": "1.4.4",
+    "react-native-config": "^1.4.5",
     "react-native-easy-markdown": "2.0.0",
     "react-native-fast-image": "8.3.4",
     "react-native-gesture-handler": "1.10.2",
@@ -136,6 +138,14 @@
   },
   "devDependencies": {
     "@babel/core": "7.12.9",
+    "@react-native-community/async-storage": "^1.12.1",
+    "@storybook/addon-actions": "^5.3",
+    "@storybook/addon-knobs": "^5.3",
+    "@storybook/addon-links": "^5.3",
+    "@storybook/addon-ondevice-actions": "^5.3.23",
+    "@storybook/addon-ondevice-knobs": "^5.3.25",
+    "@storybook/react-native": "^5.3.25",
+    "@storybook/react-native-server": "^5.3.23",
     "@testing-library/react-native": "7.2.0",
     "@types/body-parser": "1.19.0",
     "@types/deep-diff": "1.0.1",
@@ -156,6 +166,7 @@
     "@typescript-eslint/parser": "4.22.1",
     "axios-mock-adapter": "1.19.0",
     "babel-jest": "26.6.3",
+    "babel-loader": "^8.2.4",
     "babel-preset-expo": "8.4.1",
     "body-parser": "1.19.0",
     "child_process": "1.0.2",
