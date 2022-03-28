@@ -58,17 +58,6 @@ jobs:
       - name: Install node modules if cache not present
         run: yarn install --immutable
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-      # - name: Cache pods
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: |
-      #       ios/Pods
-      #       ~/Library/Caches/CocoaPods/Pods
-      #     key: pods-${{ hashFiles('**/Podfile.lock') }}
-      # - name: Bundle RN Android assets
-      #   run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
-      # - name: Clean up after bundling
-      #   run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
       - name: Prepare deploy environment
         run: |
           bundle update fastlane
@@ -84,11 +73,13 @@ jobs:
         run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${{ env.RELEASE_CHANNEL }} --target bare
 
   # Publish app for internal testing
-  # - App Center distribution (with approval)
-  # |-- iOS / Android Release to App Center
-  # |-- Message slack message on App Center upload successful
+  # - App Center distribution
+  # - Step 1: Setup staging app build (approval needed)
+  # - Step 2a: iOS build and release (approval needed)
+  # - Step 2b: Android build and release (approval needed)
+
   setup-stage-release:
-    name: Staging app build and release
+    name: Setup staging app build
     runs-on: macos-latest
     environment: staging-build-setup
     timeout-minutes: 45
@@ -198,8 +189,8 @@ jobs:
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
       - run: yarn generate:git-hash
-      - name: Install xcode - required to set xcode to v13
-        run: gem install xcode-install
+      # - name: Install xcode - required to set xcode to v13
+      #   run: gem install xcode-install
       - name: Pod clean and install
         # rm -rf ~/Library/Developer/Xcode/DerivedData/*
         # cd ios && rm -rf Pods
