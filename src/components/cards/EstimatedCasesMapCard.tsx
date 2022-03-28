@@ -1,7 +1,6 @@
 import { BrandedButton, ShareButton } from '@covid/components/buttons';
 import { Text } from '@covid/components/typography';
 import { WebView } from '@covid/components/WebView';
-import Analytics, { events } from '@covid/core/Analytics';
 import { TCoordinates, TPersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { patientService } from '@covid/core/patient/PatientService';
 import { TRootState } from '@covid/core/state/root';
@@ -29,16 +28,6 @@ interface IEmptyViewProps {
   onPress: VoidFunction;
 }
 
-enum EMapEventOrigin {
-  Arrow = 'arrow',
-  Map = 'map',
-}
-
-enum EMapType {
-  Carto = 'carto',
-  ImageAsset = 'image_asset',
-}
-
 function EmptyView({ onPress, ...props }: IEmptyViewProps) {
   const [html, setHtml] = React.useState<string>('');
 
@@ -55,7 +44,6 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
   const root = showCartoMap ? { paddingTop: 0 } : {};
 
   const showMap = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: EMapEventOrigin.Map });
     NavigatorService.navigate('EstimatedCases');
   };
 
@@ -65,7 +53,6 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
     let isMounted = true;
     const runAsync = async () => {
       try {
-        Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
         const data = await loadEstimatedCasesCartoMap();
         if (isMounted) {
           setHtml(data);
@@ -156,7 +143,6 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
     // Use carto map if map url is not avaliable
     const hasMapUrl = !!localData?.mapUrl;
     setUseCartoMap(!hasMapUrl);
-    Analytics.track(events.ESTIMATED_CASES_MAP_SHOWN, { type: hasMapUrl ? EMapType.ImageAsset : EMapType.Carto });
 
     // Show empty state if data is missing
     if (!localData) {
@@ -182,7 +168,6 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
 
   React.useEffect(() => {
     let isMounted = true;
-    Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
     (async () => {
       try {
         if (isMounted) {
@@ -236,12 +221,10 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
   };
 
   const share = async () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_SHARE_CLICKED);
     navigate('Share', { sharable: ESharable.MAP });
   };
 
   const onMapTapped = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: EMapEventOrigin.Map });
     NavigatorService.navigate('EstimatedCases');
   };
 
