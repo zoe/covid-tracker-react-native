@@ -100,6 +100,7 @@ jobs:
         shell: bash
         run: .github/install_private_assets.sh
       - name: Restore packages from cache - bundler
+        id: cache-gems
         uses: actions/cache@v2
         with:
           path: vendor/bundle
@@ -116,6 +117,7 @@ jobs:
           BUNDLE_JOBS: '4'
           BUNDLE_RETRY: '3'
       - name: Set up Node environment
+        id: cache-node
         uses: actions/setup-node@v2
         with:
           cache: 'yarn'
@@ -130,19 +132,109 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
+      # - name: Bundle RN Android assets
+      #   run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+      # - name: Clean up after bundling
+      #   run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
+
+      # -----> Adhoc iOS <-----
+      # - name: Prepare deploy environment
+      #   run: |
+      #     bundle update fastlane
+      #     bundle exec fastlane update_plugins
+      # - uses: webfactory/ssh-agent@v0.5.4
+      #   with:
+      #     ssh-private-key: ${{ secrets.IOS_CERTS_SSH_PRIVATE_KEY }}
+      # - name: Make deploy environment
+      #   shell: bash
+      #   run: .github/make_deploy_env.sh
+      #   env:
+      #     GOOGLE_SERVICE_JSON: ${{ secrets.GOOGLE_SERVICE_JSON }}
+      #     KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
+      #     RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
+      #     NAME: ${{ secrets.NAME }}
+      #     API_URL: ${{ secrets.API_URL }}
+      #     AMPLITUDE_KEY: ${{ secrets.AMPLITUDE_KEY }}
+      #     SENTRY_DSN_URL: ${{ secrets.SENTRY_DSN_URL }}
+      #     SENTRY_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+      #     SENTRY_PROPERTIES: ${{ secrets.SENTRY_PROPERTIES }}
+      #     APPCENTER_API_TOKEN: ${{ secrets.APPCENTER_API_TOKEN }}
+      #     APPCENTER_ANDROID_TOKEN: ${{ secrets.APPCENTER_ANDROID_TOKEN }}
+      #     APPCENTER_IOS_PROJECT_NAME: ${{ secrets.APPCENTER_IOS_PROJECT_NAME }}
+      #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      #     FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+      #     FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+      #     iOS_SCHEME: ${{ secrets.iOS_SCHEME }}
+      #     iOS_APP_ID: ${{ secrets.iOS_APP_ID }}
+      #     KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      #     KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+      #     KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+
+      # - run: yarn generate:git-hash
+      # - name: Install xcode - required to set xcode to v13
+      #   run: gem install xcode-install
+      # - name: Pod clean and install
+      #   # rm -rf ~/Library/Developer/Xcode/DerivedData/*
+      #   # cd ios && rm -rf Pods
+      #   run: |
+      #     cd ios && pod install --clean-install
+      # - name: Generate fastlane certificates
+      #   run: yarn fastlane:ios:certificates
+      # - name: Fastlane ios release WITH NODE v14.17.0
+      #   run: |
+      #     set +e
+      #     export NVM_DIR="/opt/github/.nvm"
+      #     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+      #     nvm install v14.17.0
+      #     npm install -g yarn
+      #     yarn fastlane:ios:release env:$RELEASE_TYPE
+      #   env:
+      #     RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
+      # - name: Upload build
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: staging-ios-build
+      #     path: ./build
+
+  deploy-stage-android-release:
+    name: Staging Android app build and release
+    needs: deploy-stage-release
+    runs-on: macos-latest
+    container:
+      image: docker://fabernovel/android:api-29-v1.1.0
+    environment: staging-release
+    timeout-minutes: 30
+    steps:
+      # -----> Adhoc Android - doing this sequentially for now <-----
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
+      - name: Install private assets
+        shell: bash
+        run: .github/install_private_assets.sh
+      - name: Restore packages from cache - gems
+        if: steps.cache-gems.outputs.cache-hit != 'true'
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle clean 'true'
+          bundle check || bundle install
+        env:
+          BUNDLE_JOBS: '4'
+          BUNDLE_RETRY: '3'
+      - name: Restore packages from cache - node
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: yarn install --immutable
       - name: Bundle RN Android assets
         run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       - name: Clean up after bundling
         run: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
 
-      # -----> Adhoc iOS <-----
       - name: Prepare deploy environment
         run: |
           bundle update fastlane
           bundle exec fastlane update_plugins
-      - uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.IOS_CERTS_SSH_PRIVATE_KEY }}
       - name: Make deploy environment
         shell: bash
         run: .github/make_deploy_env.sh
@@ -167,31 +259,12 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-
       - run: yarn generate:git-hash
-      - name: Install xcode - required to set xcode to v13
-        run: gem install xcode-install
-      - name: Pod clean and install
-        # rm -rf ~/Library/Developer/Xcode/DerivedData/*
-        # cd ios && rm -rf Pods
-        run: |
-          cd ios && pod install --clean-install
-      - name: Generate fastlane certificates
-        run: yarn fastlane:ios:certificates
-      - name: Fastlane ios release WITH NODE v14.17.0
-        run: |
-          set +e
-          export NVM_DIR="/opt/github/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm install v14.17.0
-          npm install -g yarn
-          yarn fastlane:ios:release env:$RELEASE_TYPE
-        env:
-          RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
-      - name: Upload build
-        uses: actions/upload-artifact@v3
-        with:
-          name: staging-ios-build
-          path: ./build
-
-      # -----> Adhoc Android - doing this sequentially for now <-----
+      - run: bundle install --path vendor/bundle --clean && cat android/gradle.properties
+      - run:
+          name: Fastlane android release
+          no_output_timeout: 60m
+          command: |
+            ENVFILE=.env bundle exec fastlane android release env:$RELEASE_TYPE
+      - store_artifacts:
+          path: ./android/app/build/outputs
