@@ -65,7 +65,7 @@ export function TestingModeScreen() {
   return startupInfo ? (
     <Screen backgroundColor={colors.backgroundPrimary} testID="testing-mode-screen">
       <Text rhythm={24} textClass="h3Bold">
-        Welcome Tester. Choose your experience.
+        Welcome Tester.
       </Text>
       <Text rhythm={24} textClass="h5Medium">
         Git hash: {gitHash.substring(0, 10)}
