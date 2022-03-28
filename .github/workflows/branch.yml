@@ -127,6 +127,7 @@ jobs:
   # Prepare code and run tests
   test:
     runs-on: macos-latest
+    needs: setup
     timeout-minutes: 20
     steps:
       - name: Check out Git repository
