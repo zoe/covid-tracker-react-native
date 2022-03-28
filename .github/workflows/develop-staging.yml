@@ -72,17 +72,19 @@ jobs:
       - name: Expo OTA publish
         run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${{ env.RELEASE_CHANNEL }} --target bare
 
+  #
   # Publish app for internal testing
   # - App Center distribution
-  # - Step 1: Setup staging app build (approval needed)
-  # - Step 2a: iOS build and release (approval needed)
-  # - Step 2b: Android build and release (approval needed)
+  # |-- Step 1: Setup staging app build (approval needed)
+  #   |-- Step 2a: iOS build and release (approval needed)
+  #   |-- Step 2b: Android build and release (approval needed)
+  #
 
   setup-stage-release:
     name: Setup staging app build
     runs-on: macos-latest
     environment: staging-build-setup
-    timeout-minutes: 45
+    timeout-minutes: 15
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
@@ -189,8 +191,6 @@ jobs:
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
       - run: yarn generate:git-hash
-      # - name: Install xcode - required to set xcode to v13
-      #   run: gem install xcode-install
       - name: Pod clean and install
         # rm -rf ~/Library/Developer/Xcode/DerivedData/*
         # cd ios && rm -rf Pods
