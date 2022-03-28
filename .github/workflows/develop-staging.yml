@@ -100,7 +100,7 @@ jobs:
           path: |
             .private-assets
             assets/fonts
-          key: ${{ runner.os }}-private-assets
+          key: private-assets
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
@@ -113,9 +113,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          key: gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gems-
+            gems-
       - name: Install bundler
         run: gem install bundler
       - name: Install gems
@@ -131,7 +131,7 @@ jobs:
         id: cache-node
         with:
           path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          key: yarn-${{ hashFiles('yarn.lock') }}
       - name: Install node modules
         run: yarn install --immutable
         if: steps.cache-node.outputs.cache-hit != 'true'
@@ -232,7 +232,7 @@ jobs:
           path: |
             .private-assets
             assets/fonts
-          key: ${{ runner.os }}-private-assets
+          key: private-assets
       - name: Restore packages from cache - gems
         run: |
           gem install bundler
@@ -246,7 +246,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          key: yarn-${{ hashFiles('yarn.lock') }}
       # - name: Install node modules
       #   run: yarn install --immutable
       #   if: steps.cache-node.outputs.cache-hit != 'true'
