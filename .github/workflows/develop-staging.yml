@@ -192,17 +192,17 @@ jobs:
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
       - run: yarn generate:git-hash
       - name: Pod clean and install
-        run: |
-          cd ios && pod install --clean-install
+        run: cd ios && pod install --clean-install
       - name: Generate fastlane certificates
         run: yarn fastlane:ios:certificates
-      - name: Fastlane ios release WITH NODE v14.17.0
+      - name:
+          Fastlane ios release WITH NODE v14.17.0
+          # set +e
+          # export NVM_DIR="/opt/github/.nvm"
+          # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          # nvm install v14.17.0
+          # npm install -g yarn
         run: |
-          set +e
-          export NVM_DIR="/opt/github/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm install v14.17.0
-          npm install -g yarn
           yarn fastlane:ios:release env:$RELEASE_TYPE
         env:
           RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}

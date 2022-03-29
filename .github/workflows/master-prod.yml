@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'master'
-      - 'julia/gh-actions-prod-test'
 
 jobs:
   deploy-prod-ota:
