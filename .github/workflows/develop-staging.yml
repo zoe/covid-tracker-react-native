@@ -192,8 +192,6 @@ jobs:
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
       - run: yarn generate:git-hash
       - name: Pod clean and install
-        # rm -rf ~/Library/Developer/Xcode/DerivedData/*
-        # cd ios && rm -rf Pods
         run: |
           cd ios && pod install --clean-install
       - name: Generate fastlane certificates
