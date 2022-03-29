@@ -72,7 +72,7 @@ jobs:
         with:
           path: node_modules
           key: yarn-${{ hashFiles('yarn.lock') }}
-      - run: mkdir -p ./reports
+      - run: mkdir -p ~/reports
       - name: Lint
         run: yarn lint:ci
       - name: Prettier
@@ -81,7 +81,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: lint-report
-          path: ./reports/eslint.xml
+          path: ~/reports/eslint.xml
 
   i18n:
     runs-on: ubuntu-latest
