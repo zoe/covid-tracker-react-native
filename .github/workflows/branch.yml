@@ -77,10 +77,11 @@ jobs:
         run: yarn lint:ci
       - name: Prettier
         run: yarn prettier
-      - uses: actions/upload-artifact@v3
+      - name: Upload linting report
+        uses: actions/upload-artifact@v3
         with:
           name: lint-report
-          path: ./reports
+          path: ./reports/eslint.xml
 
   i18n:
     runs-on: ubuntu-latest
