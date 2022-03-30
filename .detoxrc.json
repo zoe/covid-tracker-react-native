@@ -3,15 +3,15 @@
     "ios.release": {
       "binaryPath": "./ios/build/Build/Products/Release-iphonesimulator/covid-zoe Stage.app",
       "build": "yarn detox:clean; xcodebuild -workspace ios/Covid.xcworkspace -configuration release -scheme 'Covid Release' -sdk iphonesimulator -derivedDataPath ios/build",
-      "name": "iPhone 11",
+      "name": "iPhone 13",
       "type": "ios.simulator"
     },
     "ios.sim.release": {
       "binaryPath": "./build/covid-zoe Debug.app",
       "build": "yarn detox:clean; fastlane ios build env:stage",
       "device": {
-        "type": "iPhone 11",
-        "os": "iOS 14.5"
+        "type": "iPhone 13",
+        "os": "iOS 15.4"
       },
       "type": "ios.simulator"
     }

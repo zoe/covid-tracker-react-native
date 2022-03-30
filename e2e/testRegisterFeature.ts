@@ -7,10 +7,8 @@ import {
   testAboutYouForm,
   testAboutYourHealthForm,
   testAboutYourWorkForm,
-  testLongCovidForm,
   testPreviousExposureForm,
 } from './testForms';
-import { testMentalHealthPlaybackModal } from './testModals';
 
 type TRegisterConfig = {
   emailAddress: string;
@@ -35,8 +33,6 @@ export function testRegisterFeature(config: TRegisterConfig) {
       } catch (_) {}
 
       await scrollDownToId('scroll-view-consent-screen', 'button-agree');
-      // The agree button sometimes appears just off screen
-      await element(by.id('scroll-view-consent-screen')).scroll(150, 'down');
       await element(by.id('button-agree')).tap();
     });
 
@@ -67,17 +63,14 @@ export function testRegisterFeature(config: TRegisterConfig) {
       await element(by.id('button-covid-test-list-screen')).tap();
     });
 
+    // Currently showing the "New home for Vaccines modal"
     it('should open the healthy screen', async () => {
-      await element(by.id('button-vaccine-list-screen')).tap();
+      await element(by.id('profile-modal-button')).tap();
     });
 
     it('should set the health status to healthy', async () => {
       await element(by.id('button-status-healthy')).tap();
     });
-
-    testLongCovidForm();
-
-    testMentalHealthPlaybackModal();
 
     it('should finish the thank you screen (if present)', async () => {
       try {

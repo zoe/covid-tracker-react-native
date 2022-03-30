@@ -3,7 +3,6 @@
 import { by, element, expect } from 'detox';
 
 import { scrollDownToId, scrollUpToElement, submitForm } from './helpers';
-import { testCovidTestListOnboardingModal } from './testModals';
 
 type TReportTodayConfig = {
   addTest: boolean;
@@ -22,8 +21,6 @@ export function testReportTodayFeature(config: TReportTodayConfig) {
     it('should open the first profile', async () => {
       await element(by.id('profile-card-0')).tap();
     });
-
-    testCovidTestListOnboardingModal();
 
     function testAddTest() {
       it('should be able to add a COVID-19 test', async () => {
