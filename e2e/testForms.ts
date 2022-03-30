@@ -55,15 +55,3 @@ export function testPreviousExposureForm() {
     await submitForm('previous-exposure-screen', 'scroll-view-previous-exposure-screen', 'button-submit');
   });
 }
-
-export function testLongCovidForm() {
-  it('should complete the long covid questionnaire (if present)', async () => {
-    try {
-      await element(by.id('button-footer').withAncestor(by.id('long-covid-start-screen'))).tap();
-
-      await element(by.id('input-had-covid-item-NO')).tap();
-
-      await submitForm('long-covid-question-screen', 'scroll-view-long-covid-question-screen', 'button-submit');
-    } catch (_) {}
-  });
-}

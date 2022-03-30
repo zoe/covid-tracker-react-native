@@ -72,6 +72,19 @@ export function testRegisterFeature(config: TRegisterConfig) {
       await element(by.id('button-status-healthy')).tap();
     });
 
+    it('should complete Health Study onboarding (if present)', async () => {
+      await waitFor(element(by.id('study-hub-onboarding-screen')))
+        .toBeVisible()
+        .withTimeout(1000);
+
+      try {
+        await element(by.id('button-next-1')).tap();
+        await element(by.id('button-next-2')).tap();
+        await element(by.id('button-next-3')).tap();
+        await element(by.id('button-next-4')).tap();
+      } catch (_) {}
+    });
+
     it('should finish the thank you screen (if present)', async () => {
       try {
         await scrollDownToId('scroll-view-thank-you-screen', 'button-complete');

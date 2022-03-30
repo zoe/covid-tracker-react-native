@@ -71,6 +71,7 @@ export function StudyHubOnboardingScreen() {
           style={{
             backgroundColor: activeDot < AMOUNT_DOTS ? colors.purple : colors.darkBlue,
           }}
+          testID={`button-next-${activeDot}`}
         >
           {activeDot < AMOUNT_DOTS ? i18n.t('study-hub.onboarding.button') : i18n.t('study-hub.onboarding.button-last')}
         </BrandedButton>
