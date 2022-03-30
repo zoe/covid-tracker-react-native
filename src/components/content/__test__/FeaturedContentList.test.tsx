@@ -1,7 +1,7 @@
 /* eslint-env jest */
 
-import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
-import { EFeaturedContentType, FeaturedContentList } from '@covid/components/Content/FeaturedContentList';
+import FeaturedContentJson from '@covid/components/content/__mock__/featured-content.json';
+import { EFeaturedContentType, FeaturedContentList } from '@covid/components/content/FeaturedContentList';
 import ApiClient from '@covid/core/api/ApiClient';
 import { fetchFeaturedContent } from '@covid/core/state/content/slice';
 import MockAdapter from 'axios-mock-adapter';
