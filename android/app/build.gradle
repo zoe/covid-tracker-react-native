@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
 
 project.ext.envConfigFiles = [
     debug: ".env",
@@ -164,7 +165,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         // Be carefull that the value doesn't exceed the maximum signed integer value of 2147483647!
         versionCode 2022011300
-        versionName "2.7.1"
+        versionName "2.7.2"
     }
     splits {
         abi {
