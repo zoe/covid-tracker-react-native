@@ -154,6 +154,7 @@ export const updateShowStudyHubInterestFirstTimeModal = createAction<boolean>(
 );
 export const updateSelectedRegionItem = createAction<TRegionItem>('content/selected_region_item');
 export const updateShowModal = createAction<TShowModal>('content/show_modal');
+export const updateShowCovidTestLFTPromptModal = createAction<TShowModal>('content/show_covid_test_lft_prompt_modal');
 
 export const contentSlice = createSlice({
   extraReducers: {
@@ -168,6 +169,11 @@ export const contentSlice = createSlice({
     [updateShowModal.type]: (current, action: PayloadAction<TShowModal>) => {
       if (current.startupInfo) {
         current.startupInfo.show_modal = action.payload;
+      }
+    },
+    [updateShowCovidTestLFTPromptModal.type]: (current, action: PayloadAction<TShowModal>) => {
+      if (current.startupInfo) {
+        current.startupInfo.show_covid_test_lft_prompt_modal = action.payload;
       }
     },
     [updateShowProfileTabOnboarding.type]: (state, action: PayloadAction<boolean>) => {

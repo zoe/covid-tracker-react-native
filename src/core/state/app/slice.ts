@@ -5,6 +5,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export const initialStateApp: TStateApp = {
   mentalHealthStudyActive: true,
   modalHealthProfileIntroVisible: false,
+  modalLFTPrompt: false,
   modalMentalHealthPlaybackVisible: false,
 };
 
@@ -20,6 +21,10 @@ export const appSlice = createSlice({
     setModalHealthProfileIntroVisible: (state, action: PayloadAction<boolean>) => ({
       ...state,
       modalHealthProfileIntroVisible: action.payload,
+    }),
+    setModalLFTPromptVisible: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      modalLFTPrompt: action.payload,
     }),
     setModalMentalHealthPlaybackVisible: (state, action: PayloadAction<boolean>) => ({
       ...state,

@@ -3,6 +3,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
 import { HealthProfileIntroModal } from '@covid/features';
+import CovidTestLFTPromptModal from '@covid/features/covid-tests/modals/CovidTestLFTPromptModal';
 import MentalHealthPlaybackModal from '@covid/features/mental-health-playback/modals/MentalHealthPlaybackModal';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { OnboardingOverlay } from '@covid/features/onboarding/components/OnboardingOverlay';
@@ -100,6 +101,10 @@ export default function CovidApp() {
       <HealthProfileIntroModal
         onRequestClose={() => dispatch(appActions.setModalHealthProfileIntroVisible(false))}
         visible={app.modalHealthProfileIntroVisible}
+      />
+      <CovidTestLFTPromptModal
+        onRequestClose={() => dispatch(appActions.setModalLFTPromptVisible(false))}
+        visible={app.modalLFTPrompt}
       />
       <OnboardingOverlay />
       <NavigationContainer linking={linking} onStateChange={async () => NavigatorService.handleStateChange()} ref={ref}>

@@ -109,6 +109,18 @@ yarn ios
 yarn android
 ```
 
+### Firebase Setup
+
+To run the app please download the Firebase Stage setup [here](https://console.firebase.google.com/project/health-studies-stage/settings/general/ios:com.joinzoe.covid-zoe) then:
+
+1. Make sure the downloaded file has the name `GoogleService-Info.plist`
+2. Copy the downloaded file into `./ios/` folder
+3. Run `cd ios/ && pod install --clean-install`
+
+After this the app should run as normal, and any usage will be send analytics to Firebase stage project above. If you would like to switch this off, then you will have to currently comment out all usage of `fbAnalytics` in `./src/core/Analytics.ts`.
+
+**NOTE**: Working on a cleaner solution to turn this off but in the meantime we have to use this workaround.
+
 ## Tests
 
 Run unit & integration tests

@@ -82,6 +82,7 @@ enum ECovidTestLFTEvents {
   COVID_TEST_LFT_RESULT_SELECTED = 'COVID_TEST_LFT_RESULT_SELECTED',
   COVID_TEST_LFT_RESULT_CONFIRM_ADD = 'COVID_TEST_LFT_RESULT_CONFIRM_ADD',
   COVID_TEST_LFT_RESULT_CANCEL_ADD = 'COVID_TEST_LFT_RESULT_CANCEL_ADD',
+  COVID_TEST_LFT_PROMPT_OK_BUTTON_CLICKED = 'COVID_TEST_LFT_PROMPT_OK_BUTTON_CLICKED',
 }
 
 enum EProfileTabEvents {
@@ -165,10 +166,10 @@ export function track(eventName: TEventName, properties?: object): void {
   initialize();
 
   if (properties) {
-    fbAnalytics.logEvent(eventName, properties);
+    // fbAnalytics.logEvent(eventName, properties);
     Amplitude.logEventWithPropertiesAsync(eventName, properties);
   } else {
-    fbAnalytics.logEvent(eventName);
+    // fbAnalytics.logEvent(eventName);
     Amplitude.logEventAsync(eventName);
   }
 }
@@ -201,19 +202,19 @@ function identify(additionalUserProperties?: TUserProperties): void {
     revisionId: Constants.manifest.revisionId,
   };
 
-  const hasConsentedString = additionalUserProperties?.hasConsented
-    ? String(additionalUserProperties?.hasConsented)
-    : 'false';
-  const isTesterString = additionalUserProperties?.isTester ? String(additionalUserProperties?.hasConsented) : 'false';
+  // const hasConsentedString = additionalUserProperties?.hasConsented
+  //   ? String(additionalUserProperties?.hasConsented)
+  //   : 'false';
+  // const isTesterString = additionalUserProperties?.isTester ? String(additionalUserProperties?.hasConsented) : 'false';
 
-  fbAnalytics.setUserProperties({
-    appCountry: LocalisationService.userCountry,
-    appVersion: Constants.manifest.version,
-    hasConsented: hasConsentedString,
-    isTester: isTesterString,
-    releaseChannel: Constants.manifest.releaseChannel !== undefined ? Constants.manifest.releaseChannel : null,
-    revisionId: Constants.manifest.revisionId !== undefined ? Constants.manifest.revisionId : null,
-  });
+  // fbAnalytics.setUserProperties({
+  //   appCountry: LocalisationService.userCountry,
+  //   appVersion: Constants.manifest.version,
+  //   hasConsented: hasConsentedString,
+  //   isTester: isTesterString,
+  //   releaseChannel: Constants.manifest.releaseChannel !== undefined ? Constants.manifest.releaseChannel : null,
+  //   revisionId: Constants.manifest.revisionId !== undefined ? Constants.manifest.revisionId : null,
+  // });
   Amplitude.setUserPropertiesAsync(payload);
 }
 

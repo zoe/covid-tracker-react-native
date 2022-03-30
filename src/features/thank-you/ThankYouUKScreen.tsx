@@ -2,6 +2,7 @@ import { BrandedButton, EFeaturedContentType, FeaturedContentList } from '@covid
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { updateShowCovidTestLFTPromptModal } from '@covid/core/state';
 import { appActions } from '@covid/core/state/app/slice';
 import {
   showHealthProfileStartCard,
@@ -75,6 +76,10 @@ export default function ThankYouUKScreen(props: IProps) {
         dispatch(appActions.setModalHealthProfileIntroVisible(true));
         dispatch(showHealthProfileStartCard(true));
         return;
+      }
+      if (startupInfo?.show_covid_test_lft_prompt_modal) {
+        dispatch(appActions.setModalLFTPromptVisible(true));
+        dispatch(updateShowCovidTestLFTPromptModal('covid-test-lft-prompt'));
       }
 
       try {

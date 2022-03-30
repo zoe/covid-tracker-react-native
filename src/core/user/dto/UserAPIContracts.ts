@@ -354,7 +354,7 @@ export type TActiveNotifications = {
   notifications_wider_health_studies: boolean;
 };
 
-export type TShowModal = 'mental-health-playback' | 'health-profile-intro' | null;
+export type TShowModal = 'mental-health-playback' | 'health-profile-intro' | 'covid-test-lft-prompt' | null;
 
 export type TStartupInfo = {
   active_notifications?: TActiveNotifications;
@@ -383,6 +383,7 @@ export type TStartupInfo = {
   show_long_covid: boolean;
   show_mh_insight?: boolean;
   show_modal?: TShowModal;
+  show_covid_test_lft_prompt_modal?: TShowModal;
   show_new_dashboard: boolean;
   show_profile_screen_new_tag: boolean;
   show_profile_tab_onboarding: boolean;

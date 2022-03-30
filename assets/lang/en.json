@@ -311,6 +311,10 @@
       "anti-n-description": "Detects the presence of antibodies targeted against the so-called (N) protein of COVID-19. Anti-N antibodies are not produced in response to any of the current vaccines on the market. They are, however, seen in most people who have recovered from COVID-19 but do drop over time.",
       "anti-s-title": "Anti-S antibody test",
       "anti-s-description": "Detects the presence of antibodies targeted against the so-called spike (S) protein of the virus. Anti-S antibodies might be found in both people who have been vaccinated against COVID-19 and people who have recovered from COVID-19."
+    },
+    "lft-prompt-modal": {
+      "title": "We’re sorry you’re not feeling quite right.",
+      "main": "If you have access to a Lateral Flow Test (LFT), we’d recommend taking one today to help keep infection numbers up to date.\nPlease report your result in the app."
     }
   },
   "describe-symptoms": {
