@@ -7,7 +7,7 @@
     "react-devtools-core": "^4.13.4"
   },
   "scripts": {
-    "android": "yarn generate:git-hash && react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe.qa",
+    "android": "yarn generate:git-hash && react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe",
     "android:devices": " ~/Library/Android/sdk/emulator/emulator -list-avds",
     "android:local": "ENVFILE=.env.local yarn android",
     "android:menu": "adb shell input keyevent 82",
