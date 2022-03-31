@@ -8,18 +8,13 @@ enum EAssessmentV0 {
   VACCINE_NEW_HOME_MODAL = 'VACCINE_NEW_HOME_MODAL',
 }
 
-enum EAnalytics {
-  FIREBASE_ANALYTICS = 'FIREBASE_ANALYTICS',
-}
-
 export const contextNames = {
   ...ECovidTestContext,
   ...EAssessmentV0,
-  ...EAnalytics,
 };
 
 export type TContextName = keyof typeof contextNames;
-export type TFeatureName = 'covid_test' | 'assessment_v0' | 'analytics';
+export type TFeatureName = 'covid_test' | 'assessment_v0';
 
 export const logLevel = Sentry.Severity;
 

@@ -56,7 +56,7 @@ function closeDrawer() {
   navigation?.dispatch(DrawerActions.closeDrawer());
 }
 
-async function handleStateChange() {
+function handleStateChange() {
   const rootState = navigation?.getRootState();
 
   if (rootState) {

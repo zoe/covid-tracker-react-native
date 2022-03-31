@@ -169,7 +169,6 @@ jobs:
         run: .github/make_deploy_env.sh
         env:
           GOOGLE_SERVICE_JSON: ${{ secrets.GOOGLE_SERVICE_JSON }}
-          GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
           KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
           RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
           NAME: ${{ secrets.NAME }}
@@ -244,7 +243,6 @@ jobs:
         run: .github/make_deploy_env.sh
         env:
           GOOGLE_SERVICE_JSON: ${{ secrets.GOOGLE_SERVICE_JSON }}
-          GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
           KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
           RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
           NAME: ${{ secrets.NAME }}

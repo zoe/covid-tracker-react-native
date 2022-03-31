@@ -102,7 +102,7 @@ export default function CovidApp() {
         visible={app.modalHealthProfileIntroVisible}
       />
       <OnboardingOverlay />
-      <NavigationContainer linking={linking} onStateChange={async () => NavigatorService.handleStateChange()} ref={ref}>
+      <NavigationContainer linking={linking} onStateChange={NavigatorService.handleStateChange} ref={ref}>
         <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false, presentation: 'modal' }}>
           <Stack.Screen component={DrawerNavigator} name="Main" />
           <Stack.Screen component={VaccineListMissingModal} name="VaccineListMissingModal" options={optionsModal} />

@@ -1,4 +1,3 @@
-#import <Firebase.h>
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
@@ -17,6 +16,7 @@
 #import <AppCenterReactNativeCrashes.h>
 
 #import <RNSplashScreen.h>
+
 
 // #if DEBUG
 // #import <FlipperKit/FlipperClient.h>
@@ -51,7 +51,7 @@
 // #if DEBUG
 //   InitializeFlipper(application);
 // #endif
-  [FIRApp configure];
+  
   self.moduleRegistryAdapter = [[UMModuleRegistryAdapter alloc] initWithModuleRegistryProvider:[[UMModuleRegistryProvider alloc] init]];
   self.launchOptions = launchOptions;
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

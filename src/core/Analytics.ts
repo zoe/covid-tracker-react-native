@@ -1,30 +1,13 @@
 import appConfig from '@covid/appConfig';
 import { LocalisationService } from '@covid/core/localisation/LocalisationService';
-import Logging, { contextNames, logLevel } from '@covid/core/Logging';
 import Constants from '@covid/utils/Constants';
 import * as Amplitude from 'expo-analytics-amplitude';
 
 import { TScreenName } from './Coordinator';
-import { firebaseAnalytics } from './firebase/analytics';
-
-const fbAnalytics = firebaseAnalytics();
-try {
-  fbAnalytics.isInitialized();
-} catch (e) {
-  Logging.log(
-    'analytics',
-    'firebase_analytics_init_failed',
-    contextNames.FIREBASE_ANALYTICS,
-    {
-      error: e,
-    },
-    logLevel.Warning,
-  );
-}
 
 let isInitialized = false;
 
-export type TUserProperties = {
+type TUserProperties = {
   hasConsented?: boolean;
   isTester?: boolean;
   Experiment_mhip?: string;
@@ -117,7 +100,7 @@ enum EOtherEvents {
 }
 
 // Add any screen names you want to track views for, to this array.
-export const screens: TScreenName[] = [
+export const SCREEN_VIEWS_TO_TRACK: TScreenName[] = [
   'CountrySelect',
   'HPAboutYou',
   'HPFormScreen',
@@ -165,22 +148,15 @@ export function track(eventName: TEventName, properties?: object): void {
   initialize();
 
   if (properties) {
-    fbAnalytics.logEvent(eventName, properties);
     Amplitude.logEventWithPropertiesAsync(eventName, properties);
   } else {
-    fbAnalytics.logEvent(eventName);
     Amplitude.logEventAsync(eventName);
   }
 }
 
 function trackApprovedScreenView(screenName: TScreenName): void {
-  if (screens.includes(screenName)) {
+  if (SCREEN_VIEWS_TO_TRACK.includes(screenName)) {
     track(events.VIEW_SCREEN, { screenName });
-  } else {
-    // we log both for now, as firebase does not
-    // have the price concerns related to amplitude
-    fbAnalytics.logScreenView(screenName);
-    fbAnalytics.logEvent(events.VIEW_SCREEN, { screenName });
   }
 }
 
@@ -200,20 +176,6 @@ function identify(additionalUserProperties?: TUserProperties): void {
     releaseChannel: Constants.manifest.releaseChannel,
     revisionId: Constants.manifest.revisionId,
   };
-
-  const hasConsentedString = additionalUserProperties?.hasConsented
-    ? String(additionalUserProperties?.hasConsented)
-    : 'false';
-  const isTesterString = additionalUserProperties?.isTester ? String(additionalUserProperties?.hasConsented) : 'false';
-
-  fbAnalytics.setUserProperties({
-    appCountry: LocalisationService.userCountry,
-    appVersion: Constants.manifest.version,
-    hasConsented: hasConsentedString,
-    isTester: isTesterString,
-    releaseChannel: Constants.manifest.releaseChannel !== undefined ? Constants.manifest.releaseChannel : null,
-    revisionId: Constants.manifest.revisionId !== undefined ? Constants.manifest.revisionId : null,
-  });
   Amplitude.setUserPropertiesAsync(payload);
 }
 

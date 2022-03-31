@@ -12,6 +12,7 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+google-services.json
 .private-assets/
 .locales/
 .git-hash.json
@@ -207,7 +208,3 @@ fastlane/devices.txt
 .env.local
 .circleci/.private-assets/
 .circleci/assets/
-
-# Firebase Configs
-google-services.json
-GoogleService-Info.plist
