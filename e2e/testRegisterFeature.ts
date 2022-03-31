@@ -82,6 +82,14 @@ export function testRegisterFeature(config: TRegisterConfig) {
         await element(by.id('button-next-2')).tap();
         await element(by.id('button-next-3')).tap();
         await element(by.id('button-next-4')).tap();
+
+        // Study Hub tab screen - press 3 times to get rid of onboarding overlays
+        await waitFor(element(by.id('wider-health-studies-screen')))
+          .toBeVisible()
+          .withTimeout(2000);
+        await element(by.id('close-study-tab-onboarding')).tap();
+        await element(by.id('close-profile-tab-onboarding')).tap();
+        await element(by.id('tab-home')).tap();
       } catch (_) {}
     });
 

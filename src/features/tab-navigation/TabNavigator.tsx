@@ -159,6 +159,7 @@ export default function TabNavigator({ navigation }: IProps) {
                   right: windowDimensions.width / 1.5,
                 },
               ]}
+              testID="close-study-tab-onboarding"
             >
               <IconClose />
             </TouchableOpacity>
@@ -254,6 +255,7 @@ export default function TabNavigator({ navigation }: IProps) {
                   right: windowDimensions.width / 1.5,
                 },
               ]}
+              testID="close-profile-tab-onboarding"
             >
               <IconClose />
             </TouchableOpacity>

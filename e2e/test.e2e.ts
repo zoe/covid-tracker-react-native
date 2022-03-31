@@ -1,11 +1,11 @@
 import { device, init } from 'detox';
 
-import { testCreateNewProfileFeature } from './testCreateNewProfileFeature';
-import { testLoginScreen } from './testLoginScreen';
-import { testLogoutFeature } from './testLogoutFeature';
+// import { testCreateNewProfileFeature } from './testCreateNewProfileFeature';
+// import { testLoginScreen } from './testLoginScreen';
+// import { testLogoutFeature } from './testLogoutFeature';
 import { testRegisterFeature } from './testRegisterFeature';
-import { testReportTodayFeature } from './testReportTodayFeature';
-import { testSelectCountryScreen } from './testSelectCountryScreen';
+// import { testReportTodayFeature } from './testReportTodayFeature';
+// import { testSelectCountryScreen } from './testSelectCountryScreen';
 import { testWelcomeScreen } from './testWelcomeScreen';
 
 jest.setTimeout(60000);
@@ -32,29 +32,29 @@ const tempEmailAddress = `test-${timestamp}@test.com`;
 const tempPhoneNumber = `+44 7900 ${timestamp}`;
 
 testWelcomeScreen();
-testSelectCountryScreen({
-  endWithCountry: 'GB',
-  testAllCountries: false,
-});
+// testSelectCountryScreen({
+//   endWithCountry: 'GB',
+//   testAllCountries: false,
+// });
 testRegisterFeature({
   emailAddress: tempEmailAddress,
   password: defaultPassword,
   phoneNumber: tempPhoneNumber,
 });
-testLogoutFeature();
-testLoginScreen({
-  emailAddress: defaultEmailAddress,
-  password: defaultPassword,
-});
-testCreateNewProfileFeature({
-  profileName,
-});
-testReportTodayFeature({
-  addAndUpdateZoeInviteTest: false,
-  addTest: false,
-  addVaccines: false,
-  healthy: false,
-  updateTest: false,
-  addAndUpdateGovUKTest: true,
-});
-testLogoutFeature();
+// testLogoutFeature();
+// testLoginScreen({
+//   emailAddress: defaultEmailAddress,
+//   password: defaultPassword,
+// });
+// testCreateNewProfileFeature({
+//   profileName,
+// });
+// testReportTodayFeature({
+//   addAndUpdateZoeInviteTest: false,
+//   addTest: false,
+//   addVaccines: false,
+//   healthy: false,
+//   updateTest: false,
+//   addAndUpdateGovUKTest: true,
+// });
+// testLogoutFeature();
