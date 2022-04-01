@@ -1,9 +1,9 @@
 import { TRootState } from '@covid/core/state/root';
-import { IVaccineState } from '@covid/core/state/vaccines/types';
+import { TStateVaccines } from '@covid/core/state/vaccines/types';
 import { TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const initialStateVaccine: IVaccineState = {
+export const initialStateVaccine: TStateVaccines = {
   vaccines: [],
 };
 

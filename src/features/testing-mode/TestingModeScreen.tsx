@@ -2,6 +2,7 @@ import { ClickableText, RegularText, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import Switch from '@covid/components/Switch';
 import { fetchStartupInfo } from '@covid/core/state';
+import { resetCovidTestsState } from '@covid/core/state/covid-tests/slice';
 import { resetHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
@@ -62,6 +63,12 @@ export function TestingModeScreen() {
     NavigatorService.navigate('Dashboard');
   };
 
+  const onResetLFTPromptPress = () => {
+    dispatch(resetCovidTestsState());
+    dispatch(fetchStartupInfo());
+    NavigatorService.navigate('Dashboard');
+  };
+
   return startupInfo ? (
     <Screen backgroundColor={colors.backgroundPrimary} testID="testing-mode-screen">
       <Text rhythm={24} textClass="h3Bold">
@@ -75,6 +82,9 @@ export function TestingModeScreen() {
       </Text>
       <TouchableOpacity onPress={onResetHealthProfilePress}>
         <ClickableText style={{ color: colors.brand, marginBottom: sizes.s }}>Clear Health Profile state</ClickableText>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onResetLFTPromptPress}>
+        <ClickableText style={{ color: colors.brand, marginBottom: sizes.s }}>Clear LFT Prompt state</ClickableText>
       </TouchableOpacity>
 
       <View style={{ marginBottom: sizes.xl }}>{renderCustomisableSettings(startupInfo, dispatch)}</View>
