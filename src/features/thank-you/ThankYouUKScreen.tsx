@@ -54,10 +54,10 @@ const selectedCovidSymptoms: TCovidSymptoms[] = [
   'fever',
 ];
 
-const covidSymptomPresent = (assessmentObject: Partial<TAssessmentInfosRequest>) => {
+export const covidSymptomPresent = (assessmentObject: Partial<TAssessmentInfosRequest>) => {
   return selectedCovidSymptoms.some(
     (symptom) =>
-      assessmentObject[symptom] !== false || assessmentObject[symptom] !== 'no' || assessmentObject[symptom] !== null,
+      assessmentObject[symptom] !== false && assessmentObject[symptom] !== 'no' && assessmentObject[symptom] !== null,
   );
 };
 
