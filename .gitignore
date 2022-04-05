@@ -208,3 +208,5 @@ fastlane/devices.txt
 .env.local
 .circleci/.private-assets/
 .circleci/assets/
+
+GoogleService-Info.plist

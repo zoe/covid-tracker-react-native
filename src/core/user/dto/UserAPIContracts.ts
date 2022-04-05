@@ -321,6 +321,10 @@ export type TPatientInfosRequest = {
   // Profile tab
   has_seen_assessment_flow_v0_onboarding: boolean;
   has_seen_profile_screen: boolean;
+
+  // LFT prompt
+  should_show_lft_prompt: boolean;
+  should_show_lft_reminder: boolean;
 };
 
 export enum EVaccineStatus {
