@@ -34,7 +34,7 @@ const assessmentObj: TAssessmentInfosRequest = {
   have_used_PPE: 'no',
   headache: false,
   headache_frequency: null,
-  health_status: '',
+  health_status: 'healthy',
   hoarse_voice: false,
 
   id: 'assessment',
@@ -91,13 +91,17 @@ const assessmentObj: TAssessmentInfosRequest = {
 
 describe('test-lft-prompt', () => {
   it('is false when NO covid symptom exists', () => {
-    const result = covidSymptomPresent(assessmentObj);
+    const covidSickAssessment: TAssessmentInfosRequest = JSON.parse(JSON.stringify(assessmentObj));
+    covidSickAssessment.health_status = 'not_healthy';
+
+    const result = covidSymptomPresent(covidSickAssessment);
     expect(result).toBe(false);
   });
 
   it('is true when one covid symptom exists', () => {
     const covidSickAssessment: TAssessmentInfosRequest = JSON.parse(JSON.stringify(assessmentObj));
     covidSickAssessment.persistent_cough = true;
+    covidSickAssessment.health_status = 'not_healthy';
 
     const result = covidSymptomPresent(covidSickAssessment);
     expect(result).toBe(true);
@@ -107,8 +111,14 @@ describe('test-lft-prompt', () => {
     const covidSickAssessment: TAssessmentInfosRequest = JSON.parse(JSON.stringify(assessmentObj));
     covidSickAssessment.persistent_cough = true;
     covidSickAssessment.fatigue = 'mild';
+    covidSickAssessment.health_status = 'not_healthy';
 
     const result = covidSymptomPresent(covidSickAssessment);
     expect(result).toBe(true);
+  });
+
+  it('is false when healthy assessment', () => {
+    const result = covidSymptomPresent(assessmentObj);
+    expect(result).toBe(false);
   });
 });

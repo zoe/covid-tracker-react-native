@@ -55,9 +55,15 @@ const selectedCovidSymptoms: TCovidSymptoms[] = [
 ];
 
 export const covidSymptomPresent = (assessmentObject: Partial<TAssessmentInfosRequest>) => {
+  if (assessmentObject.health_status !== 'not_healthy') {
+    return false;
+  }
   return selectedCovidSymptoms.some(
     (symptom) =>
-      assessmentObject[symptom] !== false && assessmentObject[symptom] !== 'no' && assessmentObject[symptom] !== null,
+      assessmentObject[symptom] !== false &&
+      assessmentObject[symptom] !== 'no' &&
+      assessmentObject[symptom] !== null &&
+      assessmentObject[symptom] !== undefined, // If assessment is healthy, assessmentObject[symptom] is undefined!
   );
 };
 
@@ -93,12 +99,13 @@ export default function ThankYouUKScreen(props: IProps) {
   };
 
   const showLFTPromptReminder = () => {
+    const lastSeen = moment(lftPromptStateForCurrentPatient.dateLastSeenLFTPrompt);
     return (
       shouldShowLFTReminderBasedOnPastRecords &&
       covidSymptomPresent(currentAssessment) &&
       !lftPromptStateForCurrentPatient?.currentPatientLoggedToday &&
       lftPromptStateForCurrentPatient?.timesSeenLFTPrompt === 1 &&
-      new Date(lftPromptStateForCurrentPatient.dateLastSeenLFTPrompt) < fiveDaysAgo
+      lastSeen.isBefore(fiveDaysAgo)
     );
   };
 
