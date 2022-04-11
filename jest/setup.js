@@ -11,6 +11,9 @@ jest.mock('react-native-reanimated', () => {
   return Reanimated;
 });
 
+// ref: https://github.com/react-native-device-info/react-native-device-info/issues/1360
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
+
 // Silence the warning: Animated: `useNativeDriver` is not supported because the native animated module is missing
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 
