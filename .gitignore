@@ -209,4 +209,6 @@ fastlane/devices.txt
 .circleci/.private-assets/
 .circleci/assets/
 
+# Firebase Configs
+google-services.json
 GoogleService-Info.plist
