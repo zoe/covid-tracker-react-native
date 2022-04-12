@@ -13,7 +13,7 @@ export default function UsualSelfReportsSymtpomsScreen() {
       buttonTitle={i18n.t('usual-self.reports-symptoms.button')}
       description={i18n.t('usual-self.reports-symptoms.description')}
       illustration={illustration}
-      nextScreenName="UsualSelfReportsSingleTap"
+      nextScreenName="UsualSelfSetupForm"
       testID="usual-self-reports-symptoms-screen"
       title={i18n.t('usual-self.reports-symptoms.title')}
     />

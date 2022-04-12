@@ -169,6 +169,7 @@ export type TScreenParamList = {
   UsualSelfReportsPowerful: undefined;
   UsualSelfReportsSingleTap: undefined;
   UsualSelfReportsSymptoms: undefined;
+  UsualSelfSetupForm: undefined;
 
   // Others
   Anniversary: undefined;

@@ -743,3 +743,9 @@ export type THealthProfileRequest = {
 
   works_shifts_outside_regular_hours: boolean;
 };
+
+export type TUsualSelfSetupRequest = {
+  patient: string; //	Patient id
+
+  headache: boolean;
+};

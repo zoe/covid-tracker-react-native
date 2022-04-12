@@ -32,6 +32,7 @@ export default function UsualSelfNavigator({ Stack }: IProps) {
         name="UsualSelfReportsSymptoms"
         options={noHeader}
       />
+      <Stack.Screen component={screens.UsualSelfSetupFormScreen} name="UsualSelfSetupForm" options={noHeader} />
     </>
   );
 }

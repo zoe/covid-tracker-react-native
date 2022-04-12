@@ -84,6 +84,7 @@ export {
   UsualSelfReportsPowerfulScreen,
   UsualSelfReportsSingleTapScreen,
   UsualSelfReportsSymptomsScreen,
+  UsualSelfSetupFormScreen,
   VaccineDoseSymptomsScreen,
   VaccineFindInfoScreen,
   VaccineListScreen,
