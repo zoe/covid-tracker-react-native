@@ -24,6 +24,7 @@ interface IProps {
   footerLoading?: boolean;
   footerOnPress?: () => void;
   footerTitle?: string;
+  headerBgColor?: string;
   isInsideTabBar?: boolean;
   keyboardShouldPersistTaps?: 'always' | 'never' | 'handled';
   noHeader?: boolean;
@@ -98,11 +99,12 @@ function renderFooter(props: IProps) {
 // For example setting a padding is ignored.
 
 const edgesTabBar: Edge[] = ['right', 'top', 'left'];
+export const edgesDifferentHeaderBg: Edge[] = ['right', 'bottom', 'left'];
 
 export function Screen(props: IProps) {
   return (
     <SafeAreaView
-      edges={props.isInsideTabBar ? edgesTabBar : undefined}
+      edges={props.isInsideTabBar ? edgesTabBar : props.headerBgColor ? edgesDifferentHeaderBg : undefined}
       style={[styling.flex, { backgroundColor: props.backgroundColor || colors.backgroundPrimary }]}
       testID={props.testID}
     >

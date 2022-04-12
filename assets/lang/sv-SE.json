@@ -1842,5 +1842,26 @@
   },
   "other-screen": {
     "title": false
+  },
+  "usual-self": {
+    "tag": false,
+    "time": false,
+    "introduction": {
+      "title": false,
+      "button": false
+    },
+    "reports-powerful": {
+      "title": false,
+      "description": false
+    },
+    "reports-single-tap": {
+      "title": false,
+      "description": false
+    },
+    "reports-symptoms": {
+      "title": false,
+      "description": false,
+      "button": false
+    }
   }
 }
