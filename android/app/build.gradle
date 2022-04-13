@@ -266,7 +266,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     apply plugin: 'com.google.gms.google-services'
-   
+
     // For animated GIF support
     implementation 'com.facebook.fresco:animated-gif:2.5.0'
 
@@ -276,6 +276,7 @@ dependencies {
 
     // For WebP support, without animations
     implementation 'com.facebook.fresco:webpsupport:2.5.0'
+    implementation project(path: ":@react-native-firebase_analytics")
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

@@ -16,6 +16,7 @@ export * from './register';
 export * from './school-network';
 export * from './splash';
 export * from './thank-you';
+export * from './usual-self';
 export * from './vaccines';
 export * from './wider-health-studies';
 export { CountrySelectScreen } from './CountrySelectScreen';

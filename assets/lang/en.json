@@ -1838,5 +1838,26 @@
     "other-screen": {
       "title": "Other profile settings"
     }
+  },
+  "usual-self": {
+    "tag": "New daily reporting",
+    "time": "Approx 3 mins",
+    "introduction": {
+      "title": "Introducing your new Daily Reporting",
+      "button": "Get started"
+    },
+    "reports-powerful": {
+      "title": "Your health reports are now even more powerful",
+      "description": "As well as contributing to COVID-19 knowledge, every report now supports research in major health issues, such as cancer and dementia. \n\nLogging daily adds huge value to a range of new studies."
+    },
+    "reports-single-tap": {
+      "title": "Most reports can be done in a single tap",
+      "description": "Your reports are now personalised to your unique health, even if you’re managing a chronic health condition.\n\nThe new report simply asks whether you feel different (e.g. worse or better) from how you usually feel."
+    },
+    "reports-symptoms": {
+      "title": "Let’s get to know your symptoms better",
+      "description": "To get started, we need to understand how you usually feel. We call this your *Usual Self* - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
+      "button": "Set up your Usual Self"
+    }
   }
 }

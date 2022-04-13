@@ -4,12 +4,13 @@ import DietStudyPlaybackNavigator from '@covid/routes/DietStudyPlaybackNavigator
 import MentalHealthNavigator from '@covid/routes/MentalHealthNavigator';
 import MentalHealthPlaybackNavigator from '@covid/routes/MentalHealthPlaybackNavigator';
 import ReconsentNavigator from '@covid/routes/ReconsentNavigator';
+import StudyHubNavigator from '@covid/routes/StudyHubNavigator';
+import UsualSelfNavigator from '@covid/routes/UsualSelfNavigator';
 import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import * as React from 'react';
 import { Platform } from 'react-native';
 
-import StudyHubNavigator from './StudyHubNavigator';
 import { TScreenParamList } from './types';
 
 // Fix Android bug where stack navigation during http load can cause error:
@@ -130,6 +131,7 @@ export default function MainNavigator() {
       {MentalHealthPlaybackNavigator({ Stack })}
       {ReconsentNavigator({ Stack })}
       {StudyHubNavigator({ Stack })}
+      {UsualSelfNavigator({ Stack })}
 
       {/* Uncomment this line to replace the Dashboard with DebugScreens to allow quick debugging */}
       {/* <Stack.Screen component={DebugScreens} name="Dashboard" options={options} /> */}

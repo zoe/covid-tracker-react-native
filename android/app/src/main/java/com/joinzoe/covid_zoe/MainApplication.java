@@ -13,6 +13,7 @@ import com.joinzoe.covid_zoe.generated.BasePackageList;
 
 import org.unimodules.adapters.react.ModuleRegistryAdapter;
 import org.unimodules.adapters.react.ReactModuleRegistryProvider;
+import io.invertase.firebase.analytics.ReactNativeFirebaseAnalyticsPackage;
 import expo.modules.updates.UpdatesController;
 
 import java.lang.reflect.InvocationTargetException;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
+      packages.add(new ReactNativeFirebaseAnalyticsPackage());
       return packages;
     }
 
