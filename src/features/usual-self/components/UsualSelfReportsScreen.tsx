@@ -1,6 +1,7 @@
 import { Tag, Text, TextWithBoldInserts } from '@covid/components';
 import FeatureIntroScreen from '@covid/components/FeatureIntroScreen';
 import { IconTime } from '@covid/features/study-hub/components/IconTime';
+import { TUsualSelfSetupScreenName } from '@covid/features/usual-self/data/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
@@ -17,6 +18,7 @@ interface IProps {
   description: string;
   illustration: ImageSourcePropType;
   nextScreenName: keyof TScreenParamList;
+  nextScreenParams?: { screenName: TUsualSelfSetupScreenName };
   showTime?: boolean;
   testID: string;
   title: string;
@@ -31,7 +33,7 @@ export default function UsualSelfReportsScreen(props: IProps) {
     <FeatureIntroScreen
       noPadding
       activeDot={props.activeDot}
-      buttonOnPress={() => NavigatorService.navigate(props.nextScreenName)}
+      buttonOnPress={() => NavigatorService.navigate(props.nextScreenName, props.nextScreenParams)}
       buttonTitle={props.buttonTitle}
       headerBgColor={colors.backgroundSecondary}
       testID={props.testID}

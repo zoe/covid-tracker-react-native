@@ -1858,6 +1858,9 @@
       "title": "Let’s get to know your symptoms better",
       "description": "To get started, we need to understand how you usually feel. We call this your *Usual Self* - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
       "button": "Set up your Usual Self"
+    },
+    "setup": {
+      "title": "Set up your Usual Self"
     }
   }
 }

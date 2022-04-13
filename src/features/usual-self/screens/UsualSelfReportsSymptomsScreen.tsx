@@ -6,7 +6,6 @@ export default function UsualSelfReportsSymtpomsScreen() {
   const illustration = require('../assets/usual-self-reports-symptoms.png');
 
   return (
-    // TODO: Amend nextScreenName
     <UsualSelfReportsScreen
       showTime
       activeDot={3}
@@ -14,6 +13,7 @@ export default function UsualSelfReportsSymtpomsScreen() {
       description={i18n.t('usual-self.reports-symptoms.description')}
       illustration={illustration}
       nextScreenName="UsualSelfSetupForm"
+      nextScreenParams={{ screenName: 'UsualSelfSetupMisc' }}
       testID="usual-self-reports-symptoms-screen"
       title={i18n.t('usual-self.reports-symptoms.title')}
     />

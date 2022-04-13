@@ -7,6 +7,7 @@ import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContract
 import { EVaccineTypes, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
 import { TStudy } from '@covid/features/study-hub/types';
+import { TUsualSelfSetupScreenName } from '@covid/features/usual-self/data/types';
 
 export enum EConsentType {
   Adult = 'adult',
@@ -169,7 +170,7 @@ export type TScreenParamList = {
   UsualSelfReportsPowerful: undefined;
   UsualSelfReportsSingleTap: undefined;
   UsualSelfReportsSymptoms: undefined;
-  UsualSelfSetupForm: undefined;
+  UsualSelfSetupForm: { screenName: TUsualSelfSetupScreenName };
 
   // Others
   Anniversary: undefined;

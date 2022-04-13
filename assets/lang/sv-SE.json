@@ -1862,6 +1862,9 @@
       "title": false,
       "description": false,
       "button": false
+    },
+    "setup": {
+      "title": false
     }
   }
 }

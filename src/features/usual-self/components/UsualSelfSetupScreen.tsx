@@ -4,6 +4,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import { Screen } from '@covid/components/Screen';
 import { HealthProfileFormBackButton } from '@covid/features/health-profile/components/HealthProfileFormBackButton';
 import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
+import i18n from '@covid/locale/i18n';
 import { sizes, styling } from '@covid/themes';
 import { colors } from '@theme';
 import * as React from 'react';
@@ -29,8 +30,7 @@ export default function UsualSelfSetupScreen(props: IProps) {
         {/* TODO: AMEND BACK BUTTON */}
         <HealthProfileFormBackButton previousScreen={props.previousScreen} />
         <View style={styles.textWrapper}>
-          {/* TODO: Translation */}
-          <Text textClass="h5Light">Set up your Usual Self</Text>
+          <Text textClass="h5Light">{i18n.t('usual-self.setup.title')}</Text>
         </View>
       </View>
     );
@@ -69,9 +69,7 @@ export default function UsualSelfSetupScreen(props: IProps) {
             <View style={styles.marginBottom}>
               {props.description ? (
                 <Text style={styles.fontSecondary} textClass="pSmall">
-                  {/* {props.description} */}
-                  {/* TODO: Translation */}
-                  Over the past 6 months have you experienced any of the below symptoms?
+                  {props.description}
                 </Text>
               ) : null}
             </View>

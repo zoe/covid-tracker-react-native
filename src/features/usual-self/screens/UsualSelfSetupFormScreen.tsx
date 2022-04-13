@@ -1,8 +1,11 @@
 import { Form } from '@covid/components/Form';
+import UsualSelfSetupScreen from '@covid/features/usual-self/components/UsualSelfSetupScreen';
 import {
   TItemCheckbox,
   UsualSelfSymptomFrequencyQuality,
 } from '@covid/features/usual-self/components/UsualSelfSymptomFrequencyQuality';
+import { TUsualSelfSetupScreenName, usualSelfSetupScreenMappings } from '@covid/features/usual-self/data/types';
+import { usualSelfSetupScreens } from '@covid/features/usual-self/data/usualSelfQuestions';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
@@ -10,13 +13,14 @@ import { Formik } from 'formik';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
-import UsualSelfSetupScreen from '../components/UsualSelfSetupScreen';
-
 type TProps = {
   route: RouteProp<TScreenParamList, 'UsualSelfSetupForm'>;
 };
 
 export default function UsualSelfSetupFormScreen({ route }: TProps) {
+  const screenName = route.params.screenName as TUsualSelfSetupScreenName;
+  const sectionName = usualSelfSetupScreenMappings[screenName];
+
   const item: TItemCheckbox = {
     label: 'Headache',
     name: 'headache',
@@ -46,7 +50,7 @@ export default function UsualSelfSetupFormScreen({ route }: TProps) {
             buttonOnPress={formikProps.handleSubmit}
             buttonTitle="Next"
             currentStep={1}
-            description="Description"
+            description={usualSelfSetupScreens[sectionName].description}
             maxSteps={7}
             previousScreen="DashboardUK"
             testID="test"

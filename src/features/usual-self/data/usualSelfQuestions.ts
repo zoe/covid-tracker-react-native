@@ -1,25 +1,10 @@
-import { usualSelfMiscQuestions } from './UsualSelfMiscQuestions';
+import { TUsualSelfSetupScreens } from '@covid/features/usual-self/data/types';
 
-export enum EUsualSelfSetupSection {
-  MISC = 'MISC',
-}
-
-export const usualSelfSetupScreenMappings = {
-  UsualSelfSetupMisc: EUsualSelfSetupSection.MISC,
-};
-
-export type TUsualSelfSetupScreenName = keyof typeof usualSelfSetupScreenMappings;
-
-export type TUsualSelfSetupScreens = {
-  [key in EUsualSelfSetupSection]: {
-    description: string | null;
-    questions: any[];
-    // questions: THealthProfileQuestion[];
-    screenName?: TUsualSelfSetupScreenName;
-    testID: string;
-  };
-};
-
-export const usualSelfSetupScreens: Partial<TUsualSelfSetupScreens> = {
-  ...usualSelfMiscQuestions,
+export const usualSelfSetupScreens: TUsualSelfSetupScreens = {
+  MISC: {
+    description: 'Over the past 6 months have you - or are you currently - experiencing any of the below symptoms?',
+    questions: [{}, {}],
+    screenName: 'UsualSelfSetupMisc',
+    testID: 'usual-self-setup-misc-screen',
+  },
 };
