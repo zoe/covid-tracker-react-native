@@ -170,7 +170,7 @@ export type TScreenParamList = {
   UsualSelfReportsPowerful: undefined;
   UsualSelfReportsSingleTap: undefined;
   UsualSelfReportsSymptoms: undefined;
-  UsualSelfSetupForm: { screenName: TUsualSelfSetupScreenName };
+  UsualSelfSetupForm: { screenName: TUsualSelfSetupScreenName; navDirection?: 'backwards' };
 
   // Others
   Anniversary: undefined;

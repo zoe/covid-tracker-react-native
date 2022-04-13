@@ -1,5 +1,6 @@
 import * as screens from '@covid/features/screens';
 import { TScreenParamList } from '@covid/routes/types';
+import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
@@ -11,6 +12,15 @@ interface IProps {
 
 const noHeader = {
   headerShown: false,
+};
+
+const usualSelfFormScreenOptions = (route: RouteProp<TScreenParamList, 'UsualSelfSetupForm'>) => {
+  const goBackwards = route.params?.navDirection === 'backwards';
+
+  return {
+    ...noHeader,
+    gestureDirection: goBackwards ? 'horizontal-inverted' : 'horizontal',
+  };
 };
 
 export default function UsualSelfNavigator({ Stack }: IProps) {
@@ -32,7 +42,11 @@ export default function UsualSelfNavigator({ Stack }: IProps) {
         name="UsualSelfReportsSymptoms"
         options={noHeader}
       />
-      <Stack.Screen component={screens.UsualSelfSetupFormScreen} name="UsualSelfSetupForm" options={noHeader} />
+      <Stack.Screen
+        component={screens.UsualSelfSetupFormScreen}
+        name="UsualSelfSetupForm"
+        options={({ route }) => usualSelfFormScreenOptions(route)}
+      />
     </>
   );
 }

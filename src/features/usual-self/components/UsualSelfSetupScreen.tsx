@@ -2,8 +2,8 @@ import { Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Screen } from '@covid/components/Screen';
-import { HealthProfileFormBackButton } from '@covid/features/health-profile/components/HealthProfileFormBackButton';
-import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
+import { UsualSelfFormBackButton } from '@covid/features/usual-self/components/UsualSelfFormBackButton';
+import { TUsualSelfSetupScreenName } from '@covid/features/usual-self/data/types';
 import i18n from '@covid/locale/i18n';
 import { sizes, styling } from '@covid/themes';
 import { colors } from '@theme';
@@ -18,8 +18,7 @@ interface IProps {
   currentStep: number;
   description: string | null;
   maxSteps: number;
-  previousScreen: THPScreenName | 'HPAboutYou' | 'DashboardUK';
-  showTooltip?: boolean;
+  previousScreen: TUsualSelfSetupScreenName | 'UsualSelfReportsSymptoms';
   testID: string;
 }
 
@@ -27,11 +26,10 @@ export default function UsualSelfSetupScreen(props: IProps) {
   function renderHeader() {
     return (
       <View style={styles.headerWrapper}>
-        {/* TODO: AMEND BACK BUTTON */}
-        <HealthProfileFormBackButton previousScreen={props.previousScreen} />
         <View style={styles.textWrapper}>
           <Text textClass="h5Light">{i18n.t('usual-self.setup.title')}</Text>
         </View>
+        <UsualSelfFormBackButton previousScreen={props.previousScreen} />
       </View>
     );
   }
