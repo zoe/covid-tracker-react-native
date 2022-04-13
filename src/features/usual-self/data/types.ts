@@ -1,3 +1,5 @@
+import { TUsualSelfSetupRequest } from '@covid/core/user/dto/UserAPIContracts';
+
 export enum EUsualSelfSetupSection {
   MISC = 'MISC',
 }
@@ -8,12 +10,15 @@ export const usualSelfSetupScreenMappings = {
 
 export type TUsualSelfSetupScreenName = keyof typeof usualSelfSetupScreenMappings;
 
-// TODO: Fix
+export type TUsualSelfSetupQuestion = {
+  label: string;
+  name: keyof TUsualSelfSetupRequest;
+};
+
 export type TUsualSelfSetupScreens = {
   [key in EUsualSelfSetupSection]: {
     description: string;
-    questions: any[];
-    // questions: THealthProfileQuestion[];
+    questions: TUsualSelfSetupQuestion[];
     screenName: TUsualSelfSetupScreenName;
     testID: string;
   };

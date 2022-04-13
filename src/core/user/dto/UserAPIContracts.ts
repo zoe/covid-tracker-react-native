@@ -747,5 +747,6 @@ export type THealthProfileRequest = {
 export type TUsualSelfSetupRequest = {
   patient: string; //	Patient id
 
-  headache: boolean;
+  fever: boolean;
+  chills_shivers: boolean;
 };
