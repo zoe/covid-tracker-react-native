@@ -166,6 +166,7 @@ android {
         // Be carefull that the value doesn't exceed the maximum signed integer value of 2147483647!
         versionCode 2022011300
         versionName "2.7.2"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -276,7 +277,7 @@ dependencies {
 
     // For WebP support, without animations
     implementation 'com.facebook.fresco:webpsupport:2.5.0'
-    implementation project(path: ":@react-native-firebase_analytics")
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
