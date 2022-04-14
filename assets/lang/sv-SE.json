@@ -1846,6 +1846,7 @@
   "usual-self": {
     "tag": false,
     "time": false,
+    "past-6-months": false,
     "introduction": {
       "title": false,
       "button": false
@@ -1864,7 +1865,9 @@
       "button": false
     },
     "setup": {
-      "title": false
+      "title": false,
+      "dsecription-misc": false,
+      "description-not-misc": false
     }
   }
 }

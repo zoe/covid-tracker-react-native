@@ -1,4 +1,4 @@
-import { Text } from '@covid/components';
+import { Tag, Text, TextWithHighlight } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Screen } from '@covid/components/Screen';
@@ -19,6 +19,7 @@ interface IProps {
   description: string | null;
   maxSteps: number;
   previousScreen: TUsualSelfSetupScreenName | 'UsualSelfReportsSymptoms';
+  category: string;
   testID: string;
 }
 
@@ -62,15 +63,19 @@ export default function UsualSelfSetupScreen(props: IProps) {
       >
         <View style={styles.screenPadding}>
           <>
-            <ProgressStatus currentStep={props.currentStep} height={8} maxSteps={props.maxSteps} />
+            <ProgressStatus
+              borderRadius={6}
+              color={colors.darkBlue}
+              currentStep={props.currentStep}
+              height={12}
+              maxSteps={props.maxSteps}
+            />
 
-            <View style={styles.marginBottom}>
-              {props.description ? (
-                <Text style={styles.fontSecondary} textClass="pSmall">
-                  {props.description}
-                </Text>
-              ) : null}
-            </View>
+            <Tag color={colors.lightBlueBrand} style={styles.tag} text={i18n.t('usual-self.past-6-months')} />
+
+            <TextWithHighlight color={colors.purple} query={props.category} rhythm={8} textClass="h4Medium">
+              {props.description}
+            </TextWithHighlight>
 
             {props.children}
           </>
@@ -84,8 +89,10 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.darkBlue,
   },
-  fontSecondary: {
+  description: {
     color: colors.secondary,
+    marginBottom: sizes.xl,
+    marginTop: sizes.s,
   },
   footerWrapper: {
     backgroundColor: colors.white,
@@ -97,14 +104,17 @@ const styles = StyleSheet.create({
   headerWrapper: {
     alignItems: 'center',
     flexDirection: 'row',
+    paddingBottom: sizes.m,
     paddingHorizontal: sizes.screenHorizontalPadding,
-    paddingVertical: sizes.screenVerticalPadding,
-  },
-  marginBottom: {
-    marginBottom: sizes.xl,
+    paddingTop: sizes.m,
   },
   screenPadding: {
     paddingHorizontal: sizes.screenHorizontalPadding,
+  },
+  tag: {
+    alignSelf: 'flex-start',
+    marginBottom: sizes.s,
+    marginTop: sizes.l,
   },
   textWrapper: {
     ...StyleSheet.absoluteFillObject,

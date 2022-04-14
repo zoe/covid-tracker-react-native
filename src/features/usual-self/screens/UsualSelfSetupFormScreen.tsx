@@ -46,6 +46,7 @@ export default function UsualSelfSetupFormScreen({ route }: TProps) {
             buttonEnabled={formikProps.isValid}
             buttonOnPress={formikProps.handleSubmit}
             buttonTitle={navigator[sectionName].buttonText}
+            category={usualSelfSetupScreens[sectionName].category}
             currentStep={navigator[sectionName].currentStep}
             description={usualSelfSetupScreens[sectionName].description}
             maxSteps={maxSteps}

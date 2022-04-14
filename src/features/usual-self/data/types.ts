@@ -20,6 +20,7 @@ export type TUsualSelfSetupSymptom = {
 export type TUsualSelfSetupScreens = {
   [key in EUsualSelfSetupSection]: {
     description: string;
+    category: string;
     symptoms: TUsualSelfSetupSymptom[];
     screenName: TUsualSelfSetupScreenName;
     testID: string;

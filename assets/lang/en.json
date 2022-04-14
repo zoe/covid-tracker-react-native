@@ -1842,6 +1842,7 @@
   "usual-self": {
     "tag": "New daily reporting",
     "time": "Approx 3 mins",
+    "past-6-months": "Past 6 months",
     "introduction": {
       "title": "Introducing your new Daily Reporting",
       "button": "Get started"
@@ -1860,7 +1861,9 @@
       "button": "Set up your Usual Self"
     },
     "setup": {
-      "title": "Set up your Usual Self"
+      "title": "Set up your Usual Self",
+      "dsecription-misc": "Over the past 6 months have you - or are you currently - experiencing any of the below symptoms?",
+      "description-not-misc": "Are you / have you experienced any symptoms in or around your {{bodyPart}}?"
     }
   }
 }

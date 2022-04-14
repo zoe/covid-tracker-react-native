@@ -1,14 +1,17 @@
 import { TUsualSelfSetupScreens } from '@covid/features/usual-self/data/types';
+import i18n from '@covid/locale/i18n';
 
 export const usualSelfSetupScreens: TUsualSelfSetupScreens = {
   HEAD: {
-    description: 'Have you / are you experiencing any symptoms in or around your *head*?',
+    category: 'head',
+    description: i18n.t('usual-self.setup.description-not-misc', { bodyPart: 'head' }),
     screenName: 'UsualSelfSetupHead',
     symptoms: [{ label: 'Headache', name: 'headache' }],
     testID: 'usual-self-setup-head-screen',
   },
   MISC: {
-    description: 'Over the past 6 months have you - or are you currently - experiencing any of the below symptoms?',
+    category: 'over the past 6 months',
+    description: i18n.t('usual-self.setup.dsecription-misc'),
     screenName: 'UsualSelfSetupMisc',
     symptoms: [
       { label: 'Fever', name: 'fever' },
