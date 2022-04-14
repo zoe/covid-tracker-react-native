@@ -14,10 +14,20 @@ export const usualSelfSetupScreenMappings = {
 
 export type TUsualSelfSetupScreenName = keyof typeof usualSelfSetupScreenMappings;
 
+type TSubSymptoms =
+  | {
+      subSymptomType: 'radio' | 'checkbox';
+      subSymptoms: TUsualSelfSetupSymptom[];
+    }
+  | {
+      subSymptomType?: never;
+      subSymptoms?: never;
+    };
+
 export type TUsualSelfSetupSymptom = {
   label: string;
   name: keyof TUsualSelfSetupRequest;
-};
+} & TSubSymptoms;
 
 export type TUsualSelfSetupScreens = {
   [key in EUsualSelfSetupSection]: {

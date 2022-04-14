@@ -754,6 +754,10 @@ export type TUsualSelfSetupRequest = {
   // Head
   headache: boolean;
 
+  seizure_fit: boolean;
+  lost_consciousness: boolean;
+  did_not_lose_consciousness: boolean;
+
   // Throat, chest, lungs
   coughing: boolean;
 };

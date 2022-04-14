@@ -6,7 +6,26 @@ export const usualSelfSetupScreens: TUsualSelfSetupScreens = {
     category: 'head',
     description: i18n.t('usual-self.setup.description-not-misc', { bodyPart: 'head' }),
     screenName: 'UsualSelfSetupHead',
-    symptoms: [{ label: 'Headache', name: 'headache' }],
+    symptoms: [
+      {
+        label: 'Headache',
+        name: 'headache',
+        subSymptomType: 'checkbox',
+        subSymptoms: [
+          { label: 'Fake select 1', name: 'lost_consciousness' },
+          { label: 'Fake select 2', name: 'did_not_lose_consciousness' },
+        ],
+      },
+      {
+        label: 'Seizure / fit',
+        name: 'seizure_fit',
+        subSymptomType: 'radio',
+        subSymptoms: [
+          { label: 'Lost consciousness', name: 'lost_consciousness' },
+          { label: 'Did not lose consciousness', name: 'did_not_lose_consciousness' },
+        ],
+      },
+    ],
     testID: 'usual-self-setup-head-screen',
   },
   MISC: {
