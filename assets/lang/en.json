@@ -1865,6 +1865,10 @@
       "title": "Set up your Usual Self",
       "dsecription-misc": "Over the past 6 months have you - or are you currently - experiencing any of the below symptoms?",
       "description-not-misc": "Are you / have you experienced any symptoms in or around your {{bodyPart}}?"
+    },
+    "symptom": {
+      "select-frequency": "Select frequency",
+      "select-impact": "Impact on quality of life"
     }
   }
 }

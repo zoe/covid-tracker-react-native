@@ -1869,6 +1869,10 @@
       "title": false,
       "dsecription-misc": false,
       "description-not-misc": false
+    },
+    "symptom": {
+      "select-frequency": false,
+      "select-impact": false
     }
   }
 }
