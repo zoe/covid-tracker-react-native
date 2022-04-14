@@ -47,11 +47,13 @@ export function CheckboxItem(props: ICheckboxProps) {
 export function CheckboxList(props: ICheckboxListProps) {
   return (
     <View style={styles.checkboxList} testID={props.testID}>
-      <FieldLabelRedesigned>
-        {props.label}
-        {props.required ? `${requiredFormMarker}` : null}
-      </FieldLabelRedesigned>
-      {props.children}
+      <>
+        <FieldLabelRedesigned>
+          {props.label}
+          {props.required ? `${requiredFormMarker}` : null}
+        </FieldLabelRedesigned>
+        {props.children}
+      </>
     </View>
   );
 }
