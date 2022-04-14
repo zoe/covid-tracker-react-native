@@ -753,4 +753,7 @@ export type TUsualSelfSetupRequest = {
 
   // Head
   headache: boolean;
+
+  // Throat, chest, lungs
+  coughing: boolean;
 };

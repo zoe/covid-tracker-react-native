@@ -3,11 +3,13 @@ import { TUsualSelfSetupRequest } from '@covid/core/user/dto/UserAPIContracts';
 export enum EUsualSelfSetupSection {
   HEAD = 'HEAD',
   MISC = 'MISC',
+  THROAT_CHEST_LUNGS = 'THROAT_CHEST_LUNGS',
 }
 
 export const usualSelfSetupScreenMappings = {
   UsualSelfSetupHead: EUsualSelfSetupSection.HEAD,
   UsualSelfSetupMisc: EUsualSelfSetupSection.MISC,
+  UsualSelfSetupThroatChestLungs: EUsualSelfSetupSection.THROAT_CHEST_LUNGS,
 };
 
 export type TUsualSelfSetupScreenName = keyof typeof usualSelfSetupScreenMappings;

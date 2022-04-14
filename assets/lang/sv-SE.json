@@ -1847,6 +1847,7 @@
     "tag": false,
     "time": false,
     "past-6-months": false,
+    "check-all-apply": false,
     "introduction": {
       "title": false,
       "button": false

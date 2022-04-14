@@ -24,7 +24,7 @@ export default function FeatureIntroScreen(props: IProps) {
   function renderHeader() {
     return !props.noHeader || props.activeDot ? (
       <View style={[styles.headerWrapper, props.headerBgColor ? { backgroundColor: props.headerBgColor } : null]}>
-        {/* TODO: Checking with Sol on whether to move */}
+        {/* TODO: If there's time, move to bottom footer */}
         {props.activeDot ? (
           <View style={styles.dotWrapper}>
             <Dots activeDot={props.activeDot} amount={3} />

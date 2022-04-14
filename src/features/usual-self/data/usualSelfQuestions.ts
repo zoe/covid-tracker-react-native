@@ -19,4 +19,11 @@ export const usualSelfSetupScreens: TUsualSelfSetupScreens = {
     ],
     testID: 'usual-self-setup-misc-screen',
   },
+  THROAT_CHEST_LUNGS: {
+    category: 'throat, chest or lungs',
+    description: i18n.t('usual-self.setup.description-not-misc', { bodyPart: 'throat, chest or lungs' }),
+    screenName: 'UsualSelfSetupThroatChestLungs',
+    symptoms: [{ label: 'Coughing', name: 'coughing' }],
+    testID: 'usual-self-setup-throat-chest-lungs-screen',
+  },
 };

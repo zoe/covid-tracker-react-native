@@ -15,7 +15,7 @@ export const USUAL_SELF_NAVIGATOR: INavigatorProps = {
   HEAD: {
     buttonText: i18n.t('next'),
     currentStep: 2,
-    nextScreenName: 'UsualSelfSetupHead',
+    nextScreenName: 'UsualSelfSetupThroatChestLungs',
     previousScreenName: 'UsualSelfSetupMisc',
   },
   MISC: {
@@ -23,5 +23,12 @@ export const USUAL_SELF_NAVIGATOR: INavigatorProps = {
     currentStep: 1,
     nextScreenName: 'UsualSelfSetupHead',
     previousScreenName: 'UsualSelfReportsSymptoms',
+  },
+  // TODO: amend nextScreenName
+  THROAT_CHEST_LUNGS: {
+    buttonText: i18n.t('next'),
+    currentStep: 3,
+    nextScreenName: 'UsualSelfSetupThroatChestLungs',
+    previousScreenName: 'UsualSelfSetupHead',
   },
 };

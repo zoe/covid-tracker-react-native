@@ -55,8 +55,9 @@ export default function UsualSelfSetupScreen(props: IProps) {
   return (
     <>
       <Screen
+        isInsideTabBar
         noPadding
-        // backgroundColor={colors.backgroundPrimary}
+        backgroundColor={colors.whiteWithDropShadow}
         renderFooter={renderFooter}
         renderHeader={renderHeader}
         testID={props.testID}
@@ -73,9 +74,13 @@ export default function UsualSelfSetupScreen(props: IProps) {
 
             <Tag color={colors.lightBlueBrand} style={styles.tag} text={i18n.t('usual-self.past-6-months')} />
 
-            <TextWithHighlight color={colors.purple} query={props.category} rhythm={8} textClass="h4Medium">
+            <TextWithHighlight color={colors.purple} query={props.category} rhythm={32} textClass="h4Medium">
               {props.description}
             </TextWithHighlight>
+
+            <Text inverted colorPalette="uiDark" colorShade="dark" rhythm={8} textClass="pSmall">
+              {i18n.t('usual-self.check-all-apply')}
+            </Text>
 
             {props.children}
           </>
@@ -96,8 +101,7 @@ const styles = StyleSheet.create({
   },
   footerWrapper: {
     backgroundColor: colors.white,
-    marginTop: 'auto',
-    paddingBottom: sizes.screenVerticalPadding,
+    paddingBottom: sizes.xxl,
     paddingHorizontal: sizes.screenHorizontalPadding,
     paddingTop: sizes.l,
   },
@@ -122,6 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   topDropShadow: {
+    overflow: 'hidden',
     paddingTop: sizes.m,
   },
 });

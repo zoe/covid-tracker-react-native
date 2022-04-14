@@ -47,6 +47,7 @@ export const colors = {
   vegan: '#467980',
 
   actionButtonBorder: 'rgba(240, 240, 240, 1)',
+  whiteWithDropShadow: 'rgba(255, 255, 255, 0.7)',
 
   hrColor: '#D8D8D8',
 
