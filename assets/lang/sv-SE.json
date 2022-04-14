@@ -267,6 +267,10 @@
       "anti-n-description": "Upptäcker förekomsten av antikroppar riktade mot det så kallade N-proteinet mot covid-19. Antikroppar mot N-proteinet produceras inte i respons till något av de vaccinen som finns på marknaden i dag. Dessa antikroppar ses dock hos de flesta personer som har genomgått en covid-19-infektion och avtar med tiden.",
       "anti-s-title": "Test för antikroppar mot S-proteinet",
       "anti-s-description": "Upptäcker förekomsten av antikroppar riktade mot det så kallade S-proteinet i viruset. Antikroppar mot S-proteinet kan återfinnas både hos personer som har vaccinerats mot covid-19 och hos personer som har genomgått en covid-19-infektion."
+    },
+    "lft-prompt-modal": {
+      "title": false,
+      "description": false
     }
   },
   "how-you-feel": {
@@ -1838,5 +1842,26 @@
   },
   "other-screen": {
     "title": false
+  },
+  "usual-self": {
+    "tag": false,
+    "time": false,
+    "introduction": {
+      "title": false,
+      "button": false
+    },
+    "reports-powerful": {
+      "title": false,
+      "description": false
+    },
+    "reports-single-tap": {
+      "title": false,
+      "description": false
+    },
+    "reports-symptoms": {
+      "title": false,
+      "description": false,
+      "button": false
+    }
   }
 }

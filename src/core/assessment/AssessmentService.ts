@@ -75,4 +75,8 @@ export default class AssessmentService implements IAssessmentService {
     const response = this.sendFullAssessmentToApi();
     return !!response;
   }
+
+  getCurrentAssessment() {
+    return this.state.getAssessment();
+  }
 }

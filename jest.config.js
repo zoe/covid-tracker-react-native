@@ -7,7 +7,7 @@ module.exports = {
   preset: 'jest-expo',
   reporters: ['default', 'jest-junit'],
   setupFiles: ['dotenv/config'],
-  setupFilesAfterEnv: ['<rootDir>/jest/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest/setup.js', './__mocks__/mockFirebase.ts'],
   transform: {
     '^.+\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
   },

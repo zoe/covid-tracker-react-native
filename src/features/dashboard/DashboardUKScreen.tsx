@@ -96,6 +96,11 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
     }
+
+    // TODO: FIX
+    // if (startupInfo?.is_tester) {
+    //   setTimeout(() => NavigatorService.navigate('UsualSelfIntroduction'), 500);
+    // }
   }, []);
 
   const onPressReport = React.useCallback(() => appCoordinator.gotoNextScreen(route.name), []);

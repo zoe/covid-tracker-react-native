@@ -311,6 +311,10 @@
       "anti-n-description": "Detects the presence of antibodies targeted against the so-called (N) protein of COVID-19. Anti-N antibodies are not produced in response to any of the current vaccines on the market. They are, however, seen in most people who have recovered from COVID-19 but do drop over time.",
       "anti-s-title": "Anti-S antibody test",
       "anti-s-description": "Detects the presence of antibodies targeted against the so-called spike (S) protein of the virus. Anti-S antibodies might be found in both people who have been vaccinated against COVID-19 and people who have recovered from COVID-19."
+    },
+    "lft-prompt-modal": {
+      "title": "We’re sorry you’re not feeling quite right",
+      "description": "If you have access to a Lateral Flow Test (LFT), we’d recommend taking one today to help keep infection numbers up to date.\n\nPlease report your result in the app."
     }
   },
   "describe-symptoms": {
@@ -1833,6 +1837,27 @@
     },
     "other-screen": {
       "title": "Other profile settings"
+    }
+  },
+  "usual-self": {
+    "tag": "New daily reporting",
+    "time": "Approx 3 mins",
+    "introduction": {
+      "title": "Introducing your new Daily Reporting",
+      "button": "Get started"
+    },
+    "reports-powerful": {
+      "title": "Your health reports are now even more powerful",
+      "description": "As well as contributing to COVID-19 knowledge, every report now supports research in major health issues, such as cancer and dementia. \n\nLogging daily adds huge value to a range of new studies."
+    },
+    "reports-single-tap": {
+      "title": "Most reports can be done in a single tap",
+      "description": "Your reports are now personalised to your unique health, even if you’re managing a chronic health condition.\n\nThe new report simply asks whether you feel different (e.g. worse or better) from how you usually feel."
+    },
+    "reports-symptoms": {
+      "title": "Let’s get to know your symptoms better",
+      "description": "To get started, we need to understand how you usually feel. We call this your *Usual Self* - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
+      "button": "Set up your Usual Self"
     }
   }
 }

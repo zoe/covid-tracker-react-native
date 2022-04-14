@@ -2,7 +2,10 @@ import { BrandedButton, EFeaturedContentType, FeaturedContentList } from '@covid
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import { TAssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { appActions } from '@covid/core/state/app/slice';
+import { incrementTimesSeenLFTPrompt, updateDateLastSeenLFTPrompt } from '@covid/core/state/covid-tests/slice';
+import { TStateCovidTests } from '@covid/core/state/covid-tests/types';
 import {
   showHealthProfileStartCard,
   TStateHealthProfile,
@@ -13,6 +16,7 @@ import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { ImpactTimelineCard } from '@covid/features/anniversary';
 import { appCoordinator } from '@covid/features/AppCoordinator';
+import { CovidTestLFTPromptModal } from '@covid/features/covid-tests/modals/CovidTestLFTPromptModal';
 import { HealthProfileReminderModal } from '@covid/features/health-profile/modals/HealthProfileReminderModal';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
 import { BigGreenTickFilled } from '@covid/features/thank-you/components/BigGreenTick';
@@ -20,13 +24,14 @@ import { ShareAppCard } from '@covid/features/thank-you/components/ShareApp';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
+import { assessmentService } from '@covid/services';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import moment from 'moment';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 
 interface IProps {
   route: RouteProp<TScreenParamList, 'ThankYouUK'>;
@@ -34,15 +39,75 @@ interface IProps {
 
 const SHOW_ONBOARDING_DELAY_MS = 750;
 
+type TCovidSymptoms = keyof TAssessmentInfosRequest;
+const selectedCovidSymptoms: TCovidSymptoms[] = [
+  'runny_nose',
+  'fatigue',
+  'sore_throat',
+  'headache',
+  'sneezing',
+  'persistent_cough',
+  'hoarse_voice',
+  'chills_or_shivers',
+  'unusual_joint_pains',
+  'loss_of_smell',
+  'fever',
+];
+
+export const covidSymptomPresent = (assessmentObject: Partial<TAssessmentInfosRequest>) => {
+  if (assessmentObject.health_status !== 'not_healthy') {
+    return false;
+  }
+  return selectedCovidSymptoms.some(
+    (symptom) =>
+      assessmentObject[symptom] !== false &&
+      assessmentObject[symptom] !== 'no' &&
+      assessmentObject[symptom] !== null &&
+      assessmentObject[symptom] !== undefined, // If assessment is healthy, assessmentObject[symptom] is undefined!
+  );
+};
+
 export default function ThankYouUKScreen(props: IProps) {
   const dispatch = useDispatch();
+  const shouldShowLFTPromptBasedOnPastRecords =
+    assessmentCoordinator.assessmentData?.patientData?.patientInfo?.should_show_lft_prompt;
+  const shouldShowLFTReminderBasedOnPastRecords =
+    assessmentCoordinator.assessmentData?.patientData?.patientInfo?.should_show_lft_reminder;
+
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
 
+  const currentAssessment = assessmentService.getCurrentAssessment();
+  const covidTestsState = useSelector<TRootState, TStateCovidTests>((state) => state.covidTests);
+  const currentPatientId = currentAssessment.patient || '';
+  const lftPromptStateForCurrentPatient = covidTestsState?.lftPrompt[currentPatientId];
+
   const [askForRating, setAskForRating] = React.useState<boolean>(false);
   const [showHealthProfileReminderModal, setShowHealthProfileReminderModal] = React.useState<boolean>(false);
+  const [showLFTPromptModal, setShowLFTPromptModal] = React.useState<boolean>(false);
 
+  const fiveDaysAgo = moment().add(moment().utcOffset(), 'minutes').subtract(5, 'days').toDate();
   const sevenDaysAgo = moment().add(moment().utcOffset(), 'minutes').subtract(7, 'days').toDate();
+
+  const showLFTPromptInitial = () => {
+    return (
+      shouldShowLFTPromptBasedOnPastRecords &&
+      covidSymptomPresent(currentAssessment) &&
+      !lftPromptStateForCurrentPatient?.currentPatientLoggedToday &&
+      lftPromptStateForCurrentPatient?.timesSeenLFTPrompt === 0
+    );
+  };
+
+  const showLFTPromptReminder = () => {
+    const lastSeen = moment(lftPromptStateForCurrentPatient.dateLastSeenLFTPrompt);
+    return (
+      shouldShowLFTReminderBasedOnPastRecords &&
+      covidSymptomPresent(currentAssessment) &&
+      !lftPromptStateForCurrentPatient?.currentPatientLoggedToday &&
+      lftPromptStateForCurrentPatient?.timesSeenLFTPrompt === 1 &&
+      lastSeen.isBefore(fiveDaysAgo)
+    );
+  };
 
   React.useEffect(() => {
     (async () => {
@@ -50,6 +115,12 @@ export default function ThankYouUKScreen(props: IProps) {
         dispatch(appActions.setModalMentalHealthPlaybackVisible(true));
         return;
       }
+
+      if (showLFTPromptInitial() || showLFTPromptReminder()) {
+        setShowLFTPromptModal(true);
+        return;
+      }
+
       if (startupInfo?.show_study_hub_onboarding && startupInfo?.wider_health_studies_consent) {
         setTimeout(() => {
           NavigatorService.goBack();
@@ -59,7 +130,7 @@ export default function ThankYouUKScreen(props: IProps) {
       }
       if (
         healthProfileState.dateOfLastUpdate &&
-        healthProfileState.dateOfLastUpdate < sevenDaysAgo &&
+        new Date(healthProfileState.dateOfLastUpdate) < sevenDaysAgo &&
         !healthProfileState.hasSeenReminderModal &&
         healthProfileState.progressPercent < 100 &&
         healthProfileState.screenToReturnTo !== 'HPThankYou'
@@ -92,9 +163,19 @@ export default function ThankYouUKScreen(props: IProps) {
     setShowHealthProfileReminderModal(false);
   }, []);
 
+  const onLFTPromptModalClose = React.useCallback(() => {
+    batch(() => {
+      dispatch(incrementTimesSeenLFTPrompt(currentPatientId));
+      dispatch(updateDateLastSeenLFTPrompt({ dateLastSeenLFTPrompt: new Date(), patientId: currentPatientId }));
+    });
+    setShowLFTPromptModal(false);
+  }, []);
+
   return (
     <>
       {askForRating && <AppRating />}
+
+      <CovidTestLFTPromptModal onRequestClose={onLFTPromptModalClose} visible={showLFTPromptModal} />
 
       {showHealthProfileReminderModal &&
         !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another && (

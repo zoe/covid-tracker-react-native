@@ -164,6 +164,12 @@ export type TScreenParamList = {
   HPThankYou: undefined;
   HPFormScreen: { screenName: THPScreenName | 'HPThankYou'; navDirection?: 'backwards' };
 
+  // Usual self
+  UsualSelfIntroduction: undefined;
+  UsualSelfReportsPowerful: undefined;
+  UsualSelfReportsSingleTap: undefined;
+  UsualSelfReportsSymptoms: undefined;
+
   // Others
   Anniversary: undefined;
   EstimatedCases: undefined;

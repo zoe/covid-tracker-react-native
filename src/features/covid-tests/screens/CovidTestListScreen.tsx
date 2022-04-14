@@ -5,6 +5,8 @@ import { Screen } from '@covid/components/Screen';
 import { ErrorText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { populatePatientLFTState, updateCurrentPatientLoggedToday } from '@covid/core/state/covid-tests/slice';
+import { TStateCovidTests } from '@covid/core/state/covid-tests/types';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { covidTestService } from '@covid/core/user/CovidTestService';
@@ -23,7 +25,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface IProps {
   navigation: StackNavigationProp<TScreenParamList, 'CovidTestList'>;
@@ -42,6 +44,14 @@ const getTodaysLFT = (covidTests: TCovidTest[]) => {
   return todaysTest;
 };
 
+const checkIfPatientLoggedPCRLFTToday = (covidTests: TCovidTest[]) => {
+  const loggedLFTPCRTestToday = covidTests.find(
+    (test) =>
+      test.mechanism === ECovidTestMechanismOptions.NOSE_OR_THROAT_SWAB && dateIsToday(test.date_taken_specific),
+  );
+  return !!loggedLFTPCRTestToday;
+};
+
 export default function CovidTestListScreen(props: IProps) {
   const [covidTests, setCovidTests] = React.useState<TCovidTest[]>([]);
   const [error, setError] = React.useState<string>();
@@ -50,21 +60,43 @@ export default function CovidTestListScreen(props: IProps) {
 
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
+  const dispatch = useDispatch();
+
+  const covidTestsState = useSelector<TRootState, TStateCovidTests>((state) => state.covidTests);
+  const currentPatientId = assessmentCoordinator.assessmentData?.patientData?.patientId;
+
+  const initLFTPromptStateIfUndefined = () => {
+    if (covidTestsState && !covidTestsState.lftPrompt[currentPatientId]) {
+      dispatch(populatePatientLFTState(currentPatientId));
+    }
+  };
+
   const fetchTestList = async () => {
     setIsLoading(true);
     try {
       const tests = (await covidTestService.listTests()).data;
-      const patientTests = tests.filter(
-        (t) => t.patient === assessmentCoordinator.assessmentData?.patientData?.patientId,
-      );
+      const patientTests = tests.filter((t) => t.patient === currentPatientId);
       setCovidTests(patientTests);
       setTodaysLFT(getTodaysLFT(patientTests));
+
+      if (checkIfPatientLoggedPCRLFTToday(patientTests)) {
+        dispatch(
+          updateCurrentPatientLoggedToday({
+            currentPatientLoggedToday: true,
+            patientId: currentPatientId,
+          }),
+        );
+      }
     } catch (_) {
       setError(i18n.t('something-went-wrong'));
     } finally {
       setIsLoading(false);
     }
   };
+
+  React.useEffect(() => {
+    initLFTPromptStateIfUndefined();
+  }, []);
 
   useFocusEffect(
     React.useCallback(() => {
