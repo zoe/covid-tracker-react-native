@@ -19,7 +19,6 @@ import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import { OnboardingContext } from '@covid/features/tab-navigation/OnboardingContext';
 import { useStartReconsent } from '@covid/features/wider-health-studies/hooks/useStartReconsent';
-import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { pushNotificationService } from '@covid/services';
 import { sizes, styling } from '@covid/themes';
@@ -99,9 +98,9 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     }
 
     // TODO: FIX
-    if (startupInfo?.is_tester) {
-      setTimeout(() => NavigatorService.navigate('UsualSelfIntroduction'), 500);
-    }
+    // if (startupInfo?.is_tester) {
+    //   setTimeout(() => NavigatorService.navigate('UsualSelfIntroduction'), 500);
+    // }
   }, []);
 
   const onPressReport = React.useCallback(() => appCoordinator.gotoNextScreen(route.name), []);

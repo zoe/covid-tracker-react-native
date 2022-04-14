@@ -18,8 +18,9 @@ import expo.modules.updates.UpdatesController;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javax.annotation.Nullable;
+import androidx.multidex.MultiDexApplication;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends MultiDexApplication implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
     new BasePackageList().getPackageList()
   );
