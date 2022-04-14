@@ -17,13 +17,13 @@ const HIT_SLOP = {
   top: 12,
 };
 
-// Similar button to HealthProfileFormBackButton -> maybe worth refactoring to component if we do this again
+// Similar button to HealthProfileFormBackButton -> maybe worth refactoring to generic component if we do this again
 export function UsualSelfFormBackButton(props: TProps) {
   const onBackPress = () => {
     if (props.previousScreen === 'UsualSelfReportsSymptoms') {
       NavigatorService.navigate(props.previousScreen, { navDirection: 'backwards' });
     } else {
-      NavigatorService.navigate('UsualSelfSetupForm', { navDirection: 'backwards', screenName: props.previousScreen });
+      NavigatorService.push('UsualSelfSetupForm', { navDirection: 'backwards', screenName: props.previousScreen });
     }
   };
 
