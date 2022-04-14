@@ -16,7 +16,7 @@ type TProps = {
 };
 
 export default function UsualSelfSetupFormScreen({ route }: TProps) {
-  const screenName = route.params.screenName as TUsualSelfSetupScreenName;
+  const screenName = route.params?.screenName as TUsualSelfSetupScreenName;
   const sectionName = usualSelfSetupScreenMappings[screenName];
 
   const navigator = USUAL_SELF_NAVIGATOR;
@@ -42,23 +42,25 @@ export default function UsualSelfSetupFormScreen({ route }: TProps) {
     >
       {(formikProps) => {
         return (
-          <UsualSelfSetupScreen
-            buttonEnabled={formikProps.isValid}
-            buttonOnPress={formikProps.handleSubmit}
-            buttonTitle={navigator[sectionName].buttonText}
-            category={usualSelfSetupScreens[sectionName].category}
-            currentStep={navigator[sectionName].currentStep}
-            description={usualSelfSetupScreens[sectionName].description}
-            maxSteps={maxSteps}
-            previousScreen={navigator[sectionName].previousScreenName}
-            testID={usualSelfSetupScreens[sectionName].testID}
-          >
-            <Form>
-              {usualSelfSetupScreens[sectionName].symptoms.map((symptom) => (
-                <UsualSelfSymptomFrequencyQuality formikProps={formikProps} item={symptom} key={symptom.name} />
-              ))}
-            </Form>
-          </UsualSelfSetupScreen>
+          navigator[sectionName] && (
+            <UsualSelfSetupScreen
+              buttonEnabled={formikProps.isValid}
+              buttonOnPress={formikProps.handleSubmit}
+              buttonTitle={navigator[sectionName].buttonText}
+              category={usualSelfSetupScreens[sectionName].category}
+              currentStep={navigator[sectionName].currentStep}
+              description={usualSelfSetupScreens[sectionName].description}
+              maxSteps={maxSteps}
+              previousScreen={navigator[sectionName].previousScreenName}
+              testID={usualSelfSetupScreens[sectionName].testID}
+            >
+              <Form>
+                {usualSelfSetupScreens[sectionName].symptoms.map((symptom) => (
+                  <UsualSelfSymptomFrequencyQuality formikProps={formikProps} item={symptom} key={symptom.name} />
+                ))}
+              </Form>
+            </UsualSelfSetupScreen>
+          )
         );
       }}
     </Formik>
