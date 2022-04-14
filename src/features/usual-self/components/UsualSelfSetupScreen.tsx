@@ -53,40 +53,38 @@ export default function UsualSelfSetupScreen(props: IProps) {
   }
 
   return (
-    <>
-      <Screen
-        isInsideTabBar
-        noPadding
-        backgroundColor={colors.whiteWithDropShadow}
-        renderFooter={renderFooter}
-        renderHeader={renderHeader}
-        testID={props.testID}
-      >
-        <View style={styles.screenPadding}>
-          <>
-            <ProgressStatus
-              borderRadius={6}
-              color={colors.darkBlue}
-              currentStep={props.currentStep}
-              height={12}
-              maxSteps={props.maxSteps}
-            />
+    <Screen
+      isInsideTabBar
+      noPadding
+      backgroundColor={colors.whiteWithDropShadow}
+      renderFooter={renderFooter}
+      renderHeader={renderHeader}
+      testID={props.testID}
+    >
+      <View style={styles.screenPadding}>
+        <>
+          <ProgressStatus
+            borderRadius={6}
+            color={colors.darkBlue}
+            currentStep={props.currentStep}
+            height={12}
+            maxSteps={props.maxSteps}
+          />
 
-            <Tag color={colors.lightBlueBrand} style={styles.tag} text={i18n.t('usual-self.past-6-months')} />
+          <Tag color={colors.lightBlueBrand} style={styles.tag} text={i18n.t('usual-self.past-6-months')} />
 
-            <TextWithHighlight color={colors.purple} query={props.category} rhythm={32} textClass="h4Medium">
-              {props.description}
-            </TextWithHighlight>
+          <TextWithHighlight color={colors.purple} query={props.category} rhythm={32} textClass="h4Medium">
+            {props.description}
+          </TextWithHighlight>
 
-            <Text inverted colorPalette="uiDark" colorShade="dark" rhythm={8} textClass="pSmall">
-              {i18n.t('usual-self.check-all-apply')}
-            </Text>
+          <Text inverted colorPalette="uiDark" colorShade="dark" rhythm={8} textClass="pSmall">
+            {i18n.t('usual-self.check-all-apply')}
+          </Text>
 
-            {props.children}
-          </>
-        </View>
-      </Screen>
-    </>
+          {props.children}
+        </>
+      </View>
+    </Screen>
   );
 }
 
