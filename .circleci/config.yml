@@ -55,7 +55,7 @@ references:
   master_filter: &master_filter
     branches:
       only:
-        - master
+        - master     
 
   develop_filter: &develop_filter
     branches:
@@ -134,22 +134,6 @@ commands:
           paths:
             - ios/Pods
             - ~/Library/Caches/CocoaPods/Pods
-  pod-clean-install:
-    steps:
-      - run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
-      - run: cd ios && rm -rf Pods
-      - run: cd ios && pod install --clean-install
-
-  pod-install:
-    steps:
-      - restore_cache:
-          key: *pod_cache_key
-      - run: cd ios && pod install
-      - save_cache:
-          key: *pod_cache_key
-          paths:
-            - ios/Pods
-            - ~/Library/Caches/CocoaPods/Pods
 
   # Prepare blank env for testing
   prepare_blank_env:
@@ -162,7 +146,6 @@ commands:
       - run: bundle update fastlane
       - run: bundle exec fastlane update_plugins
       - run: bash .circleci/make_deploy_env.sh
-      - run: yarn generate:git-hash
 
   # Should prepare code, install deps & bundle assets
   build:
@@ -189,6 +172,15 @@ commands:
       - set_expo_release_channel
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL} --target bare
+
+  # Prepare E2E setup
+  prepare_e2e:
+    steps:
+      - run: brew update
+      - run: brew install watchman
+      - run: npm install -g detox-cli
+      - run: brew tap wix/brew
+      - run: brew install applesimutils
 
 ###
 ### Define jobs
@@ -257,6 +249,36 @@ jobs:
       - store_artifacts:
           path: ./reports/junit
 
+  # Run Dtox E2E
+  e2etest:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+
+    steps:
+      - build
+      - prepare_e2e
+      #- run: yarn build:ios
+      - run:
+          name: Force specific nodejs version
+          command: |
+            export NODE_VERSION=$(cat .nvmrc)
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.1/install.sh | bash -s -- --no-use
+            echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
+            echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
+            echo 'nvm install v10.2.0' >> $BASH_ENV
+            echo 'nvm alias default v10.2.0' >> $BASH_ENV
+      - run: yarn fastlane:ios:release env:$RELEASE_TYPE
+      #- run: detox build --configuration ios.release
+      - run: detox test --configuration ios.release --cleanup
+      - persist_to_workspace:
+          root: *default_workspace
+          paths:
+            - node_modules
+            - vendor/bundle
+            - ios/Pods
+            - android/app/src/main/assets/index.android.bundle
+            - android/app/src/main/res
+
   ### ------------------- ###
   ### Deploy related jobs ###
   ### ------------------- ###
@@ -267,30 +289,14 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      - install-dependencies
       - run: yarn
       - attach_workspace:
           at: *default_workspace
       - prepare_deploy_env
-      # DEBUG
-      - run:
-          command: echo 'RELEASE_TYPE:' $RELEASE_TYPE
-          name: 'Echo release type'
-
       - run: bundle install --path vendor/bundle --clean
       # Required to set xcode to v 13
       - run: gem install xcode-install
-      - pod-clean-install
-      - run: yarn fastlane:ios:certificates
-      - run:
-          name: Fastlane ios release WITH NODE v14.17.0
-          command: |
-            set +e
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install v14.17.0            
-            npm install -g yarn 
-            yarn fastlane:ios:release env:$RELEASE_TYPE
+      - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
 
@@ -313,7 +319,7 @@ jobs:
           key: *gem_cache_key
       - run: bundle install --path vendor/bundle --clean && cat android/gradle.properties
       - run:
-          name: Fastlane android release
+          name: fastlane android release
           no_output_timeout: 60m
           command: |
             ENVFILE=.env bundle exec fastlane android release env:$RELEASE_TYPE
@@ -358,42 +364,6 @@ jobs:
           message: 'Deployed OTA release for iOS & Android $RELEASE_CHANNEL'
           webhook: $SLACK_WEBHOOK
 
-  #RN 6.0.1 orb / detox jobs
-  analyse_js:
-    executor: mobile-build-box
-    steps:
-      - attach_workspace:
-          at: . #*default_workspace
-      - rn/yarn_install:
-          cache: false
-          cache_folder: /tmp/yarn_cache
-      # - run:
-      #     command: yarn eslint
-      #     name: Run ESLint
-      # - run:
-      #     command: yarn flow
-      #     name: Flow
-      # - run:
-      #     command: yarn jest
-      #     name: Jest
-  checkout_code:
-    #executor: rn/linux_js
-    executor: mobile-build-box
-    steps:
-      - prepare_code
-      - install-dependencies
-      # - checkout
-      - rn/yarn_install:
-          cache: false
-          cache_folder: /tmp/yarn_cache
-      # - cocoapods
-      - rn/pod_install:
-          cache: false
-          #pod_install_directory: ios/pods
-      - persist_to_workspace:
-          paths: .
-          root: .
-
 ###
 ### Define workflow
 ### ---------------------------------------------------------------------------------------------
@@ -406,6 +376,7 @@ workflows:
   # |-- Lint project
   # |-- Check i18n string
   # |-- Run Tests
+  # |-- Run Detox E2E Tests
   #
 
   tests:
@@ -417,28 +388,12 @@ workflows:
       - test:
           filters: *feature_filter
 
-  # Testing DETOX with rn orb 6.1.0.
-  # detox_experimental:
-  #   jobs:
-  #     - checkout_code
-  #     - analyse_js:
-  #         requires:
-  #           - checkout_code
-  #     - rn/ios_build_and_test:
-  #         build_configuration: Release
-  #         detox_configuration: ios.sim.release
-  #         device: iPhone 11
-  #         node_version: '14.17.0'
-
-  #         project_path: ios/Covid.xcworkspace
-  #         project_type: workspace
-  #         requires:
-  #           - analyse_js
-  #         scheme: "'Covid Release'"
-  #         # disable all caches to see if build fixes
-  #         homebrew_cache: false
-  #         yarn_cache: false
-  #         xcodebuild_cache: false
+      # DISABLED FOR MERGE TO MASTER
+      # - e2etest:
+      #     # This should be the e2e_filter to avoid running on every push
+      #     # filters: *e2e_filter
+      #     filters: *feature_filter
+      #     context: react-covid-tracker-stage
 
   ota:
     jobs:
@@ -518,42 +473,29 @@ workflows:
           message: 'Awaiting manual approval to deploy to production (Options: OTA, Store)'
           context: slack-ci-covid-mobile
       - store-release-approval:
-          name: 'Store approval IOS'
-          filters: *master_filter
-          type: approval
-      - store-release-approval:
-          name: 'Store approval ANDROID'
+          name: 'Store approval'
           filters: *master_filter
           type: approval
       - build:
           filters: *master_filter
-          name: 'Store build IOS'
+          name: 'Store build'
           requires:
-            - Store approval IOS
-      - build:
-          filters: *master_filter
-          name: 'Store build ANDROID'
-          requires:
-            - Store approval ANDROID
+            - Store approval
       - deploy-ios:
           name: 'Store iOS'
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-            - Store build IOS
+            - Store build
       - deploy-android:
           name: 'Store Android'
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-            - Store build ANDROID
+            - Store build
       - deployed-prod:
-          name: 'Prod app published: IOS'
+          name: 'Prod apps published'
           context: slack-ci-covid-mobile
           requires:
             - Store iOS
-      - deployed-prod:
-          name: 'Prod app published: ANDROID'
-          context: slack-ci-covid-mobile
-          requires:
             - Store Android
