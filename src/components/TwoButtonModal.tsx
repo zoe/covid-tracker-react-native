@@ -1,7 +1,7 @@
-import { ModalContainer } from '@covid/components/ModalContainer';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
+import { Modal } from '@tracer/molecules/Modal/Modal';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -26,7 +26,7 @@ export const TwoButtonModal: React.FC<TProps> = (props) => {
   };
 
   return (
-    <ModalContainer>
+    <Modal>
       {props.headerText ? <RegularBoldText style={styles.header}>{props.headerText}</RegularBoldText> : null}
       <RegularText style={styles.text}>{props.bodyText}</RegularText>
 
@@ -39,7 +39,7 @@ export const TwoButtonModal: React.FC<TProps> = (props) => {
           <RegularText style={[styles.button2Text, button2Color]}>{props.button2Text}</RegularText>
         </TouchableOpacity>
       </View>
-    </ModalContainer>
+    </Modal>
   );
 };
 

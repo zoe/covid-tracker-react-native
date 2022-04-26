@@ -1,4 +1,3 @@
-import { ModalContainer } from '@covid/components/ModalContainer';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { contentService } from '@covid/core/content/ContentService';
 import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
@@ -7,6 +6,7 @@ import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import Constants from '@covid/utils/Constants';
 import { colors } from '@theme';
+import { Modal } from '@tracer/molecules/Modal/Modal';
 import { Toast } from 'native-base';
 import * as React from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -93,7 +93,7 @@ export class AppRating extends React.Component<TPropsType, TState> {
   render() {
     return (
       this.state.isModalOpen && (
-        <ModalContainer>
+        <Modal>
           {this.state.showTakeToStore ? (
             <>
               {this.renderHeader(i18n.t('rating.rate-this-app'), i18n.t('rating.explanation'))}
@@ -119,7 +119,7 @@ export class AppRating extends React.Component<TPropsType, TState> {
               )}
             </>
           )}
-        </ModalContainer>
+        </Modal>
       )
     );
   }

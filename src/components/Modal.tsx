@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import { Text } from '@covid/components/typography';
 import Analytics from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';

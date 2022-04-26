@@ -6,9 +6,9 @@ interface Props {
   children: any;
 }
 
-export const CenterView = (props: Props) => {
+export const CenterView = ({ children }: Props) => {
   SplashScreen.hide();
-  return <View style={styles.main}>{props.children}</View>;
+  return <View style={styles.main}>{children}</View>;
 };
 
 const styles = StyleSheet.create({

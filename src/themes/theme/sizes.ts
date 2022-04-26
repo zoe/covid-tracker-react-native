@@ -2,6 +2,7 @@ import { TGrid } from '@covid/themes/types/sizes';
 
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 const grid: TGrid = {
+  xxxs: 2,
   xxs: 4,
   xs: 8,
   s: 12,

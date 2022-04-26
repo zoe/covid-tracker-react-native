@@ -1,8 +1,8 @@
-import { ModalContainer } from '@covid/components/ModalContainer';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
+import { Modal } from '@tracer/molecules/Modal/Modal';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -13,7 +13,7 @@ type TProps = {
 
 export const ArchiveConfirmationModal: React.FC<TProps> = (props) => {
   return (
-    <ModalContainer>
+    <Modal>
       <RegularBoldText style={styles.header}>{i18n.t('archive-confirmation.title')}</RegularBoldText>
       <RegularText style={styles.text}>{i18n.t('archive-confirmation.text')}</RegularText>
 
@@ -26,7 +26,7 @@ export const ArchiveConfirmationModal: React.FC<TProps> = (props) => {
           <RegularText style={styles.buttonText2}>{i18n.t('archive-confirmation.confirm')}</RegularText>
         </TouchableOpacity>
       </View>
-    </ModalContainer>
+    </Modal>
   );
 };
 
