@@ -444,12 +444,12 @@ workflows:
           filters: *develop_filter
           requires:
             - Adhoc approval
-      - deploy-ios:
-          name: 'Adhoc iOS'
-          filters: *develop_filter
-          context: react-covid-tracker-stage
-          requires:
-            - Adhoc build
+      # - deploy-ios:
+      #     name: 'Adhoc iOS'
+      #     filters: *develop_filter
+      #     context: react-covid-tracker-stage
+      #     requires:
+      #       - Adhoc build
       - deploy-android:
           name: 'Adhoc Android'
           filters: *develop_filter
@@ -460,7 +460,7 @@ workflows:
           name: 'Stage apps published'
           context: slack-ci-covid-mobile
           requires:
-            - Adhoc iOS
+            # - Adhoc iOS
             - Adhoc Android
 
       # Publish app to store
@@ -481,12 +481,12 @@ workflows:
           name: 'Store build'
           requires:
             - Store approval
-      - deploy-ios:
-          name: 'Store iOS'
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-            - Store build
+      # - deploy-ios:
+      #     name: 'Store iOS'
+      #     filters: *master_filter
+      #     context: react-covid-tracker-prod
+      #     requires:
+      #       - Store build
       - deploy-android:
           name: 'Store Android'
           filters: *master_filter
@@ -497,5 +497,5 @@ workflows:
           name: 'Prod apps published'
           context: slack-ci-covid-mobile
           requires:
-            - Store iOS
+            # - Store iOS
             - Store Android
