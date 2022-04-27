@@ -33,6 +33,12 @@
       ],
       "@theme/*": [
         "./theme/*"
+      ],
+      "@tracer": [
+        "./storybook/components",
+      ],
+      "@tracer/*": [
+        "./storybook/components/*",
       ]
     },
     "resolveJsonModule": true,

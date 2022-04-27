@@ -1,21 +1,61 @@
 import { action } from '@storybook/addon-actions';
-import { text } from '@storybook/addon-knobs';
+import { boolean, number, optionsKnob, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { Text } from 'react-native';
 
+import Button, { IButtonProps } from '../../components/atoms/Button';
 import { CenterView } from '../CenterView';
-import Button from '.';
+
+const baseBtnProps: IButtonProps = {
+  buttonType: 'primary',
+  onPress: action('clicked-primary-button'),
+  style: { width: 300 },
+};
+
+const secondaryBtnProps: IButtonProps = {
+  buttonType: 'secondary',
+  onPress: action('clicked-secondary-button'),
+};
+
+const tertiaryBtnProps: IButtonProps = {
+  buttonType: 'tertiary',
+  onPress: action('clicked-tertiary-button'),
+};
 
 storiesOf('Button', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
-  .add('with text', () => (
-    <Button onPress={action('clicked-text')}>
-      <Text>{text('Button text', 'Hello Button')}</Text>
+  .add('primary', () => (
+    <Button {...baseBtnProps}>
+      <Text>{text('Button text', 'Button')}</Text>
     </Button>
   ))
-  .add('with some emoji', () => (
-    <Button onPress={action('clicked-emoji')}>
-      <Text>😀 😎 👍 💯</Text>
+  .add('secondary', () => (
+    <Button {...baseBtnProps} {...secondaryBtnProps}>
+      <Text>{text('Button text', 'Button')}</Text>
+    </Button>
+  ))
+  .add('tertiary', () => (
+    <Button {...baseBtnProps} {...tertiaryBtnProps}>
+      <Text>{text('Button text', 'Button')}</Text>
+    </Button>
+  ))
+  .add('w/ state', () => (
+    <Button
+      buttonType={optionsKnob(
+        'type',
+        {
+          primary: 'primary',
+          secondary: 'secondary',
+          tertiary: 'tertiary',
+        },
+        'primary',
+        { display: 'inline-radio' },
+      )}
+      disabled={boolean('disabled', false)}
+      onPress={action('clicked-primary-button')}
+      style={{ width: number('width', 300) }}
+    >
+      <Text>{text('Button text', 'Button')}</Text>
     </Button>
   ));
