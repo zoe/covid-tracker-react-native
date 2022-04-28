@@ -23,6 +23,9 @@ export const colors = {
 
   white: '#FFFFFF',
   black: '#000000',
+  black50: 'rgba(0, 0, 0, 0.5)',
+
+  textPrimary: '#24262B',
 
   transparent: 'transparent',
 };

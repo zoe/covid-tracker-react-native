@@ -1,0 +1,31 @@
+import React from 'react';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+
+import { colors } from '../../../branding/colors';
+import { grid } from '../../../branding/grid';
+
+export interface IComponentProps {
+  children?: any;
+  style?: StyleProp<ViewStyle>;
+  testID?: string;
+}
+
+/**
+ * Component
+ *
+ * @param style custom styling, overrides all other styles
+ */
+export default function Component({ style, ...props }: IComponentProps) {
+  return (
+    <View style={[baseStyle.view, style]} testID={props.testID ?? 'Component-test-id'}>
+      {props.children}
+    </View>
+  );
+}
+
+const baseStyle = StyleSheet.create({
+  view: {
+    backgroundColor: colors.white,
+    margin: grid.g8,
+  },
+});

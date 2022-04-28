@@ -1,0 +1,19 @@
+import { text } from '@storybook/addon-knobs';
+import { storiesOf } from '@storybook/react-native';
+import React from 'react';
+import { Text } from 'react-native';
+
+import Component, { IComponentProps } from '../../components/ComponentLayer/Component';
+import { CenterView } from '../CenterView';
+
+const componentProps: IComponentProps = {
+  style: { width: 300 },
+};
+
+storiesOf('Component', module)
+  .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
+  .add('index', () => (
+    <Component {...componentProps}>
+      <Text>{text('Component text', 'Component')}</Text>
+    </Component>
+  ));

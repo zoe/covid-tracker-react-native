@@ -35,10 +35,10 @@
         "./theme/*"
       ],
       "@tracer": [
-        "./storybook/components",
+        "./storybook",
       ],
       "@tracer/*": [
-        "./storybook/components/*",
+        "./storybook/*",
       ]
     },
     "resolveJsonModule": true,
