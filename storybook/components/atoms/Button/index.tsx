@@ -48,7 +48,7 @@ export default function Button({
       testID={props.testID ?? 'button-test-id'}
     >
       {props.loading ? <ActivityIndicator color={indicatorColor} style={styles.activityIndicator} /> : null}
-      <Text style={[fontStyles.bodyLight, textColourStyle, props.textStyle]}>{props.children}</Text>
+      <Text style={[fontStyles.bodyReg, textColourStyle, props.textStyle]}>{props.children}</Text>
     </TouchableOpacity>
   );
 }

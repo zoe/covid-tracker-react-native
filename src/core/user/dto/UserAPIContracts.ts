@@ -325,6 +325,9 @@ export type TPatientInfosRequest = {
   // LFT prompt
   should_show_lft_prompt: boolean;
   should_show_lft_reminder: boolean;
+
+  // ReBrand
+  has_seen_rebrand_modal: boolean;
 };
 
 export enum EVaccineStatus {
@@ -387,6 +390,7 @@ export type TStartupInfo = {
   show_long_covid: boolean;
   show_mh_insight?: boolean;
   show_modal?: TShowModal;
+  show_rebrand_modal: boolean;
   show_new_dashboard: boolean;
   show_profile_screen_new_tag: boolean;
   show_profile_tab_onboarding: boolean;

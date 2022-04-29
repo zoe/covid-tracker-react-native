@@ -467,6 +467,11 @@
     "user-not-found-exception": "Vi kunde inte identifiera dig. Försök igen.",
     "exception": "Det gick inte att logga in. Försök igen."
   },
+  "re-brand": {
+    "modal-title": false,
+    "modal-content": false,
+    "modal-cta": false
+  },
   "reset-password": {
     "title": "Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord",
     "email-label": "E-postadress",

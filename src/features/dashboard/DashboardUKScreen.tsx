@@ -7,16 +7,24 @@ import HealthProfileStartCard from '@covid/components/cards/HealthProfileStartCa
 import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
+import { patientService } from '@covid/core/patient/PatientService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
+import { appActions } from '@covid/core/state/app/slice';
+import { TStateApp } from '@covid/core/state/app/types';
 import { fetchLocalTrendline, fetchNewlySymptomaticData, updateTodayDate } from '@covid/core/state/content/slice';
 import { TStateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { appCoordinator } from '@covid/features/AppCoordinator';
+import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/components/CollapsibleHeaderScrollView';
+import { CompactHeader } from '@covid/features/dashboard/components/CompactHeader';
+import { ExpandedHeader } from '@covid/features/dashboard/components/ExpandedHeader';
+import { NewlySymptomaticCard } from '@covid/features/dashboard/components/NewlySymptomaticCard';
+import ReBrandModal from '@covid/features/rebrand';
 import { OnboardingContext } from '@covid/features/tab-navigation/OnboardingContext';
 import { useStartReconsent } from '@covid/features/wider-health-studies/hooks/useStartReconsent';
 import { TScreenParamList } from '@covid/routes/types';
@@ -29,11 +37,6 @@ import * as Linking from 'expo-linking';
 import * as React from 'react';
 import { Platform, Pressable, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { CollapsibleHeaderScrollView } from './components/CollapsibleHeaderScrollView';
-import { CompactHeader } from './components/CompactHeader';
-import { ExpandedHeader } from './components/ExpandedHeader';
-import { NewlySymptomaticCard } from './components/NewlySymptomaticCard';
 
 const headerConfig = {
   compact: sizes.headerCompactHeight,
@@ -51,14 +54,29 @@ const onMoreDetails = () => openWebLink('https://covid.joinzoe.com/data');
 
 export function DashboardUKScreen({ navigation, route }: IProps) {
   const dispatch = useDispatch();
+
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const schoolGroups = useSelector<TRootState, ISubscribedSchoolGroupStats[]>(
     (state) => state.school.joinedSchoolGroups,
   );
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
+  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
+
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
   const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
   const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
   const startReconsent = useStartReconsent();
+
+  const updateHasSeenReBrandModal = React.useCallback(async () => {
+    dispatch(appActions.setModalReBrandVisible(false));
+    await patientService.updatePatientInfo(patientId, { has_seen_rebrand_modal: true });
+  }, [dispatch, patientId]);
+
+  React.useEffect(() => {
+    if (startupInfo?.show_rebrand_modal) {
+      dispatch(appActions.setModalReBrandVisible(true));
+    }
+  }, []);
 
   // TODO: Can we move this into app initialisation?
   React.useEffect(() => {
@@ -96,7 +114,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
     }
-
     // TODO: FIX
     // if (startupInfo?.is_tester) {
     //   setTimeout(() => NavigatorService.navigate('UsualSelfIntroduction'), 500);
@@ -113,6 +130,12 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
 
   return (
     <>
+      {app.modalReBrandVisible && (
+        <ReBrandModal
+          onRequestClose={() => updateHasSeenReBrandModal()}
+          visible={startupInfo ? startupInfo.show_rebrand_modal : false}
+        />
+      )}
       {Platform.OS === 'android' && onboardingContext.showProfileTabOnboarding ? (
         // Needed for Android. Doesn't recognise overlay in the TabNavigator because overlay there is bounded by the size of the TabNavigator.
         <Pressable
@@ -156,19 +179,12 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
           ) : healthProfileState.showHealthProfileStartCard && !healthProfileState.dateOfLastUpdate ? (
             <HealthProfileStartCard />
           ) : null}
-
           <NewlySymptomaticCard />
-
           {showTrendline ? <TrendlineCard onPress={appCoordinator.goToTrendline} /> : null}
-
           <EstimatedCasesMapCard />
-
           <UKEstimatedCaseCard onPress={onMoreDetails} />
-
           <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
-
           <ShareVaccineCard screenName="Dashboard" />
-
           <SchoolNetworks schoolGroups={schoolGroups} style={styles.marginVertical} />
         </View>
 
