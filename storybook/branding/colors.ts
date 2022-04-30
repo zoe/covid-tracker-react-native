@@ -17,15 +17,22 @@ export const colors = {
   disabled: '#A6B8D3',
 
   tagsVeganGreen: '#467980',
-  interactiveSurface: '#F5F6FC',
-  interactiveSubdued: '#DADDE7',
-  highlightBright: '#8C94B5',
+  surface: {
+    interactive: '#F5F6FC',
+    subdued: '#DADDE7',
+  },
 
+  highlight: {
+    bright: '#8C94B5',
+  },
+
+  text: {
+    primary: '#2D3246',
+  },
+
+  // standard values
+  transparent: 'transparent',
   white: '#FFFFFF',
   black: '#000000',
   black50: 'rgba(0, 0, 0, 0.5)',
-
-  textPrimary: '#24262B',
-
-  transparent: 'transparent',
 };

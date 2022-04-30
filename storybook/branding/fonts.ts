@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { colors } from './colors';
 
-export const fontStyles = StyleSheet.create({
+export const fonts = StyleSheet.create({
   bodyLight: {
     color: colors.primary,
     fontFamily: 'SofiaPro-Light',
@@ -32,11 +32,6 @@ export const fontStyles = StyleSheet.create({
     fontFamily: 'SofiaPro-Light',
     fontSize: 14,
     lineHeight: 20,
-  },
-  bodyXXSmall: {
-    color: colors.quinary,
-    fontSize: 10,
-    lineHeight: 10,
   },
   fieldLabel: {
     color: colors.secondary,

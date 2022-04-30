@@ -1,6 +1,5 @@
 import { Text } from '@covid/components';
 import { BrandedButton } from '@covid/components/buttons';
-import { ScrollView } from '@covid/components/ScrollView';
 import { reconsentReducer, selectDiseasesActivated, selectReconsentState } from '@covid/core/state/reconsent';
 import {
   resetDiseasePreferences,
@@ -82,28 +81,35 @@ export const DiseasePreferencesList: React.FC<TProps> = React.memo((props: TProp
 
   return (
     <>
-      <ScrollView overScrollMode="never" style={styles.flex}>
-        {props.topChildren}
-        {props.showActiveText ? (
-          <Text style={styles.selfCenter}>
-            <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pMedium">
-              {diseasesActivated.length}{' '}
-            </Text>
-            <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pLight">
-              {i18n.t('wider-health-studies.disease-preferences.description', { count: diseasesActivated.length })}
-            </Text>
-          </Text>
-        ) : null}
-        <FlatList
-          contentContainerStyle={styles.contentContainer}
-          data={diseasePreferences}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          scrollEnabled={false}
-          style={styles.flex}
-        />
-        <InfoBox style={styles.marginHorizontal} text={i18n.t('reconsent.disease-preferences.how-data-used')} />
-      </ScrollView>
+      <FlatList
+        scrollEnabled
+        contentContainerStyle={styles.contentContainer}
+        data={diseasePreferences}
+        keyExtractor={keyExtractor}
+        ListFooterComponent={
+          <InfoBox style={styles.infoBox} text={i18n.t('reconsent.disease-preferences.how-data-used')} />
+        }
+        ListHeaderComponent={
+          <>
+            {props.topChildren}
+            {props.showActiveText ? (
+              <Text style={styles.topText}>
+                <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pMedium">
+                  {diseasesActivated.length}{' '}
+                </Text>
+                <Text inverted colorPalette="accentBlue" colorShade="main" textClass="pLight">
+                  {i18n.t('wider-health-studies.disease-preferences.description', {
+                    count: diseasesActivated.length,
+                  })}
+                </Text>
+              </Text>
+            ) : null}
+          </>
+        }
+        overScrollMode="never"
+        renderItem={renderItem}
+        style={styles.flex}
+      />
       <BrandedButton onPress={onPress} style={styles.button} testID="button-cta-disease-preferences-submit">
         {props.buttonTitle}
       </BrandedButton>
@@ -117,12 +123,14 @@ const styles = StyleSheet.create({
     margin: sizes.l,
   },
   contentContainer: {
-    flexGrow: 1,
     paddingHorizontal: sizes.screenHorizontalPadding,
     paddingVertical: sizes.screenVerticalPadding,
   },
   flex: {
     flex: 1,
+  },
+  infoBox: {
+    marginTop: sizes.l,
   },
   marginBottom: {
     marginBottom: sizes.l,
@@ -136,7 +144,8 @@ const styles = StyleSheet.create({
   paddingHorizontal: {
     paddingHorizontal: sizes.l,
   },
-  selfCenter: {
+  topText: {
     alignSelf: 'center',
+    marginBottom: sizes.l,
   },
 });

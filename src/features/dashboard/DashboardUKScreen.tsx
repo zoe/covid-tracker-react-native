@@ -34,9 +34,11 @@ import { openWebLink } from '@covid/utils/links';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
-import * as React from 'react';
-import { Platform, Pressable, StyleSheet, useWindowDimensions, View } from 'react-native';
+import React from 'react';
+import { Platform, Pressable, useWindowDimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { covidStyles, healthStudyStyles } from './DashboardUKStyle';
 
 const headerConfig = {
   compact: sizes.headerCompactHeight,
@@ -53,24 +55,26 @@ const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 const onMoreDetails = () => openWebLink('https://covid.joinzoe.com/data');
 
 export function DashboardUKScreen({ navigation, route }: IProps) {
-  const dispatch = useDispatch();
-
   const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
+  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
+  const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
+
   const schoolGroups = useSelector<TRootState, ISubscribedSchoolGroupStats[]>(
     (state) => state.school.joinedSchoolGroups,
   );
-  const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-  const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
 
-  const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
   const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
   const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
+
+  const dispatch = useDispatch();
   const startReconsent = useStartReconsent();
 
   const updateHasSeenReBrandModal = React.useCallback(async () => {
+    dispatch(appActions.setReBrandVisible(true));
     dispatch(appActions.setModalReBrandVisible(false));
     await patientService.updatePatientInfo(patientId, { has_seen_rebrand_modal: true });
-  }, [dispatch, patientId]);
+  }, []);
 
   React.useEffect(() => {
     if (startupInfo?.show_rebrand_modal) {
@@ -128,13 +132,11 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   const windowDimensions = useWindowDimensions();
   const onboardingContext = React.useContext(OnboardingContext);
 
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <>
       {app.modalReBrandVisible && (
-        <ReBrandModal
-          onRequestClose={() => updateHasSeenReBrandModal()}
-          visible={startupInfo ? startupInfo.show_rebrand_modal : false}
-        />
+        <ReBrandModal onRequestClose={() => updateHasSeenReBrandModal()} visible={app.modalReBrandVisible} />
       )}
       {Platform.OS === 'android' && onboardingContext.showProfileTabOnboarding ? (
         // Needed for Android. Doesn't recognise overlay in the TabNavigator because overlay there is bounded by the size of the TabNavigator.
@@ -193,26 +195,3 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  calloutContainer: {
-    marginHorizontal: sizes.m,
-  },
-  dietStudyImage: {
-    aspectRatio: 1200 / 1266,
-    height: undefined,
-    marginVertical: sizes.xs,
-    resizeMode: 'contain',
-    width: '100%',
-  },
-  marginVertical: {
-    marginVertical: sizes.xs,
-  },
-  overlay: {
-    backgroundColor: 'black',
-    flex: 1,
-    opacity: 0.5,
-    position: 'absolute',
-    zIndex: 1, // Needed to ensure it sits on top of overlay in TabNavigator
-  },
-});

@@ -3,7 +3,7 @@ import { colors } from '../../../branding/colors';
 /**
  * Button Types
  */
-export type ButtonType = 'primary' | 'secondary' | 'tertiary';
+export type ButtonType = 'primary' | 'secondary' | 'tertiary' | 'accent';
 
 /**
  * Colour scheme for a Button
@@ -29,6 +29,11 @@ type ButtonColorStyleMapping = {
 };
 
 export const buttonColorStyles: ButtonColorStyleMapping = {
+  accent: {
+    backgroundColor: colors.accent,
+    borderColor: colors.accent,
+    color: colors.white,
+  },
   primary: {
     backgroundColor: colors.brand,
     borderColor: colors.brand,
@@ -47,6 +52,11 @@ export const buttonColorStyles: ButtonColorStyleMapping = {
 };
 
 export const buttonDisabledColorStyles: ButtonColorStyleMapping = {
+  accent: {
+    backgroundColor: colors.disabled,
+    borderColor: colors.disabled,
+    color: colors.white,
+  },
   primary: {
     backgroundColor: colors.disabled,
     borderColor: colors.disabled,

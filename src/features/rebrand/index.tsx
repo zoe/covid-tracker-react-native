@@ -2,7 +2,6 @@ import { healthStudyRebrand } from '@assets';
 import { HeaderText, Text } from '@covid/components';
 import { Modal } from '@covid/components/Modal';
 import i18n from '@covid/locale/i18n';
-import { sizes } from '@covid/themes';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Button from '@tracer/components/atoms/Button';
@@ -19,7 +18,7 @@ const ReBrandModal: React.FC<IProps> = (props) => {
   const footerChildren = React.useMemo(
     () => (
       <View>
-        <Button buttonType="primary" onPress={props.onRequestClose} testID="covid-test-lft-prompt-button">
+        <Button buttonType="primary" onPress={props.onRequestClose} testID="rebrand-modal-button">
           {i18n.t('re-brand.modal-cta')}
         </Button>
         <Spacer style={{ marginBottom: grid.g8, marginTop: grid.g16 }}>
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   footerText: {
-    color: colors.textPrimary,
+    color: colors.text.primary,
     textAlign: 'center',
   },
   modalContent: {
@@ -84,14 +83,14 @@ const styles = StyleSheet.create({
   modalImageBox: {
     alignItems: 'center',
     flex: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
+    paddingLeft: grid.g16,
+    paddingRight: grid.g16,
   },
   modalTitle: {
-    marginTop: 8,
+    marginTop: grid.g8,
   },
   title: {
-    marginVertical: sizes.m,
+    marginVertical: grid.g16,
     textAlign: 'center',
   },
 });

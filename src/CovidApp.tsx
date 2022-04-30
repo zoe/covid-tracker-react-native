@@ -22,6 +22,10 @@ import { Dimensions, View } from 'react-native';
 import Toast, { ToastConfig } from 'react-native-toast-message';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { TRootState } from './core/state/root';
+import { selectStartupInfo } from './core/state/selectors';
+import { TStartupInfo } from './core/user/dto/UserAPIContracts';
+
 const Stack = createStackNavigator<TScreenParamList>();
 const Drawer = createDrawerNavigator();
 
@@ -83,6 +87,7 @@ const toastConfig = {
 
 export default function CovidApp() {
   const app = useSelector(appSelectors.selectApp);
+  const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -90,6 +95,12 @@ export default function CovidApp() {
       Analytics.track(events.OPEN_FROM_NOTIFICATION);
     });
   });
+
+  React.useEffect(() => {
+    if (!startupInfo?.show_rebrand_modal) {
+      dispatch(appActions.setReBrandVisible(true));
+    }
+  }, []);
 
   return (
     <Root>

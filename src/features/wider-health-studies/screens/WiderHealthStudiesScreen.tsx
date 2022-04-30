@@ -15,6 +15,7 @@ import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 function onPressPreferences() {
+  console.log('aksldfhaksf;');
   NavigatorService.navigate('DiseasePreferences');
 }
 

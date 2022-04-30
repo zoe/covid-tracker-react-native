@@ -2,7 +2,7 @@ import React from 'react';
 import { ActivityIndicator, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
 import { colors } from '../../../branding/colors';
-import { fontStyles } from '../../../branding/fonts';
+import { fonts } from '../../../branding/fonts';
 import { grid } from '../../../branding/grid';
 import { buttonColorStyles, buttonDisabledColorStyles, ButtonType } from './styles';
 
@@ -48,7 +48,7 @@ export default function Button({
       testID={props.testID ?? 'button-test-id'}
     >
       {props.loading ? <ActivityIndicator color={indicatorColor} style={styles.activityIndicator} /> : null}
-      <Text style={[fontStyles.bodyReg, textColourStyle, props.textStyle]}>{props.children}</Text>
+      <Text style={[fonts.bodyReg, textColourStyle, props.textStyle]}>{props.children}</Text>
     </TouchableOpacity>
   );
 }

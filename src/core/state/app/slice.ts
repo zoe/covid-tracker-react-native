@@ -7,6 +7,7 @@ export const initialStateApp: TStateApp = {
   modalHealthProfileIntroVisible: false,
   modalMentalHealthPlaybackVisible: false,
   modalReBrandVisible: false,
+  toggleReBrand: false,
 };
 
 export const appSlice = createSlice({
@@ -29,6 +30,10 @@ export const appSlice = createSlice({
     setModalReBrandVisible: (state, action: PayloadAction<boolean>) => ({
       ...state,
       modalReBrandVisible: action.payload,
+    }),
+    setReBrandVisible: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      toggleReBrand: action.payload,
     }),
   },
 });

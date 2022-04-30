@@ -1,12 +1,15 @@
 import { Menu } from '@assets/icons/Menu';
 import { WithNotificationDot } from '@covid/components/WithNotificationDot';
+import { TStateApp } from '@covid/core/state/app/types';
+import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { sizes } from '@covid/themes';
+import HealthStudyDrawerToggle from '@tracer/components/molecules/DrawerToggle';
 import * as React from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 import { useSelector } from 'react-redux';
 
-type TProps = {
+type TDrawerToggleProps = {
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
@@ -19,9 +22,13 @@ const hitSlop = {
   top: 12,
 };
 
-export const DrawerToggle: React.FC<TProps> = React.memo((props) => {
+export const DrawerToggle: React.FC<TDrawerToggleProps> = React.memo((props) => {
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector(selectStartupInfo);
-  return (
+  const showNotificationDot = !!startupInfo?.active_notifications?.notifications_wider_health_studies;
+  return app.toggleReBrand ? (
+    <HealthStudyDrawerToggle onPress={props.onPress} showNotificationDot={showNotificationDot} />
+  ) : (
     <TouchableOpacity
       accessible
       accessibilityLabel="Menu"
@@ -31,7 +38,7 @@ export const DrawerToggle: React.FC<TProps> = React.memo((props) => {
       style={props.style}
       testID={props.testID}
     >
-      <WithNotificationDot showDot={!!startupInfo?.active_notifications?.notifications_wider_health_studies}>
+      <WithNotificationDot showDot={showNotificationDot}>
         <Menu height={sizes.drawerToggle} width={sizes.drawerToggle} />
       </WithNotificationDot>
     </TouchableOpacity>

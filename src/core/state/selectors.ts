@@ -1,6 +1,8 @@
 import { TRootState } from '@covid/core/state/root';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
+const WIDER_HEALTH_CONSENT_NEW_JOINERS_DATE = new Date('2021-09-14T21:00:00+00:00');
+
 export function selectStartupInfo(state: TRootState): TStartupInfo | undefined {
   if (state.content.startupInfo?.is_tester) {
     return {
@@ -10,8 +12,6 @@ export function selectStartupInfo(state: TRootState): TStartupInfo | undefined {
   }
   return state.content.startupInfo;
 }
-
-const WIDER_HEALTH_CONSENT_NEW_JOINERS_DATE = new Date('2021-09-14T21:00:00+00:00');
 
 export function selectCanOptOutOfWiderHealthStudies(state: TRootState): boolean {
   return !!(
