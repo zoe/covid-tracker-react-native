@@ -52,11 +52,16 @@ export function ExpandedHeader(props: IProps) {
           <Header3Text style={styles.textToday}>{content.todayDate}</Header3Text>
         ) : null}
 
-        <Button onPress={onReport} style={styles.button} testID="button-report-today">
-          {PixelRatio.getFontScale() < 1.1
-            ? i18n.t('dashboard.report-today')
-            : i18n.t('dashboard.report-today-large-font')}
-        </Button>
+        <Button
+          onPress={onReport}
+          style={styles.button}
+          testID="button-report-today"
+          text={
+            PixelRatio.getFontScale() < 1.1
+              ? i18n.t('dashboard.report-today')
+              : i18n.t('dashboard.report-today-large-font')
+          }
+        />
 
         {props.reportedCount ? (
           <CaptionText style={styles.textCount}>

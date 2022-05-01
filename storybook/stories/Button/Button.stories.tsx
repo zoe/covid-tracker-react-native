@@ -2,7 +2,6 @@ import { action } from '@storybook/addon-actions';
 import { boolean, number, optionsKnob, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
 import React from 'react';
-import { Text } from 'react-native';
 
 import Button, { IButtonProps } from '../../components/atoms/Button';
 import { CenterView } from '../CenterView';
@@ -25,21 +24,9 @@ const tertiaryBtnProps: IButtonProps = {
 
 storiesOf('Button', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
-  .add('primary', () => (
-    <Button {...baseBtnProps}>
-      <Text>{text('Button text', 'Button')}</Text>
-    </Button>
-  ))
-  .add('secondary', () => (
-    <Button {...baseBtnProps} {...secondaryBtnProps}>
-      <Text>{text('Button text', 'Button')}</Text>
-    </Button>
-  ))
-  .add('tertiary', () => (
-    <Button {...baseBtnProps} {...tertiaryBtnProps}>
-      <Text>{text('Button text', 'Button')}</Text>
-    </Button>
-  ))
+  .add('primary', () => <Button {...baseBtnProps} text={text('Button text', 'Button')} />)
+  .add('secondary', () => <Button {...baseBtnProps} {...secondaryBtnProps} text={text('Button text', 'Button')} />)
+  .add('tertiary', () => <Button {...baseBtnProps} {...tertiaryBtnProps} text={text('Button text', 'Button')} />)
   .add('w/ state', () => (
     <Button
       buttonType={optionsKnob(
@@ -55,7 +42,6 @@ storiesOf('Button', module)
       disabled={boolean('disabled', false)}
       onPress={action('clicked-primary-button')}
       style={{ width: number('width', 300) }}
-    >
-      <Text>{text('Button text', 'Button')}</Text>
-    </Button>
+      text={text('Button text', 'Button')}
+    />
   ));

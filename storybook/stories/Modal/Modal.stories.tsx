@@ -63,7 +63,7 @@ storiesOf('Modal', module)
           header={
             <Text
               style={{
-                color: colors.textPrimary,
+                color: colors.text.primary,
                 // fontFamily: 'Lota Grotesque Alt 1',
                 fontSize: grid.g24,
                 fontStyle: 'normal',
@@ -80,7 +80,7 @@ storiesOf('Modal', module)
         >
           <Text
             style={{
-              color: colors.textPrimary,
+              color: colors.text.primary,
               // fontFamily: 'Lota Grotesque Alt 1',
               fontSize: grid.g16,
               fontStyle: 'normal',
@@ -111,7 +111,7 @@ storiesOf('Modal', module)
           header={
             <Text
               style={{
-                color: colors.textPrimary,
+                color: colors.text.primary,
                 // fontFamily: 'Lota Grotesque Alt 1',
                 fontSize: grid.g24,
                 fontStyle: 'normal',
@@ -129,7 +129,7 @@ storiesOf('Modal', module)
         >
           <Text
             style={{
-              color: colors.textPrimary,
+              color: colors.text.primary,
               // fontFamily: 'Lota Grotesque Alt 1',
               fontSize: grid.g16,
               fontStyle: 'normal',

@@ -8,6 +8,7 @@ import { buttonColorStyles, buttonDisabledColorStyles, ButtonType } from './styl
 
 export interface IButtonProps {
   children?: any;
+  text?: string;
   buttonType?: ButtonType;
   disabled?: boolean;
   enabled?: boolean;
@@ -32,6 +33,7 @@ export default function Button({
   indicatorColor = colors.white,
   buttonType = 'primary',
   onPress,
+  text,
   disabled,
   ...props
 }: IButtonProps) {
@@ -47,8 +49,8 @@ export default function Button({
       style={[buttonStyle, btnColourStyle, props.style]}
       testID={props.testID ?? 'button-test-id'}
     >
-      {props.loading ? <ActivityIndicator color={indicatorColor} style={styles.activityIndicator} /> : null}
-      <Text style={[fonts.bodyReg, textColourStyle, props.textStyle]}>{props.children}</Text>
+      {props.loading ? <ActivityIndicator color={indicatorColor} style={baseStyles.activityIndicator} /> : null}
+      {props.children ? props.children : <Text style={[fonts.bodyReg, textColourStyle, props.textStyle]}>{text}</Text>}
     </TouchableOpacity>
   );
 }
@@ -64,7 +66,7 @@ const buttonStyle: ViewStyle = {
   paddingTop: grid.g12,
 };
 
-const styles = StyleSheet.create({
+const baseStyles = StyleSheet.create({
   activityIndicator: {
     left: 56 / 2,
     position: 'absolute',

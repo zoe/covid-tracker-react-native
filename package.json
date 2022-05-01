@@ -33,6 +33,7 @@
     "ios:devices": "xcrun simctl list",
     "ios:local": "ENVFILE=.env.local yarn ios",
     "ios:staging": "ENVFILE=.env.staging yarn ios",
+    "ios:storybook": "ENVFILE=.env.storybook yarn ios",
     "lint": "eslint assets/ src/ theme/ --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore",
     "lint:ci": "yarn lint --format junit --output-file ~/reports/eslint.xml",
     "lint:fix": "yarn lint --fix",

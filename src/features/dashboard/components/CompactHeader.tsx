@@ -30,9 +30,7 @@ export function CompactHeader(props: ICompactHeaderProps) {
         {app.toggleReBrand ? <InAppCompactIcon /> : <Image source={covidIcon} style={styles.logo} />}
       </View>
       <View style={styles.flex2}>
-        <Button buttonType="accent" onPress={onReport}>
-          {i18n.t('dashboard.report-now')}
-        </Button>
+        <Button onPress={onReport} style={styles.button} text={i18n.t('dashboard.report-now')} />
       </View>
       <View style={styles.flex} />
     </View>

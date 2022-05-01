@@ -37,7 +37,7 @@ export const covidStyles = StyleSheet.create({
 
 export const healthStudyStyles = StyleSheet.create({
   button: {
-    backgroundColor: HealthStudyBranding.colors.brand,
+    backgroundColor: HealthStudyBranding.colors.accent,
     elevation: 0,
     height: HealthStudyBranding.sizes.g48,
   },
