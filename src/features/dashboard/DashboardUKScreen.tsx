@@ -4,7 +4,6 @@ import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/esti
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import HealthProfileReminderCard from '@covid/components/cards/HealthProfileReminderCard';
 import HealthProfileStartCard from '@covid/components/cards/HealthProfileStartCard';
-import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { patientService } from '@covid/core/patient/PatientService';
@@ -186,7 +185,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
           <EstimatedCasesMapCard />
           <UKEstimatedCaseCard onPress={onMoreDetails} />
           <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
-          <ShareVaccineCard screenName="Dashboard" />
           <SchoolNetworks schoolGroups={schoolGroups} style={styles.marginVertical} />
         </View>
 
