@@ -16,7 +16,9 @@ export const colors = {
   active: '#082A5D',
   disabled: '#A6B8D3',
 
-  tagsVeganGreen: '#467980',
+  tags: {
+    vegan: '#467980',
+  },
   surface: {
     interactive: '#F5F6FC',
     subdued: '#DADDE7',
@@ -35,4 +37,5 @@ export const colors = {
   white: '#FFFFFF',
   black: '#000000',
   black50: 'rgba(0, 0, 0, 0.5)',
+  purple: '#A10056',
 };

@@ -1,6 +1,6 @@
 import { svPartners, usPartners } from '@assets';
 import { PartnerLogosGB } from '@assets/logos/PartnerLogosGB';
-import { BrandedButton, Text } from '@covid/components';
+import { Text } from '@covid/components';
 import { NavHeader } from '@covid/components/NavHeader';
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
@@ -11,21 +11,23 @@ import {
   LocalisationService,
   localisationService,
 } from '@covid/core/localisation/LocalisationService';
+import { TStateApp } from '@covid/core/state/app/types';
+import { TRootState } from '@covid/core/state/root';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { TScreenParamList } from '@covid/routes/types';
-import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import * as React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Button from '@tracer/components/atoms/Button';
+import React from 'react';
+import { Image, TouchableOpacity, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import CountryIpModal from './CountryIpModal';
 import { getLocaleFlagIcon } from './helpers';
-
-const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
+import { covidStyles, healthStudyStyles } from './Welcome2ScreenStyle';
 
 type TProps = {
   navigation: StackNavigationProp<TScreenParamList, 'Welcome'>;
@@ -33,6 +35,7 @@ type TProps = {
 };
 
 const Welcome2Screen: React.FC<TProps> = ({ navigation }) => {
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const [ipModalVisible, setIpModalVisible] = React.useState(false);
 
   const onLoginPress = React.useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
@@ -80,6 +83,9 @@ const Welcome2Screen: React.FC<TProps> = ({ navigation }) => {
     ),
     [flagIcon, LocalisationService.userCountry],
   );
+
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
   return (
     <>
@@ -139,9 +145,7 @@ const Welcome2Screen: React.FC<TProps> = ({ navigation }) => {
 
         <View style={{ flex: 1 }} />
 
-        <BrandedButton onPress={onCreateAccountPress} testID="create-account-2">
-          {i18n.t('welcome.create-account')}
-        </BrandedButton>
+        <Button onPress={onCreateAccountPress} testID="create-account-2" text={i18n.t('welcome.create-account')} />
       </Screen>
 
       <CountryIpModal
@@ -153,77 +157,5 @@ const Welcome2Screen: React.FC<TProps> = ({ navigation }) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  center: {
-    textAlign: 'center',
-  },
-  covidContainer: {
-    paddingBottom: sizes.l,
-  },
-  divider: {
-    backgroundColor: colors.backgroundFour,
-    height: 1,
-    marginVertical: sizes.xxs,
-  },
-  flagIcon: {
-    height: 32,
-    width: 32,
-  },
-  login: {
-    color: colors.primary,
-    marginRight: sizes.m,
-  },
-  nhsWebsite: {
-    textDecorationLine: 'underline',
-  },
-  partnerContainer: {
-    backgroundColor: colors.white,
-    borderRadius: sizes.s,
-    marginVertical: sizes.m,
-    paddingHorizontal: sizes.xl,
-    paddingVertical: sizes.m,
-  },
-  partnerHeader: {
-    fontSize: 14,
-    lineHeight: 20,
-    textAlign: 'center',
-  },
-  partnerList: {
-    fontSize: 16,
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  partnerLogosGB: {
-    alignSelf: 'center',
-    marginVertical: sizes.xl,
-  },
-  partnersLogo: {
-    alignSelf: 'center',
-    height: 160,
-    marginVertical: sizes.m,
-    resizeMode: 'contain',
-    width: '100%',
-  },
-  slash: {
-    color: colors.lightBlueBrand,
-  },
-  subheader: {
-    color: colors.primary,
-    fontSize: 16,
-    lineHeight: 24,
-    paddingVertical: sizes.xs,
-    textAlign: 'center',
-  },
-  subheader2: {
-    color: colors.secondary,
-    fontFamily: 'SofiaPro-Light',
-    fontSize: 16,
-    lineHeight: 24,
-    marginTop: sizes.xs,
-    paddingVertical: sizes.xs,
-    textAlign: 'center',
-  },
-});
 
 export default Welcome2Screen;

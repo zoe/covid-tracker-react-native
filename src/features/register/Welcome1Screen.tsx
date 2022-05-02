@@ -1,25 +1,28 @@
-import { BrandedButton } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import { contentService } from '@covid/core/content/ContentService';
 import { isGBCountry, isSECountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
+import { TStateApp } from '@covid/core/state/app/types';
+import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import { TScreenParamList } from '@covid/routes/types';
-import { sizes } from '@covid/themes';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
-import * as React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Button from '@tracer/components/atoms/Button';
+import React from 'react';
+import { Image, TouchableOpacity, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { ContributionCounter } from './components/ContributionCounter';
 import { getLocaleFlagIcon } from './helpers';
+import { covidStyles, healthStudyStyles } from './Welcome1ScreenStyle';
 
 type TProps = {
   navigation: StackNavigationProp<TScreenParamList, 'Welcome'>;
 };
 
 export default function Welcome1Screen({ navigation }: TProps) {
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const [userCount, setUserCount] = React.useState<number>(0);
 
   const getUserCount = React.useCallback(async () => {
@@ -49,13 +52,12 @@ export default function Welcome1Screen({ navigation }: TProps) {
   }, [isGB, isSE]);
 
   const onLoginPress = React.useCallback(() => navigation.navigate('Login', { terms: '' }), [navigation.navigate]);
-
   const onSelectCountryPress = React.useCallback(() => navigation.navigate('CountrySelect', {}), [navigation.navigate]);
-
   const onNextButtonPress = React.useCallback(() => navigation.navigate('Welcome2'), [navigation.navigate]);
 
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
-    <Screen noHeader noPadding backgroundColor={colors.brand} testID="welcome-1-screen">
+    <Screen noHeader noPadding backgroundColor={styles.screen.backgroundColor} testID="welcome-1-screen">
       <Image source={getMapImage()} style={styles.mapImage} testID="map" />
 
       <View style={styles.loginContainer}>
@@ -81,72 +83,14 @@ export default function Welcome1Screen({ navigation }: TProps) {
       </View>
 
       <View style={styles.nextButtonContainer}>
-        <BrandedButton onPress={onNextButtonPress} style={styles.nextButton} testID="create-account-1">
-          {i18n.t('welcome.tell-me-more')}
-        </BrandedButton>
+        <Button
+          buttonType="accent"
+          onPress={onNextButtonPress}
+          style={styles.nextButton}
+          testID="create-account-1"
+          text={i18n.t('welcome.tell-me-more')}
+        />
       </View>
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  contributors: {
-    marginBottom: sizes.xl,
-    paddingHorizontal: sizes.xl,
-  },
-  covidContainer: {
-    backgroundColor: colors.brand,
-    flex: 1,
-    marginTop: sizes.xl,
-    paddingBottom: sizes.m,
-    paddingHorizontal: sizes.m,
-  },
-  flagIcon: {
-    height: 32,
-    width: 32,
-  },
-  login: {
-    color: colors.white,
-  },
-  loginContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    position: 'absolute',
-    right: 32,
-    top: 60,
-  },
-  mapImage: {
-    alignSelf: 'center',
-    height: 300,
-    resizeMode: 'contain',
-    width: '100%',
-  },
-  nextButton: {
-    backgroundColor: colors.purple,
-    fontSize: 16,
-  },
-  nextButtonContainer: {
-    padding: sizes.l,
-    paddingBottom: sizes.xl,
-  },
-  pipe: {
-    backgroundColor: colors.white,
-    height: 32,
-    marginHorizontal: sizes.m,
-    width: 1,
-  },
-  scrollView: {
-    backgroundColor: colors.brand,
-    flexGrow: 1,
-    justifyContent: 'space-between',
-  },
-  subtitle: {
-    color: colors.white,
-    fontFamily: 'SofiaPro-Light',
-    fontSize: 32,
-    lineHeight: 48,
-    paddingHorizontal: sizes.l,
-    paddingVertical: sizes.l,
-    textAlign: 'center',
-  },
-});

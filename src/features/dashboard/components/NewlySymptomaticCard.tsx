@@ -1,4 +1,3 @@
-import { BrandedButton } from '@covid/components/buttons';
 import { NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomaticChart';
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text, TextWithHighlight } from '@covid/components/typography';
@@ -12,6 +11,7 @@ import {
 } from '@covid/features/dashboard/modals/ChangeRegionNewlySymptomaticModal';
 import i18n from '@covid/locale/i18n';
 import { useNavigation } from '@react-navigation/native';
+import Button from '@tracer/components/atoms/Button';
 import ShareButton from '@tracer/components/molecules/ShareButton';
 import React from 'react';
 import { View } from 'react-native';
@@ -93,9 +93,7 @@ export function NewlySymptomaticCard(props: TProps) {
       </View>
 
       {!props.isSharing ? (
-        <BrandedButton onPress={openModal} style={styles.marginTop}>
-          {i18n.t('newly-symptomatic.change-region')}
-        </BrandedButton>
+        <Button onPress={openModal} style={styles.marginTop} text={i18n.t('newly-symptomatic.change-region')} />
       ) : null}
 
       {!props.isSharing ? (
