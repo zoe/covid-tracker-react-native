@@ -18,9 +18,12 @@ const ReBrandModal: React.FC<IProps> = (props) => {
   const footerChildren = React.useMemo(
     () => (
       <View>
-        <Button buttonType="primary" onPress={props.onRequestClose} testID="rebrand-modal-button">
-          {i18n.t('re-brand.modal-cta')}
-        </Button>
+        <Button
+          buttonType="primary"
+          onPress={props.onRequestClose}
+          testID="rebrand-modal-button"
+          text={i18n.t('re-brand.modal-cta')}
+        />
         <Spacer style={{ marginBottom: grid.g8, marginTop: grid.g16 }}>
           <Text
             inverted

@@ -211,7 +211,7 @@ class RegisterScreen extends React.Component<TProps, TState> {
 
                 <Button
                   buttonType="accent"
-                  enabled={this.state.enableSubmit}
+                  disabled={!this.state.enableSubmit}
                   loading={formikProps.isSubmitting}
                   onPress={formikProps.handleSubmit}
                   testID="button-submit"

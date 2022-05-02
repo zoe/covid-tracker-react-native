@@ -59,7 +59,7 @@ export default React.memo((props: TProps) => {
       {renderConsent()}
       {!props.route.params?.viewOnly ? (
         <Button
-          enabled={agreed}
+          disabled={!agreed}
           onPress={onPressSubmit}
           style={styling.marginTopHuge}
           testID="button-agree"

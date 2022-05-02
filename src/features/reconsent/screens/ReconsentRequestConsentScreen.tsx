@@ -104,7 +104,7 @@ export default function ReconsentRequestConsentScreen() {
       <View style={styles.hr} />
       {error ? <ErrorText style={styles.errorText}>{error}</ErrorText> : null}
       <Button
-        enabled={!loading}
+        disabled={loading}
         loading={loading}
         onPress={onPressYes}
         style={styles.buttonYes}

@@ -5,15 +5,16 @@ import {
   LocationIcon,
   NotesIcon,
   PeopleIcon,
-  profile10,
   SpitTestIcon,
   SyringeIcon,
 } from '@assets';
+import Avatar from '@assets/v2/avatar';
 import { CaptionText, Tag, Text, TextWithBoldInserts } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import Analytics, { events } from '@covid/core/Analytics';
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -21,16 +22,15 @@ import { AppCoordinator, appCoordinator } from '@covid/features/AppCoordinator';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { sizes } from '@covid/themes';
 import { NavigationContainerRef, useFocusEffect } from '@react-navigation/native';
-import { colors } from '@theme';
 import moment from 'moment';
-import * as React from 'react';
-import { Image, Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Linking, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { ProfileActionCard } from '../components/ProfileActionCard';
 import { ProfileLinkRow } from '../components/ProfileLinkRow';
+import { covidStyles, healthStudyStyles } from './ProfileScreenStyle';
 
 const updateHasSeenProfileScreen = async (patientId: string) => {
   await patientService.updatePatientInfo(patientId, {
@@ -48,6 +48,7 @@ interface IProps {
 }
 
 export const ProfileScreen: React.FC<IProps> = () => {
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
@@ -111,10 +112,11 @@ export const ProfileScreen: React.FC<IProps> = () => {
     }, [currentPatient.profile]),
   );
 
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <Screen isInsideTabBar noHeader testID="profile-screen">
       {showNewTag ? (
-        <Tag color={colors.accent} style={[styles.alignStart, styles.marginBottomMedium]} text={i18n.t('new')} />
+        <Tag color={styles.tag.color} style={[styles.alignStart, styles.marginBottomMedium]} text={i18n.t('new')} />
       ) : null}
       <Text
         inverted
@@ -127,7 +129,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
         {i18n.t('profile.title')}
       </Text>
       <View style={styles.userDetails}>
-        <Image resizeMode="contain" source={profile10} style={styles.avatar} />
+        <Avatar circleFill={styles.avatar.backgroundColor} strokeColor={styles.avatar.color} />
         <View style={styles.details}>
           <Text rhythm={4} textClass="h5Regular">
             {i18n.t('profile.name')}
@@ -154,18 +156,18 @@ export const ProfileScreen: React.FC<IProps> = () => {
       <View style={styles.lineHorizontal} />
 
       <ProfileActionCard
-        color={colors.darkBlue}
+        color={styles.profileActionCard.color}
         description={i18n.t('profile.test-card.description')}
-        image={SpitTestIcon}
+        image={<SpitTestIcon color={styles.spitTestIcon.color} opacity={0.65} />}
         onPress={initAssessmentCoordAndGoToCovidTests}
         title={i18n.t('profile.test-card.title')}
       />
 
       {currentPatient?.patientState?.shouldShowVaccineList ? (
         <ProfileActionCard
-          color={colors.vegan}
+          color={styles.profileActionVaccineCard.color}
           description={i18n.t('profile.vaccine-card.description')}
-          image={SyringeIcon}
+          image={<SyringeIcon color={styles.syringeIcon.color} opacity={0.65} />}
           onPress={initAssessmentCoordAndGoToVaccines}
           title={i18n.t('profile.vaccine-card.title')}
         />
@@ -193,43 +195,3 @@ export const ProfileScreen: React.FC<IProps> = () => {
     </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  alignStart: {
-    alignSelf: 'flex-start',
-  },
-  avatar: {
-    height: 80,
-    width: 80,
-  },
-  details: {
-    marginLeft: sizes.m,
-  },
-  detailsRow: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginVertical: sizes.xxs,
-  },
-  detailsText: {
-    marginLeft: sizes.s,
-  },
-  email: {
-    marginTop: sizes.xs,
-    textDecorationLine: 'underline',
-  },
-  lineHorizontal: {
-    backgroundColor: colors.hrColor,
-    height: 1,
-    marginVertical: sizes.l,
-  },
-  logout: {
-    marginBottom: sizes.xs,
-    marginTop: sizes.m,
-  },
-  marginBottomMedium: {
-    marginBottom: sizes.m,
-  },
-  userDetails: {
-    flexDirection: 'row',
-  },
-});

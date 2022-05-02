@@ -5,10 +5,11 @@ import { SelectableButton } from '@covid/components/SelectableButton';
 import { FieldLabelRedesigned } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { sizes } from '@covid/themes';
-import { colors } from '@theme';
-import * as React from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import React from 'react';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { covidStyles, healthStudyStyles } from './ButtonsGroupStyle';
 
 export interface ISingleButton {
   label?: string;
@@ -29,6 +30,7 @@ interface IProps {
   testID?: string;
   unselectedBgColor?: string;
   unselectedTextColor?: string;
+  reBrand?: boolean;
 }
 
 export function ButtonsGroup({
@@ -45,6 +47,7 @@ export function ButtonsGroup({
   testID,
   unselectedBgColor,
   unselectedTextColor,
+  reBrand = false,
 }: IProps) {
   const [selected, setSelected] = React.useState<string>(selectedValue);
 
@@ -53,6 +56,7 @@ export function ButtonsGroup({
     onValueChange(value);
   };
 
+  const styles = reBrand ? healthStudyStyles : covidStyles;
   return (
     <>
       {hideLabel ? null : (
@@ -75,6 +79,7 @@ export function ButtonsGroup({
             redesign
             key={item.value}
             onPress={() => onSelect(item.value)}
+            reBrand={reBrand}
             selected={selected === item.value}
             style={[{ flex: 1, marginLeft: index !== 0 ? sizes.xs : 0 }, style]}
             testID={`button-${item.value}${testID ? `-${testID}` : ''}`}
@@ -100,31 +105,3 @@ export function ButtonsGroup({
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  center: {
-    textAlign: 'center',
-  },
-  decreasedMargin: {
-    marginBottom: sizes.m,
-  },
-  error: {
-    marginLeft: 0,
-    marginTop: sizes.xs,
-  },
-  label: {
-    marginBottom: sizes.l,
-  },
-  marginBottom: {
-    marginBottom: sizes.l,
-  },
-  notSelected: {
-    color: colors.secondary,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  selected: {
-    color: colors.darkBlue,
-  },
-});

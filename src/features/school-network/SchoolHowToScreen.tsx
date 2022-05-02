@@ -9,7 +9,7 @@ import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { schoolNetworkCoordinator } from './SchoolNetworkCoordinator';

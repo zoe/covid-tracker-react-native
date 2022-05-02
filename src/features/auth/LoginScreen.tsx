@@ -114,7 +114,7 @@ export function LoginScreen({ route }: IProps) {
       </Item>
       <View style={styling.flex} />
       <Button
-        enabled={isValid && !loading}
+        disabled={!(isValid && !loading)}
         loading={loading}
         onPress={handleLogin}
         style={styles.marginVertical}

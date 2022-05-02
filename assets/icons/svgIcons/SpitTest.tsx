@@ -1,6 +1,6 @@
 import { IIconProps } from '@assets/icons/svgIcons/types';
 import { determineDimensions } from '@assets/icons/utils';
-import * as React from 'react';
+import React from 'react';
 import { Path, Svg } from 'react-native-svg';
 
 const defaultWidth = 75;
