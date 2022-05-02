@@ -22,7 +22,7 @@ const tertiaryBtnProps: IButtonProps = {
   onPress: action('clicked-tertiary-button'),
 };
 
-storiesOf('Button', module)
+storiesOf('Atoms/Button', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
   .add('primary', () => <Button {...baseBtnProps} text={text('Button text', 'Button')} />)
   .add('secondary', () => <Button {...baseBtnProps} {...secondaryBtnProps} text={text('Button text', 'Button')} />)

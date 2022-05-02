@@ -7,7 +7,7 @@ import React from 'react';
 
 import { CenterView } from '../CenterView';
 
-storiesOf('Share Button', module)
+storiesOf('Molecules/Share Button', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
   .add('index', () => (
     <ShareButton

@@ -16,7 +16,7 @@ const indexModalStore = new Store({ show: true });
 const standardModalStore = new Store({ show: true });
 const imageModalStore = new Store({ show: true });
 
-storiesOf('Modal', module)
+storiesOf('Molecules/Modal', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
   .add('index', () => {
     return (
@@ -56,9 +56,8 @@ storiesOf('Modal', module)
               onPress={() => standardModalStore.set({ show: false })}
               style={{ width: 300 }}
               testID="re-brand-modal-button"
-            >
-              {text('CTA Text', 'Close')}
-            </Button>
+              text={text('CTA Text', 'Close')}
+            />
           }
           header={
             <Text
@@ -104,9 +103,8 @@ storiesOf('Modal', module)
               onPress={() => imageModalStore.set({ show: false })}
               style={{ width: 300 }}
               testID="re-brand-modal-button"
-            >
-              {text('CTA Text', 'Close')}
-            </Button>
+              text={text('CTA Text', 'Close')}
+            />
           }
           header={
             <Text
