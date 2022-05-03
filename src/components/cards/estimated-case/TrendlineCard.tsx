@@ -10,7 +10,6 @@ import i18n from '@covid/locale/i18n';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
 import ShareButton from '@tracer/components/molecules/ShareButton';
-import moment from 'moment';
 import * as React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -27,11 +26,6 @@ interface IProps {
   onPress?: VoidFunction;
   isSharing?: boolean;
 }
-
-const TRENDLINE_RANGE_IN_MONTHS = 6;
-
-const beginDate = moment().subtract(TRENDLINE_RANGE_IN_MONTHS, 'months').toDate();
-const endDate = moment().toDate();
 
 export function TrendlineCard(props: IProps) {
   const navigation = useNavigation();
@@ -65,7 +59,7 @@ export function TrendlineCard(props: IProps) {
         style={styles.touchableChart}
       >
         <View pointerEvents="none">
-          <TrendlineChart beginDate={beginDate} endDate={endDate} height={props.isSharing ? 150 : 200} />
+          <TrendlineChart height={props.isSharing ? 150 : 200} />
         </View>
       </TouchableOpacity>
 

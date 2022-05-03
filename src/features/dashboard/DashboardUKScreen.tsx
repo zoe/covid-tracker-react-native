@@ -113,8 +113,24 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
     } else if (!startupInfo?.show_study_hub_onboarding && startupInfo?.show_rebrand_modal) {
+      dispatch(appActions.setReBrandVisible(false));
       dispatch(appActions.setModalReBrandVisible(true));
+    } else if (
+      !startupInfo?.show_study_hub_onboarding &&
+      !startupInfo?.show_rebrand_modal &&
+      startupInfo?.ip_country === 'GB'
+    ) {
+      dispatch(appActions.setModalReBrandVisible(false));
+      dispatch(appActions.setReBrandVisible(true));
+    } else if (
+      !startupInfo?.show_study_hub_onboarding &&
+      !startupInfo?.show_rebrand_modal &&
+      startupInfo?.ip_country !== 'GB'
+    ) {
+      dispatch(appActions.setModalReBrandVisible(false));
+      dispatch(appActions.setReBrandVisible(false));
     }
+
     // TODO: FIX
     // if (startupInfo?.is_tester) {
     //   setTimeout(() => NavigatorService.navigate('UsualSelfIntroduction'), 500);
