@@ -93,7 +93,11 @@ export function NewlySymptomaticCard(props: TProps) {
       </View>
 
       {!props.isSharing ? (
-        <Button onPress={openModal} style={styles.marginTop} text={i18n.t('newly-symptomatic.change-region')} />
+        <Button
+          onPress={openModal}
+          style={[styles.marginTop, styles.changeRegionBtn]}
+          text={i18n.t('newly-symptomatic.change-region')}
+        />
       ) : null}
 
       {!props.isSharing ? (

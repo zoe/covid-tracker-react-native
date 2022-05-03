@@ -58,6 +58,7 @@ const ZOE_HEALTH_STUDY_LEARN_MORE_LINK = 'https://covid.joinzoe.com/wider-health
 export function DashboardUKScreen({ navigation, route }: IProps) {
   const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
+  const countryCode = useSelector<TRootState, string>((state) => state.user.country_code);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
 
@@ -115,18 +116,10 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     } else if (!startupInfo?.show_study_hub_onboarding && startupInfo?.show_rebrand_modal) {
       dispatch(appActions.setReBrandVisible(false));
       dispatch(appActions.setModalReBrandVisible(true));
-    } else if (
-      !startupInfo?.show_study_hub_onboarding &&
-      !startupInfo?.show_rebrand_modal &&
-      startupInfo?.ip_country === 'GB'
-    ) {
+    } else if (!startupInfo?.show_study_hub_onboarding && !startupInfo?.show_rebrand_modal && countryCode === 'GB') {
       dispatch(appActions.setModalReBrandVisible(false));
       dispatch(appActions.setReBrandVisible(true));
-    } else if (
-      !startupInfo?.show_study_hub_onboarding &&
-      !startupInfo?.show_rebrand_modal &&
-      startupInfo?.ip_country !== 'GB'
-    ) {
+    } else if (!startupInfo?.show_study_hub_onboarding && !startupInfo?.show_rebrand_modal && countryCode !== 'GB') {
       dispatch(appActions.setModalReBrandVisible(false));
       dispatch(appActions.setReBrandVisible(false));
     }

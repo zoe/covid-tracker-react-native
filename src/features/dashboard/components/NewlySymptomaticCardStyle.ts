@@ -22,6 +22,10 @@ export const explanationWrapper: ViewStyle = {
 };
 
 export const covidStyles = StyleSheet.create({
+  changeRegionBtn: {
+    backgroundColor: colors.brand,
+    borderColor: colors.brand,
+  },
   explanationWrapperBottom: {
     ...explanationWrapper,
     marginTop: sizes.s,
@@ -63,6 +67,7 @@ export const covidStyles = StyleSheet.create({
 });
 
 export const healthStudyStyles = StyleSheet.create({
+  changeRegionBtn: {},
   explanationWrapperBottom: {
     ...explanationWrapper,
     marginTop: sizes.s,
