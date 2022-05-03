@@ -143,6 +143,7 @@ class RegisterScreen extends React.Component<TProps, TState> {
                     colorPalette="actionSecondary"
                     colorShade="main"
                     onPress={this.onPressLogin}
+                    style={{ fontSize: 20 }}
                     textClass="pLight"
                   >
                     {i18n.t('log-in')}

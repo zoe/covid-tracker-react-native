@@ -108,3 +108,4 @@ export const externalResourcesPlaceholder = require('@assets/study-hub/external-
 
 // Health Study ReBrand
 export const healthStudyRebrand = require('@assets/v2/re-brand.png');
+export const healthStudyIntroCallout = require('@assets/v2/introduce_wider_health_study_card.png');

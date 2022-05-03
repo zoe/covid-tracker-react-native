@@ -21,6 +21,7 @@ export const covidStyles = StyleSheet.create({
   },
   login: {
     color: colors.primary,
+    fontSize: 20,
     marginRight: sizes.m,
   },
   nhsWebsite: {
@@ -93,6 +94,7 @@ export const healthStudyStyles = StyleSheet.create({
   },
   login: {
     color: colors.primary,
+    fontSize: 20,
     marginRight: HealthStudyBranding.sizes.g16,
   },
   nhsWebsite: {

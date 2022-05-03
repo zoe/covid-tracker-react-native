@@ -21,6 +21,7 @@ export const covidStyles = StyleSheet.create({
   },
   login: {
     color: colors.white,
+    fontSize: 20,
   },
   loginContainer: {
     alignItems: 'center',
@@ -87,6 +88,7 @@ export const healthStudyStyles = StyleSheet.create({
   },
   login: {
     color: HealthStudyBranding.colors.white,
+    fontSize: 20,
   },
   loginContainer: {
     alignItems: 'center',

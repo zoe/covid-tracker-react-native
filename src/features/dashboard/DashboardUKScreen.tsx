@@ -1,4 +1,4 @@
-import { notificationReminders } from '@assets';
+import { healthStudyIntroCallout, notificationReminders } from '@assets';
 import { EFeaturedContentType, FeaturedContentList, SchoolNetworks } from '@covid/components';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
@@ -34,7 +34,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 import React from 'react';
-import { Platform, Pressable, useWindowDimensions, View } from 'react-native';
+import { Image, Platform, Pressable, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { covidStyles, healthStudyStyles } from './DashboardUKStyle';
@@ -52,6 +52,8 @@ interface IProps {
 const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
 const onMoreDetails = () => openWebLink('https://covid.joinzoe.com/data');
+
+const ZOE_HEALTH_STUDY_LEARN_MORE_LINK = 'https://covid.joinzoe.com/wider-health-studies?utm_source=App';
 
 export function DashboardUKScreen({ navigation, route }: IProps) {
   const app = useSelector<TRootState, TStateApp>((state) => state.app);
@@ -179,6 +181,15 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
             />
           ) : healthProfileState.showHealthProfileStartCard && !healthProfileState.dateOfLastUpdate ? (
             <HealthProfileStartCard />
+          ) : null}
+          {app.toggleReBrand ? (
+            <TouchableOpacity
+              accessible
+              accessibilityRole="button"
+              onPress={() => openWebLink(ZOE_HEALTH_STUDY_LEARN_MORE_LINK)}
+            >
+              <Image resizeMode="contain" source={healthStudyIntroCallout} style={{ height: 110, width: '100%' }} />
+            </TouchableOpacity>
           ) : null}
           <NewlySymptomaticCard />
           {showTrendline ? <TrendlineCard onPress={appCoordinator.goToTrendline} /> : null}

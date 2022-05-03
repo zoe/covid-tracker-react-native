@@ -120,6 +120,7 @@ export function LoginScreen({ route }: IProps) {
         style={styles.marginVertical}
         testID="login-button"
         text={i18n.t('log-in')}
+        textStyle={styles.textStyles}
       />
       <View style={styles.textWrapper}>
         <RegularText>{i18n.t('login.dont-have-account')}</RegularText>
@@ -143,6 +144,9 @@ const styles = StyleSheet.create({
   },
   marginVertical: {
     marginVertical: sizes.m,
+  },
+  textStyles: {
+    fontSize: 20,
   },
   textWrapper: {
     flexDirection: 'row',

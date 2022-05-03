@@ -22,7 +22,7 @@ export function useLogout(navigation: DrawerNavigationHelpers | NavigationContai
     // @todo: Remove this dependency
     navigation.reset({
       index: 0,
-      routes: [{ name: 'CountrySelect' }],
+      routes: [{ name: 'Welcome' }],
     });
     NavigatorService.closeDrawer();
   };
