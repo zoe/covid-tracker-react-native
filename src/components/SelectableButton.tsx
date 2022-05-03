@@ -36,7 +36,7 @@ export function SelectableButton({
       : styles.brand.color
     : unselectedBgColor || colors.backgroundTertiary;
   const textColor = selected ? colors.white : unselectedTextColor || styles.primary.color;
-  const btnStyle = [styles.button, style, { backgroundColor }];
+  const btnStyle = [{ backgroundColor, borderColor: backgroundColor }, styles.button, style];
 
   return (
     <Button onPress={onPress} style={btnStyle} testID={testID}>

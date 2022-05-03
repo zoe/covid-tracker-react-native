@@ -470,7 +470,8 @@
   "re-brand": {
     "modal-title": false,
     "modal-content": false,
-    "modal-cta": false
+    "modal-cta": false,
+    "modal-cta-subtext": false
   },
   "reset-password": {
     "title": "Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord",

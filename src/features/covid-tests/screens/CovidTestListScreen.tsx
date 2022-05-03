@@ -157,7 +157,12 @@ export default function CovidTestListScreen(props: IProps) {
           textStyle={styles.transparentButtonText}
         />
       ) : (
-        <Button buttonType="secondary" onPress={handleNextButton} testID="button-covid-test-list-screen">
+        <Button
+          buttonType="secondary"
+          onPress={handleNextButton}
+          style={[styles.newButton, styles.nextButtonV0Flow]}
+          testID="button-covid-test-list-screen"
+        >
           <Text style={styles.white}>
             {covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
           </Text>

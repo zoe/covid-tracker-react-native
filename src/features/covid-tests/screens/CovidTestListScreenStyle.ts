@@ -17,6 +17,9 @@ export const covidStyles = StyleSheet.create({
   newText: {
     color: colors.primary,
   },
+  nextButtonV0Flow: {
+    backgroundColor: colors.brand,
+  },
   tabTitle: {
     color: colors.secondary,
   },
@@ -51,6 +54,7 @@ export const healthStudyStyles = StyleSheet.create({
   newText: {
     color: HealthStudyBranding.colors.primary,
   },
+  nextButtonV0Flow: {},
   tabTitle: {
     color: HealthStudyBranding.colors.secondary,
   },

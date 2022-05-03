@@ -34,7 +34,7 @@ const ReBrandModal: React.FC<IProps> = (props) => {
             style={styles.footerText}
             textClass="pBold"
           >
-            Look out for more changes over the coming weeks!
+            {i18n.t('re-brand.modal-cta-subtext')}
           </Text>
         </Spacer>
       </View>

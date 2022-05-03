@@ -77,12 +77,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     await patientService.updatePatientInfo(patientId, { has_seen_rebrand_modal: true });
   }, []);
 
-  React.useEffect(() => {
-    if (startupInfo?.show_rebrand_modal) {
-      dispatch(appActions.setModalReBrandVisible(true));
-    }
-  }, []);
-
   // TODO: Can we move this into app initialisation?
   React.useEffect(() => {
     (async () => {
@@ -118,6 +112,8 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   React.useEffect(() => {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
+    } else if (!startupInfo?.show_study_hub_onboarding && startupInfo?.show_rebrand_modal) {
+      dispatch(appActions.setModalReBrandVisible(true));
     }
     // TODO: FIX
     // if (startupInfo?.is_tester) {
