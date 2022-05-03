@@ -1,6 +1,5 @@
 import appConfig from '@covid/appConfig';
 import { Text } from '@covid/components';
-import { BrandedButton } from '@covid/components/buttons';
 import { ELegalCardType, LegalCard } from '@covid/components/cards/LegalCard';
 import { ErrorText } from '@covid/components/Text';
 import { consentService } from '@covid/core/consent/ConsentService';
@@ -13,6 +12,7 @@ import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { colors } from '@theme';
+import Button from '@tracer/components/atoms/Button';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -103,15 +103,14 @@ export default function ReconsentRequestConsentScreen() {
       </Text>
       <View style={styles.hr} />
       {error ? <ErrorText style={styles.errorText}>{error}</ErrorText> : null}
-      <BrandedButton
-        enabled={!loading}
+      <Button
+        disabled={loading}
         loading={loading}
         onPress={onPressYes}
         style={styles.buttonYes}
         testID="button-yes"
-      >
-        {i18n.t('reconsent.request-consent.consent-yes')}
-      </BrandedButton>
+        text={i18n.t('reconsent.request-consent.consent-yes')}
+      />
       <TouchableOpacity disabled={loading} onPress={onPressNo} style={styles.buttonNo} testID="button-no">
         <Text
           inverted

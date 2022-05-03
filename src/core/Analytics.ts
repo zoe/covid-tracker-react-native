@@ -1,26 +1,9 @@
 import appConfig from '@covid/appConfig';
 import { LocalisationService } from '@covid/core/localisation/LocalisationService';
-import Logging, { contextNames, logLevel } from '@covid/core/Logging';
 import Constants from '@covid/utils/Constants';
 import * as Amplitude from 'expo-analytics-amplitude';
 
 import { TScreenName } from './Coordinator';
-import { firebaseAnalytics } from './firebase/analytics';
-
-const fbAnalytics = firebaseAnalytics();
-try {
-  fbAnalytics.isInitialized();
-} catch (e) {
-  Logging.log(
-    'analytics',
-    'firebase_analytics_init_failed',
-    contextNames.FIREBASE_ANALYTICS,
-    {
-      error: e,
-    },
-    logLevel.Warning,
-  );
-}
 
 let isInitialized = false;
 
@@ -64,22 +47,6 @@ enum EStudyHubEvents {
   STUDY_HUB_RECONSENT_CLICKED = 'STUDY_HUB_RECONSENT_CLICKED',
 }
 
-enum EHealthProfileFirebaseEvents {
-  HP_INTRO_MODAL_UPDATE_NOW_CLICK = 'HP_INTRO_MODAL_UPDATE_NOW_CLICK',
-  HP_INTRO_MODAL_REMIND_LATER_CLICK = 'HP_INTRO_MODAL_REMIND_LATER_CLICK',
-  HP_THANK_YOU_SCREEN_RETURN_HOME_CLICK = 'HP_THANK_YOU_SCREEN_RETURN_HOME_CLICK',
-  HP_DASHBOARD_START_CARD_CLICK = 'HP_DASHBOARD_START_CARD_CLICK',
-  HP_DASHBOARD_REMINDER_CARD_CLICK = 'HP_DASHBOARD_REMINDER_CARD_CLICK',
-  HP_SAVE_EXIT_LINK_CLICK = 'HP_SAVE_EXIT_LINK_CLICK',
-  HP_CONFIRM_EXIT_MODAL_SAVE_EXIT_BTN_CLICK = 'HP_CONFIRM_EXIT_MODAL_SAVE_EXIT_BTN_CLICK',
-  HP_CONFIRM_EXIT_MODAL_DISMISS_BTN_CLICK = 'HP_CONFIRM_EXIT_MODAL_DISMISS_BTN_CLICK',
-  HP_REMINDER_MODAL_DISMISS = 'HP_REMINDER_MODAL_DISMISS',
-  HP_REMINDER_MODAL_CONTINUE = 'HP_REMINDER_MODAL_CONTINUE',
-  HP_ABOUT_YOU_BTN_TOOLTIP_SEEN = 'HP_ABOUT_YOU_BTN_TOOLTIP_SEEN',
-  HP_FORM_NEXT_BTN_CLICK = 'HP_FORM_NEXT_BTN_CLICK',
-  HP_SCREEN_IN_FOCUS = 'HP_SCREEN_IN_FOCUS',
-}
-
 enum EHealthProfileEvents {
   HEALTH_PROFILE_INTRO_MODAL_UPDATE_NOW_CLICKED = 'HEALTH_PROFILE_INTRO_MODAL_UPDATE_NOW_CLICKED',
   HEALTH_PROFILE_INTRO_MODAL_REMIND_LATER_CLICKED = 'HEALTH_PROFILE_INTRO_MODAL_REMIND_LATER_CLICKED',
@@ -95,29 +62,6 @@ enum EHealthProfileEvents {
   HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED = 'HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED',
   HEALTH_PROFILE_SCREEN_IN_FOCUS = 'HEALTH_PROFILE_SCREEN_IN_FOCUS',
 }
-
-const EHealthProfileEventsMapping: { [key: string]: EHealthProfileFirebaseEvents } = {
-  [EHealthProfileEvents.HEALTH_PROFILE_INTRO_MODAL_UPDATE_NOW_CLICKED]:
-    EHealthProfileFirebaseEvents.HP_INTRO_MODAL_UPDATE_NOW_CLICK,
-  [EHealthProfileEvents.HEALTH_PROFILE_INTRO_MODAL_REMIND_LATER_CLICKED]:
-    EHealthProfileFirebaseEvents.HP_INTRO_MODAL_REMIND_LATER_CLICK,
-  [EHealthProfileEvents.HEALTH_PROFILE_THANK_YOU_SCREEN_RETURN_HOME_CLICKED]:
-    EHealthProfileFirebaseEvents.HP_THANK_YOU_SCREEN_RETURN_HOME_CLICK,
-  [EHealthProfileEvents.HEALTH_PROFILE_DASHBOARD_START_CARD_CLICKED]:
-    EHealthProfileFirebaseEvents.HP_DASHBOARD_START_CARD_CLICK,
-  [EHealthProfileEvents.HEALTH_PROFILE_DASHBOARD_REMINDER_CARD_CLICKED]:
-    EHealthProfileFirebaseEvents.HP_DASHBOARD_REMINDER_CARD_CLICK,
-  [EHealthProfileEvents.HEALTH_PROFILE_SAVE_EXIT_LINK_CLICKED]: EHealthProfileFirebaseEvents.HP_SAVE_EXIT_LINK_CLICK,
-  [EHealthProfileEvents.HEALTH_PROFILE_CONFIRM_EXIT_MODAL_SAVE_EXIT_BUTTON_CLICKED]:
-    EHealthProfileFirebaseEvents.HP_CONFIRM_EXIT_MODAL_SAVE_EXIT_BTN_CLICK,
-  [EHealthProfileEvents.HEALTH_PROFILE_REMINDER_MODAL_DISMISS]: EHealthProfileFirebaseEvents.HP_REMINDER_MODAL_DISMISS,
-  [EHealthProfileEvents.HEALTH_PROFILE_REMINDER_MODAL_CONTINUE]:
-    EHealthProfileFirebaseEvents.HP_REMINDER_MODAL_CONTINUE,
-  [EHealthProfileEvents.HEALTH_PROFILE_ABOUT_YOU_BUTTON_TOOLTIP_SEEN]:
-    EHealthProfileFirebaseEvents.HP_ABOUT_YOU_BTN_TOOLTIP_SEEN,
-  [EHealthProfileEvents.HEALTH_PROFILE_FORM_NEXT_BUTTON_CLICKED]: EHealthProfileFirebaseEvents.HP_FORM_NEXT_BTN_CLICK,
-  [EHealthProfileEvents.HEALTH_PROFILE_SCREEN_IN_FOCUS]: EHealthProfileFirebaseEvents.HP_SCREEN_IN_FOCUS,
-};
 
 enum ECovidTestLFTEvents {
   COVID_TEST_LFT_RESULT_SELECTED = 'COVID_TEST_LFT_RESULT_SELECTED',
@@ -202,26 +146,6 @@ function initialize(): void {
   isInitialized = true;
 }
 
-const trackEventFirebase = (eventName: TEventName, properties?: object): void => {
-  const isHPEvent: boolean = Object.keys(EHealthProfileEventsMapping).includes(eventName);
-
-  if (properties && isHPEvent) {
-    fbAnalytics.logEvent(EHealthProfileEventsMapping[eventName], properties);
-  }
-
-  if (properties && !isHPEvent) {
-    fbAnalytics.logEvent(eventName, properties);
-  }
-
-  if (!properties && isHPEvent) {
-    fbAnalytics.logEvent(EHealthProfileEventsMapping[eventName]);
-  }
-
-  if (!properties && !isHPEvent) {
-    fbAnalytics.logEvent(eventName);
-  }
-};
-
 const trackEventAmplitude = (eventName: TEventName, properties?: object): void => {
   if (properties) {
     Amplitude.logEventWithPropertiesAsync(eventName, properties);
@@ -232,18 +156,12 @@ const trackEventAmplitude = (eventName: TEventName, properties?: object): void =
 
 export function track(eventName: TEventName, properties?: object): void {
   initialize();
-  trackEventFirebase(eventName, properties);
   trackEventAmplitude(eventName, properties);
 }
 
 function trackApprovedScreenView(screenName: TScreenName): void {
   if (screens.includes(screenName)) {
     track(events.VIEW_SCREEN, { screenName });
-  } else {
-    // we log both for now, as firebase does not
-    // have the price concerns related to amplitude
-    fbAnalytics.logScreenView(screenName);
-    fbAnalytics.logEvent(events.VIEW_SCREEN, { screenName });
   }
 }
 
@@ -264,19 +182,6 @@ function identify(additionalUserProperties?: TUserProperties): void {
     revisionId: Constants.manifest.revisionId,
   };
 
-  const hasConsentedString = additionalUserProperties?.hasConsented
-    ? String(additionalUserProperties?.hasConsented)
-    : 'false';
-  const isTesterString = additionalUserProperties?.isTester ? String(additionalUserProperties?.hasConsented) : 'false';
-
-  fbAnalytics.setUserProperties({
-    appCountry: LocalisationService.userCountry,
-    appVersion: Constants.manifest.version,
-    hasConsented: hasConsentedString,
-    isTester: isTesterString,
-    releaseChannel: Constants.manifest.releaseChannel !== undefined ? Constants.manifest.releaseChannel : null,
-    revisionId: Constants.manifest.revisionId !== undefined ? Constants.manifest.revisionId : null,
-  });
   Amplitude.setUserPropertiesAsync(payload);
 }
 

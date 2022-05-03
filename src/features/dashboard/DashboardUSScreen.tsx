@@ -1,6 +1,5 @@
 import { shareAppV3 } from '@assets';
 import { share } from '@covid/components/cards/BaseShareApp';
-import { ShareVaccineCard } from '@covid/components/cards/ShareVaccineCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PartnerLogoUSDash } from '@covid/components/logos/PartnerLogo';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
@@ -63,8 +62,6 @@ export function DashboardUSScreen({ route, navigation }: IProps) {
   return (
     <CollapsibleHeaderScrollView compactHeader={compactHeader} config={headerConfig} expandedHeader={expandedHeader}>
       <View style={styles.marginHorizontal}>
-        <ShareVaccineCard screenName="DashboardUS" />
-
         {showDietStudyPlayback ? (
           <TouchableWithoutFeedback onPress={onPressDietStudy}>
             <Image source={dietStudyPlaybackReadyUS} style={styles.dietStudyImage} />

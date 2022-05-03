@@ -1,20 +1,23 @@
-import * as React from 'react';
+import { colors } from '@tracer/branding/colors';
+import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-type TProps = {
+type TMenuProps = {
   height?: number;
   width?: number;
+  fill?: string;
+  strokeColor?: string;
 };
 
-export function Menu(props: TProps) {
+export function Menu({ fill = 'none', height = 20, width = 20, strokeColor = colors.white }: TMenuProps) {
   return (
-    <Svg fill="none" height={props.height || 20} viewBox="0 0 20 20" width={props.width || 20}>
+    <Svg fill={fill} height={height} viewBox="0 0 20 20" width={width}>
       <Path
         d="
         M 0 19 h 20
         M 0 10 h 20
         M 0 1 h 20"
-        stroke="#fff"
+        stroke={strokeColor}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.5}

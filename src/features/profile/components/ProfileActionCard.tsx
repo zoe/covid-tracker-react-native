@@ -18,7 +18,6 @@ interface IProps {
   title: string;
 }
 export const ProfileActionCard: React.FC<IProps> = (props) => {
-  const ImageIcon = props.image;
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -26,7 +25,7 @@ export const ProfileActionCard: React.FC<IProps> = (props) => {
       testID={`profile-action-card-${props.testID}`}
     >
       <View style={styling.row}>
-        <ImageIcon opacity={0.65} />
+        {props.image}
         <View style={styles.textBlock}>
           <Text rhythm={8} style={{ color: props.color }} textClass="h4Medium">
             {props.title}

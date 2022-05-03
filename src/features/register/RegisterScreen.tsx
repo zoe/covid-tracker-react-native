@@ -1,9 +1,10 @@
-import { BrandedButton, Text } from '@covid/components';
+import { Text } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, ErrorText, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import Analytics, { events } from '@covid/core/Analytics';
+import { TRootState } from '@covid/core/state/root';
 import { setUsername } from '@covid/core/state/user';
 import { userService } from '@covid/core/user/UserService';
 import { appCoordinator } from '@covid/features/AppCoordinator';
@@ -12,18 +13,21 @@ import { TScreenParamList } from '@covid/routes/types';
 import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
+import Button from '@tracer/components/atoms/Button';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
-import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
+
+import { covidStyles, healthStudyStyles } from './RegisterScreenStyle';
 
 type TProps = {
   navigation: StackNavigationProp<TScreenParamList, 'Register'>;
   route: RouteProp<TScreenParamList, 'Register'>;
   setUsername: (username: string) => void;
+  styles: any;
 };
 
 type TState = {
@@ -120,21 +124,26 @@ class RegisterScreen extends React.Component<TProps, TState> {
 
   render() {
     return (
-      <Screen backgroundColor={colors.backgroundPrimary} testID="register-screen">
+      <Screen backgroundColor={this.props.styles.screen.backgroundColor} testID="register-screen">
         <Formik initialValues={initialFormValues} onSubmit={this.onSubmit} validationSchema={this.validationSchema}>
           {(formikProps) => {
             return (
               <Form>
-                <Text rhythm={24} style={styles.center} textClass="h3Light">
+                <Text rhythm={24} style={this.props.styles.center} textClass="h3Light">
                   {i18n.t('create-account.title')}
                 </Text>
-                <Text rhythm={24} style={[styles.center, styles.secondaryColour]} textClass="pLight">
+                <Text
+                  rhythm={24}
+                  style={[this.props.styles.center, this.props.styles.secondaryColour]}
+                  textClass="pLight"
+                >
                   {i18n.t('create-account.if-you-have-an-account')}{' '}
                   <Text
                     inverted
                     colorPalette="actionSecondary"
                     colorShade="main"
                     onPress={this.onPressLogin}
+                    style={{ fontSize: 20 }}
                     textClass="pLight"
                   >
                     {i18n.t('log-in')}
@@ -201,14 +210,14 @@ class RegisterScreen extends React.Component<TProps, TState> {
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                 ) : null}
 
-                <BrandedButton
-                  enabled={this.state.enableSubmit}
+                <Button
+                  buttonType="accent"
+                  disabled={!this.state.enableSubmit}
                   loading={formikProps.isSubmitting}
                   onPress={formikProps.handleSubmit}
                   testID="button-submit"
-                >
-                  {i18n.t('create-account.btn')}
-                </BrandedButton>
+                  text={i18n.t('create-account.btn')}
+                />
               </Form>
             );
           }}
@@ -218,17 +227,10 @@ class RegisterScreen extends React.Component<TProps, TState> {
   }
 }
 
-const styles = StyleSheet.create({
-  center: {
-    textAlign: 'center',
-  },
-  secondaryColour: {
-    color: colors.secondary,
-  },
-});
+const mapStateToProps = (state: TRootState) => ({ styles: state.app.toggleReBrand ? healthStudyStyles : covidStyles });
 
 const mapDispatchToProps = {
   setUsername,
 };
 
-export default connect(null, mapDispatchToProps)(RegisterScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);

@@ -1,5 +1,4 @@
 import appConfig from '@covid/appConfig';
-import { BrandedButton } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import { consentService } from '@covid/core/consent/ConsentService';
 import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
@@ -12,7 +11,8 @@ import { TScreenParamList } from '@covid/routes/types';
 import { styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import * as React from 'react';
+import Button from '@tracer/components/atoms/Button';
+import React from 'react';
 
 type TProps = {
   navigation: StackNavigationProp<TScreenParamList, 'Consent'>;
@@ -58,9 +58,13 @@ export default React.memo((props: TProps) => {
     <Screen testID="consent-screen">
       {renderConsent()}
       {!props.route.params?.viewOnly ? (
-        <BrandedButton enabled={agreed} onPress={onPressSubmit} style={styling.marginTopHuge} testID="button-agree">
-          {isGBCountry() ? i18n.t('legal.i-agree-uk') : i18n.t('legal.i-agree')}
-        </BrandedButton>
+        <Button
+          disabled={!agreed}
+          onPress={onPressSubmit}
+          style={styling.marginTopHuge}
+          testID="button-agree"
+          text={isGBCountry() ? i18n.t('legal.i-agree-uk') : i18n.t('legal.i-agree')}
+        />
       ) : null}
     </Screen>
   );

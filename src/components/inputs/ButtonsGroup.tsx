@@ -3,7 +3,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
 import { Label } from 'native-base';
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { requiredFormMarker } from '../Form';

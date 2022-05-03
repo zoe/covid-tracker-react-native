@@ -87,18 +87,15 @@ export const dietStudyPlaybackGlobal3 = require('@assets/global-stats-3.png');
 export const dietStudyPlaybackGutDiagram = require('@assets/gut-diagram.png');
 export const dietStudyPlaybackGutHeader = require('@assets/diet-playback-gut-banner.png');
 
+// avatars
+export * from './avatars';
+// cards
+export * from './cards';
 // share svg
 export { default as Share } from './icons/Share';
-
 export * from './icons/stats';
 export * from './icons/svgIcons';
 export { default as C19 } from './logos/C19';
-
-// avatars
-export * from './avatars';
-
-// cards
-export * from './cards';
 
 // Media Centre dummy cards
 export const mediaContentItem1 = require('@assets/media-centre/media-content-item-1.png');
@@ -108,3 +105,7 @@ export const mediaContentItem4 = require('@assets/media-centre/media-content-ite
 
 // Study Hub
 export const externalResourcesPlaceholder = require('@assets/study-hub/external-resources-placeholder.png');
+
+// Health Study ReBrand
+export const healthStudyRebrand = require('@assets/v2/re-brand.png');
+export const healthStudyIntroCallout = require('@assets/v2/introduce_wider_health_study_card.png');

@@ -1,6 +1,6 @@
-import { ShareButton } from '@covid/components/buttons';
 import { ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import i18n from '@covid/locale/i18n';
+import ShareButton from '@tracer/components/molecules/ShareButton';
 import * as React from 'react';
 import { Share, View } from 'react-native';
 

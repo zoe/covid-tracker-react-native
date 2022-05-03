@@ -2,7 +2,8 @@ import { ButtonsGroup, ISingleButton } from '@covid/components/inputsRedesigned/
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
-import * as React from 'react';
+import HealthStudyBranding from '@tracer/branding';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 
 interface IProps {
@@ -10,6 +11,7 @@ interface IProps {
   selectedValue: string;
   showPnts?: boolean;
   testID?: string;
+  reBrand?: boolean;
 }
 
 export enum ENegativePositiveFieldOptions {
@@ -30,22 +32,43 @@ const items: ISingleButton[] = [
 ];
 
 export function NegativePositiveField(props: IProps) {
+  const styles = props.reBrand ? healthStudyStyles : covidStyles;
   return (
     <ButtonsGroup
       hideLabel
       items={items}
       style={styles.buttonStyle}
-      unselectedBgColor={colors.backgroundSecondary}
-      unselectedTextColor={colors.darkBlue}
+      unselectedBgColor={styles.bgSecondary.color}
+      unselectedTextColor={styles.txtColor.color}
       {...props}
     />
   );
 }
 
-const styles = StyleSheet.create({
+const covidStyles = StyleSheet.create({
+  bgSecondary: {
+    color: colors.backgroundSecondary,
+  },
   buttonStyle: {
     borderColor: colors.darkBlue,
     borderRadius: sizes.xl,
     borderWidth: 1,
+  },
+  txtColor: {
+    color: colors.darkBlue,
+  },
+});
+
+const healthStudyStyles = StyleSheet.create({
+  bgSecondary: {
+    color: HealthStudyBranding.colors.white,
+  },
+  buttonStyle: {
+    borderColor: HealthStudyBranding.colors.primary,
+    borderRadius: sizes.xl,
+    borderWidth: 1,
+  },
+  txtColor: {
+    color: HealthStudyBranding.colors.primary,
   },
 });

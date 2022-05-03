@@ -1,4 +1,3 @@
-import { BrandedButton } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
 import Analytics from '@covid/core/Analytics';
@@ -11,9 +10,10 @@ import { TScreenParamList } from '@covid/routes/types';
 import { sizes, styling } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
+import Button from '@tracer/components/atoms/Button';
 import { Input, Item, Label, Toast } from 'native-base';
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 interface IProps {
@@ -88,7 +88,6 @@ export function LoginScreen({ route }: IProps) {
     // https://medium.com/fantageek/how-to-dismiss-keyboard-with-react-navigation-in-react-native-apps-4b987bbfdc48
     <Screen keyboardShouldPersistTaps="always" testID="login-screen">
       <HeaderLightText>{i18n.t('login.title')}</HeaderLightText>
-
       <Item floatingLabel error={hasErrors} style={styles.marginTop}>
         <Label style={styles.label}>{i18n.t('login.email-label')}</Label>
         <Input
@@ -101,7 +100,6 @@ export function LoginScreen({ route }: IProps) {
           testID="login-input-email"
         />
       </Item>
-
       <Item floatingLabel error={hasErrors} style={styles.marginTop}>
         <Label style={styles.label}>{i18n.t('login.password-label')}</Label>
         <Input
@@ -114,25 +112,21 @@ export function LoginScreen({ route }: IProps) {
           testID="login-input-password"
         />
       </Item>
-
       <View style={styling.flex} />
-
-      <BrandedButton
-        enabled={isValid && !loading}
+      <Button
+        disabled={!(isValid && !loading)}
         loading={loading}
         onPress={handleLogin}
         style={styles.marginVertical}
         testID="login-button"
-      >
-        <Text>{i18n.t('log-in')}</Text>
-      </BrandedButton>
-
+        text={i18n.t('log-in')}
+        textStyle={styles.textStyles}
+      />
       <View style={styles.textWrapper}>
         <RegularText>{i18n.t('login.dont-have-account')}</RegularText>
         <RegularText> </RegularText>
         <ClickableText onPress={appCoordinator.goToPreRegisterScreens}>{i18n.t('login.create-account')}</ClickableText>
       </View>
-
       <ClickableText onPress={appCoordinator.goToResetPassword} style={styling.textCenter}>
         {i18n.t('login.forgot-your-password')}
       </ClickableText>
@@ -150,6 +144,9 @@ const styles = StyleSheet.create({
   },
   marginVertical: {
     marginVertical: sizes.m,
+  },
+  textStyles: {
+    fontSize: 20,
   },
   textWrapper: {
     flexDirection: 'row',

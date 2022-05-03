@@ -2,6 +2,8 @@ import { ClickableText, RegularText, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import Switch from '@covid/components/Switch';
 import { fetchStartupInfo } from '@covid/core/state';
+import { appActions } from '@covid/core/state/app/slice';
+import { TStateApp } from '@covid/core/state/app/types';
 import { resetCovidTestsState } from '@covid/core/state/covid-tests/slice';
 import { resetHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
@@ -55,7 +57,12 @@ const renderCustomisableSettings = (startupInfo: TStartupInfo, dispatch: Dispatc
 
 export function TestingModeScreen() {
   const dispatch = useDispatch();
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
+
+  const onToggleReBrand = () => {
+    dispatch(appActions.setReBrandVisible(!app.toggleReBrand));
+  };
 
   const onResetHealthProfilePress = () => {
     dispatch(resetHealthProfile());
@@ -80,6 +87,11 @@ export function TestingModeScreen() {
       <Text rhythm={12} textClass="h5Medium">
         Customisable settings
       </Text>
+      <TouchableOpacity onPress={onToggleReBrand}>
+        <ClickableText style={{ color: colors.brand, marginBottom: sizes.s }}>
+          {`Rebrand State: ${app.toggleReBrand}`}
+        </ClickableText>
+      </TouchableOpacity>
       <TouchableOpacity onPress={onResetHealthProfilePress}>
         <ClickableText style={{ color: colors.brand, marginBottom: sizes.s }}>Clear Health Profile state</ClickableText>
       </TouchableOpacity>

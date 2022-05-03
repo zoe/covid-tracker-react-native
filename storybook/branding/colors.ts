@@ -1,0 +1,41 @@
+/* eslint-disable sort-keys-fix/sort-keys-fix */
+
+/**
+ * ZOE Health Study Colour Scheme
+ *
+ * ref: [Style Guide](https://www.figma.com/file/qkXY5FdYMVaGKCt7819aiO/ZOE-Library?node-id=10121%3A48877)
+ */
+export const colors = {
+  accent: '#A0278F',
+  brand: '#3944A3',
+
+  primary: '#3944A3',
+  secondary: '#565A5C',
+  tertiary: '#888B8C',
+
+  active: '#082A5D',
+  disabled: '#A6B8D3',
+
+  tags: {
+    vegan: '#467980',
+  },
+  surface: {
+    interactive: '#F5F6FC',
+    subdued: '#DADDE7',
+  },
+
+  highlight: {
+    bright: '#8C94B5',
+  },
+
+  text: {
+    primary: '#2D3246',
+  },
+
+  // standard values
+  transparent: 'transparent',
+  white: '#FFFFFF',
+  black: '#000000',
+  black50: 'rgba(0, 0, 0, 0.5)',
+  purple: '#A10056',
+};

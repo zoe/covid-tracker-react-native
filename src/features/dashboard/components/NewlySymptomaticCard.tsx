@@ -1,20 +1,28 @@
-import { BrandedButton, ShareButton } from '@covid/components/buttons';
-import { BASELINE_COLOR, CURRENT_COLOR, NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomaticChart';
+import { NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomaticChart';
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text, TextWithHighlight } from '@covid/components/typography';
 import { selectContent, updateSelectedRegionItem } from '@covid/core/state';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRegionItem } from '@covid/core/state/content/types';
+import { TRootState } from '@covid/core/state/root';
 import {
   ChangeRegionNewlySymptomaticModal,
   LONDON_ITEM,
 } from '@covid/features/dashboard/modals/ChangeRegionNewlySymptomaticModal';
 import i18n from '@covid/locale/i18n';
-import { sizes } from '@covid/themes';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '@theme';
-import * as React from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import Button from '@tracer/components/atoms/Button';
+import ShareButton from '@tracer/components/molecules/ShareButton';
+import React from 'react';
+import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  COVID_SHARE_BTN_COLOR,
+  covidStyles,
+  HEALTH_STUDY_SHARE_BTN_COLOR,
+  healthStudyStyles,
+} from './NewlySymptomaticCardStyle';
 
 type TProps = {
   isSharing?: boolean;
@@ -23,6 +31,7 @@ type TProps = {
 export function NewlySymptomaticCard(props: TProps) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const content = useSelector(selectContent);
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -45,10 +54,12 @@ export function NewlySymptomaticCard(props: TProps) {
     setModalVisible(false);
   }, []);
 
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const shareBtnColor = app.toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
   return (
     <View style={[styles.view, props.isSharing ? styles.minimisePadding : null]}>
       <TextWithHighlight
-        color={colors.purple}
+        color={styles.textWithHighlight.color.purple}
         query={selectedRegionItem.label}
         rhythm={8}
         textClass={props.isSharing ? 'h5' : 'h4'}
@@ -82,9 +93,11 @@ export function NewlySymptomaticCard(props: TProps) {
       </View>
 
       {!props.isSharing ? (
-        <BrandedButton onPress={openModal} style={styles.marginTop}>
-          {i18n.t('newly-symptomatic.change-region')}
-        </BrandedButton>
+        <Button
+          onPress={openModal}
+          style={[styles.marginTop, styles.changeRegionBtn]}
+          text={i18n.t('newly-symptomatic.change-region')}
+        />
       ) : null}
 
       {!props.isSharing ? (
@@ -97,60 +110,13 @@ export function NewlySymptomaticCard(props: TProps) {
       ) : null}
 
       {!props.isSharing ? (
-        <ShareButton label={i18n.t('dashboard.trendline-card.share-cta')} onPress={onPressShare} />
+        <ShareButton
+          label={i18n.t('dashboard.trendline-card.share-cta')}
+          onPress={onPressShare}
+          shareIconStrokeColor={shareBtnColor}
+          textStyle={{ color: shareBtnColor }}
+        />
       ) : null}
     </View>
   );
 }
-
-const thickLineStyle: ViewStyle = {
-  borderRadius: 4,
-  height: 6,
-  marginRight: sizes.xs,
-  // Can't use the sizes util as this doesn't contain the value 6
-  marginTop: 6,
-  width: 16,
-};
-
-const explanationWrapper: ViewStyle = {
-  flexDirection: 'row',
-  paddingHorizontal: sizes.l,
-};
-
-const styles = StyleSheet.create({
-  explanationWrapperBottom: {
-    ...explanationWrapper,
-    marginTop: sizes.s,
-  },
-  explanationWrapperTop: {
-    ...explanationWrapper,
-    marginTop: sizes.l,
-  },
-  marginBottom: {
-    marginBottom: sizes.m,
-  },
-  marginTop: {
-    marginTop: sizes.l,
-  },
-  minimiseMargin: {
-    marginTop: sizes.xs,
-  },
-  minimisePadding: {
-    paddingTop: sizes.xxs,
-  },
-  thickLineBaseline: {
-    ...thickLineStyle,
-    backgroundColor: BASELINE_COLOR,
-  },
-  thickLineCurrent: {
-    ...thickLineStyle,
-    backgroundColor: CURRENT_COLOR,
-  },
-  view: {
-    backgroundColor: colors.white,
-    borderRadius: sizes.m,
-    marginVertical: sizes.xs,
-    paddingHorizontal: sizes.m,
-    paddingTop: sizes.l,
-  },
-});

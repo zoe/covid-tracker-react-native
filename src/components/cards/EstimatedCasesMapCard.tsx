@@ -1,8 +1,8 @@
-import { BrandedButton, ShareButton } from '@covid/components/buttons';
 import { Text } from '@covid/components/typography';
 import { WebView } from '@covid/components/WebView';
 import { TCoordinates, TPersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { patientService } from '@covid/core/patient/PatientService';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -12,14 +12,19 @@ import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '@theme';
-import * as React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Button from '@tracer/components/atoms/Button';
+import ShareButton from '@tracer/components/molecules/ShareButton';
+import React from 'react';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { ESharable } from '../screens/share/types';
-
-const MAP_HEIGHT = 246;
+import {
+  COVID_SHARE_BTN_COLOR,
+  covidStyles,
+  HEALTH_STUDY_SHARE_BTN_COLOR,
+  healthStudyStyles,
+} from './EstimatedCaseMapCardStyle';
 
 interface IEmptyViewProps {
   primaryLabel?: string;
@@ -31,6 +36,7 @@ interface IEmptyViewProps {
 function EmptyView({ onPress, ...props }: IEmptyViewProps) {
   const [html, setHtml] = React.useState<string>('');
 
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
   const primaryLabel = props.primaryLabel ?? i18n.t('covid-cases-map.covid-in-x', { location: 'your area' });
@@ -67,6 +73,7 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
     };
   }, []);
 
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <View style={[styles.root, root]}>
       <View style={{ marginVertical: sizes.l, paddingHorizontal: sizes.m }}>
@@ -93,11 +100,11 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
             </Text>
           </View>
           <View style={{ paddingHorizontal: sizes.m }}>
-            <BrandedButton onPress={onPress} style={styles.detailsButton}>
+            <Button onPress={onPress} style={styles.detailsButton}>
               <Text colorPalette="burgundy" textClass="pLight">
                 {ctaLabel}
               </Text>
-            </BrandedButton>
+            </Button>
           </View>
         </>
       ) : null}
@@ -121,6 +128,7 @@ const ZOOM_LEVEL_FURTHER = 6;
 export function EstimatedCasesMapCard({ isSharing }: IProps) {
   const { navigate } = useNavigation();
 
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const localData = useSelector<TRootState, TPersonalisedLocalData | undefined>(
     (state) => state.content.personalizedLocalData,
   );
@@ -204,6 +212,8 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
     }
   };
 
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const shareBtnColor = app.toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
   const map = (): React.ReactNode => {
     if (useCartoMap) {
       return (
@@ -262,111 +272,14 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
         </View>
       </View>
 
-      {!isSharing ? <ShareButton label={i18n.t('covid-cases-map.share')} onPress={share} /> : null}
+      {!isSharing ? (
+        <ShareButton
+          label={i18n.t('covid-cases-map.share')}
+          onPress={share}
+          shareIconStrokeColor={shareBtnColor}
+          textStyle={{ color: shareBtnColor }}
+        />
+      ) : null}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  detailsButton: {
-    backgroundColor: 'transparent',
-    borderColor: colors.purple,
-    borderWidth: 1,
-    marginBottom: sizes.l,
-    paddingHorizontal: sizes.xxl,
-  },
-
-  detailsButtonLabel: {
-    color: colors.purple,
-    fontSize: 14,
-  },
-
-  divider: {
-    alignSelf: 'center',
-    backgroundColor: colors.backgroundFour,
-    height: 1,
-    width: '92%',
-  },
-
-  emptyStateArrow: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    position: 'absolute',
-    right: 0,
-  },
-
-  mapContainer: {
-    width: '100%',
-  },
-
-  mapImage: {
-    height: MAP_HEIGHT,
-    resizeMode: 'cover',
-  },
-
-  postcodeButton: {
-    marginBottom: sizes.l,
-  },
-
-  primaryLabel: {
-    color: colors.textDark,
-    textAlign: 'center',
-  },
-
-  root: {
-    backgroundColor: colors.white,
-    borderRadius: sizes.m,
-    marginVertical: sizes.xs,
-    overflow: 'hidden',
-  },
-
-  shareIcon: {
-    marginRight: sizes.xs,
-    marginTop: sizes.xxs,
-  },
-
-  shareLabel: {
-    color: colors.purple,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-
-  shareTouchable: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical: sizes.m,
-    paddingTop: sizes.xxs,
-  },
-
-  snapshotContainer: {
-    backgroundColor: colors.white,
-    width: '100%',
-  },
-
-  stats: {
-    marginRight: sizes.xs,
-  },
-
-  statsContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: sizes.m,
-    width: '100%',
-  },
-
-  statsLabel: {
-    fontSize: 14,
-    lineHeight: 20,
-    marginBottom: sizes.xxs,
-  },
-
-  statsRow: {
-    alignItems: 'flex-end',
-    flexDirection: 'row',
-  },
-
-  webview: {
-    height: MAP_HEIGHT,
-  },
-});

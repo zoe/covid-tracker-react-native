@@ -1,10 +1,11 @@
-import { BrandedButton, Text } from '@covid/components';
+import { Text } from '@covid/components';
 import { Loading } from '@covid/components/Loading';
 import { ProgressHeader } from '@covid/components/ProgressHeader';
 import { Screen } from '@covid/components/Screen';
 import { ErrorText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { TStateApp } from '@covid/core/state/app/types';
 import { populatePatientLFTState, updateCurrentPatientLoggedToday } from '@covid/core/state/covid-tests/slice';
 import { TStateCovidTests } from '@covid/core/state/covid-tests/types';
 import { TRootState } from '@covid/core/state/root';
@@ -18,14 +19,16 @@ import CovidTestTabbedListsScreen from '@covid/features/covid-tests/screens/Covi
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
-import { sizes } from '@covid/themes';
 import { dateIsToday } from '@covid/utils/datetime';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import Button from '@tracer/components/atoms/Button';
+import React from 'react';
+import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { covidStyles, healthStudyStyles } from './CovidTestListScreenStyle';
 
 interface IProps {
   navigation: StackNavigationProp<TScreenParamList, 'CovidTestList'>;
@@ -58,7 +61,9 @@ export default function CovidTestListScreen(props: IProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [todaysLFT, setTodaysLFT] = React.useState<TCovidTest>();
 
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
 
   const dispatch = useDispatch();
 
@@ -144,20 +149,24 @@ export default function CovidTestListScreen(props: IProps) {
       !fromDailyAssessmentFlow() &&
       isGBCountry() &&
       !assessmentCoordinator.isReportedByOther() ? (
-        <BrandedButton
+        <Button
           onPress={backToProfileTab}
           style={styles.transparentButton}
           testID="button-covid-test-list-assessment-v0"
+          text={i18n.t('done')}
           textStyle={styles.transparentButtonText}
-        >
-          {i18n.t('done')}
-        </BrandedButton>
+        />
       ) : (
-        <BrandedButton onPress={handleNextButton} testID="button-covid-test-list-screen">
-          <Text style={{ color: colors.white }}>
+        <Button
+          buttonType="secondary"
+          onPress={handleNextButton}
+          style={[styles.newButton, styles.nextButtonV0Flow]}
+          testID="button-covid-test-list-screen"
+        >
+          <Text style={styles.white}>
             {covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
           </Text>
-        </BrandedButton>
+        </Button>
       )}
     </View>
   );
@@ -179,9 +188,14 @@ export default function CovidTestListScreen(props: IProps) {
         </RegularText>
       )}
 
-      <BrandedButton onPress={gotoAddTest} style={styles.newButton} testID="button-add-test">
-        <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
-      </BrandedButton>
+      <Button
+        buttonType="secondary"
+        onPress={gotoAddTest}
+        style={styles.newButton}
+        testID="button-add-test"
+        text={i18n.t('covid-test-list.add-new-test')}
+        textStyle={styles.txtStyle}
+      />
 
       {covidTests.length ? (
         <Text style={styles.tabTitle} textAlign="center" textClass="h4Medium">
@@ -199,32 +213,3 @@ export default function CovidTestListScreen(props: IProps) {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  marginTop: {
-    marginTop: sizes.l,
-  },
-  newButton: {
-    backgroundColor: colors.backgroundTertiary,
-    marginBottom: sizes.m,
-    marginTop: sizes.l,
-  },
-  newText: {
-    color: colors.primary,
-  },
-  tabTitle: {
-    color: colors.secondary,
-  },
-  transparentButton: {
-    backgroundColor: 'transparent',
-    borderColor: colors.brand,
-    borderRadius: sizes.xl,
-    borderWidth: 1,
-  },
-  transparentButtonText: {
-    color: colors.brand,
-  },
-  wrapper: {
-    padding: sizes.l,
-  },
-});

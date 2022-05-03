@@ -45,6 +45,12 @@
     "user-not-found-exception": "We couldn't identify you. Please try again.",
     "exception": "Unable to log in. Please try again."
   },
+  "re-brand": {
+    "modal-title": "Welcome to the\nZOE Health Study",
+    "modal-content": "Rest assured we’re still studying COVID, but as you know, we’re also researching other major diseases so it felt like right time for a refresh.",
+    "modal-cta": "Launch the app now",
+    "modal-cta-subtext": "Look out for more changes over the coming weeks"
+  },
   "reset-password": {
     "title": "Enter your email and we’ll send you a link to reset your password",
     "email-label": "Email",

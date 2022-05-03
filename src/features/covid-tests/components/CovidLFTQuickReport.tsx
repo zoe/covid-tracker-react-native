@@ -1,23 +1,25 @@
 import { noseSwabX3 } from '@assets';
-import { Card, ErrorText, Spacer, Tag, TextWithBoldInserts } from '@covid/components';
+import { Card, ErrorText, Spacer, TextWithBoldInserts } from '@covid/components';
 import {
   ENegativePositiveFieldOptions,
   NegativePositiveField,
 } from '@covid/components/inputsRedesigned/NegativePositiveField';
 import Analytics, { events } from '@covid/core/Analytics';
 import Logging, { contextNames, logLevel } from '@covid/core/Logging';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { covidTestService } from '@covid/core/user/CovidTestService';
 import { ECovidTestType, TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions, ECovidTestResultOptions } from '@covid/core/user/dto/UserAPIContracts';
 import { CovidTestLFTResultConfirmationModal } from '@covid/features/covid-tests/modals/CovidTestLFTResultConfirmationModal';
 import i18n from '@covid/locale/i18n';
-import { sizes } from '@covid/themes';
 import { dateToString } from '@covid/utils/datetime';
-import { colors } from '@theme';
+import Tag from '@tracer/components/atoms/Tag';
 import * as React from 'react';
-import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Image, View } from 'react-native';
 import { useSelector } from 'react-redux';
+
+import { covidStyles, healthStudyStyles } from './CovidLFTQuickReportStyle';
 
 interface IProps {
   onSuccessfulAdd: () => void;
@@ -25,12 +27,15 @@ interface IProps {
 }
 
 export const CovidLFTQuickReport = (props: IProps) => {
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const patientId = useSelector<TRootState, string>((state) => state.assessment.patient || '');
 
   const [LFTResult, setLFTResult] = React.useState<ENegativePositiveFieldOptions>(ENegativePositiveFieldOptions.EMPTY);
   const [showLFTResultConfirmationModal, setShowLFTResultConfirmationModal] = React.useState<boolean>(false);
   const [loadingLFTResult, setLoadingLFTResult] = React.useState<boolean>(false);
   const [LFTResultError, setLFTResultError] = React.useState<string>('');
+
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
 
   const onLFTResultButtonPress = (value: ENegativePositiveFieldOptions) => {
     setLFTResult(value);
@@ -108,17 +113,22 @@ export const CovidLFTQuickReport = (props: IProps) => {
       <CovidTestLFTResultConfirmationModal
         onPositiveConfirmation={addLFT}
         onRequestClose={dismissModal}
+        reBrand={app.toggleReBrand}
         result={LFTResult}
         visible={showLFTResultConfirmationModal}
       />
       <Card style={styles.card}>
         <View style={styles.iconTagRow}>
           <Image source={noseSwabX3} style={styles.icon} />
-          <Tag color={colors.teal} style={styles.tag} text={i18n.t('covid-test-list.lft-quick-report.tag-today')} />
+          <Tag
+            color={styles.tagType.color}
+            style={styles.tag}
+            text={i18n.t('covid-test-list.lft-quick-report.tag-today')}
+          />
           <Spacer space={24} />
         </View>
         {loadingLFTResult ? (
-          <ActivityIndicator color={colors.secondary} size={24} />
+          <ActivityIndicator color={styles.secondary.color} size={24} />
         ) : props.todaysLFT ? (
           renderTodaysResult()
         ) : (
@@ -127,7 +137,7 @@ export const CovidLFTQuickReport = (props: IProps) => {
               inverted
               colorPalette="uiDark"
               colorShade="darker"
-              rhythm={sizes.l}
+              rhythm={styles.rhythm.fontSize}
               textAlign="center"
               textClass="h5Light"
             >
@@ -137,6 +147,7 @@ export const CovidLFTQuickReport = (props: IProps) => {
             <NegativePositiveField
               key={LFTResult}
               onValueChange={onLFTResultButtonPress}
+              reBrand={app.toggleReBrand}
               selectedValue={LFTResult}
               testID="covid-test-lft-quick-report"
             />
@@ -147,33 +158,3 @@ export const CovidLFTQuickReport = (props: IProps) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: colors.backgroundSecondary,
-    marginTop: sizes.l,
-    paddingBottom: sizes.l,
-    paddingHorizontal: sizes.m,
-    paddingTop: sizes.m,
-  },
-  error: {
-    marginTop: sizes.m,
-    textAlign: 'center',
-  },
-  icon: {
-    height: 24,
-    width: 24,
-  },
-  iconTagRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: sizes.s,
-  },
-  question: {
-    textAlign: 'center',
-  },
-  tag: {
-    alignSelf: 'center',
-    marginTop: sizes.xs,
-  },
-});

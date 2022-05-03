@@ -1,6 +1,6 @@
 {
   "name": "covid",
-  "version": "2.7.2",
+  "version": "2.7.1",
   "private": true,
   "resolutions": {
     "browserslist": ">=4.16.5",
@@ -33,6 +33,7 @@
     "ios:devices": "xcrun simctl list",
     "ios:local": "ENVFILE=.env.local yarn ios",
     "ios:staging": "ENVFILE=.env.staging yarn ios",
+    "ios:storybook": "ENVFILE=.env.storybook yarn ios",
     "lint": "eslint assets/ src/ theme/ --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore",
     "lint:ci": "yarn lint --format junit --output-file ~/reports/eslint.xml",
     "lint:fix": "yarn lint --fix",
@@ -46,6 +47,7 @@
     "start": "yarn generate:git-hash && react-native start",
     "start:reset": "yarn start --reset-cache",
     "storybook": "start-storybook -p 7007",
+    "storybook-component": "./storybook/scripts/create-component.sh",
     "test": "jest --maxWorker=2 --runInBand --detectOpenHandles --verbose --coverage",
     "test:coverage": "jest --maxWorker=2 --coverage --reporters=default --reporters=jest-junit --ci",
     "test:e2e:ios": "detox test ./e2e --configuration ios.sim.release",
@@ -57,8 +59,6 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.15.0",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-native-firebase/analytics": "14.7.0",
-    "@react-native-firebase/app": "14.7.0",
     "@react-navigation/bottom-tabs": "6.0.9",
     "@react-navigation/drawer": "6.1.8",
     "@react-navigation/material-top-tabs": "6.0.6",
@@ -139,9 +139,11 @@
   },
   "devDependencies": {
     "@babel/core": "7.12.9",
+    "@sambego/storybook-state": "^2.0.1",
     "@storybook/addon-actions": "^5.3",
     "@storybook/addon-knobs": "^5.3",
     "@storybook/addon-links": "^5.3",
+    "@storybook/addon-notes": "^5.3.21",
     "@storybook/addon-ondevice-actions": "^5.3.23",
     "@storybook/addon-ondevice-knobs": "^5.3.25",
     "@storybook/react-native": "^5.3.25",
