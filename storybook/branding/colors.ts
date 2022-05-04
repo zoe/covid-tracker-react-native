@@ -30,6 +30,8 @@ export const colors = {
 
   text: {
     primary: '#2D3246',
+    accent: '#A0278F',
+    tertiary: '#888B8C',
   },
 
   // standard values

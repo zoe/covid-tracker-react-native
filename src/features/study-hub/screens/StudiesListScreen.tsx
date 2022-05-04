@@ -1,5 +1,6 @@
 import { Tag, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import {
@@ -16,15 +17,16 @@ import { StudyHubReconsentModal } from '@covid/features/study-hub/modals/StudyHu
 import { TStudy } from '@covid/features/study-hub/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { sizes } from '@covid/themes';
 import { useFocusEffect } from '@react-navigation/native';
-import { colors } from '@theme';
-import * as React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React from 'react';
+import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { covidStyles, healthStudyStyles } from './StudiesListScreenStyle';
 
 export function StudiesListScreen() {
   const dispatch = useDispatch();
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector(selectStartupInfo);
   const shouldShowReconsentModal = useSelector(selectShouldShowReconsentModal);
   const shouldShowFeedbackModal = useSelector(selectShouldShowFeedbackModal);
@@ -72,12 +74,13 @@ export function StudiesListScreen() {
   const title = i18n.t('study-hub.consented.title');
   const description = i18n.t('study-hub.consented.description');
 
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <Screen isInsideTabBar noHeader scrollRef={scrollRef} testID="studies-list-screen">
       <StudyHubReconsentModal onRequestClose={() => setShowReconsentModal(false)} visible={showReconsentModal} />
       <StudyHubFeedbackModal onRequestClose={() => setShowFeedbackModal(false)} visible={showFeedbackModal} />
       {studyHubInteractions.length > 1 ? null : (
-        <Tag color={colors.accent} style={[styles.alignStart, styles.marginBottomMedium]} text={i18n.t('new')} />
+        <Tag color={styles.tag.color} style={[styles.alignStart, styles.marginBottomMedium]} text={i18n.t('new')} />
       )}
       <Text
         inverted
@@ -108,18 +111,3 @@ export function StudiesListScreen() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  alignStart: {
-    alignSelf: 'flex-start',
-  },
-  marginBottom: {
-    marginBottom: sizes.l,
-  },
-  marginBottomMedium: {
-    marginBottom: sizes.m,
-  },
-  marginTop: {
-    marginTop: sizes.m,
-  },
-});

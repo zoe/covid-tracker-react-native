@@ -1,3 +1,4 @@
+import { colors } from '@tracer/branding/colors';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
@@ -14,7 +15,7 @@ export const CenterView = (props: Props) => {
 const styles = StyleSheet.create({
   main: {
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: colors.surface.subdued,
     flex: 1,
     justifyContent: 'center',
   },

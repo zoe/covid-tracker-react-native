@@ -72,13 +72,7 @@ export function EstimatedCaseCard({
       <View>
         <TouchableOpacity onPress={onPress} style={{ alignItems: 'center', flexDirection: 'row' }}>
           <RightArrow />
-          <Text
-            inverted
-            colorPalette="actionSecondary"
-            colorShade="main"
-            style={{ marginHorizontal: sizes.xs }}
-            textClass="pMedium"
-          >
+          <Text style={styles.textCtaLabel} textClass="pMedium">
             {ctaLabel}
           </Text>
         </TouchableOpacity>
@@ -135,4 +129,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: sizes.m,
     paddingVertical: sizes.l,
   },
+
+  textCtaLabel: { color: colors.purple, marginHorizontal: sizes.xs },
 });
