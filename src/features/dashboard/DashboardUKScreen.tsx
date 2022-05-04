@@ -58,7 +58,7 @@ const ZOE_HEALTH_STUDY_LEARN_MORE_LINK = 'https://covid.joinzoe.com/wider-health
 export function DashboardUKScreen({ navigation, route }: IProps) {
   const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-  const countryCode = startupInfo?.ip_country;
+  const countryCode = useSelector<TRootState, string>((state) => state.user.country_code);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
 
@@ -193,7 +193,11 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
               accessibilityRole="button"
               onPress={() => openWebLink(ZOE_HEALTH_STUDY_LEARN_MORE_LINK)}
             >
-              <Image resizeMode="contain" source={healthStudyIntroCallout} style={{ height: 110, width: '100%' }} />
+              <Image
+                resizeMode="contain"
+                source={healthStudyIntroCallout}
+                style={{ height: 110, marginTop: 10, width: '100%' }}
+              />
             </TouchableOpacity>
           ) : null}
           <NewlySymptomaticCard />
