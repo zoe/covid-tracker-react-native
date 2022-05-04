@@ -1,12 +1,11 @@
 import React, { ReactNode } from 'react';
-import { StyleProp, StyleSheet, ViewProps, ViewStyle } from 'react-native';
-import Animated from 'react-native-reanimated';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 type ColumnProps = {
   children?: ReactNode;
   reverse?: boolean;
   style?: StyleProp<ViewStyle>;
-} & ViewProps;
+};
 
 /**
  * Column
@@ -17,9 +16,9 @@ type ColumnProps = {
 export default function Column({ children, reverse, style, ...props }: ColumnProps) {
   const baseView = reverse ? baseStyles.viewReverse : baseStyles.view;
   return (
-    <Animated.View {...props} style={[baseView, style]}>
+    <View {...props} style={[baseView, style]}>
       {children}
-    </Animated.View>
+    </View>
   );
 }
 
