@@ -2,7 +2,7 @@ import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
 import Analytics from '@covid/core/Analytics';
 import { UserNotFoundException } from '@covid/core/Exception';
-import { setPatients, setUsername } from '@covid/core/state/user';
+import { setCountryCode, setPatients, setUsername } from '@covid/core/state/user';
 import { userService } from '@covid/core/user/UserService';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
@@ -40,6 +40,7 @@ export function LoginScreen({ route }: IProps) {
         const patientId = response.user.patients[0];
 
         dispatch(setUsername(response.user.username));
+        dispatch(setCountryCode(response.user.country_code));
         dispatch(setPatients(response.user.patients));
 
         appCoordinator

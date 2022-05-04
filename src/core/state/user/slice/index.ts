@@ -23,6 +23,9 @@ const userSlice = createSlice({
     reset: () => {
       return initialStateUser;
     },
+    setCountryCode: (state, action: PayloadAction<string>) => {
+      state.country_code = action.payload;
+    },
     setCurrentPatient: (state, action: PayloadAction<TPatientData>) => {
       state.currentPatient = action.payload;
     },
@@ -38,7 +41,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { reset, setProfile, setUsername, setCurrentPatient, setPatients } = userSlice.actions;
+export const { reset, setProfile, setUsername, setCountryCode, setCurrentPatient, setPatients } = userSlice.actions;
 export const selectUser = (state: TRootState) => state.user;
 
 export default userSlice.reducer;

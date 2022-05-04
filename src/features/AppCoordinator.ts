@@ -23,7 +23,7 @@ import {
   fetchUKMetrics,
 } from '@covid/core/state/content/slice';
 import store from '@covid/core/state/store';
-import { setCurrentPatient, setPatients as setPatientsUserAction } from '@covid/core/state/user';
+import { setCountryCode, setCurrentPatient, setPatients as setPatientsUserAction } from '@covid/core/state/user';
 import { TUserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
 import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
@@ -124,6 +124,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     if (userService.hasUser) {
       user = await userService.getUser();
       patientId = user?.patients[0] ?? null;
+      setCountryCode(user?.country_code ?? '');
       setUsername(user?.username ?? '');
       setPatients(user?.patients ?? []);
     }

@@ -4,6 +4,9 @@ import HealthStudyBranding from '@tracer/branding';
 import { StyleSheet } from 'react-native';
 
 export const covidStyles = StyleSheet.create({
+  footerBtnTxt: {
+    color: colors.white,
+  },
   marginTop: {
     marginTop: sizes.l,
   },
@@ -44,6 +47,9 @@ export const covidStyles = StyleSheet.create({
 });
 
 export const healthStudyStyles = StyleSheet.create({
+  footerBtnTxt: {
+    color: HealthStudyBranding.colors.primary,
+  },
   marginTop: {
     marginTop: HealthStudyBranding.sizes.g24,
   },
