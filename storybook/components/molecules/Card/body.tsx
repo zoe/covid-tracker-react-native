@@ -8,7 +8,8 @@ import { colors } from '../../../branding/colors';
 export interface ICardBodyProps {
   custom?: ReactNode;
   body?: string;
-  style?: StyleProp<ViewStyle>;
+  viewStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<ViewStyle>;
   testID?: string;
 }
 
@@ -19,12 +20,14 @@ export interface ICardBodyProps {
  * @param custom custom body to override default
  * @param style custom styling, overrides all other styles
  */
-export default function CardBody({ body, custom, style }: ICardBodyProps) {
+export default function CardBody({ body, custom, textStyle, viewStyle }: ICardBodyProps) {
   return (
-    <Row style={[baseStyle.row, style]}>
-      <Text style={baseStyle.bodyTxtColor}>{body}</Text>
-      {/* {(!custom && body) ??}
-      {(custom && !body) ?? custom} */}
+    <Row style={[baseStyle.row, viewStyle]}>
+      {body ? <Text style={[baseStyle.bodyTxtColor, textStyle]}>{body}</Text> : null}
+      {
+        // eslint-disable-next-line no-restricted-syntax
+        custom || null
+      }
     </Row>
   );
 }

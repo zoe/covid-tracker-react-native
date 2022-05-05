@@ -12,7 +12,6 @@ type ColumnProps = {
  *
  * @param children components to display inside the column
  */
-// eslint-disable-next-line func-names
 export default function Column({ children, reverse, style, ...props }: ColumnProps) {
   const baseView = reverse ? baseStyles.viewReverse : baseStyles.view;
   return (

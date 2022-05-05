@@ -12,6 +12,7 @@ export const colors = {
   primary: '#3944A3',
   secondary: '#565A5C',
   tertiary: '#888B8C',
+  quaternary: '#E2E2E2',
 
   active: '#082A5D',
   disabled: '#A6B8D3',
@@ -30,6 +31,7 @@ export const colors = {
 
   text: {
     primary: '#2D3246',
+    secondary: '#565A5C',
     accent: '#A0278F',
     tertiary: '#888B8C',
   },
