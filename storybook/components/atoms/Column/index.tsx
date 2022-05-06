@@ -1,24 +1,31 @@
 import React, { ReactNode } from 'react';
-import { StyleProp, ViewProps, ViewStyle } from 'react-native';
-import Animated from 'react-native-reanimated';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 type ColumnProps = {
   children?: ReactNode;
+  reverse?: boolean;
   style?: StyleProp<ViewStyle>;
-} & ViewProps;
+};
 
 /**
  * Column
  *
  * @param children components to display inside the column
  */
-// eslint-disable-next-line func-names
-const Column = function ({ children, style, ...props }: ColumnProps) {
+export default function Column({ children, reverse, style, ...props }: ColumnProps) {
+  const baseView = reverse ? baseStyles.viewReverse : baseStyles.view;
   return (
-    <Animated.View {...props} style={[{ flexDirection: 'column' }, style]}>
+    <View {...props} style={[baseView, style]}>
       {children}
-    </Animated.View>
+    </View>
   );
-};
+}
 
-export default Column;
+const baseStyles = StyleSheet.create({
+  view: {
+    flexDirection: 'column',
+  },
+  viewReverse: {
+    flexDirection: 'column-reverse',
+  },
+});

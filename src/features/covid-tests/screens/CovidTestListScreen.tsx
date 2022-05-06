@@ -195,9 +195,9 @@ export default function CovidTestListScreen(props: IProps) {
         textStyle={styles.txtStyle}
       />
 
-      {covidTests.length ? (
+      {covidTests.length === 0 ? (
         <Text style={styles.tabTitle} textAlign="center" textClass="h4Medium">
-          {i18n.t('covid-test-list.tabs-title')}
+          {i18n.t('covid-test-list.tabs-info-title')}
         </Text>
       ) : null}
 

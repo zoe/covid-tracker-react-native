@@ -678,6 +678,7 @@
     "tab-other": "Other",
     "tab-pcr": "PCR",
     "tabs-title": "Test type",
+    "tabs-info-title": "Log a test and they will be shown here!",
     "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
     "title": "Your COVID-19 tests",
     "update": "Update",

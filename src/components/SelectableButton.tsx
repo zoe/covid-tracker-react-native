@@ -75,7 +75,7 @@ const healthStudyStyles = StyleSheet.create({
   button: {
     borderRadius: HealthStudyBranding.sizes.g8,
     elevation: 0,
-    height: 48,
+    height: HealthStudyBranding.sizes.g48,
     justifyContent: 'center',
   },
   darkBlue: {

@@ -12,16 +12,23 @@ export const colors = {
   primary: '#3944A3',
   secondary: '#565A5C',
   tertiary: '#888B8C',
+  quaternary: '#E2E2E2',
 
   active: '#082A5D',
   disabled: '#A6B8D3',
 
   tags: {
-    vegan: '#467980',
+    success: '#467980',
+    critical: '#FF3D3D',
+    warning: '#FF8A00',
   },
+
   surface: {
     interactive: '#F5F6FC',
     subdued: '#DADDE7',
+    success: '#F2F7F5',
+    critical: '#FFE2E2',
+    warning: '#FFF3E5',
   },
 
   highlight: {
@@ -29,7 +36,11 @@ export const colors = {
   },
 
   text: {
+    brand: '#3944A3',
     primary: '#2D3246',
+    secondary: '#565A5C',
+    accent: '#A0278F',
+    tertiary: '#888B8C',
   },
 
   // standard values

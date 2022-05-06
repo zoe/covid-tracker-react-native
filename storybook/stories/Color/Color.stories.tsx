@@ -14,4 +14,4 @@ const colorViews = Object.entries(colors).map(([name, color]) => (
 
 storiesOf('Theme/Colors', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
-  .add('list', () => <ScrollView style={{ width: '90%', marginTop: 20 }}>{colorViews}</ScrollView>);
+  .add('list', () => <ScrollView style={{ marginTop: 20, width: '90%' }}>{colorViews}</ScrollView>);

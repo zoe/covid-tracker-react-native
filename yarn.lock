@@ -2389,6 +2389,11 @@
     node-gyp "^7.1.0"
     read-package-json-fast "^2.0.1"
 
+"@ozziedave/react-native-multi-slider@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@ozziedave/react-native-multi-slider/-/react-native-multi-slider-2.2.5.tgz#620b329c2156fdacc5e2d9cd5ee7f96e6ad39864"
+  integrity sha512-I0tADk3OqY1d+1kad+Je3RdaEgHnWSSMxM0eL4Otx8mETeUsodUMgrpH6eULYHo+LHgr5la9TSEXUxroUYGcdA==
+
 "@reach/router@^1.2.1":
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.3.4.tgz#d2574b19370a70c80480ed91f3da840136d10f8c"
