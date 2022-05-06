@@ -53,7 +53,8 @@ const pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
 const onMoreDetails = () => openWebLink('https://covid.joinzoe.com/data');
 
-const ZOE_HEALTH_STUDY_LEARN_MORE_LINK = 'https://covid.joinzoe.com/wider-health-studies?utm_source=App';
+const ZOE_HEALTH_STUDY_LEARN_MORE_LINK =
+  'https://covid.joinzoe.com/post/introducing-the-zoe-health-study/?utm_source=App';
 
 export function DashboardUKScreen({ navigation, route }: IProps) {
   const app = useSelector<TRootState, TStateApp>((state) => state.app);

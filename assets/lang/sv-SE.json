@@ -619,6 +619,7 @@
     "tab-other": "Annat",
     "tab-pcr": "PCR",
     "tabs-title": "Testtyp",
+    "tabs-info-title": false,
     "text": "Lägg till dina eventuella covid-19-tester nedan. Detta innefattar tester för pågående infektion såsom PCR-tester och antigentester (näsa/svalg/saliv), samt tester för tidigare covid-19-infektion, såsom antikroppstester (blodprov). Du kan redigera listan när som helst i framtiden.",
     "title": "Dina covid-19-tester",
     "update": "Uppdatera",

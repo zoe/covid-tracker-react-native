@@ -64,7 +64,7 @@ export const healthStudyStyles = StyleSheet.create({
   },
   avatar: {
     backgroundColor: HealthStudyBranding.colors.highlight.bright,
-    color: HealthStudyBranding.colors.highlight.white,
+    color: HealthStudyBranding.colors.white,
   },
   details: {
     marginLeft: HealthStudyBranding.sizes.g16,
@@ -97,13 +97,13 @@ export const healthStudyStyles = StyleSheet.create({
     color: HealthStudyBranding.colors.brand,
   },
   profileActionVaccineCard: {
-    color: HealthStudyBranding.colors.tags.vegan,
+    color: HealthStudyBranding.colors.tags.success,
   },
   spitTestIcon: {
     color: HealthStudyBranding.colors.brand,
   },
   syringeIcon: {
-    color: HealthStudyBranding.colors.tags.vegan,
+    color: HealthStudyBranding.colors.tags.success,
   },
   tag: {
     color: HealthStudyBranding.colors.accent,

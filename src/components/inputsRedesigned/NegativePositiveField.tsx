@@ -65,10 +65,10 @@ const healthStudyStyles = StyleSheet.create({
   },
   buttonStyle: {
     borderColor: HealthStudyBranding.colors.primary,
-    borderRadius: sizes.xl,
+    borderRadius: HealthStudyBranding.sizes.g32,
     borderWidth: 1,
   },
   txtColor: {
-    color: HealthStudyBranding.colors.primary,
+    color: HealthStudyBranding.colors.text.primary,
   },
 });

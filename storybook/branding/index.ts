@@ -3,9 +3,9 @@ import { fonts } from './fonts';
 import { grid } from './grid';
 
 export type TBranding = {
-  colors: any;
+  colors: typeof colors;
   sizes: typeof grid;
-  text: any;
+  text: typeof fonts;
 };
 
 const branding: TBranding = {

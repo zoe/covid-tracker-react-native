@@ -54,6 +54,7 @@ export const healthStudyStyles = StyleSheet.create({
     marginTop: HealthStudyBranding.sizes.g24,
   },
   newButton: {
+    height: HealthStudyBranding.sizes.g48,
     marginBottom: HealthStudyBranding.sizes.g16,
     marginTop: HealthStudyBranding.sizes.g24,
   },
@@ -63,9 +64,11 @@ export const healthStudyStyles = StyleSheet.create({
   nextButtonV0Flow: {},
   tabTitle: {
     color: HealthStudyBranding.colors.secondary,
+    paddingBottom: HealthStudyBranding.sizes.g48,
+    paddingTop: HealthStudyBranding.sizes.g48,
   },
   transparentButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: HealthStudyBranding.colors.transparent,
     borderColor: HealthStudyBranding.colors.brand,
     borderRadius: sizes.xl,
     borderWidth: 1,
@@ -73,7 +76,9 @@ export const healthStudyStyles = StyleSheet.create({
   transparentButtonText: {
     color: HealthStudyBranding.colors.brand,
   },
-  txtStyle: {},
+  txtStyle: {
+    fontSize: HealthStudyBranding.sizes.g16,
+  },
   white: {
     color: HealthStudyBranding.colors.white,
   },
