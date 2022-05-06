@@ -36,6 +36,7 @@ export const colors = {
   },
 
   text: {
+    brand: '#3944A3',
     primary: '#2D3246',
     secondary: '#565A5C',
     accent: '#A0278F',

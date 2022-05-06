@@ -69,6 +69,6 @@ const healthStudyStyles = StyleSheet.create({
     borderWidth: 1,
   },
   txtColor: {
-    color: HealthStudyBranding.colors.text.primary,
+    color: HealthStudyBranding.colors.text.brand,
   },
 });
