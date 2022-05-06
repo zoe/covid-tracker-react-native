@@ -5,7 +5,7 @@ import React from 'react';
 
 import { CenterView } from '../CenterView';
 
-storiesOf('Slider', module)
+storiesOf('Molecules/Slider', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
   .add('single label', () => (
     <Slider

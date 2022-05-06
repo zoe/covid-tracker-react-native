@@ -18,11 +18,17 @@ export const colors = {
   disabled: '#A6B8D3',
 
   tags: {
-    vegan: '#467980',
+    success: '#467980',
+    critical: '#FF3D3D',
+    warning: '#FF8A00',
   },
+
   surface: {
     interactive: '#F5F6FC',
     subdued: '#DADDE7',
+    success: '#F2F7F5',
+    critical: '#FFE2E2',
+    warning: '#FFF3E5',
   },
 
   highlight: {

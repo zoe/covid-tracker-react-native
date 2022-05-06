@@ -6,3 +6,4 @@ import './Tag/Tag.stories';
 import './Card/Card.stories';
 import './ButtonGroup/ButtonGroup.stories';
 import './Slider/Slider.stories';
+import './Callout/Callout.stories';

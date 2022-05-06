@@ -19,6 +19,7 @@ export interface ISideBySideCardProps {
   rightColWidthPercent?: string;
   footer?: ICardFooterProps;
   style?: StyleProp<ViewStyle>;
+  divider?: boolean;
 }
 
 /**
@@ -29,6 +30,7 @@ export interface ISideBySideCardProps {
  * @param cardProps props for the contents of the modal
  */
 export default function SideBySideCard({
+  divider = false,
   footer,
   header,
   leftSide,
@@ -44,7 +46,7 @@ export default function SideBySideCard({
           <Column style={[{ width: leftColWidthPercent }]}>
             <Card {...leftSide} style={baseStyles.sideCardBody} />
           </Column>
-          <Divider style={baseStyles.cardDivider} />
+          {divider ? <Divider style={baseStyles.cardDivider} /> : null}
           <Column style={[{ width: rightColWidthPercent }]}>
             <Card {...rightSide} style={baseStyles.sideCardBody} />
           </Column>
