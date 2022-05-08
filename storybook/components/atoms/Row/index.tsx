@@ -17,6 +17,7 @@ export default function Row({ children, reverse, style, ...props }: IRowProps) {
   const baseView = reverse ? baseStyle.viewReverse : baseStyle.view;
   return (
     <View style={[baseView, style]} testID={props.testID ?? 'Row-test-id'}>
+      {/* @ts-ignore */}
       {children}
     </View>
   );

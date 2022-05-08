@@ -28,6 +28,7 @@ export default function Container({ children, rounded, onPress, style, ...props 
     : StyleSheet.create({ view: { backgroundColor: baseStyle.backgroundColor } });
   return (
     <View onTouchEnd={onPress} style={[styles.view, style]} testID={props.testID ?? 'Card-test-id'}>
+      {/* @ts-ignore */}
       {children}
     </View>
   );

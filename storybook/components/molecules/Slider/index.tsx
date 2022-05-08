@@ -46,6 +46,7 @@ const Slider = ({ name, title, options, showLabels, onSelect, sliderWidth = INVA
       {title ? <SliderTitle title={title} /> : null}
       <View>
         <View>
+          {/* @ts-ignore */}
           <MultiSlider
             enableTapSteps
             snapped
