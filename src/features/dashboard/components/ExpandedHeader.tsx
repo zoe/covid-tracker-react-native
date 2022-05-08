@@ -1,5 +1,5 @@
 import { CovidAppByZOE } from '@assets/logos/CovidAppByZOE';
-import InAppHeaderIcon from '@assets/v2/in-app-header-icon';
+import InAppHeaderIcon from '@assets/v2/svg/in-app-header-icon';
 import { CaptionText, Header3Text, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import { TStateApp } from '@covid/core/state/app/types';

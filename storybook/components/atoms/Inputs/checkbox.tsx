@@ -1,4 +1,4 @@
-import IconCheck from '@assets/v2/icon-check';
+import IconCheck from '@assets/v2/svg/icon-check';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import { Item } from 'native-base';

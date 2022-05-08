@@ -107,5 +107,5 @@ export const mediaContentItem4 = require('@assets/media-centre/media-content-ite
 export const externalResourcesPlaceholder = require('@assets/study-hub/external-resources-placeholder.png');
 
 // Health Study ReBrand
-export const healthStudyRebrand = require('@assets/v2/re-brand.png');
-export const healthStudyIntroCallout = require('@assets/v2/introduce_wider_health_study_card.png');
+export const healthStudyRebrand = require('@assets/v2/png/re-brand.png');
+export const healthStudyIntroCallout = require('@assets/v2/png/introduce_wider_health_study_card.png');

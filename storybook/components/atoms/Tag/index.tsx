@@ -4,7 +4,7 @@ import React from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 export interface ITagProps {
-  color: string;
+  color?: string;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<ViewStyle>;
   text: string;
@@ -20,7 +20,7 @@ export interface ITagProps {
  */
 export default function Tag({ color, style, text, textStyle }: ITagProps) {
   return (
-    <View style={[baseStyles.view, { backgroundColor: color }, style]}>
+    <View style={[baseStyles.view, color ? { backgroundColor: color } : null, style]}>
       <Text style={[baseStyles.text, textStyle]}>{text.toUpperCase()}</Text>
     </View>
   );

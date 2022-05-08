@@ -1,6 +1,6 @@
-import IconCheck from '@assets/v2/icon-check';
-import IconExclamation from '@assets/v2/icon-exclamation';
-import IconInfo from '@assets/v2/icon-info';
+import IconCheck from '@assets/v2/svg/icon-check';
+import IconExclamation from '@assets/v2/svg/icon-exclamation';
+import IconInfo from '@assets/v2/svg/icon-info';
 import { grid } from '@tracer/branding/grid';
 import { ICardProps } from '@tracer/components/molecules/Card';
 import SideBySideCard from '@tracer/components/organisms/Card/sideByside';

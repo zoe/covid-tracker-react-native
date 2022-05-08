@@ -8,7 +8,7 @@ import {
   SpitTestIcon,
   SyringeIcon,
 } from '@assets';
-import Avatar from '@assets/v2/avatar';
+import Avatar from '@assets/v2/svg/avatar';
 import { CaptionText, Tag, Text, TextWithBoldInserts } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import Analytics, { events } from '@covid/core/Analytics';

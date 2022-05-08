@@ -1,15 +1,16 @@
 import { Icon } from '@covid/components';
+import { colors } from '@tracer/branding/colors';
 import Button from '@tracer/components/atoms/Button';
+import { ButtonType } from '@tracer/components/atoms/Button/styles';
 import React from 'react';
-import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
-
-import { colors } from '../../../branding/colors';
-import { grid } from '../../../branding/grid';
+import { StyleSheet } from 'react-native';
 
 export interface IIconButtonProps {
   children?: any;
-  style?: StyleProp<ViewStyle>;
+  iconName?: string;
+  buttonType?: ButtonType;
   testID?: string;
+  onPress: () => void;
 }
 
 /**
@@ -17,17 +18,25 @@ export interface IIconButtonProps {
  *
  * @param style custom styling, overrides all other styles
  */
-export default function IconButton({ style, ...props }: IIconButtonProps) {
+export default function IconButton({
+  children,
+  buttonType = 'primary',
+  iconName = 'none',
+  onPress = () => {},
+  testID = 'IconButton-test-id',
+}: IIconButtonProps) {
   return (
-    <Button style={[baseStyle.view, style]} testID={props.testID ?? 'IconButton-test-id'}>
-      <Icon color="black" iconName="Lightbulb" />
+    <Button buttonType={buttonType} onPress={onPress} style={baseStyle.button} testID={testID}>
+      {children || <Icon color="black" iconName={iconName} />}
     </Button>
   );
 }
 
 const baseStyle = StyleSheet.create({
-  view: {
-    backgroundColor: colors.white,
-    margin: grid.g8,
+  button: {
+    backgroundColor: colors.transparent,
+    borderColor: colors.transparent,
+    height: 0,
+    margin: 0,
   },
 });
