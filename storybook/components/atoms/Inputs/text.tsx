@@ -10,7 +10,7 @@ type InputTextProps = {
   viewStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<ViewStyle>;
   onValueChange: (input: string) => void;
-  placeholder: string;
+  placeholder?: string;
   value: string;
   labelStyle?: StyleProp<ViewStyle>;
   label?: string;
@@ -34,22 +34,27 @@ export default function InputText({
 }: InputTextProps) {
   const [input, setInput] = useState(value);
 
-  const onPress = () => {
-    setInput(input);
-    onValueChange(input);
+  const onChangeText = (update: string) => {
+    setInput(update);
+    onValueChange(update);
   };
 
   return (
-    <Column style={[]}>
+    <Column>
       {label ? (
         <Row>
           <Text style={[baseStyles.label, labelStyle]}> {label}</Text>
         </Row>
       ) : null}
       <Row>
-        <TouchableOpacity onPress={onPress} style={[baseStyles.view, viewStyle]}>
+        <TouchableOpacity style={[baseStyles.view, viewStyle]}>
           <Column style={baseStyles.inputView}>
-            <TextInput placeholder={placeholder} style={[baseStyles.input, textStyle]} value={value} />
+            <TextInput
+              onChangeText={onChangeText}
+              placeholder={placeholder}
+              style={[baseStyles.input, textStyle]}
+              value={input}
+            />
           </Column>
           <Column style={[baseStyles.inputStateView]}>
             {/* @ts-ignore */}

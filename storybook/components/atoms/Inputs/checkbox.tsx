@@ -3,12 +3,13 @@ import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import { Item } from 'native-base';
 import React, { ReactNode, useState } from 'react';
-import { AccessibilityRole, StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
+import { AccessibilityRole, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
-interface ICheckboxProps {
-  label: ReactNode;
+export interface ICheckboxProps {
+  label: string;
+  children?: ReactNode;
   onSelect: (value: boolean) => void;
-  value: boolean;
+  selected: boolean;
   style?: StyleProp<ViewStyle>;
   testID?: string;
   accessibilityRole?: AccessibilityRole;
@@ -19,8 +20,8 @@ interface ICheckboxProps {
  *
  * @param label label of the checkbox
  */
-export default function Checkbox({ onSelect, label, style, value, accessibilityRole = 'checkbox' }: ICheckboxProps) {
-  const [isChecked, setChecked] = useState<boolean>(value);
+export default function Checkbox({ onSelect, label, style, selected, accessibilityRole = 'checkbox' }: ICheckboxProps) {
+  const [isChecked, setChecked] = useState<boolean>(selected);
 
   const onPress = () => {
     setChecked(!isChecked);
@@ -34,6 +35,7 @@ export default function Checkbox({ onSelect, label, style, value, accessibilityR
         <TouchableOpacity
           accessible
           accessibilityRole={accessibilityRole}
+          activeOpacity={1}
           onPress={onPress}
           style={[baseStyles.checkbox]}
         >
@@ -42,7 +44,7 @@ export default function Checkbox({ onSelect, label, style, value, accessibilityR
         {/* @ts-ignore */}
         <Item onPress={onPress} style={baseStyles.labelView}>
           {/* @ts-ignore */}
-          {label}
+          {label ? <Text style={baseStyles.label}>{label}</Text> : children}
         </Item>
       </Item>
     </>
@@ -61,9 +63,15 @@ const baseStyles = StyleSheet.create({
     justifyContent: 'space-evenly',
     width: grid.g24,
   },
+  label: {
+    borderColor: colors.transparent,
+    fontSize: 14,
+    lineHeight: grid.g24,
+    marginLeft: grid.g16,
+    textTransform: 'capitalize',
+  },
   labelView: {
     borderColor: colors.transparent,
-    marginRight: grid.g16,
   },
   row: {
     alignItems: 'flex-start',

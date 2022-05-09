@@ -1,10 +1,12 @@
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
-import React, { ReactNode, useState } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { Item } from 'native-base';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
-interface IRadioProps {
-  children: ReactNode;
+export interface IRadioProps {
+  children?: ReactNode;
+  label?: string;
   unselectedStyle?: StyleProp<ViewStyle>;
   selectedStyle?: StyleProp<ViewStyle>;
   onSelect: (selected: boolean) => void;
@@ -16,22 +18,28 @@ interface IRadioProps {
  *
  * @param children components to display inside the column
  */
-export default function Radio({ onSelect, selectedStyle, children, unselectedStyle, selected }: IRadioProps) {
-  const [isSelected, setSelect] = useState<boolean>(selected);
+export default function Radio({ label, onSelect, selectedStyle, children, unselectedStyle, selected }: IRadioProps) {
+  const [isSelected, setSelect] = useState<boolean>(false);
 
   const onSelected = () => {
     setSelect(!isSelected);
     onSelect(!isSelected);
   };
 
+  useEffect(() => {
+    setSelect(selected);
+  }, [selected]);
+
   return (
     <View onTouchEnd={onSelected} style={[baseStyles.view, unselectedStyle]}>
       <View style={[baseStyles.wrapperRedesign]}>
         <View style={[isSelected ? baseStyles.dot : baseStyles.dotTransparent, selectedStyle]} />
       </View>
-      <View style={baseStyles.labelView}>
+      <View>
         {/* @ts-ignore */}
-        {children}
+        <Item onPress={onSelected} style={baseStyles.labelView}>
+          {label ? <Text style={baseStyles.label}>{label}</Text> : children}
+        </Item>
       </View>
     </View>
   );
@@ -48,7 +56,15 @@ const baseStyles = StyleSheet.create({
   dotTransparent: {
     backgroundColor: colors.transparent,
   },
+  label: {
+    borderColor: colors.transparent,
+    fontSize: 14,
+    lineHeight: grid.g24,
+    marginLeft: grid.g16,
+    textTransform: 'capitalize',
+  },
   labelView: {
+    borderColor: colors.transparent,
     marginLeft: grid.g16,
   },
   view: {

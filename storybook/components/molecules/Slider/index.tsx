@@ -7,12 +7,12 @@ import { StyleProp, StyleSheet, useWindowDimensions, View, ViewStyle } from 'rea
 import SliderLabels from './labels';
 import SliderTitle from './title';
 
-interface SliderOption {
+export interface SliderOption {
   label: string;
   value: string | number;
 }
 
-interface SliderProps {
+export interface ISliderProps {
   name: string;
   title?: string;
   titleStyle?: StyleProp<ViewStyle>;
@@ -24,7 +24,7 @@ interface SliderProps {
 
 const INVALID_SLIDER_WIDTH = -1;
 
-const Slider = ({ name, title, options, showLabels, onSelect, sliderWidth = INVALID_SLIDER_WIDTH }: SliderProps) => {
+const Slider = ({ name, title, options, showLabels, onSelect, sliderWidth = INVALID_SLIDER_WIDTH }: ISliderProps) => {
   const window = useWindowDimensions();
   const width = sliderWidth > -1 ? sliderWidth : window.width;
   const [field, setValue] = useState<number | string>(name);

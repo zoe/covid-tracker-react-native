@@ -12,7 +12,9 @@ import { Text } from 'react-native';
 import { CenterView } from '../CenterView';
 
 storiesOf('Atoms/Inputs', module)
-  .addDecorator((getStory) => <CenterView style={{ backgroundColor: colors.white }}>{getStory()}</CenterView>)
+  .addDecorator((getStory) => (
+    <CenterView style={{ backgroundColor: colors.white, width: 400 }}>{getStory()}</CenterView>
+  ))
   .add('text', () => (
     <InputText
       label={text('Label', 'Label')}
@@ -23,7 +25,7 @@ storiesOf('Atoms/Inputs', module)
   ))
   .add('switch', () => <Switch onToggle={action('clicked-switch')} state={false} />)
   .add('checkbox', () => (
-    <Checkbox value label={<Text>{text('Label', 'label')}</Text>} onSelect={action('clicked-checkbox')} />
+    <Checkbox label={text('Label', 'label')} onSelect={action('clicked-checkbox')} selected={false} />
   ))
   .add('radio', () => (
     <Radio selected onSelect={action('clicked-radio')}>

@@ -6,6 +6,8 @@ import { grid } from '@tracer/branding/grid';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+export type TInputState = 'error' | 'success' | 'default' | 'none';
+
 interface IValidationProps {
   text: string;
 }
@@ -33,6 +35,24 @@ export function InputError() {
 
 export function InputSuccess() {
   return <IconCheck circleFill={colors.tags.success} height={grid.g16} strokeColor={colors.white} width={grid.g16} />;
+}
+
+interface IInputValidationProps {
+  validation: string;
+  state: TInputState;
+}
+
+export function InputValidation({ validation, state }: IInputValidationProps) {
+  return (
+    <>
+      {state === 'error' && validation ? (
+        <Text style={{ color: colors.tags.critical, fontSize: grid.g12 }}>{validation}</Text>
+      ) : null}
+      {state === 'success' && validation ? (
+        <Text style={{ color: colors.tags.success, fontSize: grid.g12 }}>{validation}</Text>
+      ) : null}
+    </>
+  );
 }
 
 const baseStyles = StyleSheet.create({

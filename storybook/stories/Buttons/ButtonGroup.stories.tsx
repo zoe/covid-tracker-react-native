@@ -1,6 +1,5 @@
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react-native';
-import { grid } from '@tracer/branding/grid';
 import ButtonGroup, { IButtonGroupProps } from '@tracer/components/molecules/Button/group';
 import React from 'react';
 
@@ -18,13 +17,11 @@ storiesOf('Molecules/Buttons', module)
         {
           buttonType: 'primary',
           onPress: action('clicked-button-one'),
-          style: { borderRadius: grid.g4, height: grid.g48, padding: grid.g12, width: 132 },
           text: 'One',
         },
         {
           buttonType: 'secondary',
           onPress: action('clicked-button-two'),
-          style: { borderRadius: grid.g4, height: grid.g48, padding: grid.g12, width: 132 },
           text: 'Two',
         },
       ]}
