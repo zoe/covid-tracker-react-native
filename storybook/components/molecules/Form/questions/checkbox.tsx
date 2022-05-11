@@ -1,21 +1,31 @@
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
-import Checkbox, { ICheckboxProps } from '@tracer/components/atoms/Inputs/checkbox';
+import Checkbox from '@tracer/components/atoms/Inputs/checkbox';
 import Row from '@tracer/components/atoms/Row';
 import { FormikValues } from 'formik';
-import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import React, { ReactNode } from 'react';
+import { AccessibilityRole, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
 import FormLabel from '../label';
 import { InputValidation } from './validation';
 
+export interface IFormCheckboxItemProps {
+  label: string;
+  children?: ReactNode;
+  selected: boolean;
+  style?: StyleProp<ViewStyle>;
+  testID?: string;
+  accessibilityRole?: AccessibilityRole;
+}
+
 interface IFormCheckboxQuestionProps {
-  items: ICheckboxProps[];
-  question: string;
-  required: boolean;
+  items: IFormCheckboxItemProps[];
+  question?: string;
+  required?: boolean;
   validation?: string;
   handleChange?: (id: string) => void;
-  form: FormikValues;
+  /* this property is dynamically added later if wrapped bt the Form organism component  */
+  form?: FormikValues;
   name: string;
 }
 
@@ -43,13 +53,13 @@ export default function FormCheckboxQuestion({
 
   const onCheck = (isChecked: boolean, index: number) => {
     if (!isChecked) return;
-    form[name] = items[index].label;
+    if (form) form[name] = items[index].label;
   };
 
   return (
     <Row style={baseStyles.view}>
       <Column>
-        <FormLabel label={question} required={required} />
+        {question ? <FormLabel label={question} required={required} /> : null}
         <Text style={baseStyles.infoText}>{FORM_CHECKBOX_ASSIST_TEXT}</Text>
         {items.map((props, index) => (
           <Checkbox

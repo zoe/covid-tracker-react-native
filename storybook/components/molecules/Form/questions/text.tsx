@@ -10,11 +10,12 @@ import { StyleSheet, View } from 'react-native';
 import { InputError, InputSuccess, InputValidation, TInputState } from './validation';
 
 interface IFormInputTextQuestionProps {
-  validation: string;
-  question: string;
-  state: TInputState;
-  placeholder: string;
-  form: FormikValues;
+  validation?: string;
+  question?: string;
+  state?: TInputState;
+  placeholder?: string;
+  /* this property is dynamically added later if wrapped bt the Form organism component  */
+  form?: FormikValues;
   handleChange?: (input: string) => void;
   name: string;
 }
@@ -37,18 +38,18 @@ const inputStyle = (state: TInputState) => {
 export default function FormInputTextQuestion({
   handleChange,
   name,
-  question,
-  placeholder,
-  validation,
+  question = '',
+  placeholder = 'Write something here',
+  validation = '',
   form,
-  state,
+  state = 'default',
 }: IFormInputTextQuestionProps) {
   const inputStateStyle = inputStyle(state);
 
   if (handleChange) handleChange(name);
 
   const onChange = (update: string) => {
-    form[name] = update;
+    if (form) form[name] = update;
   };
 
   return (
@@ -58,7 +59,7 @@ export default function FormInputTextQuestion({
           label={question}
           onValueChange={onChange}
           placeholder={placeholder}
-          value={form[name]}
+          value={form ? form[name] : ''}
           viewStyle={inputStateStyle}
         >
           {state === 'error' ? <InputError /> : null}

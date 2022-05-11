@@ -12,16 +12,30 @@ export interface IFlowFeatureIntroProps {
   intro?: IFeatureIntroScreenProps[];
   entry: IFeatureIntroEntryScreenProps;
   /**
+   * Controls the screen the user should be taken to
+   * at the end of the flow. Triggered upon clicking the
+   * last CTA.
+   */
+  onExitNavigation?: Function;
+  /**
    * Controls in which direction the Screen should scroll
    */
   flow?: TFlowType;
 }
 
-export default function FlowFeatureIntro({ entry, intro, flow = 'horizontal' }: IFlowFeatureIntroProps) {
+export default function FlowFeatureIntro({
+  entry,
+  intro,
+  onExitNavigation,
+  flow = 'horizontal',
+}: IFlowFeatureIntroProps) {
   const flowScrollRef = useRef<ScrollView>(null);
   const { width } = useWindowDimensions();
 
   const onUpdatePage = (page: number) => {
+    if (onExitNavigation && intro && page > intro.length) onExitNavigation();
+    if (onExitNavigation && !intro && page > 0) onExitNavigation();
+    // scroll to next page
     if (flowScrollRef) flowScrollRef.current?.scrollTo({ x: width * page });
   };
 

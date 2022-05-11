@@ -1,6 +1,6 @@
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
-import Radio, { IRadioProps } from '@tracer/components/atoms/Inputs/radio';
+import Radio from '@tracer/components/atoms/Inputs/radio';
 import Row from '@tracer/components/atoms/Row';
 import { FormikValues } from 'formik';
 import React, { useState } from 'react';
@@ -9,13 +9,19 @@ import { StyleSheet } from 'react-native';
 import FormLabel from '../label';
 import { InputValidation } from './validation';
 
+export interface IFormRadioItemProps {
+  label: string;
+  selected: boolean;
+}
+
 interface IFormRadioQuestionProps {
-  items: IRadioProps[];
-  question: string;
+  items: IFormRadioItemProps[];
+  question?: string;
   required?: boolean;
   validation?: string;
-  form: FormikValues;
   handleChange?: (id: string) => void;
+  /* this property is dynamically added later if wrapped bt the Form organism component  */
+  form?: FormikValues;
   name: string;
 }
 
@@ -42,13 +48,13 @@ export default function FormRadioQuestion({
 
   const onSelect = (index: number) => {
     setActive(index);
-    form[name] = items[index].label;
+    if (form) form[name] = items[index].label;
   };
 
   return (
     <Row style={baseStyles.view}>
       <Column>
-        <FormLabel label={question} required={required} />
+        {question ? <FormLabel label={question} required={required} /> : null}
         <Column style={baseStyles.radioGroupView}>
           {items.map((props, index) => (
             <Row key={`radio-group-${index + 1}`} style={baseStyles.radioRowView}>

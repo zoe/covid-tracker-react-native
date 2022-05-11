@@ -50,6 +50,6 @@ const featureIntroProps: IFlowFeatureIntroProps = {
   ],
 };
 
-storiesOf('Templates/FeatureIntro', module)
+storiesOf('Templates/Flows/FeatureIntro', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
   .add('index', () => <FlowFeatureIntro {...featureIntroProps} />);

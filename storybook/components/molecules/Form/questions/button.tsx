@@ -14,7 +14,8 @@ interface IFormButtonQuestionProps {
   label: string;
   required?: boolean;
   buttons: IButtonProps[];
-  form: FormikValues;
+  /* this property is dynamically added later if wrapped bt the Form organism component  */
+  form?: FormikValues;
   handleChange?: (id: string) => void;
   name: string;
 }
@@ -42,7 +43,7 @@ export default function FormButtonQuestion({
 
   const onChange = (activeButton: number) => {
     setValue(activeButton);
-    form[name] = buttons[activeButton].text;
+    if (form) form[name] = buttons[activeButton].text;
   };
 
   return (

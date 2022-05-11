@@ -10,11 +10,12 @@ import Slider, { SliderOption } from '../../Slider';
 import { InputValidation } from './validation';
 
 interface IFormSliderQuestionProps {
-  validation: string;
+  validation?: string;
   question: string;
   required?: boolean;
   options: SliderOption[];
-  form: FormikValues;
+  /* this property is dynamically added later if wrapped bt the Form organism component  */
+  form?: FormikValues;
   handleChange?: (input: string) => void;
   name: string;
 }
@@ -40,15 +41,17 @@ export default function FormSliderQuestion({
   if (handleChange) handleChange(name);
 
   const onSelect = (update: string | number) => {
-    form[name] = update;
+    if (form) form[name] = update;
   };
 
   return (
     <Row style={baseStyles.view}>
       <Column>
-        <Slider showLabels name={form[name]} onSelect={onSelect} options={options} title={question} />
+        <Slider showLabels name={form ? form[name] : ''} onSelect={onSelect} options={options} title={question} />
         <View style={baseStyles.validationView}>
-          {required && !form[name] ? <InputValidation state="error" validation={validation} /> : null}
+          {required && form && !form[name] && validation ? (
+            <InputValidation state="error" validation={validation} />
+          ) : null}
         </View>
       </Column>
     </Row>

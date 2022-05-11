@@ -3,63 +3,43 @@ import { boolean, optionsKnob, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
 import { colors } from '@tracer/branding/colors';
 import { IButtonProps } from '@tracer/components/atoms/Button';
-import { ICheckboxProps } from '@tracer/components/atoms/Inputs/checkbox';
-import { IRadioProps } from '@tracer/components/atoms/Inputs/radio';
 import Row from '@tracer/components/atoms/Row';
 import Form from '@tracer/components/molecules/Form/form';
 import FormButtonQuestion from '@tracer/components/molecules/Form/questions/button';
-import FormCheckboxQuestion from '@tracer/components/molecules/Form/questions/checkbox';
-import FormRadioQuestion from '@tracer/components/molecules/Form/questions/radio';
+import FormCheckboxQuestion, { IFormCheckboxItemProps } from '@tracer/components/molecules/Form/questions/checkbox';
+import FormRadioQuestion, { IFormRadioItemProps } from '@tracer/components/molecules/Form/questions/radio';
 import FormSliderQuestion from '@tracer/components/molecules/Form/questions/slider';
 import FormInputTextQuestion from '@tracer/components/molecules/Form/questions/text';
 import React from 'react';
 
 import { CenterView } from '../CenterView';
 
-const checkboxItems: ICheckboxProps[] = [
+const checkboxItems: IFormCheckboxItemProps[] = [
   {
     label: 'Headache',
-    onSelect: (value: boolean) => {
-      console.log('Headache', value);
-    },
     selected: false,
   },
   {
     label: 'Fever',
-    onSelect: (value: boolean) => {
-      console.log('Fever', value);
-    },
     selected: false,
   },
   {
     label: 'Sneezing',
-    onSelect: (value: boolean) => {
-      console.log('Sneezing', value);
-    },
     selected: false,
   },
 ];
 
-const radioItems: IRadioProps[] = [
+const radioItems: IFormRadioItemProps[] = [
   {
     label: 'Itchy',
-    onSelect: (selected) => {
-      console.log('Itchy', selected);
-    },
     selected: false,
   },
   {
     label: 'Painful',
-    onSelect: (selected) => {
-      console.log('Painful', selected);
-    },
     selected: false,
   },
   {
     label: 'Niether',
-    onSelect: (selected) => {
-      console.log('Niether', selected);
-    },
     selected: false,
   },
 ];

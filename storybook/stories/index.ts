@@ -13,4 +13,4 @@ import './Icon/Icon.stories';
 import './Forms/Form.stories';
 import './Screen/Screen.stories';
 import './Dot/Dot.stories';
-import './FeatureIntro/FeatureIntro.stories';
+import './Flows/FeatureIntro.stories';
