@@ -7,10 +7,12 @@ import { AccessibilityRole, StyleProp, StyleSheet, Text, TouchableOpacity, ViewS
 
 export interface ICheckboxProps {
   label: string;
+  icon?: ReactNode;
   children?: ReactNode;
-  onSelect: (value: boolean) => void;
+  onSelect?: (value: boolean) => void;
   selected: boolean;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<ViewStyle>;
   testID?: string;
   accessibilityRole?: AccessibilityRole;
 }
@@ -20,12 +22,20 @@ export interface ICheckboxProps {
  *
  * @param label label of the checkbox
  */
-export default function Checkbox({ onSelect, label, style, selected, accessibilityRole = 'checkbox' }: ICheckboxProps) {
+export default function Checkbox({
+  onSelect,
+  label,
+  icon,
+  textStyle,
+  style,
+  selected,
+  accessibilityRole = 'checkbox',
+}: ICheckboxProps) {
   const [isChecked, setChecked] = useState<boolean>(selected);
 
   const onPress = () => {
     setChecked(!isChecked);
-    onSelect(!isChecked);
+    if (onSelect) onSelect(!isChecked);
   };
 
   return (
@@ -43,8 +53,10 @@ export default function Checkbox({ onSelect, label, style, selected, accessibili
         </TouchableOpacity>
         {/* @ts-ignore */}
         <Item onPress={onPress} style={baseStyles.labelView}>
+          {/* eslint-disable-next-line no-restricted-syntax */}
+          {icon || null}
           {/* @ts-ignore */}
-          {label ? <Text style={baseStyles.label}>{label}</Text> : children}
+          {label ? <Text style={[baseStyles.label, textStyle]}>{label}</Text> : children}
         </Item>
       </Item>
     </>
@@ -65,6 +77,7 @@ const baseStyles = StyleSheet.create({
   },
   label: {
     borderColor: colors.transparent,
+    color: colors.text.primary,
     fontSize: 14,
     lineHeight: grid.g24,
     marginLeft: grid.g16,
@@ -72,6 +85,7 @@ const baseStyles = StyleSheet.create({
   },
   labelView: {
     borderColor: colors.transparent,
+    marginLeft: grid.g16,
   },
   row: {
     alignItems: 'flex-start',

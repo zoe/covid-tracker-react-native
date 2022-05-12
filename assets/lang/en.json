@@ -1865,6 +1865,34 @@
       "title": "Let’s get to know your symptoms better",
       "description": "To get started, we need to understand how you usually feel. We call this your *Usual Self* - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
       "button": "Set up your Usual Self"
+    },
+    "setup": {
+      "1-setup-flow-title-highlight": "Over the past 6",
+      "1-setup-flow-title": "months have you experienced any of the below symptoms?"
+    },
+    "assessment-flow": {
+      "1-title": "Your Usual Self",
+      "1-subtitle": "On a daily basis, you tend to suffer from",
+      "header-me": "Me",
+      "1-emoji-explain-button": "→ Emojis explained",
+      "1-no-symptoms": "You have no reported symptoms",
+      "1-action-card-title": "How are you feeling\ntoday?",
+      "1-action-card-cta-1": "I feel like my Usual Self",
+      "1-action-card-cta-2": "I feel different from my Usual Self",
+      "1-action-card-footer-start": "If you feel ",
+      "1-action-card-footer-highlight-1": "better, worse",
+      "1-action-card-footer-middle": " or ", 
+      "1-action-card-footer-highlight-2": "different",
+      "1-action-card-footer-end": " from your Usual Self tap, ‘I feel different...’",
+      "2-title": "What feels different\ntoday?",
+      "2-subtitle": "Anything different from your Usual Self?",
+      "2-action-card-cta-1": "Log new symptom",
+      "2-action-card-cta-2": "submit",
+      "2-addition-symptoms": "Additional symptoms today",
+      "3-title": "Where are your\nsymptom(s) located?",
+      "3-info-label": "Select one or more options related to your symptom(s)",
+      "3-action-card-cta-1": "Next: Specify symptom(s)",
+      "4-log-new-symptom-flow-title": "Which symptom(s) are you experiencing in your "
     }
   }
 }

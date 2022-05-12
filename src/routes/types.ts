@@ -5,6 +5,7 @@ import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/School
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineTypes, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { TUsualSelfFrequentSymptoms } from '@covid/features/0-v2/assessment-flow/components/1-usual-self-symptoms-view';
 import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
 import { TStudy } from '@covid/features/study-hub/types';
 
@@ -169,6 +170,12 @@ export type TScreenParamList = {
   UsualSelfReportsPowerful: undefined;
   UsualSelfReportsSingleTap: undefined;
   UsualSelfReportsSymptoms: undefined;
+
+  // Assessment Flow v1
+  AssessmentPage1ShowUsualSelf: undefined;
+  AssessmentPage2UpdateUsualSelf: { usualSelfSymptoms: TUsualSelfFrequentSymptoms[] };
+  AssessmentPage3LogNewSymptom: undefined;
+  AssessmentPage4LogNewSymptomFlow: { categories: string[] };
 
   // Others
   Anniversary: undefined;

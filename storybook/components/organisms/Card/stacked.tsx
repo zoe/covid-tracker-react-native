@@ -14,6 +14,6 @@ export interface IStackedCardProps {
  *
  * @param cardProps props for the contents of the modal
  */
-export default function StackedCard({ cardProps }: IStackedCardProps) {
-  return <Card {...cardProps} />;
+export default function StackedCard({ cardProps, style }: IStackedCardProps) {
+  return <Card {...cardProps} style={style} />;
 }

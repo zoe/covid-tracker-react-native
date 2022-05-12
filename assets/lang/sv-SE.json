@@ -1869,6 +1869,34 @@
       "title": false,
       "description": false,
       "button": false
+    },
+    "setup": {
+      "1-setup-flow-title-highlight": false,
+      "1-setup-flow-title": false
+    },
+    "assessment-flow": {
+      "1-title": false,
+      "1-subtitle": false,
+      "header-me": false,
+      "1-emoji-explain-button": false,
+      "1-no-symptoms": false,
+      "1-action-card-title": false,
+      "1-action-card-cta-1": false,
+      "1-action-card-cta-2":false,
+      "1-action-card-footer-start": false,
+      "1-action-card-footer-highlight-1": false,
+      "1-action-card-footer-middle": false,
+      "1-action-card-footer-highlight-2": false,
+      "1-action-card-footer-end": false,
+      "2-title": false,
+      "2-subtitle": false,
+      "2-action-card-cta-1": false,
+      "2-action-card-cta-2": false,
+      "2-addition-symptoms": false,
+      "3-title": false,
+      "3-info-label": false,
+      "3-action-card-cta-1": false,
+      "4-log-new-symptom-flow-title": false
     }
   }
 }

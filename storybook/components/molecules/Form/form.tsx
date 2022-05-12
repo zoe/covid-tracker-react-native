@@ -3,14 +3,13 @@ import { Formik, FormikProps, FormikValues } from 'formik';
 import React, { Children, cloneElement, isValidElement } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import FormSubmitButton from './button/submit';
-
 export interface IFormProps {
   initValues: object;
   validationSchema?: object;
   children: any;
   style?: StyleProp<ViewStyle>;
-  onSubmit: (values: FormikValues) => void;
+  ref: any;
+  onSubmit?: (values: FormikValues) => void;
   testID?: string;
 }
 
@@ -24,10 +23,11 @@ export interface IFormProps {
  * @param onSubmit form submission handler
  * @param testID (optional) form test ID
  */
-export default function Form({ initValues = { text: '' }, children }: IFormProps) {
+export default function Form({ initValues = { text: '' }, ref, children }: IFormProps) {
   return (
     <Formik
       initialValues={initValues}
+      innerRef={ref}
       onSubmit={(submitted: FormikValues) => {
         // eslint-disable-next-line no-console
         console.log('submitted', submitted);
@@ -35,6 +35,7 @@ export default function Form({ initValues = { text: '' }, children }: IFormProps
       style={baseStyle.view}
     >
       {({ handleChange, handleSubmit, values }: FormikProps<FormikValues>) => {
+        // handleSubmit = ()
         return (
           <View style={{ paddingHorizontal: grid.g24 }}>
             {Children.map(children, (child: any) => {
@@ -44,7 +45,6 @@ export default function Form({ initValues = { text: '' }, children }: IFormProps
                 handleChange,
               });
             })}
-            <FormSubmitButton onSubmit={handleSubmit} text="submit" />
           </View>
         );
       }}

@@ -2,8 +2,6 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors } from '../../../branding/colors';
-
 export interface IScreenProps {
   children?: any;
   style?: StyleProp<ViewStyle>;
@@ -32,7 +30,6 @@ const baseStyle = StyleSheet.create({
     flex: 1,
   },
   view: {
-    backgroundColor: colors.white,
     flex: 1,
     flexDirection: 'row',
   },

@@ -16,8 +16,8 @@ const IconHeadFace: React.FC<TIconHeadFaceProps> = ({
   height = 33,
   fill = 'none',
   strokeColor = colors.brand,
-  primaryStrokeColor = '#565A5C',
-  stopColor = colors.brand,
+  primaryStrokeColor = colors.secondary,
+  stopColor = colors.secondary,
 }) => {
   return (
     <Svg fill={fill} height={height} viewBox={`0 0 ${width} ${height}`} width={width}>
@@ -32,17 +32,18 @@ const IconHeadFace: React.FC<TIconHeadFaceProps> = ({
       <Path
         clip-rule="evenodd"
         d="M9.41413 2.81859C8.03743 2.81859 6.91729 3.96125 6.91729 5.36527C6.91729 6.77059 8.03743 7.9129 9.41379 7.9129C10.7905 7.9129 11.9103 6.77025 11.9103 5.36527C11.9103 3.9609 10.7901 2.81859 9.41379 2.81859H9.41413ZM9.41413 8.66576C7.63039 8.66576 6.17969 7.1852 6.17969 5.36562C6.17969 3.54672 7.63014 2.06616 9.41413 2.06616C11.1982 2.06616 12.6486 3.54672 12.6486 5.36562C12.6486 7.1852 11.1981 8.66576 9.41438 8.66576H9.41413Z"
-        fill="url(#paint0_linear_18561_176232)"
+        fill={fill}
         fill-rule="evenodd"
         stroke={strokeColor}
         stroke-width="0.4"
       />
       <Rect
-        height="8.80782"
+        height="8.1809"
         rx="1.5"
         stroke={strokeColor}
-        stroke-dasharray="0.85 0.85"
-        width="15.8255"
+        strokeDasharray="0.85 0.85"
+        strokeWidth={1}
+        width="16"
         x="1.5"
         y="0.5"
       />

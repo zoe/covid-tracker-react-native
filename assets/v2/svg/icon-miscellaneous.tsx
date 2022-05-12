@@ -1,3 +1,4 @@
+import { colors } from '@tracer/branding/colors';
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
@@ -7,7 +8,7 @@ type TIconMiscellaneousProps = {
   fill?: string;
 };
 
-const IconMiscellaneous: React.FC<TIconMiscellaneousProps> = ({ width = 16, height = 16, fill = 'none' }) => {
+const IconMiscellaneous: React.FC<TIconMiscellaneousProps> = ({ width = 16, height = 16, fill = colors.brand }) => {
   return (
     <Svg fill={fill} height={height} viewBox={`0 0 ${width} ${height}`} width={width}>
       <Path

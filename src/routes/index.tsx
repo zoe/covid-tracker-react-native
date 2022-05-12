@@ -11,6 +11,7 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import * as React from 'react';
 import { Platform } from 'react-native';
 
+import AssessmentFlowNavigator from './AssessmentFlowNavigator';
 import { TScreenParamList } from './types';
 
 // Fix Android bug where stack navigation during http load can cause error:
@@ -131,7 +132,10 @@ export default function MainNavigator() {
       {MentalHealthPlaybackNavigator({ Stack })}
       {ReconsentNavigator({ Stack })}
       {StudyHubNavigator({ Stack })}
+
+      {/* New Daily Reporting Flow */}
       {UsualSelfNavigator({ Stack })}
+      {AssessmentFlowNavigator({ Stack })}
 
       {/* Uncomment this line to replace the Dashboard with DebugScreens to allow quick debugging */}
       {/* <Stack.Screen component={DebugScreens} name="Dashboard" options={options} /> */}

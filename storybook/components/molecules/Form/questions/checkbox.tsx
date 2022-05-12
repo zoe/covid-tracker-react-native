@@ -1,7 +1,5 @@
 import { grid } from '@tracer/branding/grid';
-import Column from '@tracer/components/atoms/Column';
-import Checkbox from '@tracer/components/atoms/Inputs/checkbox';
-import Row from '@tracer/components/atoms/Row';
+import Checkbox, { ICheckboxProps } from '@tracer/components/atoms/Inputs/checkbox';
 import { FormikValues } from 'formik';
 import React, { ReactNode } from 'react';
 import { AccessibilityRole, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
@@ -11,8 +9,9 @@ import { InputValidation } from './validation';
 
 export interface IFormCheckboxItemProps {
   label: string;
-  children?: ReactNode;
+  icon?: ReactNode;
   selected: boolean;
+  id: string | number;
   style?: StyleProp<ViewStyle>;
   testID?: string;
   accessibilityRole?: AccessibilityRole;
@@ -38,7 +37,7 @@ const FORM_CHECKBOX_ASSIST_TEXT = 'Check all that apply';
  * @param question checkbox label text
  * @param required (optional) is checkbox required, defaults to false
  * @param validation checkbox validation text
- * @param onChange checkbox change handler
+ * @param handleChange checkbox change handler
  */
 export default function FormCheckboxQuestion({
   items,
@@ -53,36 +52,40 @@ export default function FormCheckboxQuestion({
 
   const onCheck = (isChecked: boolean, index: number) => {
     if (!isChecked) return;
-    if (form) form[name] = items[index].label;
+    if (form) form[name][index] = items[index].label;
   };
 
   return (
-    <Row style={baseStyles.view}>
-      <Column>
-        {question ? <FormLabel label={question} required={required} /> : null}
-        <Text style={baseStyles.infoText}>{FORM_CHECKBOX_ASSIST_TEXT}</Text>
-        {items.map((props, index) => (
-          <Checkbox
-            key={`form-checkbox-question-${name}-${index + 1}`}
-            {...props}
-            onSelect={(isChecked) => onCheck(isChecked, index)}
-            selected={false}
-          />
-        ))}
-        {validation ? <InputValidation state="error" validation={validation} /> : null}
-      </Column>
-    </Row>
+    <>
+      {question ? <FormLabel label={question} required={required} /> : null}
+      <Text style={baseStyles.infoText}>{FORM_CHECKBOX_ASSIST_TEXT}</Text>
+      {items.map(({ label, icon }: ICheckboxProps, index: number) => (
+        <Checkbox
+          icon={icon}
+          key={`form-checkbox-question-${name}-${index + 1}`}
+          label={label}
+          onSelect={(isChecked) => onCheck(isChecked, index)}
+          selected={false}
+        />
+      ))}
+      {validation ? <InputValidation state="error" validation={validation} /> : null}
+    </>
   );
 }
 
 const baseStyles = StyleSheet.create({
+  column: {
+    flex: 1,
+    flexGrow: 1,
+  },
   infoText: {
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 20,
     paddingVertical: grid.g24,
   },
-  view: {
+  row: {
     flex: 1,
+    flexGrow: 1,
   },
 });
