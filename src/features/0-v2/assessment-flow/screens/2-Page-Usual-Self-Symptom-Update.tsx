@@ -24,6 +24,7 @@ import { makeAssessmentFlowService } from '../api';
 import UsualSelfActionCardButtonGroup from '../components/0-usual-self-action-card-button-group';
 import AssessmentFlowPageCardInfoLabel from '../components/2-usual-self-card-header';
 import AssessmentFlowEditUsualSymptom from '../components/2-usual-self-editable-symptom-row';
+import ModalFeelDifferent from '../modals/FeelDifferent';
 import { TUsualSelfFrequentOtherSymptom, TUsualSelfFrequentSymptom, TUsualSelfSymptomSeverity } from '../types';
 
 interface AssessmentFlowPage2ScreenProps {
@@ -104,7 +105,9 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
 
   return (
     <Screen>
-      {showFeelDifferentInfoModal ? <></> : null}
+      {showFeelDifferentInfoModal ? (
+        <ModalFeelDifferent onClose={() => onToggleFeelDifferentInfoModal()} visible={showFeelDifferentInfoModal} />
+      ) : null}
       <ScreenProfileHeader />
       <ScreenBody style={[baseStyle.body]}>
         {/* TODO: make into it's own assessment flow body component */}

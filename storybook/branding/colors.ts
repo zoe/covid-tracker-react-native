@@ -49,5 +49,6 @@ export const colors = {
   white: '#FFFFFF',
   black: '#000000',
   black50: 'rgba(0, 0, 0, 0.5)',
+  black20: 'rgba(0, 0, 0, 0.2)',
   purple: '#A10056',
 };

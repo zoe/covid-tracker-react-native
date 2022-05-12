@@ -43,11 +43,11 @@ export default function SideBySideCard({
     <Card
       customBody={
         <Row style={[baseStyles.cardContentBody]}>
-          <Column style={[{ width: leftColWidthPercent }]}>
+          <Column style={[baseStyles.cardColumn, { width: leftColWidthPercent }]}>
             <Card {...leftSide} style={baseStyles.sideCardBody} />
           </Column>
           {divider ? <Divider style={baseStyles.cardDivider} /> : null}
-          <Column style={[{ width: rightColWidthPercent }]}>
+          <Column style={[baseStyles.cardColumn, { width: rightColWidthPercent }]}>
             <Card {...rightSide} style={baseStyles.sideCardBody} />
           </Column>
         </Row>
@@ -60,11 +60,14 @@ export default function SideBySideCard({
 }
 
 const baseStyles = StyleSheet.create({
+  cardColumn: {
+    flexGrow: 1,
+  },
   cardContentBody: {
     flex: 1,
+    flexGrow: 1,
     justifyContent: 'space-around',
     paddingHorizontal: grid.g8,
-    width: '100%',
   },
   cardDivider: {
     marginHorizontal: grid.g8,

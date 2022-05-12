@@ -1896,7 +1896,27 @@
       "3-title": false,
       "3-info-label": false,
       "3-action-card-cta-1": false,
-      "4-log-new-symptom-flow-title": false
+      "4-log-new-symptom-flow-title": false,
+      "modals": {
+        "0-emoji-explained-body": false,
+        "0-emoji-explained-smile": false,
+        "0-emoji-explained-sad": false,
+        "0-emoji-explained-tired": false,
+        "0-emoji-explained-title": false,
+        "0-emoji-explained-cta": false,
+        "1-feel-different-title": false,
+        "1-feel-different-body": false,
+        "1-feel-different-cta": false
+      }
+    },
+    "modals": {
+      "0-usual-self-explanation-title": false,
+      "0-usual-self-explanation-body": false,
+      "0-usual-self-explanation-cta": false,
+      "0-usual-self-explanation-callout": false,
+      "1-frequency-of-symptoms-body": false,
+      "1-frequency-of-symptoms-title": false,
+      "1-frequency-of-symptoms-cta": false
     }
   }
 }

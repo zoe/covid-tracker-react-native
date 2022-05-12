@@ -17,6 +17,8 @@ import { StyleSheet, Text } from 'react-native';
 import { makeAssessmentFlowService } from '../api';
 import AssessmentFlowActionCard from '../components/1-usual-self-bottom-card';
 import UsualSelfFrequentSymptoms from '../components/1-usual-self-symptoms-view';
+import ModalEmojiExplained from '../modals/EmojiExplained';
+import ModalUsualSelfExplanation from '../modals/UsualSelfExplanation';
 import { TUsualSelfFrequentSymptom } from '../types';
 
 export default function AssessmentPage1ShowUsualSelf() {
@@ -52,8 +54,12 @@ export default function AssessmentPage1ShowUsualSelf() {
 
   return (
     <Screen>
-      {showUsualSelfModal ? <></> : null}
-      {showEmojiExplanationModal ? <></> : null}
+      {showUsualSelfModal ? (
+        <ModalUsualSelfExplanation onClose={() => onToggleUsualSelfModal()} visible={showUsualSelfModal} />
+      ) : null}
+      {showEmojiExplanationModal ? (
+        <ModalEmojiExplained onClose={() => onToggleEmojiExplanationModal()} visible={showEmojiExplanationModal} />
+      ) : null}
       <ScreenProfileHeader />
       <ScreenBody style={[baseStyle.body]}>
         {/* TODO: make into it's own component */}

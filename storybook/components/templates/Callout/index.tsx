@@ -63,13 +63,32 @@ const CalloutCompact = ({ calloutType = 'info', text }: ICalloutProps) => {
   );
 };
 
+const CalloutNonCompact = ({ calloutType = 'info', text }: ICalloutProps) => {
+  const { calloutStyle, component } = calloutConfig[calloutType];
+  const rightSideProps: ICardProps = {
+    customHeader: <Text style={[baseStyle.compactTextStyle]}>{text}</Text>,
+  };
+  const leftSideProps: ICardProps = {
+    customHeader: component,
+  };
+  return (
+    <SideBySideCard
+      leftColWidthPercent="16%"
+      leftSide={leftSideProps}
+      rightColWidthPercent="84%"
+      rightSide={rightSideProps}
+      style={[baseStyle.viewExpanded, calloutStyle.surface]}
+    />
+  );
+};
+
 /**
  * Callout
  *
  * @param style custom styling, overrides all other styles
  */
 export default function Callout({ compact, ...props }: ICalloutProps) {
-  return compact ? <CalloutCompact {...props} /> : null;
+  return compact ? <CalloutCompact {...props} /> : <CalloutNonCompact {...props} />;
 }
 
 const baseStyle = StyleSheet.create({
@@ -81,7 +100,10 @@ const baseStyle = StyleSheet.create({
     textAlign: 'left',
   },
   view: {
-    height: 56,
+    height: 65,
     marginHorizontal: grid.g32,
+  },
+  viewExpanded: {
+    flexGrow: 1,
   },
 });
