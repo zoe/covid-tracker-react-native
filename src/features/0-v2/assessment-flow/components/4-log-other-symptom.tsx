@@ -73,7 +73,7 @@ export default function LogOtherSymptoms({
         <Row>
           <Column style={{ marginTop: grid.g16, paddingHorizontal: grid.g16 }}>
             <InfoLabel
-              onPressInfo={() => (onToggleFrequencyModal ? onToggleFrequencyModal() : () => {})}
+              onPressInfo={() => {}}
               text={i18n.t('usual-self.setup.1-setup-flow-frequency-slider')}
               textStyle={[baseStyle.infoLabel]}
             />
@@ -88,7 +88,7 @@ export default function LogOtherSymptoms({
         <Row>
           <Column style={{ paddingHorizontal: grid.g16 }}>
             <InfoLabel
-              onPressInfo={() => (onToggleImpactOnLifeModal ? onToggleImpactOnLifeModal() : () => {})}
+              onPressInfo={() => {}}
               text={i18n.t('usual-self.setup.1-setup-flow-severity-slider')}
               textStyle={baseStyle.infoLabel}
             />
@@ -106,6 +106,22 @@ export default function LogOtherSymptoms({
 }
 
 const baseStyle = StyleSheet.create({
+  flexGrow: {
+    flexGrow: 1,
+  },
+  footer: {
+    backgroundColor: colors.white,
+    shadowColor: colors.black,
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
+  },
+  infoLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0,
+    lineHeight: grid.g24,
+    textAlign: 'left',
+  },
   pageHeaderHighlighted: {
     color: colors.text.accent,
   },
@@ -116,5 +132,23 @@ const baseStyle = StyleSheet.create({
     letterSpacing: 0,
     lineHeight: 26,
     textAlign: 'left',
+  },
+  screenBody: {
+    marginTop: grid.g16,
+    paddingHorizontal: grid.g24,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '500',
+    letterSpacing: 0,
+    lineHeight: 26,
+    textAlign: 'left',
+  },
+  titleHighlight: {
+    color: colors.accent,
+  },
+  titleRow: {
+    justifyContent: 'flex-start',
+    marginBottom: grid.g24,
   },
 });

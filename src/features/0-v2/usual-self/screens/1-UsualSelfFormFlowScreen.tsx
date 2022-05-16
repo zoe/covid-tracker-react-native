@@ -262,7 +262,13 @@ export default function UsualSelfFormFlowScreen() {
               <ScrollView>
                 {otherSymptomLogScreen ? (
                   <Column style={{ flexGrow: 1 }}>
-                    <LogOtherSymptoms formID="other_symptoms" handleChange={setFieldValue} question="Optional" />
+                    <LogOtherSymptoms
+                      formID="other_symptoms"
+                      handleChange={setFieldValue}
+                      handleChangeFrequency={setFieldValue}
+                      handleChangeSeverity={setFieldValue}
+                      question="Optional"
+                    />
                   </Column>
                 ) : (
                   <LogSymptomScreenBody
