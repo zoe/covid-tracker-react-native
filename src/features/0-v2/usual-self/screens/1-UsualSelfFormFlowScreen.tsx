@@ -85,14 +85,18 @@ export default function UsualSelfFormFlowScreen() {
         ];
       });
 
-    const newUsualSelf = {
-      other_symptoms: [
+    let other_symptoms = [];
+    if (submitted.other_symptoms && submitted.other_symptoms !== undefined)
+      other_symptoms = [
         {
           description: submitted.other_symptoms.description,
           frequency: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
           severity: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
         },
-      ],
+      ];
+
+    const newUsualSelf = {
+      other_symptoms,
       patient: currentPatient.patientId,
       reasons: [],
       symptoms: usualSelf,
