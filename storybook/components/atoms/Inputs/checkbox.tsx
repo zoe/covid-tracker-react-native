@@ -3,18 +3,20 @@ import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import { Item } from 'native-base';
 import React, { ReactNode, useState } from 'react';
-import { AccessibilityRole, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { AccessibilityRole, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
 export interface ICheckboxProps {
   label: string;
   icon?: ReactNode;
   children?: ReactNode;
-  onSelect?: (value: boolean) => void;
+  onSelect?: (value: boolean, id?: string | number) => void;
   selected: boolean;
   style?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   testID?: string;
   accessibilityRole?: AccessibilityRole;
+  /* uniquely identifiable id */
+  id?: string | number;
 }
 
 /**
@@ -26,16 +28,18 @@ export default function Checkbox({
   onSelect,
   label,
   icon,
+  children,
   textStyle,
   style,
   selected,
+  id,
   accessibilityRole = 'checkbox',
 }: ICheckboxProps) {
   const [isChecked, setChecked] = useState<boolean>(selected);
 
   const onPress = () => {
     setChecked(!isChecked);
-    if (onSelect) onSelect(!isChecked);
+    if (onSelect) onSelect(!isChecked, id);
   };
 
   return (
@@ -59,6 +63,7 @@ export default function Checkbox({
           {label ? <Text style={[baseStyles.label, textStyle]}>{label}</Text> : children}
         </Item>
       </Item>
+      {children}
     </>
   );
 }
@@ -66,7 +71,7 @@ export default function Checkbox({
 const baseStyles = StyleSheet.create({
   checkbox: {
     alignItems: 'center',
-    backgroundColor: colors.tertiary,
+    backgroundColor: colors.surface.subdued,
     borderColor: colors.transparent,
     borderRadius: grid.g4,
     borderWidth: 1,

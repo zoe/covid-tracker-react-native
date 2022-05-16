@@ -13,13 +13,6 @@ import { TUsualSelfSymptomIcon, TUsualSelfSymptomSeverity } from '../types';
 
 const emojiOpacity = (severity: string, iconSeverity: string) => (severity === iconSeverity ? '1' : '0.5');
 
-interface IAssessmentFlowEditUsualSymptom {
-  symptom: string;
-  onUpdateDailyAssessmentSymptom: (symptomName: string) => void;
-  severity: TUsualSelfSymptomSeverity;
-  onUpdateSeverityAssessmentSymptom: (symptomName: string, severity: TUsualSelfSymptomSeverity) => void;
-}
-
 interface IUsualSelfSymptomIconButtonProps {
   severity: TUsualSelfSymptomSeverity;
   iconType: TUsualSelfSymptomIcon;
@@ -48,37 +41,50 @@ function UsualSelfSymptomIconButton({ severity, iconType, onPress }: IUsualSelfS
   );
 }
 
+interface IAssessmentFlowEditUsualSymptom {
+  symptom: string;
+  onToggleSymptom: (symptomName: string) => void;
+  severity: TUsualSelfSymptomSeverity;
+  onUpdateSymptomSeverity: (symptomName: string, severity: TUsualSelfSymptomSeverity) => void;
+}
+
 export default function AssessmentFlowEditUsualSymptom({
   symptom,
-  onUpdateDailyAssessmentSymptom,
+  onToggleSymptom,
   severity,
-  onUpdateSeverityAssessmentSymptom,
+  onUpdateSymptomSeverity,
 }: IAssessmentFlowEditUsualSymptom) {
   return (
     <Row style={[baseStyle.symptomRow]}>
       <Column style={[baseStyle.symptomCheckboxColumn]}>
-        <Checkbox
-          selected
-          label={symptom}
-          onSelect={() => onUpdateDailyAssessmentSymptom(symptom)}
-          textStyle={baseStyle.symptomText}
-        />
+        <Row style={{ flexWrap: 'wrap', maxWidth: 170 }}>
+          <Checkbox
+            selected
+            label={symptom}
+            onSelect={() => onToggleSymptom(symptom)}
+            textStyle={baseStyle.symptomText}
+          />
+        </Row>
       </Column>
-      <UsualSelfSymptomIconButton
-        iconType="smile"
-        onPress={() => onUpdateSeverityAssessmentSymptom(symptom, 'low')}
-        severity={severity}
-      />
-      <UsualSelfSymptomIconButton
-        iconType="sad"
-        onPress={() => onUpdateSeverityAssessmentSymptom(symptom, 'medium')}
-        severity={severity}
-      />
-      <UsualSelfSymptomIconButton
-        iconType="tired"
-        onPress={() => onUpdateSeverityAssessmentSymptom(symptom, 'high')}
-        severity={severity}
-      />
+      <Column>
+        <Row>
+          <UsualSelfSymptomIconButton
+            iconType="smile"
+            onPress={() => onUpdateSymptomSeverity(symptom, 'low')}
+            severity={severity}
+          />
+          <UsualSelfSymptomIconButton
+            iconType="sad"
+            onPress={() => onUpdateSymptomSeverity(symptom, 'medium')}
+            severity={severity}
+          />
+          <UsualSelfSymptomIconButton
+            iconType="tired"
+            onPress={() => onUpdateSymptomSeverity(symptom, 'high')}
+            severity={severity}
+          />
+        </Row>
+      </Column>
     </Row>
   );
 }
@@ -86,9 +92,11 @@ export default function AssessmentFlowEditUsualSymptom({
 const baseStyle = StyleSheet.create({
   symptomCheckboxColumn: {
     flexGrow: 1,
+    flexWrap: 'wrap',
     paddingVertical: 6,
   },
   symptomRow: {
+    flexGrow: 1,
     paddingHorizontal: grid.g16,
   },
   symptomText: {

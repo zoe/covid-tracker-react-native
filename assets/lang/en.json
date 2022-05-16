@@ -354,7 +354,7 @@
     "general-feeling-down": "Feeling down, depressed or hopeless",
     "general-brain-fog": "Loss of concentration or memory (brain fog)",
     "general-delirium": "Confusion, disorientation or drowsiness",
-    "general-allergy-increase": "Increase in your usual allergy symptoms",
+    "general-allergy-increase": "Increase in your usual allergy symptom(s)",
     "follow-up-required": "Please complete follow up question.",
     "head-symptoms": "Are you experiencing any symptoms in your head area?",
     "head-headache": "Headache",
@@ -1849,26 +1849,44 @@
   "usual-self": {
     "tag": "New daily reporting",
     "time": "Approx 3 mins",
-    "introduction": {
+    "flow-entry": {
       "title": "Introducing your new Daily Reporting",
-      "button": "Get started"
+      "cta": "Get started"
     },
-    "reports-powerful": {
+    "flow-intro-1": {
       "title": "Your health reports are now even more powerful",
-      "description": "As well as contributing to COVID-19 knowledge, every report now supports research in major health issues, such as cancer and dementia. \n\nLogging daily adds huge value to a range of new studies."
+      "description": "As well as contributing to COVID-19 knowledge, every report now supports research in major health issues, such as cancer and dementia.\n\nLogging daily adds huge value to a range of new studies.",
+      "cta": "Next"
     },
-    "reports-single-tap": {
-      "title": "Most reports can be done in a single tap",
-      "description": "Your reports are now personalised to your unique health, even if you’re managing a chronic health condition.\n\nThe new report simply asks whether you feel different (e.g. worse or better) from how you usually feel."
+    "flow-intro-2": {
+      "title": "Most reports can be\ndone in a single tap",
+      "description": "Your reports are now personalised to your unique health, even if you’re managing a chronic health condition.\n\nThe new report simply asks whether you feel different (e.g. worse or better) from how you usually feel.",
+      "cta": "Next"
     },
-    "reports-symptoms": {
+    "flow-intro-3": {
       "title": "Let’s get to know your symptoms better",
-      "description": "To get started, we need to understand how you usually feel. We call this your *Usual Self* - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
-      "button": "Set up your Usual Self"
+      "description": "To get started, we need to understand how you usually feel. We call this your Usual Self - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
+      "cta": "Set up your Usual Self"
     },
     "setup": {
+      "header": "Set up your Usual Self",
+      "tag": "past 6 months",
+      "question-highlighted": "Over the past 6 months",
+      "question-label": "have you - or are you currently - experiencing any of the below symptoms?",
+      "description": "To get started, we need to understand how you usually feel. We call this your *Usual Self* - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
+      "button": "Set up your Usual Self",
       "1-setup-flow-title-highlight": "Over the past 6",
-      "1-setup-flow-title": "months have you experienced any of the below symptoms?"
+      "1-setup-flow-title": "months have you experienced any of the below symptoms?",
+      "2-setup-flow-other-symptom-placeholder": "Please describe",
+      "1-setup-flow-frequency-slider": "Select Frequency",
+      "1-setup-flow-severity-slider": "Impact on quality of life",
+      "1-setup-other-symptoms": "What other symptom(s) are you experiencing?",
+      "1-log-new-symptom-flow-title-2": "Are you / have you experienced any symptoms in your",
+      "modal": {
+        "1-title": "Your Usual Self is set up!",
+        "1-cta-1": "Submit your first new daily report",
+        "1-cta-2": "Close"
+      }
     },
     "assessment-flow": {
       "1-title": "Your Usual Self",
@@ -1887,12 +1905,20 @@
       "2-title": "What feels different\ntoday?",
       "2-subtitle": "Anything different from your Usual Self?",
       "2-action-card-cta-1": "Log new symptom",
-      "2-action-card-cta-2": "submit",
+      "2-action-card-cta-2": "Submit",
       "2-addition-symptoms": "Additional symptoms today",
       "3-title": "Where are your\nsymptom(s) located?",
       "3-info-label": "Select one or more options related to your symptom(s)",
       "3-action-card-cta-1": "Next: Specify symptom(s)",
       "4-log-new-symptom-flow-title": "Which symptom(s) are you experiencing in your ",
+      "4-log-new-symptom-flow-cta-1": "Next",
+      "4-other-symptom-start": "What ",
+      "4-other-symptom-end": "symptom(s) are you experiencing?",
+      "4-other-symptom-highlighted": "other",
+      "5-new-symptom-reason-title": "Do you know why you are experiencing new symptom(s) today?",
+      "5-new-symptom-reason-not-aware": "No, I don't know why",
+      "5-new-symptom-reason-aware": "Yes, I may know why",
+      "5-action-card-cta-1": "Finish",
       "modals": {
         "0-emoji-explained-body": "In order to capture how some symptoms may not affect you very much, while others might have a significant impact on your daily life, each symptom is marked using the pictograms below:",
         "0-emoji-explained-smile": "Symptom is present but not bothering you tremendously",
@@ -1902,7 +1928,11 @@
         "0-emoji-explained-cta": "OK",
         "1-feel-different-title": "Feeling different from your\nUsual Self",
         "1-feel-different-body": "This could mean that you might not currently be experiencing a symptom you normally have.\n\nIt could either become worse or improved.\n\nFor any of these instances, you can update a symptom by unticking it or changing the ‘emoji’ to better reflect how it’s affecting you today.\n\nBy updating it, you help to build a more accurate picture of how you feel.",
-        "1-feel-different-cta": "OK"
+        "1-feel-different-cta": "OK",
+        "4-log-symptoms-title": "Please select severity level of your new symptom(s)",
+        "4-log-symptoms-cta": "OK",
+        "4-log-symptoms-body-2": "Tap OK below to return to the symptoms screen and select the appropriate 'emoji' for your new symptom(s) added",
+        "4-log-symptoms-body-1": "To submit today's report, tap the 'emoji' that best represents the impact a new symptom has on you today"
       }
     },
     "modals": {
@@ -1912,7 +1942,8 @@
       "0-usual-self-explanation-callout": "Please note, we’re not a medical advice engine. If you’re worried about any symptom, report directly to your doctor.",
       "1-frequency-of-symptoms-body": "The reason why we ask for the frequency of symptoms is to get a full picture of your symptoms and how often they occur.\n\nA symptom you experience daily will be part of what we call your Usual Self. A symptom you experience less often will be registered but will not show as part of your Usual Self.",
       "1-frequency-of-symptoms-title": "Frequency of symptom",
-      "1-frequency-of-symptoms-cta": "OK"
+      "1-frequency-of-symptoms-cta": "OK",
+      "2-emoji-explained-title": "Impact on quality of life"
     }
   }
 }

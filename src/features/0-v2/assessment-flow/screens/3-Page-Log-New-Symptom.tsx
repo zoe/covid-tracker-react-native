@@ -1,12 +1,3 @@
-import IconArrowLeft from '@assets/v2/svg/icon-arrow-left';
-import IconBoneJoints from '@assets/v2/svg/icon-bones-joints';
-import IconHeadFace from '@assets/v2/svg/icon-head-and-face';
-import IconMiscellaneous from '@assets/v2/svg/icon-miscellaneous';
-import IconReproductive from '@assets/v2/svg/icon-reproductive';
-import IconSkinNails from '@assets/v2/svg/icon-skin-and-nails';
-import IconStomachGutBladder from '@assets/v2/svg/icon-stomach-gut-and-bladder';
-import IconThoughtBubble from '@assets/v2/svg/icon-thought-bubble';
-import IconThroatChestLungs from '@assets/v2/svg/icon-throat-chest-and-lungs';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { colors } from '@tracer/branding/colors';
@@ -14,112 +5,124 @@ import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
 import Row from '@tracer/components/atoms/Row';
 import Screen from '@tracer/components/atoms/Screen';
-import Form from '@tracer/components/molecules/Form/form';
-import FormCheckboxQuestion, { IFormCheckboxItemProps } from '@tracer/components/molecules/Form/questions/checkbox';
+import FormCheckboxQuestion, {
+  IFormCheckboxItemProps,
+} from '@tracer/components/molecules/Form/questions/multiCheckbox';
 import ScreenBody from '@tracer/components/molecules/Screen/body';
 import ScreenFooter from '@tracer/components/molecules/Screen/footer';
-import { ScreenNavigatorCompact } from '@tracer/components/organisms/Screen/nav';
-import { FormikValues } from 'formik';
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import ScreenStandardHeader from '@tracer/components/templates/ScreenHeaders/standard';
+import { Formik } from 'formik';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-import { makeAssessmentFlowService } from '../api';
+import { makeSymptomService } from '../../api';
 import UsualSelfActionCardButtonGroup from '../components/0-usual-self-action-card-button-group';
+import {
+  svgSymptomCategoryIconMap,
+  TFormSymptomCategory,
+  TNewSymptomLocationFormInitValues,
+  TSymptomCategory,
+} from '../types';
 
-const svgIconMap: { [id: number]: ReactNode } = {
-  0: <IconMiscellaneous />,
-  1: <IconHeadFace />,
-  2: <IconThroatChestLungs />,
-  3: <IconStomachGutBladder />,
-  4: <IconBoneJoints />,
-  5: <IconSkinNails />,
-  6: <IconReproductive />,
-  7: <IconThoughtBubble />,
-};
-
-type TSymptomArea = {
-  name: string;
-  id: number;
-};
-
-type TNewSymptomLocationFormInitValues = {
-  [name: string]: object;
-};
-
-const makeCheckBoxItems = (areas: TSymptomArea[]): IFormCheckboxItemProps[] => {
+const makeCheckBoxItems = (areas: TSymptomCategory[]): IFormCheckboxItemProps[] => {
   return areas
     .map((area, index) => ({
-      icon: svgIconMap[index],
-      id: index,
-      label: area.name,
+      icon: svgSymptomCategoryIconMap[index],
+      id: area.name,
+      label: area.display_name,
       selected: false,
     }))
     .concat({
       icon: null,
-      id: areas.length,
+      id: 'other',
       label: 'Other',
       selected: false,
     });
 };
 
 export default function AssessmentPage3LogNewSymptom() {
-  const [symptomAreas, setSymptomAreas] = useState<TSymptomArea[]>([]);
-  const assessmentService = makeAssessmentFlowService();
-  const formRef = useRef<FormikValues>();
+  const [symptomCategories, setSymptomCategories] = useState<TSymptomCategory[]>([]);
+  const symptomService = makeSymptomService();
 
-  const onNewLogSymptomFlowNext = () => {
-    // get values from form
-    handleSubmit();
-    NavigatorService.navigate('AssessmentPage4LogNewSymptomFlow', { categories: ['head_face'] });
-  };
-
-  const handleSubmit = () => {
-    if (formRef.current) {
-      formRef.current.handleSubmit();
-    }
+  const onNewLogSymptomFlowNext = (values: TNewSymptomLocationFormInitValues) => {
+    const submitted: TFormSymptomCategory = values['symptom-locations'];
+    const selectedLocations: string[] = Object.keys(submitted).filter((id: string) => submitted[id].state);
+    const categories: TSymptomCategory[] = symptomCategories.filter((category) =>
+      selectedLocations.includes(category.name),
+    );
+    NavigatorService.navigate('AssessmentPage4LogNewSymptomFlow', { categories });
   };
 
   useEffect(() => {
-    assessmentService
+    symptomService
       .getSymptomAreas(false)
-      .then((areas: TSymptomArea[]) => {
-        setSymptomAreas(areas);
+      .then((areas: TSymptomCategory[]) => {
+        setSymptomCategories(areas);
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error);
       });
   }, []);
 
-  const checkboxItems = makeCheckBoxItems(symptomAreas);
+  const formItems = makeCheckBoxItems(symptomCategories);
   const formInitValues: TNewSymptomLocationFormInitValues = {
-    'symptom-locations': checkboxItems.reduce((prev, area) => {
-      return { ...prev, ...{ [area.id]: '' } };
+    'symptom-locations': symptomCategories.reduce((prev, area) => {
+      return {
+        ...prev,
+        ...{
+          [area.name]: {
+            state: false,
+          },
+        },
+      };
     }, {}),
   };
 
   return (
-    <Screen>
-      <ScreenNavigatorCompact left={<IconArrowLeft />} />
-      <ScreenBody style={[baseStyle.body]}>
-        {/* TODO: make into it's own assessment flow body component */}
-        <Column>
-          <Row style={[baseStyle.titleRow]}>
-            <Text style={[baseStyle.title]}>{i18n.t('usual-self.assessment-flow.3-title')}</Text>
-          </Row>
-          <Form initValues={formInitValues} ref={formRef}>
-            <FormCheckboxQuestion items={checkboxItems} key="input-form-checkbox" name="symptom-locations" />
-          </Form>
-        </Column>
-      </ScreenBody>
-      <ScreenFooter>
-        <UsualSelfActionCardButtonGroup
-          style={[baseStyle.cardButtonGroup]}
-          topButton={{
-            onPress: onNewLogSymptomFlowNext,
-            text: i18n.t('usual-self.assessment-flow.3-action-card-cta-1'),
-          }}
-        />
-      </ScreenFooter>
+    <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
+      <ScreenStandardHeader onGoBack={() => NavigatorService.goBack()} />
+      <Formik initialValues={formInitValues} onSubmit={onNewLogSymptomFlowNext}>
+        {({ handleSubmit, setFieldValue }) => {
+          return (
+            <>
+              <ScrollView>
+                <ScreenBody style={[baseStyle.body]}>
+                  <Column style={{ paddingHorizontal: grid.g32 }}>
+                    <Row style={[baseStyle.titleRow]}>
+                      <Text style={[baseStyle.title]}>{i18n.t('usual-self.assessment-flow.3-title')}</Text>
+                    </Row>
+                    <Row style={[baseStyle.subTitleRow]}>
+                      <Text style={[baseStyle.subTitle]}>{i18n.t('usual-self.assessment-flow.3-info-label')}</Text>
+                    </Row>
+                    <FormCheckboxQuestion
+                      hideInfo
+                      handleChange={setFieldValue}
+                      items={formItems}
+                      key="input-form-checkbox"
+                      name="symptom-locations"
+                    />
+                  </Column>
+                </ScreenBody>
+              </ScrollView>
+              <ScreenFooter>
+                <Row style={[baseStyle.footer]}>
+                  <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+                    <UsualSelfActionCardButtonGroup
+                      style={[baseStyle.cardButtonGroup]}
+                      topButton={{
+                        onPress: handleSubmit,
+                        text: i18n.t('usual-self.assessment-flow.3-action-card-cta-1'),
+                      }}
+                    />
+                  </Column>
+                </Row>
+              </ScreenFooter>
+            </>
+          );
+        }}
+      </Formik>
     </Screen>
   );
 }
@@ -130,7 +133,24 @@ const baseStyle = StyleSheet.create({
   },
   cardButtonGroup: {
     backgroundColor: colors.white,
-    paddingVertical: grid.g24,
+    paddingVertical: grid.g16,
+  },
+  footer: {
+    backgroundColor: colors.white,
+    paddingBottom: grid.g24,
+    shadowColor: 'black',
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+  },
+  subTitle: {
+    fontSize: 16,
+    fontWeight: '300',
+    letterSpacing: 0,
+    lineHeight: 24,
+    textAlign: 'left',
+  },
+  subTitleRow: {
+    marginBottom: grid.g24,
   },
   title: {
     fontSize: 28,

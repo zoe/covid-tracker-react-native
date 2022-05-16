@@ -3,7 +3,7 @@ import { grid } from '@tracer/branding/grid';
 import React from 'react';
 import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
-interface IFormLabelProps {
+interface IFormQuestionLabelProps {
   label: string;
   style?: StyleProp<ViewStyle>;
   required: boolean;
@@ -11,14 +11,19 @@ interface IFormLabelProps {
 }
 
 /**
- * FormLabel
+ * FormQuestionLabel
  *
  * @param label form input initial values
  * @param required form input required, defaults to false
  * @param style (optional) custom styling, to override default form view
  * @param testID (optional) form test ID
  */
-export default function FormLabel({ required = false, label, style, testID = 'form-label-test-id' }: IFormLabelProps) {
+export default function FormQuestionLabel({
+  required = false,
+  label,
+  style,
+  testID = 'form-question-label-test-id',
+}: IFormQuestionLabelProps) {
   return (
     <Text style={[baseStyle.label, style]} testID={testID}>
       {label}

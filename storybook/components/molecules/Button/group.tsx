@@ -82,6 +82,7 @@ export default function ButtonGroup({
     setActiveButtons(active);
   }, [active]);
 
+  console.log(buttonProps);
   return (
     <Row style={[style]} testID={props.testID ?? 'ButtonGroup-test-id'}>
       {buttonCustom
@@ -93,7 +94,7 @@ export default function ButtonGroup({
             const buttonType = activeButtons && activeButtons.includes(index) ? 'primary' : 'secondary';
             return (
               <Button
-                key={`button-group-${index + 1}-${buttonType}-btn`}
+                key={`button-group${index % 2}-${index + 1}-${buttonType}-btn`}
                 style={baseStyle.button}
                 {...rest}
                 buttonType={buttonType}

@@ -1,10 +1,11 @@
 import { grid } from '@tracer/branding/grid';
+import Column from '@tracer/components/atoms/Column';
 import Checkbox, { ICheckboxProps } from '@tracer/components/atoms/Inputs/checkbox';
-import { FormikValues } from 'formik';
+import Row from '@tracer/components/atoms/Row';
 import React, { ReactNode } from 'react';
 import { AccessibilityRole, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
-import FormLabel from '../label';
+import FormLabel from '../labels/question';
 import { InputValidation } from './validation';
 
 export interface IFormCheckboxItemProps {
@@ -21,14 +22,16 @@ interface IFormCheckboxQuestionProps {
   items: IFormCheckboxItemProps[];
   question?: string;
   required?: boolean;
+  hideInfo?: boolean;
   validation?: string;
-  handleChange?: (id: string) => void;
-  /* this property is dynamically added later if wrapped bt the Form organism component  */
-  form?: FormikValues;
+  handleChange: (field: string, value: any, shouldValidate?: boolean) => void;
+  children?: any;
   name: string;
 }
 
 const FORM_CHECKBOX_ASSIST_TEXT = 'Check all that apply';
+
+export const CheckboxInfoLabel = () => <Text style={baseStyles.infoText}>{FORM_CHECKBOX_ASSIST_TEXT}</Text>;
 
 /**
  * FormCheckboxQuestion
@@ -44,31 +47,39 @@ export default function FormCheckboxQuestion({
   question,
   validation,
   required = false,
-  form,
+  hideInfo = false,
+  children,
   name,
   handleChange,
 }: IFormCheckboxQuestionProps) {
-  if (handleChange) handleChange(name);
-
-  const onCheck = (isChecked: boolean, index: number) => {
-    if (!isChecked) return;
-    if (form) form[name][index] = items[index].label;
+  const onCheck = (isChecked: boolean, id: string | number | undefined) => {
+    console.log(`selecting ${name}`, id);
+    if (id) {
+      handleChange(`${name}.${id}.state`, isChecked);
+      handleChange(`${name}.${id}.display`, items.filter((item) => item.id === id)[0].label);
+    }
   };
 
   return (
     <>
       {question ? <FormLabel label={question} required={required} /> : null}
-      <Text style={baseStyles.infoText}>{FORM_CHECKBOX_ASSIST_TEXT}</Text>
-      {items.map(({ label, icon }: ICheckboxProps, index: number) => (
-        <Checkbox
-          icon={icon}
-          key={`form-checkbox-question-${name}-${index + 1}`}
-          label={label}
-          onSelect={(isChecked) => onCheck(isChecked, index)}
-          selected={false}
-        />
-      ))}
+      {!hideInfo ? <CheckboxInfoLabel /> : null}
+      <Column>
+        {items.map(({ id, label, icon }: ICheckboxProps, index: number) => (
+          <Row style={{ marginVertical: grid.g4 }}>
+            <Checkbox
+              icon={icon}
+              id={id}
+              key={`form-checkbox-question-${name}-${index + 1}`}
+              label={label}
+              onSelect={onCheck}
+              selected={false}
+            />
+          </Row>
+        ))}
+      </Column>
       {validation ? <InputValidation state="error" validation={validation} /> : null}
+      {children}
     </>
   );
 }
@@ -80,9 +91,8 @@ const baseStyles = StyleSheet.create({
   },
   infoText: {
     fontSize: 14,
-    fontWeight: '400',
+    fontWeight: '300',
     lineHeight: 20,
-    paddingVertical: grid.g24,
   },
   row: {
     flex: 1,

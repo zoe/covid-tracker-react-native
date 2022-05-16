@@ -1,21 +1,21 @@
-import IconArrowLeft from '@assets/v2/svg/icon-arrow-left';
+import { colors } from '@theme';
 import { grid } from '@tracer/branding/grid';
 import Button from '@tracer/components/atoms/Button';
-import Screen from '@tracer/components/atoms/Screen';
+import Column from '@tracer/components/atoms/Column';
 import ScreenBody from '@tracer/components/molecules/Screen/body';
 import ScreenFooter from '@tracer/components/molecules/Screen/footer';
-import { ScreenNavigatorCompact } from '@tracer/components/organisms/Screen/nav';
 import React from 'react';
-import { Image, ImageProps, ImageSourcePropType, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image, ImageProps, ImageSourcePropType, StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native';
+
+import ScreenStandardHeader from '../ScreenHeaders/standard';
 
 export interface IFeatureIntroEntryScreenProps {
   imageSource?: ImageSourcePropType;
-  style?: StyleProp<ViewStyle>;
   imageStyle?: ImageProps;
-  textStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   title?: string;
-  testID?: string;
   textButton?: string;
+  onPressBack: () => void;
   onPress?: () => void;
 }
 
@@ -23,24 +23,23 @@ const HEIGHT_FOOTER = 114;
 const HEIGHT_IMAGE = 375;
 
 /**
- * FeatureIntroScreen
+ * FeatureIntroEntryScreen
  *
  * @param style custom styling, overrides all other styles
  * @param children components to display withing the screen
  */
 export default function FeatureIntroEntryScreen({
-  style,
   imageStyle,
   textStyle,
   imageSource,
   title,
-  testID = 'FeatureIntroScreen-test-ID',
   textButton,
+  onPressBack,
   onPress,
 }: IFeatureIntroEntryScreenProps) {
   return (
-    <Screen style={style} testID={testID}>
-      <ScreenNavigatorCompact left={<IconArrowLeft />} />
+    <Column>
+      <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
       <ScreenBody>
         <View style={[baseStyle.mainView]}>
           <Image resizeMode="contain" source={imageSource} style={[baseStyle.image, imageStyle]} />
@@ -52,7 +51,7 @@ export default function FeatureIntroEntryScreen({
           <Button onPress={onPress} style={{ height: grid.g48 }} text={textButton} />
         </View>
       </ScreenFooter>
-    </Screen>
+    </Column>
   );
 }
 
@@ -70,6 +69,10 @@ const baseStyle = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
+  },
+  nav: {
+    backgroundColor: colors.white,
+    paddingVertical: grid.g32,
   },
   title: {
     fontSize: grid.g32,

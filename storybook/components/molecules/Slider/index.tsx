@@ -1,11 +1,12 @@
 import MultiSlider from '@ozziedave/react-native-multi-slider';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
-import React, { useState } from 'react';
-import { StyleProp, StyleSheet, useWindowDimensions, View, ViewStyle } from 'react-native';
+import Column from '@tracer/components/atoms/Column';
+import Row from '@tracer/components/atoms/Row';
+import React, { ReactNode, useState } from 'react';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 
 import SliderLabels from './labels';
-import SliderTitle from './title';
 
 export interface SliderOption {
   label: string;
@@ -14,8 +15,7 @@ export interface SliderOption {
 
 export interface ISliderProps {
   name: string;
-  title?: string;
-  titleStyle?: StyleProp<ViewStyle>;
+  title?: ReactNode;
   onSelect: (value: string | number) => void;
   options: SliderOption[];
   sliderWidth?: number;
@@ -42,10 +42,10 @@ const Slider = ({ name, title, options, showLabels, onSelect, sliderWidth = INVA
 
   const sliderWidthStyle = StyleSheet.create({ sliderWidth: { width } });
   return (
-    <>
-      {title ? <SliderTitle title={title} /> : null}
-      <View>
-        <View>
+    <Column>
+      <Row style={{ flexGrow: 1 }}>{title || null}</Row>
+      <Row style={{ paddingHorizontal: grid.g32 }}>
+        <Column>
           {/* @ts-ignore */}
           <MultiSlider
             enableTapSteps
@@ -57,17 +57,22 @@ const Slider = ({ name, title, options, showLabels, onSelect, sliderWidth = INVA
             onValuesChange={valueChange}
             pressedMarkerStyle={sliderStyles.pressedMarkerStyle}
             selectedStyle={sliderStyles.selectedStyle}
-            sliderLength={width - 64}
+            sliderLength={width - 100}
             stepHitSlop={35}
             tappableStepStyle={sliderStyles.tappableStepStyle}
             trackStyle={sliderStyles.trackStyle}
           />
-        </View>
-      </View>
+        </Column>
+      </Row>
       {showLabels ? (
-        <SliderLabels labels={options.map((option) => option.label)} parentWidth={sliderWidthStyle.sliderWidth.width} />
+        <Row>
+          <SliderLabels
+            labels={options.map((option) => option.label)}
+            parentWidth={sliderWidthStyle.sliderWidth.width}
+          />
+        </Row>
       ) : null}
-    </>
+    </Column>
   );
 };
 
@@ -95,13 +100,13 @@ const sliderStyles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   tappableStepStyle: {
-    backgroundColor: colors.surface.interactive,
+    backgroundColor: colors.surface.subdued,
     borderRadius: grid.g48,
     height: grid.g8,
     width: grid.g8,
   },
   trackStyle: {
-    backgroundColor: colors.surface.interactive,
+    backgroundColor: colors.surface.subdued,
     height: 1,
   },
 });

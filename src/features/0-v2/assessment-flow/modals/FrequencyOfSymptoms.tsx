@@ -1,42 +1,61 @@
 import i18n from '@covid/locale/i18n';
+import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Button from '@tracer/components/atoms/Button';
+import Column from '@tracer/components/atoms/Column';
 import Row from '@tracer/components/atoms/Row';
+import Modal from '@tracer/components/molecules/Modal';
 import StackedCard from '@tracer/components/organisms/Card/stacked';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 interface IModalFrequencyOfSymptomsProps {
+  visible: boolean;
   onClose: () => void;
 }
 
-export default function ModalFrequencyOfSymptoms({ onClose }: IModalFrequencyOfSymptomsProps) {
+export default function ModalFrequencyOfSymptoms({ visible, onClose }: IModalFrequencyOfSymptomsProps) {
   return (
-    <StackedCard
-      cardProps={{
-        customBody: (
-          <Row style={[baseStyle.bodyTextRow]}>
-            <Text style={[baseStyle.cardBodyHeaderText]}>
-              {i18n.t('usual-self.modals.1-frequency-of-symptoms-body')}
-            </Text>
-          </Row>
-        ),
-        customFooter: (
-          <>
-            <Button
-              onPress={onClose}
-              style={[baseStyle.cardFooterButton]}
-              text={i18n.t('usual-self.modals.1-frequency-of-symptoms-cta')}
-              textStyle={[baseStyle.cardFooterText]}
-            />
-          </>
-        ),
-        customHeader: (
-          <Text style={[baseStyle.cardHeaderText]}>{i18n.t('usual-self.modals.1-frequency-of-symptoms-title')}</Text>
-        ),
-      }}
-      style={[baseStyle.card]}
-    />
+    <Modal onRequestClose={onClose} visible={visible}>
+      <Column
+        style={[
+          {
+            backgroundColor: colors.black50,
+            flexGrow: 1,
+            justifyContent: 'center',
+            paddingHorizontal: grid.g16,
+          },
+        ]}
+      >
+        <StackedCard
+          cardProps={{
+            customBody: (
+              <Row style={[baseStyle.bodyTextRow]}>
+                <Text style={[baseStyle.cardBodyHeaderText]}>
+                  {i18n.t('usual-self.modals.1-frequency-of-symptoms-body')}
+                </Text>
+              </Row>
+            ),
+            customFooter: (
+              <>
+                <Button
+                  onPress={onClose}
+                  style={[baseStyle.cardFooterButton]}
+                  text={i18n.t('usual-self.modals.1-frequency-of-symptoms-cta')}
+                  textStyle={[baseStyle.cardFooterText]}
+                />
+              </>
+            ),
+            customHeader: (
+              <Text style={[baseStyle.cardHeaderText]}>
+                {i18n.t('usual-self.modals.1-frequency-of-symptoms-title')}
+              </Text>
+            ),
+          }}
+          style={[baseStyle.card]}
+        />
+      </Column>
+    </Modal>
   );
 }
 

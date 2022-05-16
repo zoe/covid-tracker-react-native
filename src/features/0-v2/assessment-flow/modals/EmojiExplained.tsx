@@ -12,11 +12,12 @@ import { StyleSheet, Text } from 'react-native';
 import EmojiExplainedRows from '../components/0-modal-row-emoji-explained';
 
 interface IModalEmojiExplainedProps {
+  title: string;
   visible: boolean;
   onClose: () => void;
 }
 
-export default function ModalEmojiExplained({ visible, onClose }: IModalEmojiExplainedProps) {
+export default function ModalEmojiExplained({ title, visible, onClose }: IModalEmojiExplainedProps) {
   return (
     <Modal onRequestClose={onClose} visible={visible}>
       <Column
@@ -53,11 +54,7 @@ export default function ModalEmojiExplained({ visible, onClose }: IModalEmojiExp
                 />
               </>
             ),
-            customHeader: (
-              <Text style={[baseStyle.cardHeaderText]}>
-                {i18n.t('usual-self.assessment-flow.modals.0-emoji-explained-title')}
-              </Text>
-            ),
+            customHeader: <Text style={[baseStyle.cardHeaderText]}>{title}</Text>,
           }}
           style={[baseStyle.card]}
         />

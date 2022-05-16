@@ -1,12 +1,12 @@
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import React from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 
 export interface ITagProps {
   color?: string;
   style?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   text: string;
 }
 

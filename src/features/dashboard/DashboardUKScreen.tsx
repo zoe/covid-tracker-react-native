@@ -125,18 +125,18 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
       dispatch(appActions.setModalReBrandVisible(false));
       dispatch(appActions.setReBrandVisible(false));
     }
-
-    // TODO: FIX
-    // if (startupInfo?.is_tester) {
-    //   setTimeout(() => NavigatorService.navigate('UsualSelfIntroduction'), 500);
-    // }
   }, []);
 
-  const onPressReport = React.useCallback(
-    () =>
-      true ? NavigatorService.navigate('AssessmentPage1ShowUsualSelf') : appCoordinator.gotoNextScreen(route.name),
-    [],
-  );
+  const onPressReport = React.useCallback(async () => {
+    if (startupInfo?.use_assessment_flow_v1 && startupInfo?.show_assessment_flow_v1) {
+      NavigatorService.navigate('AssessmentPage1ShowUsualSelf');
+    } else if (startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1) {
+      await patientService.updatePatientInfo(patientId, { has_seen_assessment_flow_v1_onboarding: true });
+      NavigatorService.navigate('UsualSelfIntroScreen');
+    } else {
+      appCoordinator.gotoNextScreen(route.name);
+    }
+  }, []);
 
   const compactHeader = React.useMemo(() => <CompactHeader onPress={onPressReport} />, []);
   const expandedHeader = React.useMemo(() => <ExpandedHeader onPress={onPressReport} />, []);

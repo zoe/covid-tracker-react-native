@@ -13,13 +13,13 @@ import { StyleSheet, Text } from 'react-native';
 import { TUsualSelfFrequentSymptom } from '../types';
 
 const emoji = (severity: string) => {
-  if (severity === 'daily') return <IconTiredFace opacity="1" />;
-  if (severity === 'weekly') return <IconSadFace opacity="1" />;
-  if (severity === 'monthly') return <IconSadFace opacity="1" />;
+  if (severity === 'low') return <IconSmileFace opacity="1" />;
+  if (severity === 'medium') return <IconSadFace opacity="1" />;
+  if (severity === 'high') return <IconTiredFace opacity="1" />;
   return <IconSmileFace opacity="1" />;
 };
 
-const makeNoUsualSelfFrequentSymptoms = () => {
+export const makeNoUsualSelfFrequentSymptoms = () => {
   return (
     <Row style={[baseStyle.usualSelfSymptomRow]}>
       <Column style={[baseStyle.usualSelfSeverityColumn]}>{emoji('rarely')}</Column>
@@ -31,11 +31,11 @@ const makeNoUsualSelfFrequentSymptoms = () => {
 };
 
 const makeUsualSelfFrequentSymptoms = (yourFrequentSymptoms: TUsualSelfFrequentSymptom[]) =>
-  yourFrequentSymptoms.map(({ severity, symptom }: TUsualSelfFrequentSymptom) => (
-    <Row style={[baseStyle.usualSelfSymptomRow]}>
+  yourFrequentSymptoms.map(({ severity, display_name }: TUsualSelfFrequentSymptom, index: number) => (
+    <Row key={`usual-self-symptom-${index + 1}`} style={[baseStyle.usualSelfSymptomRow]}>
       <Column style={[baseStyle.usualSelfSeverityColumn]}>{emoji(severity)}</Column>
       <Column style={[baseStyle.usualSelfNameColumn]}>
-        <Text style={[baseStyle.symptomText, { textTransform: 'capitalize' }]}>{symptom}</Text>
+        <Text style={[baseStyle.symptomText]}>{display_name}</Text>
       </Column>
     </Row>
   ));
@@ -48,13 +48,14 @@ export default function UsualSelfFrequentSymptoms({ yourFrequentSymptoms }: IUsu
   return (
     <StackedCard
       cardProps={{
-        customBody: yourFrequentSymptoms ? (
-          <Column style={[baseStyle.usualSelfSymptomsColumn]}>
-            {makeUsualSelfFrequentSymptoms(yourFrequentSymptoms)}
-          </Column>
-        ) : (
-          makeNoUsualSelfFrequentSymptoms()
-        ),
+        customBody:
+          yourFrequentSymptoms && yourFrequentSymptoms.length > 0 ? (
+            <Column style={[baseStyle.usualSelfSymptomsColumn]}>
+              {makeUsualSelfFrequentSymptoms(yourFrequentSymptoms)}
+            </Column>
+          ) : (
+            makeNoUsualSelfFrequentSymptoms()
+          ),
       }}
       style={[baseStyle.cardStyle]}
     />

@@ -8,6 +8,8 @@ import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 interface IActionGroupButton {
   text: string;
+  disabled?: boolean;
+  style?: StyleProp<ViewStyle>;
   buttonType?: ButtonType; // make into type in storybook
   onPress: () => void;
 }
@@ -26,11 +28,11 @@ export default function UsualSelfActionCardButtonGroup({
   return (
     <Column style={style}>
       <Row style={[baseStyle.actionCardButtonRow]}>
-        <Button {...topButton} style={[baseStyle.actionCardButton]} textStyle={[baseStyle.actionCardButtonText]} />
+        <Button style={[baseStyle.actionCardButton]} textStyle={[baseStyle.actionCardButtonText]} {...topButton} />
       </Row>
       {bottomButton ? (
         <Row style={[baseStyle.actionCardButtonRow]}>
-          <Button {...bottomButton} style={[baseStyle.actionCardButton]} textStyle={[baseStyle.actionCardButtonText]} />
+          <Button style={[baseStyle.actionCardButton]} textStyle={[baseStyle.actionCardButtonText]} {...bottomButton} />
         </Row>
       ) : null}
     </Column>

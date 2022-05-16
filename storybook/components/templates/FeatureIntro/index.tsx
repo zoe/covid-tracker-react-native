@@ -1,27 +1,16 @@
-import IconArrowLeft from '@assets/v2/svg/icon-arrow-left';
 import { grid } from '@tracer/branding/grid';
 import Button from '@tracer/components/atoms/Button';
+import Column from '@tracer/components/atoms/Column';
 import Row from '@tracer/components/atoms/Row';
-import Screen from '@tracer/components/atoms/Screen';
 import Tag from '@tracer/components/atoms/Tag';
 import Dots from '@tracer/components/molecules/Dots';
-import IconButton from '@tracer/components/molecules/IconButton';
 import ScreenBody from '@tracer/components/molecules/Screen/body';
 import ScreenFooter from '@tracer/components/molecules/Screen/footer';
-import { ScreenNavigatorCompact } from '@tracer/components/organisms/Screen/nav';
 import React from 'react';
-import {
-  Image,
-  ImageSourcePropType,
-  StyleProp,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Image, ImageSourcePropType, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
 import { colors } from '../../../branding/colors';
+import ScreenStandardHeader from '../ScreenHeaders/standard';
 
 export interface IFeatureIntroScreenProps {
   imageSource?: ImageSourcePropType;
@@ -29,14 +18,11 @@ export interface IFeatureIntroScreenProps {
   title: string;
   content?: string;
   style?: StyleProp<ViewStyle>;
-  testID?: string;
   textButton?: string;
   introPageIndex: number;
   introPageLength?: number;
   onPress?: (updatePage: number) => void;
 }
-
-const FOOTER_HEIGHT = 100;
 
 /**
  * FeatureIntroScreen
@@ -45,19 +31,15 @@ const FOOTER_HEIGHT = 100;
  * @param children components to display withing the screen
  */
 export default function FeatureIntroScreen({
-  style,
   imageSource,
   feature,
   title,
   content,
-  testID = 'FeatureIntroScreen-test-ID',
   textButton,
   introPageIndex,
   introPageLength = 0,
   onPress,
 }: IFeatureIntroScreenProps) {
-  const { height } = useWindowDimensions();
-
   const onPressNext = () => {
     if (onPress) onPress(introPageIndex + 1);
   };
@@ -67,83 +49,88 @@ export default function FeatureIntroScreen({
   };
 
   return (
-    <Screen testID={testID}>
-      <ScreenNavigatorCompact
-        left={
-          <IconButton onPress={onPressBack}>
-            <IconArrowLeft />
-          </IconButton>
-        }
-        style={baseStyle.navView}
-      />
-      <ScreenBody>
+    <Column>
+      <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
+      <Row style={[baseStyle.imageRow]}>
         {/* @ts-ignore */}
-        <View style={[baseStyle.imageView]}>
-          {/* @ts-ignore */}
-          <Image resizeMode="contain" source={imageSource} style={baseStyle.image} />
-        </View>
-        <View style={[baseStyle.mainView, { height: height - FOOTER_HEIGHT }, style]}>
-          <Row>
-            <Tag style={baseStyle.featureTag} text={feature} />
+        <Image resizeMode="contain" source={imageSource} style={baseStyle.image} />
+      </Row>
+      <ScreenBody style={[baseStyle.body]}>
+        <Column>
+          <Row style={[baseStyle.tagRow]}>
+            <Column>
+              <Tag style={[baseStyle.tag]} text={feature} />
+            </Column>
           </Row>
-          <Text style={baseStyle.title}>{title}</Text>
-          <Text style={baseStyle.content}>{content}</Text>
-        </View>
+          <Row style={[baseStyle.row]}>
+            <Column style={[baseStyle.contentColumn]}>
+              <Row style={[baseStyle.row]}>
+                <Text style={baseStyle.title}>{title}</Text>
+              </Row>
+              <Row style={[baseStyle.row, baseStyle.contentRow]}>
+                <Text style={baseStyle.content}>{content}</Text>
+              </Row>
+            </Column>
+          </Row>
+        </Column>
       </ScreenBody>
-      <ScreenFooter>
-        <View style={baseStyle.footerView}>
-          <Button onPress={onPressNext} style={{ height: grid.g48 }} text={textButton} />
-          <Dots activeIndex={introPageIndex} length={introPageLength} />
-        </View>
+      <ScreenFooter style={[baseStyle.footer]}>
+        <Button onPress={onPressNext} text={textButton} />
+        <Dots activeIndex={introPageIndex} length={introPageLength} />
       </ScreenFooter>
-    </Screen>
+    </Column>
   );
 }
 
 const baseStyle = StyleSheet.create({
+  body: {
+    paddingHorizontal: grid.g16,
+  },
   content: {
     fontSize: 16,
     fontWeight: '200',
     lineHeight: grid.g24,
-    paddingHorizontal: grid.g16,
-    paddingVertical: grid.g16,
     textAlign: 'center',
   },
-  featureTag: {
-    marginBottom: grid.g16,
-    width: 160,
+  contentColumn: {
+    flexGrow: 1,
+    justifyContent: 'flex-start',
   },
-  footerView: {
+  contentRow: {
+    paddingTop: grid.g12,
+  },
+  footer: {
     paddingHorizontal: grid.g32,
   },
   image: {
-    backgroundColor: colors.tertiary,
+    backgroundColor: colors.surface.subdued,
     maxHeight: 205,
   },
-  imageView: {
-    backgroundColor: colors.tertiary,
+  imageRow: {
+    backgroundColor: colors.surface.subdued,
   },
-  mainView: {
-    alignContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    padding: grid.g24,
-    textAlign: 'center',
+  nav: {
+    backgroundColor: colors.surface.subdued,
+    paddingVertical: grid.g32,
   },
-  navView: {
-    backgroundColor: colors.tertiary,
-    flexDirection: 'row',
+  row: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  tag: {
+    paddingHorizontal: grid.g8,
+    paddingVertical: grid.g4,
+  },
+  tagRow: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingBottom: grid.g16,
+    paddingTop: grid.g24,
   },
   title: {
     fontSize: 28,
     fontWeight: '300',
     lineHeight: 40,
     textAlign: 'center',
-  },
-  view: {
-    backgroundColor: colors.white,
-    flex: 1,
   },
 });

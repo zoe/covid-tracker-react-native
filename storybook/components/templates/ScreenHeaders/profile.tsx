@@ -1,7 +1,6 @@
 import Avatar from '@assets/v2/svg/avatar';
 import IconArrowLeft from '@assets/v2/svg/icon-arrow-left';
 import i18n from '@covid/locale/i18n';
-import NavigatorService from '@covid/NavigatorService';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Row from '@tracer/components/atoms/Row';
@@ -12,14 +11,15 @@ import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
 interface IScreenProfileHeaderProps {
   style?: StyleProp<ViewStyle>;
+  onGoBack: () => void;
 }
 
-export default function ScreenProfileHeader({ style }: IScreenProfileHeaderProps) {
+export default function ScreenProfileHeader({ style, onGoBack }: IScreenProfileHeaderProps) {
   const avatarCircle = `${grid.g16}`;
   return (
     <ScreenNavigatorCompact
       left={
-        <IconButton onPress={() => NavigatorService.goBack()}>
+        <IconButton onPress={() => onGoBack()}>
           <IconArrowLeft />
         </IconButton>
       }

@@ -6,7 +6,7 @@ import { FormikValues } from 'formik';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import FormLabel from '../label';
+import FormLabel from '../labels/question';
 import { InputValidation } from './validation';
 
 interface IFormButtonQuestionProps {

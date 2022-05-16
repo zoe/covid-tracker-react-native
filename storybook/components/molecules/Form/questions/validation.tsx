@@ -29,7 +29,14 @@ export function InputAssist({ text }: IValidationProps) {
 
 export function InputError() {
   return (
-    <IconExclamation circleFill={colors.tags.critical} height={grid.g16} strokeColor={colors.white} width={grid.g16} />
+    <View style={baseStyles.assistView}>
+      <IconExclamation
+        circleFill={colors.tags.critical}
+        height={grid.g16}
+        strokeColor={colors.white}
+        width={grid.g16}
+      />
+    </View>
   );
 }
 

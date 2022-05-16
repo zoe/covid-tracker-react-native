@@ -2,56 +2,49 @@ import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
 import Row from '@tracer/components/atoms/Row';
-import { FormikValues } from 'formik';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Slider, { SliderOption } from '../../Slider';
 import { InputValidation } from './validation';
 
 interface IFormSliderQuestionProps {
-  validation?: string;
-  question: string;
-  required?: boolean;
-  options: SliderOption[];
-  /* this property is dynamically added later if wrapped bt the Form organism component  */
-  form?: FormikValues;
-  handleChange?: (input: string) => void;
   name: string;
+  title: ReactNode;
+  options: SliderOption[];
+  handleChange: (field: string, value: any, shouldValidate?: boolean) => void;
+  required?: boolean;
+  validation?: string;
 }
 
 /**
  * FormSliderQuestion
  *
- * @param question input label text
- * @param required (optional) is input required, defaults to false
+ * @param name unique identifier for question in form values
+ * @param title input label text
  * @param options slider options with label and value
- * @param validation input validation text
- * @param onChange input change handler
+ * @param handleChange input change handler
+ * @param required (optional) is input required, defaults to false
+ * @param validation (optional) input validation text
  */
 export default function FormSliderQuestion({
   handleChange,
   name,
-  question,
+  title,
   options,
   required = false,
   validation,
-  form,
 }: IFormSliderQuestionProps) {
-  if (handleChange) handleChange(name);
-
   const onSelect = (update: string | number) => {
-    if (form) form[name] = update;
+    handleChange(name, { value: update });
   };
 
   return (
     <Row style={baseStyles.view}>
       <Column>
-        <Slider showLabels name={form ? form[name] : ''} onSelect={onSelect} options={options} title={question} />
+        <Slider name={name} onSelect={onSelect} options={options} title={title} />
         <View style={baseStyles.validationView}>
-          {required && form && !form[name] && validation ? (
-            <InputValidation state="error" validation={validation} />
-          ) : null}
+          {required && validation ? <InputValidation state="error" validation={validation} /> : null}
         </View>
       </Column>
     </Row>
@@ -76,5 +69,6 @@ const baseStyles = StyleSheet.create({
   },
   view: {
     flex: 1,
+    flexGrow: 1,
   },
 });

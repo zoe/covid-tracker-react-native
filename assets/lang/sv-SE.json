@@ -1853,36 +1853,54 @@
   "usual-self": {
     "tag": false,
     "time": false,
-    "introduction": {
+    "flow-entry": {
       "title": false,
-      "button": false
+      "cta": false
     },
-    "reports-powerful": {
-      "title": false,
-      "description": false
-    },
-    "reports-single-tap": {
-      "title": false,
-      "description": false
-    },
-    "reports-symptoms": {
+    "flow-intro-1": {
       "title": false,
       "description": false,
-      "button": false
+      "cta": false
+    },
+    "flow-intro-2": {
+      "title": false,
+      "description": false,
+      "cta": false
+    },
+    "flow-intro-3": {
+      "title": false,
+      "description": false,
+      "cta": false
     },
     "setup": {
+      "header": false,
+      "tag": false,
+      "question-highlighted":false,
+      "question-label": false,
+      "description": false,
+      "button": false,
       "1-setup-flow-title-highlight": false,
-      "1-setup-flow-title": false
+      "1-setup-flow-title": false,
+      "2-setup-flow-other-symptom-placeholder": false,
+      "1-setup-flow-frequency-slider": false,
+      "1-setup-flow-severity-slider": false,
+      "1-setup-other-symptoms": false,
+      "1-log-new-symptom-flow-title-2": false,
+      "modal": {
+        "1-title": false,
+        "1-cta-1": false,
+        "1-cta-2": false
+      }
     },
     "assessment-flow": {
       "1-title": false,
-      "1-subtitle": false,
+      "1-subtitle":false,
       "header-me": false,
       "1-emoji-explain-button": false,
       "1-no-symptoms": false,
       "1-action-card-title": false,
       "1-action-card-cta-1": false,
-      "1-action-card-cta-2":false,
+      "1-action-card-cta-2": false,
       "1-action-card-footer-start": false,
       "1-action-card-footer-highlight-1": false,
       "1-action-card-footer-middle": false,
@@ -1897,6 +1915,14 @@
       "3-info-label": false,
       "3-action-card-cta-1": false,
       "4-log-new-symptom-flow-title": false,
+      "4-log-new-symptom-flow-cta-1": false,
+      "4-other-symptom-start": false,
+      "4-other-symptom-end": false,
+      "4-other-symptom-highlighted": false,
+      "5-new-symptom-reason-title": false,
+      "5-new-symptom-reason-not-aware": false,
+      "5-new-symptom-reason-aware": false,
+      "5-action-card-cta-1": false,
       "modals": {
         "0-emoji-explained-body": false,
         "0-emoji-explained-smile": false,
@@ -1906,7 +1932,11 @@
         "0-emoji-explained-cta": false,
         "1-feel-different-title": false,
         "1-feel-different-body": false,
-        "1-feel-different-cta": false
+        "1-feel-different-cta": false,
+        "4-log-symptoms-title": false,
+        "4-log-symptoms-cta": false,
+        "4-log-symptoms-body-2": false,
+        "4-log-symptoms-body-1": false
       }
     },
     "modals": {
@@ -1916,7 +1946,8 @@
       "0-usual-self-explanation-callout": false,
       "1-frequency-of-symptoms-body": false,
       "1-frequency-of-symptoms-title": false,
-      "1-frequency-of-symptoms-cta": false
+      "1-frequency-of-symptoms-cta": false,
+      "2-emoji-explained-title": false
     }
   }
 }

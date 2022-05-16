@@ -9,16 +9,31 @@ export interface IRadioProps {
   label?: string;
   unselectedStyle?: StyleProp<ViewStyle>;
   selectedStyle?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<ViewStyle>;
   onSelect: (selected: boolean) => void;
+  value?: string | number;
   selected: boolean;
 }
 
 /**
  * Radio
  *
- * @param children components to display inside the column
+ * @param label (optional) label of radio button
+ * @param unselectedStyle (optional) override unselected radio button style
+ * @param selectedStyle (optional) override selected radio button style
+ * @param onSelect: radio button click handler
+ * @param selected: state of radio button
+ * @param children components to display as children of the radio button
  */
-export default function Radio({ label, onSelect, selectedStyle, children, unselectedStyle, selected }: IRadioProps) {
+export default function Radio({
+  label,
+  onSelect,
+  selectedStyle,
+  labelStyle,
+  children,
+  unselectedStyle,
+  selected,
+}: IRadioProps) {
   const [isSelected, setSelect] = useState<boolean>(false);
 
   const onSelected = () => {
@@ -38,7 +53,7 @@ export default function Radio({ label, onSelect, selectedStyle, children, unsele
       <View>
         {/* @ts-ignore */}
         <Item onPress={onSelected} style={baseStyles.labelView}>
-          {label ? <Text style={baseStyles.label}>{label}</Text> : children}
+          {label ? <Text style={[baseStyles.label, labelStyle]}>{label}</Text> : children}
         </Item>
       </View>
     </View>

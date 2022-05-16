@@ -1,22 +1,19 @@
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
-import Column from '@tracer/components/atoms/Column';
 import InputText from '@tracer/components/atoms/Inputs/text';
 import Row from '@tracer/components/atoms/Row';
-import { FormikValues } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { InputError, InputSuccess, InputValidation, TInputState } from './validation';
+import { InputValidation, TInputState } from './validation';
 
 interface IFormInputTextQuestionProps {
   validation?: string;
   question?: string;
   state?: TInputState;
+  multiline?: boolean;
   placeholder?: string;
-  /* this property is dynamically added later if wrapped bt the Form organism component  */
-  form?: FormikValues;
-  handleChange?: (input: string) => void;
+  handleChange: (field: string, value: string, shouldValidate?: boolean) => void;
   name: string;
 }
 
@@ -33,42 +30,38 @@ const inputStyle = (state: TInputState) => {
  * @param required (optional) is input required, defaults to false
  * @param validation input validation text
  * @param placeholder input placeholder text
- * @param onChange input change handler
+ * @param handleChange input change handler
  */
 export default function FormInputTextQuestion({
   handleChange,
   name,
+  multiline,
   question = '',
-  placeholder = 'Write something here',
+  placeholder = 'Please describe',
   validation = '',
-  form,
   state = 'default',
 }: IFormInputTextQuestionProps) {
   const inputStateStyle = inputStyle(state);
 
-  if (handleChange) handleChange(name);
-
   const onChange = (update: string) => {
-    if (form) form[name] = update;
+    handleChange(name, update);
   };
 
   return (
-    <Row style={baseStyles.view}>
-      <Column>
-        <InputText
-          label={question}
-          onValueChange={onChange}
-          placeholder={placeholder}
-          value={form ? form[name] : ''}
-          viewStyle={inputStateStyle}
-        >
-          {state === 'error' ? <InputError /> : null}
-          {state === 'success' ? <InputSuccess /> : null}
-        </InputText>
-        <View style={baseStyles.validationView}>
-          <InputValidation state={state} validation={validation} />
-        </View>
-      </Column>
+    <Row style={[baseStyles.view]}>
+      <InputText
+        label={question}
+        onValueChange={onChange}
+        placeholder={placeholder}
+        value=""
+        viewStyle={inputStateStyle}
+      >
+        {/* {state === 'error' ? <InputError /> : null} */}
+        {/* {state === 'success' ? <InputSuccess /> : null} */}
+      </InputText>
+      <View style={baseStyles.validationView}>
+        {validation && validation.length > 0 ? <InputValidation state={state} validation={validation} /> : null}
+      </View>
     </Row>
   );
 }
@@ -90,6 +83,6 @@ const baseStyles = StyleSheet.create({
     marginVertical: grid.g8,
   },
   view: {
-    flex: 1,
+    flexGrow: 1,
   },
 });

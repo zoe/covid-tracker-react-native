@@ -1,4 +1,5 @@
 import IconInfo from '@assets/v2/svg/icon-info';
+import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { colors } from '@tracer/branding/colors';
@@ -13,19 +14,29 @@ import ScreenFooter from '@tracer/components/molecules/Screen/footer';
 import ScreenProfileHeader from '@tracer/components/templates/ScreenHeaders/profile';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 
-import { makeAssessmentFlowService } from '../api';
-import AssessmentFlowActionCard from '../components/1-usual-self-bottom-card';
-import UsualSelfFrequentSymptoms from '../components/1-usual-self-symptoms-view';
+import { makeAssessmentService, makeUsualSelfService } from '../../api';
+import AssessmentFlowActionCard from '../components/1-usual-self-action-bottom-card';
+import UsualSelfFrequentSymptoms from '../components/1-usual-self-symptoms';
 import ModalEmojiExplained from '../modals/EmojiExplained';
 import ModalUsualSelfExplanation from '../modals/UsualSelfExplanation';
 import { TUsualSelfFrequentSymptom } from '../types';
+
+const makeAssessment = (patientID: string, usualSymptoms?: TUsualSelfFrequentSymptom[]) => ({
+  other_symptoms: [],
+  patient: patientID,
+  reasons: [],
+  symptoms: usualSymptoms || [],
+});
 
 export default function AssessmentPage1ShowUsualSelf() {
   const [yourUsualSelfSymptoms, setYourUsualSelfSymptoms] = useState<TUsualSelfFrequentSymptom[] | undefined>();
   const [showUsualSelfModal, setUsualSelfModalState] = useState<boolean>(false);
   const [showEmojiExplanationModal, setEmojiExplanationModal] = useState<boolean>(false);
-  const assessmentFlowService = makeAssessmentFlowService();
+  const patientID = useSelector<TRootState, string>((state) => state.user.patients[0]);
+  const usualSelfService = makeUsualSelfService();
+  const assessmentService = makeAssessmentService();
 
   const onToggleUsualSelfModal = () => setUsualSelfModalState(!showUsualSelfModal);
   const onToggleEmojiExplanationModal = () => setEmojiExplanationModal(!showEmojiExplanationModal);
@@ -37,30 +48,44 @@ export default function AssessmentPage1ShowUsualSelf() {
   };
 
   const onFeelLikeUsualSelf = () => {
-    // assessmentFlowService.addNewDailyAssessment(yourUsualSelfSymptoms);
+    assessmentService
+      .createNewDailyAssessment(makeAssessment(patientID, yourUsualSelfSymptoms))
+      .then((resp) => {
+        // eslint-disable-next-line no-console
+        console.log(resp);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      });
     NavigatorService.navigate('ThankYouUK');
   };
 
   useEffect(() => {
-    assessmentFlowService
+    usualSelfService
       .getUsualSelf()
       .then(({ symptoms }) => {
         setYourUsualSelfSymptoms(symptoms);
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error);
       });
   }, []);
 
   return (
-    <Screen>
+    <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
       {showUsualSelfModal ? (
         <ModalUsualSelfExplanation onClose={() => onToggleUsualSelfModal()} visible={showUsualSelfModal} />
       ) : null}
       {showEmojiExplanationModal ? (
-        <ModalEmojiExplained onClose={() => onToggleEmojiExplanationModal()} visible={showEmojiExplanationModal} />
+        <ModalEmojiExplained
+          onClose={() => onToggleEmojiExplanationModal()}
+          title={i18n.t('usual-self.assessment-flow.modals.0-emoji-explained-title')}
+          visible={showEmojiExplanationModal}
+        />
       ) : null}
-      <ScreenProfileHeader />
+      <ScreenProfileHeader onGoBack={NavigatorService.goBack} />
       <ScreenBody style={[baseStyle.body]}>
         {/* TODO: make into it's own component */}
         <Column>

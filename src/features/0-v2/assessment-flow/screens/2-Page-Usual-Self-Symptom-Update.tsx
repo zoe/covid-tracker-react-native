@@ -1,4 +1,3 @@
-import { TPatientData } from '@covid/core/patient/PatientData';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -7,25 +6,50 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
-import { IButtonProps } from '@tracer/components/atoms/Button';
 import Column from '@tracer/components/atoms/Column';
 import Row from '@tracer/components/atoms/Row';
 import Screen from '@tracer/components/atoms/Screen';
-import ButtonGroup from '@tracer/components/molecules/Button/group';
 import Divider from '@tracer/components/molecules/Divider';
 import ScreenBody from '@tracer/components/molecules/Screen/body';
 import ScreenFooter from '@tracer/components/molecules/Screen/footer';
 import ScreenProfileHeader from '@tracer/components/templates/ScreenHeaders/profile';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 
-import { makeAssessmentFlowService } from '../api';
+import { makeAssessmentService, makeSymptomService } from '../../api';
 import UsualSelfActionCardButtonGroup from '../components/0-usual-self-action-card-button-group';
-import AssessmentFlowPageCardInfoLabel from '../components/2-usual-self-card-header';
-import AssessmentFlowEditUsualSymptom from '../components/2-usual-self-editable-symptom-row';
+import { makeNoUsualSelfFrequentSymptoms } from '../components/1-usual-self-symptoms';
+import AssessmentBubbleSymptoms from '../components/2-assessment-bubble-symptoms';
+import AssessmentFlowPageCardInfoLabel from '../components/2-usual-self-label';
+import AssessmentFlowEditUsualSymptom from '../components/2-usual-self-symptoms-edit';
 import ModalFeelDifferent from '../modals/FeelDifferent';
-import { TUsualSelfFrequentOtherSymptom, TUsualSelfFrequentSymptom, TUsualSelfSymptomSeverity } from '../types';
+import ModalSeverityNotSelected from '../modals/SeverityNotSelected';
+import {
+  TBubbleSymptoms,
+  TFrequentBubbleSymptom,
+  TUsualSelfFrequentOtherSymptom,
+  TUsualSelfFrequentSymptom,
+  TUsualSelfSymptomSeverity,
+} from '../types';
+
+const makeReport = (
+  patientID: string,
+  usualSymptoms: TUsualSelfFrequentSymptom[],
+  uncheckedUsualSymptoms: TUsualSelfFrequentSymptom[],
+  additionalSymptoms?: TUsualSelfFrequentSymptom[],
+  additionalOtherSymptoms?: TUsualSelfFrequentOtherSymptom[],
+) => {
+  const uncheckedNames = uncheckedUsualSymptoms.map((unchecked) => unchecked.symptom);
+  const reportUsualSymptoms = usualSymptoms.filter((usual) => !uncheckedNames.includes(usual.symptom));
+
+  return {
+    other_symptoms: [...(additionalOtherSymptoms || [])],
+    patient: patientID,
+    symptoms: [...reportUsualSymptoms, ...(additionalSymptoms || [])],
+  };
+};
 
 interface AssessmentFlowPage2ScreenProps {
   navigation: StackNavigationProp<TScreenParamList, 'AssessmentPage2UpdateUsualSelf'>;
@@ -33,34 +57,115 @@ interface AssessmentFlowPage2ScreenProps {
 }
 
 export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlowPage2ScreenProps) {
-  const [usualSelfSymptoms, setUsualSelfSymptoms] = useState<TUsualSelfFrequentSymptom[]>();
-  const [showFeelDifferentInfoModal, setFeelDifferentInfoModal] = useState<boolean>(false);
-  const [additionalSymptomsToday, ,] = useState<TUsualSelfFrequentSymptom[] | undefined>();
-  const [yourOtherSymptoms, setYourOtherSymptoms] = useState<TUsualSelfFrequentSymptom[]>();
-  const [selectedAdditionalSymptoms, setSelectedAdditionalSymptoms] = useState<number[]>([]);
-  const [, setYourOtherCommonSymptoms] = useState<TUsualSelfFrequentOtherSymptom[]>();
-  const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
-  const assessmentFlowService = makeAssessmentFlowService();
+  const [usualSymptoms, setUsualSymptoms] = useState<TUsualSelfFrequentSymptom[]>([]);
+  const [uncheckedUsualSymptoms, setUncheckedUsualSymptoms] = useState<TUsualSelfFrequentSymptom[]>([]);
 
+  const [newFrequentBubbleSymptoms, setFrequentBubbleSymptoms] = useState<TFrequentBubbleSymptom[]>();
+  const [newAdditionalSymptoms, setAdditionalSymptoms] = useState<TUsualSelfFrequentSymptom[]>();
+
+  const [newOtherBubbleSymptoms, setOtherBubbleSymptoms] = useState<TUsualSelfFrequentOtherSymptom[]>();
+  const [newAdditionalOtherSymptoms, setAdditionalOtherSymptoms] = useState<TUsualSelfFrequentOtherSymptom[]>();
+
+  const [, setNewLoggedSymptoms] = useState<TUsualSelfFrequentSymptom[]>();
+
+  const [showFormMissingSeverityModal, setFormMissingSeverityModal] = useState<boolean>(false);
+
+  const [showFeelDifferentInfoModal, setFeelDifferentInfoModal] = useState<boolean>(false);
   const onToggleFeelDifferentInfoModal = () => setFeelDifferentInfoModal(!showFeelDifferentInfoModal);
 
-  const onUpdateDailyAssessmentSymptom = (symptomName: string) => {
-    if (usualSelfSymptoms) {
-      const updateUsualSelfSymptoms = usualSelfSymptoms;
-      const usualSelfSymptomsToKeep: TUsualSelfFrequentSymptom[] = updateUsualSelfSymptoms.filter(
-        (usualSelfSymptom) => usualSelfSymptom.symptom !== symptomName,
-      );
-      setUsualSelfSymptoms(usualSelfSymptomsToKeep);
+  const patientID = useSelector<TRootState, string>((state) => state.user.patients[0]);
+
+  const symptomService = makeSymptomService();
+  const assessmentService = makeAssessmentService();
+
+  const onToggleSymptom = (symptomName: string) => {
+    const exists = uncheckedUsualSymptoms.filter((symptom) => symptom.display_name === symptomName);
+
+    if (exists.length === 0) {
+      const symptomToBeIgnored = usualSymptoms.filter((symptom) => symptom.display_name === symptomName);
+      setUncheckedUsualSymptoms([...uncheckedUsualSymptoms, ...symptomToBeIgnored]);
+    } else {
+      const keep = uncheckedUsualSymptoms.filter((symptom) => symptom.display_name !== symptomName);
+      setUncheckedUsualSymptoms([...keep]);
     }
   };
 
-  const onUpdateSeverityAssessmentSymptom = (symptomName: string, severity: TUsualSelfSymptomSeverity) => {
-    if (usualSelfSymptoms) {
-      const updateUsualSelfSymptoms = usualSelfSymptoms;
-      const usualSelfSymptomsUpdated: TUsualSelfFrequentSymptom[] = updateUsualSelfSymptoms.map((usualSelfSymptom) =>
-        usualSelfSymptom.symptom === symptomName ? { ...usualSelfSymptom, ...{ severity } } : usualSelfSymptom,
+  const onUpdateSymptomSeverity = (symptomName: string, severity: TUsualSelfSymptomSeverity) => {
+    if (usualSymptoms) {
+      const updateUsualSelfSymptoms = usualSymptoms;
+      const usualSelfSymptomsUpdated: TUsualSelfFrequentSymptom[] = updateUsualSelfSymptoms.map(
+        (newUsualSelfSymptom: TUsualSelfFrequentSymptom) =>
+          newUsualSelfSymptom.display_name === symptomName
+            ? { ...newUsualSelfSymptom, ...{ severity } }
+            : newUsualSelfSymptom,
       );
-      setUsualSelfSymptoms(usualSelfSymptomsUpdated);
+      setUsualSymptoms(usualSelfSymptomsUpdated);
+    }
+  };
+
+  const onAddBubbleSymptom = (symptomIndex: number) => {
+    if (newFrequentBubbleSymptoms) {
+      const newSymptoms = newFrequentBubbleSymptoms.filter(
+        (symptom) => symptom.display_name !== newFrequentBubbleSymptoms[symptomIndex].display_name,
+      );
+      setAdditionalSymptoms([...(newAdditionalSymptoms || []), newFrequentBubbleSymptoms[symptomIndex]]);
+      setFrequentBubbleSymptoms(newSymptoms);
+    }
+  };
+
+  const onToggleAdditionalSymptoms = (symptomName: string) => {
+    if (newAdditionalSymptoms) {
+      const symptomIndex = newAdditionalSymptoms.findIndex(
+        (newAdditionalSymptom) => newAdditionalSymptom.display_name === symptomName,
+      );
+      const updatedSymptoms = [...newAdditionalSymptoms];
+      const selectedSymptoms = updatedSymptoms.splice(symptomIndex, 1);
+      setAdditionalSymptoms(updatedSymptoms);
+      setFrequentBubbleSymptoms([...(newFrequentBubbleSymptoms || []), ...selectedSymptoms]);
+    }
+  };
+
+  const onToggleAdditionalOtherSymptoms = (symptomName: string) => {
+    if (newAdditionalOtherSymptoms) {
+      const updateOtherSymptoms = [...newAdditionalOtherSymptoms];
+      const symptomIndex = updateOtherSymptoms.findIndex(
+        (newAdditionalOtherSymptom: TUsualSelfFrequentOtherSymptom) =>
+          newAdditionalOtherSymptom.description === symptomName,
+      );
+      const selectedSymptoms: TUsualSelfFrequentOtherSymptom[] = updateOtherSymptoms.splice(symptomIndex, 1);
+      setAdditionalOtherSymptoms(updateOtherSymptoms);
+      setOtherBubbleSymptoms([...(newOtherBubbleSymptoms || []), ...selectedSymptoms]);
+    }
+  };
+
+  const onAddOtherBubbleSymptom = (index: number) => {
+    if (newOtherBubbleSymptoms) {
+      const updateOtherBubbleSymptoms = [...newOtherBubbleSymptoms];
+      setAdditionalOtherSymptoms([...(newAdditionalOtherSymptoms || []), updateOtherBubbleSymptoms[index]]);
+      updateOtherBubbleSymptoms.splice(index, 1);
+      setOtherBubbleSymptoms(updateOtherBubbleSymptoms);
+    }
+  };
+
+  const onUpdateAdditionalSymptomSeverity = (symptomName: string, severity: TUsualSelfSymptomSeverity) => {
+    if (newAdditionalSymptoms) {
+      const updateAdditionalSymptoms = newAdditionalSymptoms;
+      const additionalSymptomsUpdated: TUsualSelfFrequentSymptom[] = updateAdditionalSymptoms.map(
+        (usualSelfSymptom: TUsualSelfFrequentSymptom) =>
+          usualSelfSymptom.symptom === symptomName ? { ...usualSelfSymptom, ...{ severity } } : usualSelfSymptom,
+      );
+      setAdditionalSymptoms(additionalSymptomsUpdated);
+    }
+  };
+
+  const onUpdateAdditionalOtherSymptomSeverity = (symptomName: string, severity: TUsualSelfSymptomSeverity) => {
+    if (newAdditionalOtherSymptoms) {
+      const updateAdditionalOtherSymptoms = newAdditionalOtherSymptoms;
+      const additionalOtherSymptomsUpdated: TUsualSelfFrequentOtherSymptom[] = updateAdditionalOtherSymptoms.map(
+        (symptom: TUsualSelfFrequentOtherSymptom) =>
+          symptom.description === symptomName ? { ...symptom, ...{ severity } } : symptom,
+      );
+      setAdditionalOtherSymptoms(additionalOtherSymptomsUpdated);
     }
   };
 
@@ -68,129 +173,199 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
     NavigatorService.navigate('AssessmentPage3LogNewSymptom');
   };
 
-  const onSubmit = () => {};
-
-  // TODO: Add code to show other additional symptoms
-  // const onSelectRecommendedSymptom = (symptomNumbers: number[]) => {
-  //   if (yourOtherSymptoms) {
-  //     const symptom: TUsualSelfFrequentSymptom = yourOtherSymptoms[symptomNumber];
-  //     if (additionalSymptomsToday) setAdditionalSymptomsToday(additionalSymptomsToday.concat(symptom));
-  //     setAdditionalSymptomsToday([symptom]);
-  //   }
-  // };
-
-  // TODO: Add code to show other additional symptoms
-  // const onSelectRecommendedOtherSymptoms = (otherSymptom: TUsualSelfFrequentOtherSymptom) => {};
-
-  const makeOtherSymptomButtonGroupProps = (otherSymptoms: TUsualSelfFrequentSymptom[]): IButtonProps[] =>
-    otherSymptoms.map(({ symptom }) => ({
-      buttonType: 'secondary',
-      text: `+ ${symptom}`,
-    }));
+  const onSubmit = () => {
+    const report = makeReport(
+      patientID,
+      usualSymptoms,
+      uncheckedUsualSymptoms,
+      newAdditionalSymptoms,
+      newAdditionalOtherSymptoms,
+    );
+    if (
+      (newAdditionalSymptoms && newAdditionalSymptoms?.length > 0) ||
+      (newAdditionalOtherSymptoms && newAdditionalOtherSymptoms?.length > 0)
+    ) {
+      NavigatorService.navigate('AssessmentPage5LogNewSymptomReason', { report });
+    } else {
+      assessmentService
+        .createNewDailyAssessment({ ...report, ...{ reasons: [] } })
+        .then((resp) => console.log(resp))
+        .catch((err) => console.log(err));
+      NavigatorService.navigate('ThankYouUK');
+    }
+  };
 
   useEffect(() => {
-    assessmentFlowService
-      .getRecommendedSymptoms(currentPatient.patientId)
-      .then((recommendedSymptoms) => {
-        setYourOtherSymptoms(recommendedSymptoms.symptoms);
-        setYourOtherCommonSymptoms(recommendedSymptoms.other_symptoms);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (route.params.usualSelfSymptoms) {
+      symptomService
+        .getRecommendedSymptoms()
+        .then(({ symptoms, other_symptoms }: TBubbleSymptoms) => {
+          setFrequentBubbleSymptoms(symptoms);
+          setOtherBubbleSymptoms(other_symptoms);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        });
 
-    setUsualSelfSymptoms(route.params.usualSelfSymptoms);
-    setSelectedAdditionalSymptoms([]);
+      const usualSelf = route.params.usualSelfSymptoms.map((data: TUsualSelfFrequentSymptom) => {
+        return {
+          display_name: data.display_name,
+          frequency: data.frequency,
+          severity: data.severity,
+          symptom: data.symptom,
+        };
+      });
+      setUsualSymptoms(usualSelf);
+    }
   }, []);
 
+  useEffect(() => {
+    const newSymptoms = route.params.newSymptoms;
+    setNewLoggedSymptoms(newSymptoms);
+    if (newAdditionalSymptoms && newSymptoms) {
+      setAdditionalSymptoms([...newAdditionalSymptoms, ...newSymptoms]);
+    } else {
+      setAdditionalSymptoms(newSymptoms);
+    }
+  }, [route.params.newSymptoms]);
+
+  const symptomsHaveSeverity = (symptoms: TUsualSelfFrequentSymptom[] | TUsualSelfFrequentOtherSymptom[]): boolean => {
+    const symptomsWithoutSeverity = symptoms.filter(
+      ({ severity }: TUsualSelfFrequentSymptom | TUsualSelfFrequentOtherSymptom) =>
+        severity === null || severity === undefined,
+    );
+    return symptomsWithoutSeverity.length === 0;
+  };
+
+  const isFormValid = () => {
+    const isValidAdditionalSymptoms = newAdditionalSymptoms ? symptomsHaveSeverity(newAdditionalSymptoms) : true;
+    const isValidAdditionalOtherSymptoms = newAdditionalOtherSymptoms
+      ? symptomsHaveSeverity(newAdditionalOtherSymptoms)
+      : true;
+    const isValidusualSymptoms = usualSymptoms ? symptomsHaveSeverity(usualSymptoms) : true;
+    return isValidAdditionalSymptoms && isValidAdditionalOtherSymptoms && isValidusualSymptoms;
+  };
+
+  const isReadyToSubmit = isFormValid();
   return (
-    <Screen>
+    <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
       {showFeelDifferentInfoModal ? (
         <ModalFeelDifferent onClose={() => onToggleFeelDifferentInfoModal()} visible={showFeelDifferentInfoModal} />
       ) : null}
-      <ScreenProfileHeader />
-      <ScreenBody style={[baseStyle.body]}>
-        {/* TODO: make into it's own assessment flow body component */}
-        <Column>
-          <Row style={[baseStyle.titleRow]}>
-            <Text style={[baseStyle.title]}>{i18n.t('usual-self.assessment-flow.2-title')}</Text>
-          </Row>
-          <AssessmentFlowPageCardInfoLabel
-            iconProps={{
-              fill: colors.surface.interactive,
-              height: grid.g24,
-              width: grid.g24,
-            }}
-            onPressInfo={() => onToggleFeelDifferentInfoModal()}
-            text={i18n.t('usual-self.assessment-flow.2-subtitle')}
-          />
-          {usualSelfSymptoms
-            ? usualSelfSymptoms.map((props) => (
-                <AssessmentFlowEditUsualSymptom
-                  {...props}
-                  onUpdateDailyAssessmentSymptom={onUpdateDailyAssessmentSymptom}
-                  onUpdateSeverityAssessmentSymptom={onUpdateSeverityAssessmentSymptom}
-                />
-              ))
-            : null}
-          {additionalSymptomsToday && additionalSymptomsToday.length > 0 ? (
-            <>
-              {/* <Row style={{ paddingHorizontal: grid.g16, paddingVertical: grid.g24 }}>
+      {showFormMissingSeverityModal ? (
+        <ModalSeverityNotSelected
+          onClose={() => setFormMissingSeverityModal(false)}
+          visible={showFormMissingSeverityModal}
+        />
+      ) : null}
+      <ScreenProfileHeader onGoBack={NavigatorService.goBack} />
+      <ScrollView>
+        <ScreenBody style={[baseStyle.body]}>
+          <Column>
+            <Row style={[baseStyle.titleRow]}>
+              <Text style={[baseStyle.title]}>{i18n.t('usual-self.assessment-flow.2-title')}</Text>
+            </Row>
+            <Row style={{ marginBottom: grid.g12, paddingHorizontal: grid.g16 }}>
+              <AssessmentFlowPageCardInfoLabel
+                iconProps={{
+                  fill: colors.surface.interactive,
+                  height: grid.g24,
+                  width: grid.g24,
+                }}
+                onPressInfo={() => onToggleFeelDifferentInfoModal()}
+                text={i18n.t('usual-self.assessment-flow.2-subtitle')}
+              />
+            </Row>
+            {usualSymptoms && usualSymptoms !== undefined
+              ? usualSymptoms.map((props: TUsualSelfFrequentSymptom, index: number) => (
+                  <AssessmentFlowEditUsualSymptom
+                    key={`edit-symptom-${index + 1}`}
+                    onToggleSymptom={onToggleSymptom}
+                    onUpdateSymptomSeverity={onUpdateSymptomSeverity}
+                    severity={props.severity}
+                    symptom={props.display_name}
+                  />
+                ))
+              : null}
+            {!usualSymptoms || usualSymptoms === undefined || usualSymptoms.length === 0
+              ? makeNoUsualSelfFrequentSymptoms()
+              : null}
+            {(newAdditionalSymptoms !== undefined && newAdditionalSymptoms.length > 0) ||
+            (newAdditionalOtherSymptoms !== undefined && newAdditionalOtherSymptoms.length > 0) ? (
+              <Row style={[baseStyle.additionalSymptomHeaderRow]}>
                 <Text style={[baseStyle.additionalSymptomHeader]}>
                   {i18n.t('usual-self.assessment-flow.2-addition-symptoms')}
                 </Text>
               </Row>
-              {additionalSymptomsToday.map((props) => (
-                <AssessmentFlowEditUsualSymptom
-                  {...props}
-                  onUpdateDailyAssessmentSymptom={onUpdateDailyAssessmentSymptom}
-                  onUpdateSeverityAssessmentSymptom={onUpdateSeverityAssessmentSymptom}
-                />
-              ))} */}
-            </>
-          ) : null}
-          <Row style={[baseStyle.dividerRow]}>
-            <Divider color={colors.quaternary} width={1} />
-          </Row>
-          {yourOtherSymptoms && yourOtherSymptoms.length > 0 ? (
-            <ButtonGroup
-              multiSelect
-              active={selectedAdditionalSymptoms}
-              buttonProps={makeOtherSymptomButtonGroupProps(yourOtherSymptoms)}
-              onChange={(updatedUsualSelfSymptoms: number[]) => {
-                console.log(updatedUsualSelfSymptoms);
+            ) : null}
+            {newAdditionalSymptoms
+              ? newAdditionalSymptoms.map(({ severity, display_name }: TUsualSelfFrequentSymptom, index: number) => (
+                  <AssessmentFlowEditUsualSymptom
+                    key={`edit-additional-frequent-symptom-${index + 1}`}
+                    onToggleSymptom={onToggleAdditionalSymptoms}
+                    onUpdateSymptomSeverity={onUpdateAdditionalSymptomSeverity}
+                    severity={severity}
+                    symptom={display_name}
+                  />
+                ))
+              : null}
+            {newAdditionalOtherSymptoms
+              ? newAdditionalOtherSymptoms.map(
+                  ({ severity, description }: TUsualSelfFrequentOtherSymptom, index: number) => (
+                    <AssessmentFlowEditUsualSymptom
+                      key={`edit-additional-frequent-symptom-${index + 1}`}
+                      onToggleSymptom={onToggleAdditionalOtherSymptoms}
+                      onUpdateSymptomSeverity={onUpdateAdditionalOtherSymptomSeverity}
+                      severity={severity}
+                      symptom={description}
+                    />
+                  ),
+                )
+              : null}
+            {(newFrequentBubbleSymptoms && newFrequentBubbleSymptoms.length > 0) ||
+            (newOtherBubbleSymptoms && newOtherBubbleSymptoms.length > 0) ? (
+              <Row style={[baseStyle.dividerRow]}>
+                <Divider color={colors.quaternary} width={1} />
+              </Row>
+            ) : null}
+            {newFrequentBubbleSymptoms &&
+            newFrequentBubbleSymptoms !== undefined &&
+            newFrequentBubbleSymptoms.length > 0 ? (
+              <AssessmentBubbleSymptoms
+                bubbleSymptoms={newFrequentBubbleSymptoms}
+                onSelectBubble={onAddBubbleSymptom}
+                otherBubbleSymptoms={[]}
+              />
+            ) : null}
+            {newOtherBubbleSymptoms && newOtherBubbleSymptoms !== undefined && newOtherBubbleSymptoms.length > 0 ? (
+              <AssessmentBubbleSymptoms
+                otherSymptoms
+                bubbleSymptoms={[]}
+                onSelectBubble={onAddOtherBubbleSymptom}
+                otherBubbleSymptoms={newOtherBubbleSymptoms}
+              />
+            ) : null}
+          </Column>
+        </ScreenBody>
+      </ScrollView>
+      <ScreenFooter>
+        <Row style={[baseStyle.footerRow]}>
+          <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+            <UsualSelfActionCardButtonGroup
+              bottomButton={{
+                onPress: isReadyToSubmit ? onSubmit : () => setFormMissingSeverityModal(true),
+                text: i18n.t('usual-self.assessment-flow.2-action-card-cta-2'),
               }}
-              style={{
-                backgroundColor: colors.transparent,
-                flexGrow: 1,
-                flexWrap: 'wrap',
-                paddingHorizontal: grid.g16,
+              style={[baseStyle.cardButtonGroup]}
+              topButton={{
+                buttonType: 'secondary',
+                onPress: onLogNewSymptom,
+                text: i18n.t('usual-self.assessment-flow.2-action-card-cta-1'),
               }}
             />
-          ) : null}
-          {/* {yourOtherSymptoms && yourOtherSymptoms.length > 0 ? (
-            <Row style={{ flexGrow: 1, flexWrap: 'wrap' }}>
-              <ButtonGroup
-                buttonProps={makeOtherSymptomButtonGroupProps(yourOtherSymptoms)}
-                onChange={(btn: number) => onSelectRecommendedOtherSymptoms(symptomNumber)}
-              />
-            </Row>
-          ) : null} */}
-        </Column>
-      </ScreenBody>
-      <ScreenFooter style={baseStyle.footer}>
-        <UsualSelfActionCardButtonGroup
-          bottomButton={{
-            onPress: onSubmit,
-            text: i18n.t('usual-self.assessment-flow.2-action-card-cta-2'),
-          }}
-          style={[baseStyle.cardButtonGroup]}
-          topButton={{
-            buttonType: 'secondary',
-            onPress: onLogNewSymptom,
-            text: i18n.t('usual-self.assessment-flow.2-action-card-cta-1'),
-          }}
-        />
+          </Column>
+        </Row>
       </ScreenFooter>
     </Screen>
   );
@@ -204,8 +379,13 @@ const baseStyle = StyleSheet.create({
     lineHeight: grid.g24,
     textAlign: 'left',
   },
+  additionalSymptomHeaderRow: {
+    paddingHorizontal: grid.g16,
+    paddingVertical: grid.g24,
+  },
   body: {
     backgroundColor: colors.surface.interactive,
+    paddingHorizontal: grid.g16,
   },
   cardButtonGroup: {
     paddingTop: grid.g24,
@@ -226,6 +406,13 @@ const baseStyle = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 30,
   },
+  footerRow: {
+    backgroundColor: colors.white,
+    paddingBottom: grid.g24,
+    shadowColor: 'black',
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+  },
   subTitleRow: {
     flexGrow: 1,
     justifyContent: 'center',
@@ -236,7 +423,7 @@ const baseStyle = StyleSheet.create({
     letterSpacing: 0,
     lineHeight: 40,
     marginBottom: grid.g24,
-    paddingHorizontal: grid.g32,
+    paddingHorizontal: grid.g24,
     textAlign: 'center',
   },
   titleRow: {

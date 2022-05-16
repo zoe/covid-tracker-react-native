@@ -1,7 +1,7 @@
 import { grid } from '@tracer/branding/grid';
 import Row from '@tracer/components/atoms/Row';
 import React, { ReactNode } from 'react';
-import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native';
 
 import { colors } from '../../../branding/colors';
 
@@ -9,7 +9,7 @@ export interface ICardBodyProps {
   custom?: ReactNode;
   body?: string;
   viewStyle?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   testID?: string;
 }
 

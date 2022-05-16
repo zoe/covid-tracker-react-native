@@ -5,27 +5,29 @@ import Column from '@tracer/components/atoms/Column';
 import Row from '@tracer/components/atoms/Row';
 import IconButton from '@tracer/components/molecules/IconButton';
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native';
 
-interface IAssessmentFlowPageCardInfoLabelProps {
+interface IInfoLabelProps {
   text: string;
   iconProps?: TIconInfoProps;
   onPressInfo: () => void;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
-export default function AssessmentFlowPageCardInfoLabel({
-  text,
-  onPressInfo,
-  iconProps,
-}: IAssessmentFlowPageCardInfoLabelProps) {
+export default function InfoLabel({ text, onPressInfo, iconProps, style, textStyle }: IInfoLabelProps) {
   return (
-    <Row style={[baseStyle.row]}>
+    <Row style={[baseStyle.row, style]}>
       <Column>
-        <Text style={[baseStyle.text]}>{text}</Text>
+        <Text style={[baseStyle.text, textStyle]}>{text}</Text>
       </Column>
       <Column style={[baseStyle.infoColumn]}>
         <IconButton buttonType="tertiary" onPress={onPressInfo}>
-          <IconInfo strokeColor={baseStyle.iconStroke.color} {...iconProps} />
+          <IconInfo
+            fill={baseStyle.iconStroke.backgroundColor}
+            strokeColor={baseStyle.iconStroke.color}
+            {...iconProps}
+          />
         </IconButton>
       </Column>
     </Row>
@@ -34,6 +36,7 @@ export default function AssessmentFlowPageCardInfoLabel({
 
 const baseStyle = StyleSheet.create({
   iconStroke: {
+    backgroundColor: colors.transparent,
     color: colors.text.primary,
   },
   infoColumn: {
@@ -41,12 +44,10 @@ const baseStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: grid.g8,
-    paddingVertical: grid.g4,
+    paddingTop: grid.g4,
   },
   row: {
     flexGrow: 1,
-    marginBottom: grid.g16,
-    paddingHorizontal: grid.g16,
   },
   text: {
     fontSize: 14,

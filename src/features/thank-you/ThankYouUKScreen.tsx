@@ -205,7 +205,7 @@ export default function ThankYouUKScreen(props: IProps) {
         <ShareAppCard />
 
         <BrandedButton
-          onPress={() => assessmentCoordinator.gotoNextScreen(props.route.name)}
+          onPress={() => NavigatorService.navigate('Dashboard')}
           style={styles.ctaSingleProfile}
           testID="button-complete"
         >

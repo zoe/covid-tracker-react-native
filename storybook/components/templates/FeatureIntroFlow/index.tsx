@@ -17,6 +17,7 @@ export interface IFlowFeatureIntroProps {
    * last CTA.
    */
   onExitNavigation?: Function;
+  onBackNavigation?: Function;
   /**
    * Controls in which direction the Screen should scroll
    */
@@ -27,6 +28,7 @@ export default function FlowFeatureIntro({
   entry,
   intro,
   onExitNavigation,
+  onBackNavigation,
   flow = 'horizontal',
 }: IFlowFeatureIntroProps) {
   const flowScrollRef = useRef<ScrollView>(null);
@@ -41,7 +43,7 @@ export default function FlowFeatureIntro({
 
   return (
     <ScreenFlow flow={flow} props={{ showsHorizontalScrollIndicator: false }} scrollRef={flowScrollRef}>
-      <FeatureIntroEntryScreen {...entry} onPress={() => onUpdatePage(1)} />
+      <FeatureIntroEntryScreen {...entry} onPress={() => onUpdatePage(1)} onPressBack={onBackNavigation} />
       {intro
         ? intro.map((screen, index) => (
             <FeatureIntroScreen key={`feature-intro-screen-${index + 1}`} {...screen} onPress={onUpdatePage} />

@@ -4,11 +4,11 @@ import { storiesOf } from '@storybook/react-native';
 import { colors } from '@tracer/branding/colors';
 import { IButtonProps } from '@tracer/components/atoms/Button';
 import Row from '@tracer/components/atoms/Row';
-import Form from '@tracer/components/molecules/Form/form';
 import FormButtonQuestion from '@tracer/components/molecules/Form/questions/button';
-import FormCheckboxQuestion, { IFormCheckboxItemProps } from '@tracer/components/molecules/Form/questions/checkbox';
+import FormCheckboxQuestion, {
+  IFormCheckboxItemProps,
+} from '@tracer/components/molecules/Form/questions/multiCheckbox';
 import FormRadioQuestion, { IFormRadioItemProps } from '@tracer/components/molecules/Form/questions/radio';
-import FormSliderQuestion from '@tracer/components/molecules/Form/questions/slider';
 import FormInputTextQuestion from '@tracer/components/molecules/Form/questions/text';
 import React from 'react';
 
@@ -16,14 +16,17 @@ import { CenterView } from '../CenterView';
 
 const checkboxItems: IFormCheckboxItemProps[] = [
   {
+    id: 1,
     label: 'Headache',
     selected: false,
   },
   {
+    id: 2,
     label: 'Fever',
     selected: false,
   },
   {
+    id: 3,
     label: 'Sneezing',
     selected: false,
   },
@@ -101,64 +104,4 @@ storiesOf('Molecules/Forms', module)
       label="Did you feel worse this week?"
       name="button"
     />
-  ))
-  .add('form', () => (
-    <Form
-      initValues={{
-        button: '',
-        checkbox: '',
-        radio: '',
-        text: '',
-      }}
-      onSubmit={action('submitted form')}
-    >
-      <FormInputTextQuestion
-        key="input-form-text"
-        name="text"
-        placeholder={text('Placeholder', 'placeholder text')}
-        question={text('Label', 'label')}
-        state={optionsKnob(
-          'state',
-          {
-            default: 'default',
-            error: 'error',
-            success: 'success',
-          },
-          'default',
-          { display: 'inline-radio' },
-        )}
-        validation={text('validation', 'lorem ipsum')}
-      />
-      <FormRadioQuestion
-        items={radioItems}
-        key="input-form-radio"
-        name="radio"
-        question={text('Question', 'What symptoms are you experiencing today?')}
-        required={boolean('required', true)}
-      />
-      <FormCheckboxQuestion
-        items={checkboxItems}
-        key="input-form-checkbox"
-        name="checkbox"
-        question={text('Question', 'What symptoms are you experiencing today?')}
-        required={boolean('required', true)}
-      />
-      <FormButtonQuestion
-        buttons={buttons}
-        handleChange={action('selected button')}
-        key="input-form-button"
-        label="Did you feel worse this week?"
-        name="button"
-      />
-      <FormSliderQuestion
-        name="slider"
-        options={[
-          { label: 'rarely', value: 'rarely' },
-          { label: 'monthly', value: 'monthly' },
-          { label: 'weekly', value: 'weekly' },
-          { label: 'daily', value: 'daily' },
-        ]}
-        question="Select frequency"
-      />
-    </Form>
   ));

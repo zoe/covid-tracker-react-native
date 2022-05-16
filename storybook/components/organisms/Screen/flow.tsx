@@ -16,6 +16,7 @@ interface IScreenFlowProps {
    */
   scrollEventThrottle?: number;
   scrollRef?: RefObject<ScrollView> | undefined;
+  height?: number;
   props?: any;
 }
 
@@ -24,6 +25,7 @@ export default function ScreenFlow({
   flow = 'horizontal',
   scrollEventThrottle = 0,
   scrollRef,
+  height,
   props,
 }: IScreenFlowProps) {
   const isHorizontalFlow = flow === 'horizontal';
@@ -34,7 +36,7 @@ export default function ScreenFlow({
         horizontal={isHorizontalFlow}
         ref={scrollRef}
         scrollEventThrottle={scrollEventThrottle}
-        style={baseStyle.flex}
+        style={[baseStyle.flex, { height }]}
         {...props}
       >
         {children}
