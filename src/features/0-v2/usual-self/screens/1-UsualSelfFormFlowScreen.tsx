@@ -23,7 +23,6 @@ import ModalEmojiExplained from '../../assessment-flow/modals/EmojiExplained';
 import ModalFrequencyOfSymptoms from '../../assessment-flow/modals/FrequencyOfSymptoms';
 import { TUsualSelfFrequentSymptom } from '../../assessment-flow/types';
 import ModalUsualSelfSetup from '../modals/UsualSelfSetup';
-import ModalUsualSelfSetupError from '../modals/UsualSelfSetupCheck';
 import { SYMPTOM_FREQUENCY_LABELS, SYMPTOM_SEVERITY_LABELS, TSymptomCategory } from '../types';
 
 const USUAL_SELF_SYMPTOM_CATEGORY = 'misc';
@@ -85,20 +84,25 @@ export default function UsualSelfFormFlowScreen() {
         ];
       });
 
-    const newUsualSelf = {
-      other_symptoms: [
+    let other_symptoms = [];
+    if (submitted.other_symptoms && submitted.other_symptoms !== undefined)
+      other_symptoms = [
         {
-          description: submitted.other_symptoms,
-          frequency: null,
-          severity: null,
+          description: submitted.other_symptoms.description,
+          frequency: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
+          severity: SYMPTOM_SEVERITY_LABELS[submitted.other_symptoms.severity].label.toLowerCase(),
         },
-      ],
+      ];
+
+    const newUsualSelf = {
+      other_symptoms,
       patient: currentPatient.patientId,
       reasons: [],
       symptoms: usualSelf,
       usual_self: true,
     };
 
+    console.log(newUsualSelf);
     usualSelfService
       .createUsualSelf(newUsualSelf)
       .then((resp) => {
@@ -224,9 +228,6 @@ export default function UsualSelfFormFlowScreen() {
 
   return (
     <Screen isInsideTabBar>
-      {showUsualSetupErrorModal ? (
-        <ModalUsualSelfSetupError onClose={() => setShowFrequencyModal(false)} visible={showUsualSetupModal} />
-      ) : null}
       {showUsualSetupModal ? (
         <ModalUsualSelfSetup
           onClose={() => onFinishUsualSelfSetup()}
@@ -258,7 +259,13 @@ export default function UsualSelfFormFlowScreen() {
               <ScrollView>
                 {otherSymptomLogScreen ? (
                   <Column style={{ flexGrow: 1 }}>
-                    <LogOtherSymptoms handleChange={setFieldValue} name="other_symptoms" question="Optional" />
+                    <LogOtherSymptoms
+                      formID="other_symptoms"
+                      handleChange={setFieldValue}
+                      handleChangeFrequency={setFieldValue}
+                      handleChangeSeverity={setFieldValue}
+                      question="Optional"
+                    />
                   </Column>
                 ) : (
                   <LogSymptomScreenBody

@@ -4,17 +4,29 @@ import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
 import Row from '@tracer/components/atoms/Row';
 import Tag from '@tracer/components/atoms/Tag';
+import FormRadioQuestion from '@tracer/components/molecules/Form/questions/radio';
 import FormInputTextQuestion from '@tracer/components/molecules/Form/questions/text';
 import React, { useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
+import { SYMPTOM_FREQUENCY_LABELS, SYMPTOM_SEVERITY_LABELS } from '../../usual-self/types';
+import InfoLabel from './2-usual-self-label';
+
 interface ILogOtherSymptomsProps {
-  name: string;
+  formID: string;
   handleChange: (field: string, value: any, shouldValidate?: boolean) => void;
+  handleChangeSeverity: (field: string, value: any, shouldValidate?: boolean) => void;
+  handleChangeFrequency: (field: string, value: any, shouldValidate?: boolean) => void;
   question: string;
 }
 
-export default function LogOtherSymptoms({ handleChange, name, question }: ILogOtherSymptomsProps) {
+export default function LogOtherSymptoms({
+  handleChange,
+  handleChangeSeverity,
+  handleChangeFrequency,
+  formID,
+  question,
+}: ILogOtherSymptomsProps) {
   const [validation, setValidation] = useState<string>('');
   const [state, setState] = useState<string>('default');
 
@@ -52,18 +64,64 @@ export default function LogOtherSymptoms({ handleChange, name, question }: ILogO
         <FormInputTextQuestion
           multiline
           handleChange={(field, value) => updateInput(field, value)}
-          name={name}
+          name={`${formID}.description`}
           placeholder={i18n.t('usual-self.setup.2-setup-flow-other-symptom-placeholder')}
           question={question}
           state={state}
           validation={validation}
         />
+        <Row>
+          <Column style={{ marginTop: grid.g16, paddingHorizontal: grid.g16 }}>
+            <InfoLabel
+              onPressInfo={() => {}}
+              text={i18n.t('usual-self.setup.1-setup-flow-frequency-slider')}
+              textStyle={[baseStyle.infoLabel]}
+            />
+            <FormRadioQuestion
+              handleChange={handleChangeFrequency}
+              items={SYMPTOM_FREQUENCY_LABELS}
+              labelStyle={{ marginLeft: 0 }}
+              name={`${formID}.frequency`}
+            />
+          </Column>
+        </Row>
+        <Row>
+          <Column style={{ paddingHorizontal: grid.g16 }}>
+            <InfoLabel
+              onPressInfo={() => {}}
+              text={i18n.t('usual-self.setup.1-setup-flow-severity-slider')}
+              textStyle={baseStyle.infoLabel}
+            />
+            <FormRadioQuestion
+              handleChange={handleChangeSeverity}
+              items={SYMPTOM_SEVERITY_LABELS}
+              labelStyle={{ marginLeft: 0 }}
+              name={`${formID}.severity`}
+            />
+          </Column>
+        </Row>
       </Column>
     </>
   );
 }
 
 const baseStyle = StyleSheet.create({
+  flexGrow: {
+    flexGrow: 1,
+  },
+  footer: {
+    backgroundColor: colors.white,
+    shadowColor: colors.black,
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
+  },
+  infoLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0,
+    lineHeight: grid.g24,
+    textAlign: 'left',
+  },
   pageHeaderHighlighted: {
     color: colors.text.accent,
   },
@@ -74,5 +132,23 @@ const baseStyle = StyleSheet.create({
     letterSpacing: 0,
     lineHeight: 26,
     textAlign: 'left',
+  },
+  screenBody: {
+    marginTop: grid.g16,
+    paddingHorizontal: grid.g24,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '500',
+    letterSpacing: 0,
+    lineHeight: 26,
+    textAlign: 'left',
+  },
+  titleHighlight: {
+    color: colors.accent,
+  },
+  titleRow: {
+    justifyContent: 'flex-start',
+    marginBottom: grid.g24,
   },
 });
