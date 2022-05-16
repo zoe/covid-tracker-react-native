@@ -1,4 +1,3 @@
-export { default as ActionButton } from './ActionButton';
 export { default as BigButton } from './big-button';
 export { default as BrandedButton } from './branded-button';
 export { default as CheckBoxButton } from './check-box-button';
