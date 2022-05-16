@@ -88,9 +88,9 @@ export default function UsualSelfFormFlowScreen() {
     const newUsualSelf = {
       other_symptoms: [
         {
-          description: submitted.other_symptoms,
-          frequency: null,
-          severity: null,
+          description: submitted.other_symptoms.description,
+          frequency: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
+          severity: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
         },
       ],
       patient: currentPatient.patientId,
@@ -258,7 +258,7 @@ export default function UsualSelfFormFlowScreen() {
               <ScrollView>
                 {otherSymptomLogScreen ? (
                   <Column style={{ flexGrow: 1 }}>
-                    <LogOtherSymptoms handleChange={setFieldValue} name="other_symptoms" question="Optional" />
+                    <LogOtherSymptoms formID="other_symptoms" handleChange={setFieldValue} question="Optional" />
                   </Column>
                 ) : (
                   <LogSymptomScreenBody
