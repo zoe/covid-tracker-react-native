@@ -23,6 +23,7 @@ import ModalEmojiExplained from '../../assessment-flow/modals/EmojiExplained';
 import ModalFrequencyOfSymptoms from '../../assessment-flow/modals/FrequencyOfSymptoms';
 import { TUsualSelfFrequentSymptom } from '../../assessment-flow/types';
 import ModalUsualSelfSetup from '../modals/UsualSelfSetup';
+import ModalUsualSelfSetupError from '../modals/UsualSelfSetupCheck';
 import { SYMPTOM_FREQUENCY_LABELS, SYMPTOM_SEVERITY_LABELS, TSymptomCategory } from '../types';
 
 const USUAL_SELF_SYMPTOM_CATEGORY = 'misc';
@@ -46,6 +47,7 @@ export default function UsualSelfFormFlowScreen() {
   const usualSelfService = makeUsualSelfService();
   const [initValues, setInitValues] = useState<{ [name: string]: any }>();
   const [showUsualSetupModal, setShowUsualSetupModal] = useState<boolean>(false);
+  const [showUsualSetupErrorModal, setShowUsualSetupErrorModal] = useState<boolean | undefined>(undefined);
 
   const onSubmit = async (submitted: any) => {
     const symptoms: { [name: string]: any } = Object.keys(submitted).reduce(
@@ -86,9 +88,9 @@ export default function UsualSelfFormFlowScreen() {
     const newUsualSelf = {
       other_symptoms: [
         {
+          description: submitted.other_symptoms,
           frequency: null,
           severity: null,
-          symptom: submitted.other_symptoms,
         },
       ],
       patient: currentPatient.patientId,
@@ -99,10 +101,16 @@ export default function UsualSelfFormFlowScreen() {
 
     usualSelfService
       .createUsualSelf(newUsualSelf)
-      .then((resp) => console.log('successful', resp))
-      .catch((error) => console.log('could not log usual self', error));
-
-    setShowUsualSetupModal(true);
+      .then((resp) => {
+        // eslint-disable-next-line no-console
+        console.log('successful', resp);
+        setShowUsualSetupModal(true);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log('could not log usual self', error);
+        setShowUsualSetupErrorModal(true);
+      });
   };
 
   const onToggleFrequencyModal = () => setShowFrequencyModal(true);
@@ -151,6 +159,7 @@ export default function UsualSelfFormFlowScreen() {
           setCurrentCategory({ currentIndex: nextIndex, currentName: data.name });
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.log(`could not get symptom for ${symptomCategories[nextIndex].name}: ${error}`);
         });
     }
@@ -164,6 +173,7 @@ export default function UsualSelfFormFlowScreen() {
         setCurrentCategory({ currentIndex: 0, currentName: USUAL_SELF_SYMPTOM_CATEGORY });
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(`could not get symptom areas: ${error}`);
       });
     symptomService
@@ -172,6 +182,7 @@ export default function UsualSelfFormFlowScreen() {
         setSymptomCategory(data);
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(`could not get symptom for ${USUAL_SELF_SYMPTOM_CATEGORY}: ${error}`);
       });
 
@@ -213,6 +224,9 @@ export default function UsualSelfFormFlowScreen() {
 
   return (
     <Screen isInsideTabBar>
+      {showUsualSetupErrorModal ? (
+        <ModalUsualSelfSetupError onClose={() => setShowFrequencyModal(false)} visible={showUsualSetupModal} />
+      ) : null}
       {showUsualSetupModal ? (
         <ModalUsualSelfSetup
           onClose={() => onFinishUsualSelfSetup()}

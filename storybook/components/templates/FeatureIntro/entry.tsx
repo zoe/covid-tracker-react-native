@@ -5,7 +5,17 @@ import Column from '@tracer/components/atoms/Column';
 import ScreenBody from '@tracer/components/molecules/Screen/body';
 import ScreenFooter from '@tracer/components/molecules/Screen/footer';
 import React from 'react';
-import { Image, ImageProps, ImageSourcePropType, StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native';
+import {
+  Image,
+  ImageProps,
+  ImageSourcePropType,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 
 import ScreenStandardHeader from '../ScreenHeaders/standard';
 
@@ -37,8 +47,9 @@ export default function FeatureIntroEntryScreen({
   onPressBack,
   onPress,
 }: IFeatureIntroEntryScreenProps) {
+  const { height } = useWindowDimensions();
   return (
-    <Column>
+    <Column style={{ height }}>
       <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
       <ScreenBody>
         <View style={[baseStyle.mainView]}>

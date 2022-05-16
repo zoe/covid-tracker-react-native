@@ -189,8 +189,14 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
     } else {
       assessmentService
         .createNewDailyAssessment({ ...report, ...{ reasons: [] } })
-        .then((resp) => console.log(resp))
-        .catch((err) => console.log(err));
+        .then((resp) => {
+          // eslint-disable-next-line no-console
+          console.log(resp);
+        })
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.log(err);
+        });
       NavigatorService.navigate('ThankYouUK');
     }
   };
@@ -284,7 +290,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
                     onToggleSymptom={onToggleSymptom}
                     onUpdateSymptomSeverity={onUpdateSymptomSeverity}
                     severity={props.severity}
-                    symptom={props.display_name}
+                    symptom={props.symptom}
                   />
                 ))
               : null}
@@ -300,13 +306,13 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
               </Row>
             ) : null}
             {newAdditionalSymptoms
-              ? newAdditionalSymptoms.map(({ severity, display_name }: TUsualSelfFrequentSymptom, index: number) => (
+              ? newAdditionalSymptoms.map(({ severity, symptom }: TUsualSelfFrequentSymptom, index: number) => (
                   <AssessmentFlowEditUsualSymptom
                     key={`edit-additional-frequent-symptom-${index + 1}`}
                     onToggleSymptom={onToggleAdditionalSymptoms}
                     onUpdateSymptomSeverity={onUpdateAdditionalSymptomSeverity}
                     severity={severity}
-                    symptom={display_name}
+                    symptom={symptom}
                   />
                 ))
               : null}
