@@ -47,9 +47,9 @@ export default function FeatureIntroEntryScreen({
   onPressBack,
   onPress,
 }: IFeatureIntroEntryScreenProps) {
-  const { height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   return (
-    <Column style={{ height }}>
+    <Column style={{ height, width }}>
       <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
       <ScreenBody>
         <View style={[baseStyle.mainView]}>

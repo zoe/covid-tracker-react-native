@@ -7,7 +7,7 @@ import Dots from '@tracer/components/molecules/Dots';
 import ScreenBody from '@tracer/components/molecules/Screen/body';
 import ScreenFooter from '@tracer/components/molecules/Screen/footer';
 import React from 'react';
-import { Image, ImageSourcePropType, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { Image, ImageSourcePropType, StyleProp, StyleSheet, Text, useWindowDimensions, ViewStyle } from 'react-native';
 
 import { colors } from '../../../branding/colors';
 import ScreenStandardHeader from '../ScreenHeaders/standard';
@@ -48,8 +48,9 @@ export default function FeatureIntroScreen({
     if (onPress) onPress(introPageIndex - 1);
   };
 
+  const { width, height } = useWindowDimensions();
   return (
-    <Column>
+    <Column style={{ height, width }}>
       <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
       <Row style={[baseStyle.imageRow]}>
         {/* @ts-ignore */}

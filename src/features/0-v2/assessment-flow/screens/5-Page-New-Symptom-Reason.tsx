@@ -55,10 +55,20 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
   });
 
   const onSubmit = (submitted: any) => {
-    const symptomReasons = submitted.symptom_reasons;
-    const selectedReasons = Object.keys(symptomReasons).filter((reason) => symptomReasons[reason].state);
+    let selectedReasons = [];
+    if (submitted.symptom_reasons !== null && submitted.symptom_reasons !== undefined) {
+      const symptomReasons = submitted.symptom_reasons;
+      selectedReasons = Object.keys(symptomReasons).map((reason) =>
+        symptomReasons[reason].state === true ? symptomReasons[reason].display : null,
+      );
+    }
+
     const report = { ...route.params.report, ...{ reasons: selectedReasons } };
-    assessmentService.createNewDailyAssessment(report);
+    assessmentService
+      .createNewDailyAssessment(report)
+      .then((resp) => console.log(resp))
+      .catch((error) => console.log(error));
+
     NavigatorService.navigate('ThankYouUK');
   };
 
@@ -75,7 +85,7 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
   return (
     <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
       <ScreenStandardHeader onGoBack={() => NavigatorService.goBack()} />
-      <Formik initialValues={initValues} onSubmit={onSubmit}>
+      <Formik initialValues={initValues} onSubmit={(v) => onSubmit(v)}>
         {({ handleSubmit, setFieldValue }) => {
           return (
             <>
