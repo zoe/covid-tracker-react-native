@@ -33,10 +33,10 @@ export default function ModalUsualSelfSetupError({ visible, onClose }: IModalUsu
               <Row style={{ height: grid.g32 + grid.g24, justifyContent: 'center', marginVertical: grid.g16 }}>
                 <Text
                   style={{
-                    fontSize: grid.g24,
-                    fontWeight: '400',
+                    fontSize: grid.g16,
+                    fontWeight: '300',
                     letterSpacing: 0,
-                    lineHeight: grid.g32,
+                    lineHeight: 20,
                     textAlign: 'center',
                   }}
                 >

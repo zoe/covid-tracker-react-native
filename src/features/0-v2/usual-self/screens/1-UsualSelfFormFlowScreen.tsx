@@ -102,7 +102,6 @@ export default function UsualSelfFormFlowScreen() {
       usual_self: true,
     };
 
-    console.log(newUsualSelf);
     usualSelfService
       .createUsualSelf(newUsualSelf)
       .then((resp) => {
