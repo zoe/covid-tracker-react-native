@@ -23,7 +23,6 @@ import ModalEmojiExplained from '../../assessment-flow/modals/EmojiExplained';
 import ModalFrequencyOfSymptoms from '../../assessment-flow/modals/FrequencyOfSymptoms';
 import { TUsualSelfFrequentSymptom } from '../../assessment-flow/types';
 import ModalUsualSelfSetup from '../modals/UsualSelfSetup';
-import ModalUsualSelfSetupError from '../modals/UsualSelfSetupCheck';
 import { SYMPTOM_FREQUENCY_LABELS, SYMPTOM_SEVERITY_LABELS, TSymptomCategory } from '../types';
 
 const USUAL_SELF_SYMPTOM_CATEGORY = 'misc';
@@ -91,7 +90,7 @@ export default function UsualSelfFormFlowScreen() {
         {
           description: submitted.other_symptoms.description,
           frequency: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
-          severity: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
+          severity: SYMPTOM_SEVERITY_LABELS[submitted.other_symptoms.severity].label.toLowerCase(),
         },
       ];
 
@@ -229,9 +228,6 @@ export default function UsualSelfFormFlowScreen() {
 
   return (
     <Screen isInsideTabBar>
-      {showUsualSetupErrorModal ? (
-        <ModalUsualSelfSetupError onClose={() => setShowFrequencyModal(false)} visible={showUsualSetupModal} />
-      ) : null}
       {showUsualSetupModal ? (
         <ModalUsualSelfSetup
           onClose={() => onFinishUsualSelfSetup()}
