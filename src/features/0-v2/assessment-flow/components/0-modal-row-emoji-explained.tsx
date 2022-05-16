@@ -17,17 +17,22 @@ export default function EmojiExplainedRows({ title }: IEmojiExplainedRowsProps) 
     <>
       <Row style={[baseStyle.explanationRow]}>
         <IconSmileFace opacity="1" />
-        <Text style={[baseStyle.explanationText]}>{title}</Text>
+        <Text style={[baseStyle.explanationText]}>
+          {'Low: '}
+          {title}
+        </Text>
       </Row>
       <Row style={[baseStyle.explanationRow]}>
         <IconSadFace opacity="1" />
         <Text style={[baseStyle.explanationText]}>
+          {'Medium: '}
           {i18n.t('usual-self.assessment-flow.modals.0-emoji-explained-sad')}
         </Text>
       </Row>
       <Row style={[baseStyle.explanationRow]}>
         <IconTiredFace opacity="1" />
         <Text style={[baseStyle.explanationText]}>
+          {'High: '}
           {i18n.t('usual-self.assessment-flow.modals.0-emoji-explained-tired')}
         </Text>
       </Row>

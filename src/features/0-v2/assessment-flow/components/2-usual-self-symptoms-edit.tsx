@@ -43,6 +43,7 @@ function UsualSelfSymptomIconButton({ severity, iconType, onPress }: IUsualSelfS
 
 interface IAssessmentFlowEditUsualSymptom {
   symptom: string;
+  display_name: string;
   onToggleSymptom: (symptomName: string) => void;
   severity: TUsualSelfSymptomSeverity;
   onUpdateSymptomSeverity: (symptomName: string, severity: TUsualSelfSymptomSeverity) => void;
@@ -50,6 +51,7 @@ interface IAssessmentFlowEditUsualSymptom {
 
 export default function AssessmentFlowEditUsualSymptom({
   symptom,
+  display_name,
   onToggleSymptom,
   severity,
   onUpdateSymptomSeverity,
@@ -60,7 +62,7 @@ export default function AssessmentFlowEditUsualSymptom({
         <Row style={{ flexWrap: 'wrap', maxWidth: 170 }}>
           <Checkbox
             selected
-            label={symptom}
+            label={display_name}
             onSelect={() => onToggleSymptom(symptom)}
             textStyle={baseStyle.symptomText}
           />

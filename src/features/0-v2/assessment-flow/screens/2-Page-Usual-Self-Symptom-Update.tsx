@@ -286,6 +286,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
             {usualSymptoms && usualSymptoms !== undefined
               ? usualSymptoms.map((props: TUsualSelfFrequentSymptom, index: number) => (
                   <AssessmentFlowEditUsualSymptom
+                    display_name={props.display_name}
                     key={`edit-symptom-${index + 1}`}
                     onToggleSymptom={onToggleSymptom}
                     onUpdateSymptomSeverity={onUpdateSymptomSeverity}
@@ -306,15 +307,18 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
               </Row>
             ) : null}
             {newAdditionalSymptoms
-              ? newAdditionalSymptoms.map(({ severity, symptom }: TUsualSelfFrequentSymptom, index: number) => (
-                  <AssessmentFlowEditUsualSymptom
-                    key={`edit-additional-frequent-symptom-${index + 1}`}
-                    onToggleSymptom={onToggleAdditionalSymptoms}
-                    onUpdateSymptomSeverity={onUpdateAdditionalSymptomSeverity}
-                    severity={severity}
-                    symptom={symptom}
-                  />
-                ))
+              ? newAdditionalSymptoms.map(
+                  ({ severity, symptom, display_name }: TUsualSelfFrequentSymptom, index: number) => (
+                    <AssessmentFlowEditUsualSymptom
+                      display_name={display_name}
+                      key={`edit-additional-frequent-symptom-${index + 1}`}
+                      onToggleSymptom={onToggleAdditionalSymptoms}
+                      onUpdateSymptomSeverity={onUpdateAdditionalSymptomSeverity}
+                      severity={severity}
+                      symptom={symptom}
+                    />
+                  ),
+                )
               : null}
             {newAdditionalOtherSymptoms
               ? newAdditionalOtherSymptoms.map(
@@ -357,7 +361,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
       </ScrollView>
       <ScreenFooter>
         <Row style={[baseStyle.footerRow]}>
-          <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+          <Column style={{ alignContent: 'center', alignItems: 'center', flexGrow: 1, justifyContent: 'flex-start' }}>
             <UsualSelfActionCardButtonGroup
               bottomButton={{
                 onPress: isReadyToSubmit ? onSubmit : () => setFormMissingSeverityModal(true),
@@ -414,6 +418,7 @@ const baseStyle = StyleSheet.create({
   },
   footerRow: {
     backgroundColor: colors.white,
+    flexGrow: 1,
     paddingBottom: grid.g24,
     shadowColor: 'black',
     shadowOpacity: 0.15,
