@@ -57,7 +57,7 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
               const subSymptom = symptom.subSymptoms[subSymptomName];
               return {
                 display_name: subSymptom.display,
-                frequency: null,
+                frequency: '',
                 severity: null,
                 symptom: subSymptomName,
               };
@@ -66,7 +66,7 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
           return [
             {
               display_name: symptom.options.display,
-              frequency: null,
+              frequency: '',
               severity: null,
               symptom: symptom.options.value,
             },
@@ -74,7 +74,7 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
         return [
           {
             display_name: symptom.display,
-            frequency: null,
+            frequency: '',
             severity: null,
             symptom: symptomName,
           },

@@ -54,7 +54,7 @@ export const makeSymptomService = (): SymptomService => {
 };
 
 interface IAssessmentService {
-  createNewDailyAssessment: ({ data }: any) => Promise<any>;
+  createNewDailyAssessment: (data: any) => Promise<any>;
 }
 
 export const makeAssessmentService = (): IAssessmentService => {
@@ -64,6 +64,6 @@ export const makeAssessmentService = (): IAssessmentService => {
   const EP_ASSESSMENT_NEW_REPORT = 'report';
 
   return {
-    createNewDailyAssessment: async (data) => api.post(`${base}/${EP_ASSESSMENT_NEW_REPORT}/`, data),
+    createNewDailyAssessment: async (data: TUsualSelf) => api.post(`${base}/${EP_ASSESSMENT_NEW_REPORT}/`, data),
   };
 };

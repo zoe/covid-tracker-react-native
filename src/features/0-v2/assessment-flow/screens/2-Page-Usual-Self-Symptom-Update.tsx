@@ -34,6 +34,22 @@ import {
   TUsualSelfSymptomSeverity,
 } from '../types';
 
+const cleanSymptoms = (data) => {
+  return data.map((s) => ({
+    frequency: s.frequency,
+    severity: s.severity,
+    symptom: s.symptom,
+  }));
+};
+
+const cleanOtherSymptoms = (data) => {
+  return data.map((s) => ({
+    description: s.description,
+    frequency: s.frequency,
+    severity: s.severity,
+  }));
+};
+
 const makeReport = (
   patientID: string,
   usualSymptoms: TUsualSelfFrequentSymptom[],
@@ -44,10 +60,20 @@ const makeReport = (
   const uncheckedNames = uncheckedUsualSymptoms.map((unchecked) => unchecked.symptom);
   const reportUsualSymptoms = usualSymptoms.filter((usual) => !uncheckedNames.includes(usual.symptom));
 
+  let cleanedOtherAdditionalSymptoms = [];
+  if (additionalOtherSymptoms !== undefined && additionalOtherSymptoms.length > 0) {
+    cleanedOtherAdditionalSymptoms = cleanOtherSymptoms(additionalOtherSymptoms);
+  }
+
+  let cleanedAdditionalSymptoms = [];
+  if (additionalSymptoms !== undefined && additionalSymptoms.length > 0) {
+    cleanedAdditionalSymptoms = cleanSymptoms(additionalSymptoms);
+  }
+
   return {
-    other_symptoms: [...(additionalOtherSymptoms || [])],
+    other_symptoms: [...(cleanedOtherAdditionalSymptoms || [])],
     patient: patientID,
-    symptoms: [...reportUsualSymptoms, ...(additionalSymptoms || [])],
+    symptoms: [...cleanSymptoms(reportUsualSymptoms), ...(cleanedAdditionalSymptoms || [])],
   };
 };
 

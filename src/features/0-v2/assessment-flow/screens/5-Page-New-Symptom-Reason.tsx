@@ -55,11 +55,11 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
   });
 
   const onSubmit = (submitted: any) => {
-    let selectedReasons = [];
+    let selectedReasons: any[] = [];
     if (submitted.symptom_reasons !== null && submitted.symptom_reasons !== undefined) {
       const symptomReasons = submitted.symptom_reasons;
       selectedReasons = Object.keys(symptomReasons).map((reason) =>
-        symptomReasons[reason].state === true ? symptomReasons[reason].display : null,
+        symptomReasons[reason].state === true ? reason : null,
       );
     }
 
@@ -67,10 +67,13 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
 
     assessmentService
       .createNewDailyAssessment(report)
-      .then((resp) => console.log(resp))
-      .catch((error) => console.log(error));
-
-    NavigatorService.navigate('ThankYouUK');
+      .then((resp) => {
+        console.log(resp);
+        NavigatorService.navigate('ThankYouUK');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const initValues = reasons
