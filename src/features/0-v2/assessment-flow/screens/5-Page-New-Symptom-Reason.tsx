@@ -68,6 +68,7 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
       .createNewDailyAssessment(report)
       .then((resp) => console.log(resp))
       .catch((error) => console.log(error));
+
     NavigatorService.navigate('ThankYouUK');
   };
 
@@ -84,12 +85,7 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
   return (
     <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
       <ScreenStandardHeader onGoBack={() => NavigatorService.goBack()} />
-      <Formik
-        initialValues={initValues}
-        onSubmit={(v) => {
-          onSubmit(v);
-        }}
-      >
+      <Formik initialValues={initValues} onSubmit={(v) => onSubmit(v)}>
         {({ handleSubmit, setFieldValue }) => {
           return (
             <>

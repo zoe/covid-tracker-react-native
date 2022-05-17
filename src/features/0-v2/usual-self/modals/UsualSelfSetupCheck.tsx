@@ -23,25 +23,44 @@ export default function ModalUsualSelfSetupError({ visible, onClose }: IModalUsu
             backgroundColor: colors.black50,
             flexGrow: 1,
             justifyContent: 'center',
-            paddingHorizontal: grid.g16,
+            paddingHorizontal: grid.g48,
           },
         ]}
       >
         <StackedCard
           cardProps={{
             customBody: (
-              <Row style={{ height: grid.g32 + grid.g24, justifyContent: 'center', marginVertical: grid.g16 }}>
+              <Row
+                style={{
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  marginVertical: grid.g16,
+                  paddingHorizontal: grid.g16,
+                }}
+              >
                 <Text
                   style={{
                     fontSize: grid.g24,
-                    fontWeight: '400',
+                    fontWeight: '500',
                     letterSpacing: 0,
-                    lineHeight: grid.g32,
-                    textAlign: 'center',
+                    lineHeight: 32,
+                    textAlign: 'left',
                   }}
                 >
-                  To proceed, please check on previous screens that for each of your chosen symptoms accompanied by
-                  sub-checkboxes that you selected at least one sub-checkbox
+                  We could not submit your form
+                </Text>
+                <Text
+                  style={{
+                    fontSize: grid.g16,
+                    fontWeight: '300',
+                    letterSpacing: 0,
+                    lineHeight: 20,
+                    textAlign: 'left',
+                  }}
+                >
+                  {'\n\n'}Please check that you chosen a frequency and impact on life for every symptom selected.
+                  {'\n\n'}Furthermore, please also make sure that for symptoms with sub symptoms, that you have selected
+                  at least one of them.
                 </Text>
               </Row>
             ),

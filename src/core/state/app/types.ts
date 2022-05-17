@@ -4,4 +4,5 @@ export type TStateApp = {
   modalMentalHealthPlaybackVisible: boolean;
   modalReBrandVisible: boolean;
   toggleReBrand: boolean;
+  useAssessmentFlowV1: boolean;
 };

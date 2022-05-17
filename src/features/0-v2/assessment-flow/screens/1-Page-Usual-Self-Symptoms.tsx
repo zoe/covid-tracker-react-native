@@ -14,6 +14,7 @@ import ScreenFooter from '@tracer/components/molecules/Screen/footer';
 import ScreenProfileHeader from '@tracer/components/templates/ScreenHeaders/profile';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 
 import { makeAssessmentService, makeUsualSelfService } from '../../api';
@@ -85,25 +86,27 @@ export default function AssessmentPage1ShowUsualSelf() {
           visible={showEmojiExplanationModal}
         />
       ) : null}
-      <ScreenProfileHeader onGoBack={NavigatorService.goBack} />
+      <ScreenProfileHeader onGoBack={() => NavigatorService.navigate('Dashboard')} />
       <ScreenBody style={[baseStyle.body]}>
         {/* TODO: make into it's own component */}
-        <Column>
-          <Row style={[baseStyle.header]}>
-            <Column>
-              <Text style={[baseStyle.title]}>{i18n.t('usual-self.assessment-flow.1-title')}</Text>
-            </Column>
-            <Column style={[baseStyle.infoColumn]}>
-              <IconButton buttonType="tertiary" onPress={onToggleUsualSelfModal}>
-                <IconInfo fill={colors.transparent} strokeColor={colors.text.primary} />
-              </IconButton>
-            </Column>
-          </Row>
-          <Row style={[baseStyle.header]}>
-            <Text style={[baseStyle.subTitle]}>{i18n.t('usual-self.assessment-flow.1-subtitle')}</Text>
-          </Row>
-          <UsualSelfFrequentSymptoms yourFrequentSymptoms={yourUsualSelfSymptoms} />
-        </Column>
+        <ScrollView>
+          <Column>
+            <Row style={[baseStyle.header]}>
+              <Column>
+                <Text style={[baseStyle.title]}>{i18n.t('usual-self.assessment-flow.1-title')}</Text>
+              </Column>
+              <Column style={[baseStyle.infoColumn]}>
+                <IconButton buttonType="tertiary" onPress={onToggleUsualSelfModal}>
+                  <IconInfo fill={colors.transparent} strokeColor={colors.text.primary} />
+                </IconButton>
+              </Column>
+            </Row>
+            <Row style={[baseStyle.header]}>
+              <Text style={[baseStyle.subTitle]}>{i18n.t('usual-self.assessment-flow.1-subtitle')}</Text>
+            </Row>
+            <UsualSelfFrequentSymptoms yourFrequentSymptoms={yourUsualSelfSymptoms} />
+          </Column>
+        </ScrollView>
       </ScreenBody>
       <ScreenFooter>
         <Row style={[baseStyle.cardFooter]}>

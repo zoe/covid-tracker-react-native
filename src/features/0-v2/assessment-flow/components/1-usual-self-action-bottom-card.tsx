@@ -26,7 +26,7 @@ export default function AssessmentFlowActionCard({
         ),
         customFooter: (
           <Row>
-            <Column>
+            <Column style={[{ flexGrow: 1, justifyContent: 'center' }]}>
               <UsualSelfActionCardButtonGroup
                 bottomButton={{
                   buttonType: 'secondary',
@@ -62,7 +62,7 @@ export default function AssessmentFlowActionCard({
 
 const baseStyle = StyleSheet.create({
   actionFooterRow: {
-    marginBottom: grid.g48,
+    marginBottom: grid.g24,
     marginTop: grid.g8,
     paddingHorizontal: grid.g24,
   },
@@ -71,7 +71,7 @@ const baseStyle = StyleSheet.create({
     fontWeight: '300',
     letterSpacing: 0,
     lineHeight: 40,
-    marginBottom: grid.g32,
+    marginBottom: grid.g24,
     marginTop: grid.g32,
     paddingHorizontal: grid.g32,
     textAlign: 'center',

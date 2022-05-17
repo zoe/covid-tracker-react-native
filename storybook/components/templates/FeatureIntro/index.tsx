@@ -1,3 +1,4 @@
+import { ScrollView } from '@covid/components/ScrollView';
 import { grid } from '@tracer/branding/grid';
 import Button from '@tracer/components/atoms/Button';
 import Column from '@tracer/components/atoms/Column';
@@ -7,7 +8,7 @@ import Dots from '@tracer/components/molecules/Dots';
 import ScreenBody from '@tracer/components/molecules/Screen/body';
 import ScreenFooter from '@tracer/components/molecules/Screen/footer';
 import React from 'react';
-import { Image, ImageSourcePropType, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { Image, ImageSourcePropType, StyleProp, StyleSheet, Text, useWindowDimensions, ViewStyle } from 'react-native';
 
 import { colors } from '../../../branding/colors';
 import ScreenStandardHeader from '../ScreenHeaders/standard';
@@ -48,36 +49,39 @@ export default function FeatureIntroScreen({
     if (onPress) onPress(introPageIndex - 1);
   };
 
+  const { width, height } = useWindowDimensions();
   return (
-    <Column>
-      <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
-      <Row style={[baseStyle.imageRow]}>
-        {/* @ts-ignore */}
-        <Image resizeMode="contain" source={imageSource} style={baseStyle.image} />
-      </Row>
-      <ScreenBody style={[baseStyle.body]}>
-        <Column>
-          <Row style={[baseStyle.tagRow]}>
-            <Column>
-              <Tag style={[baseStyle.tag]} text={feature} />
-            </Column>
-          </Row>
-          <Row style={[baseStyle.row]}>
-            <Column style={[baseStyle.contentColumn]}>
-              <Row style={[baseStyle.row]}>
-                <Text style={baseStyle.title}>{title}</Text>
-              </Row>
-              <Row style={[baseStyle.row, baseStyle.contentRow]}>
-                <Text style={baseStyle.content}>{content}</Text>
-              </Row>
-            </Column>
-          </Row>
-        </Column>
-      </ScreenBody>
-      <ScreenFooter style={[baseStyle.footer]}>
-        <Button onPress={onPressNext} text={textButton} />
-        <Dots activeIndex={introPageIndex} length={introPageLength} />
-      </ScreenFooter>
+    <Column style={{ height, width }}>
+      <ScrollView>
+        <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
+        <Row style={[baseStyle.imageRow]}>
+          {/* @ts-ignore */}
+          <Image resizeMode="contain" source={imageSource} style={baseStyle.image} />
+        </Row>
+        <ScreenBody style={[baseStyle.body]}>
+          <Column>
+            <Row style={[baseStyle.tagRow]}>
+              <Column>
+                <Tag style={[baseStyle.tag]} text={feature} />
+              </Column>
+            </Row>
+            <Row style={[baseStyle.row]}>
+              <Column style={[baseStyle.contentColumn]}>
+                <Row style={[baseStyle.row]}>
+                  <Text style={baseStyle.title}>{title}</Text>
+                </Row>
+                <Row style={[baseStyle.row, baseStyle.contentRow]}>
+                  <Text style={baseStyle.content}>{content}</Text>
+                </Row>
+              </Column>
+            </Row>
+          </Column>
+        </ScreenBody>
+        <ScreenFooter style={[baseStyle.footer]}>
+          <Button onPress={onPressNext} text={textButton} />
+          <Dots activeIndex={introPageIndex} length={introPageLength} />
+        </ScreenFooter>
+      </ScrollView>
     </Column>
   );
 }
@@ -100,11 +104,12 @@ const baseStyle = StyleSheet.create({
     paddingTop: grid.g12,
   },
   footer: {
+    marginTop: grid.g16,
     paddingHorizontal: grid.g32,
   },
   image: {
     backgroundColor: colors.surface.subdued,
-    maxHeight: 205,
+    maxHeight: 200,
   },
   imageRow: {
     backgroundColor: colors.surface.subdued,

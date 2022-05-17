@@ -1,3 +1,4 @@
+import { ScrollView } from '@covid/components/ScrollView';
 import { colors } from '@theme';
 import { grid } from '@tracer/branding/grid';
 import Button from '@tracer/components/atoms/Button';
@@ -30,7 +31,7 @@ export interface IFeatureIntroEntryScreenProps {
 }
 
 const HEIGHT_FOOTER = 114;
-const HEIGHT_IMAGE = 375;
+const HEIGHT_IMAGE = 300;
 
 /**
  * FeatureIntroEntryScreen
@@ -50,18 +51,20 @@ export default function FeatureIntroEntryScreen({
   const { width, height } = useWindowDimensions();
   return (
     <Column style={{ height, width }}>
-      <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
-      <ScreenBody>
-        <View style={[baseStyle.mainView]}>
-          <Image resizeMode="contain" source={imageSource} style={[baseStyle.image, imageStyle]} />
-          <Text style={[baseStyle.title, textStyle]}>{title}</Text>
-        </View>
-      </ScreenBody>
-      <ScreenFooter>
-        <View style={[baseStyle.footerView]}>
-          <Button onPress={onPress} style={{ height: grid.g48 }} text={textButton} />
-        </View>
-      </ScreenFooter>
+      <ScrollView>
+        <ScreenStandardHeader onGoBack={onPressBack} style={[baseStyle.nav]} />
+        <ScreenBody>
+          <View style={[baseStyle.mainView]}>
+            <Image resizeMode="contain" source={imageSource} style={[baseStyle.image, imageStyle]} />
+            <Text style={[baseStyle.title, textStyle]}>{title}</Text>
+          </View>
+        </ScreenBody>
+        <ScreenFooter>
+          <View style={[baseStyle.footerView]}>
+            <Button onPress={onPress} style={{ height: grid.g48 }} text={textButton} />
+          </View>
+        </ScreenFooter>
+      </ScrollView>
     </Column>
   );
 }
@@ -69,6 +72,7 @@ export default function FeatureIntroEntryScreen({
 const baseStyle = StyleSheet.create({
   footerView: {
     height: HEIGHT_FOOTER,
+    marginTop: grid.g16,
     paddingHorizontal: grid.g32,
   },
   image: {

@@ -54,6 +54,7 @@ export default function AssessmentFlowEditUsualSymptom({
   display_name,
   onToggleSymptom,
   severity,
+  display_name,
   onUpdateSymptomSeverity,
 }: IAssessmentFlowEditUsualSymptom) {
   return (
