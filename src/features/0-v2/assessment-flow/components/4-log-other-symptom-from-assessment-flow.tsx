@@ -31,26 +31,28 @@ export default function LogOtherSymptomsFromAssessmentFlow({ handleChange, name,
   console.log('here');
   return (
     <ScreenBody style={[{ flexGrow: 1, marginTop: grid.g16, paddingHorizontal: grid.g24 }]}>
-      <Row style={[{ flexGrow: 1, marginBottom: grid.g16 }]}>
-        <Column style={{ flexGrow: 1 }}>
-          <Text style={[baseStyle.pageHeaderText]}>
-            {i18n.t('usual-self.assessment-flow.4-other-symptom-start')}
-            <Text style={[baseStyle.pageHeaderText, baseStyle.pageHeaderHighlighted]}>
-              {i18n.t('usual-self.assessment-flow.4-other-symptom-highlighted')}
+      <Column style={{ flexGrow: 1 }}>
+        <Row style={[{ flexGrow: 1, marginBottom: grid.g16 }]}>
+          <Column style={{ flexGrow: 1 }}>
+            <Text style={[baseStyle.pageHeaderText]}>
+              {i18n.t('usual-self.assessment-flow.4-other-symptom-start')}
+              <Text style={[baseStyle.pageHeaderText, baseStyle.pageHeaderHighlighted]}>
+                {i18n.t('usual-self.assessment-flow.4-other-symptom-highlighted')}
+              </Text>
+              {i18n.t('usual-self.assessment-flow.4-other-symptom-end')}
             </Text>
-            {i18n.t('usual-self.assessment-flow.4-other-symptom-end')}
-          </Text>
-        </Column>
-      </Row>
-      <FormInputTextQuestion
-        multiline
-        handleChange={updateInput}
-        name={name}
-        placeholder={i18n.t('usual-self.setup.2-setup-flow-other-symptom-placeholder')}
-        question={question}
-        state={state}
-        validation={validation}
-      />
+          </Column>
+        </Row>
+        <FormInputTextQuestion
+          multiline
+          handleChange={updateInput}
+          name={name}
+          placeholder={i18n.t('usual-self.setup.2-setup-flow-other-symptom-placeholder')}
+          question={question}
+          state={state}
+          validation={validation}
+        />
+      </Column>
     </ScreenBody>
   );
 }

@@ -44,8 +44,6 @@ const baseStyle = StyleSheet.create({
     flex: 1,
   },
   actionCardButtonRow: {
-    flexGrow: 1,
-    justifyContent: 'center',
     marginVertical: grid.g8,
     paddingHorizontal: grid.g24,
   },
