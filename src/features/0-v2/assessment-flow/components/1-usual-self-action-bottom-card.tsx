@@ -26,7 +26,7 @@ export default function AssessmentFlowActionCard({
         ),
         customFooter: (
           <Row>
-            <Column style={[{ justifyContent: 'center' }]}>
+            <Column style={[{ flexGrow: 1, justifyContent: 'center' }]}>
               <UsualSelfActionCardButtonGroup
                 bottomButton={{
                   buttonType: 'secondary',

@@ -95,7 +95,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
       const updateUsualSelfSymptoms = usualSymptoms;
       const usualSelfSymptomsUpdated: TUsualSelfFrequentSymptom[] = updateUsualSelfSymptoms.map(
         (newUsualSelfSymptom: TUsualSelfFrequentSymptom) =>
-          newUsualSelfSymptom.display_name === symptomName
+          newUsualSelfSymptom.symptom === symptomName
             ? { ...newUsualSelfSymptom, ...{ severity } }
             : newUsualSelfSymptom,
       );

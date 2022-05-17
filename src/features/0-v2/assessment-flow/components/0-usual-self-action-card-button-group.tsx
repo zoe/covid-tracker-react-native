@@ -26,7 +26,7 @@ export default function UsualSelfActionCardButtonGroup({
   style,
 }: IUsualSelfActionCardButtonGroup) {
   return (
-    <Column style={style}>
+    <Column style={[{ flexGrow: 1, justifyContent: 'center' }, style]}>
       <Row style={[baseStyle.actionCardButtonRow]}>
         <Button style={[baseStyle.actionCardButton]} textStyle={[baseStyle.actionCardButtonText]} {...topButton} />
       </Row>

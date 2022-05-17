@@ -136,7 +136,6 @@ export default function UsualSelfFormFlowScreen() {
         .createUsualSelf(newUsualSelf)
         .then(async (resp) => {
           // eslint-disable-next-line no-console
-          console.log('successful', resp);
           await patientService.updatePatientInfo(currentPatient.patientId, {
             has_seen_assessment_flow_v1_onboarding: true,
           });
