@@ -65,13 +65,16 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
 
     const report = { ...route.params.report, ...{ reasons: selectedReasons } };
 
+    console.log(report);
     assessmentService
       .createNewDailyAssessment(report)
       .then((resp) => {
+        // eslint-disable-next-line no-console
         console.log(resp);
         NavigatorService.navigate('ThankYouUK');
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error);
       });
   };

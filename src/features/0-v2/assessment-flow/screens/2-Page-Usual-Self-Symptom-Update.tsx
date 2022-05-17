@@ -34,7 +34,15 @@ import {
   TUsualSelfSymptomSeverity,
 } from '../types';
 
-const cleanSymptoms = (data) => {
+const cleanSymptoms = (data: TUsualSelfFrequentSymptom[]) => {
+  return data.map((s) => ({
+    frequency: '',
+    severity: s.severity,
+    symptom: s.name,
+  }));
+};
+
+const cleanUsualSymptoms = (data: TUsualSelfFrequentSymptom[]) => {
   return data.map((s) => ({
     frequency: s.frequency,
     severity: s.severity,
@@ -42,10 +50,10 @@ const cleanSymptoms = (data) => {
   }));
 };
 
-const cleanOtherSymptoms = (data) => {
+const cleanOtherSymptoms = (data: TUsualSelfFrequentOtherSymptom[]) => {
   return data.map((s) => ({
     description: s.description,
-    frequency: s.frequency,
+    frequency: '',
     severity: s.severity,
   }));
 };
@@ -73,7 +81,7 @@ const makeReport = (
   return {
     other_symptoms: [...(cleanedOtherAdditionalSymptoms || [])],
     patient: patientID,
-    symptoms: [...cleanSymptoms(reportUsualSymptoms), ...(cleanedAdditionalSymptoms || [])],
+    symptoms: [...cleanUsualSymptoms(reportUsualSymptoms), ...(cleanedAdditionalSymptoms || [])],
   };
 };
 
