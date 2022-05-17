@@ -51,6 +51,7 @@ interface IAssessmentFlowEditUsualSymptom {
 
 export default function AssessmentFlowEditUsualSymptom({
   symptom,
+  display_name,
   onToggleSymptom,
   severity,
   display_name,

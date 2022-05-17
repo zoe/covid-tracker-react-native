@@ -361,7 +361,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
       </ScrollView>
       <ScreenFooter>
         <Row style={[baseStyle.footerRow]}>
-          <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+          <Column style={{ alignContent: 'center', alignItems: 'center', flexGrow: 1, justifyContent: 'flex-start' }}>
             <UsualSelfActionCardButtonGroup
               bottomButton={{
                 onPress: isReadyToSubmit ? onSubmit : () => setFormMissingSeverityModal(true),
@@ -418,6 +418,7 @@ const baseStyle = StyleSheet.create({
   },
   footerRow: {
     backgroundColor: colors.white,
+    flexGrow: 1,
     paddingBottom: grid.g24,
     shadowColor: 'black',
     shadowOpacity: 0.15,
