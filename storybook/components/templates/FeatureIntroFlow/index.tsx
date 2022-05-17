@@ -32,7 +32,7 @@ export default function FlowFeatureIntro({
   flow = 'horizontal',
 }: IFlowFeatureIntroProps) {
   const flowScrollRef = useRef<ScrollView>(null);
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
 
   const onUpdatePage = (page: number) => {
     if (onExitNavigation && intro && page > intro.length) onExitNavigation();
@@ -42,7 +42,13 @@ export default function FlowFeatureIntro({
   };
 
   return (
-    <ScreenFlow flow={flow} props={{ showsHorizontalScrollIndicator: false }} scrollRef={flowScrollRef}>
+    <ScreenFlow
+      flow={flow}
+      height={height}
+      props={{ showsHorizontalScrollIndicator: false }}
+      scrollRef={flowScrollRef}
+      width={width}
+    >
       <FeatureIntroEntryScreen {...entry} onPress={() => onUpdatePage(1)} onPressBack={onBackNavigation} />
       {intro
         ? intro.map((screen, index) => (

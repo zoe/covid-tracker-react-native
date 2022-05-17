@@ -1,4 +1,5 @@
 import { TPatientData } from '@covid/core/patient/PatientData';
+import { patientService } from '@covid/core/patient/PatientService';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -23,6 +24,7 @@ import ModalEmojiExplained from '../../assessment-flow/modals/EmojiExplained';
 import ModalFrequencyOfSymptoms from '../../assessment-flow/modals/FrequencyOfSymptoms';
 import { TUsualSelfFrequentSymptom } from '../../assessment-flow/types';
 import ModalUsualSelfSetup from '../modals/UsualSelfSetup';
+import ModalUsualSelfSetupError from '../modals/UsualSelfSetupCheck';
 import { SYMPTOM_FREQUENCY_LABELS, SYMPTOM_SEVERITY_LABELS, TSymptomCategory } from '../types';
 
 const USUAL_SELF_SYMPTOM_CATEGORY = 'misc';
@@ -46,7 +48,12 @@ export default function UsualSelfFormFlowScreen() {
   const usualSelfService = makeUsualSelfService();
   const [initValues, setInitValues] = useState<{ [name: string]: any }>();
   const [showUsualSetupModal, setShowUsualSetupModal] = useState<boolean>(false);
-  const [showUsualSetupErrorModal, setShowUsualSetupErrorModal] = useState<boolean | undefined>(undefined);
+  const [showUsualSetupErrorModal, setShowUsualSetupErrorModal] = useState<boolean>(false);
+
+  const hasNullSeverity = (symptoms: any[]): boolean =>
+    symptoms.filter((symptom) => symptom.severity === null || symptom.severity === undefined).length > 0;
+  const hasNullFrequency = (symptoms: any[]): boolean =>
+    symptoms.filter((symptom) => symptom.frequency === null || symptom.frequency === undefined).length > 0;
 
   const onSubmit = async (submitted: any) => {
     const symptoms: { [name: string]: any } = Object.keys(submitted).reduce(
@@ -61,32 +68,45 @@ export default function UsualSelfFormFlowScreen() {
           return Object.keys(symptom.subSymptoms)
             .filter((subSymptomName: string) => symptom.subSymptoms[subSymptomName].state)
             .map((subSymptomName: string) => {
+              const subSymptom = symptom.subSymptoms[subSymptomName];
+              const frequency = subSymptom.frequency
+                ? SYMPTOM_FREQUENCY_LABELS[subSymptom.frequency].label.toLowerCase()
+                : null;
+              const severity = subSymptom.severity
+                ? SYMPTOM_SEVERITY_LABELS[subSymptom.severity].label.toLowerCase()
+                : null;
               return {
-                frequency: SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase(),
-                severity: SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase(),
+                frequency,
+                severity,
                 symptom: subSymptomName,
               };
             });
-        if (symptom.options !== undefined && symptom.options.value)
+        if (symptom.options !== undefined && symptom.options.value) {
+          const frequency = symptom.frequency ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase() : null;
+          const severity = symptom.severity ? SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase() : null;
           return [
             {
-              frequency: SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase(),
-              severity: SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase(),
+              frequency,
+              severity,
               symptom: symptom.options.value,
             },
           ];
+        }
+
+        const frequency = symptom.frequency ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase() : null;
+        const severity = symptom.severity ? SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase() : null;
         return [
           {
-            frequency: SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase(),
-            severity: SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase(),
+            frequency,
+            severity,
             symptom: symptomName,
           },
         ];
       });
 
-    let other_symptoms = [];
+    let otherSymptoms: any[] = [];
     if (submitted.other_symptoms && submitted.other_symptoms !== undefined)
-      other_symptoms = [
+      otherSymptoms = [
         {
           description: submitted.other_symptoms.description,
           frequency: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
@@ -95,25 +115,39 @@ export default function UsualSelfFormFlowScreen() {
       ];
 
     const newUsualSelf = {
-      other_symptoms,
+      other_symptoms: otherSymptoms,
       patient: currentPatient.patientId,
       reasons: [],
       symptoms: usualSelf,
       usual_self: true,
     };
 
-    usualSelfService
-      .createUsualSelf(newUsualSelf)
-      .then((resp) => {
-        // eslint-disable-next-line no-console
-        console.log('successful', resp);
-        setShowUsualSetupModal(true);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log('could not log usual self', error);
-        setShowUsualSetupErrorModal(true);
-      });
+    const isValidSeverity = !hasNullSeverity(newUsualSelf.symptoms);
+    const isValidFrequency = !hasNullFrequency(newUsualSelf.symptoms);
+
+    const isValidOtherSeverity = !hasNullSeverity(newUsualSelf.other_symptoms);
+    const isValidOtherFrequency = !hasNullFrequency(newUsualSelf.other_symptoms);
+
+    const isValid = isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency;
+    if (isValid) {
+      usualSelfService
+        .createUsualSelf(newUsualSelf)
+        .then(async (resp) => {
+          // eslint-disable-next-line no-console
+          console.log('successful', resp);
+          await patientService.updatePatientInfo(currentPatient.patientId, {
+            has_seen_assessment_flow_v1_onboarding: true,
+          });
+          setShowUsualSetupModal(true);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log('could not log usual self', error);
+          setShowUsualSetupErrorModal(true);
+        });
+    } else {
+      setShowUsualSetupErrorModal(true);
+    }
   };
 
   const onToggleFrequencyModal = () => setShowFrequencyModal(true);
@@ -227,6 +261,12 @@ export default function UsualSelfFormFlowScreen() {
 
   return (
     <Screen isInsideTabBar>
+      {showUsualSetupErrorModal ? (
+        <ModalUsualSelfSetupError
+          onClose={() => setShowUsualSetupErrorModal(false)}
+          visible={showUsualSetupErrorModal}
+        />
+      ) : null}
       {showUsualSetupModal ? (
         <ModalUsualSelfSetup
           onClose={() => onFinishUsualSelfSetup()}

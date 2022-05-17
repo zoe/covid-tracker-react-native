@@ -131,7 +131,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     if (startupInfo?.use_assessment_flow_v1 && startupInfo?.show_assessment_flow_v1) {
       NavigatorService.navigate('AssessmentPage1ShowUsualSelf');
     } else if (startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1) {
-      await patientService.updatePatientInfo(patientId, { has_seen_assessment_flow_v1_onboarding: true });
       NavigatorService.navigate('UsualSelfIntroScreen');
     } else {
       appCoordinator.gotoNextScreen(route.name);
