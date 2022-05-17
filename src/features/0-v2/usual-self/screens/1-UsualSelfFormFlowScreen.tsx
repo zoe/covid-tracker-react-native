@@ -1,5 +1,6 @@
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
+import { appActions } from '@covid/core/state/app/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -14,7 +15,7 @@ import { Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { makeSymptomService, makeUsualSelfService } from '../../api';
 import UsualSelfActionCardButtonGroup from '../../assessment-flow/components/0-usual-self-action-card-button-group';
@@ -49,6 +50,7 @@ export default function UsualSelfFormFlowScreen() {
   const [initValues, setInitValues] = useState<{ [name: string]: any }>();
   const [showUsualSetupModal, setShowUsualSetupModal] = useState<boolean>(false);
   const [showUsualSetupErrorModal, setShowUsualSetupErrorModal] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const hasNullSeverity = (symptoms: any[]): boolean =>
     symptoms.filter((symptom) => symptom.severity === null || symptom.severity === undefined).length > 0;
@@ -138,6 +140,7 @@ export default function UsualSelfFormFlowScreen() {
           await patientService.updatePatientInfo(currentPatient.patientId, {
             has_seen_assessment_flow_v1_onboarding: true,
           });
+          dispatch(appActions.setUseAssessmentFlowV1(true));
           setShowUsualSetupModal(true);
         })
         .catch((error) => {
