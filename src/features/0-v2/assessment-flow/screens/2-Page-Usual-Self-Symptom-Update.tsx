@@ -35,11 +35,14 @@ import {
 } from '../types';
 
 const cleanSymptoms = (data: TUsualSelfFrequentSymptom[]) => {
-  return data.map((s) => ({
-    frequency: '',
-    severity: s.severity,
-    symptom: s.name,
-  }));
+  return data.map((s) => {
+    console.log(s);
+    return {
+      frequency: '',
+      severity: s.severity,
+      symptom: s.symptom !== undefined ? s.symptom : s.name,
+    };
+  });
 };
 
 const cleanUsualSymptoms = (data: TUsualSelfFrequentSymptom[]) => {
@@ -68,12 +71,12 @@ const makeReport = (
   const uncheckedNames = uncheckedUsualSymptoms.map((unchecked) => unchecked.symptom);
   const reportUsualSymptoms = usualSymptoms.filter((usual) => !uncheckedNames.includes(usual.symptom));
 
-  let cleanedOtherAdditionalSymptoms = [];
+  let cleanedOtherAdditionalSymptoms: any[] = [];
   if (additionalOtherSymptoms !== undefined && additionalOtherSymptoms.length > 0) {
     cleanedOtherAdditionalSymptoms = cleanOtherSymptoms(additionalOtherSymptoms);
   }
 
-  let cleanedAdditionalSymptoms = [];
+  let cleanedAdditionalSymptoms: any[] = [];
   if (additionalSymptoms !== undefined && additionalSymptoms.length > 0) {
     cleanedAdditionalSymptoms = cleanSymptoms(additionalSymptoms);
   }
@@ -182,11 +185,12 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   };
 
   const onUpdateAdditionalSymptomSeverity = (symptomName: string, severity: TUsualSelfSymptomSeverity) => {
+    console.log(symptomName);
     if (newAdditionalSymptoms) {
       const updateAdditionalSymptoms = newAdditionalSymptoms;
       const additionalSymptomsUpdated: TUsualSelfFrequentSymptom[] = updateAdditionalSymptoms.map(
         (usualSelfSymptom: TUsualSelfFrequentSymptom) =>
-          usualSelfSymptom.symptom === symptomName ? { ...usualSelfSymptom, ...{ severity } } : usualSelfSymptom,
+          usualSelfSymptom.name === symptomName ? { ...usualSelfSymptom, ...{ severity } } : usualSelfSymptom,
       );
       setAdditionalSymptoms(additionalSymptomsUpdated);
     }
@@ -342,14 +346,14 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
             ) : null}
             {newAdditionalSymptoms
               ? newAdditionalSymptoms.map(
-                  ({ severity, symptom, display_name }: TUsualSelfFrequentSymptom, index: number) => (
+                  ({ severity, name, display_name }: TUsualSelfFrequentSymptom, index: number) => (
                     <AssessmentFlowEditUsualSymptom
                       display_name={display_name}
-                      key={`edit-additional-frequent-symptom-${index + 1}`}
+                      key={`edit-additional-frequent-symptom-${name}-${index + 1}`}
                       onToggleSymptom={onToggleAdditionalSymptoms}
                       onUpdateSymptomSeverity={onUpdateAdditionalSymptomSeverity}
                       severity={severity}
-                      symptom={symptom}
+                      symptom={name}
                     />
                   ),
                 )
@@ -358,7 +362,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
               ? newAdditionalOtherSymptoms.map(
                   ({ severity, description }: TUsualSelfFrequentOtherSymptom, index: number) => (
                     <AssessmentFlowEditUsualSymptom
-                      key={`edit-additional-frequent-symptom-${index + 1}`}
+                      key={`edit-additional-frequent-symptom-${severity}-${index + 1}`}
                       onToggleSymptom={onToggleAdditionalOtherSymptoms}
                       onUpdateSymptomSeverity={onUpdateAdditionalOtherSymptomSeverity}
                       severity={severity}
