@@ -254,24 +254,25 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
       newAdditionalOtherSymptoms,
     );
 
-    if (
-      (newAdditionalSymptoms && newAdditionalSymptoms?.length > 0) ||
-      (newAdditionalOtherSymptoms && newAdditionalOtherSymptoms?.length > 0)
-    ) {
+    const hasNewAdditionalSymptoms = newAdditionalSymptoms && newAdditionalSymptoms?.length > 0;
+    const hasNewAdditionalOtherSymptoms = newAdditionalOtherSymptoms && newAdditionalOtherSymptoms?.length > 0;
+
+    if (hasNewAdditionalSymptoms || hasNewAdditionalOtherSymptoms) {
       NavigatorService.navigate('AssessmentPage5LogNewSymptomReason', { report });
-    } else {
-      assessmentService
-        .createNewDailyAssessment({ ...report, ...{ reasons: [] } })
-        .then((resp) => {
-          // eslint-disable-next-line no-console
-          console.log(resp);
-        })
-        .catch((err) => {
-          // eslint-disable-next-line no-console
-          console.log(err);
-        });
-      NavigatorService.navigate('ThankYouUK');
+      return;
     }
+
+    assessmentService
+      .createNewDailyAssessment({ ...report, ...{ reasons: [] } })
+      .then((resp) => {
+        // eslint-disable-next-line no-console
+        console.log(resp);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      });
+    NavigatorService.navigate('ThankYouUK');
   };
 
   useEffect(() => {
