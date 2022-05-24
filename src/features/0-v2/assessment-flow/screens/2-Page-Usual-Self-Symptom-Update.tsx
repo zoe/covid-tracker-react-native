@@ -185,11 +185,12 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   };
 
   const onUpdateAdditionalSymptomSeverity = (symptomName: string, severity: TUsualSelfSymptomSeverity) => {
+    console.log(symptomName);
     if (newAdditionalSymptoms) {
       const updateAdditionalSymptoms = newAdditionalSymptoms;
       const additionalSymptomsUpdated: TUsualSelfFrequentSymptom[] = updateAdditionalSymptoms.map(
         (usualSelfSymptom: TUsualSelfFrequentSymptom) =>
-          usualSelfSymptom.symptom === symptomName ? { ...usualSelfSymptom, ...{ severity } } : usualSelfSymptom,
+          usualSelfSymptom.name === symptomName ? { ...usualSelfSymptom, ...{ severity } } : usualSelfSymptom,
       );
       setAdditionalSymptoms(additionalSymptomsUpdated);
     }
@@ -345,14 +346,14 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
             ) : null}
             {newAdditionalSymptoms
               ? newAdditionalSymptoms.map(
-                  ({ severity, symptom, display_name }: TUsualSelfFrequentSymptom, index: number) => (
+                  ({ severity, name, display_name }: TUsualSelfFrequentSymptom, index: number) => (
                     <AssessmentFlowEditUsualSymptom
                       display_name={display_name}
-                      key={`edit-additional-frequent-symptom-${symptom}-${index + 1}`}
+                      key={`edit-additional-frequent-symptom-${name}-${index + 1}`}
                       onToggleSymptom={onToggleAdditionalSymptoms}
                       onUpdateSymptomSeverity={onUpdateAdditionalSymptomSeverity}
                       severity={severity}
-                      symptom={symptom}
+                      symptom={name}
                     />
                   ),
                 )
