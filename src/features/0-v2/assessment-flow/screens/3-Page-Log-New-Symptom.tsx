@@ -92,7 +92,7 @@ export default function AssessmentPage3LogNewSymptom() {
     <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
       <ScreenStandardHeader onGoBack={() => NavigatorService.goBack()} />
       <Formik initialValues={formInitValues} onSubmit={onNewLogSymptomFlowNext}>
-        {({ handleSubmit, setFieldValue }) => {
+        {({ handleSubmit, setFieldValue, values }) => {
           return (
             <>
               <ScrollView>
@@ -120,6 +120,10 @@ export default function AssessmentPage3LogNewSymptom() {
                     <UsualSelfActionCardButtonGroup
                       style={[baseStyle.cardButtonGroup]}
                       topButton={{
+                        disabled:
+                          Object.keys(values['symptom-locations']).filter(
+                            (id: string) => values['symptom-locations'][id].state,
+                          ).length === 0,
                         onPress: handleSubmit,
                         text: i18n.t('usual-self.assessment-flow.3-action-card-cta-1'),
                       }}
