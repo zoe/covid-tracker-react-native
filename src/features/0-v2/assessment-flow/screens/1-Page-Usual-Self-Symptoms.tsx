@@ -22,7 +22,7 @@ import AssessmentFlowActionCard from '../components/1-usual-self-action-bottom-c
 import UsualSelfFrequentSymptoms from '../components/1-usual-self-symptoms';
 import ModalEmojiExplained from '../modals/EmojiExplained';
 import ModalUsualSelfExplanation from '../modals/UsualSelfExplanation';
-import { TUsualSelfFrequentSymptom } from '../types';
+import { TUsualSelfFrequentOtherSymptom, TUsualSelfFrequentSymptom } from '../types';
 
 const makeAssessment = (patientID: string, usualSymptoms?: TUsualSelfFrequentSymptom[], otherSymptoms?: any) => ({
   other_symptoms: otherSymptoms || [],
@@ -33,7 +33,8 @@ const makeAssessment = (patientID: string, usualSymptoms?: TUsualSelfFrequentSym
 
 export default function AssessmentPage1ShowUsualSelf() {
   const [yourUsualSelfSymptoms, setYourUsualSelfSymptoms] = useState<TUsualSelfFrequentSymptom[] | undefined>();
-  const [yourUsualSelfOtherSymptoms, setYourUsualSelfOtherSymptoms] = useState<any>();
+  const [yourUsualSelfOtherSymptoms, setYourUsualSelfOtherSymptoms] =
+    useState<TUsualSelfFrequentOtherSymptom[] | undefined>();
   const [showUsualSelfModal, setUsualSelfModalState] = useState<boolean>(false);
   const [showEmojiExplanationModal, setEmojiExplanationModal] = useState<boolean>(false);
   const patientID = useSelector<TRootState, string>((state) => state.user.patients[0]);
@@ -45,6 +46,7 @@ export default function AssessmentPage1ShowUsualSelf() {
 
   const onFeelDifferent = () => {
     NavigatorService.navigate('AssessmentPage2UpdateUsualSelf', {
+      usualSelfOtherSymptoms: yourUsualSelfOtherSymptoms || [],
       usualSelfSymptoms: yourUsualSelfSymptoms || [],
     });
   };
@@ -107,7 +109,8 @@ export default function AssessmentPage1ShowUsualSelf() {
               <Text style={[baseStyle.subTitle]}>{i18n.t('usual-self.assessment-flow.1-subtitle')}</Text>
             </Row>
             <UsualSelfFrequentSymptoms
-              yourFrequentSymptoms={yourUsualSelfSymptoms?.concat(yourUsualSelfOtherSymptoms || [])}
+              yourFrequentOtherSymptoms={yourUsualSelfOtherSymptoms}
+              yourFrequentSymptoms={yourUsualSelfSymptoms}
             />
           </Column>
         </ScrollView>

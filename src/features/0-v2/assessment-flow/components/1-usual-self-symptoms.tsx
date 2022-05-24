@@ -10,7 +10,7 @@ import StackedCard from '@tracer/components/organisms/Card/stacked';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
-import { TUsualSelfFrequentSymptom } from '../types';
+import { TUsualSelfFrequentOtherSymptom, TUsualSelfFrequentSymptom } from '../types';
 
 const emoji = (severity: string) => {
   if (severity === 'low') return <IconSmileFace opacity="1" />;
@@ -35,27 +35,42 @@ const makeUsualSelfFrequentSymptoms = (yourFrequentSymptoms: TUsualSelfFrequentS
     <Row key={`usual-self-symptom-${index + 1}`} style={[baseStyle.usualSelfSymptomRow]}>
       <Column style={[baseStyle.usualSelfSeverityColumn]}>{emoji(severity)}</Column>
       <Column style={[baseStyle.usualSelfNameColumn]}>
-        <Text style={[baseStyle.symptomText]}>{display_name || description}</Text>
+        <Text style={[baseStyle.symptomText]}>{display_name}</Text>
+      </Column>
+    </Row>
+  ));
+
+const makeUsualSelfFrequentOtherSymptoms = (yourFrequentOtherSymptoms: TUsualSelfFrequentOtherSymptom[]) =>
+  yourFrequentOtherSymptoms.map(({ severity, description }: TUsualSelfFrequentOtherSymptom, index: number) => (
+    <Row key={`usual-self-symptom-${index + 1}`} style={[baseStyle.usualSelfSymptomRow]}>
+      <Column style={[baseStyle.usualSelfSeverityColumn]}>{emoji(severity)}</Column>
+      <Column style={[baseStyle.usualSelfNameColumn]}>
+        <Text style={[baseStyle.symptomText]}>{description}</Text>
       </Column>
     </Row>
   ));
 
 interface IUsualSelfSymptomsProps {
   yourFrequentSymptoms?: TUsualSelfFrequentSymptom[];
+  yourFrequentOtherSymptoms?: TUsualSelfFrequentOtherSymptom[];
 }
 
-export default function UsualSelfFrequentSymptoms({ yourFrequentSymptoms }: IUsualSelfSymptomsProps) {
+export default function UsualSelfFrequentSymptoms({
+  yourFrequentSymptoms,
+  yourFrequentOtherSymptoms,
+}: IUsualSelfSymptomsProps) {
+  const hasFrequentSymptoms = yourFrequentSymptoms !== undefined && yourFrequentSymptoms.length > 0;
+  const hasFrequentOtherSymptoms = yourFrequentOtherSymptoms !== undefined && yourFrequentOtherSymptoms.length > 0;
   return (
     <StackedCard
       cardProps={{
-        customBody:
-          yourFrequentSymptoms && yourFrequentSymptoms.length > 0 ? (
-            <Column style={[baseStyle.usualSelfSymptomsColumn]}>
-              {makeUsualSelfFrequentSymptoms(yourFrequentSymptoms)}
-            </Column>
-          ) : (
-            makeNoUsualSelfFrequentSymptoms()
-          ),
+        customBody: (
+          <>
+            {!hasFrequentSymptoms && !hasFrequentOtherSymptoms ? makeNoUsualSelfFrequentSymptoms() : null}
+            {hasFrequentSymptoms ? makeUsualSelfFrequentSymptoms(yourFrequentSymptoms) : null}
+            {hasFrequentOtherSymptoms ? makeUsualSelfFrequentOtherSymptoms(yourFrequentOtherSymptoms) : null}
+          </>
+        ),
       }}
       style={[baseStyle.cardStyle]}
     />

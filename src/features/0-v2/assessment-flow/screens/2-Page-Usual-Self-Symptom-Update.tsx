@@ -65,11 +65,17 @@ const makeReport = (
   patientID: string,
   usualSymptoms: TUsualSelfFrequentSymptom[],
   uncheckedUsualSymptoms: TUsualSelfFrequentSymptom[],
+  usualOtherSymptoms: TUsualSelfFrequentOtherSymptom[],
+  uncheckedUsualOtherSymptoms: TUsualSelfFrequentOtherSymptom[],
   additionalSymptoms?: TUsualSelfFrequentSymptom[],
   additionalOtherSymptoms?: TUsualSelfFrequentOtherSymptom[],
 ) => {
   const uncheckedNames = uncheckedUsualSymptoms.map((unchecked) => unchecked.symptom);
+  const uncheckedOtherNames = uncheckedUsualOtherSymptoms.map((unchecked) => unchecked.description);
   const reportUsualSymptoms = usualSymptoms.filter((usual) => !uncheckedNames.includes(usual.symptom));
+  const reportUsualOtherSymptoms = usualOtherSymptoms.filter(
+    (usualOther) => !uncheckedOtherNames.includes(usualOther.description),
+  );
 
   let cleanedOtherAdditionalSymptoms: any[] = [];
   if (additionalOtherSymptoms !== undefined && additionalOtherSymptoms.length > 0) {
@@ -82,7 +88,7 @@ const makeReport = (
   }
 
   return {
-    other_symptoms: [...(cleanedOtherAdditionalSymptoms || [])],
+    other_symptoms: [...(reportUsualOtherSymptoms || []), ...(cleanedOtherAdditionalSymptoms || [])],
     patient: patientID,
     symptoms: [...cleanUsualSymptoms(reportUsualSymptoms), ...(cleanedAdditionalSymptoms || [])],
   };
@@ -96,6 +102,9 @@ interface AssessmentFlowPage2ScreenProps {
 export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlowPage2ScreenProps) {
   const [usualSymptoms, setUsualSymptoms] = useState<TUsualSelfFrequentSymptom[]>([]);
   const [uncheckedUsualSymptoms, setUncheckedUsualSymptoms] = useState<TUsualSelfFrequentSymptom[]>([]);
+
+  const [usualOtherSymptoms, setUsualOtherSymptoms] = useState<TUsualSelfFrequentOtherSymptom[]>([]);
+  const [uncheckedUsualOtherSymptoms, setUncheckedUsualOtherSymptoms] = useState<TUsualSelfFrequentOtherSymptom[]>([]);
 
   const [newFrequentBubbleSymptoms, setFrequentBubbleSymptoms] = useState<TFrequentBubbleSymptom[]>();
   const [newAdditionalSymptoms, setAdditionalSymptoms] = useState<TUsualSelfFrequentSymptom[]>();
@@ -137,6 +146,30 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
             : newUsualSelfSymptom,
       );
       setUsualSymptoms(usualSelfSymptomsUpdated);
+    }
+  };
+
+  const onToggleOtherSymptom = (symptomDescription: string) => {
+    const exists = uncheckedUsualOtherSymptoms.filter((symptom) => symptom.description === symptomDescription);
+    if (exists.length === 0) {
+      const symptomToBeIgnored = usualOtherSymptoms.filter((symptom) => symptom.description === symptomDescription);
+      setUncheckedUsualOtherSymptoms([...uncheckedUsualOtherSymptoms, ...symptomToBeIgnored]);
+    } else {
+      const keep = uncheckedUsualOtherSymptoms.filter((symptom) => symptom.description !== symptomDescription);
+      setUncheckedUsualOtherSymptoms([...keep]);
+    }
+  };
+
+  const onUpdateOtherSymptomSeverity = (symptomDescription: string, severity: TUsualSelfSymptomSeverity) => {
+    if (usualSymptoms) {
+      const updateUsualSelfOtherSymptoms = usualOtherSymptoms;
+      const usualSelfOtherSymptomsUpdated: TUsualSelfFrequentOtherSymptom[] = updateUsualSelfOtherSymptoms.map(
+        (newUsualSelfSymptom: TUsualSelfFrequentOtherSymptom) =>
+          newUsualSelfSymptom.description === symptomDescription
+            ? { ...newUsualSelfSymptom, ...{ severity } }
+            : newUsualSelfSymptom,
+      );
+      setUsualOtherSymptoms(usualSelfOtherSymptomsUpdated);
     }
   };
 
@@ -215,9 +248,12 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
       patientID,
       usualSymptoms,
       uncheckedUsualSymptoms,
+      usualOtherSymptoms,
+      uncheckedUsualOtherSymptoms,
       newAdditionalSymptoms,
       newAdditionalOtherSymptoms,
     );
+
     if (
       (newAdditionalSymptoms && newAdditionalSymptoms?.length > 0) ||
       (newAdditionalOtherSymptoms && newAdditionalOtherSymptoms?.length > 0)
@@ -251,15 +287,22 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
           console.log(error);
         });
 
-      const usualSelf = route.params.usualSelfSymptoms.map((data: TUsualSelfFrequentSymptom) => {
-        return {
-          display_name: data.display_name,
+      const usualSelf = route.params.usualSelfSymptoms.map((data: TUsualSelfFrequentSymptom) => ({
+        display_name: data.display_name,
+        frequency: data.frequency,
+        severity: data.severity,
+        symptom: data.symptom,
+      }));
+      setUsualSymptoms(usualSelf);
+
+      const usualSelfOtherSymptoms = route.params.usualSelfOtherSymptoms.map(
+        (data: TUsualSelfFrequentOtherSymptom) => ({
+          description: data.description,
           frequency: data.frequency,
           severity: data.severity,
-          symptom: data.symptom,
-        };
-      });
-      setUsualSymptoms(usualSelf);
+        }),
+      );
+      setUsualOtherSymptoms(usualSelfOtherSymptoms);
     }
   }, []);
 
@@ -329,6 +372,18 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
                     onUpdateSymptomSeverity={onUpdateSymptomSeverity}
                     severity={props.severity}
                     symptom={props.symptom}
+                  />
+                ))
+              : null}
+            {usualOtherSymptoms && usualOtherSymptoms !== undefined
+              ? usualOtherSymptoms.map((props: TUsualSelfFrequentOtherSymptom, index: number) => (
+                  <AssessmentFlowEditUsualSymptom
+                    display_name={props.description}
+                    key={`edit-symptom-${index + 1}`}
+                    onToggleSymptom={onToggleOtherSymptom}
+                    onUpdateSymptomSeverity={onUpdateOtherSymptomSeverity}
+                    severity={props.severity}
+                    symptom={props.description}
                   />
                 ))
               : null}
