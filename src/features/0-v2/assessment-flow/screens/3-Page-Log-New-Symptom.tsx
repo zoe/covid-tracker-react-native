@@ -48,9 +48,17 @@ export default function AssessmentPage3LogNewSymptom() {
   const onNewLogSymptomFlowNext = (values: TNewSymptomLocationFormInitValues) => {
     const submitted: TFormSymptomCategory = values['symptom-locations'];
     const selectedLocations: string[] = Object.keys(submitted).filter((id: string) => submitted[id].state);
-    const categories: TSymptomCategory[] = symptomCategories.filter((category) =>
+    let categories: TSymptomCategory[] = symptomCategories.filter((category) =>
       selectedLocations.includes(category.name),
     );
+    // TODO: Make this logic cleaner to better account for "other"
+    if (selectedLocations.includes('other')) {
+      categories = categories.concat({
+        display_name: 'Other',
+        id: -1,
+        name: 'other',
+      });
+    }
     NavigatorService.navigate('AssessmentPage4LogNewSymptomFlow', { categories });
   };
 

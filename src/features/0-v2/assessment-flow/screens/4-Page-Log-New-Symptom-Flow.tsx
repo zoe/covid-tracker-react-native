@@ -42,10 +42,13 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
   };
 
   const onSubmit = (submitted: any) => {
-    const symptoms: { [name: string]: any } = Object.keys(submitted).reduce(
-      (prev, categoryName) => ({ ...prev, ...submitted[categoryName] }),
-      {},
-    );
+    const symptoms: { [name: string]: any } = Object.keys(submitted).reduce((prev, categoryName) => {
+      if (categoryName === 'other_symptoms') {
+        return { ...prev, other_symptoms: { display: submitted[categoryName], state: true } };
+      }
+      return { ...prev, ...submitted[categoryName] };
+    }, {});
+
     const newSymptoms = Object.keys(symptoms)
       .filter((symptomName: string) => symptoms[symptomName].state)
       .flatMap((symptomName: string) => {
