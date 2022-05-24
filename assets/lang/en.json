@@ -1892,7 +1892,7 @@
       "1-title": "Your Usual Self",
       "1-subtitle": "On a daily basis, you tend to suffer from",
       "header-me": "Me",
-      "1-emoji-explain-button": "→ Emojis explained",
+      "1-emoji-explain-button": "→ Icons explained",
       "1-no-symptoms": "You have no reported symptoms",
       "1-action-card-title": "How are you feeling\ntoday?",
       "1-action-card-cta-1": "I feel like my Usual Self",
@@ -1931,8 +1931,8 @@
         "1-feel-different-cta": "OK",
         "4-log-symptoms-title": "Please select severity level of your new symptom(s)",
         "4-log-symptoms-cta": "OK",
-        "4-log-symptoms-body-2": "Tap OK below to return to the symptoms screen and select the appropriate 'emoji' for your new symptom(s) added",
-        "4-log-symptoms-body-1": "To submit today's report, tap the 'emoji' that best represents the impact a new symptom has on you today"
+        "4-log-symptoms-body-2": "Tap OK below to return to the symptoms screen and select the appropriate icon for your new symptom(s) added",
+        "4-log-symptoms-body-1": "To submit today's report, tap the icon that best represents the impact a new symptom has on you today"
       }
     },
     "modals": {
