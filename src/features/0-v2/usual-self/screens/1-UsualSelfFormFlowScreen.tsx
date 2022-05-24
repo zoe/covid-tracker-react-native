@@ -1,5 +1,6 @@
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
+import { fetchStartupInfo } from '@covid/core/state';
 import { appActions } from '@covid/core/state/app/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
@@ -263,11 +264,13 @@ export default function UsualSelfFormFlowScreen() {
 
   const onStartNewAssessment = () => {
     setShowUsualSetupModal(false);
+    dispatch(fetchStartupInfo());
     NavigatorService.navigate('AssessmentPage1ShowUsualSelf');
   };
 
   const onFinishUsualSelfSetup = () => {
     setShowUsualSetupModal(false);
+    dispatch(fetchStartupInfo());
     NavigatorService.navigate('Dashboard');
   };
 
