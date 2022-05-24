@@ -5,7 +5,11 @@ import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/School
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineTypes, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { TSymptomCategory, TUsualSelfFrequentSymptom } from '@covid/features/0-v2/assessment-flow/types';
+import {
+  TSymptomCategory,
+  TUsualSelfFrequentOtherSymptom,
+  TUsualSelfFrequentSymptom,
+} from '@covid/features/0-v2/assessment-flow/types';
 import { TUsualSelf } from '@covid/features/0-v2/usual-self/types';
 import { THPScreenName } from '@covid/features/health-profile/data/healthProfileQuestions';
 import { TStudy } from '@covid/features/study-hub/types';
@@ -166,14 +170,14 @@ export type TScreenParamList = {
   HPThankYou: undefined;
   HPFormScreen: { screenName: THPScreenName | 'HPThankYou'; navDirection?: 'backwards' };
 
-  // usual self (v2)
+  // Assessment Flow + Usual Self V2
+  // TODO: Move to it's own type and directory
   UsualSelfIntroScreen: undefined;
   UsualSelfFormScreen: undefined;
-
-  // Assessment Flow v1
   AssessmentPage1ShowUsualSelf: undefined;
   AssessmentPage2UpdateUsualSelf: {
     usualSelfSymptoms: TUsualSelfFrequentSymptom[];
+    usualSelfOtherSymptoms: TUsualSelfFrequentOtherSymptom[];
     newSymptoms: TUsualSelfFrequentSymptom[] | undefined;
   };
   AssessmentPage3LogNewSymptom: undefined;

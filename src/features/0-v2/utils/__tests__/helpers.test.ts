@@ -1,4 +1,4 @@
-import * as helpers from '@covid/utils/helpers';
+import * as helpers from '@covid/features/0-v2/utils/helpers';
 
 describe('Helper Utils', () => {
   it('should correctly identify null and undefined values', () => {

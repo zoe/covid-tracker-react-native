@@ -6,7 +6,6 @@ import { appActions } from '@covid/core/state/app/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { nullOrUndefined } from '@covid/utils/helpers';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
@@ -27,6 +26,7 @@ import LogSymptomScreenBody from '../../assessment-flow/components/4-log-symptom
 import ModalEmojiExplained from '../../assessment-flow/modals/EmojiExplained';
 import ModalFrequencyOfSymptoms from '../../assessment-flow/modals/FrequencyOfSymptoms';
 import { TUsualSelfFrequentSymptom } from '../../assessment-flow/types';
+import { nullOrUndefined } from '../../utils/helpers';
 import ModalUsualSelfSetup from '../modals/UsualSelfSetup';
 import ModalUsualSelfSetupError from '../modals/UsualSelfSetupCheck';
 import { SYMPTOM_FREQUENCY_LABELS, SYMPTOM_SEVERITY_LABELS, TSymptomCategory } from '../types';
