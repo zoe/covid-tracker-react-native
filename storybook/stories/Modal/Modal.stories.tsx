@@ -192,7 +192,7 @@ storiesOf('Organisms/Modal', module)
                       textAlign: 'left',
                     }}
                   >
-                    Symptom is present but not bothering you tremendously
+                    Symptom is present but not bothering you significantly
                   </Text>
                 </Row>
                 <Row style={{ marginVertical: grid.g8 }}>
