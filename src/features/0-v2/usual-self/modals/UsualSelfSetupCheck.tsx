@@ -58,9 +58,10 @@ export default function ModalUsualSelfSetupError({ visible, onClose }: IModalUsu
                     textAlign: 'left',
                   }}
                 >
-                  {'\n\n'}Please check that you chosen a frequency and impact on life for every symptom selected.
-                  {'\n\n'}Furthermore, please also make sure that for symptoms with sub symptoms, that you have selected
-                  at least one of them.
+                  {'\n\n'}Please check that you have indicated the frequency and impact on quality of life for every
+                  symptom selected.
+                  {'\n\n'}Please also ensure that for symptoms with sub symptoms, you have selected at least one of
+                  these sub symptoms.
                 </Text>
               </Row>
             ),
