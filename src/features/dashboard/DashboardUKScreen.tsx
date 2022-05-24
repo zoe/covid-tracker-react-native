@@ -26,7 +26,6 @@ import { NewlySymptomaticCard } from '@covid/features/dashboard/components/Newly
 import ReBrandModal from '@covid/features/rebrand';
 import { OnboardingContext } from '@covid/features/tab-navigation/OnboardingContext';
 import { useStartReconsent } from '@covid/features/wider-health-studies/hooks/useStartReconsent';
-import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { pushNotificationService } from '@covid/services';
 import { sizes, styling } from '@covid/themes';
@@ -127,15 +126,7 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     }
   }, []);
 
-  const onPressReport = React.useCallback(async () => {
-    if (startupInfo?.use_assessment_flow_v1 && startupInfo?.show_assessment_flow_v1) {
-      NavigatorService.navigate('AssessmentPage1ShowUsualSelf');
-    } else if (startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1) {
-      NavigatorService.navigate('UsualSelfIntroScreen');
-    } else {
-      appCoordinator.gotoNextScreen(route.name);
-    }
-  }, []);
+  const onPressReport = React.useCallback(() => appCoordinator.gotoNextScreen(route.name), []);
 
   const compactHeader = React.useMemo(() => <CompactHeader onPress={onPressReport} />, []);
   const expandedHeader = React.useMemo(() => <ExpandedHeader onPress={onPressReport} />, []);

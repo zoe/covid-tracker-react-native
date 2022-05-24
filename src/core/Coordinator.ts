@@ -1,6 +1,6 @@
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { TProfile } from '@covid/core/profile/ProfileService';
-import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { TPatientInfosRequest, TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { TScreenParamList } from '@covid/routes/types';
 
 export type TScreenName = keyof TScreenParamList;
@@ -13,7 +13,7 @@ export interface IUpdatePatient {
 }
 
 export interface ISelectProfile {
-  profileSelected(profile: TProfile): Promise<void>;
+  profileSelected(profile: TProfile, startupInfo?: TStartupInfo): Promise<void>;
 }
 
 export interface IEditableProfile {

@@ -24,13 +24,14 @@ import {
 } from '@covid/core/state/content/slice';
 import store from '@covid/core/state/store';
 import { setCountryCode, setCurrentPatient, setPatients as setPatientsUserAction } from '@covid/core/state/user';
-import { TUserResponse } from '@covid/core/user/dto/UserAPIContracts';
+import { TStartupInfo, TUserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
 import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
+import { isPrimaryPatient } from '@covid/utils/helpers';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 type TNavigationType = StackNavigationProp<TScreenParamList, keyof TScreenParamList>;
@@ -175,6 +176,22 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     patientCoordinator.startPatient();
   };
 
+  startReportingFlow = (patientData: TPatientData, startupInfo?: TStartupInfo) => {
+    const primaryPatient = isPrimaryPatient(patientData);
+    const useAssessmentFlowV1 =
+      primaryPatient && startupInfo?.use_assessment_flow_v1 && startupInfo?.show_assessment_flow_v1;
+    const useUsualSelfSetup =
+      primaryPatient && startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1;
+
+    /* use the old assessment flow */
+    if (primaryPatient !== true) this.startAssessmentFlow(patientData);
+    if (useAssessmentFlowV1 === false && useUsualSelfSetup === false) this.startAssessmentFlow(patientData);
+
+    /* use new assessment flow v1 / usual self setup */
+    if (useAssessmentFlowV1) NavigatorService.navigate('AssessmentPage1ShowUsualSelf');
+    if (useUsualSelfSetup) NavigatorService.navigate('UsualSelfIntroScreen');
+  };
+
   // Only initiated from daily reporting flow
   startAssessmentFlow = async (patientData: TPatientData) => {
     // TODO: Does not need to be async
@@ -211,9 +228,9 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     editProfileCoordinator.goToEditLocation();
   };
 
-  profileSelected = async (profile: TProfile) => {
+  profileSelected = async (profile: TProfile, startupInfo?: TStartupInfo) => {
     await this.setPatientByProfile(profile);
-    this.startAssessmentFlow(this.patientData);
+    this.startReportingFlow(this.patientData, startupInfo);
   };
 
   setPatientById = async (patientId: string) => {

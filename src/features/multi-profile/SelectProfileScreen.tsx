@@ -87,7 +87,7 @@ export default function SelectProfileScreen(props: TProps) {
   function onProfileSelected(profile: TProfile) {
     getPatientThen(profile, (selectedProfile) => {
       if (assessmentFlow) {
-        coordinator.profileSelected(selectedProfile);
+        coordinator.profileSelected(selectedProfile, startupInfo);
       } else {
         (coordinator as IEditableProfile).startEditProfile(selectedProfile);
       }
