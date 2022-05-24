@@ -4,6 +4,7 @@ import { appActions } from '@covid/core/state/app/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { nullOrUndefined } from '@covid/utils/helpers';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
@@ -62,6 +63,7 @@ export default function UsualSelfFormFlowScreen() {
       (prev, categoryName) => ({ ...prev, ...submitted[categoryName] }),
       {},
     );
+
     const usualSelf: TUsualSelfFrequentSymptom[] = Object.keys(symptoms)
       .filter((symptomName: string) => symptoms[symptomName].state)
       .flatMap((symptomName: string) => {
@@ -71,10 +73,10 @@ export default function UsualSelfFormFlowScreen() {
             .filter((subSymptomName: string) => symptom.subSymptoms[subSymptomName].state)
             .map((subSymptomName: string) => {
               const subSymptom = symptom.subSymptoms[subSymptomName];
-              const frequency = subSymptom.frequency
+              const frequency = !nullOrUndefined(subSymptom.frequency)
                 ? SYMPTOM_FREQUENCY_LABELS[subSymptom.frequency].label.toLowerCase()
                 : null;
-              const severity = subSymptom.severity
+              const severity = !nullOrUndefined(subSymptom.severity)
                 ? SYMPTOM_SEVERITY_LABELS[subSymptom.severity].label.toLowerCase()
                 : null;
               return {
@@ -84,8 +86,12 @@ export default function UsualSelfFormFlowScreen() {
               };
             });
         if (symptom.options !== undefined && symptom.options.value) {
-          const frequency = symptom.frequency ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase() : null;
-          const severity = symptom.severity ? SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase() : null;
+          const frequency = !nullOrUndefined(symptom.frequency)
+            ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase()
+            : null;
+          const severity = !nullOrUndefined(symptom.severity)
+            ? SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase()
+            : null;
           return [
             {
               frequency,
@@ -95,8 +101,12 @@ export default function UsualSelfFormFlowScreen() {
           ];
         }
 
-        const frequency = symptom.frequency ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase() : null;
-        const severity = symptom.severity ? SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase() : null;
+        const frequency = !nullOrUndefined(symptom.frequency)
+          ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase()
+          : null;
+        const severity = !nullOrUndefined(symptom.severity)
+          ? SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase()
+          : null;
         return [
           {
             frequency,
