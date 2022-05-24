@@ -106,7 +106,9 @@ export default function AssessmentPage1ShowUsualSelf() {
             <Row style={[baseStyle.header]}>
               <Text style={[baseStyle.subTitle]}>{i18n.t('usual-self.assessment-flow.1-subtitle')}</Text>
             </Row>
-            <UsualSelfFrequentSymptoms yourFrequentSymptoms={yourUsualSelfSymptoms} />
+            <UsualSelfFrequentSymptoms
+              yourFrequentSymptoms={yourUsualSelfSymptoms?.concat(yourUsualSelfOtherSymptoms || [])}
+            />
           </Column>
         </ScrollView>
       </ScreenBody>
