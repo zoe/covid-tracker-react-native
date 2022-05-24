@@ -1,3 +1,4 @@
+import { Text } from '@covid/components';
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
 import { fetchStartupInfo } from '@covid/core/state';
@@ -337,13 +338,19 @@ export default function UsualSelfFormFlowScreen() {
                   <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
                     {/* eslint-disable-next-line no-restricted-syntax */}
                     {currentCategory?.currentIndex !== undefined && (
-                      <UsualSelfActionCardButtonGroup
-                        style={[baseStyle.cardButtonGroup]}
-                        topButton={{
-                          onPress: () => onNavigate(1, handleSubmit),
-                          text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
-                        }}
-                      />
+                      <>
+                        <Text
+                          style={{ marginHorizontal: grid.g32 }}
+                          textClass="pSmallMedium"
+                        >{`Before you continue, please ensure that you have indicated the frequency and impact on quality of life for your symptoms `}</Text>
+                        <UsualSelfActionCardButtonGroup
+                          style={[baseStyle.cardButtonGroup]}
+                          topButton={{
+                            onPress: () => onNavigate(1, handleSubmit),
+                            text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
+                          }}
+                        />
+                      </>
                     )}
                   </Column>
                 </Row>
