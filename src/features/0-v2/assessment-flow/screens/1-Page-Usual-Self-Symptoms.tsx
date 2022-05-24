@@ -24,8 +24,8 @@ import ModalEmojiExplained from '../modals/EmojiExplained';
 import ModalUsualSelfExplanation from '../modals/UsualSelfExplanation';
 import { TUsualSelfFrequentSymptom } from '../types';
 
-const makeAssessment = (patientID: string, usualSymptoms?: TUsualSelfFrequentSymptom[]) => ({
-  other_symptoms: [],
+const makeAssessment = (patientID: string, usualSymptoms?: TUsualSelfFrequentSymptom[], otherSymptoms?: any) => ({
+  other_symptoms: otherSymptoms || [],
   patient: patientID,
   reasons: [],
   symptoms: usualSymptoms || [],
@@ -33,6 +33,7 @@ const makeAssessment = (patientID: string, usualSymptoms?: TUsualSelfFrequentSym
 
 export default function AssessmentPage1ShowUsualSelf() {
   const [yourUsualSelfSymptoms, setYourUsualSelfSymptoms] = useState<TUsualSelfFrequentSymptom[] | undefined>();
+  const [yourUsualSelfOtherSymptoms, setYourUsualSelfOtherSymptoms] = useState<any>();
   const [showUsualSelfModal, setUsualSelfModalState] = useState<boolean>(false);
   const [showEmojiExplanationModal, setEmojiExplanationModal] = useState<boolean>(false);
   const patientID = useSelector<TRootState, string>((state) => state.user.patients[0]);
@@ -50,7 +51,7 @@ export default function AssessmentPage1ShowUsualSelf() {
 
   const onFeelLikeUsualSelf = () => {
     assessmentService
-      .createNewDailyAssessment(makeAssessment(patientID, yourUsualSelfSymptoms))
+      .createNewDailyAssessment(makeAssessment(patientID, yourUsualSelfSymptoms, yourUsualSelfOtherSymptoms))
       .then((resp) => {
         // eslint-disable-next-line no-console
         console.log(resp);
@@ -65,8 +66,9 @@ export default function AssessmentPage1ShowUsualSelf() {
   useEffect(() => {
     usualSelfService
       .getUsualSelf()
-      .then(({ symptoms }) => {
+      .then(({ symptoms, other_symptoms: otherSymptoms }) => {
         setYourUsualSelfSymptoms(symptoms);
+        setYourUsualSelfOtherSymptoms(otherSymptoms);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
