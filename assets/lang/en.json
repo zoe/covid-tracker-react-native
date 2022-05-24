@@ -1892,7 +1892,7 @@
       "1-title": "Your Usual Self",
       "1-subtitle": "On a daily basis, you tend to suffer from",
       "header-me": "Me",
-      "1-emoji-explain-button": "→ Emojis explained",
+      "1-emoji-explain-button": "→ Icons explained",
       "1-no-symptoms": "You have no reported symptoms",
       "1-action-card-title": "How are you feeling\ntoday?",
       "1-action-card-cta-1": "I feel like my Usual Self",
@@ -1921,7 +1921,7 @@
       "5-action-card-cta-1": "Finish",
       "modals": {
         "0-emoji-explained-body": "In order to capture how some symptoms may not affect you very much, while others might have a significant impact on your daily life, each symptom is marked below:",
-        "0-emoji-explained-smile": "Symptom is present but not bothering you tremendously",
+        "0-emoji-explained-smile": "Symptom is present but not bothering you significantly",
         "0-emoji-explained-sad": "Symptom impacts your daily activities to some degree e.g. prevents you from doing a normal exercise routine.",
         "0-emoji-explained-tired": "Symptom impacts your daily activities significantly, e.g. interrupts sleep, physical activity, social life, work etc.",
         "0-emoji-explained-title": "Impact on quality of life",
@@ -1931,8 +1931,8 @@
         "1-feel-different-cta": "OK",
         "4-log-symptoms-title": "Please select severity level of your new symptom(s)",
         "4-log-symptoms-cta": "OK",
-        "4-log-symptoms-body-2": "Tap OK below to return to the symptoms screen and select the appropriate 'emoji' for your new symptom(s) added",
-        "4-log-symptoms-body-1": "To submit today's report, tap the 'emoji' that best represents the impact a new symptom has on you today"
+        "4-log-symptoms-body-2": "Tap OK below to return to the symptoms screen and select the appropriate icon for your new symptom(s) added",
+        "4-log-symptoms-body-1": "To submit today's report, tap the icon that best represents the impact a new symptom has on you today"
       }
     },
     "modals": {
