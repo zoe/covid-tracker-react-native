@@ -41,13 +41,16 @@ interface IAssessmentPage5LogNewSymptomReasonProps {
 export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmentPage5LogNewSymptomReasonProps) {
   const [reasons, setReasons] = useState<TSymptomReason[]>();
   const [showReasonOptions, setShowReasonOptions] = useState<boolean>(false);
+  const [preferNotToSay, setPreferNotToSay] = useState<boolean>(false);
   const symptomService = makeSymptomService();
   const assessmentService = makeAssessmentService();
 
   useEffect(() => {
     symptomService
       .getSymptomReasons()
-      .then((symptomReasons: TSymptomReason[]) => setReasons(symptomReasons))
+      .then((symptomReasons: TSymptomReason[]) =>
+        setReasons(symptomReasons.filter((reason) => reason.name !== 'pfnts')),
+      )
       .catch((error) => {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -56,7 +59,10 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
 
   const onSubmit = (submitted: any) => {
     let selectedReasons: any[] = [];
-    if (submitted.symptom_reasons !== null && submitted.symptom_reasons !== undefined) {
+
+    if (preferNotToSay) {
+      selectedReasons = ['pfnts'];
+    } else if (submitted.symptom_reasons !== null && submitted.symptom_reasons !== undefined) {
       const symptomReasons = submitted.symptom_reasons;
       selectedReasons = Object.keys(symptomReasons).map((reason) =>
         symptomReasons[reason].state === true ? reason : null,
@@ -103,6 +109,16 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
                       <Text style={[baseStyle.title]}>
                         {i18n.t('usual-self.assessment-flow.5-new-symptom-reason-title')}
                       </Text>
+                    </Row>
+                    <Row style={{ flexGrow: 1, marginVertical: grid.g16 }}>
+                      <Radio
+                        label={i18n.t('usual-self.assessment-flow.5-new-symptom-reason-prefer-not-to-say')}
+                        onSelect={() => {
+                          setPreferNotToSay(true);
+                          setShowReasonOptions(false);
+                        }}
+                        selected={!showReasonOptions}
+                      />
                     </Row>
                     <Row style={{ flexGrow: 1, marginVertical: grid.g16 }}>
                       <Radio
