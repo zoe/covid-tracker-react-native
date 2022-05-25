@@ -37,6 +37,7 @@ interface IProps {
   scrollRef?: React.RefObject<any>;
   simpleCallout?: boolean;
   testID: string;
+  onBackPress?: Function;
 }
 
 function renderHeader(props: IProps) {
@@ -49,7 +50,9 @@ function renderHeader(props: IProps) {
   if (props.profile) {
     return <PatientHeader profile={props.profile} simpleCallout={props.simpleCallout} />;
   }
-  return <NavHeader backButtonColor={props.customBackButtonColor || colors.secondary} />;
+  return (
+    <NavHeader backButtonColor={props.customBackButtonColor || colors.secondary} onBackPress={props.onBackPress} />
+  );
 }
 
 function renderBody(props: IProps) {
