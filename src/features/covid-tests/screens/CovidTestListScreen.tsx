@@ -5,6 +5,7 @@ import { Screen } from '@covid/components/Screen';
 import { ErrorText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { TPatientData } from '@covid/core/patient/PatientData';
 import { TStateApp } from '@covid/core/state/app/types';
 import { populatePatientLFTState, updateCurrentPatientLoggedToday } from '@covid/core/state/covid-tests/slice';
 import { TStateCovidTests } from '@covid/core/state/covid-tests/types';
@@ -13,6 +14,7 @@ import { selectStartupInfo } from '@covid/core/state/selectors';
 import { covidTestService } from '@covid/core/user/CovidTestService';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions, TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { isPrimaryPatient } from '@covid/features/0-v2/utils/helpers';
 import { CovidLFTQuickReport } from '@covid/features/covid-tests/components/CovidLFTQuickReport';
 import { getInitialRouteName } from '@covid/features/covid-tests/helpers';
 import CovidTestTabbedListsScreen from '@covid/features/covid-tests/screens/CovidTestTabbedListsScreen';
@@ -68,6 +70,7 @@ export default function CovidTestListScreen(props: IProps) {
   const dispatch = useDispatch();
 
   const covidTestsState = useSelector<TRootState, TStateCovidTests>((state) => state.covidTests);
+  const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
   const currentPatientId = assessmentCoordinator.assessmentData?.patientData?.patientId;
 
   const initLFTPromptStateIfUndefined = () => {
@@ -124,6 +127,9 @@ export default function CovidTestListScreen(props: IProps) {
     [props.route.name],
   );
 
+  const startAssessmentFlowV1 = React.useCallback(() => NavigatorService.navigate('AssessmentPage1ShowUsualSelf'), []);
+  const startUsualSelf = React.useCallback(() => NavigatorService.navigate('UsualSelfIntroScreen'), []);
+
   const backToProfileTab = React.useCallback(() => NavigatorService.navigate('Profile'), []);
 
   const initialRouteName = getInitialRouteName(props.route.params?.mechanism, props.route.params?.is_rapid_test);
@@ -143,20 +149,43 @@ export default function CovidTestListScreen(props: IProps) {
     }
   };
 
-  const renderFooter = () => (
-    <View style={styles.wrapper}>
-      {startupInfo?.show_assessment_flow_v0 &&
+  const makeStartAssessmentFlowButton = () => {
+    const useAssessmentFlowV0 =
+      startupInfo?.show_assessment_flow_v0 &&
       !fromDailyAssessmentFlow() &&
       isGBCountry() &&
-      !assessmentCoordinator.isReportedByOther() ? (
+      !assessmentCoordinator.isReportedByOther();
+
+    const primaryPatient = isPrimaryPatient(currentPatient);
+    const useAssessmentFlowV1 =
+      primaryPatient && startupInfo?.use_assessment_flow_v1 && startupInfo?.show_assessment_flow_v1;
+    const useUsualSelfSetup =
+      primaryPatient && startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1;
+
+    if (useAssessmentFlowV1)
+      return (
         <Button
-          onPress={backToProfileTab}
+          onPress={startAssessmentFlowV1}
           style={styles.transparentButton}
           testID="button-covid-test-list-assessment-v0"
           text={i18n.t('done')}
           textStyle={styles.transparentButtonText}
         />
-      ) : (
+      );
+
+    if (useUsualSelfSetup)
+      return (
+        <Button
+          onPress={startUsualSelf}
+          style={styles.transparentButton}
+          testID="button-covid-test-list-assessment-v0"
+          text={i18n.t('done')}
+          textStyle={styles.transparentButtonText}
+        />
+      );
+
+    if (useAssessmentFlowV0)
+      return (
         <Button
           buttonType="secondary"
           onPress={handleNextButton}
@@ -165,6 +194,23 @@ export default function CovidTestListScreen(props: IProps) {
           text={covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
           textStyle={styles.footerBtnTxt}
         />
+      );
+
+    return null;
+  };
+
+  const renderFooter = () => (
+    <View style={styles.wrapper}>
+      {!fromDailyAssessmentFlow() && isGBCountry() ? (
+        <Button
+          onPress={backToProfileTab}
+          style={styles.transparentButton}
+          testID="button-covid-test-list-assessment-v0"
+          text={i18n.t('done')}
+          textStyle={styles.transparentButtonText}
+        />
+      ) : (
+        makeStartAssessmentFlowButton()
       )}
     </View>
   );
