@@ -14,8 +14,6 @@ interface ILogOtherSymptomsProps {
   question: string;
 }
 
-// TODO(iman@joinzoe.com)
-// TODO: Make the log other symptoms page reusable by passing the tag and text as props
 export default function LogOtherSymptomsFromAssessmentFlow({ handleChange, name, question }: ILogOtherSymptomsProps) {
   const [validation, setValidation] = useState<string>('');
   const [state, setState] = useState<string>('default');
@@ -23,12 +21,14 @@ export default function LogOtherSymptomsFromAssessmentFlow({ handleChange, name,
   const updateInput = (field: string, value: any) => {
     if (value.length > 20) {
       setValidation('Input too long');
-      setState('warning');
+      setState('error');
+    } else if (value.length > 0) {
+      setValidation('');
+      setState('success');
     }
     handleChange(field, value);
   };
 
-  console.log('here');
   return (
     <ScreenBody style={[{ flexGrow: 1, marginTop: grid.g16, paddingHorizontal: grid.g24 }]}>
       <Column style={{ flexGrow: 1 }}>

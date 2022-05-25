@@ -4,7 +4,7 @@ import IconInfo from '@assets/v2/svg/icon-info';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 export type TInputState = 'error' | 'success' | 'default' | 'none';
 
@@ -27,9 +27,13 @@ export function InputAssist({ text }: IValidationProps) {
   );
 }
 
-export function InputError() {
+interface IInputStateProps {
+  style?: StyleProp<ViewStyle>;
+}
+
+export function InputError({ style }: IInputStateProps) {
   return (
-    <View style={baseStyles.assistView}>
+    <View style={[baseStyles.inputView, style]}>
       <IconExclamation
         circleFill={colors.tags.critical}
         height={grid.g16}
@@ -40,8 +44,12 @@ export function InputError() {
   );
 }
 
-export function InputSuccess() {
-  return <IconCheck circleFill={colors.tags.success} height={grid.g16} strokeColor={colors.white} width={grid.g16} />;
+export function InputSuccess({ style }: IInputStateProps) {
+  return (
+    <View style={[baseStyles.inputView, style]}>
+      <IconCheck circleFill={colors.tags.success} height={grid.g16} strokeColor={colors.white} width={grid.g16} />
+    </View>
+  );
 }
 
 interface IInputValidationProps {
@@ -65,6 +73,11 @@ export function InputValidation({ validation, state }: IInputValidationProps) {
 const baseStyles = StyleSheet.create({
   assistView: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  inputView: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   secondary: {
     color: colors.text.secondary,

@@ -1,11 +1,12 @@
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
+import Column from '@tracer/components/atoms/Column';
 import InputText from '@tracer/components/atoms/Inputs/text';
 import Row from '@tracer/components/atoms/Row';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import { InputValidation, TInputState } from './validation';
+import { InputError, InputSuccess, InputValidation, TInputState } from './validation';
 
 interface IFormInputTextQuestionProps {
   validation?: string;
@@ -48,21 +49,23 @@ export default function FormInputTextQuestion({
   };
 
   return (
-    <Row style={[baseStyles.view]}>
-      <InputText
-        label={question}
-        onValueChange={onChange}
-        placeholder={placeholder}
-        value=""
-        viewStyle={inputStateStyle}
-      >
-        {/* {state === 'error' ? <InputError /> : null} */}
-        {/* {state === 'success' ? <InputSuccess /> : null} */}
-      </InputText>
-      <View style={baseStyles.validationView}>
+    <Column style={[{ flex: 1, flexGrow: 1 }]}>
+      <Row style={[baseStyles.view]}>
+        <InputText
+          label={question}
+          onValueChange={onChange}
+          placeholder={placeholder}
+          value=""
+          viewStyle={inputStateStyle}
+        >
+          {state === 'error' ? <InputError style={baseStyles.inputStateOffset} /> : null}
+          {state === 'success' ? <InputSuccess style={baseStyles.inputStateOffset} /> : null}
+        </InputText>
+      </Row>
+      <Row style={baseStyles.validationView}>
         {validation && validation.length > 0 ? <InputValidation state={state} validation={validation} /> : null}
-      </View>
-    </Row>
+      </Row>
+    </Column>
   );
 }
 
@@ -70,6 +73,9 @@ const baseStyles = StyleSheet.create({
   default: {},
   error: {
     borderColor: colors.tags.critical,
+  },
+  inputStateOffset: {
+    marginTop: -44,
   },
   secondary: {
     color: colors.text.secondary,
