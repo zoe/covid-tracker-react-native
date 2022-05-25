@@ -16,19 +16,27 @@ interface IActionGroupButton {
 
 interface IUsualSelfActionCardButtonGroup {
   topButton: IActionGroupButton;
+  topButtonDisabled?: boolean;
   bottomButton?: IActionGroupButton;
-  style?: StyleProp<ViewStyle>;
+  btnGroupStyle?: StyleProp<ViewStyle>;
 }
 
 export default function UsualSelfActionCardButtonGroup({
   topButton,
   bottomButton,
-  style,
+  btnGroupStyle,
+  topButtonDisabled,
 }: IUsualSelfActionCardButtonGroup) {
+  const { style, ...topButtonProps } = topButton;
   return (
-    <Column style={[{ flexGrow: 1, justifyContent: 'center' }, style]}>
+    <Column style={[{ flexGrow: 1, justifyContent: 'center' }, btnGroupStyle]}>
       <Row style={[baseStyle.actionCardButtonRow]}>
-        <Button style={[baseStyle.actionCardButton]} textStyle={[baseStyle.actionCardButtonText]} {...topButton} />
+        <Button
+          style={[baseStyle.actionCardButton]}
+          textStyle={[baseStyle.actionCardButtonText]}
+          {...topButtonProps}
+          pseudoDisable={topButtonDisabled}
+        />
       </Row>
       {bottomButton ? (
         <Row style={[baseStyle.actionCardButtonRow]}>

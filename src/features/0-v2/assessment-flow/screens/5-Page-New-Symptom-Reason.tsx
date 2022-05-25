@@ -65,7 +65,6 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
 
     const report = { ...route.params.report, ...{ reasons: selectedReasons } };
 
-    console.log(report);
     assessmentService
       .createNewDailyAssessment(report)
       .then((resp) => {
@@ -139,7 +138,7 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
                 <Row style={[baseStyle.footer]}>
                   <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
                     <UsualSelfActionCardButtonGroup
-                      style={[baseStyle.cardButtonGroup]}
+                      btnGroupStyle={[baseStyle.cardButtonGroup]}
                       topButton={{
                         onPress: handleSubmit,
                         text: i18n.t('usual-self.assessment-flow.5-action-card-cta-1'),

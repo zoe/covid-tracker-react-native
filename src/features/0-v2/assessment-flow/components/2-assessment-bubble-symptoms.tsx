@@ -5,7 +5,7 @@ import Row from '@tracer/components/atoms/Row';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { TUsualSelfFrequentOtherSymptom, TUsualSelfFrequentSymptom } from '../types';
+import { TFrequentBubbleSymptom, TUsualSelfFrequentOtherSymptom, TUsualSelfFrequentSymptom } from '../types';
 
 const makeBubbleSymptomButtonGroup = (bubbleSymptoms: TUsualSelfFrequentSymptom[]): IButtonProps[] =>
   bubbleSymptoms.map(({ display_name }) => ({
@@ -20,7 +20,7 @@ const makeOtherBubbleSymptomButtonGroup = (otherBubbleSymptoms: TUsualSelfFreque
   }));
 
 interface IAssessmentBubbleSymptoms {
-  bubbleSymptoms: TUsualSelfFrequentSymptom[];
+  bubbleSymptoms: TFrequentBubbleSymptom[];
   otherBubbleSymptoms: TUsualSelfFrequentOtherSymptom[];
   otherSymptoms?: boolean;
   onSelectBubble: (index: number) => void;

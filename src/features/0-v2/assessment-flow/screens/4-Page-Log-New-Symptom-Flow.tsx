@@ -36,12 +36,9 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
     let result = false;
     const otherSymptomPage = route.params.categories[currentSymptomCategoryIndex].name === 'other';
     const otherSymptomInput = values?.other_symptoms;
-    console.log('other symptom page', otherSymptomPage);
-    console.log('other symptom input', otherSymptomInput.length > 20);
     if (otherSymptomPage && otherSymptomInput && values.other_symptoms.length > 20) {
       result = true;
     }
-    console.log('checking', result);
     return result;
   };
 
@@ -208,7 +205,7 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
                 <Row style={[baseStyle.footerRow]}>
                   <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
                     <UsualSelfActionCardButtonGroup
-                      style={[baseStyle.cardButtonGroup]}
+                      btnGroupStyle={[baseStyle.cardButtonGroup]}
                       topButton={{
                         disabled: onDisabled(values),
                         onPress: () => onNext(handleSubmit),

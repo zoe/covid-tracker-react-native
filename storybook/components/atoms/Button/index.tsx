@@ -18,6 +18,7 @@ export interface IButtonProps {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   testID?: string;
+  pseudoDisable?: boolean;
 }
 
 /**
@@ -35,9 +36,15 @@ export default function Button({
   onPress,
   text,
   disabled,
+  pseudoDisable,
   ...props
 }: IButtonProps) {
-  const btnColourStyle = disabled === true ? buttonDisabledColorStyles[buttonType] : buttonColorStyles[buttonType];
+  const btnColourStyle =
+    disabled === true
+      ? buttonDisabledColorStyles[buttonType]
+      : pseudoDisable === true
+      ? buttonDisabledColorStyles[buttonType]
+      : buttonColorStyles[buttonType];
   const textColourStyle = { color: buttonColorStyles[buttonType].color };
   return (
     <TouchableOpacity

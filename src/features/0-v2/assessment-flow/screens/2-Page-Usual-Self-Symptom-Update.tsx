@@ -36,7 +36,6 @@ import {
 
 const cleanSymptoms = (data: TUsualSelfFrequentSymptom[]) => {
   return data.map((s) => {
-    console.log(s);
     return {
       frequency: '',
       severity: s.severity,
@@ -478,7 +477,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
                 onPress: isReadyToSubmit ? onSubmit : () => setFormMissingSeverityModal(true),
                 text: i18n.t('usual-self.assessment-flow.2-action-card-cta-2'),
               }}
-              style={[baseStyle.cardButtonGroup]}
+              btnGroupStyle={[baseStyle.cardButtonGroup]}
               topButton={{
                 buttonType: 'secondary',
                 onPress: onLogNewSymptom,
