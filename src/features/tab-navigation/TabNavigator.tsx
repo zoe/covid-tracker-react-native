@@ -374,13 +374,11 @@ export default function TabNavigator({ navigation }: IProps) {
           name="StudiesList"
           options={{ ...tabScreenOptions, ...tabStudiesScreenOptions }}
         />
-        {startupInfo?.show_assessment_flow_v0 ? (
-          <Tab.Screen
-            component={ProfileScreen}
-            name="Profile"
-            options={{ ...tabScreenOptions, ...tabProfileScreenOptions }}
-          />
-        ) : null}
+        <Tab.Screen
+          component={ProfileScreen}
+          name="Profile"
+          options={{ ...tabScreenOptions, ...tabProfileScreenOptions }}
+        />
       </Tab.Navigator>
     </OnboardingContext.Provider>
   );

@@ -123,7 +123,7 @@ export default function ThankYouUKScreen(props: IProps) {
 
       if (startupInfo?.show_study_hub_onboarding && startupInfo?.wider_health_studies_consent) {
         setTimeout(() => {
-          NavigatorService.goBack();
+          NavigatorService.navigate('Dashboard');
           NavigatorService.jumpTo('StudiesList');
         }, SHOW_ONBOARDING_DELAY_MS);
         return;
