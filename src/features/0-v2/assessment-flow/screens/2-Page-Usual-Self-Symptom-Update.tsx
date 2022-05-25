@@ -218,8 +218,6 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   };
 
   const onUpdateAdditionalSymptomSeverity = (symptomName: string, severity: TUsualSelfSymptomSeverity) => {
-    console.log(newAdditionalSymptoms);
-    console.log(symptomName);
     if (newAdditionalSymptoms) {
       const updateAdditionalSymptoms = [...newAdditionalSymptoms];
       const additionalSymptomsUpdated: TUsualSelfFrequentSymptom[] = updateAdditionalSymptoms.map(
