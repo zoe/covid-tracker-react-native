@@ -1,5 +1,8 @@
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
@@ -41,7 +44,12 @@ const makeCheckBoxItems = (areas: TSymptomCategory[]): IFormCheckboxItemProps[] 
     });
 };
 
-export default function AssessmentPage3LogNewSymptom() {
+interface AssessmentPage3LogNewSymptomProps {
+  navigation: StackNavigationProp<TScreenParamList, 'AssessmentPage3LogNewSymptom'>;
+  route: RouteProp<TScreenParamList, 'AssessmentPage3LogNewSymptom'>;
+}
+
+export default function AssessmentPage3LogNewSymptom({ route }: AssessmentPage3LogNewSymptomProps) {
   const [symptomCategories, setSymptomCategories] = useState<TSymptomCategory[]>([]);
   const symptomService = makeSymptomService();
 
@@ -59,7 +67,10 @@ export default function AssessmentPage3LogNewSymptom() {
         name: 'other',
       });
     }
-    NavigatorService.navigate('AssessmentPage4LogNewSymptomFlow', { categories });
+    NavigatorService.navigate('AssessmentPage4LogNewSymptomFlow', {
+      categories,
+      usualSelfSymptoms: route.params.usualSelfSymptoms,
+    });
   };
 
   useEffect(() => {
