@@ -41,9 +41,13 @@ type TCurrentCategory = {
 };
 
 const hasNullSeverity = (symptoms: any[]): boolean =>
+  symptoms !== undefined &&
+  symptoms.length > 0 &&
   symptoms.filter((symptom) => symptom.severity === null || symptom.severity === undefined).length > 0;
 
 const hasNullFrequency = (symptoms: any[]): boolean =>
+  symptoms !== undefined &&
+  symptoms.length > 0 &&
   symptoms.filter((symptom) => symptom.frequency === null || symptom.frequency === undefined).length > 0;
 
 const isFormSubmissionValid = (symptoms: any[], otherSymptoms: any[]): boolean => {
@@ -75,7 +79,7 @@ export default function UsualSelfFormFlowScreen() {
 
   const dispatch = useDispatch();
 
-  const onSubmit = async (submitted: any) => {
+  const makeUsualSelfInput = (submitted: any) => {
     const symptoms: { [name: string]: any } = makeUsualSelf(submitted);
     const usualSelf: TUsualSelfFrequentSymptom[] = Object.keys(symptoms)
       .filter((symptomName: string) => symptoms[symptomName].state)
@@ -145,11 +149,25 @@ export default function UsualSelfFormFlowScreen() {
       symptoms: usualSelf,
       usual_self: true,
     };
+    return newUsualSelf;
+  };
 
-    const submissionValid = isFormSubmissionValid(newUsualSelf.symptoms, newUsualSelf.other_symptoms);
-    if (submissionValid) {
+  const onDisable = (values: any): boolean => {
+    const currentUsualSelfInput = makeUsualSelfInput(values);
+    console.log('current symptoms', currentUsualSelfInput.symptoms);
+    console.log('current other symptoms', currentUsualSelfInput.other_symptoms);
+    const valid = isFormSubmissionValid(currentUsualSelfInput.symptoms, currentUsualSelfInput.other_symptoms);
+    console.log('current form state', valid);
+    return !valid;
+  };
+
+  const onSubmit = async (submitted: any) => {
+    const newUsualSelfInput = makeUsualSelfInput(submitted);
+    const valid = isFormSubmissionValid(newUsualSelfInput.symptoms, newUsualSelfInput.other_symptoms);
+
+    if (valid) {
       usualSelfService
-        .createUsualSelf(newUsualSelf)
+        .createUsualSelf(newUsualSelfInput)
         .then(async (resp) => {
           // eslint-disable-next-line no-console
           await patientService.updatePatientInfo(currentPatient.patientId, {
@@ -352,6 +370,7 @@ export default function UsualSelfFormFlowScreen() {
                         <UsualSelfActionCardButtonGroup
                           style={[baseStyle.cardButtonGroup]}
                           topButton={{
+                            disabled: onDisable(values),
                             onPress: () => onNavigate(1, handleSubmit),
                             text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
                           }}
