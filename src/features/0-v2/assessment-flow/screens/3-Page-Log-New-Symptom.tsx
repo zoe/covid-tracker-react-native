@@ -129,7 +129,7 @@ export default function AssessmentPage3LogNewSymptom({ route }: AssessmentPage3L
                 <Row style={[baseStyle.footer]}>
                   <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
                     <UsualSelfActionCardButtonGroup
-                      style={[baseStyle.cardButtonGroup]}
+                      btnGroupStyle={[baseStyle.cardButtonGroup]}
                       topButton={{
                         disabled:
                           Object.keys(values.symptom_locations).filter(

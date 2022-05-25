@@ -41,17 +41,29 @@ type TCurrentCategory = {
 };
 
 const hasNullSeverity = (symptoms: any[]): boolean =>
+  symptoms !== undefined &&
+  symptoms.length > 0 &&
   symptoms.filter((symptom) => symptom.severity === null || symptom.severity === undefined).length > 0;
 
 const hasNullFrequency = (symptoms: any[]): boolean =>
+  symptoms !== undefined &&
+  symptoms.length > 0 &&
   symptoms.filter((symptom) => symptom.frequency === null || symptom.frequency === undefined).length > 0;
+
+const hasTooManyCharacters = (symptoms: any[]): boolean =>
+  symptoms !== undefined &&
+  symptoms.length > 0 &&
+  symptoms.filter((symptom) => symptom.description.length > 20).length > 0;
 
 const isFormSubmissionValid = (symptoms: any[], otherSymptoms: any[]): boolean => {
   const isValidSeverity = !hasNullSeverity(symptoms);
   const isValidFrequency = !hasNullFrequency(symptoms);
   const isValidOtherSeverity = !hasNullSeverity(otherSymptoms);
   const isValidOtherFrequency = !hasNullFrequency(otherSymptoms);
-  return isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency;
+  const isValidOtherDescription = !hasTooManyCharacters(otherSymptoms);
+  return (
+    isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency && isValidOtherDescription
+  );
 };
 
 const makeUsualSelf = (submitted: any): { [name: string]: any } =>
@@ -67,6 +79,7 @@ export default function UsualSelfFormFlowScreen() {
   const [initValues, setInitValues] = useState<{ [name: string]: any }>();
   const [showUsualSetupModal, setShowUsualSetupModal] = useState<boolean>(false);
   const [showUsualSetupErrorModal, setShowUsualSetupErrorModal] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
 
@@ -75,7 +88,7 @@ export default function UsualSelfFormFlowScreen() {
 
   const dispatch = useDispatch();
 
-  const onSubmit = async (submitted: any) => {
+  const makeUsualSelfInput = (submitted: any) => {
     const symptoms: { [name: string]: any } = makeUsualSelf(submitted);
     const usualSelf: TUsualSelfFrequentSymptom[] = Object.keys(symptoms)
       .filter((symptomName: string) => symptoms[symptomName].state)
@@ -129,14 +142,21 @@ export default function UsualSelfFormFlowScreen() {
       });
 
     let otherSymptoms: any[] = [];
-    if (submitted.other_symptoms && submitted.other_symptoms !== undefined)
+    if (submitted.other_symptoms && submitted.other_symptoms !== undefined) {
+      const otherFrequency = !nullOrUndefined(submitted.other_symptoms.frequency)
+        ? SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase()
+        : null;
+      const otherSeverity = !nullOrUndefined(submitted.other_symptoms.severity)
+        ? SYMPTOM_SEVERITY_LABELS[submitted.other_symptoms.severity].label.toLowerCase()
+        : null;
       otherSymptoms = [
         {
           description: submitted.other_symptoms.description,
-          frequency: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
-          severity: SYMPTOM_SEVERITY_LABELS[submitted.other_symptoms.severity].label.toLowerCase(),
+          frequency: otherFrequency,
+          severity: otherSeverity,
         },
       ];
+    }
 
     const newUsualSelf = {
       other_symptoms: otherSymptoms,
@@ -145,13 +165,25 @@ export default function UsualSelfFormFlowScreen() {
       symptoms: usualSelf,
       usual_self: true,
     };
+    return newUsualSelf;
+  };
 
-    const submissionValid = isFormSubmissionValid(newUsualSelf.symptoms, newUsualSelf.other_symptoms);
-    if (submissionValid) {
+  const onDisable = (values: any): boolean => {
+    const currentUsualSelfInput = makeUsualSelfInput(values);
+    const valid = isFormSubmissionValid(currentUsualSelfInput.symptoms, currentUsualSelfInput.other_symptoms);
+    return !valid;
+  };
+
+  const onSubmit = async (submitted: any) => {
+    const newUsualSelfInput = makeUsualSelfInput(submitted);
+    const valid = isFormSubmissionValid(newUsualSelfInput.symptoms, newUsualSelfInput.other_symptoms);
+
+    if (valid) {
       usualSelfService
-        .createUsualSelf(newUsualSelf)
+        .createUsualSelf(newUsualSelfInput)
         .then(async (resp) => {
           // eslint-disable-next-line no-console
+          console.log('usual self response', resp);
           await patientService.updatePatientInfo(currentPatient.patientId, {
             has_seen_assessment_flow_v1_onboarding: true,
           });
@@ -201,6 +233,7 @@ export default function UsualSelfFormFlowScreen() {
           setCurrentCategory({ currentIndex: nextIndex, currentName: data.name });
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.log(`could not get symptom for ${symptomCategories[nextIndex].name}: ${error}`);
         });
     }
@@ -315,54 +348,59 @@ export default function UsualSelfFormFlowScreen() {
       ) : null}
       {initValues ? (
         <Formik initialValues={initValues} onSubmit={(values: any) => onSubmit(values)}>
-          {({ handleSubmit, setFieldValue, values }) => (
-            <>
-              <ScrollView>
-                {otherSymptomLogScreen ? (
-                  <Column style={{ flexGrow: 1 }}>
-                    <LogOtherSymptoms
-                      formID="other_symptoms"
-                      handleChange={setFieldValue}
-                      handleChangeFrequency={setFieldValue}
-                      handleChangeSeverity={setFieldValue}
-                      question="Optional"
+          {({ handleSubmit, setFieldValue, values }) => {
+            setDisabled(onDisable(values));
+            return (
+              <>
+                <ScrollView>
+                  {otherSymptomLogScreen ? (
+                    <Column style={{ flexGrow: 1 }}>
+                      <LogOtherSymptoms
+                        formID="other_symptoms"
+                        handleChange={setFieldValue}
+                        handleChangeFrequency={setFieldValue}
+                        handleChangeSeverity={setFieldValue}
+                        question="Optional"
+                      />
+                    </Column>
+                  ) : (
+                    <LogSymptomScreenBody
+                      isUsualSelf
+                      onToggleFrequencyModal={onToggleFrequencyModal}
+                      onToggleImpactOnLifeModal={onToggleImpactOnLifeModal}
+                      setFieldValue={setFieldValue}
+                      symptomCategory={symptomCategory}
+                      values={values}
                     />
-                  </Column>
-                ) : (
-                  <LogSymptomScreenBody
-                    isUsualSelf
-                    onToggleFrequencyModal={onToggleFrequencyModal}
-                    onToggleImpactOnLifeModal={onToggleImpactOnLifeModal}
-                    setFieldValue={setFieldValue}
-                    symptomCategory={symptomCategory}
-                    values={values}
-                  />
-                )}
-              </ScrollView>
-              <ScreenFooter style={baseStyle.footer}>
-                <Row style={{ paddingVertical: grid.g24 }}>
-                  <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
-                    {/* eslint-disable-next-line no-restricted-syntax */}
-                    {currentCategory?.currentIndex !== undefined && (
-                      <>
-                        <Text
-                          style={{ marginHorizontal: grid.g32 }}
-                          textClass="pSmallMedium"
-                        >{`Before you continue, please ensure that you have indicated the frequency and impact on quality of life for your symptoms `}</Text>
-                        <UsualSelfActionCardButtonGroup
-                          style={[baseStyle.cardButtonGroup]}
-                          topButton={{
-                            onPress: () => onNavigate(1, handleSubmit),
-                            text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
-                          }}
-                        />
-                      </>
-                    )}
-                  </Column>
-                </Row>
-              </ScreenFooter>
-            </>
-          )}
+                  )}
+                </ScrollView>
+                <ScreenFooter style={baseStyle.footer}>
+                  <Row style={{ paddingVertical: grid.g24 }}>
+                    <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+                      {/* eslint-disable-next-line no-restricted-syntax */}
+                      {currentCategory?.currentIndex !== undefined ? (
+                        <>
+                          <Text
+                            style={{ marginHorizontal: grid.g32 }}
+                            textClass="pSmallMedium"
+                          >{`Before you continue, please ensure that you have indicated the frequency and impact on quality of life for your symptoms `}</Text>
+                          <UsualSelfActionCardButtonGroup
+                            btnGroupStyle={[baseStyle.cardButtonGroup]}
+                            topButton={{
+                              onPress: () =>
+                                disabled ? setShowUsualSetupErrorModal(true) : onNavigate(1, handleSubmit),
+                              text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
+                            }}
+                            topButtonDisabled={disabled}
+                          />
+                        </>
+                      ) : null}
+                    </Column>
+                  </Row>
+                </ScreenFooter>
+              </>
+            );
+          }}
         </Formik>
       ) : null}
     </Screen>
