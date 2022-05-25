@@ -186,7 +186,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   const onToggleAdditionalSymptoms = (symptomName: string) => {
     if (newAdditionalSymptoms) {
       const symptomIndex = newAdditionalSymptoms.findIndex(
-        (newAdditionalSymptom) => newAdditionalSymptom.display_name === symptomName,
+        (newAdditionalSymptom) => newAdditionalSymptom.symptom === symptomName,
       );
       const updatedSymptoms = [...newAdditionalSymptoms];
       const selectedSymptoms = updatedSymptoms.splice(symptomIndex, 1);
