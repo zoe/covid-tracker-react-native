@@ -36,7 +36,6 @@ import {
 
 const cleanSymptoms = (data: TUsualSelfFrequentSymptom[]) => {
   return data.map((s) => {
-    console.log(s);
     return {
       frequency: '',
       severity: s.severity,

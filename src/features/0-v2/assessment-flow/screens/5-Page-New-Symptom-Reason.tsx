@@ -65,7 +65,6 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
 
     const report = { ...route.params.report, ...{ reasons: selectedReasons } };
 
-    console.log(report);
     assessmentService
       .createNewDailyAssessment(report)
       .then((resp) => {

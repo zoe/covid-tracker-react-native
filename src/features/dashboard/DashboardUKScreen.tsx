@@ -59,7 +59,6 @@ const ZOE_HEALTH_STUDY_LEARN_MORE_LINK =
 export function DashboardUKScreen({ navigation, route }: IProps) {
   const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-  const countryCode = useSelector<TRootState, string>((state) => state.user.country_code);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
 
