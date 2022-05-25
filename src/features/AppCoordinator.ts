@@ -183,6 +183,8 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     const useUsualSelfSetup =
       primaryPatient && startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1;
 
+    assessmentCoordinator.init(this, { patientData }, assessmentService);
+
     /* use the old assessment flow */
     if (primaryPatient !== true) this.startAssessmentFlow(patientData);
     if (useAssessmentFlowV1 === false && useUsualSelfSetup === false) this.startAssessmentFlow(patientData);
