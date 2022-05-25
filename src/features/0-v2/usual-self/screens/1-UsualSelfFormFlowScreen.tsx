@@ -40,6 +40,23 @@ type TCurrentCategory = {
   currentName: string;
 };
 
+const hasNullSeverity = (symptoms: any[]): boolean =>
+  symptoms.filter((symptom) => symptom.severity === null || symptom.severity === undefined).length > 0;
+
+const hasNullFrequency = (symptoms: any[]): boolean =>
+  symptoms.filter((symptom) => symptom.frequency === null || symptom.frequency === undefined).length > 0;
+
+const isFormSubmissionValid = (symptoms: any[], otherSymptoms: any[]): boolean => {
+  const isValidSeverity = !hasNullSeverity(symptoms);
+  const isValidFrequency = !hasNullFrequency(symptoms);
+  const isValidOtherSeverity = !hasNullSeverity(otherSymptoms);
+  const isValidOtherFrequency = !hasNullFrequency(otherSymptoms);
+  return isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency;
+};
+
+const makeUsualSelf = (submitted: any): { [name: string]: any } =>
+  Object.keys(submitted).reduce((prev, categoryName) => ({ ...prev, ...submitted[categoryName] }), {});
+
 export default function UsualSelfFormFlowScreen() {
   const [symptomCategory, setSymptomCategory] = useState<TSymptomCategory>();
   const [symptomCategories, setSymptomCategories] = useState<TSymptomCategory[]>([]);
@@ -47,25 +64,19 @@ export default function UsualSelfFormFlowScreen() {
   const [otherSymptomLogScreen, setOtherSymptomLogScreen] = useState<boolean>(false);
   const [showFrequencyModal, setShowFrequencyModal] = useState<boolean>(false);
   const [showImpactOnLifeModal, setShowImpactOnLifeModal] = useState<boolean>(false);
-  const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
-  const symptomService = makeSymptomService();
-  const usualSelfService = makeUsualSelfService();
   const [initValues, setInitValues] = useState<{ [name: string]: any }>();
   const [showUsualSetupModal, setShowUsualSetupModal] = useState<boolean>(false);
   const [showUsualSetupErrorModal, setShowUsualSetupErrorModal] = useState<boolean>(false);
+
+  const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
+
+  const symptomService = makeSymptomService();
+  const usualSelfService = makeUsualSelfService();
+
   const dispatch = useDispatch();
 
-  const hasNullSeverity = (symptoms: any[]): boolean =>
-    symptoms.filter((symptom) => symptom.severity === null || symptom.severity === undefined).length > 0;
-  const hasNullFrequency = (symptoms: any[]): boolean =>
-    symptoms.filter((symptom) => symptom.frequency === null || symptom.frequency === undefined).length > 0;
-
   const onSubmit = async (submitted: any) => {
-    const symptoms: { [name: string]: any } = Object.keys(submitted).reduce(
-      (prev, categoryName) => ({ ...prev, ...submitted[categoryName] }),
-      {},
-    );
-
+    const symptoms: { [name: string]: any } = makeUsualSelf(submitted);
     const usualSelf: TUsualSelfFrequentSymptom[] = Object.keys(symptoms)
       .filter((symptomName: string) => symptoms[symptomName].state)
       .flatMap((symptomName: string) => {
@@ -74,12 +85,12 @@ export default function UsualSelfFormFlowScreen() {
           return Object.keys(symptom.subSymptoms)
             .filter((subSymptomName: string) => symptom.subSymptoms[subSymptomName].state)
             .map((subSymptomName: string) => {
-              const subSymptom = symptom.subSymptoms[subSymptomName];
-              const frequency = !nullOrUndefined(subSymptom.frequency)
-                ? SYMPTOM_FREQUENCY_LABELS[subSymptom.frequency].label.toLowerCase()
+              // const subSymptom = symptom.subSymptoms[subSymptomName];
+              const frequency = !nullOrUndefined(symptom.frequency)
+                ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase()
                 : null;
-              const severity = !nullOrUndefined(subSymptom.severity)
-                ? SYMPTOM_SEVERITY_LABELS[subSymptom.severity].label.toLowerCase()
+              const severity = !nullOrUndefined(symptom.severity)
+                ? SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase()
                 : null;
               return {
                 frequency,
@@ -136,14 +147,8 @@ export default function UsualSelfFormFlowScreen() {
       usual_self: true,
     };
 
-    const isValidSeverity = !hasNullSeverity(newUsualSelf.symptoms);
-    const isValidFrequency = !hasNullFrequency(newUsualSelf.symptoms);
-
-    const isValidOtherSeverity = !hasNullSeverity(newUsualSelf.other_symptoms);
-    const isValidOtherFrequency = !hasNullFrequency(newUsualSelf.other_symptoms);
-
-    const isValid = isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency;
-    if (isValid) {
+    const submissionValid = isFormSubmissionValid(newUsualSelf.symptoms, newUsualSelf.other_symptoms);
+    if (submissionValid) {
       usualSelfService
         .createUsualSelf(newUsualSelf)
         .then(async (resp) => {
@@ -202,6 +207,8 @@ export default function UsualSelfFormFlowScreen() {
     }
 
     if (direction === GO_FORWARD && index !== undefined && index < symptomCategories.length) {
+      // check all values have been selected before continuing
+
       const nextIndex = index + 1;
       symptomService
         .getSymptomByCategory(symptomCategories[nextIndex].name)
@@ -260,7 +267,7 @@ export default function UsualSelfFormFlowScreen() {
 
     if (currentCategory) newInitValues[currentCategory.currentName].symptoms = initSymptoms;
 
-    setInitValues(newInitValues);
+    setInitValues({ ...newInitValues, ...initValues });
   }, []);
 
   const onStartNewAssessment = () => {
