@@ -163,7 +163,7 @@ export default function CovidTestListScreen(props: IProps) {
           onPress={useAssessmentFlowV1 ? goToAssessmentFlowV1 : goToUsualSelf}
           style={styles.transparentButton}
           testID="button-covid-test-list-assessment-v0"
-          text={i18n.t('done')}
+          text={covidTests.length === 0 ? i18n.t('done') : i18n.t('information-correct')}
           textStyle={styles.transparentButtonText}
         />
       );
@@ -185,7 +185,10 @@ export default function CovidTestListScreen(props: IProps) {
 
   const renderFooter = () => (
     <View style={styles.wrapper}>
-      {!fromDailyAssessmentFlow() && isGBCountry() ? (
+      {startupInfo?.show_assessment_flow_v0 &&
+      !fromDailyAssessmentFlow() &&
+      isGBCountry() &&
+      !assessmentCoordinator.isReportedByOther() ? (
         <Button
           onPress={goToProfileTab}
           style={styles.transparentButton}
