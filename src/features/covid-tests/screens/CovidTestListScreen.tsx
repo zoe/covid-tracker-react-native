@@ -127,10 +127,9 @@ export default function CovidTestListScreen(props: IProps) {
     [props.route.name],
   );
 
-  const startAssessmentFlowV1 = React.useCallback(() => NavigatorService.navigate('AssessmentPage1ShowUsualSelf'), []);
-  const startUsualSelf = React.useCallback(() => NavigatorService.navigate('UsualSelfIntroScreen'), []);
-
-  const backToProfileTab = React.useCallback(() => NavigatorService.navigate('Profile'), []);
+  const goToAssessmentFlowV1 = React.useCallback(() => NavigatorService.navigate('AssessmentPage1ShowUsualSelf'), []);
+  const goToUsualSelf = React.useCallback(() => NavigatorService.navigate('UsualSelfIntroScreen'), []);
+  const goToProfileTab = React.useCallback(() => NavigatorService.navigate('Profile'), []);
 
   const initialRouteName = getInitialRouteName(props.route.params?.mechanism, props.route.params?.is_rapid_test);
 
@@ -150,11 +149,7 @@ export default function CovidTestListScreen(props: IProps) {
   };
 
   const makeStartAssessmentFlowButton = () => {
-    const useAssessmentFlowV0 =
-      startupInfo?.show_assessment_flow_v0 &&
-      !fromDailyAssessmentFlow() &&
-      isGBCountry() &&
-      !assessmentCoordinator.isReportedByOther();
+    const useAssessmentFlowV0 = startupInfo?.show_assessment_flow_v0 && !assessmentCoordinator.isReportedByOther();
 
     const primaryPatient = isPrimaryPatient(currentPatient);
     const useAssessmentFlowV1 =
@@ -162,21 +157,10 @@ export default function CovidTestListScreen(props: IProps) {
     const useUsualSelfSetup =
       primaryPatient && startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1;
 
-    if (useAssessmentFlowV1)
+    if (useAssessmentFlowV1 || useUsualSelfSetup)
       return (
         <Button
-          onPress={startAssessmentFlowV1}
-          style={styles.transparentButton}
-          testID="button-covid-test-list-assessment-v0"
-          text={i18n.t('done')}
-          textStyle={styles.transparentButtonText}
-        />
-      );
-
-    if (useUsualSelfSetup)
-      return (
-        <Button
-          onPress={startUsualSelf}
+          onPress={useAssessmentFlowV1 ? goToAssessmentFlowV1 : goToUsualSelf}
           style={styles.transparentButton}
           testID="button-covid-test-list-assessment-v0"
           text={i18n.t('done')}
@@ -203,7 +187,7 @@ export default function CovidTestListScreen(props: IProps) {
     <View style={styles.wrapper}>
       {!fromDailyAssessmentFlow() && isGBCountry() ? (
         <Button
-          onPress={backToProfileTab}
+          onPress={goToProfileTab}
           style={styles.transparentButton}
           testID="button-covid-test-list-assessment-v0"
           text={i18n.t('done')}
