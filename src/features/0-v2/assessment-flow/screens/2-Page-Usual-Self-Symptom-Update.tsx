@@ -113,6 +113,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   const [newAdditionalOtherSymptoms, setAdditionalOtherSymptoms] = useState<TUsualSelfFrequentOtherSymptom[]>();
 
   const [, setNewLoggedSymptoms] = useState<TUsualSelfFrequentSymptom[]>();
+  const [, setNewLoggedOtherSymptoms] = useState<TUsualSelfFrequentOtherSymptom[]>();
 
   const [showFormMissingSeverityModal, setFormMissingSeverityModal] = useState<boolean>(false);
 
@@ -316,12 +317,22 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   useEffect(() => {
     const newSymptoms = route.params.newSymptoms;
     setNewLoggedSymptoms(newSymptoms);
+
+    const newOtherSymptoms = route.params.newOtherSymptoms;
+    setNewLoggedOtherSymptoms(newOtherSymptoms);
+
     if (newAdditionalSymptoms && newSymptoms) {
       setAdditionalSymptoms([...newAdditionalSymptoms, ...newSymptoms]);
     } else {
       setAdditionalSymptoms(newSymptoms);
     }
-  }, [route.params.newSymptoms]);
+
+    if (newAdditionalOtherSymptoms && newOtherSymptoms) {
+      setAdditionalOtherSymptoms([...newAdditionalOtherSymptoms, ...newOtherSymptoms]);
+    } else {
+      setAdditionalOtherSymptoms(newOtherSymptoms);
+    }
+  }, [route.params.newSymptoms, route.params.newOtherSymptoms]);
 
   const symptomsHaveSeverity = (symptoms: TUsualSelfFrequentSymptom[] | TUsualSelfFrequentOtherSymptom[]): boolean => {
     const symptomsWithoutSeverity = symptoms.filter(
