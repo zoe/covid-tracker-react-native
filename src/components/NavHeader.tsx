@@ -8,13 +8,14 @@ type TProps = {
   backgroundColor?: string;
   rightElement?: React.ReactNode;
   backButtonColor?: string;
+  onBackPress?: Function;
 };
 
 export function NavHeader(props: TProps) {
   return (
     <View style={[styles.view, props.backgroundColor ? { backgroundColor: props.backgroundColor } : undefined]}>
       <View style={styles.left}>
-        <BackButton iconColor={props.backButtonColor || colors.secondary} />
+        <BackButton iconColor={props.backButtonColor || colors.secondary} onBackPress={props.onBackPress} />
       </View>
       <View style={styles.flex} />
       <View style={styles.right}>{props.rightElement}</View>
