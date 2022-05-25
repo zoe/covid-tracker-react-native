@@ -85,7 +85,6 @@ export default function UsualSelfFormFlowScreen() {
           return Object.keys(symptom.subSymptoms)
             .filter((subSymptomName: string) => symptom.subSymptoms[subSymptomName].state)
             .map((subSymptomName: string) => {
-              // const subSymptom = symptom.subSymptoms[subSymptomName];
               const frequency = !nullOrUndefined(symptom.frequency)
                 ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase()
                 : null;
