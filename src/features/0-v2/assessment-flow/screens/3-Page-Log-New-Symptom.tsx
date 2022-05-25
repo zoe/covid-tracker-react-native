@@ -1,5 +1,8 @@
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
@@ -41,7 +44,12 @@ const makeCheckBoxItems = (areas: TSymptomCategory[]): IFormCheckboxItemProps[] 
     });
 };
 
-export default function AssessmentPage3LogNewSymptom() {
+interface AssessmentPage3LogNewSymptomProps {
+  navigation: StackNavigationProp<TScreenParamList, 'AssessmentPage3LogNewSymptom'>;
+  route: RouteProp<TScreenParamList, 'AssessmentPage3LogNewSymptom'>;
+}
+
+export default function AssessmentPage3LogNewSymptom({ route }: AssessmentPage3LogNewSymptomProps) {
   const [symptomCategories, setSymptomCategories] = useState<TSymptomCategory[]>([]);
   const symptomService = makeSymptomService();
 
@@ -59,7 +67,10 @@ export default function AssessmentPage3LogNewSymptom() {
         name: 'other',
       });
     }
-    NavigatorService.navigate('AssessmentPage4LogNewSymptomFlow', { categories });
+    NavigatorService.navigate('AssessmentPage4LogNewSymptomFlow', {
+      categories,
+      usualSelfSymptoms: route.params.usualSelfSymptoms,
+    });
   };
 
   useEffect(() => {
@@ -92,7 +103,7 @@ export default function AssessmentPage3LogNewSymptom() {
     <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
       <ScreenStandardHeader onGoBack={() => NavigatorService.goBack()} />
       <Formik initialValues={formInitValues} onSubmit={onNewLogSymptomFlowNext}>
-        {({ handleSubmit, setFieldValue }) => {
+        {({ handleSubmit, setFieldValue, values }) => {
           return (
             <>
               <ScrollView>
@@ -120,6 +131,10 @@ export default function AssessmentPage3LogNewSymptom() {
                     <UsualSelfActionCardButtonGroup
                       style={[baseStyle.cardButtonGroup]}
                       topButton={{
+                        disabled:
+                          Object.keys(values['symptom-locations']).filter(
+                            (id: string) => values['symptom-locations'][id].state,
+                          ).length === 0,
                         onPress: handleSubmit,
                         text: i18n.t('usual-self.assessment-flow.3-action-card-cta-1'),
                       }}

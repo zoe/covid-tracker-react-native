@@ -1,10 +1,11 @@
+import { Text } from '@covid/components';
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
+import { fetchStartupInfo } from '@covid/core/state';
 import { appActions } from '@covid/core/state/app/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { nullOrUndefined } from '@covid/utils/helpers';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
@@ -25,6 +26,7 @@ import LogSymptomScreenBody from '../../assessment-flow/components/4-log-symptom
 import ModalEmojiExplained from '../../assessment-flow/modals/EmojiExplained';
 import ModalFrequencyOfSymptoms from '../../assessment-flow/modals/FrequencyOfSymptoms';
 import { TUsualSelfFrequentSymptom } from '../../assessment-flow/types';
+import { nullOrUndefined } from '../../utils/helpers';
 import ModalUsualSelfSetup from '../modals/UsualSelfSetup';
 import ModalUsualSelfSetupError from '../modals/UsualSelfSetupCheck';
 import { SYMPTOM_FREQUENCY_LABELS, SYMPTOM_SEVERITY_LABELS, TSymptomCategory } from '../types';
@@ -38,6 +40,23 @@ type TCurrentCategory = {
   currentName: string;
 };
 
+const hasNullSeverity = (symptoms: any[]): boolean =>
+  symptoms.filter((symptom) => symptom.severity === null || symptom.severity === undefined).length > 0;
+
+const hasNullFrequency = (symptoms: any[]): boolean =>
+  symptoms.filter((symptom) => symptom.frequency === null || symptom.frequency === undefined).length > 0;
+
+const isFormSubmissionValid = (symptoms: any[], otherSymptoms: any[]): boolean => {
+  const isValidSeverity = !hasNullSeverity(symptoms);
+  const isValidFrequency = !hasNullFrequency(symptoms);
+  const isValidOtherSeverity = !hasNullSeverity(otherSymptoms);
+  const isValidOtherFrequency = !hasNullFrequency(otherSymptoms);
+  return isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency;
+};
+
+const makeUsualSelf = (submitted: any): { [name: string]: any } =>
+  Object.keys(submitted).reduce((prev, categoryName) => ({ ...prev, ...submitted[categoryName] }), {});
+
 export default function UsualSelfFormFlowScreen() {
   const [symptomCategory, setSymptomCategory] = useState<TSymptomCategory>();
   const [symptomCategories, setSymptomCategories] = useState<TSymptomCategory[]>([]);
@@ -45,25 +64,19 @@ export default function UsualSelfFormFlowScreen() {
   const [otherSymptomLogScreen, setOtherSymptomLogScreen] = useState<boolean>(false);
   const [showFrequencyModal, setShowFrequencyModal] = useState<boolean>(false);
   const [showImpactOnLifeModal, setShowImpactOnLifeModal] = useState<boolean>(false);
-  const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
-  const symptomService = makeSymptomService();
-  const usualSelfService = makeUsualSelfService();
   const [initValues, setInitValues] = useState<{ [name: string]: any }>();
   const [showUsualSetupModal, setShowUsualSetupModal] = useState<boolean>(false);
   const [showUsualSetupErrorModal, setShowUsualSetupErrorModal] = useState<boolean>(false);
+
+  const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
+
+  const symptomService = makeSymptomService();
+  const usualSelfService = makeUsualSelfService();
+
   const dispatch = useDispatch();
 
-  const hasNullSeverity = (symptoms: any[]): boolean =>
-    symptoms.filter((symptom) => symptom.severity === null || symptom.severity === undefined).length > 0;
-  const hasNullFrequency = (symptoms: any[]): boolean =>
-    symptoms.filter((symptom) => symptom.frequency === null || symptom.frequency === undefined).length > 0;
-
   const onSubmit = async (submitted: any) => {
-    const symptoms: { [name: string]: any } = Object.keys(submitted).reduce(
-      (prev, categoryName) => ({ ...prev, ...submitted[categoryName] }),
-      {},
-    );
-
+    const symptoms: { [name: string]: any } = makeUsualSelf(submitted);
     const usualSelf: TUsualSelfFrequentSymptom[] = Object.keys(symptoms)
       .filter((symptomName: string) => symptoms[symptomName].state)
       .flatMap((symptomName: string) => {
@@ -72,12 +85,11 @@ export default function UsualSelfFormFlowScreen() {
           return Object.keys(symptom.subSymptoms)
             .filter((subSymptomName: string) => symptom.subSymptoms[subSymptomName].state)
             .map((subSymptomName: string) => {
-              const subSymptom = symptom.subSymptoms[subSymptomName];
-              const frequency = !nullOrUndefined(subSymptom.frequency)
-                ? SYMPTOM_FREQUENCY_LABELS[subSymptom.frequency].label.toLowerCase()
+              const frequency = !nullOrUndefined(symptom.frequency)
+                ? SYMPTOM_FREQUENCY_LABELS[symptom.frequency].label.toLowerCase()
                 : null;
-              const severity = !nullOrUndefined(subSymptom.severity)
-                ? SYMPTOM_SEVERITY_LABELS[subSymptom.severity].label.toLowerCase()
+              const severity = !nullOrUndefined(symptom.severity)
+                ? SYMPTOM_SEVERITY_LABELS[symptom.severity].label.toLowerCase()
                 : null;
               return {
                 frequency,
@@ -134,14 +146,8 @@ export default function UsualSelfFormFlowScreen() {
       usual_self: true,
     };
 
-    const isValidSeverity = !hasNullSeverity(newUsualSelf.symptoms);
-    const isValidFrequency = !hasNullFrequency(newUsualSelf.symptoms);
-
-    const isValidOtherSeverity = !hasNullSeverity(newUsualSelf.other_symptoms);
-    const isValidOtherFrequency = !hasNullFrequency(newUsualSelf.other_symptoms);
-
-    const isValid = isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency;
-    if (isValid) {
+    const submissionValid = isFormSubmissionValid(newUsualSelf.symptoms, newUsualSelf.other_symptoms);
+    if (submissionValid) {
       usualSelfService
         .createUsualSelf(newUsualSelf)
         .then(async (resp) => {
@@ -200,6 +206,8 @@ export default function UsualSelfFormFlowScreen() {
     }
 
     if (direction === GO_FORWARD && index !== undefined && index < symptomCategories.length) {
+      // check all values have been selected before continuing
+
       const nextIndex = index + 1;
       symptomService
         .getSymptomByCategory(symptomCategories[nextIndex].name)
@@ -258,16 +266,18 @@ export default function UsualSelfFormFlowScreen() {
 
     if (currentCategory) newInitValues[currentCategory.currentName].symptoms = initSymptoms;
 
-    setInitValues(newInitValues);
+    setInitValues({ ...newInitValues, ...initValues });
   }, []);
 
   const onStartNewAssessment = () => {
     setShowUsualSetupModal(false);
+    dispatch(fetchStartupInfo());
     NavigatorService.navigate('AssessmentPage1ShowUsualSelf');
   };
 
   const onFinishUsualSelfSetup = () => {
     setShowUsualSetupModal(false);
+    dispatch(fetchStartupInfo());
     NavigatorService.navigate('Dashboard');
   };
 
@@ -334,13 +344,19 @@ export default function UsualSelfFormFlowScreen() {
                   <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
                     {/* eslint-disable-next-line no-restricted-syntax */}
                     {currentCategory?.currentIndex !== undefined && (
-                      <UsualSelfActionCardButtonGroup
-                        style={[baseStyle.cardButtonGroup]}
-                        topButton={{
-                          onPress: () => onNavigate(1, handleSubmit),
-                          text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
-                        }}
-                      />
+                      <>
+                        <Text
+                          style={{ marginHorizontal: grid.g32 }}
+                          textClass="pSmallMedium"
+                        >{`Before you continue, please ensure that you have indicated the frequency and impact on quality of life for your symptoms `}</Text>
+                        <UsualSelfActionCardButtonGroup
+                          style={[baseStyle.cardButtonGroup]}
+                          topButton={{
+                            onPress: () => onNavigate(1, handleSubmit),
+                            text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
+                          }}
+                        />
+                      </>
                     )}
                   </Column>
                 </Row>

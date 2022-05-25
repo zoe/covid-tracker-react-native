@@ -26,12 +26,12 @@ import store from '@covid/core/state/store';
 import { setCountryCode, setCurrentPatient, setPatients as setPatientsUserAction } from '@covid/core/state/user';
 import { TStartupInfo, TUserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
+import { isPrimaryPatient } from '@covid/features/0-v2/utils/helpers';
 import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
-import { isPrimaryPatient } from '@covid/utils/helpers';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 type TNavigationType = StackNavigationProp<TScreenParamList, keyof TScreenParamList>;
@@ -188,7 +188,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     if (useAssessmentFlowV1 === false && useUsualSelfSetup === false) this.startAssessmentFlow(patientData);
 
     /* use new assessment flow v1 / usual self setup */
-    if (useAssessmentFlowV1) NavigatorService.navigate('AssessmentPage1ShowUsualSelf');
+    if (useAssessmentFlowV1) NavigatorService.navigate('CovidTestList');
     if (useUsualSelfSetup) NavigatorService.navigate('UsualSelfIntroScreen');
   };
 

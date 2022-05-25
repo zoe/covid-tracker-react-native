@@ -174,7 +174,7 @@ storiesOf('Organisms/Modal', module)
                   >
                     {text(
                       'Body',
-                      'In order to capture how some symptoms may not affect you very much, while others might have a significant impact on your daily life, each symptom is marked using the pictograms below:',
+                      'In order to capture how some symptoms may not affect you very much, while others might have a significant impact on your daily life, each symptom is marked using the icons below:',
                     )}
                   </Text>
                 </Row>
@@ -192,7 +192,7 @@ storiesOf('Organisms/Modal', module)
                       textAlign: 'left',
                     }}
                   >
-                    Symptom is present but not bothering you tremendously
+                    Symptom is present but not bothering you significantly
                   </Text>
                 </Row>
                 <Row style={{ marginVertical: grid.g8 }}>
