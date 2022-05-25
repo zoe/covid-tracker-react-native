@@ -185,7 +185,10 @@ export default function CovidTestListScreen(props: IProps) {
 
   const renderFooter = () => (
     <View style={styles.wrapper}>
-      {!fromDailyAssessmentFlow() && isGBCountry() ? (
+      {startupInfo?.show_assessment_flow_v0 &&
+      !fromDailyAssessmentFlow() &&
+      isGBCountry() &&
+      !assessmentCoordinator.isReportedByOther() ? (
         <Button
           onPress={goToProfileTab}
           style={styles.transparentButton}
