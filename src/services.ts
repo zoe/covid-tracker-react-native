@@ -8,14 +8,15 @@ import PushNotificationService from '@covid/core/push-notifications/PushNotifica
 import { LongCovidApiClient } from '@covid/features/long-covid/LongCovidApiClient';
 
 export const offlineService = new OfflineService();
-
+export const assessmentService = new AssessmentService(new ReduxAssessmentState());
+export const longCovidApiClient = new LongCovidApiClient();
+export const generalApiClient = new GeneralApiClient();
 export const pushNotificationService = new PushNotificationService(
   new LocalStorageService(),
   new ExpoPushTokenEnvironment(),
 );
 
-export const assessmentService = new AssessmentService(new ReduxAssessmentState());
-
-export const longCovidApiClient = new LongCovidApiClient();
-
-export const generalApiClient = new GeneralApiClient();
+// v2
+// export const reportSymptomsService = ...
+// export const usualSelfService = ...
+// export const assessmentV1FlowService = ...

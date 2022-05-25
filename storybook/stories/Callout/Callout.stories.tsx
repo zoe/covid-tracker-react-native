@@ -1,7 +1,7 @@
 import { boolean, optionsKnob, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
 import { colors } from '@tracer/branding/colors';
-import Callout from '@tracer/components/template/Callout';
+import Callout from '@tracer/components/templates/Callout';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 

@@ -11,8 +11,9 @@ export const colors = {
 
   primary: '#3944A3',
   secondary: '#565A5C',
-  tertiary: '#888B8C',
+  tertiary: '#EEEEEF',
   quaternary: '#E2E2E2',
+  interactive: '#8999D9',
 
   active: '#082A5D',
   disabled: '#A6B8D3',
@@ -48,5 +49,6 @@ export const colors = {
   white: '#FFFFFF',
   black: '#000000',
   black50: 'rgba(0, 0, 0, 0.5)',
+  black20: 'rgba(0, 0, 0, 0.2)',
   purple: '#A10056',
 };

@@ -1,12 +1,12 @@
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import React from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 
 export interface ITagProps {
-  color: string;
+  color?: string;
   style?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   text: string;
 }
 
@@ -20,7 +20,7 @@ export interface ITagProps {
  */
 export default function Tag({ color, style, text, textStyle }: ITagProps) {
   return (
-    <View style={[baseStyles.view, { backgroundColor: color }, style]}>
+    <View style={[baseStyles.view, color ? { backgroundColor: color } : null, style]}>
       <Text style={[baseStyles.text, textStyle]}>{text.toUpperCase()}</Text>
     </View>
   );

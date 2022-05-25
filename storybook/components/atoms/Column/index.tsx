@@ -16,6 +16,7 @@ export default function Column({ children, reverse, style, ...props }: ColumnPro
   const baseView = reverse ? baseStyles.viewReverse : baseStyles.view;
   return (
     <View {...props} style={[baseView, style]}>
+      {/* @ts-ignore */}
       {children}
     </View>
   );

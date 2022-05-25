@@ -15,10 +15,11 @@ export interface IComponentProps {
  *
  * @param style custom styling, overrides all other styles
  */
-export default function Component({ style, ...props }: IComponentProps) {
+export default function Component({ style, children, testID = 'Component-test-id', ...props }: IComponentProps) {
   return (
-    <View style={[baseStyle.view, style]} testID={props.testID ?? 'Component-test-id'}>
-      {props.children}
+    <View style={[baseStyle.view, style]} testID={testID}>
+      {/* @ts-ignore */}
+      {children}
     </View>
   );
 }

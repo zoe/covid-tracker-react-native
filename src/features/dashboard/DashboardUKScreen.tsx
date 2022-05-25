@@ -114,21 +114,12 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   React.useEffect(() => {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
-    } else if (!startupInfo?.show_study_hub_onboarding && startupInfo?.show_rebrand_modal) {
-      dispatch(appActions.setReBrandVisible(false));
-      dispatch(appActions.setModalReBrandVisible(true));
-    } else if (!startupInfo?.show_study_hub_onboarding && !startupInfo?.show_rebrand_modal && countryCode === 'GB') {
-      dispatch(appActions.setModalReBrandVisible(false));
+    } else if (!startupInfo?.show_study_hub_onboarding) {
       dispatch(appActions.setReBrandVisible(true));
-    } else if (!startupInfo?.show_study_hub_onboarding && !startupInfo?.show_rebrand_modal && countryCode !== 'GB') {
       dispatch(appActions.setModalReBrandVisible(false));
-      dispatch(appActions.setReBrandVisible(false));
+    } else {
+      dispatch(appActions.setReBrandVisible(true));
     }
-
-    // TODO: FIX
-    // if (startupInfo?.is_tester) {
-    //   setTimeout(() => NavigatorService.navigate('UsualSelfIntroduction'), 500);
-    // }
   }, []);
 
   const onPressReport = React.useCallback(() => appCoordinator.gotoNextScreen(route.name), []);

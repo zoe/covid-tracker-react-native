@@ -7,26 +7,35 @@ import Button, { IButtonProps } from '../../components/atoms/Button';
 import { CenterView } from '../CenterView';
 
 const baseBtnProps: IButtonProps = {
-  buttonType: 'primary',
-  onPress: action('clicked-primary-button'),
   style: { width: 300 },
-};
-
-const secondaryBtnProps: IButtonProps = {
-  buttonType: 'secondary',
-  onPress: action('clicked-secondary-button'),
-};
-
-const tertiaryBtnProps: IButtonProps = {
-  buttonType: 'tertiary',
-  onPress: action('clicked-tertiary-button'),
 };
 
 storiesOf('Atoms/Button', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
-  .add('primary', () => <Button {...baseBtnProps} text={text('Button text', 'Button')} />)
-  .add('secondary', () => <Button {...baseBtnProps} {...secondaryBtnProps} text={text('Button text', 'Button')} />)
-  .add('tertiary', () => <Button {...baseBtnProps} {...tertiaryBtnProps} text={text('Button text', 'Button')} />)
+  .add('primary', () => (
+    <Button
+      {...baseBtnProps}
+      buttonType="primary"
+      onPress={action('clicked-primary-button')}
+      text={text('Button text', 'Button')}
+    />
+  ))
+  .add('secondary', () => (
+    <Button
+      {...baseBtnProps}
+      buttonType="secondary"
+      onPress={action('clicked-secondary-button')}
+      text={text('Button text', 'Button')}
+    />
+  ))
+  .add('tertiary', () => (
+    <Button
+      {...baseBtnProps}
+      buttonType="tertiary"
+      onPress={action('clicked-tertiary-button')}
+      text={text('Button text', 'Button')}
+    />
+  ))
   .add('w/ state', () => (
     <Button
       buttonType={optionsKnob(

@@ -2,7 +2,7 @@ import { Share } from '@assets';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import React from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 
 import Button from '../../atoms/Button';
 import { ButtonType } from '../../atoms/Button/styles';
@@ -12,7 +12,7 @@ export interface IShareButtonProps {
   label: string;
   style?: StyleProp<ViewStyle>;
   shareIconStrokeColor?: string;
-  textStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   onPress: () => void;
 }
 

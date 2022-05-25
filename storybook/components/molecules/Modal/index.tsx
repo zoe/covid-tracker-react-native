@@ -51,6 +51,7 @@ export default function Modal({
       visible={visible}
       {...props}
     >
+      {/* @ts-ignore */}
       {children}
     </RNModal>
   );

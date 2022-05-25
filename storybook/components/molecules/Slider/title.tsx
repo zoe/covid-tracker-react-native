@@ -2,12 +2,12 @@ import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Row from '@tracer/components/atoms/Row';
 import React from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 
 interface SliderTitleProps {
   title: string;
   viewStyle?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export default function SliderTitle({ title, textStyle, viewStyle }: SliderTitleProps) {

@@ -24,8 +24,9 @@ import {
 } from '@covid/core/state/content/slice';
 import store from '@covid/core/state/store';
 import { setCountryCode, setCurrentPatient, setPatients as setPatientsUserAction } from '@covid/core/state/user';
-import { TUserResponse } from '@covid/core/user/dto/UserAPIContracts';
+import { TStartupInfo, TUserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { userService } from '@covid/core/user/UserService';
+import { isPrimaryPatient } from '@covid/features/0-v2/utils/helpers';
 import { dietStudyPlaybackCoordinator } from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import NavigatorService from '@covid/NavigatorService';
@@ -175,6 +176,24 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     patientCoordinator.startPatient();
   };
 
+  startReportingFlow = (patientData: TPatientData, startupInfo?: TStartupInfo) => {
+    const primaryPatient = isPrimaryPatient(patientData);
+    const useAssessmentFlowV1 =
+      primaryPatient && startupInfo?.use_assessment_flow_v1 && startupInfo?.show_assessment_flow_v1;
+    const useUsualSelfSetup =
+      primaryPatient && startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1;
+
+    assessmentCoordinator.init(this, { patientData }, assessmentService);
+
+    /* use the old assessment flow */
+    if (primaryPatient !== true) this.startAssessmentFlow(patientData);
+    if (useAssessmentFlowV1 === false && useUsualSelfSetup === false) this.startAssessmentFlow(patientData);
+
+    /* use new assessment flow v1 / usual self setup */
+    if (useAssessmentFlowV1) NavigatorService.navigate('CovidTestList');
+    if (useUsualSelfSetup) NavigatorService.navigate('UsualSelfIntroScreen');
+  };
+
   // Only initiated from daily reporting flow
   startAssessmentFlow = async (patientData: TPatientData) => {
     // TODO: Does not need to be async
@@ -211,9 +230,9 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     editProfileCoordinator.goToEditLocation();
   };
 
-  profileSelected = async (profile: TProfile) => {
+  profileSelected = async (profile: TProfile, startupInfo?: TStartupInfo) => {
     await this.setPatientByProfile(profile);
-    this.startAssessmentFlow(this.patientData);
+    this.startReportingFlow(this.patientData, startupInfo);
   };
 
   setPatientById = async (patientId: string) => {

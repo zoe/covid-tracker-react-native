@@ -41,6 +41,7 @@ export default function Card({
   onPress,
   style,
 }: ICardProps) {
+  // TODO(iman@joinzoe.com): REFACTOR THIS!! TERRIBLE CODE 😅
   return (
     <Container rounded onPress={onPress} style={[baseStyle.view, style]}>
       {heroImage ? <CardImage {...heroImage} /> : null}

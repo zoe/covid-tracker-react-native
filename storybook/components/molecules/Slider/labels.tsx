@@ -1,7 +1,9 @@
+import { colors } from '@theme';
+import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
 import Row from '@tracer/components/atoms/Row';
 import React from 'react';
-import { Image, ImageSourcePropType, ImageStyle, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image, ImageSourcePropType, ImageStyle, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
 interface SliderLabelProps {
   labels: string[];
@@ -17,32 +19,34 @@ export default function SliderLabels({ labelStyle, imgStyle, imgSource, labels, 
     rowWidth: { width: parentWidth },
   });
   return (
-    <View style={[baseStyle.labelView]}>
+    <Column style={[baseStyle.labelView]}>
       <Row style={[baseStyle.labelRow, widthStyleSheet.rowWidth]}>
-        {labels.map((label, index) => (
-          <React.Fragment key={`slider-labels-${label}-${index + 1}`}>
-            {index === 0 ?? (
-              <Column style={[baseStyle.labelFirstColumn, widthStyleSheet.labelWidth]}>
-                {imgSource ? <Image source={imgSource} style={[baseStyle.imgStyle, imgStyle]} /> : null}
-                <Text style={[baseStyle.labelTxt, labelStyle]}>{label}</Text>
-              </Column>
-            )}
-            {(index !== 0 && index !== labels.length) ?? (
-              <Column style={[baseStyle.labelColumn, widthStyleSheet.labelWidth]}>
-                {imgSource ? <Image source={imgSource} style={[baseStyle.imgStyle, imgStyle]} /> : null}
-                <Text style={[baseStyle.labelTxt, labelStyle]}>{label}</Text>
-              </Column>
-            )}
-            {index === labels.length ?? (
-              <Column style={[baseStyle.labelLastColumn, widthStyleSheet.labelWidth]}>
-                {imgSource ? <Image source={imgSource} style={[baseStyle.imgStyle, imgStyle]} /> : null}
-                <Text style={[baseStyle.labelTxt, labelStyle]}>{label}</Text>
-              </Column>
-            )}
-          </React.Fragment>
-        ))}
+        <Column style={[{ flexGrow: 1 }]}>
+          {labels.map((label, index) => (
+            <React.Fragment key={`slider-labels-${label}-${index + 1}`}>
+              {index === 0 ?? (
+                <Column style={[baseStyle.labelFirstColumn, widthStyleSheet.labelWidth]}>
+                  {imgSource ? <Image source={imgSource} style={[baseStyle.imgStyle, imgStyle]} /> : null}
+                  <Text style={[baseStyle.labelTxt, labelStyle]}>{label}</Text>
+                </Column>
+              )}
+              {(index !== 0 && index !== labels.length) ?? (
+                <Column style={[baseStyle.labelColumn, widthStyleSheet.labelWidth]}>
+                  {imgSource ? <Image source={imgSource} style={[baseStyle.imgStyle, imgStyle]} /> : null}
+                  <Text style={[baseStyle.labelTxt, labelStyle]}>{label}</Text>
+                </Column>
+              )}
+              {index === labels.length ?? (
+                <Column style={[baseStyle.labelLastColumn, widthStyleSheet.labelWidth]}>
+                  {imgSource ? <Image source={imgSource} style={[baseStyle.imgStyle, imgStyle]} /> : null}
+                  <Text style={[baseStyle.labelTxt, labelStyle]}>{label}</Text>
+                </Column>
+              )}
+            </React.Fragment>
+          ))}
+        </Column>
       </Row>
-    </View>
+    </Column>
   );
 }
 
@@ -61,7 +65,8 @@ const baseStyle = StyleSheet.create({
     backgroundColor: 'red',
     borderColor: 'black',
     borderStartWidth: 2,
-    height: 30,
+    height: 20,
+    paddingRight: grid.g8,
   },
   labelLastColumn: {
     backgroundColor: 'red',
@@ -72,12 +77,15 @@ const baseStyle = StyleSheet.create({
   labelRow: {
     borderColor: 'black',
     borderWidth: 2,
+    flexGrow: 1,
   },
   labelTxt: {
+    color: colors.brand,
     fontSize: 14,
     textAlign: 'center',
   },
   labelView: {
-    backgroundColor: 'gray',
+    backgroundColor: colors.white,
+    height: 20,
   },
 });

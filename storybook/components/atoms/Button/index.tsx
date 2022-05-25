@@ -50,7 +50,11 @@ export default function Button({
       testID={props.testID ?? 'button-test-id'}
     >
       {props.loading ? <ActivityIndicator color={indicatorColor} style={baseStyles.activityIndicator} /> : null}
-      {props.children ? props.children : <Text style={[fonts.bodyReg, textColourStyle, props.textStyle]}>{text}</Text>}
+      {props.children ? (
+        props.children
+      ) : (
+        <Text style={[baseStyles.textStyle, fonts.bodyReg, textColourStyle, props.textStyle]}>{text}</Text>
+      )}
     </TouchableOpacity>
   );
 }
@@ -60,7 +64,7 @@ const buttonStyle: ViewStyle = {
   borderRadius: 56 / 2,
   borderWidth: 1,
   elevation: 0,
-  height: 56,
+  height: grid.g48,
   justifyContent: 'center',
   paddingBottom: grid.g12,
   paddingTop: grid.g12,
@@ -70,5 +74,8 @@ const baseStyles = StyleSheet.create({
   activityIndicator: {
     left: 56 / 2,
     position: 'absolute',
+  },
+  textStyle: {
+    textTransform: 'capitalize',
   },
 });

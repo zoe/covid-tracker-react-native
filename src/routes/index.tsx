@@ -1,3 +1,5 @@
+import AssessmentFlowNavigator from '@covid/features/0-v2/assessment-flow/navigator';
+import UsualSelfNavigator from '@covid/features/0-v2/usual-self/navigator';
 import * as screens from '@covid/features/screens';
 import AnniversaryNavigator from '@covid/routes/AnniversaryNavigator';
 import DietStudyPlaybackNavigator from '@covid/routes/DietStudyPlaybackNavigator';
@@ -5,10 +7,9 @@ import MentalHealthNavigator from '@covid/routes/MentalHealthNavigator';
 import MentalHealthPlaybackNavigator from '@covid/routes/MentalHealthPlaybackNavigator';
 import ReconsentNavigator from '@covid/routes/ReconsentNavigator';
 import StudyHubNavigator from '@covid/routes/StudyHubNavigator';
-import UsualSelfNavigator from '@covid/routes/UsualSelfNavigator';
 import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import * as React from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 
 import { TScreenParamList } from './types';
@@ -131,7 +132,10 @@ export default function MainNavigator() {
       {MentalHealthPlaybackNavigator({ Stack })}
       {ReconsentNavigator({ Stack })}
       {StudyHubNavigator({ Stack })}
+
+      {/* New Daily Reporting Flow */}
       {UsualSelfNavigator({ Stack })}
+      {AssessmentFlowNavigator({ Stack })}
 
       {/* Uncomment this line to replace the Dashboard with DebugScreens to allow quick debugging */}
       {/* <Stack.Screen component={DebugScreens} name="Dashboard" options={options} /> */}

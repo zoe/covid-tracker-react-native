@@ -8,7 +8,7 @@ import {
   SpitTestIcon,
   SyringeIcon,
 } from '@assets';
-import Avatar from '@assets/v2/avatar';
+import AvatarProfileScreen from '@assets/v2/svg/avatar-profile-screen';
 import { CaptionText, Tag, Text, TextWithBoldInserts } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import Analytics, { events } from '@covid/core/Analytics';
@@ -129,7 +129,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
         {i18n.t('profile.title')}
       </Text>
       <View style={styles.userDetails}>
-        <Avatar circleFill={styles.avatar.backgroundColor} strokeColor={styles.avatar.color} />
+        <AvatarProfileScreen circleFill={styles.avatar.backgroundColor} strokeColor={styles.avatar.color} />
         <View style={styles.details}>
           <Text rhythm={4} textClass="h5Regular">
             {i18n.t('profile.name')}

@@ -17,5 +17,5 @@ type DividerProps = {
  * @param direction ...
  */
 export default function Divider({ color = colors.quaternary, width = 0.5, style }: DividerProps) {
-  return <Column style={[style, { backgroundColor: color, borderColor: color, borderWidth: width }]} />;
+  return <Column style={[style, { backgroundColor: color, borderColor: color, borderWidth: width, flexGrow: 1 }]} />;
 }

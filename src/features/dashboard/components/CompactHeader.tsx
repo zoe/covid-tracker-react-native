@@ -1,5 +1,5 @@
 import { covidIcon } from '@assets';
-import InAppCompactIcon from '@assets/v2/in-app-compact-icon';
+import InAppCompactIcon from '@assets/v2/svg/in-app-compact-icon';
 import Analytics, { events } from '@covid/core/Analytics';
 import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';

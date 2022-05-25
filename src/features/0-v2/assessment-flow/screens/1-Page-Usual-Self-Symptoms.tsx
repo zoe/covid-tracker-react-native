@@ -1,0 +1,172 @@
+import IconInfo from '@assets/v2/svg/icon-info';
+import { TRootState } from '@covid/core/state/root';
+import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
+import { colors } from '@tracer/branding/colors';
+import { grid } from '@tracer/branding/grid';
+import Button from '@tracer/components/atoms/Button';
+import Column from '@tracer/components/atoms/Column';
+import Row from '@tracer/components/atoms/Row';
+import Screen from '@tracer/components/atoms/Screen';
+import IconButton from '@tracer/components/molecules/IconButton';
+import ScreenBody from '@tracer/components/molecules/Screen/body';
+import ScreenFooter from '@tracer/components/molecules/Screen/footer';
+import ScreenProfileHeader from '@tracer/components/templates/ScreenHeaders/profile';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+
+import { makeAssessmentService, makeUsualSelfService } from '../../api';
+import AssessmentFlowActionCard from '../components/1-usual-self-action-bottom-card';
+import UsualSelfFrequentSymptoms from '../components/1-usual-self-symptoms';
+import ModalEmojiExplained from '../modals/EmojiExplained';
+import ModalUsualSelfExplanation from '../modals/UsualSelfExplanation';
+import { TUsualSelfFrequentOtherSymptom, TUsualSelfFrequentSymptom } from '../types';
+
+const makeAssessment = (patientID: string, usualSymptoms?: TUsualSelfFrequentSymptom[], otherSymptoms?: any) => ({
+  other_symptoms: otherSymptoms || [],
+  patient: patientID,
+  reasons: [],
+  symptoms: usualSymptoms || [],
+});
+
+export default function AssessmentPage1ShowUsualSelf() {
+  const [yourUsualSelfSymptoms, setYourUsualSelfSymptoms] = useState<TUsualSelfFrequentSymptom[] | undefined>();
+  const [yourUsualSelfOtherSymptoms, setYourUsualSelfOtherSymptoms] =
+    useState<TUsualSelfFrequentOtherSymptom[] | undefined>();
+  const [showUsualSelfModal, setUsualSelfModalState] = useState<boolean>(false);
+  const [showEmojiExplanationModal, setEmojiExplanationModal] = useState<boolean>(false);
+  const patientID = useSelector<TRootState, string>((state) => state.user.patients[0]);
+  const usualSelfService = makeUsualSelfService();
+  const assessmentService = makeAssessmentService();
+
+  const onToggleUsualSelfModal = () => setUsualSelfModalState(!showUsualSelfModal);
+  const onToggleEmojiExplanationModal = () => setEmojiExplanationModal(!showEmojiExplanationModal);
+
+  const onFeelDifferent = () => {
+    NavigatorService.navigate('AssessmentPage2UpdateUsualSelf', {
+      usualSelfOtherSymptoms: yourUsualSelfOtherSymptoms || [],
+      usualSelfSymptoms: yourUsualSelfSymptoms || [],
+    });
+  };
+
+  const onFeelLikeUsualSelf = () => {
+    assessmentService
+      .createNewDailyAssessment(makeAssessment(patientID, yourUsualSelfSymptoms, yourUsualSelfOtherSymptoms))
+      .then((resp) => {
+        // eslint-disable-next-line no-console
+        console.log(resp);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      });
+    NavigatorService.navigate('ThankYouUK');
+  };
+
+  useEffect(() => {
+    usualSelfService
+      .getUsualSelf()
+      .then(({ symptoms, other_symptoms: otherSymptoms }) => {
+        setYourUsualSelfSymptoms(symptoms);
+        setYourUsualSelfOtherSymptoms(otherSymptoms);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      });
+  }, []);
+
+  return (
+    <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
+      {showUsualSelfModal ? (
+        <ModalUsualSelfExplanation onClose={() => onToggleUsualSelfModal()} visible={showUsualSelfModal} />
+      ) : null}
+      {showEmojiExplanationModal ? (
+        <ModalEmojiExplained
+          onClose={() => onToggleEmojiExplanationModal()}
+          title={i18n.t('usual-self.assessment-flow.modals.0-emoji-explained-title')}
+          visible={showEmojiExplanationModal}
+        />
+      ) : null}
+      <ScreenProfileHeader onGoBack={() => NavigatorService.navigate('Dashboard')} />
+      <ScreenBody style={[baseStyle.body]}>
+        {/* TODO: make into it's own component */}
+        <ScrollView>
+          <Column>
+            <Row style={[baseStyle.header]}>
+              <Column>
+                <Text style={[baseStyle.title]}>{i18n.t('usual-self.assessment-flow.1-title')}</Text>
+              </Column>
+              <Column style={[baseStyle.infoColumn]}>
+                <IconButton buttonType="tertiary" onPress={onToggleUsualSelfModal}>
+                  <IconInfo fill={colors.transparent} strokeColor={colors.text.primary} />
+                </IconButton>
+              </Column>
+            </Row>
+            <Row style={[baseStyle.header]}>
+              <Text style={[baseStyle.subTitle]}>{i18n.t('usual-self.assessment-flow.1-subtitle')}</Text>
+            </Row>
+            <UsualSelfFrequentSymptoms
+              yourFrequentOtherSymptoms={yourUsualSelfOtherSymptoms}
+              yourFrequentSymptoms={yourUsualSelfSymptoms}
+            />
+          </Column>
+        </ScrollView>
+      </ScreenBody>
+      <ScreenFooter>
+        <Row style={[baseStyle.cardFooter]}>
+          <Button
+            buttonType="tertiary"
+            onPress={onToggleEmojiExplanationModal}
+            text={i18n.t('usual-self.assessment-flow.1-emoji-explain-button')}
+            textStyle={[baseStyle.buttonTextStyle]}
+          />
+        </Row>
+        <AssessmentFlowActionCard onFeelDifferent={() => onFeelDifferent()} onFeelLikeUsualSelf={onFeelLikeUsualSelf} />
+      </ScreenFooter>
+    </Screen>
+  );
+}
+
+const baseStyle = StyleSheet.create({
+  body: {
+    backgroundColor: colors.surface.interactive,
+  },
+  buttonTextStyle: {
+    textTransform: 'none',
+  },
+  cardFooter: {
+    backgroundColor: colors.surface.interactive,
+    justifyContent: 'flex-start',
+    paddingHorizontal: grid.g16,
+    paddingVertical: grid.g24,
+  },
+  header: {
+    marginVertical: grid.g4,
+    paddingHorizontal: grid.g16,
+  },
+  infoColumn: {
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: grid.g8,
+    paddingVertical: grid.g2,
+  },
+  subTitle: {
+    color: colors.text.tertiary,
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0,
+    lineHeight: 20,
+    textAlign: 'left',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '500',
+    letterSpacing: 0,
+    lineHeight: 24,
+    textAlign: 'left',
+  },
+});

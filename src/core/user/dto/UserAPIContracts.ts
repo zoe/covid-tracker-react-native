@@ -328,6 +328,9 @@ export type TPatientInfosRequest = {
 
   // ReBrand
   has_seen_rebrand_modal: boolean;
+
+  // Assessment Flow v1
+  has_seen_assessment_flow_v1_onboarding: boolean;
 };
 
 export enum EVaccineStatus {
@@ -403,6 +406,8 @@ export type TStartupInfo = {
   show_trendline: boolean;
   studies_tab_onboarding_seen: boolean;
   use_assessment_flow_v0: boolean; // i.e. part of rollout cohort
+  use_assessment_flow_v1: boolean;
+  show_assessment_flow_v1?: boolean;
   users_count: number;
   wider_health_studies_consent?: boolean;
 };

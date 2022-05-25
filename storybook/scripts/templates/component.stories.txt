@@ -10,7 +10,7 @@ const componentProps: IComponentProps = {
   style: { width: 300 },
 };
 
-storiesOf('Component', module)
+storiesOf('StoryLocation/Component', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
   .add('index', () => (
     <Component {...componentProps}>
