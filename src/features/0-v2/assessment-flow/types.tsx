@@ -69,6 +69,7 @@ export type TBubbleSymptoms = {
 
 export type TFrequentBubbleSymptom = {
   id: number;
-  name: string;
+  symptom?: string;
+  name?: string;
   display_name: string;
 };
