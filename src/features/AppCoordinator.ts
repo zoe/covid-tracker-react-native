@@ -188,7 +188,7 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     if (useAssessmentFlowV1 === false && useUsualSelfSetup === false) this.startAssessmentFlow(patientData);
 
     /* use new assessment flow v1 / usual self setup */
-    if (useAssessmentFlowV1) NavigatorService.navigate('AssessmentPage1ShowUsualSelf');
+    if (useAssessmentFlowV1) NavigatorService.navigate('CovidTestList');
     if (useUsualSelfSetup) NavigatorService.navigate('UsualSelfIntroScreen');
   };
 
