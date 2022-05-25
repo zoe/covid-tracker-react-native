@@ -106,20 +106,24 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
       symptomService
         .getSymptomByCategory(category.name)
         .then((categorySymptoms) => {
-          const symptoms: TSymptomCategory = categorySymptoms.symptoms.map((symptom: TSymptom) => {
-            if (!usualSelfSymptomNames.includes(symptom.name)) {
-              if (symptom.symptoms !== undefined && symptom.symptoms.length > 0) {
-                const subSymptoms: TSubSymptom[] = symptom.symptoms.filter(
-                  (subSymptom: TSubSymptom) => !usualSelfSymptomNames.includes(subSymptom.name),
-                );
-                symptom.symptoms = subSymptoms;
+          const symptoms: Array<TSymptom> = categorySymptoms.symptoms.reduce(
+            (symptomArray: Array<TSymptom>, symptom: TSymptom) => {
+              if (!usualSelfSymptomNames.includes(symptom.name)) {
+                if (symptom.symptoms !== undefined && symptom.symptoms.length > 0) {
+                  const subSymptoms: TSubSymptom[] = symptom.symptoms.filter(
+                    (subSymptom: TSubSymptom) => !usualSelfSymptomNames.includes(subSymptom.name),
+                  );
+                  symptom.symptoms = subSymptoms;
+                }
+
+                if (!usualSelfSymptomNames.includes(symptom.name)) {
+                  return symptomArray.concat(symptom);
+                }
               }
-
-              if (!usualSelfSymptomNames.includes(symptom.name)) return symptom;
-
-              return null;
-            }
-          });
+              return symptomArray;
+            },
+            [],
+          );
 
           categorySymptoms.symptoms = symptoms;
           setSymptomCategoryDetails(categorySymptoms);
