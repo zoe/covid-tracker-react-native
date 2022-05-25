@@ -50,12 +50,20 @@ const hasNullFrequency = (symptoms: any[]): boolean =>
   symptoms.length > 0 &&
   symptoms.filter((symptom) => symptom.frequency === null || symptom.frequency === undefined).length > 0;
 
+const hasTooManyCharacters = (symptoms: any[]): boolean =>
+  symptoms !== undefined &&
+  symptoms.length > 0 &&
+  symptoms.filter((symptom) => symptom.description.length > 20).length > 0;
+
 const isFormSubmissionValid = (symptoms: any[], otherSymptoms: any[]): boolean => {
   const isValidSeverity = !hasNullSeverity(symptoms);
   const isValidFrequency = !hasNullFrequency(symptoms);
   const isValidOtherSeverity = !hasNullSeverity(otherSymptoms);
   const isValidOtherFrequency = !hasNullFrequency(otherSymptoms);
-  return isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency;
+  const isValidOtherDescription = !hasTooManyCharacters(otherSymptoms);
+  return (
+    isValidSeverity && isValidFrequency && isValidOtherSeverity && isValidOtherFrequency && isValidOtherDescription
+  );
 };
 
 const makeUsualSelf = (submitted: any): { [name: string]: any } =>
@@ -71,6 +79,7 @@ export default function UsualSelfFormFlowScreen() {
   const [initValues, setInitValues] = useState<{ [name: string]: any }>();
   const [showUsualSetupModal, setShowUsualSetupModal] = useState<boolean>(false);
   const [showUsualSetupErrorModal, setShowUsualSetupErrorModal] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
 
@@ -133,14 +142,21 @@ export default function UsualSelfFormFlowScreen() {
       });
 
     let otherSymptoms: any[] = [];
-    if (submitted.other_symptoms && submitted.other_symptoms !== undefined)
+    if (submitted.other_symptoms && submitted.other_symptoms !== undefined) {
+      const otherFrequency = !nullOrUndefined(submitted.other_symptoms.frequency)
+        ? SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase()
+        : null;
+      const otherSeverity = !nullOrUndefined(submitted.other_symptoms.severity)
+        ? SYMPTOM_SEVERITY_LABELS[submitted.other_symptoms.severity].label.toLowerCase()
+        : null;
       otherSymptoms = [
         {
           description: submitted.other_symptoms.description,
-          frequency: SYMPTOM_FREQUENCY_LABELS[submitted.other_symptoms.frequency].label.toLowerCase(),
-          severity: SYMPTOM_SEVERITY_LABELS[submitted.other_symptoms.severity].label.toLowerCase(),
+          frequency: otherFrequency,
+          severity: otherSeverity,
         },
       ];
+    }
 
     const newUsualSelf = {
       other_symptoms: otherSymptoms,
@@ -154,10 +170,7 @@ export default function UsualSelfFormFlowScreen() {
 
   const onDisable = (values: any): boolean => {
     const currentUsualSelfInput = makeUsualSelfInput(values);
-    console.log('current symptoms', currentUsualSelfInput.symptoms);
-    console.log('current other symptoms', currentUsualSelfInput.other_symptoms);
     const valid = isFormSubmissionValid(currentUsualSelfInput.symptoms, currentUsualSelfInput.other_symptoms);
-    console.log('current form state', valid);
     return !valid;
   };
 
@@ -170,6 +183,7 @@ export default function UsualSelfFormFlowScreen() {
         .createUsualSelf(newUsualSelfInput)
         .then(async (resp) => {
           // eslint-disable-next-line no-console
+          console.log('usual self response', resp);
           await patientService.updatePatientInfo(currentPatient.patientId, {
             has_seen_assessment_flow_v1_onboarding: true,
           });
@@ -219,6 +233,7 @@ export default function UsualSelfFormFlowScreen() {
           setCurrentCategory({ currentIndex: nextIndex, currentName: data.name });
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.log(`could not get symptom for ${symptomCategories[nextIndex].name}: ${error}`);
         });
     }
@@ -333,55 +348,59 @@ export default function UsualSelfFormFlowScreen() {
       ) : null}
       {initValues ? (
         <Formik initialValues={initValues} onSubmit={(values: any) => onSubmit(values)}>
-          {({ handleSubmit, setFieldValue, values }) => (
-            <>
-              <ScrollView>
-                {otherSymptomLogScreen ? (
-                  <Column style={{ flexGrow: 1 }}>
-                    <LogOtherSymptoms
-                      formID="other_symptoms"
-                      handleChange={setFieldValue}
-                      handleChangeFrequency={setFieldValue}
-                      handleChangeSeverity={setFieldValue}
-                      question="Optional"
+          {({ handleSubmit, setFieldValue, values }) => {
+            setDisabled(onDisable(values));
+            return (
+              <>
+                <ScrollView>
+                  {otherSymptomLogScreen ? (
+                    <Column style={{ flexGrow: 1 }}>
+                      <LogOtherSymptoms
+                        formID="other_symptoms"
+                        handleChange={setFieldValue}
+                        handleChangeFrequency={setFieldValue}
+                        handleChangeSeverity={setFieldValue}
+                        question="Optional"
+                      />
+                    </Column>
+                  ) : (
+                    <LogSymptomScreenBody
+                      isUsualSelf
+                      onToggleFrequencyModal={onToggleFrequencyModal}
+                      onToggleImpactOnLifeModal={onToggleImpactOnLifeModal}
+                      setFieldValue={setFieldValue}
+                      symptomCategory={symptomCategory}
+                      values={values}
                     />
-                  </Column>
-                ) : (
-                  <LogSymptomScreenBody
-                    isUsualSelf
-                    onToggleFrequencyModal={onToggleFrequencyModal}
-                    onToggleImpactOnLifeModal={onToggleImpactOnLifeModal}
-                    setFieldValue={setFieldValue}
-                    symptomCategory={symptomCategory}
-                    values={values}
-                  />
-                )}
-              </ScrollView>
-              <ScreenFooter style={baseStyle.footer}>
-                <Row style={{ paddingVertical: grid.g24 }}>
-                  <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
-                    {/* eslint-disable-next-line no-restricted-syntax */}
-                    {currentCategory?.currentIndex !== undefined && (
-                      <>
-                        <Text
-                          style={{ marginHorizontal: grid.g32 }}
-                          textClass="pSmallMedium"
-                        >{`Before you continue, please ensure that you have indicated the frequency and impact on quality of life for your symptoms `}</Text>
-                        <UsualSelfActionCardButtonGroup
-                          style={[baseStyle.cardButtonGroup]}
-                          topButton={{
-                            disabled: onDisable(values),
-                            onPress: () => onNavigate(1, handleSubmit),
-                            text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
-                          }}
-                        />
-                      </>
-                    )}
-                  </Column>
-                </Row>
-              </ScreenFooter>
-            </>
-          )}
+                  )}
+                </ScrollView>
+                <ScreenFooter style={baseStyle.footer}>
+                  <Row style={{ paddingVertical: grid.g24 }}>
+                    <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+                      {/* eslint-disable-next-line no-restricted-syntax */}
+                      {currentCategory?.currentIndex !== undefined ? (
+                        <>
+                          <Text
+                            style={{ marginHorizontal: grid.g32 }}
+                            textClass="pSmallMedium"
+                          >{`Before you continue, please ensure that you have indicated the frequency and impact on quality of life for your symptoms `}</Text>
+                          <UsualSelfActionCardButtonGroup
+                            btnGroupStyle={[baseStyle.cardButtonGroup]}
+                            topButton={{
+                              onPress: () =>
+                                disabled ? setShowUsualSetupErrorModal(true) : onNavigate(1, handleSubmit),
+                              text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
+                            }}
+                            topButtonDisabled={disabled}
+                          />
+                        </>
+                      ) : null}
+                    </Column>
+                  </Row>
+                </ScreenFooter>
+              </>
+            );
+          }}
         </Formik>
       ) : null}
     </Screen>

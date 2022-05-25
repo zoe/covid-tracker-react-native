@@ -208,7 +208,7 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
                 <Row style={[baseStyle.footerRow]}>
                   <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
                     <UsualSelfActionCardButtonGroup
-                      style={[baseStyle.cardButtonGroup]}
+                      btnGroupStyle={[baseStyle.cardButtonGroup]}
                       topButton={{
                         disabled: onDisabled(values),
                         onPress: () => onNext(handleSubmit),
