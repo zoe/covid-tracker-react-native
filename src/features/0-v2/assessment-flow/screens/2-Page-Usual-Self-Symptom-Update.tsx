@@ -417,6 +417,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
               ? newAdditionalOtherSymptoms.map(
                   ({ severity, description }: TUsualSelfFrequentOtherSymptom, index: number) => (
                     <AssessmentFlowEditUsualSymptom
+                      display_name={description}
                       key={`edit-additional-frequent-symptom-${severity}-${index + 1}`}
                       onToggleSymptom={onToggleAdditionalOtherSymptoms}
                       onUpdateSymptomSeverity={onUpdateAdditionalOtherSymptomSeverity}
