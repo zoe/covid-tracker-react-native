@@ -240,7 +240,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   };
 
   const onLogNewSymptom = () => {
-    NavigatorService.navigate('AssessmentPage3LogNewSymptom');
+    NavigatorService.navigate('AssessmentPage3LogNewSymptom', { usualSelfSymptoms: usualSymptoms });
   };
 
   const onSubmit = () => {

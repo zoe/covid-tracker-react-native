@@ -180,8 +180,13 @@ export type TScreenParamList = {
     usualSelfOtherSymptoms: TUsualSelfFrequentOtherSymptom[];
     newSymptoms: TUsualSelfFrequentSymptom[] | undefined;
   };
-  AssessmentPage3LogNewSymptom: undefined;
-  AssessmentPage4LogNewSymptomFlow: { categories: TSymptomCategory[] };
+  AssessmentPage3LogNewSymptom: {
+    usualSelfSymptoms: TUsualSelfFrequentSymptom[];
+  };
+  AssessmentPage4LogNewSymptomFlow: {
+    categories: TSymptomCategory[];
+    usualSelfSymptoms: TUsualSelfFrequentSymptom[];
+  };
   AssessmentPage5LogNewSymptomReason: { report: TUsualSelf };
 
   // Others

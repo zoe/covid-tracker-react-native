@@ -17,7 +17,7 @@ import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { makeSymptomService } from '../../api';
-import { TSymptomCategory } from '../../usual-self/types';
+import { TSubSymptom, TSymptom, TSymptomCategory } from '../../usual-self/types';
 import UsualSelfActionCardButtonGroup from '../components/0-usual-self-action-card-button-group';
 import LogOtherSymptomsFromAssessmentFlow from '../components/4-log-other-symptom-from-assessment-flow';
 import LogSymptomScreenBody from '../components/4-log-symptoms';
@@ -101,9 +101,29 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
   useEffect(() => {
     if (route.params.categories.length > 0) {
       const category = route.params.categories[currentSymptomCategoryIndex];
+      const usualSelfSymptoms = route.params.usualSelfSymptoms;
+      const usualSelfSymptomNames = usualSelfSymptoms.map((symptom) => symptom.symptom);
       symptomService
         .getSymptomByCategory(category.name)
-        .then((categorySymptoms) => setSymptomCategoryDetails(categorySymptoms))
+        .then((categorySymptoms) => {
+          const symptoms: TSymptomCategory = categorySymptoms.symptoms.map((symptom: TSymptom) => {
+            if (!usualSelfSymptomNames.includes(symptom.name)) {
+              if (symptom.symptoms !== undefined && symptom.symptoms.length > 0) {
+                const subSymptoms: TSubSymptom[] = symptom.symptoms.filter(
+                  (subSymptom: TSubSymptom) => !usualSelfSymptomNames.includes(subSymptom.name),
+                );
+                symptom.symptoms = subSymptoms;
+              }
+
+              if (!usualSelfSymptomNames.includes(symptom.name)) return symptom;
+
+              return null;
+            }
+          });
+
+          categorySymptoms.symptoms = symptoms;
+          setSymptomCategoryDetails(categorySymptoms);
+        })
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.log(error);
