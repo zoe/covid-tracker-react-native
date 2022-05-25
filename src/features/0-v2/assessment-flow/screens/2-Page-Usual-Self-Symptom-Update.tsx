@@ -176,7 +176,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   const onAddBubbleSymptom = (symptomIndex: number) => {
     if (newFrequentBubbleSymptoms) {
       const newSymptoms = newFrequentBubbleSymptoms.filter(
-        (symptom) => symptom.display_name !== newFrequentBubbleSymptoms[symptomIndex].display_name,
+        (symptom) => symptom.symptom !== newFrequentBubbleSymptoms[symptomIndex].symptom,
       );
       setAdditionalSymptoms([...(newAdditionalSymptoms || []), newFrequentBubbleSymptoms[symptomIndex]]);
       setFrequentBubbleSymptoms(newSymptoms);
@@ -219,7 +219,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
 
   const onUpdateAdditionalSymptomSeverity = (symptomName: string, severity: TUsualSelfSymptomSeverity) => {
     if (newAdditionalSymptoms) {
-      const updateAdditionalSymptoms = newAdditionalSymptoms;
+      const updateAdditionalSymptoms = [...newAdditionalSymptoms];
       const additionalSymptomsUpdated: TUsualSelfFrequentSymptom[] = updateAdditionalSymptoms.map(
         (usualSelfSymptom: TUsualSelfFrequentSymptom) =>
           usualSelfSymptom.symptom === symptomName ? { ...usualSelfSymptom, ...{ severity } } : usualSelfSymptom,
@@ -280,7 +280,13 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
       symptomService
         .getRecommendedSymptoms()
         .then(({ symptoms, other_symptoms }: TBubbleSymptoms) => {
-          setFrequentBubbleSymptoms(symptoms);
+          setFrequentBubbleSymptoms(
+            symptoms.map((symptom) => ({
+              display_name: symptom.display_name,
+              id: symptom.id,
+              symptom: symptom.symptom || symptom.name,
+            })),
+          );
           setOtherBubbleSymptoms(other_symptoms);
         })
         .catch((error) => {
@@ -404,7 +410,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
                   ({ severity, symptom, display_name }: TUsualSelfFrequentSymptom, index: number) => (
                     <AssessmentFlowEditUsualSymptom
                       display_name={display_name}
-                      key={`edit-additional-frequent-symptom-${symptom}-${index + 1}`}
+                      key={`edit-additional-frequent-symptom-${symptom}-${severity}-${index + 1}`}
                       onToggleSymptom={onToggleAdditionalSymptoms}
                       onUpdateSymptomSeverity={onUpdateAdditionalSymptomSeverity}
                       severity={severity}
