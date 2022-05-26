@@ -41,6 +41,7 @@ interface IAssessmentPage5LogNewSymptomReasonProps {
 export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmentPage5LogNewSymptomReasonProps) {
   const [reasons, setReasons] = useState<TSymptomReason[]>();
   const [showReasonOptions, setShowReasonOptions] = useState<boolean>(false);
+  const [noReasons, setNoReasons] = useState<boolean>(false);
   const [preferNotToSay, setPreferNotToSay] = useState<boolean>(false);
   const symptomService = makeSymptomService();
   const assessmentService = makeAssessmentService();
@@ -60,7 +61,7 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
   const onSubmit = (submitted: any) => {
     let selectedReasons: any[] = [];
 
-    if (preferNotToSay) {
+    if (preferNotToSay !== undefined && preferNotToSay !== true) {
       selectedReasons = ['pfnts'];
     } else if (submitted.symptom_reasons !== null && submitted.symptom_reasons !== undefined) {
       const symptomReasons = submitted.symptom_reasons;
@@ -109,27 +110,39 @@ export default function AssessmentPage5LogNewSymptomReason({ route }: IAssessmen
                         {i18n.t('usual-self.assessment-flow.5-new-symptom-reason-title')}
                       </Text>
                     </Row>
-                    <Row style={{ flexGrow: 1, marginVertical: grid.g16 }}>
+                    <Row style={{ flexGrow: 1, marginTop: grid.g16 }}>
                       <Radio
                         label={i18n.t('usual-self.assessment-flow.5-new-symptom-reason-prefer-not-to-say')}
+                        labelStyle={baseStyle.radioLabel}
                         onSelect={() => {
                           setPreferNotToSay(true);
+                          setNoReasons(false);
                           setShowReasonOptions(false);
                         }}
-                        selected={!showReasonOptions}
+                        selected={preferNotToSay}
                       />
                     </Row>
-                    <Row style={{ flexGrow: 1, marginVertical: grid.g16 }}>
+                    <Row style={{ flexGrow: 1, marginTop: grid.g16 }}>
                       <Radio
                         label={i18n.t('usual-self.assessment-flow.5-new-symptom-reason-not-aware')}
-                        onSelect={() => setShowReasonOptions(false)}
-                        selected={!showReasonOptions}
+                        labelStyle={baseStyle.radioLabel}
+                        onSelect={() => {
+                          setShowReasonOptions(false);
+                          setNoReasons(true);
+                          setPreferNotToSay(false);
+                        }}
+                        selected={noReasons}
                       />
                     </Row>
-                    <Row>
+                    <Row style={{ flexGrow: 1, marginTop: grid.g16 }}>
                       <Radio
                         label={i18n.t('usual-self.assessment-flow.5-new-symptom-reason-aware')}
-                        onSelect={() => setShowReasonOptions(true)}
+                        labelStyle={baseStyle.radioLabel}
+                        onSelect={() => {
+                          setShowReasonOptions(true);
+                          setNoReasons(false);
+                          setPreferNotToSay(false);
+                        }}
                         selected={showReasonOptions}
                       />
                     </Row>
@@ -186,6 +199,9 @@ const baseStyle = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 20,
   },
+  radioLabel: {
+    textTransform: 'none',
+  },
   subTitle: {
     fontSize: 16,
     fontWeight: '300',
@@ -205,7 +221,7 @@ const baseStyle = StyleSheet.create({
   },
   titleRow: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     paddingVertical: grid.g16,
   },
 });
