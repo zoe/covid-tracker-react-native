@@ -111,6 +111,7 @@ export default function LogSymptomScreenBody({
                     item={makeCheckboxItem(symptom)}
                     key={`form.checkbox.${symptomCategory.id}-${index + 1}`}
                     name={formID}
+                    selected={values[formID] && values[formID][symptom.name]?.state}
                     textStyle={{ marginLeft: 0 }}
                   >
                     {values[formID] && values[formID][symptom.name]?.state ? (
@@ -119,6 +120,9 @@ export default function LogSymptomScreenBody({
                           {/* eslint-disable-next-line no-restricted-syntax */}
                           {symptom.display_type === 'single_select' && symptom.symptoms && (
                             <FormRadioQuestion
+                              activeIndex={symptom.symptoms.findIndex(
+                                (subSymptom) => subSymptom.name === values[formID][symptom.name]?.options?.value,
+                              )}
                               flow
                               handleChange={setFieldValue}
                               items={symptom.symptoms.map((subItem) => makeRadioSubItem(subItem))}
@@ -136,6 +140,7 @@ export default function LogSymptomScreenBody({
                               item={makeCheckboxSubItem(subItem)}
                               key={`form-${symptom.name}-options-${subItem.name}-${subItemIndex + 1}`}
                               name={`${formID}.${symptom.name}.subSymptoms`}
+                              selected={values[formID][symptom.name]?.subSymptoms?.[subItem.name]?.state}
                               style={{ paddingHorizontal: grid.g32 }}
                               textStyle={{ marginLeft: 0 }}
                             />
@@ -150,6 +155,7 @@ export default function LogSymptomScreenBody({
                                   textStyle={[baseStyle.infoLabel]}
                                 />
                                 <FormRadioQuestion
+                                  activeIndex={values[formID][symptom.name]?.frequency}
                                   handleChange={setFieldValue}
                                   items={SYMPTOM_FREQUENCY_LABELS}
                                   labelStyle={{ marginLeft: 0 }}
@@ -167,6 +173,7 @@ export default function LogSymptomScreenBody({
                                   textStyle={baseStyle.infoLabel}
                                 />
                                 <FormRadioQuestion
+                                  activeIndex={values[formID][symptom.name]?.severity}
                                   handleChange={setFieldValue}
                                   items={SYMPTOM_SEVERITY_LABELS}
                                   labelStyle={{ marginLeft: 0 }}

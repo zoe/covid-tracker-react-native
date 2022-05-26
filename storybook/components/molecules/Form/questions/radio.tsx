@@ -23,6 +23,7 @@ interface IFormRadioQuestionProps {
   flow?: boolean;
   handleChange: (field: string, value: any, shouldValidate?: boolean) => void;
   name: string;
+  activeIndex?: number;
 }
 
 /**
@@ -43,8 +44,9 @@ export default function FormRadioQuestion({
   validation,
   flow,
   required = false,
+  activeIndex = -1,
 }: IFormRadioQuestionProps) {
-  const [active, setActive] = useState(-1);
+  const [active, setActive] = useState(activeIndex);
   const onSelect = (index: number) => {
     setActive(index);
     if (flow) {
