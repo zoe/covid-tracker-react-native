@@ -179,6 +179,7 @@ export type TScreenParamList = {
     usualSelfSymptoms: TUsualSelfFrequentSymptom[];
     usualSelfOtherSymptoms: TUsualSelfFrequentOtherSymptom[];
     newSymptoms: TUsualSelfFrequentSymptom[] | undefined;
+    newOtherSymptoms: TUsualSelfFrequentOtherSymptom[] | undefined;
   };
   AssessmentPage3LogNewSymptom: {
     usualSelfSymptoms: TUsualSelfFrequentSymptom[];

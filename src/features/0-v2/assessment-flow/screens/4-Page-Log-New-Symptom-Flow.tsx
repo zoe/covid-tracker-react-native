@@ -32,6 +32,16 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
   const [currentSymptomCategoryIndex, setCurrentSymptomCategoryIndex] = useState<number>(0);
   const [symptomCategoryDetails, setSymptomCategoryDetails] = useState<TSymptomCategory>();
 
+  const onDisabled = (values: any): boolean => {
+    let result = false;
+    const otherSymptomPage = route.params.categories[currentSymptomCategoryIndex].name === 'other';
+    const otherSymptomInput = values?.other_symptoms;
+    if (otherSymptomPage && otherSymptomInput && values.other_symptoms.length > 20) {
+      result = true;
+    }
+    return result;
+  };
+
   const onNext = (callback: Function): void => {
     if (currentSymptomCategoryIndex + 1 < route.params.categories.length) {
       setCurrentSymptomCategoryIndex(currentSymptomCategoryIndex + 1);
@@ -44,13 +54,13 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
   const onSubmit = (submitted: any) => {
     const symptoms: { [name: string]: any } = Object.keys(submitted).reduce((prev, categoryName) => {
       if (categoryName === 'other_symptoms') {
-        return { ...prev, other_symptoms: { display: submitted[categoryName], state: true } };
+        return { ...prev, other_symptoms: { display_name: submitted[categoryName], state: true } };
       }
       return { ...prev, ...submitted[categoryName] };
     }, {});
 
     const newSymptoms = Object.keys(symptoms)
-      .filter((symptomName: string) => symptoms[symptomName].state)
+      .filter((symptomName: string) => symptomName !== 'other_symptoms' && symptoms[symptomName].state)
       .flatMap((symptomName: string) => {
         const symptom = symptoms[symptomName];
         if (symptom.subSymptoms)
@@ -84,7 +94,20 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
         ];
       });
 
+    const otherSymptom = symptoms.other_symptoms;
+    const newOtherSymptoms = otherSymptom
+      ? [
+          {
+            description: otherSymptom.display_name,
+            display_name: otherSymptom.display_name,
+            frequency: '',
+            severity: null,
+          },
+        ]
+      : undefined;
+
     NavigatorService.navigate('AssessmentPage2UpdateUsualSelf', {
+      newOtherSymptoms,
       newSymptoms,
     });
   };
@@ -99,10 +122,11 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
   };
 
   useEffect(() => {
-    if (route.params.categories.length > 0) {
+    if (route.params.categories.length > 0 && route.params.categories[currentSymptomCategoryIndex].name !== 'other') {
       const category = route.params.categories[currentSymptomCategoryIndex];
       const usualSelfSymptoms = route.params.usualSelfSymptoms;
       const usualSelfSymptomNames = usualSelfSymptoms.map((symptom) => symptom.symptom);
+
       symptomService
         .getSymptomByCategory(category.name)
         .then((categorySymptoms) => {
@@ -181,8 +205,9 @@ export default function AssessmentPage4LogNewSymptomFlow({ route }: ILogNewSympt
                 <Row style={[baseStyle.footerRow]}>
                   <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
                     <UsualSelfActionCardButtonGroup
-                      style={[baseStyle.cardButtonGroup]}
+                      btnGroupStyle={[baseStyle.cardButtonGroup]}
                       topButton={{
+                        disabled: onDisabled(values),
                         onPress: () => onNext(handleSubmit),
                         text: i18n.t('usual-self.assessment-flow.4-log-new-symptom-flow-cta-1'),
                       }}

@@ -23,6 +23,7 @@ interface IFormSingleCheckboxProps {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   name: string;
+  selected?: boolean;
 }
 
 /**
@@ -43,6 +44,7 @@ export default function FormSingleCheckboxQuestion({
   style,
   textStyle,
   handleChange,
+  selected = false,
 }: IFormSingleCheckboxProps) {
   const onCheck = (isChecked: boolean, id: string | number | undefined) => {
     console.log(`selecting ${name}`, id);
@@ -59,7 +61,7 @@ export default function FormSingleCheckboxQuestion({
         key={`form-checkbox-question-${name}-${id}`}
         label={label}
         onSelect={onCheck}
-        selected={false}
+        selected={selected}
         style={style}
         textStyle={textStyle}
       >

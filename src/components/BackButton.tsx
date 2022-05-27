@@ -6,6 +6,7 @@ import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native
 type TProps = {
   iconColor?: string;
   style?: StyleProp<ViewStyle>;
+  onBackPress?: Function;
 };
 
 const HIT_SLOP = {
@@ -19,7 +20,7 @@ export function BackButton(props: TProps) {
   return (
     <TouchableOpacity
       hitSlop={HIT_SLOP}
-      onPress={NavigatorService.goBack}
+      onPress={() => (props.onBackPress ? props.onBackPress() : NavigatorService.goBack())}
       style={props.style}
       testID="button-back-navigation"
     >

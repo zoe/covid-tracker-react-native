@@ -184,7 +184,11 @@ export default function ThankYouUKScreen(props: IProps) {
             visible={showHealthProfileReminderModal}
           />
         )}
-      <Screen backgroundColor={colors.backgroundSecondary} testID="thank-you-screen">
+      <Screen
+        backgroundColor={colors.backgroundSecondary}
+        onBackPress={() => NavigatorService.navigate('Dashboard')}
+        testID="thank-you-screen"
+      >
         <BigGreenTickFilled />
 
         <HeaderText style={styles.headerText}>{i18n.t('thank-you-uk.title')}</HeaderText>

@@ -31,7 +31,7 @@ export const makeNoUsualSelfFrequentSymptoms = () => {
 };
 
 const makeUsualSelfFrequentSymptoms = (yourFrequentSymptoms: TUsualSelfFrequentSymptom[]) =>
-  yourFrequentSymptoms.map(({ severity, display_name, description }: TUsualSelfFrequentSymptom, index: number) => (
+  yourFrequentSymptoms.map(({ severity, display_name }: TUsualSelfFrequentSymptom, index: number) => (
     <Row key={`usual-self-symptom-${index + 1}`} style={[baseStyle.usualSelfSymptomRow]}>
       <Column style={[baseStyle.usualSelfSeverityColumn]}>{emoji(severity)}</Column>
       <Column style={[baseStyle.usualSelfNameColumn]}>
