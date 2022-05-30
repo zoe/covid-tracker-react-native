@@ -86,7 +86,6 @@ const baseStyles = StyleSheet.create({
     fontSize: 14,
     lineHeight: grid.g24,
     marginLeft: grid.g16,
-    textTransform: 'capitalize',
   },
   labelView: {
     borderColor: colors.transparent,
