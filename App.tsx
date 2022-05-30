@@ -14,10 +14,8 @@ import * as Sentry from 'sentry-expo';
 import { ThemeProvider } from 'styled-components/native';
 
 Sentry.init({
-  debug: false,
   dsn: env.SENTRY_DSN_URL,
   enableAutoSessionTracking: false,
-  enableInExpoDevelopment: false,
   environment: env.NAME,
 });
 
@@ -25,11 +23,13 @@ export default function App() {
   const [loaded] = useFonts({
     icomoon: require('./assets/fonts/icomoon.ttf'),
   });
+
   React.useEffect(() => {
     // For e2e testing it's important that no overlaying warnings/errors are present in the view hierarchy.
     LogBox.ignoreAllLogs();
   }, []);
   SplashScreen.hide();
+
   return (
     <ErrorBoundary>
       <Provider store={store}>
