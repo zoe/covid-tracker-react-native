@@ -6,6 +6,12 @@ import { fonts } from '../../../branding/fonts';
 import { grid } from '../../../branding/grid';
 import { buttonColorStyles, buttonDisabledColorStyles, ButtonType } from './styles';
 
+const HIT_SLOP = {
+  bottom: 8,
+  left: 8,
+  right: 8,
+  top: 8,
+};
 export interface IButtonProps {
   children?: any;
   text?: string;
@@ -52,6 +58,7 @@ export default function Button({
       accessibilityRole="button"
       activeOpacity={0.6}
       disabled={disabled}
+      hitSlop={HIT_SLOP}
       onPress={disabled === true ? undefined : onPress}
       style={[buttonStyle, btnColourStyle, props.style]}
       testID={props.testID ?? 'button-test-id'}
