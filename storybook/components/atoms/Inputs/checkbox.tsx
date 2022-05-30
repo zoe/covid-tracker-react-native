@@ -5,6 +5,13 @@ import { Item } from 'native-base';
 import React, { ReactNode, useState } from 'react';
 import { AccessibilityRole, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
+const HIT_SLOP = {
+  bottom: 0,
+  left: 16,
+  right: 0,
+  top: 0,
+};
+
 export interface ICheckboxProps {
   label: string;
   icon?: ReactNode;
@@ -50,6 +57,7 @@ export default function Checkbox({
           accessible
           accessibilityRole={accessibilityRole}
           activeOpacity={1}
+          hitSlop={HIT_SLOP}
           onPress={onPress}
           style={[baseStyles.checkbox]}
         >
@@ -86,7 +94,6 @@ const baseStyles = StyleSheet.create({
     fontSize: 14,
     lineHeight: grid.g24,
     marginLeft: grid.g16,
-    textTransform: 'capitalize',
   },
   labelView: {
     borderColor: colors.transparent,
