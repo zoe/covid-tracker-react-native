@@ -13,7 +13,8 @@ export type TUsualSelfSymptomSeverity = 'low' | 'medium' | 'high' | null;
 export type TUsualSelfSymptomIcon = 'smile' | 'sad' | 'tired';
 
 export type TUsualSelfFrequentSymptom = {
-  symptom: string;
+  symptom?: string;
+  name?: string;
   display_name: string;
   severity: TUsualSelfSymptomSeverity;
   frequency: TUsualSelfSymptomFrequency;

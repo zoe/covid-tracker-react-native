@@ -62,6 +62,7 @@ export default function AssessmentFlowActionCard({
 
 const baseStyle = StyleSheet.create({
   actionFooterRow: {
+    justifyContent: 'center',
     marginBottom: grid.g24,
     marginTop: grid.g8,
     paddingHorizontal: grid.g24,
