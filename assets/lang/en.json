@@ -1938,7 +1938,7 @@
     },
     "modals": {
       "0-usual-self-explanation-title": "Your Usual Self",
-      "0-usual-self-explanation-body": "Your Usual Self was created when you set up your Usual Self. It shows any symptoms to reflect how you usually feel.\n\nWe use this as a baseline to understand how your personal symptoms may differ over time.\n\nYour Usual Self will automatically update based on your reports to better reflect how you feel currently.",
+      "0-usual-self-explanation-body": "Your Usual Self was generated from the information you entered during the initial setup. It shows the symptoms which reflect how you usually feel.\n\nWe use this as a baseline to understand how your personal symptoms may differ over time.\n\nYour Usual Self will automatically update based on your reports to better reflect how you feel currently.",
       "0-usual-self-explanation-cta": "OK",
       "0-usual-self-explanation-callout": "Please note, we’re not a medical advice engine. If you’re worried about any symptom, report directly to your doctor.",
       "1-frequency-of-symptoms-body": "The reason why we ask for the frequency of symptoms is to get a full picture of your symptoms and how often they occur.\n\nA symptom you experience daily will be part of what we call your Usual Self. A symptom you experience less often will be registered but will not show as part of your Usual Self.",
