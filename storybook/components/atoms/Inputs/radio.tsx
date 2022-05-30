@@ -3,6 +3,14 @@ import { grid } from '@tracer/branding/grid';
 import { Item } from 'native-base';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
+const HIT_SLOP = {
+  bottom: 4,
+  left: 20,
+  right: 4,
+  top: 4,
+};
 
 export interface IRadioProps {
   children?: ReactNode;
@@ -46,7 +54,7 @@ export default function Radio({
   }, [selected]);
 
   return (
-    <View onTouchEnd={onSelected} style={[baseStyles.view, unselectedStyle]}>
+    <TouchableWithoutFeedback hitSlop={HIT_SLOP} onPress={onSelected} style={[baseStyles.view, unselectedStyle]}>
       <View style={[baseStyles.wrapperRedesign]}>
         <View style={[isSelected ? baseStyles.dot : baseStyles.dotTransparent, selectedStyle]} />
       </View>
@@ -56,7 +64,7 @@ export default function Radio({
           {label ? <Text style={[baseStyles.label, labelStyle]}>{label}</Text> : children}
         </Item>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

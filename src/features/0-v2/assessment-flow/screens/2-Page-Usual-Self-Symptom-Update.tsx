@@ -33,65 +33,7 @@ import {
   TUsualSelfFrequentSymptom,
   TUsualSelfSymptomSeverity,
 } from '../types';
-
-const cleanSymptoms = (data: TUsualSelfFrequentSymptom[]) => {
-  return data.map((s) => {
-    return {
-      frequency: '',
-      severity: s.severity,
-      symptom: s.symptom !== undefined ? s.symptom : s.name,
-    };
-  });
-};
-
-const cleanUsualSymptoms = (data: TUsualSelfFrequentSymptom[]) => {
-  return data.map((s) => ({
-    frequency: s.frequency,
-    severity: s.severity,
-    symptom: s.symptom,
-  }));
-};
-
-const cleanOtherSymptoms = (data: TUsualSelfFrequentOtherSymptom[]) => {
-  return data.map((s) => ({
-    description: s.description,
-    frequency: '',
-    severity: s.severity,
-  }));
-};
-
-const makeReport = (
-  patientID: string,
-  usualSymptoms: TUsualSelfFrequentSymptom[],
-  uncheckedUsualSymptoms: TUsualSelfFrequentSymptom[],
-  usualOtherSymptoms: TUsualSelfFrequentOtherSymptom[],
-  uncheckedUsualOtherSymptoms: TUsualSelfFrequentOtherSymptom[],
-  additionalSymptoms?: TUsualSelfFrequentSymptom[],
-  additionalOtherSymptoms?: TUsualSelfFrequentOtherSymptom[],
-) => {
-  const uncheckedNames = uncheckedUsualSymptoms.map((unchecked) => unchecked.symptom);
-  const uncheckedOtherNames = uncheckedUsualOtherSymptoms.map((unchecked) => unchecked.description);
-  const reportUsualSymptoms = usualSymptoms.filter((usual) => !uncheckedNames.includes(usual.symptom));
-  const reportUsualOtherSymptoms = usualOtherSymptoms.filter(
-    (usualOther) => !uncheckedOtherNames.includes(usualOther.description),
-  );
-
-  let cleanedOtherAdditionalSymptoms: any[] = [];
-  if (additionalOtherSymptoms !== undefined && additionalOtherSymptoms.length > 0) {
-    cleanedOtherAdditionalSymptoms = cleanOtherSymptoms(additionalOtherSymptoms);
-  }
-
-  let cleanedAdditionalSymptoms: any[] = [];
-  if (additionalSymptoms !== undefined && additionalSymptoms.length > 0) {
-    cleanedAdditionalSymptoms = cleanSymptoms(additionalSymptoms);
-  }
-
-  return {
-    other_symptoms: [...(reportUsualOtherSymptoms || []), ...(cleanedOtherAdditionalSymptoms || [])],
-    patient: patientID,
-    symptoms: [...cleanUsualSymptoms(reportUsualSymptoms), ...(cleanedAdditionalSymptoms || [])],
-  };
-};
+import { makeReport } from './update-usual-self/utils';
 
 interface AssessmentFlowPage2ScreenProps {
   navigation: StackNavigationProp<TScreenParamList, 'AssessmentPage2UpdateUsualSelf'>;
@@ -351,6 +293,7 @@ export default function AssessmentPage2UpdateUsualSelf({ route }: AssessmentFlow
   };
 
   const isReadyToSubmit = isFormValid();
+
   return (
     <Screen isInsideTabBar differentEdgeColor={colors.surface.interactive}>
       {showFeelDifferentInfoModal ? (
