@@ -164,8 +164,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // Be carefull that the value doesn't exceed the maximum signed integer value of 2147483647!
-        versionCode 2022011300
-        versionName "2.7.1"
+        versionCode 2022011301
+        versionName "2.7.3"
     }
     splits {
         abi {
