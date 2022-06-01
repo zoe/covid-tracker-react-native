@@ -27,6 +27,25 @@
 		A12A4B23685848109BE0A4CD /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9E6B2AF24674C38810BC56C /* Roboto_medium.ttf */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		BEC170DFB898467689E88E17 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 053721BE31D64BB2A6DD1112 /* Ionicons.ttf */; };
+		CE3D57702847CC820044B278 /* Lota-Grotesque-Alt-1-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D575D2847CC810044B278 /* Lota-Grotesque-Alt-1-Regular.otf */; };
+		CE3D57712847CC820044B278 /* Lota-Grotesque-Alt-1-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D575E2847CC810044B278 /* Lota-Grotesque-Alt-1-Bold.otf */; };
+		CE3D57722847CC820044B278 /* Caveat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D575F2847CC810044B278 /* Caveat-SemiBold.ttf */; };
+		CE3D57732847CC820044B278 /* Caveat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57602847CC810044B278 /* Caveat-Regular.ttf */; };
+		CE3D57742847CC820044B278 /* Lota-Grotesque-Alt-1-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57612847CC810044B278 /* Lota-Grotesque-Alt-1-SemiBold.otf */; };
+		CE3D57752847CC820044B278 /* Lota-Grotesque-Alt-1-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57622847CC810044B278 /* Lota-Grotesque-Alt-1-Black.otf */; };
+		CE3D57762847CC820044B278 /* Lota-Grotesque-Alt-1-Regular-It.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57632847CC810044B278 /* Lota-Grotesque-Alt-1-Regular-It.otf */; };
+		CE3D57772847CC820044B278 /* Lota-Grotesque-Alt-1-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57642847CC810044B278 /* Lota-Grotesque-Alt-1-Light.otf */; };
+		CE3D57782847CC820044B278 /* Lota-Grotesque-Alt-1-Bold-It.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57652847CC810044B278 /* Lota-Grotesque-Alt-1-Bold-It.otf */; };
+		CE3D57792847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight-It.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57662847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight-It.otf */; };
+		CE3D577A2847CC820044B278 /* Nantes-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57672847CC820044B278 /* Nantes-RegularItalic.otf */; };
+		CE3D577B2847CC820044B278 /* Caveat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57682847CC820044B278 /* Caveat-Medium.ttf */; };
+		CE3D577C2847CC820044B278 /* Caveat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D57692847CC820044B278 /* Caveat-VariableFont_wght.ttf */; };
+		CE3D577D2847CC820044B278 /* Lota-Grotesque-Alt-1-SemiBold-It.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D576A2847CC820044B278 /* Lota-Grotesque-Alt-1-SemiBold-It.otf */; };
+		CE3D577E2847CC820044B278 /* Nantes-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D576B2847CC820044B278 /* Nantes-Regular.otf */; };
+		CE3D577F2847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D576C2847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight.otf */; };
+		CE3D57802847CC820044B278 /* Caveat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D576D2847CC820044B278 /* Caveat-Bold.ttf */; };
+		CE3D57812847CC820044B278 /* Lota-Grotesque-Alt-1-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D576E2847CC820044B278 /* Lota-Grotesque-Alt-1-Thin.otf */; };
+		CE3D57822847CC820044B278 /* Lota-Grotesque-Alt-1-Black-It.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE3D576F2847CC820044B278 /* Lota-Grotesque-Alt-1-Black-It.otf */; };
 		CEE0C75A28046C4600032797 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEE0C75928046C4600032797 /* GoogleService-Info.plist */; };
 		DAD8F0FC15DA43FFA43ACAC2 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2A0543FAFD34AD28885F6FF /* AntDesign.ttf */; };
 		F063B6FF2E7E4E97B771F9F9 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27BBE31145474300B39B3C33 /* Roboto.ttf */; };
@@ -85,6 +104,25 @@
 		C9E6B2AF24674C38810BC56C /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		CBEA9DA9A6F145D2B355FC9D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		CC3C7E8AF4BFC4C48775E583 /* Pods-Covid.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.release (production).xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.release (production).xcconfig"; sourceTree = "<group>"; };
+		CE3D575D2847CC810044B278 /* Lota-Grotesque-Alt-1-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-Regular.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-Regular.otf"; sourceTree = "<group>"; };
+		CE3D575E2847CC810044B278 /* Lota-Grotesque-Alt-1-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-Bold.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-Bold.otf"; sourceTree = "<group>"; };
+		CE3D575F2847CC810044B278 /* Caveat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Caveat-SemiBold.ttf"; path = "../assets/fonts/Caveat-SemiBold.ttf"; sourceTree = "<group>"; };
+		CE3D57602847CC810044B278 /* Caveat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Caveat-Regular.ttf"; path = "../assets/fonts/Caveat-Regular.ttf"; sourceTree = "<group>"; };
+		CE3D57612847CC810044B278 /* Lota-Grotesque-Alt-1-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-SemiBold.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-SemiBold.otf"; sourceTree = "<group>"; };
+		CE3D57622847CC810044B278 /* Lota-Grotesque-Alt-1-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-Black.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-Black.otf"; sourceTree = "<group>"; };
+		CE3D57632847CC810044B278 /* Lota-Grotesque-Alt-1-Regular-It.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-Regular-It.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-Regular-It.otf"; sourceTree = "<group>"; };
+		CE3D57642847CC810044B278 /* Lota-Grotesque-Alt-1-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-Light.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-Light.otf"; sourceTree = "<group>"; };
+		CE3D57652847CC810044B278 /* Lota-Grotesque-Alt-1-Bold-It.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-Bold-It.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-Bold-It.otf"; sourceTree = "<group>"; };
+		CE3D57662847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight-It.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-ExLight-It.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-ExLight-It.otf"; sourceTree = "<group>"; };
+		CE3D57672847CC820044B278 /* Nantes-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nantes-RegularItalic.otf"; path = "../assets/fonts/Nantes-RegularItalic.otf"; sourceTree = "<group>"; };
+		CE3D57682847CC820044B278 /* Caveat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Caveat-Medium.ttf"; path = "../assets/fonts/Caveat-Medium.ttf"; sourceTree = "<group>"; };
+		CE3D57692847CC820044B278 /* Caveat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Caveat-VariableFont_wght.ttf"; path = "../assets/fonts/Caveat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		CE3D576A2847CC820044B278 /* Lota-Grotesque-Alt-1-SemiBold-It.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-SemiBold-It.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-SemiBold-It.otf"; sourceTree = "<group>"; };
+		CE3D576B2847CC820044B278 /* Nantes-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nantes-Regular.otf"; path = "../assets/fonts/Nantes-Regular.otf"; sourceTree = "<group>"; };
+		CE3D576C2847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-ExLight.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-ExLight.otf"; sourceTree = "<group>"; };
+		CE3D576D2847CC820044B278 /* Caveat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Caveat-Bold.ttf"; path = "../assets/fonts/Caveat-Bold.ttf"; sourceTree = "<group>"; };
+		CE3D576E2847CC820044B278 /* Lota-Grotesque-Alt-1-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-Thin.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-Thin.otf"; sourceTree = "<group>"; };
+		CE3D576F2847CC820044B278 /* Lota-Grotesque-Alt-1-Black-It.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lota-Grotesque-Alt-1-Black-It.otf"; path = "../assets/fonts/Lota-Grotesque-Alt-1-Black-It.otf"; sourceTree = "<group>"; };
 		CEE0C75928046C4600032797 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D19BF04CEDCF9351AADD5B01 /* Pods-Covid.beta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.beta.release.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.beta.release.xcconfig"; sourceTree = "<group>"; };
 		D2A0543FAFD34AD28885F6FF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
@@ -154,6 +192,25 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CE3D576D2847CC820044B278 /* Caveat-Bold.ttf */,
+				CE3D57682847CC820044B278 /* Caveat-Medium.ttf */,
+				CE3D57602847CC810044B278 /* Caveat-Regular.ttf */,
+				CE3D575F2847CC810044B278 /* Caveat-SemiBold.ttf */,
+				CE3D57692847CC820044B278 /* Caveat-VariableFont_wght.ttf */,
+				CE3D576F2847CC820044B278 /* Lota-Grotesque-Alt-1-Black-It.otf */,
+				CE3D57622847CC810044B278 /* Lota-Grotesque-Alt-1-Black.otf */,
+				CE3D57652847CC810044B278 /* Lota-Grotesque-Alt-1-Bold-It.otf */,
+				CE3D575E2847CC810044B278 /* Lota-Grotesque-Alt-1-Bold.otf */,
+				CE3D57662847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight-It.otf */,
+				CE3D576C2847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight.otf */,
+				CE3D57642847CC810044B278 /* Lota-Grotesque-Alt-1-Light.otf */,
+				CE3D57632847CC810044B278 /* Lota-Grotesque-Alt-1-Regular-It.otf */,
+				CE3D575D2847CC810044B278 /* Lota-Grotesque-Alt-1-Regular.otf */,
+				CE3D576A2847CC820044B278 /* Lota-Grotesque-Alt-1-SemiBold-It.otf */,
+				CE3D57612847CC810044B278 /* Lota-Grotesque-Alt-1-SemiBold.otf */,
+				CE3D576E2847CC820044B278 /* Lota-Grotesque-Alt-1-Thin.otf */,
+				CE3D576B2847CC820044B278 /* Nantes-Regular.otf */,
+				CE3D57672847CC820044B278 /* Nantes-RegularItalic.otf */,
 				CEE0C75928046C4600032797 /* GoogleService-Info.plist */,
 				F743949F253F286100708825 /* SofiaPro-Black.otf */,
 				F743949E253F286100708825 /* SofiaPro-Bold.otf */,
@@ -316,21 +373,39 @@
 				F74394A9253F286200708825 /* SofiaPro-Medium.otf in Resources */,
 				F74394AA253F286200708825 /* SofiaPro-SemiBold.otf in Resources */,
 				F74394AB253F286200708825 /* SofiaPro-ExtraLight.otf in Resources */,
+				CE3D57742847CC820044B278 /* Lota-Grotesque-Alt-1-SemiBold.otf in Resources */,
 				CEE0C75A28046C4600032797 /* GoogleService-Info.plist in Resources */,
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
+				CE3D57792847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight-It.otf in Resources */,
+				CE3D57772847CC820044B278 /* Lota-Grotesque-Alt-1-Light.otf in Resources */,
+				CE3D57762847CC820044B278 /* Lota-Grotesque-Alt-1-Regular-It.otf in Resources */,
+				CE3D577B2847CC820044B278 /* Caveat-Medium.ttf in Resources */,
+				CE3D57812847CC820044B278 /* Lota-Grotesque-Alt-1-Thin.otf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				F7E2425225125F3700D03296 /* AppCenter-Config.plist in Resources */,
+				CE3D577E2847CC820044B278 /* Nantes-Regular.otf in Resources */,
 				DAD8F0FC15DA43FFA43ACAC2 /* AntDesign.ttf in Resources */,
+				CE3D57802847CC820044B278 /* Caveat-Bold.ttf in Resources */,
+				CE3D577A2847CC820044B278 /* Nantes-RegularItalic.otf in Resources */,
+				CE3D57752847CC820044B278 /* Lota-Grotesque-Alt-1-Black.otf in Resources */,
 				2109C585AD574A2DA19091D4 /* Entypo.ttf in Resources */,
+				CE3D57822847CC820044B278 /* Lota-Grotesque-Alt-1-Black-It.otf in Resources */,
 				83FF23238E294312A4BD4FF6 /* EvilIcons.ttf in Resources */,
 				5E73E9549D3B43CD99F4CA6F /* Feather.ttf in Resources */,
 				1709C9CBD3204E9B81D8AEE4 /* FontAwesome.ttf in Resources */,
 				91FB6C7C179D435B80E71223 /* FontAwesome5_Brands.ttf in Resources */,
 				20A7E2671D06414298EABEE5 /* FontAwesome5_Regular.ttf in Resources */,
+				CE3D57712847CC820044B278 /* Lota-Grotesque-Alt-1-Bold.otf in Resources */,
 				301B131F8802424EAFD21B6A /* FontAwesome5_Solid.ttf in Resources */,
+				CE3D57702847CC820044B278 /* Lota-Grotesque-Alt-1-Regular.otf in Resources */,
 				64A18536D723448EB69C0619 /* Fontisto.ttf in Resources */,
+				CE3D57722847CC820044B278 /* Caveat-SemiBold.ttf in Resources */,
 				F823E172FA094AAFBE34DD11 /* Foundation.ttf in Resources */,
+				CE3D577D2847CC820044B278 /* Lota-Grotesque-Alt-1-SemiBold-It.otf in Resources */,
 				BEC170DFB898467689E88E17 /* Ionicons.ttf in Resources */,
+				CE3D57782847CC820044B278 /* Lota-Grotesque-Alt-1-Bold-It.otf in Resources */,
+				CE3D57732847CC820044B278 /* Caveat-Regular.ttf in Resources */,
+				CE3D577F2847CC820044B278 /* Lota-Grotesque-Alt-1-ExLight.otf in Resources */,
 				7ABA4B14ED9540BEB8CF5C38 /* MaterialCommunityIcons.ttf in Resources */,
 				73029B7DCBCF45D68A83F790 /* MaterialIcons.ttf in Resources */,
 				79C7684C94F64DEE9B3C5957 /* Octicons.ttf in Resources */,
@@ -341,6 +416,7 @@
 				F778D8FA252644E900CB635B /* LaunchScreen.storyboard in Resources */,
 				00EAE7BC42914630B88E62E0 /* Zocial.ttf in Resources */,
 				30FA879087044B8C9CE1F10F /* icomoon.ttf in Resources */,
+				CE3D577C2847CC820044B278 /* Caveat-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
