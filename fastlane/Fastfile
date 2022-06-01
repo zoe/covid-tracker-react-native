@@ -133,7 +133,7 @@ platform :android do
     gradle(
       task: 'assemble',
       build_type: @build_configuration,
-      project_dir: "./android"
+      project_dir: "./android",
       flags: "--debug"
     )
 
