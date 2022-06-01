@@ -6,70 +6,70 @@ on:
       - chore/upgrade-fastlane
 
 jobs:
-  deploy-prod-ota:
-    name: Deploy production OTA
-    runs-on: macos-latest
-    environment: production-ota
-    timeout-minutes: 15
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
-      - name: Cache private assets
-        uses: actions/cache@v3
-        id: cache-private-assets
-        with:
-          path: |
-            .private-assets
-            assets/fonts
-          key: private-assets
-      - uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
-      - name: Install private assets if cache not present
-        shell: bash
-        run: .github/install_private_assets.sh
-        if: steps.cache-private-assets.outputs.cache-hit != 'true'
-      - name: Cache gems
-        id: cache-gems
-        uses: actions/cache@v3
-        with:
-          path: vendor/bundle
-          key: gems-${{ hashFiles('**/Gemfile.lock') }}
-      - name: Install bundler if cache not present
-        run: gem install bundler
-        if: steps.cache-gems.outputs.cache-hit != 'true'
-      - name: Install gems if cache not present
-        run: |
-          bundle config path vendor/bundle clean 'true'
-          bundle check || bundle install
-        env:
-          BUNDLE_JOBS: '4'
-          BUNDLE_RETRY: '3'
-        if: steps.cache-gems.outputs.cache-hit != 'true'
-      - name: Set up Node environment
-        uses: actions/setup-node@v2
-      - name: Cache node modules
-        uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: node_modules
-          key: yarn-${{ hashFiles('yarn.lock') }}
-      - name: Install node modules if cache not present
-        run: yarn install --immutable
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-      - name: Prepare deploy environment
-        run: |
-          bundle update fastlane
-          bundle exec fastlane update_plugins
-          bash .github/make_deploy_env.sh
-          yarn generate:git-hash
-        env:
-          RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
-      - run: echo "RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $GITHUB_ENV
-      - name: Expo OTA login
-        run: npx expo-cli login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
-      - name: Expo OTA publish
-        run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${{ env.RELEASE_CHANNEL }} --target bare
+  # deploy-prod-ota:
+  #   name: Deploy production OTA
+  #   runs-on: macos-latest
+  #   environment: production-ota
+  #   timeout-minutes: 15
+  #   steps:
+  #     - name: Check out Git repository
+  #       uses: actions/checkout@v3
+  #     - name: Cache private assets
+  #       uses: actions/cache@v3
+  #       id: cache-private-assets
+  #       with:
+  #         path: |
+  #           .private-assets
+  #           assets/fonts
+  #         key: private-assets
+  #     - uses: webfactory/ssh-agent@v0.5.4
+  #       with:
+  #         ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
+  #     - name: Install private assets if cache not present
+  #       shell: bash
+  #       run: .github/install_private_assets.sh
+  #       if: steps.cache-private-assets.outputs.cache-hit != 'true'
+  #     - name: Cache gems
+  #       id: cache-gems
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: vendor/bundle
+  #         key: gems-${{ hashFiles('**/Gemfile.lock') }}
+  #     - name: Install bundler if cache not present
+  #       run: gem install bundler
+  #       if: steps.cache-gems.outputs.cache-hit != 'true'
+  #     - name: Install gems if cache not present
+  #       run: |
+  #         bundle config path vendor/bundle clean 'true'
+  #         bundle check || bundle install
+  #       env:
+  #         BUNDLE_JOBS: '4'
+  #         BUNDLE_RETRY: '3'
+  #       if: steps.cache-gems.outputs.cache-hit != 'true'
+  #     - name: Set up Node environment
+  #       uses: actions/setup-node@v2
+  #     - name: Cache node modules
+  #       uses: actions/cache@v3
+  #       id: cache-node-modules
+  #       with:
+  #         path: node_modules
+  #         key: yarn-${{ hashFiles('yarn.lock') }}
+  #     - name: Install node modules if cache not present
+  #       run: yarn install --immutable
+  #       if: steps.cache-node-modules.outputs.cache-hit != 'true'
+  #     - name: Prepare deploy environment
+  #       run: |
+  #         bundle update fastlane
+  #         bundle exec fastlane update_plugins
+  #         bash .github/make_deploy_env.sh
+  #         yarn generate:git-hash
+  #       env:
+  #         RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
+  #     - run: echo "RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $GITHUB_ENV
+  #     - name: Expo OTA login
+  #       run: npx expo-cli login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
+  #     - name: Expo OTA publish
+  #       run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${{ env.RELEASE_CHANNEL }} --target bare
 
   #
   # Publish app to store
