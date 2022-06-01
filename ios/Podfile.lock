@@ -293,7 +293,7 @@ PODS:
     - react-native-config/App (= 1.4.4)
   - react-native-config/App (1.4.4):
     - React-Core
-  - react-native-pager-view (5.4.7):
+  - react-native-pager-view (5.4.24):
     - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
@@ -406,7 +406,7 @@ PODS:
     - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.4.0):
+  - RNScreens (3.13.1):
     - React-Core
     - React-RCTImage
   - RNSentry (3.2.8):
@@ -700,7 +700,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 43f2542aed3c26e42175b339f8d37fe3dd683765
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-config: 72d948053a442779b3178fddd571e37f118ef606
-  react-native-pager-view: 741e7606ee2f6e399fc7da777f5519454a4b38c5
+  react-native-pager-view: 95d0418c3c74279840abec6926653d32447bafb6
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-view-shot: 4475fde003fe8a210053d1f98fb9e06c1d834e1c
@@ -722,7 +722,7 @@ SPEC CHECKSUMS:
   RNFastImage: d4870d58f5936111c56218dbd7fcfc18e65b58ff
   RNGestureHandler: e66feb0fda7da74ea6a3094656b3c1efe05f5c07
   RNReanimated: aaf2cf65595b293daae808015761a6014a97b284
-  RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
+  RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
   RNSentry: fe878ca3982d7871e502ccbb90072fe764c8d07d
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
@@ -736,4 +736,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 0f7492c20a820386e7bf69b030b9c445e5f2a91b
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
