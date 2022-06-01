@@ -134,7 +134,7 @@ platform :android do
       task: 'assemble',
       build_type: @build_configuration,
       project_dir: "./android",
-      flags: "--debug"
+      flags: "--stacktrace --scan"
     )
 
     appcenter
