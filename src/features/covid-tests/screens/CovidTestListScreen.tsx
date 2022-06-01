@@ -5,7 +5,6 @@ import { Screen } from '@covid/components/Screen';
 import { ErrorText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
-import { TPatientData } from '@covid/core/patient/PatientData';
 import { TStateApp } from '@covid/core/state/app/types';
 import { populatePatientLFTState, updateCurrentPatientLoggedToday } from '@covid/core/state/covid-tests/slice';
 import { TStateCovidTests } from '@covid/core/state/covid-tests/types';
@@ -70,7 +69,7 @@ export default function CovidTestListScreen(props: IProps) {
   const dispatch = useDispatch();
 
   const covidTestsState = useSelector<TRootState, TStateCovidTests>((state) => state.covidTests);
-  const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
+  const currentPatient = assessmentCoordinator.assessmentData?.patientData;
   const currentPatientId = assessmentCoordinator.assessmentData?.patientData?.patientId;
 
   const initLFTPromptStateIfUndefined = () => {
@@ -149,9 +148,8 @@ export default function CovidTestListScreen(props: IProps) {
   };
 
   const makeStartAssessmentFlowButton = () => {
-    const useAssessmentFlowV0 = startupInfo?.show_assessment_flow_v0 && !assessmentCoordinator.isReportedByOther();
-
     const primaryPatient = isPrimaryPatient(currentPatient);
+
     const useAssessmentFlowV1 =
       primaryPatient && startupInfo?.use_assessment_flow_v1 && startupInfo?.show_assessment_flow_v1;
     const useUsualSelfSetup =
@@ -168,19 +166,16 @@ export default function CovidTestListScreen(props: IProps) {
         />
       );
 
-    if (useAssessmentFlowV0)
-      return (
-        <Button
-          buttonType="secondary"
-          onPress={handleNextButton}
-          style={[styles.newButton, styles.nextButtonV0Flow]}
-          testID="button-covid-test-list-screen"
-          text={covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
-          textStyle={styles.footerBtnTxt}
-        />
-      );
-
-    return null;
+    return (
+      <Button
+        buttonType="secondary"
+        onPress={handleNextButton}
+        style={[styles.newButton, styles.nextButtonV0Flow]}
+        testID="button-covid-test-list-screen"
+        text={covidTests.length === 0 ? i18n.t('covid-test-list.never-had-test') : i18n.t('information-correct')}
+        textStyle={styles.footerBtnTxt}
+      />
+    );
   };
 
   const renderFooter = () => (

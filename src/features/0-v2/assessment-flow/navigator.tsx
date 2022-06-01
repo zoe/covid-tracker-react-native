@@ -2,8 +2,8 @@ import { TScreenParamList } from '@covid/routes/types';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
-import AssessmentPage1ShowUsualSelf from './screens/1-Page-Usual-Self-Symptoms';
-import AssessmentPage2UpdateUsualSelf from './screens/2-Page-Usual-Self-Symptom-Update';
+import AssessmentPage1ShowUsualSelf from './screens/show-usual-self';
+import AssessmentPage2UpdateUsualSelf from './screens/update-usual-self';
 import AssessmentPage3LogNewSymptom from './screens/3-Page-Log-New-Symptom';
 import AssessmentPage4LogNewSymptomFlow from './screens/4-Page-Log-New-Symptom-Flow';
 import AssessmentPage5LogNewSymptomReason from './screens/5-Page-New-Symptom-Reason';

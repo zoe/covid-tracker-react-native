@@ -49,7 +49,7 @@ const baseStyle = StyleSheet.create({
     letterSpacing: 0,
     lineHeight: grid.g24,
     marginLeft: grid.g12,
-    paddingRight: grid.g16,
+    marginRight: grid.g24,
     textAlign: 'left',
   },
 });

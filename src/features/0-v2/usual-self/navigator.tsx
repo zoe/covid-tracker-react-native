@@ -12,6 +12,7 @@ interface IProps {
 }
 
 const screenOptions = {
+  gestureEnabled: false,
   headerShown: false,
 };
 

@@ -54,7 +54,7 @@ export default function AssessmentPage3LogNewSymptom({ route }: AssessmentPage3L
   const symptomService = makeSymptomService();
 
   const onNewLogSymptomFlowNext = (values: TNewSymptomLocationFormInitValues) => {
-    const submitted: TFormSymptomCategory = values['symptom-locations'];
+    const submitted: TFormSymptomCategory = values.symptom_locations;
     const selectedLocations: string[] = Object.keys(submitted).filter((id: string) => submitted[id].state);
     let categories: TSymptomCategory[] = symptomCategories.filter((category) =>
       selectedLocations.includes(category.name),
@@ -87,7 +87,7 @@ export default function AssessmentPage3LogNewSymptom({ route }: AssessmentPage3L
 
   const formItems = makeCheckBoxItems(symptomCategories);
   const formInitValues: TNewSymptomLocationFormInitValues = {
-    'symptom-locations': symptomCategories.reduce((prev, area) => {
+    symptom_locations: symptomCategories.reduce((prev, area) => {
       return {
         ...prev,
         ...{
@@ -120,7 +120,7 @@ export default function AssessmentPage3LogNewSymptom({ route }: AssessmentPage3L
                       handleChange={setFieldValue}
                       items={formItems}
                       key="input-form-checkbox"
-                      name="symptom-locations"
+                      name="symptom_locations"
                     />
                   </Column>
                 </ScreenBody>
@@ -129,11 +129,11 @@ export default function AssessmentPage3LogNewSymptom({ route }: AssessmentPage3L
                 <Row style={[baseStyle.footer]}>
                   <Column style={{ flexGrow: 1, justifyContent: 'flex-start' }}>
                     <UsualSelfActionCardButtonGroup
-                      style={[baseStyle.cardButtonGroup]}
+                      btnGroupStyle={[baseStyle.cardButtonGroup]}
                       topButton={{
                         disabled:
-                          Object.keys(values['symptom-locations']).filter(
-                            (id: string) => values['symptom-locations'][id].state,
+                          Object.keys(values.symptom_locations).filter(
+                            (id: string) => values.symptom_locations[id].state,
                           ).length === 0,
                         onPress: handleSubmit,
                         text: i18n.t('usual-self.assessment-flow.3-action-card-cta-1'),
