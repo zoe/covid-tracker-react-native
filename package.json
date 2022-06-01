@@ -28,7 +28,7 @@
     "generate:icon-names": "ts-node --transpile-only ./scripts/generate-icon-names.ts",
     "i18n:sanitise": "ts-node --transpile-only ./scripts/i18n-sanitise.ts",
     "install:pod": "cd ios && pod install",
-    "install:private-assets": "./.circleci/install_private_assets.sh",
+    "install:private-assets": "./.github/install_private_assets.sh",
     "ios": "yarn generate:git-hash && react-native run-ios --simulator='iPhone 8' --scheme 'Covid Debug' --configuration Debug",
     "ios:devices": "xcrun simctl list",
     "ios:local": "ENVFILE=.env.local yarn ios",
