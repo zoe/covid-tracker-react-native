@@ -1,7 +1,6 @@
 import { TrendlineCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import ShareTimelineCard from '@covid/components/cards/ShareTimelineCard';
-import { NewlySymptomaticCard } from '@covid/features/dashboard/components/NewlySymptomaticCard';
 import * as React from 'react';
 
 import { SShareContainerView } from './styles';
@@ -29,12 +28,6 @@ export default function ShareContainer(props: IProps) {
       return (
         <SShareContainerView>
           <TrendlineCard isSharing />
-        </SShareContainerView>
-      );
-    case ESharable.NEWLY_SYMPTOMATIC:
-      return (
-        <SShareContainerView>
-          <NewlySymptomaticCard isSharing />
         </SShareContainerView>
       );
     default:
