@@ -58,6 +58,7 @@ class ContentService implements IContentService {
 
   async checkVersionOfAPIAndApp(apiVersion: string | undefined): Promise<boolean> {
     const appVersion: string | undefined = Constants.manifest.version;
+
     if (!appVersion || !apiVersion) {
       // Error getting versions - better to return false than incorrectly show a "please update" popup
       return false;
@@ -81,14 +82,12 @@ class ContentService implements IContentService {
     const startNumberAPI: number = parseInt(apiVersionParts[0], 10);
     const startNumberAPP: number = parseInt(appVersionParts[0], 10);
 
-    if (startNumberAPP < startNumberAPI) {
-      return true;
-    }
+    if (startNumberAPP > startNumberAPI) return false;
 
     // Now check the middle digits. We don't do diffs for minor (3rd) digits
     const middleNumberAPI: number = parseInt(apiVersionParts[1], 10);
     const middleNumberAPP: number = parseInt(appVersionParts[1], 10);
-    return middleNumberAPP < middleNumberAPI;
+    return startNumberAPP < startNumberAPI || middleNumberAPP < middleNumberAPI;
   }
 
   async getStartupInfo() {
