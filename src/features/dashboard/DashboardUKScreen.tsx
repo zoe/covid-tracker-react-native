@@ -22,6 +22,7 @@ import { appCoordinator } from '@covid/features/AppCoordinator';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/components/CollapsibleHeaderScrollView';
 import { CompactHeader } from '@covid/features/dashboard/components/CompactHeader';
 import { ExpandedHeader } from '@covid/features/dashboard/components/ExpandedHeader';
+import { NewlySymptomaticCard } from '@covid/features/dashboard/components/NewlySymptomaticCard';
 import ReBrandModal from '@covid/features/rebrand';
 import { OnboardingContext } from '@covid/features/tab-navigation/OnboardingContext';
 import { useStartReconsent } from '@covid/features/wider-health-studies/hooks/useStartReconsent';
@@ -190,6 +191,7 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
               />
             </TouchableOpacity>
           ) : null}
+          <NewlySymptomaticCard />
           {showTrendline ? <TrendlineCard onPress={appCoordinator.goToTrendline} /> : null}
           <EstimatedCasesMapCard />
           <UKEstimatedCaseCard onPress={onMoreDetails} />
