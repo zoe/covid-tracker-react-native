@@ -1,7 +1,7 @@
 # Gemfile
 source "https://rubygems.org"
 
-gem "fastlane", '2.205.2'
+gem "fastlane", '2.199.0'
 
 # In order to use xcode 13 for fixing ios 15 build issue
 gem "xcode-install"

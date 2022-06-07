@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.0</string>
+	<string>2.7.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -80,25 +80,6 @@
 		<string>SofiaPro-UltraLight.otf</string>
 		<string>SofiaProRegular.otf</string>
 		<string>icomoon.ttf</string>
-		<string>Nantes-Regular.otf</string>
-		<string>Nantes-RegularItalic.otf</string>
-		<string>Lota-Grotesque-Alt-1-Black-It.otf</string>
-		<string>Lota-Grotesque-Alt-1-Black.otf</string>
-		<string>Lota-Grotesque-Alt-1-Bold-It.otf</string>
-		<string>Lota-Grotesque-Alt-1-Bold.otf</string>
-		<string>Lota-Grotesque-Alt-1-ExLight-It.otf</string>
-		<string>Lota-Grotesque-Alt-1-ExLight.otf</string>
-		<string>Lota-Grotesque-Alt-1-Light.otf</string>
-		<string>Lota-Grotesque-Alt-1-Regular-It.otf</string>
-		<string>Lota-Grotesque-Alt-1-Regular.otf</string>
-		<string>Lota-Grotesque-Alt-1-SemiBold.otf</string>
-		<string>Lota-Grotesque-Alt-1-Thin.otf</string>
-		<string>Lota-Grotesque-Alt-1-SemiBold-It.otf</string>
-		<string>Caveat-Bold.ttf</string>
-		<string>Caveat-Medium.ttf</string>
-		<string>Caveat-Regular.ttf</string>
-		<string>Caveat-SemiBold.ttf</string>
-		<string>Caveat-VariableFont_wght.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
