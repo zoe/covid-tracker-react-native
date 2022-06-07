@@ -13,6 +13,7 @@ import { sizes } from '@covid/themes';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { useNavigation } from '@react-navigation/native';
 import Button from '@tracer/components/atoms/Button';
+import CovidTag from '@tracer/components/molecules/CovidTag';
 import ShareButton from '@tracer/components/molecules/ShareButton';
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
@@ -280,6 +281,7 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
           textStyle={{ color: shareBtnColor }}
         />
       ) : null}
+      <CovidTag />
     </View>
   );
 }
