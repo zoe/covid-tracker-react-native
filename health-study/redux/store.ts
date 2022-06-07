@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import example from './example-reducer';
+import example from './reducer-template';
 
 export const store = configureStore({
   reducer: { example },
