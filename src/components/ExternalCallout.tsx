@@ -17,6 +17,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { useDispatch, useSelector } from 'react-redux';
 
 type TProps = {
@@ -102,7 +103,7 @@ export const ExternalCallout: React.FC<TProps> = (props) => {
         >
           <View style={styles.viewContainer}>
             {Object.keys(props.imageSource).includes('uri') ? (
-              <Image {...imageProps} source={{ uri: (props.imageSource as ImageURISource).uri }} />
+              <FastImage {...imageProps} source={{ uri: (props.imageSource as ImageURISource).uri }} />
             ) : (
               <Image {...imageProps} source={props.imageSource} />
             )}
