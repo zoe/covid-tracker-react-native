@@ -200,11 +200,11 @@ jobs:
         run: yarn fastlane:ios:release env:$RELEASE_TYPE
         env:
           RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
-      - name: Upload build
-        uses: actions/upload-artifact@v3
-        with:
-          name: production-ios-build
-          path: ./build
+      # - name: Upload build
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: production-ios-build
+      #     path: ./build
 
   prod-android-release:
     name: Production Android app build and release
@@ -274,8 +274,8 @@ jobs:
         run: ENVFILE=.env bundle exec fastlane android release env:$RELEASE_TYPE
         env:
           RELEASE_TYPE: ${{ secrets.RELEASE_TYPE }}
-      - name: Upload build
-        uses: actions/upload-artifact@v3
-        with:
-          name: production-android-build
-          path: ./android/app/build/outputs
+      # - name: Upload build
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: production-android-build
+      #     path: ./android/app/build/outputs
