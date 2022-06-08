@@ -149,13 +149,14 @@ export default function CovidTestListScreen(props: IProps) {
 
   const makeStartAssessmentFlowButton = () => {
     const primaryPatient = isPrimaryPatient(currentPatient);
+    const { skipV1Flow = false } = props.route.params || {};
 
     const useAssessmentFlowV1 =
       primaryPatient && startupInfo?.use_assessment_flow_v1 && startupInfo?.show_assessment_flow_v1;
     const useUsualSelfSetup =
       primaryPatient && startupInfo?.use_assessment_flow_v1 && !startupInfo.show_assessment_flow_v1;
 
-    if (useAssessmentFlowV1 || useUsualSelfSetup)
+    if (!skipV1Flow && (useAssessmentFlowV1 || useUsualSelfSetup))
       return (
         <Button
           onPress={useAssessmentFlowV1 ? goToAssessmentFlowV1 : goToUsualSelf}

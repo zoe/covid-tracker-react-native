@@ -70,6 +70,7 @@ export type TScreenParamList = {
     tests?: TCovidTest[];
     mechanism?: ECovidTestMechanismOptions;
     is_rapid_test?: boolean;
+    skipV1Flow?: boolean;
   };
   GeneralSymptoms: { assessmentData: TAssessmentData };
   GutStomachSymptoms: { assessmentData: TAssessmentData };
@@ -172,7 +173,10 @@ export type TScreenParamList = {
 
   // Assessment Flow + Usual Self V2
   // TODO: Move to it's own type and directory
-  UsualSelfIntroScreen: undefined;
+  UsualSelfIntroScreen: {
+    useSecondaryIntro?: boolean;
+    secondaryOnPress?: Function;
+  };
   UsualSelfFormScreen: undefined;
   AssessmentPage1ShowUsualSelf: undefined;
   AssessmentPage2UpdateUsualSelf: {

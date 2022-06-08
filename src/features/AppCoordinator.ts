@@ -191,13 +191,17 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
     /* use new assessment flow v1 / usual self setup */
     if (useAssessmentFlowV1) NavigatorService.navigate('CovidTestList');
-    if (useUsualSelfSetup) NavigatorService.navigate('UsualSelfIntroScreen');
+    if (useUsualSelfSetup)
+      NavigatorService.navigate('UsualSelfIntroScreen', {
+        secondaryOnPress: () => this.startAssessmentFlow(patientData, true),
+        useSecondaryIntro: true,
+      });
   };
 
   // Only initiated from daily reporting flow
-  startAssessmentFlow = async (patientData: TPatientData) => {
+  startAssessmentFlow = async (patientData: TPatientData, skipV1Flow?: boolean) => {
     // TODO: Does not need to be async
-    assessmentCoordinator.init(this, { patientData }, assessmentService);
+    assessmentCoordinator.init(this, { patientData }, assessmentService, skipV1Flow);
     assessmentCoordinator.startAssessment();
   };
 
