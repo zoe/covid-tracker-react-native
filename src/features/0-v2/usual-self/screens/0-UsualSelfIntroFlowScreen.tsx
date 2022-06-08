@@ -8,7 +8,7 @@ import React from 'react';
 
 const USUAL_SELF_INTRO_TAG = i18n.t('usual-self.tag');
 
-const makeFeatureIntroProps = (useSecondaryIntro?: boolean, secondaryOnPress?: Function): IFlowFeatureIntroProps => ({
+const makeFeatureIntroProps = (useSecondaryIntro?: boolean, secondaryOnPress?: () => void): IFlowFeatureIntroProps => ({
   entry: {
     imageSource: usualSelfIntro0,
     onPressBack: NavigatorService.goBack,
@@ -56,10 +56,8 @@ export default function UsualSelfIntroFlowScreen({
 }: {
   route: RouteProp<TScreenParamList, 'UsualSelfIntroScreen'>;
 }) {
-  console.log('route', route);
   const { useSecondaryIntro, secondaryOnPress } = route?.params || { useSecondaryIntro: false };
   const introProps = makeFeatureIntroProps(useSecondaryIntro, secondaryOnPress);
-  console.log('introProps', introProps);
   return (
     <FlowFeatureIntro
       {...introProps}

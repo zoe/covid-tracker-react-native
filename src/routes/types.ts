@@ -175,7 +175,7 @@ export type TScreenParamList = {
   // TODO: Move to it's own type and directory
   UsualSelfIntroScreen: {
     useSecondaryIntro?: boolean;
-    secondaryOnPress?: Function;
+    secondaryOnPress?: () => void;
   };
   UsualSelfFormScreen: undefined;
   AssessmentPage1ShowUsualSelf: undefined;
