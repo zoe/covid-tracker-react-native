@@ -1853,6 +1853,11 @@
       "title": "Introducing your new Daily Reporting",
       "cta": "Get started"
     },
+    "flow-entry-secondary": {
+      "title": "Personalise your Daily Symptom Reports",
+      "cta": "Set up your Usual Self now",
+      "secondary-cta": "Set up your Usual Self later"
+    },
     "flow-intro-1": {
       "title": "Your health reports are now even more powerful",
       "description": "As well as contributing to COVID-19 knowledge, every report now supports research in major health issues, such as cancer and dementia.\n\nLogging daily adds huge value to a range of new studies.",

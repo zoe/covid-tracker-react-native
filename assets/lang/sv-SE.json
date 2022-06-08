@@ -1857,6 +1857,11 @@
       "title": false,
       "cta": false
     },
+    "flow-entry-secondary": {
+      "title": false,
+      "cta": false,
+      "secondary-cta": false
+    },
     "flow-intro-1": {
       "title": false,
       "description": false,
@@ -1875,7 +1880,7 @@
     "setup": {
       "header": false,
       "tag": false,
-      "question-highlighted":false,
+      "question-highlighted": false,
       "question-label": false,
       "description": false,
       "button": false,
@@ -1894,7 +1899,7 @@
     },
     "assessment-flow": {
       "1-title": false,
-      "1-subtitle":false,
+      "1-subtitle": false,
       "header-me": false,
       "1-emoji-explain-button": false,
       "1-no-symptoms": false,

@@ -31,6 +31,8 @@ export class AssessmentCoordinator extends Coordinator {
 
   appCoordinator: AppCoordinator;
 
+  skipV1Flow: boolean;
+
   screenFlow: Partial<TScreenFlow> = {
     AboutYourVaccine: () => {
       NavigatorService.goBack();
@@ -127,11 +129,17 @@ export class AssessmentCoordinator extends Coordinator {
     },
   };
 
-  init = (appCoordinator: AppCoordinator, assessmentData: TAssessmentData, assessmentService: IAssessmentService) => {
+  init = (
+    appCoordinator: AppCoordinator,
+    assessmentData: TAssessmentData,
+    assessmentService: IAssessmentService,
+    shouldSkipV1Flow?: boolean,
+  ) => {
     this.appCoordinator = appCoordinator;
     this.assessmentData = assessmentData;
     this.assessmentService = assessmentService;
     this.patientData = assessmentData.patientData;
+    this.skipV1Flow = shouldSkipV1Flow || false;
   };
 
   startAssessment = () => {
@@ -145,7 +153,10 @@ export class AssessmentCoordinator extends Coordinator {
       } else if (currentPatient.isHealthWorker) {
         NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
       } else {
-        NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('CovidTestList', {
+          assessmentData: this.assessmentData,
+          skipV1Flow: this.skipV1Flow,
+        });
       }
     } else {
       this.appCoordinator.startPatientFlow(this.patientData);
