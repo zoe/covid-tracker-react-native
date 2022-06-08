@@ -137,6 +137,7 @@ export const healthStudyStyles = StyleSheet.create({
     borderRadius: HealthStudyBranding.sizes.g16,
     marginVertical: HealthStudyBranding.sizes.g8,
     overflow: 'hidden',
+    paddingTop: HealthStudyBranding.sizes.g12,
   },
   shareIcon: {
     marginRight: HealthStudyBranding.sizes.g8,

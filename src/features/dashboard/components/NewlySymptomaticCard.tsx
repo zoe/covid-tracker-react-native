@@ -12,6 +12,7 @@ import {
 import i18n from '@covid/locale/i18n';
 import { useNavigation } from '@react-navigation/native';
 import Button from '@tracer/components/atoms/Button';
+import CovidTag from '@tracer/components/molecules/CovidTag';
 import ShareButton from '@tracer/components/molecules/ShareButton';
 import React from 'react';
 import { View } from 'react-native';
@@ -117,6 +118,7 @@ export function NewlySymptomaticCard(props: TProps) {
           textStyle={{ color: shareBtnColor }}
         />
       ) : null}
+      <CovidTag />
     </View>
   );
 }
