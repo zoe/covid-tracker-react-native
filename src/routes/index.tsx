@@ -45,6 +45,7 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.ArchiveReasonScreen} name="ArchiveReason" options={options} />
       <Stack.Screen component={screens.BeforeWeStartUSScreen} name="BeforeWeStartUS" options={options} />
       <Stack.Screen component={screens.BiometricAuthScreen} name="BiometricAuth" options={options} />
+      <Stack.Screen component={screens.ConfirmSchoolScreen} name="ConfirmSchool" options={options} />
       <Stack.Screen component={screens.ConsentForOtherScreen} name="ConsentForOther" options={options} />
       <Stack.Screen component={screens.ConsentScreen} name="Consent" options={options} />
       <Stack.Screen component={screens.CountrySelectScreen} name="CountrySelect" options={options} />
@@ -75,6 +76,9 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.HeadSymptomsScreen} name="HeadSymptoms" options={options} />
       <Stack.Screen component={screens.HealthWorkerExposureScreen} name="HealthWorkerExposure" options={options} />
       <Stack.Screen component={screens.HowYouFeelScreen} name="HowYouFeel" options={options} />
+      <Stack.Screen component={screens.JoinHigherEducationScreen} name="JoinHigherEducation" options={options} />
+      <Stack.Screen component={screens.JoinSchoolGroupScreen} name="JoinSchoolGroup" options={options} />
+      <Stack.Screen component={screens.JoinSchoolScreen} name="JoinSchool" options={options} />
       <Stack.Screen component={screens.LoginScreen} name="Login" options={options} />
       <Stack.Screen component={screens.LongCovidQuestionScreen} name="LongCovidQuestion" options={options} />
       <Stack.Screen component={screens.LongCovidStartScreen} name="LongCovidStart" options={options} />
@@ -95,6 +99,10 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.RegisterScreen} name="Register" options={options} />
       <Stack.Screen component={screens.ResetPasswordConfirmScreen} name="ResetPasswordConfirm" options={options} />
       <Stack.Screen component={screens.ResetPasswordScreen} name="ResetPassword" options={options} />
+      <Stack.Screen component={screens.SchoolDashboardScreen} name="SchoolDashboard" options={options} />
+      <Stack.Screen component={screens.SchoolGroupListScreen} name="SchoolGroupList" options={options} />
+      <Stack.Screen component={screens.SchoolHowToScreen} name="SchoolHowTo" options={options} />
+      <Stack.Screen component={screens.SchoolIntroScreen} name="SchoolIntro" options={options} />
       <Stack.Screen component={screens.SelectProfileScreen} name="SelectProfile" options={options} />
       <Stack.Screen component={screens.TermsOfUseUSScreen} name="TermsOfUseUS" options={options} />
       <Stack.Screen component={screens.TestingModeScreen} name="TestingMode" options={options} />
