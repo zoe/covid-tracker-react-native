@@ -5,4 +5,5 @@ export type TStateApp = {
   modalReBrandVisible: boolean;
   toggleReBrand: boolean;
   useAssessmentFlowV1: boolean;
+  showSecondaryUsualSelfIntro: boolean;
 };
