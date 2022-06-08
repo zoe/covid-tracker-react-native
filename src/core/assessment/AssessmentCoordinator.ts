@@ -38,7 +38,7 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.goBack();
     },
     CovidTestConfirm: () => {
-      NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
+      NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData, skipV1Flow: this.skipV1Flow });
     },
     CovidTestList: () => {
       // If primary patient and has seen assessment v0 onboarding, skip the vaccines screen
@@ -65,7 +65,7 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('ThroatChestSymptoms', { assessmentData: this.assessmentData });
     },
     HealthWorkerExposure: () => {
-      NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
+      NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData, skipV1Flow: this.skipV1Flow });
     },
     HowYouFeel: (healthy: boolean) => {
       if (healthy) {
@@ -151,7 +151,10 @@ export class AssessmentCoordinator extends Coordinator {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
         NavigatorService.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
       } else if (currentPatient.isHealthWorker) {
-        NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('HealthWorkerExposure', {
+          assessmentData: this.assessmentData,
+          skipV1Flow: this.skipV1Flow,
+        });
       } else {
         NavigatorService.navigate('CovidTestList', {
           assessmentData: this.assessmentData,
