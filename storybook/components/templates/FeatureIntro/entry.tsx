@@ -27,10 +27,10 @@ export interface IFeatureIntroEntryScreenProps {
   textStyle?: StyleProp<TextStyle>;
   title?: string;
   textButton?: string;
-  onPressBack: () => void;
-  onPress?: () => void;
+  onPressBack: Function;
+  onPress?: Function;
   secondaryButtonText?: string;
-  secondaryButtonOnPress?: () => void;
+  secondaryButtonOnPress?: Function;
 }
 
 const HEIGHT_FOOTER = 114;
