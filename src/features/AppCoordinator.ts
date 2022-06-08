@@ -193,7 +193,10 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     if (useAssessmentFlowV1) NavigatorService.navigate('CovidTestList');
     if (useUsualSelfSetup)
       NavigatorService.navigate('UsualSelfIntroScreen', {
-        secondaryOnPress: () => this.startAssessmentFlow(patientData, true),
+        secondaryOnPress: () => {
+          NavigatorService.goBack();
+          this.startAssessmentFlow(patientData, true);
+        },
         useSecondaryIntro: true,
       });
   };
