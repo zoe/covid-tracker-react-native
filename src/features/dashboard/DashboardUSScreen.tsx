@@ -95,11 +95,6 @@ const styles = StyleSheet.create({
   marginHorizontal: {
     marginHorizontal: sizes.screenHorizontalPadding,
   },
-  schoolModuleContainer: {
-    height: 200,
-    marginBottom: sizes.xs,
-    marginHorizontal: sizes.xl,
-  },
   zoe: {
     marginBottom: sizes.xl,
   },
