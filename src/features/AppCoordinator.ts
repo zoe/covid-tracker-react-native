@@ -197,7 +197,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
           NavigatorService.goBack();
           this.startAssessmentFlow(patientData, true);
         },
-        useSecondaryIntro: true,
       });
   };
 

@@ -9,6 +9,7 @@ export const initialStateApp: TStateApp = {
   modalReBrandVisible: false,
   toggleReBrand: false,
   useAssessmentFlowV1: false,
+  showSecondaryUsualSelfIntro: false,
 };
 
 export const appSlice = createSlice({
@@ -40,10 +41,15 @@ export const appSlice = createSlice({
       ...state,
       useAssessmentFlowV1: action.payload,
     }),
+    setShowSecondaryUsualSelfIntro: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      showSecondaryUsualSelfIntro: action.payload,
+    }),
   },
 });
 
 export const appActions = appSlice.actions;
 export const appSelectors = {
   selectApp: (state: TRootState) => state.app,
+  useShowSecondaryUsualSelfIntro: (state: TRootState) => state.app.showSecondaryUsualSelfIntro,
 };
