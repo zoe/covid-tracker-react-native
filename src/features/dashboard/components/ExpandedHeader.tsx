@@ -11,6 +11,7 @@ import { EHeaderType } from '@covid/features/dashboard/types';
 import i18n from '@covid/locale/i18n';
 import { cleanIntegerVal } from '@covid/utils/number';
 import Button from '@tracer/components/atoms/Button';
+import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import * as React from 'react';
 import { PixelRatio, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -23,7 +24,7 @@ interface IProps {
 }
 
 export function ExpandedHeader(props: IProps) {
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const toggleReBrand = useSelector(useToggleRebrand);
   const content = useSelector<TRootState, TStateContent>((state) => state.content);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const [contributors, setContributors] = React.useState<string | null>(null);
@@ -42,10 +43,10 @@ export function ExpandedHeader(props: IProps) {
     props.onPress();
   }, [props.onPress]);
 
-  const styles: TExpandedHeaderStyle = app.toggleReBrand ? healthStudyStyle : covidStyles;
+  const styles: TExpandedHeaderStyle = toggleReBrand ? healthStudyStyle : covidStyles;
   return (
     <View style={styles.root}>
-      <View style={styles.logoWrapper}>{app.toggleReBrand ? <InAppHeaderIcon /> : <CovidAppByZOE />}</View>
+      <View style={styles.logoWrapper}>{toggleReBrand ? <InAppHeaderIcon /> : <CovidAppByZOE />}</View>
 
       <View style={styles.card}>
         {PixelRatio.getFontScale() < 2.5 ? (
