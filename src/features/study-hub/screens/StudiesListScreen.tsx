@@ -1,6 +1,5 @@
 import { Tag, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
-import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import {
@@ -17,8 +16,8 @@ import { StudyHubReconsentModal } from '@covid/features/study-hub/modals/StudyHu
 import { TStudy } from '@covid/features/study-hub/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { useFocusEffect } from '@react-navigation/native';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';

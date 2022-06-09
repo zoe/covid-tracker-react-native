@@ -6,7 +6,6 @@ import {
 } from '@covid/components/inputsRedesigned/NegativePositiveField';
 import Analytics, { events } from '@covid/core/Analytics';
 import Logging, { contextNames, logLevel } from '@covid/core/Logging';
-import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { covidTestService } from '@covid/core/user/CovidTestService';
 import { ECovidTestType, TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -14,8 +13,8 @@ import { ECovidTestMechanismOptions, ECovidTestResultOptions } from '@covid/core
 import { CovidTestLFTResultConfirmationModal } from '@covid/features/covid-tests/modals/CovidTestLFTResultConfirmationModal';
 import i18n from '@covid/locale/i18n';
 import { dateToString } from '@covid/utils/datetime';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import Tag from '@tracer/components/atoms/Tag';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import * as React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
 import { useSelector } from 'react-redux';

@@ -2,19 +2,17 @@ import { NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomatic
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text, TextWithHighlight } from '@covid/components/typography';
 import { selectContent, updateSelectedRegionItem } from '@covid/core/state';
-import { TStateApp } from '@covid/core/state/app/types';
 import { TRegionItem } from '@covid/core/state/content/types';
-import { TRootState } from '@covid/core/state/root';
 import {
   ChangeRegionNewlySymptomaticModal,
   LONDON_ITEM,
 } from '@covid/features/dashboard/modals/ChangeRegionNewlySymptomaticModal';
 import i18n from '@covid/locale/i18n';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { useNavigation } from '@react-navigation/native';
 import Button from '@tracer/components/atoms/Button';
 import CovidTag from '@tracer/components/molecules/CovidTag';
 import ShareButton from '@tracer/components/molecules/ShareButton';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';

@@ -33,7 +33,7 @@ import { openWebLink } from '@covid/utils/links';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
-import { useAppState } from 'health-study/redux/app/selectors';
+import { useAppState } from '@health-study/redux/app/selectors';
 import React from 'react';
 import { Image, Platform, Pressable, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';

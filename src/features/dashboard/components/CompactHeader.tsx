@@ -1,12 +1,10 @@
 import { covidIcon } from '@assets';
 import InAppCompactIcon from '@assets/v2/svg/in-app-compact-icon';
 import Analytics, { events } from '@covid/core/Analytics';
-import { TStateApp } from '@covid/core/state/app/types';
-import { TRootState } from '@covid/core/state/root';
 import { EHeaderType } from '@covid/features/dashboard/types';
 import i18n from '@covid/locale/i18n';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import Button from '@tracer/components/atoms/Button';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { Image, View } from 'react-native';
 import { useSelector } from 'react-redux';

@@ -21,7 +21,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import Button from '@tracer/components/atoms/Button';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';

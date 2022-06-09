@@ -11,7 +11,7 @@ import { EHeaderType } from '@covid/features/dashboard/types';
 import i18n from '@covid/locale/i18n';
 import { cleanIntegerVal } from '@covid/utils/number';
 import Button from '@tracer/components/atoms/Button';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import * as React from 'react';
 import { PixelRatio, View } from 'react-native';
 import { useSelector } from 'react-redux';

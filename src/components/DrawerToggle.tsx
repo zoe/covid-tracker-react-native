@@ -1,11 +1,9 @@
 import { Menu } from '@assets/icons/Menu';
 import { WithNotificationDot } from '@covid/components/WithNotificationDot';
-import { TStateApp } from '@covid/core/state/app/types';
-import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { sizes } from '@covid/themes';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import HealthStudyDrawerToggle from '@tracer/components/molecules/DrawerToggle';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import * as React from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 import { useSelector } from 'react-redux';
