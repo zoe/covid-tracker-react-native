@@ -38,7 +38,7 @@ describe('Example Reducer', () => {
     await store.dispatch(exampleThunk());
 
     const state = store.getState().example;
-    expect(state).toEqual({ value: 4 });
+    expect(state).toEqual({ value: 2 });
   });
 
   it('should correctly return the value when using the selector', () => {
