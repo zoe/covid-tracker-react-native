@@ -1,7 +1,6 @@
 import { initialStateAssessment } from '@covid/core/assessment/state/reducers';
 import { initialStateApp } from '@covid/core/state/app/slice';
 import { initialStateContent } from '@covid/core/state/content/slice';
-import { initialStateDietStudy } from '@covid/core/state/diet-study/slice';
 import { initialStateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { initialStateMediaCentre } from '@covid/core/state/media-centre';
 import { initialStateMentalHealthChanges } from '@covid/core/state/mental-health/changes/slice';
@@ -24,7 +23,6 @@ export const initialState: TRootState = {
   app: initialStateApp,
   assessment: initialStateAssessment,
   content: initialStateContent,
-  dietStudy: initialStateDietStudy,
   healthProfile: initialStateHealthProfile,
   mediaCentre: initialStateMediaCentre,
   mentalHealthChanges: initialStateMentalHealthChanges,
