@@ -54,11 +54,11 @@ const makeFeatureIntroProps = (useSecondaryIntro?: boolean, secondaryOnPress?: (
 });
 
 function UsualSelfIntroFlowScreen({ route }: { route: RouteProp<TScreenParamList, 'UsualSelfIntroScreen'> }) {
-  const useSecondaryIntro = useSelector(appSelectors.useShowSecondaryUsualSelfIntro, () => true);
+  const useSecondaryIntro = useSelector(appSelectors.useShowRepeatUsualSelfIntro, () => true);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(appActions.setShowSecondaryUsualSelfIntro(true));
+    dispatch(appActions.setShowRepeatUsualSelfIntro(true));
   }, []);
 
   const { secondaryOnPress } = route?.params || {};
