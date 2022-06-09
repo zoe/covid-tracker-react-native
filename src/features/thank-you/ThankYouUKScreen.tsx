@@ -3,7 +3,6 @@ import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { TAssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import { appActions } from '@covid/core/state/app/slice';
 import { incrementTimesSeenLFTPrompt, updateDateLastSeenLFTPrompt } from '@covid/core/state/covid-tests/slice';
 import { TStateCovidTests } from '@covid/core/state/covid-tests/types';
 import {
@@ -14,8 +13,6 @@ import {
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { ImpactTimelineCard } from '@covid/features/anniversary';
-import { appCoordinator } from '@covid/features/AppCoordinator';
 import { CovidTestLFTPromptModal } from '@covid/features/covid-tests/modals/CovidTestLFTPromptModal';
 import { HealthProfileReminderModal } from '@covid/features/health-profile/modals/HealthProfileReminderModal';
 import { AppRating, shouldAskForRating } from '@covid/features/thank-you/components/AppRating';
@@ -28,6 +25,7 @@ import { assessmentService } from '@covid/services';
 import { sizes } from '@covid/themes';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
+import { application } from 'express';
 import moment from 'moment';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
@@ -143,7 +141,7 @@ export default function ThankYouUKScreen(props: IProps) {
         !healthProfileState.dateOfLastUpdate &&
         !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another
       ) {
-        dispatch(appActions.setModalHealthProfileIntroVisible(true));
+        dispatch(application.setModalHealthProfileIntroVisible(true));
         dispatch(showHealthProfileStartCard(true));
         return;
       }

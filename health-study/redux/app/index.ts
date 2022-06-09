@@ -3,12 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppState } from './types';
 
-const initialState: AppState = {
+export const initialState: AppState = {
   modalHealthProfileIntroVisible: false,
   modalMentalHealthPlaybackVisible: false,
   modalReBrandVisible: false,
   toggleReBrand: false,
   useAssessmentFlowV1: false,
+  showRepeatUsualSelfIntro: false,
 };
 
 export const appSlice = createSlice({
@@ -35,6 +36,10 @@ export const appSlice = createSlice({
     setUseAssessmentFlowV1: (state, action: PayloadAction<boolean>) => ({
       ...state,
       useAssessmentFlowV1: action.payload,
+    }),
+    setShowRepeatUsualSelfIntro: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      showRepeatUsualSelfIntro: action.payload,
     }),
   },
 });

@@ -1,6 +1,5 @@
 import { initialStateAssessment } from '@covid/core/assessment/state/reducers';
 import { initialStateSchools } from '@covid/core/schools/Schools.slice';
-import { initialStateApp } from '@covid/core/state/app/slice';
 import { initialStateContent } from '@covid/core/state/content/slice';
 import { initialStateDietStudy } from '@covid/core/state/diet-study/slice';
 import { initialStateHealthProfile } from '@covid/core/state/health-profile/slice';
@@ -20,6 +19,7 @@ import { initialStateStudyHub } from '@covid/core/state/study-hub/slice';
 import { initialStateTestingMode } from '@covid/core/state/testingMode';
 import { initialStateUser } from '@covid/core/state/user/slice';
 import { initialStateVaccine } from '@covid/core/state/vaccines/slice';
+import { initialState as initialStateApp } from '@health-study/redux/app';
 
 export const initialState: TRootState = {
   app: initialStateApp,

@@ -4,4 +4,5 @@ export interface AppState {
   modalReBrandVisible: boolean;
   toggleReBrand: boolean;
   useAssessmentFlowV1: boolean;
+  showRepeatUsualSelfIntro: boolean;
 }

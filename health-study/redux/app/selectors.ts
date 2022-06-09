@@ -4,3 +4,4 @@ import { TRootState } from '@covid/core/state/root';
 
 export const useAppState = (state: TRootState) => state.app;
 export const useToggleRebrand = (state: TRootState) => state.app.toggleReBrand;
+export const useShowRepeatUsualSelfIntro = (state: TRootState) => state.app.showRepeatUsualSelfIntro;

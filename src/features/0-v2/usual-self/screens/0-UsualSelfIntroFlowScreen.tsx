@@ -1,8 +1,9 @@
 import { usualSelfIntro0, usualSelfIntro1, usualSelfIntro2, usualSelfIntro3 } from '@assets/v2/png';
-import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
+import { appActions } from '@health-study/redux/app';
+import { useShowRepeatUsualSelfIntro } from '@health-study/redux/app/selectors';
 import { RouteProp } from '@react-navigation/native';
 import FlowFeatureIntro, { IFlowFeatureIntroProps } from '@tracer/components/templates/FeatureIntroFlow';
 import React from 'react';
@@ -54,7 +55,7 @@ const makeFeatureIntroProps = (useSecondaryIntro?: boolean, secondaryOnPress?: (
 });
 
 function UsualSelfIntroFlowScreen({ route }: { route: RouteProp<TScreenParamList, 'UsualSelfIntroScreen'> }) {
-  const useSecondaryIntro = useSelector(appSelectors.useShowRepeatUsualSelfIntro, () => true);
+  const useSecondaryIntro = useSelector(useShowRepeatUsualSelfIntro, () => true);
   const dispatch = useDispatch();
 
   React.useEffect(() => {

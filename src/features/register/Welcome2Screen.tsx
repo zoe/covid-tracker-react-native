@@ -11,17 +11,15 @@ import {
   LocalisationService,
   localisationService,
 } from '@covid/core/localisation/LocalisationService';
-import { TStateApp } from '@covid/core/state/app/types';
-import { TRootState } from '@covid/core/state/root';
 import { appCoordinator } from '@covid/features/AppCoordinator';
 import i18n from '@covid/locale/i18n';
 import { TScreenParamList } from '@covid/routes/types';
 import { openWebLink } from '@covid/utils/links';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import Button from '@tracer/components/atoms/Button';
-import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
