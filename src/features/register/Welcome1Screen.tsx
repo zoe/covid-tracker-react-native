@@ -9,7 +9,6 @@ import { TScreenParamList } from '@covid/routes/types';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Button from '@tracer/components/atoms/Button';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -23,7 +22,7 @@ type TProps = {
 };
 
 export default function Welcome1Screen({ navigation }: TProps) {
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const [userCount, setUserCount] = React.useState<number>(0);
 
   const getUserCount = React.useCallback(async () => {
@@ -56,7 +55,7 @@ export default function Welcome1Screen({ navigation }: TProps) {
   const onSelectCountryPress = React.useCallback(() => navigation.navigate('CountrySelect', {}), [navigation.navigate]);
   const onNextButtonPress = React.useCallback(() => navigation.navigate('Welcome2'), [navigation.navigate]);
 
-  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <Screen noHeader noPadding backgroundColor={styles.screen.backgroundColor} testID="welcome-1-screen">
       <Image source={getMapImage()} style={styles.mapImage} testID="map" />

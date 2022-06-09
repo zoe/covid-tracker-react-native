@@ -9,7 +9,6 @@ import { selectCanOptInOfWiderHealthStudies, selectStartupInfo } from '@covid/co
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { Animated, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -37,7 +36,7 @@ export const CollapsibleHeaderScrollView = ({
   isInsideTabBar,
   children,
 }: ICollapsibleHeaderScrollViewProps) => {
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const [scrollY] = React.useState<Animated.Value>(new Animated.Value(0));
@@ -116,7 +115,7 @@ export const CollapsibleHeaderScrollView = ({
   }, [showOnboarding]);
 
   const ratio = 3 / 4;
-  const styles: TCollapsibleHeaderScrollViewStyle = toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles: TCollapsibleHeaderScrollViewStyle = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <View style={styles.container}>
       <View style={{ height: safeAreaInsets.top }} />

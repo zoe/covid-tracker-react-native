@@ -15,7 +15,6 @@ import { useNavigation } from '@react-navigation/native';
 import Button from '@tracer/components/atoms/Button';
 import CovidTag from '@tracer/components/molecules/CovidTag';
 import ShareButton from '@tracer/components/molecules/ShareButton';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -38,7 +37,7 @@ interface IEmptyViewProps {
 function EmptyView({ onPress, ...props }: IEmptyViewProps) {
   const [html, setHtml] = React.useState<string>('');
 
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
   const primaryLabel = props.primaryLabel ?? i18n.t('covid-cases-map.covid-in-x', { location: 'your area' });
@@ -75,7 +74,7 @@ function EmptyView({ onPress, ...props }: IEmptyViewProps) {
     };
   }, []);
 
-  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <View style={[styles.root, root]}>
       <View style={{ marginVertical: sizes.l, paddingHorizontal: sizes.m }}>
@@ -130,7 +129,7 @@ const ZOOM_LEVEL_FURTHER = 6;
 export function EstimatedCasesMapCard({ isSharing }: IProps) {
   const { navigate } = useNavigation();
 
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const localData = useSelector<TRootState, TPersonalisedLocalData | undefined>(
     (state) => state.content.personalizedLocalData,
   );
@@ -214,8 +213,8 @@ export function EstimatedCasesMapCard({ isSharing }: IProps) {
     }
   };
 
-  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
-  const shareBtnColor = toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const shareBtnColor = app.toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
   const map = (): React.ReactNode => {
     if (useCartoMap) {
       return (

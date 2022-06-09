@@ -1,6 +1,6 @@
 import { Header3Text, RegularText, ShareScreen } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
-import { appActions } from '@covid/core/state/app/slice';
+import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
 import { HealthProfileIntroModal } from '@covid/features';
 import MentalHealthPlaybackModal from '@covid/features/mental-health-playback/modals/MentalHealthPlaybackModal';
@@ -16,7 +16,6 @@ import { NavigationContainer, NavigationContainerRef } from '@react-navigation/n
 import { createStackNavigator } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as Notifications from 'expo-notifications';
-import { useAppState } from 'health-study/redux/app/selectors';
 import { Root } from 'native-base';
 import * as React from 'react';
 import { Dimensions, View } from 'react-native';
@@ -83,7 +82,7 @@ const toastConfig = {
 };
 
 export default function CovidApp() {
-  const app = useSelector(useAppState);
+  const app = useSelector(appSelectors.selectApp);
   const dispatch = useDispatch();
 
   React.useEffect(() => {

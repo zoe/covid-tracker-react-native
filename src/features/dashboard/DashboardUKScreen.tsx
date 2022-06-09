@@ -33,7 +33,6 @@ import { openWebLink } from '@covid/utils/links';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
-import { useAppState } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { Image, Platform, Pressable, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -58,7 +57,7 @@ const ZOE_HEALTH_STUDY_LEARN_MORE_LINK =
   'https://covid.joinzoe.com/post/introducing-the-zoe-health-study/?utm_source=App';
 
 export function DashboardUKScreen({ navigation, route }: IProps) {
-  const app = useSelector(useAppState);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);

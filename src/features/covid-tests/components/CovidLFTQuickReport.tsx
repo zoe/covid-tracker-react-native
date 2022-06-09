@@ -15,7 +15,6 @@ import { CovidTestLFTResultConfirmationModal } from '@covid/features/covid-tests
 import i18n from '@covid/locale/i18n';
 import { dateToString } from '@covid/utils/datetime';
 import Tag from '@tracer/components/atoms/Tag';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import * as React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -28,7 +27,7 @@ interface IProps {
 }
 
 export const CovidLFTQuickReport = (props: IProps) => {
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const patientId = useSelector<TRootState, string>((state) => state.assessment.patient || '');
 
   const [LFTResult, setLFTResult] = React.useState<ENegativePositiveFieldOptions>(ENegativePositiveFieldOptions.EMPTY);
@@ -36,7 +35,7 @@ export const CovidLFTQuickReport = (props: IProps) => {
   const [loadingLFTResult, setLoadingLFTResult] = React.useState<boolean>(false);
   const [LFTResultError, setLFTResultError] = React.useState<string>('');
 
-  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
 
   const onLFTResultButtonPress = (value: ENegativePositiveFieldOptions) => {
     setLFTResult(value);
@@ -114,7 +113,7 @@ export const CovidLFTQuickReport = (props: IProps) => {
       <CovidTestLFTResultConfirmationModal
         onPositiveConfirmation={addLFT}
         onRequestClose={dismissModal}
-        reBrand={toggleReBrand}
+        reBrand={app.toggleReBrand}
         result={LFTResult}
         visible={showLFTResultConfirmationModal}
       />
@@ -148,7 +147,7 @@ export const CovidLFTQuickReport = (props: IProps) => {
             <NegativePositiveField
               key={LFTResult}
               onValueChange={onLFTResultButtonPress}
-              reBrand={toggleReBrand}
+              reBrand={app.toggleReBrand}
               selectedValue={LFTResult}
               testID="covid-test-lft-quick-report"
             />

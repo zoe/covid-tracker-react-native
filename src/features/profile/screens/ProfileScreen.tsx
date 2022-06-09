@@ -23,7 +23,6 @@ import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profi
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { NavigationContainerRef, useFocusEffect } from '@react-navigation/native';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import moment from 'moment';
 import React from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
@@ -49,7 +48,7 @@ interface IProps {
 }
 
 export const ProfileScreen: React.FC<IProps> = () => {
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
@@ -113,7 +112,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
     }, [currentPatient.profile]),
   );
 
-  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <Screen isInsideTabBar noHeader testID="profile-screen">
       {showNewTag ? (

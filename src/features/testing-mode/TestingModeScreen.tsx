@@ -13,7 +13,6 @@ import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
-import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import * as React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -58,11 +57,11 @@ const renderCustomisableSettings = (startupInfo: TStartupInfo, dispatch: Dispatc
 
 export function TestingModeScreen() {
   const dispatch = useDispatch();
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
   const onToggleReBrand = () => {
-    dispatch(appActions.setReBrandVisible(!toggleReBrand));
+    dispatch(appActions.setReBrandVisible(!app.toggleReBrand));
   };
 
   const onResetHealthProfilePress = () => {
@@ -90,7 +89,7 @@ export function TestingModeScreen() {
       </Text>
       <TouchableOpacity onPress={onToggleReBrand}>
         <ClickableText style={{ color: colors.brand, marginBottom: sizes.s }}>
-          {`Rebrand State: ${toggleReBrand}`}
+          {`Rebrand State: ${app.toggleReBrand}`}
         </ClickableText>
       </TouchableOpacity>
       <TouchableOpacity onPress={onResetHealthProfilePress}>
