@@ -1,8 +1,9 @@
 import { Menu } from '@assets/icons/Menu';
 import { WithNotificationDot } from '@covid/components/WithNotificationDot';
+import { TStateApp } from '@covid/core/state/app/types';
+import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { sizes } from '@covid/themes';
-import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import HealthStudyDrawerToggle from '@tracer/components/molecules/DrawerToggle';
 import * as React from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
@@ -22,10 +23,10 @@ const hitSlop = {
 };
 
 export const DrawerToggle: React.FC<TDrawerToggleProps> = React.memo((props) => {
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector(selectStartupInfo);
   const showNotificationDot = !!startupInfo?.active_notifications?.notifications_wider_health_studies;
-  return toggleReBrand ? (
+  return app.toggleReBrand ? (
     <HealthStudyDrawerToggle onPress={props.onPress} showNotificationDot={showNotificationDot} />
   ) : (
     <TouchableOpacity
