@@ -3,7 +3,6 @@ import UsualSelfNavigator from '@covid/features/0-v2/usual-self/navigator';
 import * as screens from '@covid/features/screens';
 import AnniversaryNavigator from '@covid/routes/AnniversaryNavigator';
 import DietStudyPlaybackNavigator from '@covid/routes/DietStudyPlaybackNavigator';
-import MentalHealthNavigator from '@covid/routes/MentalHealthNavigator';
 import MentalHealthPlaybackNavigator from '@covid/routes/MentalHealthPlaybackNavigator';
 import ReconsentNavigator from '@covid/routes/ReconsentNavigator';
 import StudyHubNavigator from '@covid/routes/StudyHubNavigator';
@@ -120,7 +119,6 @@ export default function MainNavigator() {
 
       {AnniversaryNavigator({ Stack })}
       {DietStudyPlaybackNavigator({ Stack })}
-      {MentalHealthNavigator({ Stack })}
       {MentalHealthPlaybackNavigator({ Stack })}
       {ReconsentNavigator({ Stack })}
       {StudyHubNavigator({ Stack })}

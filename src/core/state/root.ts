@@ -9,20 +9,6 @@ import { dietStudySlice, TStateDietStudy } from './diet-study';
 import { healthProfileSlice, TStateHealthProfile } from './health-profile/slice';
 import mediaCentre from './media-centre';
 import { TStateMediaCentre } from './media-centre/types';
-import {
-  mentalHealthChangesSlice,
-  mentalHealthFrequencySlice,
-  mentalHealthHistorySlice,
-  mentalHealthLearningSlice,
-  mentalHealthStateSlice,
-  mentalHealthSupportSlice,
-  TStateMentalHealth,
-  TStateMentalHealthChanges,
-  TStateMentalHealthFrequency,
-  TStateMentalHealthHistory,
-  TStateMentalHealthLearning,
-  TStateMentalHealthSupport,
-} from './mental-health';
 import { mentalHealthPlaybackSlice, TStateMentalHealthPlayback } from './mental-health-playback';
 import { onboardingSlice } from './onboarding/slice';
 import { TStateOnboarding } from './onboarding/types';
@@ -42,13 +28,7 @@ export type TRootState = {
   dietStudy: TStateDietStudy;
   healthProfile: TStateHealthProfile;
   mediaCentre: TStateMediaCentre;
-  mentalHealthChanges: TStateMentalHealthChanges;
-  mentalHealthFrequency: TStateMentalHealthFrequency;
-  mentalHealthHistory: TStateMentalHealthHistory;
-  mentalHealthLearning: TStateMentalHealthLearning;
   mentalHealthPlayback: TStateMentalHealthPlayback;
-  mentalHealthState: TStateMentalHealth;
-  mentalHealthSupport: TStateMentalHealthSupport;
   onboarding: TStateOnboarding;
   reconsent: TStateReconsent;
   settings: TStateSettings;
@@ -66,13 +46,7 @@ export default combineReducers({
   dietStudy: dietStudySlice,
   healthProfile: healthProfileSlice.reducer,
   mediaCentre: mediaCentre.reducer,
-  mentalHealthChanges: mentalHealthChangesSlice,
-  mentalHealthFrequency: mentalHealthFrequencySlice,
-  mentalHealthHistory: mentalHealthHistorySlice,
-  mentalHealthLearning: mentalHealthLearningSlice,
   mentalHealthPlayback: mentalHealthPlaybackSlice,
-  mentalHealthState: mentalHealthStateSlice,
-  mentalHealthSupport: mentalHealthSupportSlice,
   onboarding: onboardingSlice.reducer,
   reconsent: reconsentSlice.reducer,
   settings: settingsSlice,

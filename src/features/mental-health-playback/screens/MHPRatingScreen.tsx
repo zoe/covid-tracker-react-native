@@ -3,7 +3,7 @@ import { Text, TextareaWithCharCount } from '@covid/components';
 import Card from '@covid/components/cards/Card';
 import { Screen } from '@covid/components/Screen';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
-import { mentalHealthApiClient } from '@covid/features/mental-health/MentalHealthApiClient';
+import { mentalHealthApiClient } from '@covid/features/mental-health-playback/MentalHealthApiClient';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes, styling } from '@covid/themes';

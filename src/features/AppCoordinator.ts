@@ -302,10 +302,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
     return !!(startupInfo?.show_trendline && startupInfo?.local_data?.lad);
   }
 
-  goToMentalHealthStudy = () => {
-    NavigatorService.navigate('MentalHealthChanges');
-  };
-
   goToMentalHealthStudyPlayback = () => {
     NavigatorService.navigate('MentalHealthPlaybackIntroduction');
   };

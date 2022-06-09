@@ -112,14 +112,6 @@ export type TScreenParamList = {
   MentalHealthPlaybackRating: undefined;
   MentalHealthPlaybackThankYou: undefined;
 
-  // Mental health study
-  MentalHealthChanges: undefined;
-  MentalHealthEnd: undefined;
-  MentalHealthFrequency: undefined;
-  MentalHealthHistory: undefined;
-  MentalHealthLearning: undefined;
-  MentalHealthSupport: undefined;
-
   // Reconsent
   ReconsentDiseasePreferences: undefined;
   ReconsentDiseaseSummary: undefined;
