@@ -1,5 +1,6 @@
+import { ClickableText } from '@covid/components';
 import { ScrollView } from '@covid/components/ScrollView';
-import { colors } from '@theme';
+import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Button from '@tracer/components/atoms/Button';
 import Column from '@tracer/components/atoms/Column';
@@ -28,6 +29,8 @@ export interface IFeatureIntroEntryScreenProps {
   textButton?: string;
   onPressBack: () => void;
   onPress?: () => void;
+  secondaryButtonText?: string;
+  secondaryButtonOnPress?: () => void;
 }
 
 const HEIGHT_FOOTER = 114;
@@ -47,6 +50,8 @@ export default function FeatureIntroEntryScreen({
   textButton,
   onPressBack,
   onPress,
+  secondaryButtonText,
+  secondaryButtonOnPress,
 }: IFeatureIntroEntryScreenProps) {
   const { width, height } = useWindowDimensions();
   return (
@@ -62,6 +67,14 @@ export default function FeatureIntroEntryScreen({
         <ScreenFooter>
           <View style={[baseStyle.footerView]}>
             <Button onPress={onPress} style={{ height: grid.g48 }} text={textButton} />
+            {secondaryButtonText ? (
+              <Button
+                buttonType="tertiary"
+                onPress={secondaryButtonOnPress}
+                style={{ height: grid.g48, marginTop: 10 }}
+                text={secondaryButtonText}
+              />
+            ) : null}
           </View>
         </ScreenFooter>
       </ScrollView>

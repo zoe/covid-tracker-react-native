@@ -64,11 +64,7 @@ export default function Button({
       testID={props.testID ?? 'button-test-id'}
     >
       {props.loading ? <ActivityIndicator color={indicatorColor} style={baseStyles.activityIndicator} /> : null}
-      {props.children ? (
-        props.children
-      ) : (
-        <Text style={[baseStyles.textStyle, fonts.bodyReg, textColourStyle, props.textStyle]}>{text}</Text>
-      )}
+      {props.children ? props.children : <Text style={[fonts.bodyReg, textColourStyle, props.textStyle]}>{text}</Text>}
     </TouchableOpacity>
   );
 }
@@ -88,8 +84,5 @@ const baseStyles = StyleSheet.create({
   activityIndicator: {
     left: 56 / 2,
     position: 'absolute',
-  },
-  textStyle: {
-    textTransform: 'capitalize',
   },
 });

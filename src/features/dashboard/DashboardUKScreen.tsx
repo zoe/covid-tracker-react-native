@@ -183,20 +183,22 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
               accessible
               accessibilityRole="button"
               onPress={() => openWebLink(ZOE_HEALTH_STUDY_LEARN_MORE_LINK)}
+              style={{
+                minWidth: '100%',
+                aspectRatio: 2.8,
+                marginTop: 10,
+                overflow: 'hidden',
+              }}
             >
-              <Image
-                resizeMode="contain"
-                source={healthStudyIntroCallout}
-                style={{ height: 110, marginTop: 10, width: '100%' }}
-              />
+              <Image resizeMode="repeat" source={healthStudyIntroCallout} style={{ maxWidth: '100%' }} />
             </TouchableOpacity>
           ) : null}
+          <UKEstimatedCaseCard onPress={onMoreDetails} />
+          <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
           <NewlySymptomaticCard />
           {showTrendline ? <TrendlineCard onPress={appCoordinator.goToTrendline} /> : null}
           <EstimatedCasesMapCard />
-          <UKEstimatedCaseCard onPress={onMoreDetails} />
-          <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
-          <SchoolNetworks schoolGroups={schoolGroups} style={styles.marginVertical} />
+          {/* <SchoolNetworks schoolGroups={schoolGroups} style={styles.marginVertical} /> */}
         </View>
 
         <PoweredByZoeSmall style={styling.marginVertical} />

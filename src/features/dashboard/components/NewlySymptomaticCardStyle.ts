@@ -104,6 +104,6 @@ export const healthStudyStyles = StyleSheet.create({
     borderRadius: HealthStudyBranding.sizes.g16,
     marginVertical: sizes.xs,
     paddingHorizontal: HealthStudyBranding.sizes.g16,
-    paddingTop: HealthStudyBranding.sizes.g24,
+    paddingTop: HealthStudyBranding.sizes.g40,
   },
 });
