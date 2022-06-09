@@ -25,6 +25,7 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import Button from '@tracer/components/atoms/Button';
+import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -62,9 +63,9 @@ export default function CovidTestListScreen(props: IProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [todaysLFT, setTodaysLFT] = React.useState<TCovidTest>();
 
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const toggleReBrand = useSelector(useToggleRebrand);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
 
   const dispatch = useDispatch();
 

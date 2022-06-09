@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
 import CovidTag from '@tracer/components/molecules/CovidTag';
 import ShareButton from '@tracer/components/molecules/ShareButton';
+import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import * as React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -31,7 +32,7 @@ interface IProps {
 export function TrendlineCard(props: IProps) {
   const navigation = useNavigation();
 
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const toggleReBrand = useSelector(useToggleRebrand);
   const localTrendline = useSelector<TRootState, ITrendlineData | undefined>((state) => state.content.localTrendline);
 
   const onPress = React.useCallback(() => {
@@ -43,8 +44,8 @@ export function TrendlineCard(props: IProps) {
 
   const onPressShare = React.useCallback(() => navigation.navigate('Share', { sharable: ESharable.TRENDLINE }), []);
 
-  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
-  const shareBtnColor = app.toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
+  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
+  const shareBtnColor = toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
   return (
     <View style={[styles.view, props.isSharing ? styles.minimisePadding : null]}>
       <Text rhythm={8} textClass={props.isSharing ? 'h5' : 'h4'}>

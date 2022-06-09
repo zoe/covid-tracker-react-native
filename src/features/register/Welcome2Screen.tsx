@@ -21,6 +21,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import Button from '@tracer/components/atoms/Button';
+import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -35,7 +36,7 @@ type TProps = {
 };
 
 const Welcome2Screen: React.FC<TProps> = ({ navigation }) => {
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const toggleReBrand = useSelector(useToggleRebrand);
   const [ipModalVisible, setIpModalVisible] = React.useState(false);
 
   const onLoginPress = React.useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
@@ -84,7 +85,7 @@ const Welcome2Screen: React.FC<TProps> = ({ navigation }) => {
     [flagIcon, LocalisationService.userCountry],
   );
 
-  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
   const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
   return (

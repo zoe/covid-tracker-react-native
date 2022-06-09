@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import Button from '@tracer/components/atoms/Button';
 import CovidTag from '@tracer/components/molecules/CovidTag';
 import ShareButton from '@tracer/components/molecules/ShareButton';
+import { useToggleRebrand } from 'health-study/redux/app/selectors';
 import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +33,7 @@ type TProps = {
 export function NewlySymptomaticCard(props: TProps) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const toggleReBrand = useSelector(useToggleRebrand);
   const content = useSelector(selectContent);
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -55,8 +56,8 @@ export function NewlySymptomaticCard(props: TProps) {
     setModalVisible(false);
   }, []);
 
-  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
-  const shareBtnColor = app.toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
+  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
+  const shareBtnColor = toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
   return (
     <View style={[styles.view, props.isSharing ? styles.minimisePadding : null]}>
       <TextWithHighlight
