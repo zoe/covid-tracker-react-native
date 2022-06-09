@@ -32,7 +32,6 @@ import { studyHubSlice } from './study-hub/slice';
 import { TStateStudyHub } from './study-hub/types';
 import { testingModeSlice, TStateTestingMode } from './testingMode';
 import { TStateUser, userSlice } from './user';
-import { TStateVaccines, vaccinesSlice } from './vaccines';
 
 export type TRootState = {
   app: AppState;
@@ -55,7 +54,6 @@ export type TRootState = {
   studyHub: TStateStudyHub;
   testingMode: TStateTestingMode;
   user: TStateUser;
-  vaccines: TStateVaccines;
 };
 
 export default combineReducers({
@@ -79,5 +77,4 @@ export default combineReducers({
   studyHub: studyHubSlice.reducer,
   testingMode: testingModeSlice.reducer,
   user: userSlice,
-  vaccines: vaccinesSlice.reducer,
 });
