@@ -8,6 +8,7 @@ export type TGrid = {
   g16: 16;
   g24: 24;
   g32: 32;
+  g40: 40;
   g48: 48;
 };
 
@@ -20,6 +21,7 @@ export const grid: TGrid = {
   g16: 16,
   g24: 24,
   g32: 32,
+  g40: 40,
   g48: 48,
 };
 

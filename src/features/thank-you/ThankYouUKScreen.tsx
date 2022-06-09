@@ -197,15 +197,6 @@ export default function ThankYouUKScreen(props: IProps) {
 
         <FeaturedContentList screenName={props.route.name} type={EFeaturedContentType.ThankYou} />
 
-        {startupInfo?.show_timeline ? (
-          <ImpactTimelineCard
-            onPress={() => {
-              appCoordinator.goToAnniversary();
-            }}
-            size="LARGE"
-          />
-        ) : null}
-
         <ShareAppCard />
 
         <BrandedButton
@@ -234,7 +225,6 @@ const styles = StyleSheet.create({
     borderColor: colors.brand,
     borderWidth: 1,
     marginVertical: sizes.l,
-    paddingTop: sizes.xs,
   },
   ctaSingleProfileText: {
     color: colors.brand,
