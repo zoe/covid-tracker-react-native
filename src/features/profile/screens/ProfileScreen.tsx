@@ -14,6 +14,7 @@ import { Screen } from '@covid/components/Screen';
 import Analytics, { events } from '@covid/core/Analytics';
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -21,7 +22,6 @@ import { AppCoordinator, appCoordinator } from '@covid/features/AppCoordinator';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { NavigationContainerRef, useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
 import React from 'react';
@@ -48,7 +48,7 @@ interface IProps {
 }
 
 export const ProfileScreen: React.FC<IProps> = () => {
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const currentPatient = useSelector<TRootState, TPatientData>((state) => state.user.currentPatient);
@@ -112,7 +112,7 @@ export const ProfileScreen: React.FC<IProps> = () => {
     }, [currentPatient.profile]),
   );
 
-  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <Screen isInsideTabBar noHeader testID="profile-screen">
       {showNewTag ? (

@@ -1,9 +1,9 @@
 import assessment, { TStateAssessment } from '@covid/core/assessment/state/reducers';
 import { contentSlice, TStateContent } from '@covid/core/state/content/slice';
-import { appSlice } from '@health-study/redux/app';
-import { AppState } from '@health-study/redux/app/types';
 import { combineReducers } from 'redux';
 
+import { appSlice } from './app/slice';
+import { TStateApp } from './app/types';
 import covidTestsSlice, { TStateCovidTests } from './covid-tests/slice';
 import { dietStudySlice, TStateDietStudy } from './diet-study';
 import { healthProfileSlice, TStateHealthProfile } from './health-profile/slice';
@@ -34,7 +34,7 @@ import { testingModeSlice, TStateTestingMode } from './testingMode';
 import { TStateUser, userSlice } from './user';
 
 export type TRootState = {
-  app: AppState;
+  app: TStateApp;
   assessment: TStateAssessment;
   content: TStateContent;
   covidTests: TStateCovidTests;

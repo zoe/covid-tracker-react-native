@@ -2,13 +2,14 @@ import { NewlySymptomaticChart } from '@covid/components/charts/NewlySymptomatic
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text, TextWithHighlight } from '@covid/components/typography';
 import { selectContent, updateSelectedRegionItem } from '@covid/core/state';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRegionItem } from '@covid/core/state/content/types';
+import { TRootState } from '@covid/core/state/root';
 import {
   ChangeRegionNewlySymptomaticModal,
   LONDON_ITEM,
 } from '@covid/features/dashboard/modals/ChangeRegionNewlySymptomaticModal';
 import i18n from '@covid/locale/i18n';
-import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { useNavigation } from '@react-navigation/native';
 import Button from '@tracer/components/atoms/Button';
 import CovidTag from '@tracer/components/molecules/CovidTag';
@@ -31,7 +32,7 @@ type TProps = {
 export function NewlySymptomaticCard(props: TProps) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const content = useSelector(selectContent);
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -54,8 +55,8 @@ export function NewlySymptomaticCard(props: TProps) {
     setModalVisible(false);
   }, []);
 
-  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
-  const shareBtnColor = toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const shareBtnColor = app.toggleReBrand ? HEALTH_STUDY_SHARE_BTN_COLOR : COVID_SHARE_BTN_COLOR;
   return (
     <View style={[styles.view, props.isSharing ? styles.minimisePadding : null]}>
       <TextWithHighlight

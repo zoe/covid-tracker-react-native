@@ -1,9 +1,9 @@
-/* eslint-disable sort-keys-fix/sort-keys-fix */
+import { TStateApp } from '@covid/core/state/app/types';
+import { TRootState } from '@covid/core/state/root';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AppState } from './types';
-
-export const initialState: AppState = {
+export const initialStateApp: TStateApp = {
+  mentalHealthStudyActive: true,
   modalHealthProfileIntroVisible: false,
   modalMentalHealthPlaybackVisible: false,
   modalReBrandVisible: false,
@@ -13,10 +13,14 @@ export const initialState: AppState = {
 };
 
 export const appSlice = createSlice({
-  name: 'app',
-  initialState,
+  initialState: initialStateApp,
+  name: 'App',
   reducers: {
-    reset: () => initialState,
+    reset: () => initialStateApp,
+    setMentalHealthStudyActive: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      mentalHealthStudyActive: action.payload,
+    }),
     setModalHealthProfileIntroVisible: (state, action: PayloadAction<boolean>) => ({
       ...state,
       modalHealthProfileIntroVisible: action.payload,
@@ -45,5 +49,7 @@ export const appSlice = createSlice({
 });
 
 export const appActions = appSlice.actions;
-
-export default appSlice.reducer;
+export const appSelectors = {
+  selectApp: (state: TRootState) => state.app,
+  useShowRepeatUsualSelfIntro: (state: TRootState) => state.app.showRepeatUsualSelfIntro,
+};

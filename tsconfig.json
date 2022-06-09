@@ -6,23 +6,40 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "jsx": "react-native",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "moduleResolution": "node",
     "noEmit": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "paths": {
-      "@assets": ["./assets"],
-      "@assets/*": ["./assets/*"],
-      "@covid": ["./src"],
-      "@covid/*": ["./src/*"],
-      "@health-study": ["./health-study"],
-      "@health-study/*": ["./health-study/*"],
-      "@theme": ["./theme"],
-      "@theme/*": ["./theme/*"],
-      "@tracer": ["./storybook"],
-      "@tracer/*": ["./storybook/*"]
+      "@assets": [
+        "./assets"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@covid": [
+        "./src"
+      ],
+      "@covid/*": [
+        "./src/*"
+      ],
+      "@theme": [
+        "./theme"
+      ],
+      "@theme/*": [
+        "./theme/*"
+      ],
+      "@tracer": [
+        "./storybook",
+      ],
+      "@tracer/*": [
+        "./storybook/*",
+      ]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -30,5 +47,10 @@
     "strictNullChecks": true,
     "target": "esnext"
   },
-  "exclude": ["babel.config.js", "jest.config.js", "metro.config.js", "node_modules/"]
+  "exclude": [
+    "babel.config.js",
+    "jest.config.js",
+    "metro.config.js",
+    "node_modules/"
+  ]
 }

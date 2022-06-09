@@ -48,7 +48,7 @@
     "start:reset": "yarn start --reset-cache",
     "storybook": "start-storybook -p 7007",
     "storybook-component": "./storybook/scripts/create-component.sh",
-    "test": "jest --maxWorker=2 --runInBand --detectOpenHandles --coverage --silent",
+    "test": "jest --maxWorker=2 --runInBand --detectOpenHandles --verbose --coverage",
     "test:coverage": "jest --maxWorker=2 --coverage --reporters=default --reporters=jest-junit --ci",
     "test:e2e:ios": "detox test ./e2e --configuration ios.sim.release",
     "test:i18n": "ts-node --transpile-only ./scripts/i18n-check-locale.ts",
