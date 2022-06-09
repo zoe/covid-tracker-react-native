@@ -1,6 +1,6 @@
 import { store } from '../../store';
-import { decrement, increment, incrementByAmount, resetState } from '../index';
-import { useExampleValue } from '../selectors';
+import { action, resetState } from '../index';
+import { useExample } from '../selectors';
 import { exampleThunk } from '../thunks';
 
 describe('Example Reducer', () => {
@@ -11,7 +11,7 @@ describe('Example Reducer', () => {
 
   it('should correctly increment the example value', () => {
     store.dispatch(resetState());
-    store.dispatch(increment());
+    store.dispatch(action(1));
 
     const state = store.getState().example;
     expect(state).toEqual({ value: 1 });
@@ -19,7 +19,7 @@ describe('Example Reducer', () => {
 
   it('should correctly decrement the example value', () => {
     store.dispatch(resetState());
-    store.dispatch(decrement());
+    store.dispatch(action(-1));
 
     const state = store.getState().example;
     expect(state).toEqual({ value: -1 });
@@ -27,7 +27,7 @@ describe('Example Reducer', () => {
 
   it('should correctly increment the example value by a specific amount', async () => {
     store.dispatch(resetState());
-    store.dispatch(incrementByAmount(5));
+    store.dispatch(action(5));
 
     const state = store.getState().example;
     expect(state).toEqual({ value: 5 });
@@ -43,9 +43,9 @@ describe('Example Reducer', () => {
 
   it('should correctly return the value when using the selector', () => {
     store.dispatch(resetState());
-    store.dispatch(incrementByAmount(5));
+    store.dispatch(action(5));
     const state = store.getState();
-    const value = useExampleValue(state);
+    const value = useExample(state).value;
     expect(value).toEqual(5);
   });
 });
