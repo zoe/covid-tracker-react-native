@@ -19,6 +19,5 @@ export * from './vaccines';
 export * from './wider-health-studies';
 export { CountrySelectScreen } from './CountrySelectScreen';
 export { EstimatedCasesScreen } from './EstimatedCasesScreen';
-export { BiometricAuthScreen } from './auth/BiometricAuthScreen';
 export { LoginScreen } from './auth/LoginScreen';
 export { TestingModeScreen } from './testing-mode/TestingModeScreen';
