@@ -13,7 +13,6 @@ export * from './password-reset';
 export * from './patient';
 export * from './reconsent';
 export * from './register';
-export * from './school-network';
 export * from './splash';
 export * from './thank-you';
 export * from './vaccines';

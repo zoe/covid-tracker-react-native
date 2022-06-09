@@ -1,5 +1,4 @@
 import assessment, { TStateAssessment } from '@covid/core/assessment/state/reducers';
-import { schoolSlice, TStateSchool } from '@covid/core/schools/Schools.slice';
 import { contentSlice, TStateContent } from '@covid/core/state/content/slice';
 import { combineReducers } from 'redux';
 
@@ -52,7 +51,6 @@ export type TRootState = {
   mentalHealthSupport: TStateMentalHealthSupport;
   onboarding: TStateOnboarding;
   reconsent: TStateReconsent;
-  school: TStateSchool;
   settings: TStateSettings;
   studyHub: TStateStudyHub;
   testingMode: TStateTestingMode;
@@ -77,7 +75,6 @@ export default combineReducers({
   mentalHealthSupport: mentalHealthSupportSlice,
   onboarding: onboardingSlice.reducer,
   reconsent: reconsentSlice.reducer,
-  school: schoolSlice.reducer,
   settings: settingsSlice,
   studyHub: studyHubSlice.reducer,
   testingMode: testingModeSlice.reducer,

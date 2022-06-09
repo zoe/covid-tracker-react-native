@@ -1,7 +1,6 @@
 import { ESharable } from '@covid/components/screens/share/types';
 import { TAssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { TPatientData } from '@covid/core/patient/PatientData';
-import { ISchoolModel, ISubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import { TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ECovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import { EVaccineTypes, TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
@@ -100,18 +99,6 @@ export type TScreenParamList = {
   Dashboard: { screen: string };
   DashboardUK: undefined;
   DashboardUS: undefined;
-
-  // School network
-  ConfirmSchool: { patientData: TPatientData; school: ISchoolModel };
-  JoinHigherEducation: { patientData: TPatientData };
-  JoinSchool: { patientData: TPatientData; higherEducation: boolean };
-  JoinSchoolGroup: { patientData: TPatientData; selectedSchool: ISchoolModel };
-  SchoolDashboard: { school: ISubscribedSchoolStats };
-  SchoolGroupList: { patientData: TPatientData; selectedSchool: ISchoolModel };
-  SchoolHowTo: { patientData: TPatientData };
-  SchoolIntro: undefined;
-  SchoolSuccess: undefined;
-  SelectSchool: undefined;
 
   // Diet study
   DietStudy: undefined;

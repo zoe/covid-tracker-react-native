@@ -1,5 +1,5 @@
 import { healthStudyIntroCallout, notificationReminders } from '@assets';
-import { EFeaturedContentType, FeaturedContentList, SchoolNetworks } from '@covid/components';
+import { EFeaturedContentType, FeaturedContentList } from '@covid/components';
 import { TrendlineCard, UKEstimatedCaseCard } from '@covid/components/cards/estimated-case';
 import { EstimatedCasesMapCard } from '@covid/components/cards/EstimatedCasesMapCard';
 import HealthProfileReminderCard from '@covid/components/cards/HealthProfileReminderCard';
@@ -9,8 +9,6 @@ import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { patientService } from '@covid/core/patient/PatientService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
-import { ISubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
-import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { appActions } from '@covid/core/state/app/slice';
 import { TStateApp } from '@covid/core/state/app/types';
 import { fetchLocalTrendline, fetchNewlySymptomaticData, updateTodayDate } from '@covid/core/state/content/slice';
@@ -62,10 +60,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
 
-  const schoolGroups = useSelector<TRootState, ISubscribedSchoolGroupStats[]>(
-    (state) => state.school.joinedSchoolGroups,
-  );
-
   const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
   const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
 
@@ -89,7 +83,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   React.useEffect(() => {
     return navigation.addListener('focus', async () => {
       dispatch(updateTodayDate());
-      dispatch(fetchSubscribedSchoolGroups());
     });
   }, []);
 
@@ -198,7 +191,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
           <NewlySymptomaticCard />
           {showTrendline ? <TrendlineCard onPress={appCoordinator.goToTrendline} /> : null}
           <EstimatedCasesMapCard />
-          {/* <SchoolNetworks schoolGroups={schoolGroups} style={styles.marginVertical} /> */}
         </View>
 
         <PoweredByZoeSmall style={styling.marginVertical} />
