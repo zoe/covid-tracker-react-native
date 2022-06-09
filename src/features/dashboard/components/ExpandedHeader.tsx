@@ -2,6 +2,7 @@ import { CovidAppByZOE } from '@assets/logos/CovidAppByZOE';
 import InAppHeaderIcon from '@assets/v2/svg/in-app-header-icon';
 import { CaptionText, Header3Text, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TStateContent } from '@covid/core/state/content/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
@@ -9,7 +10,6 @@ import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { EHeaderType } from '@covid/features/dashboard/types';
 import i18n from '@covid/locale/i18n';
 import { cleanIntegerVal } from '@covid/utils/number';
-import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import Button from '@tracer/components/atoms/Button';
 import * as React from 'react';
 import { PixelRatio, View } from 'react-native';
@@ -23,7 +23,7 @@ interface IProps {
 }
 
 export function ExpandedHeader(props: IProps) {
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const content = useSelector<TRootState, TStateContent>((state) => state.content);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const [contributors, setContributors] = React.useState<string | null>(null);
@@ -42,10 +42,10 @@ export function ExpandedHeader(props: IProps) {
     props.onPress();
   }, [props.onPress]);
 
-  const styles: TExpandedHeaderStyle = toggleReBrand ? healthStudyStyle : covidStyles;
+  const styles: TExpandedHeaderStyle = app.toggleReBrand ? healthStudyStyle : covidStyles;
   return (
     <View style={styles.root}>
-      <View style={styles.logoWrapper}>{toggleReBrand ? <InAppHeaderIcon /> : <CovidAppByZOE />}</View>
+      <View style={styles.logoWrapper}>{app.toggleReBrand ? <InAppHeaderIcon /> : <CovidAppByZOE />}</View>
 
       <View style={styles.card}>
         {PixelRatio.getFontScale() < 2.5 ? (

@@ -1,5 +1,6 @@
 import { Header3Text, RegularText, ShareScreen } from '@covid/components';
 import Analytics, { events } from '@covid/core/Analytics';
+import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
 import { HealthProfileIntroModal } from '@covid/features';
 import MentalHealthPlaybackModal from '@covid/features/mental-health-playback/modals/MentalHealthPlaybackModal';
@@ -10,8 +11,6 @@ import NavigatorService from '@covid/NavigatorService';
 import MainNavigator from '@covid/routes';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
-import { appActions } from '@health-study/redux/app';
-import { useAppState } from '@health-study/redux/app/selectors';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -83,7 +82,7 @@ const toastConfig = {
 };
 
 export default function CovidApp() {
-  const app = useSelector(useAppState);
+  const app = useSelector(appSelectors.selectApp);
   const dispatch = useDispatch();
 
   React.useEffect(() => {

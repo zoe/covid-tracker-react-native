@@ -1,5 +1,6 @@
 import { Tag, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
+import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import {
@@ -16,7 +17,6 @@ import { StudyHubReconsentModal } from '@covid/features/study-hub/modals/StudyHu
 import { TStudy } from '@covid/features/study-hub/types';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView } from 'react-native';
@@ -26,7 +26,7 @@ import { covidStyles, healthStudyStyles } from './StudiesListScreenStyle';
 
 export function StudiesListScreen() {
   const dispatch = useDispatch();
-  const toggleReBrand = useSelector(useToggleRebrand);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector(selectStartupInfo);
   const shouldShowReconsentModal = useSelector(selectShouldShowReconsentModal);
   const shouldShowFeedbackModal = useSelector(selectShouldShowFeedbackModal);
@@ -74,7 +74,7 @@ export function StudiesListScreen() {
   const title = i18n.t('study-hub.consented.title');
   const description = i18n.t('study-hub.consented.description');
 
-  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <Screen isInsideTabBar noHeader scrollRef={scrollRef} testID="studies-list-screen">
       <StudyHubReconsentModal onRequestClose={() => setShowReconsentModal(false)} visible={showReconsentModal} />
