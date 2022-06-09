@@ -1,17 +1,23 @@
 import { usualSelfIntro0, usualSelfIntro1, usualSelfIntro2, usualSelfIntro3 } from '@assets/v2/png';
+import { appActions, appSelectors } from '@covid/core/state/app/slice';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { TScreenParamList } from '@covid/routes/types';
+import { RouteProp } from '@react-navigation/native';
 import FlowFeatureIntro, { IFlowFeatureIntroProps } from '@tracer/components/templates/FeatureIntroFlow';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const USUAL_SELF_INTRO_TAG = i18n.t('usual-self.tag');
 
-const makeFeatureIntroProps = (): IFlowFeatureIntroProps => ({
+const makeFeatureIntroProps = (useSecondaryIntro?: boolean, secondaryOnPress?: () => void): IFlowFeatureIntroProps => ({
   entry: {
     imageSource: usualSelfIntro0,
     onPressBack: NavigatorService.goBack,
-    textButton: i18n.t('usual-self.flow-entry.cta'),
-    title: i18n.t('usual-self.flow-entry.title'),
+    secondaryButtonOnPress: secondaryOnPress,
+    secondaryButtonText: useSecondaryIntro ? i18n.t('usual-self.flow-entry-secondary.secondary-cta') : undefined,
+    textButton: useSecondaryIntro ? i18n.t('usual-self.flow-entry-secondary.cta') : i18n.t('usual-self.flow-entry.cta'),
+    title: useSecondaryIntro ? i18n.t('usual-self.flow-entry-secondary.title') : i18n.t('usual-self.flow-entry.title'),
   },
   intro: [
     {
@@ -47,8 +53,16 @@ const makeFeatureIntroProps = (): IFlowFeatureIntroProps => ({
   ],
 });
 
-export default function UsualSelfIntroFlowScreen() {
-  const introProps = makeFeatureIntroProps();
+function UsualSelfIntroFlowScreen({ route }: { route: RouteProp<TScreenParamList, 'UsualSelfIntroScreen'> }) {
+  const useSecondaryIntro = useSelector(appSelectors.useShowRepeatUsualSelfIntro, () => true);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(appActions.setShowRepeatUsualSelfIntro(true));
+  }, []);
+
+  const { secondaryOnPress } = route?.params || {};
+  const introProps = makeFeatureIntroProps(useSecondaryIntro, secondaryOnPress);
   return (
     <FlowFeatureIntro
       {...introProps}
@@ -57,3 +71,5 @@ export default function UsualSelfIntroFlowScreen() {
     />
   );
 }
+
+export default React.memo(UsualSelfIntroFlowScreen);

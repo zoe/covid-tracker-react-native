@@ -5,7 +5,7 @@ import { LogBox } from 'react-native';
 import { persistReducer, persistStore } from 'redux-persist';
 
 const persistConfig = {
-  blacklist: ['app', 'onboarding'],
+  blacklist: ['onboarding'],
   key: 'root',
   storage: AsyncStorage,
 };

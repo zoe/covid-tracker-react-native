@@ -2,6 +2,7 @@ import { RightArrow } from '@assets';
 import { Text } from '@covid/components/typography';
 import { sizes } from '@covid/themes';
 import { colors } from '@theme';
+import CovidTag from '@tracer/components/molecules/CovidTag';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -77,6 +78,7 @@ export function EstimatedCaseCard({
           </Text>
         </TouchableOpacity>
       </View>
+      <CovidTag />
     </View>
   );
 }
@@ -85,43 +87,36 @@ const styles = StyleSheet.create({
   description: {
     marginBottom: sizes.xl,
   },
-
   detailsButton: {
     backgroundColor: 'transparent',
     borderColor: colors.purple,
     borderWidth: 1,
     paddingHorizontal: sizes.xxl,
   },
-
   detailsButtonLabel: {
     color: colors.purple,
     fontSize: 14,
   },
-
   divider: {
     backgroundColor: colors.backgroundFour,
     marginHorizontal: sizes.m,
     width: 1,
   },
-
   metric: {
     color: colors.textDark,
     fontSize: 32,
     lineHeight: 48,
     paddingVertical: sizes.xxs,
   },
-
   metricLabel: {
     color: colors.secondary,
   },
-
   metricRow: {
     flexDirection: 'row',
     marginBottom: sizes.xs,
     marginVertical: sizes.l,
     width: '100%',
   },
-
   root: {
     backgroundColor: colors.white,
     borderRadius: sizes.m,
@@ -129,6 +124,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: sizes.m,
     paddingVertical: sizes.l,
   },
-
   textCtaLabel: { color: colors.purple, marginHorizontal: sizes.xs },
 });

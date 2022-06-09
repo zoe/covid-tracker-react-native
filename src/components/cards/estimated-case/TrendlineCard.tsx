@@ -9,6 +9,7 @@ import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@theme';
+import CovidTag from '@tracer/components/molecules/CovidTag';
 import ShareButton from '@tracer/components/molecules/ShareButton';
 import * as React from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -103,6 +104,7 @@ export function TrendlineCard(props: IProps) {
           textStyle={{ color: shareBtnColor }}
         />
       ) : null}
+      <CovidTag />
     </View>
   );
 }
