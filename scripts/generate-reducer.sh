@@ -22,12 +22,12 @@ sed s/example/$REDUCER_NAME/g selectors.ts > selectors.ts.out
 sed s/Example/$CAPITALISE_REDUCER_NAME/g selectors.ts.out > selectors.ts
 rm selectors.ts.out
 
-sed s/example/$REDUCER_NAME/g thunks.ts > thunks.ts.out
-sed s/Example/$CAPITALISE_REDUCER_NAME/g thunks.ts.out > thunks.ts
-rm thunks.ts.out
+sed s/exampleThunk/someThunk/g thunks.ts > thunks.ts.out
+mv thunks.ts.out thunks.ts
 
-sed s/exampleThunk/$REDUCER_NAME/g types.ts > types.ts.out
-mv types.ts.out types.ts
+sed s/example/$REDUCER_NAME/g types.ts > types.ts.out
+sed s/Example/$CAPITALISE_REDUCER_NAME/g types.ts.out > types.ts
+rm types.ts.out
 
 echo "[... finished creating reducer $REDUCER_NAMEs]"
 echo "[... remember to import reducer $REDUCER_NAME in store.ts]"
