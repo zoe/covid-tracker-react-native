@@ -1779,7 +1779,7 @@
       "header": "Set up your Usual Self",
       "tag": "past 6 months",
       "question-highlighted": "Over the past 6 months",
-      "question-label": "have you - or are you currently - experiencing any of the below symptoms?",
+      "question-label": "have you frequently experienced any of the below symptoms?",
       "description": "To get started, we need to understand how you usually feel. We call this your *Usual Self* - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
       "button": "Set up your Usual Self",
       "1-setup-flow-title-highlight": "Over the past 6",
@@ -1788,7 +1788,7 @@
       "1-setup-flow-frequency-slider": "Select Frequency",
       "1-setup-flow-severity-slider": "Impact on quality of life",
       "1-setup-other-symptoms": "What other symptom(s) are you experiencing?",
-      "1-log-new-symptom-flow-title-2": "Are you / have you experienced any symptoms in your",
+      "1-log-new-symptom-flow-title-2": "Have you frequently experienced any symptoms in your",
       "modal": {
         "1-title": "Your Usual Self is set up!",
         "1-cta-1": "Submit your first new daily report",
