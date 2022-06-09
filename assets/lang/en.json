@@ -1128,104 +1128,6 @@
     "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"
   },
-  "school-networks": {
-    "intro": {
-      "title": "Connect your children to their School Bubble",
-      "point-1": {
-        "title": "Why connect to a School Bubble?",
-        "description": "Get real-time insights on the COVID status of your child’s bubble at school"
-      },
-      "point-2": {
-        "title": "How it works",
-        "description": "We will monitor reports within your child’s School Bubble and send you an alert in real-time if anyone in the bubble reports their child as having had a positive COVID test."
-      },
-      "point-3": {
-        "title": "What you need to do",
-        "description": "Connect your child/children’s profile to their School Bubble and report for yourself and for your child/children daily."
-      },
-      "cta": "Connect to school network"
-    },
-    "how-to": {
-      "title": "How to connect to a school network",
-      "point-1": {
-        "title": "Existing profiles",
-        "description": "If you’ve already created a profile for your children, open the side nav, tap on “My profiles” and tap on your child’s account. Then, tap “School Network”. Once you add a school it will appear on your dashboard under “My Networks”"
-      },
-      "point-2": {
-        "title": "New profiles",
-        "description": "While creating a new profile, you will find a dropdown labeled “School Network”. Select the school you want to connect to and it will appear on your dashboard once their profile is created."
-      },
-      "cta": "View profiles now"
-    },
-    "join-school": {
-      "title-higher-education": "Select your university",
-      "description-higher-education": "We only list universities that are part of our pilot programme. Please only add your university if you have been directed to do so by a university representative.",
-      "remove": "Remove this school",
-      "removeHigherEducation": "Remove this university",
-      "school-code-title": "Enter your Unique School Network Code",
-      "school-code-instructions": "Your child's Unique School Network Code should have been shared with you by a school representative. Please contact the school if you cannot find this code.",
-      "school-code-placeholder": "Enter your code here",
-      "school-code-confirm": "Confirm your child's school",
-      "school-code-confirm-instructions": "Please confirm the below school name is correct. If the school below is not correct, please double check you have entered the correct UCN (Unique COVID Network) code. For further help, please contact your school leader.",
-      "dropdown": {
-        "label-higher-education": "Select your university"
-      },
-      "cta": "Next",
-      "modal-body": "Are you sure you want to remove",
-      "button-1": "Cancel",
-      "button-2": "Remove",
-      "university-network-header": "Your University",
-      "school-network-header": "School Networks",
-      "more-information": "More information about",
-      "school-url-label": "School Networks",
-      "school-url": "https://covid.joinzoe.com/schools"
-    },
-    "join-group": {
-      "title": "Join your child’s bubble",
-      "description": "Select your child’s bubble at %{school}",
-      "dropdown": {
-        "label": "Select bubble from below"
-      },
-      "next": "Next"
-    },
-    "join-error": {
-      "cta-okay": "Okay",
-      "duplicated-membership": {
-        "title": "One moment",
-        "description": "Looks like you're already part of this bubble."
-      }
-    },
-    "groups-list": {
-      "title": "Your child's bubbles",
-      "subtitle": "Your child's bubbles at",
-      "text": "School bubbles your child is part of:",
-      "add-new-bubble": "+ Join another bubble",
-      "modal-body": "Are you sure you want to remove",
-      "button-1": "Cancel",
-      "button-2": "Remove"
-    },
-    "dashboard": {
-      "title": "Overview",
-      "at-the-school": "At the school",
-      "updated-on": "Updated on",
-      "students-with": "Students with",
-      "confirmed": "confirmed cases",
-      "reported": "reported symptoms",
-      "recovered": "recovered cases",
-      "total": "Total students\nreported for",
-      "more-details": "More details",
-      "faq": "FAQs",
-      "disclaimer": "For more information about responding to COVID reports at school, please contact your school and read our ",
-      "disclaimer2": ". The school will inform you directly if they feel that your child is at risk.",
-      "children-signed-up": "children signed up",
-      "entire-school": "Entire school",
-      "more-parents": "more parents needed to sign up their children",
-      "more-parents-singular": "more parent needed to sign up their children",
-      "reported-unwell": "reported feeling unwell",
-      "report-for-today": "children reported for today",
-      "report-for-today-singular": "child reported for today"
-    }
-  },
   "generic": {
     "share-this-with-someone": "Share this with someone",
     "content-can-not-be-loaded-atm": "This content can not be loaded at the moment."
@@ -1877,7 +1779,7 @@
       "header": "Set up your Usual Self",
       "tag": "past 6 months",
       "question-highlighted": "Over the past 6 months",
-      "question-label": "have you - or are you currently - experiencing any of the below symptoms?",
+      "question-label": "have you frequently experienced any of the below symptoms?",
       "description": "To get started, we need to understand how you usually feel. We call this your *Usual Self* - think of this as your baseline health.\n\nOnce set up, your new personalised reports will be ready!",
       "button": "Set up your Usual Self",
       "1-setup-flow-title-highlight": "Over the past 6",
@@ -1885,8 +1787,8 @@
       "2-setup-flow-other-symptom-placeholder": "Please describe",
       "1-setup-flow-frequency-slider": "Select Frequency",
       "1-setup-flow-severity-slider": "Impact on quality of life",
-      "1-setup-other-symptoms": "What other symptom(s) are you experiencing?",
-      "1-log-new-symptom-flow-title-2": "Are you / have you experienced any symptoms in your",
+      "1-setup-other-symptoms": "What other symptom(s) have you frequently experienced?",
+      "1-log-new-symptom-flow-title-2": "Have you frequently experienced any symptoms in your",
       "modal": {
         "1-title": "Your Usual Self is set up!",
         "1-cta-1": "Submit your first new daily report",

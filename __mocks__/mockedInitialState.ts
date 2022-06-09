@@ -1,5 +1,4 @@
 import { initialStateAssessment } from '@covid/core/assessment/state/reducers';
-import { initialStateSchools } from '@covid/core/schools/Schools.slice';
 import { initialStateApp } from '@covid/core/state/app/slice';
 import { initialStateContent } from '@covid/core/state/content/slice';
 import { initialStateDietStudy } from '@covid/core/state/diet-study/slice';
@@ -37,7 +36,6 @@ export const initialState: TRootState = {
   mentalHealthSupport: initialStateMentalHealthSupport,
   onboarding: initialStateOnboarding,
   reconsent: initialStateReconsent,
-  school: initialStateSchools,
   settings: initialStateSettings,
   studyHub: initialStateStudyHub,
   testingMode: initialStateTestingMode,
