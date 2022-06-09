@@ -11,13 +11,7 @@ export const exampleSlice = createSlice({
   name: 'example',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
+    action: (state, action: PayloadAction<number>) => {
       state.value += action.payload;
     },
     resetState: (state) => {
@@ -26,6 +20,6 @@ export const exampleSlice = createSlice({
   },
 });
 
-export const { increment, decrement, incrementByAmount, resetState } = exampleSlice.actions;
+export const { action, resetState } = exampleSlice.actions;
 
 export default exampleSlice.reducer;
