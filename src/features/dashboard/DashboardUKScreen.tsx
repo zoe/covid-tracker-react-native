@@ -28,6 +28,7 @@ import { sizes, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { appActions } from '@health-study/redux/app';
 import { useAppState } from '@health-study/redux/app/selectors';
+import { store } from '@health-study/redux/store';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
@@ -63,12 +64,12 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
   const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
 
-  const dispatch = useDispatch();
   const startReconsent = useStartReconsent();
 
+  const dispatch = useDispatch();
   const updateHasSeenReBrandModal = React.useCallback(async () => {
-    dispatch(appActions.setReBrandVisible(true));
-    dispatch(appActions.setModalReBrandVisible(false));
+    store.dispatch(appActions.setReBrandVisible(true));
+    store.dispatch(appActions.setModalReBrandVisible(false));
     await patientService.updatePatientInfo(patientId, { has_seen_rebrand_modal: true });
   }, []);
 
@@ -107,10 +108,10 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
     } else if (!startupInfo?.show_study_hub_onboarding) {
-      dispatch(appActions.setReBrandVisible(true));
-      dispatch(appActions.setModalReBrandVisible(false));
+      store.dispatch(appActions.setReBrandVisible(true));
+      store.dispatch(appActions.setModalReBrandVisible(false));
     } else {
-      dispatch(appActions.setReBrandVisible(true));
+      store.dispatch(appActions.setReBrandVisible(true));
     }
   }, []);
 
@@ -177,9 +178,9 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
               accessibilityRole="button"
               onPress={() => openWebLink(ZOE_HEALTH_STUDY_LEARN_MORE_LINK)}
               style={{
-                minWidth: '100%',
                 aspectRatio: 2.8,
                 marginTop: 10,
+                minWidth: '100%',
                 overflow: 'hidden',
               }}
             >

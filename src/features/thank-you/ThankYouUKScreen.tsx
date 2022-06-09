@@ -23,9 +23,10 @@ import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
 import { sizes } from '@covid/themes';
+import { appActions } from '@health-study/redux/app';
+import { store } from '@health-study/redux/store';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
-import { application } from 'express';
 import moment from 'moment';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
@@ -110,7 +111,7 @@ export default function ThankYouUKScreen(props: IProps) {
   React.useEffect(() => {
     (async () => {
       if (startupInfo?.show_modal === 'mental-health-playback') {
-        dispatch(appActions.setModalMentalHealthPlaybackVisible(true));
+        store.dispatch(appActions.setModalMentalHealthPlaybackVisible(true));
         return;
       }
 
@@ -141,7 +142,7 @@ export default function ThankYouUKScreen(props: IProps) {
         !healthProfileState.dateOfLastUpdate &&
         !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another
       ) {
-        dispatch(application.setModalHealthProfileIntroVisible(true));
+        dispatch(appActions.setModalHealthProfileIntroVisible(true));
         dispatch(showHealthProfileStartCard(true));
         return;
       }

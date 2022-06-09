@@ -6,6 +6,7 @@ import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { appActions } from '@health-study/redux/app';
+import { store } from '@health-study/redux/store';
 import { colors } from '@tracer/branding/colors';
 import { grid } from '@tracer/branding/grid';
 import Column from '@tracer/components/atoms/Column';
@@ -187,7 +188,7 @@ export default function UsualSelfFormFlowScreen() {
           await patientService.updatePatientInfo(currentPatient.patientId, {
             has_seen_assessment_flow_v1_onboarding: true,
           });
-          dispatch(appActions.setUseAssessmentFlowV1(true));
+          store.dispatch(appActions.setUseAssessmentFlowV1(true));
           setShowUsualSetupModal(true);
         })
         .catch((error) => {

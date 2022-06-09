@@ -12,6 +12,7 @@ import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { appActions } from '@health-study/redux/app';
 import { useAppState } from '@health-study/redux/app/selectors';
+import { store } from '@health-study/redux/store';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -21,7 +22,7 @@ import { Root } from 'native-base';
 import * as React from 'react';
 import { Dimensions, View } from 'react-native';
 import Toast, { ToastConfig } from 'react-native-toast-message';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator<TScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -84,7 +85,6 @@ const toastConfig = {
 
 export default function CovidApp() {
   const app = useSelector(useAppState);
-  const dispatch = useDispatch();
 
   React.useEffect(() => {
     Notifications.addNotificationResponseReceivedListener(() => {
@@ -95,11 +95,11 @@ export default function CovidApp() {
   return (
     <Root>
       <MentalHealthPlaybackModal
-        onRequestClose={() => dispatch(appActions.setModalMentalHealthPlaybackVisible(false))}
+        onRequestClose={() => store.dispatch(appActions.setModalMentalHealthPlaybackVisible(false))}
         visible={app.modalMentalHealthPlaybackVisible}
       />
       <HealthProfileIntroModal
-        onRequestClose={() => dispatch(appActions.setModalHealthProfileIntroVisible(false))}
+        onRequestClose={() => store.dispatch(appActions.setModalHealthProfileIntroVisible(false))}
         visible={app.modalHealthProfileIntroVisible}
       />
       <OnboardingOverlay />
