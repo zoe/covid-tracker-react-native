@@ -36,14 +36,6 @@ export const ProfileOtherScreen: React.FC<TProps> = (props) => {
       {editProfileCoordinator.shouldShowEditStudy() ? (
         <LinkItem onPress={editProfileCoordinator.goToEditYourStudy} title={i18n.t('your-study.title')} />
       ) : null}
-
-      {editProfileCoordinator.shouldShowSchoolNetwork() ? (
-        <LinkItem onPress={editProfileCoordinator.goToSchoolNetwork} title="School network" />
-      ) : null}
-
-      {editProfileCoordinator.shouldShowUniNetwork() ? (
-        <LinkItem onPress={editProfileCoordinator.goToUniversityNetwork} title="University network" />
-      ) : null}
     </Screen>
   );
 };

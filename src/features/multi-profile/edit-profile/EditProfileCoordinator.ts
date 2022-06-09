@@ -4,7 +4,6 @@ import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
 import { TPatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
-import { schoolNetworkCoordinator } from '@covid/features/school-network/SchoolNetworkCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
 export class EditProfileCoordinator extends Coordinator implements IUpdatePatient {
@@ -57,30 +56,10 @@ export class EditProfileCoordinator extends Coordinator implements IUpdatePatien
     NavigatorService.navigate('YourStudy', { editing: true, patientData: this.patientData });
   };
 
-  goToSchoolNetwork = () => {
-    schoolNetworkCoordinator.init(this.patientData, false);
-    schoolNetworkCoordinator.startFlow();
-  };
-
-  goToUniversityNetwork = () => {
-    schoolNetworkCoordinator.init(this.patientData, true);
-    NavigatorService.navigate('JoinHigherEducation', { patientData: this.patientData });
-  };
-
   shouldShowEditStudy = () => {
     const config = localisationService.getConfig();
 
     return config?.enableCohorts && this.patientData?.patientState?.shouldAskStudy;
-  };
-
-  shouldShowSchoolNetwork = () => {
-    return (
-      isGBCountry() && this.patientData?.patientState?.isReportedByAnother && this.patientData?.patientState?.isMinor
-    );
-  };
-
-  shouldShowUniNetwork = () => {
-    return isGBCountry();
   };
 }
 
