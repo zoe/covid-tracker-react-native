@@ -2,8 +2,6 @@ import { ClickableText, RegularText, Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import Switch from '@covid/components/Switch';
 import { fetchStartupInfo } from '@covid/core/state';
-import { appActions } from '@covid/core/state/app/slice';
-import { TStateApp } from '@covid/core/state/app/types';
 import { resetCovidTestsState } from '@covid/core/state/covid-tests/slice';
 import { resetHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
@@ -12,6 +10,8 @@ import { testingModeActions } from '@covid/core/state/testingMode';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
+import { appActions } from '@health-study/redux/app';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { colors } from '@theme';
 import * as React from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -57,11 +57,11 @@ const renderCustomisableSettings = (startupInfo: TStartupInfo, dispatch: Dispatc
 
 export function TestingModeScreen() {
   const dispatch = useDispatch();
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const toggleReBrand = useSelector(useToggleRebrand);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
   const onToggleReBrand = () => {
-    dispatch(appActions.setReBrandVisible(!app.toggleReBrand));
+    dispatch(appActions.setReBrandVisible(!toggleReBrand));
   };
 
   const onResetHealthProfilePress = () => {
@@ -89,7 +89,7 @@ export function TestingModeScreen() {
       </Text>
       <TouchableOpacity onPress={onToggleReBrand}>
         <ClickableText style={{ color: colors.brand, marginBottom: sizes.s }}>
-          {`Rebrand State: ${app.toggleReBrand}`}
+          {`Rebrand State: ${toggleReBrand}`}
         </ClickableText>
       </TouchableOpacity>
       <TouchableOpacity onPress={onResetHealthProfilePress}>
