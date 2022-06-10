@@ -9,8 +9,6 @@ import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { patientService } from '@covid/core/patient/PatientService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
-import { appActions } from '@covid/core/state/app/slice';
-import { TStateApp } from '@covid/core/state/app/types';
 import { fetchLocalTrendline, fetchNewlySymptomaticData, updateTodayDate } from '@covid/core/state/content/slice';
 import { TStateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
@@ -28,6 +26,9 @@ import { TScreenParamList } from '@covid/routes/types';
 import { pushNotificationService } from '@covid/services';
 import { sizes, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
+import { appActions } from '@health-study/redux/app';
+import { useAppState } from '@health-study/redux/app/selectors';
+import { useAppDispatch } from '@health-study/redux/hooks';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
@@ -55,7 +56,7 @@ const ZOE_HEALTH_STUDY_LEARN_MORE_LINK =
   'https://covid.joinzoe.com/post/introducing-the-zoe-health-study/?utm_source=App';
 
 export function DashboardUKScreen({ navigation, route }: IProps) {
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const app = useSelector(useAppState);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
@@ -63,12 +64,13 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   const [showTrendline, setShowTrendline] = React.useState<boolean>(false);
   const [shouldShowReminders, setShouldShowReminders] = React.useState(false);
 
-  const dispatch = useDispatch();
   const startReconsent = useStartReconsent();
 
+  const dispatch = useDispatch();
+  const appDispatch = useAppDispatch();
   const updateHasSeenReBrandModal = React.useCallback(async () => {
-    dispatch(appActions.setReBrandVisible(true));
-    dispatch(appActions.setModalReBrandVisible(false));
+    await appDispatch(appActions.setReBrandVisible(true));
+    await appDispatch(appActions.setModalReBrandVisible(false));
     await patientService.updatePatientInfo(patientId, { has_seen_rebrand_modal: true });
   }, []);
 
@@ -177,9 +179,9 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
               accessibilityRole="button"
               onPress={() => openWebLink(ZOE_HEALTH_STUDY_LEARN_MORE_LINK)}
               style={{
-                minWidth: '100%',
                 aspectRatio: 2.8,
                 marginTop: 10,
+                minWidth: '100%',
                 overflow: 'hidden',
               }}
             >
