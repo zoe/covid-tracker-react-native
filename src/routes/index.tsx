@@ -44,7 +44,6 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.AdultOrChildScreen} name="AdultOrChild" options={options} />
       <Stack.Screen component={screens.ArchiveReasonScreen} name="ArchiveReason" options={options} />
       <Stack.Screen component={screens.BeforeWeStartUSScreen} name="BeforeWeStartUS" options={options} />
-      <Stack.Screen component={screens.BiometricAuthScreen} name="BiometricAuth" options={options} />
       <Stack.Screen component={screens.ConsentForOtherScreen} name="ConsentForOther" options={options} />
       <Stack.Screen component={screens.ConsentScreen} name="Consent" options={options} />
       <Stack.Screen component={screens.CountrySelectScreen} name="CountrySelect" options={options} />
@@ -78,7 +77,6 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.LoginScreen} name="Login" options={options} />
       <Stack.Screen component={screens.LongCovidQuestionScreen} name="LongCovidQuestion" options={options} />
       <Stack.Screen component={screens.LongCovidStartScreen} name="LongCovidStart" options={options} />
-      <Stack.Screen component={screens.MediaCentreScreen} name="MediaCentre" options={options} />
       <Stack.Screen component={screens.NursesConsentUSScreen} name="NursesConsentUS" options={options} />
       <Stack.Screen component={screens.OptionalInfoScreen} name="OptionalInfo" options={options} />
       <Stack.Screen component={screens.OtherSymptomsScreen} name="OtherSymptoms" options={options} />
