@@ -16,7 +16,6 @@ import { initialStateSettings } from '@covid/core/state/settings/slice';
 import { initialStateStudyHub } from '@covid/core/state/study-hub/slice';
 import { initialStateTestingMode } from '@covid/core/state/testingMode';
 import { initialStateUser } from '@covid/core/state/user/slice';
-import { initialStateVaccine } from '@covid/core/state/vaccines/slice';
 
 export const initialState: TRootState = {
   app: initialStateApp,
@@ -36,5 +35,4 @@ export const initialState: TRootState = {
   studyHub: initialStateStudyHub,
   testingMode: initialStateTestingMode,
   user: initialStateUser,
-  vaccines: initialStateVaccine,
 };

@@ -11,7 +11,6 @@ import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
 import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { TVaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import i18n from '@covid/locale/i18n';
 import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
@@ -33,7 +32,6 @@ type TProps = {
 export const HowYouFeelScreen: React.FC<TProps> = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [location, setLocation] = React.useState('');
-  const currentProfileVaccines = useSelector<TRootState, TVaccineRequest[]>((state) => state.vaccines.vaccines);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
   const isFocused = useIsFocused();
@@ -50,11 +48,6 @@ export const HowYouFeelScreen: React.FC<TProps> = ({ route, navigation }) => {
       );
     });
   }, [navigation]);
-
-  const currentProfileHasVaccine = () =>
-    currentProfileVaccines.length &&
-    currentProfileVaccines[0] &&
-    assessmentCoordinator.assessmentData?.patientData?.patientId === currentProfileVaccines[0].patient;
 
   async function updateAssessment(status: string, isComplete: boolean) {
     try {
@@ -83,30 +76,6 @@ export const HowYouFeelScreen: React.FC<TProps> = ({ route, navigation }) => {
     assessmentCoordinator.gotoNextScreen(route.name, healthy);
   };
 
-  let currentProfileVaccineEnteredText;
-  if (currentProfileHasVaccine()) {
-    currentProfileVaccineEnteredText = (
-      <TouchableOpacity onPress={() => assessmentCoordinator.goToVaccineLogSymptomsInfo()} style={{ margin: sizes.m }}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 0.1 }}>
-            <InfoCircle color={colors.linkBlue} />
-          </View>
-          <RegularText style={{ color: colors.linkBlue, flex: 0.9 }}>
-            {i18n.t('how-you-feel.vaccine-reporting-message')}
-          </RegularText>
-        </View>
-        <View style={{ alignItems: 'center', flexDirection: 'row', marginLeft: sizes.xl, marginTop: sizes.m }}>
-          <View style={{ paddingRight: sizes.xs }}>
-            <RightArrow color={colors.linkBlue} />
-          </View>
-          <RegularBoldText style={{ color: colors.linkBlue }}>
-            {i18n.t('how-you-feel.vaccine-reporting-link')}
-          </RegularBoldText>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-
   React.useEffect(() => {
     setIsSubmitting(false);
   }, [isFocused]);
@@ -128,8 +97,6 @@ export const HowYouFeelScreen: React.FC<TProps> = ({ route, navigation }) => {
           </RegularText>
           <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
         </TouchableOpacity>
-
-        {currentProfileVaccineEnteredText}
 
         <SelectorButton
           onPress={() => handlePress(true)}
