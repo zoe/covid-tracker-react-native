@@ -3,7 +3,7 @@ import { Text, TextareaWithCharCount } from '@covid/components';
 import Card from '@covid/components/cards/Card';
 import { Screen } from '@covid/components/Screen';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
-import { getMentalHealthFeedback } from '@covid/features/mental-health-playback/MentalHealthApiClient';
+import { postMentalHealthFeedback } from '@covid/features/mental-health-playback/MentalHealthApiClient';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes, styling } from '@covid/themes';
@@ -33,7 +33,7 @@ export default function MHPRatingScreen() {
   async function onPress() {
     if (!loading) {
       setLoading(true);
-      const result = await getMentalHealthFeedback(selectedRating, comments);
+      const result = await postMentalHealthFeedback(selectedRating, comments);
       if (result) {
         NavigatorService.reset([{ name: homeScreenName() }, { name: 'MentalHealthPlaybackThankYou' }]);
       }
