@@ -22,7 +22,6 @@ const ignorePatterns = [
   'diabetes.hemoglobin-measurement-unit-',
   'diet-study.card-',
   'disease-cards',
-  'long-covid.q',
   'mental-health-playback.insights',
   'mental-health-playback.segments',
   'reconsent.request-consent.use-',

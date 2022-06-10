@@ -7,7 +7,6 @@ import {
   testAboutYouForm,
   testAboutYourHealthForm,
   testAboutYourWorkForm,
-  testLongCovidForm,
   testPreviousExposureForm,
 } from './testForms';
 import { testMentalHealthPlaybackModal } from './testModals';
@@ -74,8 +73,6 @@ export function testRegisterFeature(config: TRegisterConfig) {
     it('should set the health status to healthy', async () => {
       await element(by.id('button-status-healthy')).tap();
     });
-
-    testLongCovidForm();
 
     testMentalHealthPlaybackModal();
 
