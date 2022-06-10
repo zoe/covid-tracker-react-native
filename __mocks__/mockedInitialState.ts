@@ -16,8 +16,6 @@ import { initialStateSettings } from '@covid/core/state/settings/slice';
 import { initialStateStudyHub } from '@covid/core/state/study-hub/slice';
 import { initialStateTestingMode } from '@covid/core/state/testingMode';
 import { initialStateUser } from '@covid/core/state/user/slice';
-import { initialState as initialStateApp } from '@health-study/redux/app';
-
 
 export const initialState: TRootState = {
   app: initialStateApp,
