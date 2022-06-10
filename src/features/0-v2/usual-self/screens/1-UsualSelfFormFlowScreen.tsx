@@ -54,7 +54,7 @@ const hasNullFrequency = (symptoms: any[]): boolean =>
 const hasTooManyCharacters = (symptoms: any[]): boolean =>
   symptoms !== undefined &&
   symptoms.length > 0 &&
-  symptoms.filter((symptom) => symptom.description.length > 20).length > 0;
+  symptoms.filter((symptom) => symptom.description && symptom.description.length > 20).length > 0;
 
 const isFormSubmissionValid = (symptoms: any[], otherSymptoms: any[]): boolean => {
   const isValidSeverity = !hasNullSeverity(symptoms);
