@@ -1,3 +1,5 @@
+import { MockClient } from '@health-study/redux/utils';
+
 import { store } from '../../store';
 import { settingsActions } from '../index';
 import { useSettingsState } from '../selectors';
@@ -26,8 +28,10 @@ describe('Settings Reducer', () => {
   });
 
   it('should correctly call all of the actions from the thunk', async () => {
+    const mockSettingsClient = new MockClient();
+
     store.dispatch(settingsActions.reset());
-    await store.dispatch(setEmailSubscriptionThunk(true));
+    await store.dispatch(setEmailSubscriptionThunk(true, mockSettingsClient));
 
     const state = store.getState().settings;
     expect(state).toEqual({ hasEmailSubscription: true });
