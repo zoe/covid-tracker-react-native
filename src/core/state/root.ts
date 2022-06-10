@@ -5,7 +5,6 @@ import { combineReducers } from 'redux';
 import { appSlice } from './app/slice';
 import { TStateApp } from './app/types';
 import covidTestsSlice, { TStateCovidTests } from './covid-tests/slice';
-import { dietStudySlice, TStateDietStudy } from './diet-study';
 import { healthProfileSlice, TStateHealthProfile } from './health-profile/slice';
 import mediaCentre from './media-centre';
 import { TStateMediaCentre } from './media-centre/types';
@@ -39,7 +38,6 @@ export type TRootState = {
   assessment: TStateAssessment;
   content: TStateContent;
   covidTests: TStateCovidTests;
-  dietStudy: TStateDietStudy;
   healthProfile: TStateHealthProfile;
   mediaCentre: TStateMediaCentre;
   mentalHealthChanges: TStateMentalHealthChanges;
@@ -63,7 +61,6 @@ export default combineReducers({
   assessment,
   content: contentSlice.reducer,
   covidTests: covidTestsSlice.reducer,
-  dietStudy: dietStudySlice,
   healthProfile: healthProfileSlice.reducer,
   mediaCentre: mediaCentre.reducer,
   mentalHealthChanges: mentalHealthChangesSlice,
