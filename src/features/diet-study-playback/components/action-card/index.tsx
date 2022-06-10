@@ -1,14 +1,16 @@
 import { ActionCard, Icon, Text } from '@covid/components';
-import { selectSettings, setEmailSubscription } from '@covid/core/state';
 import i18n from '@covid/locale/i18n';
 import { sizes, useTheme } from '@covid/themes';
+import { useAppDispatch } from '@health-study/redux/hooks';
+import { useSettingsState } from '@health-study/redux/settings/selectors';
+import { setEmailSubscriptionThunk } from '@health-study/redux/settings/thunks';
 import * as React from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function DietStudyActionCard() {
-  const settings = useSelector(selectSettings);
-  const dispatch = useDispatch();
+  const settings = useSelector(useSettingsState);
+  const appDispatch = useAppDispatch();
   const { colors } = useTheme();
 
   const getCtaTitle = () => {
@@ -19,7 +21,7 @@ function DietStudyActionCard() {
   };
 
   const handleOnPress = () => {
-    dispatch(setEmailSubscription(!settings.hasEmailSubscription));
+    appDispatch(setEmailSubscriptionThunk(!settings.hasEmailSubscription));
   };
 
   return (

@@ -2,6 +2,8 @@ import assessment, { TStateAssessment } from '@covid/core/assessment/state/reduc
 import { contentSlice, TStateContent } from '@covid/core/state/content/slice';
 import { appSlice } from '@health-study/redux/app';
 import { AppState } from '@health-study/redux/app/types';
+import { settingsSlice } from '@health-study/redux/settings';
+import { SettingsState } from '@health-study/redux/settings/types';
 import { combineReducers } from 'redux';
 
 import covidTestsSlice, { TStateCovidTests } from './covid-tests/slice';
@@ -10,7 +12,6 @@ import { mentalHealthPlaybackSlice, TStateMentalHealthPlayback } from './mental-
 import { onboardingSlice } from './onboarding/slice';
 import { TStateOnboarding } from './onboarding/types';
 import { reconsentSlice, TStateReconsent } from './reconsent';
-import { settingsSlice, TStateSettings } from './settings';
 import { studyHubSlice } from './study-hub/slice';
 import { TStateStudyHub } from './study-hub/types';
 import { testingModeSlice, TStateTestingMode } from './testingMode';
@@ -18,6 +19,8 @@ import { TStateUser, userSlice } from './user';
 
 export type TRootState = {
   app: AppState;
+  settings: SettingsState;
+  // legacy
   assessment: TStateAssessment;
   content: TStateContent;
   covidTests: TStateCovidTests;
@@ -25,7 +28,6 @@ export type TRootState = {
   mentalHealthPlayback: TStateMentalHealthPlayback;
   onboarding: TStateOnboarding;
   reconsent: TStateReconsent;
-  settings: TStateSettings;
   studyHub: TStateStudyHub;
   testingMode: TStateTestingMode;
   user: TStateUser;
@@ -40,7 +42,7 @@ export default combineReducers({
   mentalHealthPlayback: mentalHealthPlaybackSlice,
   onboarding: onboardingSlice.reducer,
   reconsent: reconsentSlice.reducer,
-  settings: settingsSlice,
+  settings: settingsSlice.reducer,
   studyHub: studyHubSlice.reducer,
   testingMode: testingModeSlice.reducer,
   user: userSlice,
