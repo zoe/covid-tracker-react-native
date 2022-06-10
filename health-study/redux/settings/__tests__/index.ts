@@ -1,51 +1,43 @@
 import { store } from '../../store';
-import { action, resetState } from '../index';
-import { useSettings } from '../selectors';
-import { settingsThunk } from '../thunks';
+import { settingsActions } from '../index';
+import { useSettingsState } from '../selectors';
+import { setEmailSubscriptionThunk } from '../thunks';
 
 describe('Settings Reducer', () => {
   it('should return the correct initial state', () => {
     const state = store.getState().settings;
-    expect(state).toEqual({ value: 0 });
+    expect(state).toEqual({ hasEmailSubscription: false });
   });
 
-  it('should correctly increment the settings value', () => {
-    store.dispatch(resetState());
-    store.dispatch(action(1));
+  it('should set email subscription', () => {
+    store.dispatch(settingsActions.reset());
+    store.dispatch(settingsActions.setHasEmailSubscription(true));
 
     const state = store.getState().settings;
-    expect(state).toEqual({ value: 1 });
+    expect(state).toEqual({ hasEmailSubscription: true });
   });
 
-  it('should correctly decrement the settings value', () => {
-    store.dispatch(resetState());
-    store.dispatch(action(-1));
+  it('should reset settings state', () => {
+    store.dispatch(settingsActions.setHasEmailSubscription(true));
+    store.dispatch(settingsActions.reset());
 
     const state = store.getState().settings;
-    expect(state).toEqual({ value: -1 });
-  });
-
-  it('should correctly increment the settings value by a specific amount', async () => {
-    store.dispatch(resetState());
-    store.dispatch(action(5));
-
-    const state = store.getState().settings;
-    expect(state).toEqual({ value: 5 });
+    expect(state).toEqual({ hasEmailSubscription: false });
   });
 
   it('should correctly call all of the actions from the thunk', async () => {
-    store.dispatch(resetState());
-    await store.dispatch(settingsThunk());
+    store.dispatch(settingsActions.reset());
+    await store.dispatch(setEmailSubscriptionThunk(true));
 
     const state = store.getState().settings;
-    expect(state).toEqual({ value: 2 });
+    expect(state).toEqual({ hasEmailSubscription: true });
   });
 
   it('should correctly return the value when using the selector', () => {
-    store.dispatch(resetState());
-    store.dispatch(action(5));
+    store.dispatch(settingsActions.reset());
+    store.dispatch(settingsActions.setHasEmailSubscription(true));
     const state = store.getState();
-    const value = useSettings(state).value;
-    expect(value).toEqual(5);
+    const value = useSettingsState(state).hasEmailSubscription;
+    expect(value).toEqual(true);
   });
 });
