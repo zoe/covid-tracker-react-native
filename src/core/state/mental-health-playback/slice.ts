@@ -1,7 +1,7 @@
 import { TStateMentalHealthPlayback } from '@covid/core/state/mental-health-playback/types';
 import { TRootState } from '@covid/core/state/root';
 import store from '@covid/core/state/store';
-import { mentalHealthApiClient } from '@covid/features/mental-health/MentalHealthApiClient';
+import { getMentalHealthInsights } from '@covid/features/mental-health-playback/MentalHealthApiClient';
 import { IMHInsights } from '@covid/features/mental-health-playback/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -34,7 +34,7 @@ export function requestInsights() {
   return async (dispatch: typeof store.dispatch) => {
     dispatch(mentalHealthPlaybackSlice.actions.isLoading(true));
     try {
-      const insights = await mentalHealthApiClient.getInsights();
+      const insights = await getMentalHealthInsights();
       dispatch(mentalHealthPlaybackSlice.actions.setInsights(insights));
     } catch (_) {}
     dispatch(mentalHealthPlaybackSlice.actions.isLoading(false));
