@@ -1,7 +1,6 @@
 import AssessmentFlowNavigator from '@covid/features/0-v2/assessment-flow/navigator';
 import UsualSelfNavigator from '@covid/features/0-v2/usual-self/navigator';
 import * as screens from '@covid/features/screens';
-import AnniversaryNavigator from '@covid/routes/AnniversaryNavigator';
 import DietStudyPlaybackNavigator from '@covid/routes/DietStudyPlaybackNavigator';
 import MentalHealthPlaybackNavigator from '@covid/routes/MentalHealthPlaybackNavigator';
 import ReconsentNavigator from '@covid/routes/ReconsentNavigator';
@@ -115,7 +114,6 @@ export default function MainNavigator() {
       <Stack.Screen component={screens.YourStudyScreen} name="YourStudy" options={options} />
       <Stack.Screen component={screens.YourWorkScreen} name="YourWork" options={options} />
 
-      {AnniversaryNavigator({ Stack })}
       {DietStudyPlaybackNavigator({ Stack })}
       {MentalHealthPlaybackNavigator({ Stack })}
       {ReconsentNavigator({ Stack })}
