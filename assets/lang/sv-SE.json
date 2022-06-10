@@ -1668,21 +1668,6 @@
   },
   "required-field": "Obligatoriska fält",
   "modal-close": "Stänga",
-  "biometric-auth": {
-    "button": false,
-    "description-facial": false,
-    "description-facial-finger": false,
-    "description-facial-finger-iris": false,
-    "description-facial-iris": false,
-    "description-finger": false,
-    "description-finger-iris": false,
-    "description-iris": false,
-    "description-nothing": false,
-    "result-cancelled": false,
-    "result-disabled": false,
-    "result-error": false,
-    "result-success": false
-  },
   "health-profile": {
     "tooltip": false,
     "save-exit": false,
