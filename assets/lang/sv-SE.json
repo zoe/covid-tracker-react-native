@@ -544,7 +544,6 @@
   },
   "menu": {
     "item-edit-profile": "Min profil",
-    "item-media-centre": false,
     "item-share-this-app": "Dela appen",
     "item-wider-health-studies": false,
     "opt-in": false,
@@ -1571,13 +1570,6 @@
       "name": "Neurological Conditions",
       "description": "600,000 people are diagnosed with a brain disorder every year in the UK"
     }
-  },
-  "media-centre": {
-    "results": false,
-    "search-placeholder": false,
-    "tab-all": false,
-    "tab-bookmarked": false,
-    "title": false
   },
   "study-hub": {
     "consented": {

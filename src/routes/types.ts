@@ -140,9 +140,6 @@ export type TScreenParamList = {
   // Internal testing mode
   TestingMode: undefined;
 
-  // Media centre
-  MediaCentre: undefined;
-
   // Study hub
   StudiesList: undefined;
   StudyDetails: { study: TStudy };

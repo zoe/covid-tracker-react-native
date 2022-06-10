@@ -36,7 +36,6 @@ export {
   MHPIntroductionScreen,
   MHPRatingScreen,
   MHPThankYouScreen,
-  MediaCentreScreen,
   MentalHealthChangesScreen,
   MentalHealthEndScreen,
   MentalHealthFrequencyScreen,
