@@ -5,10 +5,7 @@ import { combineReducers } from 'redux';
 import { appSlice } from './app/slice';
 import { TStateApp } from './app/types';
 import covidTestsSlice, { TStateCovidTests } from './covid-tests/slice';
-import { dietStudySlice, TStateDietStudy } from './diet-study';
 import { healthProfileSlice, TStateHealthProfile } from './health-profile/slice';
-import mediaCentre from './media-centre';
-import { TStateMediaCentre } from './media-centre/types';
 import { mentalHealthPlaybackSlice, TStateMentalHealthPlayback } from './mental-health-playback';
 import { onboardingSlice } from './onboarding/slice';
 import { TStateOnboarding } from './onboarding/types';
@@ -18,16 +15,13 @@ import { studyHubSlice } from './study-hub/slice';
 import { TStateStudyHub } from './study-hub/types';
 import { testingModeSlice, TStateTestingMode } from './testingMode';
 import { TStateUser, userSlice } from './user';
-import { TStateVaccines, vaccinesSlice } from './vaccines';
 
 export type TRootState = {
   app: TStateApp;
   assessment: TStateAssessment;
   content: TStateContent;
   covidTests: TStateCovidTests;
-  dietStudy: TStateDietStudy;
   healthProfile: TStateHealthProfile;
-  mediaCentre: TStateMediaCentre;
   mentalHealthPlayback: TStateMentalHealthPlayback;
   onboarding: TStateOnboarding;
   reconsent: TStateReconsent;
@@ -35,7 +29,6 @@ export type TRootState = {
   studyHub: TStateStudyHub;
   testingMode: TStateTestingMode;
   user: TStateUser;
-  vaccines: TStateVaccines;
 };
 
 export default combineReducers({
@@ -43,9 +36,7 @@ export default combineReducers({
   assessment,
   content: contentSlice.reducer,
   covidTests: covidTestsSlice.reducer,
-  dietStudy: dietStudySlice,
   healthProfile: healthProfileSlice.reducer,
-  mediaCentre: mediaCentre.reducer,
   mentalHealthPlayback: mentalHealthPlaybackSlice,
   onboarding: onboardingSlice.reducer,
   reconsent: reconsentSlice.reducer,
@@ -53,5 +44,4 @@ export default combineReducers({
   studyHub: studyHubSlice.reducer,
   testingMode: testingModeSlice.reducer,
   user: userSlice,
-  vaccines: vaccinesSlice.reducer,
 });

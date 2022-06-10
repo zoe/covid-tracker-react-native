@@ -41,7 +41,6 @@ export type TScreenParamList = {
   ResetPasswordConfirm: undefined;
 
   // Authentication
-  BiometricAuth: undefined;
   Login: undefined;
 
   // Profile screens
@@ -132,9 +131,6 @@ export type TScreenParamList = {
 
   // Internal testing mode
   TestingMode: undefined;
-
-  // Media centre
-  MediaCentre: undefined;
 
   // Study hub
   StudiesList: undefined;
