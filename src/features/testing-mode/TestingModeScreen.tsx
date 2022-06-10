@@ -12,6 +12,7 @@ import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
 import { appActions } from '@health-study/redux/app';
 import { useToggleRebrand } from '@health-study/redux/app/selectors';
+import { useAppDispatch } from '@health-study/redux/hooks';
 import { colors } from '@theme';
 import * as React from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -57,11 +58,12 @@ const renderCustomisableSettings = (startupInfo: TStartupInfo, dispatch: Dispatc
 
 export function TestingModeScreen() {
   const dispatch = useDispatch();
+  const appDispatch = useAppDispatch();
   const toggleReBrand = useSelector(useToggleRebrand);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
 
   const onToggleReBrand = () => {
-    dispatch(appActions.setReBrandVisible(!toggleReBrand));
+    appDispatch(appActions.setReBrandVisible(!toggleReBrand));
   };
 
   const onResetHealthProfilePress = () => {
