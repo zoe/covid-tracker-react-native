@@ -5,11 +5,11 @@ import { initialStateMentalHealthPlayback } from '@covid/core/state/mental-healt
 import { initialStateOnboarding } from '@covid/core/state/onboarding/slice';
 import { initialStateReconsent } from '@covid/core/state/reconsent';
 import { TRootState } from '@covid/core/state/root';
-import { initialStateSettings } from '@covid/core/state/settings/slice';
 import { initialStateStudyHub } from '@covid/core/state/study-hub/slice';
 import { initialStateTestingMode } from '@covid/core/state/testingMode';
 import { initialStateUser } from '@covid/core/state/user/slice';
 import { initialState as initialStateApp } from '@health-study/redux/app';
+import { initialState as initialStateSettings } from '@health-study/redux/settings';
 
 export const initialState: TRootState = {
   app: initialStateApp,

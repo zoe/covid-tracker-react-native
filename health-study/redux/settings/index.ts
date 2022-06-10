@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { SettingsState } from './types';
 
-const initialState: SettingsState = {
+export const initialState: SettingsState = {
   hasEmailSubscription: false,
 };
 
