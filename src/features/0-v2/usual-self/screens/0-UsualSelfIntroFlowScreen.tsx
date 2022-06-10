@@ -4,9 +4,9 @@ import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { appActions } from '@health-study/redux/app';
 import { useShowRepeatUsualSelfIntro } from '@health-study/redux/app/selectors';
-import { store } from '@health-study/redux/store';
 import { RouteProp } from '@react-navigation/native';
 import FlowFeatureIntro, { IFlowFeatureIntroProps } from '@tracer/components/templates/FeatureIntroFlow';
+import { useAppDispatch } from 'health-study/redux/hooks';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -57,8 +57,10 @@ const makeFeatureIntroProps = (useSecondaryIntro?: boolean, secondaryOnPress?: (
 
 function UsualSelfIntroFlowScreen({ route }: { route: RouteProp<TScreenParamList, 'UsualSelfIntroScreen'> }) {
   const useSecondaryIntro = useSelector(useShowRepeatUsualSelfIntro, () => true);
+  const dispatch = useAppDispatch();
+
   React.useEffect(() => {
-    store.dispatch(appActions.setShowRepeatUsualSelfIntro(true));
+    dispatch(appActions.setShowRepeatUsualSelfIntro(true));
   }, []);
 
   const { secondaryOnPress } = route?.params || {};

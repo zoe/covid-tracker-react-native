@@ -9,6 +9,8 @@ import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { patientService } from '@covid/core/patient/PatientService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
+import { appActions } from '@covid/core/state/app/slice';
+import { TStateApp } from '@covid/core/state/app/types';
 import { fetchLocalTrendline, fetchNewlySymptomaticData, updateTodayDate } from '@covid/core/state/content/slice';
 import { TStateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
@@ -27,11 +29,10 @@ import { pushNotificationService } from '@covid/services';
 import { sizes, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { appActions } from '@health-study/redux/app';
-import { useAppState } from '@health-study/redux/app/selectors';
-import { store } from '@health-study/redux/store';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
+import { useAppDispatch } from 'health-study/redux/hooks';
 import React from 'react';
 import { Image, Platform, Pressable, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,7 +57,7 @@ const ZOE_HEALTH_STUDY_LEARN_MORE_LINK =
   'https://covid.joinzoe.com/post/introducing-the-zoe-health-study/?utm_source=App';
 
 export function DashboardUKScreen({ navigation, route }: IProps) {
-  const app = useSelector(useAppState);
+  const app = useSelector<TRootState, TStateApp>((state) => state.app);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
@@ -67,9 +68,10 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   const startReconsent = useStartReconsent();
 
   const dispatch = useDispatch();
+  const appDispatch = useAppDispatch();
   const updateHasSeenReBrandModal = React.useCallback(async () => {
-    await store.dispatch(appActions.setReBrandVisible(true));
-    await store.dispatch(appActions.setModalReBrandVisible(false));
+    await appDispatch(appActions.setReBrandVisible(true));
+    await appDispatch(appActions.setModalReBrandVisible(false));
     await patientService.updatePatientInfo(patientId, { has_seen_rebrand_modal: true });
   }, []);
 
@@ -108,10 +110,10 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
     } else if (!startupInfo?.show_study_hub_onboarding) {
-      dispatch(appActions.setReBrandVisible(true));
-      dispatch(appActions.setModalReBrandVisible(false));
+      appDispatch(appActions.setReBrandVisible(true));
+      appDispatch(appActions.setModalReBrandVisible(false));
     } else {
-      dispatch(appActions.setReBrandVisible(true));
+      appDispatch(appActions.setReBrandVisible(true));
     }
   }, []);
 

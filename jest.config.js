@@ -3,7 +3,6 @@ module.exports = {
     '^@assets/(.*)$': '<rootDir>/assets/$1',
     '^@theme/(.*)$': '<rootDir>/theme/$1',
     '^@covid/(.*)$': '<rootDir>/src/$1',
-    '^@health-study/(.*)$': '<rootDir>/health-study/$1',
   },
   preset: 'jest-expo',
   reporters: ['default', 'jest-junit'],

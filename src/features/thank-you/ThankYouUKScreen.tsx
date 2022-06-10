@@ -24,9 +24,9 @@ import { TScreenParamList } from '@covid/routes/types';
 import { assessmentService } from '@covid/services';
 import { sizes } from '@covid/themes';
 import { appActions } from '@health-study/redux/app';
-import { store } from '@health-study/redux/store';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
+import { useAppDispatch } from 'health-study/redux/hooks';
 import moment from 'moment';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
@@ -68,6 +68,7 @@ export const covidSymptomPresent = (assessmentObject: Partial<TAssessmentInfosRe
 
 export default function ThankYouUKScreen(props: IProps) {
   const dispatch = useDispatch();
+  const appDispatch = useAppDispatch();
   const shouldShowLFTPromptBasedOnPastRecords =
     assessmentCoordinator.assessmentData?.patientData?.patientInfo?.should_show_lft_prompt;
   const shouldShowLFTReminderBasedOnPastRecords =
@@ -111,7 +112,7 @@ export default function ThankYouUKScreen(props: IProps) {
   React.useEffect(() => {
     (async () => {
       if (startupInfo?.show_modal === 'mental-health-playback') {
-        await store.dispatch(appActions.setModalMentalHealthPlaybackVisible(true));
+        await appDispatch(appActions.setModalMentalHealthPlaybackVisible(true));
         return;
       }
 
