@@ -6,9 +6,8 @@ import { appActions } from '@health-study/redux/app';
 import { useShowRepeatUsualSelfIntro } from '@health-study/redux/app/selectors';
 import { RouteProp } from '@react-navigation/native';
 import FlowFeatureIntro, { IFlowFeatureIntroProps } from '@tracer/components/templates/FeatureIntroFlow';
-import { useAppDispatch } from 'health-study/redux/hooks';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const USUAL_SELF_INTRO_TAG = i18n.t('usual-self.tag');
 
@@ -57,7 +56,7 @@ const makeFeatureIntroProps = (useSecondaryIntro?: boolean, secondaryOnPress?: (
 
 function UsualSelfIntroFlowScreen({ route }: { route: RouteProp<TScreenParamList, 'UsualSelfIntroScreen'> }) {
   const useSecondaryIntro = useSelector(useShowRepeatUsualSelfIntro, () => true);
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(appActions.setShowRepeatUsualSelfIntro(true));

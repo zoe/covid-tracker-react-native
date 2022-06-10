@@ -143,7 +143,7 @@ export default function ThankYouUKScreen(props: IProps) {
         !healthProfileState.dateOfLastUpdate &&
         !assessmentCoordinator.assessmentData?.patientData?.profile?.reported_by_another
       ) {
-        dispatch(appActions.setModalHealthProfileIntroVisible(true));
+        dispatch(application.setModalHealthProfileIntroVisible(true));
         dispatch(showHealthProfileStartCard(true));
         return;
       }

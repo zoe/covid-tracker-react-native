@@ -9,8 +9,6 @@ import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
 import { patientService } from '@covid/core/patient/PatientService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
-import { appActions } from '@covid/core/state/app/slice';
-import { TStateApp } from '@covid/core/state/app/types';
 import { fetchLocalTrendline, fetchNewlySymptomaticData, updateTodayDate } from '@covid/core/state/content/slice';
 import { TStateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
@@ -29,6 +27,7 @@ import { pushNotificationService } from '@covid/services';
 import { sizes, styling } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
 import { appActions } from '@health-study/redux/app';
+import { useAppState } from '@health-study/redux/app/selectors';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
@@ -57,7 +56,7 @@ const ZOE_HEALTH_STUDY_LEARN_MORE_LINK =
   'https://covid.joinzoe.com/post/introducing-the-zoe-health-study/?utm_source=App';
 
 export function DashboardUKScreen({ navigation, route }: IProps) {
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const app = useSelector(useAppState);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
   const patientId = useSelector<TRootState, string>((state) => state.user.patients[0]);
   const healthProfileState = useSelector<TRootState, TStateHealthProfile>((state) => state.healthProfile);
@@ -110,10 +109,10 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
     } else if (!startupInfo?.show_study_hub_onboarding) {
-      appDispatch(appActions.setReBrandVisible(true));
-      appDispatch(appActions.setModalReBrandVisible(false));
+      dispatch(appActions.setReBrandVisible(true));
+      dispatch(appActions.setModalReBrandVisible(false));
     } else {
-      appDispatch(appActions.setReBrandVisible(true));
+      dispatch(appActions.setReBrandVisible(true));
     }
   }, []);
 

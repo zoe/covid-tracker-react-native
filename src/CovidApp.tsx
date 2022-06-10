@@ -11,16 +11,18 @@ import MainNavigator from '@covid/routes';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
 import { appActions } from '@health-study/redux/app';
+import { useAppState } from '@health-study/redux/app/selectors';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { colors } from '@theme';
 import * as Notifications from 'expo-notifications';
-import { useAppDispatch, useAppSelector } from 'health-study/redux/hooks';
+import { useAppDispatch } from 'health-study/redux/hooks';
 import { Root } from 'native-base';
 import * as React from 'react';
 import { Dimensions, View } from 'react-native';
 import Toast, { ToastConfig } from 'react-native-toast-message';
+import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator<TScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -82,7 +84,7 @@ const toastConfig = {
 };
 
 export default function CovidApp() {
-  const app = useAppSelector();
+  const app = useSelector(useAppState);
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
