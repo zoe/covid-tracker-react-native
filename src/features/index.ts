@@ -1,4 +1,3 @@
-export * from './anniversary';
 export * from './assessment';
 export * from './covid-tests';
 export * from './dashboard';

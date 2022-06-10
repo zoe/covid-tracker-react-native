@@ -45,10 +45,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
   screenFlow: Partial<TScreenFlow> = {
     // added to make available to gotoNextscreen
-    Anniversary: () => {
-      NavigatorService.navigate('Anniversary');
-    },
-
     ArchiveReason: () => {
       NavigatorService.navigate('SelectProfile'); // Go back to SelectProfile with last used params
     },
@@ -304,10 +300,6 @@ export class AppCoordinator extends Coordinator implements ISelectProfile, IEdit
 
   goToMentalHealthStudyPlayback = () => {
     NavigatorService.navigate('MentalHealthPlaybackIntroduction');
-  };
-
-  goToAnniversary = () => {
-    NavigatorService.navigate('Anniversary');
   };
 }
 

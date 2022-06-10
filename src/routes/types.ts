@@ -169,7 +169,6 @@ export type TScreenParamList = {
   AssessmentPage5LogNewSymptomReason: { report: TUsualSelf };
 
   // Others
-  Anniversary: undefined;
   EstimatedCases: undefined;
   Main: undefined;
   Modal: undefined;

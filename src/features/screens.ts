@@ -5,7 +5,6 @@ export {
   AboutYouScreen,
   AboutYourVaccineScreen,
   AdultOrChildScreen,
-  AnniversaryScreen,
   ArchiveReasonScreen,
   BeforeWeStartUSScreen,
   ConsentForOtherScreen,
