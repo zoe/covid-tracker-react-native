@@ -36,8 +36,6 @@ const onPressShare = () => share(i18n.t('share-this-app.message'));
 
 const onPressProfile = () => NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
 
-const onPressMediaCentre = () => NavigatorService.navigate('MediaCentre');
-
 const onPressBiometricAuth = () => NavigatorService.navigate('BiometricAuth');
 
 const hitSlop = {
@@ -127,17 +125,6 @@ export const DrawerMenu: React.FC<TProps> = (props: TProps) => {
             sidenote={sidenote}
             sidenoteColor={startupInfo?.wider_health_studies_consent ? 'gray' : 'blue'}
             testID="menu-item-wider-health-studies"
-          />
-        ) : null}
-
-        {startupInfo?.is_tester ? (
-          <MenuItem
-            showDot
-            analyticsName="MEDIA_CENTRE"
-            IconComponent={MediaIcon}
-            label={i18n.t('menu.item-media-centre')}
-            onPress={onPressMediaCentre}
-            testID="menu-media-centre"
           />
         ) : null}
 

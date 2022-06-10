@@ -6,8 +6,6 @@ import { appSlice } from './app/slice';
 import { TStateApp } from './app/types';
 import covidTestsSlice, { TStateCovidTests } from './covid-tests/slice';
 import { healthProfileSlice, TStateHealthProfile } from './health-profile/slice';
-import mediaCentre from './media-centre';
-import { TStateMediaCentre } from './media-centre/types';
 import {
   mentalHealthChangesSlice,
   mentalHealthFrequencySlice,
@@ -39,7 +37,6 @@ export type TRootState = {
   content: TStateContent;
   covidTests: TStateCovidTests;
   healthProfile: TStateHealthProfile;
-  mediaCentre: TStateMediaCentre;
   mentalHealthChanges: TStateMentalHealthChanges;
   mentalHealthFrequency: TStateMentalHealthFrequency;
   mentalHealthHistory: TStateMentalHealthHistory;
@@ -62,7 +59,6 @@ export default combineReducers({
   content: contentSlice.reducer,
   covidTests: covidTestsSlice.reducer,
   healthProfile: healthProfileSlice.reducer,
-  mediaCentre: mediaCentre.reducer,
   mentalHealthChanges: mentalHealthChangesSlice,
   mentalHealthFrequency: mentalHealthFrequencySlice,
   mentalHealthHistory: mentalHealthHistorySlice,
