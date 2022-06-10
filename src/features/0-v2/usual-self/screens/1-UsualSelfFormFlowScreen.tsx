@@ -188,7 +188,7 @@ export default function UsualSelfFormFlowScreen() {
           await patientService.updatePatientInfo(currentPatient.patientId, {
             has_seen_assessment_flow_v1_onboarding: true,
           });
-          store.dispatch(appActions.setUseAssessmentFlowV1(true));
+          await store.dispatch(appActions.setUseAssessmentFlowV1(true));
           setShowUsualSetupModal(true);
         })
         .catch((error) => {

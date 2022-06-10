@@ -68,8 +68,8 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
 
   const dispatch = useDispatch();
   const updateHasSeenReBrandModal = React.useCallback(async () => {
-    store.dispatch(appActions.setReBrandVisible(true));
-    store.dispatch(appActions.setModalReBrandVisible(false));
+    await store.dispatch(appActions.setReBrandVisible(true));
+    await store.dispatch(appActions.setModalReBrandVisible(false));
     await patientService.updatePatientInfo(patientId, { has_seen_rebrand_modal: true });
   }, []);
 
@@ -108,10 +108,10 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
     if (startupInfo?.show_research_consent) {
       setTimeout(() => startReconsent('Dashboard'), 500);
     } else if (!startupInfo?.show_study_hub_onboarding) {
-      store.dispatch(appActions.setReBrandVisible(true));
-      store.dispatch(appActions.setModalReBrandVisible(false));
+      dispatch(appActions.setReBrandVisible(true));
+      dispatch(appActions.setModalReBrandVisible(false));
     } else {
-      store.dispatch(appActions.setReBrandVisible(true));
+      dispatch(appActions.setReBrandVisible(true));
     }
   }, []);
 
