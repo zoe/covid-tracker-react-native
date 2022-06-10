@@ -41,7 +41,6 @@ export type TScreenParamList = {
   ResetPasswordConfirm: undefined;
 
   // Authentication
-  BiometricAuth: undefined;
   Login: undefined;
 
   // Profile screens

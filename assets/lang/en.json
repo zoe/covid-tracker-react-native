@@ -580,7 +580,6 @@
     "thank-you-for-rating": "Thank you for your feedback.\nWe're working hard to improve things"
   },
   "menu": {
-    "item-biometric-auth": "Biometric authentication",
     "item-edit-profile": "Edit profile",
     "item-share-this-app": "Share this app",
     "item-wider-health-studies": "Wider health studies",
@@ -1657,21 +1656,6 @@
   },
   "required-field": "Required field",
   "modal-close": "Close",
-  "biometric-auth": {
-    "button": "Authenticate",
-    "description-facial": "Use facial recognition",
-    "description-facial-finger": "Use facial recognition or fingerprint",
-    "description-facial-finger-iris": "Use facial recognition or fingerprint or iris recognition",
-    "description-facial-iris": "Use facial recognition or iris recognition",
-    "description-finger": "Use fingerprint",
-    "description-finger-iris": "Use fingerprint or iris recognition",
-    "description-iris": "Use iris recognition",
-    "description-nothing": "Your device doesn't support biometric authentication",
-    "result-cancelled": "The authentication was cancelled",
-    "result-disabled": "You can't use biometric authentication for now, you probably tried it too many times",
-    "result-error": "Something went wrong while authenticating",
-    "result-success": "Successfully authenticated"
-  },
   "health-profile": {
     "tooltip": "If you are sure all your answers are up to date, please tap ‘Next‘ again",
     "save-exit": "Save & Exit",
