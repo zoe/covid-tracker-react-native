@@ -28,7 +28,7 @@ interface IProps {
 
 export const CovidLFTQuickReport = (props: IProps) => {
   const toggleReBrand = useSelector(useToggleRebrand);
-  const patientId = useSelector<TRootState, string>((state) => state.assessment.patient || '');
+  const patientId = useSelector<TRootState, string>((state) => state.user.currentPatient.patientId || '');
 
   const [LFTResult, setLFTResult] = React.useState<ENegativePositiveFieldOptions>(ENegativePositiveFieldOptions.EMPTY);
   const [showLFTResultConfirmationModal, setShowLFTResultConfirmationModal] = React.useState<boolean>(false);
