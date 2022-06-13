@@ -189,10 +189,10 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
             </TouchableOpacity>
           ) : null}
           <UKEstimatedCaseCard onPress={onMoreDetails} />
-          <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
           <NewlySymptomaticCard />
           {showTrendline ? <TrendlineCard onPress={appCoordinator.goToTrendline} /> : null}
           <EstimatedCasesMapCard />
+          <FeaturedContentList screenName={route.name} type={EFeaturedContentType.Home} />
         </View>
 
         <PoweredByZoeSmall style={styling.marginVertical} />
