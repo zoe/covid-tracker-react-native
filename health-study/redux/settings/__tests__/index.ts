@@ -1,4 +1,4 @@
-import { MockClient } from '__mocks__/mockApiClient';
+import { MockClient } from '../../../../__mocks__/mockApiClient';
 import { store } from '../../store';
 import { settingsActions } from '../index';
 import { useSettingsState } from '../selectors';
