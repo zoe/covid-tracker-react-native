@@ -41,7 +41,6 @@ export type TScreenParamList = {
   ResetPasswordConfirm: undefined;
 
   // Authentication
-  BiometricAuth: undefined;
   Login: undefined;
 
   // Profile screens
@@ -112,14 +111,6 @@ export type TScreenParamList = {
   MentalHealthPlaybackRating: undefined;
   MentalHealthPlaybackThankYou: undefined;
 
-  // Mental health study
-  MentalHealthChanges: undefined;
-  MentalHealthEnd: undefined;
-  MentalHealthFrequency: undefined;
-  MentalHealthHistory: undefined;
-  MentalHealthLearning: undefined;
-  MentalHealthSupport: undefined;
-
   // Reconsent
   ReconsentDiseasePreferences: undefined;
   ReconsentDiseaseSummary: undefined;
@@ -140,9 +131,6 @@ export type TScreenParamList = {
 
   // Internal testing mode
   TestingMode: undefined;
-
-  // Media centre
-  MediaCentre: undefined;
 
   // Study hub
   StudiesList: undefined;
@@ -181,7 +169,6 @@ export type TScreenParamList = {
   AssessmentPage5LogNewSymptomReason: { report: TUsualSelf };
 
   // Others
-  Anniversary: undefined;
   EstimatedCases: undefined;
   Main: undefined;
   Modal: undefined;

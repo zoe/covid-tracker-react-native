@@ -5,7 +5,6 @@ import { Screen } from '@covid/components/Screen';
 import { ErrorText, RegularText } from '@covid/components/Text';
 import { assessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
-import { TStateApp } from '@covid/core/state/app/types';
 import { populatePatientLFTState, updateCurrentPatientLoggedToday } from '@covid/core/state/covid-tests/slice';
 import { TStateCovidTests } from '@covid/core/state/covid-tests/types';
 import { TRootState } from '@covid/core/state/root';
@@ -21,6 +20,7 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { dateIsToday } from '@covid/utils/datetime';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -62,9 +62,9 @@ export default function CovidTestListScreen(props: IProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [todaysLFT, setTodaysLFT] = React.useState<TCovidTest>();
 
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
+  const toggleReBrand = useSelector(useToggleRebrand);
   const startupInfo = useSelector<TRootState, TStartupInfo | undefined>(selectStartupInfo);
-  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
 
   const dispatch = useDispatch();
 

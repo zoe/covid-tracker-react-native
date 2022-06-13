@@ -97,12 +97,6 @@ export * from './icons/stats';
 export * from './icons/svgIcons';
 export { default as C19 } from './logos/C19';
 
-// Media Centre dummy cards
-export const mediaContentItem1 = require('@assets/media-centre/media-content-item-1.png');
-export const mediaContentItem2 = require('@assets/media-centre/media-content-item-2.png');
-export const mediaContentItem3 = require('@assets/media-centre/media-content-item-3.png');
-export const mediaContentItem4 = require('@assets/media-centre/media-content-item-4.png');
-
 // Study Hub
 export const externalResourcesPlaceholder = require('@assets/study-hub/external-resources-placeholder.png');
 

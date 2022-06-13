@@ -6,7 +6,6 @@ import {
 } from '@covid/components/inputsRedesigned/NegativePositiveField';
 import Analytics, { events } from '@covid/core/Analytics';
 import Logging, { contextNames, logLevel } from '@covid/core/Logging';
-import { TStateApp } from '@covid/core/state/app/types';
 import { TRootState } from '@covid/core/state/root';
 import { covidTestService } from '@covid/core/user/CovidTestService';
 import { ECovidTestType, TCovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -14,6 +13,7 @@ import { ECovidTestMechanismOptions, ECovidTestResultOptions } from '@covid/core
 import { CovidTestLFTResultConfirmationModal } from '@covid/features/covid-tests/modals/CovidTestLFTResultConfirmationModal';
 import i18n from '@covid/locale/i18n';
 import { dateToString } from '@covid/utils/datetime';
+import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import Tag from '@tracer/components/atoms/Tag';
 import * as React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
@@ -27,15 +27,15 @@ interface IProps {
 }
 
 export const CovidLFTQuickReport = (props: IProps) => {
-  const app = useSelector<TRootState, TStateApp>((state) => state.app);
-  const patientId = useSelector<TRootState, string>((state) => state.assessment.patient || '');
+  const toggleReBrand = useSelector(useToggleRebrand);
+  const patientId = useSelector<TRootState, string>((state) => state.user.currentPatient.patientId || '');
 
   const [LFTResult, setLFTResult] = React.useState<ENegativePositiveFieldOptions>(ENegativePositiveFieldOptions.EMPTY);
   const [showLFTResultConfirmationModal, setShowLFTResultConfirmationModal] = React.useState<boolean>(false);
   const [loadingLFTResult, setLoadingLFTResult] = React.useState<boolean>(false);
   const [LFTResultError, setLFTResultError] = React.useState<string>('');
 
-  const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
+  const styles = toggleReBrand ? healthStudyStyles : covidStyles;
 
   const onLFTResultButtonPress = (value: ENegativePositiveFieldOptions) => {
     setLFTResult(value);
@@ -113,7 +113,7 @@ export const CovidLFTQuickReport = (props: IProps) => {
       <CovidTestLFTResultConfirmationModal
         onPositiveConfirmation={addLFT}
         onRequestClose={dismissModal}
-        reBrand={app.toggleReBrand}
+        reBrand={toggleReBrand}
         result={LFTResult}
         visible={showLFTResultConfirmationModal}
       />
@@ -147,7 +147,7 @@ export const CovidLFTQuickReport = (props: IProps) => {
             <NegativePositiveField
               key={LFTResult}
               onValueChange={onLFTResultButtonPress}
-              reBrand={app.toggleReBrand}
+              reBrand={toggleReBrand}
               selectedValue={LFTResult}
               testID="covid-test-lft-quick-report"
             />

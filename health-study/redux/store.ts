@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import example from './example-reducer';
+import app from './app';
+import example from './reducer-template';
+// import new reducers here and ref them below
 
 export const store = configureStore({
-  reducer: { example },
+  reducer: { app, example },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
