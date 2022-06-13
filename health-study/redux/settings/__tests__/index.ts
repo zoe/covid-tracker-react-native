@@ -1,5 +1,4 @@
-import { MockClient } from '@health-study/redux/utils';
-
+import { MockClient } from '__mocks__/mockApiClient';
 import { store } from '../../store';
 import { settingsActions } from '../index';
 import { useSettingsState } from '../selectors';
