@@ -1,7 +1,6 @@
 import { ErrorText } from '@covid/components';
 import { Form } from '@covid/components/Form';
 import { PNTS_VALUE_TO_SAVE_IN_DB, TEXT_INPUT_PNTS_LABEL } from '@covid/components/inputsRedesigned/constants';
-import Analytics, { events } from '@covid/core/Analytics';
 import { healthProfileService } from '@covid/core/health-profile/HealthProfileService';
 import {
   THealthProfileScreenNames,
@@ -39,6 +38,7 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';

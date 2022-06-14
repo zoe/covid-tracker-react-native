@@ -1,12 +1,12 @@
 import { closeIcon } from '@assets';
 import { BrandedButton, HeaderText, Tag, Text } from '@covid/components';
 import { Modal } from '@covid/components/Modal';
-import Analytics, { events } from '@covid/core/Analytics';
 import { TStateHealthProfile } from '@covid/core/state/health-profile/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { colors } from '@theme';
 import * as React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';

@@ -1,9 +1,9 @@
 import { social } from '@assets';
 import { BrandedButton } from '@covid/components/buttons';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { colors } from '@theme';
 import * as React from 'react';
 import { Image, Platform, Share, ShareAction, StyleSheet, View } from 'react-native';

@@ -1,9 +1,9 @@
 import { facebook } from '@assets';
 import { BrandedButton } from '@covid/components';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
 import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
+import Analytics, { events } from '@health-study/analytics';
 import { colors } from '@theme';
 import * as React from 'react';
 import { Image, StyleSheet, View } from 'react-native';

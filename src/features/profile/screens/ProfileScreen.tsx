@@ -11,7 +11,6 @@ import {
 import AvatarProfileScreen from '@assets/v2/svg/avatar-profile-screen';
 import { CaptionText, Tag, Text, TextWithBoldInserts } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
-import Analytics, { events } from '@covid/core/Analytics';
 import { TPatientData } from '@covid/core/patient/PatientData';
 import { patientService } from '@covid/core/patient/PatientService';
 import { TRootState } from '@covid/core/state/root';
@@ -21,6 +20,7 @@ import { AppCoordinator, appCoordinator } from '@covid/features/AppCoordinator';
 import { editProfileCoordinator } from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { events } from '@health-study/analytics';
 import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { NavigationContainerRef, useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';

@@ -1,6 +1,6 @@
 import analytics, { FirebaseAnalyticsTypes } from '@react-native-firebase/analytics';
 
-import { TScreenName } from '../Coordinator';
+import { TScreenName } from '../../../src/core/Coordinator';
 
 export type TFirebaseUserProperties = {
   hasConsented: string;
@@ -17,8 +17,6 @@ export function firebaseAnalytics() {
     // method used to check if api is initialized
     // before use. if not, we should throw an error/log
     isInitialized: () => !!api,
-    // TODO(iman@joinzoe.com) refactor to use TEventName type
-    // w/o circular import
     logEvent: (event: any, params?: { [key: string]: any }): Promise<void> => {
       if (!params) return api.logEvent(event);
       return api.logEvent(event, params);

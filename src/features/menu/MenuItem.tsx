@@ -1,7 +1,7 @@
 import { Text } from '@covid/components';
 import { WithNotificationDot } from '@covid/components/WithNotificationDot';
-import Analytics, { events } from '@covid/core/Analytics';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
