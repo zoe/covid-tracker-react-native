@@ -3,7 +3,7 @@
 mkdir -p .signing
 
 echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
-# echo "$GOOGLE_SERVICE_INFO_PLIST" | base64 --decode > GoogleService-Info.plist
+echo "$GOOGLE_SERVICE_INFO_PLIST" | base64 --decode > GoogleService-Info.plist
 echo $KEYSTORE_FILE | base64 -d > .signing/release.jks
 
 cp google-services.json ./android/app/google-services.json
