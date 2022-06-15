@@ -1,5 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 project.ext.envConfigFiles = [
     debug: ".env",
@@ -266,6 +268,8 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     apply plugin: 'com.google.gms.google-services'
+
+    implementation 'com.google.firebase:firebase-installations:17.0.1'
 
     // For animated GIF support
     implementation 'com.facebook.fresco:animated-gif:2.5.0'
