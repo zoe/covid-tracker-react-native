@@ -269,6 +269,8 @@ dependencies {
 
     apply plugin: 'com.google.gms.google-services'
 
+    implementation 'com.google.firebase:firebase-installations:17.0.1'
+
     // For animated GIF support
     implementation 'com.facebook.fresco:animated-gif:2.5.0'
 
