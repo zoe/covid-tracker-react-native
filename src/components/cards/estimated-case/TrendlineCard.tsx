@@ -51,7 +51,9 @@ export function TrendlineCard(props: IProps) {
       <Text inverted colorPalette="uiDark" colorShade="dark" textClass={props.isSharing ? 'pXSmall' : 'pSmallLight'}>
         {i18n.t('trendline.active-covid-cases-subheader')}
       </Text>
-      {localTrendline?.timeseries ? (
+      {localTrendline?.timeseries !== undefined &&
+      localTrendline?.timeseries !== null &&
+      localTrendline?.timeseries.length > 0 ? (
         <TrendlineCardContent
           isSharing={props.isSharing}
           localTrendline={localTrendline}
