@@ -19,14 +19,13 @@ const IconInfo: React.FC<TIconInfoProps> = ({
     <Svg fill={fill} height={height} viewBox="0 0 24 24" width={width}>
       <Circle cx="12" cy="12" fill={fill} r="12" transform="rotate(-180 12 12)" />
       <Path
-        d="M15.5 8C15.5 12.1421 12.1421 15.5 8 15.5C3.85786 15.5 0.5 12.1421 0.5 8C0.5 3.85786 3.85786 0.5 8 0.5C12.1421 0.5 15.5 3.85786 15.5 8Z"
+        d="M12 18.3281V12M12 23.25C18.2132 23.25 23.25 18.2132 23.25 12C23.25 5.7868 18.2132 0.75 12 0.75C5.7868 0.75 0.75 5.7868 0.75 12C0.75 18.2132 5.7868 23.25 12 23.25Z"
         stroke={strokeColor}
         stroke-linecap="round"
         stroke-linejoin="round"
       />
-      <Path d="M8 12.5V8" stroke={strokeColor} strokeLinecap="round" strokeLinejoin="round" />
       <Path
-        d="M7.9998 6.4C8.66255 6.4 9.1998 5.86274 9.1998 5.2C9.1998 4.53726 8.66255 4 7.9998 4C7.33706 4 6.7998 4.53726 6.7998 5.2C6.7998 5.86274 7.33706 6.4 7.9998 6.4Z"
+        d="M11.999 9.6C12.9931 9.6 13.799 8.79411 13.799 7.8C13.799 6.80589 12.9931 6 11.999 6C11.0049 6 10.199 6.80589 10.199 7.8C10.199 8.79411 11.0049 9.6 11.999 9.6Z"
         fill={strokeColor}
       />
     </Svg>
