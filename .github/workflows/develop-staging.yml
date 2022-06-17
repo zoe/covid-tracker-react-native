@@ -147,6 +147,9 @@ jobs:
       #       .private-assets
       #       assets/fonts
       #     key: private-assets
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
       - name: Install private assets
         shell: bash
         run: .github/install_private_assets.sh
@@ -224,6 +227,9 @@ jobs:
       #       .private-assets
       #       assets/fonts
       #     key: private-assets
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.CSS_ASSETS_SSH_PRIVATE_KEY }}
       - name: Install private assets
         shell: bash
         run: .github/install_private_assets.sh
