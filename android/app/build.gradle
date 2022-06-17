@@ -267,8 +267,6 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    apply plugin: 'com.google.gms.google-services'
-
     // For animated GIF support
     implementation 'com.facebook.fresco:animated-gif:2.5.0'
 
