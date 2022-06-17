@@ -196,6 +196,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+      - run: cat GoogleService-Info.plist | head 1
       - run: yarn generate:git-hash
       - name: Pod clean and install
         run: cd ios && pod install --clean-install
@@ -277,6 +278,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+      - run: cat google-services.json | head 3
       - run: yarn generate:git-hash
       - run: |
           bundle config path vendor/bundle clean 'true'
