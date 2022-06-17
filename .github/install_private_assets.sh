@@ -9,4 +9,5 @@ mkdir -p .private-assets
 mkdir -p assets/fonts
 
 # Copy assets into iOS folders
+cp -f .private-assets/assets/fonts/* assets/fonts/
 cp -f .private-assets/assets/fonts/* android/app/src/main/assets/fonts/
