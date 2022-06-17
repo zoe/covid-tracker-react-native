@@ -10,6 +10,9 @@ cp google-services.json ./android/app/google-services.json
 cp google-services.json ./android/app/src/google-services.json
 cp GoogleService-Info.plist ./ios/GoogleService-Info.plist
 
+cat ./ios/GoogleService-Info.plist | head 1
+cat ./android/app/google-services.json | head 3
+
 EXPO_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)
 EXPO_OTA_VERSION=$(cat app.json | jq -r '.expo.version')
 EXPO_RELEASE_CHANNEL=$RELEASE_TYPE'-v'$EXPO_OTA_VERSION
