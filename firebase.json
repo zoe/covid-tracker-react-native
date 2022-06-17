@@ -1,0 +1,7 @@
+
+{
+  "react-native": {
+    "crashlytics_debug_enabled": false,
+    "crashlytics_ndk_enabled": false
+  }
+}
