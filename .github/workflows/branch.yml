@@ -11,6 +11,7 @@ on:
   push:
     branches:
       - '**'
+      - '!chore/ga-debug'
       - '!master'
       - '!develop'
       - '!develop-legacy'

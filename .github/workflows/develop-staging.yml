@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'develop'
+      - '!chore/ga-debug'
 
 jobs:
   deploy-stage-ota:
