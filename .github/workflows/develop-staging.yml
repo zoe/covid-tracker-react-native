@@ -140,13 +140,16 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
-      - name: Restore private assets from cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            .private-assets
-            assets/fonts
-          key: private-assets
+      # - name: Restore private assets from cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       .private-assets
+      #       assets/fonts
+      #     key: private-assets
+      - name: Install private assets
+        shell: bash
+        run: .github/install_private_assets.sh
       - name: Restore gems from cache
         uses: actions/cache@v3
         with:
@@ -214,13 +217,16 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
-      - name: Restore private assets from cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            .private-assets
-            assets/fonts
-          key: private-assets
+      # - name: Restore private assets from cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       .private-assets
+      #       assets/fonts
+      #     key: private-assets
+      - name: Install private assets
+        shell: bash
+        run: .github/install_private_assets.sh
       - name: Restore gems from cache
         uses: actions/cache@v3
         with:
