@@ -7,6 +7,7 @@ echo "$GOOGLE_SERVICE_INFO_PLIST" | base64 --decode > GoogleService-Info.plist
 echo $KEYSTORE_FILE | base64 -d > .signing/release.jks
 
 cp google-services.json ./android/app/google-services.json
+cp google-services.json ./android/app/src/google-services.json
 cp GoogleService-Info.plist ./ios/GoogleService-Info.plist
 
 EXPO_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)
