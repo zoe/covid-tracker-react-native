@@ -202,7 +202,7 @@ ios/Pods/
 *.mobileprovision
 
 # Fonts
-android/app/src/main/assets/fonts/SofiaPro*.otf
+android/app/src/main/assets/fonts/*
 /assets/fonts/*
 fastlane/devices.txt
 .env.local

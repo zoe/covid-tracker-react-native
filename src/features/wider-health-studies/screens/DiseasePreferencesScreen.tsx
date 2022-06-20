@@ -1,9 +1,9 @@
 import { Text } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
-import Analytics, { events } from '@covid/core/Analytics';
 import { DiseasePreferencesList } from '@covid/features/wider-health-studies/components/DiseasePreferencesList';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { events } from '@health-study/analytics';
 import * as React from 'react';
 
 function onSubmit() {

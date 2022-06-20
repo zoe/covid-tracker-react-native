@@ -1,9 +1,9 @@
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text } from '@covid/components/typography';
-import Analytics, { events } from '@covid/core/Analytics';
 import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
+import Analytics, { events } from '@health-study/analytics';
 import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { useNavigation } from '@react-navigation/native';
 import { sizes } from '@tracer/branding/grid';

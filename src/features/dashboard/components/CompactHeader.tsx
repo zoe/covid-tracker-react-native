@@ -1,8 +1,8 @@
 import { covidIcon } from '@assets';
 import InAppCompactIcon from '@assets/v2/svg/in-app-compact-icon';
-import Analytics, { events } from '@covid/core/Analytics';
 import { EHeaderType } from '@covid/features/dashboard/types';
 import i18n from '@covid/locale/i18n';
+import Analytics, { events } from '@health-study/analytics';
 import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import Button from '@tracer/components/atoms/Button';
 import React from 'react';

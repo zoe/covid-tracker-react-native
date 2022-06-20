@@ -1,4 +1,4 @@
-import Analytics, { events } from '@covid/core/Analytics';
+import Analytics, { events } from '@health-study/analytics';
 import * as WebBrowser from 'expo-web-browser';
 
 export const openWebLink = (link: string) => {

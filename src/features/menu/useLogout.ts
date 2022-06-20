@@ -1,8 +1,8 @@
-import Analytics, { events } from '@covid/core/Analytics';
 import { resetDiseasePreferences, resetFeedback } from '@covid/core/state/reconsent';
 import { reset as resetUser } from '@covid/core/state/user';
 import { userService } from '@covid/core/user/UserService';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { events } from '@health-study/analytics';
 import { appActions } from '@health-study/redux/app';
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 import { NavigationContainerRef } from '@react-navigation/native';
