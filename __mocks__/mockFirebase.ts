@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-jest.mock('@health-study/firebase/analytics', () => ({
+jest.mock('@health-study/analytics/firebase/analytics', () => ({
   firebaseAnalytics: jest.fn(() => ({
     isInitialized: jest.fn(() => true),
     logEvent: jest.fn(() => Promise.resolve(null)),
