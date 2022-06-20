@@ -1,7 +1,6 @@
 import { CovidAppByZOE } from '@assets/logos/CovidAppByZOE';
 import InAppHeaderIcon from '@assets/v2/svg/in-app-header-icon';
 import { CaptionText, Header3Text, RegularText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
 import { TStateContent } from '@covid/core/state/content/slice';
 import { TRootState } from '@covid/core/state/root';
 import { selectStartupInfo } from '@covid/core/state/selectors';
@@ -9,6 +8,7 @@ import { TStartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { EHeaderType } from '@covid/features/dashboard/types';
 import i18n from '@covid/locale/i18n';
 import { cleanIntegerVal } from '@covid/utils/number';
+import Analytics, { events } from '@health-study/analytics';
 import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import Button from '@tracer/components/atoms/Button';
 import * as React from 'react';

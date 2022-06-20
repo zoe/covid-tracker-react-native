@@ -1,12 +1,12 @@
 import { closeIcon } from '@assets';
 import { ContentLoadingView } from '@covid/components/content/ContentLoadingView';
-import Analytics, { events } from '@covid/core/Analytics';
 import { addDismissCallout } from '@covid/core/state/content/slice';
 import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import { openWebLink } from '@covid/utils/links';
-import * as React from 'react';
+import Analytics, { events } from '@health-study/analytics';
+import React from 'react';
 import {
   Image,
   ImageSourcePropType,

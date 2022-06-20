@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { Text } from '@covid/components/typography';
-import Analytics from '@covid/core/Analytics';
+import Analytics, { events } from '@health-study/analytics';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
 import * as React from 'react';

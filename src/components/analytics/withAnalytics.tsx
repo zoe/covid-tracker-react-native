@@ -1,5 +1,5 @@
-import Analytics from '@covid/core/Analytics';
-import * as React from 'react';
+import Analytics from '@health-study/analytics';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
 type TWrapperProps = {

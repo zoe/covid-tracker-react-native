@@ -1,7 +1,6 @@
 import { Avatar, DoctorProfile, Text } from '@covid/components';
 import { NavHeader } from '@covid/components/NavHeader';
 import { ScrollView } from '@covid/components/ScrollView';
-import Analytics, { events } from '@covid/core/Analytics';
 import { TRootState } from '@covid/core/state/root';
 import { studyHubSlice } from '@covid/core/state/study-hub/slice';
 import { EInteraction } from '@covid/core/state/study-hub/types';
@@ -22,6 +21,7 @@ import { EStudyKey, TStudies } from '@covid/features/study-hub/types';
 import i18n from '@covid/locale/i18n';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
 import * as React from 'react';

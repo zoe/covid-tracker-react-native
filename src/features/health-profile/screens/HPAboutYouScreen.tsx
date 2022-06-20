@@ -3,7 +3,6 @@ import { Form } from '@covid/components/Form';
 import { PNTS_VALUE_TO_SAVE_IN_DB, TEXT_INPUT_PNTS_LABEL } from '@covid/components/inputsRedesigned/constants';
 import { Loading } from '@covid/components/Loading';
 import { ValidationError } from '@covid/components/ValidationError';
-import Analytics, { events } from '@covid/core/Analytics';
 import {
   fetchExistingHealthProfile,
   THealthProfileScreenNames,
@@ -35,6 +34,7 @@ import { WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { useFocusEffect } from '@react-navigation/native';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';

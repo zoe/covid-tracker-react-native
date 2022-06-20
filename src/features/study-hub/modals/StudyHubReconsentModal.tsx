@@ -1,10 +1,10 @@
 import { BrandedButton, ClickableText, Text } from '@covid/components';
 import { Modal } from '@covid/components/Modal';
-import Analytics, { events } from '@covid/core/Analytics';
 import { useStartReconsent } from '@covid/features/wider-health-studies/hooks/useStartReconsent';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes, styling } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { colors } from '@theme';
 import * as React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';

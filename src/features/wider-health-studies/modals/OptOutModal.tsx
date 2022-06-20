@@ -1,7 +1,6 @@
 import { BrandedButton, Text } from '@covid/components';
 import { Modal } from '@covid/components/Modal';
 import { ErrorText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
 import { consentService } from '@covid/core/consent/ConsentService';
 import { patientService } from '@covid/core/patient/PatientService';
 import { fetchStartupInfo } from '@covid/core/state/content/slice';
@@ -9,6 +8,7 @@ import { TRootState } from '@covid/core/state/root';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { colors } from '@theme';
 import * as React from 'react';
 import { ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';

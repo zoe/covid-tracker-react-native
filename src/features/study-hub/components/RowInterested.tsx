@@ -1,5 +1,4 @@
 import { Text } from '@covid/components';
-import Analytics, { events } from '@covid/core/Analytics';
 import { patientService } from '@covid/core/patient/PatientService';
 import { updateShowStudyHubInterestFirstTimeModal } from '@covid/core/state';
 import { onboardingActions } from '@covid/core/state/onboarding/slice';
@@ -15,6 +14,7 @@ import { InterestShownModal } from '@covid/features/study-hub/modals/InterestSho
 import { TStudy } from '@covid/features/study-hub/types';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { colors } from '@theme';
 import lodash from 'lodash';
 import * as React from 'react';

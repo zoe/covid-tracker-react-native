@@ -1,4 +1,3 @@
-import Analytics, { events } from '@covid/core/Analytics';
 import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { TRootState } from '@covid/core/state/root';
@@ -9,6 +8,7 @@ import { LinkItem } from '@covid/features/menu/LinkItem';
 import { useLogout } from '@covid/features/menu/useLogout';
 import i18n from '@covid/locale/i18n';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 import { colors } from '@theme';
 import * as React from 'react';

@@ -1,5 +1,4 @@
 import { Header3Text, RegularText, ShareScreen } from '@covid/components';
-import Analytics, { events } from '@covid/core/Analytics';
 import VersionUpdateModal from '@covid/core/VersionUpdateModal';
 import { HealthProfileIntroModal } from '@covid/features';
 import MentalHealthPlaybackModal from '@covid/features/mental-health-playback/modals/MentalHealthPlaybackModal';
@@ -10,6 +9,7 @@ import NavigatorService from '@covid/NavigatorService';
 import MainNavigator from '@covid/routes';
 import { TScreenParamList } from '@covid/routes/types';
 import { sizes } from '@covid/themes';
+import Analytics, { events } from '@health-study/analytics';
 import { appActions } from '@health-study/redux/app';
 import { useAppState } from '@health-study/redux/app/selectors';
 import { useAppDispatch } from '@health-study/redux/hooks';
