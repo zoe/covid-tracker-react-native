@@ -182,16 +182,6 @@ export const events = {
 
 export type TEventName = keyof typeof events;
 
-// Disable Tracking of the User Properties (Only available in Expo SDK 37)
-// https://docs.expo.io/versions/latest/sdk/amplitude/#amplitudeinitializeapikey
-// These are disabled at the project level by Amplitude via a support ticket.
-// const trackingOptions = {
-//   disableCarrier: true,
-//   disableCity: true,
-//   disableIDFA: true,
-//   disableLatLng: true,
-// };
-
 function initialize(): void {
   if (isInitialized || !appConfig.amplitudeKey) {
     return;
