@@ -136,7 +136,7 @@ jobs:
     needs: setup-stage-release
     runs-on: macos-latest
     environment: staging-release
-    timeout-minutes: 30
+    timeout-minutes: 50
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
@@ -216,7 +216,7 @@ jobs:
     needs: setup-stage-release
     runs-on: macos-latest
     environment: staging-release
-    timeout-minutes: 30
+    timeout-minutes: 50
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
