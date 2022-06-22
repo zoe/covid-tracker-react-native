@@ -15,7 +15,7 @@ import { useAppState } from '@health-study/redux/app/selectors';
 import { useAppDispatch } from '@health-study/redux/hooks';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colors } from '@theme';
 import * as Notifications from 'expo-notifications';
 import { Root } from 'native-base';
@@ -24,7 +24,7 @@ import { Dimensions, View } from 'react-native';
 import Toast, { ToastConfig } from 'react-native-toast-message';
 import { useSelector } from 'react-redux';
 
-const Stack = createStackNavigator<TScreenParamList>();
+const Stack = createNativeStackNavigator<TScreenParamList>();
 const Drawer = createDrawerNavigator();
 
 const drawerContent = (props: DrawerContentComponentProps) => <DrawerMenu {...props} />;
