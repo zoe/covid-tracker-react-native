@@ -1,44 +1,49 @@
 import * as screens from '@covid/features/screens';
 import { TScreenParamList } from '@covid/routes/types';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import * as React from 'react';
 
-const StackType = createStackNavigator<TScreenParamList>();
+const StackType = createNativeStackNavigator<TScreenParamList>();
 
 interface IProps {
   Stack: typeof StackType;
 }
 
-const noHeader = {
+const screenOptions: NativeStackNavigationOptions = {
+  animation: 'slide_from_right',
   headerShown: false,
 };
 
 export default function ReconsentNavigator({ Stack }: IProps) {
   return (
     <>
-      <Stack.Screen component={screens.ReconsentIntroductionScreen} name="ReconsentIntroduction" options={noHeader} />
+      <Stack.Screen
+        component={screens.ReconsentIntroductionScreen}
+        name="ReconsentIntroduction"
+        options={screenOptions}
+      />
       <Stack.Screen
         component={screens.ReconsentDiseasePreferencesScreen}
         name="ReconsentDiseasePreferences"
-        options={noHeader}
+        options={screenOptions}
       />
       <Stack.Screen
         component={screens.ReconsentDiseaseSummaryScreen}
         name="ReconsentDiseaseSummary"
-        options={noHeader}
+        options={screenOptions}
       />
       <Stack.Screen
         component={screens.ReconsentRequestConsentScreen}
         name="ReconsentRequestConsent"
-        options={noHeader}
+        options={screenOptions}
       />
       <Stack.Screen
         component={screens.ReconsentNewsletterSignupScreen}
         name="ReconsentNewsletterSignup"
-        options={noHeader}
+        options={screenOptions}
       />
-      <Stack.Screen component={screens.ReconsentFeedbackScreen} name="ReconsentFeedback" options={noHeader} />
-      <Stack.Screen component={screens.ReconsentReconsiderScreen} name="ReconsentReconsider" options={noHeader} />
+      <Stack.Screen component={screens.ReconsentFeedbackScreen} name="ReconsentFeedback" options={screenOptions} />
+      <Stack.Screen component={screens.ReconsentReconsiderScreen} name="ReconsentReconsider" options={screenOptions} />
     </>
   );
 }

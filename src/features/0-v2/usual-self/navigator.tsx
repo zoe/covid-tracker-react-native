@@ -1,17 +1,18 @@
 import { TScreenParamList } from '@covid/routes/types';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import React from 'react';
 
 import UsualSelfIntroScreen from './screens/0-UsualSelfIntroFlowScreen';
 import UsualSelfFormScreen from './screens/1-UsualSelfFormFlowScreen';
 
-const StackType = createStackNavigator<TScreenParamList>();
+const StackType = createNativeStackNavigator<TScreenParamList>();
 
 interface IProps {
   Stack: typeof StackType;
 }
 
-const screenOptions = {
+const screenOptions: NativeStackNavigationOptions = {
+  animation: 'slide_from_right',
   gestureEnabled: false,
   headerShown: false,
 };
