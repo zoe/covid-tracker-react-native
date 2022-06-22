@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
 type TProps = {
@@ -8,7 +8,7 @@ type TProps = {
   initialParams?: Object;
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function MockedNavigator({ Component, initialParams }: TProps) {
   return (
