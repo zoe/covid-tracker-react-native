@@ -6,20 +6,18 @@ import MentalHealthPlaybackNavigator from '@covid/routes/MentalHealthPlaybackNav
 import ReconsentNavigator from '@covid/routes/ReconsentNavigator';
 import StudyHubNavigator from '@covid/routes/StudyHubNavigator';
 import { RouteProp } from '@react-navigation/native';
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import React from 'react';
-import { Platform } from 'react-native';
 
 import { TScreenParamList } from './types';
 
 // Fix Android bug where stack navigation during http load can cause error:
 // https://github.com/react-navigation/react-navigation/issues/9067
-const Stack = createStackNavigator<TScreenParamList>();
-const transitionPresets = Platform.OS === 'android' ? TransitionPresets.FadeFromBottomAndroid : {};
+const Stack = createNativeStackNavigator<TScreenParamList>();
 
-const options = {
+const options: NativeStackNavigationOptions = {
+  animation: 'slide_from_right',
   headerShown: false,
-  transitionPresets,
 };
 
 const healthProfileFormScreenOptions = (
