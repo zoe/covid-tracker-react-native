@@ -14,3 +14,4 @@ import './Forms/Form.stories';
 import './Screen/Screen.stories';
 import './Dot/Dot.stories';
 import './Flows/FeatureIntro.stories';
+import './IconCarousel/IconCarousel.stories';
