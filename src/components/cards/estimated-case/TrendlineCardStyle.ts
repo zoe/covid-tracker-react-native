@@ -89,6 +89,7 @@ export const healthStudyStyles = StyleSheet.create({
     backgroundColor: HealthStudyBranding.colors.white,
     borderRadius: HealthStudyBranding.sizes.g16,
     marginVertical: HealthStudyBranding.sizes.g8,
+    paddingBottom: HealthStudyBranding.sizes.g32,
     paddingHorizontal: HealthStudyBranding.sizes.g16,
     paddingTop: HealthStudyBranding.sizes.g40,
   },

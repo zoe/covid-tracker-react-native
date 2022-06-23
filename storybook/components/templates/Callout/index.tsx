@@ -40,7 +40,7 @@ const calloutConfig: CalloutIconStyleMapping = {
 export interface ICalloutProps {
   testID?: string;
   compact?: boolean;
-  calloutType: TCalloutType;
+  calloutType?: TCalloutType;
   text?: string;
 }
 

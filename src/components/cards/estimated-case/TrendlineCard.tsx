@@ -1,5 +1,3 @@
-import ChevronRight from '@assets/icons/ChevronRight';
-import { TrendlineChart } from '@covid/components/charts/TrendlineChart';
 import { ESharable } from '@covid/components/screens/share/types';
 import { Text } from '@covid/components/typography';
 import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
@@ -8,14 +6,14 @@ import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@health-study/analytics';
 import { useToggleRebrand } from '@health-study/redux/app/selectors';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '@theme';
+import { sizes } from '@tracer/branding/grid';
 import CovidTag from '@tracer/components/molecules/CovidTag';
-import ShareButton from '@tracer/components/molecules/ShareButton';
-import * as React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import Callout from '@tracer/components/templates/Callout';
+import React from 'react';
+import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { DeltaTag } from './DeltaTag';
+import TrendlineCardContent from './TrendlineCardContent';
 import {
   COVID_SHARE_BTN_COLOR,
   covidStyles,
@@ -53,57 +51,25 @@ export function TrendlineCard(props: IProps) {
       <Text inverted colorPalette="uiDark" colorShade="dark" textClass={props.isSharing ? 'pXSmall' : 'pSmallLight'}>
         {i18n.t('trendline.active-covid-cases-subheader')}
       </Text>
-
-      <TouchableOpacity
-        activeOpacity={props.isSharing ? 1 : undefined}
-        onPress={props.isSharing ? undefined : onPress}
-        style={styles.touchableChart}
-      >
-        <View pointerEvents="none">
-          <TrendlineChart height={props.isSharing ? 150 : 200} />
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        activeOpacity={props.isSharing ? 1 : undefined}
-        onPress={props.isSharing ? undefined : onPress}
-        style={[styles.touchableText, props.isSharing ? styles.minimisePadding : null]}
-      >
-        {localTrendline?.today || localTrendline?.today === 0 ? (
-          <Text style={styles.marginRight} textClass={props.isSharing ? 'h1' : 'h0'}>
-            {localTrendline?.today}
-          </Text>
-        ) : null}
-
-        <Text inverted colorPalette="uiDark" colorShade="dark" style={styles.flex} textClass="pSmallLight">
-          {i18n.t('trendline.active-cases-in-your-area')}
-        </Text>
-
-        <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={32} width={32} />
-      </TouchableOpacity>
-
-      {localTrendline?.delta ? (
-        <DeltaTag change={localTrendline.delta} style={!props.isSharing ? styles.alignCenter : styles.deltaTag} />
-      ) : null}
-
-      <Text
-        inverted
-        colorPalette="uiDark"
-        colorShade="dark"
-        style={[styles.flex, props.isSharing ? styles.minimiseMargin : styles.marginTop]}
-        textClass="pSmallLight"
-      >
-        {i18n.t('trendline.data-timeframe')}
-      </Text>
-
-      {!props.isSharing ? (
-        <ShareButton
-          label={i18n.t('dashboard.trendline-card.share-cta')}
-          onPress={onPressShare}
-          shareIconStrokeColor={shareBtnColor}
-          textStyle={{ color: shareBtnColor }}
+      {localTrendline?.timeseries !== undefined &&
+      localTrendline?.timeseries !== null &&
+      localTrendline?.timeseries.length > 0 ? (
+        <TrendlineCardContent
+          isSharing={props.isSharing}
+          localTrendline={localTrendline}
+          onPress={onPress}
+          onPressShare={onPressShare}
+          shareBtnColor={shareBtnColor}
+          styles={styles}
         />
-      ) : null}
+      ) : (
+        <View style={{ paddingVertical: sizes.g8 }}>
+          <Callout
+            calloutType="info"
+            text="COVID trend data in your area is temporarily unavailable due to an app update. This will be resolved in a few weeks."
+          />
+        </View>
+      )}
       <CovidTag />
     </View>
   );
