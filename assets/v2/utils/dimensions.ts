@@ -7,19 +7,8 @@ export type TIconDimensionConfig = {
 };
 
 export function withDimensions(config: TIconDimensionConfig, defaultWidth: number, defaultHeight: number) {
-  let width = defaultWidth;
-  let height = defaultHeight;
-
-  if (config.width && config.height) {
-    width = config.width;
-    height = config.height;
-  } else if (config.width) {
-    width = config.width;
-    height = defaultHeight * (config.width / defaultWidth);
-  } else if (config.height) {
-    width = defaultWidth * (config.height / defaultHeight);
-    height = config.height;
-  }
+  let width = config.width || defaultWidth * (config.height / defaultHeight);
+  let height = config.height || defaultHeight * (config.width / defaultWidth);
 
   if (config.maxDimension) {
     const ratio = Math.max(width, height) / config.maxDimension;
