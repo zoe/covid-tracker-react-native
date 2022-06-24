@@ -9,4 +9,5 @@ export type IconDimensionProps = {
 export interface IconDiseaseProps extends IconDimensionProps {
   fill?: string;
   strokeColor?: string;
+  color?: string;
 }

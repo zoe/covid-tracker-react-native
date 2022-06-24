@@ -1,6 +1,7 @@
 import IconDiseaseBrain from '@assets/v2/svg/diseases/icon-brain';
 import IconDiseaseHeart from '@assets/v2/svg/diseases/icon-heart';
 import IconDiseaseLungs from '@assets/v2/svg/diseases/icon-lungs';
+import DiseaseReproductiveHealth from '@assets/v2/svg/diseases/icon-reproductive-health';
 import IconDiseaseSightHearing from '@assets/v2/svg/diseases/icon-sight-and-hearing';
 import { BrandedButton, EFeaturedContentType, FeaturedContentList } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
@@ -178,10 +179,10 @@ export default function ThankYouUKScreen(props: IProps) {
 
   // TODO: Remove this and replace with redux + utils to get Icons + Labels
   const icons = [
-    { icon: <IconDiseaseBrain height={40} width={40} />, label: 'Dementia' },
-    { icon: <IconDiseaseHeart height={40} width={40} />, label: 'Heart' },
-    { icon: <IconDiseaseSightHearing height={40} width={40} />, label: 'Vision' },
-    { icon: <IconDiseaseLungs height={40} width={40} />, label: 'Lungs' },
+    { icon: <DiseaseReproductiveHealth height={60} width={60} />, label: 'Dementia' },
+    { icon: <IconDiseaseHeart height={60} width={60} />, label: 'Heart' },
+    { icon: <IconDiseaseSightHearing height={60} width={60} />, label: 'Vision' },
+    { icon: <IconDiseaseLungs height={60} width={60} />, label: 'Lungs' },
   ];
 
   return (
