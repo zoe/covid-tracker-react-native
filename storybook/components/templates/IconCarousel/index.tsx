@@ -40,10 +40,10 @@ export default function IconCarousel({
 
   return (
     <Carousel
-      loop
       useScrollView
       data={icons}
       itemWidth={width / 3}
+      loop={icons.length > 2}
       onSnapToItem={(index) => onSwipe(index)}
       renderItem={iconItem}
       sliderWidth={width}
