@@ -209,7 +209,9 @@ export default function ThankYouUKScreen(props: IProps) {
 
         <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-        <IconCarousel icons={icons} />
+        <View style={styles.carouselContainer}>
+          <IconCarousel icons={icons} />
+        </View>
 
         <FeaturedContentList screenName={props.route.name} type={EFeaturedContentType.ThankYou} />
 
@@ -232,6 +234,10 @@ export default function ThankYouUKScreen(props: IProps) {
 }
 
 const styles = StyleSheet.create({
+  carouselContainer: {
+    alignItems: 'center',
+    marginBottom: sizes.xl,
+  },
   ctaMultipleProfileText: {
     alignSelf: 'center',
     color: colors.purple,
