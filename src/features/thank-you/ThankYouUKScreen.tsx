@@ -32,7 +32,7 @@ import { appActions } from '@health-study/redux/app';
 import { useAppDispatch } from '@health-study/redux/hooks';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
-import IconCarousel, { IIconCarouselProps } from '@tracer/components/templates/IconCarousel';
+import IconCarousel from '@tracer/components/templates/IconCarousel';
 import moment from 'moment';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
