@@ -11,9 +11,9 @@ export type IconCarouselItem = {
 };
 
 export interface IIconCarouselProps {
-  icons: IconCarouselItem[];
+  icons: Array<IconCarouselItem>;
   style?: StyleProp<ViewStyle>;
-  onSwipe: (index: number) => void;
+  onSwipe?: (index: number) => void;
   testID?: string;
 }
 
@@ -27,7 +27,12 @@ export interface IconCarouselRenderItem {
  *
  * @param style custom styling, overrides all other styles
  */
-export default function IconCarousel({ style, icons, onSwipe, testID = 'IconCarousel-test-id' }: IIconCarouselProps) {
+export default function IconCarousel({
+  style,
+  icons,
+  onSwipe = () => undefined,
+  testID = 'IconCarousel-test-id',
+}: IIconCarouselProps) {
   const iconItem = ({ item, index }: IconCarouselRenderItem) => (
     <View key={`carousel-item-${index}`} style={[baseStyles.view, debug()]}>
       <Row style={[baseStyles.itemRow]}>{item.icon}</Row>
@@ -39,13 +44,13 @@ export default function IconCarousel({ style, icons, onSwipe, testID = 'IconCaro
 
   return (
     <Carousel
+      loop
       useScrollView
       data={icons}
-      itemWidth={300}
-      layout="default"
+      itemWidth={100}
       onSnapToItem={(index) => onSwipe(index)}
       renderItem={iconItem}
-      sliderWidth={300}
+      sliderWidth={500}
       style={style}
       testID={testID}
     />

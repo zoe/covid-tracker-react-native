@@ -1,3 +1,7 @@
+import IconDiseaseBrain from '@assets/v2/svg/diseases/icon-brain';
+import IconDiseaseHeart from '@assets/v2/svg/diseases/icon-heart';
+import IconDiseaseLungs from '@assets/v2/svg/diseases/icon-lungs';
+import IconDiseaseSightHearing from '@assets/v2/svg/diseases/icon-sight-and-hearing';
 import { BrandedButton, EFeaturedContentType, FeaturedContentList } from '@covid/components';
 import { Screen } from '@covid/components/Screen';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
@@ -27,9 +31,10 @@ import { appActions } from '@health-study/redux/app';
 import { useAppDispatch } from '@health-study/redux/hooks';
 import { RouteProp } from '@react-navigation/native';
 import { colors } from '@theme';
+import IconCarousel, { IIconCarouselProps } from '@tracer/components/templates/IconCarousel';
 import moment from 'moment';
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { batch, useDispatch, useSelector } from 'react-redux';
 
 interface IProps {
@@ -171,6 +176,14 @@ export default function ThankYouUKScreen(props: IProps) {
     setShowLFTPromptModal(false);
   }, []);
 
+  // TODO: Remove this and replace with redux + utils to get Icons + Labels
+  const icons = [
+    { icon: <IconDiseaseBrain height={40} width={40} />, label: 'Dementia' },
+    { icon: <IconDiseaseHeart height={40} width={40} />, label: 'Heart' },
+    { icon: <IconDiseaseSightHearing height={40} width={40} />, label: 'Vision' },
+    { icon: <IconDiseaseLungs height={40} width={40} />, label: 'Lungs' },
+  ];
+
   return (
     <>
       {askForRating && <AppRating />}
@@ -185,6 +198,7 @@ export default function ThankYouUKScreen(props: IProps) {
           />
         )}
       <Screen
+        noKeyboardDismiss
         backgroundColor={colors.backgroundSecondary}
         onBackPress={() => NavigatorService.navigate('Dashboard')}
         testID="thank-you-screen"
@@ -194,6 +208,8 @@ export default function ThankYouUKScreen(props: IProps) {
         <HeaderText style={styles.headerText}>{i18n.t('thank-you-uk.title')}</HeaderText>
 
         <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
+
+        <IconCarousel icons={icons} />
 
         <FeaturedContentList screenName={props.route.name} type={EFeaturedContentType.ThankYou} />
 
