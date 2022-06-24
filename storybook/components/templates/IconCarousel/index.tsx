@@ -1,8 +1,6 @@
-import { grid } from '@tracer/branding/grid';
-import Row from '@tracer/components/atoms/Row';
-import { debug } from '@tracer/stories/debug/debug';
+import IconCard from '@tracer/components/organisms/Card/IconCard';
 import React, { ReactNode } from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, useWindowDimensions, View, ViewStyle } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 export type IconCarouselItem = {
@@ -33,12 +31,10 @@ export default function IconCarousel({
   onSwipe = () => undefined,
   testID = 'IconCarousel-test-id',
 }: IIconCarouselProps) {
+  const { width } = useWindowDimensions();
   const iconItem = ({ item, index }: IconCarouselRenderItem) => (
-    <View key={`carousel-item-${index}`} style={[baseStyles.view, debug()]}>
-      <Row style={[baseStyles.itemRow]}>{item.icon}</Row>
-      <Row>
-        <Text>{item.label}</Text>
-      </Row>
+    <View style={baseStyles.view}>
+      <IconCard icon={item.icon} key={index.toString()} label={item.label} />
     </View>
   );
 
@@ -47,10 +43,10 @@ export default function IconCarousel({
       loop
       useScrollView
       data={icons}
-      itemWidth={100}
+      itemWidth={width / 3}
       onSnapToItem={(index) => onSwipe(index)}
       renderItem={iconItem}
-      sliderWidth={500}
+      sliderWidth={width}
       style={style}
       testID={testID}
     />
@@ -58,9 +54,6 @@ export default function IconCarousel({
 }
 
 const baseStyles = StyleSheet.create({
-  itemRow: {
-    padding: grid.g16,
-  },
   view: {
     alignItems: 'center',
     flex: 1,
