@@ -210,9 +210,9 @@ export default function ThankYouUKScreen(props: IProps) {
 
         <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-        <View style={styles.carouselContainer}>
+        {/* <View style={styles.carouselContainer}>
           <IconCarousel icons={icons} />
-        </View>
+        </View> */}
 
         <FeaturedContentList screenName={props.route.name} type={EFeaturedContentType.ThankYou} />
 
