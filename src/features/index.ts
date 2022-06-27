@@ -3,7 +3,6 @@ export * from './covid-tests';
 export * from './dashboard';
 export * from './diet-study-playback';
 export * from './health-profile';
-export * from './long-covid';
 export * from './mental-health-playback';
 export * from './multi-profile';
 export * from './password-reset';

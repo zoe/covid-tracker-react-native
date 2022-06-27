@@ -125,10 +125,6 @@ export type TScreenParamList = {
   DiseasePreferences: undefined;
   WiderHealthStudies: undefined;
 
-  // Long COVID
-  LongCovidQuestion: { patientData: TPatientData };
-  LongCovidStart: { patientData: TPatientData };
-
   // Internal testing mode
   TestingMode: undefined;
 

@@ -29,8 +29,6 @@ export {
   HPAboutYouScreen,
   HPFormScreen,
   HPThankYouScreen,
-  LongCovidQuestionScreen,
-  LongCovidStartScreen,
   MHPGeneralScreen,
   MHPIntroductionScreen,
   MHPRatingScreen,
