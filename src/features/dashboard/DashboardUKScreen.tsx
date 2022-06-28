@@ -6,7 +6,6 @@ import HealthProfileReminderCard from '@covid/components/cards/HealthProfileRemi
 import HealthProfileStartCard from '@covid/components/cards/HealthProfileStartCard';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { PoweredByZoeSmall } from '@covid/components/logos/PoweredByZoe';
-import { patientService } from '@covid/core/patient/PatientService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import { fetchLocalTrendline, fetchNewlySymptomaticData, updateTodayDate } from '@covid/core/state/content/slice';
@@ -19,7 +18,6 @@ import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/component
 import { CompactHeader } from '@covid/features/dashboard/components/CompactHeader';
 import { ExpandedHeader } from '@covid/features/dashboard/components/ExpandedHeader';
 import { NewlySymptomaticCard } from '@covid/features/dashboard/components/NewlySymptomaticCard';
-import ReBrandModal from '@covid/features/rebrand';
 import { OnboardingContext } from '@covid/features/tab-navigation/OnboardingContext';
 import { useStartReconsent } from '@covid/features/wider-health-studies/hooks/useStartReconsent';
 import { TScreenParamList } from '@covid/routes/types';
@@ -68,11 +66,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
 
   const dispatch = useDispatch();
   const appDispatch = useAppDispatch();
-  const updateHasSeenReBrandModal = React.useCallback(async () => {
-    await appDispatch(appActions.setReBrandVisible(true));
-    await appDispatch(appActions.setModalReBrandVisible(false));
-    await patientService.updatePatientInfo(patientId, { has_seen_rebrand_modal: true });
-  }, []);
 
   // TODO: Can we move this into app initialisation?
   React.useEffect(() => {
@@ -127,9 +120,6 @@ export function DashboardUKScreen({ navigation, route }: IProps) {
   const styles = app.toggleReBrand ? healthStudyStyles : covidStyles;
   return (
     <>
-      {app.modalReBrandVisible && (
-        <ReBrandModal onRequestClose={() => updateHasSeenReBrandModal()} visible={app.modalReBrandVisible} />
-      )}
       {Platform.OS === 'android' && onboardingContext.showProfileTabOnboarding ? (
         // Needed for Android. Doesn't recognise overlay in the TabNavigator because overlay there is bounded by the size of the TabNavigator.
         <Pressable
