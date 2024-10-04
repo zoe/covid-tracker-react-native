@@ -1,0 +1,11 @@
+name: AI Code Review
+on:
+  issue_comment:
+    types: [created]
+  pull_request:
+    types: [labeled]
+
+jobs:
+  code-review:
+    uses: zoe-platform/github-actions/.github/workflows/ai-code-review.yml@main
+    secrets: inherit
